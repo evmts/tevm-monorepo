@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > SUINT256
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / SUINT256
 
 # Variable: SUINT256
 
@@ -21,6 +21,3 @@ export const SUINT256: Schema<bigint, UINT256>;
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/SUINT.js:168](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L168)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

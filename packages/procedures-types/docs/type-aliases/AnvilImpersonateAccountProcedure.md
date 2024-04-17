@@ -1,10 +1,10 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AnvilImpersonateAccountProcedure
+[@tevm/procedures-types](../README.md) / AnvilImpersonateAccountProcedure
 
-# Type alias: AnvilImpersonateAccountProcedure
+# Type alias: AnvilImpersonateAccountProcedure()
 
 > **AnvilImpersonateAccountProcedure**: (`request`) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 ## Parameters
 
-▪ **request**: [`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md)
+• **request**: [`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/AnvilProcedure.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/AnvilProcedure.ts#L36)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

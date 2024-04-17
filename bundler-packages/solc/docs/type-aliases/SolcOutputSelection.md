@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcOutputSelection
+[@tevm/solc](../README.md) / SolcOutputSelection
 
 # Type alias: SolcOutputSelection
 
@@ -15,6 +15,3 @@
 ## Source
 
 [solcTypes.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L121)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

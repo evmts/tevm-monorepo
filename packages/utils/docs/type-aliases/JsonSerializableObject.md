@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > JsonSerializableObject
+[@tevm/utils](../README.md) / JsonSerializableObject
 
 # Type alias: JsonSerializableObject
 
@@ -17,6 +17,3 @@ A type that represents a JSON-serializable object.
 ## Source
 
 [packages/utils/src/SerializeToJson.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L23)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

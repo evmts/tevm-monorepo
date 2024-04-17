@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > BundlerResult
+[@tevm/bundler](../../README.md) / [index](../README.md) / BundlerResult
 
 # Type alias: BundlerResult
 
@@ -13,6 +13,3 @@
 ## Source
 
 bundler-packages/base-bundler/types/src/index.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

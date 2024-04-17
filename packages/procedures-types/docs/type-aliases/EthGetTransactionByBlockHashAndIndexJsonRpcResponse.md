@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionByBlockHashAndIndexJsonRpcResponse
+[@tevm/procedures-types](../README.md) / EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
 # Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 ## Source
 
 [responses/EthJsonRpcResponse.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L231)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

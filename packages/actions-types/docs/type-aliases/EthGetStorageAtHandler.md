@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetStorageAtHandler
+[@tevm/actions-types](../README.md) / EthGetStorageAtHandler
 
-# Type alias: EthGetStorageAtHandler
+# Type alias: EthGetStorageAtHandler()
 
 > **EthGetStorageAtHandler**: (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetStorageAtParams`](EthGetStorageAtParams.md)
+• **request**: [`EthGetStorageAtParams`](EthGetStorageAtParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L149)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

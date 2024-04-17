@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > JsonRpcTransaction
+[@tevm/procedures-types](../README.md) / JsonRpcTransaction
 
 # Type alias: JsonRpcTransaction
 
@@ -12,9 +12,9 @@ the transaction call object for methods like `eth_call`
 
 ## Type declaration
 
-### data
+### data?
 
-> **data**?: `Hex`
+> **`optional`** **data**: `Hex`
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 
@@ -24,33 +24,30 @@ The hash of the method signature and encoded parameters. For more information, s
 
 The address from which the transaction is sent
 
-### gas
+### gas?
 
-> **gas**?: `Hex`
+> **`optional`** **gas**: `Hex`
 
 The integer of gas provided for the transaction execution
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: `Hex`
+> **`optional`** **gasPrice**: `Hex`
 
 The integer of gasPrice used for each paid gas encoded as hexadecimal
 
-### to
+### to?
 
-> **to**?: `Address`
+> **`optional`** **to**: `Address`
 
 The address to which the transaction is addressed
 
-### value
+### value?
 
-> **value**?: `Hex`
+> **`optional`** **value**: `Hex`
 
 The integer of value sent with this transaction encoded as hexadecimal
 
 ## Source
 
 [requests/EthJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

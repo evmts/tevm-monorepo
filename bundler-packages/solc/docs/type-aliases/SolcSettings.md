@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcSettings
+[@tevm/solc](../README.md) / SolcSettings
 
 # Type alias: SolcSettings
 
@@ -10,49 +10,46 @@
 
 ## Type declaration
 
-### debug
+### debug?
 
-> **debug**?: [`SolcDebugSettings`](SolcDebugSettings.md)
+> **`optional`** **debug**: [`SolcDebugSettings`](SolcDebugSettings.md)
 
-### evmVersion
+### evmVersion?
 
-> **evmVersion**?: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
+> **`optional`** **evmVersion**: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
 
-### libraries
+### libraries?
 
-> **libraries**?: `Record`\<`string`, `Record`\<`string`, `string`\>\>
+> **`optional`** **libraries**: `Record`\<`string`, `Record`\<`string`, `string`\>\>
 
-### metadata
+### metadata?
 
-> **metadata**?: [`SolcMetadataSettings`](SolcMetadataSettings.md)
+> **`optional`** **metadata**: [`SolcMetadataSettings`](SolcMetadataSettings.md)
 
-### modelChecker
+### modelChecker?
 
-> **modelChecker**?: [`SolcModelChecker`](SolcModelChecker.md)
+> **`optional`** **modelChecker**: [`SolcModelChecker`](SolcModelChecker.md)
 
-### optimizer
+### optimizer?
 
-> **optimizer**?: [`SolcOptimizer`](SolcOptimizer.md)
+> **`optional`** **optimizer**: [`SolcOptimizer`](SolcOptimizer.md)
 
 ### outputSelection
 
 > **outputSelection**: [`SolcOutputSelection`](SolcOutputSelection.md)
 
-### remappings
+### remappings?
 
-> **remappings**?: [`SolcRemapping`](SolcRemapping.md)
+> **`optional`** **remappings**: [`SolcRemapping`](SolcRemapping.md)
 
-### stopAfter
+### stopAfter?
 
-> **stopAfter**?: `"parsing"`
+> **`optional`** **stopAfter**: `"parsing"`
 
-### viaIR
+### viaIR?
 
-> **viaIR**?: `boolean`
+> **`optional`** **viaIR**: `boolean`
 
 ## Source
 
 [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

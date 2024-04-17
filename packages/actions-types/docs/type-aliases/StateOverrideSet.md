@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > StateOverrideSet
+[@tevm/actions-types](../README.md) / StateOverrideSet
 
 # Type alias: StateOverrideSet
 
@@ -40,6 +40,3 @@ It can be used to debug smart contracts in an already deployed large suite of co
 ## Source
 
 [common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/StateOverrideSet.ts#L29)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

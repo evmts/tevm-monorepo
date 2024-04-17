@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TevmEVMErrorMessage
+[@tevm/errors](../README.md) / TevmEVMErrorMessage
 
 # Type alias: TevmEVMErrorMessage
 
@@ -11,6 +11,3 @@
 ## Source
 
 [packages/errors/src/ethereumjs/EvmError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereumjs/EvmError.ts#L3)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

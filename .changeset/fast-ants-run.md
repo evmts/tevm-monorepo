@@ -29,7 +29,6 @@
 "@tevm/vscode": patch
 "@tevm/actions": patch
 "@tevm/actions-types": patch
-"@tevm/client-types": patch
 "@tevm/contract": patch
 "@tevm/effect": patch
 "@tevm/errors": patch

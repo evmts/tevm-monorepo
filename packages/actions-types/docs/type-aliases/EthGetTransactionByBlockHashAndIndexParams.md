@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionByBlockHashAndIndexParams
+[@tevm/actions-types](../README.md) / EthGetTransactionByBlockHashAndIndexParams
 
 # Type alias: EthGetTransactionByBlockHashAndIndexParams
 
@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ## Type declaration
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`Hex`](Hex.md)
+> **`optional`** **blockTag**: [`Hex`](Hex.md)
 
 ### index
 
@@ -23,6 +23,3 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 ## Source
 
 [params/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L182)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

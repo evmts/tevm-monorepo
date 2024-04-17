@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EIP1193Events
+[@tevm/decorators](../README.md) / EIP1193Events
 
 # Type alias: EIP1193Events
 
@@ -14,29 +14,34 @@
 
 #### Type parameters
 
-▪ **TEvent** extends keyof [`EIP1193EventMap`](EIP1193EventMap.md)
+• **TEvent** extends keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
 #### Parameters
 
-▪ **event**: `TEvent`
+• **event**: `TEvent`
 
-▪ **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)[`TEvent`]
+• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+
+#### Returns
+
+`void`
 
 ### removeListener()
 
 #### Type parameters
 
-▪ **TEvent** extends keyof [`EIP1193EventMap`](EIP1193EventMap.md)
+• **TEvent** extends keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
 #### Parameters
 
-▪ **event**: `TEvent`
+• **event**: `TEvent`
 
-▪ **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)[`TEvent`]
+• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+
+#### Returns
+
+`void`
 
 ## Source
 
 [packages/decorators/src/eip1193/EIP1193Events.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L36)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

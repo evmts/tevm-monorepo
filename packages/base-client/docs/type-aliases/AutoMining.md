@@ -1,8 +1,8 @@
-**@tevm/base-client** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/base-client** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AutoMining
+[@tevm/base-client](../README.md) / AutoMining
 
 # Type alias: AutoMining
 
@@ -17,6 +17,3 @@
 ## Source
 
 [MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

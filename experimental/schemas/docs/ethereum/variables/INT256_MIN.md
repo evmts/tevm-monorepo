@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > INT256\_MIN
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / INT256\_MIN
 
 # Variable: INT256\_MIN
 
@@ -14,6 +14,3 @@ The minimum value a [INT256](../type-aliases/INT256.md) can be.
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L68)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

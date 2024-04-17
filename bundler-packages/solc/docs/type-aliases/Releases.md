@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Releases
+[@tevm/solc](../README.md) / Releases
 
 # Type alias: Releases
 
@@ -437,6 +437,3 @@
 ## Source
 
 [solcTypes.ts:642](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L642)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

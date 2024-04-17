@@ -1,8 +1,8 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SuperchainConfigHumanReadableAbi
+[@tevm/opstack](../README.md) / SuperchainConfigHumanReadableAbi
 
 # Variable: SuperchainConfigHumanReadableAbi
 
@@ -11,6 +11,3 @@
 ## Source
 
 [extensions/opstack/src/contracts/l1/SuperchainConfig.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l1/SuperchainConfig.ts#L31)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

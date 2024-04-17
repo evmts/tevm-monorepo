@@ -1,8 +1,8 @@
-**@tevm/base-client** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/base-client** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ManualMining
+[@tevm/base-client](../README.md) / ManualMining
 
 # Type alias: ManualMining
 
@@ -17,6 +17,3 @@
 ## Source
 
 [MiningConfig.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

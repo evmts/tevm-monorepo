@@ -1,8 +1,8 @@
-**@tevm/txpool** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/txpool** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TxPool
+[@tevm/txpool](../README.md) / TxPool
 
 # Class: TxPool
 
@@ -22,9 +22,13 @@ Create new tx pool
 
 #### Parameters
 
-▪ **options**: `TxPoolOptions`
+• **options**: `TxPoolOptions`
 
 constructor parameters
+
+#### Returns
+
+[`TxPool`](TxPool.md)
 
 #### Source
 
@@ -167,6 +171,10 @@ The number of txs currently in the pool
 
 > **\_logPoolStats**(): `void`
 
+#### Returns
+
+`void`
+
 #### Source
 
 [TxPool.ts:625](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L625)
@@ -185,13 +193,17 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+• **tx**: `TypedTransaction`
 
 Transaction
 
-▪ **requireSignature**: `boolean`= `true`
+• **requireSignature**: `boolean`= `true`
 
-▪ **skipBalance**: `boolean`= `false`
+• **skipBalance**: `boolean`= `false`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -211,9 +223,13 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+• **tx**: `TypedTransaction`
 
 Transaction
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -227,6 +243,10 @@ Transaction
 
 Regular tx pool cleanup
 
+#### Returns
+
+`void`
+
 #### Source
 
 [TxPool.ts:408](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L408)
@@ -238,6 +258,10 @@ Regular tx pool cleanup
 > **close**(): `void`
 
 Close pool
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -253,9 +277,11 @@ Returns the available txs from the pool
 
 #### Parameters
 
-▪ **txHashes**: `Uint8Array`[]
+• **txHashes**: `Uint8Array`[]
 
 #### Returns
+
+`TypedTransaction`[]
 
 Array with tx objects
 
@@ -275,14 +301,18 @@ priority tip, and omitting it returns the max total fee.
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+• **tx**: `TypedTransaction`
 
 The tx
 
-▪ **baseFee?**: `bigint`
+• **baseFee?**: `bigint`
 
 Provide a baseFee to subtract from the legacy
 gasPrice to determine the leftover priority tip.
+
+#### Returns
+
+`bigint`
 
 #### Source
 
@@ -295,6 +325,10 @@ gasPrice to determine the leftover priority tip.
 > **open**(): `boolean`
 
 Open pool
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -310,9 +344,13 @@ Removes the given tx from the pool
 
 #### Parameters
 
-▪ **txHash**: `string`
+• **txHash**: `string`
 
 Hash of the transaction
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -328,7 +366,11 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Parameters
 
-▪ **newBlocks**: `Block`[]
+• **newBlocks**: `Block`[]
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -342,6 +384,10 @@ Remove txs included in the latest blocks from the tx pool
 
 Start tx processing
 
+#### Returns
+
+`boolean`
+
 #### Source
 
 [TxPool.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L149)
@@ -353,6 +399,10 @@ Start tx processing
 > **stop**(): `boolean`
 
 Stop pool execution
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -368,11 +418,13 @@ Returns the GasPrice object to provide information of the tx' gas prices
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+• **tx**: `TypedTransaction`
 
 Tx to use
 
 #### Returns
+
+`GasPrice`
 
 Gas price (both tip and max fee)
 
@@ -401,13 +453,17 @@ the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 
-▪ **vm**: `TevmVm`
+• **vm**: `TevmVm`
 
-▪ **\_\_namedParameters**: `object`= `{}`
+• **\_\_namedParameters**= `{}`
 
-▪ **\_\_namedParameters.allowedBlobs?**: `number`
+• **\_\_namedParameters\.allowedBlobs?**: `number`
 
-▪ **\_\_namedParameters.baseFee?**: `bigint`
+• **\_\_namedParameters\.baseFee?**: `bigint`
+
+#### Returns
+
+`Promise`\<`TypedTransaction`[]\>
 
 #### Source
 
@@ -423,15 +479,19 @@ Validates a transaction against the pool and other constraints
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+• **tx**: `TypedTransaction`
 
 The tx to validate
 
-▪ **isLocalTransaction**: `boolean`= `false`
+• **isLocalTransaction**: `boolean`= `false`
 
-▪ **requireSignature**: `boolean`= `true`
+• **requireSignature**: `boolean`= `true`
 
-▪ **skipBalance**: `boolean`= `false`
+• **skipBalance**: `boolean`= `false`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -445,13 +505,14 @@ The tx to validate
 
 #### Parameters
 
-▪ **existingTx**: `TypedTransaction`
+• **existingTx**: `TypedTransaction`
 
-▪ **addedTx**: `TypedTransaction`
+• **addedTx**: `TypedTransaction`
+
+#### Returns
+
+`void`
 
 #### Source
 
 [TxPool.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L162)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,25 +1,23 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/viem** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ViemTevmClientDecorator
+[@tevm/viem](../README.md) / ViemTevmClientDecorator
 
-# Type alias: ViemTevmClientDecorator
+# Type alias: ViemTevmClientDecorator()
 
 > **ViemTevmClientDecorator**: (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 
-## Deprecated
-
-in favor of the viem transport
 A viem decorator for `tevmViemExtension`
 
 ## Parameters
 
-▪ **client**: `Pick`\<`Client`, `"request"`\>
+• **client**: `Pick`\<`Client`, `"request"`\>
+
+## Returns
+
+[`ViemTevmClient`](ViemTevmClient.md)
 
 ## Source
 
-[ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[ViemTevmClientDecorator.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L6)

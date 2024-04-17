@@ -1,20 +1,21 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
+[@tevm/procedures-types](../README.md) / EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
 
-# Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
+# Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure()
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
+• **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L171)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

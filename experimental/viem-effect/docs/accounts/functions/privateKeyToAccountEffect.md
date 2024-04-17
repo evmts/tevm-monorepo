@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [accounts](../README.md) > privateKeyToAccountEffect
+[@tevm/viem-effect](../../README.md) / [accounts](../README.md) / privateKeyToAccountEffect
 
 # Function: privateKeyToAccountEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [\`0x${string}\`]
+• **TParams** extends [```0x${string}```]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `PrivateKeyToAccountErrorType`, `PrivateKeyAccount`\>
 
 ## Source
 
 [experimental/viem-effect/src/accounts/privateKeyToAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/privateKeyToAccountEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

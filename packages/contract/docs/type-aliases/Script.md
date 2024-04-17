@@ -1,10 +1,10 @@
-**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/contract** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Script
+[@tevm/contract](../README.md) / Script
 
-# Type alias: Script`<TName, THumanReadableAbi>`
+# Type alias: Script\<TName, THumanReadableAbi\>
 
 > **Script**\<`TName`, `THumanReadableAbi`\>: `object`
 
@@ -65,11 +65,11 @@ Scripts can also be used with other libraries such as Viem and ethers.
 ## Example
 
 ```typescript
-import { MyScript } from './MyScript.sol'
-import { createPublicClient } from 'viem'
+import \{ MyScript \} from './MyScript.sol'
+import \{ createPublicClient \} from 'viem'
 
 // see viem docs
-const client = createPublicClient({...})
+const client = createPublicClient(\{...\})
 
 const result = await client.readContract(
   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
@@ -77,10 +77,9 @@ const result = await client.readContract(
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TName` extends `string` |
-| `THumanReadableAbi` extends `ReadonlyArray`\<`string`\> |
+• **TName** extends `string`
+
+• **THumanReadableAbi** extends `ReadonlyArray`\<`string`\>
 
 ## Type declaration
 
@@ -125,7 +124,7 @@ Action creators for events. Can be used to create event filters in a typesafe wa
 
 ```typescript
 tevm.eth.getLog(
-  MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
+  MyScript.withAddress('0x420...').events.Transfer(\{ from: '0x1234...' \}),
 )
 ===
 
@@ -163,7 +162,7 @@ tevm.contract(
 )
 ```
 
-### withAddress
+### withAddress()
 
 > **withAddress**: \<`TAddress`\>(`address`) => `Omit`\<[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`
 
@@ -181,11 +180,15 @@ a contract address to execute
 
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+• **TAddress** extends `Address`
 
 #### Parameters
 
-▪ **address**: `TAddress`
+• **address**: `TAddress`
+
+#### Returns
+
+`Omit`\<[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`
 
 ### write
 
@@ -204,6 +207,3 @@ tevm.contract(
 ## Source
 
 [Script.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Script.ts#L64)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

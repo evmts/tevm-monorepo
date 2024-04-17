@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AnvilSetNonceJsonRpcResponse
+[@tevm/procedures-types](../README.md) / AnvilSetNonceJsonRpcResponse
 
 # Type alias: AnvilSetNonceJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `anvil_setNonce` procedure
 ## Source
 
 [responses/AnvilJsonRpcResponse.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L116)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

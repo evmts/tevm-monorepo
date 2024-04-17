@@ -1,9 +1,9 @@
 ---
-title: Tevm docs
-description: Build applications powered by the EVM, simplified
+title: Tevm tools
+description: A viem transport offering an in-browser EVM Devnet & a Solidity-to-Typescript Compiler 
 template: splash
 hero:
-  tagline: Build applications powered by the EVM, simplified
+  tagline: 
   image:
     file: ../../assets/logo.webp
   actions:
@@ -26,16 +26,16 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## Features
 
 <CardGrid>
-	<Card title="Tevm memory devnet" icon="pencil">
-		[EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
+	<Card title="Devnet via Viem transport" icon="pencil">
+		Plugs a local EVM devnet akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil) directly into your [viem client via a custom transport](https://viem.sh/docs/clients/intro.html). This unlocks capabilities in the browser previously reserved for serverside code.
+	</Card>
+	<Card title="Powerful testing devnet" icon="open-book">
+		Tevm can be used as a powerful testing devnet for JavaScript with anvil and hardhat compatability.
+	</Card>
+	<Card title="Solidity compiler" icon="setting">
+		[Import solidity files](/learn/solidity-imports) directly into TypeScript. No need to set up complicated build pipelines just import the solidity file like it's any other module `import {MyContract} from './path/to/my/Contract.sol`
 	</Card>
 	<Card title="Solidity scripting" icon="add-document">
-		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
-	</Card>
-	<Card title="Solidity imports" icon="setting">
-		[Importing solidity files](/learn/solidity-imports) directly into TypeScript. Never juggle an ABI again!
-	</Card>
-	<Card title="Runs in all environments" icon="open-book">
-		Tevm runs in the browser, node.js, and bun
+		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting). 
 	</Card>
 </CardGrid>

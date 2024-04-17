@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ForkError
+[@tevm/errors](../README.md) / ForkError
 
 # Type alias: ForkError
 
@@ -31,6 +31,3 @@ if (res.errors?.length) {
 ## Source
 
 [packages/errors/src/actions/ForkError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ForkError.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

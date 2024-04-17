@@ -1269,8 +1269,11 @@ importers:
 
   extensions/viem:
     dependencies:
+      '@tevm/decorators':
+        specifier: workspace:^
+        version: link:../../packages/decorators
       '@tevm/jsonrpc':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../../packages/jsonrpc
     devDependencies:
       '@ethereumjs/util':
@@ -1304,11 +1307,8 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../../packages/utils
-      abitype:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.4.5)(zod@3.22.4)
       viem:
         specifier: ^2.7.16
         version: 2.7.16(typescript@5.4.5)(zod@3.22.4)

@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/state** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TevmStateManager
+[@tevm/state](../README.md) / TevmStateManager
 
 # Type alias: TevmStateManager
 
@@ -11,6 +11,3 @@
 ## Source
 
 [packages/state/src/TevmStateManager.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > createEvm
+[@tevm/evm](../README.md) / createEvm
 
 # Function: createEvm()
 
@@ -13,15 +13,14 @@ Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/ma
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
+• **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
 
 ## Returns
+
+`Promise`\<[`Evm`](../classes/Evm.md)\>
 
 A tevm Evm instance with tevm specific defaults
 
 ## Source
 
 [packages/evm/src/createEvm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

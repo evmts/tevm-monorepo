@@ -1,4 +1,4 @@
-**@tevm/errors** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/errors** • Readme \| [API](globals.md)
 
 ***
 
@@ -9,6 +9,3 @@ Specifications of possible Tevm errors.
 All errors are typed via a `_tag` property that matches the `name` property as well
 
 Note these errors don't include transport specific errors such as socket connection or http errors.
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

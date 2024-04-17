@@ -1,8 +1,8 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > zAbi
+[@tevm/zod](../README.md) / zAbi
 
 # Variable: zAbi
 
@@ -13,6 +13,3 @@ Zod validator for a valid ABI
 ## Source
 
 [packages/zod/src/common/zAbi.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/common/zAbi.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

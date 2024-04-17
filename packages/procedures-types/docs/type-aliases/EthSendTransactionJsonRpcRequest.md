@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthSendTransactionJsonRpcRequest
+[@tevm/procedures-types](../README.md) / EthSendTransactionJsonRpcRequest
 
 # Type alias: EthSendTransactionJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_sendTransaction` procedure
 ## Source
 
 [requests/EthJsonRpcRequest.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L283)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

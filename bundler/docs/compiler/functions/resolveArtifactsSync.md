@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [compiler](../README.md) > resolveArtifactsSync
+[@tevm/bundler](../../README.md) / [compiler](../README.md) / resolveArtifactsSync
 
 # Function: resolveArtifactsSync()
 
@@ -10,25 +10,26 @@
 
 ## Parameters
 
-▪ **solFile**: `string`
+• **solFile**: `string`
 
-▪ **basedir**: `string`
+• **basedir**: `string`
 
-▪ **logger**: `Logger`
+• **logger**: `Logger`
 
-▪ **config**: `ResolvedCompilerConfig`
+• **config**: `ResolvedCompilerConfig`
 
-▪ **includeAst**: `boolean`
+• **includeAst**: `boolean`
 
-▪ **includeBytecode**: `boolean`
+• **includeBytecode**: `boolean`
 
-▪ **fao**: `FileAccessObject`
+• **fao**: `FileAccessObject`
 
-▪ **solc**: `any`
+• **solc**: `any`
+
+## Returns
+
+`ResolvedArtifacts`
 
 ## Source
 
 bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

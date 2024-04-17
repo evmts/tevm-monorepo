@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcGasEstimates
+[@tevm/solc](../README.md) / SolcGasEstimates
 
 # Type alias: SolcGasEstimates
 
@@ -16,15 +16,15 @@
 
 ### creation.codeDepositCost
 
-> **creation.codeDepositCost**: `string`
+> **codeDepositCost**: `string`
 
 ### creation.executionCost
 
-> **creation.executionCost**: `string`
+> **executionCost**: `string`
 
 ### creation.totalCost
 
-> **creation.totalCost**: `string`
+> **totalCost**: `string`
 
 ### external
 
@@ -45,6 +45,3 @@
 ## Source
 
 [solcTypes.ts:512](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L512)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

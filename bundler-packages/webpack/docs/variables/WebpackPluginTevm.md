@@ -1,8 +1,8 @@
-**@tevm/webpack-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/webpack-plugin** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > WebpackPluginTevm
+[@tevm/webpack-plugin](../README.md) / WebpackPluginTevm
 
 # Variable: WebpackPluginTevm
 
@@ -84,6 +84,3 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
 ## Source
 
 [WebpackPluginTevm.js:78](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/webpack/src/WebpackPluginTevm.js#L78)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

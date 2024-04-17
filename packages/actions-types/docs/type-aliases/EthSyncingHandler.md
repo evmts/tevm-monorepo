@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthSyncingHandler
+[@tevm/actions-types](../README.md) / EthSyncingHandler
 
-# Type alias: EthSyncingHandler
+# Type alias: EthSyncingHandler()
 
 > **EthSyncingHandler**: (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthSyncingParams`](EthSyncingParams.md)
+• **request**: [`EthSyncingParams`](EthSyncingParams.md)
+
+## Returns
+
+`Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L211)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

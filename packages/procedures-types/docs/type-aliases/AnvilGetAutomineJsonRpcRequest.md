@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AnvilGetAutomineJsonRpcRequest
+[@tevm/procedures-types](../README.md) / AnvilGetAutomineJsonRpcRequest
 
 # Type alias: AnvilGetAutomineJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `anvil_getAutomine` method
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L44)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

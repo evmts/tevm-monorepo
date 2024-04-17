@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > formatEther
+[@tevm/utils](../README.md) / formatEther
 
 # Function: formatEther()
 
@@ -14,11 +14,13 @@ Converts numerical wei to a string representation of ether.
 
 ## Parameters
 
-▪ **wei**: `bigint`
+• **wei**: `bigint`
 
-▪ **unit?**: `"wei"` \| `"gwei"`
+• **unit?**: `"wei"` \| `"gwei"`
 
 ## Returns
+
+`string`
 
 ## Example
 
@@ -31,7 +33,4 @@ formatEther(1000000000000000000n)
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/unit/formatEther.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/unit/formatEther.d.ts:14

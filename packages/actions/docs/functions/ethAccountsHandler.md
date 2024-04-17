@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ethAccountsHandler
+[@tevm/actions](../README.md) / ethAccountsHandler
 
 # Function: ethAccountsHandler()
 
@@ -10,15 +10,14 @@
 
 ## Parameters
 
-▪ **params**: `object`
+• **params**
 
-▪ **params.accounts**: readonly `Account`\<\`0x${string}\`\>[]
+• **params\.accounts**: readonly `Account`\<```0x${string}```\>[]
 
 ## Returns
+
+`EthAccountsHandler`
 
 ## Source
 
 [packages/actions/src/eth/ethAccountsHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethAccountsHandler.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > bytesToHex
+[@tevm/utils](../README.md) / bytesToHex
 
 # Function: bytesToHex()
 
@@ -14,15 +14,17 @@ Encodes a bytes array into a hex string
 
 ## Parameters
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
 
 Value to encode.
 
-▪ **opts?**: `BytesToHexOpts`
+• **opts?**: `BytesToHexOpts`
 
 Options.
 
 ## Returns
+
+[`Hex`](../type-aliases/Hex.md)
 
 Hex value.
 
@@ -44,7 +46,4 @@ const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 11
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91

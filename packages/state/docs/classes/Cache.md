@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/state** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Cache
+[@tevm/state](../README.md) / Cache
 
 # Class: Cache
 
@@ -14,7 +14,11 @@
 
 #### Parameters
 
-▪ **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
+• **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
+
+#### Returns
+
+[`Cache`](Cache.md)
 
 #### Source
 
@@ -46,6 +50,10 @@
 
 > **clear**(): `void`
 
+#### Returns
+
+`void`
+
 #### Source
 
 [packages/state/src/Cache.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L47)
@@ -58,9 +66,13 @@
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Source
 
@@ -74,15 +86,16 @@
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+#### Returns
+
+`void`
 
 #### Source
 
 [packages/state/src/Cache.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

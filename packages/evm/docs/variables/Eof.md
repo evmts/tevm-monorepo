@@ -1,8 +1,8 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Eof
+[@tevm/evm](../README.md) / Eof
 
 # Variable: Eof
 
@@ -22,25 +22,30 @@
 
 > **VERSION**: `number`
 
-### codeAnalysis
+### codeAnalysis()
 
 > **codeAnalysis**: (`container`) => `object` \| `undefined`
 
 #### Parameters
 
-▪ **container**: `Uint8Array`
+• **container**: `Uint8Array`
 
-### validOpcodes
+#### Returns
+
+`object` \| `undefined`
+
+### validOpcodes()
 
 > **validOpcodes**: (`code`) => `boolean`
 
 #### Parameters
 
-▪ **code**: `Uint8Array`
+• **code**: `Uint8Array`
+
+#### Returns
+
+`boolean`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

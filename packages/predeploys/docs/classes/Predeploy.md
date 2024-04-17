@@ -1,18 +1,18 @@
-**@tevm/predeploys** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/predeploys** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Predeploy
+[@tevm/predeploys](../README.md) / Predeploy
 
-# Class: `abstract` Predeploy`<TName, THumanReadableAbi>`
+# Class: `abstract` Predeploy\<TName, THumanReadableAbi\>
 
 Type of predeploy contract for tevm
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Constructors
 
@@ -20,11 +20,15 @@ Type of predeploy contract for tevm
 
 > **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
+#### Returns
+
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
 ## Properties
 
-### `abstract` address
+### address
 
-> **`readonly`** **`abstract`** **address**: \`0x${string}\`
+> **`readonly`** **`abstract`** **address**: ```0x${string}```
 
 #### Source
 
@@ -32,7 +36,7 @@ Type of predeploy contract for tevm
 
 ***
 
-### `abstract` contract
+### contract
 
 > **`readonly`** **`abstract`** **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
 
@@ -46,6 +50,10 @@ Type of predeploy contract for tevm
 
 > **`protected`** **`readonly`** **ethjsAddress**(): `Address`
 
+#### Returns
+
+`Address`
+
 #### Source
 
 [Predeploy.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L13)
@@ -58,14 +66,12 @@ Type of predeploy contract for tevm
 
 #### Returns
 
-> ##### address
->
-> > **address**: `Address`
->
+`object`
+
+##### address
+
+> **address**: `Address`
 
 #### Source
 
 [Predeploy.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

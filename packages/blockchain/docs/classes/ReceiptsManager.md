@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/blockchain** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ReceiptsManager
+[@tevm/blockchain](../README.md) / ReceiptsManager
 
 # Class: ReceiptsManager
 
@@ -18,11 +18,15 @@
 
 #### Parameters
 
-▪ **options**: `MetaDBManagerOptions`
+• **options**: `MetaDBManagerOptions`
+
+#### Returns
+
+[`ReceiptsManager`](ReceiptsManager.md)
 
 #### Inherited from
 
-MetaDBManager.constructor
+`MetaDBManager.constructor`
 
 #### Source
 
@@ -72,7 +76,7 @@ Size limit for the getLogs response in megabytes
 
 #### Inherited from
 
-MetaDBManager.chain
+`MetaDBManager.chain`
 
 #### Source
 
@@ -86,7 +90,7 @@ MetaDBManager.chain
 
 #### Inherited from
 
-MetaDBManager.common
+`MetaDBManager.common`
 
 #### Source
 
@@ -100,13 +104,17 @@ MetaDBManager.common
 
 #### Parameters
 
-▪ **type**: `DBKey`
+• **type**: `DBKey`
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-MetaDBManager.delete
+`MetaDBManager.delete`
 
 #### Source
 
@@ -120,7 +128,11 @@ MetaDBManager.delete
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -134,13 +146,17 @@ MetaDBManager.delete
 
 #### Parameters
 
-▪ **type**: `DBKey`
+• **type**: `DBKey`
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`null` \| `Uint8Array`\>
 
 #### Inherited from
 
-MetaDBManager.get
+`MetaDBManager.get`
 
 #### Source
 
@@ -156,13 +172,17 @@ Returns the value for an index or null if not found
 
 #### Parameters
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-the [IndexType]([object Object])
+the IndexType
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
 
-for [IndexType.TxHash]([object Object]), the txHash to get
+for IndexType.TxHash, the txHash to get
+
+#### Returns
+
+`Promise`\<`null` \| `TxHashIndex`\>
 
 #### Source
 
@@ -178,13 +198,17 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Parameters
 
-▪ **from**: `Block`
+• **from**: `Block`
 
-▪ **to**: `Block`
+• **to**: `Block`
 
-▪ **addresses?**: `Uint8Array`[]
+• **addresses?**: `Uint8Array`[]
 
-▪ **topics?**: (`null` \| `Uint8Array` \| `Uint8Array`[])[]= `[]`
+• **topics?**: (`null` \| `Uint8Array` \| `Uint8Array`[])[]= `[]`
+
+#### Returns
+
+`Promise`\<`GetLogsReturn`\>
 
 #### Source
 
@@ -200,9 +224,13 @@ Returns receipt by tx hash with additional metadata for the JSON RPC response, o
 
 #### Parameters
 
-▪ **txHash**: `Uint8Array`
+• **txHash**: `Uint8Array`
 
 the tx hash
+
+#### Returns
+
+`Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
 
 #### Source
 
@@ -220,17 +248,21 @@ Returns receipts for given blockHash
 
 ##### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
 the block hash
 
-▪ **calcBloom?**: `boolean`
+• **calcBloom?**: `boolean`
 
 whether to calculate and return the logs bloom for each receipt (default: false)
 
-▪ **includeTxType?**: `true`
+• **includeTxType?**: `true`
 
 whether to include the tx type for each receipt (default: false)
+
+##### Returns
+
+`Promise`\<`TxReceiptWithType`[]\>
 
 ##### Source
 
@@ -242,11 +274,15 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
-▪ **calcBloom?**: `boolean`
+• **calcBloom?**: `boolean`
 
-▪ **includeTxType?**: `false`
+• **includeTxType?**: `false`
+
+##### Returns
+
+`Promise`\<`TxReceipt`[]\>
 
 ##### Source
 
@@ -262,7 +298,11 @@ Returns the logs bloom for a receipt's logs
 
 #### Parameters
 
-▪ **logs**: `Log`[]
+• **logs**: `Log`[]
+
+#### Returns
+
+`Bloom`
 
 #### Source
 
@@ -276,15 +316,19 @@ Returns the logs bloom for a receipt's logs
 
 #### Parameters
 
-▪ **type**: `DBKey`
+• **type**: `DBKey`
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-MetaDBManager.put
+`MetaDBManager.put`
 
 #### Source
 
@@ -302,17 +346,21 @@ Rlp encodes or decodes the specified data type for storage or retrieval from the
 
 ##### Parameters
 
-▪ **conversion**: `Encode`
+• **conversion**: `Encode`
 
-[RlpConvert.Encode]([object Object]) or [RlpConvert.Decode]([object Object])
+RlpConvert.Encode or RlpConvert.Decode
 
-▪ **type**: `RlpType`
+• **type**: `RlpType`
 
-one of [RlpType]([object Object])
+one of RlpType
 
-▪ **value**: `rlpOut`
+• **value**: `rlpOut`
 
 the value to encode or decode
+
+##### Returns
+
+`Uint8Array`
 
 ##### Source
 
@@ -324,11 +372,15 @@ the value to encode or decode
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `Receipts`
+• **type**: `Receipts`
 
-▪ **values**: `Uint8Array`
+• **values**: `Uint8Array`
+
+##### Returns
+
+`TxReceipt`[]
 
 ##### Source
 
@@ -340,11 +392,15 @@ the value to encode or decode
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `Logs`
+• **type**: `Logs`
 
-▪ **value**: `Log`[]
+• **value**: `Log`[]
+
+##### Returns
+
+`Log`[]
 
 ##### Source
 
@@ -356,11 +412,15 @@ the value to encode or decode
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+##### Returns
+
+`TxHashIndex`
 
 ##### Source
 
@@ -377,13 +437,17 @@ and removes tx hash indexes for one block past txLookupLimit.
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
 
 the block to save receipts for
 
-▪ **receipts**: `TxReceipt`[]
+• **receipts**: `TxReceipt`[]
 
 the receipts to save
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -399,21 +463,22 @@ Saves or deletes an index from the metaDB
 
 #### Parameters
 
-▪ **operation**: `IndexOperation`
+• **operation**: `IndexOperation`
 
-the [IndexOperation]([object Object])
+the IndexOperation
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-the [IndexType]([object Object])
+the IndexType
 
-▪ **value**: `Block`
+• **value**: `Block`
 
-for [IndexType.TxHash]([object Object]), the block to save or delete the tx hash indexes for
+for IndexType.TxHash, the block to save or delete the tx hash indexes for
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
 [packages/blockchain/src/RecieptManager.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L326)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

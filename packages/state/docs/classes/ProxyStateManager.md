@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/state** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ProxyStateManager
+[@tevm/state](../README.md) / ProxyStateManager
 
 # Class: ProxyStateManager
 
@@ -38,7 +38,11 @@ const stateManager = new TevmStateManager({
 
 #### Parameters
 
-▪ **opts**: [`ProxyStateManagerOpts`](../interfaces/ProxyStateManagerOpts.md)
+• **opts**: [`ProxyStateManagerOpts`](../interfaces/ProxyStateManagerOpts.md)
+
+#### Returns
+
+[`ProxyStateManager`](ProxyStateManager.md)
 
 #### Source
 
@@ -62,9 +66,7 @@ const stateManager = new TevmStateManager({
 
 We track the block tag the cache was using so we can invalidate it whenever it changes
 
-#### Type declaration
-
-##### blockNumber
+#### blockNumber
 
 > **blockNumber**: `undefined` \| `bigint`
 
@@ -136,33 +138,31 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 > **`protected`** **client**: `object`
 
-#### Type declaration
-
-##### account
+#### account
 
 > **account**: `undefined`
 
 The Account of the Client.
 
-##### batch
+#### batch?
 
-> **batch**?: `object`
+> **`optional`** **batch**: `object`
 
 Flags for batch settings.
 
-##### batch.multicall
+#### batch.multicall?
 
-> **batch.multicall**?: `boolean` \| `object`
+> **`optional`** **multicall**: `boolean` \| `object`
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### cacheTime
+#### cacheTime
 
 > **cacheTime**: `number`
 
 Time (in ms) that cached data will remain in memory.
 
-##### call
+#### call()
 
 > **call**: (`parameters`) => `Promise`\<`CallReturnType`\>
 
@@ -171,7 +171,7 @@ Executes a new message call immediately without submitting a transaction to the 
 - Docs: https://viem.sh/docs/actions/public/call
 - JSON-RPC Methods: [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -188,17 +188,21 @@ const data = await client.call({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **parameters**: `CallParameters`\<`undefined` \| `Chain`\>
+• **parameters**: `CallParameters`\<`undefined` \| `Chain`\>
 
-##### chain
+##### Returns
+
+`Promise`\<`CallReturnType`\>
+
+#### chain
 
 > **chain**: `undefined` \| `Chain`
 
 Chain for the client.
 
-##### createBlockFilter
+#### createBlockFilter()
 
 > **createBlockFilter**: () => `Promise`\<`object`\>
 
@@ -207,7 +211,7 @@ Creates a Filter to listen for new block hashes that can be used with [`getFilte
 - Docs: https://viem.sh/docs/actions/public/createBlockFilter
 - JSON-RPC Methods: [`eth_newBlockFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newBlockFilter)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, createBlockFilter, http } from 'viem'
@@ -221,7 +225,24 @@ const filter = await createBlockFilter(client)
 // { id: "0x345a6572337856574a76364e457a4366", type: 'block' }
 ```
 
-##### createContractEventFilter
+##### Returns
+
+`Promise`\<`object`\>
+
+> ###### id
+>
+> > **id**: ```0x${string}```
+>
+> ###### request
+>
+> > **request**: `EIP1193RequestFn`\<readonly [`object`, `object`, `object`]\>
+>
+> ###### type
+>
+> > **type**: `"block"`
+>
+
+#### createContractEventFilter()
 
 > **createContractEventFilter**: \<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
 
@@ -229,7 +250,7 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 - Docs: https://viem.sh/docs/contract/createContractEventFilter
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbi } from 'viem'
@@ -244,27 +265,31 @@ const filter = await client.createContractEventFilter({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+• **TAbi** extends `Abi` \| readonly `unknown`[]
 
-▪ **TEventName** extends `undefined` \| `string`
+• **TEventName** extends `undefined` \| `string`
 
-▪ **TArgs** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+• **TArgs** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `CreateContractEventFilterParameters`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `CreateContractEventFilterParameters`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>
 
-[CreateContractEventFilterParameters]([object Object])
+CreateContractEventFilterParameters
 
-##### createEventFilter
+##### Returns
+
+`Promise`\<`CreateContractEventFilterReturnType`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+
+#### createEventFilter()
 
 > **createEventFilter**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<`{ [K in string | number | symbol]: Filter<"event", TAbiEvents, _EventName, _Args, TStrict, TFromBlock, TToBlock>[K] }`\>
 
@@ -273,7 +298,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 - Docs: https://viem.sh/docs/actions/public/createEventFilter
 - JSON-RPC Methods: [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -288,29 +313,33 @@ const filter = await client.createEventFilter({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+• **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **_EventName** extends `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
+• **_EventName** extends `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
 
-▪ **_Args** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
+• **_Args** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `CreateEventFilterParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
+• **args?**: `CreateEventFilterParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
 
-[CreateEventFilterParameters]([object Object])
+CreateEventFilterParameters
 
-##### createPendingTransactionFilter
+##### Returns
+
+`Promise`\<`{ [K in string | number | symbol]: Filter<"event", TAbiEvents, _EventName, _Args, TStrict, TFromBlock, TToBlock>[K] }`\>
+
+#### createPendingTransactionFilter()
 
 > **createPendingTransactionFilter**: () => `Promise`\<`object`\>
 
@@ -319,7 +348,7 @@ Creates a Filter to listen for new pending transaction hashes that can be used w
 - Docs: https://viem.sh/docs/actions/public/createPendingTransactionFilter
 - JSON-RPC Methods: [`eth_newPendingTransactionFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newpendingtransactionfilter)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -333,7 +362,24 @@ const filter = await client.createPendingTransactionFilter()
 // { id: "0x345a6572337856574a76364e457a4366", type: 'transaction' }
 ```
 
-##### estimateContractGas
+##### Returns
+
+`Promise`\<`object`\>
+
+> ###### id
+>
+> > **id**: ```0x${string}```
+>
+> ###### request
+>
+> > **request**: `EIP1193RequestFn`\<readonly [`object`, `object`, `object`]\>
+>
+> ###### type
+>
+> > **type**: `"transaction"`
+>
+
+#### estimateContractGas()
 
 > **estimateContractGas**: \<`TChain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
 
@@ -341,11 +387,11 @@ Estimates the gas required to successfully execute a contract write function cal
 
 - Docs: https://viem.sh/docs/contract/estimateContractGas
 
-###### Remarks
+##### Remarks
 
 Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`estimateGas` action](https://viem.sh/docs/actions/public/estimateGas) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbi } from 'viem'
@@ -363,23 +409,27 @@ const gas = await client.estimateContractGas({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TChain** extends `undefined` \| `Chain`
+• **TChain** extends `undefined` \| `Chain`
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+• **abi** extends `Abi` \| readonly `unknown`[]
 
-▪ **functionName** extends `string`
+• **functionName** extends `string`
 
-▪ **args** extends `unknown`
+• **args** extends `unknown`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `TChain`\>
+• **args**: `EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `TChain`\>
 
-[EstimateContractGasParameters]([object Object])
+EstimateContractGasParameters
 
-##### estimateFeesPerGas
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### estimateFeesPerGas()
 
 > **estimateFeesPerGas**: \<`TChainOverride`, `TType`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\>
 
@@ -388,7 +438,7 @@ in the next block.
 
 - Docs: https://viem.sh/docs/actions/public/estimateFeesPerGas
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -402,17 +452,21 @@ const maxPriorityFeePerGas = await client.estimateFeesPerGas()
 // { maxFeePerGas: ..., maxPriorityFeePerGas: ... }
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined`
+• **TChainOverride** extends `undefined` \| `Chain` = `undefined`
 
-▪ **TType** extends `FeeValuesType` = `"eip1559"`
+• **TType** extends `FeeValuesType` = `"eip1559"`
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `EstimateFeesPerGasParameters`\<`undefined` \| `Chain`, `TChainOverride`, `TType`\>
+• **args?**: `EstimateFeesPerGasParameters`\<`undefined` \| `Chain`, `TChainOverride`, `TType`\>
 
-##### estimateGas
+##### Returns
+
+`Promise`\<`EstimateFeesPerGasReturnType`\>
+
+#### estimateGas()
 
 > **estimateGas**: (`args`) => `Promise`\<`bigint`\>
 
@@ -421,7 +475,7 @@ Estimates the gas necessary to complete a transaction without submitting it to t
 - Docs: https://viem.sh/docs/actions/public/estimateGas
 - JSON-RPC Methods: [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseEther } from 'viem'
@@ -438,13 +492,17 @@ const gasEstimate = await client.estimateGas({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `EstimateGasParameters`\<`undefined` \| `Chain`\>
+• **args**: `EstimateGasParameters`\<`undefined` \| `Chain`\>
 
-[EstimateGasParameters]([object Object])
+EstimateGasParameters
 
-##### estimateMaxPriorityFeePerGas
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### estimateMaxPriorityFeePerGas()
 
 > **estimateMaxPriorityFeePerGas**: \<`TChainOverride`\>(`args`?) => `Promise`\<`bigint`\>
 
@@ -453,7 +511,7 @@ to be included in the next block.
 
 - Docs: https://viem.sh/docs/actions/public/estimateMaxPriorityFeePerGas
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -467,29 +525,37 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined`
+• **TChainOverride** extends `undefined` \| `Chain` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `object`
+• **args?**
 
-▪ **args.chain?**: `null` \| `TChainOverride`
+• **args\.chain?**: `null` \| `TChainOverride`
 
-##### extend
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### extend()
 
 > **extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `undefined` \| `Chain`, `undefined`, `PublicRpcSchema`, `{ [K in string | number | symbol]: client[K] }` & `PublicActions`\<`Transport`, `undefined` \| `Chain`\>\>
 
-###### Type parameters
+##### Type parameters
 
-▪ **client** extends `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
+• **client** extends `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
 
-###### Parameters
+##### Parameters
 
-▪ **fn**: (`client`) => `client`
+• **fn**
 
-##### getBalance
+##### Returns
+
+`Client`\<`Transport`, `undefined` \| `Chain`, `undefined`, `PublicRpcSchema`, `{ [K in string | number | symbol]: client[K] }` & `PublicActions`\<`Transport`, `undefined` \| `Chain`\>\>
+
+#### getBalance()
 
 > **getBalance**: (`args`) => `Promise`\<`bigint`\>
 
@@ -498,7 +564,7 @@ Returns the balance of an address in wei.
 - Docs: https://viem.sh/docs/actions/public/getBalance
 - JSON-RPC Methods: [`eth_getBalance`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance)
 
-###### Remarks
+##### Remarks
 
 You can convert the balance to ether units with [`formatEther`](https://viem.sh/docs/utilities/formatEther).
 
@@ -511,7 +577,7 @@ const balanceAsEther = formatEther(balance)
 // "6.942"
 ```
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -527,13 +593,17 @@ const balance = await client.getBalance({
 // 10000000000000000000000n (wei)
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetBalanceParameters`
+• **args**: `GetBalanceParameters`
 
-[GetBalanceParameters]([object Object])
+GetBalanceParameters
 
-##### getBlobBaseFee
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### getBlobBaseFee()
 
 > **getBlobBaseFee**: () => `Promise`\<`bigint`\>
 
@@ -542,7 +612,7 @@ Returns the base fee per blob gas in wei.
 - Docs: https://viem.sh/docs/actions/public/getBlobBaseFee
 - JSON-RPC Methods: [`eth_blobBaseFee`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blobBaseFee)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -556,7 +626,11 @@ const client = createPublicClient({
 const blobBaseFee = await client.getBlobBaseFee()
 ```
 
-##### getBlock
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### getBlock()
 
 > **getBlock**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`?) => `Promise`\<`object`\>
 
@@ -568,7 +642,7 @@ Returns information about a block at a block number, hash, or tag.
   - Calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) for `blockNumber` & `blockTag`.
   - Calls [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) for `blockHash`.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -581,19 +655,176 @@ const client = createPublicClient({
 const block = await client.getBlock()
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TIncludeTransactions** extends `boolean` = `false`
+• **TIncludeTransactions** extends `boolean` = `false`
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+• **TBlockTag** extends `BlockTag` = `"latest"`
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `GetBlockParameters`\<`TIncludeTransactions`, `TBlockTag`\>
+• **args?**: `GetBlockParameters`\<`TIncludeTransactions`, `TBlockTag`\>
 
-[GetBlockParameters]([object Object])
+GetBlockParameters
 
-##### getBlockNumber
+##### Returns
+
+`Promise`\<`object`\>
+
+> ###### baseFeePerGas
+>
+> > **baseFeePerGas**: `null` \| `bigint`
+>
+> Base fee per gas
+>
+> ###### blobGasUsed
+>
+> > **blobGasUsed**: `bigint`
+>
+> Total used blob gas by all transactions in this block
+>
+> ###### difficulty
+>
+> > **difficulty**: `bigint`
+>
+> Difficulty for this block
+>
+> ###### excessBlobGas
+>
+> > **excessBlobGas**: `bigint`
+>
+> Excess blob gas
+>
+> ###### extraData
+>
+> > **extraData**: ```0x${string}```
+>
+> "Extra data" field of this block
+>
+> ###### gasLimit
+>
+> > **gasLimit**: `bigint`
+>
+> Maximum gas allowed in this block
+>
+> ###### gasUsed
+>
+> > **gasUsed**: `bigint`
+>
+> Total used gas by all transactions in this block
+>
+> ###### hash
+>
+> > **hash**: `TBlockTag` extends `"pending"` ? `null` : ```0x${string}```
+>
+> Block hash or `null` if pending
+>
+> ###### logsBloom
+>
+> > **logsBloom**: `TBlockTag` extends `"pending"` ? `null` : ```0x${string}```
+>
+> Logs bloom filter or `null` if pending
+>
+> ###### miner
+>
+> > **miner**: ```0x${string}```
+>
+> Address that received this block’s mining rewards
+>
+> ###### mixHash
+>
+> > **mixHash**: ```0x${string}```
+>
+> Unique identifier for the block.
+>
+> ###### nonce
+>
+> > **nonce**: `TBlockTag` extends `"pending"` ? `null` : ```0x${string}```
+>
+> Proof-of-work hash or `null` if pending
+>
+> ###### number
+>
+> > **number**: `TBlockTag` extends `"pending"` ? `null` : `bigint`
+>
+> Block number or `null` if pending
+>
+> ###### parentHash
+>
+> > **parentHash**: ```0x${string}```
+>
+> Parent block hash
+>
+> ###### receiptsRoot
+>
+> > **receiptsRoot**: ```0x${string}```
+>
+> Root of the this block’s receipts trie
+>
+> ###### sealFields
+>
+> > **sealFields**: ```0x${string}```[]
+>
+> ###### sha3Uncles
+>
+> > **sha3Uncles**: ```0x${string}```
+>
+> SHA3 of the uncles data in this block
+>
+> ###### size
+>
+> > **size**: `bigint`
+>
+> Size of this block in bytes
+>
+> ###### stateRoot
+>
+> > **stateRoot**: ```0x${string}```
+>
+> Root of this block’s final state trie
+>
+> ###### timestamp
+>
+> > **timestamp**: `bigint`
+>
+> Unix timestamp of when this block was collated
+>
+> ###### totalDifficulty
+>
+> > **totalDifficulty**: `null` \| `bigint`
+>
+> Total difficulty of the chain until this block
+>
+> ###### transactions
+>
+> > **transactions**: `TIncludeTransactions` extends `true` ? (`object` \| `object` \| `object` \| `object`)[] : ```0x${string}```[]
+>
+> ###### transactionsRoot
+>
+> > **transactionsRoot**: ```0x${string}```
+>
+> Root of this block’s transaction trie
+>
+> ###### uncles
+>
+> > **uncles**: ```0x${string}```[]
+>
+> List of uncle hashes
+>
+> ###### withdrawals?
+>
+> > **`optional`** **withdrawals**: `Withdrawal`[]
+>
+> List of withdrawal objects
+>
+> ###### withdrawalsRoot?
+>
+> > **`optional`** **withdrawalsRoot**: ```0x${string}```
+>
+> Root of the this block’s withdrawals trie
+>
+
+#### getBlockNumber()
 
 > **getBlockNumber**: (`args`?) => `Promise`\<`bigint`\>
 
@@ -603,7 +834,7 @@ Returns the number of the most recent block seen.
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
 - JSON-RPC Methods: [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -617,13 +848,17 @@ const blockNumber = await client.getBlockNumber()
 // 69420n
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `GetBlockNumberParameters`
+• **args?**: `GetBlockNumberParameters`
 
-[GetBlockNumberParameters]([object Object])
+GetBlockNumberParameters
 
-##### getBlockTransactionCount
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### getBlockTransactionCount()
 
 > **getBlockTransactionCount**: (`args`?) => `Promise`\<`number`\>
 
@@ -634,7 +869,7 @@ Returns the number of Transactions at a block number, hash, or tag.
   - Calls [`eth_getBlockTransactionCountByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbynumber) for `blockNumber` & `blockTag`.
   - Calls [`eth_getBlockTransactionCountByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbyhash) for `blockHash`.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -647,13 +882,17 @@ const client = createPublicClient({
 const count = await client.getBlockTransactionCount()
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `GetBlockTransactionCountParameters`
+• **args?**: `GetBlockTransactionCountParameters`
 
-[GetBlockTransactionCountParameters]([object Object])
+GetBlockTransactionCountParameters
 
-##### getBytecode
+##### Returns
+
+`Promise`\<`number`\>
+
+#### getBytecode()
 
 > **getBytecode**: (`args`) => `Promise`\<`GetBytecodeReturnType`\>
 
@@ -662,7 +901,7 @@ Retrieves the bytecode at an address.
 - Docs: https://viem.sh/docs/contract/getBytecode
 - JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -677,13 +916,17 @@ const code = await client.getBytecode({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetBytecodeParameters`
+• **args**: `GetBytecodeParameters`
 
-[GetBytecodeParameters]([object Object])
+GetBytecodeParameters
 
-##### getChainId
+##### Returns
+
+`Promise`\<`GetBytecodeReturnType`\>
+
+#### getChainId()
 
 > **getChainId**: () => `Promise`\<`number`\>
 
@@ -692,7 +935,7 @@ Returns the chain ID associated with the current network.
 - Docs: https://viem.sh/docs/actions/public/getChainId
 - JSON-RPC Methods: [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -706,7 +949,11 @@ const chainId = await client.getChainId()
 // 1
 ```
 
-##### getContractEvents
+##### Returns
+
+`Promise`\<`number`\>
+
+#### getContractEvents()
 
 > **getContractEvents**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -715,7 +962,7 @@ Returns a list of event logs emitted by a contract.
 - Docs: https://viem.sh/docs/actions/public/getContractEvents
 - JSON-RPC Methods: [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -733,23 +980,27 @@ const logs = await client.getContractEvents(client, {
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+• **abi** extends `Abi` \| readonly `unknown`[]
 
-▪ **eventName** extends `undefined` \| `string` = `undefined`
+• **eventName** extends `undefined` \| `string` = `undefined`
 
-▪ **strict** extends `undefined` \| `boolean` = `undefined`
+• **strict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **fromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **toBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetContractEventsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
+• **args**: `GetContractEventsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
 
-##### getEnsAddress
+##### Returns
+
+`Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+
+#### getEnsAddress()
 
 > **getEnsAddress**: (`args`) => `Promise`\<`GetEnsAddressReturnType`\>
 
@@ -758,13 +1009,13 @@ Gets address for ENS name.
 - Docs: https://viem.sh/docs/ens/actions/getEnsAddress
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
-###### Remarks
+##### Remarks
 
 Calls `resolve(bytes, bytes)` on ENS Universal Resolver Contract.
 
 Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -781,47 +1032,50 @@ const ensAddress = await client.getEnsAddress({
 // '0xd2135CfB216b74109775236E36d4b433F1DF507B'
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `object`
+• **args**
 
-[GetEnsAddressParameters]([object Object])
+GetEnsAddressParameters
 
-▪ **args.blockNumber?**: `bigint`
+• **args\.blockNumber?**: `bigint`
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+• **args\.blockTag?**: `BlockTag`
 
 The balance of the account at a block tag.
 
 **Default**
-
 ```ts
 'latest'
 ```
 
-▪ **args.coinType?**: `number`
+• **args\.coinType?**: `number`
 
 ENSIP-9 compliant coinType used to resolve addresses for other chains
 
-▪ **args.gatewayUrls?**: `string`[]
+• **args\.gatewayUrls?**: `string`[]
 
 Universal Resolver gateway URLs to use for resolving CCIP-read requests.
 
-▪ **args.name**: `string`
+• **args\.name**: `string`
 
 Name to get the address for.
 
-▪ **args.strict?**: `boolean`
+• **args\.strict?**: `boolean`
 
 Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
 
-▪ **args.universalResolverAddress?**: \`0x${string}\`
+• **args\.universalResolverAddress?**: ```0x${string}```
 
 Address of ENS Universal Resolver Contract.
 
-##### getEnsAvatar
+##### Returns
+
+`Promise`\<`GetEnsAddressReturnType`\>
+
+#### getEnsAvatar()
 
 > **getEnsAvatar**: (`args`) => `Promise`\<`GetEnsAvatarReturnType`\>
 
@@ -830,13 +1084,13 @@ Gets the avatar of an ENS name.
 - Docs: https://viem.sh/docs/ens/actions/getEnsAvatar
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
-###### Remarks
+##### Remarks
 
 Calls [`getEnsText`](https://viem.sh/docs/ens/actions/getEnsText) with `key` set to `'avatar'`.
 
 Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -853,47 +1107,50 @@ const ensAvatar = await client.getEnsAvatar({
 // 'https://ipfs.io/ipfs/Qma8mnp6xV3J2cRNf3mTth5C8nV11CAnceVinc3y8jSbio'
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `object`
+• **args**
 
-[GetEnsAvatarParameters]([object Object])
+GetEnsAvatarParameters
 
-▪ **args.assetGatewayUrls?**: `AssetGatewayUrls`
+• **args\.assetGatewayUrls?**: `AssetGatewayUrls`
 
 Gateway urls to resolve IPFS and/or Arweave assets.
 
-▪ **args.blockNumber?**: `bigint`
+• **args\.blockNumber?**: `bigint`
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+• **args\.blockTag?**: `BlockTag`
 
 The balance of the account at a block tag.
 
 **Default**
-
 ```ts
 'latest'
 ```
 
-▪ **args.gatewayUrls?**: `string`[]
+• **args\.gatewayUrls?**: `string`[]
 
 Universal Resolver gateway URLs to use for resolving CCIP-read requests.
 
-▪ **args.name**: `string`
+• **args\.name**: `string`
 
 ENS name to get Text for.
 
-▪ **args.strict?**: `boolean`
+• **args\.strict?**: `boolean`
 
 Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
 
-▪ **args.universalResolverAddress?**: \`0x${string}\`
+• **args\.universalResolverAddress?**: ```0x${string}```
 
 Address of ENS Universal Resolver Contract.
 
-##### getEnsName
+##### Returns
+
+`Promise`\<`GetEnsAvatarReturnType`\>
+
+#### getEnsName()
 
 > **getEnsName**: (`args`) => `Promise`\<`GetEnsNameReturnType`\>
 
@@ -902,11 +1159,11 @@ Gets primary name for specified address.
 - Docs: https://viem.sh/docs/ens/actions/getEnsName
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
-###### Remarks
+##### Remarks
 
 Calls `reverse(bytes)` on ENS Universal Resolver Contract to "reverse resolve" the address to the primary ENS name.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -922,58 +1179,61 @@ const ensName = await client.getEnsName({
 // 'wevm.eth'
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `object`
+• **args**
 
-[GetEnsNameParameters]([object Object])
+GetEnsNameParameters
 
-▪ **args.address**: \`0x${string}\`
+• **args\.address**: ```0x${string}```
 
 Address to get ENS name for.
 
-▪ **args.blockNumber?**: `bigint`
+• **args\.blockNumber?**: `bigint`
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+• **args\.blockTag?**: `BlockTag`
 
 The balance of the account at a block tag.
 
 **Default**
-
 ```ts
 'latest'
 ```
 
-▪ **args.gatewayUrls?**: `string`[]
+• **args\.gatewayUrls?**: `string`[]
 
 Universal Resolver gateway URLs to use for resolving CCIP-read requests.
 
-▪ **args.strict?**: `boolean`
+• **args\.strict?**: `boolean`
 
 Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
 
-▪ **args.universalResolverAddress?**: \`0x${string}\`
+• **args\.universalResolverAddress?**: ```0x${string}```
 
 Address of ENS Universal Resolver Contract.
 
-##### getEnsResolver
+##### Returns
 
-> **getEnsResolver**: (`args`) => `Promise`\<\`0x${string}\`\>
+`Promise`\<`GetEnsNameReturnType`\>
+
+#### getEnsResolver()
+
+> **getEnsResolver**: (`args`) => `Promise`\<```0x${string}```\>
 
 Gets resolver for ENS name.
 
 - Docs: https://viem.sh/docs/ens/actions/getEnsResolver
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
-###### Remarks
+##### Remarks
 
 Calls `findResolver(bytes)` on ENS Universal Resolver Contract to retrieve the resolver of an ENS name.
 
 Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -990,35 +1250,38 @@ const resolverAddress = await client.getEnsResolver({
 // '0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41'
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `object`
+• **args**
 
-[GetEnsResolverParameters]([object Object])
+GetEnsResolverParameters
 
-▪ **args.blockNumber?**: `bigint`
+• **args\.blockNumber?**: `bigint`
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+• **args\.blockTag?**: `BlockTag`
 
 The balance of the account at a block tag.
 
 **Default**
-
 ```ts
 'latest'
 ```
 
-▪ **args.name**: `string`
+• **args\.name**: `string`
 
 Name to get the address for.
 
-▪ **args.universalResolverAddress?**: \`0x${string}\`
+• **args\.universalResolverAddress?**: ```0x${string}```
 
 Address of ENS Universal Resolver Contract.
 
-##### getEnsText
+##### Returns
+
+`Promise`\<```0x${string}```\>
+
+#### getEnsText()
 
 > **getEnsText**: (`args`) => `Promise`\<`GetEnsTextReturnType`\>
 
@@ -1027,13 +1290,13 @@ Gets a text record for specified ENS name.
 - Docs: https://viem.sh/docs/ens/actions/getEnsResolver
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
-###### Remarks
+##### Remarks
 
 Calls `resolve(bytes, bytes)` on ENS Universal Resolver Contract.
 
 Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1051,47 +1314,50 @@ const twitterRecord = await client.getEnsText({
 // 'wagmi_sh'
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `object`
+• **args**
 
-[GetEnsTextParameters]([object Object])
+GetEnsTextParameters
 
-▪ **args.blockNumber?**: `bigint`
+• **args\.blockNumber?**: `bigint`
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+• **args\.blockTag?**: `BlockTag`
 
 The balance of the account at a block tag.
 
 **Default**
-
 ```ts
 'latest'
 ```
 
-▪ **args.gatewayUrls?**: `string`[]
+• **args\.gatewayUrls?**: `string`[]
 
 Universal Resolver gateway URLs to use for resolving CCIP-read requests.
 
-▪ **args.key**: `string`
+• **args\.key**: `string`
 
 Text record to retrieve.
 
-▪ **args.name**: `string`
+• **args\.name**: `string`
 
 ENS name to get Text for.
 
-▪ **args.strict?**: `boolean`
+• **args\.strict?**: `boolean`
 
 Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
 
-▪ **args.universalResolverAddress?**: \`0x${string}\`
+• **args\.universalResolverAddress?**: ```0x${string}```
 
 Address of ENS Universal Resolver Contract.
 
-##### getFeeHistory
+##### Returns
+
+`Promise`\<`GetEnsTextReturnType`\>
+
+#### getFeeHistory()
 
 > **getFeeHistory**: (`args`) => `Promise`\<`GetFeeHistoryReturnType`\>
 
@@ -1100,7 +1366,7 @@ Returns a collection of historical gas information.
 - Docs: https://viem.sh/docs/actions/public/getFeeHistory
 - JSON-RPC Methods: [`eth_feeHistory`](https://docs.alchemy.com/reference/eth-feehistory)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1116,13 +1382,17 @@ const feeHistory = await client.getFeeHistory({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetFeeHistoryParameters`
+• **args**: `GetFeeHistoryParameters`
 
-[GetFeeHistoryParameters]([object Object])
+GetFeeHistoryParameters
 
-##### getFilterChanges
+##### Returns
+
+`Promise`\<`GetFeeHistoryReturnType`\>
+
+#### getFilterChanges()
 
 > **getFilterChanges**: \<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
 
@@ -1131,7 +1401,7 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 - Docs: https://viem.sh/docs/actions/public/getFilterChanges
 - JSON-RPC Methods: [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges)
 
-###### Remarks
+##### Remarks
 
 A Filter can be created from the following actions:
 
@@ -1146,7 +1416,7 @@ Depending on the type of filter, the return value will be different:
 - If the filter was created with `createPendingTransactionFilter`, it returns a list of transaction hashes.
 - If the filter was created with `createBlockFilter`, it returns a list of block hashes.
 
-###### Example
+##### Example
 
 ```ts
 // Blocks
@@ -1161,7 +1431,7 @@ const filter = await client.createBlockFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
 
-###### Example
+##### Example
 
 ```ts
 // Contract Events
@@ -1180,7 +1450,7 @@ const filter = await client.createContractEventFilter({
 const logs = await client.getFilterChanges({ filter })
 ```
 
-###### Example
+##### Example
 
 ```ts
 // Raw Events
@@ -1198,7 +1468,7 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterChanges({ filter })
 ```
 
-###### Example
+##### Example
 
 ```ts
 // Transactions
@@ -1213,27 +1483,31 @@ const filter = await client.createPendingTransactionFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TFilterType** extends `FilterType`
+• **TFilterType** extends `FilterType`
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+• **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
 
-▪ **TEventName** extends `undefined` \| `string`
+• **TEventName** extends `undefined` \| `string`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetFilterChangesParameters`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `GetFilterChangesParameters`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
 
-[GetFilterChangesParameters]([object Object])
+GetFilterChangesParameters
 
-##### getFilterLogs
+##### Returns
+
+`Promise`\<`GetFilterChangesReturnType`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+
+#### getFilterLogs()
 
 > **getFilterLogs**: \<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
 
@@ -1242,11 +1516,11 @@ Returns a list of event logs since the filter was created.
 - Docs: https://viem.sh/docs/actions/public/getFilterLogs
 - JSON-RPC Methods: [`eth_getFilterLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterlogs)
 
-###### Remarks
+##### Remarks
 
 `getFilterLogs` is only compatible with **event filters**.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbiItem } from 'viem'
@@ -1263,25 +1537,29 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterLogs({ filter })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+• **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
 
-▪ **TEventName** extends `undefined` \| `string`
+• **TEventName** extends `undefined` \| `string`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetFilterLogsParameters`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `GetFilterLogsParameters`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
 
-[GetFilterLogsParameters]([object Object])
+GetFilterLogsParameters
 
-##### getGasPrice
+##### Returns
+
+`Promise`\<`GetFilterLogsReturnType`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+
+#### getGasPrice()
 
 > **getGasPrice**: () => `Promise`\<`bigint`\>
 
@@ -1290,7 +1568,7 @@ Returns the current price of gas (in wei).
 - Docs: https://viem.sh/docs/actions/public/getGasPrice
 - JSON-RPC Methods: [`eth_gasPrice`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gasprice)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1303,7 +1581,11 @@ const client = createPublicClient({
 const gasPrice = await client.getGasPrice()
 ```
 
-##### getLogs
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### getLogs()
 
 > **getLogs**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
 
@@ -1313,7 +1595,7 @@ Returns a list of event logs matching the provided parameters.
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/filters-and-logs/event-logs
 - JSON-RPC Methods: [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbiItem } from 'viem'
@@ -1326,25 +1608,29 @@ const client = createPublicClient({
 const logs = await client.getLogs()
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+• **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args?**: `GetLogsParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args?**: `GetLogsParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>
 
-[GetLogsParameters]([object Object])
+GetLogsParameters
 
-##### getProof
+##### Returns
+
+`Promise`\<`GetLogsReturnType`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+
+#### getProof()
 
 > **getProof**: (`args`) => `Promise`\<`GetProofReturnType`\>
 
@@ -1354,7 +1640,7 @@ Returns the account and storage values of the specified account including the Me
 - JSON-RPC Methods:
   - Calls [`eth_getProof`](https://eips.ethereum.org/EIPS/eip-1186)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1370,11 +1656,15 @@ const block = await client.getProof({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetProofParameters`
+• **args**: `GetProofParameters`
 
-##### getStorageAt
+##### Returns
+
+`Promise`\<`GetProofReturnType`\>
+
+#### getStorageAt()
 
 > **getStorageAt**: (`args`) => `Promise`\<`GetStorageAtReturnType`\>
 
@@ -1383,7 +1673,7 @@ Returns the value from a storage slot at a given address.
 - Docs: https://viem.sh/docs/contract/getStorageAt
 - JSON-RPC Methods: [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1400,13 +1690,17 @@ const code = await client.getStorageAt({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetStorageAtParameters`
+• **args**: `GetStorageAtParameters`
 
-[GetStorageAtParameters]([object Object])
+GetStorageAtParameters
 
-##### getTransaction
+##### Returns
+
+`Promise`\<`GetStorageAtReturnType`\>
+
+#### getTransaction()
 
 > **getTransaction**: \<`TBlockTag`\>(`args`) => `Promise`\<`object` \| `object` \| `object` \| `object`\>
 
@@ -1416,7 +1710,7 @@ Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#tr
 - Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionByHash)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1431,17 +1725,21 @@ const transaction = await client.getTransaction({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+• **TBlockTag** extends `BlockTag` = `"latest"`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetTransactionParameters`\<`TBlockTag`\>
+• **args**: `GetTransactionParameters`\<`TBlockTag`\>
 
-[GetTransactionParameters]([object Object])
+GetTransactionParameters
 
-##### getTransactionConfirmations
+##### Returns
+
+`Promise`\<`object` \| `object` \| `object` \| `object`\>
+
+#### getTransactionConfirmations()
 
 > **getTransactionConfirmations**: (`args`) => `Promise`\<`bigint`\>
 
@@ -1451,7 +1749,7 @@ Returns the number of blocks passed (confirmations) since the transaction was pr
 - Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionConfirmations`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionConfirmations)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1466,13 +1764,17 @@ const confirmations = await client.getTransactionConfirmations({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetTransactionConfirmationsParameters`\<`undefined` \| `Chain`\>
+• **args**: `GetTransactionConfirmationsParameters`\<`undefined` \| `Chain`\>
 
-[GetTransactionConfirmationsParameters]([object Object])
+GetTransactionConfirmationsParameters
 
-##### getTransactionCount
+##### Returns
+
+`Promise`\<`bigint`\>
+
+#### getTransactionCount()
 
 > **getTransactionCount**: (`args`) => `Promise`\<`number`\>
 
@@ -1481,7 +1783,7 @@ Returns the number of [Transactions](https://viem.sh/docs/glossary/terms#transac
 - Docs: https://viem.sh/docs/actions/public/getTransactionCount
 - JSON-RPC Methods: [`eth_getTransactionCount`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1496,13 +1798,17 @@ const transactionCount = await client.getTransactionCount({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetTransactionCountParameters`
+• **args**: `GetTransactionCountParameters`
 
-[GetTransactionCountParameters]([object Object])
+GetTransactionCountParameters
 
-##### getTransactionReceipt
+##### Returns
+
+`Promise`\<`number`\>
+
+#### getTransactionReceipt()
 
 > **getTransactionReceipt**: (`args`) => `Promise`\<`TransactionReceipt`\>
 
@@ -1512,7 +1818,7 @@ Returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transactio
 - Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1527,19 +1833,23 @@ const transactionReceipt = await client.getTransactionReceipt({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `GetTransactionReceiptParameters`
+• **args**: `GetTransactionReceiptParameters`
 
-[GetTransactionReceiptParameters]([object Object])
+GetTransactionReceiptParameters
 
-##### key
+##### Returns
+
+`Promise`\<`TransactionReceipt`\>
+
+#### key
 
 > **key**: `string`
 
 A key for the client.
 
-##### multicall
+#### multicall()
 
 > **multicall**: \<`contracts`, `allowFailure`\>(`args`) => `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
 
@@ -1547,7 +1857,7 @@ Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but bat
 
 - Docs: https://viem.sh/docs/contract/multicall
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbi } from 'viem'
@@ -1579,31 +1889,35 @@ const result = await client.multicall({
 // [{ result: 424122n, status: 'success' }, { result: 1000000n, status: 'success' }]
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **contracts** extends readonly `unknown`[]
+• **contracts** extends readonly `unknown`[]
 
-▪ **allowFailure** extends `boolean` = `true`
+• **allowFailure** extends `boolean` = `true`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `MulticallParameters`\<`contracts`, `allowFailure`\>
+• **args**: `MulticallParameters`\<`contracts`, `allowFailure`\>
 
-[MulticallParameters]([object Object])
+MulticallParameters
 
-##### name
+##### Returns
+
+`Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
+
+#### name
 
 > **name**: `string`
 
 A name for the client.
 
-##### pollingInterval
+#### pollingInterval
 
 > **pollingInterval**: `number`
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-##### prepareTransactionRequest
+#### prepareTransactionRequest()
 
 > **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends PrepareTransactionRequestParameterType[] ? any[any][number] : PrepareTransactionRequestParameterType>> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
 
@@ -1611,7 +1925,7 @@ Prepares a transaction request for signing.
 
 - Docs: https://viem.sh/docs/actions/wallet/prepareTransactionRequest
 
-###### Example
+##### Example
 
 ```ts
 import { createWalletClient, custom } from 'viem'
@@ -1628,7 +1942,7 @@ const request = await client.prepareTransactionRequest({
 })
 ```
 
-###### Example
+##### Example
 
 ```ts
 // Account Hoisting
@@ -1647,21 +1961,25 @@ const request = await client.prepareTransactionRequest({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TRequest** extends `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object` & `object`
+• **TRequest** extends `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object` & `object`
 
-▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined`
+• **TChainOverride** extends `undefined` \| `Chain` = `undefined`
 
-▪ **TAccountOverride** extends `undefined` \| \`0x${string}\` \| `Account` = `undefined`
+• **TAccountOverride** extends `undefined` \| ```0x${string}``` \| `Account` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TRequest`\>
+• **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TRequest`\>
 
-[PrepareTransactionRequestParameters]([object Object])
+PrepareTransactionRequestParameters
 
-##### readContract
+##### Returns
+
+`Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends PrepareTransactionRequestParameterType[] ? any[any][number] : PrepareTransactionRequestParameterType>> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
+
+#### readContract()
 
 > **readContract**: \<`abi`, `functionName`, `args`\>(`args`) => `Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
 
@@ -1670,13 +1988,13 @@ Calls a read-only function on a contract, and returns the response.
 - Docs: https://viem.sh/docs/contract/readContract
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/reading-contracts
 
-###### Remarks
+##### Remarks
 
 A "read-only" function (constant function) on a Solidity contract is denoted by a `view` or `pure` keyword. They can only read the state of the contract, and cannot make any changes to it. Since read-only methods do not change the state of the contract, they do not require any gas to be executed, and can be called by any user without the need to pay for gas.
 
 Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`call` action](https://viem.sh/docs/actions/public/call) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbi } from 'viem'
@@ -1696,36 +2014,40 @@ const result = await client.readContract({
 // 424122n
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+• **abi** extends `Abi` \| readonly `unknown`[]
 
-▪ **functionName** extends `string`
+• **functionName** extends `string`
 
-▪ **args** extends `unknown`
+• **args** extends `unknown`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `ReadContractParameters`\<`abi`, `functionName`, `args`\>
+• **args**: `ReadContractParameters`\<`abi`, `functionName`, `args`\>
 
-[ReadContractParameters]([object Object])
+ReadContractParameters
 
-##### request
+##### Returns
+
+`Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
+
+#### request
 
 > **request**: `EIP1193RequestFn`\<`PublicRpcSchema`\>
 
 Request function wrapped with friendly error handling
 
-##### sendRawTransaction
+#### sendRawTransaction()
 
-> **sendRawTransaction**: (`args`) => `Promise`\<\`0x${string}\`\>
+> **sendRawTransaction**: (`args`) => `Promise`\<```0x${string}```\>
 
 Sends a **signed** transaction to the network
 
 - Docs: https://viem.sh/docs/actions/wallet/sendRawTransaction
 - JSON-RPC Method: [`eth_sendRawTransaction`](https://ethereum.github.io/execution-apis/api-documentation/)
 
-###### Example
+##### Example
 
 ```ts
 import { createWalletClient, custom } from 'viem'
@@ -1742,11 +2064,15 @@ const hash = await client.sendRawTransaction({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `SendRawTransactionParameters`
+• **args**: `SendRawTransactionParameters`
 
-##### simulateContract
+##### Returns
+
+`Promise`\<```0x${string}```\>
+
+#### simulateContract()
 
 > **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
 
@@ -1755,13 +2081,13 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 - Docs: https://viem.sh/docs/contract/simulateContract
 - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
 
-###### Remarks
+##### Remarks
 
 This function does not require gas to execute and _**does not**_ change the state of the blockchain. It is almost identical to [`readContract`](https://viem.sh/docs/contract/readContract), but also supports contract write functions.
 
 Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`call` action](https://viem.sh/docs/actions/public/call) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1780,43 +2106,47 @@ const result = await client.simulateContract({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+• **abi** extends `Abi` \| readonly `unknown`[]
 
-▪ **functionName** extends `string`
+• **functionName** extends `string`
 
-▪ **args** extends `unknown`
+• **args** extends `unknown`
 
-▪ **chainOverride** extends `undefined` \| `Chain`
+• **chainOverride** extends `undefined` \| `Chain`
 
-▪ **accountOverride** extends `undefined` \| \`0x${string}\` \| `Account` = `undefined`
+• **accountOverride** extends `undefined` \| ```0x${string}``` \| `Account` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `SimulateContractParameters`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `chainOverride`, `accountOverride`\>
+• **args**: `SimulateContractParameters`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `chainOverride`, `accountOverride`\>
 
-[SimulateContractParameters]([object Object])
+SimulateContractParameters
 
-##### transport
+##### Returns
+
+`Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
+
+#### transport
 
 > **transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
 
 The RPC transport
 
-##### type
+#### type
 
 > **type**: `string`
 
 The type of client.
 
-##### uid
+#### uid
 
 > **uid**: `string`
 
 A unique ID for the client.
 
-##### uninstallFilter
+#### uninstallFilter()
 
 > **uninstallFilter**: (`args`) => `Promise`\<`boolean`\>
 
@@ -1829,7 +2159,7 @@ Destroys a Filter that was created from one of the following Actions:
 - Docs: https://viem.sh/docs/actions/public/uninstallFilter
 - JSON-RPC Methods: [`eth_uninstallFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_uninstallFilter)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1841,29 +2171,41 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `UninstallFilterParameters`
+• **args**: `UninstallFilterParameters`
 
-[UninstallFilterParameters]([object Object])
+UninstallFilterParameters
 
-##### verifyMessage
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### verifyMessage()
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `VerifyMessageParameters`
+• **args**: `VerifyMessageParameters`
 
-##### verifyTypedData
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### verifyTypedData()
 
 > **verifyTypedData**: (`args`) => `Promise`\<`boolean`\>
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `VerifyTypedDataParameters`
+• **args**: `VerifyTypedDataParameters`
 
-##### waitForTransactionReceipt
+##### Returns
+
+`Promise`\<`boolean`\>
+
+#### waitForTransactionReceipt()
 
 > **waitForTransactionReceipt**: (`args`) => `Promise`\<`TransactionReceipt`\>
 
@@ -1878,7 +2220,7 @@ Waits for the [Transaction](https://viem.sh/docs/glossary/terms#transaction) to 
     - Checks if one of the Transactions is a replacement
     - If so, calls [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt).
 
-###### Remarks
+##### Remarks
 
 The `waitForTransactionReceipt` action additionally supports Replacement detection (e.g. sped up Transactions).
 
@@ -1890,7 +2232,7 @@ There are 3 types of Transaction Replacement reasons:
 - `cancelled`: The Transaction has been cancelled (e.g. `value === 0n`)
 - `replaced`: The Transaction has been replaced (e.g. different `value` or `data`)
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1905,13 +2247,17 @@ const transactionReceipt = await client.waitForTransactionReceipt({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WaitForTransactionReceiptParameters`\<`undefined` \| `Chain`\>
+• **args**: `WaitForTransactionReceiptParameters`\<`undefined` \| `Chain`\>
 
-[WaitForTransactionReceiptParameters]([object Object])
+WaitForTransactionReceiptParameters
 
-##### watchBlockNumber
+##### Returns
+
+`Promise`\<`TransactionReceipt`\>
+
+#### watchBlockNumber()
 
 > **watchBlockNumber**: (`args`) => `WatchBlockNumberReturnType`
 
@@ -1923,7 +2269,7 @@ Watches and returns incoming block numbers.
   - When `poll: true`, calls [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) on a polling interval.
   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1938,13 +2284,17 @@ const unwatch = await client.watchBlockNumber({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WatchBlockNumberParameters`
+• **args**: `WatchBlockNumberParameters`
 
-[WatchBlockNumberParameters]([object Object])
+WatchBlockNumberParameters
 
-##### watchBlocks
+##### Returns
+
+`WatchBlockNumberReturnType`
+
+#### watchBlocks()
 
 > **watchBlocks**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`) => `WatchBlocksReturnType`
 
@@ -1956,7 +2306,7 @@ Watches and returns information for incoming blocks.
   - When `poll: true`, calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getBlockByNumber) on a polling interval.
   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -1971,19 +2321,23 @@ const unwatch = await client.watchBlocks({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TIncludeTransactions** extends `boolean` = `false`
+• **TIncludeTransactions** extends `boolean` = `false`
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+• **TBlockTag** extends `BlockTag` = `"latest"`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WatchBlocksParameters`\<`Transport`, `undefined` \| `Chain`, `TIncludeTransactions`, `TBlockTag`\>
+• **args**: `WatchBlocksParameters`\<`Transport`, `undefined` \| `Chain`, `TIncludeTransactions`, `TBlockTag`\>
 
-[WatchBlocksParameters]([object Object])
+WatchBlocksParameters
 
-##### watchContractEvent
+##### Returns
+
+`WatchBlocksReturnType`
+
+#### watchContractEvent()
 
 > **watchContractEvent**: \<`TAbi`, `TEventName`, `TStrict`\>(`args`) => `WatchContractEventReturnType`
 
@@ -1991,13 +2345,13 @@ Watches and returns emitted contract event logs.
 
 - Docs: https://viem.sh/docs/contract/watchContractEvent
 
-###### Remarks
+##### Remarks
 
 This Action will batch up all the event logs found within the [`pollingInterval`](https://viem.sh/docs/contract/watchContractEvent#pollinginterval-optional), and invoke them via [`onLogs`](https://viem.sh/docs/contract/watchContractEvent#onLogs).
 
 `watchContractEvent` will attempt to create an [Event Filter](https://viem.sh/docs/contract/createContractEventFilter) and listen to changes to the Filter per polling interval, however, if the RPC Provider does not support Filters (e.g. `eth_newFilter`), then `watchContractEvent` will fall back to using [`getLogs`](https://viem.sh/docs/actions/public/getLogs) instead.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http, parseAbi } from 'viem'
@@ -2016,21 +2370,25 @@ const unwatch = client.watchContractEvent({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+• **TAbi** extends `Abi` \| readonly `unknown`[]
 
-▪ **TEventName** extends `string`
+• **TEventName** extends `string`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WatchContractEventParameters`\<`TAbi`, `TEventName`, `TStrict`, `Transport`\>
+• **args**: `WatchContractEventParameters`\<`TAbi`, `TEventName`, `TStrict`, `Transport`\>
 
-[WatchContractEventParameters]([object Object])
+WatchContractEventParameters
 
-##### watchEvent
+##### Returns
+
+`WatchContractEventReturnType`
+
+#### watchEvent()
 
 > **watchEvent**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`\>(`args`) => `WatchEventReturnType`
 
@@ -2044,13 +2402,13 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
   - **RPC Provider does not support `eth_newFilter`:**
     - Calls [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) for each block between the polling interval.
 
-###### Remarks
+##### Remarks
 
 This Action will batch up all the Event Logs found within the [`pollingInterval`](https://viem.sh/docs/actions/public/watchEvent#pollinginterval-optional), and invoke them via [`onLogs`](https://viem.sh/docs/actions/public/watchEvent#onLogs).
 
 `watchEvent` will attempt to create an [Event Filter](https://viem.sh/docs/actions/public/createEventFilter) and listen to changes to the Filter per polling interval, however, if the RPC Provider does not support Filters (e.g. `eth_newFilter`), then `watchEvent` will fall back to using [`getLogs`](https://viem.sh/docs/actions/public/getLogs) instead.
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -2065,21 +2423,25 @@ const unwatch = client.watchEvent({
 })
 ```
 
-###### Type parameters
+##### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+• **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
-▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
+• **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WatchEventParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `Transport`\>
+• **args**: `WatchEventParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `Transport`\>
 
-[WatchEventParameters]([object Object])
+WatchEventParameters
 
-##### watchPendingTransactions
+##### Returns
+
+`WatchEventReturnType`
+
+#### watchPendingTransactions()
 
 > **watchPendingTransactions**: (`args`) => `WatchPendingTransactionsReturnType`
 
@@ -2092,11 +2454,11 @@ Watches and returns pending transaction hashes.
     - Calls [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getFilterChanges) on a polling interval.
   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newPendingTransactions"` event.
 
-###### Remarks
+##### Remarks
 
 This Action will batch up all the pending transactions found within the [`pollingInterval`](https://viem.sh/docs/actions/public/watchPendingTransactions#pollinginterval-optional), and invoke them via [`onTransactions`](https://viem.sh/docs/actions/public/watchPendingTransactions#ontransactions).
 
-###### Example
+##### Example
 
 ```ts
 import { createPublicClient, http } from 'viem'
@@ -2111,11 +2473,15 @@ const unwatch = await client.watchPendingTransactions({
 })
 ```
 
-###### Parameters
+##### Parameters
 
-▪ **args**: `WatchPendingTransactionsParameters`\<`Transport`\>
+• **args**: `WatchPendingTransactionsParameters`\<`Transport`\>
 
-[WatchPendingTransactionsParameters]([object Object])
+WatchPendingTransactionsParameters
+
+##### Returns
+
+`WatchPendingTransactionsReturnType`
 
 #### Source
 
@@ -2155,9 +2521,13 @@ Checks if an `account` exists at `address`
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of the `account` to check
+
+#### Returns
+
+`Promise`\<`boolean`\>
 
 #### Source
 
@@ -2175,6 +2545,10 @@ State changes that follow can then be committed by calling
 
 Partial implementation, called from the subclass.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`checkpoint`](../interfaces/TevmStateManagerInterface.md#checkpoint)
@@ -2191,6 +2565,10 @@ Partial implementation, called from the subclass.
 
 Resets all internal caches
 
+#### Returns
+
+`void`
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L187)
@@ -2205,9 +2583,13 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address to clear the storage of
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2228,6 +2610,10 @@ last call to checkpoint.
 
 Partial implementation, called from the subclass.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`commit`](../interfaces/TevmStateManagerInterface.md#commit)
@@ -2244,6 +2630,10 @@ Partial implementation, called from the subclass.
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
+#### Returns
+
+`Promise`\<[`ProxyStateManager`](ProxyStateManager.md)\>
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L169)
@@ -2258,9 +2648,13 @@ Deletes an account from state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of the account which should be deleted
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2278,6 +2672,10 @@ Address of the account which should be deleted
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 
+#### Returns
+
+`Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:558](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L558)
@@ -2292,11 +2690,13 @@ Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 The address of the `account` to return storage for
 
 #### Returns
+
+`Promise`\<`StorageDump`\>
 
 - The state of the account as an `Object` map.
 Keys are the storage keys, values are the storage values as strings.
@@ -2318,11 +2718,15 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Parameters
 
-▪ **\_address**: `Address`
+• **\_address**: `Address`
 
-▪ **\_startKey**: `bigint`
+• **\_startKey**: `bigint`
 
-▪ **\_limit**: `number`
+• **\_limit**: `number`
+
+#### Returns
+
+`Promise`\<`StorageRange`\>
 
 #### Implementation of
 
@@ -2338,6 +2742,10 @@ Both are represented as `0x` prefixed hex strings.
 
 > **flush**(): `Promise`\<`void`\>
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:493](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L493)
@@ -2352,7 +2760,11 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 #### Parameters
 
-▪ **state**: [`TevmState`](../type-aliases/TevmState.md)
+• **state**: [`TevmState`](../type-aliases/TevmState.md)
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2372,7 +2784,11 @@ Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
+
+#### Returns
+
+`Promise`\<`undefined` \| `Account`\>
 
 #### Implementation of
 
@@ -2386,7 +2802,11 @@ Gets the code corresponding to the provided `address`.
 
 ### getAccountAddresses()
 
-> **getAccountAddresses**(): \`0x${string}\`[]
+> **getAccountAddresses**(): ```0x${string}```[]
+
+#### Returns
+
+```0x${string}```[]
 
 #### Implementation of
 
@@ -2406,9 +2826,13 @@ Retrieves an account from the provider and stores in the local trie
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of account to be retrieved from provider
+
+#### Returns
+
+`Promise`\<`Account`\>
 
 #### Source
 
@@ -2424,11 +2848,13 @@ Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address to get the `code` for
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 - Resolves with the code corresponding to the provided address.
 Returns an empty `Uint8Array` if the account has no associated code.
@@ -2452,15 +2878,17 @@ the shortest representation of the stored value.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of the account to get the storage for
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
 
 Key in the account's storage to get the value for. Must be 32 bytes long.
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 - The storage value for the account
 corresponding to the provided address at the provided key.
@@ -2484,15 +2912,17 @@ Get an EIP-1186 proof from the provider
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 address to get proof of
 
-▪ **storageSlots**: `Uint8Array`[]= `[]`
+• **storageSlots**: `Uint8Array`[]= `[]`
 
 storage slots to get proof of
 
 #### Returns
+
+`Promise`\<`Proof`\>
 
 an EIP-1186 formatted proof
 
@@ -2506,11 +2936,13 @@ an EIP-1186 formatted proof
 
 ***
 
-### getStateRoot()
+### ~~getStateRoot()~~
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\>
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Implementation of
 
@@ -2526,11 +2958,13 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 ***
 
-### hasStateRoot()
+### ~~hasStateRoot()~~
 
 > **hasStateRoot**(): `never`
 
 #### Returns
+
+`never`
 
 #### Implementation of
 
@@ -2553,6 +2987,10 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 Locks the state manager to always fetch state from the current block number as of when lock is called
 If the block number has changed the cache will be invalidated
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L111)
@@ -2569,13 +3007,17 @@ fields, then saves the account into state. Account fields can include
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of the account to modify
 
-▪ **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+• **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
 
 Object containing account fields and values to modify
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2595,9 +3037,13 @@ Saves an account into state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
-▪ **account**: `undefined` \| `Account`
+• **account**: `undefined` \| `Account`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2618,13 +3064,17 @@ corresponding to `address` to reference this.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address of the `account` to add the `code` for
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
 
 The value of the `code`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2645,19 +3095,23 @@ corresponding to `address` at the provided `key`.
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 Address to set a storage value for
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
 
 Key to set the value at. Must be 32 bytes long.
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
 
 Value to set at `key` for account corresponding to `address`.
 Cannot be more than 32 bytes. Leading zeros are stripped.
 If it is empty or filled with zeros, deletes the value.
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2678,6 +3132,10 @@ last call to checkpoint.
 
 Partial implementation , called from the subclass.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`revert`](../interfaces/TevmStateManagerInterface.md#revert)
@@ -2688,15 +3146,17 @@ Partial implementation , called from the subclass.
 
 ***
 
-### setStateRoot()
+### ~~setStateRoot()~~
 
 > **setStateRoot**(`_root`): `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **\_root**: `Uint8Array`
+• **\_root**: `Uint8Array`
 
 #### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -2718,6 +3178,10 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 Returns a new instance of the TevmStateManager with the same opts
 
+#### Returns
+
+[`ProxyStateManager`](ProxyStateManager.md)
+
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`shallowCopy`](../interfaces/TevmStateManagerInterface.md#shallowcopy)
@@ -2737,9 +3201,10 @@ The cache will persist when unlocked so there is o guarantee
 the evm state is not stale if talking to the state manager
 directly in unlocked mode. Most transactions should lock
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Source
 
 [packages/state/src/ProxyStateManager.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L140)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/tsupconfig** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/tsupconfig** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > createTsUpOptions
+[@tevm/tsupconfig](../README.md) / createTsUpOptions
 
 # Function: createTsUpOptions()
 
@@ -12,29 +12,28 @@ Creates tsup options from params
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.entry**: `undefined` \| `string`[]= `undefined`
+• **options\.entry**: `undefined` \| `string`[]= `undefined`
 
 entry points Defaults to src/index.js
 
-▪ **options.format**: `undefined` \| (`"cjs"` \| `"esm"`)[]= `undefined`
+• **options\.format**: `undefined` \| (`"cjs"` \| `"esm"`)[]= `undefined`
 
 module format Defaults to cjs and esm
 
-▪ **options.outDir**: `undefined` \| `string`= `'dist'`
+• **options\.outDir**: `undefined` \| `string`= `'dist'`
 
 output directory Defaults to dist
 
-▪ **options.target**: `undefined` \| `Target`= `'js'`
+• **options\.target**: `undefined` \| `Target`= `'js'`
 
 environment to target Defaults to js
 
 ## Returns
 
+`Options`
+
 ## Source
 
 [createTsupOptions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/createTsupOptions.js#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

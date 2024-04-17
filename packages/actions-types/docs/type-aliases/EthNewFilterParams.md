@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthNewFilterParams
+[@tevm/actions-types](../README.md) / EthNewFilterParams
 
 # Type alias: EthNewFilterParams
 
@@ -13,6 +13,3 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 ## Source
 
 [params/EthParams.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L293)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

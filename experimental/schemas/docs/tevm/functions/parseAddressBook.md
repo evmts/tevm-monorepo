@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [tevm](../README.md) > parseAddressBook
+[@tevm/schemas](../../README.md) / [tevm](../README.md) / parseAddressBook
 
 # Function: parseAddressBook()
 
@@ -12,13 +12,15 @@ Parses an address book and returns the value if no errors.
 
 ## Type parameters
 
-▪ **TAddressBook** extends [`types`](../../types/README.md)
+• **TAddressBook** extends [`types`](../../types/README.md)
 
 ## Parameters
 
-▪ **addressBook**: `TAddressBook`
+• **addressBook**: `TAddressBook`
 
 ## Returns
+
+`TAddressBook`
 
 ## Example
 
@@ -35,6 +37,3 @@ const parsedAddressBook = parseAddressBook({
 ## Source
 
 [experimental/schemas/src/tevm/SAddressBook.js:121](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L121)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

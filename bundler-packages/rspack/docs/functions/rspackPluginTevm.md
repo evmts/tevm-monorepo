@@ -1,8 +1,8 @@
-**@tevm/rspack-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/rspack-plugin** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > rspackPluginTevm
+[@tevm/rspack-plugin](../README.md) / rspackPluginTevm
 
 # Function: rspackPluginTevm()
 
@@ -15,11 +15,13 @@ To configure add this plugin to your rspack config and add the ts-plugin to your
 
 ## Parameters
 
-▪ **options?**: `object`
+• **options?**
 
-▪ **options.solc?**: `SolcVersions`
+• **options\.solc?**: `SolcVersions`
 
 ## Returns
+
+`RspackPluginInstance`
 
 ## Example
 
@@ -102,6 +104,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

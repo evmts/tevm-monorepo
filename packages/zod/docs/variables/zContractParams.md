@@ -1,8 +1,8 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > zContractParams
+[@tevm/zod](../README.md) / zContractParams
 
 # Variable: zContractParams
 
@@ -13,6 +13,3 @@ Zod validator for a valid contract action
 ## Source
 
 [packages/zod/src/params/zContractParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zContractParams.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

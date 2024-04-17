@@ -1,8 +1,8 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > CreateEvmOptions
+[@tevm/evm](../README.md) / CreateEvmOptions
 
 # Type alias: CreateEvmOptions
 
@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### allowUnlimitedContractSize
+### allowUnlimitedContractSize?
 
-> **allowUnlimitedContractSize**?: `boolean`
+> **`optional`** **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 
@@ -26,9 +26,9 @@ Enable/disable unlimited contract size. Defaults to false.
 
 Ethereumjs common object
 
-### customPrecompiles
+### customPrecompiles?
 
-> **customPrecompiles**?: [`CustomPrecompile`](CustomPrecompile.md)[]
+> **`optional`** **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -46,40 +46,40 @@ For security precompiles can only be added statically when the vm is created.
 #### Example
 
 ```ts
-import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
-import { createScript } from '@tevm/contract'
+import \{ createMemoryClient, defineCall, definePrecompile \} from 'tevm'
+import \{ createScript \} from '@tevm/contract'
 import fs from 'fs/promises'
 
-const Fs = createScript({
+const Fs = createScript(\{
   name: 'Fs',
   humanReadableAbi: [
     'function readFile(string path) returns (string)',
     'function writeFile(string path, string data) returns (bool)',
   ]
-})
+\})
 
-const fsPrecompile = definePrecompile({
+const fsPrecompile = definePrecompile(\{
 	contract: Fs,
 	address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-	call: defineCall(Fs.abi, {
-		readFile: async ({ args }) => {
-			return {
+	call: defineCall(Fs.abi, \{
+		readFile: async (\{ args \}) => \{
+			return \{
 				returnValue: await fs.readFile(...args, 'utf8'),
 				executionGasUsed: 0n,
-			}
-		},
-		writeFile: async ({ args }) => {
+			\}
+		\},
+		writeFile: async (\{ args \}) => \{
 			await fs.writeFile(...args)
-			return { returnValue: true, executionGasUsed: 0n }
-		},
-	}),
-})
+			return \{ returnValue: true, executionGasUsed: 0n \}
+		\},
+	\}),
+\})
 
-const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
+const tevm = createMemoryClient(\{ customPrecompiles: [fsPrecompile] \})
 
-### customPredeploys
+### customPredeploys?
 
-> **customPredeploys**?: `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`\>\>
+> **`optional`** **customPredeploys**: `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -97,9 +97,9 @@ const tevm = createMemoryClient({
 })
 ```
 
-### profiler
+### profiler?
 
-> **profiler**?: `boolean`
+> **`optional`** **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
 
@@ -112,6 +112,3 @@ A custom Tevm state manager
 ## Source
 
 [packages/evm/src/CreateEvmOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

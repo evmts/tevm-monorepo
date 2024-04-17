@@ -1,10 +1,10 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > CallJsonRpcProcedure
+[@tevm/procedures-types](../README.md) / CallJsonRpcProcedure
 
-# Type alias: CallJsonRpcProcedure
+# Type alias: CallJsonRpcProcedure()
 
 > **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Parameters
 
-▪ **request**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
+• **request**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/CallJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/CallJsonRpcProcedure.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

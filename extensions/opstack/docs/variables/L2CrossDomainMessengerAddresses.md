@@ -1,8 +1,8 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > L2CrossDomainMessengerAddresses
+[@tevm/opstack](../README.md) / L2CrossDomainMessengerAddresses
 
 # Variable: L2CrossDomainMessengerAddresses
 
@@ -17,6 +17,3 @@
 ## Source
 
 [extensions/opstack/src/contracts/l2/L2CrossDomainMessenger.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l2/L2CrossDomainMessenger.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

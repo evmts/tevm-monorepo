@@ -1,8 +1,8 @@
-**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > MemoryClient
+[@tevm/memory-client](../README.md) / MemoryClient
 
 # Type alias: MemoryClient
 
@@ -60,6 +60,3 @@ const balance = await tevm.runContractCall(
 ## Source
 
 [MemoryClient.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L47)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,24 +1,25 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > encodeErrorResultEffect
+[@tevm/viem-effect](../../README.md) / [utils](../README.md) / encodeErrorResultEffect
 
 # Function: encodeErrorResultEffect()
 
-> **encodeErrorResultEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeErrorResultErrorType`, \`0x${string}\`\>
+> **encodeErrorResultEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeErrorResultErrorType`, ```0x${string}```\>
 
 ## Type parameters
 
-▪ **TParams** extends [`EncodeErrorResultParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
+• **TParams** extends [`EncodeErrorResultParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `EncodeErrorResultErrorType`, ```0x${string}```\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/abi/encodeErrorResultEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeErrorResultEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

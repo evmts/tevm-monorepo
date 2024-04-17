@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > toBytes
+[@tevm/utils](../README.md) / toBytes
 
 # Function: toBytes()
 
@@ -15,15 +15,17 @@ Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 
 ## Parameters
 
-▪ **value**: `string` \| `number` \| `bigint` \| `boolean`
+• **value**: `string` \| `number` \| `bigint` \| `boolean`
 
 Value to encode.
 
-▪ **opts?**: `ToBytesParameters`
+• **opts?**: `ToBytesParameters`
 
 Options.
 
 ## Returns
+
+`ByteArray`
 
 Byte array value.
 
@@ -53,7 +55,4 @@ const data = toBytes(420, { size: 4 })
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37

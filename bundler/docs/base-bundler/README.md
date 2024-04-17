@@ -1,23 +1,10 @@
-**@tevm/bundler** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/bundler** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > base-bundler
+[@tevm/bundler](../README.md) / base-bundler
 
-# Module: base-bundler
-
-## Table of contents
-
-### References
-
-- [AsyncBundlerResult](README.md#asyncbundlerresult)
-- [Bundler](README.md#bundler)
-- [BundlerResult](README.md#bundlerresult)
-- [FileAccessObject](README.md#fileaccessobject)
-- [Logger](README.md#logger)
-- [SolidityResolver](README.md#solidityresolver)
-- [SyncBundlerResult](README.md#syncbundlerresult)
-- [bundler](README.md#bundler-1)
+# base-bundler
 
 ## References
 
@@ -66,6 +53,3 @@ Re-exports [SyncBundlerResult](../index/type-aliases/SyncBundlerResult.md)
 ### bundler
 
 Re-exports [bundler](../index/functions/bundler.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

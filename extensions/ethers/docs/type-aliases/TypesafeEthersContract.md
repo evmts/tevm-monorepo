@@ -1,40 +1,39 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/ethers** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TypesafeEthersContract
+[@tevm/ethers](../README.md) / TypesafeEthersContract
 
-# Type alias: TypesafeEthersContract`<TAbi>`
+# Type alias: TypesafeEthersContract\<TAbi\>
 
 > **TypesafeEthersContract**\<`TAbi`\>: `BaseContract` & `{ [TFunctionName in ExtractAbiFunctionNames<TAbi, "pure" | "view">]: BaseContractMethod<AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>["inputs"]> & any[], AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>["outputs"]>[0], AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>["outputs"]>[0]> }` & `{ [TFunctionName in ExtractAbiFunctionNames<TAbi, "nonpayable" | "payable">]: BaseContractMethod<AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>["inputs"]> & any[], AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>["outputs"]>[0], ContractTransactionResponse> }` & `object`
 
 ## Type declaration
 
-### queryFilter
+### queryFilter()
 
 > **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` extends `ExtractAbiEventNames`\<`TAbi`\> ? `ExtractAbiEvent`\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
 #### Type parameters
 
-▪ **TContractEventName** extends `Omit`\<`ContractEventName`, `ExtractAbiEventNames`\<`TAbi`\>\> \| `ExtractAbiEventNames`\<`TAbi`\>
+• **TContractEventName** extends `Omit`\<`ContractEventName`, `ExtractAbiEventNames`\<`TAbi`\>\> \| `ExtractAbiEventNames`\<`TAbi`\>
 
 #### Parameters
 
-▪ **event**: `TContractEventName`
+• **event**: `TContractEventName`
 
-▪ **fromBlock?**: `BlockTag`
+• **fromBlock?**: `BlockTag`
 
-▪ **toBlock?**: `BlockTag`
+• **toBlock?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`TContractEventName` extends `ExtractAbiEventNames`\<`TAbi`\> ? `ExtractAbiEvent`\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TAbi` extends `Abi` |
+• **TAbi** extends `Abi`
 
 ## Source
 
 [extensions/ethers/src/contract/TypesafeEthersContract.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L19)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

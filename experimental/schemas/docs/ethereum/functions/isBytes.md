@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > isBytes
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / isBytes
 
 # Function: isBytes()
 
@@ -12,11 +12,13 @@ Type guard that returns true if a string is a valid hex string.
 
 ## Parameters
 
-▪ **value**: `string`
+• **value**: `string`
 
 The string to check.
 
 ## Returns
+
+`boolean`
 
 - True if the string is a valid hex string.
 
@@ -31,6 +33,3 @@ const isHex = isBytes(hex);
 ## Source
 
 [experimental/schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/isBytes.js#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

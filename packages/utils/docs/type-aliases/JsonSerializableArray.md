@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > JsonSerializableArray
+[@tevm/utils](../README.md) / JsonSerializableArray
 
 # Type alias: JsonSerializableArray
 
@@ -13,6 +13,3 @@ A type that represents a JSON-serializable array.
 ## Source
 
 [packages/utils/src/SerializeToJson.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L19)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

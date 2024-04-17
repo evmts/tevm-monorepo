@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ethSignHandler
+[@tevm/actions](../README.md) / ethSignHandler
 
 # Function: ethSignHandler()
 
@@ -10,15 +10,14 @@
 
 ## Parameters
 
-▪ **params**: `object`
+• **params**
 
-▪ **params.accounts**: readonly `HDAccount`[]
+• **params\.accounts**: readonly `HDAccount`[]
 
 ## Returns
+
+`EthSignHandler`
 
 ## Source
 
 [packages/actions/src/eth/ethSignHandler.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignHandler.js#L18)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

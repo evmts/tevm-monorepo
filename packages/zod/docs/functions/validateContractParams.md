@@ -1,8 +1,8 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > validateContractParams
+[@tevm/zod](../README.md) / validateContractParams
 
 # Function: validateContractParams()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **action**: `ContractParams`\<`Abi`, `string`, `boolean`\>
+• **action**: `ContractParams`\<`Abi`, `string`, `boolean`\>
 
 ## Returns
+
+`ContractError`[]
 
 ## Source
 
 [packages/zod/src/validators/validateContractParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateContractParams.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

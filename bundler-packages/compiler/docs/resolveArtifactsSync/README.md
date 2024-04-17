@@ -1,16 +1,13 @@
-**@tevm/compiler** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/compiler** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > resolveArtifactsSync
+[@tevm/compiler](../README.md) / resolveArtifactsSync
 
-# Module: resolveArtifactsSync
+# resolveArtifactsSync
 
 ## Index
 
 ### Functions
 
 - [resolveArtifactsSync](functions/resolveArtifactsSync.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

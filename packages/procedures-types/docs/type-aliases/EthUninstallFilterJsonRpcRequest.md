@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthUninstallFilterJsonRpcRequest
+[@tevm/procedures-types](../README.md) / EthUninstallFilterJsonRpcRequest
 
 # Type alias: EthUninstallFilterJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 ## Source
 
 [requests/EthJsonRpcRequest.ts:350](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L350)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > createSolc
+[@tevm/bundler](../../README.md) / [solc](../README.md) / createSolc
 
 # Function: createSolc()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **release**: keyof `Releases`
+• **release**: keyof `Releases`
+
+## Returns
+
+`Promise`\<`Solc`\>
 
 ## Source
 
 bundler-packages/solc/types/src/solc.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

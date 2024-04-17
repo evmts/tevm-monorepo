@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > fromBytesEffect
+[@tevm/viem-effect](../../README.md) / [utils](../README.md) / fromBytesEffect
 
 # Function: fromBytesEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`Uint8Array`, `FromBytesParameters`\<`"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`\>]
+• **TParams** extends [`Uint8Array`, `FromBytesParameters`\<`"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`\>]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `FromBytesErrorType`, `string` \| `number` \| `bigint` \| `boolean`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/encoding/fromBytesEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/fromBytesEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

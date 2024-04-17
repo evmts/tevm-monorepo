@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > DebugTraceCallJsonRpcResponse
+[@tevm/procedures-types](../README.md) / DebugTraceCallJsonRpcResponse
 
 # Type alias: DebugTraceCallJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `debug_traceCall` procedure
 ## Source
 
 [responses/DebugJsonRpcResponse.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/DebugJsonRpcResponse.ts#L25)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

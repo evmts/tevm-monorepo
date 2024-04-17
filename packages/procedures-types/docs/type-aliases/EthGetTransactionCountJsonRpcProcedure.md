@@ -1,20 +1,21 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionCountJsonRpcProcedure
+[@tevm/procedures-types](../README.md) / EthGetTransactionCountJsonRpcProcedure
 
-# Type alias: EthGetTransactionCountJsonRpcProcedure
+# Type alias: EthGetTransactionCountJsonRpcProcedure()
 
 > **EthGetTransactionCountJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionCountJsonRpcRequest`](EthGetTransactionCountJsonRpcRequest.md)
+• **request**: [`EthGetTransactionCountJsonRpcRequest`](EthGetTransactionCountJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L155)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

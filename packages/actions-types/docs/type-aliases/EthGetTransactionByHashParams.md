@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionByHashParams
+[@tevm/actions-types](../README.md) / EthGetTransactionByHashParams
 
 # Type alias: EthGetTransactionByHashParams
 
@@ -19,6 +19,3 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 ## Source
 
 [params/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L177)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

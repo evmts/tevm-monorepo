@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcSourceEntry
+[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcSourceEntry
 
 # Type alias: SolcSourceEntry
 
@@ -21,6 +21,3 @@
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:122
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > L1CrossDomainMessengerHumanReadableAbi
+[@tevm/opstack](../README.md) / L1CrossDomainMessengerHumanReadableAbi
 
 # Variable: L1CrossDomainMessengerHumanReadableAbi
 
@@ -11,6 +11,3 @@
 ## Source
 
 [extensions/opstack/src/contracts/l1/L1CrossDomainMessenger.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l1/L1CrossDomainMessenger.ts#L31)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetCodeHandler
+[@tevm/actions-types](../README.md) / EthGetCodeHandler
 
-# Type alias: EthGetCodeHandler
+# Type alias: EthGetCodeHandler()
 
 > **EthGetCodeHandler**: (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetCodeParams`](EthGetCodeParams.md)
+• **request**: [`EthGetCodeParams`](EthGetCodeParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L133)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

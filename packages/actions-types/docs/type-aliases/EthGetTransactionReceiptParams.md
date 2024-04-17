@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetTransactionReceiptParams
+[@tevm/actions-types](../README.md) / EthGetTransactionReceiptParams
 
 # Type alias: EthGetTransactionReceiptParams
 
@@ -19,6 +19,3 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 ## Source
 
 [params/EthParams.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L198)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,20 +1,21 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/ethers** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TypesafeEthersInterfaceConstructor
+[@tevm/ethers](../README.md) / TypesafeEthersInterfaceConstructor
 
-# Type alias: TypesafeEthersInterfaceConstructor
+# Type alias: TypesafeEthersInterfaceConstructor()
 
 > **TypesafeEthersInterfaceConstructor**: \<`TAbi`\>(`abi`) => `Omit`\<`Interface`, `"fragments"`\> & `object`
 
 ## Parameters
 
-▪ **abi**: `InterfaceAbi`
+• **abi**: `InterfaceAbi`
+
+## Returns
+
+`Omit`\<`Interface`, `"fragments"`\> & `object`
 
 ## Source
 
 [extensions/ethers/src/contract/Contract.d.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L12)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

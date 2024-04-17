@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcErrorEntry
+[@tevm/solc](../README.md) / SolcErrorEntry
 
 # Type alias: SolcErrorEntry
 
@@ -14,29 +14,29 @@
 
 > **component**: `string`
 
-### errorCode
+### errorCode?
 
-> **errorCode**?: `string`
+> **`optional`** **errorCode**: `string`
 
-### formattedMessage
+### formattedMessage?
 
-> **formattedMessage**?: `string`
+> **`optional`** **formattedMessage**: `string`
 
 ### message
 
 > **message**: `string`
 
-### secondarySourceLocations
+### secondarySourceLocations?
 
-> **secondarySourceLocations**?: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
+> **`optional`** **secondarySourceLocations**: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
 
 ### severity
 
 > **severity**: `"error"` \| `"warning"` \| `"info"`
 
-### sourceLocation
+### sourceLocation?
 
-> **sourceLocation**?: [`SolcSourceLocation`](SolcSourceLocation.md)
+> **`optional`** **sourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md)
 
 ### type
 
@@ -45,6 +45,3 @@
 ## Source
 
 [solcTypes.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L359)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

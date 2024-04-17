@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcMetadataSettings
+[@tevm/solc](../README.md) / SolcMetadataSettings
 
 # Type alias: SolcMetadataSettings
 
@@ -10,21 +10,18 @@
 
 ## Type declaration
 
-### appendCBOR
+### appendCBOR?
 
-> **appendCBOR**?: `boolean`
+> **`optional`** **appendCBOR**: `boolean`
 
-### bytecodeHash
+### bytecodeHash?
 
-> **bytecodeHash**?: `"ipfs"` \| `"bzzr1"` \| `"none"`
+> **`optional`** **bytecodeHash**: `"ipfs"` \| `"bzzr1"` \| `"none"`
 
-### useLiteralContent
+### useLiteralContent?
 
-> **useLiteralContent**?: `boolean`
+> **`optional`** **useLiteralContent**: `boolean`
 
 ## Source
 
 [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/viem** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TypedError
+[@tevm/viem](../README.md) / TypedError
 
-# Type alias: TypedError`<T>`
+# Type alias: TypedError\<T\>
 
 > **TypedError**\<`T`\>: `Error` & `object`
 
@@ -18,13 +18,8 @@ An error with a tag
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `T` |
+• **T**
 
 ## Source
 
 [TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

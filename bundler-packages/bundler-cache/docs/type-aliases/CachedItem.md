@@ -1,8 +1,8 @@
-**@tevm/bundler-cache** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/bundler-cache** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > CachedItem
+[@tevm/bundler-cache](../README.md) / CachedItem
 
 # Type alias: CachedItem
 
@@ -11,6 +11,3 @@
 ## Source
 
 [types.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

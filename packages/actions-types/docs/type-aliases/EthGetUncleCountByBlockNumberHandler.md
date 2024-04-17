@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetUncleCountByBlockNumberHandler
+[@tevm/actions-types](../README.md) / EthGetUncleCountByBlockNumberHandler
 
-# Type alias: EthGetUncleCountByBlockNumberHandler
+# Type alias: EthGetUncleCountByBlockNumberHandler()
 
 > **EthGetUncleCountByBlockNumberHandler**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberResult`](EthGetUncleCountByBlockNumberResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md)
+• **request**: [`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetUncleCountByBlockNumberResult`](EthGetUncleCountByBlockNumberResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L161)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > GetAccountResult
+[@tevm/actions-types](../README.md) / GetAccountResult
 
-# Type alias: GetAccountResult`<ErrorType>`
+# Type alias: GetAccountResult\<ErrorType\>
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
 
@@ -12,9 +12,7 @@ Result of GetAccount Action
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | `GetAccountError` |
+• **ErrorType** = `GetAccountError`
 
 ## Type declaration
 
@@ -42,9 +40,9 @@ Code hash to set account to
 
 Contract bytecode to set account to
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -66,9 +64,9 @@ True if account is empty
 
 Nonce to set account to
 
-### storage
+### storage?
 
-> **storage**?: `object`
+> **`optional`** **storage**: `object`
 
 Contract storage for the account
 only included if `returnStorage` is set to true in the request
@@ -86,6 +84,3 @@ Storage root to set account to
 ## Source
 
 [result/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/GetAccountResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

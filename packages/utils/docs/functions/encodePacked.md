@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > encodePacked
+[@tevm/utils](../README.md) / encodePacked
 
 # Function: encodePacked()
 
@@ -10,17 +10,18 @@
 
 ## Type parameters
 
-▪ **TPackedAbiTypes** extends readonly `unknown`[] \| readonly `PackedAbiType`[]
+• **TPackedAbiTypes** extends readonly `unknown`[] \| readonly `PackedAbiType`[]
 
 ## Parameters
 
-▪ **types**: `TPackedAbiTypes`
+• **types**: `TPackedAbiTypes`
 
-▪ **values**: `EncodePackedValues`\<`TPackedAbiTypes`\>
+• **values**: `EncodePackedValues`\<`TPackedAbiTypes`\>
+
+## Returns
+
+[`Hex`](../type-aliases/Hex.md)
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/abi/encodePacked.d.ts:17
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/abi/encodePacked.d.ts:17

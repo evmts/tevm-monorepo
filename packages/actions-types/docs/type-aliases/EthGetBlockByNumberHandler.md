@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetBlockByNumberHandler
+[@tevm/actions-types](../README.md) / EthGetBlockByNumberHandler
 
-# Type alias: EthGetBlockByNumberHandler
+# Type alias: EthGetBlockByNumberHandler()
 
 > **EthGetBlockByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetBlockByNumberParams`](EthGetBlockByNumberParams.md)
+• **request**: [`EthGetBlockByNumberParams`](EthGetBlockByNumberParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L121)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

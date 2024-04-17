@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > solcCompile
+[@tevm/solc](../README.md) / solcCompile
 
 # Function: solcCompile()
 
@@ -12,15 +12,14 @@ Typesafe wrapper around solc.compile
 
 ## Parameters
 
-▪ **solc**: `any`
+• **solc**: `any`
 
-▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Returns
+
+[`SolcOutput`](../type-aliases/SolcOutput.md)
 
 ## Source
 
 [solc.js:127](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L127)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

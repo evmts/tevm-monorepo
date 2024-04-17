@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > parseGweiEffect
+[@tevm/viem-effect](../../README.md) / [utils](../README.md) / parseGweiEffect
 
 # Function: parseGweiEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`string`, `"wei"`]
+• **TParams** extends [`string`, `"wei"`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `ParseGweiErrorType`, `bigint`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/unit/parseGweiEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/parseGweiEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

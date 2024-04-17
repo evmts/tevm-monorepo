@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthActionsApi
+[@tevm/decorators](../README.md) / EthActionsApi
 
 # Type alias: EthActionsApi
 
@@ -29,7 +29,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **eth.blockNumber**: `EthBlockNumberHandler`
+> **blockNumber**: `EthBlockNumberHandler`
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -48,7 +48,7 @@ console.log(blockNumber) // 0n
 
 ### eth.call
 
-> **eth.call**: `EthCallHandler`
+> **call**: `EthCallHandler`
 
 Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -67,7 +67,7 @@ console.log(res) // "0x..."
 
 ### eth.chainId
 
-> **eth.chainId**: `EthChainIdHandler`
+> **chainId**: `EthChainIdHandler`
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -86,7 +86,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **eth.gasPrice**: `EthGasPriceHandler`
+> **gasPrice**: `EthGasPriceHandler`
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -105,7 +105,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **eth.getBalance**: `EthGetBalanceHandler`
+> **getBalance**: `EthGetBalanceHandler`
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -124,7 +124,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **eth.getCode**: `EthGetCodeHandler`
+> **getCode**: `EthGetCodeHandler`
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -142,7 +142,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **eth.getStorageAt**: `EthGetStorageAtHandler`
+> **getStorageAt**: `EthGetStorageAtHandler`
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -161,6 +161,3 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 ## Source
 
 [packages/decorators/src/actions/EthActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/EthActionsApi.ts#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

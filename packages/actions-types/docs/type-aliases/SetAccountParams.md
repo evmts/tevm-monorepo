@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SetAccountParams
+[@tevm/actions-types](../README.md) / SetAccountParams
 
-# Type alias: SetAccountParams`<TThrowOnFail>`
+# Type alias: SetAccountParams\<TThrowOnFail\>
 
 > **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -31,51 +31,46 @@ const accountParams: import('tevm/api').SetAccountParams = {
 
 Address of account
 
-### balance
+### balance?
 
-> **balance**?: `bigint`
+> **`optional`** **balance**: `bigint`
 
 Balance to set account to
 
-### deployedBytecode
+### deployedBytecode?
 
-> **deployedBytecode**?: `Hex`
+> **`optional`** **deployedBytecode**: `Hex`
 
 Contract bytecode to set account to
 
-### nonce
+### nonce?
 
-> **nonce**?: `bigint`
+> **`optional`** **nonce**: `bigint`
 
 Nonce to set account to
 
-### state
+### state?
 
-> **state**?: `Record`\<`Hex`, `Hex`\>
+> **`optional`** **state**: `Record`\<`Hex`, `Hex`\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
-### stateDiff
+### stateDiff?
 
-> **stateDiff**?: `Record`\<`Hex`, `Hex`\>
+> **`optional`** **stateDiff**: `Record`\<`Hex`, `Hex`\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
-### storageRoot
+### storageRoot?
 
-> **storageRoot**?: `Hex`
+> **`optional`** **storageRoot**: `Hex`
 
 Storage root to set account to
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** extends `boolean` = `boolean`
 
 ## Source
 
 [params/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L17)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

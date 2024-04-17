@@ -1,8 +1,8 @@
-**@tevm/compiler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/compiler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [resolveArtifactsSync](../README.md) > resolveArtifactsSync
+[@tevm/compiler](../../README.md) / [resolveArtifactsSync](../README.md) / resolveArtifactsSync
 
 # Function: resolveArtifactsSync()
 
@@ -10,25 +10,26 @@
 
 ## Parameters
 
-▪ **solFile**: `string`
+• **solFile**: `string`
 
-▪ **basedir**: `string`
+• **basedir**: `string`
 
-▪ **logger**: [`Logger`](../../types/type-aliases/Logger.md)
+• **logger**: [`Logger`](../../types/type-aliases/Logger.md)
 
-▪ **config**: `ResolvedCompilerConfig`
+• **config**: `ResolvedCompilerConfig`
 
-▪ **includeAst**: `boolean`
+• **includeAst**: `boolean`
 
-▪ **includeBytecode**: `boolean`
+• **includeBytecode**: `boolean`
 
-▪ **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+• **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
 
-▪ **solc**: `any`
+• **solc**: `any`
+
+## Returns
+
+[`ResolvedArtifacts`](../../types/type-aliases/ResolvedArtifacts.md)
 
 ## Source
 
 [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

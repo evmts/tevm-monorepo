@@ -1,20 +1,24 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > Solc
+[@tevm/solc](../README.md) / Solc
 
 # Interface: Solc
 
 ## Properties
 
-### compile
+### compile()
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
 #### Parameters
 
-▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+
+#### Returns
+
+[`SolcOutput`](../type-aliases/SolcOutput.md)
 
 #### Source
 
@@ -42,15 +46,19 @@
 
 ***
 
-### loadRemoteVersion
+### loadRemoteVersion()
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
 #### Parameters
 
-▪ **versionString**: `string`
+• **versionString**: `string`
 
-▪ **callback**: (`err`, `solc`?) => `void`
+• **callback**
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -78,13 +86,17 @@
 
 ***
 
-### setupMethods
+### setupMethods()
 
 > **setupMethods**: (`soljson`) => `void`
 
 #### Parameters
 
-▪ **soljson**: `any`
+• **soljson**: `any`
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -99,6 +111,3 @@
 #### Source
 
 [solcTypes.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L752)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > JsonRpcSchemaTevm
+[@tevm/decorators](../README.md) / JsonRpcSchemaTevm
 
 # Type alias: JsonRpcSchemaTevm
 
@@ -31,15 +31,15 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 ### tevm\_call.Method
 
-> **tevm\_call.Method**: `"tevm_call"`
+> **Method**: `"tevm_call"`
 
 ### tevm\_call.Parameters
 
-> **tevm\_call.Parameters**: `CallJsonRpcRequest`[`"params"`]
+> **Parameters**: `CallJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_call.ReturnType
 
-> **tevm\_call.ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
 
 ### tevm\_dumpState
 
@@ -61,15 +61,15 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.Method
 
-> **tevm\_dumpState.Method**: `"tevm_dumpState"`
+> **Method**: `"tevm_dumpState"`
 
-### tevm\_dumpState.Parameters
+### tevm\_dumpState.Parameters?
 
-> **tevm\_dumpState.Parameters**?: `DumpStateJsonRpcRequest`[`"params"`]
+> **`optional`** **Parameters**: `DumpStateJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_dumpState.ReturnType
 
-> **tevm\_dumpState.ReturnType**: `SerializeToJson`\<`DumpStateResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`DumpStateResult`\<`never`\>\>
 
 ### tevm\_getAccount
 
@@ -91,15 +91,15 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 ### tevm\_getAccount.Method
 
-> **tevm\_getAccount.Method**: `"tevm_getAccount"`
+> **Method**: `"tevm_getAccount"`
 
 ### tevm\_getAccount.Parameters
 
-> **tevm\_getAccount.Parameters**: `GetAccountJsonRpcRequest`[`"params"`]
+> **Parameters**: `GetAccountJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_getAccount.ReturnType
 
-> **tevm\_getAccount.ReturnType**: `SerializeToJson`\<`GetAccountResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`GetAccountResult`\<`never`\>\>
 
 ### tevm\_loadState
 
@@ -122,15 +122,15 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.Method
 
-> **tevm\_loadState.Method**: `"tevm_loadState"`
+> **Method**: `"tevm_loadState"`
 
 ### tevm\_loadState.Parameters
 
-> **tevm\_loadState.Parameters**: `LoadStateJsonRpcRequest`[`"params"`]
+> **Parameters**: `LoadStateJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_loadState.ReturnType
 
-> **tevm\_loadState.ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
 
 ### tevm\_script
 
@@ -153,15 +153,15 @@ provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', 
 
 ### tevm\_script.Method
 
-> **tevm\_script.Method**: `"tevm_script"`
+> **Method**: `"tevm_script"`
 
 ### tevm\_script.Parameters
 
-> **tevm\_script.Parameters**: `ScriptJsonRpcRequest`[`"params"`]
+> **Parameters**: `ScriptJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_script.ReturnType
 
-> **tevm\_script.ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
 
 ### tevm\_setAccount
 
@@ -184,19 +184,16 @@ r
 
 ### tevm\_setAccount.Method
 
-> **tevm\_setAccount.Method**: `"tevm_setAccount"`
+> **Method**: `"tevm_setAccount"`
 
 ### tevm\_setAccount.Parameters
 
-> **tevm\_setAccount.Parameters**: `SetAccountJsonRpcRequest`[`"params"`]
+> **Parameters**: `SetAccountJsonRpcRequest`\[`"params"`\]
 
 ### tevm\_setAccount.ReturnType
 
-> **tevm\_setAccount.ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
+> **ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
 
 ## Source
 
 [packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

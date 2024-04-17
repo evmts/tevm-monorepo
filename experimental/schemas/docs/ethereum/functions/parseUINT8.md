@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > parseUINT8
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseUINT8
 
 # Function: parseUINT8()
 
@@ -12,13 +12,15 @@ Parses a UINT8 and returns the value if no errors.
 
 ## Type parameters
 
-▪ **TUINT8** extends `bigint`
+• **TUINT8** extends `bigint`
 
 ## Parameters
 
-▪ **uint8**: `TUINT8`
+• **uint8**: `TUINT8`
 
 ## Returns
+
+`TUINT8`
 
 ## Example
 
@@ -30,6 +32,3 @@ const parsedUINT8 = parseUINT8(BigInt(127));
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/parseUINT.js:28](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

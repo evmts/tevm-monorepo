@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/blockchain** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > TevmBlockchain
+[@tevm/blockchain](../README.md) / TevmBlockchain
 
 # Class: TevmBlockchain
 
@@ -23,16 +23,18 @@ Creates new Blockchain object.
 
 #### Parameters
 
-▪ **opts?**: `BlockchainOptions`
+• **opts?**: `BlockchainOptions`
 
 An object with the options that this constructor takes. See
-[BlockchainOptions]([object Object]).
+BlockchainOptions.
 
 #### Returns
 
+[`TevmBlockchain`](TevmBlockchain.md)
+
 #### Inherited from
 
-Blockchain.constructor
+`Blockchain.constructor`
 
 #### Deprecated
 
@@ -52,7 +54,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Inherited from
 
-Blockchain.common
+`Blockchain.common`
 
 #### Source
 
@@ -66,7 +68,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Inherited from
 
-Blockchain.consensus
+`Blockchain.consensus`
 
 #### Source
 
@@ -80,7 +82,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Inherited from
 
-Blockchain.db
+`Blockchain.db`
 
 #### Source
 
@@ -94,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Inherited from
 
-Blockchain.dbManager
+`Blockchain.dbManager`
 
 #### Source
 
@@ -108,7 +110,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Inherited from
 
-Blockchain.events
+`Blockchain.events`
 
 #### Source
 
@@ -120,7 +122,11 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 > **`get`** **genesisBlock**(): `Block`
 
-The genesis [Block]([object Object]) for the blockchain.
+The genesis Block for the blockchain.
+
+#### Returns
+
+`Block`
 
 #### Source
 
@@ -134,15 +140,19 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 #### Parameters
 
-▪ **number**: `BigIntLike`
+• **number**: `BigIntLike`
 
-▪ **td?**: `BigIntLike`
+• **td?**: `BigIntLike`
 
-▪ **timestamp?**: `BigIntLike`
+• **timestamp?**: `BigIntLike`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-Blockchain.checkAndTransitionHardForkByNumber
+`Blockchain.checkAndTransitionHardForkByNumber`
 
 #### Source
 
@@ -154,17 +164,21 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 > **createGenesisBlock**(`stateRoot`): `Block`
 
-Creates a genesis [Block]([object Object]) for the blockchain with params from [Common.genesis]([object Object])
+Creates a genesis Block for the blockchain with params from Common.genesis
 
 #### Parameters
 
-▪ **stateRoot**: `Uint8Array`
+• **stateRoot**: `Uint8Array`
 
 The genesis stateRoot
 
+#### Returns
+
+`Block`
+
 #### Inherited from
 
-Blockchain.createGenesisBlock
+`Blockchain.createGenesisBlock`
 
 #### Source
 
@@ -187,13 +201,17 @@ we can be sure it is correct).
 
 #### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
 The hash of the block to be deleted
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.delBlock
+`Blockchain.delBlock`
 
 #### Source
 
@@ -210,15 +228,19 @@ block will be the canonical block at that number in the chain
 
 #### Parameters
 
-▪ **blockId**: `number` \| `bigint` \| `Uint8Array`
+• **blockId**: `number` \| `bigint` \| `Uint8Array`
 
 The block's hash or number. If a hash is provided, then
 this will be immediately looked up, otherwise it will wait until we have
 unlocked the DB
 
+#### Returns
+
+`Promise`\<`Block`\>
+
 #### Inherited from
 
-Blockchain.getBlock
+`Blockchain.getBlock`
 
 #### Source
 
@@ -235,25 +257,29 @@ Looks up many blocks relative to blockId Note: due to `GetBlockHeaders
 
 #### Parameters
 
-▪ **blockId**: `number` \| `bigint` \| `Uint8Array`
+• **blockId**: `number` \| `bigint` \| `Uint8Array`
 
 The block's hash or number
 
-▪ **maxBlocks**: `number`
+• **maxBlocks**: `number`
 
 Max number of blocks to return
 
-▪ **skip**: `number`
+• **skip**: `number`
 
 Number of blocks to skip apart
 
-▪ **reverse**: `boolean`
+• **reverse**: `boolean`
 
 Fetch blocks in reverse
 
+#### Returns
+
+`Promise`\<`Block`[]\>
+
 #### Inherited from
 
-Blockchain.getBlocks
+`Blockchain.getBlocks`
 
 #### Source
 
@@ -267,9 +293,13 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 Returns the latest full block in the canonical chain.
 
+#### Returns
+
+`Promise`\<`Block`\>
+
 #### Inherited from
 
-Blockchain.getCanonicalHeadBlock
+`Blockchain.getCanonicalHeadBlock`
 
 #### Source
 
@@ -283,9 +313,13 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 Returns the latest header in the canonical chain.
 
+#### Returns
+
+`Promise`\<`BlockHeader`\>
+
 #### Inherited from
 
-Blockchain.getCanonicalHeadHeader
+`Blockchain.getCanonicalHeadHeader`
 
 #### Source
 
@@ -301,11 +335,15 @@ Gets a header by number. Header must be in the canonical chain
 
 #### Parameters
 
-▪ **number**: `bigint`
+• **number**: `bigint`
+
+#### Returns
+
+`Promise`\<`BlockHeader`\>
 
 #### Inherited from
 
-Blockchain.getCanonicalHeader
+`Blockchain.getCanonicalHeader`
 
 #### Source
 
@@ -326,13 +364,17 @@ has not been run. This matches the behavior of [Blockchain.iterator](TevmBlockch
 
 #### Parameters
 
-▪ **name?**: `string`
+• **name?**: `string`
 
 Optional name of the iterator head (default: 'vm')
 
+#### Returns
+
+`Promise`\<`Block`\>
+
 #### Inherited from
 
-Blockchain.getIteratorHead
+`Blockchain.getIteratorHead`
 
 #### Source
 
@@ -348,15 +390,17 @@ This method differs from `getIteratorHead`. If the head is not found, it returns
 
 #### Parameters
 
-▪ **name?**: `string`
+• **name?**: `string`
 
 Optional name of the iterator head (default: 'vm')
 
 #### Returns
 
+`Promise`\<`undefined` \| `Block`\>
+
 #### Inherited from
 
-Blockchain.getIteratorHeadSafe
+`Blockchain.getIteratorHeadSafe`
 
 #### Source
 
@@ -372,13 +416,17 @@ Gets total difficulty for a header's parent, helpful for determining terminal bl
 
 #### Parameters
 
-▪ **header**: `BlockHeader`
+• **header**: `BlockHeader`
 
 Block header whose parent td is desired
 
+#### Returns
+
+`Promise`\<`bigint`\>
+
 #### Inherited from
 
-Blockchain.getParentTD
+`Blockchain.getParentTD`
 
 #### Source
 
@@ -394,13 +442,17 @@ Gets total difficulty for a block specified by hash and number
 
 #### Parameters
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
 
-▪ **number?**: `bigint`
+• **number?**: `bigint`
+
+#### Returns
+
+`Promise`\<`bigint`\>
 
 #### Inherited from
 
-Blockchain.getTotalDifficulty
+`Blockchain.getTotalDifficulty`
 
 #### Source
 
@@ -418,29 +470,31 @@ head can be retrieved using [Blockchain.getIteratorHead](TevmBlockchain.md#getit
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
 
 Name of the state root head
 
-▪ **onBlock**: `OnBlock`
+• **onBlock**: `OnBlock`
 
 Function called on each block with params (block, reorg)
 
-▪ **maxBlocks?**: `number`
+• **maxBlocks?**: `number`
 
 How many blocks to run. By default, run all unprocessed blocks in the canonical chain.
 
-▪ **releaseLockOnCallback?**: `boolean`
+• **releaseLockOnCallback?**: `boolean`
 
 Do not lock the blockchain for running the callback (default: `false`)
 
 #### Returns
 
+`Promise`\<`number`\>
+
 number of blocks actually iterated
 
 #### Inherited from
 
-Blockchain.iterator
+`Blockchain.iterator`
 
 #### Source
 
@@ -460,13 +514,17 @@ heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
 
 The block to be added to the blockchain
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.putBlock
+`Blockchain.putBlock`
 
 #### Source
 
@@ -487,13 +545,17 @@ chain is rebuilt and any stale heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **blocks**: `Block`[]
+• **blocks**: `Block`[]
 
 The blocks to be added to the blockchain
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.putBlocks
+`Blockchain.putBlocks`
 
 #### Source
 
@@ -513,13 +575,17 @@ heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **header**: `BlockHeader`
+• **header**: `BlockHeader`
 
 The header to be added to the blockchain
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.putHeader
+`Blockchain.putHeader`
 
 #### Source
 
@@ -540,13 +606,17 @@ chain is rebuilt and any stale heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **headers**: `any`[]
+• **headers**: `any`[]
 
 The headers to be added to the blockchain
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.putHeaders
+`Blockchain.putHeaders`
 
 #### Source
 
@@ -565,13 +635,17 @@ canonicalHead and cleans up canonical references greater than canonicalHead
 
 #### Parameters
 
-▪ **canonicalHead**: `bigint`
+• **canonicalHead**: `bigint`
 
 The number to which chain should be reset to
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.resetCanonicalHead
+`Blockchain.resetCanonicalHead`
 
 #### Source
 
@@ -589,11 +663,15 @@ any other error, this function throws.
 
 #### Parameters
 
-▪ **number**: `bigint`
+• **number**: `bigint`
+
+#### Returns
+
+`Promise`\<`false` \| `Uint8Array`\>
 
 #### Inherited from
 
-Blockchain.safeNumberToHash
+`Blockchain.safeNumberToHash`
 
 #### Source
 
@@ -611,13 +689,17 @@ Therefore, the array needs to be ordered upon number.
 
 #### Parameters
 
-▪ **hashes**: `Uint8Array`[]
+• **hashes**: `Uint8Array`[]
 
 Ordered array of hashes (ordered on `number`).
 
+#### Returns
+
+`Promise`\<`Uint8Array`[]\>
+
 #### Inherited from
 
-Blockchain.selectNeededHashes
+`Blockchain.selectNeededHashes`
 
 #### Source
 
@@ -634,17 +716,21 @@ When calling the iterator, the iterator will start running the first child block
 
 #### Parameters
 
-▪ **tag**: `string`
+• **tag**: `string`
 
 The tag to save the headHash to
 
-▪ **headHash**: `Uint8Array`
+• **headHash**: `Uint8Array`
 
 The head hash to save
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.setIteratorHead
+`Blockchain.setIteratorHead`
 
 #### Source
 
@@ -656,7 +742,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 
 > **shallowCopy**(): `Blockchain`
 
-Returns a deep copy of this [Blockchain]([object Object]) instance.
+Returns a deep copy of this Blockchain instance.
 
 Note: this does not make a copy of the underlying db
 since it is unknown if the source is on disk or in memory.
@@ -666,9 +752,13 @@ If you would like this copied blockchain to use another db
 set the [db](TevmBlockchain.md#db) of this returned instance to a copy of
 the original.
 
+#### Returns
+
+`Blockchain`
+
 #### Inherited from
 
-Blockchain.shallowCopy
+`Blockchain.shallowCopy`
 
 #### Source
 
@@ -685,13 +775,17 @@ whether the block is internally consistent
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
 
 block to be validated
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.validateBlock
+`Blockchain.validateBlock`
 
 #### Source
 
@@ -718,17 +812,21 @@ It verifies the current block against the `parentHash`:
 
 #### Parameters
 
-▪ **header**: `BlockHeader`
+• **header**: `BlockHeader`
 
 header to be validated
 
-▪ **height?**: `bigint`
+• **height?**: `bigint`
 
 If this is an uncle header, this is the height of the block that is including it
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-Blockchain.validateHeader
+`Blockchain.validateHeader`
 
 #### Source
 
@@ -745,13 +843,17 @@ encouraged method to use when creating a blockchain object.
 
 #### Parameters
 
-▪ **opts?**: `BlockchainOptions`
+• **opts?**: `BlockchainOptions`
 
-Constructor options, see [BlockchainOptions]([object Object])
+Constructor options, see BlockchainOptions
+
+#### Returns
+
+`Promise`\<`Blockchain`\>
 
 #### Inherited from
 
-Blockchain.create
+`Blockchain.create`
 
 #### Source
 
@@ -764,23 +866,24 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/block
 > **`static`** **fromBlocksData**(`blocksData`, `opts`?): `Promise`\<`Blockchain`\>
 
 Creates a blockchain from a list of block objects,
-objects must be readable by [Block.fromBlockData]([object Object])
+objects must be readable by Block.fromBlockData
 
 #### Parameters
 
-▪ **blocksData**: `BlockData`[]
+• **blocksData**: `BlockData`[]
 
-▪ **opts?**: `BlockchainOptions`
+• **opts?**: `BlockchainOptions`
 
-Constructor options, see [BlockchainOptions]([object Object])
+Constructor options, see BlockchainOptions
+
+#### Returns
+
+`Promise`\<`Blockchain`\>
 
 #### Inherited from
 
-Blockchain.fromBlocksData
+`Blockchain.fromBlocksData`
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:59
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

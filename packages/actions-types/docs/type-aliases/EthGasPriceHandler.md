@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGasPriceHandler
+[@tevm/actions-types](../README.md) / EthGasPriceHandler
 
-# Type alias: EthGasPriceHandler
+# Type alias: EthGasPriceHandler()
 
 > **EthGasPriceHandler**: (`request`?) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
 ## Parameters
 
-▪ **request?**: [`EthGasPriceParams`](EthGasPriceParams.md)
+• **request?**: [`EthGasPriceParams`](EthGasPriceParams.md)
+
+## Returns
+
+`Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L109)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AnvilImpersonateAccountParams
+[@tevm/actions-types](../README.md) / AnvilImpersonateAccountParams
 
 # Type alias: AnvilImpersonateAccountParams
 
@@ -21,6 +21,3 @@ The address to impersonate
 ## Source
 
 [params/AnvilParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

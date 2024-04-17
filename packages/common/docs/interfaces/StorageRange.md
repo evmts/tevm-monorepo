@@ -1,8 +1,8 @@
-**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/common** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > StorageRange
+[@tevm/common](../README.md) / StorageRange
 
 # Interface: StorageRange
 
@@ -39,6 +39,3 @@ so they are always `null`.
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:18
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

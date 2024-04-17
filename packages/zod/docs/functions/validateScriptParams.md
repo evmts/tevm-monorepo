@@ -1,8 +1,8 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > validateScriptParams
+[@tevm/zod](../README.md) / validateScriptParams
 
 # Function: validateScriptParams()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **action**: `ScriptParams`\<`Abi`, `string`, `boolean`\>
+• **action**: `ScriptParams`\<`Abi`, `string`, `boolean`\>
+
+## Returns
+
+`ScriptError`[]
 
 ## Source
 
 [packages/zod/src/validators/validateScriptParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateScriptParams.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

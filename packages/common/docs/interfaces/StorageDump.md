@@ -1,14 +1,11 @@
-**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/common** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > StorageDump
+[@tevm/common](../README.md) / StorageDump
 
 # Interface: StorageDump
 
 ## Indexable
 
  \[`key`: `string`\]: `string`
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

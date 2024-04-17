@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > DebugTraceTransactionParams
+[@tevm/actions-types](../README.md) / DebugTraceTransactionParams
 
-# Type alias: DebugTraceTransactionParams`<TThrowOnError>`
+# Type alias: DebugTraceTransactionParams\<TThrowOnError\>
 
 > **DebugTraceTransactionParams**\<`TThrowOnError`\>: `BaseParams`\<`TThrowOnError`\> & [`TraceParams`](TraceParams.md) & `object`
 
@@ -20,13 +20,8 @@ The transaction hash
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnError` extends `boolean` | `boolean` |
+• **TThrowOnError** extends `boolean` = `boolean`
 
 ## Source
 
 [params/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L46)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > SINT8
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / SINT8
 
 # Variable: SINT8
 
@@ -21,6 +21,3 @@ export const SINT8: Schema<bigint, INT8>;
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/SINT.js:68](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L68)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

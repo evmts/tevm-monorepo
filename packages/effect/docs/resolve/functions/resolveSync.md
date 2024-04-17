@@ -1,8 +1,8 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [resolve](../README.md) > resolveSync
+[@tevm/effect](../../README.md) / [resolve](../README.md) / resolveSync
 
 # Function: resolveSync()
 
@@ -12,11 +12,13 @@ Effect wrapper around import('node:resolve').resolveSync
 
 ## Parameters
 
-▪ **importPath**: `string`
+• **importPath**: `string`
 
-▪ **options**: `SyncOpts` & `AsyncOpts`
+• **options**: `SyncOpts` & `AsyncOpts`
 
 ## Returns
+
+`Effect`\<`never`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `string`\>
 
 ## Example
 
@@ -32,6 +34,3 @@ resolveSync('react').pipe(
 ## Source
 
 [packages/effect/src/resolve.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L52)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

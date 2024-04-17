@@ -1,10 +1,10 @@
-**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/contract** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > CreateContractParams
+[@tevm/contract](../README.md) / CreateContractParams
 
-# Type alias: CreateContractParams`<TName, THumanReadableAbi>`
+# Type alias: CreateContractParams\<TName, THumanReadableAbi\>
 
 > **CreateContractParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>, `"name"` \| `"humanReadableAbi"`\>
 
@@ -16,14 +16,10 @@ Params for creating a [Contract](Contract.md) instance
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TName` extends `string` |
-| `THumanReadableAbi` extends readonly `string`[] |
+• **TName** extends `string`
+
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Source
 
 [types.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > AnvilMineJsonRpcResponse
+[@tevm/procedures-types](../README.md) / AnvilMineJsonRpcResponse
 
 # Type alias: AnvilMineJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `anvil_mine` procedure
 ## Source
 
 [responses/AnvilJsonRpcResponse.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L71)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

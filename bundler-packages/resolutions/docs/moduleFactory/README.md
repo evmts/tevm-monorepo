@@ -1,10 +1,10 @@
-**@tevm/resolutions** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/resolutions** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > moduleFactory
+[@tevm/resolutions](../README.md) / moduleFactory
 
-# Module: moduleFactory
+# moduleFactory
 
 ## Index
 
@@ -15,6 +15,3 @@
 ### Functions
 
 - [moduleFactory](functions/moduleFactory.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

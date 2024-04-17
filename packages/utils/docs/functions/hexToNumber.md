@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > hexToNumber
+[@tevm/utils](../README.md) / hexToNumber
 
 # Function: hexToNumber()
 
@@ -14,15 +14,17 @@ Decodes a hex string into a number.
 
 ## Parameters
 
-▪ **hex**: \`0x${string}\`
+• **hex**: ```0x${string}```
 
 Hex value to decode.
 
-▪ **opts?**: `HexToBigIntOpts`
+• **opts?**: `HexToBigIntOpts`
 
 Options.
 
 ## Returns
+
+`number`
 
 Number value.
 
@@ -44,7 +46,4 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:121
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:121

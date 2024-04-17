@@ -1,13 +1,13 @@
-**@tevm/logger** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/logger** • Readme \| [API](globals.md)
 
 ***
 
 <p align="center">
   <a href="https://tevm.sh/">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
+    `<picture>`
+      `<source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">`
       <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
-    </picture>
+    `</picture>`
   </a>
 </p>
 
@@ -35,6 +35,3 @@ A lightweight wrapper around pino
 ## License 📄
 
 <a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

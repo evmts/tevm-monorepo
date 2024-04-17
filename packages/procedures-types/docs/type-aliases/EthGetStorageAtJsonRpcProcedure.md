@@ -1,20 +1,21 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthGetStorageAtJsonRpcProcedure
+[@tevm/procedures-types](../README.md) / EthGetStorageAtJsonRpcProcedure
 
-# Type alias: EthGetStorageAtJsonRpcProcedure
+# Type alias: EthGetStorageAtJsonRpcProcedure()
 
 > **EthGetStorageAtJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
+• **request**: [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L151)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

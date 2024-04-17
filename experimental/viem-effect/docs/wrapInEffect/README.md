@@ -1,10 +1,10 @@
-**@tevm/viem-effect** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/viem-effect** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > wrapInEffect
+[@tevm/viem-effect](../README.md) / wrapInEffect
 
-# Module: wrapInEffect
+# wrapInEffect
 
 ## Index
 
@@ -16,6 +16,3 @@
 ### Functions
 
 - [wrapInEffect](functions/wrapInEffect.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

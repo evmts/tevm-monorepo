@@ -1,8 +1,8 @@
-**@tevm/config** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/config** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [defaultConfig](../README.md) > defaultConfig
+[@tevm/config](../../README.md) / [defaultConfig](../README.md) / defaultConfig
 
 # Variable: defaultConfig
 
@@ -35,6 +35,3 @@ The default CompilerConfig
 ## Source
 
 [bundler-packages/config/src/config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/config/withDefaults.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

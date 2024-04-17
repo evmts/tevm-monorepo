@@ -1,8 +1,8 @@
-**@tevm/server** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/server** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > createHttpHandler
+[@tevm/server](../README.md) / createHttpHandler
 
 # Function: createHttpHandler()
 
@@ -14,9 +14,11 @@ This handler works for any server that supports the Node.js http module
 
 ## Parameters
 
-▪ **parameters**: [`CreateHttpHandlerParameters`](../type-aliases/CreateHttpHandlerParameters.md)
+• **parameters**: [`CreateHttpHandlerParameters`](../type-aliases/CreateHttpHandlerParameters.md)
 
 ## Returns
+
+`RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 ## Example
 
@@ -42,6 +44,3 @@ server.listen(PORT, () => console.log({ listening: PORT }))
 ## Source
 
 [packages/server/src/createHttpHandler.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

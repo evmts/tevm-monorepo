@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > toBytesEffect
+[@tevm/viem-effect](../../README.md) / [utils](../README.md) / toBytesEffect
 
 # Function: toBytesEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`string` \| `number` \| `bigint` \| `boolean`, `ToBytesParameters`]
+• **TParams** extends [`string` \| `number` \| `bigint` \| `boolean`, `ToBytesParameters`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `ToBytesErrorType`, `Uint8Array`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/encoding/toBytesEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/toBytesEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

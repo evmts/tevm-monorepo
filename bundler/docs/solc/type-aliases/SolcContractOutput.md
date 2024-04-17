@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcContractOutput
+[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcContractOutput
 
 # Type alias: SolcContractOutput
 
@@ -40,11 +40,11 @@
 
 ### storageLayout.storage
 
-> **storageLayout.storage**: `any`[]
+> **storage**: `any`[]
 
 ### storageLayout.types
 
-> **storageLayout.types**: `any`
+> **types**: `any`
 
 ### userdoc
 
@@ -52,23 +52,20 @@
 
 ### userdoc.kind
 
-> **userdoc.kind**: `"user"`
+> **kind**: `"user"`
 
-### userdoc.methods
+### userdoc.methods?
 
-> **userdoc.methods**?: `Record`\<`string`, `object`\>
+> **`optional`** **methods**: `Record`\<`string`, `object`\>
 
-### userdoc.notice
+### userdoc.notice?
 
-> **userdoc.notice**?: `string`
+> **`optional`** **notice**: `string`
 
 ### userdoc.version
 
-> **userdoc.version**: `number`
+> **version**: `number`
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:126
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

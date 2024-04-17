@@ -1,21 +1,15 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > Bytes
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / Bytes
 
-# Type alias: Bytes`<>`
+# Type alias: Bytes
 
-> **Bytes**\<\>: \`0x${string}\`
+> **Bytes**\<\>: ```0x${string}```
 
 ## Type parameters
-
-| Parameter |
-| :------ |
 
 ## Source
 
 [experimental/schemas/src/ethereum/SBytes/SBytes.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/SBytes.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

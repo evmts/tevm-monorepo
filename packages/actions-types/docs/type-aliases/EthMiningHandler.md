@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > EthMiningHandler
+[@tevm/actions-types](../README.md) / EthMiningHandler
 
-# Type alias: EthMiningHandler
+# Type alias: EthMiningHandler()
 
 > **EthMiningHandler**: (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthMiningParams`](EthMiningParams.md)
+• **request**: [`EthMiningParams`](EthMiningParams.md)
+
+## Returns
+
+`Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L189)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

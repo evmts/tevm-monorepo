@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > hexToBool
+[@tevm/utils](../README.md) / hexToBool
 
 # Function: hexToBool()
 
@@ -14,13 +14,15 @@ Decodes a hex value into a boolean.
 
 ## Parameters
 
-▪ **hex\_**: \`0x${string}\`
+• **hex\_**: ```0x${string}```
 
-▪ **opts?**: `HexToBoolOpts`
+• **opts?**: `HexToBoolOpts`
 
 Options.
 
 ## Returns
+
+`boolean`
 
 Boolean value.
 
@@ -42,7 +44,4 @@ const data = hexToBool('0x000000000000000000000000000000000000000000000000000000
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:99
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:99

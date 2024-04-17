@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ProviderMessage
+[@tevm/decorators](../README.md) / ProviderMessage
 
 # Type alias: ProviderMessage
 
@@ -21,6 +21,3 @@
 ## Source
 
 [packages/decorators/src/eip1193/EIP1193Events.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L12)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

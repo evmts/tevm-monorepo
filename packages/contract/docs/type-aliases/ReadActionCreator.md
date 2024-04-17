@@ -1,10 +1,10 @@
-**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/contract** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ReadActionCreator
+[@tevm/contract](../README.md) / ReadActionCreator
 
-# Type alias: ReadActionCreator`<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs>`
+# Type alias: ReadActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
 
 > **ReadActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, "pure" | "view">]: Function & Object & TAddressArgs }`
 
@@ -20,17 +20,16 @@ tevm.contract(
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `THumanReadableAbi` extends readonly `string`[] | - |
-| `TBytecode` extends `Hex` \| `undefined` | - |
-| `TDeployedBytecode` extends `Hex` \| `undefined` | - |
-| `TAddress` extends `Address` \| `undefined` | - |
-| `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
+• **THumanReadableAbi** extends readonly `string`[]
+
+• **TBytecode** extends `Hex` \| `undefined`
+
+• **TDeployedBytecode** extends `Hex` \| `undefined`
+
+• **TAddress** extends `Address` \| `undefined`
+
+• **TAddressArgs** = `TAddress` extends `undefined` ? `object` : `object`
 
 ## Source
 
 [read/ReadActionCreator.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/read/ReadActionCreator.ts#L23)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

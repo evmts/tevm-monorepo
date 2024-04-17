@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [common](../README.md) > SBlockNumber
+[@tevm/schemas](../../README.md) / [common](../README.md) / SBlockNumber
 
 # Variable: SBlockNumber
 
@@ -20,6 +20,3 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 ## Source
 
 [experimental/schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L33)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,18 +1,15 @@
-**@tevm/precompiles** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/precompiles** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > CustomPrecompile
+[@tevm/precompiles](../README.md) / CustomPrecompile
 
 # Type alias: CustomPrecompile
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](ConstructorArgument.md)\<`Evm`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
+> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](ConstructorArgument.md)\<`Evm`\>, `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
 [precompiles/src/CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

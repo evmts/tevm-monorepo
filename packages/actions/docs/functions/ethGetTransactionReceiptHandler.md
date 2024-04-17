@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ethGetTransactionReceiptHandler
+[@tevm/actions](../README.md) / ethGetTransactionReceiptHandler
 
 # Function: ethGetTransactionReceiptHandler()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getVm"` \| `"forkUrl"` \| `"getReceiptsManager"` \| `"getChain"`\>
+• **client**: `Pick`\<`object`, `"getVm"` \| `"forkUrl"` \| `"getReceiptsManager"` \| `"getChain"`\>
 
 ## Returns
+
+`EthGetTransactionReceiptHandler`
 
 ## Source
 
 [packages/actions/src/eth/ethGetTransactionReceipt.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetTransactionReceipt.js#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

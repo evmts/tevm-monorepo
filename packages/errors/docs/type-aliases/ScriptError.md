@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > ScriptError
+[@tevm/errors](../README.md) / ScriptError
 
 # Type alias: ScriptError
 
@@ -23,6 +23,3 @@ if (errors?.length) {
 ## Source
 
 [packages/errors/src/actions/ScriptError.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ScriptError.ts#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > SolcInputSourcesDestructibleSettings
+[@tevm/solc](../README.md) / SolcInputSourcesDestructibleSettings
 
 # Type alias: SolcInputSourcesDestructibleSettings
 
@@ -14,13 +14,10 @@
 
 > **content**: `string`
 
-### keccak256
+### keccak256?
 
-> **keccak256**?: `HexNumber`
+> **`optional`** **keccak256**: `HexNumber`
 
 ## Source
 
 [solcTypes.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L319)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

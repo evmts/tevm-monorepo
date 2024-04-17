@@ -2,7 +2,6 @@
 "@tevm/procedures-types": minor
 "@tevm/actions-types": minor
 "@tevm/memory-client": minor
-"@tevm/client-types": minor
 "@tevm/base-client": minor
 "@tevm/http-client": minor
 "@tevm/precompiles": minor

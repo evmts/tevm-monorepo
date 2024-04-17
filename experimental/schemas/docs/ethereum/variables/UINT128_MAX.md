@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > UINT128\_MAX
+[@tevm/schemas](../../README.md) / [ethereum](../README.md) / UINT128\_MAX
 
 # Variable: UINT128\_MAX
 
@@ -14,6 +14,3 @@ The maximum value a [UINT128](../type-aliases/UINT128.md) can be.
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L31)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

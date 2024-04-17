@@ -1,8 +1,8 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/tx** • [Readme](../README.md) \| [API](../globals.md)
 
 ***
 
-[API](../API.md) > isAccessListEIP2930Tx
+[@tevm/tx](../README.md) / isAccessListEIP2930Tx
 
 # Function: isAccessListEIP2930Tx()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+• **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+
+## Returns
+
+`tx is AccessListEIP2930Transaction`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:94
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
