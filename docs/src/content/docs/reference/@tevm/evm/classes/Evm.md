@@ -23,24 +23,26 @@ Creates new EVM object
 :::caution[Deprecated]
 The direct usage of this constructor is replaced since
 non-finalized async initialization lead to side effects. Please
-use the async [EVM.create]([object Object]) constructor instead (same API).
+use the async EVM.create constructor instead (same API).
 :::
 
 #### Parameters
 
-▪ **opts**: `EVMOpts`
+• **opts**: `EVMOpts`
 
 The EVM options
 
-▪ **bn128**: `bn128`
+• **bn128**: `bn128`
 
 Initialized bn128 WASM object for precompile usage (internal)
 
 #### Returns
 
+[`Evm`](/reference/tevm/evm/classes/evm/)
+
 #### Inherited from
 
-EVM.constructor
+`EVM.constructor`
 
 #### Source
 
@@ -48,13 +50,13 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ## Properties
 
-### \_block
+### \_block?
 
-> **`protected`** **\_block**?: `Block`
+> **`protected`** **`optional`** **\_block**: `Block`
 
 #### Inherited from
 
-EVM.\_block
+`EVM._block`
 
 #### Source
 
@@ -62,13 +64,13 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### \_customOpcodes
+### \_customOpcodes?
 
-> **`protected`** **`readonly`** **\_customOpcodes**?: `CustomOpcode`[]
+> **`protected`** **`optional`** **`readonly`** **\_customOpcodes**: `CustomOpcode`[]
 
 #### Inherited from
 
-EVM.\_customOpcodes
+`EVM._customOpcodes`
 
 #### Source
 
@@ -76,13 +78,13 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### \_customPrecompiles
+### \_customPrecompiles?
 
-> **`protected`** **`readonly`** **\_customPrecompiles**?: `CustomPrecompile`[]
+> **`protected`** **`optional`** **`readonly`** **\_customPrecompiles**: `CustomPrecompile`[]
 
 #### Inherited from
 
-EVM.\_customPrecompiles
+`EVM._customPrecompiles`
 
 #### Source
 
@@ -96,7 +98,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_dynamicGasHandlers
+`EVM._dynamicGasHandlers`
 
 #### Source
 
@@ -104,19 +106,23 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### \_emit
+### \_emit()
 
 > **`protected`** **`readonly`** **\_emit**: (`topic`, `data`) => `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **topic**: `string`
+• **topic**: `string`
 
-▪ **data**: `any`
+• **data**: `any`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-EVM.\_emit
+`EVM._emit`
 
 #### Source
 
@@ -130,7 +136,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_handlers
+`EVM._handlers`
 
 #### Source
 
@@ -144,7 +150,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_opcodeMap
+`EVM._opcodeMap`
 
 #### Source
 
@@ -158,7 +164,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_opcodes
+`EVM._opcodes`
 
 #### Source
 
@@ -172,7 +178,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_optsCached
+`EVM._optsCached`
 
 #### Source
 
@@ -186,7 +192,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.\_precompiles
+`EVM._precompiles`
 
 #### Source
 
@@ -194,23 +200,21 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### \_tx
+### \_tx?
 
-> **`protected`** **\_tx**?: `object`
+> **`protected`** **`optional`** **\_tx**: `object`
 
-#### Type declaration
-
-##### gasPrice
+#### gasPrice
 
 > **gasPrice**: `bigint`
 
-##### origin
+#### origin
 
-> **origin**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **origin**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Inherited from
 
-EVM.\_tx
+`EVM._tx`
 
 #### Source
 
@@ -224,7 +228,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.allowUnlimitedContractSize
+`EVM.allowUnlimitedContractSize`
 
 #### Source
 
@@ -238,7 +242,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.allowUnlimitedInitCodeSize
+`EVM.allowUnlimitedInitCodeSize`
 
 #### Source
 
@@ -252,7 +256,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.blockchain
+`EVM.blockchain`
 
 #### Source
 
@@ -262,11 +266,11 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### common
 
-> **`readonly`** **common**: [`Common`](/reference/tevm/common/classes/common/)
+> **`readonly`** **common**: [`Common`](/reference/common/classes/common/)
 
 #### Inherited from
 
-EVM.common
+`EVM.common`
 
 #### Source
 
@@ -280,7 +284,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.events
+`EVM.events`
 
 #### Source
 
@@ -294,7 +298,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.journal
+`EVM.journal`
 
 #### Source
 
@@ -308,7 +312,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-EVM.performanceLogger
+`EVM.performanceLogger`
 
 #### Source
 
@@ -318,15 +322,15 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### stateManager
 
-> **stateManager**: [`TevmStateManager`](/reference/tevm/state/type-aliases/tevmstatemanager/)
+> **stateManager**: [`TevmStateManager`](/reference/state/type-aliases/tevmstatemanager/)
 
 #### Overrides
 
-EVM.stateManager
+`EVM.stateManager`
 
 #### Source
 
-[packages/evm/src/Evm.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L16)
+[packages/evm/src/Evm.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L12)
 
 ***
 
@@ -336,7 +340,7 @@ EVM.stateManager
 
 #### Inherited from
 
-EVM.transientStorage
+`EVM.transientStorage`
 
 #### Source
 
@@ -344,21 +348,25 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### create
+### create()
 
 > **`static`** **create**: (`options`?) => `Promise`\<[`Evm`](/reference/tevm/evm/classes/evm/)\>
 
 #### Parameters
 
-▪ **options?**: `EVMOpts`
+• **options?**: `EVMOpts`
+
+#### Returns
+
+`Promise`\<[`Evm`](/reference/tevm/evm/classes/evm/)\>
 
 #### Overrides
 
-EVM.create
+`EVM.create`
 
 #### Source
 
-[packages/evm/src/Evm.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L15)
+[packages/evm/src/Evm.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L11)
 
 ***
 
@@ -368,7 +376,7 @@ EVM.create
 
 #### Inherited from
 
-EVM.supportedHardforks
+`EVM.supportedHardforks`
 
 #### Source
 
@@ -380,6 +388,10 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **`get`** **opcodes**(): `OpcodeList`
 
+#### Returns
+
+`OpcodeList`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
@@ -389,6 +401,10 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 ### precompiles
 
 > **`get`** **precompiles**(): `Map`\<`string`, `PrecompileFunc`\>
+
+#### Returns
+
+`Map`\<`string`, `PrecompileFunc`\>
 
 #### Source
 
@@ -402,13 +418,17 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Parameters
 
-▪ **toAccount**: [`EthjsAccount`](/reference/tevm/utils/classes/ethjsaccount/)
+• **toAccount**: [`EthjsAccount`](/reference/utils/classes/ethjsaccount/)
 
-▪ **message**: `MessageWithTo`
+• **message**: `MessageWithTo`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-EVM.\_addToBalance
+`EVM._addToBalance`
 
 #### Source
 
@@ -418,15 +438,19 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### \_executeCall()
 
-> **`protected`** **\_executeCall**(`message`): `Promise`\<[`EvmResult`](/reference/tevm/evm/interfaces/evmresult/)\>
+> **`protected`** **\_executeCall**(`message`): `Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 #### Parameters
 
-▪ **message**: `MessageWithTo`
+• **message**: `MessageWithTo`
+
+#### Returns
+
+`Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 #### Inherited from
 
-EVM.\_executeCall
+`EVM._executeCall`
 
 #### Source
 
@@ -436,15 +460,19 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### \_executeCreate()
 
-> **`protected`** **\_executeCreate**(`message`): `Promise`\<[`EvmResult`](/reference/tevm/evm/interfaces/evmresult/)\>
+> **`protected`** **\_executeCreate**(`message`): `Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+• **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+
+#### Returns
+
+`Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 #### Inherited from
 
-EVM.\_executeCreate
+`EVM._executeCreate`
 
 #### Source
 
@@ -454,15 +482,19 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### \_generateAddress()
 
-> **`protected`** **\_generateAddress**(`message`): `Promise`\<[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)\>
+> **`protected`** **\_generateAddress**(`message`): `Promise`\<[`EthjsAddress`](/reference/utils/classes/ethjsaddress/)\>
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+• **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+
+#### Returns
+
+`Promise`\<[`EthjsAddress`](/reference/utils/classes/ethjsaddress/)\>
 
 #### Inherited from
 
-EVM.\_generateAddress
+`EVM._generateAddress`
 
 #### Source
 
@@ -476,11 +508,15 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+• **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-EVM.\_loadCode
+`EVM._loadCode`
 
 #### Source
 
@@ -494,13 +530,17 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Parameters
 
-▪ **account**: [`EthjsAccount`](/reference/tevm/utils/classes/ethjsaccount/)
+• **account**: [`EthjsAccount`](/reference/utils/classes/ethjsaccount/)
 
-▪ **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+• **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
-EVM.\_reduceSenderBalance
+`EVM._reduceSenderBalance`
 
 #### Source
 
@@ -512,9 +552,13 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **clearPerformanceLogs**(): `void`
 
+#### Returns
+
+`void`
+
 #### Inherited from
 
-EVM.clearPerformanceLogs
+`EVM.clearPerformanceLogs`
 
 #### Source
 
@@ -529,9 +573,13 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 Returns a list with the currently activated opcodes
 available for EVM execution
 
+#### Returns
+
+`OpcodeList`
+
 #### Inherited from
 
-EVM.getActiveOpcodes
+`EVM.getActiveOpcodes`
 
 #### Source
 
@@ -545,18 +593,19 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Returns
 
-> ##### opcodes
->
-> > **opcodes**: `EVMPerformanceLogOutput`[]
->
-> ##### precompiles
->
-> > **precompiles**: `EVMPerformanceLogOutput`[]
->
+`object`
+
+##### opcodes
+
+> **opcodes**: `EVMPerformanceLogOutput`[]
+
+##### precompiles
+
+> **precompiles**: `EVMPerformanceLogOutput`[]
 
 #### Inherited from
 
-EVM.getPerformanceLogs
+`EVM.getPerformanceLogs`
 
 #### Source
 
@@ -573,11 +622,15 @@ if no such precompile exists.
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **address**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
+
+#### Returns
+
+`undefined` \| `PrecompileFunc`
 
 #### Inherited from
 
-EVM.getPrecompile
+`EVM.getPrecompile`
 
 #### Source
 
@@ -587,7 +640,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### runCall()
 
-> **runCall**(`opts`): `Promise`\<[`EvmResult`](/reference/tevm/evm/interfaces/evmresult/)\>
+> **runCall**(`opts`): `Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 Executes an EVM message, determining whether it's a call or create
 based on the `to` address. It checkpoints the state and reverts changes
@@ -595,11 +648,15 @@ if an exception happens during the message execution.
 
 #### Parameters
 
-▪ **opts**: `EVMRunCallOpts`
+• **opts**: [`EvmRunCallOpts`](/reference/interfaces/evmruncallopts/)
+
+#### Returns
+
+`Promise`\<[`EvmResult`](/reference/interfaces/evmresult/)\>
 
 #### Inherited from
 
-EVM.runCall
+`EVM.runCall`
 
 #### Source
 
@@ -609,18 +666,22 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### runCode()
 
-> **runCode**(`opts`): `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
+> **runCode**(`opts`): `Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 Bound to the global VM and therefore
 shouldn't be used directly from the evm class
 
 #### Parameters
 
-▪ **opts**: `EVMRunCodeOpts`
+• **opts**: `EVMRunCodeOpts`
+
+#### Returns
+
+`Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 #### Inherited from
 
-EVM.runCode
+`EVM.runCode`
 
 #### Source
 
@@ -630,19 +691,23 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### runInterpreter()
 
-> **`protected`** **runInterpreter**(`message`, `opts`?): `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
+> **`protected`** **runInterpreter**(`message`, `opts`?): `Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 Starts the actual bytecode processing for a CALL or CREATE
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
+• **message**: [`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
 
-▪ **opts?**: `InterpreterOpts`
+• **opts?**: `InterpreterOpts`
+
+#### Returns
+
+`Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 #### Inherited from
 
-EVM.runInterpreter
+`EVM.runInterpreter`
 
 #### Source
 
@@ -652,21 +717,25 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### runPrecompile()
 
-> **`protected`** **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](/reference/tevm/evm/interfaces/execresult/) \| `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
+> **`protected`** **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](/reference/interfaces/execresult/) \| `Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 Executes a precompiled contract with given data and gas limit.
 
 #### Parameters
 
-▪ **code**: `PrecompileFunc`
+• **code**: `PrecompileFunc`
 
-▪ **data**: `Uint8Array`
+• **data**: `Uint8Array`
 
-▪ **gasLimit**: `bigint`
+• **gasLimit**: `bigint`
+
+#### Returns
+
+[`ExecResult`](/reference/interfaces/execresult/) \| `Promise`\<[`ExecResult`](/reference/interfaces/execresult/)\>
 
 #### Inherited from
 
-EVM.runPrecompile
+`EVM.runPrecompile`
 
 #### Source
 
@@ -686,15 +755,14 @@ will point to the same underlying state DB.
 
 #### Returns
 
+`EVM`
+
 EVM
 
 #### Inherited from
 
-EVM.shallowCopy
+`EVM.shallowCopy`
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:126
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

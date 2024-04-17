@@ -9,11 +9,12 @@ title: "EthGetTransactionByBlockHashAndIndexJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyblockhashandindexjsonrpcrequest/)
+• **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyblockhashandindexjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyblockhashandindexjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L171)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

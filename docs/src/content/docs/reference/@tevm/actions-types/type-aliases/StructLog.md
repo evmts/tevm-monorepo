@@ -13,6 +13,18 @@ title: "StructLog"
 
 > **`readonly`** **depth**: `number`
 
+### error?
+
+> **`optional`** **`readonly`** **error**: `object`
+
+### error.error
+
+> **error**: `string`
+
+### error.errorType
+
+> **errorType**: `string`
+
 ### gas
 
 > **`readonly`** **gas**: `bigint`
@@ -36,6 +48,3 @@ title: "StructLog"
 ## Source
 
 [result/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DebugResult.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

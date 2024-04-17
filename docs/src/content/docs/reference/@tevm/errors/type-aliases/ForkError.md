@@ -22,14 +22,11 @@ if (res.errors?.length) {
 
 ## See
 
- - [InvalidBlockError](InvalidBlockError.md)
- - [FailedToForkError](FailedToForkError.md)
- - [UnexpectedError](UnexpectedError.md)
- - [InvalidUrlError](InvalidUrlError.md)
+ - [InvalidBlockError](../../../../../../../reference/tevm/errors/type-aliases/invalidblockerror)
+ - [FailedToForkError](../../../../../../../reference/tevm/errors/type-aliases/failedtoforkerror)
+ - [UnexpectedError](../../../../../../../reference/tevm/errors/type-aliases/unexpectederror)
+ - [InvalidUrlError](../../../../../../../reference/tevm/errors/type-aliases/invalidurlerror)
 
 ## Source
 
 [packages/errors/src/actions/ForkError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ForkError.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

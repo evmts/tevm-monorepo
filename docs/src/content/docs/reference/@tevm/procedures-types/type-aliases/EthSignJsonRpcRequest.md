@@ -5,13 +5,10 @@ prev: false
 title: "EthSignJsonRpcRequest"
 ---
 
-> **EthSignJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_sign"`, [[`Address`](/reference/tevm/utils/type-aliases/address/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
+> **EthSignJsonRpcRequest**: [`JsonRpcRequest`](/reference/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_sign"`, [[`Address`](/reference/utils/type-aliases/address/), [`Hex`](/reference/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_sign` procedure
 
 ## Source
 
 [requests/EthJsonRpcRequest.ts:291](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L291)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

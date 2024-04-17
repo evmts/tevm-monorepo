@@ -9,15 +9,13 @@ title: "CompiledContracts"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TIncludeAsts` extends `boolean` | `boolean` |
+• **TIncludeAsts** extends `boolean` = `boolean`
 
 ## Type declaration
 
 ### artifacts
 
-> **artifacts**: [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)[`"contracts"`][`string`] \| `undefined`
+> **artifacts**: [`SolcOutput`](/reference/solc/type-aliases/solcoutput/)\[`"contracts"`\]\[`string`\] \| `undefined`
 
 ### asts
 
@@ -29,15 +27,12 @@ title: "CompiledContracts"
 
 ### solcInput
 
-> **solcInput**: [`SolcInputDescription`](/reference/tevm/solc/type-aliases/solcinputdescription/)
+> **solcInput**: [`SolcInputDescription`](/reference/solc/type-aliases/solcinputdescription/)
 
 ### solcOutput
 
-> **solcOutput**: [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
+> **solcOutput**: [`SolcOutput`](/reference/solc/type-aliases/solcoutput/)
 
 ## Source
 
 [compiler/src/types.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L56)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

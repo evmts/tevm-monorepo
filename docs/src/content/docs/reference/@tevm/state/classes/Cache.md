@@ -13,7 +13,11 @@ title: "Cache"
 
 #### Parameters
 
-▪ **getContractStorage**: [`GetContractStorage`](/reference/tevm/state/type-aliases/getcontractstorage/)
+• **getContractStorage**: [`GetContractStorage`](/reference/type-aliases/getcontractstorage/)
+
+#### Returns
+
+[`Cache`](/reference/tevm/state/classes/cache/)
 
 #### Source
 
@@ -23,7 +27,7 @@ title: "Cache"
 
 ### getContractStorage
 
-> **`private`** **getContractStorage**: [`GetContractStorage`](/reference/tevm/state/type-aliases/getcontractstorage/)
+> **`private`** **getContractStorage**: [`GetContractStorage`](/reference/type-aliases/getcontractstorage/)
 
 #### Source
 
@@ -45,6 +49,10 @@ title: "Cache"
 
 > **clear**(): `void`
 
+#### Returns
+
+`void`
+
 #### Source
 
 [packages/state/src/Cache.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L47)
@@ -57,9 +65,13 @@ title: "Cache"
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **address**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Source
 
@@ -73,15 +85,16 @@ title: "Cache"
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **address**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
-▪ **key**: `Uint8Array`
+• **key**: `Uint8Array`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+#### Returns
+
+`void`
 
 #### Source
 
 [packages/state/src/Cache.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,13 +5,10 @@ prev: false
 title: "AnvilImpersonateAccountJsonRpcRequest"
 ---
 
-> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_impersonateAccount"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilImpersonateAccountParams`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountparams/)\>]\>
+> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_impersonateAccount"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilImpersonateAccountParams`](/reference/actions-types/type-aliases/anvilimpersonateaccountparams/)\>]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

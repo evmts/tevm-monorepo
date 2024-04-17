@@ -9,11 +9,12 @@ title: "AnvilMineHandler"
 
 ## Parameters
 
-▪ **params**: [`AnvilMineParams`](/reference/tevm/actions-types/type-aliases/anvilmineparams/)
+• **params**: [`AnvilMineParams`](/reference/tevm/actions-types/type-aliases/anvilmineparams/)
+
+## Returns
+
+`Promise`\<[`AnvilMineResult`](/reference/tevm/actions-types/type-aliases/anvilmineresult/)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L48)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

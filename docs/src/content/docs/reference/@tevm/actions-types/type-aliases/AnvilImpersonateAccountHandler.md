@@ -9,11 +9,12 @@ title: "AnvilImpersonateAccountHandler"
 
 ## Parameters
 
-▪ **params**: [`AnvilImpersonateAccountParams`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountparams/)
+• **params**: [`AnvilImpersonateAccountParams`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountparams/)
+
+## Returns
+
+`Promise`\<[`AnvilImpersonateAccountResult`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountresult/)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L33)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

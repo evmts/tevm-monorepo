@@ -9,17 +9,18 @@ title: "createUnplugin"
 
 ## Type parameters
 
-▪ **UserOptions**
+• **UserOptions**
 
-▪ **Nested** extends `boolean` = `boolean`
+• **Nested** extends `boolean` = `boolean`
 
 ## Parameters
 
-▪ **factory**: `UnpluginFactory`\<`UserOptions`, `Nested`\>
+• **factory**: `UnpluginFactory`\<`UserOptions`, `Nested`\>
+
+## Returns
+
+`UnpluginInstance`\<`UserOptions`, `Nested`\>
 
 ## Source
 
 node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:120
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

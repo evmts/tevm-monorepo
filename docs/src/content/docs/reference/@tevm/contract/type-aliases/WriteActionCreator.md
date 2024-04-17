@@ -19,17 +19,16 @@ tevm.contract(
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `THumanReadableAbi` extends readonly `string`[] | - |
-| `TBytecode` extends [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined` | - |
-| `TDeployedBytecode` extends [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined` | - |
-| `TAddress` extends [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` | - |
-| `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
+• **THumanReadableAbi** extends readonly `string`[]
+
+• **TBytecode** extends [`Hex`](/reference/utils/type-aliases/hex/) \| `undefined`
+
+• **TDeployedBytecode** extends [`Hex`](/reference/utils/type-aliases/hex/) \| `undefined`
+
+• **TAddress** extends [`Address`](/reference/utils/type-aliases/address/) \| `undefined`
+
+• **TAddressArgs** = `TAddress` extends `undefined` ? `object` : `object`
 
 ## Source
 
 [write/WriteActionCreator.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/write/WriteActionCreator.ts#L23)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

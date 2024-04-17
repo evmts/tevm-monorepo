@@ -23,11 +23,12 @@ await tevm.setAccount({
 
 ## Parameters
 
-▪ **params**: [`SetAccountParams`](/reference/tevm/actions-types/type-aliases/setaccountparams/)
+• **params**: [`SetAccountParams`](/reference/tevm/actions-types/type-aliases/setaccountparams/)
+
+## Returns
+
+`Promise`\<[`SetAccountResult`](/reference/tevm/actions-types/type-aliases/setaccountresult/)\>
 
 ## Source
 
 [handlers/SetAccountHandler.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/SetAccountHandler.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

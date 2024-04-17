@@ -9,11 +9,12 @@ title: "EthSendRawTransactionJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthSendRawTransactionJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcrequest/)
+• **request**: [`EthSendRawTransactionJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthSendRawTransactionJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L199)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -26,55 +26,50 @@ const accountParams: import('tevm/api').SetAccountParams = {
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/utils/type-aliases/address/)
+> **address**: [`Address`](/reference/utils/type-aliases/address/)
 
 Address of account
 
-### balance
+### balance?
 
-> **balance**?: `bigint`
+> **`optional`** **balance**: `bigint`
 
 Balance to set account to
 
-### deployedBytecode
+### deployedBytecode?
 
-> **deployedBytecode**?: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **`optional`** **deployedBytecode**: [`Hex`](/reference/utils/type-aliases/hex/)
 
 Contract bytecode to set account to
 
-### nonce
+### nonce?
 
-> **nonce**?: `bigint`
+> **`optional`** **nonce**: `bigint`
 
 Nonce to set account to
 
-### state
+### state?
 
-> **state**?: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+> **`optional`** **state**: `Record`\<[`Hex`](/reference/utils/type-aliases/hex/), [`Hex`](/reference/utils/type-aliases/hex/)\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
-### stateDiff
+### stateDiff?
 
-> **stateDiff**?: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+> **`optional`** **stateDiff**: `Record`\<[`Hex`](/reference/utils/type-aliases/hex/), [`Hex`](/reference/utils/type-aliases/hex/)\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
-### storageRoot
+### storageRoot?
 
-> **storageRoot**?: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **`optional`** **storageRoot**: [`Hex`](/reference/utils/type-aliases/hex/)
 
 Storage root to set account to
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** extends `boolean` = `boolean`
 
 ## Source
 
 [params/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L17)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

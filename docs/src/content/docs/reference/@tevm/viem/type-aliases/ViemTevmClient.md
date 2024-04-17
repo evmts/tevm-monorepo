@@ -14,13 +14,10 @@ The decorated properties added by the `tevmViemExtension`
 
 ## Type declaration
 
-### tevm
+### ~~tevm~~
 
-> **tevm**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/)
+> **tevm**: [`TevmClient`](/reference/client-types/type-aliases/tevmclient/)
 
 ## Source
 
 [ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

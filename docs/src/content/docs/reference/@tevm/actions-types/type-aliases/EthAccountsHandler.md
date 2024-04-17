@@ -9,11 +9,12 @@ title: "EthAccountsHandler"
 
 ## Parameters
 
-▪ **request?**: [`EthAccountsParams`](/reference/tevm/actions-types/type-aliases/ethaccountsparams/)
+• **request?**: [`EthAccountsParams`](/reference/tevm/actions-types/type-aliases/ethaccountsparams/)
+
+## Returns
+
+`Promise`\<[`EthAccountsResult`](/reference/tevm/actions-types/type-aliases/ethaccountsresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L83)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

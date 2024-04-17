@@ -17,13 +17,17 @@ Error thrown when blob gas limit is exceeded
 
 > **new BlobGasLimitExceededError**(): [`BlobGasLimitExceededError`](/reference/tevm/actions/classes/blobgaslimitexceedederror/)
 
+#### Returns
+
+[`BlobGasLimitExceededError`](/reference/tevm/actions/classes/blobgaslimitexceedederror/)
+
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L28)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L29)
 
 ## Properties
 
@@ -33,21 +37,21 @@ Error.constructor
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L20)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L21)
 
 ***
 
-### cause
+### cause?
 
-> **cause**?: `unknown`
+> **`optional`** **cause**: `unknown`
 
 #### Inherited from
 
-Error.cause
+`Error.cause`
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -57,11 +61,11 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -71,55 +75,51 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-Error.name
+`Error.name`
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L26)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L27)
 
 ***
 
-### stack
+### stack?
 
-> **stack**?: `string`
+> **`optional`** **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
 #### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-Optional override for formatting stack traces
 
 #### Parameters
 
-▪ **err**: `Error`
+• **err**: `Error`
 
-▪ **stackTraces**: `CallSite`[]
+• **stackTraces**: `CallSite`[]
 
 #### Returns
 
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+`any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
 #### Source
 
@@ -133,7 +133,7 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
 #### Source
 
@@ -151,13 +151,17 @@ Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
@@ -171,17 +175,18 @@ Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
-node\_modules/.pnpm/bun-types@1.0.36/node\_modules/bun-types/globals.d.ts:1637
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/bun-types@1.1.4/node\_modules/bun-types/globals.d.ts:1637

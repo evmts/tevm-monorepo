@@ -5,13 +5,10 @@ prev: false
 title: "EthGetTransactionByBlockNumberAndIndexJsonRpcResponse"
 ---
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](/reference/tevm/actions-types/type-aliases/transactionresult/), `string`\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](/reference/actions-types/type-aliases/transactionresult/), `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:238](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L238)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:242](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L242)

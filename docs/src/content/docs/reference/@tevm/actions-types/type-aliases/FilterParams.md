@@ -30,6 +30,3 @@ An event filter optionsobject
 ## Source
 
 [common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/FilterParams.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,11 +14,13 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ## Parameters
 
-▪ **options?**: `object`
+• **options?**
 
-▪ **options.solc?**: [`SolcVersions`](/reference/tevm/solc/type-aliases/solcversions/)
+• **options\.solc?**: [`SolcVersions`](/reference/solc/type-aliases/solcversions/)
 
 ## Returns
+
+`Plugin`
 
 ## Example
 
@@ -102,6 +104,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

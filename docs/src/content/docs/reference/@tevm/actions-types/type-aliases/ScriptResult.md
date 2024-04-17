@@ -9,15 +9,12 @@ title: "ScriptResult"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TAbi` extends [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] | [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) |
-| `TFunctionName` extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> | [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> |
-| `TErrorType` | [`ScriptError`](/reference/tevm/errors/type-aliases/scripterror/) |
+• **TAbi** extends [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions-types/type-aliases/abi/)
+
+• **TFunctionName** extends [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+
+• **TErrorType** = [`ScriptError`](/reference/errors/type-aliases/scripterror/)
 
 ## Source
 
 [result/ScriptResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ScriptResult.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

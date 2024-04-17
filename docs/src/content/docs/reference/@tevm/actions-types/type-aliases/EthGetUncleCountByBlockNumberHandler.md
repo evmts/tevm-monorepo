@@ -9,11 +9,12 @@ title: "EthGetUncleCountByBlockNumberHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleCountByBlockNumberParams`](/reference/tevm/actions-types/type-aliases/ethgetunclecountbyblocknumberparams/)
+• **request**: [`EthGetUncleCountByBlockNumberParams`](/reference/tevm/actions-types/type-aliases/ethgetunclecountbyblocknumberparams/)
+
+## Returns
+
+`Promise`\<[`EthGetUncleCountByBlockNumberResult`](/reference/tevm/actions-types/type-aliases/ethgetunclecountbyblocknumberresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L161)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

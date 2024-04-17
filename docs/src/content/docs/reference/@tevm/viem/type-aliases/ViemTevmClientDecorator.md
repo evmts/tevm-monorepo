@@ -14,11 +14,12 @@ A viem decorator for `tevmViemExtension`
 
 ## Parameters
 
-▪ **client**: `Pick`\<`Client`, `"request"`\>
+• **client**: `Pick`\<`Client`, `"request"`\>
+
+## Returns
+
+[`ViemTevmClient`](/reference/tevm/viem/type-aliases/viemtevmclient/)
 
 ## Source
 
 [ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

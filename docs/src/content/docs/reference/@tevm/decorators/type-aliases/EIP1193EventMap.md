@@ -13,35 +13,52 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-▪ **accounts**: \`0x${string}\`[]
+• **accounts**: ```0x${string}```[]
+
+#### Returns
+
+`void`
 
 ### chainChanged()
 
 #### Parameters
 
-▪ **chainId**: `string`
+• **chainId**: `string`
+
+#### Returns
+
+`void`
 
 ### connect()
 
 #### Parameters
 
-▪ **connectInfo**: [`ProviderConnectInfo`](/reference/tevm/decorators/type-aliases/providerconnectinfo/)
+• **connectInfo**: [`ProviderConnectInfo`](/reference/tevm/decorators/type-aliases/providerconnectinfo/)
+
+#### Returns
+
+`void`
 
 ### disconnect()
 
 #### Parameters
 
-▪ **error**: [`ProviderRpcError`](/reference/tevm/decorators/classes/providerrpcerror/)
+• **error**: [`ProviderRpcError`](/reference/classes/providerrpcerror/)
+
+#### Returns
+
+`void`
 
 ### message()
 
 #### Parameters
 
-▪ **message**: [`ProviderMessage`](/reference/tevm/decorators/type-aliases/providermessage/)
+• **message**: [`ProviderMessage`](/reference/tevm/decorators/type-aliases/providermessage/)
+
+#### Returns
+
+`void`
 
 ## Source
 
 [packages/decorators/src/eip1193/EIP1193Events.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

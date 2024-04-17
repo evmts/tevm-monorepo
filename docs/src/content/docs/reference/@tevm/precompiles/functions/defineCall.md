@@ -5,38 +5,35 @@ prev: false
 title: "defineCall"
 ---
 
-> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
+> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](/reference/evm/interfaces/execresult/)\>
 
 ## Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/)
+• **TAbi** extends [`Abi`](/reference/utils/type-aliases/abi/)
 
 ## Parameters
 
-▪ **abi**: `TAbi`
+• **abi**: `TAbi`
 
-▪ **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
+• **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
 
 ## Returns
 
-> > (`__namedParameters`): `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
->
+`Function`
+
 > ### Parameters
 >
-> ▪ **\_\_namedParameters**: `object`
+> • **\_\_namedParameters**
 >
-> ▪ **\_\_namedParameters.data**: \`0x${string}\`
+> • **\_\_namedParameters\.data**: ```0x${string}```
 >
-> ▪ **\_\_namedParameters.gasLimit**: `bigint`
+> • **\_\_namedParameters\.gasLimit**: `bigint`
 >
-> ### Source
+> ### Returns
 >
-> [precompiles/src/defineCall.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L35)
+> `Promise`\<[`ExecResult`](/reference/evm/interfaces/execresult/)\>
 >
 
 ## Source
 
 [precompiles/src/defineCall.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

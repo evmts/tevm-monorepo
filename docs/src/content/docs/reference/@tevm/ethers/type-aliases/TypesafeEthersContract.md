@@ -9,31 +9,30 @@ title: "TypesafeEthersContract"
 
 ## Type declaration
 
-### queryFilter
+### queryFilter()
 
-> **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` extends [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/tevm/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
+> **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` extends [`ExtractAbiEventNames`](/reference/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
 #### Type parameters
 
-▪ **TContractEventName** extends `Omit`\<`ContractEventName`, [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>\> \| [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>
+• **TContractEventName** extends `Omit`\<`ContractEventName`, [`ExtractAbiEventNames`](/reference/utils/type-aliases/extractabieventnames/)\<`TAbi`\>\> \| [`ExtractAbiEventNames`](/reference/utils/type-aliases/extractabieventnames/)\<`TAbi`\>
 
 #### Parameters
 
-▪ **event**: `TContractEventName`
+• **event**: `TContractEventName`
 
-▪ **fromBlock?**: `BlockTag`
+• **fromBlock?**: `BlockTag`
 
-▪ **toBlock?**: `BlockTag`
+• **toBlock?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`TContractEventName` extends [`ExtractAbiEventNames`](/reference/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) |
+• **TAbi** extends [`Abi`](/reference/utils/type-aliases/abi/)
 
 ## Source
 
 [extensions/ethers/src/contract/TypesafeEthersContract.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L19)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

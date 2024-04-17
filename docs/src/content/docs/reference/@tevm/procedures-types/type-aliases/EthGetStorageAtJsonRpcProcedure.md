@@ -9,11 +9,12 @@ title: "EthGetStorageAtJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGetStorageAtJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetstorageatjsonrpcrequest/)
+• **request**: [`EthGetStorageAtJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetstorageatjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGetStorageAtJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgetstorageatjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L151)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

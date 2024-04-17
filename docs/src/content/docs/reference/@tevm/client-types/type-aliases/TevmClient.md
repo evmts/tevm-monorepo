@@ -9,11 +9,11 @@ title: "TevmClient"
 
 ## See
 
-[guide](TevmClient.md) for more documentation on clients
+[guide](../../../../../../../reference/tevm/client-types/type-aliases/tevmclient) for more documentation on clients
 
 #### JSON-RPC
 
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](Property request: TevmJsonRpcRequestHandler)
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the TevmClient.request
 
 ## Example
 
@@ -45,7 +45,7 @@ console.log(account.balance) // 0n
 
 #### Ethereum actions
 
-Ethereum actions are namespaced under [TevmClient.eth](Property eth: Object)
+Ethereum actions are namespaced under TevmClient.eth
 
 ## Example
 
@@ -69,9 +69,9 @@ using Tevm.
 
 ## Type declaration
 
-### call
+### ~~call~~
 
-> **call**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **call**: [`CallHandler`](/reference/actions-types/type-aliases/callhandler/)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -91,9 +91,9 @@ const res = tevm.call({
 }
 ```
 
-### contract
+### ~~contract~~
 
-> **contract**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contract**: [`ContractHandler`](/reference/actions-types/type-aliases/contracthandler/)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -118,9 +118,9 @@ const res = await tevm.contract({
 console.log(res.data) // "hello"
 ```
 
-### dumpState
+### ~~dumpState~~
 
-> **dumpState**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpState**: [`DumpStateHandler`](/reference/actions-types/type-aliases/dumpstatehandler/)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -142,7 +142,7 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
-### eth
+### ~~eth~~
 
 > **eth**: `object`
 
@@ -154,7 +154,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **eth.blockNumber**: [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+> **blockNumber**: [`EthBlockNumberHandler`](/reference/actions-types/type-aliases/ethblocknumberhandler/)
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -173,7 +173,7 @@ console.log(blockNumber) // 0n
 
 ### eth.call
 
-> **eth.call**: [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+> **call**: [`EthCallHandler`](/reference/actions-types/type-aliases/ethcallhandler/)
 
 Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -192,7 +192,7 @@ console.log(res) // "0x..."
 
 ### eth.chainId
 
-> **eth.chainId**: [`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
+> **chainId**: [`EthChainIdHandler`](/reference/actions-types/type-aliases/ethchainidhandler/)
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -211,7 +211,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **eth.gasPrice**: [`EthGasPriceHandler`](/reference/tevm/actions-types/type-aliases/ethgaspricehandler/)
+> **gasPrice**: [`EthGasPriceHandler`](/reference/actions-types/type-aliases/ethgaspricehandler/)
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -230,7 +230,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **eth.getBalance**: [`EthGetBalanceHandler`](/reference/tevm/actions-types/type-aliases/ethgetbalancehandler/)
+> **getBalance**: [`EthGetBalanceHandler`](/reference/actions-types/type-aliases/ethgetbalancehandler/)
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -249,7 +249,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **eth.getCode**: [`EthGetCodeHandler`](/reference/tevm/actions-types/type-aliases/ethgetcodehandler/)
+> **getCode**: [`EthGetCodeHandler`](/reference/actions-types/type-aliases/ethgetcodehandler/)
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -267,7 +267,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **eth.getStorageAt**: [`EthGetStorageAtHandler`](/reference/tevm/actions-types/type-aliases/ethgetstorageathandler/)
+> **getStorageAt**: [`EthGetStorageAtHandler`](/reference/actions-types/type-aliases/ethgetstorageathandler/)
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -283,9 +283,9 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
 ```
 
-### getAccount
+### ~~getAccount~~
 
-> **getAccount**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+> **getAccount**: [`GetAccountHandler`](/reference/actions-types/type-aliases/getaccounthandler/)
 
 Gets the state of a specific ethereum address
 
@@ -298,9 +298,9 @@ console.log(res.nonce)
 console.log(res.balance)
 ```
 
-### loadState
+### ~~loadState~~
 
-> **loadState**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **loadState**: [`LoadStateHandler`](/reference/actions-types/type-aliases/loadstatehandler/)
 
 Loads a previously dumped state into the VM
 
@@ -322,7 +322,7 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
-### request
+### ~~request~~
 
 > **request**: `TevmJsonRpcRequestHandler`
 
@@ -346,7 +346,9 @@ const accountResponse = await tevm.request({
 })
 ```
 
-### requestBulk
+### ~~requestBulk~~
+
+`Experimental`
 
 > **requestBulk**: `TevmJsonRpcBulkRequestHandler`
 
@@ -443,9 +445,9 @@ response - EthGetBalanceJsonRpcResponse
 This API should not be used in production and may be trimmed from a public release.
 :::
 
-### script
+### ~~script~~
 
-> **script**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+> **script**: [`ScriptHandler`](/reference/actions-types/type-aliases/scripthandler/)
 
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
@@ -473,9 +475,9 @@ const res = tevm.script(
 )
 ```
 
-### setAccount
+### ~~setAccount~~
 
-> **setAccount**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+> **setAccount**: [`SetAccountHandler`](/reference/actions-types/type-aliases/setaccounthandler/)
 
 Sets the state of a specific ethereum address
 
@@ -494,6 +496,3 @@ await tevm.setAccount({
 ## Source
 
 [TevmClient.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L135)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

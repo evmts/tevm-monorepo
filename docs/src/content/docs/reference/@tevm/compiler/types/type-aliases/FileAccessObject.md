@@ -9,45 +9,58 @@ title: "FileAccessObject"
 
 ## Type declaration
 
-### exists
+### exists()
 
 > **exists**: (`path`) => `Promise`\<`boolean`\>
 
 #### Parameters
 
-▪ **path**: `string`
+• **path**: `string`
 
-### existsSync
+#### Returns
+
+`Promise`\<`boolean`\>
+
+### existsSync()
 
 > **existsSync**: (`path`) => `boolean`
 
 #### Parameters
 
-▪ **path**: `string`
+• **path**: `string`
 
-### readFile
+#### Returns
+
+`boolean`
+
+### readFile()
 
 > **readFile**: (`path`, `encoding`) => `Promise`\<`string`\>
 
 #### Parameters
 
-▪ **path**: `string`
+• **path**: `string`
 
-▪ **encoding**: `BufferEncoding`
+• **encoding**: `BufferEncoding`
 
-### readFileSync
+#### Returns
+
+`Promise`\<`string`\>
+
+### readFileSync()
 
 > **readFileSync**: (`path`, `encoding`) => `string`
 
 #### Parameters
 
-▪ **path**: `string`
+• **path**: `string`
 
-▪ **encoding**: `BufferEncoding`
+• **encoding**: `BufferEncoding`
+
+#### Returns
+
+`string`
 
 ## Source
 
 [compiler/src/types.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L40)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

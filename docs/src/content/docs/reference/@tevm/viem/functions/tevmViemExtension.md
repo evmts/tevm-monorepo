@@ -5,7 +5,7 @@ prev: false
 title: "tevmViemExtension"
 ---
 
-> **tevmViemExtension**(): [`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
+> **tevmViemExtension**(): [`ViemTevmClientDecorator`](/reference/type-aliases/viemtevmclientdecorator/)
 
 :::caution[Deprecated]
 in favor of the viem transport
@@ -13,6 +13,8 @@ Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://t
 :::
 
 ## Returns
+
+[`ViemTevmClientDecorator`](/reference/type-aliases/viemtevmclientdecorator/)
 
 ## Example
 
@@ -36,6 +38,3 @@ await client.tevm.account({
 ## Source
 
 [tevmViemExtension.js:42](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtension.js#L42)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

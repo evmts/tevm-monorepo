@@ -11,13 +11,10 @@ Parses JSON ABI into human-readable ABI
 
 ## Type parameters
 
-| Parameter | Description |
-| :------ | :------ |
-| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] | ABI |
+• **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+
+ABI
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.3.3\_zod@3.22.4/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9

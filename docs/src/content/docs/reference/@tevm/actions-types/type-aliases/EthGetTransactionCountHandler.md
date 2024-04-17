@@ -9,11 +9,12 @@ title: "EthGetTransactionCountHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionCountParams`](/reference/tevm/actions-types/type-aliases/ethgettransactioncountparams/)
+• **request**: [`EthGetTransactionCountParams`](/reference/tevm/actions-types/type-aliases/ethgettransactioncountparams/)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionCountResult`](/reference/tevm/actions-types/type-aliases/ethgettransactioncountresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L153)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

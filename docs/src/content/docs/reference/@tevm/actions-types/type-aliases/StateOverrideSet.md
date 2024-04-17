@@ -34,11 +34,8 @@ It can be used to debug smart contracts in an already deployed large suite of co
 
 ## Index signature
 
- \[`address`: [`Address`](/reference/tevm/utils/type-aliases/address/)\]: `object`
+ \[`address`: [`Address`](/reference/utils/type-aliases/address/)\]: `object`
 
 ## Source
 
 [common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/StateOverrideSet.ts#L29)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

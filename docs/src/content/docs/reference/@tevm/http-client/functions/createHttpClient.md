@@ -5,16 +5,18 @@ prev: false
 title: "createHttpClient"
 ---
 
-> **createHttpClient**(`params`): [`HttpClient`](/reference/tevm/http-client/type-aliases/httpclient/)
+> **createHttpClient**(`params`): [`HttpClient`](/reference/type-aliases/httpclient/)
 
 Creates a remote tevm client for interacting with an http server
 over HTTP.
 
 ## Parameters
 
-▪ **params**: [`HttpClientOptions`](/reference/tevm/http-client/type-aliases/httpclientoptions/)
+• **params**: [`HttpClientOptions`](/reference/type-aliases/httpclientoptions/)
 
 ## Returns
+
+[`HttpClient`](/reference/type-aliases/httpclient/)
 
 ## Example
 
@@ -37,6 +39,3 @@ const account = await client.eth.getAccount({
 ## Source
 
 [createHttpClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L23)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

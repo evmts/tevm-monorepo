@@ -11,27 +11,28 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
 
-### extend
+### extend()
 
 > **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-Extends the base client with additional functionality. This enables optimal code splitting
-and extensibility
-
 #### Type parameters
 
-▪ **TExtension** extends `Record`\<`string`, `any`\>
+• **TExtension** extends `Record`\<`string`, `any`\>
 
 #### Parameters
 
-▪ **decorator**: (`client`) => `TExtension`
+• **decorator**
 
-### forkUrl
+#### Returns
 
-> **`readonly`** **forkUrl**?: `string`
+[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
+
+### forkUrl?
+
+> **`optional`** **`readonly`** **forkUrl**: `string`
 
 Fork url if the EVM is forked
 
@@ -42,7 +43,17 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-### getChainId
+### getChain()
+
+> **`readonly`** **getChain**: () => `Promise`\<[`Chain`](/reference/blockchain/classes/chain/)\>
+
+Represents the entire blockchain including it's logs and historical state
+
+#### Returns
+
+`Promise`\<[`Chain`](/reference/blockchain/classes/chain/)\>
+
+### getChainId()
 
 > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
 
@@ -56,37 +67,47 @@ const chainId = await client.getChainId()
 console.log(chainId)
 ```
 
-Gets the chainId of the current EVM
+#### Returns
+
+`Promise`\<`number`\>
+
+### getReceiptsManager()
+
+> **`readonly`** **getReceiptsManager**: () => `Promise`\<[`ReceiptsManager`](/reference/blockchain/classes/receiptsmanager/)\>
+
+Interface for querying receipts and historical state
 
 #### Returns
 
-#### Example
+`Promise`\<[`ReceiptsManager`](/reference/blockchain/classes/receiptsmanager/)\>
 
-```ts
-const client = createMemoryClient()
-const chainId = await client.getChainId()
-console.log(chainId)
-```
-
-### getTxPool
+### getTxPool()
 
 > **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
 
 Gets the pool of pending transactions to be included in next block
 
-Gets the pool of pending transactions to be included in next block
+#### Returns
 
-### getVm
+`Promise`\<`TxPool`\>
 
-> **`readonly`** **getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
+### getVm()
 
-Internal instance of the VM. Can be used for lower level operations.
-Normally not recomended to use unless building libraries or extensions
-on top of Tevm.
+> **`readonly`** **getVm**: () => `Promise`\<[`TevmVm`](/reference/vm/classes/tevmvm/)\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
+
+#### Returns
+
+`Promise`\<[`TevmVm`](/reference/vm/classes/tevmvm/)\>
+
+### logger
+
+> **`readonly`** **logger**: `Logger`
+
+The logger instance
 
 ### miningConfig
 
@@ -115,7 +136,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-### ready
+### ready()
 
 > **`readonly`** **ready**: () => `Promise`\<`true`\>
 
@@ -130,41 +151,30 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-Returns promise that resulves when the client is ready
-The client is usable without calling this method but may
-have extra latency on the first call from initialization
-
 #### Returns
 
-#### Example
+`Promise`\<`true`\>
 
-```ts
-const client = createMemoryClient()
-await client.ready()
-```
-
-### setChainId
+### setChainId()
 
 > **`readonly`** **setChainId**: (`chainId`) => `void`
 
 Sets the chain id of the current EVM
 
-Sets the chain id of the current EVM
-
 #### Parameters
 
-▪ **chainId**: `number`
+• **chainId**: `number`
+
+#### Returns
+
+`void`
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TMode` extends `"fork"` \| `"proxy"` \| `"normal"` | `"fork"` \| `"proxy"` \| `"normal"` |
-| `TExtended` | `object` |
+• **TMode** extends `"fork"` \| `"proxy"` \| `"normal"` = `"fork"` \| `"proxy"` \| `"normal"`
+
+• **TExtended** = `object`
 
 ## Source
 
-[BaseClient.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[BaseClient.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L10)

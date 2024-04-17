@@ -11,11 +11,12 @@ Procedure for handling script JSON-RPC requests
 
 ## Parameters
 
-▪ **request**: [`ScriptJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcrequest/)
+• **request**: [`ScriptJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`ScriptJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/ScriptJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/ScriptJsonRpcProcedure.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

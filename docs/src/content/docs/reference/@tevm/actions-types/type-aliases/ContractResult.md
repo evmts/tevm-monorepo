@@ -9,15 +9,12 @@ title: "ContractResult"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TAbi` extends [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] | [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) |
-| `TFunctionName` extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> | [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> |
-| `ErrorType` | [`ContractError`](/reference/tevm/errors/type-aliases/contracterror/) |
+• **TAbi** extends [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions-types/type-aliases/abi/)
+
+• **TFunctionName** extends [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+
+• **ErrorType** = [`ContractError`](/reference/errors/type-aliases/contracterror/)
 
 ## Source
 
 [result/ContractResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ContractResult.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

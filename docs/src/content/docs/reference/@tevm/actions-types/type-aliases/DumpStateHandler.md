@@ -29,11 +29,12 @@ await tevm.loadState({state})
 
 ## Parameters
 
-▪ **params?**: `BaseParams`
+• **params?**: `BaseParams`
+
+## Returns
+
+`Promise`\<[`DumpStateResult`](/reference/tevm/actions-types/type-aliases/dumpstateresult/)\>
 
 ## Source
 
 [handlers/DumpStateHandler.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DumpStateHandler.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

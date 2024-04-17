@@ -7,7 +7,7 @@ title: "GenesisState"
 
 If you are using a custom chain Common, pass the genesis state.
 
-Pattern 1 (with genesis state see [GenesisState](/reference/tevm/utils/interfaces/genesisstate/) for format):
+Pattern 1 (with genesis state see [GenesisState](../../../../../../../reference/tevm/utils/interfaces/genesisstate) for format):
 
 ```javascript
 {
@@ -16,7 +16,7 @@ Pattern 1 (with genesis state see [GenesisState](/reference/tevm/utils/interface
 ```
 
 Pattern 2 (with complex genesis state, containing contract accounts and storage).
-Note that in [AccountState]([object Object]) there are two
+Note that in AccountState there are two
 accepted types. This allows to easily insert accounts in the genesis state:
 
 A complex genesis state with Contract and EoA states would have the following format:
@@ -31,6 +31,3 @@ A complex genesis state with Contract and EoA states would have the following fo
 ## Indexable
 
  \[`key`: `PrefixedHexString`\]: `PrefixedHexString` \| `AccountState`
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

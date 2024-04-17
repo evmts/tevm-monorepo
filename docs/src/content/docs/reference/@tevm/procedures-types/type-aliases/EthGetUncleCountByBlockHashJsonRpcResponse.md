@@ -5,13 +5,10 @@ prev: false
 title: "EthGetUncleCountByBlockHashJsonRpcResponse"
 ---
 
-> **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getUncleCountByBlockHash"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
+> **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getUncleCountByBlockHash"`, [`Hex`](/reference/utils/type-aliases/hex/), `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L197)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L201)

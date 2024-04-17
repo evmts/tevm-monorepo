@@ -20,11 +20,12 @@ console.log(res.balance)
 
 ## Parameters
 
-▪ **params**: [`GetAccountParams`](/reference/tevm/actions-types/type-aliases/getaccountparams/)
+• **params**: [`GetAccountParams`](/reference/tevm/actions-types/type-aliases/getaccountparams/)
+
+## Returns
+
+`Promise`\<[`GetAccountResult`](/reference/tevm/actions-types/type-aliases/getaccountresult/)\>
 
 ## Source
 
 [handlers/GetAccountHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/GetAccountHandler.ts#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

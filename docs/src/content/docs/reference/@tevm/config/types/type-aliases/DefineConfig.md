@@ -22,22 +22,24 @@ export default defineConfig({
 
 ## Parameters
 
-▪ **configFactory**: [`ConfigFactory`](/reference/tevm/config/types/type-aliases/configfactory/)
+• **configFactory**: [`ConfigFactory`](/reference/tevm/config/types/type-aliases/configfactory/)
 
 ## Returns
 
-> ### configFn
->
-> > **configFn**: (`configFilePath`) => `Effect`\<`never`, [`DefineConfigError`](/reference/tevm/config/defineconfig/classes/defineconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
->
-> #### Parameters
->
-> ▪ **configFilePath**: `string`
->
+`object`
+
+### configFn()
+
+> **configFn**: (`configFilePath`) => `Effect`\<`never`, [`DefineConfigError`](/reference/defineconfig/classes/defineconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
+
+#### Parameters
+
+• **configFilePath**: `string`
+
+#### Returns
+
+`Effect`\<`never`, [`DefineConfigError`](/reference/defineconfig/classes/defineconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
 
 ## Source
 
 [bundler-packages/config/src/types.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L84)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

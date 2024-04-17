@@ -9,17 +9,18 @@ title: "decodeAbiParameters"
 
 ## Type parameters
 
-▪ **TParams** extends readonly `AbiParameter`[]
+• **TParams** extends readonly `AbiParameter`[]
 
 ## Parameters
 
-▪ **params**: `TParams`
+• **params**: `TParams`
 
-▪ **data**: `Uint8Array` \| \`0x${string}\`
+• **data**: `Uint8Array` \| ```0x${string}```
+
+## Returns
+
+`DecodeAbiParametersReturnType`\<`TParams`\>
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/abi/decodeAbiParameters.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/abi/decodeAbiParameters.d.ts:14

@@ -13,7 +13,11 @@ title: "EvmError"
 
 #### Parameters
 
-▪ **error**: [`EvmErrorMessage`](/reference/tevm/evm/enumerations/evmerrormessage/)
+• **error**: [`EvmErrorMessage`](/reference/enumerations/evmerrormessage/)
+
+#### Returns
+
+[`EvmError`](/reference/tevm/evm/classes/evmerror/)
 
 #### Source
 
@@ -23,7 +27,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### error
 
-> **error**: [`EvmErrorMessage`](/reference/tevm/evm/enumerations/evmerrormessage/)
+> **error**: [`EvmErrorMessage`](/reference/enumerations/evmerrormessage/)
 
 #### Source
 
@@ -38,6 +42,3 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:38
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

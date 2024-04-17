@@ -9,11 +9,12 @@ title: "AnvilSetCodeHandler"
 
 ## Parameters
 
-▪ **params**: [`AnvilSetCodeParams`](/reference/tevm/actions-types/type-aliases/anvilsetcodeparams/)
+• **params**: [`AnvilSetCodeParams`](/reference/tevm/actions-types/type-aliases/anvilsetcodeparams/)
+
+## Returns
+
+`Promise`\<[`AnvilSetCodeResult`](/reference/tevm/actions-types/type-aliases/anvilsetcoderesult/)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L64)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

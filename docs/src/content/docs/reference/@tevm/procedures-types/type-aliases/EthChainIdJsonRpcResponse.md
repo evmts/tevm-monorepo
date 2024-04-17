@@ -5,13 +5,10 @@ prev: false
 title: "EthChainIdJsonRpcResponse"
 ---
 
-> **EthChainIdJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_chainId"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
+> **EthChainIdJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_chainId"`, [`Hex`](/reference/utils/type-aliases/hex/), `string` \| `number`\>
 
 JSON-RPC response for `eth_chainId` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L40)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L44)

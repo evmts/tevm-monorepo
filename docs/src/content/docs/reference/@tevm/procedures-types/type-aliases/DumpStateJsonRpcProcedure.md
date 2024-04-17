@@ -23,11 +23,12 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result
 
 ## Parameters
 
-▪ **request**: [`DumpStateJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcrequest/)
+• **request**: [`DumpStateJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`DumpStateJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcresponse/)\>
 
 ## Source
 
 [procedure/DumpStateJsonRpcProcedure.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/DumpStateJsonRpcProcedure.ts#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

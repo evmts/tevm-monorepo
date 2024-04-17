@@ -13,11 +13,8 @@ The parameters for the `tevm_loadState` method
 
 ### state
 
-> **state**: [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`ParameterizedTevmState`](/reference/tevm/state/type-aliases/parameterizedtevmstate/)\>
+> **state**: [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`ParameterizedTevmState`](/reference/state/type-aliases/parameterizedtevmstate/)\>
 
 ## Source
 
 [requests/LoadStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/LoadStateJsonRpcRequest.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

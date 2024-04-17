@@ -7,13 +7,17 @@ title: "Solc"
 
 ## Properties
 
-### compile
+### compile()
 
-> **compile**: (`input`) => [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
+> **compile**: (`input`) => [`SolcOutput`](/reference/type-aliases/solcoutput/)
 
 #### Parameters
 
-▪ **input**: [`SolcInputDescription`](/reference/tevm/solc/type-aliases/solcinputdescription/)
+• **input**: [`SolcInputDescription`](/reference/type-aliases/solcinputdescription/)
+
+#### Returns
+
+[`SolcOutput`](/reference/type-aliases/solcoutput/)
 
 #### Source
 
@@ -41,15 +45,19 @@ title: "Solc"
 
 ***
 
-### loadRemoteVersion
+### loadRemoteVersion()
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
 #### Parameters
 
-▪ **versionString**: `string`
+• **versionString**: `string`
 
-▪ **callback**: (`err`, `solc`?) => `void`
+• **callback**
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -77,13 +85,17 @@ title: "Solc"
 
 ***
 
-### setupMethods
+### setupMethods()
 
 > **setupMethods**: (`soljson`) => `void`
 
 #### Parameters
 
-▪ **soljson**: `any`
+• **soljson**: `any`
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -98,6 +110,3 @@ title: "Solc"
 #### Source
 
 [solcTypes.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L752)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

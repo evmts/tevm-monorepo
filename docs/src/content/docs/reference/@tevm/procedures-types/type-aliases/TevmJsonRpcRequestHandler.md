@@ -5,7 +5,7 @@ prev: false
 title: "TevmJsonRpcRequestHandler"
 ---
 
-> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures-types/type-aliases/jsonrpcreturntypefrommethod/)\<`TRequest`[`"method"`]\>\>
+> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures-types/type-aliases/jsonrpcreturntypefrommethod/)\<`TRequest`\[`"method"`\]\>\>
 
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
@@ -31,74 +31,75 @@ const accountResponse = await tevm.request({
 
 #### tevm_call
 
-request - [CallJsonRpcRequest](CallJsonRpcRequest.md)
-response - [CallJsonRpcResponse](CallJsonRpcResponse.md)
+request - [CallJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/calljsonrpcrequest)
+response - [CallJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/calljsonrpcresponse)
 
 #### tevm_script
 
-request - [ScriptJsonRpcRequest](ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcResponse](ScriptJsonRpcResponse.md)
+request - [ScriptJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/scriptjsonrpcrequest)
+response - [ScriptJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/scriptjsonrpcresponse)
 
 #### tevm_getAccount
 
-request - [GetAccountJsonRpcRequest](GetAccountJsonRpcRequest.md)
-response - [GetAccountJsonRpcResponse](GetAccountJsonRpcResponse.md)
+request - [GetAccountJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/getaccountjsonrpcrequest)
+response - [GetAccountJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/getaccountjsonrpcresponse)
 
 #### tevm_setAccount
 
-request - [SetAccountJsonRpcRequest](SetAccountJsonRpcRequest.md)
-response - [SetAccountJsonRpcResponse](SetAccountJsonRpcResponse.md)
+request - [SetAccountJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/setaccountjsonrpcrequest)
+response - [SetAccountJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/setaccountjsonrpcresponse)
 
 ### debug_* methods
 
 #### debug_traceCall
 
-request - [DebugTraceCallJsonRpcRequest](DebugTraceCallJsonRpcRequest.md)
-response - [DebugTraceCallJsonRpcResponse](DebugTraceCallJsonRpcResponse.md)
+request - [DebugTraceCallJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/debugtracecalljsonrpcrequest)
+response - [DebugTraceCallJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/debugtracecalljsonrpcresponse)
 
 ### eth_* methods
 
 #### eth_blockNumber
 
-request - [EthBlockNumberJsonRpcRequest](EthBlockNumberJsonRpcRequest.md)
-response - [EthBlockNumberJsonRpcResponse](EthBlockNumberJsonRpcResponse.md)
+request - [EthBlockNumberJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethblocknumberjsonrpcrequest)
+response - [EthBlockNumberJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethblocknumberjsonrpcresponse)
 
 #### eth_chainId
 
-request - [EthChainIdJsonRpcRequest](EthChainIdJsonRpcRequest.md)
-response - [EthChainIdJsonRpcResponse](EthChainIdJsonRpcResponse.md)
+request - [EthChainIdJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcrequest)
+response - [EthChainIdJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcresponse)
 
 #### eth_getCode
 
-request - [EthGetCodeJsonRpcRequest](EthGetCodeJsonRpcRequest.md)
-response - [EthGetCodeJsonRpcResponse](EthGetCodeJsonRpcResponse.md)
+request - [EthGetCodeJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcrequest)
+response - [EthGetCodeJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcresponse)
 
 #### eth_getStorageAt
 
-request - [EthGetStorageAtJsonRpcRequest](EthGetStorageAtJsonRpcRequest.md)
-response - [EthGetStorageAtJsonRpcResponse](EthGetStorageAtJsonRpcResponse.md)
+request - [EthGetStorageAtJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetstorageatjsonrpcrequest)
+response - [EthGetStorageAtJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetstorageatjsonrpcresponse)
 
 #### eth_gasPrice
 
-request - [EthGasPriceJsonRpcRequest](EthGasPriceJsonRpcRequest.md)
-response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
+request - [EthGasPriceJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcrequest)
+response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcresponse)
 
 #### eth_getBalance
 
-request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
-response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
+request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcrequest)
+response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcresponse)
 
 ## Type parameters
 
-▪ **TRequest** extends [`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)
+• **TRequest** extends [`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)
 
 ## Parameters
 
-▪ **request**: `TRequest`
+• **request**: `TRequest`
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures-types/type-aliases/jsonrpcreturntypefrommethod/)\<`TRequest`\[`"method"`\]\>\>
 
 ## Source
 
 [tevm-request-handler/TevmJsonRpcRequestHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L113)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

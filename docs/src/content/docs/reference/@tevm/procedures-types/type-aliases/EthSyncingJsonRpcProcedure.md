@@ -9,11 +9,12 @@ title: "EthSyncingJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthSyncingJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethsyncingjsonrpcrequest/)
+• **request**: [`EthSyncingJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethsyncingjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthSyncingJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethsyncingjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L215)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

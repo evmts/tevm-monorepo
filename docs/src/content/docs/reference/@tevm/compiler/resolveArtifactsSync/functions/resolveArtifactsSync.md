@@ -5,29 +5,30 @@ prev: false
 title: "resolveArtifactsSync"
 ---
 
-> **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): [`ResolvedArtifacts`](/reference/tevm/compiler/types/type-aliases/resolvedartifacts/)
+> **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): [`ResolvedArtifacts`](/reference/types/type-aliases/resolvedartifacts/)
 
 ## Parameters
 
-▪ **solFile**: `string`
+• **solFile**: `string`
 
-▪ **basedir**: `string`
+• **basedir**: `string`
 
-▪ **logger**: [`Logger`](/reference/tevm/compiler/types/type-aliases/logger/)
+• **logger**: [`Logger`](/reference/types/type-aliases/logger/)
 
-▪ **config**: [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)
+• **config**: [`ResolvedCompilerConfig`](/reference/config/types/type-aliases/resolvedcompilerconfig/)
 
-▪ **includeAst**: `boolean`
+• **includeAst**: `boolean`
 
-▪ **includeBytecode**: `boolean`
+• **includeBytecode**: `boolean`
 
-▪ **fao**: [`FileAccessObject`](/reference/tevm/compiler/types/type-aliases/fileaccessobject/)
+• **fao**: [`FileAccessObject`](/reference/types/type-aliases/fileaccessobject/)
 
-▪ **solc**: `any`
+• **solc**: `any`
+
+## Returns
+
+[`ResolvedArtifacts`](/reference/types/type-aliases/resolvedartifacts/)
 
 ## Source
 
 [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -11,9 +11,9 @@ Options for a HttpClient
 
 ## Type declaration
 
-### name
+### name?
 
-> **`readonly`** **name**?: `string`
+> **`optional`** **`readonly`** **name**: `string`
 
 Optional name for the client
 
@@ -26,6 +26,3 @@ Remote URL to connect to
 ## Source
 
 [HttpClientOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

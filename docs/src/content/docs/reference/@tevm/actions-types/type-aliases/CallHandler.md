@@ -28,11 +28,12 @@ skipBalance: true,
 
 ## Parameters
 
-▪ **action**: [`CallParams`](/reference/tevm/actions-types/type-aliases/callparams/)
+• **action**: [`CallParams`](/reference/tevm/actions-types/type-aliases/callparams/)
+
+## Returns
+
+`Promise`\<[`CallResult`](/reference/tevm/actions-types/type-aliases/callresult/)\>
 
 ## Source
 
 [handlers/CallHandler.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/CallHandler.ts#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

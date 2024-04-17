@@ -5,21 +5,20 @@ prev: false
 title: "getStorageAtHandler"
 ---
 
-> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](/reference/tevm/actions-types/type-aliases/ethgetstorageathandler/)
+> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](/reference/actions-types/type-aliases/ethgetstorageathandler/)
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.forkUrl**: `undefined` \| `string`
+• **options\.forkUrl**: `undefined` \| `string`
 
-▪ **options.getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
+• **options\.getVm**
 
 ## Returns
+
+[`EthGetStorageAtHandler`](/reference/actions-types/type-aliases/ethgetstorageathandler/)
 
 ## Source
 
 [packages/actions/src/eth/getStorageAtHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtHandler.js#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

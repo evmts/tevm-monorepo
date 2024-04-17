@@ -19,13 +19,8 @@ The transaction hash
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnError` extends `boolean` | `boolean` |
+• **TThrowOnError** extends `boolean` = `boolean`
 
 ## Source
 
 [params/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L46)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

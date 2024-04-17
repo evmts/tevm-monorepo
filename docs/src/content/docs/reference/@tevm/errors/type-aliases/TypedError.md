@@ -16,10 +16,9 @@ for tevm users.
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TName` extends `string` | - |
-| `TMeta` | `never` |
+• **TName** extends `string`
+
+• **TMeta** = `never`
 
 ## Type declaration
 
@@ -31,9 +30,9 @@ for tevm users.
 
 > **message**: `string`
 
-### meta
+### meta?
 
-> **meta**?: `TMeta`
+> **`optional`** **meta**: `TMeta`
 
 ### name
 
@@ -42,6 +41,3 @@ for tevm users.
 ## Source
 
 [packages/errors/src/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/TypedError.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

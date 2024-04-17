@@ -11,11 +11,11 @@ title: "CreateVmOptions"
 
 ### blockchain
 
-> **blockchain**: [`TevmBlockchain`](/reference/tevm/blockchain/classes/tevmblockchain/)
+> **blockchain**: [`TevmBlockchain`](/reference/blockchain/classes/tevmblockchain/)
 
 ### common
 
-> **common**: [`Common`](/reference/tevm/common/classes/common/)
+> **common**: [`Common`](/reference/common/classes/common/)
 
 ### evm
 
@@ -23,11 +23,8 @@ title: "CreateVmOptions"
 
 ### stateManager
 
-> **stateManager**: [`TevmStateManager`](/reference/tevm/state/type-aliases/tevmstatemanager/)
+> **stateManager**: [`TevmStateManager`](/reference/state/type-aliases/tevmstatemanager/)
 
 ## Source
 
 [packages/vm/src/CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

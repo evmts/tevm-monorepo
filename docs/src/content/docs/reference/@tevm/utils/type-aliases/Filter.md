@@ -23,19 +23,20 @@ title: "Filter"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TFilterType` extends `FilterType` | `"event"` |
-| `TAbi` extends `Abi` \| readonly `unknown`[] \| `undefined` | `undefined` |
-| `TEventName` extends `string` \| `undefined` | `undefined` |
-| `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` | `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> |
-| `TStrict` extends `boolean` \| `undefined` | `undefined` |
-| `TFromBlock` extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` | `undefined` |
-| `TToBlock` extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` | `undefined` |
+• **TFilterType** extends `FilterType` = `"event"`
+
+• **TAbi** extends `Abi` \| readonly `unknown`[] \| `undefined` = `undefined`
+
+• **TEventName** extends `string` \| `undefined` = `undefined`
+
+• **TArgs** extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\>
+
+• **TStrict** extends `boolean` \| `undefined` = `undefined`
+
+• **TFromBlock** extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` = `undefined`
+
+• **TToBlock** extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` = `undefined`
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/types/filter.d.ts:11
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/types/filter.d.ts:11

@@ -9,11 +9,12 @@ title: "EthGetBalanceHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetBalanceParams`](/reference/tevm/actions-types/type-aliases/ethgetbalanceparams/)
+• **request**: [`EthGetBalanceParams`](/reference/tevm/actions-types/type-aliases/ethgetbalanceparams/)
+
+## Returns
+
+`Promise`\<[`EthGetBalanceResult`](/reference/tevm/actions-types/type-aliases/ethgetbalanceresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L113)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

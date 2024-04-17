@@ -5,21 +5,23 @@ prev: false
 title: "createScript"
 ---
 
-> **createScript**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
+> **createScript**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Script`](/reference/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
 
 Creates a Tevm `Script` instance from humanReadableAbi and bytecode
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateScriptParams`](/reference/tevm/contract/type-aliases/createscriptparams/)\<`TName`, `THumanReadableAbi`\>
+• **\_\_namedParameters**: [`CreateScriptParams`](/reference/type-aliases/createscriptparams/)\<`TName`, `THumanReadableAbi`\>
 
 ## Returns
+
+[`Script`](/reference/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
 
 ## Example
 
@@ -68,6 +70,3 @@ const script = createScript({
 ## Source
 
 [createScript.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createScript.js#L50)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

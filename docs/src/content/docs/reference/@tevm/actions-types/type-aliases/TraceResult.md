@@ -9,9 +9,9 @@ title: "TraceResult"
 
 ## Type declaration
 
-### calls
+### calls?
 
-> **calls**?: [`TraceCall`](/reference/tevm/actions-types/type-aliases/tracecall/)[]
+> **`optional`** **calls**: [`TraceCall`](/reference/tevm/actions-types/type-aliases/tracecall/)[]
 
 ### from
 
@@ -48,6 +48,3 @@ title: "TraceResult"
 ## Source
 
 [common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/TraceResult.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

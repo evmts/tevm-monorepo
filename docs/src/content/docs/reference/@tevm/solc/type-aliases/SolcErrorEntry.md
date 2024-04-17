@@ -13,29 +13,29 @@ title: "SolcErrorEntry"
 
 > **component**: `string`
 
-### errorCode
+### errorCode?
 
-> **errorCode**?: `string`
+> **`optional`** **errorCode**: `string`
 
-### formattedMessage
+### formattedMessage?
 
-> **formattedMessage**?: `string`
+> **`optional`** **formattedMessage**: `string`
 
 ### message
 
 > **message**: `string`
 
-### secondarySourceLocations
+### secondarySourceLocations?
 
-> **secondarySourceLocations**?: [`SolcSecondarySourceLocation`](/reference/tevm/solc/type-aliases/solcsecondarysourcelocation/)[]
+> **`optional`** **secondarySourceLocations**: [`SolcSecondarySourceLocation`](/reference/tevm/solc/type-aliases/solcsecondarysourcelocation/)[]
 
 ### severity
 
 > **severity**: `"error"` \| `"warning"` \| `"info"`
 
-### sourceLocation
+### sourceLocation?
 
-> **sourceLocation**?: [`SolcSourceLocation`](/reference/tevm/solc/type-aliases/solcsourcelocation/)
+> **`optional`** **sourceLocation**: [`SolcSourceLocation`](/reference/tevm/solc/type-aliases/solcsourcelocation/)
 
 ### type
 
@@ -44,6 +44,3 @@ title: "SolcErrorEntry"
 ## Source
 
 [solcTypes.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L359)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

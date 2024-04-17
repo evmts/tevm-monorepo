@@ -9,11 +9,12 @@ title: "EthGetTransactionByHashHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByHashParams`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyhashparams/)
+• **request**: [`EthGetTransactionByHashParams`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyhashparams/)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByHashResult`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyhashresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L165)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,25 +9,34 @@ title: "SyncStoragePersister"
 
 ## Type declaration
 
-### persistTevmState
+### persistTevmState()
 
 > **persistTevmState**: (`state`) => `void`
 
 #### Parameters
 
-▪ **state**: [`SerializableTevmState`](/reference/tevm/state/type-aliases/serializabletevmstate/)
+• **state**: [`SerializableTevmState`](/reference/state/type-aliases/serializabletevmstate/)
 
-### removePersistedState
+#### Returns
+
+`void`
+
+### removePersistedState()
 
 > **removePersistedState**: () => `void`
 
-### restoreState
+#### Returns
 
-> **restoreState**: () => [`SerializableTevmState`](/reference/tevm/state/type-aliases/serializabletevmstate/) \| `undefined`
+`void`
+
+### restoreState()
+
+> **restoreState**: () => [`SerializableTevmState`](/reference/state/type-aliases/serializabletevmstate/) \| `undefined`
+
+#### Returns
+
+[`SerializableTevmState`](/reference/state/type-aliases/serializabletevmstate/) \| `undefined`
 
 ## Source
 
 [SyncStoragePersister.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/SyncStoragePersister.ts#L3)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

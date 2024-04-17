@@ -9,17 +9,14 @@ title: "EIP1193RequestOptions"
 
 ## Type declaration
 
-### retryCount
+### retryCount?
 
-> **retryCount**?: `number`
+> **`optional`** **retryCount**: `number`
 
-### retryDelay
+### retryDelay?
 
-> **retryDelay**?: `number`
+> **`optional`** **retryDelay**: `number`
 
 ## Source
 
 [packages/decorators/src/eip1193/EIP1993RequestOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestOptions.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

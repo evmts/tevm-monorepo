@@ -9,27 +9,26 @@ title: "EIP1193RequestFn"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TRpcSchema` extends [`RpcSchema`](/reference/tevm/decorators/type-aliases/rpcschema/) \| `undefined` | `undefined` |
+• **TRpcSchema** extends [`RpcSchema`](/reference/tevm/decorators/type-aliases/rpcschema/) \| `undefined` = `undefined`
 
 ## Type parameters
 
-▪ **TRpcSchemaOverride** extends [`RpcSchemaOverride`](/reference/tevm/decorators/type-aliases/rpcschemaoverride/) \| `undefined` = `undefined`
+• **TRpcSchemaOverride** extends [`RpcSchemaOverride`](/reference/tevm/decorators/type-aliases/rpcschemaoverride/) \| `undefined` = `undefined`
 
-▪ **TParameters** extends [`EIP1193Parameters`](/reference/tevm/decorators/type-aliases/eip1193parameters/)\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](/reference/tevm/decorators/type-aliases/eip1193parameters/)\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
+• **TParameters** extends [`EIP1193Parameters`](/reference/tevm/decorators/type-aliases/eip1193parameters/)\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](/reference/tevm/decorators/type-aliases/eip1193parameters/)\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
 
-▪ **_ReturnType** = [`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\> extends [`RpcSchema`](/reference/tevm/decorators/type-aliases/rpcschema/) ? `Extract`\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>[`number`], `object`\>[`"ReturnType"`] : `unknown`
+• **_ReturnType** = [`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\> extends [`RpcSchema`](/reference/tevm/decorators/type-aliases/rpcschema/) ? `Extract`\<[`DerivedRpcSchema`](/reference/tevm/decorators/type-aliases/derivedrpcschema/)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], `object`\>\[`"ReturnType"`\] : `unknown`
 
 ## Parameters
 
-▪ **args**: `TParameters`
+• **args**: `TParameters`
 
-▪ **options?**: [`EIP1193RequestOptions`](/reference/tevm/decorators/type-aliases/eip1193requestoptions/)
+• **options?**: [`EIP1193RequestOptions`](/reference/tevm/decorators/type-aliases/eip1193requestoptions/)
+
+## Returns
+
+`Promise`\<`_ReturnType`\>
 
 ## Source
 
 [packages/decorators/src/eip1193/EIP1993RequestFn.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestFn.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

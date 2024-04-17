@@ -9,9 +9,9 @@ Type of predeploy contract for tevm
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Constructors
 
@@ -19,11 +19,15 @@ Type of predeploy contract for tevm
 
 > **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`TName`, `THumanReadableAbi`\>
 
+#### Returns
+
+[`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`TName`, `THumanReadableAbi`\>
+
 ## Properties
 
-### `abstract` address
+### address
 
-> **`abstract`** **`readonly`** **address**: \`0x${string}\`
+> **`abstract`** **`readonly`** **address**: ```0x${string}```
 
 #### Source
 
@@ -31,9 +35,9 @@ Type of predeploy contract for tevm
 
 ***
 
-### `abstract` contract
+### contract
 
-> **`abstract`** **`readonly`** **contract**: [`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
+> **`abstract`** **`readonly`** **contract**: [`Script`](/reference/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
 
 #### Source
 
@@ -43,7 +47,11 @@ Type of predeploy contract for tevm
 
 ### ethjsAddress()
 
-> **`protected`** **`readonly`** **ethjsAddress**(): [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **`protected`** **`readonly`** **ethjsAddress**(): [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
+
+#### Returns
+
+[`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -57,14 +65,12 @@ Type of predeploy contract for tevm
 
 #### Returns
 
-> ##### address
->
-> > **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
->
+`object`
+
+##### address
+
+> **address**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
 [Predeploy.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

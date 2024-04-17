@@ -9,13 +9,14 @@ title: "getAddress"
 
 ## Parameters
 
-▪ **address**: `string`
+• **address**: `string`
 
-▪ **chainId?**: `number`
+• **chainId?**: `number`
+
+## Returns
+
+`Address`
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/address/getAddress.d.ts:9
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/address/getAddress.d.ts:9

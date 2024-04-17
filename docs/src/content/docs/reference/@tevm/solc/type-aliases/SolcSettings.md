@@ -9,49 +9,46 @@ title: "SolcSettings"
 
 ## Type declaration
 
-### debug
+### debug?
 
-> **debug**?: [`SolcDebugSettings`](/reference/tevm/solc/type-aliases/solcdebugsettings/)
+> **`optional`** **debug**: [`SolcDebugSettings`](/reference/tevm/solc/type-aliases/solcdebugsettings/)
 
-### evmVersion
+### evmVersion?
 
-> **evmVersion**?: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
+> **`optional`** **evmVersion**: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
 
-### libraries
+### libraries?
 
-> **libraries**?: `Record`\<`string`, `Record`\<`string`, `string`\>\>
+> **`optional`** **libraries**: `Record`\<`string`, `Record`\<`string`, `string`\>\>
 
-### metadata
+### metadata?
 
-> **metadata**?: [`SolcMetadataSettings`](/reference/tevm/solc/type-aliases/solcmetadatasettings/)
+> **`optional`** **metadata**: [`SolcMetadataSettings`](/reference/tevm/solc/type-aliases/solcmetadatasettings/)
 
-### modelChecker
+### modelChecker?
 
-> **modelChecker**?: [`SolcModelChecker`](/reference/tevm/solc/type-aliases/solcmodelchecker/)
+> **`optional`** **modelChecker**: [`SolcModelChecker`](/reference/tevm/solc/type-aliases/solcmodelchecker/)
 
-### optimizer
+### optimizer?
 
-> **optimizer**?: [`SolcOptimizer`](/reference/tevm/solc/type-aliases/solcoptimizer/)
+> **`optional`** **optimizer**: [`SolcOptimizer`](/reference/tevm/solc/type-aliases/solcoptimizer/)
 
 ### outputSelection
 
 > **outputSelection**: [`SolcOutputSelection`](/reference/tevm/solc/type-aliases/solcoutputselection/)
 
-### remappings
+### remappings?
 
-> **remappings**?: [`SolcRemapping`](/reference/tevm/solc/type-aliases/solcremapping/)
+> **`optional`** **remappings**: [`SolcRemapping`](/reference/tevm/solc/type-aliases/solcremapping/)
 
-### stopAfter
+### stopAfter?
 
-> **stopAfter**?: `"parsing"`
+> **`optional`** **stopAfter**: `"parsing"`
 
-### viaIR
+### viaIR?
 
-> **viaIR**?: `boolean`
+> **`optional`** **viaIR**: `boolean`
 
 ## Source
 
 [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

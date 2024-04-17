@@ -5,19 +5,18 @@ prev: false
 title: "ethSignHandler"
 ---
 
-> **ethSignHandler**(`params`): [`EthSignHandler`](/reference/tevm/actions-types/type-aliases/ethsignhandler/)
+> **ethSignHandler**(`params`): [`EthSignHandler`](/reference/actions-types/type-aliases/ethsignhandler/)
 
 ## Parameters
 
-▪ **params**: `object`
+• **params**
 
-▪ **params.accounts**: readonly [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/)[]
+• **params\.accounts**: readonly [`HDAccount`](/reference/utils/type-aliases/hdaccount/)[]
 
 ## Returns
+
+[`EthSignHandler`](/reference/actions-types/type-aliases/ethsignhandler/)
 
 ## Source
 
 [packages/actions/src/eth/ethSignHandler.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignHandler.js#L18)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

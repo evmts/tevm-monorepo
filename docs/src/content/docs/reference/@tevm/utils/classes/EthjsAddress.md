@@ -15,7 +15,11 @@ Handling and generating Ethereum addresses
 
 #### Parameters
 
-▪ **bytes**: `Uint8Array`
+• **bytes**: `Uint8Array`
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -41,7 +45,11 @@ Is address equal to another.
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -56,6 +64,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 True if address is in the address range defined
 by EIP-1352
 
+#### Returns
+
+`boolean`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:51
@@ -67,6 +79,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 > **isZero**(): `boolean`
 
 Is address zero.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -80,6 +96,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 Returns a new Uint8Array representation of address.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:59
@@ -91,6 +111,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 > **toString**(): `string`
 
 Returns hex encoding of address.
+
+#### Returns
+
+`string`
 
 #### Source
 
@@ -106,9 +130,13 @@ Returns an address for a given private key.
 
 #### Parameters
 
-▪ **privateKey**: `Uint8Array`
+• **privateKey**: `Uint8Array`
 
 A private key must be 256 bits wide
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -124,9 +152,13 @@ Returns an address for a given public key.
 
 #### Parameters
 
-▪ **pubKey**: `Uint8Array`
+• **pubKey**: `Uint8Array`
 
 The two points of an uncompressed key
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -142,9 +174,13 @@ Returns an Address object from a hex-encoded string.
 
 #### Parameters
 
-▪ **str**: `string`
+• **str**: `string`
 
 Hex-encoded address
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -160,13 +196,17 @@ Generates an address for a newly created contract.
 
 #### Parameters
 
-▪ **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 The address which is creating this new address
 
-▪ **nonce**: `bigint`
+• **nonce**: `bigint`
 
 The nonce of the from account
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -182,17 +222,21 @@ Generates an address for a contract created using CREATE2.
 
 #### Parameters
 
-▪ **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+• **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 The address which is creating this new address
 
-▪ **salt**: `Uint8Array`
+• **salt**: `Uint8Array`
 
 A salt
 
-▪ **initCode**: `Uint8Array`
+• **initCode**: `Uint8Array`
 
 The init code of the contract being created
+
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -206,9 +250,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 Returns the zero address.
 
+#### Returns
+
+[`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

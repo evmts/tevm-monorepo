@@ -11,64 +11,61 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 ## Type declaration
 
-### blockOverride
+### blockOverride?
 
-> **blockOverride**?: [`BlockOverrideSet`](/reference/tevm/actions-types/type-aliases/blockoverrideset/)
+> **`optional`** **blockOverride**: [`BlockOverrideSet`](/reference/tevm/actions-types/type-aliases/blockoverrideset/)
 
 The block override set to provide different block values while executing the call
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> **`optional`** **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 The block number hash or block tag
 
-### data
+### data?
 
-> **data**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 Defaults to zero data
 
-### from
+### from?
 
-> **from**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> **`optional`** **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address from which the transaction is sent. Defaults to zero address
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> **`optional`** **gas**: `bigint`
 
 The integer of gas provided for the transaction execution
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: `bigint`
+> **`optional`** **gasPrice**: `bigint`
 
 The integer of gasPrice used for each paid gas
 
-### stateOverrideSet
+### stateOverrideSet?
 
-> **stateOverrideSet**?: [`StateOverrideSet`](/reference/tevm/actions-types/type-aliases/stateoverrideset/)
+> **`optional`** **stateOverrideSet**: [`StateOverrideSet`](/reference/tevm/actions-types/type-aliases/stateoverrideset/)
 
 The state override set to provide different state values while executing the call
 
-### to
+### to?
 
-> **to**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> **`optional`** **to**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to which the transaction is addressed. Defaults to zero address
 
-### value
+### value?
 
-> **value**?: `bigint`
+> **`optional`** **value**: `bigint`
 
 The integer of value sent with this transaction
 
 ## Source
 
 [params/EthParams.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

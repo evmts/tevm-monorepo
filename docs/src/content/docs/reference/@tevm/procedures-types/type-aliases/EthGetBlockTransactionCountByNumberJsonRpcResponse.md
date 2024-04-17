@@ -5,13 +5,10 @@ prev: false
 title: "EthGetBlockTransactionCountByNumberJsonRpcResponse"
 ---
 
-> **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBlockTransactionCountByNumber"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
+> **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBlockTransactionCountByNumber"`, [`Hex`](/reference/utils/type-aliases/hex/), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L130)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L134)

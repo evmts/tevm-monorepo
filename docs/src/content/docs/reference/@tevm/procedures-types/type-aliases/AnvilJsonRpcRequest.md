@@ -10,6 +10,3 @@ title: "AnvilJsonRpcRequest"
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L140)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

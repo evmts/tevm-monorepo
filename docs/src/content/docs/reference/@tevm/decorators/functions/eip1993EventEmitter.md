@@ -5,15 +5,14 @@ prev: false
 title: "eip1993EventEmitter"
 ---
 
-> **eip1993EventEmitter**(): [`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<[`EIP1193EventEmitter`](/reference/tevm/decorators/type-aliases/eip1193eventemitter/)\>
+> **eip1993EventEmitter**(): [`Extension`](/reference/base-client/type-aliases/extension/)\<[`EIP1193EventEmitter`](/reference/type-aliases/eip1193eventemitter/)\>
 
 Factory function to create an event emitter.
 
 ## Returns
 
+[`Extension`](/reference/base-client/type-aliases/extension/)\<[`EIP1193EventEmitter`](/reference/type-aliases/eip1193eventemitter/)\>
+
 ## Source
 
 [packages/decorators/src/events/eip1993EventEmitter.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/events/eip1993EventEmitter.js#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

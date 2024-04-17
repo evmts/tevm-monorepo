@@ -11,11 +11,12 @@ JSON-RPC procedure for `anvil_mine`
 
 ## Parameters
 
-▪ **request**: [`AnvilMineJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anvilminejsonrpcrequest/)
+• **request**: [`AnvilMineJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anvilminejsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`AnvilMineJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/anvilminejsonrpcresponse/)\>
 
 ## Source
 
 [procedure/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/AnvilProcedure.ts#L62)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

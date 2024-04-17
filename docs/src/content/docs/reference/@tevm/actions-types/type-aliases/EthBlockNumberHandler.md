@@ -9,11 +9,12 @@ title: "EthBlockNumberHandler"
 
 ## Parameters
 
-▪ **request?**: [`EthBlockNumberParams`](/reference/tevm/actions-types/type-aliases/ethblocknumberparams/)
+• **request?**: [`EthBlockNumberParams`](/reference/tevm/actions-types/type-aliases/ethblocknumberparams/)
+
+## Returns
+
+`Promise`\<[`EthBlockNumberResult`](/reference/tevm/actions-types/type-aliases/ethblocknumberresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L87)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

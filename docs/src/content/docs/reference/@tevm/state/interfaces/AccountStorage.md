@@ -19,7 +19,7 @@ title: "AccountStorage"
 
 ### codeHash
 
-> **codeHash**: \`0x${string}\`
+> **codeHash**: ```0x${string}```
 
 #### Source
 
@@ -37,9 +37,9 @@ title: "AccountStorage"
 
 ***
 
-### storage
+### storage?
 
-> **storage**?: [`StorageDump`](/reference/tevm/common/interfaces/storagedump/)
+> **`optional`** **storage**: [`StorageDump`](/reference/common/interfaces/storagedump/)
 
 #### Source
 
@@ -49,11 +49,8 @@ title: "AccountStorage"
 
 ### storageRoot
 
-> **storageRoot**: \`0x${string}\`
+> **storageRoot**: ```0x${string}```
 
 #### Source
 
 [packages/state/src/AccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

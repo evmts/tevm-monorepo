@@ -5,21 +5,20 @@ prev: false
 title: "getCodeHandler"
 ---
 
-> **getCodeHandler**(`options`): [`EthGetCodeHandler`](/reference/tevm/actions-types/type-aliases/ethgetcodehandler/)
+> **getCodeHandler**(`options`): [`EthGetCodeHandler`](/reference/actions-types/type-aliases/ethgetcodehandler/)
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.forkUrl**: `undefined` \| `string`
+• **options\.forkUrl**: `undefined` \| `string`
 
-▪ **options.getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
+• **options\.getVm**
 
 ## Returns
+
+[`EthGetCodeHandler`](/reference/actions-types/type-aliases/ethgetcodehandler/)
 
 ## Source
 
 [packages/actions/src/eth/getCodeHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

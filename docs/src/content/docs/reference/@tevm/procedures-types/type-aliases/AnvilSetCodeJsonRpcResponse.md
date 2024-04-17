@@ -5,13 +5,10 @@ prev: false
 title: "AnvilSetCodeJsonRpcResponse"
 ---
 
-> **AnvilSetCodeJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"anvil_setCode"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetCodeResult`](/reference/tevm/actions-types/type-aliases/anvilsetcoderesult/)\>, `AnvilError`\>
+> **AnvilSetCodeJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"anvil_setCode"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetCodeResult`](/reference/actions-types/type-aliases/anvilsetcoderesult/)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setCode` procedure
 
 ## Source
 
 [responses/AnvilJsonRpcResponse.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L107)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,11 +9,12 @@ title: "EthGetUncleCountByBlockNumberJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetunclecountbyblocknumberjsonrpcrequest/)
+• **request**: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetunclecountbyblocknumberjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgetunclecountbyblocknumberjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L163)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

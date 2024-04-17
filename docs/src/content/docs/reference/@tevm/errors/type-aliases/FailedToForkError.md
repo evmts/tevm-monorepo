@@ -10,6 +10,3 @@ title: "FailedToForkError"
 ## Source
 
 [packages/errors/src/actions/ForkError.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ForkError.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

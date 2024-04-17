@@ -13,9 +13,11 @@ This handler works for any server that supports the Node.js http module
 
 ## Parameters
 
-▪ **parameters**: [`CreateHttpHandlerParameters`](/reference/tevm/server/type-aliases/createhttphandlerparameters/)
+• **parameters**: [`CreateHttpHandlerParameters`](/reference/type-aliases/createhttphandlerparameters/)
 
 ## Returns
+
+`RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 ## Example
 
@@ -41,6 +43,3 @@ server.listen(PORT, () => console.log({ listening: PORT }))
 ## Source
 
 [packages/server/src/createHttpHandler.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

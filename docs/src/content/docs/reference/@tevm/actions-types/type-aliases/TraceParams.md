@@ -11,9 +11,9 @@ Config params for trace calls
 
 ## Type declaration
 
-### timeout
+### timeout?
 
-> **`readonly`** **timeout**?: `string`
+> **`optional`** **`readonly`** **timeout**: `string`
 
 A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms".
 
@@ -30,15 +30,12 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 The type of tracer
 Currently only callTracer supported
 
-### tracerConfig
+### tracerConfig?
 
-> **`readonly`** **tracerConfig**?: `object`
+> **`optional`** **`readonly`** **tracerConfig**: `object`
 
 object to specify configurations for the tracer
 
 ## Source
 
 [params/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

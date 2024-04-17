@@ -14,19 +14,21 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 ## Type parameters
 
-▪ **TTo** extends `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
+• **TTo** extends `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
 
 ## Parameters
 
-▪ **bytes**: `Uint8Array`
+• **bytes**: `Uint8Array`
 
 Byte array to decode.
 
-▪ **toOrOpts**: `FromBytesParameters`\<`TTo`\>
+• **toOrOpts**: `FromBytesParameters`\<`TTo`\>
 
 Type to convert to or options.
 
 ## Returns
+
+`FromBytesReturnType`\<`TTo`\>
 
 Decoded value.
 
@@ -51,7 +53,4 @@ const data = fromBytes(
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37

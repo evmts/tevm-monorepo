@@ -5,7 +5,7 @@ prev: false
 title: "Address"
 ---
 
-> **Address**: [`Address`](/reference/tevm/utils/type-aliases/address/)
+> **Address**: [`Address`](/reference/utils/type-aliases/address/)
 
 An ethereum address represented as a hex string
 
@@ -16,6 +16,3 @@ https://abitype.dev/config#addresstype for configuration options to change type 
 ## Source
 
 [common/Address.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/Address.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

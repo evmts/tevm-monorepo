@@ -35,17 +35,18 @@ const res = tevm.script(
 
 ## Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
+• **TAbi** extends [`Abi`](/reference/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/utils/type-aliases/abi/)
 
-▪ **TFunctionName** extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+• **TFunctionName** extends [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
 
 ## Parameters
 
-▪ **params**: [`ScriptParams`](/reference/tevm/actions-types/type-aliases/scriptparams/)\<`TAbi`, `TFunctionName`\>
+• **params**: [`ScriptParams`](/reference/tevm/actions-types/type-aliases/scriptparams/)\<`TAbi`, `TFunctionName`\>
+
+## Returns
+
+`Promise`\<[`ScriptResult`](/reference/tevm/actions-types/type-aliases/scriptresult/)\<`TAbi`, `TFunctionName`\>\>
 
 ## Source
 
 [handlers/ScriptHandler.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ScriptHandler.ts#L30)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

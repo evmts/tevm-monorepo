@@ -12,13 +12,15 @@ will transform solidity contract imports into Tevm `Contract` instances.
 
 ## Parameters
 
-▪ **SolcVersions**: `object`
+• **SolcVersions**
 
 Which solc version to use
 
-▪ **SolcVersions.solc?**: [`SolcVersions`](/reference/tevm/solc/type-aliases/solcversions/)= `defaultSolc.version`
+• **SolcVersions\.solc?**: [`SolcVersions`](/reference/solc/type-aliases/solcversions/)= `defaultSolc.version`
 
 ## Returns
+
+`BunPlugin`
 
 - A bun plugin
 
@@ -107,6 +109,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,21 +5,22 @@ prev: false
 title: "encodePacked"
 ---
 
-> **encodePacked**\<`TPackedAbiTypes`\>(`types`, `values`): [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **encodePacked**\<`TPackedAbiTypes`\>(`types`, `values`): [`Hex`](/reference/type-aliases/hex/)
 
 ## Type parameters
 
-▪ **TPackedAbiTypes** extends readonly `unknown`[] \| readonly `PackedAbiType`[]
+• **TPackedAbiTypes** extends readonly `unknown`[] \| readonly `PackedAbiType`[]
 
 ## Parameters
 
-▪ **types**: `TPackedAbiTypes`
+• **types**: `TPackedAbiTypes`
 
-▪ **values**: `EncodePackedValues`\<`TPackedAbiTypes`\>
+• **values**: `EncodePackedValues`\<`TPackedAbiTypes`\>
+
+## Returns
+
+[`Hex`](/reference/type-aliases/hex/)
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/abi/encodePacked.d.ts:17
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/abi/encodePacked.d.ts:17

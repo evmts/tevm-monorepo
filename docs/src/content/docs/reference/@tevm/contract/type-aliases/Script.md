@@ -64,11 +64,11 @@ Scripts can also be used with other libraries such as Viem and ethers.
 ## Example
 
 ```typescript
-import { MyScript } from './MyScript.sol'
-import { createPublicClient } from 'viem'
+import \{ MyScript \} from './MyScript.sol'
+import \{ createPublicClient \} from 'viem'
 
 // see viem docs
-const client = createPublicClient({...})
+const client = createPublicClient(\{...\})
 
 const result = await client.readContract(
   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
@@ -76,16 +76,15 @@ const result = await client.readContract(
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TName` extends `string` |
-| `THumanReadableAbi` extends `ReadonlyArray`\<`string`\> |
+• **TName** extends `string`
+
+• **THumanReadableAbi** extends `ReadonlyArray`\<`string`\>
 
 ## Type declaration
 
 ### abi
 
-> **abi**: [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>
+> **abi**: [`ParseAbi`](/reference/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>
 
 The json abi of the contract
 
@@ -98,7 +97,7 @@ console.log(MyScript.abi) // [{name: 'balanceOf', inputs: [...], outputs: [...],
 
 ### bytecode
 
-> **bytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **bytecode**: [`Hex`](/reference/utils/type-aliases/hex/)
 
 The contract bytecode. This can be used for deploying the contract
 bytecode is different from deployedBytecode in that the bytecode
@@ -107,7 +106,7 @@ bytecode is the code that is deployed
 
 ### deployedBytecode
 
-> **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **deployedBytecode**: [`Hex`](/reference/utils/type-aliases/hex/)
 
 The deployed contract bytecode. TThis can be used with the `script` tevm method
 to execute arbitrary solidity code that isn't necessarily deployed to the chain
@@ -116,7 +115,7 @@ to deploy the contract whereas the deployed bytecode is the code that is deploye
 
 ### events
 
-> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/utils/type-aliases/hex/), [`Hex`](/reference/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -124,7 +123,7 @@ Action creators for events. Can be used to create event filters in a typesafe wa
 
 ```typescript
 tevm.eth.getLog(
-  MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
+  MyScript.withAddress('0x420...').events.Transfer(\{ from: '0x1234...' \}),
 )
 ===
 
@@ -150,7 +149,7 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/utils/type-aliases/hex/), [`Hex`](/reference/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -162,7 +161,7 @@ tevm.contract(
 )
 ```
 
-### withAddress
+### withAddress()
 
 > **withAddress**: \<`TAddress`\>(`address`) => `Omit`\<[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`
 
@@ -178,31 +177,21 @@ const MyScript = MyScript.withAddress('0x420...')
 Note this is not necessary with `tevm.script` method that doesn't require
 a contract address to execute
 
-Adds an address to the contract. All action creators will return
-the address property if added.
-
 #### Type parameters
 
-▪ **TAddress** extends [`Address`](/reference/tevm/utils/type-aliases/address/)
+• **TAddress** extends [`Address`](/reference/utils/type-aliases/address/)
 
 #### Parameters
 
-▪ **address**: `TAddress`
+• **address**: `TAddress`
 
 #### Returns
 
-#### Example
-
-```typescript
-import { MyScript } from './MyScript.sol'
-const MyScript = MyScript.withAddress('0x420...')
-```
-Note this is not necessary with `tevm.script` method that doesn't require
-a contract address to execute
+`Omit`\<[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`
 
 ### write
 
-> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/utils/type-aliases/hex/), [`Hex`](/reference/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for contract payable and nonpayable functions
 
@@ -217,6 +206,3 @@ tevm.contract(
 ## Source
 
 [Script.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Script.ts#L64)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

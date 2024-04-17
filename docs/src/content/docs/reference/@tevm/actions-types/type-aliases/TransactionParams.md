@@ -15,33 +15,30 @@ A transaction request object
 
 > **`readonly`** **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
-### gas
+### gas?
 
-> **`readonly`** **gas**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **`readonly`** **gas**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
-### gasPrice
+### gasPrice?
 
-> **`readonly`** **gasPrice**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **`readonly`** **gasPrice**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### input
 
 > **`readonly`** **input**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
-### nonce
+### nonce?
 
-> **`readonly`** **nonce**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **`readonly`** **nonce**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
-### to
+### to?
 
-> **`readonly`** **to**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> **`optional`** **`readonly`** **to**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
-### value
+### value?
 
-> **`readonly`** **value**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **`readonly`** **value**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 
 [common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/TransactionParams.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

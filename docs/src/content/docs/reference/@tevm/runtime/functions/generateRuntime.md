@@ -9,21 +9,20 @@ title: "generateRuntime"
 
 ## Parameters
 
-▪ **artifacts**: [`Artifacts`](/reference/tevm/compiler/types/type-aliases/artifacts/)
+• **artifacts**: [`Artifacts`](/reference/compiler/types/type-aliases/artifacts/)
 
-▪ **moduleType**: [`ModuleType`](/reference/tevm/runtime/type-aliases/moduletype/)
+• **moduleType**: [`ModuleType`](/reference/type-aliases/moduletype/)
 
-▪ **includeBytecode**: `boolean`
+• **includeBytecode**: `boolean`
 
-▪ **tevmPackage**: `"tevm/contract"` \| `"@tevm/contract"`
+• **tevmPackage**: `"tevm/contract"` \| `"@tevm/contract"`
 
 Package to import contracts from
 
 ## Returns
 
+`Effect`\<`never`, `never`, `string`\>
+
 ## Source
 
 [generateRuntime.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/generateRuntime.js#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

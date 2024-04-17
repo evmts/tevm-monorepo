@@ -13,7 +13,11 @@ title: "EthjsMessage"
 
 #### Parameters
 
-▪ **opts**: `MessageOpts`
+• **opts**: `MessageOpts`
+
+#### Returns
+
+[`EthjsMessage`](/reference/tevm/evm/classes/ethjsmessage/)
 
 #### Source
 
@@ -21,9 +25,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ## Properties
 
-### \_codeAddress
+### \_codeAddress?
 
-> **\_codeAddress**?: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **`optional`** **\_codeAddress**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -31,9 +35,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### accessWitness
+### accessWitness?
 
-> **accessWitness**?: `AccessWitness`
+> **`optional`** **accessWitness**: `AccessWitness`
 
 #### Source
 
@@ -41,9 +45,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### authcallOrigin
+### authcallOrigin?
 
-> **authcallOrigin**?: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **`optional`** **authcallOrigin**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 This is used to store the origin of the AUTHCALL,
 the purpose is to figure out where `value` should be taken from (not from `caller`)
@@ -54,9 +58,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### blobVersionedHashes
+### blobVersionedHashes?
 
-> **blobVersionedHashes**?: `Uint8Array`[]
+> **`optional`** **blobVersionedHashes**: `Uint8Array`[]
 
 List of versioned hashes if message is a blob transaction in the outer VM
 
@@ -68,7 +72,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### caller
 
-> **caller**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **caller**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -76,9 +80,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### chargeCodeAccesses
+### chargeCodeAccesses?
 
-> **chargeCodeAccesses**?: `boolean`
+> **`optional`** **chargeCodeAccesses**: `boolean`
 
 #### Source
 
@@ -86,9 +90,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### code
+### code?
 
-> **code**?: `Uint8Array` \| `PrecompileFunc`
+> **`optional`** **code**: `Uint8Array` \| `PrecompileFunc`
 
 #### Source
 
@@ -96,9 +100,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### containerCode
+### containerCode?
 
-> **containerCode**?: `Uint8Array`
+> **`optional`** **containerCode**: `Uint8Array`
 
 #### Source
 
@@ -106,9 +110,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### createdAddresses
+### createdAddresses?
 
-> **createdAddresses**?: `Set`\<`string`\>
+> **`optional`** **createdAddresses**: `Set`\<`string`\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -188,9 +192,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### salt
+### salt?
 
-> **salt**?: `Uint8Array`
+> **`optional`** **salt**: `Uint8Array`
 
 #### Source
 
@@ -198,9 +202,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### selfdestruct
+### selfdestruct?
 
-> **selfdestruct**?: `Set`\<`string`\>
+> **`optional`** **selfdestruct**: `Set`\<`string`\>
 
 Set of addresses to selfdestruct. Key is the unprefixed address.
 
@@ -210,9 +214,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### to
+### to?
 
-> **to**?: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **`optional`** **to**: [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -232,13 +236,14 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### codeAddress
 
-> **`get`** **codeAddress**(): [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> **`get`** **codeAddress**(): [`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 Note: should only be called in instances where `_codeAddress` or `to` is defined.
+
+#### Returns
+
+[`EthjsAddress`](/reference/utils/classes/ethjsaddress/)
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:68
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

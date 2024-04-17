@@ -5,21 +5,23 @@ prev: false
 title: "createContract"
 ---
 
-> **createContract**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`\>
+> **createContract**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](/reference/type-aliases/contract/)\<`TName`, `THumanReadableAbi`\>
 
 Creates a tevm Contract instance from human readable abi
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateContractParams`](/reference/tevm/contract/type-aliases/createcontractparams/)\<`TName`, `THumanReadableAbi`\>
+• **\_\_namedParameters**: [`CreateContractParams`](/reference/type-aliases/createcontractparams/)\<`TName`, `THumanReadableAbi`\>
 
 ## Returns
+
+[`Contract`](/reference/type-aliases/contract/)\<`TName`, `THumanReadableAbi`\>
 
 ## Example
 
@@ -52,6 +54,3 @@ const contract = createContract({
 ## Source
 
 [createContract.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

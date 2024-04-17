@@ -5,13 +5,10 @@ prev: false
 title: "EthGetBlockByNumberJsonRpcRequest"
 ---
 
-> **EthGetBlockByNumberJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getBlockByNumber"`, readonly [[`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/utils/type-aliases/hex/), `boolean`]\>
+> **EthGetBlockByNumberJsonRpcRequest**: [`JsonRpcRequest`](/reference/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getBlockByNumber"`, readonly [[`BlockTag`](/reference/utils/type-aliases/blocktag/) \| [`Hex`](/reference/utils/type-aliases/hex/), `boolean`]\>
 
 JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Source
 
 [requests/EthJsonRpcRequest.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L125)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

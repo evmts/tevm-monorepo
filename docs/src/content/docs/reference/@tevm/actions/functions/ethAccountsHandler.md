@@ -5,19 +5,18 @@ prev: false
 title: "ethAccountsHandler"
 ---
 
-> **ethAccountsHandler**(`params`): [`EthAccountsHandler`](/reference/tevm/actions-types/type-aliases/ethaccountshandler/)
+> **ethAccountsHandler**(`params`): [`EthAccountsHandler`](/reference/actions-types/type-aliases/ethaccountshandler/)
 
 ## Parameters
 
-▪ **params**: `object`
+• **params**
 
-▪ **params.accounts**: readonly [`Account`](/reference/tevm/utils/type-aliases/account/)\<\`0x${string}\`\>[]
+• **params\.accounts**: readonly [`Account`](/reference/utils/type-aliases/account/)\<```0x${string}```\>[]
 
 ## Returns
+
+[`EthAccountsHandler`](/reference/actions-types/type-aliases/ethaccountshandler/)
 
 ## Source
 
 [packages/actions/src/eth/ethAccountsHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethAccountsHandler.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

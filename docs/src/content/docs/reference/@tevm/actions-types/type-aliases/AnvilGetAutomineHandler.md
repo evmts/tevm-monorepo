@@ -9,11 +9,12 @@ title: "AnvilGetAutomineHandler"
 
 ## Parameters
 
-▪ **params**: [`AnvilGetAutomineParams`](/reference/tevm/actions-types/type-aliases/anvilgetautomineparams/)
+• **params**: [`AnvilGetAutomineParams`](/reference/tevm/actions-types/type-aliases/anvilgetautomineparams/)
+
+## Returns
+
+`Promise`\<[`AnvilGetAutomineResult`](/reference/tevm/actions-types/type-aliases/anvilgetautomineresult/)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L44)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

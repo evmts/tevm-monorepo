@@ -9,11 +9,12 @@ title: "EthGetBlockByHashHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetBlockByHashParams`](/reference/tevm/actions-types/type-aliases/ethgetblockbyhashparams/)
+• **request**: [`EthGetBlockByHashParams`](/reference/tevm/actions-types/type-aliases/ethgetblockbyhashparams/)
+
+## Returns
+
+`Promise`\<[`EthGetBlockByHashResult`](/reference/tevm/actions-types/type-aliases/ethgetblockbyhashresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L117)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

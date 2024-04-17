@@ -5,7 +5,7 @@ prev: false
 title: "toHex"
 ---
 
-> **toHex**(`value`, `opts`?): [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **toHex**(`value`, `opts`?): [`Hex`](/reference/type-aliases/hex/)
 
 Encodes a string, number, bigint, or ByteArray into a hex string
 
@@ -14,15 +14,17 @@ Encodes a string, number, bigint, or ByteArray into a hex string
 
 ## Parameters
 
-▪ **value**: `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`
+• **value**: `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`
 
 Value to encode.
 
-▪ **opts?**: `ToHexParameters`
+• **opts?**: `ToHexParameters`
 
 Options.
 
 ## Returns
+
+[`Hex`](/reference/type-aliases/hex/)
 
 Hex value.
 
@@ -52,7 +54,4 @@ const data = toHex('Hello world', { size: 32 })
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36

@@ -11,13 +11,10 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ## Type declaration
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> **`optional`** **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ## Source
 
 [params/EthParams.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L123)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

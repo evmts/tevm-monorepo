@@ -95,6 +95,3 @@ The hex stringhash of the uncles of the block.
 ## Source
 
 [common/BlockResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/BlockResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

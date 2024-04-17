@@ -39,11 +39,11 @@ title: "SolcContractOutput"
 
 ### storageLayout.storage
 
-> **storageLayout.storage**: `any`[]
+> **storage**: `any`[]
 
 ### storageLayout.types
 
-> **storageLayout.types**: `any`
+> **types**: `any`
 
 ### userdoc
 
@@ -51,23 +51,20 @@ title: "SolcContractOutput"
 
 ### userdoc.kind
 
-> **userdoc.kind**: `"user"`
+> **kind**: `"user"`
 
-### userdoc.methods
+### userdoc.methods?
 
-> **userdoc.methods**?: `Record`\<`string`, `object`\>
+> **`optional`** **methods**: `Record`\<`string`, `object`\>
 
-### userdoc.notice
+### userdoc.notice?
 
-> **userdoc.notice**?: `string`
+> **`optional`** **notice**: `string`
 
 ### userdoc.version
 
-> **userdoc.version**: `number`
+> **version**: `number`
 
 ## Source
 
 [solcTypes.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L403)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

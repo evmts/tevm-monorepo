@@ -17,7 +17,7 @@ The actions api is the high level API for interacting with a Tevm client similar
 
 ### call
 
-> **call**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **call**: [`CallHandler`](/reference/actions-types/type-aliases/callhandler/)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -39,7 +39,7 @@ const res = tevm.call({
 
 ### contract
 
-> **contract**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contract**: [`ContractHandler`](/reference/actions-types/type-aliases/contracthandler/)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -66,7 +66,7 @@ console.log(res.data) // "hello"
 
 ### dumpState
 
-> **dumpState**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpState**: [`DumpStateHandler`](/reference/actions-types/type-aliases/dumpstatehandler/)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -90,7 +90,7 @@ await tevm.loadState({state})
 
 ### getAccount
 
-> **getAccount**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+> **getAccount**: [`GetAccountHandler`](/reference/actions-types/type-aliases/getaccounthandler/)
 
 Gets the state of a specific ethereum address
 
@@ -105,7 +105,7 @@ console.log(res.balance)
 
 ### loadState
 
-> **loadState**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **loadState**: [`LoadStateHandler`](/reference/actions-types/type-aliases/loadstatehandler/)
 
 Loads a previously dumped state into the VM
 
@@ -129,7 +129,7 @@ await tevm.loadState({state})
 
 ### script
 
-> **script**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+> **script**: [`ScriptHandler`](/reference/actions-types/type-aliases/scripthandler/)
 
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
@@ -159,7 +159,7 @@ const res = tevm.script(
 
 ### setAccount
 
-> **setAccount**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+> **setAccount**: [`SetAccountHandler`](/reference/actions-types/type-aliases/setaccounthandler/)
 
 Sets the state of a specific ethereum address
 
@@ -178,6 +178,3 @@ await tevm.setAccount({
 ## Source
 
 [packages/decorators/src/actions/TevmActionsApi.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L15)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

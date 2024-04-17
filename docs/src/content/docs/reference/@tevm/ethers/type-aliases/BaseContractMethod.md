@@ -9,15 +9,19 @@ title: "BaseContractMethod"
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TArguments` extends `ReadonlyArray`\<`any`\> | `ReadonlyArray`\<`any`\> |
-| `TReturnType` | `any` |
-| `TExtendedReturnType` extends `TReturnType` \| `ContractTransactionResponse` | `ContractTransactionResponse` |
+• **TArguments** extends `ReadonlyArray`\<`any`\> = `ReadonlyArray`\<`any`\>
+
+• **TReturnType** = `any`
+
+• **TExtendedReturnType** extends `TReturnType` \| `ContractTransactionResponse` = `ContractTransactionResponse`
 
 ## Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+
+## Returns
+
+`Promise`\<`TReturnType` \| `TExtendedReturnType`\>
 
 ## Type declaration
 
@@ -29,65 +33,86 @@ title: "BaseContractMethod"
 
 > **\_key**: `string`
 
-### estimateGas
+### estimateGas()
 
 > **estimateGas**: (...`args`) => `Promise`\<`bigint`\>
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+
+#### Returns
+
+`Promise`\<`bigint`\>
 
 ### fragment
 
 > **`readonly`** **fragment**: `FunctionFragment`
 
-### getFragment
+### getFragment()
 
 > **getFragment**: (...`args`) => `FunctionFragment`
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+
+#### Returns
+
+`FunctionFragment`
 
 ### name
 
 > **name**: `string`
 
-### populateTransaction
+### populateTransaction()
 
 > **populateTransaction**: (...`args`) => `Promise`\<`ContractTransaction`\>
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
 
-### send
+#### Returns
+
+`Promise`\<`ContractTransaction`\>
+
+### send()
 
 > **send**: (...`args`) => `Promise`\<`ContractTransactionResponse`\>
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
 
-### staticCall
+#### Returns
+
+`Promise`\<`ContractTransactionResponse`\>
+
+### staticCall()
 
 > **staticCall**: (...`args`) => `Promise`\<`TReturnType`\>
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
 
-### staticCallResult
+#### Returns
+
+`Promise`\<`TReturnType`\>
+
+### staticCallResult()
 
 > **staticCallResult**: (...`args`) => `Promise`\<`Result`\>
 
 #### Parameters
 
-▪ ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+• ...**args**: [`ContractMethodArgs`](/reference/tevm/ethers/type-aliases/contractmethodargs/)\<`TArguments`\>
+
+#### Returns
+
+`Promise`\<`Result`\>
 
 ## Source
 
 [extensions/ethers/src/contract/BaseContractMethod.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

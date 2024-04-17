@@ -9,11 +9,12 @@ title: "EthGetUncleByBlockNumberAndIndexJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetunclebyblocknumberandindexjsonrpcrequest/)
+• **request**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetunclebyblocknumberandindexjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgetunclebyblocknumberandindexjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L187)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

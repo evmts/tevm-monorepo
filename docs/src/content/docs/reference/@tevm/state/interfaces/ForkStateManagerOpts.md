@@ -7,9 +7,9 @@ title: "ForkStateManagerOpts"
 
 ## Properties
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
+> **`optional`** **blockTag**: `bigint` \| [`BlockTag`](/reference/utils/type-aliases/blocktag/)
 
 #### Source
 
@@ -17,17 +17,19 @@ title: "ForkStateManagerOpts"
 
 ***
 
-### onCommit
+### onCommit()?
 
-> **onCommit**?: (`stateManager`) => `void`
-
-Called when state manager commits state
+> **`optional`** **onCommit**: (`stateManager`) => `void`
 
 Called when state manager commits state
 
 #### Parameters
 
-▪ **stateManager**: [`ForkStateManager`](/reference/tevm/state/classes/forkstatemanager/)
+• **stateManager**: [`ForkStateManager`](/reference/classes/forkstatemanager/)
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -42,6 +44,3 @@ Called when state manager commits state
 #### Source
 
 [packages/state/src/ForkStateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L27)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,6 +5,8 @@ prev: false
 title: "ViemTevmOptimisticExtension"
 ---
 
+`Experimental`
+
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclientdecorator/)
 
 ## Example
@@ -36,9 +38,10 @@ Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://t
 This API should not be used in production and may be trimmed from a public release.
 :::
 
+## Returns
+
+[`ViemTevmOptimisticClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclientdecorator/)
+
 ## Source
 
 [ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -8,7 +8,7 @@ title: "ResolvedCompilerConfig"
 > **ResolvedCompilerConfig**: `object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](/reference/tevm/config/types/type-aliases/compilerconfig/)
+See [CompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
 
 ## Type declaration
 
@@ -18,9 +18,9 @@ See [CompilerConfig](/reference/tevm/config/types/type-aliases/compilerconfig/)
 
 Location of the tevm cache folder
 
-### debug
+### debug?
 
-> **debug**?: `boolean`
+> **`optional`** **debug**: `boolean`
 
 If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 
@@ -47,6 +47,3 @@ Remap the location of contracts
 ## Source
 
 [bundler-packages/config/src/types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L45)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

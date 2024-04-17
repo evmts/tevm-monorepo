@@ -11,9 +11,9 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ## Type declaration
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`optional`** **blockTag**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### index
 
@@ -22,6 +22,3 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 ## Source
 
 [params/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L182)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

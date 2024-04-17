@@ -15,13 +15,10 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 > **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> **`optional`** **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ## Source
 
 [params/EthParams.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L159)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

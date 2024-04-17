@@ -9,11 +9,12 @@ title: "EthGetUncleByBlockHashAndIndexHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleByBlockHashAndIndexParams`](/reference/tevm/actions-types/type-aliases/ethgetunclebyblockhashandindexparams/)
+• **request**: [`EthGetUncleByBlockHashAndIndexParams`](/reference/tevm/actions-types/type-aliases/ethgetunclebyblockhashandindexparams/)
+
+## Returns
+
+`Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](/reference/tevm/actions-types/type-aliases/ethgetunclebyblockhashandindexresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L181)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

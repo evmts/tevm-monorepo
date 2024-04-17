@@ -9,11 +9,12 @@ title: "AnvilStopImpersonatingAccountHandler"
 
 ## Parameters
 
-▪ **params**: [`AnvilStopImpersonatingAccountParams`](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccountparams/)
+• **params**: [`AnvilStopImpersonatingAccountParams`](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccountparams/)
+
+## Returns
+
+`Promise`\<[`AnvilStopImpersonatingAccountResult`](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccountresult/)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L37)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

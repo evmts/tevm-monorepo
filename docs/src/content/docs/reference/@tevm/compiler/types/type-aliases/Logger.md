@@ -9,41 +9,54 @@ title: "Logger"
 
 ## Type declaration
 
-### error
+### error()
 
 > **error**: (...`message`) => `void`
 
 #### Parameters
 
-▪ ...**message**: `string`[]
+• ...**message**: `string`[]
 
-### info
+#### Returns
+
+`void`
+
+### info()
 
 > **info**: (...`messages`) => `void`
 
 #### Parameters
 
-▪ ...**messages**: `string`[]
+• ...**messages**: `string`[]
 
-### log
+#### Returns
+
+`void`
+
+### log()
 
 > **log**: (...`message`) => `void`
 
 #### Parameters
 
-▪ ...**message**: `string`[]
+• ...**message**: `string`[]
 
-### warn
+#### Returns
+
+`void`
+
+### warn()
 
 > **warn**: (...`message`) => `void`
 
 #### Parameters
 
-▪ ...**message**: `string`[]
+• ...**message**: `string`[]
+
+#### Returns
+
+`void`
 
 ## Source
 
 [compiler/src/types.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L47)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

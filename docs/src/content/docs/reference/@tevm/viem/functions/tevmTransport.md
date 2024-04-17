@@ -9,19 +9,18 @@ title: "tevmTransport"
 
 ## Parameters
 
-▪ **tevm**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"request"`\>
+• **tevm**: `Pick`\<[`MemoryClient`](/reference/memory-client/type-aliases/memoryclient/), `"request"`\>
 
 The Tevm instance
 
-▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"`\>
 
 ## Returns
+
+`Transport`\<`string`, `Record`\<`string`, `any`\>, `EIP1193RequestFn`\>
 
 The transport function
 
 ## Source
 
 [tevmTransport.js:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmTransport.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

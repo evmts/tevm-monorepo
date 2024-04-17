@@ -9,11 +9,12 @@ title: "EthGetBlockByHashJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGetBlockByHashJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcrequest/)
+• **request**: [`EthGetBlockByHashJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGetBlockByHashJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L119)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

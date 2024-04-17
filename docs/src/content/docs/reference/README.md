@@ -47,6 +47,3 @@ title: "Documentation"
 - [@tevm/rspack-plugin](/reference/tevm/rspack-plugin/readme/)
 - [@tevm/vite-plugin](/reference/tevm/vite-plugin/readme/)
 - [@tevm/webpack-plugin](/reference/tevm/webpack-plugin/readme/)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

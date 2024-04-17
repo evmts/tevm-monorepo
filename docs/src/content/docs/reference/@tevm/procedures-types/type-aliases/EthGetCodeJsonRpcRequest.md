@@ -5,13 +5,10 @@ prev: false
 title: "EthGetCodeJsonRpcRequest"
 ---
 
-> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getCode"`, readonly [[`Address`](/reference/tevm/utils/type-aliases/address/), [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
+> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](/reference/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getCode"`, readonly [[`Address`](/reference/utils/type-aliases/address/), [`BlockTag`](/reference/utils/type-aliases/blocktag/) \| [`Hex`](/reference/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_getCode` procedure
 
 ## Source
 
 [requests/EthJsonRpcRequest.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L149)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

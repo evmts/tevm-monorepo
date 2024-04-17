@@ -11,15 +11,17 @@ Creates a lightweight http server for handling requests
 
 ## Parameters
 
-▪ **client**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"send"`\>
+• **client**: `Pick`\<[`MemoryClient`](/reference/memory-client/type-aliases/memoryclient/), `"send"`\>
 
-▪ **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
+• **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 Optional options to pass to the http server
 
 To use pass in the Tevm['request'] request handler
 
 ## Returns
+
+`Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
 
 ## Example
 
@@ -48,6 +50,3 @@ const client = createTevmClient()
 ## Source
 
 [packages/server/src/createServer.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L31)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,13 +5,10 @@ prev: false
 title: "EthGasPriceJsonRpcResponse"
 ---
 
-> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_gasPrice"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
+> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_gasPrice"`, [`Hex`](/reference/utils/type-aliases/hex/), `string` \| `number`\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L80)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L84)

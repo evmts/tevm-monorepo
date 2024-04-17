@@ -9,11 +9,12 @@ title: "EthGasPriceJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthGasPriceJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcrequest/)
+• **request**: [`EthGasPriceJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthGasPriceJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L111)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

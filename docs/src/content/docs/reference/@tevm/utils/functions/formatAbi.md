@@ -5,27 +5,26 @@ prev: false
 title: "formatAbi"
 ---
 
-> **formatAbi**\<`TAbi`\>(`abi`): [`FormatAbi`](/reference/tevm/utils/type-aliases/formatabi/)\<`TAbi`\>
+> **formatAbi**\<`TAbi`\>(`abi`): [`FormatAbi`](/reference/type-aliases/formatabi/)\<`TAbi`\>
 
 Parses JSON ABI into human-readable ABI
 
 ## Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+• **TAbi** extends [`Abi`](/reference/type-aliases/abi/) \| readonly `unknown`[]
 
 ## Parameters
 
-▪ **abi**: `TAbi`
+• **abi**: `TAbi`
 
 ABI
 
 ## Returns
 
+[`FormatAbi`](/reference/type-aliases/formatabi/)\<`TAbi`\>
+
 Human-readable ABI
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.3.3\_zod@3.22.4/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18

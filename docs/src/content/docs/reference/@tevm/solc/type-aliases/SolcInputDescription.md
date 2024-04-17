@@ -13,9 +13,9 @@ title: "SolcInputDescription"
 
 > **language**: [`SolcLanguage`](/reference/tevm/solc/type-aliases/solclanguage/)
 
-### settings
+### settings?
 
-> **settings**?: [`SolcSettings`](/reference/tevm/solc/type-aliases/solcsettings/)
+> **`optional`** **settings**: [`SolcSettings`](/reference/tevm/solc/type-aliases/solcsettings/)
 
 ### sources
 
@@ -24,6 +24,3 @@ title: "SolcInputDescription"
 ## Source
 
 [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

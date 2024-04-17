@@ -22,6 +22,3 @@ A mapping of `debug_*` method names to their request type
 ## Source
 
 [tevm-request-handler/DebugRequestType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/DebugRequestType.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

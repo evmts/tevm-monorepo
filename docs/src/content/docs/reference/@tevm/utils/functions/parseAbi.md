@@ -5,23 +5,25 @@ prev: false
 title: "parseAbi"
 ---
 
-> **parseAbi**\<`TSignatures`\>(`signatures`): [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`TSignatures`\>
+> **parseAbi**\<`TSignatures`\>(`signatures`): [`ParseAbi`](/reference/type-aliases/parseabi/)\<`TSignatures`\>
 
-Parses human-readable ABI into JSON [Abi](/reference/tevm/utils/type-aliases/abi/)
+Parses human-readable ABI into JSON [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
 
 ## Type parameters
 
-▪ **TSignatures** extends readonly `string`[]
+• **TSignatures** extends readonly `string`[]
 
 ## Parameters
 
-▪ **signatures**: `TSignatures`[`"length"`] extends `0` ? [`"Error: At least one signature required"`] : `Signatures`\<`TSignatures`\> extends `TSignatures` ? `TSignatures` : `Signatures`\<`TSignatures`\>
+• **signatures**: `TSignatures`\[`"length"`\] extends `0` ? [`"Error: At least one signature required"`] : `Signatures`\<`TSignatures`\> extends `TSignatures` ? `TSignatures` : `Signatures`\<`TSignatures`\>
 
 Human-Readable ABI
 
 ## Returns
 
-Parsed [Abi](/reference/tevm/utils/type-aliases/abi/)
+[`ParseAbi`](/reference/type-aliases/parseabi/)\<`TSignatures`\>
+
+Parsed [Abi](/reference/reference/tevm/utils/type-aliases/abi/)
 
 ## Example
 
@@ -35,7 +37,4 @@ const abi = parseAbi([
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.3.3\_zod@3.22.4/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37

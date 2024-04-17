@@ -9,11 +9,12 @@ title: "EthCoinbaseJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthCoinbaseJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcrequest/)
+• **request**: [`EthCoinbaseJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthCoinbaseJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L99)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

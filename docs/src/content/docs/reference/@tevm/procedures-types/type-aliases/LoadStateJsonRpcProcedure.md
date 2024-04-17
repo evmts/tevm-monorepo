@@ -24,11 +24,12 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 ## Parameters
 
-▪ **request**: [`LoadStateJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcrequest/)
+• **request**: [`LoadStateJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`LoadStateJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcresponse/)\>
 
 ## Source
 
 [procedure/LoadStateJsonRpcProcedure.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/LoadStateJsonRpcProcedure.ts#L17)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

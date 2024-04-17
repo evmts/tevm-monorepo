@@ -11,27 +11,22 @@ Result of the dumpState method
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | [`DumpStateError`](/reference/tevm/errors/type-aliases/dumpstateerror/) |
+• **ErrorType** = [`DumpStateError`](/reference/errors/type-aliases/dumpstateerror/)
 
 ## Type declaration
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
 ### state
 
-> **state**: [`TevmState`](/reference/tevm/state/type-aliases/tevmstate/)
+> **state**: [`TevmState`](/reference/state/type-aliases/tevmstate/)
 
 The serialized tevm state
 
 ## Source
 
 [result/DumpStateResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DumpStateResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

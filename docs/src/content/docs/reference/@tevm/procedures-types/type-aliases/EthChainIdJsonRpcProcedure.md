@@ -9,11 +9,12 @@ title: "EthChainIdJsonRpcProcedure"
 
 ## Parameters
 
-▪ **request**: [`EthChainIdJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcrequest/)
+• **request**: [`EthChainIdJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcrequest/)
+
+## Returns
+
+`Promise`\<[`EthChainIdJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcresponse/)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L95)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,7 +5,7 @@ prev: false
 title: "MemoryClient"
 ---
 
-> **MemoryClient**: [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/) & `EthActionsApi` & `TevmActionsApi` & `EIP1193EventEmitter` & `Eip1193RequestProvider` & `object` & `object`
+> **MemoryClient**: [`BaseClient`](/reference/base-client/type-aliases/baseclient/) & `EthActionsApi` & `TevmActionsApi` & `EIP1193EventEmitter` & `Eip1193RequestProvider` & `object` & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 Implements the TevmClient interface with an in memory EVM instance.
@@ -59,6 +59,3 @@ const balance = await tevm.runContractCall(
 ## Source
 
 [MemoryClient.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L47)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

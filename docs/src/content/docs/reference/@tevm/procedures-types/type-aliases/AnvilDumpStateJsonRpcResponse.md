@@ -5,13 +5,10 @@ prev: false
 title: "AnvilDumpStateJsonRpcResponse"
 ---
 
-> **AnvilDumpStateJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"anvil_dumpState"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilDumpStateResult`](/reference/tevm/actions-types/type-aliases/anvildumpstateresult/)\>, `AnvilError`\>
+> **AnvilDumpStateJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"anvil_dumpState"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilDumpStateResult`](/reference/actions-types/type-aliases/anvildumpstateresult/)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_dumpState` procedure
 
 ## Source
 
 [responses/AnvilJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L144)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

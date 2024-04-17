@@ -9,11 +9,12 @@ title: "EthGetTransactionByBlockNumberAndIndexHandler"
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockNumberAndIndexParams`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyblocknumberandindexparams/)
+• **request**: [`EthGetTransactionByBlockNumberAndIndexParams`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyblocknumberandindexparams/)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](/reference/tevm/actions-types/type-aliases/ethgettransactionbyblocknumberandindexresult/)\>
 
 ## Source
 
 [handlers/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L173)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

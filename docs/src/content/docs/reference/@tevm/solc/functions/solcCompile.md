@@ -5,21 +5,20 @@ prev: false
 title: "solcCompile"
 ---
 
-> **solcCompile**(`solc`, `input`): [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
+> **solcCompile**(`solc`, `input`): [`SolcOutput`](/reference/type-aliases/solcoutput/)
 
 Typesafe wrapper around solc.compile
 
 ## Parameters
 
-▪ **solc**: `any`
+• **solc**: `any`
 
-▪ **input**: [`SolcInputDescription`](/reference/tevm/solc/type-aliases/solcinputdescription/)
+• **input**: [`SolcInputDescription`](/reference/type-aliases/solcinputdescription/)
 
 ## Returns
+
+[`SolcOutput`](/reference/type-aliases/solcoutput/)
 
 ## Source
 
 [solc.js:127](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L127)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

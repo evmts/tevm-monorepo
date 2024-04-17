@@ -5,13 +5,10 @@ prev: false
 title: "EthGetStorageAtJsonRpcResponse"
 ---
 
-> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getStorageAt"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
+> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](/reference/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getStorageAt"`, [`Hex`](/reference/utils/type-aliases/hex/), `string` \| `number`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L177)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[responses/EthJsonRpcResponse.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L181)

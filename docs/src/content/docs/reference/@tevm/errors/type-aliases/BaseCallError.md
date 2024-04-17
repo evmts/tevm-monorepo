@@ -12,6 +12,3 @@ Errors returned by all call based tevm procedures including call, contract, and 
 ## Source
 
 [packages/errors/src/actions/BaseCallError.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/BaseCallError.ts#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

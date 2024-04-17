@@ -13,9 +13,9 @@ title: "ResolvedArtifacts"
 
 > **artifacts**: [`Artifacts`](/reference/tevm/compiler/types/type-aliases/artifacts/)
 
-### asts
+### asts?
 
-> **asts**?: `Record`\<`string`, `Node`\>
+> **`optional`** **asts**: `Record`\<`string`, `Node`\>
 
 ### modules
 
@@ -23,15 +23,12 @@ title: "ResolvedArtifacts"
 
 ### solcInput
 
-> **solcInput**: [`SolcInputDescription`](/reference/tevm/solc/type-aliases/solcinputdescription/)
+> **solcInput**: [`SolcInputDescription`](/reference/solc/type-aliases/solcinputdescription/)
 
 ### solcOutput
 
-> **solcOutput**: [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
+> **solcOutput**: [`SolcOutput`](/reference/solc/type-aliases/solcoutput/)
 
 ## Source
 
 [compiler/src/types.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

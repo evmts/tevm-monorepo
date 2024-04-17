@@ -11,33 +11,31 @@ Result of a Tevm VM Call method
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | [`CallError`](/reference/tevm/errors/type-aliases/callerror/) |
+• **ErrorType** = [`CallError`](/reference/errors/type-aliases/callerror/)
 
 ## Type declaration
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `bigint`
+> **`optional`** **blobGasUsed**: `bigint`
 
 Amount of blob gas consumed by the transaction
 
-### createdAddress
+### createdAddress?
 
-> **createdAddress**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> **`optional`** **createdAddress**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 Address of created account during transaction, if any
 
-### createdAddresses
+### createdAddresses?
 
-> **createdAddresses**?: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
+> **`optional`** **createdAddresses**: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
 
 Map of addresses which were created (used in EIP 6780)
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -47,21 +45,21 @@ Description of the exception, if any occurred
 
 Amount of gas the code used to run
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> **`optional`** **gas**: `bigint`
 
 Amount of gas left
 
-### gasRefund
+### gasRefund?
 
-> **gasRefund**?: `bigint`
+> **`optional`** **gasRefund**: `bigint`
 
 The gas refund counter as a uint256
 
-### logs
+### logs?
 
-> **logs**?: [`Log`](/reference/tevm/actions-types/type-aliases/log/)[]
+> **`optional`** **logs**: [`Log`](/reference/tevm/actions-types/type-aliases/log/)[]
 
 Array of logs that the contract emitted
 
@@ -71,15 +69,27 @@ Array of logs that the contract emitted
 
 Encoded return value from the contract as hex string
 
-### selfdestruct
+### selfdestruct?
 
-> **selfdestruct**?: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
+> **`optional`** **selfdestruct**: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
 
 A set of accounts to selfdestruct
 
+### trace?
+
+> **`optional`** **trace**: [`DebugTraceCallResult`](/reference/tevm/actions-types/type-aliases/debugtracecallresult/)
+
+The call trace if tracing is enabled on call
+
+### txHash?
+
+> **`optional`** **txHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+
+The returned tx hash if the call was included in the chain
+Will not be defined if the call was not included in the chain
+Whether a call is included in the chain depends on if the
+`createTransaction` option and the result of the call
+
 ## Source
 
-[result/CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[result/CallResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L8)
