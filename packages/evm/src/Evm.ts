@@ -1,10 +1,6 @@
 import { EVM } from '@ethereumjs/evm'
 import type { TevmStateManager } from '@tevm/state'
-
-/**
- * @see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
- */
-export type EVMOpts = Parameters<typeof EVM.create>[0]
+import type { EVMOpts } from './EvmOpts.js'
 
 /**
  * A wrapper around the EVM to expose some protected functionality of the EVMStateManger
@@ -12,6 +8,6 @@ export type EVMOpts = Parameters<typeof EVM.create>[0]
  * @internal
  */
 export class Evm extends EVM {
-	public declare static create: (options?: EVMOpts) => Promise<Evm>
-	public declare stateManager: TevmStateManager
+  public declare static create: (options?: EVMOpts) => Promise<Evm>
+  public declare stateManager: TevmStateManager
 }
