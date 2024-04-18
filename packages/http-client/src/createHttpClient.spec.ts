@@ -1,5 +1,5 @@
+import type { HttpClient } from './HttpClient.js'
 import { createHttpClient } from './createHttpClient.js'
-import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { EthjsAddress } from '@tevm/utils'
@@ -10,7 +10,7 @@ import { bytesToHex, keccak256 } from 'viem'
 describe(createHttpClient.name, () => {
 	let tevm: MemoryClient
 	let server: Server
-	let client: TevmClient
+	let client: HttpClient
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
@@ -27,7 +27,7 @@ describe(createHttpClient.name, () => {
 	describe('implements a tevm client', () => {
 		it('tevm.script', async () => {
 			const { Add } = await import('./test/Add.s.sol.js')
-			expect(await client.script(Add.read.add(399n, 21n))).toEqual({
+			expect(await client.tevm.script(Add.read.add(399n, 21n))).toEqual({
 				data: 420n,
 				executionGasUsed: 927n,
 				createdAddresses: new Set(),
@@ -42,11 +42,11 @@ describe(createHttpClient.name, () => {
 		it('tevm.contract', async () => {
 			const contractAddress = `0x${'69'.repeat(20)}` as const
 			const { Add } = await import('./test/Add.s.sol.js')
-			await client.setAccount({
+			await client.tevm.setAccount({
 				address: contractAddress,
 				deployedBytecode: Add.deployedBytecode,
 			})
-			const { errors, data } = await client.contract(
+			const { errors, data } = await client.tevm.contract(
 				Add.withAddress(contractAddress).read.add(399n, 21n),
 			)
 			expect(errors).toBeUndefined()
@@ -60,7 +60,7 @@ describe(createHttpClient.name, () => {
 				address: `0x${'69'.repeat(20)}`,
 				deployedBytecode: ERC20.deployedBytecode,
 			} as const
-			const { errors } = await client.setAccount(account)
+			const { errors } = await client.tevm.setAccount(account)
 
 			expect(errors).toBeUndefined()
 
@@ -72,48 +72,48 @@ describe(createHttpClient.name, () => {
 				keccak256(account.deployedBytecode),
 			)
 			// testing getAccount
-			const getAccountRes = await client.getAccount({
+			const getAccountRes = await client.tevm.getAccount({
 				address: account.address,
 			})
 			expect(getAccountRes).toMatchSnapshot()
 		})
 
 		it('can use tevm.eth.chainId', async () => {
-			expect(await client.eth.chainId()).toEqual(10n)
+			expect(await client.getChainId()).toEqual(10)
 		})
 
 		it('can use tevm.eth.getCode', async () => {
 			const address = `0x${'69'.repeat(20)}` as const
-			await client.setAccount({
+			await client.tevm.setAccount({
 				address,
 				deployedBytecode: '0x69',
 			})
-			expect(await client.eth.getCode({ address })).toEqual('0x69')
+			expect(await client.getBytecode({ address })).toEqual('0x69')
 		})
 
 		it('can use tevm.eth.gasPrice', async () => {
-			expect(await client.eth.gasPrice()).toBeGreaterThan(0n)
+			expect(await client.getGasPrice()).toBeGreaterThan(0n)
 		})
 
 		it('can use tevm.eth.getBalance', async () => {
 			const address = `0x${'69'.repeat(20)}` as const
-			await client.setAccount({
+			await client.tevm.setAccount({
 				address,
 				balance: 420n,
 			})
-			expect(await client.eth.getBalance({ address })).toEqual(420n)
+			expect(await client.getBalance({ address })).toEqual(420n)
 		})
 
 		it('can use tevm.eth.blockNumber', async () => {
-			expect(await client.eth.blockNumber()).toEqual(0n)
+			expect(await client.getBlockNumber()).toEqual(0n)
 		})
 
 		// this test isn't blocked just moving fast and breaking things atm
 		it.todo('can use tevm.eth.storageAt', async () => {
 			expect(
-				await client.eth.getStorageAt({
+				await client.getStorageAt({
 					address: '0x0',
-					position: '0x0',
+					slot: '0x0',
 					blockTag: 'pending',
 				}),
 			).toEqual('0x69')
