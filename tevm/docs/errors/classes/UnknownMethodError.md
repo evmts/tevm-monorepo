@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > UnknownMethodError
+[tevm](../../README.md) / [errors](../README.md) / UnknownMethodError
 
 # Class: UnknownMethodError
 
@@ -20,13 +20,17 @@ Error thrown when a request is made with an unknown method
 
 #### Parameters
 
-▪ **request**: `never`
+• **request**: `never`
 
 a request that must be of type `never` such that all valid requests are handled
 
+#### Returns
+
+[`UnknownMethodError`](UnknownMethodError.md)
+
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
 #### Source
 
@@ -44,13 +48,13 @@ packages/errors/types/procedures/UnknownMethodError.d.ts:17
 
 ***
 
-### cause
+### cause?
 
-> **cause**?: `unknown`
+> **`optional`** **cause**: `unknown`
 
 #### Inherited from
 
-Error.cause
+`Error.cause`
 
 #### Source
 
@@ -64,7 +68,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
 #### Source
 
@@ -78,7 +82,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-Error.name
+`Error.name`
 
 #### Source
 
@@ -86,13 +90,13 @@ packages/errors/types/procedures/UnknownMethodError.d.ts:13
 
 ***
 
-### stack
+### stack?
 
-> **stack**?: `string`
+> **`optional`** **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
 #### Source
 
@@ -100,9 +104,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -112,13 +116,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-▪ **err**: `Error`
+• **err**: `Error`
 
-▪ **stackTraces**: `CallSite`[]
+• **stackTraces**: `CallSite`[]
+
+#### Returns
+
+`any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
 #### Source
 
@@ -132,7 +140,7 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
 #### Source
 
@@ -150,13 +158,17 @@ Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
@@ -170,17 +182,18 @@ Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
 node\_modules/.pnpm/@types+node@20.11.30/node\_modules/@types/node/globals.d.ts:21
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

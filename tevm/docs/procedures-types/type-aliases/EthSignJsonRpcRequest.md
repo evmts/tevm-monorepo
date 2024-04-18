@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthSignJsonRpcRequest
+[tevm](../../README.md) / [procedures-types](../README.md) / EthSignJsonRpcRequest
 
 # Type alias: EthSignJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_sign` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:326
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

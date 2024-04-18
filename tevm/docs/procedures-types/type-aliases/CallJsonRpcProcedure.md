@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > CallJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / CallJsonRpcProcedure
 
-# Type alias: CallJsonRpcProcedure
+# Type alias: CallJsonRpcProcedure()
 
 > **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Parameters
 
-▪ **request**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
+• **request**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:777
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

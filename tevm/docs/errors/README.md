@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > errors
+[tevm](../README.md) / errors
 
-# Module: errors
+# errors
 
 ## Index
 
@@ -60,6 +60,3 @@
 - [TevmEVMErrorMessage](type-aliases/TevmEVMErrorMessage.md)
 - [TypedError](type-aliases/TypedError.md)
 - [UnexpectedError](type-aliases/UnexpectedError.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

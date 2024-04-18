@@ -1,16 +1,16 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > ProxyStateManagerOpts
+[tevm](../../README.md) / [index](../README.md) / ProxyStateManagerOpts
 
 # Interface: ProxyStateManagerOpts
 
 ## Properties
 
-### expectedBlockTime
+### expectedBlockTime?
 
-> **expectedBlockTime**?: `number`
+> **`optional`** **expectedBlockTime**: `number`
 
 The expected time between blocks in milliseconds
 This is used to avoid fetching blockNumber if the blockNumber is not expected to have changed
@@ -22,15 +22,19 @@ packages/state/types/ProxyStateManager.d.ts:19
 
 ***
 
-### onCommit
+### onCommit()?
 
-> **onCommit**?: (`stateManager`) => `void`
+> **`optional`** **onCommit**: (`stateManager`) => `void`
 
 Called when state manager commits state
 
 #### Parameters
 
-▪ **stateManager**: [`ProxyStateManager`](../../state/classes/ProxyStateManager.md)
+• **stateManager**: [`ProxyStateManager`](../../state/classes/ProxyStateManager.md)
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -47,6 +51,3 @@ Url to a JSON-RPC provider to proxy state from
 #### Source
 
 packages/state/types/ProxyStateManager.d.ts:13
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,36 +1,35 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > EIP1193RequestFn
+[tevm](../../README.md) / [index](../README.md) / EIP1193RequestFn
 
-# Type alias: EIP1193RequestFn`<TRpcSchema>`
+# Type alias: EIP1193RequestFn()\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TRpcSchema` extends [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) \| `undefined` | `undefined` |
+• **TRpcSchema** extends [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) \| `undefined` = `undefined`
 
 ## Type parameters
 
-▪ **TRpcSchemaOverride** extends [`RpcSchemaOverride`](../../decorators/type-aliases/RpcSchemaOverride.md) \| `undefined` = `undefined`
+• **TRpcSchemaOverride** extends [`RpcSchemaOverride`](../../decorators/type-aliases/RpcSchemaOverride.md) \| `undefined` = `undefined`
 
-▪ **TParameters** extends [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
+• **TParameters** extends [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
 
-▪ **_ReturnType** = [`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> extends [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>[`number`], `object`\>[`"ReturnType"`] : `unknown`
+• **_ReturnType** = [`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> extends [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], `object`\>\[`"ReturnType"`\] : `unknown`
 
 ## Parameters
 
-▪ **args**: `TParameters`
+• **args**: `TParameters`
 
-▪ **options?**: [`EIP1193RequestOptions`](../../decorators/type-aliases/EIP1193RequestOptions.md)
+• **options?**: [`EIP1193RequestOptions`](../../decorators/type-aliases/EIP1193RequestOptions.md)
+
+## Returns
+
+`Promise`\<`_ReturnType`\>
 
 ## Source
 
 packages/decorators/dist/index.d.ts:297
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

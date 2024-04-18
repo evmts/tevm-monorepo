@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetUncleCountByBlockNumberJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthGetUncleCountByBlockNumberJsonRpcProcedure
 
-# Type alias: EthGetUncleCountByBlockNumberJsonRpcProcedure
+# Type alias: EthGetUncleCountByBlockNumberJsonRpcProcedure()
 
 > **EthGetUncleCountByBlockNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md)
+• **request**: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:829
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

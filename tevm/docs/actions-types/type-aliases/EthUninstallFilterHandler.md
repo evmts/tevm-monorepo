@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthUninstallFilterHandler
+[tevm](../../README.md) / [actions-types](../README.md) / EthUninstallFilterHandler
 
-# Type alias: EthUninstallFilterHandler
+# Type alias: EthUninstallFilterHandler()
 
 > **EthUninstallFilterHandler**: (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthUninstallFilterParams`](EthUninstallFilterParams.md)
+• **request**: [`EthUninstallFilterParams`](EthUninstallFilterParams.md)
+
+## Returns
+
+`Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/EthHandler.d.ts:40
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

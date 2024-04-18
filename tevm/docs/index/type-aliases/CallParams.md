@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > CallParams
+[tevm](../../README.md) / [index](../README.md) / CallParams
 
-# Type alias: CallParams`<TThrowOnFail>`
+# Type alias: CallParams\<TThrowOnFail\>
 
 > **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -25,33 +25,28 @@ const callParams: import('@tevm/api').CallParams = {
 
 ## Type declaration
 
-### data
+### data?
 
-> **data**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **`optional`** **data**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 The input data.
 
-### deployedBytecode
+### deployedBytecode?
 
-> **deployedBytecode**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **`optional`** **deployedBytecode**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 The EVM code to run.
 
-### salt
+### salt?
 
-> **salt**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **`optional`** **salt**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 An optional CREATE2 salt.
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** extends `boolean` = `boolean`
 
 ## Source
 
 packages/actions-types/types/params/CallParams.d.ts:15
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > StructLog
+[tevm](../../README.md) / [actions-types](../README.md) / StructLog
 
 # Type alias: StructLog
 
@@ -14,17 +14,17 @@
 
 > **`readonly`** **depth**: `number`
 
-### error
+### error?
 
-> **`readonly`** **error**?: `object`
+> **`optional`** **`readonly`** **error**: `object`
 
 ### error.error
 
-> **error.error**: `string`
+> **error**: `string`
 
 ### error.errorType
 
-> **error.errorType**: `string`
+> **errorType**: `string`
 
 ### gas
 
@@ -49,6 +49,3 @@
 ## Source
 
 packages/actions-types/types/result/DebugResult.d.ts:3
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

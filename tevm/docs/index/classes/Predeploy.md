@@ -1,18 +1,18 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > Predeploy
+[tevm](../../README.md) / [index](../README.md) / Predeploy
 
-# Class: `abstract` Predeploy`<TName, THumanReadableAbi>`
+# Class: `abstract` Predeploy\<TName, THumanReadableAbi\>
 
 Type of predeploy contract for tevm
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Constructors
 
@@ -20,11 +20,15 @@ Type of predeploy contract for tevm
 
 > **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
+#### Returns
+
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
 ## Properties
 
-### `abstract` address
+### address
 
-> **`readonly`** **`abstract`** **address**: \`0x${string}\`
+> **`readonly`** **`abstract`** **address**: ```0x${string}```
 
 #### Source
 
@@ -32,7 +36,7 @@ packages/predeploys/types/Predeploy.d.ts:8
 
 ***
 
-### `abstract` contract
+### contract
 
 > **`readonly`** **`abstract`** **contract**: [`Script`](../type-aliases/Script.md)\<`TName`, `THumanReadableAbi`\>
 
@@ -42,9 +46,13 @@ packages/predeploys/types/Predeploy.d.ts:7
 
 ***
 
-### ethjsAddress
+### ethjsAddress()
 
 > **`protected`** **`readonly`** **ethjsAddress**: () => [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+#### Returns
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Source
 
@@ -52,20 +60,18 @@ packages/predeploys/types/Predeploy.d.ts:9
 
 ***
 
-### predeploy
+### predeploy()
 
 > **`readonly`** **predeploy**: () => `object`
 
 #### Returns
 
-> ##### address
->
-> > **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
+`object`
+
+##### address
+
+> **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Source
 
 packages/predeploys/types/Predeploy.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

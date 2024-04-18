@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > createSyncStoragePersister
+[tevm](../../README.md) / [index](../README.md) / createSyncStoragePersister
 
 # Function: createSyncStoragePersister()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md)
+• **\_\_namedParameters**: [`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md)
+
+## Returns
+
+`SyncStoragePersister`
 
 ## Source
 
 packages/sync-storage-persister/types/createSyncStoragePersister.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

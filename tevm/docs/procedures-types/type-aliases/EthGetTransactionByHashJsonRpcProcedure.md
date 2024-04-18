@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetTransactionByHashJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthGetTransactionByHashJsonRpcProcedure
 
-# Type alias: EthGetTransactionByHashJsonRpcProcedure
+# Type alias: EthGetTransactionByHashJsonRpcProcedure()
 
 > **EthGetTransactionByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md)
+• **request**: [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:830
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [server](../README.md) > createExpressMiddleware
+[tevm](../../README.md) / [server](../README.md) / createExpressMiddleware
 
 # Function: createExpressMiddleware()
 
@@ -12,9 +12,11 @@ Creates express middleware for a Tevm JSON-RPC server
 
 ## Parameters
 
-▪ **client**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
+• **client**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
 
 ## Returns
+
+`RequestHandler`
 
 ## Example
 
@@ -47,6 +49,3 @@ const client = createClient({
 ## Source
 
 packages/server/types/adapters/createExpressMiddleware.d.ts:32
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

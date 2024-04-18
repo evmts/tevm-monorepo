@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > encodeAbiParameters
+[tevm](../../README.md) / [index](../README.md) / encodeAbiParameters
 
 # Function: encodeAbiParameters()
 
@@ -10,19 +10,21 @@
 
 ## Type parameters
 
-▪ **TParams** extends readonly `unknown`[] \| readonly `AbiParameter`[]
+• **TParams** extends readonly `unknown`[] \| readonly `AbiParameter`[]
 
 ## Parameters
 
-▪ **params**: `TParams`
+• **params**: `TParams`
 
 a set of ABI Parameters (params), that can be in the shape of the inputs or outputs attribute of an ABI Item.
 
-▪ **values**: `TParams` extends readonly `AbiParameter`[] ? `{ [K in string | number | symbol]: { [K in string | number | symbol]: AbiParameterToPrimitiveType<TParams<TParams>[K<K>], AbiParameterKind> }[K] }` : `never`
+• **values**: `TParams` extends readonly `AbiParameter`[] ? `{ [K in string | number | symbol]: { [K in string | number | symbol]: AbiParameterToPrimitiveType<TParams<TParams>[K<K>], AbiParameterKind> }[K] }` : `never`
 
 a set of values (values) that correspond to the given params.
 
 ## Returns
+
+`EncodeAbiParametersReturnType`
 
 ## Description
 
@@ -62,7 +64,4 @@ const encodedData = encodeAbiParameters(
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > Log
+[tevm](../../README.md) / [actions-types](../README.md) / Log
 
 # Type alias: Log
 
@@ -27,6 +27,3 @@ Generic log information
 ## Source
 
 packages/actions-types/types/common/Log.d.ts:6
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

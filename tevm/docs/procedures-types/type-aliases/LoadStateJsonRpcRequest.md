@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > LoadStateJsonRpcRequest
+[tevm](../../README.md) / [procedures-types](../README.md) / LoadStateJsonRpcRequest
 
 # Type alias: LoadStateJsonRpcRequest
 
@@ -13,6 +13,3 @@ The JSON-RPC request for the `tevm_loadState` method
 ## Source
 
 packages/procedures-types/dist/index.d.ts:385
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

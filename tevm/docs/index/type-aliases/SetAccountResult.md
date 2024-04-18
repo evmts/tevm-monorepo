@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > SetAccountResult
+[tevm](../../README.md) / [index](../README.md) / SetAccountResult
 
-# Type alias: SetAccountResult`<ErrorType>`
+# Type alias: SetAccountResult\<ErrorType\>
 
 > **SetAccountResult**\<`ErrorType`\>: `object`
 
@@ -12,21 +12,16 @@ Result of SetAccount Action
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | [`SetAccountError`](../../errors/type-aliases/SetAccountError.md) |
+• **ErrorType** = [`SetAccountError`](../../errors/type-aliases/SetAccountError.md)
 
 ## Type declaration
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
 ## Source
 
 packages/actions-types/types/result/SetAccountResult.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

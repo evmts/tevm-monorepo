@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthEstimateGasHandler
+[tevm](../../README.md) / [actions-types](../README.md) / EthEstimateGasHandler
 
-# Type alias: EthEstimateGasHandler
+# Type alias: EthEstimateGasHandler()
 
 > **EthEstimateGasHandler**: (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthEstimateGasParams`](EthEstimateGasParams.md)
+• **request**: [`EthEstimateGasParams`](EthEstimateGasParams.md)
+
+## Returns
+
+`Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/EthHandler.d.ts:8
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

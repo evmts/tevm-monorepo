@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > AnvilMineParams
+[tevm](../../README.md) / [actions-types](../README.md) / AnvilMineParams
 
 # Type alias: AnvilMineParams
 
@@ -12,21 +12,18 @@ Params for `anvil_mine` handler
 
 ## Type declaration
 
-### blockCount
+### blockCount?
 
-> **blockCount**?: `number`
+> **`optional`** **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
-### interval
+### interval?
 
-> **interval**?: `number`
+> **`optional`** **interval**: `number`
 
 mineing interval
 
 ## Source
 
 packages/actions-types/types/params/AnvilParams.d.ts:34
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

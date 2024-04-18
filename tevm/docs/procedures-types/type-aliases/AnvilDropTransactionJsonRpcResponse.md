@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > AnvilDropTransactionJsonRpcResponse
+[tevm](../../README.md) / [procedures-types](../README.md) / AnvilDropTransactionJsonRpcResponse
 
 # Type alias: AnvilDropTransactionJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:459
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

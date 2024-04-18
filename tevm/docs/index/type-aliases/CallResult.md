@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > CallResult
+[tevm](../../README.md) / [index](../README.md) / CallResult
 
-# Type alias: CallResult`<ErrorType>`
+# Type alias: CallResult\<ErrorType\>
 
 > **CallResult**\<`ErrorType`\>: `object`
 
@@ -12,33 +12,31 @@ Result of a Tevm VM Call method
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | [`CallError`](../../errors/type-aliases/CallError.md) |
+• **ErrorType** = [`CallError`](../../errors/type-aliases/CallError.md)
 
 ## Type declaration
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `bigint`
+> **`optional`** **blobGasUsed**: `bigint`
 
 Amount of blob gas consumed by the transaction
 
-### createdAddress
+### createdAddress?
 
-> **createdAddress**?: [`Address`](../../actions-types/type-aliases/Address.md)
+> **`optional`** **createdAddress**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 Address of created account during transaction, if any
 
-### createdAddresses
+### createdAddresses?
 
-> **createdAddresses**?: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
+> **`optional`** **createdAddresses**: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
 
 Map of addresses which were created (used in EIP 6780)
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -48,21 +46,21 @@ Description of the exception, if any occurred
 
 Amount of gas the code used to run
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> **`optional`** **gas**: `bigint`
 
 Amount of gas left
 
-### gasRefund
+### gasRefund?
 
-> **gasRefund**?: `bigint`
+> **`optional`** **gasRefund**: `bigint`
 
 The gas refund counter as a uint256
 
-### logs
+### logs?
 
-> **logs**?: [`Log`](../../actions-types/type-aliases/Log.md)[]
+> **`optional`** **logs**: [`Log`](../../actions-types/type-aliases/Log.md)[]
 
 Array of logs that the contract emitted
 
@@ -72,21 +70,21 @@ Array of logs that the contract emitted
 
 Encoded return value from the contract as hex string
 
-### selfdestruct
+### selfdestruct?
 
-> **selfdestruct**?: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
+> **`optional`** **selfdestruct**: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
 
 A set of accounts to selfdestruct
 
-### trace
+### trace?
 
-> **trace**?: [`DebugTraceCallResult`](../../actions-types/type-aliases/DebugTraceCallResult.md)
+> **`optional`** **trace**: [`DebugTraceCallResult`](../../actions-types/type-aliases/DebugTraceCallResult.md)
 
 The call trace if tracing is enabled on call
 
-### txHash
+### txHash?
 
-> **txHash**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **`optional`** **txHash**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 The returned tx hash if the call was included in the chain
 Will not be defined if the call was not included in the chain
@@ -96,6 +94,3 @@ Whether a call is included in the chain depends on if the
 ## Source
 
 packages/actions-types/types/result/CallResult.d.ts:7
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

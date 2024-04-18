@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > base-client
+[tevm](../README.md) / base-client
 
-# Module: base-client
+# base-client
 
 ## Index
 
@@ -13,18 +13,6 @@
 - [IntervalMining](type-aliases/IntervalMining.md)
 - [ManualMining](type-aliases/ManualMining.md)
 - [MiningConfig](type-aliases/MiningConfig.md)
-
-## Table of contents
-
-### References
-
-- [AutoMining](README.md#automining)
-- [BaseClient](README.md#baseclient)
-- [BaseClientOptions](README.md#baseclientoptions)
-- [CustomPrecompile](README.md#customprecompile)
-- [Extension](README.md#extension)
-- [Hardfork](README.md#hardfork)
-- [createBaseClient](README.md#createbaseclient)
 
 ## References
 
@@ -67,6 +55,3 @@ Re-exports [Hardfork](../index/type-aliases/Hardfork.md)
 ### createBaseClient
 
 Re-exports [createBaseClient](../index/functions/createBaseClient.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

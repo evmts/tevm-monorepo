@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetBalanceJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBalanceJsonRpcProcedure
 
-# Type alias: EthGetBalanceJsonRpcProcedure
+# Type alias: EthGetBalanceJsonRpcProcedure()
 
 > **EthGetBalanceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
+• **request**: [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:817
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

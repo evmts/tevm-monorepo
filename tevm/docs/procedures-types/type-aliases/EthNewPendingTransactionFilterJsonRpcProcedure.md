@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthNewPendingTransactionFilterJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthNewPendingTransactionFilterJsonRpcProcedure
 
-# Type alias: EthNewPendingTransactionFilterJsonRpcProcedure
+# Type alias: EthNewPendingTransactionFilterJsonRpcProcedure()
 
 > **EthNewPendingTransactionFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
+• **request**: [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:845
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

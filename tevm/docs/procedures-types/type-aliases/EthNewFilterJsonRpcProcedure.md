@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthNewFilterJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthNewFilterJsonRpcProcedure
 
-# Type alias: EthNewFilterJsonRpcProcedure
+# Type alias: EthNewFilterJsonRpcProcedure()
 
 > **EthNewFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md)
+• **request**: [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:843
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

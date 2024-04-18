@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > AnvilSetNonceParams
+[tevm](../../README.md) / [actions-types](../README.md) / AnvilSetNonceParams
 
 # Type alias: AnvilSetNonceParams
 
@@ -27,6 +27,3 @@ The nonce to set
 ## Source
 
 packages/actions-types/types/params/AnvilParams.d.ts:97
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

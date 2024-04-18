@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthNewBlockFilterHandler
+[tevm](../../README.md) / [actions-types](../README.md) / EthNewBlockFilterHandler
 
-# Type alias: EthNewBlockFilterHandler
+# Type alias: EthNewBlockFilterHandler()
 
 > **EthNewBlockFilterHandler**: (`request`) => `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthNewBlockFilterParams`](EthNewBlockFilterParams.md)
+• **request**: [`EthNewBlockFilterParams`](EthNewBlockFilterParams.md)
+
+## Returns
+
+`Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/EthHandler.d.ts:38
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

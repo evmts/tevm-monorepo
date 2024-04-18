@@ -1766,9 +1766,6 @@ importers:
         specifier: ^2.7.16
         version: 2.7.16(typescript@5.4.5)(zod@3.22.4)
     devDependencies:
-      '@tevm/client-types':
-        specifier: workspace:^
-        version: link:../client-types
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../memory-client

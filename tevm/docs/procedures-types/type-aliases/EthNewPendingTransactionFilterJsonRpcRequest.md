@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthNewPendingTransactionFilterJsonRpcRequest
+[tevm](../../README.md) / [procedures-types](../README.md) / EthNewPendingTransactionFilterJsonRpcRequest
 
 # Type alias: EthNewPendingTransactionFilterJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:360
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

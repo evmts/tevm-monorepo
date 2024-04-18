@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > DumpStateError
+[tevm](../../README.md) / [errors](../README.md) / DumpStateError
 
 # Type alias: DumpStateError
 
@@ -24,6 +24,3 @@ if (errors?.length) {
 ## Source
 
 packages/errors/types/actions/DumpStateError.d.ts:13
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

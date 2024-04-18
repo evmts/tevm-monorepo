@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthBlockNumberResult
+[tevm](../../README.md) / [actions-types](../README.md) / EthBlockNumberResult
 
 # Type alias: EthBlockNumberResult
 
@@ -13,6 +13,3 @@ JSON-RPC response for `eth_blockNumber` procedure
 ## Source
 
 packages/actions-types/types/result/EthResult.d.ts:15
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

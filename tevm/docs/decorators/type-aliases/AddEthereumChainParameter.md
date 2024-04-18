@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > AddEthereumChainParameter
+[tevm](../../README.md) / [decorators](../README.md) / AddEthereumChainParameter
 
 # Type alias: AddEthereumChainParameter
 
@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### blockExplorerUrls
+### blockExplorerUrls?
 
-> **blockExplorerUrls**?: `string`[]
+> **`optional`** **blockExplorerUrls**: `string`[]
 
 ### chainId
 
@@ -26,27 +26,27 @@ A 0x-prefixed hexadecimal string
 
 The chain name.
 
-### iconUrls
+### iconUrls?
 
-> **iconUrls**?: `string`[]
+> **`optional`** **iconUrls**: `string`[]
 
-### nativeCurrency
+### nativeCurrency?
 
-> **nativeCurrency**?: `object`
+> **`optional`** **nativeCurrency**: `object`
 
 Native currency for the chain.
 
 ### nativeCurrency.decimals
 
-> **nativeCurrency.decimals**: `number`
+> **decimals**: `number`
 
 ### nativeCurrency.name
 
-> **nativeCurrency.name**: `string`
+> **name**: `string`
 
 ### nativeCurrency.symbol
 
-> **nativeCurrency.symbol**: `string`
+> **symbol**: `string`
 
 ### rpcUrls
 
@@ -55,6 +55,3 @@ Native currency for the chain.
 ## Source
 
 packages/decorators/dist/index.d.ts:223
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

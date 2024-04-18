@@ -45,4 +45,4 @@ export default defineConfig(() => ({
 
 ## Source
 
-bundler-packages/config/types/defineConfig.d.ts:35
+bundler-packages/config/types/defineConfig.d.ts:38

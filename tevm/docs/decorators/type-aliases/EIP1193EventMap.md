@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > EIP1193EventMap
+[tevm](../../README.md) / [decorators](../README.md) / EIP1193EventMap
 
 # Type alias: EIP1193EventMap
 
@@ -14,35 +14,52 @@
 
 #### Parameters
 
-▪ **accounts**: \`0x${string}\`[]
+• **accounts**: ```0x${string}```[]
+
+#### Returns
+
+`void`
 
 ### chainChanged()
 
 #### Parameters
 
-▪ **chainId**: `string`
+• **chainId**: `string`
+
+#### Returns
+
+`void`
 
 ### connect()
 
 #### Parameters
 
-▪ **connectInfo**: [`ProviderConnectInfo`](ProviderConnectInfo.md)
+• **connectInfo**: [`ProviderConnectInfo`](ProviderConnectInfo.md)
+
+#### Returns
+
+`void`
 
 ### disconnect()
 
 #### Parameters
 
-▪ **error**: [`ProviderRpcError`](../classes/ProviderRpcError.md)
+• **error**: [`ProviderRpcError`](../classes/ProviderRpcError.md)
+
+#### Returns
+
+`void`
 
 ### message()
 
 #### Parameters
 
-▪ **message**: [`ProviderMessage`](ProviderMessage.md)
+• **message**: [`ProviderMessage`](ProviderMessage.md)
+
+#### Returns
+
+`void`
 
 ## Source
 
 packages/decorators/dist/index.d.ts:267
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

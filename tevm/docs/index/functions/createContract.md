@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > createContract
+[tevm](../../README.md) / [index](../README.md) / createContract
 
 # Function: createContract()
 
@@ -12,15 +12,17 @@ Creates a tevm Contract instance from human readable abi
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** extends `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
+• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Returns
+
+[`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Example
 
@@ -53,6 +55,3 @@ const contract = createContract({
 ## Source
 
 packages/contract/types/createContract.d.ts:29
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

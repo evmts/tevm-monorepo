@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > WalletPermission
+[tevm](../../README.md) / [decorators](../README.md) / WalletPermission
 
 # Type alias: WalletPermission
 
@@ -24,7 +24,7 @@
 
 ### invoker
 
-> **invoker**: \`http://${string}\` \| \`https://${string}\`
+> **invoker**: ```http://${string}``` \| ```https://${string}```
 
 ### parentCapability
 
@@ -33,6 +33,3 @@
 ## Source
 
 packages/decorators/dist/index.d.ts:1376
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

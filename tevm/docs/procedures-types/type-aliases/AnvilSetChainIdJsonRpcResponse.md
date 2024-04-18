@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > AnvilSetChainIdJsonRpcResponse
+[tevm](../../README.md) / [procedures-types](../README.md) / AnvilSetChainIdJsonRpcResponse
 
 # Type alias: AnvilSetChainIdJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `anvil_setChainId` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:479
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

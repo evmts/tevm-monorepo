@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > GetAccountResult
+[tevm](../../README.md) / [index](../README.md) / GetAccountResult
 
-# Type alias: GetAccountResult`<ErrorType>`
+# Type alias: GetAccountResult\<ErrorType\>
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
 
@@ -12,9 +12,7 @@ Result of GetAccount Action
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | [`GetAccountError`](../../errors/type-aliases/GetAccountError.md) |
+• **ErrorType** = [`GetAccountError`](../../errors/type-aliases/GetAccountError.md)
 
 ## Type declaration
 
@@ -42,9 +40,9 @@ Code hash to set account to
 
 Contract bytecode to set account to
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> **`optional`** **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -66,9 +64,9 @@ True if account is empty
 
 Nonce to set account to
 
-### storage
+### storage?
 
-> **storage**?: `object`
+> **`optional`** **storage**: `object`
 
 Contract storage for the account
 only included if `returnStorage` is set to true in the request
@@ -86,6 +84,3 @@ Storage root to set account to
 ## Source
 
 packages/actions-types/types/result/GetAccountResult.d.ts:6
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

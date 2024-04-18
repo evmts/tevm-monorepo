@@ -1,8 +1,8 @@
-**tevm** ∙ [README](README.md) ∙ [API](API.md)
+**tevm** • [Readme](README.md) \| API
 
 ***
 
-# API
+# tevm
 
 ## Modules
 
@@ -20,6 +20,3 @@
 - [server](server/README.md)
 - [state](state/README.md)
 - [utils](utils/README.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

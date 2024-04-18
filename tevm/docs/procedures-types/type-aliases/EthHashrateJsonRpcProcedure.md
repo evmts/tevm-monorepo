@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthHashrateJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthHashrateJsonRpcProcedure
 
-# Type alias: EthHashrateJsonRpcProcedure
+# Type alias: EthHashrateJsonRpcProcedure()
 
 > **EthHashrateJsonRpcProcedure**: (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
+• **request**: [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:815
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

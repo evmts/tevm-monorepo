@@ -1,12 +1,12 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > ScriptJsonRpcResponse
+[tevm](../../README.md) / [procedures-types](../README.md) / ScriptJsonRpcResponse
 
 # Type alias: ScriptJsonRpcResponse
 
-> **ScriptJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<[`CallResult`](../../index/type-aliases/CallResult.md)\>, [`ScriptError`](../../errors/type-aliases/ScriptError.md)[`"_tag"`]\>
+> **ScriptJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<[`CallResult`](../../index/type-aliases/CallResult.md)\>, [`ScriptError`](../../errors/type-aliases/ScriptError.md)\[`"_tag"`\]\>
 
 JSON-RPC response for `tevm_script` method
 
@@ -29,6 +29,3 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 ## Source
 
 packages/procedures-types/dist/index.d.ts:710
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

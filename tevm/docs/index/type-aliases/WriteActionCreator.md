@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > WriteActionCreator
+[tevm](../../README.md) / [index](../README.md) / WriteActionCreator
 
-# Type alias: WriteActionCreator`<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs>`
+# Type alias: WriteActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
 
 > **WriteActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, "payable" | "nonpayable">]: Function & Object & TAddressArgs }`
 
@@ -20,17 +20,16 @@ tevm.contract(
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `THumanReadableAbi` extends readonly `string`[] | - |
-| `TBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
-| `TDeployedBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
-| `TAddress` extends [`Address`](Address.md) \| `undefined` | - |
-| `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
+• **THumanReadableAbi** extends readonly `string`[]
+
+• **TBytecode** extends [`Hex`](Hex.md) \| `undefined`
+
+• **TDeployedBytecode** extends [`Hex`](Hex.md) \| `undefined`
+
+• **TAddress** extends [`Address`](Address.md) \| `undefined`
+
+• **TAddressArgs** = `TAddress` extends `undefined` ? `object` : `object`
 
 ## Source
 
 packages/contract/types/write/WriteActionCreator.d.ts:12
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

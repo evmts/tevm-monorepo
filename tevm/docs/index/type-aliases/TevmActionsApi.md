@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TevmActionsApi
+[tevm](../../README.md) / [index](../README.md) / TevmActionsApi
 
 # Type alias: TevmActionsApi
 
@@ -179,6 +179,3 @@ await tevm.setAccount({
 ## Source
 
 packages/decorators/dist/index.d.ts:98
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,22 +1,17 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > JsonSerializableSet
+[tevm](../../README.md) / [procedures-types](../README.md) / JsonSerializableSet
 
-# Type alias: JsonSerializableSet`<T>`
+# Type alias: JsonSerializableSet\<T\>
 
 > **JsonSerializableSet**\<`T`\>: `Set`\<`T`\>
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `T` extends `bigint` \| `string` \| `number` \| `boolean` | `bigint` \| `string` \| `number` \| `boolean` |
+• **T** extends `bigint` \| `string` \| `number` \| `boolean` = `bigint` \| `string` \| `number` \| `boolean`
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:12
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

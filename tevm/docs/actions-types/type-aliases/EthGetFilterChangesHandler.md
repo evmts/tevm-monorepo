@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthGetFilterChangesHandler
+[tevm](../../README.md) / [actions-types](../README.md) / EthGetFilterChangesHandler
 
-# Type alias: EthGetFilterChangesHandler
+# Type alias: EthGetFilterChangesHandler()
 
 > **EthGetFilterChangesHandler**: (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetFilterChangesParams`](EthGetFilterChangesParams.md)
+• **request**: [`EthGetFilterChangesParams`](EthGetFilterChangesParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/EthHandler.d.ts:17
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

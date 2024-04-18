@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > GetAccountHandler
+[tevm](../../README.md) / [actions-types](../README.md) / GetAccountHandler
 
-# Type alias: GetAccountHandler
+# Type alias: GetAccountHandler()
 
 > **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>
 
@@ -21,11 +21,12 @@ console.log(res.balance)
 
 ## Parameters
 
-▪ **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
+• **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
+
+## Returns
+
+`Promise`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/GetAccountHandler.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

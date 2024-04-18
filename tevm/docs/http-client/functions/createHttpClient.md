@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [http-client](../README.md) > createHttpClient
+[tevm](../../README.md) / [http-client](../README.md) / createHttpClient
 
 # Function: createHttpClient()
 
-> **createHttpClient**(`__namedParameters`): `HttpClient`
+> **createHttpClient**(`__namedParameters`): `Client`
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+• **\_\_namedParameters**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+
+## Returns
+
+`Client`
 
 ## Source
 
 packages/http-client/types/createHttpClient.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

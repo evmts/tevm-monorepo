@@ -1,18 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** • [Readme](../README.md) \| [API](../modules.md)
 
 ***
 
-[API](../API.md) > predeploys
+[tevm](../README.md) / predeploys
 
-# Module: predeploys
-
-## Table of contents
-
-### References
-
-- [CustomPredeploy](README.md#custompredeploy)
-- [Predeploy](README.md#predeploy)
-- [definePredeploy](README.md#definepredeploy)
+# predeploys
 
 ## References
 
@@ -31,6 +23,3 @@ Re-exports [Predeploy](../index/classes/Predeploy.md)
 ### definePredeploy
 
 Re-exports [definePredeploy](../index/functions/definePredeploy.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

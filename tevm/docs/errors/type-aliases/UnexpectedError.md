@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > UnexpectedError
+[tevm](../../README.md) / [errors](../README.md) / UnexpectedError
 
 # Type alias: UnexpectedError
 
@@ -15,6 +15,3 @@ means an error wasn't properly handled already
 ## Source
 
 packages/errors/types/UnexpectedError.d.ts:7
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

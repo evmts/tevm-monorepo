@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > JsonRpcClient
+[tevm](../../README.md) / [index](../README.md) / JsonRpcClient
 
 # Type alias: JsonRpcClient
 
@@ -23,6 +23,3 @@ A client for making JsonRpc requests over http
 ## Source
 
 packages/jsonrpc/types/JsonRpcClient.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

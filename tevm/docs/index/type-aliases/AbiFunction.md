@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > AbiFunction
+[tevm](../../README.md) / [index](../README.md) / AbiFunction
 
 # Type alias: AbiFunction
 
@@ -12,21 +12,21 @@ ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) typ
 
 ## Type declaration
 
-### constant
+### ~~constant?~~
 
-> **constant**?: `boolean`
+> **`optional`** **constant**: `boolean`
 
 #### Deprecated
 
-use `pure` or `view` from [AbiStateMutability]([object Object]) instead
+use `pure` or `view` from AbiStateMutability instead
 
 #### See
 
 https://github.com/ethereum/solidity/issues/992
 
-### gas
+### ~~gas?~~
 
-> **gas**?: `number`
+> **`optional`** **gas**: `number`
 
 #### Deprecated
 
@@ -48,13 +48,13 @@ https://github.com/vyperlang/vyper/issues/2151
 
 > **outputs**: readonly `AbiParameter`[]
 
-### payable
+### ~~payable?~~
 
-> **payable**?: `boolean`
+> **`optional`** **payable**: `boolean`
 
 #### Deprecated
 
-use `payable` or `nonpayable` from [AbiStateMutability]([object Object]) instead
+use `payable` or `nonpayable` from AbiStateMutability instead
 
 #### See
 
@@ -70,7 +70,4 @@ https://github.com/ethereum/solidity/issues/992
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5\_zod@3.22.4/node\_modules/abitype/dist/types/abi.d.ts:51
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5/node\_modules/abitype/dist/types/abi.d.ts:51

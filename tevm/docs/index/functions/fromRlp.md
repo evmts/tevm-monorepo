@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > fromRlp
+[tevm](../../README.md) / [index](../README.md) / fromRlp
 
 # Function: fromRlp()
 
@@ -10,17 +10,18 @@
 
 ## Type parameters
 
-▪ **to** extends `To` = `"hex"`
+• **to** extends `To` = `"hex"`
 
 ## Parameters
 
-▪ **value**: \`0x${string}\` \| `Uint8Array`
+• **value**: ```0x${string}``` \| `Uint8Array`
 
-▪ **to?**: `to` \| `To`
+• **to?**: `to` \| `To`
+
+## Returns
+
+`FromRlpReturnType`\<`to`\>
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/fromRlp.d.ts:12
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/utils/encoding/fromRlp.d.ts:12

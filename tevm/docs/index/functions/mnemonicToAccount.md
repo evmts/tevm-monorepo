@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [index](../README.md) > mnemonicToAccount
+[tevm](../../README.md) / [index](../README.md) / mnemonicToAccount
 
 # Function: mnemonicToAccount()
 
@@ -10,11 +10,13 @@
 
 ## Parameters
 
-▪ **mnemonic**: `string`
+• **mnemonic**: `string`
 
-▪ **opts?**: `HDOptions`
+• **opts?**: `HDOptions`
 
 ## Returns
+
+[`HDAccount`](../type-aliases/HDAccount.md)
 
 A HD Account.
 
@@ -24,7 +26,4 @@ Creates an Account from a mnemonic phrase.
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.4/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:10

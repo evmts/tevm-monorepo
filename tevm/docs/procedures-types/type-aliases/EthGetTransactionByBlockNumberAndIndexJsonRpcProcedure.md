@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure
+[tevm](../../README.md) / [procedures-types](../README.md) / EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure
 
-# Type alias: EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure
+# Type alias: EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure()
 
 > **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
+• **request**: [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:832
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

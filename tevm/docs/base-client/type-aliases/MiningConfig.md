@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [base-client](../README.md) > MiningConfig
+[tevm](../../README.md) / [base-client](../README.md) / MiningConfig
 
 # Type alias: MiningConfig
 
@@ -11,6 +11,3 @@
 ## Source
 
 packages/base-client/types/MiningConfig.d.ts:15
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

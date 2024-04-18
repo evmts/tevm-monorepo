@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [server](../README.md) > createNextApiHandler
+[tevm](../../README.md) / [server](../README.md) / createNextApiHandler
 
 # Function: createNextApiHandler()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **client**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
+• **client**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
+
+## Returns
+
+`NextApiHandler`
 
 ## Source
 
 packages/server/types/adapters/createNextApiHandler.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

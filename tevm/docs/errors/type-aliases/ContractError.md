@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > ContractError
+[tevm](../../README.md) / [errors](../README.md) / ContractError
 
 # Type alias: ContractError
 
@@ -22,6 +22,3 @@ if (errors?.length) {
 ## Source
 
 packages/errors/types/actions/ContractError.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

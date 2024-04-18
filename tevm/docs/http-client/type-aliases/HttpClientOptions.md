@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [http-client](../README.md) > HttpClientOptions
+[tevm](../../README.md) / [http-client](../README.md) / HttpClientOptions
 
 # Type alias: HttpClientOptions
 
@@ -12,9 +12,9 @@ Options for a HttpClient
 
 ## Type declaration
 
-### name
+### name?
 
-> **`readonly`** **name**?: `string`
+> **`optional`** **`readonly`** **name**: `string`
 
 Optional name for the client
 
@@ -27,6 +27,3 @@ Remote URL to connect to
 ## Source
 
 packages/http-client/types/HttpClientOptions.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

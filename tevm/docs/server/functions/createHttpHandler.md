@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
 
 ***
 
-[API](../../API.md) > [server](../README.md) > createHttpHandler
+[tevm](../../README.md) / [server](../README.md) / createHttpHandler
 
 # Function: createHttpHandler()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **parameters**: [`CreateHttpHandlerParameters`](../type-aliases/CreateHttpHandlerParameters.md)
+• **parameters**: [`CreateHttpHandlerParameters`](../type-aliases/CreateHttpHandlerParameters.md)
+
+## Returns
+
+`RequestListener`
 
 ## Source
 
 packages/server/types/createHttpHandler.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
