@@ -1,15 +1,13 @@
 import { Block, BlockHeader } from '@tevm/block'
 import {
-  Chain,
-  ChainGenesis,
+  CommonChainId,
   Common,
   ConsensusAlgorithm,
   ConsensusType,
-  Hardfork,
 } from '@tevm/common'
-import { genesisStateRoot as genMerkleGenesisStateRoot } from '@tevm/trie'
 import {
   AsyncEventEmitter,
+  KECCAK256_RLP,
   Lock,
   MapDb,
   bytesToHex,
@@ -27,42 +25,20 @@ import {
   DBSetBlockOrHeader,
   DBSetHashToNumber,
   DBSetTD,
+  type BlockchainInterface,
+  type Consensus,
+  type BlockchainOptions,
+  type BlockchainEvents,
+  type OnBlock,
 } from '@ethereumjs/blockchain'
 
 import type { BlockData } from '@tevm/block'
-import type { CliqueConfig } from '@tevm/common'
-import type { Db, DbObject, GenesisState } from '@tevm/utils'
-
-/**
- * Verkle or Merkle genesis root
- * @param genesisState
- * @param common
- * @returns
- */
-async function genGenesisStateRoot(
-  genesisState: GenesisState,
-  common: Common
-): Promise<Uint8Array> {
-  const genCommon = common.copy()
-  genCommon.setHardforkBy({
-    blockNumber: 0,
-    td: BigInt(genCommon.genesis().difficulty),
-    timestamp: genCommon.genesis().timestamp,
-  })
-  if (genCommon.isActivatedEIP(6800)) {
-    throw Error(`Verkle tree state not yet supported`)
-  } else {
-    return genMerkleGenesisStateRoot(genesisState)
-  }
-}
-
-/**
- * Returns the genesis state root if chain is well known or an empty state's root otherwise
- */
-async function getGenesisStateRoot(chainId: Chain, common: Common): Promise<Uint8Array> {
-  const chainGenesis = ChainGenesis[chainId]
-  return chainGenesis !== undefined ? chainGenesis.stateRoot : genGenesisStateRoot({}, common)
-}
+import type { CliqueConfig, Hardfork } from '@tevm/common'
+import type { Db as DB, DbObject as DBObject, GenesisState, Hex } from '@tevm/utils'
+import { genGenesisStateRoot } from './genGenesisStateRoot.js'
+import { DBManager } from './DbManager.js'
+import { DBTarget } from './DbOpt.js'
+import { getGenesisStateRoot } from './getGenesisStateRoot.js'
 
 /**
  * This class stores and interacts with blocks.
@@ -126,7 +102,7 @@ export class Blockchain implements BlockchainInterface {
         stateRoot = await genGenesisStateRoot(blockchain._customGenesisState, blockchain.common)
       } else {
         stateRoot = await getGenesisStateRoot(
-          Number(blockchain.common.chainId()) as Chain,
+          Number(blockchain.common.chainId()) as CommonChainId,
           blockchain.common
         )
       }
@@ -134,7 +110,7 @@ export class Blockchain implements BlockchainInterface {
 
     const genesisBlock = opts.genesisBlock ?? blockchain.createGenesisBlock(stateRoot)
 
-    let genesisHash = await blockchain.dbManager.numberToHash(BIGINT_0)
+    let genesisHash = await blockchain.dbManager.numberToHash(BigInt(0))
 
     const dbGenesisBlock =
       genesisHash !== undefined ? await blockchain.dbManager.getBlock(genesisHash) : undefined
@@ -153,9 +129,9 @@ export class Blockchain implements BlockchainInterface {
       // If there is no genesis block put the genesis block in the DB.
       // For that TD, the BlockOrHeader, and the Lookups have to be saved.
       const dbOps: DBOp[] = []
-      dbOps.push(DBSetTD(genesisBlock.header.difficulty, BIGINT_0, genesisHash))
+      dbOps.push(DBSetTD(genesisBlock.header.difficulty, BigInt(0), genesisHash))
       DBSetBlockOrHeader(genesisBlock).map((op) => dbOps.push(op))
-      DBSaveLookups(genesisHash, BIGINT_0).map((op) => dbOps.push(op))
+      DBSaveLookups(genesisHash, BigInt(0)).map((op) => dbOps.push(op))
       await blockchain.dbManager.batch(dbOps)
       await blockchain.consensus.genesisInit(genesisBlock)
     }
@@ -223,8 +199,8 @@ export class Blockchain implements BlockchainInterface {
     if (opts.common) {
       this.common = opts.common
     } else {
-      const DEFAULT_CHAIN = Chain.Mainnet
-      const DEFAULT_HARDFORK = Hardfork.Chainstart
+      const DEFAULT_HARDFORK: Hardfork = 'chainstart'
+      const DEFAULT_CHAIN = CommonChainId.Mainnet
       this.common = new Common({
         chain: DEFAULT_CHAIN,
         hardfork: DEFAULT_HARDFORK,
@@ -233,12 +209,11 @@ export class Blockchain implements BlockchainInterface {
 
     this._hardforkByHeadBlockNumber = opts.hardforkByHeadBlockNumber ?? false
     this._validateConsensus = opts.validateConsensus ?? true
-    this._validateBlocks = opts.validateBlocks ?? true
-    this._customGenesisState = opts.genesisState
-
+    this._customGenesisState = opts.genesisState as GenesisState
     this.db = opts.db !== undefined ? opts.db : new MapDb()
+    this._validateBlocks = opts.validateBlocks ?? true
 
-    this.dbManager = new DbManager(this.db, this.common)
+    this.dbManager = new DBManager(this.db, this.common)
 
     this.events = new AsyncEventEmitter()
 
@@ -390,7 +365,7 @@ export class Blockchain implements BlockchainInterface {
    */
   async putBlocks(blocks: Block[]) {
     for (let i = 0; i < blocks.length; i++) {
-      await this.putBlock(blocks[i])
+      await this.putBlock(blocks[i] as Block)
     }
   }
 
@@ -451,7 +426,7 @@ export class Blockchain implements BlockchainInterface {
       const td = await this.getParentTD(header)
 
       const dbOps: DBOp[] = []
-      await this._deleteCanonicalChainReferences(canonicalHead + BIGINT_1, hash, dbOps)
+      await this._deleteCanonicalChainReferences(canonicalHead + BigInt(1), hash, dbOps)
       const ops = dbOps.concat(this._saveHeadOps())
 
       await this.dbManager.batch(ops)
@@ -504,7 +479,7 @@ export class Blockchain implements BlockchainInterface {
         const blockHash = header.hash()
         const blockNumber = header.number
         let td = header.difficulty
-        const currentTd = { header: BIGINT_0, block: BIGINT_0 }
+        const currentTd = { header: BigInt(0), block: BigInt(0) }
         let dbOps: DBOp[] = []
 
         if (block.common.chainId() !== this.common.chainId()) {
@@ -563,7 +538,7 @@ export class Blockchain implements BlockchainInterface {
           }
 
           // delete higher number assignments and overwrite stale canonical chain
-          await this._deleteCanonicalChainReferences(blockNumber + BIGINT_1, blockHash, dbOps)
+          await this._deleteCanonicalChainReferences(blockNumber + BigInt(1), blockHash, dbOps)
           // from the current header block, check the blockchain in reverse (i.e.
           // traverse `parentHash`) until `numberToHash` matches the current
           // number/hash in the canonical chain also: overwrite any heads if these
@@ -586,8 +561,8 @@ export class Blockchain implements BlockchainInterface {
       } catch (e) {
         // restore head to the previouly sane state
         this._heads = oldHeads
-        this._headHeaderHash = oldHeadHeaderHash
-        this._headBlockHash = oldHeadBlockHash
+        this._headHeaderHash = oldHeadHeaderHash as Uint8Array
+        this._headBlockHash = oldHeadBlockHash as Uint8Array
         throw e
       }
     })
@@ -620,7 +595,7 @@ export class Blockchain implements BlockchainInterface {
     const parentHeader = (await this.getBlock(header.parentHash)).header
 
     const { number } = header
-    if (number !== parentHeader.number + BIGINT_1) {
+    if (number !== parentHeader.number + BigInt(1)) {
       throw new Error(`invalid number ${header.errorStr()}`)
     }
 
@@ -643,7 +618,7 @@ export class Blockchain implements BlockchainInterface {
     if (height !== undefined) {
       const dif = height - parentHeader.number
 
-      if (!(dif < BIGINT_8 && dif > BIGINT_1)) {
+      if (!(dif < BigInt(8) && dif > BigInt(1))) {
         throw new Error(
           `uncle block has a parent that is too old or too young ${header.errorStr()}`
         )
@@ -654,7 +629,7 @@ export class Blockchain implements BlockchainInterface {
     if (header.common.isActivatedEIP(1559) === true) {
       // check if the base fee is correct
       let expectedBaseFee
-      const londonHfBlock = this.common.hardforkBlock(Hardfork.London)
+      const londonHfBlock = this.common.hardforkBlock('london')
       const isInitialEIP1559Block = number === londonHfBlock
       if (isInitialEIP1559Block) {
         expectedBaseFee = header.common.param('gasConfig', 'initialBaseFee')
@@ -724,7 +699,7 @@ export class Blockchain implements BlockchainInterface {
     const includedUncles: { [key: string]: boolean } = {}
 
     // Due to the header validation check above, we know that `getBlocks` is between 1 and 8 inclusive.
-    const getBlocks = Number(block.header.number - lowestUncleNumber + BIGINT_1)
+    const getBlocks = Number(block.header.number - lowestUncleNumber + BigInt(1))
 
     // See Geth: https://github.com/ethereum/go-ethereum/blob/b63bffe8202d46ea10ac8c4f441c582642193ac8/consensus/ethash/consensus.go#L207
     // Here we get the necessary blocks from the chain.
@@ -813,9 +788,9 @@ export class Blockchain implements BlockchainInterface {
    * @param header - Block header whose parent td is desired
    */
   public async getParentTD(header: BlockHeader): Promise<bigint> {
-    return header.number === BIGINT_0
+    return header.number === BigInt(0)
       ? header.difficulty
-      : this.getTotalDifficulty(header.parentHash, header.number - BIGINT_1)
+      : this.getTotalDifficulty(header.parentHash, header.number - BigInt(1))
   }
 
   /**
@@ -880,7 +855,7 @@ export class Blockchain implements BlockchainInterface {
       while (max >= min) {
         let number
         try {
-          number = await this.dbManager.hashToNumber(hashes[mid])
+          number = await this.dbManager.hashToNumber(hashes[mid] as Uint8Array)
         } catch (err: any) {
           if (err.message.includes('not found in DB') === true) {
             number = undefined
@@ -995,7 +970,7 @@ export class Blockchain implements BlockchainInterface {
     }
 
     try {
-      const childHeader = await this.getCanonicalHeader(blockNumber + BIGINT_1)
+      const childHeader = await this.getCanonicalHeader(blockNumber + BigInt(1))
       await this._delChild(childHeader.hash(), childHeader.number, headHash, ops)
     } catch (err: any) {
       if (err.message.includes('not found in canonical chain') !== true) {
@@ -1028,9 +1003,8 @@ export class Blockchain implements BlockchainInterface {
         throw 'If maxBlocks is provided, it has to be a non-negative number'
       }
 
-      let headBlockNumber = await this.dbManager.hashToNumber(headHash)
-      // `headBlockNumber` should always exist since it defaults to the genesis block
-      let nextBlockNumber = headBlockNumber! + BIGINT_1
+      let headBlockNumber = await this.dbManager.hashToNumber(headHash) // `headBlockNumber` should always exist since it defaults to the genesis block let nextBlockNumber = headBlockNumber! + BigInt(1)
+      let nextBlockNumber = headBlockNumber! + BigInt(1)
       let blocksRanCounter = 0
       let lastBlock: Block | undefined
 
@@ -1045,7 +1019,7 @@ export class Blockchain implements BlockchainInterface {
               // If reorg has happened, the _heads must have been updated so lets reload the counters
               headHash = this._heads[name] ?? this.genesisBlock.hash()
               headBlockNumber = await this.dbManager.hashToNumber(headHash)
-              nextBlockNumber = headBlockNumber! + BIGINT_1
+              nextBlockNumber = headBlockNumber! + BigInt(1)
               nextBlock = await this.getBlock(nextBlockNumber)
             }
 
@@ -1120,18 +1094,18 @@ export class Blockchain implements BlockchainInterface {
       header = await this.getCanonicalHeader(newHeader.number)
       ancestorHeaders.add(header)
     } else {
-      while (header.number !== newHeader.number && newHeader.number > BIGINT_0) {
-        newHeader = await this._getHeader(newHeader.parentHash, newHeader.number - BIGINT_1)
+      while (header.number !== newHeader.number && newHeader.number > BigInt(0)) {
+        newHeader = await this._getHeader(newHeader.parentHash, newHeader.number - BigInt(1))
         ancestorHeaders.add(newHeader)
       }
     }
     if (header.number !== newHeader.number) {
       throw new Error('Failed to find ancient header')
     }
-    while (!equalsBytes(header.hash(), newHeader.hash()) && header.number > BIGINT_0) {
-      header = await this.getCanonicalHeader(header.number - BIGINT_1)
+    while (!equalsBytes(header.hash(), newHeader.hash()) && header.number > BigInt(0)) {
+      header = await this.getCanonicalHeader(header.number - BigInt(1))
       ancestorHeaders.add(header)
-      newHeader = await this._getHeader(newHeader.parentHash, newHeader.number - BIGINT_1)
+      newHeader = await this._getHeader(newHeader.parentHash, newHeader.number - BigInt(1))
       ancestorHeaders.add(newHeader)
     }
     if (!equalsBytes(header.hash(), newHeader.hash())) {
@@ -1178,7 +1152,7 @@ export class Blockchain implements BlockchainInterface {
         // executed block) blocks to verify the chain up to the current, actual,
         // head.
         for (const name of Object.keys(this._heads)) {
-          if (equalsBytes(this._heads[name], hash)) {
+          if (equalsBytes(this._heads[name] as Uint8Array, hash)) {
             this._heads[name] = headHash
           }
         }
@@ -1242,7 +1216,7 @@ export class Blockchain implements BlockchainInterface {
       const blockHash = header.hash()
       const blockNumber = header.number
 
-      if (blockNumber === BIGINT_0) {
+      if (blockNumber === BigInt(0)) {
         break
       }
 
@@ -1253,7 +1227,7 @@ export class Blockchain implements BlockchainInterface {
       // mark each key `_heads` which is currently set to the hash in the DB as
       // stale to overwrite later in `_deleteCanonicalChainReferences`.
       for (const name of Object.keys(this._heads)) {
-        if (staleHash && equalsBytes(this._heads[name], staleHash)) {
+        if (staleHash && equalsBytes(this._heads[name] as Uint8Array, staleHash)) {
           staleHeads.push(name)
         }
       }
@@ -1328,15 +1302,15 @@ export class Blockchain implements BlockchainInterface {
   }
 
   async checkAndTransitionHardForkByNumber(
-    number: BigIntLike,
-    td?: BigIntLike,
-    timestamp?: BigIntLike
+    number: bigint | Hex | number | Uint8Array,
+    td?: bigint | Hex | number | Uint8Array,
+    timestamp?: bigint | Hex | number | Uint8Array,
   ): Promise<void> {
     this.common.setHardforkBy({
       blockNumber: number,
       td,
       timestamp,
-    })
+    } as any)
 
     // If custom consensus algorithm is used, skip merge hardfork consensus checks
     if (!Object.values(ConsensusAlgorithm).includes(this.consensus.algorithm as ConsensusAlgorithm))
@@ -1404,26 +1378,28 @@ export class Blockchain implements BlockchainInterface {
     common.setHardforkBy({
       blockNumber: 0,
       td: BigInt(common.genesis().difficulty),
-      timestamp: common.genesis().timestamp,
+      timestamp: common.genesis().timestamp as string,
     })
 
-    const header: BlockData['header'] = {
-      ...common.genesis(),
+    const genesis = common.genesis()
+    const header = {
+      ...genesis,
       number: 0,
       stateRoot,
-      withdrawalsRoot: common.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
+      withdrawalsRoot: (common.isActivatedEIP(4895) ? KECCAK256_RLP : undefined) as Uint8Array, // this type is a lie
     }
     if (common.consensusType() === 'poa') {
       if (common.genesis().extraData) {
         // Ensure exta data is populated from genesis data if provided
         header.extraData = common.genesis().extraData
       } else {
-        // Add required extraData (32 bytes vanity + 65 bytes filled with zeroes
-        header.extraData = concatBytes(new Uint8Array(32), new Uint8Array(65))
+        // Add required extraData (32 bytes vanity + 65 bytes filled with zeroes // This looks like a bug in upstream
+        header.extraData = (concatBytes(new Uint8Array(32), new Uint8Array(65)) as any as string)
       }
     }
     return Block.fromBlockData(
-      { header, withdrawals: common.isActivatedEIP(4895) ? [] : undefined },
+      // Our ts config is stricter than ethereumjs
+      { header, withdrawals: common.isActivatedEIP(4895) ? [] : undefined } as any,
       { common }
     )
   }

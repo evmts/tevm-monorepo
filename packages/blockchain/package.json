@@ -68,6 +68,7 @@
     "@tevm/trie": "workspace:^",
     "@tevm/tx": "workspace:1.0.0-next.42",
     "abstract-level": "^2.0.0",
+    "lru-cache": "^10.2.0",
     "memory-level": "^1.0.0"
   },
   "devDependencies": {
