@@ -5,14 +5,17 @@ import { Common } from '@ethereumjs/common'
  * Creates an ethereumjs Common object used by the EVM
  * to access chain and hardfork parameters and to provide
  * a unified and shared view on the network and hardfork state.
- * @param {import('./CommonOptions.js').CommonOptions} options
+ * @param {import('./CommonOptions.js').CommonOptions} [options]
  * @returns {Common}
  */
-export const createCommon = (options) => {
+export const createCommon = ({
+	hardfork = Hardfork.Cancun,
+	eips = [],
+} = {}) => {
 	return new Common({
 		chain: 1,
-		hardfork: options.hardfork ?? Hardfork.Shanghai,
-		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
+		hardfork: hardfork,
+		eips: [1559, 4788, 4844, 4895, ...eips],
 		customChains: [],
 	})
 }
