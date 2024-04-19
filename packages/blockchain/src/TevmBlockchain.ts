@@ -44,12 +44,7 @@ import { getGenesisStateRoot } from './getGenesisStateRoot.js'
  * This class stores and interacts with blocks.
  */
 export class Blockchain implements BlockchainInterface {
-  consensus: Consensus
-  db: DB<Uint8Array | string, Uint8Array | string | DBObject>
-  dbManager: DBManager
-  events: AsyncEventEmitter<BlockchainEvents>
 
-  private _genesisBlock?: Block /** The genesis block of this blockchain */
   private _customGenesisState?: GenesisState /** Custom genesis state */
 
   /**
@@ -196,105 +191,19 @@ export class Blockchain implements BlockchainInterface {
    * {@link BlockchainOptions}.
    */
   protected constructor(opts: BlockchainOptions = {}) {
-    if (opts.common) {
-      this.common = opts.common
-    } else {
-      const DEFAULT_HARDFORK: Hardfork = 'chainstart'
-      const DEFAULT_CHAIN = CommonChainId.Mainnet
-      this.common = new Common({
-        chain: DEFAULT_CHAIN,
-        hardfork: DEFAULT_HARDFORK,
-      })
-    }
-
     this._hardforkByHeadBlockNumber = opts.hardforkByHeadBlockNumber ?? false
     this._validateConsensus = opts.validateConsensus ?? true
     this._customGenesisState = opts.genesisState as GenesisState
-    this.db = opts.db !== undefined ? opts.db : new MapDb()
     this._validateBlocks = opts.validateBlocks ?? true
-
-    this.dbManager = new DBManager(this.db, this.common)
-
-    this.events = new AsyncEventEmitter()
-
-    if (opts.consensus) {
-      this.consensus = opts.consensus
-    } else {
-      switch (this.common.consensusAlgorithm()) {
-        case ConsensusAlgorithm.Casper:
-          this.consensus = new CasperConsensus()
-          break
-        case ConsensusAlgorithm.Clique:
-          this.consensus = new CliqueConsensus()
-          break
-        case ConsensusAlgorithm.Ethash:
-          this.consensus = new EthashConsensus()
-          break
-        default:
-          throw new Error(`consensus algorithm ${this.common.consensusAlgorithm()} not supported`)
-      }
-    }
-
-    if (this._validateConsensus) {
-      if (this.common.consensusType() === ConsensusType.ProofOfWork) {
-        if (this.common.consensusAlgorithm() !== ConsensusAlgorithm.Ethash) {
-          throw new Error('consensus validation only supported for pow ethash algorithm')
-        }
-      }
-      if (this.common.consensusType() === ConsensusType.ProofOfAuthority) {
-        if (this.common.consensusAlgorithm() !== ConsensusAlgorithm.Clique) {
-          throw new Error(
-            'consensus (signature) validation only supported for poa clique algorithm'
-          )
-        }
-      }
-    }
-
-    this._heads = {}
-
-    this._lock = new Lock()
 
     if (opts.genesisBlock && !opts.genesisBlock.isGenesis()) {
       throw 'supplied block is not a genesis block'
     }
   }
 
-  /**
-   * Returns a deep copy of this {@link Blockchain} instance.
-   *
-   * Note: this does not make a copy of the underlying db
-   * since it is unknown if the source is on disk or in memory.
-   * This should not be a significant issue in most usage since
-   * the queries will only reflect the instance's known data.
-   * If you would like this copied blockchain to use another db
-   * set the {@link db} of this returned instance to a copy of
-   * the original.
-   */
   shallowCopy(): Blockchain {
-    const copiedBlockchain = Object.create(
-      Object.getPrototypeOf(this),
-      Object.getOwnPropertyDescriptors(this)
-    )
-    copiedBlockchain.common = this.common.copy()
-    return copiedBlockchain
   }
 
-  /**
-   * Run a function after acquiring a lock. It is implied that we have already
-   * initialized the module (or we are calling this from the init function, like
-   * `_setCanonicalGenesisBlock`)
-   * @param action - function to run after acquiring a lock
-   * @hidden
-   */
-  private async runWithLock<T>(action: () => Promise<T>): Promise<T> {
-    try {
-      await this._lock.acquire()
-      const value = await action()
-      return value
-    } finally {
-      this._lock.release()
-    }
-  }
 
   /**
    * Returns the specified iterator head.
