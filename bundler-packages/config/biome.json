@@ -24,6 +24,7 @@
       ".changeset",
       ".devcontainer",
       "examples/svelte-ethers/.svelte-kit",
+      "examples/next",
       "experimental/viem-effect",
       "bundler-packages/config/src/fixtures",
       "bundler-packages/cli/fixtures"
@@ -53,6 +54,7 @@
         "noGlobalAssign": "off",
         "noArrayIndexKey": "off",
         "noConfusingVoidType": "off",
+        "noAssignInExpressions": "off",
         "noRedeclare": "off"
       }
     }
