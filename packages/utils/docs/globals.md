@@ -11,9 +11,12 @@
 
 ## Classes
 
+- [AsyncEventEmitter](classes/AsyncEventEmitter.md)
 - [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
+- [Lock](classes/Lock.md)
+- [MapDb](classes/MapDb.md)
 
 ## Interfaces
 
@@ -61,6 +64,11 @@
 - [SerializeToJson](type-aliases/SerializeToJson.md)
 - [SetToHex](type-aliases/SetToHex.md)
 - [WithdrawalData](type-aliases/WithdrawalData.md)
+
+## Variables
+
+- [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
+- [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
 
 ## Functions
 

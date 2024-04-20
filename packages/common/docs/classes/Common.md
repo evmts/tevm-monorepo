@@ -125,7 +125,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ### events
 
-> **events**: `EventEmitter`
+> **events**: `EventEmitter`\<`DefaultEventMap`\>
 
 #### Source
 
@@ -1097,7 +1097,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 Creates a [Common](Common.md) object for a custom chain, based on a standard one.
 
-It uses all the Chain parameters from the baseChain option except the ones overridden
+It uses all the [Chain](../enumerations/CommonChainId.md) parameters from the baseChain option except the ones overridden
 in a provided chainParamsOrName dictionary. Some usage example:
 
 ```javascript

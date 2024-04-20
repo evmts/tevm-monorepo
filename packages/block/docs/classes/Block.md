@@ -528,7 +528,7 @@ Static constructor to create a block from a block data dictionary
 
 #### Parameters
 
-• **blockData?**: `BlockData`
+• **blockData?**: [`BlockData`](../interfaces/BlockData.md)
 
 • **opts?**: `BlockOptions`
 

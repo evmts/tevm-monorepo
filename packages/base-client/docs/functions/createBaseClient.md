@@ -184,3 +184,9 @@ Sets the chain id of the current EVM
 ## Source
 
 [createBaseClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L23)
+<<<<<<< HEAD
+=======
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+>>>>>>> d5faeb7ea98b5876a6cdd565745775b2751fc435

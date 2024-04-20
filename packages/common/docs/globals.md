@@ -6,7 +6,9 @@
 
 ## Enumerations
 
+- [CommonChainId](enumerations/CommonChainId.md)
 - [ConsensusAlgorithm](enumerations/ConsensusAlgorithm.md)
+- [ConsensusType](enumerations/ConsensusType.md)
 
 ## Classes
 
@@ -21,8 +23,13 @@
 ## Type Aliases
 
 - [AccountFields](type-aliases/AccountFields.md)
+- [CliqueConfig](type-aliases/CliqueConfig.md)
 - [CommonOptions](type-aliases/CommonOptions.md)
 - [Hardfork](type-aliases/Hardfork.md)
+
+## Variables
+
+- [ChainGenesis](variables/ChainGenesis.md)
 
 ## Functions
 

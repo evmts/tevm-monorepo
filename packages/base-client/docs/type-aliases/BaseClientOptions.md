@@ -115,9 +115,15 @@ Cannot be set if `proxy` is also set
 
 Hardfork to use. Defaults to `shanghai`
 
+<<<<<<< HEAD
 ### loggingLevel?
 
 > **`optional`** **`readonly`** **loggingLevel**: `LogOptions`\[`"level"`\]
+=======
+### loggingLevel
+
+> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+>>>>>>> d5faeb7ea98b5876a6cdd565745775b2751fc435
 
 Configure logging options for the client
 

@@ -196,6 +196,12 @@ const data = await client.call({
 
 `Promise`\<`CallReturnType`\>
 
+#### ccipRead?
+
+> **`optional`** **ccipRead**: `false` \| `object`
+
+[CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
+
 #### chain
 
 > **chain**: `undefined` \| `Chain`
@@ -1919,7 +1925,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 #### prepareTransactionRequest()
 
-> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends PrepareTransactionRequestParameterType[] ? any[any][number] : PrepareTransactionRequestParameterType>> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
+> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends readonly PrepareTransactionRequestParameterType[] ? any[any][number] : "nonce" | "type" | "gas" | "blobVersionedHashes" | "chainId" | "fees">> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
 
 Prepares a transaction request for signing.
 
@@ -1977,7 +1983,7 @@ PrepareTransactionRequestParameters
 
 ##### Returns
 
-`Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends PrepareTransactionRequestParameterType[] ? any[any][number] : PrepareTransactionRequestParameterType>> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
+`Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends readonly PrepareTransactionRequestParameterType[] ? any[any][number] : "nonce" | "type" | "gas" | "blobVersionedHashes" | "chainId" | "fees">> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
 
 #### readContract()
 
