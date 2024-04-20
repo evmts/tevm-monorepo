@@ -43,7 +43,7 @@ export async function POST(req: Request) {
   ];
 
   if (!provider) {
-    throw new Error('no provider found')
+    throw new Error('no provider found');
   }
 
   try {
