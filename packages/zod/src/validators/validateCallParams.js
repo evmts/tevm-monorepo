@@ -28,13 +28,7 @@ export const validateCallParams = (action) => {
 		}
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidDeployedBytecodeError',
-						error,
-						String(action.deployedBytecode),
-					),
-				)
+				errors.push(createError('InvalidDeployedBytecodeError', error, String(action.deployedBytecode)))
 			})
 		}
 	}

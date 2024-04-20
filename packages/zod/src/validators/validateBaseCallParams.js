@@ -17,101 +17,67 @@ export const validateBaseCallParams = (action) => {
 
 		// Iterate over the general errors
 		formattedErrors._errors.forEach((error) => {
-			errors.push(
-				createError('InvalidRequestError', error, JSON.stringify(action)),
-			)
+			errors.push(createError('InvalidRequestError', error, JSON.stringify(action)))
 		})
 
 		// Error handling for specific fields
 		if (formattedErrors.skipBalance) {
 			formattedErrors.skipBalance._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidSkipBalanceError',
-						error,
-						String(action.skipBalance),
-					),
-				)
+				errors.push(createError('InvalidSkipBalanceError', error, String(action.skipBalance)))
 			})
 		}
 
 		if (formattedErrors.gasRefund) {
 			formattedErrors.gasRefund._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidGasRefundError', error, String(action.gasRefund)),
-				)
+				errors.push(createError('InvalidGasRefundError', error, String(action.gasRefund)))
 			})
 		}
 
 		if (formattedErrors.blockTag) {
 			formattedErrors.blockTag._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidBlockError',
-						error,
-						action.blockTag?.toString() ?? 'undefined',
-					),
-				)
+				errors.push(createError('InvalidBlockError', error, action.blockTag?.toString() ?? 'undefined'))
 			})
 		}
 
 		if (formattedErrors.gas) {
 			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidGasPriceError', error, String(action.gas)),
-				)
+				errors.push(createError('InvalidGasPriceError', error, String(action.gas)))
 			})
 		}
 
 		if (formattedErrors.origin) {
 			formattedErrors.origin._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidOriginError', error, String(action.origin)),
-				)
+				errors.push(createError('InvalidOriginError', error, String(action.origin)))
 			})
 		}
 
 		if (formattedErrors.caller) {
 			formattedErrors.caller._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidCallerError', error, String(action.caller)),
-				)
+				errors.push(createError('InvalidCallerError', error, String(action.caller)))
 			})
 		}
 
 		if (formattedErrors.gas) {
 			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidGasLimitError', error, String(action.gas)),
-				)
+				errors.push(createError('InvalidGasLimitError', error, String(action.gas)))
 			})
 		}
 
 		if (formattedErrors.value) {
 			formattedErrors.value._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidValueError', error, String(action.value)),
-				)
+				errors.push(createError('InvalidValueError', error, String(action.value)))
 			})
 		}
 
 		if (formattedErrors.depth) {
 			formattedErrors.depth._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidDepthError', error, String(action.depth)),
-				)
+				errors.push(createError('InvalidDepthError', error, String(action.depth)))
 			})
 		}
 
 		if (formattedErrors.selfdestruct) {
 			formattedErrors.selfdestruct._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidSelfdestructError',
-						error,
-						JSON.stringify(action.selfdestruct),
-					),
-				)
+				errors.push(createError('InvalidSelfdestructError', error, JSON.stringify(action.selfdestruct)))
 			})
 		}
 
@@ -123,13 +89,7 @@ export const validateBaseCallParams = (action) => {
 
 		if (formattedErrors.blobVersionedHashes) {
 			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidBlobVersionedHashesError',
-						error,
-						JSON.stringify(action.blobVersionedHashes),
-					),
-				)
+				errors.push(createError('InvalidBlobVersionedHashesError', error, JSON.stringify(action.blobVersionedHashes)))
 			})
 		}
 	}

@@ -1,4 +1,4 @@
-import { Node } from 'solidity-ast/node.js'
+import type { Node } from 'solidity-ast/node.js'
 import ts from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -10,10 +10,10 @@ vi.mock('fs', async () => {
 	}
 })
 
+import type { SolcInput } from 'solidity-ast/solc.js'
+import { ScriptElementKind } from 'typescript'
 // Now, import your function under test
 import { convertSolcAstToTsDefinitionInfo } from '../utils/convertSolcAstToTsDefinitionInfo.js'
-import { SolcInput } from 'solidity-ast/solc.js'
-import { ScriptElementKind } from 'typescript'
 
 describe('convertSolcAstToTsDefinitionInfo', () => {
 	it('should create a TypeScript DefinitionInfo for a FunctionDefinition', () => {
@@ -30,13 +30,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		const definitionInfo = convertSolcAstToTsDefinitionInfo(
-			astNode,
-			'test.sol',
-			'MyContainer',
-			solcInput,
-			ts,
-		)
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'test.sol', 'MyContainer', solcInput, ts)
 
 		expect(definitionInfo).toMatchInlineSnapshot(`
 			{
@@ -67,13 +61,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		const definitionInfo = convertSolcAstToTsDefinitionInfo(
-			astNode,
-			'test.sol',
-			'MyContainer',
-			solcInput,
-			ts,
-		)
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'test.sol', 'MyContainer', solcInput, ts)
 
 		expect(definitionInfo).toMatchObject({
 			containerKind: 'class',
@@ -102,13 +90,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		const definitionInfo = convertSolcAstToTsDefinitionInfo(
-			astNode,
-			'test.sol',
-			'MyContainer',
-			solcInput,
-			ts,
-		)
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'test.sol', 'MyContainer', solcInput, ts)
 
 		expect(definitionInfo).toMatchObject({
 			containerKind: 'class',

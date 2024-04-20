@@ -1,4 +1,5 @@
 import {
+	undefined as SUndefined,
 	array,
 	boolean,
 	literal,
@@ -7,11 +8,10 @@ import {
 	record,
 	string,
 	struct,
-	undefined as SUndefined,
 	union,
 } from '@effect/schema/Schema'
 import { pipe } from 'effect'
-import { catchTag, fail, logDebug, tap, try as effectTry } from 'effect/Effect'
+import { catchTag, try as effectTry, fail, logDebug, tap } from 'effect/Effect'
 import { flatMap } from 'effect/Effect'
 
 /**
@@ -29,11 +29,7 @@ export class ConfigFnThrowError extends Error {
 	 */
 	constructor(options) {
 		const message =
-			typeof options.cause === 'string'
-				? options.cause
-				: options.cause instanceof Error
-				? options.cause.message
-				: ''
+			typeof options.cause === 'string' ? options.cause : options.cause instanceof Error ? options.cause.message : ''
 		super(`Provided config factory threw an error: ${message}`, options)
 	}
 }
@@ -98,11 +94,7 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 		),
 		catchTag('ParseError', (cause) => fail(new InvalidConfigError({ cause }))),
 		tap((validatedConfig) =>
-			logDebug(
-				`validatedConfig: Validated config successfully: ${JSON.stringify(
-					validatedConfig,
-				)}`,
-			),
+			logDebug(`validatedConfig: Validated config successfully: ${JSON.stringify(validatedConfig)}`),
 		),
 	)
 }

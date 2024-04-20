@@ -72,17 +72,8 @@ export const createJsonRpcFetcher = (
 				if (out === null) {
 					throw new Error('JSON-RPC response was null')
 				}
-				if (
-					'id' in out &&
-					!(
-						typeof out.id === 'number' ||
-						typeof out.id === 'string' ||
-						out.id === null
-					)
-				) {
-					throw new Error(
-						'JSON-RPC response was missing an id or id is invalid type',
-					)
+				if ('id' in out && !(typeof out.id === 'number' || typeof out.id === 'string' || out.id === null)) {
+					throw new Error('JSON-RPC response was missing an id or id is invalid type')
 				}
 				if (!('jsonrpc' in out) || out.jsonrpc !== '2.0') {
 					throw new Error('JSON-RPC response was missing a jsonrpc field')

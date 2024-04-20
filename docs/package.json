@@ -1,27 +1,27 @@
 {
-  "name": "@tevm/docs",
-  "version": "0.0.1",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "astro": "astro",
-    "build": "bun run build:app",
-    "build:app": "astro check && astro build",
-    "dev": "astro dev",
-    "preview": "astro preview",
-    "start": "astro dev"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "@astrojs/starlight": "^0.16.0",
-    "astro": "^4.2.4",
-    "sharp": "^0.33.2",
-    "starlight-links-validator": "^0.5.2"
-  },
-  "devDependencies": {
-    "tevm": "workspace:^",
-    "@tevm/memory-client": "workspace:^",
-    "@tevm/viem": "workspace:^",
-    "@tevm/bundler": "workspace:^"
-  }
+	"name": "@tevm/docs",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"astro": "astro",
+		"build": "bun run build:app",
+		"build:app": "astro check && astro build",
+		"dev": "astro dev",
+		"preview": "astro preview",
+		"start": "astro dev"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.4.1",
+		"@astrojs/starlight": "^0.16.0",
+		"astro": "^4.2.4",
+		"sharp": "^0.33.2",
+		"starlight-links-validator": "^0.5.2"
+	},
+	"devDependencies": {
+		"tevm": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/viem": "workspace:^",
+		"@tevm/bundler": "workspace:^"
+	}
 }

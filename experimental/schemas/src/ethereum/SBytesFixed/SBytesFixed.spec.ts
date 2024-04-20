@@ -1,3 +1,4 @@
+import { assertType, describe, expect, it } from 'vitest'
 import {
 	isBytes1,
 	isBytes2,
@@ -64,7 +65,6 @@ import {
 	parseBytes31,
 	parseBytes32,
 } from './index.js'
-import { assertType, describe, expect, it } from 'vitest'
 
 const byteTestCases = [
 	{
@@ -324,8 +324,7 @@ const byteTestCases = [
 		value: '0xbbccddeeff00112233445566778899aabbccddeeff0011223344556677',
 		parse: parseBytes29,
 		isEqual: isBytes29,
-		invalidHex:
-			'ffbbccddeeff00112233445566778899aabbccddeeff001122334455667788',
+		invalidHex: 'ffbbccddeeff00112233445566778899aabbccddeeff001122334455667788',
 		toBig: '0xffbbccddeeff00112233445566778899aabbccddeeff0011223344556677',
 		toSmall: '0xbbccddeeff00112233445566778899aabbccddeeff00112233445566',
 	},
@@ -334,8 +333,7 @@ const byteTestCases = [
 		value: '0xbbccddeeff00112233445566778899aabbccddeeff001122334455667788',
 		parse: parseBytes30,
 		isEqual: isBytes30,
-		invalidHex:
-			'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
+		invalidHex: 'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
 		toBig: '0xffbbccddeeff00112233445566778899aabbccddeeff001122334455667788',
 		toSmall: '0xbbccddeeff00112233445566778899aabbccddeeff0011223344556677',
 	},
@@ -344,8 +342,7 @@ const byteTestCases = [
 		value: '0xbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
 		parse: parseBytes31,
 		isEqual: isBytes31,
-		invalidHex:
-			'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
+		invalidHex: 'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
 		toBig: '0xffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
 		toSmall: '0xbbccddeeff00112233445566778899aabbccddeeff001122334455667788',
 	},
@@ -354,10 +351,8 @@ const byteTestCases = [
 		value: '0xbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
 		parse: parseBytes32,
 		isEqual: isBytes32,
-		invalidHex:
-			'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aabb',
-		toBig:
-			'0xffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
+		invalidHex: 'ffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aabb',
+		toBig: '0xffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
 		toSmall: '0xbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
 	},
 ] as const
@@ -394,15 +389,9 @@ describe.each(byteTestCases)('parse%j', (testCase) => {
 			// @ts-expect-error
 			testCase.parse(testCase.invalidHex),
 		).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse(testCase.toSmall),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(testCase.toSmall)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse(testCase.toBig)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse('invalid' as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse(BigInt(testCase.value) as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse('invalid' as any)).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(BigInt(testCase.value) as any)).toThrowErrorMatchingSnapshot()
 	})
 })

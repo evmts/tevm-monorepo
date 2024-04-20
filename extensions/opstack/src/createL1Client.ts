@@ -1,3 +1,4 @@
+import { createMemoryClient } from '@tevm/memory-client'
 import { constants } from './constants.js'
 import {
 	createDisputeGameFactory,
@@ -10,7 +11,6 @@ import {
 	createSuperchainConfig,
 	createSystemConfig,
 } from './contracts/index.js'
-import { createMemoryClient } from '@tevm/memory-client'
 
 /**
  * Creates a Tevm client preloaded and initialized with L1 contracts. This corresponds to the 3.0 major version of Optimism
@@ -28,8 +28,7 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 	const OptimismPortal2 = createOptimismPortal2(chainId)
 	const DisputeGameFactory = createDisputeGameFactory(chainId)
 	const SystemConfig = createSystemConfig(chainId)
-	const OptimismMintableERC20Factory =
-		createOptimismMintableERC20Factory(chainId)
+	const OptimismMintableERC20Factory = createOptimismMintableERC20Factory(chainId)
 
 	const contracts = {
 		L1Erc721Bridge,
@@ -72,16 +71,11 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 			}),
 			client.contract({
 				createTransaction: true,
-				...DisputeGameFactory.write.initialize(
-					constants.DISPUTE_GAME_FACTORY_OWNER,
-				),
+				...DisputeGameFactory.write.initialize(constants.DISPUTE_GAME_FACTORY_OWNER),
 			}),
 			client.contract({
 				createTransaction: true,
-				...L1StandardBridge.write.initialize(
-					L1CrossDomainMessenger.address,
-					SuperchainConfig.address,
-				),
+				...L1StandardBridge.write.initialize(L1CrossDomainMessenger.address, SuperchainConfig.address),
 			}),
 			client.contract({
 				createTransaction: true,
@@ -126,31 +120,19 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 			}),
 			client.contract({
 				createTransaction: true,
-				...OptimismPortal2.write.initialize(
-					DisputeGameFactory.address,
-					SystemConfig.address,
-					SuperchainConfig.address,
-				),
+				...OptimismPortal2.write.initialize(DisputeGameFactory.address, SystemConfig.address, SuperchainConfig.address),
 			}),
 			client.contract({
 				createTransaction: true,
-				...OptimismMintableERC20Factory.write.initialize(
-					L1StandardBridge.address,
-				),
+				...OptimismMintableERC20Factory.write.initialize(L1StandardBridge.address),
 			}),
 			client.contract({
 				createTransaction: true,
-				...L1CrossDomainMessenger.write.initialize(
-					SuperchainConfig.address,
-					OptimismPortal2.address,
-				),
+				...L1CrossDomainMessenger.write.initialize(SuperchainConfig.address, OptimismPortal2.address),
 			}),
 			client.contract({
 				createTransaction: true,
-				...L1Erc721Bridge.write.initialize(
-					L1CrossDomainMessenger.address,
-					SuperchainConfig.address,
-				),
+				...L1Erc721Bridge.write.initialize(L1CrossDomainMessenger.address, SuperchainConfig.address),
 			}),
 		])
 	}

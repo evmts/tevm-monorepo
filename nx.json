@@ -63,11 +63,7 @@
 		"build:dist": {
 			"inputs": ["production", "outputsDist"],
 			"dependsOn": ["^build:dist"],
-			"outputs": [
-				"{projectRoot}/dist/**/*.js",
-				"{projectRoot}/dist/**/*.cjs",
-				"{projectRoot}/dist/**/*.mjs"
-			],
+			"outputs": ["{projectRoot}/dist/**/*.js", "{projectRoot}/dist/**/*.cjs", "{projectRoot}/dist/**/*.mjs"],
 			"cache": true
 		},
 		"generate:docs": {
@@ -92,10 +88,7 @@
 	},
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"namedInputs": {
-		"buildConfigs": [
-			"{projectRoot}/tsconfig.*?.json",
-			"{projectRoot}/tsup.config.ts"
-		],
+		"buildConfigs": ["{projectRoot}/tsconfig.*?.json", "{projectRoot}/tsup.config.ts"],
 		"default": [
 			"{projectRoot}/*.json",
 			"{projectRoot}/*.js",
@@ -110,18 +103,9 @@
 			"{workspaceRoot}/configs/**/*",
 			"{workspaceRoot}/lib/**/*"
 		],
-		"productionSrc": [
-			"{projectRoot}/src/**/*",
-			"!{projectRoot}/src/**/*.spec.ts"
-		],
+		"productionSrc": ["{projectRoot}/src/**/*", "!{projectRoot}/src/**/*.spec.ts"],
 		"productionContracts": ["{projectRoot}/contracts/**/*"],
-		"production": [
-			"default",
-			"buildConfigs",
-			"sharedGlobals",
-			"productionSrc",
-			"productionContracts"
-		],
+		"production": ["default", "buildConfigs", "sharedGlobals", "productionSrc", "productionContracts"],
 		"outputsDist": [
 			{
 				"dependentTasksOutputFiles": "**/*"

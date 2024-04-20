@@ -18,10 +18,7 @@ import type {
 	ScriptHandler,
 	SetAccountHandler,
 } from '@tevm/actions-types'
-import type {
-	TevmJsonRpcBulkRequestHandler,
-	TevmJsonRpcRequestHandler,
-} from '@tevm/procedures-types'
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
 import type { HDAccount } from '@tevm/utils'
 
 /**

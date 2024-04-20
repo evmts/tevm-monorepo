@@ -1,8 +1,4 @@
-import type {
-	InvalidDataError,
-	InvalidDeployedBytecodeError,
-	InvalidSaltError,
-} from '../input/index.js'
+import type { InvalidDataError, InvalidDeployedBytecodeError, InvalidSaltError } from '../input/index.js'
 import type { BaseCallError } from './BaseCallError.js'
 
 /**
@@ -13,8 +9,4 @@ import type { BaseCallError } from './BaseCallError.js'
  *  console.log(errors[0].name) // InvalidDataError
  * }
  */
-export type CallError =
-	| BaseCallError
-	| InvalidSaltError
-	| InvalidDataError
-	| InvalidDeployedBytecodeError
+export type CallError = BaseCallError | InvalidSaltError | InvalidDataError | InvalidDeployedBytecodeError

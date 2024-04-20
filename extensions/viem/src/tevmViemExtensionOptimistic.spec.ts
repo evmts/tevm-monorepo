@@ -1,7 +1,7 @@
+import { describe, expect, it, jest, mock } from 'bun:test'
+import type { WaitForTransactionReceiptReturnType } from 'viem/actions'
 // TODO convert to js and make src the entrypoint
 import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
-import { describe, expect, it, jest, mock } from 'bun:test'
-import { type WaitForTransactionReceiptReturnType } from 'viem/actions'
 
 mock.module('viem/actions', () => ({
 	...require('viem/actions'),
@@ -47,8 +47,7 @@ client.writeContract.mockResolvedValue(mockWriteContractResponse)
 
 describe('tevmViemExtension', () => {
 	it('writeContractOptimistic should write a contract call and optimistically execute it against the vm', async () => {
-		const mockWaitForTransactionReceipt = (await import('viem/actions'))
-			.waitForTransactionReceipt as jest.Mock
+		const mockWaitForTransactionReceipt = (await import('viem/actions')).waitForTransactionReceipt as jest.Mock
 		mockWaitForTransactionReceipt.mockResolvedValue(mockTxReciept)
 
 		const decoratedClient = client.extend(tevmViemExtensionOptimistic())
@@ -63,9 +62,7 @@ describe('tevmViemExtension', () => {
 			chain: {} as any,
 		} as const
 
-		for await (const result of decoratedClient.tevm.writeContractOptimistic(
-			params,
-		)) {
+		for await (const result of decoratedClient.tevm.writeContractOptimistic(params)) {
 			if (result.tag === 'OPTIMISTIC_RESULT') {
 				expect(result).toEqual({
 					data: mockRequestResponse as any,

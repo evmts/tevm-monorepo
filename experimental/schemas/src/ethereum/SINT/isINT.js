@@ -4,9 +4,9 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 import { parseEither } from '@effect/schema/Schema'
 import { isRight } from 'effect/Either'
+import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 
 /**
  * Type guard that returns true if the provided bigint is a valid Ethereum INT8.

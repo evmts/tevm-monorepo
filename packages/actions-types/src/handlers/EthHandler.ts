@@ -80,47 +80,27 @@ import type {
 } from '../result/index.js'
 
 // eth_accounts
-export type EthAccountsHandler = (
-	request?: EthAccountsParams,
-) => Promise<EthAccountsResult>
+export type EthAccountsHandler = (request?: EthAccountsParams) => Promise<EthAccountsResult>
 // eth_blockNumber
-export type EthBlockNumberHandler = (
-	request?: EthBlockNumberParams,
-) => Promise<EthBlockNumberResult>
+export type EthBlockNumberHandler = (request?: EthBlockNumberParams) => Promise<EthBlockNumberResult>
 // eth_call
 export type EthCallHandler = (request: EthCallParams) => Promise<EthCallResult>
 // eth_chainId
-export type EthChainIdHandler = (
-	request?: EthChainIdParams,
-) => Promise<EthChainIdResult>
+export type EthChainIdHandler = (request?: EthChainIdParams) => Promise<EthChainIdResult>
 // eth_coinbase
-export type EthCoinbaseHandler = (
-	request: EthCoinbaseParams,
-) => Promise<EthCoinbaseResult>
+export type EthCoinbaseHandler = (request: EthCoinbaseParams) => Promise<EthCoinbaseResult>
 // eth_estimateGas
-export type EthEstimateGasHandler = (
-	request: EthEstimateGasParams,
-) => Promise<EthEstimateGasResult>
+export type EthEstimateGasHandler = (request: EthEstimateGasParams) => Promise<EthEstimateGasResult>
 // eth_hashrate
-export type EthHashrateHandler = (
-	request?: EthHashrateParams,
-) => Promise<EthHashrateResult>
+export type EthHashrateHandler = (request?: EthHashrateParams) => Promise<EthHashrateResult>
 // eth_gasPrice
-export type EthGasPriceHandler = (
-	request?: EthGasPriceParams,
-) => Promise<EthGasPriceResult>
+export type EthGasPriceHandler = (request?: EthGasPriceParams) => Promise<EthGasPriceResult>
 // eth_getBalance
-export type EthGetBalanceHandler = (
-	request: EthGetBalanceParams,
-) => Promise<EthGetBalanceResult>
+export type EthGetBalanceHandler = (request: EthGetBalanceParams) => Promise<EthGetBalanceResult>
 // eth_getBlockByHash
-export type EthGetBlockByHashHandler = (
-	request: EthGetBlockByHashParams,
-) => Promise<EthGetBlockByHashResult>
+export type EthGetBlockByHashHandler = (request: EthGetBlockByHashParams) => Promise<EthGetBlockByHashResult>
 // eth_getBlockByNumber
-export type EthGetBlockByNumberHandler = (
-	request: EthGetBlockByNumberParams,
-) => Promise<EthGetBlockByNumberResult>
+export type EthGetBlockByNumberHandler = (request: EthGetBlockByNumberParams) => Promise<EthGetBlockByNumberResult>
 // eth_getBlockTransactionCountByHash
 export type EthGetBlockTransactionCountByHashHandler = (
 	request: EthGetBlockTransactionCountByHashParams,
@@ -130,25 +110,15 @@ export type EthGetBlockTransactionCountByNumberHandler = (
 	request: EthGetBlockTransactionCountByNumberParams,
 ) => Promise<EthGetBlockTransactionCountByNumberResult>
 // eth_getCode
-export type EthGetCodeHandler = (
-	request: EthGetCodeParams,
-) => Promise<EthGetCodeResult>
+export type EthGetCodeHandler = (request: EthGetCodeParams) => Promise<EthGetCodeResult>
 // eth_getFilterChanges
-export type EthGetFilterChangesHandler = (
-	request: EthGetFilterChangesParams,
-) => Promise<EthGetFilterChangesResult>
+export type EthGetFilterChangesHandler = (request: EthGetFilterChangesParams) => Promise<EthGetFilterChangesResult>
 // eth_getFilterLog
-export type EthGetFilterLogsHandler = (
-	request: EthGetFilterLogsParams,
-) => Promise<EthGetFilterLogsResult>
+export type EthGetFilterLogsHandler = (request: EthGetFilterLogsParams) => Promise<EthGetFilterLogsResult>
 // eth_getLogs
-export type EthGetLogsHandler = (
-	request: EthGetLogsParams,
-) => Promise<EthGetLogsResult>
+export type EthGetLogsHandler = (request: EthGetLogsParams) => Promise<EthGetLogsResult>
 // eth_getStorageAt
-export type EthGetStorageAtHandler = (
-	request: EthGetStorageAtParams,
-) => Promise<EthGetStorageAtResult>
+export type EthGetStorageAtHandler = (request: EthGetStorageAtParams) => Promise<EthGetStorageAtResult>
 // eth_getTransactionCount
 export type EthGetTransactionCountHandler = (
 	request: EthGetTransactionCountParams,
@@ -186,44 +156,28 @@ export type EthGetUncleByBlockNumberAndIndexHandler = (
 	request: EthGetUncleByBlockNumberAndIndexParams,
 ) => Promise<EthGetUncleByBlockNumberAndIndexResult>
 // eth_mining
-export type EthMiningHandler = (
-	request: EthMiningParams,
-) => Promise<EthMiningResult>
+export type EthMiningHandler = (request: EthMiningParams) => Promise<EthMiningResult>
 // eth_protocolVersion
-export type EthProtocolVersionHandler = (
-	request: EthProtocolVersionParams,
-) => Promise<EthProtocolVersionResult>
+export type EthProtocolVersionHandler = (request: EthProtocolVersionParams) => Promise<EthProtocolVersionResult>
 // eth_sendRawTransaction
 export type EthSendRawTransactionHandler = (
 	request: EthSendRawTransactionParams,
 ) => Promise<EthSendRawTransactionResult>
 // eth_sendTransaction
-export type EthSendTransactionHandler = (
-	request: EthSendTransactionParams,
-) => Promise<EthSendTransactionResult>
+export type EthSendTransactionHandler = (request: EthSendTransactionParams) => Promise<EthSendTransactionResult>
 // eth_sign
 export type EthSignHandler = (request: EthSignParams) => Promise<EthSignResult>
 // eth_signTransaction
-export type EthSignTransactionHandler = (
-	request: EthSignTransactionParams,
-) => Promise<EthSignTransactionResult>
+export type EthSignTransactionHandler = (request: EthSignTransactionParams) => Promise<EthSignTransactionResult>
 // eth_syncing
-export type EthSyncingHandler = (
-	request: EthSyncingParams,
-) => Promise<EthSyncingResult>
+export type EthSyncingHandler = (request: EthSyncingParams) => Promise<EthSyncingResult>
 // eth_newFilter
-export type EthNewFilterHandler = (
-	request: EthNewFilterParams,
-) => Promise<EthNewFilterResult>
+export type EthNewFilterHandler = (request: EthNewFilterParams) => Promise<EthNewFilterResult>
 // eth_newBlockFilter
-export type EthNewBlockFilterHandler = (
-	request: EthNewBlockFilterParams,
-) => Promise<EthNewBlockFilterResult>
+export type EthNewBlockFilterHandler = (request: EthNewBlockFilterParams) => Promise<EthNewBlockFilterResult>
 // eth_newPendingTransactionFilter
 export type EthNewPendingTransactionFilterHandler = (
 	request: EthNewPendingTransactionFilterParams,
 ) => Promise<EthNewPendingTransactionFilterResult>
 // eth_uninstallFilter
-export type EthUninstallFilterHandler = (
-	request: EthUninstallFilterParams,
-) => Promise<EthUninstallFilterResult>
+export type EthUninstallFilterHandler = (request: EthUninstallFilterParams) => Promise<EthUninstallFilterResult>

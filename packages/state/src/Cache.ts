@@ -2,10 +2,7 @@
 import type { EthjsAddress } from '@tevm/utils'
 import { toHex } from 'viem'
 
-export type GetContractStorage = (
-	address: EthjsAddress,
-	key: Uint8Array,
-) => Promise<Uint8Array>
+export type GetContractStorage = (address: EthjsAddress, key: Uint8Array) => Promise<Uint8Array>
 
 const toUnprefixedHex = (...params: Parameters<typeof toHex>) => {
 	return toHex(...params).slice(2)
@@ -20,9 +17,7 @@ export class Cache {
 	}
 
 	async get(address: EthjsAddress, key: Uint8Array): Promise<Uint8Array> {
-		const cachedValue = this.map
-			.get(toUnprefixedHex(address.bytes))
-			?.get(toUnprefixedHex(key))
+		const cachedValue = this.map.get(toUnprefixedHex(address.bytes))?.get(toUnprefixedHex(key))
 		if (cachedValue !== undefined) {
 			return cachedValue
 		}

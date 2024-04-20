@@ -1,6 +1,5 @@
 // debug_traceTransaction
 
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,
@@ -18,6 +17,7 @@ import type {
 } from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { Address } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // TODO type the errors strongly
 type AnvilError = string
@@ -44,11 +44,7 @@ export type AnvilStopImpersonatingAccountJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `anvil_setCoinbase` procedure
  */
-export type AnvilSetCoinbaseJsonRpcResponse = JsonRpcResponse<
-	'anvil_setCoinbase',
-	Address,
-	AnvilError
->
+export type AnvilSetCoinbaseJsonRpcResponse = JsonRpcResponse<'anvil_setCoinbase', Address, AnvilError>
 // anvil_autoImpersonateAccount
 /**
  * JSON-RPC response for `anvil_autoImpersonateAccount` procedure
@@ -68,20 +64,12 @@ export type AnvilGetAutomineJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `anvil_mine` procedure
  */
-export type AnvilMineJsonRpcResponse = JsonRpcResponse<
-	'anvil_mine',
-	SerializeToJson<AnvilMineResult>,
-	AnvilError
->
+export type AnvilMineJsonRpcResponse = JsonRpcResponse<'anvil_mine', SerializeToJson<AnvilMineResult>, AnvilError>
 // anvil_reset
 /**
  * JSON-RPC response for `anvil_reset` procedure
  */
-export type AnvilResetJsonRpcResponse = JsonRpcResponse<
-	'anvil_reset',
-	SerializeToJson<AnvilResetResult>,
-	AnvilError
->
+export type AnvilResetJsonRpcResponse = JsonRpcResponse<'anvil_reset', SerializeToJson<AnvilResetResult>, AnvilError>
 // anvil_dropTransaction
 /**
  * JSON-RPC response for `anvil_dropTransaction` procedure

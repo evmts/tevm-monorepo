@@ -1,6 +1,6 @@
-import type { Eip1193RequestProvider } from './Eip1193RequestProvider.js'
 import { describe, it, jest } from 'bun:test'
 import type { Hex } from 'viem'
+import type { Eip1193RequestProvider } from './Eip1193RequestProvider.js'
 
 describe('Eip1193RequestProvider types', () => {
 	it('should create a typesafe request function', async () => {

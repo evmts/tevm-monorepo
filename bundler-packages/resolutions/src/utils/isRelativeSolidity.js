@@ -10,5 +10,4 @@ import { isSolidity } from './isSolidity.js'
  * console.log(isRelativeSolidity) // true
  * ```
  */
-export const isRelativeSolidity = (fileName) =>
-	fileName.startsWith('./') && isSolidity(fileName)
+export const isRelativeSolidity = (fileName) => fileName.startsWith('./') && isSolidity(fileName)

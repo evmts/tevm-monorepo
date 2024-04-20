@@ -13,6 +13,4 @@ import type { DumpStateJsonRpcResponse } from '../responses/DumpStateJsonRpcResp
  *. }
  * console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result: {'0x...': '0x....', ...}}
  */
-export type DumpStateJsonRpcProcedure = (
-	request: DumpStateJsonRpcRequest,
-) => Promise<DumpStateJsonRpcResponse>
+export type DumpStateJsonRpcProcedure = (request: DumpStateJsonRpcRequest) => Promise<DumpStateJsonRpcResponse>

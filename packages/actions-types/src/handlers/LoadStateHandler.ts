@@ -18,6 +18,4 @@ import type { LoadStateResult } from '../result/LoadStateResult.js'
  * await tevm.loadState({state})
  * ```
  */
-export type LoadStateHandler = (
-	params: LoadStateParams,
-) => Promise<LoadStateResult>
+export type LoadStateHandler = (params: LoadStateParams) => Promise<LoadStateResult>

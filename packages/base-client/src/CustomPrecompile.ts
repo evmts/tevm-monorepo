@@ -8,9 +8,6 @@
  * Custom precompiles allow you to run arbitrary JavaScript code in the EVM
  */
 export type CustomPrecompile = Exclude<
-	Exclude<
-		Parameters<typeof import('@tevm/evm').Evm['create']>[0],
-		undefined
-	>['customPrecompiles'],
+	Exclude<Parameters<typeof import('@tevm/evm').Evm['create']>[0], undefined>['customPrecompiles'],
 	undefined
 >[number]

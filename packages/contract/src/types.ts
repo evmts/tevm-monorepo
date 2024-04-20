@@ -5,10 +5,10 @@ import type { Script } from './Script.js'
  * Params for creating a {@link Contract} instance
  * @see {@link CreateContract}
  */
-export type CreateContractParams<
-	TName extends string,
-	THumanReadableAbi extends readonly string[],
-> = Pick<Contract<TName, THumanReadableAbi>, 'name' | 'humanReadableAbi'>
+export type CreateContractParams<TName extends string, THumanReadableAbi extends readonly string[]> = Pick<
+	Contract<TName, THumanReadableAbi>,
+	'name' | 'humanReadableAbi'
+>
 
 /**
  * Type of `createContract` factory function
@@ -38,25 +38,16 @@ export type CreateContractParams<
  * })
  * ```
  */
-export type CreateContract = <
-	TName extends string,
-	THumanReadableAbi extends readonly string[],
->({
+export type CreateContract = <TName extends string, THumanReadableAbi extends readonly string[]>({
 	name,
 	humanReadableAbi,
-}: CreateContractParams<TName, THumanReadableAbi>) => Contract<
-	TName,
-	THumanReadableAbi
->
+}: CreateContractParams<TName, THumanReadableAbi>) => Contract<TName, THumanReadableAbi>
 
 /**
  * Params for creating a {@link Script} instance
  * @see {@link CreateScript}
  */
-export type CreateScriptParams<
-	TName extends string,
-	THumanReadableAbi extends readonly string[],
-> = Pick<
+export type CreateScriptParams<TName extends string, THumanReadableAbi extends readonly string[]> = Pick<
 	Script<TName, THumanReadableAbi>,
 	'name' | 'humanReadableAbi' | 'bytecode' | 'deployedBytecode'
 >
@@ -104,15 +95,9 @@ export type CreateScriptParams<
  *   ]),
  *  })
  */
-export type CreateScript = <
-	TName extends string,
-	THumanReadableAbi extends readonly string[],
->({
+export type CreateScript = <TName extends string, THumanReadableAbi extends readonly string[]>({
 	name,
 	humanReadableAbi,
 	bytecode,
 	deployedBytecode,
-}: CreateScriptParams<TName, THumanReadableAbi>) => Script<
-	TName,
-	THumanReadableAbi
->
+}: CreateScriptParams<TName, THumanReadableAbi>) => Script<TName, THumanReadableAbi>

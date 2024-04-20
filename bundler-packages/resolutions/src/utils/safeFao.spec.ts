@@ -1,16 +1,14 @@
+import fs from 'node:fs'
+import { access } from 'node:fs/promises'
+import { flip, runPromise, runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
 import type { FileAccessObject } from '../types.js'
 import { ExistsError, ReadFileError, safeFao } from './safeFao.js'
-import { flip, runPromise, runSync } from 'effect/Effect'
-import fs from 'fs'
-import { access } from 'fs/promises'
-import { describe, expect, it } from 'vitest'
 
 const fao: FileAccessObject = {
 	existsSync: (filePath: string) => fs.existsSync(filePath),
 	readFile: (filePath: string, encoding: string) =>
-		Promise.resolve(
-			fs.readFileSync(filePath, { encoding: encoding as 'utf8' }),
-		),
+		Promise.resolve(fs.readFileSync(filePath, { encoding: encoding as 'utf8' })),
 	readFileSync: (filePath: string) => fs.readFileSync(filePath, 'utf8'),
 	exists: async (filePath: string) => {
 		try {

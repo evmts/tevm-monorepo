@@ -1,8 +1,5 @@
-import {
-	deployContractWithCall,
-	deployContractWithViem,
-} from './deployContract.js'
 import { bench, describe, expect } from 'vitest'
+import { deployContractWithCall, deployContractWithViem } from './deployContract.js'
 
 describe('various methods for deploying contracts', async () => {
 	bench('MemoryClient.call using encodeDeploymentArgs', async () => {

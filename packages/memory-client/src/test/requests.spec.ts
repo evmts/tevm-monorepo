@@ -1,19 +1,9 @@
+import { describe, expect, it } from 'bun:test'
+import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedures-types'
+import { EthjsAddress, numberToHex } from '@tevm/utils'
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
-import type {
-	ContractJsonRpcRequest,
-	ScriptJsonRpcRequest,
-} from '@tevm/procedures-types'
-import { EthjsAddress, numberToHex } from '@tevm/utils'
-import {
-	decodeFunctionResult,
-	encodeFunctionData,
-	hexToBigInt,
-	hexToBytes,
-	keccak256,
-	toHex,
-} from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -83,16 +73,12 @@ describe('Tevm.request', async () => {
 			params: [
 				{
 					data: encodeFunctionData(
-						DaiContract.read.balanceOf(
-							'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-							{
-								contractAddress,
-							},
-						),
+						DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
+							contractAddress,
+						}),
 					),
 					to: contractAddress,
-					blockTag:
-						'0xf5a353db0403849f5d9fe0bb78df4920556fc5729111540a13303cb538f0fc10',
+					blockTag: '0xf5a353db0403849f5d9fe0bb78df4920556fc5729111540a13303cb538f0fc10',
 				},
 			],
 			jsonrpc: '2.0',
@@ -137,20 +123,12 @@ describe('Tevm.request', async () => {
 			id: 1,
 		})
 		expect(res.rawData).toEqual('0x')
-		expect(
-			(
-				await (
-					await tevm.getVm()
-				).stateManager.getAccount(new EthjsAddress(hexToBytes(address2)))
-			)?.balance,
-		).toBe(transferAmount)
-		expect(
-			(
-				await (
-					await tevm.getVm()
-				).stateManager.getAccount(new EthjsAddress(hexToBytes(address1)))
-			)?.balance,
-		).toBe(balance - transferAmount)
+		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance).toBe(
+			transferAmount,
+		)
+		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance).toBe(
+			balance - transferAmount,
+		)
 	})
 
 	it('Should execute a putAccount request', async () => {
@@ -167,14 +145,10 @@ describe('Tevm.request', async () => {
 			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await (
-			await tevm.getVm()
-		).stateManager.getAccount(
+		const account = await (await tevm.getVm()).stateManager.getAccount(
 			EthjsAddress.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
-		expect(account?.codeHash).toEqual(
-			hexToBytes(keccak256(DaiContract.deployedBytecode)),
-		)
+		expect(account?.codeHash).toEqual(hexToBytes(keccak256(DaiContract.deployedBytecode)))
 	})
 })

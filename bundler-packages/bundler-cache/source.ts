@@ -1,5 +1,5 @@
+import { type Address, useAccount, useContractRead } from 'wagmi'
 import { TestContract } from './TestContract.js'
-import { Address, useAccount, useContractRead } from 'wagmi'
 
 export const WagmiReads = () => {
 	const { address, isConnected } = useAccount()

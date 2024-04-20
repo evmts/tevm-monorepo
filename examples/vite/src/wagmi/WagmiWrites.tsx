@@ -1,13 +1,7 @@
+import { type Address, useAccount, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi'
 import { addresses } from '../addresses'
 import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 import { getRandomInt } from '../utils/getRandomInt'
-import {
-	Address,
-	useAccount,
-	useContractRead,
-	useContractWrite,
-	useWaitForTransaction,
-} from 'wagmi'
 
 export const WagmiWrites = () => {
 	const { address, isConnected } = useAccount()
@@ -43,12 +37,7 @@ export const WagmiWrites = () => {
 			<div>
 				<div>balance: {data?.toString()}</div>
 			</div>
-			<button
-				type='button'
-				onClick={() =>
-					writeMint(WagmiMintExample.write.mint(BigInt(getRandomInt())))
-				}
-			>
+			<button type="button" onClick={() => writeMint(WagmiMintExample.write.mint(BigInt(getRandomInt())))}>
 				Mint
 			</button>
 		</div>

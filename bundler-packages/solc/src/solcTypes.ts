@@ -245,14 +245,7 @@ export type SolcSettings = {
 	// Version of the EVM to compile for.
 	// Affects type checking and code generation. Can be homestead,
 	// tangerineWhistle, spuriousDragon, byzantium, constantinople, petersburg, istanbul, berlin, london or paris
-	evmVersion?:
-		| 'byzantium'
-		| 'constantinople'
-		| 'petersburg'
-		| 'istanbul'
-		| 'berlin'
-		| 'london'
-		| 'paris'
+	evmVersion?: 'byzantium' | 'constantinople' | 'petersburg' | 'istanbul' | 'berlin' | 'london' | 'paris'
 	// Optional: Change compilation pipeline to go through the Yul intermediate representation.
 	// This is false by default.
 	viaIR?: boolean
@@ -753,10 +746,7 @@ export interface Solc {
 	lowlevel: LowLevelConfig
 	features: FeaturesConfig
 	compile: (input: SolcInputDescription) => SolcOutput
-	loadRemoteVersion: (
-		versionString: string,
-		callback: (err: Error | null, solc?: Solc) => void,
-	) => void
+	loadRemoteVersion: (versionString: string, callback: (err: Error | null, solc?: Solc) => void) => void
 	setupMethods: (soljson: any) => void
 }
 

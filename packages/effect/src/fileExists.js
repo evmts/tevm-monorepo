@@ -1,6 +1,6 @@
+import { constants } from 'node:fs'
+import { access } from 'node:fs/promises'
 import { flatMap, logDebug, promise, tap } from 'effect/Effect'
-import { constants } from 'fs'
-import { access } from 'fs/promises'
 
 /**
  * Checks if a file exists at the given path

@@ -1,13 +1,7 @@
-import type { OptimisticResult } from './OptimisticResult.js'
 import type { TevmClient } from '@tevm/client-types'
 import type { Abi } from 'abitype'
-import type {
-	Account,
-	Chain,
-	ContractFunctionArgs,
-	ContractFunctionName,
-	WriteContractParameters,
-} from 'viem'
+import type { Account, Chain, ContractFunctionArgs, ContractFunctionName, WriteContractParameters } from 'viem'
+import type { OptimisticResult } from './OptimisticResult.js'
 
 /**
  * @deprecated in favor of the viem transport
@@ -22,21 +16,14 @@ export type ViemTevmOptimisticClient<
 		writeContractOptimistic<
 			TAbi extends Abi | readonly unknown[] = Abi,
 			TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
-			TArgs extends ContractFunctionArgs<
+			TArgs extends ContractFunctionArgs<TAbi, 'nonpayable' | 'payable', TFunctionName> = ContractFunctionArgs<
 				TAbi,
 				'nonpayable' | 'payable',
 				TFunctionName
-			> = ContractFunctionArgs<TAbi, 'nonpayable' | 'payable', TFunctionName>,
+			>,
 			TChainOverride extends Chain | undefined = Chain | undefined,
 		>(
-			action: WriteContractParameters<
-				TAbi,
-				TFunctionName,
-				TArgs,
-				TChain,
-				TAccount,
-				TChainOverride
-			>,
+			action: WriteContractParameters<TAbi, TFunctionName, TArgs, TChain, TAccount, TChainOverride>,
 		): AsyncGenerator<OptimisticResult<TAbi, TFunctionName, TChain>>
 	}
 }

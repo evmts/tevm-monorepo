@@ -8,7 +8,4 @@
  * console.log(isSolidity) // true
  * ```
  */
-export const isSolidity = (fileName) =>
-	fileName.endsWith('.sol') &&
-	!fileName.endsWith('/.sol') &&
-	fileName !== '.sol'
+export const isSolidity = (fileName) => fileName.endsWith('.sol') && !fileName.endsWith('/.sol') && fileName !== '.sol'

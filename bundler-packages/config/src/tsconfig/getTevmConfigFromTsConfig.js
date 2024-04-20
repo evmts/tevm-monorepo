@@ -1,5 +1,5 @@
-import { validateUserConfig } from '../config/index.js'
 import { catchTags, die, fail, logDebug, map, tap } from 'effect/Effect'
+import { validateUserConfig } from '../config/index.js'
 
 /**
  * Error type for {@link getTevmConfigFromTsConfig}
@@ -24,21 +24,13 @@ export class NoPluginInTsConfigFoundError extends Error {
  */
 export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {
-		return fail(
-			new NoPluginInTsConfigFoundError(
-				'No compilerOptions.plugins in tsconfig',
-			),
-		)
+		return fail(new NoPluginInTsConfigFoundError('No compilerOptions.plugins in tsconfig'))
 	}
 	const plugin =
 		/**
 		 * @type {import("../types.js").CompilerConfig | undefined}
 		 */
-		(
-			tsConfig.compilerOptions.plugins.find(
-				(/** @type {any}*/ plugin) => plugin.name === '@tevm/ts-plugin',
-			)
-		)
+		(tsConfig.compilerOptions.plugins.find((/** @type {any}*/ plugin) => plugin.name === '@tevm/ts-plugin'))
 	if (!plugin) {
 		return fail(new NoPluginInTsConfigFoundError())
 	}
@@ -70,7 +62,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 							...config.remappings,
 						},
 						libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
-				  }
+					}
 				: config,
 		),
 		tap((config) => {

@@ -5,5 +5,4 @@ import { isSolidity } from './isSolidity.js'
  * @param {string} fileName - The file path to check
  * @returns {boolean} True if the file path is a solidity file referenced via a relative import
  */
-export const isRelativeSolidity = (fileName) =>
-	fileName.startsWith('./') && isSolidity(fileName)
+export const isRelativeSolidity = (fileName) => fileName.startsWith('./') && isSolidity(fileName)

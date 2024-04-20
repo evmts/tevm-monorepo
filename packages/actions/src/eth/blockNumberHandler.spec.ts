@@ -1,5 +1,5 @@
-import { blockNumberHandler } from '../index.js'
 import { describe, expect, it } from 'bun:test'
+import { blockNumberHandler } from '../index.js'
 
 describe(blockNumberHandler.name, () => {
 	it('should return the block number', async () => {
@@ -11,8 +11,6 @@ describe(blockNumberHandler.name, () => {
 					},
 				}),
 		}
-		expect(
-			await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)(),
-		).toBe(420n)
+		expect(await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)()).toBe(420n)
 	})
 })

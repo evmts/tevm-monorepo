@@ -14,8 +14,7 @@ const SCALAR = 684000n
 /**
  * Identifier for the batcher. For version 1 of this configuration, this is represented as an address left-padded with zeros to 32 bytes.
  */
-const BATCHER_HASH =
-	'0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985' as const
+const BATCHER_HASH = '0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985' as const
 /**
  * L2 block gas limit as uint64.
  */
@@ -23,8 +22,7 @@ const GAS_LIMIT = 30_000_000n
 /**
  * High level getter for the unsafe block signer address. Unsafe blocks can be propagated across the p2p network if they are signed by the key corresponding to this address.
  */
-const UNSAFE_BLOCK_SIGNER =
-	'0xAAAA45d9549EDA09E70937013520214382Ffc4A2' as const
+const UNSAFE_BLOCK_SIGNER = '0xAAAA45d9549EDA09E70937013520214382Ffc4A2' as const
 /**
  *
  */
@@ -46,8 +44,7 @@ const RESOURCE_METERING_RESOURCE_CONFIG = {
 	maximumBaseFee: 340282366920938463463374607431768211455n,
 } as const
 const GUARDIAN = '0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A' as const
-const SYSTEM_CONFIG_OWNER =
-	'0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A' as const
+const SYSTEM_CONFIG_OWNER = '0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A' as const
 
 export const constants = {
 	OVERHEAD,

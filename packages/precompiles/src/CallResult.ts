@@ -1,11 +1,5 @@
+import type { Abi, AbiParametersToPrimitiveTypes, Address, ExtractAbiEvents, ExtractAbiFunction } from '@tevm/utils'
 import type { TypedError } from './TypedError.js'
-import type {
-	Abi,
-	AbiParametersToPrimitiveTypes,
-	Address,
-	ExtractAbiEvents,
-	ExtractAbiFunction,
-} from '@tevm/utils'
 
 /**
  * A result of a precompile javascript call
@@ -18,9 +12,7 @@ export type CallResult<TAbi extends Abi, TFunctionName extends string> = {
 	/**
 	 * The return value of the call. Required even on exceptions
 	 */
-	returnValue: AbiParametersToPrimitiveTypes<
-		ExtractAbiFunction<TAbi, TFunctionName>['outputs']
-	>[0]
+	returnValue: AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>['outputs']>[0]
 	/**
 	 * Any Error thrown during execution
 	 */

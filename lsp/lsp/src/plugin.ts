@@ -1,7 +1,7 @@
-import { language } from './language.js'
-import { type LanguageServerPlugin } from '@volar/language-server/node.js'
+import type { LanguageServerPlugin } from '@volar/language-server/node.js'
 import { ScriptKind } from 'typescript/lib/tsserverlibrary.js'
 import { create as createTsService } from 'volar-service-typescript'
+import { language } from './language.js'
 
 export const plugin: LanguageServerPlugin = () => {
 	return {
@@ -16,17 +16,17 @@ export const plugin: LanguageServerPlugin = () => {
 		resolveConfig(config) {
 			// languages
 			config.languages ??= {}
-			config.languages['sol'] ??= language
+			config.languages.sol ??= language
 
 			// services
 			config.services ??= {}
-			config.services['sol'] ??= (context) => ({
+			config.services.sol ??= (context) => ({
 				provideDiagnostics(document) {
 					console.log(document, context)
 					return []
 				},
 			})
-			config.services['typescript'] ??= createTsService()
+			config.services.typescript ??= createTsService()
 
 			return config
 		},

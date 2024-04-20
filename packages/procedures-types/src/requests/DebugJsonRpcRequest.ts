@@ -1,9 +1,6 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type {
-	DebugTraceCallParams,
-	DebugTraceTransactionParams,
-} from '@tevm/actions-types'
+import type { DebugTraceCallParams, DebugTraceTransactionParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // debug_traceTransaction
 /**
@@ -17,11 +14,6 @@ export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `debug_traceCall` method
  */
-export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<
-	'debug_traceCall',
-	[SerializeToJson<DebugTraceCallParams>]
->
+export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams>]>
 
-export type DebugJsonRpcRequest =
-	| DebugTraceTransactionJsonRpcRequest
-	| DebugTraceCallJsonRpcRequest
+export type DebugJsonRpcRequest = DebugTraceTransactionJsonRpcRequest | DebugTraceCallJsonRpcRequest

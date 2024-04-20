@@ -4,6 +4,7 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { bigintFromSelf, greaterThanOrEqualToBigint, lessThanOrEqualToBigint } from '@effect/schema/Schema'
 import {
 	INT8_MAX,
 	INT8_MIN,
@@ -18,11 +19,6 @@ import {
 	INT256_MAX,
 	INT256_MIN,
 } from './constants.js'
-import {
-	bigintFromSelf,
-	greaterThanOrEqualToBigint,
-	lessThanOrEqualToBigint,
-} from '@effect/schema/Schema'
 
 /**
  * Type representing a valid INT8.
@@ -65,10 +61,7 @@ import {
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT8 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT8_MIN),
-	lessThanOrEqualToBigint(INT8_MAX),
-)
+export const SINT8 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT8_MIN), lessThanOrEqualToBigint(INT8_MAX))
 
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the INT16 type.
@@ -80,10 +73,7 @@ export const SINT8 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT16 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT16_MIN),
-	lessThanOrEqualToBigint(INT16_MAX),
-)
+export const SINT16 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT16_MIN), lessThanOrEqualToBigint(INT16_MAX))
 
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the INT32 type.
@@ -95,10 +85,7 @@ export const SINT16 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT32 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT32_MIN),
-	lessThanOrEqualToBigint(INT32_MAX),
-)
+export const SINT32 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT32_MIN), lessThanOrEqualToBigint(INT32_MAX))
 
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the INT64 type.
@@ -110,10 +97,7 @@ export const SINT32 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT64 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT64_MIN),
-	lessThanOrEqualToBigint(INT64_MAX),
-)
+export const SINT64 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT64_MIN), lessThanOrEqualToBigint(INT64_MAX))
 
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the INT128 type.
@@ -125,10 +109,7 @@ export const SINT64 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT128 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT128_MIN),
-	lessThanOrEqualToBigint(INT128_MAX),
-)
+export const SINT128 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT128_MIN), lessThanOrEqualToBigint(INT128_MAX))
 
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the INT256 type.
@@ -140,7 +121,4 @@ export const SINT128 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SINT256 = bigintFromSelf.pipe(
-	greaterThanOrEqualToBigint(INT256_MIN),
-	lessThanOrEqualToBigint(INT256_MAX),
-)
+export const SINT256 = bigintFromSelf.pipe(greaterThanOrEqualToBigint(INT256_MIN), lessThanOrEqualToBigint(INT256_MAX))

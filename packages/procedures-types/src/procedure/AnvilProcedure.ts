@@ -59,16 +59,12 @@ export type AnvilGetAutomineProcedure = (
 /**
  * JSON-RPC procedure for `anvil_mine`
  */
-export type AnvilMineProcedure = (
-	request: AnvilMineJsonRpcRequest,
-) => Promise<AnvilMineJsonRpcResponse>
+export type AnvilMineProcedure = (request: AnvilMineJsonRpcRequest) => Promise<AnvilMineJsonRpcResponse>
 // anvil_reset
 /**
  * JSON-RPC procedure for `anvil_reset`
  */
-export type AnvilResetProcedure = (
-	request: AnvilResetJsonRpcRequest,
-) => Promise<AnvilResetJsonRpcResponse>
+export type AnvilResetProcedure = (request: AnvilResetJsonRpcRequest) => Promise<AnvilResetJsonRpcResponse>
 // anvil_dropTransaction
 /**
  * JSON-RPC procedure for `anvil_dropTransaction`
@@ -87,16 +83,12 @@ export type AnvilSetBalanceProcedure = (
 /**
  * JSON-RPC procedure for `anvil_setCode`
  */
-export type AnvilSetCodeProcedure = (
-	request: AnvilSetCodeJsonRpcRequest,
-) => Promise<AnvilSetCodeJsonRpcResponse>
+export type AnvilSetCodeProcedure = (request: AnvilSetCodeJsonRpcRequest) => Promise<AnvilSetCodeJsonRpcResponse>
 // anvil_setNonce
 /**
  * JSON-RPC procedure for `anvil_setNonce`
  */
-export type AnvilSetNonceProcedure = (
-	request: AnvilSetNonceJsonRpcRequest,
-) => Promise<AnvilSetNonceJsonRpcResponse>
+export type AnvilSetNonceProcedure = (request: AnvilSetNonceJsonRpcRequest) => Promise<AnvilSetNonceJsonRpcResponse>
 // anvil_setStorageAt
 /**
  * JSON-RPC procedure for `anvil_setStorageAt`
@@ -116,14 +108,10 @@ export type AnvilSetChainIdProcedure = (
 /**
  * JSON-RPC procedure for `anvil_dumpState`
  */
-export type AnvilDumpStateProcedure = (
-	request: AnvilDumpStateJsonRpcRequest,
-) => Promise<AnvilDumpStateJsonRpcResponse>
+export type AnvilDumpStateProcedure = (request: AnvilDumpStateJsonRpcRequest) => Promise<AnvilDumpStateJsonRpcResponse>
 // TODO make this the same as our load state
 // anvil_loadState
 /**
  * JSON-RPC procedure for `anvil_loadState`
  */
-export type AnvilLoadStateProcedure = (
-	request: AnvilLoadStateJsonRpcRequest,
-) => Promise<AnvilLoadStateJsonRpcResponse>
+export type AnvilLoadStateProcedure = (request: AnvilLoadStateJsonRpcRequest) => Promise<AnvilLoadStateJsonRpcResponse>

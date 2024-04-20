@@ -1,7 +1,7 @@
-import { createMemoryClient } from '../createMemoryClient.js'
+import { describe, expect, test } from 'bun:test'
 import { EvmErrorMessage } from '@tevm/evm'
 import { hexToBigInt } from '@tevm/utils'
-import { describe, expect, test } from 'bun:test'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 describe('allowUnlimitedContractSize option', () => {
 	test('Should fail a evm call request if the file is too large', async () => {
@@ -18,12 +18,8 @@ describe('allowUnlimitedContractSize option', () => {
 		const res = await tevm.call({
 			caller: address1,
 			data,
-			value: hexToBigInt(
-				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-			),
-			gas: hexToBigInt(
-				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-			),
+			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+			gas: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
 			skipBalance: true,
 			throwOnFail: false,
 		})
@@ -40,12 +36,8 @@ describe('allowUnlimitedContractSize option', () => {
 		const res = await tevm.call({
 			caller: address1,
 			data,
-			value: hexToBigInt(
-				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-			),
-			gas: hexToBigInt(
-				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-			),
+			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+			gas: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
 			skipBalance: true,
 			throwOnFail: false,
 		})

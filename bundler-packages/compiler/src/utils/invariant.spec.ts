@@ -1,5 +1,5 @@
-import { invariant } from './invariant.js'
 import { describe, expect, expectTypeOf, it } from 'vitest'
+import { invariant } from './invariant.js'
 
 describe(invariant.name, () => {
 	it('should throw an error if condition is false', () => {

@@ -30,7 +30,7 @@ const params = z.object({
 })
 // Solc is expensive to import expensive to compile and expensive to run
 // Run it in a web worker so it always runs on a seperate thread
-onmessage = async function (e) {
+onmessage = async (e) => {
 	const { code, id } = params.parse(e.data)
 
 	devConsole.log('Compiling code', id, code)

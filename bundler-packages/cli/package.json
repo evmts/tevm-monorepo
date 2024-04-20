@@ -22,11 +22,7 @@
 	"bin": {
 		"create-tevm-app": "dist/create-tevm-app.js"
 	},
-	"files": [
-		"dist",
-		"src",
-		"fixtures"
-	],
+	"files": ["dist", "src", "fixtures"],
 	"scripts": {
 		"all": "bun nx build:app && bun typecheck && bun run lint && bun run format && bun run test:coverage && bun run lint:deps && bun run lint:package",
 		"build:dist": "tsup",

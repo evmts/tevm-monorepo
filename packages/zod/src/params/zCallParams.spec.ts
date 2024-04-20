@@ -1,7 +1,7 @@
-import { zCallParams } from './zCallParams.js'
-import type { CallParams } from '@tevm/actions-types'
 import { expect, test } from 'bun:test'
+import type { CallParams } from '@tevm/actions-types'
 import type { z } from 'zod'
+import { zCallParams } from './zCallParams.js'
 
 test('zCallParams', () => {
 	const callParams: CallParams = {

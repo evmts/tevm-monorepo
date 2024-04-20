@@ -18,8 +18,7 @@ export class NoPragmaFoundError extends Error {
  * @returns {import("effect/Effect").Effect<never, NoPragmaFoundError, string>} The updated Solidity code.
  */
 export const updatePragma = (solidityCode) => {
-	const pragmaPattern =
-		/pragma\s+solidity\s+((\^|~|>|>=|<|<=)?(\d+\.\d+\.\d+);)/
+	const pragmaPattern = /pragma\s+solidity\s+((\^|~|>|>=|<|<=)?(\d+\.\d+\.\d+);)/
 	const match = solidityCode.match(pragmaPattern)
 	if (!match || !match[3]) {
 		return fail(new NoPragmaFoundError('No valid pragma statement found.'))

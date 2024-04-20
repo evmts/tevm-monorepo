@@ -1,17 +1,14 @@
-import { Logger } from '../factories/logger.js'
-import { findNode } from '../utils/index.js'
-import {
-	convertSolcAstToTsDefinitionInfo,
-	findContractDefinitionFileNameFromTevmNode,
-} from '../utils/index.js'
-import { FileAccessObject, bundler } from '@tevm/base-bundler'
-import { Cache } from '@tevm/bundler-cache'
-import { ResolvedCompilerConfig } from '@tevm/config'
+import { type FileAccessObject, bundler } from '@tevm/base-bundler'
+import type { Cache } from '@tevm/bundler-cache'
+import type { ResolvedCompilerConfig } from '@tevm/config'
 // @ts-expect-error
 import * as solc from 'solc'
-import { Node } from 'solidity-ast/node.js'
+import type { Node } from 'solidity-ast/node.js'
 import { findAll } from 'solidity-ast/utils.js'
-import typescript from 'typescript/lib/tsserverlibrary.js'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
+import type { Logger } from '../factories/logger.js'
+import { findNode } from '../utils/index.js'
+import { convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode } from '../utils/index.js'
 
 // TODO make me to a normal decorator
 // is a woneoff decorator becuase this decorates the language service not the Host
@@ -28,31 +25,19 @@ export const getDefinitionServiceDecorator = (
 	fao: FileAccessObject,
 	solcCache: Cache,
 ): typescript.LanguageService => {
-	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (
-		fileName,
-		position,
-	) => {
+	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (fileName, position) => {
 		const definition = service.getDefinitionAtPosition(fileName, position)
 		const sourceFile = service.getProgram()?.getSourceFile(fileName)
 		const node = sourceFile && findNode(sourceFile, position)
-		const ContractPath =
-			node &&
-			findContractDefinitionFileNameFromTevmNode(node, service, fileName, ts)
+		const ContractPath = node && findContractDefinitionFileNameFromTevmNode(node, service, fileName, ts)
 		if (!ContractPath) {
 			return definition
 		}
 		const plugin = bundler(config, logger as any, fao, solc, solcCache)
 		const includedAst = true
-		const { asts, solcInput } = plugin.resolveDtsSync(
-			ContractPath,
-			process.cwd(),
-			includedAst,
-			false,
-		)
+		const { asts, solcInput } = plugin.resolveDtsSync(ContractPath, process.cwd(), includedAst, false)
 		if (!asts) {
-			logger.error(
-				`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`,
-			)
+			logger.error(`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`)
 			return definition
 		}
 
@@ -79,46 +64,30 @@ export const getDefinitionServiceDecorator = (
 			}
 		}
 		if (!definitions.length) {
-			logger.error(
-				`@tevm/ts-plugin: unable to find definitions ${ContractPath}`,
-			)
+			logger.error(`@tevm/ts-plugin: unable to find definitions ${ContractPath}`)
 			return definition
 		}
-		const contractName =
-			ContractPath.split('/').pop()?.split('.')[0] ?? 'Contract'
+		const contractName = ContractPath.split('/').pop()?.split('.')[0] ?? 'Contract'
 		return [
 			...definitions.map(({ fileName, node }) =>
-				convertSolcAstToTsDefinitionInfo(
-					node,
-					fileName,
-					contractName,
-					solcInput,
-					ts,
-				),
+				convertSolcAstToTsDefinitionInfo(node, fileName, contractName, solcInput, ts),
 			),
 			...(definition ?? []),
 		]
 	}
 
-	const getDefinitionAndBoundSpan: typeof service.getDefinitionAndBoundSpan = (
-		fileName,
-		position,
-	) => {
+	const getDefinitionAndBoundSpan: typeof service.getDefinitionAndBoundSpan = (fileName, position) => {
 		const definitions = getDefinitionAtPosition(fileName, position)
 		if (!definitions) {
 			return service.getDefinitionAndBoundSpan(fileName, position)
 		}
-		if (
-			!definitions.some((definition) => definition.fileName.endsWith('.sol'))
-		) {
+		if (!definitions.some((definition) => definition.fileName.endsWith('.sol'))) {
 			return service.getDefinitionAndBoundSpan(fileName, position)
 		}
 		// Logic to determine the appropriate text span for highlighting.
 		const sourceFile = service.getProgram()?.getSourceFile(fileName)
 		const node = sourceFile && findNode(sourceFile, position)
-		const textSpan = node
-			? ts.createTextSpanFromBounds(node.getStart(), node.getEnd())
-			: undefined
+		const textSpan = node ? ts.createTextSpanFromBounds(node.getStart(), node.getEnd()) : undefined
 
 		return {
 			definitions,

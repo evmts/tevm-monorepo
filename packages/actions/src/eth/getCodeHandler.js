@@ -1,7 +1,7 @@
-import { NoForkUrlSetError } from './getBalanceHandler.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex } from '@tevm/utils'
+import { NoForkUrlSetError } from './getBalanceHandler.js'
 
 /**
  * @param {object} options
@@ -15,11 +15,7 @@ export const getCodeHandler =
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending') {
-			return bytesToHex(
-				await vm.stateManager.getContractCode(
-					EthjsAddress.fromString(params.address),
-				),
-			)
+			return bytesToHex(await vm.stateManager.getContractCode(EthjsAddress.fromString(params.address)))
 		}
 		if (!forkUrl) {
 			throw new NoForkUrlSetError(
@@ -49,9 +45,7 @@ export const getCodeHandler =
 			.catch((err) => {
 				// TODO handle this in a strongly typed way
 				if (err.name === 'MethodNotFound') {
-					throw new Error(
-						`Method eth_getCode not supported by fork url ${forkUrl}`,
-					)
+					throw new Error(`Method eth_getCode not supported by fork url ${forkUrl}`)
 				}
 				throw err
 			})

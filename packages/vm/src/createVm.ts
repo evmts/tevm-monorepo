@@ -1,17 +1,8 @@
+import { ForkStateManager, NormalStateManager, ProxyStateManager } from '@tevm/state'
 import type { CreateVmOptions } from './CreateVmOptions.js'
 import { TevmVm } from './TevmVm.js'
-import {
-	ForkStateManager,
-	NormalStateManager,
-	ProxyStateManager,
-} from '@tevm/state'
 
-export const createVm = async ({
-	stateManager,
-	evm,
-	blockchain,
-	common,
-}: CreateVmOptions): Promise<TevmVm> => {
+export const createVm = async ({ stateManager, evm, blockchain, common }: CreateVmOptions): Promise<TevmVm> => {
 	const vm = await TevmVm.create({
 		stateManager,
 		evm,
@@ -30,10 +21,7 @@ export const createVm = async ({
 		const newVm = await originalDeepCopy(...args)
 		const originalRunCall = newVm.evm.runCall.bind(newVm.evm)
 		newVm.evm.runCall = async (...args) => {
-			if (
-				newVm.evm.stateManager instanceof NormalStateManager ||
-				newVm.evm.stateManager instanceof ForkStateManager
-			) {
+			if (newVm.evm.stateManager instanceof NormalStateManager || newVm.evm.stateManager instanceof ForkStateManager) {
 				return originalRunCall(...args)
 			}
 			if (!(newVm.evm.stateManager instanceof ProxyStateManager)) {

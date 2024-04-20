@@ -11,21 +11,13 @@ import type { EIP1193RequestOptions } from './EIP1993RequestOptions.js'
 import type { RpcSchema } from './RpcSchema.js'
 import type { RpcSchemaOverride } from './RpcSchemaOverride.js'
 
-export type EIP1193RequestFn<
-	TRpcSchema extends RpcSchema | undefined = undefined,
-> = <
+export type EIP1193RequestFn<TRpcSchema extends RpcSchema | undefined = undefined> = <
 	TRpcSchemaOverride extends RpcSchemaOverride | undefined = undefined,
-	TParameters extends EIP1193Parameters<
+	TParameters extends EIP1193Parameters<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>> = EIP1193Parameters<
 		DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>
-	> = EIP1193Parameters<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>>,
-	_ReturnType = DerivedRpcSchema<
-		TRpcSchema,
-		TRpcSchemaOverride
-	> extends RpcSchema
-		? Extract<
-				DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>[number],
-				{ Method: TParameters['method'] }
-		  >['ReturnType']
+	>,
+	_ReturnType = DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride> extends RpcSchema
+		? Extract<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>[number], { Method: TParameters['method'] }>['ReturnType']
 		: unknown,
 >(
 	args: TParameters,

@@ -1,16 +1,11 @@
-import { solidityModuleResolver } from './solidityModuleResolver.js'
-import path from 'path'
+import path from 'node:path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it } from 'vitest'
+import { solidityModuleResolver } from './solidityModuleResolver.js'
 
 describe('solidityModuleResolver', () => {
 	it('should resolve relative solidity modules', () => {
-		const result = solidityModuleResolver(
-			'./module.sol',
-			typescript,
-			{} as any,
-			'/path/to/file.sol',
-		)
+		const result = solidityModuleResolver('./module.sol', typescript, {} as any, '/path/to/file.sol')
 		expect(result).toEqual({
 			extension: typescript.Extension.Dts,
 			isExternalLibraryImport: false,
@@ -23,30 +18,17 @@ describe('solidityModuleResolver', () => {
 			typescript,
 			{} as any,
 			__dirname,
-		)?.resolvedFileName.replace(
-			path.join(__dirname, '..', '..', '..', '..'),
-			'',
-		)
+		)?.resolvedFileName.replace(path.join(__dirname, '..', '..', '..', '..'), '')
 		expect(result).toMatchInlineSnapshot(
 			'"/node_modules/.pnpm/@openzeppelin+contracts@4.9.3/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"',
 		)
 	})
 	it('should return undefined for non-solidity modules', () => {
-		const result = solidityModuleResolver(
-			'module.js',
-			typescript,
-			{} as any,
-			'/path/to/file.js',
-		)
+		const result = solidityModuleResolver('module.js', typescript, {} as any, '/path/to/file.js')
 		expect(result).toBeUndefined()
 	})
 	it('should return undefined for relative non-solidity modules', () => {
-		const result = solidityModuleResolver(
-			'module.js',
-			typescript,
-			{} as any,
-			'./path/to/file.js',
-		)
+		const result = solidityModuleResolver('module.js', typescript, {} as any, './path/to/file.js')
 		expect(result).toBeUndefined()
 	})
 })

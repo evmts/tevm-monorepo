@@ -8,6 +8,4 @@ import type { GetAccountParams, GetAccountResult } from '../index.js'
  * console.log(res.nonce)
  * console.log(res.balance)
  */
-export type GetAccountHandler = (
-	params: GetAccountParams,
-) => Promise<GetAccountResult>
+export type GetAccountHandler = (params: GetAccountParams) => Promise<GetAccountResult>

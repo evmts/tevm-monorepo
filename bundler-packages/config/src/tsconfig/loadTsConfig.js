@@ -1,22 +1,8 @@
-import {
-	array,
-	optional,
-	parseEither,
-	record,
-	string,
-	struct,
-} from '@effect/schema/Schema'
+import { existsSync, readFileSync } from 'node:fs'
+import * as path from 'node:path'
+import { array, optional, parseEither, record, string, struct } from '@effect/schema/Schema'
 import { parseJson } from '@tevm/effect'
-import {
-	catchTag,
-	fail,
-	flatMap,
-	logDebug,
-	tap,
-	try as tryEffect,
-} from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
-import * as path from 'path'
+import { catchTag, fail, flatMap, logDebug, tap, try as tryEffect } from 'effect/Effect'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
@@ -89,10 +75,7 @@ export const loadTsConfig = (configFilePath) => {
 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 
 	return tryEffect({
-		try: () =>
-			existsSync(jsConfigPath)
-				? readFileSync(jsConfigPath, 'utf8')
-				: readFileSync(tsConfigPath, 'utf8'),
+		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
 	}).pipe(
 		flatMap(parseJson),
@@ -102,13 +85,7 @@ export const loadTsConfig = (configFilePath) => {
 				onExcessProperty: 'ignore',
 			}),
 		),
-		catchTag('ParseError', (cause) =>
-			fail(new InvalidTsConfigError({ cause })),
-		),
-		tap((tsConfig) =>
-			logDebug(
-				`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`,
-			),
-		),
+		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
 	)
 }

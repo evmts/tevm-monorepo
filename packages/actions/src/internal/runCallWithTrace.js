@@ -46,10 +46,7 @@ export const runCallWithTrace = async (vm, logger, params) => {
 	 */
 	vm.evm.events?.on('afterMessage', (data, next) => {
 		logger.debug(data.execResult, 'runCallWithTrace: new message result')
-		if (
-			data.execResult.exceptionError !== undefined &&
-			trace.structLogs.length > 0
-		) {
+		if (data.execResult.exceptionError !== undefined && trace.structLogs.length > 0) {
 			// Mark last opcode trace as error if exception occurs
 			const nextLog = trace.structLogs[trace.structLogs.length - 1]
 			if (!nextLog) {

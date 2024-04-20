@@ -20,45 +20,27 @@ export const validateSetAccountParams = (action) => {
 		})
 		if (formattedErrors.address) {
 			formattedErrors.address._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidAddressError', error, String(action.address)),
-				)
+				errors.push(createError('InvalidAddressError', error, String(action.address)))
 			})
 		}
 		if (formattedErrors.nonce) {
 			formattedErrors.nonce._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidNonceError', error, String(action.nonce)),
-				)
+				errors.push(createError('InvalidNonceError', error, String(action.nonce)))
 			})
 		}
 		if (formattedErrors.balance) {
 			formattedErrors.balance._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidBalanceError', error, String(action.balance)),
-				)
+				errors.push(createError('InvalidBalanceError', error, String(action.balance)))
 			})
 		}
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidBytecodeError',
-						error,
-						String(action.deployedBytecode),
-					),
-				)
+				errors.push(createError('InvalidBytecodeError', error, String(action.deployedBytecode)))
 			})
 		}
 		if (formattedErrors.storageRoot) {
 			formattedErrors.storageRoot._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidStorageRootError',
-						error,
-						String(action.storageRoot),
-					),
-				)
+				errors.push(createError('InvalidStorageRootError', error, String(action.storageRoot)))
 			})
 		}
 	}

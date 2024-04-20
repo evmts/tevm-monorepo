@@ -16,14 +16,7 @@ import { hexToBytes, keccak256 } from '@tevm/utils'
  * @param {import('@tevm/utils').Address} params.address
  * @returns {Promise<void>}
  */
-export const addPredeploy = async ({
-	vm,
-	nonce,
-	balance,
-	storageRoot,
-	deployedBytecode,
-	address,
-}) => {
+export const addPredeploy = async ({ vm, nonce, balance, storageRoot, deployedBytecode, address }) => {
 	const ethjsAddress = EthjsAddress.fromString(address)
 	await vm.stateManager.putAccount(
 		ethjsAddress,
@@ -31,16 +24,11 @@ export const addPredeploy = async ({
 			...(nonce !== undefined ? { nonce } : {}),
 			...(balance !== undefined ? { balance } : {}),
 			...(storageRoot !== undefined ? { storageRoot } : {}),
-			...(deployedBytecode !== undefined
-				? { codeHash: keccak256(deployedBytecode, 'bytes') }
-				: {}),
+			...(deployedBytecode !== undefined ? { codeHash: keccak256(deployedBytecode, 'bytes') } : {}),
 		}),
 	)
 	if (deployedBytecode) {
-		await vm.stateManager.putContractCode(
-			ethjsAddress,
-			hexToBytes(deployedBytecode),
-		)
+		await vm.stateManager.putContractCode(ethjsAddress, hexToBytes(deployedBytecode))
 	}
 	await vm.stateManager.checkpoint()
 	await vm.stateManager.commit()

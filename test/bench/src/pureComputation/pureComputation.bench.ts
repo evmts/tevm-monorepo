@@ -1,9 +1,5 @@
-import {
-	pureComputationSol,
-	pureComputationTs,
-	tevm,
-} from './pureComputation.js'
 import { bench, describe, expect } from 'vitest'
+import { pureComputationSol, pureComputationTs, tevm } from './pureComputation.js'
 
 const FIB_50 = 12_586_269_025n
 const FIB_200 = 280571172992510140037611932413038677189525n

@@ -1,15 +1,8 @@
+import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
+import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 import { compileContractSync } from './compiler/compileContractsSync.js'
 import { resolveArtifactsSync } from './resolveArtifactsSync.js'
 import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
-import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
-import {
-	type MockedFunction,
-	afterEach,
-	describe,
-	expect,
-	it,
-	vi,
-} from 'vitest'
 
 vi.mock('./compiler/compileContractsSync', () => ({
 	compileContractSync: vi.fn(),
@@ -49,23 +42,12 @@ const contracts = {
 	},
 }
 
-const mockCompileContractSync = compileContractSync as MockedFunction<
-	typeof compileContractSync
->
+const mockCompileContractSync = compileContractSync as MockedFunction<typeof compileContractSync>
 
 describe('resolveArtifactsSync', () => {
 	it('should throw an error if the file is not a solidity file', () => {
 		expect(() =>
-			resolveArtifactsSync(
-				'test.txt',
-				basedir,
-				logger,
-				config,
-				false,
-				false,
-				fao,
-				require('solc'),
-			),
+			resolveArtifactsSync('test.txt', basedir, logger, config, false, false, fao, require('solc')),
 		).toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 
@@ -75,16 +57,7 @@ describe('resolveArtifactsSync', () => {
 			throw new Error('Oops')
 		})
 		expect(() =>
-			resolveArtifactsSync(
-				solFile,
-				basedir,
-				logger,
-				config,
-				false,
-				false,
-				fao,
-				require('solc'),
-			),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao, require('solc')),
 		).toThrowErrorMatchingInlineSnapshot('[Error: Oops]')
 	})
 
@@ -94,16 +67,7 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 		expect(
-			resolveArtifactsSync(
-				solFile,
-				basedir,
-				logger,
-				config,
-				false,
-				false,
-				fao,
-				require('solc'),
-			),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao, require('solc')),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
@@ -144,16 +108,7 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 
-		const { artifacts } = resolveArtifactsSync(
-			solFile,
-			basedir,
-			logger,
-			config,
-			false,
-			false,
-			fao,
-			require('solc'),
-		)
+		const { artifacts } = resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao, require('solc'))
 
 		expect(artifacts).toEqual({
 			Test: {
@@ -171,31 +126,13 @@ describe('resolveArtifactsSync', () => {
 		} as any)
 
 		expect(() =>
-			resolveArtifactsSync(
-				solFile,
-				basedir,
-				logger,
-				config,
-				false,
-				false,
-				fao,
-				require('solc'),
-			),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao, require('solc')),
 		).toThrowErrorMatchingInlineSnapshot('[Error: Compilation failed]')
 	})
 
 	it('should throw an error if file doesnt end in .sol', () => {
 		expect(() =>
-			resolveArtifactsSync(
-				'test.txt',
-				basedir,
-				logger,
-				config,
-				false,
-				false,
-				fao,
-				require('solc'),
-			),
+			resolveArtifactsSync('test.txt', basedir, logger, config, false, false, fao, require('solc')),
 		).toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 })

@@ -12,8 +12,4 @@ export type GasMining = {
 	type: 'gas'
 	limit: BigInt
 }
-export type MiningConfig =
-	| IntervalMining
-	| ManualMining
-	| AutoMining
-	| GasMining
+export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining

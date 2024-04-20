@@ -1,21 +1,15 @@
-import { Logger } from '../factories/logger.js'
-import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
-import { FileAccessObject } from '@tevm/base-bundler'
-import { Cache, createCache } from '@tevm/bundler-cache'
-import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import { type Cache, createCache } from '@tevm/bundler-cache'
+import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import {
-	existsSync,
-	mkdirSync,
-	readFileSync,
-	statSync,
-	writeFileSync,
-} from 'fs'
-import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
-import { tmpdir } from 'os'
-import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { Logger } from '../factories/logger.js'
+import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 
 const forgeProject = path.join(__dirname, '../..')
 

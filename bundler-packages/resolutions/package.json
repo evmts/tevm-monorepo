@@ -3,15 +3,7 @@
 	"version": "1.0.0-next.40",
 	"private": false,
 	"description": "Module for resolving and import graph for solidity files",
-	"keywords": [
-		"solidity",
-		"forge",
-		"foundry",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
+	"keywords": ["solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",

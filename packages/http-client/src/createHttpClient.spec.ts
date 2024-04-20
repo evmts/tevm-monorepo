@@ -1,11 +1,11 @@
-import { createHttpClient } from './createHttpClient.js'
+import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { type Server, createServer } from 'node:http'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { EthjsAddress } from '@tevm/utils'
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
-import { Server, createServer } from 'http'
 import { bytesToHex, keccak256 } from 'viem'
+import { createHttpClient } from './createHttpClient.js'
 
 describe(createHttpClient.name, () => {
 	let tevm: MemoryClient
@@ -33,8 +33,7 @@ describe(createHttpClient.name, () => {
 				createdAddresses: new Set(),
 				gas: 16776288n,
 				logs: [],
-				rawData:
-					'0x00000000000000000000000000000000000000000000000000000000000001a4',
+				rawData: '0x00000000000000000000000000000000000000000000000000000000000001a4',
 				selfdestruct: new Set(),
 			})
 		})
@@ -46,9 +45,7 @@ describe(createHttpClient.name, () => {
 				address: contractAddress,
 				deployedBytecode: Add.deployedBytecode,
 			})
-			const { errors, data } = await client.contract(
-				Add.withAddress(contractAddress).read.add(399n, 21n),
-			)
+			const { errors, data } = await client.contract(Add.withAddress(contractAddress).read.add(399n, 21n))
 			expect(errors).toBeUndefined()
 			expect(data).toBe(420n)
 		})
@@ -64,13 +61,9 @@ describe(createHttpClient.name, () => {
 
 			expect(errors).toBeUndefined()
 
-			const resultAccount = await (
-				await tevm.getVm()
-			).stateManager.getAccount(EthjsAddress.fromString(account.address))
+			const resultAccount = await (await tevm.getVm()).stateManager.getAccount(EthjsAddress.fromString(account.address))
 			if (!resultAccount) throw new Error('Account not found')
-			expect(bytesToHex(resultAccount.codeHash)).toEqual(
-				keccak256(account.deployedBytecode),
-			)
+			expect(bytesToHex(resultAccount.codeHash)).toEqual(keccak256(account.deployedBytecode))
 			// testing getAccount
 			const getAccountRes = await client.getAccount({
 				address: account.address,

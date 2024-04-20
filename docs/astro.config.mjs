@@ -21,7 +21,7 @@ export default defineConfig({
 							starlightLinksValidatorPlugin({
 								errorOnRelativeLinks: true,
 							}),
-					  ]
+						]
 					: []),
 				starlightTypeDoc({
 					entryPoints: [
@@ -88,9 +88,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Getting Started',
-					items: [
-						{ label: 'Quick start', link: '/getting-started/quick-start/' },
-					],
+					items: [{ label: 'Quick start', link: '/getting-started/quick-start/' }],
 				},
 				{
 					label: 'Learn',

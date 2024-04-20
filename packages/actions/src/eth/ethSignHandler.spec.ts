@@ -1,6 +1,6 @@
+import { describe, expect, it } from 'bun:test'
 import { ethSignHandler } from './ethSignHandler.js'
 import { testAccounts } from './utils/testAccounts.js'
-import { describe, expect, it } from 'bun:test'
 
 describe('ethSignHandler', () => {
 	it('should sign a message', async () => {

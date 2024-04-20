@@ -31,17 +31,13 @@ const abi = [
 	},
 	{
 		anonymous: false,
-		inputs: [
-			{ indexed: true, internalType: 'address', name: 'usr', type: 'address' },
-		],
+		inputs: [{ indexed: true, internalType: 'address', name: 'usr', type: 'address' }],
 		name: 'Deny',
 		type: 'event',
 	},
 	{
 		anonymous: false,
-		inputs: [
-			{ indexed: true, internalType: 'address', name: 'usr', type: 'address' },
-		],
+		inputs: [{ indexed: true, internalType: 'address', name: 'usr', type: 'address' }],
 		name: 'Rely',
 		type: 'event',
 	},

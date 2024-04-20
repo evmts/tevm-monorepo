@@ -1,10 +1,6 @@
-import {
-	mergeConfigs,
-	validateUserConfig,
-	withDefaults,
-} from './config/index.js'
-import { loadFoundryConfig } from './foundry/index.js'
 import { all, catchTags, fail, flatMap, logDebug, tap } from 'effect/Effect'
+import { mergeConfigs, validateUserConfig, withDefaults } from './config/index.js'
+import { loadFoundryConfig } from './foundry/index.js'
 
 /**
  * Error class for {@link defineConfig}
@@ -52,9 +48,7 @@ ${underlyingError.message}`,
 export const defineConfig = (configFactory) => ({
 	configFn: (configFilePath) => {
 		const config = validateUserConfig(configFactory)
-		const foundryConfig = flatMap(config, ({ foundryProject }) =>
-			loadFoundryConfig(foundryProject, configFilePath),
-		)
+		const foundryConfig = flatMap(config, ({ foundryProject }) => loadFoundryConfig(foundryProject, configFilePath))
 		/**
 		 * @param {import("./types.js").DefineConfigErrorType} error
 		 * @returns {import("effect/Effect").Effect<never, DefineConfigError, never>}
@@ -72,11 +66,7 @@ export const defineConfig = (configFactory) => ({
 				),
 			),
 			flatMap(mergeConfigs),
-			tap((mergedConfigs) =>
-				logDebug(
-					`defineConfig: MergedConfigs ${JSON.stringify({ mergedConfigs })}`,
-				),
-			),
+			tap((mergedConfigs) => logDebug(`defineConfig: MergedConfigs ${JSON.stringify({ mergedConfigs })}`)),
 			flatMap(withDefaults),
 			catchTags({
 				InvalidRemappingsError: handleError,

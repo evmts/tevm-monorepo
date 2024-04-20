@@ -1,11 +1,5 @@
-import {
-	existsSync,
-	mkdirSync,
-	readFileSync,
-	statSync,
-	writeFileSync,
-} from 'fs'
-import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 // @ts-expect-error
 import defaultSolc from 'solc'
 

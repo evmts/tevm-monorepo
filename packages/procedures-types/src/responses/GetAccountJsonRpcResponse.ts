@@ -1,7 +1,7 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { GetAccountResult } from '@tevm/actions-types'
 import type { GetAccountError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * JSON-RPC response for `tevm_getAccount` method

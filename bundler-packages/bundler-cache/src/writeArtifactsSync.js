@@ -10,19 +10,8 @@ import { version } from './version.js'
  * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts
  * @param {import('./types.js').FileAccessObject} fs
  */
-export const writeArtifactsSync = (
-	cwd,
-	cacheDir,
-	entryModuleId,
-	resolvedArtifacts,
-	fs,
-) => {
-	const { dir, path } = getArtifactsPath(
-		entryModuleId,
-		'artifactsJson',
-		cwd,
-		cacheDir,
-	)
+export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs) => {
+	const { dir, path } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 

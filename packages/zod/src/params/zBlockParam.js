@@ -1,5 +1,5 @@
-import { zHex } from '../common/index.js'
 import { z } from 'zod'
+import { zHex } from '../common/index.js'
 
 export const zBlockParam = z.union([
 	z.literal('latest'),

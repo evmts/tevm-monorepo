@@ -1,6 +1,6 @@
-import { findNode } from './findNode.js'
 import * as ts from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it } from 'vitest'
+import { findNode } from './findNode.js'
 
 describe('findNode', () => {
 	it('should find the correct node', () => {
@@ -49,9 +49,7 @@ describe('findNode', () => {
 			ts.ScriptKind.TS,
 		)
 
-		expect(() => findNode(sourceFile, -1)).toThrowErrorMatchingInlineSnapshot(
-			'[Error: Position must be non-negative]',
-		)
+		expect(() => findNode(sourceFile, -1)).toThrowErrorMatchingInlineSnapshot('[Error: Position must be non-negative]')
 	})
 
 	it('should throw if non-integer position', () => {
@@ -68,8 +66,6 @@ describe('findNode', () => {
 			true,
 			ts.ScriptKind.TS,
 		)
-		expect(() => findNode(sourceFile, 1.5)).toThrowErrorMatchingInlineSnapshot(
-			'[Error: Position must be an integer]',
-		)
+		expect(() => findNode(sourceFile, 1.5)).toThrowErrorMatchingInlineSnapshot('[Error: Position must be an integer]')
 	})
 })

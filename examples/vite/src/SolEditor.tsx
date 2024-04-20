@@ -1,4 +1,3 @@
-import type { MessageResult } from './SolcWorker'
 import { useQuery } from '@tanstack/react-query'
 import { highlight, languages } from 'prismjs'
 import 'prismjs/components/prism-core'
@@ -6,12 +5,13 @@ import 'prismjs/themes/prism.css' //Example style, you can use another
 import { useMemo, useState } from 'react'
 import Editor from 'react-simple-code-editor'
 import { v4 as uuidv4 } from 'uuid'
+import type { MessageResult } from './SolcWorker'
 
 const solcWorkerCompile = (worker: Worker, code: string) => {
 	console.log('compiling...', code)
 	const id = uuidv4()
 	return new Promise((resolve, reject) => {
-		worker.onmessage = function (e) {
+		worker.onmessage = (e) => {
 			console.log('onmessage', e.data)
 			if (e.data.id !== id) return
 			const { success, result, error } = e.data
@@ -28,8 +28,7 @@ const solcWorkerCompile = (worker: Worker, code: string) => {
 
 languages.solidity = languages.extend('clike', {
 	'class-name': {
-		pattern:
-			/(\b(?:contract|enum|interface|library|new|struct|using)\s+)(?!\d)[\w$]+/,
+		pattern: /(\b(?:contract|enum|interface|library|new|struct|using)\s+)(?!\d)[\w$]+/,
 		lookbehind: true,
 	},
 	keyword:
@@ -93,25 +92,19 @@ contract AddNumbers {
 			/>
 			<h3>Tevm compiler</h3>
 			<p>
-				The Tevm compiler will compile the above solidity contract into the
-				following artifacts using{' '}
-				<a href='https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/docs/modules/solc.md#solccompile'>
+				The Tevm compiler will compile the above solidity contract into the following artifacts using{' '}
+				<a href="https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/docs/modules/solc.md#solccompile">
 					import("@tevm/solc").solcCompile
 				</a>{' '}
 				which is just a typesafe wrapper around{' '}
-				<a href='https://docs.soliditylang.org/en/latest/installing-solidity.html'>
-					solc
-				</a>
-				. This is the low level compiler used by all tools including hardhat and
-				foundry.
+				<a href="https://docs.soliditylang.org/en/latest/installing-solidity.html">solc</a>. This is the low level
+				compiler used by all tools including hardhat and foundry.
 			</p>
 			{artifacts || error ? (
 				<Editor
 					value={JSON.stringify(artifacts)}
 					onValueChange={(code) => setCode(code ?? error?.message)}
-					highlight={(code) =>
-						highlight(code, languages.javascript, 'javascript')
-					}
+					highlight={(code) => highlight(code, languages.javascript, 'javascript')}
 					contentEditable={false}
 					padding={10}
 					style={{

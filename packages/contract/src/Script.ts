@@ -1,7 +1,7 @@
+import type { Address, Hex, ParseAbi } from '@tevm/utils'
 import type { EventActionCreator } from './event/EventActionCreator.js'
 import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
-import type { Address, Hex, ParseAbi } from '@tevm/utils'
 
 /**
  * An action creator for `Tevm.script`, `Tevm.contract` and more
@@ -61,10 +61,7 @@ import type { Address, Hex, ParseAbi } from '@tevm/utils'
  *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
  * )
  */
-export type Script<
-	TName extends string,
-	THumanReadableAbi extends ReadonlyArray<string>,
-> = {
+export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray<string>> = {
 	/**
 	 * The human readable abi of the contract
 	 * @example
@@ -143,10 +140,9 @@ export type Script<
 	 * Note this is not necessary with `tevm.script` method that doesn't require
 	 * a contract address to execute
 	 */
-	withAddress: <TAddress extends Address>(address: TAddress) => Omit<
-		Script<TName, THumanReadableAbi>,
-		'events' | 'read' | 'write' | 'address'
-	> & {
+	withAddress: <TAddress extends Address>(
+		address: TAddress,
+	) => Omit<Script<TName, THumanReadableAbi>, 'events' | 'read' | 'write' | 'address'> & {
 		/**
 		 * The deployed contract address
 		 */

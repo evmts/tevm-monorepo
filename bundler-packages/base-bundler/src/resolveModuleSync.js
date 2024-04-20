@@ -1,8 +1,8 @@
-import { readCacheSync } from './readCacheSync.js'
-import { writeCacheSync } from './writeCacheSync.js'
 import { resolveArtifactsSync } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runSync } from 'effect/Effect'
+import { readCacheSync } from './readCacheSync.js'
+import { writeCacheSync } from './writeCacheSync.js'
 
 /**
  * @param {import('@tevm/compiler').Logger} logger
@@ -31,37 +31,14 @@ export const resolveModuleSync = (
 	cache,
 	contractPackage,
 ) => {
-	const cachedResult = readCacheSync(
-		logger,
-		cache,
-		modulePath,
-		includeAst,
-		includeBytecode,
-	)
+	const cachedResult = readCacheSync(logger, cache, modulePath, includeAst, includeBytecode)
 	try {
 		const { solcInput, solcOutput, asts, artifacts, modules } =
-			cachedResult ??
-			resolveArtifactsSync(
-				modulePath,
-				basedir,
-				logger,
-				config,
-				includeAst,
-				includeBytecode,
-				fao,
-				solc,
-			)
+			cachedResult ?? resolveArtifactsSync(modulePath, basedir, logger, config, includeAst, includeBytecode, fao, solc)
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
-			code = runSync(
-				generateRuntime(
-					artifacts,
-					moduleType,
-					includeBytecode,
-					contractPackage,
-				),
-			)
+			code = runSync(generateRuntime(artifacts, moduleType, includeBytecode, contractPackage))
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`
 			code = `// ${message}`

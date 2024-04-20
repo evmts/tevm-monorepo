@@ -12,10 +12,7 @@ export default defineConfig({
 	},
 	build: {
 		rollupOptions: {
-			external: [
-				'@safe-globalThis/safe-apps-provider',
-				'@safe-globalThis/safe-apps-sdk',
-			],
+			external: ['@safe-globalThis/safe-apps-provider', '@safe-globalThis/safe-apps-sdk'],
 		},
 	},
 	plugins: [

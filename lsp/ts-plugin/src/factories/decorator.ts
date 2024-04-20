@@ -1,7 +1,7 @@
-import type { Logger } from './logger.js'
-import { FileAccessObject } from '@tevm/base-bundler'
-import { ResolvedCompilerConfig } from '@tevm/config'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import type { ResolvedCompilerConfig } from '@tevm/config'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
+import type { Logger } from './logger.js'
 
 /**
  * Internal type representing a leangauge service host decorator.
@@ -52,9 +52,7 @@ export type PartialHostDecorator = (
  * },
  * })
  */
-export const createHostDecorator = (
-	decorator: PartialHostDecorator,
-): HostDecorator => {
+export const createHostDecorator = (decorator: PartialHostDecorator): HostDecorator => {
 	return (createInfo, ...rest) => {
 		const proxy = decorator(createInfo, ...rest)
 		return new Proxy(createInfo.languageServiceHost, {

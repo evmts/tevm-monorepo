@@ -1,5 +1,5 @@
-import { tevmViemExtension } from './tevmViemExtension.js'
 import { waitForTransactionReceipt } from 'viem/actions'
+import { tevmViemExtension } from './tevmViemExtension.js'
 
 // TODO handle the transaction reverting
 /**
@@ -127,10 +127,7 @@ export const tevmViemExtensionOptimistic = () => {
 
 			if (hash) {
 				try {
-					const receipt = await waitForTransactionReceipt(
-						/** @type{any}*/ (client),
-						{ hash },
-					)
+					const receipt = await waitForTransactionReceipt(/** @type{any}*/ (client), { hash })
 					yield {
 						success: true,
 						tag: 'RECEIPT',

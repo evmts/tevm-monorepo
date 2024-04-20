@@ -1,10 +1,10 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import type { ResolvedCompilerConfig } from '@tevm/config'
+import { describe, expect, it, vi } from 'vitest'
 import type { FileAccessObject } from '../types.js'
 import { compileContractSync } from './compileContractsSync.js'
-import type { ResolvedCompilerConfig } from '@tevm/config'
-import { existsSync, readFileSync } from 'fs'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
-import { describe, expect, it, vi } from 'vitest'
 
 const absolutePathContext = join(__dirname, '..', '..', '..', '..')
 

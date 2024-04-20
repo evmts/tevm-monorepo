@@ -1,8 +1,8 @@
-import { readCache } from './readCache.js'
-import { writeCache } from './writeCache.js'
 import { resolveArtifacts } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runPromise } from 'effect/Effect'
+import { readCache } from './readCache.js'
+import { writeCache } from './writeCache.js'
 
 /**
  * @param {import('@tevm/compiler').Logger} logger
@@ -31,37 +31,15 @@ export const resolveModuleAsync = async (
 	cache,
 	contractPackage,
 ) => {
-	const cachedResult = await readCache(
-		logger,
-		cache,
-		modulePath,
-		includeAst,
-		includeBytecode,
-	)
+	const cachedResult = await readCache(logger, cache, modulePath, includeAst, includeBytecode)
 	try {
 		const { solcInput, solcOutput, asts, artifacts, modules } =
 			cachedResult ??
-			(await resolveArtifacts(
-				modulePath,
-				basedir,
-				logger,
-				config,
-				includeAst,
-				includeBytecode,
-				fao,
-				solc,
-			))
+			(await resolveArtifacts(modulePath, basedir, logger, config, includeAst, includeBytecode, fao, solc))
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
-			code = await runPromise(
-				generateRuntime(
-					artifacts,
-					moduleType,
-					includeBytecode,
-					contractPackage,
-				),
-			)
+			code = await runPromise(generateRuntime(artifacts, moduleType, includeBytecode, contractPackage))
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`
 			code = `// ${message}`
@@ -84,9 +62,7 @@ export const resolveModuleAsync = async (
 			artifactsExist,
 		).catch((e) => {
 			logger.error(e)
-			logger.error(
-				'there was an error writing to the cache. This may cause peformance issues',
-			)
+			logger.error('there was an error writing to the cache. This may cause peformance issues')
 		})
 
 		return { solcInput, solcOutput, asts, modules, code }

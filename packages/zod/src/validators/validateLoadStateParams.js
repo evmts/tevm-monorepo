@@ -17,9 +17,7 @@ export const validateLoadStateParams = (action) => {
 
 		if (formattedErrors._errors) {
 			formattedErrors._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidRequestError', error, JSON.stringify(action)),
-				)
+				errors.push(createError('InvalidRequestError', error, JSON.stringify(action)))
 			})
 		}
 	}

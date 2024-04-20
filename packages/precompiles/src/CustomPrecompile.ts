@@ -11,9 +11,6 @@ import type { ConstructorArgument } from './ConstructorArgument.js'
  * Custom precompiles allow you to run arbitrary JavaScript code in the EVM
  */
 export type CustomPrecompile = Exclude<
-	Exclude<
-		ConstructorArgument<typeof import('@tevm/evm').Evm>,
-		undefined
-	>['customPrecompiles'],
+	Exclude<ConstructorArgument<typeof import('@tevm/evm').Evm>, undefined>['customPrecompiles'],
 	undefined
 >[number]

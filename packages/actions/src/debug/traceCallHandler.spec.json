@@ -145,9 +145,7 @@
 			"gasCost": "6",
 			"gas": "16784731",
 			"depth": 0,
-			"stack": [
-				"0x23b872dd00000000000000000000000033333333333333333333333333333333"
-			]
+			"stack": ["0x23b872dd00000000000000000000000033333333333333333333333333333333"]
 		},
 		{
 			"pc": 31,
@@ -155,10 +153,7 @@
 			"gasCost": "6",
 			"gas": "16784728",
 			"depth": 0,
-			"stack": [
-				"0x23b872dd00000000000000000000000033333333333333333333333333333333",
-				"0xe0"
-			]
+			"stack": ["0x23b872dd00000000000000000000000033333333333333333333333333333333", "0xe0"]
 		},
 		{
 			"pc": 32,
@@ -566,13 +561,7 @@
 			"gasCost": "6",
 			"gas": "16784536",
 			"depth": 0,
-			"stack": [
-				"0x23b872dd",
-				"0x1f0",
-				"0x4",
-				"0x1",
-				"0x10000000000000000000000000000000000000000"
-			]
+			"stack": ["0x23b872dd", "0x1f0", "0x4", "0x1", "0x10000000000000000000000000000000000000000"]
 		},
 		{
 			"pc": 574,
@@ -580,12 +569,7 @@
 			"gasCost": "6",
 			"gas": "16784533",
 			"depth": 0,
-			"stack": [
-				"0x23b872dd",
-				"0x1f0",
-				"0x4",
-				"0xffffffffffffffffffffffffffffffffffffffff"
-			]
+			"stack": ["0x23b872dd", "0x1f0", "0x4", "0xffffffffffffffffffffffffffffffffffffffff"]
 		},
 		{
 			"pc": 575,
@@ -593,13 +577,7 @@
 			"gasCost": "6",
 			"gas": "16784530",
 			"depth": 0,
-			"stack": [
-				"0x23b872dd",
-				"0x1f0",
-				"0x4",
-				"0xffffffffffffffffffffffffffffffffffffffff",
-				"0x4"
-			]
+			"stack": ["0x23b872dd", "0x1f0", "0x4", "0xffffffffffffffffffffffffffffffffffffffff", "0x4"]
 		},
 		{
 			"pc": 576,

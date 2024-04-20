@@ -1,10 +1,5 @@
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
 import { testAccounts } from './testAccounts.js'
-import {
-	decodeFunctionResult,
-	encodeFunctionData,
-	hexToBigInt,
-	numberToHex,
-} from 'viem'
 
 /**
  * @param {import('@tevm/actions-types').BlockParam|undefined} blockTag
@@ -160,16 +155,10 @@ export const tevmViemExtension = () => {
 					params: [
 						{
 							address: params.address,
-							...(params.balance
-								? { balance: numberToHex(params.balance) }
-								: {}),
+							...(params.balance ? { balance: numberToHex(params.balance) } : {}),
 							...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
-							...(params.storageRoot
-								? { storageRoot: params.storageRoot }
-								: {}),
-							...(params.deployedBytecode
-								? { deployedBytecode: params.deployedBytecode }
-								: {}),
+							...(params.storageRoot ? { storageRoot: params.storageRoot } : {}),
+							...(params.deployedBytecode ? { deployedBytecode: params.deployedBytecode } : {}),
 						},
 					],
 				}),
@@ -181,29 +170,19 @@ export const tevmViemExtension = () => {
 		 */
 		const getCallArgs = (params) => {
 			return {
-				...(params.deployedBytecode
-					? { deployedBytecode: params.deployedBytecode }
-					: {}),
-				...(params.blobVersionedHashes
-					? { blobVersionedHashes: params.blobVersionedHashes }
-					: {}),
+				...(params.deployedBytecode ? { deployedBytecode: params.deployedBytecode } : {}),
+				...(params.blobVersionedHashes ? { blobVersionedHashes: params.blobVersionedHashes } : {}),
 				...(params.caller ? { caller: params.caller } : {}),
 				...('data' in params && params.data ? { data: params.data } : {}),
 				...(params.depth ? { depth: params.depth } : {}),
 				...(params.gas ? { gas: numberToHex(params.gas) } : {}),
 				...(params.gasPrice ? { gasPrice: numberToHex(params.gasPrice) } : {}),
-				...(params.gasRefund
-					? { gasRefund: numberToHex(params.gasRefund) }
-					: {}),
+				...(params.gasRefund ? { gasRefund: numberToHex(params.gasRefund) } : {}),
 				...(params.origin ? { origin: params.origin } : {}),
 				...('salt' in params && params.salt ? { salt: params.salt } : {}),
-				...(params.selfdestruct
-					? { selfdestruct: [...params.selfdestruct] }
-					: {}),
+				...(params.selfdestruct ? { selfdestruct: [...params.selfdestruct] } : {}),
 				...(params.skipBalance ? { skipBalance: params.skipBalance } : {}),
-				...(params.blockTag
-					? { blockTag: formatBlockTag(params.blockTag) }
-					: {}),
+				...(params.blockTag ? { blockTag: formatBlockTag(params.blockTag) } : {}),
 				...(params.to ? { to: params.to } : {}),
 				...(params.value ? { value: numberToHex(params.value) } : {}),
 			}
@@ -244,23 +223,13 @@ export const tevmViemExtension = () => {
 			return {
 				executionGasUsed: hexToBigInt(result.executionGasUsed),
 				rawData: result.rawData,
-				...(result.selfdestruct
-					? { selfdestruct: new Set(result.selfdestruct) }
-					: {}),
-				...(result.gasRefund
-					? { gasRefund: hexToBigInt(result.gasRefund) }
-					: {}),
+				...(result.selfdestruct ? { selfdestruct: new Set(result.selfdestruct) } : {}),
+				...(result.gasRefund ? { gasRefund: hexToBigInt(result.gasRefund) } : {}),
 				...(result.gas ? { gas: hexToBigInt(result.gas) } : {}),
 				...(result.logs ? { logs: result.logs } : {}),
-				...(result.blobGasUsed
-					? { blobGasUsed: hexToBigInt(result.blobGasUsed) }
-					: {}),
-				...(result.createdAddress
-					? { createdAddress: result.createdAddress }
-					: {}),
-				...(result.createdAddresses
-					? { createdAddresses: new Set(result.createdAddresses) }
-					: {}),
+				...(result.blobGasUsed ? { blobGasUsed: hexToBigInt(result.blobGasUsed) } : {}),
+				...(result.createdAddress ? { createdAddress: result.createdAddress } : {}),
+				...(result.createdAddresses ? { createdAddresses: new Set(result.createdAddresses) } : {}),
 			}
 		}
 
@@ -312,15 +281,7 @@ export const tevmViemExtension = () => {
 		/**
 		 * @type {import('@tevm/actions-types').EthCallHandler}
 		 */
-		const ethCall = async ({
-			blockTag = 'latest',
-			to,
-			gas,
-			data,
-			from = `0x${'0'.repeat(40)}`,
-			value,
-			gasPrice,
-		}) => {
+		const ethCall = async ({ blockTag = 'latest', to, gas, data, from = `0x${'0'.repeat(40)}`, value, gasPrice }) => {
 			return /** @type {any} */ (
 				formatResult(
 					await request({
@@ -459,11 +420,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getStorageAt',
 						jsonrpc: '2.0',
-						params: [
-							params.address,
-							params.position,
-							formatBlockTag(params.blockTag),
-						],
+						params: [params.address, params.position, formatBlockTag(params.blockTag)],
 					}),
 				)
 			)

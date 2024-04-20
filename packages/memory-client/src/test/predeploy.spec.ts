@@ -1,10 +1,10 @@
-import { createMemoryClient } from '../createMemoryClient.js'
-import { DaiContract } from '../test/DaiContract.sol.js'
+import { expect, test } from 'bun:test'
 import { createScript } from '@tevm/contract'
 import { definePredeploy } from '@tevm/predeploys'
 import { EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
-import { expect, test } from 'bun:test'
+import { createMemoryClient } from '../createMemoryClient.js'
+import { DaiContract } from '../test/DaiContract.sol.js'
 
 test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
@@ -28,19 +28,11 @@ test('Call predeploy from TypeScript', async () => {
 
 	// Predeploy Contract exists in vm
 	expect(
-		await (
-			await tevm.getVm()
-		).stateManager.getContractCode(
-			new EthjsAddress(hexToBytes(predeployAddress)),
-		),
+		await (await tevm.getVm()).stateManager.getContractCode(new EthjsAddress(hexToBytes(predeployAddress))),
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call
-	const res = await tevm.contract(
-		predeploy.contract
-			.withAddress(predeploy.address)
-			.read.balanceOf(predeploy.address),
-	)
+	const res = await tevm.contract(predeploy.contract.withAddress(predeploy.address).read.balanceOf(predeploy.address))
 
 	expect(res.errors).toEqual(undefined as any)
 	expect(res.data).toBe(0n)

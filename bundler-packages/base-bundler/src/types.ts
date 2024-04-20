@@ -1,9 +1,9 @@
+import type { mkdirSync, statSync } from 'node:fs'
+import type { mkdir, stat, writeFile } from 'node:fs/promises'
 import type { Cache } from '@tevm/bundler-cache'
 import type { ModuleInfo } from '@tevm/compiler'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
-import type { mkdirSync, statSync } from 'fs'
-import type { mkdir, stat, writeFile } from 'fs/promises'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {

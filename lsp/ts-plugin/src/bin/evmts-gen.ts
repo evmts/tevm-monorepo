@@ -1,17 +1,11 @@
-import { FileAccessObject, bundler } from '@tevm/base-bundler'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { type FileAccessObject, bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import {
-	existsSync,
-	mkdirSync,
-	readFileSync,
-	statSync,
-	writeFileSync,
-} from 'fs'
-import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 import { glob } from 'glob'
-import path from 'path'
 // @ts-expect-error
 import * as solc from 'solc'
 
@@ -50,9 +44,7 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const plugin = bundler(config, console, fao, solc, solcCache)
 		plugin
 			.resolveTsModule(file, cwd, false, false)
-			.then((dts) =>
-				writeFile(path.join(fileDir, `${fileName}.d.ts`), dts.code),
-			)
+			.then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts.code))
 	})
 }
 generate()

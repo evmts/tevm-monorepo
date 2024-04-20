@@ -1,5 +1,5 @@
-import { type L1Client, createL1Client } from '../index.js'
 import { beforeEach, describe, expect, it } from 'bun:test'
+import { type L1Client, createL1Client } from '../index.js'
 
 describe('OptimismPortal2', () => {
 	let client: L1Client
@@ -9,21 +9,13 @@ describe('OptimismPortal2', () => {
 	})
 
 	it('should initialize contract correctly', async () => {
-		expect(
-			await client.contract(
-				client.op.OptimismPortal2.read.disputeGameFactory(),
-			),
-		).toMatchObject({
+		expect(await client.contract(client.op.OptimismPortal2.read.disputeGameFactory())).toMatchObject({
 			data: client.op.DisputeGameFactory.address,
 		})
-		expect(
-			await client.contract(client.op.OptimismPortal2.read.systemConfig()),
-		).toMatchObject({
+		expect(await client.contract(client.op.OptimismPortal2.read.systemConfig())).toMatchObject({
 			data: client.op.SystemConfig.address,
 		})
-		expect(
-			await client.contract(client.op.OptimismPortal2.read.superchainConfig()),
-		).toMatchObject({
+		expect(await client.contract(client.op.OptimismPortal2.read.superchainConfig())).toMatchObject({
 			data: client.op.SuperchainConfig.address,
 		})
 	})
@@ -37,8 +29,7 @@ describe('OptimismPortal2', () => {
 				...client.op.OptimismPortal2.write.donateETH(),
 			}),
 		).toEqual({
-			txHash:
-				'0x130ed94bbd3e1cadb97744c7443ffb540dde697748afa2d0d9c1cab9f8696ec5',
+			txHash: '0x130ed94bbd3e1cadb97744c7443ffb540dde697748afa2d0d9c1cab9f8696ec5',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 164n,
@@ -61,17 +52,10 @@ describe('OptimismPortal2', () => {
 				createTransaction: true,
 				skipBalance: true, // skipBalance automatically mints the value eth
 				value,
-				...client.op.OptimismPortal2.write.depositTransaction(
-					to,
-					value,
-					gasLimit,
-					isCreation,
-					data,
-				),
+				...client.op.OptimismPortal2.write.depositTransaction(to, value, gasLimit, isCreation, data),
 			}),
 		).toEqual({
-			txHash:
-				'0x0b5e9db89c75c1567b8a17faed5a2e96dee7d77a84c6c779dbc6f3aa3a035d57',
+			txHash: '0x0b5e9db89c75c1567b8a17faed5a2e96dee7d77a84c6c779dbc6f3aa3a035d57',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 51280n,

@@ -1,10 +1,10 @@
-import { getScriptKindDecorator } from './getScriptKind.js'
-import { FileAccessObject } from '@tevm/base-bundler'
-import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
+import { access, mkdir, stat, writeFile } from 'node:fs/promises'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { access, mkdir, stat, writeFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { getScriptKindDecorator } from './getScriptKind.js'
 
 type TestAny = any
 
@@ -55,10 +55,7 @@ describe(getScriptKindDecorator.name, () => {
 	})
 
 	it('should decorate getScriptKind', () => {
-		expect(
-			getScriptKindDecorator(createInfo, typescript, logger, config, fao)
-				.getScriptKind,
-		).toBeInstanceOf(Function)
+		expect(getScriptKindDecorator(createInfo, typescript, logger, config, fao).getScriptKind).toBeInstanceOf(Function)
 	})
 
 	it('Should return unknown if no getScriptKind on language host', () => {
@@ -69,54 +66,24 @@ describe(getScriptKindDecorator.name, () => {
 			warn: vi.fn(),
 			error: vi.fn(),
 		}
-		const decorated = getScriptKindDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
 		expect(decorated.getScriptKind?.('foo')).toBe(typescript.ScriptKind.Unknown)
 	})
 
 	it('Should return TS if file is solidity', () => {
-		const decorated = getScriptKindDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
-		expect(decorated.getScriptKind?.('foo.sol')).toBe(
-			typescript.ScriptKind.External,
-		)
-		expect(decorated.getScriptKind?.('./foo.sol')).toBe(
-			typescript.ScriptKind.TS,
-		)
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
+		expect(decorated.getScriptKind?.('foo.sol')).toBe(typescript.ScriptKind.External)
+		expect(decorated.getScriptKind?.('./foo.sol')).toBe(typescript.ScriptKind.TS)
 	})
 
 	it('Should proxy to languageServiceHost.getScriptKind if not solidity', () => {
-		const decorated = getScriptKindDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
 		const expected = typescript.ScriptKind.JS
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(expected)
-		const fileNames = [
-			'foo.js',
-			'foo.sol.js',
-			'sol.js',
-			'.sol.js',
-			'sol.sol.sol.sol.js',
-		]
+		const fileNames = ['foo.js', 'foo.sol.js', 'sol.js', '.sol.js', 'sol.sol.sol.sol.js']
 		fileNames.forEach((fileName) => {
 			expect(decorated.getScriptKind?.(fileName)).toBe(expected)
-			expect(
-				createInfo.languageServiceHost.getScriptKind,
-			).toHaveBeenLastCalledWith(fileName)
+			expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith(fileName)
 		})
 	})
 })

@@ -42,6 +42,4 @@ export type TevmEVMErrorMessage =
 /**
  * Error type of errors thrown while internally executing a call in the EVM
  */
-export type EvmError<
-	TEVMErrorMessage extends TevmEVMErrorMessage = TevmEVMErrorMessage,
-> = TypedError<TEVMErrorMessage>
+export type EvmError<TEVMErrorMessage extends TevmEVMErrorMessage = TevmEVMErrorMessage> = TypedError<TEVMErrorMessage>

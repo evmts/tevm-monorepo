@@ -1,6 +1,6 @@
+import { type Address, useAccount, useContractRead } from 'wagmi'
 import { addresses } from '../addresses'
 import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
-import { Address, useAccount, useContractRead } from 'wagmi'
 
 export const WagmiReads = () => {
 	const { address, isConnected } = useAccount()

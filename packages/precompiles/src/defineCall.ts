@@ -1,4 +1,3 @@
-import type { CallResult } from './CallResult.js'
 import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
@@ -12,24 +11,17 @@ import {
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
+import type { CallResult } from './CallResult.js'
 
-type Handler<
-	TAbi extends Abi,
-	TFunctionName extends ExtractAbiFunctionNames<TAbi>,
-> = (params: {
+type Handler<TAbi extends Abi, TFunctionName extends ExtractAbiFunctionNames<TAbi>> = (params: {
 	gasLimit: bigint
-	args: AbiParametersToPrimitiveTypes<
-		ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-	>
+	args: AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>['inputs']>
 }) => Promise<CallResult<TAbi, TFunctionName>>
 
 export const defineCall = <TAbi extends Abi>(
 	abi: TAbi,
 	handlers: {
-		[TFunctionName in ExtractAbiFunctionNames<TAbi>]: Handler<
-			TAbi,
-			TFunctionName
-		>
+		[TFunctionName in ExtractAbiFunctionNames<TAbi>]: Handler<TAbi, TFunctionName>
 	},
 ) => {
 	return async ({
@@ -45,14 +37,7 @@ export const defineCall = <TAbi extends Abi>(
 		})
 		const handler = handlers[d.functionName]
 		try {
-			const {
-				returnValue,
-				executionGasUsed,
-				logs,
-				error,
-				blobGasUsed,
-				selfdestruct,
-			} = await handler({
+			const { returnValue, executionGasUsed, logs, error, blobGasUsed, selfdestruct } = await handler({
 				gasLimit: gasLimit,
 				args: d.args as any,
 			})
@@ -69,15 +54,12 @@ export const defineCall = <TAbi extends Abi>(
 									eventName: log.name,
 									args: log.inputs,
 								} as any).map((topics) => hexToBytes(topics))
-								const eventItem = abi.find(
-									(item) => item.type === 'event' && item.name === log.name,
-								) as AbiEvent
-								if (!eventItem)
-									throw new Error(`Event ${log.name} not found in ABI`)
+								const eventItem = abi.find((item) => item.type === 'event' && item.name === log.name) as AbiEvent
+								if (!eventItem) throw new Error(`Event ${log.name} not found in ABI`)
 								const data = encodeAbiParameters(eventItem.inputs, log.inputs)
 								return [hexToBytes(log.address), topics, hexToBytes(data)]
 							}),
-					  }
+						}
 					: {}),
 				returnValue: hexToBytes(
 					encodeFunctionResult({
@@ -94,12 +76,7 @@ export const defineCall = <TAbi extends Abi>(
 				exceptionError: {
 					...new EvmError(EvmErrorMessage.REVERT),
 					...{
-						message:
-							typeof e === 'string'
-								? e
-								: e instanceof Error
-								? e.message
-								: 'unknown error',
+						message: typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error',
 					},
 				},
 			}

@@ -1,20 +1,8 @@
-import {
-	ForkStateManager,
-	type ForkStateManagerOpts,
-} from './ForkStateManager.js'
-import {
-	NormalStateManager,
-	type NormalStateManagerOpts,
-} from './NormalStateManager.js'
-import {
-	ProxyStateManager,
-	type ProxyStateManagerOpts,
-} from './ProxyStateManager.js'
+import { ForkStateManager, type ForkStateManagerOpts } from './ForkStateManager.js'
+import { NormalStateManager, type NormalStateManagerOpts } from './NormalStateManager.js'
+import { ProxyStateManager, type ProxyStateManagerOpts } from './ProxyStateManager.js'
 
-export type TevmStateManager =
-	| NormalStateManager
-	| ForkStateManager
-	| ProxyStateManager
+export type TevmStateManager = NormalStateManager | ForkStateManager | ProxyStateManager
 
 export type TevmStateManagerOptions =
 	| { fork: ForkStateManagerOpts }

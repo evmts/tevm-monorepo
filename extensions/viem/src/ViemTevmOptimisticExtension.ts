@@ -19,5 +19,4 @@ import type { ViemTevmOptimisticClientDecorator } from './ViemTevmOptimisticClie
  * ```
  * @see [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
  */
-export type ViemTevmOptimisticExtension =
-	() => ViemTevmOptimisticClientDecorator
+export type ViemTevmOptimisticExtension = () => ViemTevmOptimisticClientDecorator

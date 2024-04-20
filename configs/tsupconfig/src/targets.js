@@ -5,14 +5,7 @@ const nodeTargets = ['node16']
 /**
  * @type {import('tsup').Options['target']}
  */
-const browserTargets = [
-	'chrome91',
-	'firefox90',
-	'edge91',
-	'safari15',
-	'ios15',
-	'opera77',
-]
+const browserTargets = ['chrome91', 'firefox90', 'edge91', 'safari15', 'ios15', 'opera77']
 
 /**
  * @typedef {'js' | 'node' | 'browser'} Target

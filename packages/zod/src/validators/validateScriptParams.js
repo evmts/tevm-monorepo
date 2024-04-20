@@ -18,20 +18,12 @@ export const validateScriptParams = (action) => {
 
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidDeployedBytecodeError',
-						error,
-						String(action.deployedBytecode),
-					),
-				)
+				errors.push(createError('InvalidDeployedBytecodeError', error, String(action.deployedBytecode)))
 			})
 		}
 		if (formattedErrors.abi) {
 			formattedErrors.abi._errors.forEach((error) => {
-				errors.push(
-					createError('InvalidAbiError', error, JSON.stringify(action.abi)),
-				)
+				errors.push(createError('InvalidAbiError', error, JSON.stringify(action.abi)))
 			})
 		}
 		if (formattedErrors.args) {
@@ -41,13 +33,7 @@ export const validateScriptParams = (action) => {
 		}
 		if (formattedErrors.functionName) {
 			formattedErrors.functionName._errors.forEach((error) => {
-				errors.push(
-					createError(
-						'InvalidFunctionNameError',
-						error,
-						String(action.functionName),
-					),
-				)
+				errors.push(createError('InvalidFunctionNameError', error, String(action.functionName)))
 			})
 		}
 	}
