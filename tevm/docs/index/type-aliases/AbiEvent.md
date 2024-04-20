@@ -30,7 +30,7 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5\_zod@3.22.4/node\_modules/abitype/dist/types/abi.d.ts:101
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5\_zod@3.22.5/node\_modules/abitype/dist/types/abi.d.ts:101
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
