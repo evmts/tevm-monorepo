@@ -67,5 +67,8 @@
 		"tailwindcss": "^3.3.0",
 		"typescript": "^5"
 	},
-	"contritors": ["Will Cory <willcory10@gmail.com>", "0xpolarzero"]
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>",
+		"0xpolarzero"
+	]
 }
