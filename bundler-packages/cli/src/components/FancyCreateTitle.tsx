@@ -1,7 +1,7 @@
+import { useCounter } from '../hooks/useCounter.js'
 import BigText from 'ink-big-text'
 import Gradient from 'ink-gradient'
-import type React from 'react'
-import { useCounter } from '../hooks/useCounter.js'
+import React from 'react'
 
 const titleText = 'Create EVMts App'
 const loadingTitleText = 'Creating EVMts App'
@@ -17,13 +17,12 @@ export const FancyCreateTitle: React.FC<Props> = ({ loading }) => {
 	// start exiting early!!!
 	const { count: i } = useCounter(titleText.length / animationSpeed)
 
-	const text = `${loading ? loadingTitleText : titleText}${loading ? '.'.repeat(Math.floor(i * 0.15) % 4) : ''}`.slice(
-		0,
-		i + 1,
-	)
+	const text = `${loading ? loadingTitleText : titleText}${
+		loading ? '.'.repeat(Math.floor(i * 0.15) % 4) : ''
+	}`.slice(0, i + 1)
 	return (
-		<Gradient name="pastel">
-			<BigText font="tiny" text={text} />
+		<Gradient name='pastel'>
+			<BigText font='tiny' text={text} />
 		</Gradient>
 	)
 }

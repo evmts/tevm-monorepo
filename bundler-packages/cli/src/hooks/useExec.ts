@@ -1,13 +1,18 @@
-import { spawn } from 'node:child_process'
-import { useEffect, useReducer, useState } from 'react'
 import { wait } from '../utils/wait.js'
+import { spawn } from 'child_process'
+import { useEffect, useReducer, useState } from 'react'
 
-export const useExec = (command: string, cwd: string, args: any, onSuccess: () => void, withWait = 0) => {
+export const useExec = (
+	command: string,
+	cwd: string,
+	args: any,
+	onSuccess: () => void,
+	withWait = 0,
+) => {
 	const [isStarted, mutate] = useReducer(() => true, false)
 	const [output, setOutput] = useState('')
 	const [error, setError] = useState('')
 	const [exitCode, setExitCode] = useState<number>()
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (!isStarted) {
 			return

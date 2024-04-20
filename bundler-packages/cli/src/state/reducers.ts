@@ -1,5 +1,5 @@
-import { basename } from 'node:path'
 import type { State } from './State.js'
+import { basename } from 'path'
 
 /**
  * State transition functions the UI can call
@@ -32,12 +32,16 @@ const selectAndContinue = (<TName extends keyof State>(
 		...state,
 		[payload.name]: payload.value,
 		currentStep: payload.nextPage ? state.currentStep : state.currentStep + 1,
-		currentPage: payload.nextPage ? goToNextPage({}, state).currentPage : state.currentPage,
+		currentPage: payload.nextPage
+			? goToNextPage({}, state).currentPage
+			: state.currentPage,
 	}
 
 	const isName = payload.name === 'name'
-	const isFrameworkBun = payload.name === 'framework' && (payload.value as string).includes('bun')
-	const isFrameworkMud = payload.name === 'framework' && (payload.value as string).includes('mud')
+	const isFrameworkBun =
+		payload.name === 'framework' && (payload.value as string).includes('bun')
+	const isFrameworkMud =
+		payload.name === 'framework' && (payload.value as string).includes('mud')
 	// if name step is set also set the path if name is a path instead of a name
 	if (isName) {
 		return {
@@ -45,14 +49,12 @@ const selectAndContinue = (<TName extends keyof State>(
 			path: payload.value as State['path'],
 			name: basename(payload.value as State['name']),
 		} as const
-	}
-	if (isFrameworkBun) {
+	} else if (isFrameworkBun) {
 		return {
 			...newState,
 			packageManager: 'bun',
 		} as const
-	}
-	if (isFrameworkMud) {
+	} else if (isFrameworkMud) {
 		return {
 			...newState,
 			packageManager: 'pnpm',
@@ -62,8 +64,9 @@ const selectAndContinue = (<TName extends keyof State>(
 			solidityFramework: 'foundry',
 			contractStrategy: 'local',
 		} as const
+	} else {
+		return newState
 	}
-	return newState
 }) satisfies Reducer<{ name: keyof State; value: State[keyof State] }>
 
 const goToPreviousStep: Reducer<any> = (_, state) => {

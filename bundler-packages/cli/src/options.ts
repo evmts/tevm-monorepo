@@ -1,15 +1,20 @@
-import { z } from 'zod'
 import { defaultWalletConnect } from './constants/defaults.js'
 import { frameworks, packageManagers, useCases } from './constants/index.js'
 import { getUserPkgManager } from './utils/getUserPkgManager.js'
+import { z } from 'zod'
 
 export const options = z
 	.object({
 		skipPrompts: z
 			.boolean()
 			.default(false)
-			.describe('Bypass interactive CLI prompt and use only command line flag options'),
-		walletConnectProjectId: z.string().default(defaultWalletConnect).describe('Wallet connect project id'),
+			.describe(
+				'Bypass interactive CLI prompt and use only command line flag options',
+			),
+		walletConnectProjectId: z
+			.string()
+			.default(defaultWalletConnect)
+			.describe('Wallet connect project id'),
 		packageManager: z
 			.enum([
 				packageManagers.choices.pnpm.value,
@@ -61,8 +66,14 @@ export const options = z
 		//  typescriptStrictness: z
 		//    .enum([typescriptStrictness.choices.strictist.value, typescriptStrictness.choices.strict.value, typescriptStrictness.choices.loose.value])
 		//    .default(typescriptStrictness.choices.strictist.value),
-		noGit: z.boolean().default(false).describe('Skips initializing a new git repo in the project'),
-		noInstall: z.boolean().default(false).describe("Skips running the package manager's install command"),
+		noGit: z
+			.boolean()
+			.default(false)
+			.describe('Skips initializing a new git repo in the project'),
+		noInstall: z
+			.boolean()
+			.default(false)
+			.describe("Skips running the package manager's install command"),
 		//  ciChoice: z
 		//    .enum([ciChoices.choices.githubActions.value, ciChoices.choices.none.value])
 		//    .default(ciChoices.choices.none.value)

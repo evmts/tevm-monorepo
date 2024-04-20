@@ -1,22 +1,22 @@
-import { WagmiMintExample } from '../../contracts/WagmiMintExample.sol'
-import styles from './content.module.css'
-import { LoaderFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { Address, createPublicClient, http } from 'viem'
-import { optimismGoerli } from 'viem/chains'
-import { useAccount, useChainId, useContractRead } from 'wagmi'
-import { addresses } from '~/addresses'
+import { WagmiMintExample } from "../../contracts/WagmiMintExample.sol";
+import styles from "./content.module.css";
+import { LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { Address, createPublicClient, http } from "viem";
+import { optimismGoerli } from "viem/chains";
+import { useAccount, useChainId, useContractRead } from "wagmi";
+import { addresses } from "~/addresses";
 
 /**
  * Load common data for all account serverside
  */
 export const loader: LoaderFunction = async () => {
 	const client = createPublicClient({
-		transport: http('https://goerli.optimism.io'),
+		transport: http("https://goerli.optimism.io"),
 		chain: optimismGoerli,
-	})
+	});
 
-	const address = { address: addresses[optimismGoerli.id] }
+	const address = { address: addresses[optimismGoerli.id] };
 
 	const [tokenUri, symbol, totalSupply] = await Promise.all([
 		client.readContract({
@@ -28,20 +28,20 @@ export const loader: LoaderFunction = async () => {
 			...WagmiMintExample.read().totalSupply(),
 			...address,
 		}),
-	])
+	]);
 
-	return { symbol, tokenUri, totalSupply: totalSupply.toString() }
-}
+	return { symbol, tokenUri, totalSupply: totalSupply.toString() };
+};
 
 export default function Reads() {
-	const { symbol, tokenUri, totalSupply } = useLoaderData<typeof loader>()
-	const { address, isConnected } = useAccount()
-	const chainId = useChainId()
+	const { symbol, tokenUri, totalSupply } = useLoaderData<typeof loader>();
+	const { address, isConnected } = useAccount();
+	const chainId = useChainId();
 	const { data: balance } = useContractRead({
 		...WagmiMintExample.read().balanceOf(address as Address),
 		address: addresses[chainId as 420],
 		enabled: isConnected,
-	})
+	});
 	return (
 		<div className={styles.container}>
 			<div className={styles.infoItem}>
@@ -78,5 +78,5 @@ export default function Reads() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

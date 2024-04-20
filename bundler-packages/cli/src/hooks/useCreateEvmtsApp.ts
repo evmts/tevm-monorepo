@@ -1,12 +1,12 @@
-import { basename, dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { useMutation } from '@tanstack/react-query'
-import { useEffect, useMemo } from 'react'
 import type { Store } from '../state/Store.js'
 import { wait } from '../utils/wait.js'
 import { useCopy } from './useCopy.js'
 import { useCreateDir } from './useCreateDir.js'
 import { useExec } from './useExec.js'
+import { useMutation } from '@tanstack/react-query'
+import { basename, dirname, join } from 'path'
+import { useEffect, useMemo } from 'react'
+import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -51,9 +51,14 @@ export const useCreateEvmtsApp = (state: Store): any => {
 		},
 		1000,
 	)
-	const installDependenciesMutation = useExec(state.packageManager, appPath, ['install'], async () => {
-		state.goToNextPage({})
-	})
+	const installDependenciesMutation = useExec(
+		state.packageManager,
+		appPath,
+		['install'],
+		async () => {
+			state.goToNextPage({})
+		},
+	)
 	const goToNextPageMutation = useMutation({
 		mutationFn: async () => {
 			// wait before going to next page
@@ -62,12 +67,10 @@ export const useCreateEvmtsApp = (state: Store): any => {
 		},
 	})
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		createFixturesMutation.mutate()
 	}, [])
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	return useMemo(() => {
 		const mutations = []
 		mutations.push(createFixturesMutation)
@@ -84,11 +87,19 @@ export const useCreateEvmtsApp = (state: Store): any => {
 		const length = mutations.length - 1
 		const isFailure = mutations.some((mutation) => mutation.isError)
 		const errors = mutations
-			.map((mutation) => (typeof mutation.error === 'string' ? mutation.error : mutation.error?.message))
+			.map((mutation) =>
+				typeof mutation.error === 'string'
+					? mutation.error
+					: mutation.error?.message,
+			)
 			.filter(Boolean)
 		const isComplete = mutations.every((mutation) => mutation.isSuccess)
 		// don't count the go to next step mutation
-		const settled = Math.min(length, mutations.filter((mutation) => mutation.isError || mutation.isSuccess).length)
+		const settled = Math.min(
+			length,
+			mutations.filter((mutation) => mutation.isError || mutation.isSuccess)
+				.length,
+		)
 		const currentMutation = mutations[settled]
 
 		let output: { stdout: string; stderr: string } | {} = {}
@@ -115,7 +126,10 @@ export const useCreateEvmtsApp = (state: Store): any => {
 			gitInit: {
 				isSuccess: gitInitMutation.isSuccess,
 				data: gitInitMutation.data,
-				loading: gitInitMutation.isPending && !gitInitMutation.isError && !gitInitMutation.isSuccess,
+				loading:
+					gitInitMutation.isPending &&
+					!gitInitMutation.isError &&
+					!gitInitMutation.isSuccess,
 				error: gitInitMutation.error,
 			},
 			installDependencies: {
@@ -150,5 +164,10 @@ export const useCreateEvmtsApp = (state: Store): any => {
 			installDependenciesMutation,
 			goToNextPageMutation,
 		}
-	}, [createFixturesMutation, copyTemplateMutation, gitInitMutation, installDependenciesMutation])
+	}, [
+		createFixturesMutation,
+		copyTemplateMutation,
+		gitInitMutation,
+		installDependenciesMutation,
+	])
 }

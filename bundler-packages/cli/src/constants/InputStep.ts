@@ -21,6 +21,7 @@ export const nameStep = {
  */
 export const walletConnectProjectId = {
 	type: 'input',
-	prompt: 'Please enter your wallet connect project id. See https://docs.walletconnect.com/cloud/relay#project-id',
+	prompt:
+		'Please enter your wallet connect project id. See https://docs.walletconnect.com/cloud/relay#project-id',
 	stateKey: 'walletConnectProjectId' as const,
 } as const satisfies InputStep

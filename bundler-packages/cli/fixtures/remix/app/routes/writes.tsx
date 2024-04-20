@@ -1,7 +1,7 @@
-import { WagmiMintExample } from '../../contracts/WagmiMintExample.sol'
-import { addresses } from '../addresses'
-import styles from './content.module.css'
-import * as chains from 'viem/chains'
+import { WagmiMintExample } from "../../contracts/WagmiMintExample.sol";
+import { addresses } from "../addresses";
+import styles from "./content.module.css";
+import * as chains from "viem/chains";
 import {
 	Address,
 	useAccount,
@@ -9,25 +9,25 @@ import {
 	useContractRead,
 	useContractWrite,
 	useWaitForTransaction,
-} from 'wagmi'
+} from "wagmi";
 
 function getRandomInt(min = 1, max = 1_000_000_000) {
-	const range = max - min + 1
-	return Math.floor(Math.random() * range) + min
+	const range = max - min + 1;
+	return Math.floor(Math.random() * range) + min;
 }
 
 function EtherscanLink({ hash, chainId }: { hash: string; chainId: number }) {
 	const chain = [chains.optimism, chains.mainnet, chains.optimismGoerli].find(
 		(c) => c.id === chainId,
-	)
-	return `${chain?.blockExplorers.etherscan.url}/tx/${hash}`
+	);
+	return `${chain?.blockExplorers.etherscan.url}/tx/${hash}`;
 }
 
 export default function WagmiWrites() {
-	const getEtherscanLink = () => {}
+	const getEtherscanLink = () => {};
 
-	const { address, isConnected } = useAccount()
-	const chainId = useChainId()
+	const { address, isConnected } = useAccount();
+	const chainId = useChainId();
 
 	const { data, refetch } = useContractRead({
 		/**
@@ -36,7 +36,7 @@ export default function WagmiWrites() {
 		 */
 		...WagmiMintExample.read().balanceOf(address as Address),
 		enabled: isConnected,
-	})
+	});
 
 	const {
 		error,
@@ -51,15 +51,15 @@ export default function WagmiWrites() {
 		 * This is useful for when you want to lazily call the function like in case of useContractWrite
 		 */
 		...WagmiMintExample.write().mint,
-	})
+	});
 
 	useWaitForTransaction({
 		hash: mintData?.hash,
 		onSuccess: (receipt) => {
-			console.log('minted', receipt)
-			refetch()
+			console.log("minted", receipt);
+			refetch();
 		},
-	})
+	});
 
 	return (
 		<div className={styles.container}>
@@ -75,12 +75,12 @@ export default function WagmiWrites() {
 						<div className={styles.methodName}>Mint status</div>
 						<div className={styles.methodValue}>
 							{isLoading
-								? 'loading...'
+								? "loading..."
 								: isSuccess
-								? 'successful!'
+								? "successful!"
 								: error
-								? 'error'
-								: 'idle'}
+								? "error"
+								: "idle"}
 						</div>
 					</div>
 				</div>
@@ -95,7 +95,7 @@ export default function WagmiWrites() {
 					</div>
 				)}
 				<button
-					type='button'
+					type="button"
 					className={styles.button}
 					onClick={() =>
 						writeMint({
@@ -108,5 +108,5 @@ export default function WagmiWrites() {
 				</button>
 			</div>
 		</div>
-	)
+	);
 }

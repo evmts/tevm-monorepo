@@ -1,7 +1,10 @@
 import { mainSymbols } from 'figures'
 import { Box, Text } from 'ink'
-import InkSelectInput, { type IndicatorProps, type ItemProps } from 'ink-select-input'
-import type React from 'react'
+import InkSelectInput, {
+	type IndicatorProps,
+	type ItemProps,
+} from 'ink-select-input'
+import React from 'react'
 
 export type Item<V> = {
 	key?: string
@@ -21,15 +24,20 @@ type Props<V> = {
 	onSelect: (item: Item<V>) => void
 }
 
-// biome fails if we don't do this
+// rome fails if we don't do this
 type AnyItem = any
 
 /**
  * Create EVMts app step to select the use case
  * Uses a MultiSelect
  */
-export const SelectInput = <T extends AnyItem>({ items, onSelect }: Props<T>) => {
-	const initialIndex = items.findIndex((item) => item.label.includes('(recommended)'))
+export const SelectInput = <T extends AnyItem>({
+	items,
+	onSelect,
+}: Props<T>) => {
+	const initialIndex = items.findIndex((item) =>
+		item.label.includes('(recommended)'),
+	)
 	return (
 		<InkSelectInput
 			itemComponent={ItemComponent}
@@ -42,7 +50,15 @@ export const SelectInput = <T extends AnyItem>({ items, onSelect }: Props<T>) =>
 }
 
 const IndicatorComponent: React.FC<IndicatorProps> = ({ isSelected }) => {
-	return <Box marginRight={1}>{isSelected ? <Text color="#B19CD9">{mainSymbols.pointer}</Text> : <Text> </Text>}</Box>
+	return (
+		<Box marginRight={1}>
+			{isSelected ? (
+				<Text color='#B19CD9'>{mainSymbols.pointer}</Text>
+			) : (
+				<Text> </Text>
+			)}
+		</Box>
+	)
 }
 
 const ItemComponent: React.FC<ItemProps> = ({ label, isSelected }) => {

@@ -1,14 +1,13 @@
-import { useInput } from 'ink'
-import type React from 'react'
-import type { ReactNode } from 'react'
 import { MultipleChoiceStep } from './components/MultipleChoiceStep.js'
 import { TextInputStep } from './components/TextInputStep.js'
 import * as inputSteps from './constants/InputStep.js'
 import * as multipleChoiceSteps from './constants/MultipleChoice.js'
 import { defaultWalletConnect } from './constants/defaults.js'
 import { frameworksByUseCase } from './constants/frameworksByUseCase.js'
-import type { Store } from './state/Store.js'
+import { type Store } from './state/Store.js'
 import { colorPallet } from './styles/colors.js'
+import { useInput } from 'ink'
+import React, { type ReactNode } from 'react'
 
 type Props = {
 	defaultName: string
@@ -16,7 +15,9 @@ type Props = {
 }
 
 // All colors but remove black
-const colorsArray = Object.values(colorPallet).filter((color) => color !== '#000000')
+const colorsArray = Object.values(colorPallet).filter(
+	(color) => color !== '#000000',
+)
 
 export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 	useInput((_, { leftArrow }) => {
@@ -29,7 +30,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	steps.push(
 		<TextInputStep
-			name="Name"
+			name='Name'
 			isActive={store.currentStep === steps.length}
 			color={colorsArray[steps.length % colorsArray.length] as '#000000'}
 			step={inputSteps.nameStep}
@@ -50,7 +51,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	steps.push(
 		<MultipleChoiceStep
-			name="Use case"
+			name='Use case'
 			isActive={store.currentStep === steps.length}
 			hide={store.currentStep < steps.length}
 			color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -67,11 +68,15 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	steps.push(
 		<MultipleChoiceStep
-			name="Template"
+			name='Template'
 			isActive={store.currentStep === steps.length}
 			hide={store.currentStep < steps.length}
 			color={colorsArray[steps.length % colorsArray.length] as '#000000'}
-			multipleChoice={frameworksByUseCase[store.useCase] as unknown as typeof multipleChoiceSteps.frameworks}
+			multipleChoice={
+				frameworksByUseCase[
+					store.useCase
+				] as unknown as typeof multipleChoiceSteps.frameworks
+			}
 			selectedChoice={store.framework}
 			onSelect={(value) => {
 				store.selectAndContinue({
@@ -84,11 +89,13 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	const isBun = store.framework.includes('bun')
 	const isMud = store.framework.includes('mud')
-	const isUi = Object.keys(frameworksByUseCase.ui.choices).includes(store.framework)
+	const isUi = Object.keys(frameworksByUseCase.ui.choices).includes(
+		store.framework,
+	)
 	if (!isBun && !isMud) {
 		steps.push(
 			<MultipleChoiceStep
-				name="Manager"
+				name='Manager'
 				isActive={store.currentStep === steps.length}
 				hide={store.currentStep < steps.length}
 				color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -143,7 +150,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 	if (!isMud) {
 		steps.push(
 			<MultipleChoiceStep
-				name="TypeScript"
+				name='TypeScript'
 				isActive={store.currentStep === steps.length}
 				hide={store.currentStep < steps.length}
 				color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -152,7 +159,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 				onSelect={(value) => {
 					store.selectAndContinue({
 						name: 'noGit',
-						value: value === 'none',
+						value: value === 'none' ? true : false,
 					})
 				}}
 			/>,
@@ -162,7 +169,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 	if (isUi && !isMud) {
 		steps.push(
 			<TextInputStep
-				name="WalletConnect"
+				name='WalletConnect'
 				isActive={store.currentStep === steps.length}
 				hide={store.currentStep < steps.length}
 				color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -238,7 +245,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	steps.push(
 		<MultipleChoiceStep
-			name="Git"
+			name='Git'
 			isActive={store.currentStep === steps.length}
 			hide={store.currentStep < steps.length}
 			color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -247,7 +254,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 			onSelect={(value) => {
 				store.selectAndContinue({
 					name: 'noGit',
-					value: value === 'none',
+					value: value === 'none' ? true : false,
 				})
 			}}
 		/>,
@@ -255,7 +262,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 
 	steps.push(
 		<MultipleChoiceStep
-			name="Install"
+			name='Install'
 			isActive={store.currentStep === steps.length}
 			hide={store.currentStep < steps.length}
 			color={colorsArray[steps.length % colorsArray.length] as '#000000'}
@@ -264,7 +271,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
 			onSelect={(value) => {
 				store.selectAndContinue({
 					name: 'noInstall',
-					value: value === 'none',
+					value: value === 'none' ? true : false,
 					nextPage: true,
 				})
 			}}
