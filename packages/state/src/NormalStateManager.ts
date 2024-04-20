@@ -67,7 +67,8 @@ export class NormalStateManager extends DefaultStateManager implements TevmState
 		const common = this.common.copy()
 		common.setHardfork(this.common.hardfork())
 
-		const cacheSize = !downlevelCaches ? this._trie._opts.cacheSize : 0
+		// @warning We are accessing a protected property!!!
+		const cacheSize = !downlevelCaches ? (this._trie as any)._opts.cacheSize : 0
 		const trie = this._trie.shallowCopy(false, { cacheSize })
 		const prefixCodeHashes = this._prefixCodeHashes
 		const prefixStorageTrieKeys = this._prefixStorageTrieKeys
