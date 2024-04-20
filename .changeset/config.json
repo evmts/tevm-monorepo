@@ -2,13 +2,26 @@
 	"$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
 	"changelog": [
 		"@changesets/changelog-github",
-		{ "repo": "evmts/tevm-monorepo" }
+		{
+			"repo": "evmts/tevm-monorepo"
+		}
 	],
 	"commit": false,
 	"fixed": [],
-	"linked": [["@tevm/*", "tevm"]],
+	"linked": [
+		[
+			"@tevm/*",
+			"tevm"
+		]
+	],
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@tevm/example*", "@tevm/docs*", "svelte-ethers", "@tevm/bench"]
+	"ignore": [
+		"@tevm/example*",
+		"@tevm/docs*",
+		"svelte-ethers",
+		"@tevm/bench",
+		"@tevm/scripts"
+	]
 }
