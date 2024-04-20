@@ -1,36 +1,67 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.6.3/schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"files": {
-		"ignore": ["coverage", "node_modules", "dist", "artifacts", "lib"]
-	},
-	"formatter": {
-		"enabled": true,
-		"formatWithErrors": false,
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineWidth": 80
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"performance": {
-				"noDelete": "off"
-			},
-			"suspicious": {
-				"noArrayIndexKey": "off",
-				"noExplicitAny": "off"
-			}
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"trailingComma": "all",
-			"semicolons": "asNeeded"
-		}
-	}
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "files": {
+    "ignore": [
+      ".nx",
+      "node_modules",
+      "**/coverage",
+      "**/node_modules",
+      "**/dist",
+      "**/types",
+      "**/artifacts",
+      "**/lib",
+      "**/fixtures",
+      "**/.next",
+      "**/.vitepress/cache",
+      "**/.vitepress/dist",
+      "scaffold-tevm",
+      "tevm/**/*",
+      "bundler/**/*",
+      ".vscode",
+      ".changeset",
+      ".devcontainer",
+      "examples/svelte-ethers/.svelte-kit",
+      "experimental/viem-effect",
+      "bundler-packages/config/src/fixtures",
+      "bundler-packages/cli/fixtures"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "performance": {
+        "noDelete": "off",
+        "noAccumulatingSpread": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noBannedTypes": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noGlobalAssign": "off",
+        "noArrayIndexKey": "off",
+        "noConfusingVoidType": "off",
+        "noRedeclare": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingComma": "all",
+      "semicolons": "asNeeded"
+    }
+  }
 }
