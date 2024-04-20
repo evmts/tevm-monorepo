@@ -16,7 +16,7 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:851
+packages/procedures-types/dist/index.d.ts:805
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

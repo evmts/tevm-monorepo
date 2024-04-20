@@ -22,7 +22,7 @@ if (errors?.length) {
 
 ## Source
 
-[packages/errors/src/actions/ScriptError.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ScriptError.ts#L16)
+[packages/errors/src/actions/ScriptError.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ScriptError.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

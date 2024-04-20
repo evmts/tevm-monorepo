@@ -26,7 +26,7 @@ isUINT16(BigInt(65536));  // false
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L43)
+[experimental/schemas/src/ethereum/SUINT/isUINT.js:36](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L36)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

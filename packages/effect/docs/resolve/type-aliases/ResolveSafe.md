@@ -21,7 +21,7 @@
 
 ## Source
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L5)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -28,7 +28,7 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:807
+packages/procedures-types/dist/index.d.ts:761
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

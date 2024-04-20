@@ -29,7 +29,7 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 ## Source
 
-[bundler-packages/config/src/loadConfig.js:65](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L65)
+[bundler-packages/config/src/loadConfig.js:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L54)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -19,7 +19,7 @@ It replaces bigint with hex strings and sets with arrays.
 
 ## Source
 
-[packages/utils/src/SerializeToJson.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L48)
+[packages/utils/src/SerializeToJson.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L43)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC response for `eth_chainId` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:532
+packages/procedures-types/dist/index.d.ts:486
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

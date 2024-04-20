@@ -12,7 +12,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L334)
+[requests/EthJsonRpcRequest.ts:273](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L273)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

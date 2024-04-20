@@ -20,7 +20,7 @@ export const SUINT16: Schema<bigint, UINT16>;
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/SUINT.js:112](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L112)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L98)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

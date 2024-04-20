@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L98)
+[responses/AnvilJsonRpcResponse.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L86)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

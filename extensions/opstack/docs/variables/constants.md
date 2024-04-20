@@ -92,7 +92,7 @@
 
 ## Source
 
-[extensions/opstack/src/constants.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/constants.ts#L52)
+[extensions/opstack/src/constants.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/constants.ts#L49)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

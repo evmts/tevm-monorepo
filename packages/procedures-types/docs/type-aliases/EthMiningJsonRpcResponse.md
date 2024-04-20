@@ -12,7 +12,7 @@ JSON-RPC response for `eth_mining` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L283)
+[responses/EthJsonRpcResponse.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L224)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

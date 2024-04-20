@@ -30,7 +30,7 @@ resolveAsync('react').pipe(
 
 ## Source
 
-[packages/effect/src/resolve.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L76)
+[packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

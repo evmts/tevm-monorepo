@@ -65,7 +65,7 @@ TypeError.cause
 
 #### Source
 
-[experimental/schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+[experimental/schemas/src/ethereum/SBytesFixed/Errors.js:34](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/Errors.js#L34)
 
 ***
 

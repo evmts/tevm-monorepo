@@ -10,7 +10,7 @@
 
 ## Source
 
-[requests/DebugJsonRpcRequest.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/DebugJsonRpcRequest.ts#L25)
+[requests/DebugJsonRpcRequest.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/DebugJsonRpcRequest.ts#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

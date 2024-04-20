@@ -28,7 +28,7 @@
 
 ## Source
 
-[lsp/ts-plugin/src/tsPlugin.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L27)
+[lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

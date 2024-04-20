@@ -26,7 +26,7 @@ isUINT256(BigInt("23158417847463239084714197001737581570653996933128112807891516
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L99)
+[experimental/schemas/src/ethereum/SUINT/isUINT.js:92](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L92)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:288
+packages/procedures-types/dist/index.d.ts:259
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L64)
+[responses/EthJsonRpcResponse.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L48)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -30,7 +30,7 @@ Error.constructor
 
 #### Source
 
-[bundler-packages/config/src/defineConfig.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L26)
+[bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
 
 ## Properties
 
@@ -40,7 +40,7 @@ Error.constructor
 
 #### Source
 
-[bundler-packages/config/src/defineConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L21)
+[bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-[bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
+[bundler-packages/config/src/defineConfig.js:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L13)
 
 ***
 

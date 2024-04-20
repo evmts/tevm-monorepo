@@ -12,7 +12,7 @@ The response to the `tevm_dumpState` JSON-RPC request.
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:513
+packages/procedures-types/dist/index.d.ts:467
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

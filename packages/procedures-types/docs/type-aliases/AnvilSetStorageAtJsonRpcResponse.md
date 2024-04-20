@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L125)
+[responses/AnvilJsonRpcResponse.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L113)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

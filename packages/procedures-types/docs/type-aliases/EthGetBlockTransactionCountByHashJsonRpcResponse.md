@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L124)
+[responses/EthJsonRpcResponse.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L84)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

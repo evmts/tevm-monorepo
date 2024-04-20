@@ -10,7 +10,7 @@
 
 ## Source
 
-[extensions/opstack/src/createL1Client.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/createL1Client.ts#L170)
+[extensions/opstack/src/createL1Client.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/createL1Client.ts#L152)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

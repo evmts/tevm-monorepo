@@ -65,7 +65,7 @@ TypeError.cause
 
 #### Source
 
-[experimental/schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/Errors.js#L48)
+[experimental/schemas/src/ethereum/SINT/Errors.js:38](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/Errors.js#L38)
 
 ***
 
