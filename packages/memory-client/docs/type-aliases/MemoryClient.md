@@ -59,7 +59,7 @@ const balance = await tevm.runContractCall(
 
 ## Source
 
-[MemoryClient.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L47)
+[MemoryClient.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L39)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

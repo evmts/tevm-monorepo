@@ -1,13 +1,9 @@
+import { CacheType, DefaultStateManager, type DefaultStateManagerOpts } from '@ethereumjs/statemanager'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
 import type { TevmState } from './TevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
-import {
-	CacheType,
-	DefaultStateManager,
-	type DefaultStateManagerOpts,
-} from '@ethereumjs/statemanager'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
-import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
 
 export type NormalStateManagerOpts = DefaultStateManagerOpts & {
 	/**
@@ -23,10 +19,7 @@ export type NormalStateManagerOpts = DefaultStateManagerOpts & {
  * @see ForkStateManager for a provider that uses forks state rather than always using latest state
  * @see ProxyStateManager for a provider that uses latest state rather than creating a fork
  */
-export class NormalStateManager
-	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+export class NormalStateManager extends DefaultStateManager implements TevmStateManagerInterface {
 	constructor(protected readonly opts?: NormalStateManagerOpts) {
 		super(opts)
 	}
@@ -74,7 +67,8 @@ export class NormalStateManager
 		const common = this.common.copy()
 		common.setHardfork(this.common.hardfork())
 
-		const cacheSize = !downlevelCaches ? this._trie['_opts']['cacheSize'] : 0
+		// @warning We are accessing a protected property!!!
+		const cacheSize = !downlevelCaches ? (this._trie as any)._opts.cacheSize : 0
 		const trie = this._trie.shallowCopy(false, { cacheSize })
 		const prefixCodeHashes = this._prefixCodeHashes
 		const prefixStorageTrieKeys = this._prefixStorageTrieKeys
@@ -106,9 +100,7 @@ export class NormalStateManager
 	/**
 	 * Loads a {@link TevmState} into the state manager
 	 */
-	override generateCanonicalGenesis = async (
-		state: TevmState,
-	): Promise<void> => {
+	override generateCanonicalGenesis = async (state: TevmState): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
 			const account = new EthjsAccount(
@@ -122,17 +114,9 @@ export class NormalStateManager
 			this.putAccount(address, account)
 			if (storage !== undefined) {
 				for (const [storageKey, storageData] of Object.entries(storage)) {
-					const key = hexToBytes(
-						isHex(storageKey) ? storageKey : `0x${storageKey}`,
-					)
-					const encodedStorageData = fromRlp(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
-					const data = hexToBytes(
-						isHex(encodedStorageData)
-							? encodedStorageData
-							: `0x${encodedStorageData}`,
-					)
+					const key = hexToBytes(isHex(storageKey) ? storageKey : `0x${storageKey}`)
+					const encodedStorageData = fromRlp(isHex(storageData) ? storageData : `0x${storageData}`)
+					const data = hexToBytes(isHex(encodedStorageData) ? encodedStorageData : `0x${encodedStorageData}`)
 					this.putContractStorage(address, key, data)
 				}
 			}
@@ -155,9 +139,7 @@ export class NormalStateManager
 			const account = await this.getAccount(EthjsAddress.fromString(hexAddress))
 
 			if (account !== undefined) {
-				const storage = await this.dumpStorage(
-					EthjsAddress.fromString(hexAddress),
-				)
+				const storage = await this.dumpStorage(EthjsAddress.fromString(hexAddress))
 
 				state[hexAddress] = {
 					...account,

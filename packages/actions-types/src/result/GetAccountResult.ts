@@ -1,5 +1,5 @@
-import type { Address, Hex } from '../common/index.js'
 import type { GetAccountError } from '@tevm/errors'
+import type { Address, Hex } from '../common/index.js'
 
 /**
  * Result of GetAccount Action

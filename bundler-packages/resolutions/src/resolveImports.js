@@ -1,5 +1,5 @@
-import { resolveImportPath } from './utils/resolveImportPath.js'
 import { all, die, fail, map } from 'effect/Effect'
+import { resolveImportPath } from './utils/resolveImportPath.js'
 
 class ImportDoesNotExistError extends Error {
 	/**
@@ -47,13 +47,7 @@ class ImportDoesNotExistError extends Error {
  * console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
  * ```
  */
-export const resolveImports = (
-	absolutePath,
-	code,
-	remappings,
-	libs,
-	sync = false,
-) => {
+export const resolveImports = (absolutePath, code, remappings, libs, sync = false) => {
 	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 
 	if (typeof absolutePath !== 'string') {

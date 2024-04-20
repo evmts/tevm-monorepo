@@ -43,9 +43,7 @@ export type TraceParams = {
 /**
  * Params taken by `debug_traceTransaction` handler
  */
-export type DebugTraceTransactionParams<
-	TThrowOnError extends boolean = boolean,
-> = BaseParams<TThrowOnError> &
+export type DebugTraceTransactionParams<TThrowOnError extends boolean = boolean> = BaseParams<TThrowOnError> &
 	TraceParams & {
 		/**
 		 * The transaction hash

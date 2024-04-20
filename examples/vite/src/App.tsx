@@ -1,15 +1,14 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
+import { useState } from 'react'
 import { EthersExample } from './EthersExample'
 import { SolEditor } from './SolEditor'
 import { WagmiEvents } from './wagmi/WagmiEvents'
 import { WagmiReads } from './wagmi/WagmiReads'
 import { WagmiWrites } from './wagmi/WagmiWrites'
-import { useState } from 'react'
 
 export function App() {
-	const [selectedComponent, selectComponent] =
-		useState<keyof typeof components>('editor')
+	const [selectedComponent, selectComponent] = useState<keyof typeof components>('editor')
 
 	const components = {
 		editor: <SolEditor />,
@@ -31,10 +30,8 @@ export function App() {
 							return (
 								<button
 									key={component}
-									type='button'
-									onClick={() =>
-										selectComponent(component as keyof typeof components)
-									}
+									type="button"
+									onClick={() => selectComponent(component as keyof typeof components)}
 								>
 									{component}
 								</button>

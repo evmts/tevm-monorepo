@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { useProviderStore } from '@/lib/store/use-provider';
 import SearchBar from '@/components/core/search-bar';

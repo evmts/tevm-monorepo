@@ -1,6 +1,6 @@
+import { describe, expect, it } from 'bun:test'
 import type { ContractParams, ContractResult } from '../index.js'
 import type { ContractHandler } from './ContractHandler.js'
-import { describe, expect, it } from 'bun:test'
 
 describe('ContractHandler', () => {
 	it('Is a generic type that infers the abi function name arg and return type', async () => {
@@ -38,16 +38,8 @@ describe('ContractHandler', () => {
 
 		expect(
 			contractHandler(
-				goodAction satisfies ContractParams<
-					typeof goodAction['abi'],
-					typeof goodAction['functionName']
-				>,
-			) satisfies Promise<
-				ContractResult<
-					typeof goodAction['abi'],
-					typeof goodAction['functionName']
-				>
-			>,
+				goodAction satisfies ContractParams<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>,
+			) satisfies Promise<ContractResult<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>>,
 		).resolves.toBe(mockReturn)
 
 		contractHandler({

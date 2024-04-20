@@ -1,7 +1,7 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { BaseCallParams, FilterParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * the transaction call object for methods like `eth_call`
@@ -37,18 +37,12 @@ export type JsonRpcTransaction = {
 /**
  * JSON-RPC request for `eth_accounts` procedure
  */
-export type EthAccountsJsonRpcRequest = JsonRpcRequest<
-	'eth_accounts',
-	readonly []
->
+export type EthAccountsJsonRpcRequest = JsonRpcRequest<'eth_accounts', readonly []>
 // eth_blockNumber
 /**
  * JSON-RPC request for `eth_blockNumber` procedure
  */
-export type EthBlockNumberJsonRpcRequest = JsonRpcRequest<
-	'eth_blockNumber',
-	readonly []
->
+export type EthBlockNumberJsonRpcRequest = JsonRpcRequest<'eth_blockNumber', readonly []>
 // eth_call
 /**
  * JSON-RPC request for `eth_call` procedure
@@ -66,50 +60,32 @@ export type EthCallJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_chainId` procedure
  */
-export type EthChainIdJsonRpcRequest = JsonRpcRequest<
-	'eth_chainId',
-	readonly []
->
+export type EthChainIdJsonRpcRequest = JsonRpcRequest<'eth_chainId', readonly []>
 // eth_coinbase
 /**
  * JSON-RPC request for `eth_coinbase` procedure
  */
-export type EthCoinbaseJsonRpcRequest = JsonRpcRequest<
-	'eth_coinbase',
-	readonly []
->
+export type EthCoinbaseJsonRpcRequest = JsonRpcRequest<'eth_coinbase', readonly []>
 // eth_estimateGas
 /**
  * JSON-RPC request for `eth_estimateGas` procedure
  */
-export type EthEstimateGasJsonRpcRequest = JsonRpcRequest<
-	'eth_estimateGas',
-	readonly [tx: JsonRpcTransaction]
->
+export type EthEstimateGasJsonRpcRequest = JsonRpcRequest<'eth_estimateGas', readonly [tx: JsonRpcTransaction]>
 // eth_hashrate
 /**
  * JSON-RPC request for `eth_hashrate` procedure
  */
-export type EthHashrateJsonRpcRequest = JsonRpcRequest<
-	'eth_hashrate',
-	readonly []
->
+export type EthHashrateJsonRpcRequest = JsonRpcRequest<'eth_hashrate', readonly []>
 // eth_gasPrice
 /**
  * JSON-RPC request for `eth_gasPrice` procedure
  */
-export type EthGasPriceJsonRpcRequest = JsonRpcRequest<
-	'eth_gasPrice',
-	readonly []
->
+export type EthGasPriceJsonRpcRequest = JsonRpcRequest<'eth_gasPrice', readonly []>
 // eth_getBalance
 /**
  * JSON-RPC request for `eth_getBalance` procedure
  */
-export type EthGetBalanceJsonRpcRequest = JsonRpcRequest<
-	'eth_getBalance',
-	[address: Address, tag: BlockTag | Hex]
->
+export type EthGetBalanceJsonRpcRequest = JsonRpcRequest<'eth_getBalance', [address: Address, tag: BlockTag | Hex]>
 // eth_getBlockByHash
 /**
  * JSON-RPC request for `eth_getBlockByHash` procedure
@@ -146,34 +122,22 @@ export type EthGetBlockTransactionCountByNumberJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_getCode` procedure
  */
-export type EthGetCodeJsonRpcRequest = JsonRpcRequest<
-	'eth_getCode',
-	readonly [address: Address, tag: BlockTag | Hex]
->
+export type EthGetCodeJsonRpcRequest = JsonRpcRequest<'eth_getCode', readonly [address: Address, tag: BlockTag | Hex]>
 // eth_getFilterChanges
 /**
  * JSON-RPC request for `eth_getFilterChanges` procedure
  */
-export type EthGetFilterChangesJsonRpcRequest = JsonRpcRequest<
-	'eth_getFilterChanges',
-	[filterId: Hex]
->
+export type EthGetFilterChangesJsonRpcRequest = JsonRpcRequest<'eth_getFilterChanges', [filterId: Hex]>
 // eth_getFilterLogs
 /**
  * JSON-RPC request for `eth_getFilterLogs` procedure
  */
-export type EthGetFilterLogsJsonRpcRequest = JsonRpcRequest<
-	'eth_getFilterLogs',
-	[filterId: Hex]
->
+export type EthGetFilterLogsJsonRpcRequest = JsonRpcRequest<'eth_getFilterLogs', [filterId: Hex]>
 // eth_getLogs
 /**
  * JSON-RPC request for `eth_getLogs` procedure
  */
-export type EthGetLogsJsonRpcRequest = JsonRpcRequest<
-	'eth_getLogs',
-	[filterParams: FilterParams]
->
+export type EthGetLogsJsonRpcRequest = JsonRpcRequest<'eth_getLogs', [filterParams: FilterParams]>
 // eth_getStorageAt
 /**
  * JSON-RPC request for `eth_getStorageAt` procedure
@@ -210,10 +174,7 @@ export type EthGetUncleCountByBlockNumberJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_getTransactionByHash` procedure
  */
-export type EthGetTransactionByHashJsonRpcRequest = JsonRpcRequest<
-	'eth_getTransactionByHash',
-	readonly [data: Hex]
->
+export type EthGetTransactionByHashJsonRpcRequest = JsonRpcRequest<'eth_getTransactionByHash', readonly [data: Hex]>
 // eth_getTransactionByBlockHashAndIndex
 /**
  * JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
@@ -226,19 +187,15 @@ export type EthGetTransactionByBlockHashAndIndexJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
  */
-export type EthGetTransactionByBlockNumberAndIndexJsonRpcRequest =
-	JsonRpcRequest<
-		'eth_getTransactionByBlockNumberAndIndex',
-		readonly [tag: BlockTag | Hex, index: Hex]
-	>
+export type EthGetTransactionByBlockNumberAndIndexJsonRpcRequest = JsonRpcRequest<
+	'eth_getTransactionByBlockNumberAndIndex',
+	readonly [tag: BlockTag | Hex, index: Hex]
+>
 // eth_getTransactionReceipt
 /**
  * JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
-export type EthGetTransactionReceiptJsonRpcRequest = JsonRpcRequest<
-	'eth_getTransactionReceipt',
-	[txHash: Hex]
->
+export type EthGetTransactionReceiptJsonRpcRequest = JsonRpcRequest<'eth_getTransactionReceipt', [txHash: Hex]>
 // eth_getUncleByBlockHashAndIndex
 /**
  * JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
@@ -264,34 +221,22 @@ export type EthMiningJsonRpcRequest = JsonRpcRequest<'eth_mining', readonly []>
 /**
  * JSON-RPC request for `eth_protocolVersion` procedure
  */
-export type EthProtocolVersionJsonRpcRequest = JsonRpcRequest<
-	'eth_protocolVersion',
-	readonly []
->
+export type EthProtocolVersionJsonRpcRequest = JsonRpcRequest<'eth_protocolVersion', readonly []>
 // eth_sendRawTransaction
 /**
  * JSON-RPC request for `eth_sendRawTransaction` procedure
  */
-export type EthSendRawTransactionJsonRpcRequest = JsonRpcRequest<
-	'eth_sendRawTransaction',
-	[data: Hex]
->
+export type EthSendRawTransactionJsonRpcRequest = JsonRpcRequest<'eth_sendRawTransaction', [data: Hex]>
 // eth_sendTransaction
 /**
  * JSON-RPC request for `eth_sendTransaction` procedure
  */
-export type EthSendTransactionJsonRpcRequest = JsonRpcRequest<
-	'eth_sendTransaction',
-	[tx: JsonRpcTransaction]
->
+export type EthSendTransactionJsonRpcRequest = JsonRpcRequest<'eth_sendTransaction', [tx: JsonRpcTransaction]>
 // eth_sign
 /**
  * JSON-RPC request for `eth_sign` procedure
  */
-export type EthSignJsonRpcRequest = JsonRpcRequest<
-	'eth_sign',
-	[address: Address, message: Hex]
->
+export type EthSignJsonRpcRequest = JsonRpcRequest<'eth_sign', [address: Address, message: Hex]>
 // eth_signTransaction
 /**
  * JSON-RPC request for `eth_signTransaction` procedure
@@ -315,26 +260,17 @@ export type EthSignTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_syncing` procedure
  */
-export type EthSyncingJsonRpcRequest = JsonRpcRequest<
-	'eth_syncing',
-	readonly []
->
+export type EthSyncingJsonRpcRequest = JsonRpcRequest<'eth_syncing', readonly []>
 // eth_newFilter
 /**
  * JSON-RPC request for `eth_newFilter` procedure
  */
-export type EthNewFilterJsonRpcRequest = JsonRpcRequest<
-	'eth_newFilter',
-	SerializeToJson<FilterParams>
->
+export type EthNewFilterJsonRpcRequest = JsonRpcRequest<'eth_newFilter', SerializeToJson<FilterParams>>
 // eth_newBlockFilter
 /**
  * JSON-RPC request for `eth_newBlockFilter` procedure
  */
-export type EthNewBlockFilterJsonRpcRequest = JsonRpcRequest<
-	'eth_newBlockFilter',
-	readonly []
->
+export type EthNewBlockFilterJsonRpcRequest = JsonRpcRequest<'eth_newBlockFilter', readonly []>
 // eth_newPendingTransactionFilter
 /**
  * JSON-RPC request for `eth_newPendingTransactionFilter` procedure
@@ -347,10 +283,7 @@ export type EthNewPendingTransactionFilterJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_uninstallFilter` procedure
  */
-export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<
-	'eth_uninstallFilter',
-	[filterId: Hex]
->
+export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilter', [filterId: Hex]>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest

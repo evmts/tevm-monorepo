@@ -31,7 +31,7 @@ resolveSync('react').pipe(
 
 ## Source
 
-[packages/effect/src/resolve.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L52)
+[packages/effect/src/resolve.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L46)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

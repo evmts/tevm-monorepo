@@ -50,7 +50,7 @@ The integer of value sent with this transaction encoded as hexadecimal
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:153
+packages/procedures-types/dist/index.d.ts:133
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

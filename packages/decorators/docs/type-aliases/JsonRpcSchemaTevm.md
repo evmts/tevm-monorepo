@@ -196,7 +196,7 @@ r
 
 ## Source
 
-[packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L20)
+[packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

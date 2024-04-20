@@ -2,8 +2,7 @@ import { mnemonicToAccount } from 'viem/accounts'
 
 const oneToTen = Array.from(Array(10).keys())
 
-export const mnemonic =
-	'test test test test test test test test test test test junk'
+export const mnemonic = 'test test test test test test test test test test test junk'
 
 // This is copy pasted from actions package
 export const testAccounts =

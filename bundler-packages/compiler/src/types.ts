@@ -1,10 +1,6 @@
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { ModuleInfo } from '@tevm/resolutions'
-import type {
-	SolcContractOutput,
-	SolcInputDescription,
-	SolcOutput,
-} from '@tevm/solc'
+import type { SolcContractOutput, SolcInputDescription, SolcOutput } from '@tevm/solc'
 import type { Node } from 'solidity-ast/node.js'
 
 export type ResolvedArtifacts = {
@@ -61,7 +57,4 @@ export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 	solcOutput: SolcOutput
 }
 
-export type Artifacts = Record<
-	string,
-	Pick<SolcContractOutput, 'abi' | 'userdoc' | 'evm'>
->
+export type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc' | 'evm'>>

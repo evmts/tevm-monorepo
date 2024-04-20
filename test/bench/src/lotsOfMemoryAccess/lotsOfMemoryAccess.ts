@@ -1,5 +1,5 @@
-import { MOCKERC1155_ABI, MOCKERC1155_BYTECODE } from './constants.js'
 import { createMemoryClient, parseEther } from 'tevm'
+import { MOCKERC1155_ABI, MOCKERC1155_BYTECODE } from './constants.js'
 
 const caller = `0x${'1'.repeat(40)}` as const
 const token = '0x171593d3E5Bc8A2E869600F951ed532B9780Cbd2'

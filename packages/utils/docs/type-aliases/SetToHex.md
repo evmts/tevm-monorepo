@@ -18,7 +18,7 @@ A helper type that converts a set to a hex string.
 
 ## Source
 
-[packages/utils/src/SerializeToJson.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L42)
+[packages/utils/src/SerializeToJson.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L37)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

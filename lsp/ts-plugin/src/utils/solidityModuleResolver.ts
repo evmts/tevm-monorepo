@@ -1,8 +1,8 @@
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 import { isRelativeSolidity } from './isRelativeSolidity.js'
 import { isSolidity } from './isSolidity.js'
-import { createRequire } from 'module'
-import path from 'path'
-import type typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * Resolves a Solidity module to a file path and Dts extension.
@@ -24,9 +24,7 @@ export const solidityModuleResolver = (
 		return {
 			extension: ts.Extension.Dts,
 			isExternalLibraryImport: false,
-			resolvedFileName: createRequire(path.dirname(containingFile)).resolve(
-				moduleName,
-			),
+			resolvedFileName: createRequire(path.dirname(containingFile)).resolve(moduleName),
 		}
 	}
 
@@ -46,14 +44,9 @@ export const solidityModuleResolver = (
 				isExternalLibraryImport: true,
 				resolvedFileName: result.resolvedModule.resolvedFileName,
 			}
-		} else {
-			console.error(
-				'Could not resolve module. Is tevm/core installed?',
-				moduleName,
-				result,
-			)
-			return undefined
 		}
+		console.error('Could not resolve module. Is tevm/core installed?', moduleName, result)
+		return undefined
 	}
 	return undefined
 }

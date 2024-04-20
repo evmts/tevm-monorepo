@@ -1,7 +1,7 @@
+import ts from 'typescript/lib/tsserverlibrary.js'
+import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 import { findContractDefinitionFileNameFromTevmNode } from './findContractDefinitionFileNameFromTevmNode.js'
 import { findNode } from './findNode.js'
-import ts from 'typescript/lib/tsserverlibrary.js'
-import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
 const mockContractFile = '/path/to/ContractDefinitionFile.sol'
 
@@ -30,64 +30,37 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 			ts.ScriptKind.TS,
 		)
 
-		const somePropertyNode = findNode(
-			sourceFile,
-			fileText.indexOf('someProperty()'),
-		)
+		const somePropertyNode = findNode(sourceFile, fileText.indexOf('someProperty()'))
 		const someWriteNode = findNode(sourceFile, fileText.indexOf('someWrite'))
 		const someEventNode = findNode(sourceFile, fileText.indexOf('someEvent'))
 		if (!somePropertyNode || !someWriteNode || !someEventNode) {
 			throw new Error('node is not valid')
 		}
 
-		expect(
-			findContractDefinitionFileNameFromTevmNode(
-				somePropertyNode,
-				mockLanguageService,
-				'test.ts',
-				ts,
-			),
-		).toBe(mockContractFile)
-		expect(
-			(mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock
-				.lastCall,
-		).toMatchInlineSnapshot(`
+		expect(findContractDefinitionFileNameFromTevmNode(somePropertyNode, mockLanguageService, 'test.ts', ts)).toBe(
+			mockContractFile,
+		)
+		expect((mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  "test.ts",
 			  131,
 			]
 		`)
 
-		expect(
-			findContractDefinitionFileNameFromTevmNode(
-				someWriteNode,
-				mockLanguageService,
-				'test.ts',
-				ts,
-			),
-		).toBe(mockContractFile)
-		expect(
-			(mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock
-				.lastCall,
-		).toMatchInlineSnapshot(`
+		expect(findContractDefinitionFileNameFromTevmNode(someWriteNode, mockLanguageService, 'test.ts', ts)).toBe(
+			mockContractFile,
+		)
+		expect((mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  "test.ts",
 			  184,
 			]
 		`)
 
-		expect(
-			findContractDefinitionFileNameFromTevmNode(
-				someEventNode,
-				mockLanguageService,
-				'test.ts',
-				ts,
-			),
-		).toBe(mockContractFile)
-		expect(
-			(mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock
-				.lastCall,
-		).toMatchInlineSnapshot(`
+		expect(findContractDefinitionFileNameFromTevmNode(someEventNode, mockLanguageService, 'test.ts', ts)).toBe(
+			mockContractFile,
+		)
+		expect((mockLanguageService.getDefinitionAtPosition as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  "test.ts",
 			  231,
@@ -108,42 +81,27 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 				write().test5(test4);
 				noContractInScope.read.test6();
       `
-		const sourceFile = ts.createSourceFile(
-			'test.ts',
-			fileText,
-			ts.ScriptTarget.ES2015,
-			true,
-			ts.ScriptKind.TS,
-		)
-		;['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6'].forEach(
-			(testcase) => {
-				const node = findNode(sourceFile, fileText.indexOf(testcase))
-				if (!node) {
-					throw new Error('node is not valid')
-				}
-				const contractDefinitionFileName =
-					findContractDefinitionFileNameFromTevmNode(
-						node,
-						mockLanguageService,
-						'test.ts',
-						ts,
-					)
-				expect(contractDefinitionFileName).toBeNull()
-			},
-		)
+		const sourceFile = ts.createSourceFile('test.ts', fileText, ts.ScriptTarget.ES2015, true, ts.ScriptKind.TS)
+		;['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6'].forEach((testcase) => {
+			const node = findNode(sourceFile, fileText.indexOf(testcase))
+			if (!node) {
+				throw new Error('node is not valid')
+			}
+			const contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(
+				node,
+				mockLanguageService,
+				'test.ts',
+				ts,
+			)
+			expect(contractDefinitionFileName).toBeNull()
+		})
 	})
 
 	it('should handle no definition existing', () => {
 		const fileText = `
         foo.read().test();
       `
-		const sourceFile = ts.createSourceFile(
-			'test.ts',
-			fileText,
-			ts.ScriptTarget.ES2015,
-			true,
-			ts.ScriptKind.TS,
-		)
+		const sourceFile = ts.createSourceFile('test.ts', fileText, ts.ScriptTarget.ES2015, true, ts.ScriptKind.TS)
 		const node = findNode(sourceFile, fileText.indexOf('test'))
 		if (!node) {
 			throw new Error('node is not valid')
@@ -157,12 +115,7 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 		)
 		expect(contractDefinitionFileName).toBeNull()
 		mockLanguageService.getDefinitionAtPosition = vi.fn(() => null as any)
-		contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(
-			node,
-			mockLanguageService,
-			'test.ts',
-			ts,
-		)
+		contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(node, mockLanguageService, 'test.ts', ts)
 		expect(contractDefinitionFileName).toBeNull()
 	})
 
@@ -170,26 +123,18 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 		const fileText = `import { MyContract } from './MyContract.js';
 const res = MyContract.read().myMethod();
       `
-		const sourceFile = ts.createSourceFile(
-			'test.ts',
-			fileText,
-			ts.ScriptTarget.ES2015,
-			true,
-			ts.ScriptKind.TS,
-		)
+		const sourceFile = ts.createSourceFile('test.ts', fileText, ts.ScriptTarget.ES2015, true, ts.ScriptKind.TS)
 		const node = findNode(sourceFile, fileText.indexOf('myMethod'))
 		if (!node) {
 			throw new Error('node is not valid')
 		}
-		mockLanguageService.getDefinitionAtPosition = () =>
-			[{ fileName: 'foo.js' }] as any
-		const contractDefinitionFileName =
-			findContractDefinitionFileNameFromTevmNode(
-				node,
-				mockLanguageService,
-				'test.ts',
-				ts,
-			)
+		mockLanguageService.getDefinitionAtPosition = () => [{ fileName: 'foo.js' }] as any
+		const contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(
+			node,
+			mockLanguageService,
+			'test.ts',
+			ts,
+		)
 		expect(contractDefinitionFileName).toBeNull()
 	})
 })

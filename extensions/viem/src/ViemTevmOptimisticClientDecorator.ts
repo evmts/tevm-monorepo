@@ -1,5 +1,5 @@
-import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 import type { Account, Chain, Transport } from 'viem'
+import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 
 /**
  * @deprecated in favor of the viem transport
@@ -11,8 +11,5 @@ export type ViemTevmOptimisticClientDecorator = <
 	TChain extends Chain | undefined = Chain | undefined,
 	TAccount extends Account | undefined = Account | undefined,
 >(
-	client: Pick<
-		import('viem').WalletClient<TTransport, TChain, TAccount>,
-		'request' | 'writeContract'
-	>,
+	client: Pick<import('viem').WalletClient<TTransport, TChain, TAccount>, 'request' | 'writeContract'>,
 ) => ViemTevmOptimisticClient<TChain, TAccount>

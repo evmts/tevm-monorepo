@@ -1,8 +1,8 @@
-import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@tevm/resolutions'
 import { solcCompile } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
+import { invariant } from '../utils/invariant.js'
 
 /**
  * Compile the Solidity contract and return its ABI.
@@ -28,16 +28,7 @@ import resolve from 'resolve'
  *  logger,
  *  )
  */
-export function compileContractSync(
-	filePath,
-	basedir,
-	config,
-	includeAst,
-	includeBytecode,
-	fao,
-	logger,
-	solc,
-) {
+export function compileContractSync(filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) {
 	const moduleMap = runSync(
 		moduleFactory(
 			filePath,
@@ -70,9 +61,7 @@ export function compileContractSync(
 		}
 		modules[m.id] = m
 		for (const dep of m.importedIds) {
-			stack.push(
-				/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)),
-			)
+			stack.push(/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)))
 		}
 	}
 
@@ -99,7 +88,7 @@ export function compileContractSync(
 			outputSelection: {
 				'*': {
 					'*': ['abi', 'userdoc', ...(includeBytecode ? evmBytecode : [])],
-					...(includeAst ? { ['']: ['ast'] } : {}),
+					...(includeAst ? { '': ['ast'] } : {}),
 				},
 			},
 		},

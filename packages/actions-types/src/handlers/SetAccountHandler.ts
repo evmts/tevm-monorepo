@@ -11,6 +11,4 @@ import type { SetAccountParams, SetAccountResult } from '../index.js'
  *  balance: parseEther('1.0')
  * })
  */
-export type SetAccountHandler = (
-	params: SetAccountParams,
-) => Promise<SetAccountResult>
+export type SetAccountHandler = (params: SetAccountParams) => Promise<SetAccountResult>

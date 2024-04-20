@@ -1,8 +1,8 @@
-import tsPlugin from './index.js'
-import { CompilerConfig } from '@tevm/config'
-import path from 'path'
+import path from 'node:path'
+import type { CompilerConfig } from '@tevm/config'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { Mock, describe, expect, it, vi } from 'vitest'
+import { type Mock, describe, expect, it, vi } from 'vitest'
+import tsPlugin from './index.js'
 
 type TestAny = any
 
@@ -29,14 +29,12 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		},
 	},
 } as TestAny
-;(createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
-	(fileName: string) => {
-		if (fileName.endsWith('.ts')) {
-			return typescript.ScriptKind.TS
-		}
-		return typescript.ScriptKind.Unknown
-	},
-)
+;(createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation((fileName: string) => {
+	if (fileName.endsWith('.ts')) {
+		return typescript.ScriptKind.TS
+	}
+	return typescript.ScriptKind.Unknown
+})
 
 describe(tsPlugin.name, () => {
 	it('should return a create decorator', () => {
@@ -136,8 +134,6 @@ describe(tsPlugin.name, () => {
 			getFileNames: () => ['foo.ts', 'bar.sol'],
 		}
 		const decorator = tsPlugin({ typescript })
-		expect(decorator.getExternalFiles?.(mockProject as any, 0)).toEqual([
-			'bar.sol',
-		])
+		expect(decorator.getExternalFiles?.(mockProject as any, 0)).toEqual(['bar.sol'])
 	})
 })

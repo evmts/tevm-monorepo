@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import {
   flexRender,
-  Row,
-  Table as TableInterface,
+  type Row,
+  type Table as TableInterface,
 } from '@tanstack/react-table';
 
 import { cn } from '@/lib/utils';

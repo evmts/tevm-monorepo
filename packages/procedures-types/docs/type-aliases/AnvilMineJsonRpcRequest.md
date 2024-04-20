@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_mine` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L61)
+[requests/AnvilJsonRpcRequest.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L58)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

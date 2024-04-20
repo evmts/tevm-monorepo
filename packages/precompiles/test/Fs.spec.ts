@@ -1,17 +1,15 @@
-import { createMemoryClient } from '@tevm/memory-client'
 import { expect, test } from 'bun:test'
+import { createMemoryClient } from '@tevm/memory-client'
 
+import { existsSync, rmSync } from 'node:fs'
 import { fsPrecompile } from './FsPrecompile.js'
-import { existsSync, rmSync } from 'fs'
 
 test('Call precompile from TypeScript', async () => {
 	const client = createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
-	const result = await client.contract(
-		fsPrecompile.contract.write.writeFile('test1.txt', 'hello world'),
-	)
+	const result = await client.contract(fsPrecompile.contract.write.writeFile('test1.txt', 'hello world'))
 
 	expect(result.errors).toBeUndefined()
 
@@ -34,9 +32,7 @@ test('Call precompile from solidity script', async () => {
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
-	const result = await client.script(
-		WriteHelloWorld.write.write(fsPrecompile.contract.address),
-	)
+	const result = await client.script(WriteHelloWorld.write.write(fsPrecompile.contract.address))
 
 	expect(result.errors).toBeUndefined()
 

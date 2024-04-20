@@ -1,9 +1,5 @@
-import {
-	type BlockNumber,
-	isBlockNumber,
-	parseBlockNumber,
-} from './SBlockNumber.js'
 import { assertType, describe, expect, it } from 'vitest'
+import { type BlockNumber, isBlockNumber, parseBlockNumber } from './SBlockNumber.js'
 
 describe(isBlockNumber.name, () => {
 	it('should return true for valid block number', () => {
@@ -43,8 +39,6 @@ describe(parseBlockNumber.name, () => {
 		expect(() => parseBlockNumber('' as any)).toThrowErrorMatchingSnapshot()
 		expect(() => parseBlockNumber(true as any)).toThrowErrorMatchingSnapshot()
 		expect(() => parseBlockNumber({} as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			parseBlockNumber('not an block number' as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => parseBlockNumber('not an block number' as any)).toThrowErrorMatchingSnapshot()
 	})
 })

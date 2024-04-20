@@ -1,10 +1,10 @@
-import { file } from './bunFile.js'
-import { bunPluginTevm } from './index.js'
+import { exists, readFile } from 'node:fs/promises'
 import { bundler } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
-import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { file } from './bunFile.js'
+import { bunPluginTevm } from './index.js'
 
 vi.mock('@tevm/config', async () => ({
 	...((await vi.importActual('@tevm/config')) as {}),

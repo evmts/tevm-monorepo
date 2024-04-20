@@ -1,4 +1,4 @@
-import { try as trySync, tryPromise } from 'effect/Effect'
+import { tryPromise, try as trySync } from 'effect/Effect'
 
 /**
  * @typedef {ReturnType<typeof safeFao>} SafeFao

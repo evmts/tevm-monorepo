@@ -1,11 +1,8 @@
 // debug_traceTransaction
 
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type {
-	DebugTraceCallResult,
-	DebugTraceTransactionResult,
-} from '@tevm/actions-types'
+import type { DebugTraceCallResult, DebugTraceTransactionResult } from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // TODO type the errors strongly
 type DebugError = string

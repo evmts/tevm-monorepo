@@ -1,3 +1,4 @@
+import { assertType, describe, expect, it } from 'vitest'
 import {
 	isINT8,
 	isINT16,
@@ -12,7 +13,6 @@ import {
 	parseInt128,
 	parseInt256,
 } from './index.js'
-import { assertType, describe, expect, it } from 'vitest'
 
 const testCases = [
 	{
@@ -62,24 +62,12 @@ const testCases = [
 	},
 	{
 		type: 'INT256',
-		max: BigInt(
-			'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-		).toString(),
-		min: (-BigInt(
-			'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-		)).toString(),
+		max: BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF').toString(),
+		min: (-BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')).toString(),
 		parse: parseInt256,
 		isEqual: isINT256,
-		exceedsMax: (
-			BigInt(
-				'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-			) + BigInt(1)
-		).toString(),
-		belowMin: (
-			-BigInt(
-				'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-			) - BigInt(1)
-		).toString(),
+		exceedsMax: (BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF') + BigInt(1)).toString(),
+		belowMin: (-BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF') - BigInt(1)).toString(),
 	},
 ]
 
@@ -116,15 +104,11 @@ describe.each(testCases)('parse%j', (testCase) => {
 	})
 
 	it(`should throw if value is out of positive ${testCase.type} range`, () => {
-		expect(() =>
-			testCase.parse(testCase.exceedsMax as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(testCase.exceedsMax as any)).toThrowErrorMatchingSnapshot()
 	})
 
 	it(`should throw if value is out of negative ${testCase.type} range`, () => {
-		expect(() =>
-			testCase.parse(testCase.belowMin as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(testCase.belowMin as any)).toThrowErrorMatchingSnapshot()
 	})
 
 	it(`should throw if value is not a bigint for ${testCase.type}`, () => {

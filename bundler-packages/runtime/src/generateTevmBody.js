@@ -1,6 +1,6 @@
-import { generateDtsBody } from './generateTevmBodyDts.js'
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
+import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
  * @param {import("@tevm/compiler").Artifacts} artifacts
@@ -21,10 +21,8 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					...(includeBytecode
 						? {
 								bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
-								deployedBytecode:
-									evm?.deployedBytecode?.object &&
-									`0x${evm.deployedBytecode.object}`,
-						  }
+								deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
+							}
 						: {}),
 				})
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
@@ -41,9 +39,7 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract}`,
 						...natspec,
-						`module.exports.${contractName} = ${
-							includeBytecode ? 'createScript' : 'createContract'
-						}(_${contractName})`,
+						`module.exports.${contractName} = ${includeBytecode ? 'createScript' : 'createContract'}(_${contractName})`,
 					]
 				}
 
@@ -51,18 +47,14 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
-						`export const ${contractName} = ${
-							includeBytecode ? 'createScript' : 'createContract'
-						}(_${contractName})`,
+						`export const ${contractName} = ${includeBytecode ? 'createScript' : 'createContract'}(_${contractName})`,
 					]
 				}
 
 				return [
 					`const _${contractName} = ${contract}`,
 					...natspec,
-					`export const ${contractName} = ${
-						includeBytecode ? 'createScript' : 'createContract'
-					}(_${contractName})`,
+					`export const ${contractName} = ${includeBytecode ? 'createScript' : 'createContract'}(_${contractName})`,
 				]
 			})
 			.join('\n'),

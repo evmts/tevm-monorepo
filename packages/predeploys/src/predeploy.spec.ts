@@ -1,9 +1,9 @@
-import { definePredeploy } from './definePredeploy.js'
-import { DaiContract } from './test/DaiContract.sol.js'
+import { expect, test } from 'bun:test'
 import { createScript } from '@tevm/contract'
 import { EthjsAddress } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
-import { expect, test } from 'bun:test'
+import { definePredeploy } from './definePredeploy.js'
+import { DaiContract } from './test/DaiContract.sol.js'
 
 // There is a more complete usage example in the @tevm/vm package
 test('definePredeploy should define a predeploy', async () => {
@@ -25,7 +25,5 @@ test('definePredeploy should define a predeploy', async () => {
 	expect(predeploy.address).toEqual(predeployAddress)
 	const expectedContract = contract.withAddress(predeployAddress)
 	expect(predeploy.contract).toMatchObject(expectedContract)
-	expect(predeploy.predeploy().address).toEqual(
-		EthjsAddress.fromString(predeployAddress),
-	)
+	expect(predeploy.predeploy().address).toEqual(EthjsAddress.fromString(predeployAddress))
 })

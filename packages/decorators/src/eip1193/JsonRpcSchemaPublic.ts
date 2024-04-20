@@ -1,4 +1,3 @@
-import type { Hash, LogTopic } from './misc.js'
 // this file is adapted from viem
 // see it here https://github.com/wevm/viem/blob/main/src/types/eip1193.ts
 // Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
@@ -8,18 +7,19 @@ import type { Hash, LogTopic } from './misc.js'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
 import type { RpcStateOverride } from 'viem'
 import type {
-	Quantity,
 	RpcBlock as Block,
 	RpcBlockIdentifier as BlockIdentifier,
 	RpcBlockNumber as BlockNumber,
 	RpcFeeHistory as FeeHistory,
 	RpcLog as Log,
 	RpcProof as Proof,
+	Quantity,
 	RpcTransaction as Transaction,
 	RpcTransactionReceipt as TransactionReceipt,
 	RpcTransactionRequest as TransactionRequest,
 	RpcUncle as Uncle,
 } from 'viem'
+import type { Hash, LogTopic } from './misc.js'
 
 export type JsonRpcSchemaPublic = {
 	/**
@@ -117,10 +117,7 @@ export type JsonRpcSchemaPublic = {
 		Method: 'eth_call'
 		Parameters:
 			| [transaction: Partial<TransactionRequest>]
-			| [
-					transaction: Partial<TransactionRequest>,
-					block: BlockNumber | BlockTag | BlockIdentifier,
-			  ]
+			| [transaction: Partial<TransactionRequest>, block: BlockNumber | BlockTag | BlockIdentifier]
 			| [
 					transaction: Partial<TransactionRequest>,
 					block: BlockNumber | BlockTag | BlockIdentifier,
@@ -162,9 +159,7 @@ export type JsonRpcSchemaPublic = {
 	 */
 	eth_estimateGas: {
 		Method: 'eth_estimateGas'
-		Parameters:
-			| [transaction: TransactionRequest]
-			| [transaction: TransactionRequest, block: BlockNumber | BlockTag]
+		Parameters: [transaction: TransactionRequest] | [transaction: TransactionRequest, block: BlockNumber | BlockTag]
 		ReturnType: Quantity
 	}
 	/**
@@ -215,10 +210,7 @@ export type JsonRpcSchemaPublic = {
 	 */
 	eth_getBalance: {
 		Method: 'eth_getBalance'
-		Parameters: [
-			address: Address,
-			block: BlockNumber | BlockTag | BlockIdentifier,
-		]
+		Parameters: [address: Address, block: BlockNumber | BlockTag | BlockIdentifier]
 		ReturnType: Quantity
 	}
 	/**
@@ -298,10 +290,7 @@ export type JsonRpcSchemaPublic = {
 	 */
 	eth_getCode: {
 		Method: 'eth_getCode'
-		Parameters: [
-			address: Address,
-			block: BlockNumber | BlockTag | BlockIdentifier,
-		]
+		Parameters: [address: Address, block: BlockNumber | BlockTag | BlockIdentifier]
 		ReturnType: Hex
 	}
 	/**
@@ -385,11 +374,7 @@ export type JsonRpcSchemaPublic = {
 	 */
 	eth_getStorageAt: {
 		Method: 'eth_getStorageAt'
-		Parameters: [
-			address: Address,
-			index: Quantity,
-			block: BlockNumber | BlockTag | BlockIdentifier,
-		]
+		Parameters: [address: Address, index: Quantity, block: BlockNumber | BlockTag | BlockIdentifier]
 		ReturnType: Hex
 	}
 	/**
@@ -437,10 +422,7 @@ export type JsonRpcSchemaPublic = {
 	 */
 	eth_getTransactionCount: {
 		Method: 'eth_getTransactionCount'
-		Parameters: [
-			address: Address,
-			block: BlockNumber | BlockTag | BlockIdentifier,
-		]
+		Parameters: [address: Address, block: BlockNumber | BlockTag | BlockIdentifier]
 		ReturnType: Quantity
 	}
 	/**

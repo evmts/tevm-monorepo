@@ -1,6 +1,6 @@
-import { BadRequestError } from './BadRequestError.js'
 import { UnexpectedInternalServerError } from '@tevm/errors'
 import { zJsonRpcRequest } from '@tevm/zod'
+import { BadRequestError } from './BadRequestError.js'
 
 /**
  * @typedef {Pick<import('@tevm/memory-client').MemoryClient, 'send'>} CreateHttpHandlerParameters
@@ -70,9 +70,7 @@ export const createHttpHandler = (parameters) => {
 			}
 			const parsedRequest = zJsonRpcRequest.safeParse(raw)
 			if (!parsedRequest.success) {
-				const err = new BadRequestError(
-					JSON.stringify(parsedRequest.error.format()),
-				)
+				const err = new BadRequestError(JSON.stringify(parsedRequest.error.format()))
 				res.writeHead(400, { 'Content-Type': 'application/json' })
 				res.end(
 					JSON.stringify({
@@ -97,10 +95,7 @@ export const createHttpHandler = (parameters) => {
 					requests.map((request) => parameters.send(/** @type any*/ (request))),
 				)
 				responses.map((response, i) => {
-					const request =
-						/** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (
-							requests[i]
-						)
+					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 					if (response.status === 'rejected') {
 						console.error(response.reason)
 						const err = new UnexpectedInternalServerError(request.method)
@@ -118,34 +113,30 @@ export const createHttpHandler = (parameters) => {
 				})
 				res.writeHead(200, { 'Content-Type': 'application/json' })
 				return res.end(JSON.stringify(responses))
-			} else {
-				const request =
-					/**  @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (
-						parsedRequest.data
-					)
-				try {
-					// TODO update this type to accept any jsonrpc request if a fork url pass through exists
-					// We don't officially support it until we explicitly implement all the endpoints instead of
-					// blindly passing through
-					const response = await parameters.send(/** @type any*/ (request))
-					res.writeHead(200, { 'Content-Type': 'application/json' })
-					return res.end(JSON.stringify(response))
-				} catch (e) {
-					console.error(e)
-					const err = new UnexpectedInternalServerError(request.method)
-					console.error(err)
-					const response = {
-						id: request.id,
-						method: request.method,
-						jsonrpc: '2.0',
-						error: {
-							code: err._tag,
-							message: err.message,
-						},
-					}
-					res.writeHead(500, { 'Content-Type': 'application/json' })
-					return res.end(JSON.stringify(response))
+			}
+			const request = /**  @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (parsedRequest.data)
+			try {
+				// TODO update this type to accept any jsonrpc request if a fork url pass through exists
+				// We don't officially support it until we explicitly implement all the endpoints instead of
+				// blindly passing through
+				const response = await parameters.send(/** @type any*/ (request))
+				res.writeHead(200, { 'Content-Type': 'application/json' })
+				return res.end(JSON.stringify(response))
+			} catch (e) {
+				console.error(e)
+				const err = new UnexpectedInternalServerError(request.method)
+				console.error(err)
+				const response = {
+					id: request.id,
+					method: request.method,
+					jsonrpc: '2.0',
+					error: {
+						code: err._tag,
+						message: err.message,
+					},
 				}
+				res.writeHead(500, { 'Content-Type': 'application/json' })
+				return res.end(JSON.stringify(response))
 			}
 		})
 	}

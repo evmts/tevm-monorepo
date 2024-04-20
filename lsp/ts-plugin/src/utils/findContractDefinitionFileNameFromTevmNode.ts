@@ -1,4 +1,4 @@
-import typescript from 'typescript/lib/tsserverlibrary.js'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 
 export function findContractDefinitionFileNameFromTevmNode(
 	node: typescript.Node,
@@ -30,10 +30,7 @@ export function findContractDefinitionFileNameFromTevmNode(
 			continue
 		}
 		const contractNode = grandParent.expression
-		const contractDefinition = languageService.getDefinitionAtPosition(
-			fileName,
-			contractNode.getStart(),
-		)
+		const contractDefinition = languageService.getDefinitionAtPosition(fileName, contractNode.getStart())
 
 		if (!contractDefinition || contractDefinition.length === 0) {
 			current = current.parent

@@ -4,9 +4,6 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import { Cache } from './Cache.js'
-import type { TevmState } from './TevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { AccountFields, StorageDump, StorageRange } from '@tevm/common'
 import {
@@ -21,7 +18,10 @@ import {
 	toHex,
 } from '@tevm/utils'
 // TODO remove me in faovr of @tevm/jsonrpc
-import { type PublicClient, createPublicClient, http } from 'viem'
+import { http, type PublicClient, createPublicClient } from 'viem'
+import { Cache } from './Cache.js'
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ProxyStateManagerOpts {
 	/**
@@ -63,8 +63,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * To prevent bugs this block tag must be locked to a specific number while a call is being executed in the EVM
 	 * When a call is not currently executed this blocktag is unlocked and set back to 'latest'
 	 */
-	protected _currentBlockTag: { blockTag: BlockTag } | { blockNumber: bigint } =
-		{ blockTag: 'latest' }
+	protected _currentBlockTag: { blockTag: BlockTag } | { blockNumber: bigint } = { blockTag: 'latest' }
 	/**
 	 * We track the block tag the cache was using so we can invalidate it whenever it changes
 	 */
@@ -74,7 +73,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * Cache the last time we fetched a block to avoid fetching it too often
 	 */
-	protected _lastBlockFetchTime = -Infinity
+	protected _lastBlockFetchTime = Number.NEGATIVE_INFINITY
 	/**
 	 * How often we expect the block number to change
 	 */
@@ -109,8 +108,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * If the block number has changed the cache will be invalidated
 	 */
 	async lock(): Promise<void> {
-		const shouldCheckBlock =
-			Date.now() - this._lastBlockFetchTime > this._expectedBlockTime
+		const shouldCheckBlock = Date.now() - this._lastBlockFetchTime > this._expectedBlockTime
 		if (!shouldCheckBlock) {
 			return
 		}
@@ -122,10 +120,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		this._currentBlockTag = {
 			blockNumber,
 		}
-		if (
-			this._cachedBlockTag.blockNumber &&
-			this._cachedBlockTag.blockNumber !== blockNumber
-		) {
+		if (this._cachedBlockTag.blockNumber && this._cachedBlockTag.blockNumber !== blockNumber) {
 			this._storageCache.clear()
 			this._accountCache.clear()
 		}
@@ -216,10 +211,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the `account` to add the `code` for
 	 * @param value - The value of the `code`
 	 */
-	async putContractCode(
-		address: EthjsAddress,
-		value: Uint8Array,
-	): Promise<void> {
+	async putContractCode(address: EthjsAddress, value: Uint8Array): Promise<void> {
 		// Store contract code in the cache
 		this._contractCache.set(address.toString(), value)
 	}
@@ -233,10 +225,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * corresponding to the provided address at the provided key.
 	 * If this does not exist an empty `Uint8Array` is returned.
 	 */
-	async getContractStorage(
-		address: EthjsAddress,
-		key: Uint8Array,
-	): Promise<Uint8Array> {
+	async getContractStorage(address: EthjsAddress, key: Uint8Array): Promise<Uint8Array> {
 		// Check storage slot in cache
 		if (key.length !== 32) {
 			throw new Error('Storage key must be 32 bytes long')
@@ -275,11 +264,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * Cannot be more than 32 bytes. Leading zeros are stripped.
 	 * If it is empty or filled with zeros, deletes the value.
 	 */
-	async putContractStorage(
-		address: EthjsAddress,
-		key: Uint8Array,
-		value: Uint8Array,
-	): Promise<void> {
+	async putContractStorage(address: EthjsAddress, key: Uint8Array, value: Uint8Array): Promise<void> {
 		this._storageCache.put(address, key, value)
 	}
 
@@ -309,11 +294,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		return Promise.resolve(dump)
 	}
 
-	dumpStorageRange(
-		_address: EthjsAddress,
-		_startKey: bigint,
-		_limit: number,
-	): Promise<StorageRange> {
+	dumpStorageRange(_address: EthjsAddress, _startKey: bigint, _limit: number): Promise<StorageRange> {
 		return Promise.reject()
 	}
 
@@ -329,15 +310,9 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			storageKeys: [],
 			...this._currentBlockTag,
 		})
-		const proofBuf = proof.accountProof.map((proofNode: string) =>
-			toBytes(proofNode),
-		)
+		const proofBuf = proof.accountProof.map((proofNode: string) => toBytes(proofNode))
 		const trie = new Trie({ useKeyHashing: true })
-		const verified = await trie.verifyProof(
-			keccak256(proofBuf[0] as Uint8Array),
-			address.bytes,
-			proofBuf,
-		)
+		const verified = await trie.verifyProof(keccak256(proofBuf[0] as Uint8Array), address.bytes, proofBuf)
 		return verified !== null
 	}
 
@@ -347,13 +322,10 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	async getAccount(address: EthjsAddress): Promise<EthjsAccount | undefined> {
 		const elem = this._accountCache?.get(address)
 		if (elem !== undefined) {
-			return elem.accountRLP !== undefined
-				? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP)
-				: undefined
+			return elem.accountRLP !== undefined ? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP) : undefined
 		}
 		const rlp = (await this.getAccountFromProvider(address)).serialize()
-		const account =
-			rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
+		const account = rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
 		if (account) {
 			this._accountCache.put(address, account)
 		}
@@ -383,10 +355,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * Saves an account into state under the provided `address`.
 	 */
-	async putAccount(
-		address: EthjsAddress,
-		account: EthjsAccount | undefined,
-	): Promise<void> {
+	async putAccount(address: EthjsAddress, account: EthjsAccount | undefined): Promise<void> {
 		if (account !== undefined) {
 			this._accountCache?.put(address, account)
 		} else {
@@ -401,10 +370,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the account to modify
 	 * @param accountFields - Object containing account fields and values to modify
 	 */
-	async modifyAccountFields(
-		address: EthjsAddress,
-		accountFields: AccountFields,
-	): Promise<void> {
+	async modifyAccountFields(address: EthjsAddress, accountFields: AccountFields): Promise<void> {
 		let account = await this.getAccount(address)
 		if (!account) {
 			account = new EthjsAccount()
@@ -430,10 +396,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @param storageSlots storage slots to get proof of
 	 * @returns an EIP-1186 formatted proof
 	 */
-	async getProof(
-		address: EthjsAddress,
-		storageSlots: Uint8Array[] = [],
-	): Promise<Proof> {
+	async getProof(address: EthjsAddress, storageSlots: Uint8Array[] = []): Promise<Proof> {
 		const proof = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: storageSlots.map((slot) => bytesToHex(slot)),
@@ -540,12 +503,8 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			this.putAccount(address, account)
 			if (storage !== undefined) {
 				for (const [storageKey, storageData] of Object.entries(storage)) {
-					const key = hexToBytes(
-						isHex(storageKey) ? storageKey : `0x${storageKey}`,
-					)
-					const data = hexToBytes(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
+					const key = hexToBytes(isHex(storageKey) ? storageKey : `0x${storageKey}`)
+					const data = hexToBytes(isHex(storageData) ? storageData : `0x${storageData}`)
 					this.putContractStorage(address, key, data)
 				}
 			}
@@ -568,9 +527,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			const account = await this.getAccount(EthjsAddress.fromString(hexAddress))
 
 			if (account !== undefined) {
-				const storage = await this.dumpStorage(
-					EthjsAddress.fromString(hexAddress),
-				)
+				const storage = await this.dumpStorage(EthjsAddress.fromString(hexAddress))
 
 				state[hexAddress] = {
 					...account,

@@ -1,6 +1,6 @@
+import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
+import { mkdir, stat, writeFile } from 'node:fs/promises'
 import { file } from './bunFile.js'
-import { existsSync, mkdirSync, readFileSync, statSync } from 'fs'
-import { mkdir, stat, writeFile } from 'fs/promises'
 
 /**
  * A adapter around the bun file api to make it compatible with @tevm/base-bundler FileAccessObject type

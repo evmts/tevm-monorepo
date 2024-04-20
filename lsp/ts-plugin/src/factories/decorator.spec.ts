@@ -1,14 +1,9 @@
-import {
-	HostDecorator,
-	PartialHostDecorator,
-	createHostDecorator,
-	decorateHost,
-} from './index.js'
-import { FileAccessObject } from '@tevm/base-bundler'
-import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
+import { type HostDecorator, type PartialHostDecorator, createHostDecorator, decorateHost } from './index.js'
 
 type TestAny = any
 
@@ -54,9 +49,8 @@ describe(createHostDecorator.name, () => {
 			getScriptKind: (fileName: string) => {
 				if (fileName.endsWith('.json')) {
 					return ts.ScriptKind.JSON
-				} else {
-					return ts.ScriptKind.TS
 				}
+				return ts.ScriptKind.TS
 			},
 		})
 
@@ -105,18 +99,12 @@ describe(decorateHost.name, () => {
 			error: vi.fn(),
 		}
 
-		const decoratedHost = composedDecorator(
-			createInfo as TestAny,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const decoratedHost = composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
 
 		expect((decoratedHost as TestAny).isHost).toBe(true)
-		expect((decoratedHost as TestAny)['decorator1']).toBe('decorated')
-		expect((decoratedHost as TestAny)['decorator2']).toBe('decorated')
-		expect((decoratedHost as TestAny)['decorator3']).toBe('decorated')
+		expect((decoratedHost as TestAny).decorator1).toBe('decorated')
+		expect((decoratedHost as TestAny).decorator2).toBe('decorated')
+		expect((decoratedHost as TestAny).decorator3).toBe('decorated')
 	})
 
 	it('should return the original languageServiceHost when no decorators are provided', () => {
@@ -128,13 +116,7 @@ describe(decorateHost.name, () => {
 			warn: vi.fn(),
 			error: vi.fn(),
 		}
-		const decoratedHost = decorateHost()(
-			createInfo as TestAny,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const decoratedHost = decorateHost()(createInfo as TestAny, typescript, logger, config, fao)
 		expect(decoratedHost).toBe(host)
 	})
 
@@ -162,8 +144,6 @@ describe(decorateHost.name, () => {
 		)
 
 		// Check that the non-languageServiceHost property 'isCreateInfo' has been preserved
-		expect((decoratedCreateInfo as TestAny).createInfo['isCreateInfo']).toBe(
-			true,
-		)
+		expect((decoratedCreateInfo as TestAny).createInfo.isCreateInfo).toBe(true)
 	})
 })

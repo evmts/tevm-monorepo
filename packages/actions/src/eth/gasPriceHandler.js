@@ -1,6 +1,6 @@
-import { blockNumberHandler } from './blockNumberHandler.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, parseGwei } from '@tevm/utils'
+import { blockNumberHandler } from './blockNumberHandler.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { defaultConfig, withDefaults } from './withDefaults.js'
 import { runSync } from 'effect/Effect'
+import { defaultConfig, withDefaults } from './withDefaults.js'
 
 describe(withDefaults.name, () => {
 	it('should return the expected ResolvedConfig', () => {

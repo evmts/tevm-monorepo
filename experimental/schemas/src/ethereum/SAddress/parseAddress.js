@@ -4,8 +4,8 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { parseAddressSafe } from './parseAddressSafe.js'
 import { runSync } from 'effect/Effect'
+import { parseAddressSafe } from './parseAddressSafe.js'
 
 /**
  * Parses an Address returning the address or throwing an InvalidAddressError if invalid.

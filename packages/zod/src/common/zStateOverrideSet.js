@@ -1,6 +1,6 @@
+import { z } from 'zod'
 import { zAddress } from './zAddress.js'
 import { zHex } from './zHex.js'
-import { z } from 'zod'
 
 export const zStateOverrideSet = z.record(
 	zAddress,

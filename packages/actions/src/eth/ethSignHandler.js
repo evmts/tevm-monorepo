@@ -16,9 +16,7 @@ export class MissingAccountError extends Error {
  * @returns {import('@tevm/actions-types').EthSignHandler}
  */
 export const ethSignHandler = ({ accounts }) => {
-	const accountsByAddress = Object.fromEntries(
-		accounts.map((account) => [account.address, account]),
-	)
+	const accountsByAddress = Object.fromEntries(accounts.map((account) => [account.address, account]))
 
 	return async (params) => {
 		// TODO validate params with @tevm/zod

@@ -1,8 +1,8 @@
-import { invariant, resolveEffect } from '../utils/index.js'
 import { moduleFactory } from '@tevm/resolutions'
 import { solcCompile } from '@tevm/solc'
 import { Effect } from 'effect'
 import { runPromise } from 'effect/Effect'
+import { invariant, resolveEffect } from '../utils/index.js'
 
 /**
  * Compile the Solidity contract and return its ABI.
@@ -28,26 +28,12 @@ import { runPromise } from 'effect/Effect'
  *   logger,
  * )
  */
-export const compileContract = async (
-	filePath,
-	basedir,
-	config,
-	includeAst,
-	includeBytecode,
-	fao,
-	logger,
-	solc,
-) => {
+export const compileContract = async (filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) => {
 	const moduleMap = await runPromise(
 		moduleFactory(
 			filePath,
 			await fao
-				.readFile(
-					await Effect.runPromise(
-						resolveEffect(filePath, basedir, fao, logger),
-					),
-					'utf8',
-				)
+				.readFile(await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)), 'utf8')
 				.then((code) => {
 					return code
 				}),
@@ -73,10 +59,7 @@ export const compileContract = async (
 			continue
 		}
 		modules[m.id] = m
-		const resolutions = m.importedIds.map(
-			(id) =>
-				/** @type {import("../types.js").ModuleInfo}*/ (moduleMap.get(id)),
-		)
+		const resolutions = m.importedIds.map((id) => /** @type {import("../types.js").ModuleInfo}*/ (moduleMap.get(id)))
 		for (const dep of resolutions) {
 			stack.push(dep)
 		}

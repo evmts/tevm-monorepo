@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
   // Retrieve the appropriate provider (we know it exists since the chainId comes from a provider itself)
   // This is necessary since we can't pass the full object (that includes functions) to the api route...
-  const provider = CHAINS.find((chain) => chain.id === chainId)!.custom
+  const provider = CHAINS.find((chain) => chain.id === chainId)?.custom
     .provider;
 
   // Get the explorer api key from the environment (if it is set + exists for this chain)
@@ -41,6 +41,10 @@ export async function POST(req: Request) {
       apiKey: explorerApiKey,
     }),
   ];
+
+  if (!provider) {
+    throw new Error('no provider found');
+  }
 
   try {
     const res = await autoload(contractAddress, {

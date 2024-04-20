@@ -45,7 +45,5 @@ export const parseJson = (jsonStr) => {
 			return res
 		},
 		catch: (cause) => new ParseJsonError({ cause }),
-	}).pipe(
-		tap((res) => logDebug(`Parsed tsconfig.json: ${JSON.stringify(res)}`)),
-	)
+	}).pipe(tap((res) => logDebug(`Parsed tsconfig.json: ${JSON.stringify(res)}`)))
 }

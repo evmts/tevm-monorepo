@@ -33,7 +33,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L214)
+[packages/blockchain/src/Chain.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L201)
 
 ## Properties
 
@@ -43,7 +43,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L187)
+[packages/blockchain/src/Chain.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L174)
 
 ***
 
@@ -53,7 +53,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L173)
+[packages/blockchain/src/Chain.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L160)
 
 ***
 
@@ -63,7 +63,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L174)
+[packages/blockchain/src/Chain.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L161)
 
 ***
 
@@ -73,7 +73,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L178)
+[packages/blockchain/src/Chain.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L165)
 
 ***
 
@@ -83,7 +83,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L172)
+[packages/blockchain/src/Chain.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L159)
 
 ***
 
@@ -93,7 +93,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L160)
+[packages/blockchain/src/Chain.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L147)
 
 ***
 
@@ -107,7 +107,7 @@ Pick.consensus
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L171)
+[packages/blockchain/src/Chain.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L158)
 
 ***
 
@@ -121,7 +121,7 @@ Pick.db
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L161)
+[packages/blockchain/src/Chain.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L148)
 
 ***
 
@@ -131,7 +131,7 @@ Pick.db
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:176](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L176)
+[packages/blockchain/src/Chain.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L163)
 
 ## Accessors
 
@@ -143,7 +143,7 @@ Returns properties of the canonical blockchain.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L326)
+[packages/blockchain/src/Chain.ts:308](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L308)
 
 ***
 
@@ -162,7 +162,7 @@ Genesis block for the chain
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L312)
+[packages/blockchain/src/Chain.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L294)
 
 ***
 
@@ -172,7 +172,7 @@ Genesis block for the chain
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L249)
+[packages/blockchain/src/Chain.ts:234](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L234)
 
 ***
 
@@ -184,7 +184,7 @@ Returns properties of the canonical headerchain.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L319)
+[packages/blockchain/src/Chain.ts:301](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L301)
 
 ## Methods
 
@@ -206,7 +206,7 @@ Pick.checkAndTransitionHardForkByNumber
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L241)
+[packages/blockchain/src/Chain.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L226)
 
 ***
 
@@ -222,7 +222,7 @@ false if chain is closed, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L345)
+[packages/blockchain/src/Chain.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L327)
 
 ***
 
@@ -250,7 +250,7 @@ if block is not found
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L450)
+[packages/blockchain/src/Chain.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L427)
 
 ***
 
@@ -284,7 +284,7 @@ an array of the blocks
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L423)
+[packages/blockchain/src/Chain.ts:405](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L405)
 
 ***
 
@@ -296,7 +296,7 @@ Gets the latest block in the canonical chain
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L592)
+[packages/blockchain/src/Chain.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L554)
 
 ***
 
@@ -312,7 +312,7 @@ Pick.getCanonicalHeadBlock
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:576](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L576)
+[packages/blockchain/src/Chain.ts:538](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L538)
 
 ***
 
@@ -328,7 +328,7 @@ Pick.getCanonicalHeadHeader
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:568](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L568)
+[packages/blockchain/src/Chain.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L530)
 
 ***
 
@@ -340,7 +340,7 @@ Gets the latest block in the canonical chain
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:584](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L584)
+[packages/blockchain/src/Chain.ts:546](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L546)
 
 ***
 
@@ -352,7 +352,7 @@ Gets the latest block in the canonical chain
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:600](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L600)
+[packages/blockchain/src/Chain.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L562)
 
 ***
 
@@ -386,7 +386,7 @@ list of block headers
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:522](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L522)
+[packages/blockchain/src/Chain.ts:492](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L492)
 
 ***
 
@@ -404,7 +404,7 @@ Pick.getIteratorHead
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:252](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L252)
+[packages/blockchain/src/Chain.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L237)
 
 ***
 
@@ -422,7 +422,7 @@ Pick.getIteratorHeadSafe
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:256](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L256)
+[packages/blockchain/src/Chain.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L241)
 
 ***
 
@@ -440,7 +440,7 @@ Pick.getParentTD
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L260)
+[packages/blockchain/src/Chain.ts:245](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L245)
 
 ***
 
@@ -466,7 +466,7 @@ the td
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:611](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L611)
+[packages/blockchain/src/Chain.ts:573](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L573)
 
 ***
 
@@ -486,7 +486,7 @@ Pick.getTotalDifficulty
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:264](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L264)
+[packages/blockchain/src/Chain.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L249)
 
 ***
 
@@ -510,7 +510,7 @@ if block is not found
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L438)
+[packages/blockchain/src/Chain.ts:415](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L415)
 
 ***
 
@@ -526,7 +526,7 @@ false if chain is already open, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L334)
+[packages/blockchain/src/Chain.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L316)
 
 ***
 
@@ -544,7 +544,7 @@ Pick.putBlock
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:271](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L271)
+[packages/blockchain/src/Chain.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L253)
 
 ***
 
@@ -566,7 +566,7 @@ pass true to process post-merge blocks, otherwise they will be skipped
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:460](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L460)
+[packages/blockchain/src/Chain.ts:437](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L437)
 
 ***
 
@@ -584,7 +584,7 @@ Pick.putHeader
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L275)
+[packages/blockchain/src/Chain.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L257)
 
 ***
 
@@ -608,7 +608,7 @@ number of headers added
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:538](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L538)
+[packages/blockchain/src/Chain.ts:503](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L503)
 
 ***
 
@@ -620,7 +620,7 @@ Resets _header, _blocks
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L283)
+[packages/blockchain/src/Chain.ts:265](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L265)
 
 ***
 
@@ -636,7 +636,7 @@ Resets the chain to canonicalHead number
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L355)
+[packages/blockchain/src/Chain.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L337)
 
 ***
 
@@ -646,7 +646,7 @@ Resets the chain to canonicalHead number
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L148)
+[packages/blockchain/src/Chain.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L139)
 
 ***
 
@@ -662,7 +662,7 @@ false if chain is closed, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:366](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L366)
+[packages/blockchain/src/Chain.ts:348](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L348)
 
 ***
 
@@ -680,7 +680,7 @@ currently stubbed to noop
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L168)
+[packages/blockchain/src/Chain.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L155)
 
 ***
 
@@ -697,7 +697,7 @@ of the underlying Blockchain object.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L202)
+[packages/blockchain/src/Chain.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L189)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -33,6 +33,4 @@ export const UINT128_MAX = BigInt('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')
  * The maximum value a {@link UINT256} can be.
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const UINT256_MAX = BigInt(
-	'0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-)
+export const UINT256_MAX = BigInt('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')

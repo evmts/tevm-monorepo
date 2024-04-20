@@ -28,9 +28,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const chain = await client.getChain()
 	const vm = await client.getVm().then((vm) => vm.shallowCopy())
 
-	const result = await receiptsManager.getReceiptByTxHash(
-		hexToBytes(params.hash),
-	)
+	const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
 
 	/**
 	 * If we don't have the receipt check the fork for a receipt
@@ -112,12 +110,9 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	}
 	// TODO handle legacy tx
 	const effectiveGasPrice =
-		/** @type any*/ (tx).maxPriorityFeePerGas <
-		/** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
+		/** @type any*/ (tx).maxPriorityFeePerGas < /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
 			? /** @type any*/ (tx).maxPriorityFeePerGas
-			: /** @type any*/ (tx).maxFeePerGas -
-			  (block.header.baseFeePerGas ?? 0n) +
-			  (block.header.baseFeePerGas ?? 0n)
+			: /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n) + (block.header.baseFeePerGas ?? 0n)
 
 	vm.common.setHardfork(tx.common.hardfork())
 	// Run tx through copied vm to get tx gasUsed and createdAddress
@@ -132,9 +127,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		throw new Error('No result for tx this indicates a bug in the client')
 	}
 	const { totalGasSpent, createdAddress } = res
-	const { blobGasPrice, blobGasUsed } = /** @type {any}*/ (
-		runBlockResult.receipts[txIndex]
-	)
+	const { blobGasPrice, blobGasUsed } = /** @type {any}*/ (runBlockResult.receipts[txIndex])
 	/**
 	 * @type {import('@tevm/actions-types').EthGetTransactionReceiptResult }
 	 */
@@ -156,10 +149,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
 				? bytesToHex(/** @type any*/ (receipt).stateRoot)
 				: undefined,
-		status:
-			/** @type any*/ (receipt).status instanceof Uint8Array
-				? /** @type any*/ (receipt).status
-				: undefined,
+		status: /** @type any*/ (receipt).status instanceof Uint8Array ? /** @type any*/ (receipt).status : undefined,
 		logs: await Promise.all(
 			receipt.logs.map((log, i) => ({
 				address: bytesToHex(log[0]),

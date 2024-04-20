@@ -1,9 +1,9 @@
+import { join } from 'node:path'
+import { flip, runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
 import { loadConfig } from './index.js'
 import { InvalidJsonConfigError } from './json/loadJsonConfig.js'
 import { LoadConfigError } from './loadConfig.js'
-import { flip, runSync } from 'effect/Effect'
-import { join } from 'path'
-import { describe, expect, it } from 'vitest'
 
 describe(loadConfig.name, () => {
 	it('should work in basic case', () => {
@@ -11,10 +11,7 @@ describe(loadConfig.name, () => {
 		expect({
 			...runSync(config),
 			remappings: Object.fromEntries(
-				Object.entries(runSync(config).remappings).map(([a, b]) => [
-					a,
-					b.replace(process.cwd(), ''),
-				]),
+				Object.entries(runSync(config).remappings).map(([a, b]) => [a, b.replace(process.cwd(), '')]),
 			),
 		}).toMatchInlineSnapshot(`
 			{
@@ -30,15 +27,11 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should work with jsconfig', () => {
-		expect(() =>
-			runSync(loadConfig(join(__dirname, 'fixtures/jsconfig'))),
-		).toMatchInlineSnapshot('[Function]')
+		expect(() => runSync(loadConfig(join(__dirname, 'fixtures/jsconfig')))).toMatchInlineSnapshot('[Function]')
 	})
 
 	it('should work with jsonc (json with comments)', () => {
-		expect(
-			runSync(loadConfig(join(__dirname, 'fixtures/jsonc'))),
-		).toMatchInlineSnapshot(`
+		expect(runSync(loadConfig(join(__dirname, 'fixtures/jsonc')))).toMatchInlineSnapshot(`
 			{
 			  "cacheDir": ".tevm",
 			  "debug": false,
@@ -53,12 +46,7 @@ describe(loadConfig.name, () => {
 		const res = runSync(loadConfig(join(__dirname, 'fixtures/withFoundry')))
 		expect({
 			...res,
-			remappings: Object.fromEntries(
-				Object.entries(res.remappings).map(([a, b]) => [
-					a,
-					b.replace(process.cwd(), ''),
-				]),
-			),
+			remappings: Object.fromEntries(Object.entries(res.remappings).map(([a, b]) => [a, b.replace(process.cwd(), '')])),
 		}).toMatchInlineSnapshot(`
 			{
 			  "cacheDir": ".tevm",
@@ -75,9 +63,7 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should throw an error if tsconfig.json does not exist', () => {
-		expect(() =>
-			runSync(loadConfig('nonexistentpath')),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => runSync(loadConfig('nonexistentpath'))).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw an InvalidConfigError when the tsconfig.json is not valid', () => {

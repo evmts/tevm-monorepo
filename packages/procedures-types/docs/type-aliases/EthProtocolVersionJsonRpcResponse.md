@@ -12,7 +12,7 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L293)
+[responses/EthJsonRpcResponse.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L230)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

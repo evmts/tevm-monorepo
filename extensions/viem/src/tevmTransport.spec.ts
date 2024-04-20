@@ -1,8 +1,8 @@
-import { tevmTransport } from './tevmTransport.js'
+import { describe, expect, it } from 'bun:test'
 import { createContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
-import { describe, expect, it } from 'bun:test'
 import { createPublicClient, numberToHex } from 'viem'
+import { tevmTransport } from './tevmTransport.js'
 
 const daiContract = createContract({
 	name: 'DAI',

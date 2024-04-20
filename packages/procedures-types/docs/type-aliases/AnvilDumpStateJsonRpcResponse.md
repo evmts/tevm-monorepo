@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L144)
+[responses/AnvilJsonRpcResponse.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L132)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

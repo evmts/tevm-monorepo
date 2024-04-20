@@ -4,11 +4,11 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { InvalidINTError } from './Errors.js'
-import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 import { parseEither } from '@effect/schema/Schema'
 import { Effect } from 'effect'
 import { mapError } from 'effect/Effect'
+import { InvalidINTError } from './Errors.js'
+import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 
 /**
  * Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).

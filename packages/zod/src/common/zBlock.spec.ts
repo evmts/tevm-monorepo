@@ -1,7 +1,7 @@
-import { zBlock } from './zBlock.js'
-import type { Block } from '@tevm/actions-types'
 import { expect, test } from 'bun:test'
+import type { Block } from '@tevm/actions-types'
 import type { z } from 'zod'
+import { zBlock } from './zBlock.js'
 
 test('zBlock', () => {
 	const block = {

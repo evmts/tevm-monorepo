@@ -82,9 +82,7 @@ export type EventActionCreator<
 		// can be useful for lazily evaluating
 	}) & {
 		eventName: TEventName
-		humanReadableAbi: FormatAbi<
-			[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
-		>
+		humanReadableAbi: FormatAbi<[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]>
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode

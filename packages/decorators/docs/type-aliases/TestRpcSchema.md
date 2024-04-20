@@ -16,7 +16,7 @@
 
 ## Source
 
-[packages/decorators/src/eip1193/JsonRpcSchemaTest.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTest.ts#L14)
+[packages/decorators/src/eip1193/JsonRpcSchemaTest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTest.ts#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

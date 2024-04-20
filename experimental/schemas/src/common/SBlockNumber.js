@@ -86,10 +86,7 @@ export const parseBlockNumberSafe = (blockNumber) => {
 		/** @type {Effect.Effect<never, InvalidBlockNumberError, TBlockNumber>} */
 		(
 			parseEither(SBlockNumber)(blockNumber).pipe(
-				mapError(
-					({ errors: cause }) =>
-						new InvalidBlockNumberError({ blockNumber, cause }),
-				),
+				mapError(({ errors: cause }) => new InvalidBlockNumberError({ blockNumber, cause })),
 			)
 		)
 	return out

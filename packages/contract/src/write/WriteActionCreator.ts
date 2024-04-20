@@ -26,24 +26,16 @@ export type WriteActionCreator<
 	TDeployedBytecode extends Hex | undefined,
 	TAddress extends Address | undefined,
 	// we have address and to so we support both tevm and viem with natively
-	TAddressArgs = TAddress extends undefined
-		? {}
-		: { address: TAddress; to: TAddress },
+	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress; to: TAddress },
 > = {
 	// for each payable and nonpayable function in the abi, create an action creator
-	[TFunctionName in
+	[TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, 'payable' | 'nonpayable'>]: (<
 		// extract the names of the functions
-		ExtractAbiFunctionNames<
-			ParseAbi<THumanReadableAbi>,
-			'payable' | 'nonpayable'
-		>]: (<
 		// use generic args to maintain typesafety. This is adapted from viem
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &
-			any[] = AbiParametersToPrimitiveTypes<
-			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
-		> &
+			any[] = AbiParametersToPrimitiveTypes<ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']> &
 			any[],
 	>(
 		// take the same args as the function
@@ -51,9 +43,7 @@ export type WriteActionCreator<
 	) => {
 		// return the action creator that matches viem api and also tevm.contract tevm.script
 		functionName: TFunctionName
-		humanReadableAbi: FormatAbi<
-			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		>
+		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode
@@ -61,12 +51,10 @@ export type WriteActionCreator<
 		? {}
 		: {
 				args: TArgs
-		  }) &
+			}) &
 		TAddressArgs) & {
 		functionName: TFunctionName
-		humanReadableAbi: FormatAbi<
-			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		>
+		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode

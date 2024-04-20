@@ -106,7 +106,7 @@ Sets the chain id of the current EVM
 
 ## Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L73)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L70)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

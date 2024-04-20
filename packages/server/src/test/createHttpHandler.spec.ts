@@ -1,14 +1,10 @@
-import { createHttpHandler } from '../createHttpHandler.js'
-import { DaiContract } from './DaiContract.sol.js'
+import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
-import {
-	decodeFunctionResult,
-	encodeFunctionData,
-	hexToBigInt,
-} from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
+import { createHttpHandler } from '../createHttpHandler.js'
+import { DaiContract } from './DaiContract.sol.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -24,7 +20,7 @@ describe('createHttpHandler', () => {
 			},
 		})
 
-		const server = require('http').createServer(createHttpHandler(tevm))
+		const server = require('node:http').createServer(createHttpHandler(tevm))
 
 		const req = {
 			params: [
@@ -46,11 +42,7 @@ describe('createHttpHandler', () => {
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 
-		const res = await supertest(server)
-			.post('/')
-			.send(req)
-			.expect(200)
-			.expect('Content-Type', /json/)
+		const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
 
 		console.log(res.body)
 

@@ -1,4 +1,4 @@
-import { Contract } from '@tevm/contract'
+import type { Contract } from '@tevm/contract'
 const _abiTestContract = [
 	{
 		constant: true,

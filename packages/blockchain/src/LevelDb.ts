@@ -43,39 +43,25 @@ const getEncodings = (opts: EncodingOpts = {}) => {
  */
 export class LevelDB<
 	TKey extends Uint8Array | string = Uint8Array | string,
-	TValue extends Uint8Array | string | DbObject =
-		| Uint8Array
-		| string
-		| DbObject,
+	TValue extends Uint8Array | string | DbObject = Uint8Array | string | DbObject,
 > implements Db<TKey, TValue>
 {
-	_leveldb: AbstractLevel<
-		string | Uint8Array,
-		string | Uint8Array,
-		string | Uint8Array
-	>
+	_leveldb: AbstractLevel<string | Uint8Array, string | Uint8Array, string | Uint8Array>
 
 	/**
 	 * Initialize a DB instance. If `leveldb` is not provided, DB
 	 * defaults to an [in-memory store](https://github.com/Level/memdown).
 	 * @param leveldb - An abstract-leveldown compliant store
 	 */
-	constructor(
-		leveldb?: AbstractLevel<
-			string | Uint8Array,
-			string | Uint8Array,
-			string | Uint8Array
-		>,
-	) {
-		this._leveldb =
-			leveldb ?? (new MemoryLevel() as unknown as AbstractLevel<any, any, any>)
+	constructor(leveldb?: AbstractLevel<string | Uint8Array, string | Uint8Array, string | Uint8Array>) {
+		this._leveldb = leveldb ?? (new MemoryLevel() as unknown as AbstractLevel<any, any, any>)
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	async get(key: TKey, opts?: EncodingOpts): Promise<TValue | undefined> {
-		let value
+		let value: any
 		const encodings = getEncodings(opts)
 
 		try {

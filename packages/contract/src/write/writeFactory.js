@@ -9,12 +9,7 @@ import { formatAbi } from '@tevm/utils'
  * @param {import('@tevm/utils').Hex} [params.deployedBytecode]
  * @param {import('@tevm/utils').Address} [params.address]
  */
-export const writeFactory = ({
-	methods,
-	bytecode,
-	deployedBytecode,
-	address,
-}) =>
+export const writeFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 	Object.fromEntries(
 		methods.map((method) => {
 			/**
@@ -35,8 +30,7 @@ export const writeFactory = ({
 				return {
 					abi: methodAbi,
 					humanReadableAbi: formatAbi([method]),
-					functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method)
-						.name,
+					functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
 					bytecode,
 					deployedBytecode,
 					...maybeAddress,
@@ -50,9 +44,6 @@ export const writeFactory = ({
 			creator.deployedBytecode = deployedBytecode
 			creator.address = address
 			creator.to = address
-			return [
-				/**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
-				creator,
-			]
+			return [/**@type {import('@tevm/utils').AbiFunction}*/ (method).name, creator]
 		}),
 	)

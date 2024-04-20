@@ -1,20 +1,9 @@
+import { logAllErrors } from '@tevm/effect'
+import { all, catchTags, fail, flatMap, logDebug, tap, tapError } from 'effect/Effect'
 import { mergeConfigs, withDefaults } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
-import {
-	InvalidJsonConfigError,
-	loadJsonConfig,
-} from './json/loadJsonConfig.js'
+import { InvalidJsonConfigError, loadJsonConfig } from './json/loadJsonConfig.js'
 import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
-import { logAllErrors } from '@tevm/effect'
-import {
-	all,
-	catchTags,
-	fail,
-	flatMap,
-	logDebug,
-	tap,
-	tapError,
-} from 'effect/Effect'
 
 /**
  * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError | InvalidJsonConfigError} LoadConfigErrorType
@@ -63,20 +52,16 @@ ${underlyingError.message}`,
  * ```
  */
 export const loadConfig = (configFilePath) => {
-	const tsConfig = logDebug(
-		`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`,
-	).pipe(flatMap(() => loadTsConfig(configFilePath)))
-	const userConfig = logDebug(
-		`loadConfig: loading userConfig at ${JSON.stringify(configFilePath)}`,
-	).pipe(
+	const tsConfig = logDebug(`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`).pipe(
+		flatMap(() => loadTsConfig(configFilePath)),
+	)
+	const userConfig = logDebug(`loadConfig: loading userConfig at ${JSON.stringify(configFilePath)}`).pipe(
 		flatMap(() => loadJsonConfig(configFilePath)),
 		catchTags({
 			// for backwards compatibility attempt to read config from tsconfig
 			FailedToReadConfigError: (e) =>
 				tsConfig.pipe(
-					flatMap((tsConfig) =>
-						getTevmConfigFromTsConfig(tsConfig, configFilePath),
-					),
+					flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
 					catchTags({
 						// if there is no fallback config we want to throw the original error
 						NoPluginInTsConfigFoundError: () => fail(e),
@@ -123,8 +108,6 @@ export const loadConfig = (configFilePath) => {
 			InvalidRemappingsError: handleError,
 			ParseJsonError: handleError,
 		}),
-		tap((config) =>
-			logDebug(`loadConfig: Config loaded ${JSON.stringify({ config })}`),
-		),
+		tap((config) => logDebug(`loadConfig: Config loaded ${JSON.stringify({ config })}`)),
 	)
 }

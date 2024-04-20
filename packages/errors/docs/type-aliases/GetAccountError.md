@@ -23,7 +23,7 @@ if (errors?.length) {
 
 ## Source
 
-[packages/errors/src/actions/GetAccountError.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/GetAccountError.ts#L18)
+[packages/errors/src/actions/GetAccountError.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/GetAccountError.ts#L15)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

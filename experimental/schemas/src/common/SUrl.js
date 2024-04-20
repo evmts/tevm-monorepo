@@ -91,11 +91,7 @@ export class InvalidUrlError extends TypeError {
 export const parseUrlSafe = (url) => {
 	const out =
 		/** @type {Effect.Effect<never, InvalidUrlError, TUrl>} */
-		(
-			parseEither(SUrl)(url).pipe(
-				mapError(({ errors: cause }) => new InvalidUrlError({ url, cause })),
-			)
-		)
+		(parseEither(SUrl)(url).pipe(mapError(({ errors: cause }) => new InvalidUrlError({ url, cause }))))
 	return out
 }
 

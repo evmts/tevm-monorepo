@@ -1,7 +1,7 @@
+import { getAddress, parseAbi } from '@tevm/utils'
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
-import { getAddress, parseAbi } from '@tevm/utils'
 
 /**
  * Creates a Tevm `Script` instance from humanReadableAbi and bytecode
@@ -47,12 +47,7 @@ import { getAddress, parseAbi } from '@tevm/utils'
  *  })
  *  ```
  */
-export const createScript = ({
-	name,
-	humanReadableAbi,
-	bytecode,
-	deployedBytecode,
-}) => {
+export const createScript = ({ name, humanReadableAbi, bytecode, deployedBytecode }) => {
 	const abi = parseAbi(/**@type any*/ (humanReadableAbi))
 	const methods = abi.filter((field) => {
 		return field.type === 'function'

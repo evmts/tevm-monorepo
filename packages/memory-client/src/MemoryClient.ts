@@ -1,14 +1,6 @@
 import type { BaseClient } from '@tevm/base-client'
-import type {
-	EIP1193EventEmitter,
-	Eip1193RequestProvider,
-	EthActionsApi,
-	TevmActionsApi,
-} from '@tevm/decorators'
-import type {
-	TevmJsonRpcBulkRequestHandler,
-	TevmJsonRpcRequestHandler,
-} from '@tevm/procedures-types'
+import type { EIP1193EventEmitter, Eip1193RequestProvider, EthActionsApi, TevmActionsApi } from '@tevm/decorators'
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments

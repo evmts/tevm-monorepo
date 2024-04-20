@@ -1,4 +1,3 @@
-import type { SerializeToJson } from '../utils/index.js'
 import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
@@ -14,6 +13,7 @@ import type {
 } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/index.js'
 
 // anvil_impersonateAccount
 /**
@@ -50,26 +50,17 @@ export type AnvilGetAutomineJsonRpcRequest = JsonRpcRequest<
  * JSON-RPC request for `anvil_setCoinbase` method
  * Not included atm because tevm_call supports it and i was getting methodNotFound errors trying it in anvil
  */
-export type AnvilSetCoinbaseJsonRpcRequest = JsonRpcRequest<
-	'anvil_setCoinbase',
-	[Address]
->
+export type AnvilSetCoinbaseJsonRpcRequest = JsonRpcRequest<'anvil_setCoinbase', [Address]>
 // anvil_mine
 /**
  * JSON-RPC request for `anvil_mine` method
  */
-export type AnvilMineJsonRpcRequest = JsonRpcRequest<
-	'anvil_mine',
-	[SerializeToJson<AnvilMineParams>]
->
+export type AnvilMineJsonRpcRequest = JsonRpcRequest<'anvil_mine', [SerializeToJson<AnvilMineParams>]>
 // anvil_reset
 /**
  * JSON-RPC request for `anvil_reset` method
  */
-export type AnvilResetJsonRpcRequest = JsonRpcRequest<
-	'anvil_reset',
-	[SerializeToJson<AnvilResetParams>]
->
+export type AnvilResetJsonRpcRequest = JsonRpcRequest<'anvil_reset', [SerializeToJson<AnvilResetParams>]>
 // anvil_dropTransaction
 /**
  * JSON-RPC request for `anvil_dropTransaction` method
@@ -82,26 +73,17 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `anvil_setBalance` method
  */
-export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<
-	'anvil_setBalance',
-	[{ address: Address; balance: Hex }]
->
+export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [{ address: Address; balance: Hex }]>
 // anvil_setCode
 /**
  * JSON-RPC request for `anvil_setCode` method
  */
-export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<
-	'anvil_setCode',
-	[SerializeToJson<AnvilSetCodeParams>]
->
+export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<'anvil_setCode', [SerializeToJson<AnvilSetCodeParams>]>
 // anvil_setNonce
 /**
  * JSON-RPC request for `anvil_setNonce` method
  */
-export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<
-	'anvil_setNonce',
-	[{ address: Address; nonce: Hex }]
->
+export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<'anvil_setNonce', [{ address: Address; nonce: Hex }]>
 // anvil_setStorageAt
 /**
  * JSON-RPC request for `anvil_setStorageAt` method
@@ -114,28 +96,19 @@ export type AnvilSetStorageAtJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `anvil_setChainId` method
  */
-export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<
-	'anvil_setChainId',
-	[SerializeToJson<AnvilSetChainIdParams>]
->
+export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<'anvil_setChainId', [SerializeToJson<AnvilSetChainIdParams>]>
 // TODO make this the same as our dump state
 // anvil_dumpState
 /**
  * JSON-RPC request for `anvil_dumpState` method
  */
-export type AnvilDumpStateJsonRpcRequest = JsonRpcRequest<
-	'anvil_dumpState',
-	[SerializeToJson<AnvilDumpStateParams>]
->
+export type AnvilDumpStateJsonRpcRequest = JsonRpcRequest<'anvil_dumpState', [SerializeToJson<AnvilDumpStateParams>]>
 // TODO make this the same as our load state
 // anvil_loadState
 /**
  * JSON-RPC request for `anvil_loadState` method
  */
-export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<
-	'anvil_loadState',
-	[SerializeToJson<AnvilLoadStateParams>]
->
+export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<'anvil_loadState', [SerializeToJson<AnvilLoadStateParams>]>
 
 export type AnvilJsonRpcRequest =
 	| AnvilImpersonateAccountJsonRpcRequest

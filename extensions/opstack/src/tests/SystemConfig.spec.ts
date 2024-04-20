@@ -1,5 +1,5 @@
-import { type L1Client, createL1Client } from '../index.js'
 import { beforeEach, describe, expect, it } from 'bun:test'
+import { type L1Client, createL1Client } from '../index.js'
 
 describe('SystemConfig', () => {
 	let client: L1Client
@@ -10,41 +10,17 @@ describe('SystemConfig', () => {
 	})
 
 	it('should initialize contract correctly', async () => {
-		expect(
-			await client.contract(client.op.SystemConfig.read.owner()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.scalar()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.version()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.overhead()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(
-				client.op.SystemConfig.read.optimismMintableERC20Factory(),
-			),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.minimumGasLimit()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.l1StandardBridge()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.batchInbox()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.startBlock()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.batcherHash()),
-		).toMatchSnapshot()
-		expect(
-			await client.contract(client.op.SystemConfig.read.optimismPortal()),
-		).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.owner())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.scalar())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.version())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.overhead())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.optimismMintableERC20Factory())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.minimumGasLimit())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.l1StandardBridge())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.batchInbox())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.startBlock())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.batcherHash())).toMatchSnapshot()
+		expect(await client.contract(client.op.SystemConfig.read.optimismPortal())).toMatchSnapshot()
 	})
 
 	it('can interact with the contract as the owner to change the l2 gas limit', async () => {
@@ -56,8 +32,7 @@ describe('SystemConfig', () => {
 				...client.op.SystemConfig.write.setGasLimit(newGasLimit),
 			}),
 		).toEqual({
-			txHash:
-				'0x9b7fb395707e1e509f8bddde0d5b1f3e217f8c58a465c196bb8a048f6f4126f8',
+			txHash: '0x9b7fb395707e1e509f8bddde0d5b1f3e217f8c58a465c196bb8a048f6f4126f8',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 6619n,

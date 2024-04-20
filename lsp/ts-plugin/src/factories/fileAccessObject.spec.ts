@@ -1,6 +1,6 @@
-import { createFileAccessObject } from './fileAccessObject.js'
-import { LanguageServiceHost } from 'typescript'
+import type { LanguageServiceHost } from 'typescript'
 import { describe, expect, it, vi } from 'vitest'
+import { createFileAccessObject } from './fileAccessObject.js'
 
 // Mock the LanguageServiceHost
 const mockLsHost = (fileContent: string | null): LanguageServiceHost =>
@@ -23,9 +23,7 @@ describe('createFileAccessObject', () => {
 		const lsHost = mockLsHost(null) // Simulate no file content
 		const fileAccessObject = createFileAccessObject(lsHost)
 
-		expect(
-			fileAccessObject.readFile('test.ts', 'utf8'),
-		).rejects.toThrowErrorMatchingInlineSnapshot(
+		expect(fileAccessObject.readFile('test.ts', 'utf8')).rejects.toThrowErrorMatchingInlineSnapshot(
 			'[Error: @tevm/ts-plugin: unable to read file test.ts]',
 		)
 	})

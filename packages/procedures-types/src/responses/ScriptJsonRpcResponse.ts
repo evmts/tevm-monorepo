@@ -1,7 +1,7 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { CallResult } from '@tevm/actions-types'
 import type { ScriptError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * JSON-RPC response for `tevm_script` method
@@ -18,8 +18,4 @@ import type { JsonRpcResponse } from '@tevm/jsonrpc'
  *     args: [...]
  * })
  */
-export type ScriptJsonRpcResponse = JsonRpcResponse<
-	'tevm_script',
-	SerializeToJson<CallResult>,
-	ScriptError['_tag']
->
+export type ScriptJsonRpcResponse = JsonRpcResponse<'tevm_script', SerializeToJson<CallResult>, ScriptError['_tag']>

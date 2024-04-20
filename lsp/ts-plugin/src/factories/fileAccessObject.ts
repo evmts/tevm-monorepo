@@ -1,17 +1,9 @@
-import { FileAccessObject } from '@tevm/base-bundler'
-import {
-	existsSync,
-	mkdirSync,
-	readFileSync,
-	statSync,
-	writeFileSync,
-} from 'fs'
-import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
-import typescript from 'typescript/lib/tsserverlibrary.js'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 
-export const createFileAccessObject = (
-	lsHost: typescript.LanguageServiceHost,
-): FileAccessObject => {
+export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): FileAccessObject => {
 	return {
 		existsSync: (fileName) => lsHost.fileExists(fileName),
 		readFileSync: (fileName, encoding) => {

@@ -1,5 +1,5 @@
-import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
@@ -17,7 +17,7 @@ export const traceCallHandler =
 				? {
 						origin: EthjsAddress.fromString(params.from),
 						caller: EthjsAddress.fromString(params.from),
-				  }
+					}
 				: {}),
 			...(params.data !== undefined ? { data: hexToBytes(params.data) } : {}),
 			...(params.to ? { to: EthjsAddress.fromString(params.to) } : {}),

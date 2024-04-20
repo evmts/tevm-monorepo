@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-	NoPluginInTsConfigFoundError,
-	getTevmConfigFromTsConfig,
-} from './getTevmConfigFromTsConfig.js'
 import { runSync } from 'effect/Effect'
+import { NoPluginInTsConfigFoundError, getTevmConfigFromTsConfig } from './getTevmConfigFromTsConfig.js'
 
 describe(getTevmConfigFromTsConfig, () => {
 	it('should return the expected ResolvedConfig', async () => {
@@ -22,9 +19,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({ ...tevmConfig, remappings: {} })
+		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({ ...tevmConfig, remappings: {} })
 		// remove lib should still work
 		tevmConfig = {
 			name: '@tevm/ts-plugin',
@@ -40,9 +35,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({ ...tevmConfig, remappings: {} })
+		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({ ...tevmConfig, remappings: {} })
 	})
 	it('should add paths to lib if it exists', async () => {
 		const tevmConfig = {
@@ -91,9 +84,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({
+		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
 			...tevmConfig,
 			remappings: {
 				'@/': '/path/to/config/',
@@ -117,9 +108,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({
+		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
 			...tevmConfig,
 			remappings: {},
 			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
@@ -131,12 +120,8 @@ describe(getTevmConfigFromTsConfig, () => {
 				baseUrl: '.',
 			},
 		}
-		expect(() =>
-			runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config')),
-		).toThrowError(
-			new NoPluginInTsConfigFoundError(
-				'No compilerOptions.plugins in tsconfig',
-			),
+		expect(() => runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config'))).toThrowError(
+			new NoPluginInTsConfigFoundError('No compilerOptions.plugins in tsconfig'),
 		)
 	})
 	it('should handle foundry returning an invalid json', async () => {
@@ -149,9 +134,9 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() =>
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toThrowError(new NoPluginInTsConfigFoundError())
+		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowError(
+			new NoPluginInTsConfigFoundError(),
+		)
 	})
 	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugin matching @tevm/ts-plugin`, async () => {
 		const config = {
@@ -163,8 +148,8 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() =>
-			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toThrowError(new NoPluginInTsConfigFoundError())
+		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowError(
+			new NoPluginInTsConfigFoundError(),
+		)
 	})
 })

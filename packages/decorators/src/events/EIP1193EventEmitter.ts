@@ -1,7 +1,4 @@
-import type {
-	EIP1193EventMap,
-	EIP1193Events,
-} from '../eip1193/EIP1193Events.js'
+import type { EIP1193EventMap, EIP1193Events } from '../eip1193/EIP1193Events.js'
 
 /**
  * A very minimal EventEmitter interface

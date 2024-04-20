@@ -1,12 +1,9 @@
-import typescript from 'typescript/lib/tsserverlibrary.js'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * Find the typescript node at the given position in the AST
  */
-export function findNode(
-	rootNode: typescript.Node,
-	position: number,
-): typescript.Node | null {
+export function findNode(rootNode: typescript.Node, position: number): typescript.Node | null {
 	if (position < 0) {
 		throw new Error('Position must be non-negative')
 	}

@@ -29,7 +29,7 @@ const parsedUINT256Effect = parseUINT256Safe('0x1234567890abcdef1234567890abcdef
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:148](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L148)
+[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:141](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L141)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

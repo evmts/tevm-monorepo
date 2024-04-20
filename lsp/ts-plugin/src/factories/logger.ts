@@ -18,24 +18,10 @@ export type Logger = {
  * const logger = createLogger(createInfo)
  * logger.info('hello world')
  */
-export const createLogger = (
-	pluginCreateInfo: typescript.server.PluginCreateInfo,
-): Logger => {
-	const info = (msg: string) =>
-		pluginCreateInfo.project.projectService.logger.info(
-			`[tevm-ts-plugin] ${msg}`,
-		)
-	const warn = (msg: string) =>
-		pluginCreateInfo.project.projectService.logger.info(
-			`[tevm-ts-plugin] warning: ${msg}`,
-		)
-	const error = (msg: string) =>
-		pluginCreateInfo.project.projectService.logger.info(
-			`[tevm-ts-plugin] error: ${msg}`,
-		)
-	const log = (msg: string) =>
-		pluginCreateInfo.project.projectService.logger.info(
-			`[tevm-ts-plugin] log: ${msg}`,
-		)
+export const createLogger = (pluginCreateInfo: typescript.server.PluginCreateInfo): Logger => {
+	const info = (msg: string) => pluginCreateInfo.project.projectService.logger.info(`[tevm-ts-plugin] ${msg}`)
+	const warn = (msg: string) => pluginCreateInfo.project.projectService.logger.info(`[tevm-ts-plugin] warning: ${msg}`)
+	const error = (msg: string) => pluginCreateInfo.project.projectService.logger.info(`[tevm-ts-plugin] error: ${msg}`)
+	const log = (msg: string) => pluginCreateInfo.project.projectService.logger.info(`[tevm-ts-plugin] log: ${msg}`)
 	return { info, warn, error, log }
 }

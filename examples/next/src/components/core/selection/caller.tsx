@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useMedia } from 'react-use';
 import { toast } from 'sonner';
-import { Hex, isAddress } from 'tevm/utils';
+import { isAddress, type Hex } from 'tevm/utils';
 
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { useConfigStore } from '@/lib/store/use-config';

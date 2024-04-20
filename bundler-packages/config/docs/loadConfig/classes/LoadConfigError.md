@@ -30,7 +30,7 @@ Error.constructor
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L40)
+[bundler-packages/config/src/loadConfig.js:29](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L29)
 
 ## Properties
 
@@ -40,7 +40,7 @@ Error.constructor
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L35)
+[bundler-packages/config/src/loadConfig.js:24](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L24)
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:31](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L31)
+[bundler-packages/config/src/loadConfig.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L20)
 
 ***
 

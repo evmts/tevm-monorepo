@@ -1,11 +1,11 @@
+import { statSync } from 'node:fs'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
+import { runSync } from 'effect/Effect'
+import typescript from 'typescript/lib/tsserverlibrary.js'
+import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 import { solidityModuleResolver } from '../utils/index.js'
 import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
-import { FileAccessObject } from '@tevm/base-bundler'
-import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
-import { runSync } from 'effect/Effect'
-import { statSync } from 'fs'
-import typescript from 'typescript/lib/tsserverlibrary.js'
-import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
 const { remappings, ...compilerOptions } = defaultConfig
 const mockConfig: CompilerConfig = {
@@ -27,9 +27,7 @@ const fao: FileAccessObject = {
 	writeFile: vi.fn(),
 }
 
-const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<
-	typeof solidityModuleResolver
->
+const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<typeof solidityModuleResolver>
 
 // mock solidityModuleResolver
 vi.mock('../utils', () => {
@@ -59,13 +57,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 				},
 			},
 		} as any
-		const host = resolveModuleNameLiteralsDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, config, fao)
 
 		expect(host).toMatchInlineSnapshot(`
 			{
@@ -77,15 +69,13 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 		const containingFile = 'foo.ts'
 		const rest = [{} as any, {} as any, {} as any, {} as any] as const
 
-		const res = host.resolveModuleNameLiterals?.(
+		const res = host.resolveModuleNameLiterals?.(moduleNames, containingFile, ...rest)
+
+		expect(createInfo.languageServiceHost.resolveModuleNameLiterals).toHaveBeenCalledWith(
 			moduleNames,
 			containingFile,
 			...rest,
 		)
-
-		expect(
-			createInfo.languageServiceHost.resolveModuleNameLiterals,
-		).toHaveBeenCalledWith(moduleNames, containingFile, ...rest)
 
 		expect(res).toMatchInlineSnapshot('[]')
 	})
@@ -110,13 +100,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 				},
 			},
 		} as any
-		const host = resolveModuleNameLiteralsDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, config, fao)
 
 		const moduleNames = [{ text: 'moduleName' }]
 		const containingFile = 'foo.ts'
@@ -127,11 +111,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			resolvedModule: {},
 		} as any)
 
-		const res = host.resolveModuleNameLiterals?.(
-			moduleNames as any,
-			containingFile,
-			...rest,
-		)
+		const res = host.resolveModuleNameLiterals?.(moduleNames as any, containingFile, ...rest)
 		expect(res).toMatchInlineSnapshot(`
 			[
 			  {
@@ -163,13 +143,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 				},
 			},
 		} as any
-		const host = resolveModuleNameLiteralsDecorator(
-			createInfo,
-			typescript,
-			logger,
-			config,
-			fao,
-		)
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, config, fao)
 
 		const moduleNames = [{ text: 'moduleName' }]
 		const containingFile = 'foo.ts'
@@ -180,11 +154,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			throw new Error('Error')
 		})
 
-		const res = host.resolveModuleNameLiterals?.(
-			moduleNames as any,
-			containingFile,
-			...rest,
-		)
+		const res = host.resolveModuleNameLiterals?.(moduleNames as any, containingFile, ...rest)
 		expect(res).toMatchInlineSnapshot(`
 			[
 			  undefined,

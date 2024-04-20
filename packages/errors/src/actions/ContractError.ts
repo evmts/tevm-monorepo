@@ -8,10 +8,7 @@ import type {
 	InvalidFunctionNameError,
 	InvalidRequestError,
 } from '../input/index.js'
-import type {
-	DecodeFunctionDataError,
-	EncodeFunctionReturnDataError,
-} from '../utils/index.js'
+import type { DecodeFunctionDataError, EncodeFunctionReturnDataError } from '../utils/index.js'
 import type { BaseCallError } from './BaseCallError.js'
 
 /***

@@ -2,9 +2,9 @@
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { concatBytes, hexToBytes, numberToHex } from '@tevm/utils'
 
-import type { Chain } from './Chain.js'
 import type { Common } from '@tevm/common'
 import type { AbstractLevel } from 'abstract-level'
+import type { Chain } from './Chain.js'
 
 const encodingOpts = { keyEncoding: 'view', valueEncoding: 'view' }
 
@@ -31,11 +31,7 @@ export interface MetaDBManagerOptions {
 	chain: Chain
 
 	/* Meta database (receipts, logs, indexes) */
-	metaDB: AbstractLevel<
-		string | Uint8Array,
-		string | Uint8Array,
-		string | Uint8Array
-	>
+	metaDB: AbstractLevel<string | Uint8Array, string | Uint8Array, string | Uint8Array>
 }
 
 /**
@@ -44,11 +40,7 @@ export interface MetaDBManagerOptions {
 export class MetaDBManager {
 	protected chain: Chain
 	protected common: Common
-	private metaDB: AbstractLevel<
-		string | Uint8Array,
-		string | Uint8Array,
-		string | Uint8Array
-	>
+	private metaDB: AbstractLevel<string | Uint8Array, string | Uint8Array, string | Uint8Array>
 
 	constructor(options: MetaDBManagerOptions) {
 		this.chain = options.chain

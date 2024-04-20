@@ -12,7 +12,7 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L393)
+[responses/EthJsonRpcResponse.ts:306](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L306)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

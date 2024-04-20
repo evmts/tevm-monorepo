@@ -1,11 +1,5 @@
 import { createBaseClient } from '@tevm/base-client'
-import {
-	eip1993EventEmitter,
-	ethActions,
-	requestEip1193,
-	tevmActions,
-	tevmSend,
-} from '@tevm/decorators'
+import { eip1993EventEmitter, ethActions, requestEip1193, tevmActions, tevmSend } from '@tevm/decorators'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser

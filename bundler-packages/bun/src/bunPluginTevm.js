@@ -1,4 +1,3 @@
-import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
@@ -6,6 +5,7 @@ import { createSolc } from '@tevm/solc'
 import { catchTag, logWarning, map, runSync } from 'effect/Effect'
 // @ts-expect-error
 import defaultSolc from 'solc'
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 
 /**
  * Bun plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
@@ -90,17 +90,11 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			const config = runSync(
 				loadConfig(process.cwd()).pipe(
 					catchTag('FailedToReadConfigError', () =>
-						logWarning(
-							'Unable to find tevm.config.json. Using default config.',
-						).pipe(map(() => defaultConfig)),
+						logWarning('Unable to find tevm.config.json. Using default config.').pipe(map(() => defaultConfig)),
 					),
 				),
 			)
-			const solcCache = createCache(
-				config.cacheDir,
-				bunFileAccesObject,
-				process.cwd(),
-			)
+			const solcCache = createCache(config.cacheDir, bunFileAccesObject, process.cwd())
 			const moduleResolver = bundler(
 				config,
 				console,
@@ -135,22 +129,12 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			 * go ahead and load that instead
 			 */
 			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
-				const filePaths = [
-					`${path}.ts`,
-					`${path}.js`,
-					`${path}.mjs`,
-					`${path}.cjs`,
-				]
-				const existsArr = await Promise.all(
-					filePaths.map((filePath) => bunFileAccesObject.exists(filePath)),
-				)
+				const filePaths = [`${path}.ts`, `${path}.js`, `${path}.mjs`, `${path}.cjs`]
+				const existsArr = await Promise.all(filePaths.map((filePath) => bunFileAccesObject.exists(filePath)))
 				for (const [i, exists] of existsArr.entries()) {
 					if (exists) {
 						return {
-							contents: await bunFileAccesObject.readFile(
-								/** @type {any} */ (filePaths[i]),
-								'utf8',
-							),
+							contents: await bunFileAccesObject.readFile(/** @type {any} */ (filePaths[i]), 'utf8'),
 							watchFiles: [filePaths[i]],
 						}
 					}
@@ -158,13 +142,12 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 
 				const resolveBytecode = path.endsWith('.s.sol')
 
-				const { code: contents, modules } =
-					await moduleResolver.resolveEsmModule(
-						path,
-						process.cwd(),
-						false,
-						resolveBytecode,
-					)
+				const { code: contents, modules } = await moduleResolver.resolveEsmModule(
+					path,
+					process.cwd(),
+					false,
+					resolveBytecode,
+				)
 
 				const watchFiles = Object.values(modules)
 					.filter(({ id }) => !id.includes('node_modules'))

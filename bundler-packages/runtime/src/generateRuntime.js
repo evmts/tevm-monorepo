@@ -1,5 +1,5 @@
-import { generateTevmBody } from './generateTevmBody.js'
 import { die, map } from 'effect/Effect'
+import { generateTevmBody } from './generateTevmBody.js'
 
 /**
  * @param {'tevm/contract' | '@tevm/contract'} contractPackage
@@ -25,19 +25,11 @@ const importsByModuleType = (contractPackage) => ({
  * @param {'tevm/contract' | '@tevm/contract'} tevmPackage - Package to import contracts from
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateRuntime = (
-	artifacts,
-	moduleType,
-	includeBytecode,
-	tevmPackage,
-) => {
+export const generateRuntime = (artifacts, moduleType, includeBytecode, tevmPackage) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		return die('No artifacts provided to generateRuntime')
 	}
-	const imports =
-		importsByModuleType(tevmPackage)[includeBytecode ? 'script' : 'contract'][
-			moduleType
-		]
+	const imports = importsByModuleType(tevmPackage)[includeBytecode ? 'script' : 'contract'][moduleType]
 	if (!imports) {
 		return die(
 			`Unknown module type: ${moduleType}. Valid module types include ${Object.keys(
@@ -45,7 +37,5 @@ export const generateRuntime = (
 			).join(', ')}`,
 		)
 	}
-	return generateTevmBody(artifacts, moduleType, includeBytecode).pipe(
-		map((body) => [imports, body].join('\n')),
-	)
+	return generateTevmBody(artifacts, moduleType, includeBytecode).pipe(map((body) => [imports, body].join('\n')))
 }

@@ -11,8 +11,7 @@ export const zStorageRoot = z
 		if (!storageRootRegex.test(value)) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message:
-					'Value must be a 32-byte hex string (64 hex characters with a 0x prefix)',
+				message: 'Value must be a 32-byte hex string (64 hex characters with a 0x prefix)',
 			})
 		}
 		return value

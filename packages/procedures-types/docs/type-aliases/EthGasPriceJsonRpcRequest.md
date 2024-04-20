@@ -12,7 +12,7 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L101)
+[requests/EthJsonRpcRequest.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L83)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

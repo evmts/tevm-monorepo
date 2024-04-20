@@ -4,8 +4,8 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { isAddress } from './isAddress.js'
 import { filter, string } from '@effect/schema/Schema'
+import { isAddress } from './isAddress.js'
 
 /**
  * @typedef {`0x${string}`} Address - Type representing a valid Ethereum address

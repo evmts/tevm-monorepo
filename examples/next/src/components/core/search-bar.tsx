@@ -1,11 +1,11 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { useState, type FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMedia } from 'react-use';
-import { Address, isAddress } from 'tevm/utils';
+import { isAddress, type Address } from 'tevm/utils';
 
-import { Chain } from '@/lib/types/providers';
+import type { Chain } from '@/lib/types/providers';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { cn } from '@/lib/utils';

@@ -1,12 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import type { CompilerConfig } from '../types.js'
-import {
-	ConfigFnThrowError,
-	InvalidConfigError,
-	validateUserConfig,
-} from './validateUserConfig.js'
 import { runSync } from 'effect/Effect'
+import type { CompilerConfig } from '../types.js'
+import { ConfigFnThrowError, InvalidConfigError, validateUserConfig } from './validateUserConfig.js'
 
 describe(validateUserConfig.name, () => {
 	it('should return the CompilerConfig if it is valid', () => {
@@ -57,9 +53,7 @@ describe(validateUserConfig.name, () => {
 			{ unknownProperty: 'foo' },
 		]
 		invalidConfig.forEach((config) => {
-			expect(() => runSync(validateUserConfig(() => config))).toThrowError(
-				new InvalidConfigError(),
-			)
+			expect(() => runSync(validateUserConfig(() => config))).toThrowError(new InvalidConfigError())
 		})
 	})
 

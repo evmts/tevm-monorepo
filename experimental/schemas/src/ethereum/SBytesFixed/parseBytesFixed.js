@@ -4,6 +4,7 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { runSync } from 'effect/Effect'
 import {
 	parseBytes1Safe,
 	parseBytes2Safe,
@@ -38,7 +39,6 @@ import {
 	parseBytes31Safe,
 	parseBytes32Safe,
 } from './parseBytesFixedSafe.js'
-import { runSync } from 'effect/Effect'
 
 /**
  * Parses a Bytes1 and returns the value if no errors.

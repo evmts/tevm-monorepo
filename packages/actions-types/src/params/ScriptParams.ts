@@ -1,10 +1,6 @@
-import type { BaseCallParams } from './BaseCallParams.js'
 import type { Abi } from '@tevm/utils'
-import {
-	type ContractFunctionName,
-	type EncodeFunctionDataParameters,
-	type Hex,
-} from '@tevm/utils'
+import type { ContractFunctionName, EncodeFunctionDataParameters, Hex } from '@tevm/utils'
+import type { BaseCallParams } from './BaseCallParams.js'
 
 /**
  * Tevm params for deploying and running a script

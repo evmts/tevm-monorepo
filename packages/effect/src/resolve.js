@@ -1,9 +1,4 @@
-import {
-	async as effectAsync,
-	fail,
-	succeed,
-	try as trySync,
-} from 'effect/Effect'
+import { async as effectAsync, fail, succeed, try as trySync } from 'effect/Effect'
 import resolve from 'resolve'
 
 /**
@@ -29,10 +24,9 @@ export class CouldNotResolveImportError extends Error {
 	 * @param {Error} cause
 	 */
 	constructor(importPath, absolutePath, cause) {
-		super(
-			`Could not resolve import ${importPath} from ${absolutePath}. Please check your remappings and libraries.`,
-			{ cause },
-		)
+		super(`Could not resolve import ${importPath} from ${absolutePath}. Please check your remappings and libraries.`, {
+			cause,
+		})
 	}
 }
 
@@ -52,12 +46,7 @@ export class CouldNotResolveImportError extends Error {
 export const resolveSync = (importPath, options) => {
 	return trySync({
 		try: () => resolve.sync(importPath, options),
-		catch: (e) =>
-			new CouldNotResolveImportError(
-				importPath,
-				options.basedir ?? __dirname,
-				/** @type {Error} */ (e),
-			),
+		catch: (e) => new CouldNotResolveImportError(importPath, options.basedir ?? __dirname, /** @type {Error} */ (e)),
 	})
 }
 
@@ -78,15 +67,7 @@ export const resolveAsync = (importPath, options) => {
 		resolve(importPath, options, (err, resolvedPath) => {
 			if (err) {
 				console.error(err)
-				resume(
-					fail(
-						new CouldNotResolveImportError(
-							importPath,
-							options.basedir ?? '',
-							err,
-						),
-					),
-				)
+				resume(fail(new CouldNotResolveImportError(importPath, options.basedir ?? '', err)))
 			} else {
 				resume(succeed(/** @type {string} */ (resolvedPath)))
 			}

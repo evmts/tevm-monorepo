@@ -1,7 +1,7 @@
-import { TevmBlockchain } from './TevmBlockchain.js'
 import { Block } from '@tevm/block'
 import { genesisStateRoot } from '@tevm/trie'
 import { createMemoryDb, parseGwei } from '@tevm/utils'
+import { TevmBlockchain } from './TevmBlockchain.js'
 
 /**
  * @param {object} options
@@ -26,9 +26,8 @@ export const createBlockchain = async ({ common }) => {
 			},
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
-							/** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
-				  }
+						withdrawals: /** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
+					}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },

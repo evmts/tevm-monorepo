@@ -32,12 +32,12 @@
 >
 > ### Source
 >
-> [precompiles/src/defineCall.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L35)
+> [precompiles/src/defineCall.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L27)
 >
 
 ## Source
 
-[precompiles/src/defineCall.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L26)
+[precompiles/src/defineCall.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

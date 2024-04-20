@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getLogs` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L171)
+[responses/EthJsonRpcResponse.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L126)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

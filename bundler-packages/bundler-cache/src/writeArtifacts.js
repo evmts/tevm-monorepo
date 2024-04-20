@@ -11,19 +11,8 @@ import { version } from './version.js'
  * @param {import('./types.js').FileAccessObject} fs
  * @returns {Promise<string>}
  */
-export const writeArtifacts = async (
-	cwd,
-	cacheDir,
-	entryModuleId,
-	resolvedArtifacts,
-	fs,
-) => {
-	const { dir, path } = getArtifactsPath(
-		entryModuleId,
-		'artifactsJson',
-		cwd,
-		cacheDir,
-	)
+export const writeArtifacts = async (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs) => {
+	const { dir, path } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
@@ -38,12 +27,10 @@ export const writeArtifacts = async (
 				{
 					version,
 					files: Object.fromEntries(
-						Object.keys(resolvedArtifacts.solcInput.sources).map(
-							(sourcePath) => {
-								// for efficiency let's only check the last updated timestamp of the files
-								return [sourcePath, fs.statSync(sourcePath).mtimeMs]
-							},
-						),
+						Object.keys(resolvedArtifacts.solcInput.sources).map((sourcePath) => {
+							// for efficiency let's only check the last updated timestamp of the files
+							return [sourcePath, fs.statSync(sourcePath).mtimeMs]
+						}),
 					),
 				},
 				null,

@@ -1,20 +1,13 @@
+import { execSync } from 'node:child_process'
+import { join } from 'node:path'
+import { runSync } from 'effect/Effect'
+import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
 	FoundryConfigError,
 	FoundryNotFoundError,
 	InvalidRemappingsError,
 	loadFoundryConfig,
 } from './loadFoundryConfig.js'
-import { execSync } from 'child_process'
-import { runSync } from 'effect/Effect'
-import { join } from 'path'
-import {
-	type MockedFunction,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	vi,
-} from 'vitest'
 
 vi.mock('child_process', async () => ({
 	execSync: vi.fn(),
@@ -32,18 +25,14 @@ describe(loadFoundryConfig.name, () => {
 		mockExecSync.mockImplementationOnce(execSync)
 		let res = runSync(loadFoundryConfig('forge', foundryFixture))
 		expect(res.libs).toEqual(['lib'])
-		expect(res.remappings?.['@solmate-utils/']).toContain(
-			'lib/solmate/src/utils/',
-		)
+		expect(res.remappings?.['@solmate-utils/']).toContain('lib/solmate/src/utils/')
 		expect(mockExecSync).lastCalledWith('forge config --json', {
 			cwd: foundryFixture,
 		})
 		mockExecSync.mockImplementationOnce(execSync)
 		res = runSync(loadFoundryConfig(true, foundryFixture))
 		expect(res.libs).toEqual(['lib'])
-		expect(res.remappings?.['@solmate-utils/']).toContain(
-			'lib/solmate/src/utils/',
-		)
+		expect(res.remappings?.['@solmate-utils/']).toContain('lib/solmate/src/utils/')
 		expect(mockExecSync).lastCalledWith('forge config --json', {
 			cwd: foundryFixture,
 		})
@@ -53,27 +42,16 @@ describe(loadFoundryConfig.name, () => {
 	})
 
 	it('should return an empty config if no foundryProject is passed in', () => {
-		mockExecSync.mockImplementationOnce(
-			(vi.importActual('child_process') as any).execSync,
-		)
+		mockExecSync.mockImplementationOnce((vi.importActual('child_process') as any).execSync)
 		expect(runSync(loadFoundryConfig(undefined, foundryFixture))).toEqual({})
-		expect(
-			runSync(
-				loadFoundryConfig(
-					false,
-					join(__dirname, '..', 'fixtures', 'withFoundry'),
-				),
-			),
-		).toEqual({})
+		expect(runSync(loadFoundryConfig(false, join(__dirname, '..', 'fixtures', 'withFoundry')))).toEqual({})
 	})
 
 	it(`should throw ${FoundryNotFoundError.name} if command is not found`, () => {
-		mockExecSync.mockImplementationOnce(
-			(vi.importActual('child_process') as any).execSync,
+		mockExecSync.mockImplementationOnce((vi.importActual('child_process') as any).execSync)
+		expect(() => runSync(loadFoundryConfig('notforgecommand', foundryFixture))).toThrowError(
+			new FoundryNotFoundError('notforgecommand'),
 		)
-		expect(() =>
-			runSync(loadFoundryConfig('notforgecommand', foundryFixture)),
-		).toThrowError(new FoundryNotFoundError('notforgecommand'))
 	})
 
 	it(`should throw ${FoundryConfigError.name} in unlikely event foundry returns invalid json`, () => {
@@ -83,9 +61,7 @@ describe(loadFoundryConfig.name, () => {
 not-a-json
 				`
 		})
-		expect(() =>
-			runSync(loadFoundryConfig('forge', foundryFixture)),
-		).toThrowError(new FoundryConfigError('forge'))
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowError(new FoundryConfigError('forge'))
 	})
 
 	it(`should throw ${InvalidRemappingsError.name} in unlikey event foundry returns remappings not formatted as expected`, () => {
@@ -95,8 +71,6 @@ not-a-json
 				remappings: [remap],
 			})
 		})
-		expect(() =>
-			runSync(loadFoundryConfig('forge', foundryFixture)),
-		).toThrowError(new InvalidRemappingsError(remap))
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowError(new InvalidRemappingsError(remap))
 	})
 })

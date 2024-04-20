@@ -1,5 +1,5 @@
-import { createL1Client } from '../index.js'
 import { describe, expect, it } from 'bun:test'
+import { createL1Client } from '../index.js'
 
 describe('createL1Client', () => {
 	it('Should initialize a memory client syncronously with a ready function to see when client is ready', async () => {
@@ -26,8 +26,6 @@ describe('createL1Client', () => {
 		])
 
 		// every account should have a contract
-		expect(
-			accounts.map((account) => account.isContract).every(Boolean),
-		).toBeTruthy()
+		expect(accounts.map((account) => account.isContract).every(Boolean)).toBeTruthy()
 	})
 })

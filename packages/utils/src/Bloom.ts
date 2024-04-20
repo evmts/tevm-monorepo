@@ -17,8 +17,7 @@ export class Bloom {
 		if (!bitvector) {
 			this.bitvector = zeros(BYTE_SIZE)
 		} else {
-			if (bitvector.length !== BYTE_SIZE)
-				throw new Error('bitvectors must be 2048 bits long')
+			if (bitvector.length !== BYTE_SIZE) throw new Error('bitvectors must be 2048 bits long')
 			this.bitvector = bitvector
 		}
 	}

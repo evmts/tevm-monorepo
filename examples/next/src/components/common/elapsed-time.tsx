@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState, type FC } from 'react';
 
 type ElapsedTimeProps = {
   start: number;
@@ -37,7 +37,7 @@ const ElapsedTime: FC<ElapsedTimeProps> = ({ start, end, prefix, suffix }) => {
     }
   }, [start, end]);
 
-  if (isNaN(elapsed)) {
+  if (Number.isNaN(elapsed)) {
     return null;
   }
 

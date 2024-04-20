@@ -58,13 +58,9 @@ export const INT128_MIN = -BigInt('0x80000000000000000000000000000000')
  * The maximum value a {@link INT256} can be.
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const INT256_MAX = BigInt(
-	'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-)
+export const INT256_MAX = BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')
 /**
  * The minimum value a {@link INT256} can be.
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const INT256_MIN = -BigInt(
-	'0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-)
+export const INT256_MIN = -BigInt('0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')

@@ -1,11 +1,7 @@
-import {
-	CouldNotResolveImportError,
-	resolveAsync,
-	resolveSync,
-} from './resolve.js'
 import { flip, runPromise, runSync } from 'effect/Effect'
 import resolve from 'resolve'
 import { type Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { CouldNotResolveImportError, resolveAsync, resolveSync } from './resolve.js'
 
 vi.mock('resolve')
 
@@ -42,18 +38,14 @@ describe('resolve', () => {
 
 		it('should resolve the import path asynchronously', async () => {
 			const resolvedPath = '/absolute/path/to/module.js'
-			resolveAsyncMock.mockImplementationOnce((_, __, callback) =>
-				callback(null, resolvedPath),
-			)
+			resolveAsyncMock.mockImplementationOnce((_, __, callback) => callback(null, resolvedPath))
 			const result = await runPromise(resolveAsync('some-module', {}))
 			expect(result).toBe(resolvedPath)
 		})
 
 		it('should throw CouldNotResolveImportError if resolve async throws', async () => {
 			const error = new Error('Cannot find module')
-			resolveAsyncMock.mockImplementationOnce((_, __, callback) =>
-				callback(error, null),
-			)
+			resolveAsyncMock.mockImplementationOnce((_, __, callback) => callback(error, null))
 			const e = await runPromise(flip(resolveAsync('nonexistent-module', {})))
 			expect(e).toBeInstanceOf(CouldNotResolveImportError)
 			expect(e.cause).toBe(error)

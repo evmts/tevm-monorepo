@@ -120,7 +120,7 @@ By default the linter runs in --fix mode
 bun lint && bun format
 ```
 
-The linter used is rome not prettier or eslint
+The linter used is biome not prettier or eslint
 
 #### Generating docs
 

@@ -64,7 +64,7 @@ const ArbitraryCall = () => {
   const isValid = useMemo(() => {
     return {
       data: isHex(dataInput) || dataInput === '',
-      value: !isNaN(Number(valueInput)),
+      value: !Number.isNaN(Number(valueInput)),
     };
   }, [dataInput, valueInput]);
 

@@ -1,8 +1,8 @@
-import { createMemoryClient } from '../createMemoryClient.js'
-import { DaiContract } from './DaiContract.sol.js'
+import { describe, expect, it } from 'bun:test'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { createMemoryClient } from '../createMemoryClient.js'
+import { DaiContract } from './DaiContract.sol.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -45,18 +45,12 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('Tevm.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.script(
-				DaiContract.script.balanceOf(
-					'0x00000000000000000000000000000000000000ff',
-				),
-			)
+			const res = await tevm.script(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
 			expect(res.data).toBe(0n)
 			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
 			expect('errors' in res).toBe(false)
-			expect(res.rawData).toBe(
-				'0x0000000000000000000000000000000000000000000000000000000000000000',
-			)
+			expect(res.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
 			expect(res.data).toBe(0n)
 			// TODO test the other properties
 		})
@@ -96,18 +90,10 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				createTransaction: true,
 			})
 			expect(
-				(
-					await (
-						await tevm.getVm()
-					).stateManager.getAccount(new EthjsAddress(hexToBytes(address2)))
-				)?.balance,
+				(await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
 			).toBe(transferAmount)
 			expect(
-				(
-					await (
-						await tevm.getVm()
-					).stateManager.getAccount(new EthjsAddress(hexToBytes(address1)))
-				)?.balance,
+				(await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
 			).toBe(balance - transferAmount)
 			// TODO test other return properties
 		})
@@ -119,12 +105,9 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			// TODO test other inputs
 			const res = await tevm.contract({
 				to: contractAddress,
-				...DaiContract.read.balanceOf(
-					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-					{
-						contractAddress,
-					},
-				),
+				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
+					contractAddress,
+				}),
 			})
 			expect(res.data).toBe(1n)
 			expect(res.executionGasUsed).toBe(2447n)

@@ -1,19 +1,15 @@
-import type { AddEthereumChainParameter } from './AddEthereumChainParameter.js'
-import type { NetworkSync } from './NetworkSync.js'
-import type { WalletPermission } from './WalletPermission.js'
-import type { WatchAssetParams } from './WatchAssetParams.js'
-import type { Hash } from './misc.js'
 // this file is adapted from viem
 // see it here https://github.com/wevm/viem/blob/main/src/types/eip1193.ts
 // Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 import type { Address, BlockTag, Hex } from '@tevm/utils'
-import type {
-	Quantity,
-	RpcBlockNumber as BlockNumber,
-	RpcTransactionRequest as TransactionRequest,
-} from 'viem'
+import type { RpcBlockNumber as BlockNumber, Quantity, RpcTransactionRequest as TransactionRequest } from 'viem'
+import type { AddEthereumChainParameter } from './AddEthereumChainParameter.js'
+import type { NetworkSync } from './NetworkSync.js'
+import type { WalletPermission } from './WalletPermission.js'
+import type { WatchAssetParams } from './WatchAssetParams.js'
+import type { Hash } from './misc.js'
 
 export type JsonRpcSchemaWallet = {
 	/**
@@ -51,9 +47,7 @@ export type JsonRpcSchemaWallet = {
 	 */
 	eth_estimateGas: {
 		Method: 'eth_estimateGas'
-		Parameters:
-			| [transaction: TransactionRequest]
-			| [transaction: TransactionRequest, block: BlockNumber | BlockTag]
+		Parameters: [transaction: TransactionRequest] | [transaction: TransactionRequest, block: BlockNumber | BlockTag]
 		ReturnType: Quantity
 	}
 	/**

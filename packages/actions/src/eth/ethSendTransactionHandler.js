@@ -1,6 +1,6 @@
-import { callHandler } from '../index.js'
 import { TransactionFactory } from '@tevm/tx'
 import { bytesToHex } from '@tevm/utils'
+import { callHandler } from '../index.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client

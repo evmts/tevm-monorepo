@@ -1,6 +1,6 @@
-import { ParseJsonError, parseJson } from './parseJson.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
+import { ParseJsonError, parseJson } from './parseJson.js'
 
 describe(parseJson.name, () => {
 	it('should parse json', () => {

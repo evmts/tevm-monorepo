@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { useMemo, type FC, type ReactNode } from 'react';
 import { useMedia } from 'react-use';
 
 import { cn } from '@/lib/utils';

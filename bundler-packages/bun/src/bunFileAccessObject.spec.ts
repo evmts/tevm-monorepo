@@ -1,9 +1,9 @@
-import { file } from './bunFile.js'
-import { bunFileAccesObject } from './bunFileAccessObject.js'
-import * as fsPromises from 'fs/promises'
-import { join } from 'path'
+import * as fsPromises from 'node:fs/promises'
+import { join } from 'node:path'
 import { type Mock, beforeEach, describe, expect, it } from 'vitest'
 import { vi } from 'vitest'
+import { file } from './bunFile.js'
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 
 const licensePath = join(__dirname, '../LICENSE')
 

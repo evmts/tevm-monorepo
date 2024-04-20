@@ -1,8 +1,8 @@
-import { createMemoryClient } from '../createMemoryClient.js'
-import { type CustomPrecompile } from '@tevm/base-client'
+import { describe, expect, it } from 'bun:test'
+import type { CustomPrecompile } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 describe('precompiles option', () => {
 	it('should be able to add custom precompiles', async () => {
@@ -26,11 +26,9 @@ describe('precompiles option', () => {
 		}
 
 		const tevm = createMemoryClient({ customPrecompiles: [precompile] })
-		expect(
-			((await tevm.getVm()).evm as any).getPrecompile(
-				new EthjsAddress(hexToBytes(address)),
-			),
-		).toEqual(precompile.function)
+		expect(((await tevm.getVm()).evm as any).getPrecompile(new EthjsAddress(hexToBytes(address)))).toEqual(
+			precompile.function,
+		)
 		const result = await tevm.call({
 			to: address,
 			gas: BigInt(30000),

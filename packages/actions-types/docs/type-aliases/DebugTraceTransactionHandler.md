@@ -14,7 +14,7 @@
 
 ## Source
 
-[handlers/DebugHandler.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L12)
+[handlers/DebugHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

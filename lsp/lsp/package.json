@@ -1,53 +1,43 @@
 {
-  "name": "@tevm/lsp",
-  "version": "1.0.0-next.41",
-  "private": false,
-  "description": "The language server for Tevm",
-  "type": "module",
-  "main": "dist/index.js",
-  "license": "MIT",
-  "keywords": [
-    "typescript",
-    "plugin",
-    "solidity",
-    "sol",
-    "tevm"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "lsp/lsp"
-  },
-  "files": [
-    "dist/**/*.js",
-    "types/**/*.d.ts"
-  ],
-  "bin": {
-    "tevm-lsp": "./bin/tevm-lsp.cjs"
-  },
-  "dependencies": {
-    "@tevm/config": "workspace:^",
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "@volar/language-core": "~1.10.5",
-    "@volar/language-server": "~1.10.5",
-    "@volar/language-service": "~1.10.5",
-    "effect": "2.0.0-next.54",
-    "solc": "0.8.23-fixed",
-    "volar-service-css": "0.0.15",
-    "volar-service-emmet": "0.0.15",
-    "volar-service-html": "0.0.15",
-    "volar-service-typescript": "^0.0.17",
-    "vscode-html-languageservice": "^5.1.1",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@tevm/base-bundler": "workspace:^",
-    "rome": "^12.1.3",
-    "tsup": "^7.2.0",
-    "typedoc": "^0.25.3",
-    "typedoc-plugin-markdown": "^3.16.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
-  }
+	"name": "@tevm/lsp",
+	"version": "1.0.0-next.41",
+	"private": false,
+	"description": "The language server for Tevm",
+	"type": "module",
+	"main": "dist/index.js",
+	"license": "MIT",
+	"keywords": ["typescript", "plugin", "solidity", "sol", "tevm"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "lsp/lsp"
+	},
+	"files": ["dist/**/*.js", "types/**/*.d.ts"],
+	"bin": {
+		"tevm-lsp": "./bin/tevm-lsp.cjs"
+	},
+	"dependencies": {
+		"@tevm/config": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@volar/language-core": "~1.10.5",
+		"@volar/language-server": "~1.10.5",
+		"@volar/language-service": "~1.10.5",
+		"effect": "2.0.0-next.54",
+		"solc": "0.8.23-fixed",
+		"volar-service-css": "0.0.15",
+		"volar-service-emmet": "0.0.15",
+		"volar-service-html": "0.0.15",
+		"volar-service-typescript": "^0.0.17",
+		"vscode-html-languageservice": "^5.1.1",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@tevm/base-bundler": "workspace:^",
+		"tsup": "^7.2.0",
+		"typedoc": "^0.25.3",
+		"typedoc-plugin-markdown": "^3.16.0",
+		"typescript": "^5.2.2",
+		"vitest": "^0.34.6"
+	}
 }

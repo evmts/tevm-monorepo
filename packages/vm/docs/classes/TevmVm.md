@@ -148,7 +148,7 @@ VM.stateManager
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L94)
+[packages/vm/src/TevmVm.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L86)
 
 ## Methods
 
@@ -190,7 +190,7 @@ node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L96)
+[packages/vm/src/TevmVm.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L88)
 
 ***
 

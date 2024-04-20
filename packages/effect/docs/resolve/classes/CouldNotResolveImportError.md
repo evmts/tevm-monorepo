@@ -32,7 +32,7 @@ Error.constructor
 
 #### Source
 
-[packages/effect/src/resolve.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L31)
+[packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
 
 ## Properties
 
@@ -42,7 +42,7 @@ Error.constructor
 
 #### Source
 
-[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
+[packages/effect/src/resolve.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L15)
 
 ***
 
@@ -84,7 +84,7 @@ Error.name
 
 #### Source
 
-[packages/effect/src/resolve.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L25)
+[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
 
 ***
 

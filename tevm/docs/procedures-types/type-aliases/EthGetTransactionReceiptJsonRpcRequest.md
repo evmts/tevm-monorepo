@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:292
+packages/procedures-types/dist/index.d.ts:263
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

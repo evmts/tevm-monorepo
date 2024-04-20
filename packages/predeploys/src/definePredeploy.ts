@@ -1,5 +1,5 @@
-import { Predeploy } from './Predeploy.js'
 import { getAddress } from '@tevm/utils'
+import { Predeploy } from './Predeploy.js'
 
 /**
  * Defines a predeploy contract to use in the tevm vm
@@ -24,16 +24,10 @@ import { getAddress } from '@tevm/utils'
  * })
  * ```
  */
-export const definePredeploy = <
-	TName extends string,
-	THumanReadableAbi extends readonly string[],
->({
+export const definePredeploy = <TName extends string, THumanReadableAbi extends readonly string[]>({
 	contract,
 	address,
-}: Pick<
-	Predeploy<TName, THumanReadableAbi>,
-	'contract' | 'address'
->): Predeploy<TName, THumanReadableAbi> => {
+}: Pick<Predeploy<TName, THumanReadableAbi>, 'contract' | 'address'>): Predeploy<TName, THumanReadableAbi> => {
 	class PredeployImplementation extends Predeploy<TName, THumanReadableAbi> {
 		// the exta withAddress is a hack. The type for Predeploy is not correctly including a contract with an address
 		// TODO we should export contract with address as a type from @tevm/contract

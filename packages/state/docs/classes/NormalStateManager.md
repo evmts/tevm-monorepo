@@ -39,7 +39,7 @@ DefaultStateManager.constructor
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
+[packages/state/src/NormalStateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L23)
 
 ## Properties
 
@@ -235,7 +235,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
+[packages/state/src/NormalStateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L23)
 
 ***
 
@@ -483,7 +483,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L51)
+[packages/state/src/NormalStateManager.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L44)
 
 ***
 
@@ -521,7 +521,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L145)
+[packages/state/src/NormalStateManager.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L129)
 
 ***
 
@@ -633,7 +633,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L109)
+[packages/state/src/NormalStateManager.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L103)
 
 ***
 
@@ -679,7 +679,7 @@ An array of account addresses.
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L38)
+[packages/state/src/NormalStateManager.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L31)
 
 ***
 
@@ -1064,7 +1064,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L73)
+[packages/state/src/NormalStateManager.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L66)
 
 ***
 

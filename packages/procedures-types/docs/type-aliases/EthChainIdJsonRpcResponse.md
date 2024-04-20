@@ -12,7 +12,7 @@ JSON-RPC response for `eth_chainId` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L44)
+[responses/EthJsonRpcResponse.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L36)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

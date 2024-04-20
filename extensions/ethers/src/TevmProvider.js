@@ -192,14 +192,13 @@ export class TevmProvider extends JsonRpcApiProvider {
 					),
 				)
 			)
-		} else {
-			return /** @type {[import('ethers').JsonRpcResult | import('ethers').JsonRpcError]}*/ ([
-				await this.tevm.send(
-					/** @type {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest}*/ (
-						payload
-					),
-				),
-			])
 		}
+		return /** @type {[import('ethers').JsonRpcResult | import('ethers').JsonRpcError]}*/ ([
+			await this.tevm.send(
+				/** @type {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest}*/ (
+					payload
+				),
+			),
+		])
 	}
 }

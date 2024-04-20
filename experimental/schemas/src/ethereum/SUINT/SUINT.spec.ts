@@ -1,3 +1,4 @@
+import { assertType, describe, expect, it } from 'vitest'
 import {
 	isUINT8,
 	isUINT16,
@@ -12,7 +13,6 @@ import {
 	parseUINT128,
 	parseUINT256,
 } from './index.js'
-import { assertType, describe, expect, it } from 'vitest'
 
 const testCases = [
 	{
@@ -49,8 +49,7 @@ const testCases = [
 		type: 'UINT256',
 		max: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
 		parse: parseUINT256,
-		exceedsMax:
-			'115792089237316195423570985008687907853269984665640564039457584007913129639936',
+		exceedsMax: '115792089237316195423570985008687907853269984665640564039457584007913129639936',
 	},
 ]
 
@@ -89,11 +88,7 @@ const testCasesIsEqual = [
 		type: 'UINT256',
 		func: isUINT256,
 		max: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-		exceedsMax: (
-			BigInt(
-				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-			) + BigInt(1)
-		).toString(),
+		exceedsMax: (BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') + BigInt(1)).toString(),
 	},
 ] as const
 
@@ -130,29 +125,19 @@ describe.each(testCases)('parse%j', (testCase) => {
 	})
 
 	it(`should throw if value is out of ${testCase.type} range`, () => {
-		expect(() =>
-			testCase.parse(testCase.exceedsMax as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse(BigInt(-1) as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(testCase.exceedsMax as any)).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(BigInt(-1) as any)).toThrowErrorMatchingSnapshot()
 	})
 
 	it(`should throw if value is not a bigint for ${testCase.type}`, () => {
 		expect(() => testCase.parse('0x52' as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse(testCase.max.toString() as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(testCase.max.toString() as any)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse('' as any)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse(true as any)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse({} as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse('not an int' as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse('not an int' as any)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse(52 as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			testCase.parse(undefined as any),
-		).toThrowErrorMatchingSnapshot()
+		expect(() => testCase.parse(undefined as any)).toThrowErrorMatchingSnapshot()
 		expect(() => testCase.parse(null as any)).toThrowErrorMatchingSnapshot()
 	})
 })

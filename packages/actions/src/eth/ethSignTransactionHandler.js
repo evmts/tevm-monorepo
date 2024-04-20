@@ -7,9 +7,7 @@ import { MissingAccountError } from './ethSignHandler.js'
  * @returns {import('@tevm/actions-types').EthSignTransactionHandler}
  */
 export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
-	const accountsByAddress = Object.fromEntries(
-		accounts.map((account) => [account.address, account]),
-	)
+	const accountsByAddress = Object.fromEntries(accounts.map((account) => [account.address, account]))
 
 	return async ({ nonce, ...params }) => {
 		// TODO validate params with @tevm/zod

@@ -1,5 +1,5 @@
-import { createBaseClient } from './createBaseClient.js'
 import { describe, expect, it } from 'bun:test'
+import { createBaseClient } from './createBaseClient.js'
 
 describe('createBaseClient', () => {
 	it('Creates a base client', async () => {
@@ -29,9 +29,7 @@ describe('createBaseClient', () => {
 		setChainId(420)
 		expect(await getChainId()).toBe(420)
 		expect(miningConfig).toEqual({ type: 'auto' })
-		expect(
-			await getReceiptsManager().then((manager) => manager.getReceipts),
-		).toBeFunction()
+		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeFunction()
 	})
 
 	it('Can be extended', async () => {
@@ -51,8 +49,6 @@ describe('createBaseClient', () => {
 					url: 'https://foo.bar',
 				},
 			}),
-		).toThrowError(
-			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
-		)
+		).toThrowError('Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!')
 	})
 })

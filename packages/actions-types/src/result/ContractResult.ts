@@ -1,10 +1,7 @@
+import type { ContractError } from '@tevm/errors'
+import type { ContractFunctionName, DecodeFunctionResultReturnType } from '@tevm/utils'
 import type { Abi } from '../common/index.js'
 import type { CallResult } from './CallResult.js'
-import type { ContractError } from '@tevm/errors'
-import {
-	type ContractFunctionName,
-	type DecodeFunctionResultReturnType,
-} from '@tevm/utils'
 
 export type ContractResult<
 	TAbi extends Abi | readonly unknown[] = Abi,

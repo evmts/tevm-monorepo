@@ -1,21 +1,13 @@
-import { InitializationOptions } from '@volar/language-server'
+import type { InitializationOptions } from '@volar/language-server'
 import * as serverProtocol from '@volar/language-server/protocol'
-import {
-	ExportsInfoForLabs,
-	activateAutoInsertion,
-	supportLabsVersion,
-} from '@volar/vscode'
+import { type ExportsInfoForLabs, activateAutoInsertion, supportLabsVersion } from '@volar/vscode'
 import * as vscode from 'vscode'
 import * as lsp from 'vscode-languageclient/node'
 
 let client: lsp.BaseLanguageClient
 
 export async function activate(context: vscode.ExtensionContext) {
-	const serverModule = vscode.Uri.joinPath(
-		context.extensionUri,
-		'dist',
-		'server.js',
-	)
+	const serverModule = vscode.Uri.joinPath(context.extensionUri, 'dist', 'server.js')
 	const runOptions = { execArgv: <string[]>[] }
 	const debugOptions = { execArgv: ['--nolazy', `--inspect=${6009}`] }
 	const serverOptions: lsp.ServerOptions = {
@@ -38,12 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		documentSelector: [{ language: 'html1' }],
 		initializationOptions,
 	}
-	client = new lsp.LanguageClient(
-		'html1-language-server',
-		'HTML1 Language Server',
-		serverOptions,
-		clientOptions,
-	)
+	client = new lsp.LanguageClient('html1-language-server', 'HTML1 Language Server', serverOptions, clientOptions)
 	await client.start()
 
 	// support for auto close tag

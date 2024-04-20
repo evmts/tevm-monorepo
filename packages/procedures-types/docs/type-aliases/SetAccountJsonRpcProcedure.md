@@ -16,7 +16,7 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Source
 
-[procedure/SetAccountJsonRpcProcedure.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/SetAccountJsonRpcProcedure.ts#L9)
+[procedure/SetAccountJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/SetAccountJsonRpcProcedure.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

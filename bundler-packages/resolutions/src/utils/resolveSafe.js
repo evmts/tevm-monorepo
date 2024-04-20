@@ -1,6 +1,6 @@
-import { ExistsError, ReadFileError } from './safeFao.js'
 import { async as effectAsync, fail, runPromise, succeed } from 'effect/Effect'
 import resolve from 'resolve'
+import { ExistsError, ReadFileError } from './safeFao.js'
 
 /**
  * Error thrown when resolve fails
@@ -65,10 +65,9 @@ export const resolveSafe = (filePath, basedir, fao) => {
 			},
 			(err, res) => {
 				if (err) {
-					const typedError =
-						/** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsError} */ (
-							err
-						)
+					const typedError = /** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsError} */ (
+						err
+					)
 					if (typedError.name === 'ExistsError') {
 						resume(fail(new ExistsError(typedError)))
 					} else if (typedError.name === 'ReadFileError') {

@@ -1,7 +1,7 @@
-import { createScript } from './createScript.js'
-import { dummyAbi } from './test/fixtures.js'
 import { formatAbi, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { createScript } from './createScript.js'
+import { dummyAbi } from './test/fixtures.js'
 
 describe(createScript.name, () => {
 	const contract = createScript({
@@ -63,11 +63,7 @@ describe(createScript.name, () => {
 	})
 
 	it('should be able to read write and event with an address', () => {
-		expect(
-			contract
-				.withAddress(`0x${'a'.repeat(40)}`)
-				.write.exampleWrite('hello', 2n),
-		).toMatchInlineSnapshot(`
+		expect(contract.withAddress(`0x${'a'.repeat(40)}`).write.exampleWrite('hello', 2n)).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {
@@ -105,9 +101,7 @@ describe(createScript.name, () => {
 			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
-		expect(
-			contract.withAddress(`0x${'a'.repeat(40)}`).read.exampleRead('hello', 2n),
-		).toMatchInlineSnapshot(`
+		expect(contract.withAddress(`0x${'a'.repeat(40)}`).read.exampleRead('hello', 2n)).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {
@@ -145,9 +139,7 @@ describe(createScript.name, () => {
 			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
-		expect(
-			contract.withAddress(`0x${'a'.repeat(40)}`).events.exampleEvent({}),
-		).toMatchInlineSnapshot(`
+		expect(contract.withAddress(`0x${'a'.repeat(40)}`).events.exampleEvent({})).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {

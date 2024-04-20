@@ -1,5 +1,3 @@
-import type { GenError } from './GenError.js'
-import type { GenResult } from './GenResult.js'
 import type { ContractResult } from '@tevm/actions-types'
 import type { Abi } from 'abitype'
 import type {
@@ -9,6 +7,8 @@ import type {
 	WriteContractErrorType,
 	WriteContractReturnType,
 } from 'viem'
+import type { GenError } from './GenError.js'
+import type { GenResult } from './GenResult.js'
 
 // TODO move this to actions-types if it becomes a real action
 /**

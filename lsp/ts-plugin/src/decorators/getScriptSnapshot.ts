@@ -1,10 +1,10 @@
-import { createHostDecorator } from '../factories/index.js'
-import { isSolidity } from '../utils/index.js'
+import { existsSync, writeFileSync } from 'node:fs'
 import { bundler } from '@tevm/base-bundler'
-import { Cache } from '@tevm/bundler-cache'
-import { existsSync, writeFileSync } from 'fs'
+import type { Cache } from '@tevm/bundler-cache'
 // @ts-expect-error
 import * as solc from 'solc'
+import { createHostDecorator } from '../factories/index.js'
+import { isSolidity } from '../utils/index.js'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -27,12 +27,7 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 				try {
 					const plugin = bundler(config, logger as any, fao, solc, solcCache)
 					const resolveBytecode = filePath.endsWith('.s.sol')
-					const snapshot = plugin.resolveDtsSync(
-						filePath,
-						process.cwd(),
-						false,
-						resolveBytecode,
-					)
+					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false, resolveBytecode)
 					if (config.debug) {
 						writeFileSync(
 							`${filePath}.debug.d.ts`,
@@ -41,9 +36,7 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 					}
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
-					logger.error(
-						`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`,
-					)
+					logger.error(`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`)
 					logger.error(e as any)
 					return ts.ScriptSnapshot.fromString('export {}')
 				}

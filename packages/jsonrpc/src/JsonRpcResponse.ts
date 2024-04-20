@@ -1,8 +1,4 @@
-export type JsonRpcResponse<
-	TMethod extends string,
-	TResult,
-	TErrorCode extends string | number,
-> =
+export type JsonRpcResponse<TMethod extends string, TResult, TErrorCode extends string | number> =
 	| {
 			jsonrpc: '2.0'
 			method: TMethod

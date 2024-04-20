@@ -1,6 +1,6 @@
-import { Contract } from './Contract.js'
-import { JsonRpcProvider, ethers } from 'ethers'
+import { JsonRpcProvider, type ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
+import { Contract } from './Contract.js'
 
 const abi = [
 	{ inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
@@ -31,17 +31,13 @@ const abi = [
 	},
 	{
 		anonymous: false,
-		inputs: [
-			{ indexed: true, internalType: 'address', name: 'usr', type: 'address' },
-		],
+		inputs: [{ indexed: true, internalType: 'address', name: 'usr', type: 'address' }],
 		name: 'Deny',
 		type: 'event',
 	},
 	{
 		anonymous: false,
-		inputs: [
-			{ indexed: true, internalType: 'address', name: 'usr', type: 'address' },
-		],
+		inputs: [{ indexed: true, internalType: 'address', name: 'usr', type: 'address' }],
 		name: 'Rely',
 		type: 'event',
 	},
@@ -268,14 +264,9 @@ describe('ethers.Contract', () => {
 		const c = new Contract(addresses[10], abi, provider)
 
 		assertType<Parameters<typeof c.totalSupply>>([])
-		assertType<Parameters<typeof c.totalSupply>>([
-			{ blockTag: 4061226, chainId: 25 },
-		])
+		assertType<Parameters<typeof c.totalSupply>>([{ blockTag: 4061226, chainId: 25 }])
 		assertType<Parameters<typeof c.balanceOf>>([addresses[10]])
-		assertType<Parameters<typeof c.balanceOf>>([
-			addresses[10],
-			{ blockTag: 4061226, chainId: 25 },
-		])
+		assertType<Parameters<typeof c.balanceOf>>([addresses[10], { blockTag: 4061226, chainId: 25 }])
 		assertType<Parameters<typeof c.mint>>(['0x2342', 234234n])
 		assertType<Parameters<typeof c.mint>>([
 			'0x234234',
@@ -301,12 +292,8 @@ describe('ethers.Contract', () => {
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply({ blockTag: 4061226 })).toMatchInlineSnapshot(
-			'17275834779199905882210256n',
-		)
-		expect(
-			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
-		).toMatchInlineSnapshot('0n')
+		expect(await c.totalSupply({ blockTag: 4061226 })).toMatchInlineSnapshot('17275834779199905882210256n')
+		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 
 	test('should work with custom address', async () => {
@@ -320,8 +307,6 @@ describe('ethers.Contract', () => {
 				blockTag: 4061226,
 			}),
 		).toMatchInlineSnapshot('17275834779199905882210256n')
-		expect(
-			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
-		).toMatchInlineSnapshot('0n')
+		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 })

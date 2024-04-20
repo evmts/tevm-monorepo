@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getBalance` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L94)
+[responses/EthJsonRpcResponse.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L66)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

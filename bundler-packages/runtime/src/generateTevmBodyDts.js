@@ -22,12 +22,8 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 				}
 				if (includeBytecode) {
 					return [
-						`const _abi${contractName} = ${JSON.stringify(
-							contract.humanReadableAbi,
-						)} as const;`,
-						`const _name${contractName} = ${JSON.stringify(
-							contractName,
-						)} as const;`,
+						`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi)} as const;`,
+						`const _name${contractName} = ${JSON.stringify(contractName)} as const;`,
 						'/**',
 						` * ${contractName} Script`,
 						...natspec,
@@ -36,12 +32,8 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					].filter(Boolean)
 				}
 				return [
-					`const _abi${contractName} = ${JSON.stringify(
-						contract.humanReadableAbi,
-					)} as const;`,
-					`const _name${contractName} = ${JSON.stringify(
-						contractName,
-					)} as const;`,
+					`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi)} as const;`,
+					`const _name${contractName} = ${JSON.stringify(contractName)} as const;`,
 					'/**',
 					` * ${contractName} Contract`,
 					...natspec,

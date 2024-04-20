@@ -1,4 +1,4 @@
-import { Evm } from './Evm.js'
+import type { Evm } from './Evm.js'
 /**
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it
@@ -9,6 +9,6 @@ import { Evm } from './Evm.js'
  * Custom precompiles allow you to run arbitrary JavaScript code in the EVM
  */
 export type CustomPrecompile = Exclude<
-	Exclude<Parameters<typeof Evm['create']>[0], undefined>['customPrecompiles'],
+	Exclude<Parameters<(typeof Evm)['create']>[0], undefined>['customPrecompiles'],
 	undefined
 >[number]

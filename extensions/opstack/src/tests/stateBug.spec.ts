@@ -1,13 +1,8 @@
-import {
-	type L1Client,
-	createGasPriceOracle,
-	createL1Block,
-	createL1Client,
-} from '../index.js'
 // tevm@1.0.0-next.44
 // @tevm/opstack@1.0.0-next.43
 // Run with: pnpm ts-node bug-createTransaction-state/index.ts
 import { expect, test } from 'bun:test'
+import { type L1Client, createGasPriceOracle, createL1Block, createL1Client } from '../index.js'
 
 /* --------------------------------- PREPARE -------------------------------- */
 const DEPOSITOR_ACCOUNT = '0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001'
@@ -41,8 +36,7 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			createTransaction: true,
 		})
 		expect(writeRes).toEqual({
-			txHash:
-				'0x7ee048dd02317d35781ef64e803eb1d3638cf539def0b6d6d9f2b86264d9dc60',
+			txHash: '0x7ee048dd02317d35781ef64e803eb1d3638cf539def0b6d6d9f2b86264d9dc60',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 25588n,
@@ -62,8 +56,7 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			executionGasUsed: 2377n,
 			gas: 16774838n,
 			logs: [],
-			rawData:
-				'0x0000000000000000000000000000000000000000000000000000000000000001',
+			rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
 			selfdestruct: new Set(),
 		})
 
@@ -73,15 +66,13 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			createTransaction: true,
 		})
 		expect(res2).toEqual({
-			txHash:
-				'0x0aca6409d550c4841d025f2054eb7ec66ca777d5237926917e5a310f23638e4d',
+			txHash: '0x0aca6409d550c4841d025f2054eb7ec66ca777d5237926917e5a310f23638e4d',
 			createdAddresses: new Set(),
 			data: true,
 			executionGasUsed: 377n,
 			gas: 16776838n,
 			logs: [],
-			rawData:
-				'0x0000000000000000000000000000000000000000000000000000000000000001',
+			rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
 			selfdestruct: new Set(),
 		})
 

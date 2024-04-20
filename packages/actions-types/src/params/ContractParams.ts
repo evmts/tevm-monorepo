@@ -1,9 +1,6 @@
+import type { ContractFunctionName, EncodeFunctionDataParameters } from '@tevm/utils'
 import type { Abi, Address } from '../common/index.js'
 import type { BaseCallParams } from './BaseCallParams.js'
-import {
-	type ContractFunctionName,
-	type EncodeFunctionDataParameters,
-} from '@tevm/utils'
 
 /**
  * Tevm params to execute a call on a contract
