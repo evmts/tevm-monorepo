@@ -41,13 +41,17 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "style": {
+        "useImportType": "off"
+      },
       "performance": {
         "noDelete": "off",
         "noAccumulatingSpread": "off"
       },
       "complexity": {
         "noForEach": "off",
-        "noBannedTypes": "off"
+        "noBannedTypes": "off",
+        "useLiteralKeys": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",

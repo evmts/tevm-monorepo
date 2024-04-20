@@ -45,6 +45,9 @@ const biomeConfig = {
 		enabled: true,
 		rules: {
 			recommended: true,
+			style: {
+				useImportType: 'off',
+			},
 			performance: {
 				noDelete: 'off',
 				noAccumulatingSpread: 'off',
@@ -52,6 +55,7 @@ const biomeConfig = {
 			complexity: {
 				noForEach: 'off',
 				noBannedTypes: 'off',
+				useLiteralKeys: 'off',
 			},
 			suspicious: {
 				noExplicitAny: 'off',
