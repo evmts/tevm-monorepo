@@ -42,6 +42,10 @@ export async function POST(req: Request) {
     }),
   ];
 
+  if (!provider) {
+    throw new Error('no provider found')
+  }
+
   try {
     const res = await autoload(contractAddress, {
       provider,
