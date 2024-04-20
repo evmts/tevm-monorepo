@@ -15,7 +15,7 @@ export function load(url, _context, nextLoad) {
 			get(url, (res) => {
 				let data = ''
 				res.setEncoding('utf8')
-				// rome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+				// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 				res.on('data', (chunk) => (data += chunk))
 				res.on('end', () =>
 					resolve({

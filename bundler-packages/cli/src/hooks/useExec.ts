@@ -13,6 +13,7 @@ export const useExec = (
 	const [output, setOutput] = useState('')
 	const [error, setError] = useState('')
 	const [exitCode, setExitCode] = useState<number>()
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (!isStarted) {
 			return

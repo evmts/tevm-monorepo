@@ -24,7 +24,7 @@ type Props<V> = {
 	onSelect: (item: Item<V>) => void
 }
 
-// rome fails if we don't do this
+// biome fails if we don't do this
 type AnyItem = any
 
 /**

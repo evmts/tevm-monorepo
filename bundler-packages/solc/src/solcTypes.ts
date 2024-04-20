@@ -349,7 +349,6 @@ export type SolcOutput = {
 	// This contains the contract-level outputs.
 	// It can be limited/filtered by the outputSelection settings.
 	contracts: {
-		// rome-ignore lint/suspicious/noRedeclare: not sure why this is triggering
 		[sourceFile: string]: {
 			[contractName: string]: SolcContractOutput
 		}
@@ -519,7 +518,6 @@ export type SolcGasEstimates = {
 		[functionSignature: string]: string
 	}
 	internal: {
-		// rome-ignore lint/suspicious/noRedeclare: not sure why this is triggering
 		[functionSignature: string]: string
 	}
 }

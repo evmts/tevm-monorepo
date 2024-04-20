@@ -67,10 +67,12 @@ export const useCreateEvmtsApp = (state: Store): any => {
 		},
 	})
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		createFixturesMutation.mutate()
 	}, [])
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	return useMemo(() => {
 		const mutations = []
 		mutations.push(createFixturesMutation)

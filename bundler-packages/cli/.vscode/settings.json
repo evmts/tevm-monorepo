@@ -12,11 +12,11 @@
   "editor.inlineSuggest.enabled": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports.rome": true
+    "source.organizeImports.biome": true
   },
   "files.eol": "\n",
   "[typescript]": {
-    "editor.defaultFormatter": "rome.rome"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "editorconfig.generateAuto": false,
   "files.trimTrailingWhitespace": true,

@@ -48,7 +48,7 @@ const contractPackage = '@tevm/contract'
 describe(bundler.name, () => {
 	let resolver: ReturnType<Bundler>
 	let logger: Logger
-	let config
+	let config: any
 
 	const mockAddresses = {
 		10: '0x123',

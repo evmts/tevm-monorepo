@@ -11,6 +11,9 @@ importers:
       '@arethetypeswrong/cli':
         specifier: ^0.15.3
         version: 0.15.3
+      '@biomejs/biome':
+        specifier: ^1.6.4
+        version: 1.7.0
       '@changesets/changelog-github':
         specifier: ^0.5.0
         version: 0.5.0
@@ -47,9 +50,6 @@ importers:
       publint:
         specifier: ^0.2.7
         version: 0.2.7
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       sort-package-json:
         specifier: ^2.10.0
         version: 2.10.0
@@ -294,9 +294,6 @@ importers:
       ink-testing-library:
         specifier: ^3.0.0
         version: 3.0.0(@types/react@18.2.37)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       typescript:
         specifier: ^5.0.3
         version: 5.3.3
@@ -976,9 +973,6 @@ importers:
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       serve:
         specifier: ^14.2.1
         version: 14.2.1
@@ -1018,9 +1012,6 @@ importers:
       abitype:
         specifier: ^0.10.2
         version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(typescript@5.3.3)
@@ -1098,9 +1089,6 @@ importers:
       abitype:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       solc:
         specifier: 0.8.22
         version: 0.8.22
@@ -1186,9 +1174,6 @@ importers:
       glob:
         specifier: ^10.3.10
         version: 10.3.10
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(typescript@5.3.3)
@@ -1361,9 +1346,6 @@ importers:
       '@tevm/base-bundler':
         specifier: workspace:^
         version: link:../../bundler-packages/base-bundler
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(typescript@5.2.2)
@@ -1650,7 +1632,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.17.1)(typescript@5.4.5)
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
-        version: 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -3172,6 +3154,94 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@biomejs/biome@1.7.0:
+    resolution: {integrity: sha512-mejiRhnAq6UrXtYvjWJUKdstcT58n0/FfKemFf3d2Ou0HxOdS88HQmWtQ/UgyZvOEPD572YbFTb6IheyROpqkw==}
+    engines: {node: '>=14.21.3'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 1.7.0
+      '@biomejs/cli-darwin-x64': 1.7.0
+      '@biomejs/cli-linux-arm64': 1.7.0
+      '@biomejs/cli-linux-arm64-musl': 1.7.0
+      '@biomejs/cli-linux-x64': 1.7.0
+      '@biomejs/cli-linux-x64-musl': 1.7.0
+      '@biomejs/cli-win32-arm64': 1.7.0
+      '@biomejs/cli-win32-x64': 1.7.0
+    dev: true
+
+  /@biomejs/cli-darwin-arm64@1.7.0:
+    resolution: {integrity: sha512-12TaeaKHU4SAZt0fQJ2bYk1jUb4foope7LmgDE5p3c0uMxd3mFkg1k7G721T+K6UHYULcSOQDsNNM8DhYi8Irg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-darwin-x64@1.7.0:
+    resolution: {integrity: sha512-6Qq1BSIB0cpp0cQNqO/+EiUV7FE3jMpF6w7+AgIBXp0oJxUWb2Ff0RDZdO9bfzkimXD58j0vGpNHMGnCcjDV2Q==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64-musl@1.7.0:
+    resolution: {integrity: sha512-pwIY80nU7SAxrVVZ6HD9ah1pruwh9ZqlSR0Nvbg4ZJqQa0POhiB+RJx7+/1Ml2mTZdrl8kb/YiwQpD16uwb5wg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64@1.7.0:
+    resolution: {integrity: sha512-GwSci7xBJ2j1CrdDXDUVXnUtrvypEz/xmiYPpFeVdlX5p95eXx+7FekPPbJfhGGw5WKSsKZ+V8AAlbN+kUwJWw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64-musl@1.7.0:
+    resolution: {integrity: sha512-KzCA0mW4LSbCd7XZWaEJvTOTTBjfJoVEXkfq1fsXxww1HB+ww5PGMbhbIcbYCsj2CTJUifeD5hOkyuBVppU1xQ==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64@1.7.0:
+    resolution: {integrity: sha512-1y+odKQsyHcw0JCGRuqhbx7Y6jxOVSh4lGIVDdJxW1b55yD22DY1kcMEfhUte6f95OIc2uqfkwtiI6xQAiZJdw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-arm64@1.7.0:
+    resolution: {integrity: sha512-AvLDUYZBpOUFgS/mni4VruIoVV3uSGbKSkZQBPXsHgL0w4KttLll3NBrVanmWxOHsom6C6ocHLyfAY8HUc8TXg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-x64@1.7.0:
+    resolution: {integrity: sha512-Pylm00BAAuLVb40IH9PC17432BTsY8K4pSUvhvgR1eaalnMaD6ug9SYJTTzKDbT6r24MPAGCTiSZERyhGkGzFQ==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@changesets/apply-release-plan@7.0.0:
     resolution: {integrity: sha512-vfi69JR416qC9hWmFGSxj7N6wA5J222XNBmezSVATPWDVPIF7gkd4d8CpbEbXmRWbVrkoli3oerGS6dcL/BGsQ==}
@@ -5160,6 +5230,28 @@ packages:
       - zod
     dev: true
 
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
+    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+    peerDependencies:
+      solc: '*'
+    dependencies:
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.1)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@types/node': 20.11.30
+      bundle-require: 4.0.2(esbuild@0.19.5)
+      effect: 2.0.0-next.54
+      jsonc-parser: 3.2.1
+      solc: 0.8.22
+      viem: 1.19.11(typescript@5.4.5)(zod@3.22.4)
+    transitivePeerDependencies:
+      - bufferutil
+      - esbuild
+      - fast-check
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: true
+
   /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
@@ -5182,17 +5274,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
-    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+  /@evmts/core@1.0.0-next.12(viem@2.9.16):
+    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
+    peerDependencies:
+      viem: '>1.0.0'
+    dependencies:
+      viem: 2.9.16(typescript@5.4.5)(zod@3.22.4)
+    dev: true
+
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
+    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.1)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
-      '@types/node': 20.11.30
-      bundle-require: 4.0.2(esbuild@0.20.2)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
+      resolve: 1.22.8
       solc: 0.8.22
       viem: 1.19.11(typescript@5.4.5)(zod@3.22.4)
     transitivePeerDependencies:
@@ -5202,14 +5301,6 @@ packages:
       - typescript
       - utf-8-validate
       - zod
-    dev: true
-
-  /@evmts/core@1.0.0-next.12(viem@2.9.16):
-    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
-    peerDependencies:
-      viem: '>1.0.0'
-    dependencies:
-      viem: 2.9.16(typescript@5.4.5)(zod@3.22.4)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4):
@@ -5233,22 +5324,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
-    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
-    peerDependencies:
-      solc: '*'
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
+    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.1)
-      bundle-require: 4.0.2(esbuild@0.20.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/tsconfig': 1.0.0-next.5
+      '@types/node': 20.11.30
+      '@types/resolve': 1.20.5
       effect: 2.0.0-next.54
-      jsonc-parser: 3.2.1
+      glob: 10.3.10
       resolve: 1.22.8
-      solc: 0.8.22
-      viem: 1.19.11(typescript@5.4.5)(zod@3.22.4)
+      solidity-ast: 0.4.53
+      unplugin: 1.5.1
     transitivePeerDependencies:
       - bufferutil
       - esbuild
       - fast-check
+      - solc
       - typescript
       - utf-8-validate
       - zod
@@ -5277,29 +5370,6 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
-    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
-    dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
-      '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.11.30
-      '@types/resolve': 1.20.5
-      effect: 2.0.0-next.54
-      glob: 10.3.10
-      resolve: 1.22.8
-      solidity-ast: 0.4.53
-      unplugin: 1.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - esbuild
-      - fast-check
-      - solc
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
-
   /@evmts/runtime@1.0.0-next.13:
     resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
     dependencies:
@@ -5307,11 +5377,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.30
       '@types/resolve': 1.20.5
@@ -5330,11 +5400,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.30
       '@types/resolve': 1.20.5
@@ -5378,12 +5448,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.1)(solc@0.8.22)(typescript@5.4.5)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.30
       '@types/resolve': 1.20.5
@@ -5403,10 +5473,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.1)(typescript@5.4.5)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -8057,54 +8127,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    optional: true
-
-  /@rometools/cli-darwin-arm64@12.1.3:
-    resolution: {integrity: sha512-AmFTUDYjBuEGQp/Wwps+2cqUr+qhR7gyXAUnkL5psCuNCz3807TrUq/ecOoct5MIavGJTH6R4aaSL6+f+VlBEg==}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rometools/cli-darwin-x64@12.1.3:
-    resolution: {integrity: sha512-k8MbWna8q4LRlb005N2X+JS1UQ+s3ZLBBvwk4fP8TBxlAJXUz17jLLu/Fi+7DTTEmMhM84TWj4FDKW+rNar28g==}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rometools/cli-linux-arm64@12.1.3:
-    resolution: {integrity: sha512-X/uLhJ2/FNA3nu5TiyeNPqiD3OZoFfNfRvw6a3ut0jEREPvEn72NI7WPijH/gxSz55znfQ7UQ6iM4DZumUknJg==}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rometools/cli-linux-x64@12.1.3:
-    resolution: {integrity: sha512-csP17q1eWiUXx9z6Jr/JJPibkplyKIwiWPYNzvPCGE8pHlKhwZj3YHRuu7Dm/4EOqx0XFIuqqWZUYm9bkIC8xg==}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rometools/cli-win32-arm64@12.1.3:
-    resolution: {integrity: sha512-RymHWeod57EBOJY4P636CgUwYA6BQdkQjh56XKk4pLEHO6X1bFyMet2XL7KlHw5qOTalzuzf5jJqUs+vf3jdXQ==}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rometools/cli-win32-x64@12.1.3:
-    resolution: {integrity: sha512-yHSKYidqJMV9nADqg78GYA+cZ0hS1twANAjiFibQdXj9aGzD+s/IzIFEIi/U/OBLvWYg/SCw0QVozi2vTlKFDQ==}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /@rushstack/eslint-patch@1.8.0:
@@ -12407,16 +12429,6 @@ packages:
       esbuild: '>=0.17'
     dependencies:
       esbuild: 0.19.5
-      load-tsconfig: 0.2.5
-    dev: true
-
-  /bundle-require@4.0.2(esbuild@0.20.2):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.20.2
       load-tsconfig: 0.2.5
     dev: true
 
@@ -21885,20 +21897,6 @@ packages:
       '@rollup/rollup-win32-ia32-msvc': 4.9.5
       '@rollup/rollup-win32-x64-msvc': 4.9.5
       fsevents: 2.3.3
-
-  /rome@12.1.3:
-    resolution: {integrity: sha512-e+ff72hxDpe/t5/Us7YRBVw3PBET7SeczTQNn6tvrWdrCaAw3qOukQQ+tDCkyFtS4yGsnhjrJbm43ctNbz27Yg==}
-    engines: {node: '>=14.*'}
-    hasBin: true
-    requiresBuild: true
-    optionalDependencies:
-      '@rometools/cli-darwin-arm64': 12.1.3
-      '@rometools/cli-darwin-x64': 12.1.3
-      '@rometools/cli-linux-arm64': 12.1.3
-      '@rometools/cli-linux-x64': 12.1.3
-      '@rometools/cli-win32-arm64': 12.1.3
-      '@rometools/cli-win32-x64': 12.1.3
-    dev: true
 
   /rpc-websockets@7.7.0:
     resolution: {integrity: sha512-XYMzjxbDI0A9A2wwrx5/RswnZC53Av3bp5IOV9QnUdTuJ7Tstv4+V7vIe37pYYOn2wKYkbzkaeB8+I9oLztLOA==}

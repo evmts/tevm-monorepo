@@ -5,7 +5,7 @@ class WebpackPlugin {
 	 * @param {Parameters<typeof unplugin.webpack>[0]} options
 	 */
 	constructor(options) {
-		// rome-ignore lint/correctness/noConstructorReturn: <explanation>
+		// biome-ignore lint/correctness/noConstructorReturn: <explanation>
 		return unplugin.webpack(options)
 	}
 }

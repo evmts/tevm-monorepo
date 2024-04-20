@@ -100,10 +100,10 @@
     "!src/**/*.spec.js"
   ],
   "scripts": {
-    "//format": "rome format . --write",
-    "//format:check": "rome format .",
-    "//lint": "rome check . --apply-unsafe",
-    "//lint:check": "rome check . --verbose",
+    "//format": "biome format . --write",
+    "//format:check": "biome format .",
+    "//lint": "biome check . --apply-unsafe",
+    "//lint:check": "biome check . --verbose",
     "//test": "vitest --coverage",
     "//test:coverage": "vitest run --coverage",
     "//test:run": "vitest run",
@@ -139,7 +139,6 @@
     "@vitest/ui": "^0.34.6",
     "babel-cli": "^6.26.0",
     "glob": "^10.3.10",
-    "rome": "^12.1.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",
     "viem": "^1.x.x",

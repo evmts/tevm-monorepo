@@ -12,11 +12,11 @@
   "editor.inlineSuggest.enabled": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
-    "source.organizeImports.rome": "explicit"
+    "source.organizeImports.biome": "explicit"
   },
   "files.eol": "\n",
   "[typescript]": {
-    "editor.defaultFormatter": "rome.rome"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "editorconfig.generateAuto": false,
   "files.trimTrailingWhitespace": true,
@@ -24,7 +24,8 @@
   "solidity.packageDefaultDependenciesDirectory": "lib",
   "solidity.compileUsingRemoteVersion": "v0.8.17",
   "search.exclude": {
-    "lib": true
+    "lib": true,
+    "pnpm-lock.yaml": true
   },
   "files.associations": {
     ".gas-snapshot": "julia",
