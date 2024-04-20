@@ -1,6 +1,4 @@
-import {
-  Common,
-} from '@tevm/common'
+import { Common } from '@tevm/common'
 import { genesisStateRoot as genMerkleGenesisStateRoot } from '@tevm/trie'
 import type { GenesisState } from '@tevm/utils'
 
@@ -11,18 +9,18 @@ import type { GenesisState } from '@tevm/utils'
  * @returns
  */
 export async function genGenesisStateRoot(
-  genesisState: GenesisState,
-  common: Common
+	genesisState: GenesisState,
+	common: Common,
 ): Promise<Uint8Array> {
-  const genCommon = common.copy()
-  genCommon.setHardforkBy({
-    blockNumber: 0,
-    td: BigInt(genCommon.genesis().difficulty),
-    timestamp: genCommon.genesis().timestamp ?? 0n,
-  })
-  if (genCommon.isActivatedEIP(6800)) {
-    throw Error(`Verkle tree state not yet supported`)
-  } else {
-    return genMerkleGenesisStateRoot(genesisState)
-  }
+	const genCommon = common.copy()
+	genCommon.setHardforkBy({
+		blockNumber: 0,
+		td: BigInt(genCommon.genesis().difficulty),
+		timestamp: genCommon.genesis().timestamp ?? 0n,
+	})
+	if (genCommon.isActivatedEIP(6800)) {
+		throw Error('Verkle tree state not yet supported')
+	} else {
+		return genMerkleGenesisStateRoot(genesisState)
+	}
 }

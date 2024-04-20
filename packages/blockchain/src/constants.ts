@@ -47,27 +47,31 @@ const BODY_PREFIX = toBytes('b')
 const bytesBE8 = (n: bigint) => toBytes(BigInt.asUintN(64, n))
 
 const tdKey = (n: bigint, hash: Uint8Array) =>
-  concatBytes(HEADER_PREFIX, bytesBE8(n), hash, TD_SUFFIX)
+	concatBytes(HEADER_PREFIX, bytesBE8(n), hash, TD_SUFFIX)
 
-const headerKey = (n: bigint, hash: Uint8Array) => concatBytes(HEADER_PREFIX, bytesBE8(n), hash)
+const headerKey = (n: bigint, hash: Uint8Array) =>
+	concatBytes(HEADER_PREFIX, bytesBE8(n), hash)
 
-const bodyKey = (n: bigint, hash: Uint8Array) => concatBytes(BODY_PREFIX, bytesBE8(n), hash)
+const bodyKey = (n: bigint, hash: Uint8Array) =>
+	concatBytes(BODY_PREFIX, bytesBE8(n), hash)
 
-const numberToHashKey = (n: bigint) => concatBytes(HEADER_PREFIX, bytesBE8(n), NUM_SUFFIX)
+const numberToHashKey = (n: bigint) =>
+	concatBytes(HEADER_PREFIX, bytesBE8(n), NUM_SUFFIX)
 
-const hashToNumberKey = (hash: Uint8Array) => concatBytes(BLOCK_HASH_PEFIX, hash)
+const hashToNumberKey = (hash: Uint8Array) =>
+	concatBytes(BLOCK_HASH_PEFIX, hash)
 
 /**
  * @hidden
  */
 export {
-  bodyKey,
-  bytesBE8,
-  hashToNumberKey,
-  HEAD_BLOCK_KEY,
-  HEAD_HEADER_KEY,
-  headerKey,
-  HEADS_KEY,
-  numberToHashKey,
-  tdKey,
+	bodyKey,
+	bytesBE8,
+	hashToNumberKey,
+	HEAD_BLOCK_KEY,
+	HEAD_HEADER_KEY,
+	headerKey,
+	HEADS_KEY,
+	numberToHashKey,
+	tdKey,
 }
