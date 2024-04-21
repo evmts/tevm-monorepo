@@ -79,27 +79,36 @@ export class DBOp {
 				break
 			}
 			case DBTarget.HashToNumber: {
-				this.baseDBOp.key = hashToNumberKey(key?.blockHash!)
+				this.baseDBOp.key = hashToNumberKey(key?.blockHash as Uint8Array)
 				this.cacheString = 'hashToNumber'
 				break
 			}
 			case DBTarget.NumberToHash: {
-				this.baseDBOp.key = numberToHashKey(key?.blockNumber!)
+				this.baseDBOp.key = numberToHashKey(key?.blockNumber as bigint)
 				this.cacheString = 'numberToHash'
 				break
 			}
 			case DBTarget.TotalDifficulty: {
-				this.baseDBOp.key = tdKey(key?.blockNumber!, key?.blockHash!)
+				this.baseDBOp.key = tdKey(
+					key?.blockNumber as bigint,
+					key?.blockHash as Uint8Array,
+				)
 				this.cacheString = 'td'
 				break
 			}
 			case DBTarget.Body: {
-				this.baseDBOp.key = bodyKey(key?.blockNumber!, key?.blockHash!)
+				this.baseDBOp.key = bodyKey(
+					key?.blockNumber as bigint,
+					key?.blockHash as Uint8Array,
+				)
 				this.cacheString = 'body'
 				break
 			}
 			case DBTarget.Header: {
-				this.baseDBOp.key = headerKey(key?.blockNumber!, key?.blockHash!)
+				this.baseDBOp.key = headerKey(
+					key?.blockNumber as bigint,
+					key?.blockHash as Uint8Array,
+				)
 				this.cacheString = 'header'
 				break
 			}

@@ -13,24 +13,22 @@ export class Cache<V> {
 	}
 
 	set(key: string | Uint8Array, value: V): void {
-		if (key instanceof Uint8Array) {
-			key = bytesToUnprefixedHex(key)
-		}
-		this._cache.set(key, { value })
+		this._cache.set(
+			key instanceof Uint8Array ? bytesToUnprefixedHex(key) : key,
+			{ value },
+		)
 	}
 
 	get(key: string | Uint8Array): V | undefined {
-		if (key instanceof Uint8Array) {
-			key = bytesToUnprefixedHex(key)
-		}
-		const elem = this._cache.get(key)
+		const elem = this._cache.get(
+			key instanceof Uint8Array ? bytesToUnprefixedHex(key) : key,
+		)
 		return elem !== undefined ? elem.value : undefined
 	}
 
 	del(key: string | Uint8Array): void {
-		if (key instanceof Uint8Array) {
-			key = bytesToUnprefixedHex(key)
-		}
-		this._cache.delete(key)
+		this._cache.delete(
+			key instanceof Uint8Array ? bytesToUnprefixedHex(key) : key,
+		)
 	}
 }

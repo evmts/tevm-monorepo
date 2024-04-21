@@ -22,9 +22,6 @@ import type {
 	DelBatch,
 	PutBatch,
 } from '@ethereumjs/util'
-BIGINT_0,
-  BIGINT_1,
-
 /**
  * @hidden
  */
@@ -98,19 +95,20 @@ export class DBManager {
 	async getBlock(
 		blockId: Uint8Array | bigint | number,
 	): Promise<Block | undefined> {
-		if (typeof blockId === 'number' && Number.isInteger(blockId)) {
-			blockId = BigInt(blockId)
+		let _blockId = blockId
+		if (typeof _blockId === 'number' && Number.isInteger(_blockId)) {
+			_blockId = BigInt(_blockId)
 		}
 
 		let number
 		let hash
-		if (blockId === undefined) return undefined
-		if (blockId instanceof Uint8Array) {
-			hash = blockId
-			number = await this.hashToNumber(blockId)
-		} else if (typeof blockId === 'bigint') {
-			number = blockId
-			hash = await this.numberToHash(blockId)
+		if (_blockId === undefined) return undefined
+		if (_blockId instanceof Uint8Array) {
+			hash = _blockId
+			number = await this.hashToNumber(_blockId)
+		} else if (typeof _blockId === 'bigint') {
+			number = _blockId
+			hash = await this.numberToHash(_blockId)
 		} else {
 			throw new Error('Unknown blockId type')
 		}

@@ -1,3 +1,4 @@
+import { DBManager } from './DbManager.js'
 import {
 	CasperConsensus,
 	CliqueConsensus,
@@ -6,22 +7,14 @@ import {
 import { Block } from '@tevm/block'
 import { ConsensusAlgorithm } from '@tevm/common'
 import { genesisStateRoot } from '@tevm/trie'
-import {
-	AsyncEventEmitter,
-	Lock,
-	MapDb,
-	createMemoryDb,
-	parseGwei,
-} from '@tevm/utils'
-import type { Db as DB, DbObject as DBObject, GenesisState, Hex } from '@tevm/utils'
-import { DBManager } from './DbManager.js'
+import { AsyncEventEmitter, Lock, createMemoryDb, parseGwei } from '@tevm/utils'
 
 /**
  * @param {object} options
  * @param {import('@tevm/common').Common} options.common
  * @param {string} [options.forkUrl]
  * @param {import('@tevm/utils').BlockTag | import('@tevm/utils').Hex} [options.blockTag]
- * @returns {Promise<TevmBlockchain>}
+ * @returns {Promise<import('./TevmBlockchain.js').Blockchain>}
  */
 export const createBlockchain = async ({ common }) => {
 	const db = createMemoryDb()
