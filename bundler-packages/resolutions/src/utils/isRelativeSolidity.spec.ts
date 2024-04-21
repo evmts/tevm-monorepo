@@ -1,5 +1,5 @@
-import { isRelativeSolidity } from './isRelativeSolidity.js'
 import { describe, expect, it } from 'vitest'
+import { isRelativeSolidity } from './isRelativeSolidity.js'
 
 describe(isRelativeSolidity.name, () => {
 	it('should return true for .sol files', () => {
@@ -17,26 +17,14 @@ describe(isRelativeSolidity.name, () => {
 	})
 
 	it('should return false for non .sol files', () => {
-		const files = [
-			'.sol.sol',
-			'./foo/bar.ts',
-			'./bar.sol.ts',
-			'./sol',
-			'./.sol',
-		]
+		const files = ['.sol.sol', './foo/bar.ts', './bar.sol.ts', './sol', './.sol']
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(false)
 		})
 	})
 
 	it('should return false for non relative .sol files', () => {
-		const files = [
-			'.sol.sol',
-			'/foo/bar/baz.sol',
-			'foo/bar/baz.sol',
-			'bar/baz.sol',
-			'./bar.sol.ts',
-		]
+		const files = ['.sol.sol', '/foo/bar/baz.sol', 'foo/bar/baz.sol', 'bar/baz.sol', './bar.sol.ts']
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(false)
 		})

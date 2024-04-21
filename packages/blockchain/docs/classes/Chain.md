@@ -1,8 +1,8 @@
-**@tevm/blockchain** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/blockchain](../README.md) / Chain
+[API](../API.md) > Chain
 
 # Class: Chain
 
@@ -29,15 +29,11 @@ for concurrency safe initialization.
 
 #### Parameters
 
-• **options**: `ChainOptions`
-
-#### Returns
-
-[`Chain`](Chain.md)
+▪ **options**: `ChainOptions`
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L214)
+[packages/blockchain/src/Chain.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L201)
 
 ## Properties
 
@@ -47,27 +43,27 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L187)
-
-***
-
-### \_customGenesisState?
-
-> **`optional`** **\_customGenesisState**: `GenesisState`
-
-#### Source
-
-[packages/blockchain/src/Chain.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L173)
-
-***
-
-### \_customGenesisStateRoot?
-
-> **`optional`** **\_customGenesisStateRoot**: `Uint8Array`
-
-#### Source
-
 [packages/blockchain/src/Chain.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L174)
+
+***
+
+### \_customGenesisState
+
+> **\_customGenesisState**?: `GenesisState`
+
+#### Source
+
+[packages/blockchain/src/Chain.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L160)
+
+***
+
+### \_customGenesisStateRoot
+
+> **\_customGenesisStateRoot**?: `Uint8Array`
+
+#### Source
+
+[packages/blockchain/src/Chain.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L161)
 
 ***
 
@@ -77,7 +73,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L178)
+[packages/blockchain/src/Chain.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L165)
 
 ***
 
@@ -87,7 +83,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L172)
+[packages/blockchain/src/Chain.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L159)
 
 ***
 
@@ -97,7 +93,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L160)
+[packages/blockchain/src/Chain.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L147)
 
 ***
 
@@ -107,11 +103,11 @@ for concurrency safe initialization.
 
 #### Implementation of
 
-`Pick.consensus`
+Pick.consensus
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L171)
+[packages/blockchain/src/Chain.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L158)
 
 ***
 
@@ -121,11 +117,11 @@ for concurrency safe initialization.
 
 #### Implementation of
 
-`Pick.db`
+Pick.db
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L161)
+[packages/blockchain/src/Chain.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L148)
 
 ***
 
@@ -135,7 +131,7 @@ for concurrency safe initialization.
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:176](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L176)
+[packages/blockchain/src/Chain.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L163)
 
 ## Accessors
 
@@ -145,13 +141,9 @@ for concurrency safe initialization.
 
 Returns properties of the canonical blockchain.
 
-#### Returns
-
-`ChainBlocks`
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L326)
+[packages/blockchain/src/Chain.ts:308](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L308)
 
 ***
 
@@ -161,20 +153,16 @@ Returns properties of the canonical blockchain.
 
 Network ID
 ssj
-get networkId(): bigint \{
+get networkId(): bigint {
 return this.common.networkId()
-\}
+}
 
 /**
 Genesis block for the chain
 
-#### Returns
-
-`Block`
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L312)
+[packages/blockchain/src/Chain.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L294)
 
 ***
 
@@ -182,13 +170,9 @@ Genesis block for the chain
 
 > **`get`** **genesisBlock**(): `Block`
 
-#### Returns
-
-`Block`
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L249)
+[packages/blockchain/src/Chain.ts:234](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L234)
 
 ***
 
@@ -198,13 +182,9 @@ Genesis block for the chain
 
 Returns properties of the canonical headerchain.
 
-#### Returns
-
-`ChainHeaders`
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L319)
+[packages/blockchain/src/Chain.ts:301](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L301)
 
 ## Methods
 
@@ -214,23 +194,19 @@ Returns properties of the canonical headerchain.
 
 #### Parameters
 
-• **number**: `bigint`
+▪ **number**: `bigint`
 
-• **td?**: `bigint`
+▪ **td?**: `bigint`
 
-• **timestamp?**: `bigint`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **timestamp?**: `bigint`
 
 #### Implementation of
 
-`Pick.checkAndTransitionHardForkByNumber`
+Pick.checkAndTransitionHardForkByNumber
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L241)
+[packages/blockchain/src/Chain.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L226)
 
 ***
 
@@ -242,13 +218,11 @@ Closes chain
 
 #### Returns
 
-`Promise`\<`boolean` \| `void`\>
-
 false if chain is closed, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L345)
+[packages/blockchain/src/Chain.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L327)
 
 ***
 
@@ -260,17 +234,15 @@ Get a block by its hash or number
 
 #### Parameters
 
-• **block**: `bigint` \| `Uint8Array`
+▪ **block**: `bigint` \| `Uint8Array`
 
 block hash or number
 
 #### Returns
 
-`Promise`\<`Block`\>
-
 #### Implementation of
 
-`Pick.getBlock`
+Pick.getBlock
 
 #### Throws
 
@@ -278,7 +250,7 @@ if block is not found
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L450)
+[packages/blockchain/src/Chain.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L427)
 
 ***
 
@@ -290,31 +262,29 @@ Get blocks from blockchain
 
 #### Parameters
 
-• **block**: `bigint` \| `Uint8Array`
+▪ **block**: `bigint` \| `Uint8Array`
 
 hash or number to start from
 
-• **max**: `number`= `1`
+▪ **max**: `number`= `1`
 
 maximum number of blocks to get
 
-• **skip**: `number`= `0`
+▪ **skip**: `number`= `0`
 
 number of blocks to skip
 
-• **reverse**: `boolean`= `false`
+▪ **reverse**: `boolean`= `false`
 
 get blocks in reverse
 
 #### Returns
 
-`Promise`\<`Block`[]\>
-
 an array of the blocks
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L423)
+[packages/blockchain/src/Chain.ts:405](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L405)
 
 ***
 
@@ -324,13 +294,9 @@ an array of the blocks
 
 Gets the latest block in the canonical chain
 
-#### Returns
-
-`Promise`\<`undefined` \| `Block`\>
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L592)
+[packages/blockchain/src/Chain.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L554)
 
 ***
 
@@ -340,17 +306,13 @@ Gets the latest block in the canonical chain
 
 Gets the latest block in the canonical chain
 
-#### Returns
-
-`Promise`\<`Block`\>
-
 #### Implementation of
 
-`Pick.getCanonicalHeadBlock`
+Pick.getCanonicalHeadBlock
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:576](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L576)
+[packages/blockchain/src/Chain.ts:538](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L538)
 
 ***
 
@@ -360,17 +322,13 @@ Gets the latest block in the canonical chain
 
 Gets the latest header in the canonical chain
 
-#### Returns
-
-`Promise`\<`BlockHeader`\>
-
 #### Implementation of
 
-`Pick.getCanonicalHeadHeader`
+Pick.getCanonicalHeadHeader
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:568](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L568)
+[packages/blockchain/src/Chain.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L530)
 
 ***
 
@@ -380,13 +338,9 @@ Gets the latest header in the canonical chain
 
 Gets the latest block in the canonical chain
 
-#### Returns
-
-`Promise`\<`undefined` \| `Block`\>
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:584](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L584)
+[packages/blockchain/src/Chain.ts:546](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L546)
 
 ***
 
@@ -396,13 +350,9 @@ Gets the latest block in the canonical chain
 
 Gets the latest block in the canonical chain
 
-#### Returns
-
-`Promise`\<`Block`\>
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:600](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L600)
+[packages/blockchain/src/Chain.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L562)
 
 ***
 
@@ -414,31 +364,29 @@ Get headers from blockchain
 
 #### Parameters
 
-• **block**: `bigint` \| `Uint8Array`
+▪ **block**: `bigint` \| `Uint8Array`
 
 hash or number to start from
 
-• **max**: `number`
+▪ **max**: `number`
 
 maximum number of headers to get
 
-• **skip**: `number`
+▪ **skip**: `number`
 
 number of headers to skip
 
-• **reverse**: `boolean`
+▪ **reverse**: `boolean`
 
 get headers in reverse
 
 #### Returns
 
-`Promise`\<`BlockHeader`[]\>
-
 list of block headers
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:522](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L522)
+[packages/blockchain/src/Chain.ts:492](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L492)
 
 ***
 
@@ -448,19 +396,15 @@ list of block headers
 
 #### Parameters
 
-• **name?**: `string`
-
-#### Returns
-
-`Promise`\<`Block`\>
+▪ **name?**: `string`
 
 #### Implementation of
 
-`Pick.getIteratorHead`
+Pick.getIteratorHead
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:252](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L252)
+[packages/blockchain/src/Chain.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L237)
 
 ***
 
@@ -470,19 +414,15 @@ list of block headers
 
 #### Parameters
 
-• **name?**: `string`
-
-#### Returns
-
-`Promise`\<`undefined` \| `Block`\>
+▪ **name?**: `string`
 
 #### Implementation of
 
-`Pick.getIteratorHeadSafe`
+Pick.getIteratorHeadSafe
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:256](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L256)
+[packages/blockchain/src/Chain.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L241)
 
 ***
 
@@ -492,19 +432,15 @@ list of block headers
 
 #### Parameters
 
-• **header**: `BlockHeader`
-
-#### Returns
-
-`Promise`\<`bigint`\>
+▪ **header**: `BlockHeader`
 
 #### Implementation of
 
-`Pick.getParentTD`
+Pick.getParentTD
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L260)
+[packages/blockchain/src/Chain.ts:245](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L245)
 
 ***
 
@@ -516,23 +452,21 @@ Gets total difficulty for a block
 
 #### Parameters
 
-• **hash**: `Uint8Array`
+▪ **hash**: `Uint8Array`
 
 the block hash
 
-• **num**: `bigint`
+▪ **num**: `bigint`
 
 the block number
 
 #### Returns
 
-`Promise`\<`bigint`\>
-
 the td
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:611](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L611)
+[packages/blockchain/src/Chain.ts:573](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L573)
 
 ***
 
@@ -542,21 +476,17 @@ the td
 
 #### Parameters
 
-• **hash**: `Uint8Array`
+▪ **hash**: `Uint8Array`
 
-• **number?**: `bigint`
-
-#### Returns
-
-`Promise`\<`bigint`\>
+▪ **number?**: `bigint`
 
 #### Implementation of
 
-`Pick.getTotalDifficulty`
+Pick.getTotalDifficulty
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:264](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L264)
+[packages/blockchain/src/Chain.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L249)
 
 ***
 
@@ -568,13 +498,11 @@ Get a block by its hash or number
 
 #### Parameters
 
-• **block**: `bigint` \| `Uint8Array`
+▪ **block**: `bigint` \| `Uint8Array`
 
 block hash or number
 
 #### Returns
-
-`Promise`\<`boolean`\>
 
 #### Throws
 
@@ -582,7 +510,7 @@ if block is not found
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L438)
+[packages/blockchain/src/Chain.ts:415](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L415)
 
 ***
 
@@ -594,13 +522,11 @@ Open blockchain and wait for database to load
 
 #### Returns
 
-`Promise`\<`boolean` \| `void`\>
-
 false if chain is already open, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L334)
+[packages/blockchain/src/Chain.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L316)
 
 ***
 
@@ -610,19 +536,15 @@ false if chain is already open, otherwise void
 
 #### Parameters
 
-• **block**: `Block`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **block**: `Block`
 
 #### Implementation of
 
-`Pick.putBlock`
+Pick.putBlock
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:271](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L271)
+[packages/blockchain/src/Chain.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L253)
 
 ***
 
@@ -634,21 +556,17 @@ Insert new blocks into blockchain
 
 #### Parameters
 
-• **blocks**: `Block`[]
+▪ **blocks**: `Block`[]
 
 list of blocks to add
 
-• **fromEngine**: `boolean`= `false`
+▪ **fromEngine**: `boolean`= `false`
 
 pass true to process post-merge blocks, otherwise they will be skipped
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:460](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L460)
+[packages/blockchain/src/Chain.ts:437](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L437)
 
 ***
 
@@ -658,19 +576,15 @@ pass true to process post-merge blocks, otherwise they will be skipped
 
 #### Parameters
 
-• **header**: `BlockHeader`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **header**: `BlockHeader`
 
 #### Implementation of
 
-`Pick.putHeader`
+Pick.putHeader
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L275)
+[packages/blockchain/src/Chain.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L257)
 
 ***
 
@@ -682,21 +596,19 @@ Insert new headers into blockchain
 
 #### Parameters
 
-• **headers**: `BlockHeader`[]
+▪ **headers**: `BlockHeader`[]
 
-• **mergeIncludes**: `boolean`= `false`
+▪ **mergeIncludes**: `boolean`= `false`
 
 skip adding headers after merge
 
 #### Returns
 
-`Promise`\<`void`\>
-
 number of headers added
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:538](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L538)
+[packages/blockchain/src/Chain.ts:503](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L503)
 
 ***
 
@@ -706,13 +618,9 @@ number of headers added
 
 Resets _header, _blocks
 
-#### Returns
-
-`void`
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L283)
+[packages/blockchain/src/Chain.ts:265](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L265)
 
 ***
 
@@ -724,15 +632,11 @@ Resets the chain to canonicalHead number
 
 #### Parameters
 
-• **canonicalHead**: `bigint`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **canonicalHead**: `bigint`
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L355)
+[packages/blockchain/src/Chain.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L337)
 
 ***
 
@@ -740,13 +644,9 @@ Resets the chain to canonicalHead number
 
 > **`readonly`** **shallowCopy**(): [`Chain`](Chain.md)
 
-#### Returns
-
-[`Chain`](Chain.md)
-
 #### Source
 
-[packages/blockchain/src/Chain.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L148)
+[packages/blockchain/src/Chain.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L139)
 
 ***
 
@@ -758,13 +658,11 @@ Update blockchain properties (latest block, td, height, etc...)
 
 #### Returns
 
-`Promise`\<`boolean` \| `void`\>
-
 false if chain is closed, otherwise void
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:366](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L366)
+[packages/blockchain/src/Chain.ts:348](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L348)
 
 ***
 
@@ -776,15 +674,13 @@ Validates a block header, throwing if invalid.
 
 #### Returns
 
-`Promise`\<`void`\>
-
 #### Warning
 
 currently stubbed to noop
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L168)
+[packages/blockchain/src/Chain.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L155)
 
 ***
 
@@ -797,12 +693,11 @@ of the underlying Blockchain object.
 
 #### Parameters
 
-• **options**: `ChainOptions`
-
-#### Returns
-
-`Promise`\<[`Chain`](Chain.md)\>
+▪ **options**: `ChainOptions`
 
 #### Source
 
-[packages/blockchain/src/Chain.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L202)
+[packages/blockchain/src/Chain.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L189)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

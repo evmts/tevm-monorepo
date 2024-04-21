@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / ParseAbi
+[API](../../API.md) > [index](../README.md) > ParseAbi
 
-# Type alias: ParseAbi\<TSignatures\>
+# Type alias: ParseAbi`<TSignatures>`
 
 > **ParseAbi**\<`TSignatures`\>: `string`[] extends `TSignatures` ? [`Abi`](Abi.md) : `TSignatures` extends readonly `string`[] ? `TSignatures` extends `Signatures`\<`TSignatures`\> ? `ParseStructs`\<`TSignatures`\> extends infer Structs ? `{ [K in keyof TSignatures]: TSignatures[K] extends string ? ParseSignature<TSignatures[K], Structs> : never }` extends infer Mapped ? `Filter`\<`Mapped`, `never`\> extends infer Result ? `Result` extends readonly [] ? `never` : `Result` : `never` : `never` : `never` : `never` : `never`
 
@@ -24,10 +24,13 @@ type Result = ParseAbi<
 
 ## Type parameters
 
-• **TSignatures** extends readonly `string`[]
-
-Human-readable ABI
+| Parameter | Description |
+| :------ | :------ |
+| `TSignatures` extends readonly `string`[] | Human-readable ABI |
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5\_zod@3.22.5/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,5 +1,5 @@
-import { isImportLocal } from './isImportLocal.js'
 import { describe, expect, it } from 'vitest'
+import { isImportLocal } from './isImportLocal.js'
 
 describe(isImportLocal.name, () => {
 	it('should return true if import path starts with a dot', () => {

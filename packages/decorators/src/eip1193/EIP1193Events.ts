@@ -34,12 +34,6 @@ export type EIP1193EventMap = {
 }
 
 export type EIP1193Events = {
-	on<TEvent extends keyof EIP1193EventMap>(
-		event: TEvent,
-		listener: EIP1193EventMap[TEvent],
-	): void
-	removeListener<TEvent extends keyof EIP1193EventMap>(
-		event: TEvent,
-		listener: EIP1193EventMap[TEvent],
-	): void
+	on<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
+	removeListener<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
 }

@@ -1,6 +1,5 @@
-import { LevelDB } from './LevelDb.js'
 import {
-	Blockchain,
+	type Blockchain,
 	CasperConsensus,
 	CliqueConsensus,
 	type Consensus,
@@ -9,13 +8,9 @@ import {
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Block, BlockHeader } from '@tevm/block'
-import { Common, ConsensusAlgorithm } from '@tevm/common'
-import {
-	type Db,
-	type DbObject,
-	type GenesisState,
-	equalsBytes,
-} from '@tevm/utils'
+import { type Common, ConsensusAlgorithm } from '@tevm/common'
+import { type Db, type DbObject, type GenesisState, equalsBytes } from '@tevm/utils'
+import { LevelDB } from './LevelDb.js'
 
 import type { AbstractLevel } from 'abstract-level'
 
@@ -26,11 +21,7 @@ export interface ChainOptions {
 	/**
 	 * Database to store blocks and metadata. Should be an abstract-leveldown compliant store.
 	 */
-	db?: AbstractLevel<
-		string | Uint8Array,
-		string | Uint8Array,
-		string | Uint8Array
-	>
+	db?: AbstractLevel<string | Uint8Array, string | Uint8Array, string | Uint8Array>
 
 	common: Common
 
@@ -149,12 +140,8 @@ export class Chain
 		return new Chain({
 			db: this.db.shallowCopy() as any,
 			common: this.common,
-			...(this._customGenesisState !== undefined
-				? { genesisState: this._customGenesisState }
-				: {}),
-			...(this._customGenesisStateRoot !== undefined
-				? { genesisStateRoot: this._customGenesisStateRoot }
-				: {}),
+			...(this._customGenesisState !== undefined ? { genesisState: this._customGenesisState } : {}),
+			...(this._customGenesisStateRoot !== undefined ? { genesisStateRoot: this._customGenesisStateRoot } : {}),
 		})
 	}
 	public common: Common
@@ -200,7 +187,7 @@ export class Chain
 	 * @param options
 	 */
 	public static async create(options: ChainOptions) {
-		return new this(options)
+		return new Chain(options)
 	}
 
 	/**
@@ -233,9 +220,7 @@ export class Chain
 				this.consensus = new EthashConsensus()
 				break
 			default:
-				throw new Error(
-					`consensus algorithm ${this.common.consensusAlgorithm()} not supported`,
-				)
+				throw new Error(`consensus algorithm ${this.common.consensusAlgorithm()} not supported`)
 		}
 	}
 	checkAndTransitionHardForkByNumber(
@@ -261,10 +246,7 @@ export class Chain
 		console.log(header)
 		throw new Error('Method not implemented.')
 	}
-	getTotalDifficulty(
-		hash: Uint8Array,
-		number?: bigint | undefined,
-	): Promise<bigint> {
+	getTotalDifficulty(hash: Uint8Array, number?: bigint | undefined): Promise<bigint> {
 		console.log(hash, number)
 		throw new Error('Method not implemented.')
 	}
@@ -420,12 +402,7 @@ export class Chain
 	 * @param reverse get blocks in reverse
 	 * @returns an array of the blocks
 	 */
-	async getBlocks(
-		block: Uint8Array | bigint,
-		max = 1,
-		skip = 0,
-		reverse = false,
-	): Promise<Block[]> {
+	async getBlocks(block: Uint8Array | bigint, max = 1, skip = 0, reverse = false): Promise<Block[]> {
 		if (!this.opened) throw new Error('Chain closed')
 		return this.getBlocks(block, max, skip, reverse)
 	}
@@ -465,10 +442,7 @@ export class Chain
 		// filter out finalized blocks
 		const newBlocks = []
 		for (const block of blocks) {
-			if (
-				this.headers.finalized !== null &&
-				block.header.number <= this.headers.finalized.number
-			) {
+			if (this.headers.finalized !== null && block.header.number <= this.headers.finalized.number) {
 				const canonicalBlock = await this.getBlock(block.header.number)
 				if (!equalsBytes(canonicalBlock.hash(), block.hash())) {
 					throw Error(
@@ -491,11 +465,7 @@ export class Chain
 
 			const td = await this.getParentTD(b.header)
 			if (b.header.number <= this.headers.height) {
-				await this.checkAndTransitionHardForkByNumber(
-					b.header.number,
-					td,
-					b.header.timestamp,
-				)
+				await this.checkAndTransitionHardForkByNumber(b.header.number, td, b.header.timestamp)
 				await this.consensus.setup({ blockchain: this })
 			}
 
@@ -519,12 +489,7 @@ export class Chain
 	 * @param reverse get headers in reverse
 	 * @returns list of block headers
 	 */
-	async getHeaders(
-		block: Uint8Array | bigint,
-		max: number,
-		skip: number,
-		reverse: boolean,
-	): Promise<BlockHeader[]> {
+	async getHeaders(block: Uint8Array | bigint, max: number, skip: number, reverse: boolean): Promise<BlockHeader[]> {
 		const blocks = await this.getBlocks(block, max, skip, reverse)
 		return blocks.map((b) => b.header)
 	}
@@ -535,10 +500,7 @@ export class Chain
 	 * @param mergeIncludes skip adding headers after merge
 	 * @returns number of headers added
 	 */
-	async putHeaders(
-		headers: BlockHeader[],
-		mergeIncludes = false,
-	): Promise<void> {
+	async putHeaders(headers: BlockHeader[], mergeIncludes = false): Promise<void> {
 		if (!this.opened) throw new Error('Chain closed')
 		if (headers.length === 0) return
 

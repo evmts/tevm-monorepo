@@ -1,8 +1,8 @@
-**@tevm/resolutions** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/resolutions** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/resolutions](../../README.md) / [moduleFactory](../README.md) / moduleFactory
+[API](../../API.md) > [moduleFactory](../README.md) > moduleFactory
 
 # Function: moduleFactory()
 
@@ -20,23 +20,21 @@ Doing it this way for now is easier but for sure a leaky abstraction
 
 ## Parameters
 
-• **absolutePath**: `string`
+▪ **absolutePath**: `string`
 
-• **rawCode**: `string`
+▪ **rawCode**: `string`
 
-• **remappings**: `Record`\<`string`, `string`\>
+▪ **remappings**: `Record`\<`string`, `string`\>
 
-• **libs**: readonly `string`[]
+▪ **libs**: readonly `string`[]
 
-• **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+▪ **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
 
-• **sync**: `boolean`
+▪ **sync**: `boolean`
 
 Whether to run this synchronously or not
 
 ## Returns
-
-`Effect`\<`never`, [`ModuleFactoryError`](../type-aliases/ModuleFactoryError.md), `Map`\<`string`, [`ModuleInfo`](../../types/interfaces/ModuleInfo.md)\>\>
 
 ## Example
 
@@ -66,3 +64,6 @@ console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCo
 ## Source
 
 [moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

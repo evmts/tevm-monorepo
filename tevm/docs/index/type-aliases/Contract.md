@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / Contract
+[API](../../API.md) > [index](../README.md) > Contract
 
-# Type alias: Contract\<TName, THumanReadableAbi\>
+# Type alias: Contract`<TName, THumanReadableAbi>`
 
 > **Contract**\<`TName`, `THumanReadableAbi`\>: `object`
 
@@ -62,11 +62,11 @@ Contracts can also be used with other libraries such as Viem and ethers.
 ## Example
 
 ```typescript
-import \{ MyContract \} from './MyContract.sol'
-import \{ createPublicClient \} from 'viem'
+import { MyContract } from './MyContract.sol'
+import { createPublicClient } from 'viem'
 
 // see viem docs
-const client = createPublicClient(\{...\})
+const client = createPublicClient({...})
 
 const result = await client.readContract(
   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
@@ -74,9 +74,10 @@ const result = await client.readContract(
 
 ## Type parameters
 
-• **TName** extends `string`
-
-• **THumanReadableAbi** extends `ReadonlyArray`\<`string`\>
+| Parameter |
+| :------ |
+| `TName` extends `string` |
+| `THumanReadableAbi` extends `ReadonlyArray`\<`string`\> |
 
 ## Type declaration
 
@@ -93,18 +94,18 @@ import { MyContract } from './MyContract.sol'
 console.log(MyContract.abi) // [{name: 'balanceOf', inputs: [...], outputs: [...], ...}]
 ```
 
-### bytecode?
+### bytecode
 
-> **`optional`** **bytecode**: `undefined`
+> **bytecode**?: `undefined`
 
 The contract bytecode is not defined on Contract objects are expected
 to be deployed to the chain. See `Script` type which is a contract with bytecode
 It's provided here to allow easier access of the property when using a
 `Contract | Script` union type
 
-### deployedBytecode?
+### deployedBytecode
 
-> **`optional`** **deployedBytecode**: `undefined`
+> **deployedBytecode**?: `undefined`
 
 The contract deployedBytecode is not defined on Contract objects are expected
 to be deployed to the chain. See `Script` type which is a contract with deployedBytecode
@@ -121,7 +122,7 @@ Action creators for events. Can be used to create event filters in a typesafe wa
 
 ```typescript
 tevm.eth.getLog(
-  MyContract.withAddress('0x420...').events.Transfer(\{ from: '0x1234...' \}),
+  MyContract.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
 )
 ===
 
@@ -159,7 +160,7 @@ tevm.contract(
 )
 ```
 
-### withAddress()
+### withAddress
 
 > **withAddress**: \<`TAddress`\>(`address`) => `Omit`\<[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>, `"read"` \| `"write"` \| `"events"` \| `"address"`\> & `object`
 
@@ -175,15 +176,11 @@ const MyContractOptimism = MyContract.withAddress('0x420...')
 
 #### Type parameters
 
-• **TAddress** extends [`Address`](Address.md)
+▪ **TAddress** extends [`Address`](Address.md)
 
 #### Parameters
 
-• **address**: `TAddress`
-
-#### Returns
-
-`Omit`\<[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>, `"read"` \| `"write"` \| `"events"` \| `"address"`\> & `object`
+▪ **address**: `TAddress`
 
 ### write
 
@@ -202,3 +199,6 @@ tevm.contract(
 ## Source
 
 packages/contract/types/Contract.d.ts:60
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

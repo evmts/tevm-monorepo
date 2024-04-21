@@ -1,9 +1,9 @@
-import { createEvm } from './createEvm.js'
+import { describe, expect, it } from 'bun:test'
 import { createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { createTevmStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { createEvm } from './createEvm.js'
 
 describe(createEvm.name, () => {
 	it('wraps ethereumjs EVM', async () => {

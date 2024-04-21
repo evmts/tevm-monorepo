@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthProtocolVersionJsonRpcResponse
+[API](../API.md) > EthProtocolVersionJsonRpcResponse
 
 # Type alias: EthProtocolVersionJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L293)
+[responses/EthJsonRpcResponse.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L230)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

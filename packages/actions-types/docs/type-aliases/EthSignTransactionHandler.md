@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthSignTransactionHandler
+[API](../API.md) > EthSignTransactionHandler
 
-# Type alias: EthSignTransactionHandler()
+# Type alias: EthSignTransactionHandler
 
 > **EthSignTransactionHandler**: (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
 
 ## Parameters
 
-• **request**: [`EthSignTransactionParams`](EthSignTransactionParams.md)
-
-## Returns
-
-`Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
+▪ **request**: [`EthSignTransactionParams`](EthSignTransactionParams.md)
 
 ## Source
 
-[handlers/EthHandler.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L207)
+[handlers/EthHandler.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L171)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

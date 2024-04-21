@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [esbuild-plugin](../README.md) / esbuildPluginTevm
+[API](../../API.md) > [esbuild-plugin](../README.md) > esbuildPluginTevm
 
 # Function: esbuildPluginTevm()
 
@@ -15,13 +15,11 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ## Parameters
 
-• **options?**
+▪ **options?**: `object`
 
-• **options\.solc?**: `any`
+▪ **options.solc?**: `any`
 
 ## Returns
-
-`any`
 
 ## Example
 
@@ -105,3 +103,6 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 bundler-packages/esbuild/types/esbuildPluginTevm.d.ts:74
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

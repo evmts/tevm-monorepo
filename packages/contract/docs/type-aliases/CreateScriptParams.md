@@ -1,10 +1,10 @@
-**@tevm/contract** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/contract](../README.md) / CreateScriptParams
+[API](../API.md) > CreateScriptParams
 
-# Type alias: CreateScriptParams\<TName, THumanReadableAbi\>
+# Type alias: CreateScriptParams`<TName, THumanReadableAbi>`
 
 > **CreateScriptParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>, `"name"` \| `"humanReadableAbi"` \| `"bytecode"` \| `"deployedBytecode"`\>
 
@@ -16,10 +16,14 @@ Params for creating a [Script](Script.md) instance
 
 ## Type parameters
 
-• **TName** extends `string`
-
-• **THumanReadableAbi** extends readonly `string`[]
+| Parameter |
+| :------ |
+| `TName` extends `string` |
+| `THumanReadableAbi` extends readonly `string`[] |
 
 ## Source
 
-[types.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L56)
+[types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L50)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

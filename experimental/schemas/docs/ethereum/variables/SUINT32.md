@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / SUINT32
+[API](../../API.md) > [ethereum](../README.md) > SUINT32
 
 # Variable: SUINT32
 
@@ -20,4 +20,7 @@ export const SUINT32: Schema<bigint, UINT32>;
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/SUINT.js:126](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L126)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:109](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L109)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

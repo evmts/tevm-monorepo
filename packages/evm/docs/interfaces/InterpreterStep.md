@@ -1,8 +1,8 @@
-**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/evm](../README.md) / InterpreterStep
+[API](../API.md) > InterpreterStep
 
 # Interface: InterpreterStep
 
@@ -92,19 +92,21 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **opcode**: `object`
 
-#### dynamicFee?
+#### Type declaration
 
-> **`optional`** **dynamicFee**: `bigint`
+##### dynamicFee
 
-#### fee
+> **dynamicFee**?: `bigint`
+
+##### fee
 
 > **fee**: `number`
 
-#### isAsync
+##### isAsync
 
 > **isAsync**: `boolean`
 
-#### name
+##### name
 
 > **name**: `string`
 
@@ -151,3 +153,6 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

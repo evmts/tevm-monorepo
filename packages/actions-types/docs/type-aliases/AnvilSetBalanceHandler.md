@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / AnvilSetBalanceHandler
+[API](../API.md) > AnvilSetBalanceHandler
 
-# Type alias: AnvilSetBalanceHandler()
+# Type alias: AnvilSetBalanceHandler
 
 > **AnvilSetBalanceHandler**: (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
 
 ## Parameters
 
-• **params**: [`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
-
-## Returns
-
-`Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
+▪ **params**: [`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
 
 ## Source
 
-[handlers/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L60)
+[handlers/AnvilHandler.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L52)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

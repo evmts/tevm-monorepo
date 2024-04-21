@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBlockByHashJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > EthGetBlockByHashJsonRpcProcedure
 
-# Type alias: EthGetBlockByHashJsonRpcProcedure()
+# Type alias: EthGetBlockByHashJsonRpcProcedure
 
 > **EthGetBlockByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)\>
+▪ **request**: [`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:818
+packages/procedures-types/dist/index.d.ts:772
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

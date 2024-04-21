@@ -4,6 +4,7 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { runSync } from 'effect/Effect'
 import {
 	parseUINT8Safe,
 	parseUINT16Safe,
@@ -12,7 +13,6 @@ import {
 	parseUINT128Safe,
 	parseUINT256Safe,
 } from './parseUINTSafe.js'
-import { runSync } from 'effect/Effect'
 
 /**
  * Parses a UINT8 and returns the value if no errors.

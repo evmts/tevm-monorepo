@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 // Directory to scan (current directory in this case)
 const directory = process.cwd()
@@ -25,16 +25,8 @@ fs.readdir(directory, (err, files) => {
 		if (file.includes('index')) return
 		if (file.includes('.spec.')) return
 		const base = file.replace(/\.js$/, '').replace(/\.ts$/, '')
-		fs.appendFileSync(
-			path.join(directory, 'index.js'),
-			`export * from './${base}.js';\n`,
-			'utf8',
-		)
-		fs.appendFileSync(
-			path.join(directory, 'index.ts'),
-			`export type * from './${base}.js';\n`,
-			'utf8',
-		)
+		fs.appendFileSync(path.join(directory, 'index.js'), `export * from './${base}.js';\n`, 'utf8')
+		fs.appendFileSync(path.join(directory, 'index.ts'), `export type * from './${base}.js';\n`, 'utf8')
 	})
 	console.log('Export statements added to index.ts and index.js')
 })

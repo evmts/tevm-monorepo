@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthGetBlockByNumberParams
+[API](../API.md) > EthGetBlockByNumberParams
 
 # Type alias: EthGetBlockByNumberParams
 
@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Type declaration
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: [`BlockParam`](BlockParam.md)
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ### fullTransactionObjects
 
@@ -23,3 +23,6 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 ## Source
 
 [params/EthParams.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L110)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

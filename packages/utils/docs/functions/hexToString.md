@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / hexToString
+[API](../API.md) > hexToString
 
 # Function: hexToString()
 
@@ -14,17 +14,15 @@ Decodes a hex value into a UTF-8 string.
 
 ## Parameters
 
-• **hex**: ```0x${string}```
+▪ **hex**: \`0x${string}\`
 
 Hex value to decode.
 
-• **opts?**: `HexToStringOpts`
+▪ **opts?**: `HexToStringOpts`
 
 Options.
 
 ## Returns
-
-`string`
 
 String value.
 
@@ -49,3 +47,6 @@ const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:148
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

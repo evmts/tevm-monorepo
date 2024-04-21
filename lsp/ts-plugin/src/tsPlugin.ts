@@ -1,19 +1,16 @@
+import { createCache } from '@tevm/bundler-cache'
+import { defaultConfig, loadConfig } from '@tevm/config'
+import { catchTag, logWarning, map, runSync } from 'effect/Effect'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 import { getDefinitionServiceDecorator } from './decorators/getDefinitionAtPosition.js'
 import {
 	getScriptKindDecorator,
 	getScriptSnapshotDecorator,
 	resolveModuleNameLiteralsDecorator,
 } from './decorators/index.js'
-import {
-	createFileAccessObject,
-	createRealFileAccessObject,
-} from './factories/fileAccessObject.js'
+import { createFileAccessObject, createRealFileAccessObject } from './factories/fileAccessObject.js'
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
-import { createCache } from '@tevm/bundler-cache'
-import { defaultConfig, loadConfig } from '@tevm/config'
-import { catchTag, logWarning, map, runSync } from 'effect/Effect'
-import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
@@ -32,9 +29,7 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 			const config = runSync(
 				loadConfig(createInfo.project.getCurrentDirectory()).pipe(
 					catchTag('FailedToReadConfigError', () =>
-						logWarning(
-							'Unable to find tevm.config.json. Using default config.',
-						).pipe(map(() => defaultConfig)),
+						logWarning('Unable to find tevm.config.json. Using default config.').pipe(map(() => defaultConfig)),
 					),
 				),
 			)
@@ -49,11 +44,13 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 			)
 			const service = getDefinitionServiceDecorator(
 				modules.typescript.createLanguageService(
-					decorateHost(
-						getScriptKindDecorator,
-						resolveModuleNameLiteralsDecorator,
-						getScriptSnapshotDecorator(cache),
-					)(createInfo, modules.typescript, logger, config, fao),
+					decorateHost(getScriptKindDecorator, resolveModuleNameLiteralsDecorator, getScriptSnapshotDecorator(cache))(
+						createInfo,
+						modules.typescript,
+						logger,
+						config,
+						fao,
+					),
 				),
 				config,
 				logger,

@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcYulDetails
+[API](../API.md) > SolcYulDetails
 
 # Type alias: SolcYulDetails
 
@@ -14,10 +14,13 @@
 
 > **optimizerSteps**: `string`
 
-### stackAllocation?
+### stackAllocation
 
-> **`optional`** **stackAllocation**: `boolean`
+> **stackAllocation**?: `boolean`
 
 ## Source
 
 [solcTypes.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L55)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

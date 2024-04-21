@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthMiningJsonRpcResponse
+[API](../API.md) > EthMiningJsonRpcResponse
 
 # Type alias: EthMiningJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `eth_mining` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L283)
+[responses/EthJsonRpcResponse.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L224)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

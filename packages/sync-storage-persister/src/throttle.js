@@ -15,7 +15,7 @@ export const throttle = (func, wait = 100) => {
 	/**
 	 * @param {...any[]} args
 	 */
-	const throttledFn = function (...args) {
+	const throttledFn = (...args) => {
 		// set the latest args
 		params = args
 		if (timer === null) {

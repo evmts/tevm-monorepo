@@ -1,8 +1,8 @@
-**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/decorators](../README.md) / WalletPermission
+[API](../API.md) > WalletPermission
 
 # Type alias: WalletPermission
 
@@ -24,7 +24,7 @@
 
 ### invoker
 
-> **invoker**: ```http://${string}``` \| ```https://${string}```
+> **invoker**: \`http://${string}\` \| \`https://${string}\`
 
 ### parentCapability
 
@@ -33,3 +33,6 @@
 ## Source
 
 [packages/decorators/src/eip1193/WalletPermission.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermission.ts#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

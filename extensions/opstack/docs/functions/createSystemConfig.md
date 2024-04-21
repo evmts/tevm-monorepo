@@ -1,8 +1,8 @@
-**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/opstack](../README.md) / createSystemConfig
+[API](../API.md) > createSystemConfig
 
 # Function: createSystemConfig()
 
@@ -13,11 +13,9 @@ Currently only supports chainId 10
 
 ## Parameters
 
-• **chainId**: `10`= `10`
+▪ **chainId**: `10`= `10`
 
 ## Returns
-
-`Omit`\<`Script`\<`"SystemConfig"`, readonly [`"constructor()"`, `"function BATCH_INBOX_SLOT() view returns (bytes32)"`, `"function L1_CROSS_DOMAIN_MESSENGER_SLOT() view returns (bytes32)"`, `"function L1_ERC_721_BRIDGE_SLOT() view returns (bytes32)"`, `"function L1_STANDARD_BRIDGE_SLOT() view returns (bytes32)"`, `"function L2_OUTPUT_ORACLE_SLOT() view returns (bytes32)"`, `"function OPTIMISM_MINTABLE_ERC20_FACTORY_SLOT() view returns (bytes32)"`, `"function OPTIMISM_PORTAL_SLOT() view returns (bytes32)"`, `"function START_BLOCK_SLOT() view returns (bytes32)"`, `"function UNSAFE_BLOCK_SIGNER_SLOT() view returns (bytes32)"`, `"function VERSION() view returns (uint256)"`, `"function batchInbox() view returns (address addr_)"`, `"function batcherHash() view returns (bytes32)"`, `"function gasLimit() view returns (uint64)"`, `"function initialize(address _owner, uint256 _overhead, uint256 _scalar, bytes32 _batcherHash, uint64 _gasLimit, address _unsafeBlockSigner, (uint32 maxResourceLimit, uint8 elasticityMultiplier, uint8 baseFeeMaxChangeDenominator, uint32 minimumBaseFee, uint32 systemTxMaxGas, uint128 maximumBaseFee) _config, address _batchInbox, (address l1CrossDomainMessenger, address l1ERC721Bridge, address l1StandardBridge, address l2OutputOracle, address optimismPortal, address optimismMintableERC20Factory) _addresses)"`, `"function l1CrossDomainMessenger() view returns (address addr_)"`, `"function l1ERC721Bridge() view returns (address addr_)"`, `"function l1StandardBridge() view returns (address addr_)"`, `"function l2OutputOracle() view returns (address addr_)"`, `"function minimumGasLimit() view returns (uint64)"`, `"function optimismMintableERC20Factory() view returns (address addr_)"`, `"function optimismPortal() view returns (address addr_)"`, `"function overhead() view returns (uint256)"`, `"function owner() view returns (address)"`, `"function renounceOwnership()"`, `"function resourceConfig() view returns ((uint32 maxResourceLimit, uint8 elasticityMultiplier, uint8 baseFeeMaxChangeDenominator, uint32 minimumBaseFee, uint32 systemTxMaxGas, uint128 maximumBaseFee))"`, `"function scalar() view returns (uint256)"`, `"function setBatcherHash(bytes32 _batcherHash)"`, `"function setGasConfig(uint256 _overhead, uint256 _scalar)"`, `"function setGasLimit(uint64 _gasLimit)"`, `"function setResourceConfig((uint32 maxResourceLimit, uint8 elasticityMultiplier, uint8 baseFeeMaxChangeDenominator, uint32 minimumBaseFee, uint32 systemTxMaxGas, uint128 maximumBaseFee) _config)"`, `"function setUnsafeBlockSigner(address _unsafeBlockSigner)"`, `"function startBlock() view returns (uint256 startBlock_)"`, `"function transferOwnership(address newOwner)"`, `"function unsafeBlockSigner() view returns (address addr_)"`, `"function version() view returns (string)"`, `"event ConfigUpdate(uint256 indexed version, uint8 indexed updateType, bytes data)"`, `"event Initialized(uint8 version)"`, `"event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)"`]\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`
 
 ## Example
 
@@ -29,3 +27,6 @@ const SystemConfig = createSystemConfig()
 ## Source
 
 [extensions/opstack/src/contracts/l1/SystemConfig.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l1/SystemConfig.ts#L13)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseUINT128Safe
+[API](../../API.md) > [ethereum](../README.md) > parseUINT128Safe
 
 # Function: parseUINT128Safe()
 
@@ -12,16 +12,17 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 ## Type parameters
 
-• **TUINT128** extends `bigint`
+▪ **TUINT128** extends `bigint`
 
 ## Parameters
 
-• **uint128**: `TUINT128`
+▪ **uint128**: `TUINT128`
 
 ## Returns
 
-`Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT128`\>
-
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:120](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L120)
+[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:113](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L113)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

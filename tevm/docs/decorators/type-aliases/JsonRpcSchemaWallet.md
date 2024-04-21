@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [decorators](../README.md) / JsonRpcSchemaWallet
+[API](../../API.md) > [decorators](../README.md) > JsonRpcSchemaWallet
 
 # Type alias: JsonRpcSchemaWallet
 
@@ -31,15 +31,15 @@ provider.request({ method: 'eth_accounts' })
 
 ### eth\_accounts.Method
 
-> **Method**: `"eth_accounts"`
+> **eth\_accounts.Method**: `"eth_accounts"`
 
-### eth\_accounts.Parameters?
+### eth\_accounts.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_accounts.Parameters**?: `undefined`
 
 ### eth\_accounts.ReturnType
 
-> **ReturnType**: [`Address`](../../index/type-aliases/Address.md)[]
+> **eth\_accounts.ReturnType**: [`Address`](../../index/type-aliases/Address.md)[]
 
 ### eth\_chainId
 
@@ -58,15 +58,15 @@ provider.request({ method: 'eth_chainId' })
 
 ### eth\_chainId.Method
 
-> **Method**: `"eth_chainId"`
+> **eth\_chainId.Method**: `"eth_chainId"`
 
-### eth\_chainId.Parameters?
+### eth\_chainId.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_chainId.Parameters**?: `undefined`
 
 ### eth\_chainId.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_chainId.ReturnType**: `Quantity$1`
 
 ### eth\_estimateGas
 
@@ -88,15 +88,15 @@ provider.request({
 
 ### eth\_estimateGas.Method
 
-> **Method**: `"eth_estimateGas"`
+> **eth\_estimateGas.Method**: `"eth_estimateGas"`
 
 ### eth\_estimateGas.Parameters
 
-> **Parameters**: [`RpcTransactionRequest`] \| [`RpcTransactionRequest`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
+> **eth\_estimateGas.Parameters**: [`RpcTransactionRequest`] \| [`RpcTransactionRequest`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
 
 ### eth\_estimateGas.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_estimateGas.ReturnType**: `Quantity$1`
 
 ### eth\_requestAccounts
 
@@ -119,15 +119,15 @@ provider.request({ method: 'eth_requestAccounts' }] })
 
 ### eth\_requestAccounts.Method
 
-> **Method**: `"eth_requestAccounts"`
+> **eth\_requestAccounts.Method**: `"eth_requestAccounts"`
 
-### eth\_requestAccounts.Parameters?
+### eth\_requestAccounts.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_requestAccounts.Parameters**?: `undefined`
 
 ### eth\_requestAccounts.ReturnType
 
-> **ReturnType**: [`Address`](../../index/type-aliases/Address.md)[]
+> **eth\_requestAccounts.ReturnType**: [`Address`](../../index/type-aliases/Address.md)[]
 
 ### eth\_sendRawTransaction
 
@@ -150,15 +150,15 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 ### eth\_sendRawTransaction.Method
 
-> **Method**: `"eth_sendRawTransaction"`
+> **eth\_sendRawTransaction.Method**: `"eth_sendRawTransaction"`
 
 ### eth\_sendRawTransaction.Parameters
 
-> **Parameters**: [[`Hex`](../../index/type-aliases/Hex.md)]
+> **eth\_sendRawTransaction.Parameters**: [[`Hex`](../../index/type-aliases/Hex.md)]
 
 ### eth\_sendRawTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](Hash.md)
+> **eth\_sendRawTransaction.ReturnType**: [`Hash`](Hash.md)
 
 ### eth\_sendTransaction
 
@@ -181,15 +181,15 @@ provider.request({ method: 'eth_sendTransaction', params: [{ from: '0x...', to: 
 
 ### eth\_sendTransaction.Method
 
-> **Method**: `"eth_sendTransaction"`
+> **eth\_sendTransaction.Method**: `"eth_sendTransaction"`
 
 ### eth\_sendTransaction.Parameters
 
-> **Parameters**: [`RpcTransactionRequest`]
+> **eth\_sendTransaction.Parameters**: [`RpcTransactionRequest`]
 
 ### eth\_sendTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](Hash.md)
+> **eth\_sendTransaction.ReturnType**: [`Hash`](Hash.md)
 
 ### eth\_sign
 
@@ -212,15 +212,15 @@ provider.request({ method: 'eth_sign', params: ['0x...', '0x...'] })
 
 ### eth\_sign.Method
 
-> **Method**: `"eth_sign"`
+> **eth\_sign.Method**: `"eth_sign"`
 
 ### eth\_sign.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)]
+> **eth\_sign.Parameters**: [[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)]
 
 ### eth\_sign.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_sign.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_signTransaction
 
@@ -243,15 +243,15 @@ provider.request({ method: 'eth_signTransaction', params: [{ from: '0x...', to: 
 
 ### eth\_signTransaction.Method
 
-> **Method**: `"eth_signTransaction"`
+> **eth\_signTransaction.Method**: `"eth_signTransaction"`
 
 ### eth\_signTransaction.Parameters
 
-> **Parameters**: [`RpcTransactionRequest`]
+> **eth\_signTransaction.Parameters**: [`RpcTransactionRequest`]
 
 ### eth\_signTransaction.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_signTransaction.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_signTypedData\_v4
 
@@ -274,15 +274,15 @@ provider.request({ method: 'eth_signTypedData_v4', params: [{ from: '0x...', dat
 
 ### eth\_signTypedData\_v4.Method
 
-> **Method**: `"eth_signTypedData_v4"`
+> **eth\_signTypedData\_v4.Method**: `"eth_signTypedData_v4"`
 
 ### eth\_signTypedData\_v4.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), `string`]
+> **eth\_signTypedData\_v4.Parameters**: [[`Address`](../../index/type-aliases/Address.md), `string`]
 
 ### eth\_signTypedData\_v4.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_signTypedData\_v4.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_syncing
 
@@ -305,15 +305,15 @@ provider.request({ method: 'eth_syncing' })
 
 ### eth\_syncing.Method
 
-> **Method**: `"eth_syncing"`
+> **eth\_syncing.Method**: `"eth_syncing"`
 
-### eth\_syncing.Parameters?
+### eth\_syncing.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_syncing.Parameters**?: `undefined`
 
 ### eth\_syncing.ReturnType
 
-> **ReturnType**: [`NetworkSync`](NetworkSync.md) \| `false`
+> **eth\_syncing.ReturnType**: [`NetworkSync`](NetworkSync.md) \| `false`
 
 ### personal\_sign
 
@@ -336,15 +336,15 @@ provider.request({ method: 'personal_sign', params: ['0x...', '0x...'] })
 
 ### personal\_sign.Method
 
-> **Method**: `"personal_sign"`
+> **personal\_sign.Method**: `"personal_sign"`
 
 ### personal\_sign.Parameters
 
-> **Parameters**: [[`Hex`](../../index/type-aliases/Hex.md), [`Address`](../../index/type-aliases/Address.md)]
+> **personal\_sign.Parameters**: [[`Hex`](../../index/type-aliases/Hex.md), [`Address`](../../index/type-aliases/Address.md)]
 
 ### personal\_sign.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **personal\_sign.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### wallet\_addEthereumChain
 
@@ -367,15 +367,15 @@ provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: 1, rpc
 
 ### wallet\_addEthereumChain.Method
 
-> **Method**: `"wallet_addEthereumChain"`
+> **wallet\_addEthereumChain.Method**: `"wallet_addEthereumChain"`
 
 ### wallet\_addEthereumChain.Parameters
 
-> **Parameters**: [[`AddEthereumChainParameter`](AddEthereumChainParameter.md)]
+> **wallet\_addEthereumChain.Parameters**: [[`AddEthereumChainParameter`](AddEthereumChainParameter.md)]
 
 ### wallet\_addEthereumChain.ReturnType
 
-> **ReturnType**: `null`
+> **wallet\_addEthereumChain.ReturnType**: `null`
 
 ### wallet\_getPermissions
 
@@ -398,15 +398,15 @@ provider.request({ method: 'wallet_getPermissions' })
 
 ### wallet\_getPermissions.Method
 
-> **Method**: `"wallet_getPermissions"`
+> **wallet\_getPermissions.Method**: `"wallet_getPermissions"`
 
-### wallet\_getPermissions.Parameters?
+### wallet\_getPermissions.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **wallet\_getPermissions.Parameters**?: `undefined`
 
 ### wallet\_getPermissions.ReturnType
 
-> **ReturnType**: [`WalletPermission`](WalletPermission.md)[]
+> **wallet\_getPermissions.ReturnType**: [`WalletPermission`](WalletPermission.md)[]
 
 ### wallet\_requestPermissions
 
@@ -429,15 +429,15 @@ provider.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts:
 
 ### wallet\_requestPermissions.Method
 
-> **Method**: `"wallet_requestPermissions"`
+> **wallet\_requestPermissions.Method**: `"wallet_requestPermissions"`
 
 ### wallet\_requestPermissions.Parameters
 
-> **Parameters**: [`object`]
+> **wallet\_requestPermissions.Parameters**: [`object`]
 
 ### wallet\_requestPermissions.ReturnType
 
-> **ReturnType**: [`WalletPermission`](WalletPermission.md)[]
+> **wallet\_requestPermissions.ReturnType**: [`WalletPermission`](WalletPermission.md)[]
 
 ### wallet\_switchEthereumChain
 
@@ -460,15 +460,15 @@ provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x
 
 ### wallet\_switchEthereumChain.Method
 
-> **Method**: `"wallet_switchEthereumChain"`
+> **wallet\_switchEthereumChain.Method**: `"wallet_switchEthereumChain"`
 
 ### wallet\_switchEthereumChain.Parameters
 
-> **Parameters**: [`object`]
+> **wallet\_switchEthereumChain.Parameters**: [`object`]
 
 ### wallet\_switchEthereumChain.ReturnType
 
-> **ReturnType**: `null`
+> **wallet\_switchEthereumChain.ReturnType**: `null`
 
 ### wallet\_watchAsset
 
@@ -491,16 +491,19 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 ### wallet\_watchAsset.Method
 
-> **Method**: `"wallet_watchAsset"`
+> **wallet\_watchAsset.Method**: `"wallet_watchAsset"`
 
 ### wallet\_watchAsset.Parameters
 
-> **Parameters**: [`WatchAssetParams`](WatchAssetParams.md)
+> **wallet\_watchAsset.Parameters**: [`WatchAssetParams`](WatchAssetParams.md)
 
 ### wallet\_watchAsset.ReturnType
 
-> **ReturnType**: `boolean`
+> **wallet\_watchAsset.ReturnType**: `boolean`
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1402
+packages/decorators/dist/index.d.ts:1386
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

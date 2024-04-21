@@ -1,10 +1,10 @@
-**@tevm/schemas** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/schemas** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/schemas](../README.md) / common
+[API](../API.md) > common
 
-# common
+# Module: common
 
 ## Index
 
@@ -31,3 +31,6 @@
 - [parseBlockNumberSafe](functions/parseBlockNumberSafe.md)
 - [parseUrl](functions/parseUrl.md)
 - [parseUrlSafe](functions/parseUrlSafe.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

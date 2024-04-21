@@ -1,9 +1,4 @@
-import type {
-	AnvilJsonRpcRequest,
-	DebugJsonRpcRequest,
-	EthJsonRpcRequest,
-	TevmJsonRpcRequest,
-} from '../index.js'
+import type { AnvilJsonRpcRequest, DebugJsonRpcRequest, EthJsonRpcRequest, TevmJsonRpcRequest } from '../index.js'
 
 /**
  * Options for the EIP1193 request handler
@@ -16,15 +11,9 @@ export interface EIP1193RequestOptions {
 	retryCount?: number
 }
 
-export type TevmRequest =
-	| TevmJsonRpcRequest
-	| EthJsonRpcRequest
-	| AnvilJsonRpcRequest
-	| DebugJsonRpcRequest
+export type TevmRequest = TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest | DebugJsonRpcRequest
 
-export type TevmEIP1193RequestFn<
-	TParameters extends TevmRequest['params'] = TevmRequest['params'],
-> = (
+export type TevmEIP1193RequestFn<TParameters extends TevmRequest['params'] = TevmRequest['params']> = (
 	args: {
 		params: TParameters
 		method: TevmRequest['method']
@@ -90,9 +79,6 @@ export interface TevmEIP1193Provider {
 	removeListener(event: 'connect', listener: ConnectListener): this
 	removeListener(event: 'disconnect', listener: DisconnectListener): this
 	removeListener(event: 'chainChanged', listener: ChainChangedListener): this
-	removeListener(
-		event: 'accountsChanged',
-		listener: AccountsChangedListener,
-	): this
+	removeListener(event: 'accountsChanged', listener: AccountsChangedListener): this
 	removeListener(event: 'message', listener: MessageListener): this
 }

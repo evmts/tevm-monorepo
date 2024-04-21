@@ -1,49 +1,27 @@
-**@tevm/viem** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/viem](../README.md) / ViemTevmClient
+[API](../API.md) > ViemTevmClient
 
 # Type alias: ViemTevmClient
 
 > **ViemTevmClient**: `object`
 
+## Deprecated
+
+in favor of the viem transport
 The decorated properties added by the `tevmViemExtension`
 
 ## Type declaration
 
 ### tevm
 
-> **tevm**: `object`
-
-### tevm.call
-
-> **call**: `CallHandler`
-
-### tevm.contract
-
-> **contract**: `ContractHandler`
-
-### tevm.dumpState
-
-> **dumpState**: `DumpStateHandler`
-
-### tevm.getAccount
-
-> **getAccount**: `GetAccountHandler`
-
-### tevm.loadState
-
-> **loadState**: `LoadStateHandler`
-
-### tevm.script
-
-> **script**: `ScriptHandler`
-
-### tevm.setAccount
-
-> **setAccount**: `SetAccountHandler`
+> **tevm**: `TevmClient`
 
 ## Source
 
-[ViemTevmClient.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L14)
+[ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / AnvilMineHandler
+[API](../API.md) > AnvilMineHandler
 
-# Type alias: AnvilMineHandler()
+# Type alias: AnvilMineHandler
 
 > **AnvilMineHandler**: (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
 ## Parameters
 
-• **params**: [`AnvilMineParams`](AnvilMineParams.md)
-
-## Returns
-
-`Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
+▪ **params**: [`AnvilMineParams`](AnvilMineParams.md)
 
 ## Source
 
-[handlers/AnvilHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L48)
+[handlers/AnvilHandler.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L46)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

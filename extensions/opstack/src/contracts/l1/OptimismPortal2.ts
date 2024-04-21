@@ -1,7 +1,7 @@
 /// Generated file. Do not edit.
 
 import { createScript } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
+import type { Hex } from '@tevm/utils'
 
 /**
  * Creates a OptimismPortal2 contract instance from a chainId

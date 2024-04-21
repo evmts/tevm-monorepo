@@ -1,11 +1,11 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import {
   flexRender,
-  Row,
-  Table as TableInterface,
+  type Row,
+  type Table as TableInterface,
 } from '@tanstack/react-table';
 
 import { cn } from '@/lib/utils';

@@ -1,19 +1,8 @@
-import {
-	InvalidConfigError,
-	validateUserConfig,
-} from '../config/validateUserConfig.js'
+import { readFileSync } from 'node:fs'
+import * as path from 'node:path'
 import { parseJson } from '@tevm/effect'
-import {
-	catchTag,
-	die,
-	fail,
-	flatMap,
-	logDebug,
-	tap,
-	try as tryEffect,
-} from 'effect/Effect'
-import { readFileSync } from 'fs'
-import * as path from 'path'
+import { catchTag, die, fail, flatMap, logDebug, tap, try as tryEffect } from 'effect/Effect'
+import { InvalidConfigError, validateUserConfig } from '../config/validateUserConfig.js'
 
 export class FailedToReadConfigError extends Error {
 	/**
@@ -80,20 +69,10 @@ export const loadJsonConfig = (configFilePath) => {
 			return readConfig(tevmConfigPath1)
 		}),
 		flatMap(parseJson),
-		catchTag('ParseJsonError', (cause) =>
-			fail(new InvalidJsonConfigError({ cause })),
-		),
-		flatMap((cfg) =>
-			validateUserConfig(
-				() => /** @type {import('../types.js').CompilerConfig}*/ (cfg),
-			),
-		),
+		catchTag('ParseJsonError', (cause) => fail(new InvalidJsonConfigError({ cause }))),
+		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/ (cfg))),
 		// it can't throw. Could clean this up via making validateUserConfig take a config instead of a factory
 		catchTag('ConfigFnThrowError', (e) => die(e)),
-		tap((tsConfig) =>
-			logDebug(
-				`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`,
-			),
-		),
+		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
 	)
 }

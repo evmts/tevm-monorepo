@@ -1,7 +1,10 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { flexRender, Table as TableInterface } from '@tanstack/react-table';
+import type { ReactNode } from 'react';
+import {
+  flexRender,
+  type Table as TableInterface,
+} from '@tanstack/react-table';
 
 import { cn } from '@/lib/utils';
 import {

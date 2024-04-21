@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthRequestType
+[API](../../API.md) > [procedures-types](../README.md) > EthRequestType
 
 # Type alias: EthRequestType
 
@@ -166,4 +166,7 @@ A mapping of `eth_*` method names to their request type
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:936
+packages/procedures-types/dist/index.d.ts:890
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

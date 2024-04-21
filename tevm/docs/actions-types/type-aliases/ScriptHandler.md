@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / ScriptHandler
+[API](../../API.md) > [actions-types](../README.md) > ScriptHandler
 
-# Type alias: ScriptHandler()
+# Type alias: ScriptHandler
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](../../index/type-aliases/ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
@@ -36,18 +36,17 @@ const res = tevm.script(
 
 ## Type parameters
 
-• **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
+▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
 
-• **TFunctionName** extends [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
+▪ **TFunctionName** extends [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
 
 ## Parameters
 
-• **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
-
-## Returns
-
-`Promise`\<[`ScriptResult`](../../index/type-aliases/ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
+▪ **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
 
 ## Source
 
 packages/actions-types/types/handlers/ScriptHandler.d.ts:27
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

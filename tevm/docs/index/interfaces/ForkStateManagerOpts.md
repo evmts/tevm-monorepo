@@ -1,16 +1,16 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / ForkStateManagerOpts
+[API](../../API.md) > [index](../README.md) > ForkStateManagerOpts
 
 # Interface: ForkStateManagerOpts
 
 ## Properties
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: `bigint` \| [`BlockTag`](../type-aliases/BlockTag.md)
+> **blockTag**?: `bigint` \| [`BlockTag`](../type-aliases/BlockTag.md)
 
 #### Source
 
@@ -18,19 +18,15 @@ packages/state/types/ForkStateManager.d.ts:11
 
 ***
 
-### onCommit()?
+### onCommit
 
-> **`optional`** **onCommit**: (`stateManager`) => `void`
+> **onCommit**?: (`stateManager`) => `void`
 
 Called when state manager commits state
 
 #### Parameters
 
-• **stateManager**: [`ForkStateManager`](../../state/classes/ForkStateManager.md)
-
-#### Returns
-
-`void`
+▪ **stateManager**: [`ForkStateManager`](../../state/classes/ForkStateManager.md)
 
 #### Source
 
@@ -45,3 +41,6 @@ packages/state/types/ForkStateManager.d.ts:15
 #### Source
 
 packages/state/types/ForkStateManager.d.ts:10
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

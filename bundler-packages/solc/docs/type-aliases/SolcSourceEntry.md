@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcSourceEntry
+[API](../API.md) > SolcSourceEntry
 
 # Type alias: SolcSourceEntry
 
@@ -20,4 +20,7 @@
 
 ## Source
 
-[solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
+[solcTypes.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L387)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

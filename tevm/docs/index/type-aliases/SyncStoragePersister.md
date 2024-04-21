@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / SyncStoragePersister
+[API](../../API.md) > [index](../README.md) > SyncStoragePersister
 
 # Type alias: SyncStoragePersister
 
@@ -10,34 +10,25 @@
 
 ## Type declaration
 
-### persistTevmState()
+### persistTevmState
 
 > **persistTevmState**: (`state`) => `void`
 
 #### Parameters
 
-• **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
+▪ **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
-#### Returns
-
-`void`
-
-### removePersistedState()
+### removePersistedState
 
 > **removePersistedState**: () => `void`
 
-#### Returns
-
-`void`
-
-### restoreState()
+### restoreState
 
 > **restoreState**: () => [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
-
-#### Returns
-
-[`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
 
 ## Source
 
 packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

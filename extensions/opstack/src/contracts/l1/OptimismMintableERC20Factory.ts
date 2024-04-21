@@ -1,7 +1,7 @@
 /// Generated file. Do not edit.
 
 import { createScript } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
+import type { Hex } from '@tevm/utils'
 
 /**
  * Creates a OptimismMintableERC20Factory contract instance from a chainId

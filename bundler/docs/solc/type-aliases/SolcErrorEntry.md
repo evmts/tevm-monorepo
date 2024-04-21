@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcErrorEntry
+[API](../../API.md) > [solc](../README.md) > SolcErrorEntry
 
 # Type alias: SolcErrorEntry
 
@@ -14,29 +14,29 @@
 
 > **component**: `string`
 
-### errorCode?
+### errorCode
 
-> **`optional`** **errorCode**: `string`
+> **errorCode**?: `string`
 
-### formattedMessage?
+### formattedMessage
 
-> **`optional`** **formattedMessage**: `string`
+> **formattedMessage**?: `string`
 
 ### message
 
 > **message**: `string`
 
-### secondarySourceLocations?
+### secondarySourceLocations
 
-> **`optional`** **secondarySourceLocations**: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
+> **secondarySourceLocations**?: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
 
 ### severity
 
 > **severity**: `"error"` \| `"warning"` \| `"info"`
 
-### sourceLocation?
+### sourceLocation
 
-> **`optional`** **sourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md)
+> **sourceLocation**?: [`SolcSourceLocation`](SolcSourceLocation.md)
 
 ### type
 
@@ -45,3 +45,6 @@
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:104
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -15,9 +15,7 @@ export const ethSignTransactionProcedure = (options) => async (req) => ({
 		...(req.params[0].data ? { data: req.params[0].data } : {}),
 		...(req.params[0].value ? { value: hexToBigInt(req.params[0].value) } : {}),
 		...(req.params[0].gas ? { gas: hexToBigInt(req.params[0].gas) } : {}),
-		...(req.params[0].gasPrice
-			? { gasPrice: hexToBigInt(req.params[0].gasPrice) }
-			: {}),
+		...(req.params[0].gasPrice ? { gasPrice: hexToBigInt(req.params[0].gasPrice) } : {}),
 		...(req.params[0].nonce ? { nonce: hexToBigInt(req.params[0].nonce) } : {}),
 	}),
 })

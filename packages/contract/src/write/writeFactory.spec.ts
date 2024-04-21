@@ -1,8 +1,8 @@
+import { formatAbi } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
 import { writeFactory } from './writeFactory.js'
-import { formatAbi } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
 
 const contract = createContract({
 	humanReadableAbi: formatAbi(dummyAbi),

@@ -1,8 +1,8 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [accounts](../README.md) / mnemonicToAccountEffect
+[API](../../API.md) > [accounts](../README.md) > mnemonicToAccountEffect
 
 # Function: mnemonicToAccountEffect()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TParams** extends [`string`, `HDOptions`]
+▪ **TParams** extends [`string`, `HDOptions`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `MnemonicToAccountErrorType`, `HDAccount`\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

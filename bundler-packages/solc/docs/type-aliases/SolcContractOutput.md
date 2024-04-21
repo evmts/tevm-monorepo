@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcContractOutput
+[API](../API.md) > SolcContractOutput
 
 # Type alias: SolcContractOutput
 
@@ -40,11 +40,11 @@
 
 ### storageLayout.storage
 
-> **storage**: `any`[]
+> **storageLayout.storage**: `any`[]
 
 ### storageLayout.types
 
-> **types**: `any`
+> **storageLayout.types**: `any`
 
 ### userdoc
 
@@ -52,20 +52,23 @@
 
 ### userdoc.kind
 
-> **kind**: `"user"`
+> **userdoc.kind**: `"user"`
 
-### userdoc.methods?
+### userdoc.methods
 
-> **`optional`** **methods**: `Record`\<`string`, `object`\>
+> **userdoc.methods**?: `Record`\<`string`, `object`\>
 
-### userdoc.notice?
+### userdoc.notice
 
-> **`optional`** **notice**: `string`
+> **userdoc.notice**?: `string`
 
 ### userdoc.version
 
-> **version**: `number`
+> **userdoc.version**: `number`
 
 ## Source
 
-[solcTypes.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L403)
+[solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

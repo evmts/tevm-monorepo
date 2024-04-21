@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / AnvilSetChainIdProcedure
+[API](../../API.md) > [procedures-types](../README.md) > AnvilSetChainIdProcedure
 
-# Type alias: AnvilSetChainIdProcedure()
+# Type alias: AnvilSetChainIdProcedure
 
 > **AnvilSetChainIdProcedure**: (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
@@ -12,12 +12,11 @@ JSON-RPC procedure for `anvil_setChainId`
 
 ## Parameters
 
-• **request**: [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
+▪ **request**: [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:764
+packages/procedures-types/dist/index.d.ts:718
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

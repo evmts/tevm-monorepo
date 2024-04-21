@@ -7,21 +7,17 @@
 
 import type { RpcSchema } from './RpcSchema.js'
 
-export type EIP1193Parameters<
-	TRpcSchema extends RpcSchema | undefined = undefined,
-> = TRpcSchema extends RpcSchema
+export type EIP1193Parameters<TRpcSchema extends RpcSchema | undefined = undefined> = TRpcSchema extends RpcSchema
 	? {
 			[K in keyof TRpcSchema]: {
-				method: TRpcSchema[K] extends TRpcSchema[number]
-					? TRpcSchema[K]['Method']
-					: never
+				method: TRpcSchema[K] extends TRpcSchema[number] ? TRpcSchema[K]['Method'] : never
 			} & (TRpcSchema[K] extends TRpcSchema[number]
 				? TRpcSchema[K]['Parameters'] extends undefined
 					? { params?: never }
 					: { params: TRpcSchema[K]['Parameters'] }
 				: never)
-	  }[number]
+		}[number]
 	: {
 			method: string
 			params?: unknown
-	  }
+		}

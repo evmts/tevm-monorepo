@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / AnvilSetStorageAtHandler
+[API](../../API.md) > [actions-types](../README.md) > AnvilSetStorageAtHandler
 
-# Type alias: AnvilSetStorageAtHandler()
+# Type alias: AnvilSetStorageAtHandler
 
 > **AnvilSetStorageAtHandler**: (`params`) => `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
 
 ## Parameters
 
-• **params**: [`AnvilSetStorageAtParams`](AnvilSetStorageAtParams.md)
-
-## Returns
-
-`Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
+▪ **params**: [`AnvilSetStorageAtParams`](AnvilSetStorageAtParams.md)
 
 ## Source
 
 packages/actions-types/types/handlers/AnvilHandler.d.ts:12
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

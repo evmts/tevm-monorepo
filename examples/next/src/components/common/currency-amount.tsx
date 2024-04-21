@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { useMemo, type FC } from 'react';
 import { formatUnits } from 'viem';
 
 import { Icons } from '@/components/common/icons';
@@ -40,12 +40,12 @@ const CurrencyAmount: FC<CurrencyAmountProps> = ({
     return symbol === 'ETH'
       ? BigInt(amount) < BigInt(1e13) && BigInt(amount) > BigInt(0) // 0 < amount < 0.00001 ETH
         ? '<0.00001'
-        : parseFloat(Number(formatted).toFixed(4))
+        : Number.parseFloat(Number(formatted).toFixed(4))
       : symbol === 'MATIC'
         ? BigInt(amount) < BigInt(1e11) && BigInt(amount) > BigInt(0) // 0 < amount < 0.0000001 MATIC
           ? '<0.0000001'
-          : parseFloat(Number(formatted).toFixed(4))
-        : parseFloat(Number(formatted).toFixed(4));
+          : Number.parseFloat(Number(formatted).toFixed(4))
+        : Number.parseFloat(Number(formatted).toFixed(4));
   }, [amount, formatted, symbol]);
 
   // Does the currency have an icon?

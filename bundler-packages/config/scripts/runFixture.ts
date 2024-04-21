@@ -1,16 +1,8 @@
-import { loadConfig } from '../src/loadConfig.js'
+import { join } from 'node:path'
 import { LogLevel, Logger } from 'effect'
-import {
-	catchAll,
-	fail,
-	flatMap,
-	logError,
-	provide,
-	runSync,
-	succeed,
-} from 'effect/Effect'
-import { join } from 'path'
+import { catchAll, fail, flatMap, logError, provide, runSync, succeed } from 'effect/Effect'
 import { z } from 'zod'
+import { loadConfig } from '../src/loadConfig.js'
 
 const ANSI = {
 	Reset: '\x1b[0m',
@@ -21,9 +13,7 @@ export const logger = Logger.make(({ logLevel, message }) => {
 	if (logLevel._tag === 'Debug') {
 		globalThis.console.log(`[${logLevel.label}] ${message}`)
 	} else {
-		globalThis.console.log(
-			`${ANSI.Bold}[${logLevel.label}] ${message}${ANSI.Reset}`,
-		)
+		globalThis.console.log(`${ANSI.Bold}[${logLevel.label}] ${message}${ANSI.Reset}`)
 	}
 })
 
@@ -77,9 +67,7 @@ export const runFixture = (name: string) => {
 					}
 					return logError(
 						`error running ${validName} ${
-							expectedErrors.includes(validName)
-								? `should have errored but didn't`
-								: 'error'
+							expectedErrors.includes(validName) ? `should have errored but didn't` : 'error'
 						}. Try running the individual fixture with "bun fixture ${validName}"`,
 					).pipe(flatMap(() => fail(e)))
 				}),

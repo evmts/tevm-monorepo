@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / precompiles
+[API](../API.md) > precompiles
 
-# precompiles
+# Module: precompiles
 
 ## Index
 
@@ -13,6 +13,14 @@
 - [CallResult](type-aliases/CallResult.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [TypedError](type-aliases/TypedError.md)
+
+## Table of contents
+
+### References
+
+- [ConstructorArgument](README.md#constructorargument)
+- [defineCall](README.md#definecall)
+- [definePrecompile](README.md#defineprecompile)
 
 ## References
 
@@ -31,3 +39,6 @@ Re-exports [defineCall](../index/functions/defineCall.md)
 ### definePrecompile
 
 Re-exports [definePrecompile](../index/functions/definePrecompile.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

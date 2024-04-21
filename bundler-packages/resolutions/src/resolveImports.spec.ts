@@ -1,8 +1,8 @@
+import { join } from 'node:path'
+import { runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
 import { resolveImports } from './resolveImports.js'
 import type { ResolvedImport } from './types.js'
-import { runSync } from 'effect/Effect'
-import { join } from 'path'
-import { describe, expect, it } from 'vitest'
 
 const repoDir = join(__dirname, '..', '..', '..')
 const normalizeImports = (imports: ReadonlyArray<ResolvedImport>) => {
@@ -76,9 +76,7 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 
 	it('should throw an error if import path does not exist', () => {
 		const code = 'import { Something } from ""'
-		expect(() =>
-			runSync(resolveImports('/project/src', code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot(
+		expect(() => runSync(resolveImports('/project/src', code, {}, [], true))).toThrowErrorMatchingInlineSnapshot(
 			'[ImportDoesNotExistError: Import does not exist]',
 		)
 	})
@@ -105,35 +103,21 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 
 	it('should die if non string is passed in for absolute path', () => {
 		const code = 'console.log("import { Something } from \\"./something\\"")'
-		expect(() =>
-			runSync(resolveImports(52n as any, code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot(
+		expect(() => runSync(resolveImports(52n as any, code, {}, [], true))).toThrowErrorMatchingInlineSnapshot(
 			'[Error: Type bigint is not of type string]',
 		)
 	})
 
 	it('should die if non string is passed in for absolute path', () => {
 		const code = 52n as any
-		expect(() =>
-			runSync(resolveImports('/project/src', code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot(
+		expect(() => runSync(resolveImports('/project/src', code, {}, [], true))).toThrowErrorMatchingInlineSnapshot(
 			'[Error: Type bigint is not of type string]',
 		)
 	})
 
 	it('should die if non boolean is passed in for sync', () => {
 		expect(() =>
-			runSync(
-				resolveImports(
-					'/project/src',
-					"import {Foo} from 'bar'",
-					{},
-					[],
-					5 as any,
-				),
-			),
-		).toThrowErrorMatchingInlineSnapshot(
-			'[Error: Type number is not of type boolean]',
-		)
+			runSync(resolveImports('/project/src', "import {Foo} from 'bar'", {}, [], 5 as any)),
+		).toThrowErrorMatchingInlineSnapshot('[Error: Type number is not of type boolean]')
 	})
 })

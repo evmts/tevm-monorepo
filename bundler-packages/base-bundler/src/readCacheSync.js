@@ -6,22 +6,13 @@
  * @param {boolean} includeBytecode
  * @returns {ReturnType<import('@tevm/bundler-cache').Cache['readArtifactsSync']>}
  */
-export const readCacheSync = (
-	logger,
-	cache,
-	modulePath,
-	includeAst,
-	includeBytecode,
-) => {
+export const readCacheSync = (logger, cache, modulePath, includeAst, includeBytecode) => {
 	try {
 		const cachedArtifacts = cache.readArtifactsSync(modulePath)
 
-		const isCachedAsts = () =>
-			cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
+		const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
 		const isCachedBytecode = () =>
-			Object.values(cachedArtifacts?.artifacts ?? {}).some(
-				(artifact) => artifact.evm.deployedBytecode,
-			)
+			Object.values(cachedArtifacts?.artifacts ?? {}).some((artifact) => artifact.evm.deployedBytecode)
 
 		if (!cachedArtifacts) {
 			return undefined

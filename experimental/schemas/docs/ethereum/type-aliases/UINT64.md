@@ -1,15 +1,21 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / UINT64
+[API](../../API.md) > [ethereum](../README.md) > UINT64
 
-# Type alias: UINT64
+# Type alias: UINT64`<>`
 
 > **UINT64**\<\>: `bigint`
 
 ## Type parameters
 
+| Parameter |
+| :------ |
+
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L57)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:46](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L46)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

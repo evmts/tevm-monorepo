@@ -1,6 +1,6 @@
-import { ExampleContract } from './ExampleContract.sol'
-import { createPublicClient, http } from 'viem'
+import { http, createPublicClient } from 'viem'
 import { optimismGoerli } from 'viem/chains'
+import { ExampleContract } from './ExampleContract.sol'
 
 const addresses = {
 	'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',

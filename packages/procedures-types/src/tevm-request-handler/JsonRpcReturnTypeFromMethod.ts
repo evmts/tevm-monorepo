@@ -11,12 +11,5 @@ import type { TevmReturnType } from './TevmReturnType.js'
  * ```
  */
 export type JsonRpcReturnTypeFromMethod<
-	TMethod extends
-		| keyof EthReturnType
-		| keyof TevmReturnType
-		| keyof AnvilReturnType
-		| keyof DebugReturnType,
-> = (EthReturnType &
-	TevmReturnType &
-	AnvilReturnType &
-	DebugReturnType)[TMethod]
+	TMethod extends keyof EthReturnType | keyof TevmReturnType | keyof AnvilReturnType | keyof DebugReturnType,
+> = (EthReturnType & TevmReturnType & AnvilReturnType & DebugReturnType)[TMethod]

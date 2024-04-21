@@ -8,10 +8,7 @@ import type { GenesisState } from '@tevm/utils'
  * @param common
  * @returns
  */
-export async function genGenesisStateRoot(
-	genesisState: GenesisState,
-	common: Common,
-): Promise<Uint8Array> {
+export async function genGenesisStateRoot(genesisState: GenesisState, common: Common): Promise<Uint8Array> {
 	const genCommon = common.copy()
 	genCommon.setHardforkBy({
 		blockNumber: 0,
@@ -20,7 +17,6 @@ export async function genGenesisStateRoot(
 	})
 	if (genCommon.isActivatedEIP(6800)) {
 		throw Error('Verkle tree state not yet supported')
-	} else {
-		return genMerkleGenesisStateRoot(genesisState)
 	}
+	return genMerkleGenesisStateRoot(genesisState)
 }

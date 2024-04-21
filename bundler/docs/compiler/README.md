@@ -1,10 +1,10 @@
-**@tevm/bundler** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/bundler** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/bundler](../README.md) / compiler
+[API](../API.md) > compiler
 
-# compiler
+# Module: compiler
 
 ## Index
 
@@ -21,3 +21,6 @@
 
 - [resolveArtifacts](functions/resolveArtifacts.md)
 - [resolveArtifactsSync](functions/resolveArtifactsSync.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

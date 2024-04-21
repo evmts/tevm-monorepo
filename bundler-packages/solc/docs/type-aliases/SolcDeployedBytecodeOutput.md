@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcDeployedBytecodeOutput
+[API](../API.md) > SolcDeployedBytecodeOutput
 
 # Type alias: SolcDeployedBytecodeOutput
 
@@ -20,4 +20,7 @@
 
 ## Source
 
-[solcTypes.ts:485](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L485)
+[solcTypes.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L477)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

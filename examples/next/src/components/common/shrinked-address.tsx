@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { useMemo, useState, type FC } from 'react';
 import Link from 'next/link';
 import { useMedia } from 'react-use';
-import { Address } from 'tevm/utils';
+import type { Address } from 'tevm/utils';
 
 import { Icons } from '@/components/common/icons';
 

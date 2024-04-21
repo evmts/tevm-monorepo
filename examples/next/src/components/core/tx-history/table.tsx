@@ -1,20 +1,20 @@
 'use client';
 
-import { FC, Fragment, ReactNode, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState, type FC, type ReactNode } from 'react';
 import {
-  ColumnDef,
-  ColumnFiltersState,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  Row,
-  SortingState,
   useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type Row,
+  type SortingState,
 } from '@tanstack/react-table';
 import { useMedia } from 'react-use';
 
-import { TxEntry } from '@/lib/types/tx';
+import type { TxEntry } from '@/lib/types/tx';
 import { CHAINS } from '@/lib/constants/providers';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';

@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcDebugSettings
+[API](../../API.md) > [solc](../README.md) > SolcDebugSettings
 
 # Type alias: SolcDebugSettings
 
@@ -10,14 +10,17 @@
 
 ## Type declaration
 
-### debugInfo?
+### debugInfo
 
-> **`optional`** **debugInfo**: (`"location"` \| `"snippet"` \| `"*"`)[]
+> **debugInfo**?: (`"location"` \| `"snippet"` \| `"*"`)[]
 
-### revertStrings?
+### revertStrings
 
-> **`optional`** **revertStrings**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
+> **revertStrings**?: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:58
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

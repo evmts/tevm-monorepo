@@ -5,7 +5,5 @@
  */
 export const blockNumberHandler = (client) => async () => {
 	const vm = await client.getVm()
-	return vm.blockchain
-		.getCanonicalHeadBlock()
-		.then((block) => block.header.number)
+	return vm.blockchain.getCanonicalHeadBlock().then((block) => block.header.number)
 }

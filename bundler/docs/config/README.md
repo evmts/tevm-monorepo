@@ -1,10 +1,10 @@
-**@tevm/bundler** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/bundler** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/bundler](../README.md) / config
+[API](../API.md) > config
 
-# config
+# Module: config
 
 ## Index
 
@@ -21,3 +21,6 @@
 
 - [defineConfig](functions/defineConfig.md)
 - [loadConfig](functions/loadConfig.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

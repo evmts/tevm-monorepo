@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthGetTransactionByBlockNumberAndIndexParams
+[API](../../API.md) > [actions-types](../README.md) > EthGetTransactionByBlockNumberAndIndexParams
 
 # Type alias: EthGetTransactionByBlockNumberAndIndexParams
 
@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ## Type declaration
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### index
 
@@ -23,3 +23,6 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:175
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

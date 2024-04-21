@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [state](../README.md) / Cache
+[API](../../API.md) > [state](../README.md) > Cache
 
 # Class: Cache
 
@@ -14,11 +14,7 @@
 
 #### Parameters
 
-• **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
-
-#### Returns
-
-[`Cache`](Cache.md)
+▪ **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
 
 #### Source
 
@@ -50,10 +46,6 @@ packages/state/types/Cache.d.ts:4
 
 > **clear**(): `void`
 
-#### Returns
-
-`void`
-
 #### Source
 
 packages/state/types/Cache.d.ts:9
@@ -66,13 +58,9 @@ packages/state/types/Cache.d.ts:9
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **key**: `Uint8Array`
-
-#### Returns
-
-`Promise`\<`Uint8Array`\>
+▪ **key**: `Uint8Array`
 
 #### Source
 
@@ -86,16 +74,15 @@ packages/state/types/Cache.d.ts:7
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **key**: `Uint8Array`
+▪ **key**: `Uint8Array`
 
-• **value**: `Uint8Array`
-
-#### Returns
-
-`void`
+▪ **value**: `Uint8Array`
 
 #### Source
 
 packages/state/types/Cache.d.ts:8
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

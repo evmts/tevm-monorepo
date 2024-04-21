@@ -1,8 +1,8 @@
-**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/evm](../README.md) / EthjsMessage
+[API](../API.md) > EthjsMessage
 
 # Class: EthjsMessage
 
@@ -14,11 +14,7 @@
 
 #### Parameters
 
-• **opts**: `MessageOpts`
-
-#### Returns
-
-[`EthjsMessage`](EthjsMessage.md)
+▪ **opts**: `MessageOpts`
 
 #### Source
 
@@ -26,9 +22,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ## Properties
 
-### \_codeAddress?
+### \_codeAddress
 
-> **`optional`** **\_codeAddress**: `Address`
+> **\_codeAddress**?: `Address`
 
 #### Source
 
@@ -36,9 +32,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### accessWitness?
+### accessWitness
 
-> **`optional`** **accessWitness**: `AccessWitness`
+> **accessWitness**?: `AccessWitness`
 
 #### Source
 
@@ -46,9 +42,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### authcallOrigin?
+### authcallOrigin
 
-> **`optional`** **authcallOrigin**: `Address`
+> **authcallOrigin**?: `Address`
 
 This is used to store the origin of the AUTHCALL,
 the purpose is to figure out where `value` should be taken from (not from `caller`)
@@ -59,9 +55,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### blobVersionedHashes?
+### blobVersionedHashes
 
-> **`optional`** **blobVersionedHashes**: `Uint8Array`[]
+> **blobVersionedHashes**?: `Uint8Array`[]
 
 List of versioned hashes if message is a blob transaction in the outer VM
 
@@ -81,9 +77,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### chargeCodeAccesses?
+### chargeCodeAccesses
 
-> **`optional`** **chargeCodeAccesses**: `boolean`
+> **chargeCodeAccesses**?: `boolean`
 
 #### Source
 
@@ -91,9 +87,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### code?
+### code
 
-> **`optional`** **code**: `Uint8Array` \| `PrecompileFunc`
+> **code**?: `Uint8Array` \| `PrecompileFunc`
 
 #### Source
 
@@ -101,9 +97,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### containerCode?
+### containerCode
 
-> **`optional`** **containerCode**: `Uint8Array`
+> **containerCode**?: `Uint8Array`
 
 #### Source
 
@@ -111,9 +107,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### createdAddresses?
+### createdAddresses
 
-> **`optional`** **createdAddresses**: `Set`\<`string`\>
+> **createdAddresses**?: `Set`\<`string`\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -193,9 +189,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### salt?
+### salt
 
-> **`optional`** **salt**: `Uint8Array`
+> **salt**?: `Uint8Array`
 
 #### Source
 
@@ -203,9 +199,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### selfdestruct?
+### selfdestruct
 
-> **`optional`** **selfdestruct**: `Set`\<`string`\>
+> **selfdestruct**?: `Set`\<`string`\>
 
 Set of addresses to selfdestruct. Key is the unprefixed address.
 
@@ -215,9 +211,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### to?
+### to
 
-> **`optional`** **to**: `Address`
+> **to**?: `Address`
 
 #### Source
 
@@ -241,10 +237,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 Note: should only be called in instances where `_codeAddress` or `to` is defined.
 
-#### Returns
-
-`Address`
-
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:68
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

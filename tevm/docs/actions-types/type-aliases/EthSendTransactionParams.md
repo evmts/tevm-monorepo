@@ -1,12 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthSendTransactionParams
+[API](../../API.md) > [actions-types](../README.md) > EthSendTransactionParams
 
 # Type alias: EthSendTransactionParams
-
-`Experimental`
 
 > **EthSendTransactionParams**: [`CallParams`](../../index/type-aliases/CallParams.md)
 
@@ -16,3 +14,6 @@ This type is a placeholder
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:219
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

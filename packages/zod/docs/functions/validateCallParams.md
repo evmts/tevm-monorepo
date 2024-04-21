@@ -1,8 +1,8 @@
-**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/zod](../README.md) / validateCallParams
+[API](../API.md) > validateCallParams
 
 # Function: validateCallParams()
 
@@ -10,12 +10,11 @@
 
 ## Parameters
 
-• **action**: `CallParams`\<`boolean`\>
-
-## Returns
-
-`CallError`[]
+▪ **action**: `CallParams`\<`boolean`\>
 
 ## Source
 
 [packages/zod/src/validators/validateCallParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateCallParams.js#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

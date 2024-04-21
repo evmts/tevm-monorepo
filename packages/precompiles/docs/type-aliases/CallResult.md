@@ -1,10 +1,10 @@
-**@tevm/precompiles** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/precompiles** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/precompiles](../README.md) / CallResult
+[API](../API.md) > CallResult
 
-# Type alias: CallResult\<TAbi, TFunctionName\>
+# Type alias: CallResult`<TAbi, TFunctionName>`
 
 > **CallResult**\<`TAbi`, `TFunctionName`\>: `object`
 
@@ -12,21 +12,22 @@ A result of a precompile javascript call
 
 ## Type parameters
 
-• **TAbi** extends `Abi`
-
-• **TFunctionName** extends `string`
+| Parameter |
+| :------ |
+| `TAbi` extends `Abi` |
+| `TFunctionName` extends `string` |
 
 ## Type declaration
 
-### blobGasUsed?
+### blobGasUsed
 
-> **`optional`** **blobGasUsed**: `bigint`
+> **blobGasUsed**?: `bigint`
 
 Amount of blob gas consumed by the transaction
 
-### error?
+### error
 
-> **`optional`** **error**: [`TypedError`](TypedError.md)\<`string`\>
+> **error**?: [`TypedError`](TypedError.md)\<`string`\>
 
 Any Error thrown during execution
 
@@ -36,25 +37,28 @@ Any Error thrown during execution
 
 The amount of gas used during execution.
 
-### logs?
+### logs
 
-> **`optional`** **logs**: `ReadonlyArray`\<`ExtractAbiEvents`\<`TAbi`\> & `object`\>
+> **logs**?: `ReadonlyArray`\<`ExtractAbiEvents`\<`TAbi`\> & `object`\>
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
 
 ### returnValue
 
-> **returnValue**: `AbiParametersToPrimitiveTypes`\<`ExtractAbiFunction`\<`TAbi`, `TFunctionName`\>\[`"outputs"`\]\>\[`0`\]
+> **returnValue**: `AbiParametersToPrimitiveTypes`\<`ExtractAbiFunction`\<`TAbi`, `TFunctionName`\>[`"outputs"`]\>[`0`]
 
 The return value of the call. Required even on exceptions
 
-### selfdestruct?
+### selfdestruct
 
-> **`optional`** **selfdestruct**: `Set`\<`Address`\>
+> **selfdestruct**?: `Set`\<`Address`\>
 
 A set of accounts to selfdestruct
 
 ## Source
 
-[precompiles/src/CallResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L13)
+[precompiles/src/CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

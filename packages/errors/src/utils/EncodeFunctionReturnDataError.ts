@@ -5,5 +5,4 @@ import type { TypedError } from '../TypedError.js'
  * Not expected to be thrown because the initial validation
  * should have caught any errors and thrown more specific errors
  */
-export type EncodeFunctionReturnDataError =
-	TypedError<'EncodeFunctionReturnDataError'>
+export type EncodeFunctionReturnDataError = TypedError<'EncodeFunctionReturnDataError'>

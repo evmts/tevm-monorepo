@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcInputSource
+[API](../API.md) > SolcInputSource
 
 # Type alias: SolcInputSource
 
@@ -10,14 +10,17 @@
 
 ## Type declaration
 
-### ast?
+### ast
 
-> **`optional`** **ast**: `SolcAst`
+> **ast**?: `SolcAst`
 
-### keccak256?
+### keccak256
 
-> **`optional`** **keccak256**: `HexNumber`
+> **keccak256**?: `HexNumber`
 
 ## Source
 
 [solcTypes.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L15)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

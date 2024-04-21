@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthEstimateGasJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > EthEstimateGasJsonRpcProcedure
 
-# Type alias: EthEstimateGasJsonRpcProcedure()
+# Type alias: EthEstimateGasJsonRpcProcedure
 
 > **EthEstimateGasJsonRpcProcedure**: (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
+▪ **request**: [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:814
+packages/procedures-types/dist/index.d.ts:768
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

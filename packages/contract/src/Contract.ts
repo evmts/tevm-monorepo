@@ -1,7 +1,7 @@
+import type { Address, ParseAbi } from '@tevm/utils'
 import type { EventActionCreator } from './event/EventActionCreator.js'
 import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
-import type { Address, ParseAbi } from '@tevm/utils'
 
 /**
  * An action creator for `Tevm.contract`, `Tevm.eth.getEvents` and more
@@ -58,10 +58,7 @@ import type { Address, ParseAbi } from '@tevm/utils'
  *   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
  * )
  */
-export type Contract<
-	TName extends string,
-	THumanReadableAbi extends ReadonlyArray<string>,
-> = {
+export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArray<string>> = {
 	/**
 	 * The json abi of the contract
 	 * @example
@@ -138,17 +135,11 @@ export type Contract<
 	 * const MyContractOptimism = MyContract.withAddress('0x420...')
 	 * ```
 	 */
-	withAddress: <TAddress extends Address>(address: TAddress) => Omit<
-		Contract<TName, THumanReadableAbi>,
-		'read' | 'write' | 'events' | 'address'
-	> & {
+	withAddress: <TAddress extends Address>(
+		address: TAddress,
+	) => Omit<Contract<TName, THumanReadableAbi>, 'read' | 'write' | 'events' | 'address'> & {
 		address: TAddress
-		events: EventActionCreator<
-			THumanReadableAbi,
-			undefined,
-			undefined,
-			TAddress
-		>
+		events: EventActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
 		read: ReadActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
 		write: WriteActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
 	}

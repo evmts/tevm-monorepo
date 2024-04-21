@@ -1,8 +1,8 @@
-**@tevm/ethers** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/ethers](../README.md) / Interface
+[API](../API.md) > Interface
 
 # Variable: Interface
 
@@ -10,4 +10,7 @@
 
 ## Source
 
-[extensions/ethers/src/contract/Contract.d.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L19)
+[extensions/ethers/src/contract/Contract.d.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L16)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

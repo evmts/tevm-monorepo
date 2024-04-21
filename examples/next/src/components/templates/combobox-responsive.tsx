@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { useState, type FC } from 'react';
 import { useMedia } from 'react-use';
 
-import { ComboboxOption } from '@/lib/types/templates';
+import type { ComboboxOption } from '@/lib/types/templates';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {

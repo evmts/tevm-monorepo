@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / decodeAbiParameters
+[API](../API.md) > decodeAbiParameters
 
 # Function: decodeAbiParameters()
 
@@ -10,18 +10,17 @@
 
 ## Type parameters
 
-• **TParams** extends readonly `AbiParameter`[]
+▪ **TParams** extends readonly `AbiParameter`[]
 
 ## Parameters
 
-• **params**: `TParams`
+▪ **params**: `TParams`
 
-• **data**: `Uint8Array` \| ```0x${string}```
-
-## Returns
-
-`DecodeAbiParametersReturnType`\<`TParams`\>
+▪ **data**: `Uint8Array` \| \`0x${string}\`
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/abi/decodeAbiParameters.d.ts:14
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

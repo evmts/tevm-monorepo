@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / LoadStateResult
+[API](../API.md) > LoadStateResult
 
-# Type alias: LoadStateResult\<ErrorType\>
+# Type alias: LoadStateResult`<ErrorType>`
 
 > **LoadStateResult**\<`ErrorType`\>: `object`
 
@@ -12,16 +12,21 @@ Result of LoadState Method
 
 ## Type parameters
 
-• **ErrorType** = `LoadStateError`
+| Parameter | Default |
+| :------ | :------ |
+| `ErrorType` | `LoadStateError` |
 
 ## Type declaration
 
-### errors?
+### errors
 
-> **`optional`** **errors**: `ErrorType`[]
+> **errors**?: `ErrorType`[]
 
 Description of the exception, if any occurred
 
 ## Source
 
 [result/LoadStateResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/LoadStateResult.ts#L6)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

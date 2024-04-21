@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / StructLog
+[API](../API.md) > StructLog
 
 # Type alias: StructLog
 
@@ -14,17 +14,17 @@
 
 > **`readonly`** **depth**: `number`
 
-### error?
+### error
 
-> **`optional`** **`readonly`** **error**: `object`
+> **`readonly`** **error**?: `object`
 
 ### error.error
 
-> **error**: `string`
+> **error.error**: `string`
 
 ### error.errorType
 
-> **errorType**: `string`
+> **error.errorType**: `string`
 
 ### gas
 
@@ -49,3 +49,6 @@
 ## Source
 
 [result/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DebugResult.ts#L4)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

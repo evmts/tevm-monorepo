@@ -18,8 +18,4 @@ export type FailedToForkError = TypedError<'FailedToForkError'>
  * @see {@link UnexpectedError}
  * @see {@link InvalidUrlError}
  */
-export type ForkError =
-	| InvalidUrlError
-	| InvalidBlockError
-	| FailedToForkError
-	| UnexpectedError
+export type ForkError = InvalidUrlError | InvalidBlockError | FailedToForkError | UnexpectedError

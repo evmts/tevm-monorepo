@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthNewPendingTransactionFilterHandler
+[API](../API.md) > EthNewPendingTransactionFilterHandler
 
-# Type alias: EthNewPendingTransactionFilterHandler()
+# Type alias: EthNewPendingTransactionFilterHandler
 
 > **EthNewPendingTransactionFilterHandler**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
 
 ## Parameters
 
-• **request**: [`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
-
-## Returns
-
-`Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
+▪ **request**: [`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
 
 ## Source
 
-[handlers/EthHandler.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L223)
+[handlers/EthHandler.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L179)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

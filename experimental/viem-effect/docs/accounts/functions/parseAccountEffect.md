@@ -1,8 +1,8 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [accounts](../README.md) / parseAccountEffect
+[API](../../API.md) > [accounts](../README.md) > parseAccountEffect
 
 # Function: parseAccountEffect()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TParams** extends [```0x${string}``` \| `Account`]
+▪ **TParams** extends [\`0x${string}\` \| `Account`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `ParseAccountErrorType`, `Account`\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/accounts/utils/parseAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/parseAccountEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

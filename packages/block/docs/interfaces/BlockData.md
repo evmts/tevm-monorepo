@@ -1,8 +1,8 @@
-**@tevm/block** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/block](../README.md) / BlockData
+[API](../API.md) > BlockData
 
 # Interface: BlockData
 
@@ -10,9 +10,9 @@ A block's data.
 
 ## Properties
 
-### executionWitness?
+### executionWitness
 
-> **`optional`** **executionWitness**: `null` \| `VerkleExecutionWitness`
+> **executionWitness**?: `null` \| `VerkleExecutionWitness`
 
 EIP-6800: Verkle Proof Data (experimental)
 
@@ -22,9 +22,9 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ***
 
-### header?
+### header
 
-> **`optional`** **header**: `HeaderData`
+> **header**?: `HeaderData`
 
 Header data for the block
 
@@ -34,9 +34,9 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ***
 
-### transactions?
+### transactions
 
-> **`optional`** **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
+> **transactions**?: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
 
 #### Source
 
@@ -44,9 +44,9 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ***
 
-### uncleHeaders?
+### uncleHeaders
 
-> **`optional`** **uncleHeaders**: `HeaderData`[]
+> **uncleHeaders**?: `HeaderData`[]
 
 #### Source
 
@@ -54,10 +54,13 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ***
 
-### withdrawals?
+### withdrawals
 
-> **`optional`** **withdrawals**: `WithdrawalData`[]
+> **withdrawals**?: `WithdrawalData`[]
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:135
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

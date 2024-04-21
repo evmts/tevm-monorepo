@@ -1,8 +1,8 @@
+import type { Effect } from 'effect/Effect'
+import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 import type { ValidateUserConfigError } from './config/index.js'
 import type { DefineConfigError } from './defineConfig.js'
 import type { LoadFoundryConfigError } from './foundry/index.js'
-import type { Effect } from 'effect/Effect'
-import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 
 /**
  * Configuration of the solidity compiler
@@ -67,9 +67,7 @@ export type ResolvedCompilerConfig = {
 	cacheDir: string
 }
 
-export type DefineConfigErrorType =
-	| ValidateUserConfigError
-	| LoadFoundryConfigError
+export type DefineConfigErrorType = ValidateUserConfigError | LoadFoundryConfigError
 
 /**
  * Creates an Tevm config
@@ -82,7 +80,5 @@ export type DefineConfigErrorType =
  *	})
  */
 export type DefineConfig = (configFactory: ConfigFactory) => {
-	configFn: (
-		configFilePath: string,
-	) => Effect<never, DefineConfigError, ResolvedCompilerConfig>
+	configFn: (configFilePath: string) => Effect<never, DefineConfigError, ResolvedCompilerConfig>
 }

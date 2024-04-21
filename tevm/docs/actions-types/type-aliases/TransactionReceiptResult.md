@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / TransactionReceiptResult
+[API](../../API.md) > [actions-types](../README.md) > TransactionReceiptResult
 
 # Type alias: TransactionReceiptResult
 
@@ -71,3 +71,6 @@ Transaction receipt result type for eth JSON-RPC procedures
 ## Source
 
 packages/actions-types/types/common/TransactionReceiptResult.d.ts:6
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

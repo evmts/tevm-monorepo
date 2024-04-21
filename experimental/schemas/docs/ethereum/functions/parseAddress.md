@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseAddress
+[API](../../API.md) > [ethereum](../README.md) > parseAddress
 
 # Function: parseAddress()
 
@@ -12,17 +12,15 @@ Parses an Address returning the address or throwing an InvalidAddressError if in
 
 ## Type parameters
 
-• **TAddress** extends ```0x${string}```
+▪ **TAddress** extends \`0x${string}\`
 
 ## Parameters
 
-• **address**: `TAddress`
+▪ **address**: `TAddress`
 
 The address to parse.
 
 ## Returns
-
-`TAddress`
 
 - The parsed address.
 
@@ -33,3 +31,6 @@ The address to parse.
 ## Source
 
 [experimental/schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddress.js#L17)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

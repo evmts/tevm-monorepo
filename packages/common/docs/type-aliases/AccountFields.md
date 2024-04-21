@@ -1,8 +1,8 @@
-**@tevm/common** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/common](../README.md) / AccountFields
+[API](../API.md) > AccountFields
 
 # Type alias: AccountFields
 
@@ -11,3 +11,6 @@
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:30
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

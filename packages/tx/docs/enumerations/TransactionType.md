@@ -1,8 +1,8 @@
-**@tevm/tx** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/tx](../README.md) / TransactionType
+[API](../API.md) > TransactionType
 
 # Enumeration: TransactionType
 
@@ -47,3 +47,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:81
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

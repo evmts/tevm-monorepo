@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthGetBalanceParams
+[API](../API.md) > EthGetBalanceParams
 
 # Type alias: EthGetBalanceParams
 
@@ -16,10 +16,13 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 > **address**: [`Address`](Address.md)
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: [`BlockParam`](BlockParam.md)
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ## Source
 
 [params/EthParams.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L97)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

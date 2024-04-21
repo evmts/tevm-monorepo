@@ -1,8 +1,8 @@
-**@tevm/unplugin** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/unplugin** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/unplugin](../README.md) / tevmUnplugin
+[API](../API.md) > tevmUnplugin
 
 # Function: tevmUnplugin()
 
@@ -10,14 +10,13 @@
 
 ## Parameters
 
-• **options**: `undefined` \| `object`
+▪ **options**: `undefined` \| `object`
 
-• **meta**: `UnpluginContextMeta`
-
-## Returns
-
-`UnpluginOptions`
+▪ **meta**: `UnpluginContextMeta`
 
 ## Source
 
-[bundler-packages/unplugin/src/tevmUnplugin.js:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L40)
+[bundler-packages/unplugin/src/tevmUnplugin.js:38](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L38)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

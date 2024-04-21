@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthGetBlockTransactionCountByHashHandler
+[API](../API.md) > EthGetBlockTransactionCountByHashHandler
 
-# Type alias: EthGetBlockTransactionCountByHashHandler()
+# Type alias: EthGetBlockTransactionCountByHashHandler
 
 > **EthGetBlockTransactionCountByHashHandler**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
-
-## Returns
-
-`Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
+▪ **request**: [`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
 
 ## Source
 
-[handlers/EthHandler.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L125)
+[handlers/EthHandler.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L105)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

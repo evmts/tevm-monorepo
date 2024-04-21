@@ -1,21 +1,20 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthGetUncleCountByBlockHashJsonRpcProcedure
+[API](../API.md) > EthGetUncleCountByBlockHashJsonRpcProcedure
 
-# Type alias: EthGetUncleCountByBlockHashJsonRpcProcedure()
+# Type alias: EthGetUncleCountByBlockHashJsonRpcProcedure
 
 > **EthGetUncleCountByBlockHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashJsonRpcResponse`](EthGetUncleCountByBlockHashJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetUncleCountByBlockHashJsonRpcRequest`](EthGetUncleCountByBlockHashJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetUncleCountByBlockHashJsonRpcResponse`](EthGetUncleCountByBlockHashJsonRpcResponse.md)\>
+▪ **request**: [`EthGetUncleCountByBlockHashJsonRpcRequest`](EthGetUncleCountByBlockHashJsonRpcRequest.md)
 
 ## Source
 
-[procedure/EthProcedure.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L159)
+[procedure/EthProcedure.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L143)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

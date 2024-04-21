@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [solc](../README.md) / releases
+[API](../../API.md) > [solc](../README.md) > releases
 
 # Variable: releases
 
@@ -11,3 +11,6 @@
 ## Source
 
 bundler-packages/solc/types/src/solc.d.ts:8
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,6 +1,6 @@
-import { Address, Hex, formatAbi } from '@tevm/utils'
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
+import { writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { type Address, type Hex, formatAbi } from '@tevm/utils'
 
 // TODO use @eth-optimism/constants for this
 const addresses = {
@@ -102,9 +102,7 @@ const loadArtifacts = async (contractName: string) => {
 		`@eth-optimism/contracts-bedrock/forge-artifacts/${contractName}.sol/${contractName}.json`
 	)
 	const address: Address =
-		addresses['10'][contractName] ||
-		undeployedAddresses[contractName] ||
-		l2Predeployed[contractName]
+		addresses['10'][contractName] || undeployedAddresses[contractName] || l2Predeployed[contractName]
 	if (!address) {
 		throw new Error(`No address found for ${contractName}`)
 	}
@@ -147,13 +145,7 @@ for (const [layer, artifacts] of [
 	['l1', l1Artifacts],
 	['l2', l2Artifacts],
 ] as const) {
-	for (const {
-		contractName,
-		abi,
-		bytecode,
-		deployedBytecode,
-		addresses,
-	} of artifacts) {
+	for (const { contractName, abi, bytecode, deployedBytecode, addresses } of artifacts) {
 		// export from barrel file
 		artifactsIndexTs[layer] += `export * from "./${contractName}.js"\n`
 
@@ -181,17 +173,9 @@ export const ${contractName}Addresses = ${JSON.stringify(addresses, null, 2)} as
 
 export const ${contractName}Bytecode = ${JSON.stringify(bytecode, null, 2)} as Hex
 
-export const ${contractName}DeployedBytecode = ${JSON.stringify(
-			deployedBytecode,
-			null,
-			2,
-		)} as Hex
+export const ${contractName}DeployedBytecode = ${JSON.stringify(deployedBytecode, null, 2)} as Hex
 
-export const ${contractName}HumanReadableAbi = ${JSON.stringify(
-			formatAbi(abi),
-			null,
-			2,
-		)} as const
+export const ${contractName}HumanReadableAbi = ${JSON.stringify(formatAbi(abi), null, 2)} as const
 
 export const ${contractName}Abi = ${JSON.stringify(abi, null, 2)} as const
 `

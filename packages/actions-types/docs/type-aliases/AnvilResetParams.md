@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / AnvilResetParams
+[API](../API.md) > AnvilResetParams
 
 # Type alias: AnvilResetParams
 
@@ -16,18 +16,21 @@ Params for `anvil_reset` handler
 
 > **fork**: `object`
 
-### fork.block?
+### fork.block
 
-> **`optional`** **block**: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
+> **fork.block**?: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
 
 The block number
 
-### fork.url?
+### fork.url
 
-> **`optional`** **url**: `string`
+> **fork.url**?: `string`
 
 The url to fork if forking
 
 ## Source
 
 [params/AnvilParams.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L60)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

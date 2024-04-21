@@ -8,9 +8,7 @@ build({
 	sourcemap: false,
 	bundle: true,
 	define: {
-		'process.env.NODE_ENV': JSON.stringify(
-			process.env.NODE_ENV ?? 'production',
-		),
+		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? 'production'),
 	},
 	plugins: [esbuildPluginTevm()],
 	// logLevel: "silent",

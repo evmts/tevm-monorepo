@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / BlockParam
+[API](../../API.md) > [index](../README.md) > BlockParam
 
 # Type alias: BlockParam
 
@@ -11,3 +11,6 @@
 ## Source
 
 packages/actions-types/types/common/BlockParam.d.ts:3
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

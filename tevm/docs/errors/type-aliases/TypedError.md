@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [errors](../README.md) / TypedError
+[API](../../API.md) > [errors](../README.md) > TypedError
 
-# Type alias: TypedError\<TName, TMeta\>
+# Type alias: TypedError`<TName, TMeta>`
 
 > **TypedError**\<`TName`, `TMeta`\>: `object`
 
@@ -17,9 +17,10 @@ for tevm users.
 
 ## Type parameters
 
-• **TName** extends `string`
-
-• **TMeta** = `never`
+| Parameter | Default |
+| :------ | :------ |
+| `TName` extends `string` | - |
+| `TMeta` | `never` |
 
 ## Type declaration
 
@@ -31,9 +32,9 @@ for tevm users.
 
 > **message**: `string`
 
-### meta?
+### meta
 
-> **`optional`** **meta**: `TMeta`
+> **meta**?: `TMeta`
 
 ### name
 
@@ -42,3 +43,6 @@ for tevm users.
 ## Source
 
 packages/errors/types/TypedError.d.ts:9
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / decodeFunctionData
+[API](../API.md) > decodeFunctionData
 
 # Function: decodeFunctionData()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **abi** extends readonly `unknown`[] \| `Abi`
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ## Parameters
 
-• **parameters**: `DecodeFunctionDataParameters`\<`abi`\>
-
-## Returns
-
-`DecodeFunctionDataReturnType`\<`abi`, [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`, `AbiStateMutability`\>\>
+▪ **parameters**: `DecodeFunctionDataParameters`\<`abi`\>
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/abi/decodeFunctionData.d.ts:25
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,24 +1,14 @@
-import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
-import { ethSignProcedure } from './eth/ethSignProcedure.js'
-import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
-import {
-	blockNumberProcedure,
-	callProcedure,
-	scriptProcedure,
-} from './index.js'
-import { requestProcedure } from './requestProcedure.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
-import {
-	bytesToHex,
-	encodeFunctionData,
-	keccak256,
-	numberToHex,
-	parseGwei,
-} from '@tevm/utils'
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { type EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
+import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
+import { ethSignProcedure } from './eth/ethSignProcedure.js'
+import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
+import { blockNumberProcedure, callProcedure, scriptProcedure } from './index.js'
+import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -346,8 +336,7 @@ describe('requestProcedure', () => {
 				nonce: numberToHex(69n),
 				deployedBytecode: ERC20_BYTECODE,
 				address: ERC20_ADDRESS,
-				storageRoot:
-					'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 			})
 		})
 	})
@@ -369,9 +358,7 @@ describe('requestProcedure', () => {
 			expect(res.error).toBeUndefined()
 			const account = (await (
 				await client.getVm()
-			).stateManager.getAccount(
-				EthjsAddress.fromString(ERC20_ADDRESS),
-			)) as EthjsAccount
+			).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
@@ -438,13 +425,7 @@ describe('requestProcedure', () => {
 				},
 			})
 
-			expect(
-				(
-					await (
-						await client.getVm()
-					).stateManager.getAccount(EthjsAddress.fromString(to))
-				)?.balance,
-			).toEqual(420n)
+			expect((await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(to)))?.balance).toEqual(420n)
 		})
 
 		it('should handle an error', async () => {
@@ -520,8 +501,7 @@ describe('requestProcedure', () => {
 				jsonrpc: '2.0',
 				id: 1,
 				result: {
-					rawData:
-						'0x0000000000000000000000000000000000000000000000000000000000000000',
+					rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
 					executionGasUsed: numberToHex(2447n),
 					selfdestruct: [],
 					gas: numberToHex(16774768n),

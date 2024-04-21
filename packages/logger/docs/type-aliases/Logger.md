@@ -1,8 +1,8 @@
-**@tevm/logger** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/logger** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/logger](../README.md) / Logger
+[API](../API.md) > Logger
 
 # Type alias: Logger
 
@@ -13,3 +13,6 @@ A logger instance for tevm
 ## Source
 
 [Logger.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/Logger.ts#L5)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

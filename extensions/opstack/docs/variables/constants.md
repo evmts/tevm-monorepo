@@ -1,8 +1,8 @@
-**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/opstack](../README.md) / constants
+[API](../API.md) > constants
 
 # Variable: constants
 
@@ -24,7 +24,7 @@
 
 ### DISPUTE\_GAME\_FACTORY\_OWNER
 
-> **DISPUTE\_GAME\_FACTORY\_OWNER**: ```0x${string}```
+> **DISPUTE\_GAME\_FACTORY\_OWNER**: \`0x${string}\`
 
 ### EXPLORER
 
@@ -52,27 +52,27 @@
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.baseFeeMaxChangeDenominator
 
-> **`readonly`** **baseFeeMaxChangeDenominator**: `8` = `8`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.baseFeeMaxChangeDenominator**: `8` = `8`
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.elasticityMultiplier
 
-> **`readonly`** **elasticityMultiplier**: `10` = `10`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.elasticityMultiplier**: `10` = `10`
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.maxResourceLimit
 
-> **`readonly`** **maxResourceLimit**: `20000000` = `20000000`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.maxResourceLimit**: `20000000` = `20000000`
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.maximumBaseFee
 
-> **`readonly`** **maximumBaseFee**: `340282366920938463463374607431768211455n`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.maximumBaseFee**: `340282366920938463463374607431768211455n`
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.minimumBaseFee
 
-> **`readonly`** **minimumBaseFee**: `1000000000` = `1000000000`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.minimumBaseFee**: `1000000000` = `1000000000`
 
 ### RESOURCE\_METERING\_RESOURCE\_CONFIG.systemTxMaxGas
 
-> **`readonly`** **systemTxMaxGas**: `1000000` = `1000000`
+> **`readonly`** **RESOURCE\_METERING\_RESOURCE\_CONFIG.systemTxMaxGas**: `1000000` = `1000000`
 
 ### SCALAR
 
@@ -92,4 +92,7 @@
 
 ## Source
 
-[extensions/opstack/src/constants.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/constants.ts#L52)
+[extensions/opstack/src/constants.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/constants.ts#L49)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

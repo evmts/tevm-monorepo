@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / AnvilSetCodeHandler
+[API](../API.md) > AnvilSetCodeHandler
 
-# Type alias: AnvilSetCodeHandler()
+# Type alias: AnvilSetCodeHandler
 
 > **AnvilSetCodeHandler**: (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
 ## Parameters
 
-• **params**: [`AnvilSetCodeParams`](AnvilSetCodeParams.md)
-
-## Returns
-
-`Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
+▪ **params**: [`AnvilSetCodeParams`](AnvilSetCodeParams.md)
 
 ## Source
 
-[handlers/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L64)
+[handlers/AnvilHandler.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L54)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

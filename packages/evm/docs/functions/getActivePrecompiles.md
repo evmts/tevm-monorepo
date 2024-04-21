@@ -1,8 +1,8 @@
-**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/evm](../README.md) / getActivePrecompiles
+[API](../API.md) > getActivePrecompiles
 
 # Function: getActivePrecompiles()
 
@@ -10,14 +10,13 @@
 
 ## Parameters
 
-• **common**: `Common`
+▪ **common**: `Common`
 
-• **customPrecompiles?**: `CustomPrecompile`[]
-
-## Returns
-
-`Map`\<`string`, `PrecompileFunc`\>
+▪ **customPrecompiles?**: `CustomPrecompile`[]
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/index.d.ts:37
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

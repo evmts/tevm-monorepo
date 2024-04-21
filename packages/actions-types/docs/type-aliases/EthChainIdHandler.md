@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthChainIdHandler
+[API](../API.md) > EthChainIdHandler
 
-# Type alias: EthChainIdHandler()
+# Type alias: EthChainIdHandler
 
 > **EthChainIdHandler**: (`request`?) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
 ## Parameters
 
-• **request?**: [`EthChainIdParams`](EthChainIdParams.md)
-
-## Returns
-
-`Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
+▪ **request?**: [`EthChainIdParams`](EthChainIdParams.md)
 
 ## Source
 
-[handlers/EthHandler.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L93)
+[handlers/EthHandler.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L89)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

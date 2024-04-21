@@ -1,13 +1,16 @@
-**@tevm/bundler** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/bundler** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/bundler](../README.md) / vite-plugin
+[API](../API.md) > vite-plugin
 
-# vite-plugin
+# Module: vite-plugin
 
 ## Index
 
 ### Functions
 
 - [vitePluginTevm](functions/vitePluginTevm.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

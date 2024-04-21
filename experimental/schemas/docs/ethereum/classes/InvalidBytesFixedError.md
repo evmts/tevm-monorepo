@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / InvalidBytesFixedError
+[API](../../API.md) > [ethereum](../README.md) > InvalidBytesFixedError
 
 # Class: InvalidBytesFixedError
 
@@ -21,37 +21,33 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 
 #### Parameters
 
-• **options**
+▪ **options**: `object`
 
 The options for the error.
 
-• **options\.bytes**: `string`
+▪ **options.bytes**: `string`
 
 The invalid bytes string.
 
-• **options\.cause**: `undefined` \| readonly [`ParseErrors`, `ParseErrors`]
+▪ **options.cause**: `undefined` \| readonly [`ParseErrors`, `ParseErrors`]
 
 The cause of the error.
 
-• **options\.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
+▪ **options.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
 
 The documentation URL.
 
-• **options\.message**: `undefined` \| `string`
+▪ **options.message**: `undefined` \| `string`
 
 The error message.
 
-• **options\.size**: [`BytesCapacity`](../type-aliases/BytesCapacity.md)
+▪ **options.size**: [`BytesCapacity`](../type-aliases/BytesCapacity.md)
 
 The size of the bytes.
 
-#### Returns
-
-[`InvalidBytesFixedError`](InvalidBytesFixedError.md)
-
 #### Overrides
 
-`TypeError.constructor`
+TypeError.constructor
 
 #### Source
 
@@ -65,11 +61,11 @@ The size of the bytes.
 
 #### Inherited from
 
-`TypeError.cause`
+TypeError.cause
 
 #### Source
 
-[experimental/schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+[experimental/schemas/src/ethereum/SBytesFixed/Errors.js:34](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/Errors.js#L34)
 
 ***
 
@@ -79,7 +75,7 @@ The size of the bytes.
 
 #### Inherited from
 
-`TypeError.message`
+TypeError.message
 
 #### Source
 
@@ -93,7 +89,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-`TypeError.name`
+TypeError.name
 
 #### Source
 
@@ -101,13 +97,13 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### stack?
+### stack
 
-> **`optional`** **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
-`TypeError.stack`
+TypeError.stack
 
 #### Source
 
@@ -115,9 +111,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace()?
+### prepareStackTrace
 
-> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -127,17 +123,13 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-• **err**: `Error`
+▪ **err**: `Error`
 
-• **stackTraces**: `CallSite`[]
-
-#### Returns
-
-`any`
+▪ **stackTraces**: `CallSite`[]
 
 #### Inherited from
 
-`TypeError.prepareStackTrace`
+TypeError.prepareStackTrace
 
 #### Source
 
@@ -151,7 +143,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-`TypeError.stackTraceLimit`
+TypeError.stackTraceLimit
 
 #### Source
 
@@ -167,18 +159,17 @@ Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-#### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 #### Inherited from
 
-`TypeError.captureStackTrace`
+TypeError.captureStackTrace
 
 #### Source
 
 node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

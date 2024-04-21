@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / AnvilLoadStateParams
+[API](../../API.md) > [actions-types](../README.md) > AnvilLoadStateParams
 
 # Type alias: AnvilLoadStateParams
 
@@ -21,3 +21,6 @@ The state to load
 ## Source
 
 packages/actions-types/types/params/AnvilParams.d.ts:140
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

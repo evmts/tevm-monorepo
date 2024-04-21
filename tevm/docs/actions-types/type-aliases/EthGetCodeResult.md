@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthGetCodeResult
+[API](../../API.md) > [actions-types](../README.md) > EthGetCodeResult
 
 # Type alias: EthGetCodeResult
 
@@ -13,3 +13,6 @@ JSON-RPC response for `eth_getCode` procedure
 ## Source
 
 packages/actions-types/types/result/EthResult.d.ts:63
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

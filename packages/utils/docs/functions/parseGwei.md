@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / parseGwei
+[API](../API.md) > parseGwei
 
 # Function: parseGwei()
 
@@ -14,13 +14,11 @@ Converts a string representation of gwei to numerical wei.
 
 ## Parameters
 
-• **ether**: `string`
+▪ **ether**: `string`
 
-• **unit?**: `"wei"`
+▪ **unit?**: `"wei"`
 
 ## Returns
-
-`bigint`
 
 ## Example
 
@@ -34,3 +32,6 @@ parseGwei('420')
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/unit/parseGwei.d.ts:15
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

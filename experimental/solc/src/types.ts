@@ -151,13 +151,7 @@ export interface CompilerOptions<Filename extends string> {
 				}
 			}
 		}
-		evmVersion?:
-			| 'homestead'
-			| 'tangerineWhistle'
-			| 'spuriousDragon'
-			| 'byzantium'
-			| 'constantinople'
-			| 'shanghai'
+		evmVersion?: 'homestead' | 'tangerineWhistle' | 'spuriousDragon' | 'byzantium' | 'constantinople' | 'shanghai'
 		viaIR: boolean
 		debug?: {
 			revertStrings: string
@@ -213,7 +207,7 @@ export interface CompileOutput<
 								sourceMap: string
 							}
 						}
-				  }
+					}
 				: {
 						abi: Array<{
 							stateMutability: string
@@ -594,7 +588,7 @@ export interface CompileOutput<
 							}
 							version: number
 						}
-				  }
+					}
 		}
 	}
 	sources: { [F in Filename]: { id: number } }

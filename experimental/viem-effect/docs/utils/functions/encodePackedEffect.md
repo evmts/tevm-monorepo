@@ -1,25 +1,24 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [utils](../README.md) / encodePackedEffect
+[API](../../API.md) > [utils](../README.md) > encodePackedEffect
 
 # Function: encodePackedEffect()
 
-> **encodePackedEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodePackedErrorType`, ```0x${string}```\>
+> **encodePackedEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodePackedErrorType`, \`0x${string}\`\>
 
 ## Type parameters
 
-• **TParams** extends [readonly `unknown`[] \| readonly `PackedAbiType`[], readonly `unknown`[]]
+▪ **TParams** extends [readonly `unknown`[] \| readonly `PackedAbiType`[], readonly `unknown`[]]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `EncodePackedErrorType`, ```0x${string}```\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/utils/abi/encodePackedEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodePackedEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

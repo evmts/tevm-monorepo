@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / concatBytes
+[API](../API.md) > concatBytes
 
 # Function: concatBytes()
 
@@ -14,13 +14,11 @@ Can give small performance gains on large arrays
 
 ## Parameters
 
-• ...**arrays**: `Uint8Array`[]
+▪ ...**arrays**: `Uint8Array`[]
 
 an array of Uint8Arrays
 
 ## Returns
-
-`Uint8Array`
 
 one Uint8Array with all the elements of the original set
 works like `Buffer.concat`
@@ -28,3 +26,6 @@ works like `Buffer.concat`
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:195
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

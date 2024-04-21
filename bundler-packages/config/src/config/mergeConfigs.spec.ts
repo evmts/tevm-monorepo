@@ -1,6 +1,6 @@
-import { mergeConfigs } from './mergeConfigs.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
+import { mergeConfigs } from './mergeConfigs.js'
 
 describe(mergeConfigs.name, () => {
 	it('should correctly merge multiple configurations', () => {

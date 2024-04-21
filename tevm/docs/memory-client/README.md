@@ -1,10 +1,17 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / memory-client
+[API](../API.md) > memory-client
 
-# memory-client
+# Module: memory-client
+
+## Table of contents
+
+### References
+
+- [MemoryClient](README.md#memoryclient)
+- [createMemoryClient](README.md#creatememoryclient)
 
 ## References
 
@@ -17,3 +24,6 @@ Re-exports [MemoryClient](../index/type-aliases/MemoryClient.md)
 ### createMemoryClient
 
 Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

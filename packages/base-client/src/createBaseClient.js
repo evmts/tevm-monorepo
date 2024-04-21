@@ -1,6 +1,3 @@
-import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
-import { addPredeploy } from './addPredeploy.js'
-import { getChainId } from './getChainId.js'
 import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import {} from '@tevm/errors'
@@ -11,6 +8,9 @@ import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { MemoryLevel } from 'memory-level'
+import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
+import { addPredeploy } from './addPredeploy.js'
+import { getChainId } from './getChainId.js'
 
 /**
  * Creates the base instance of a memory client
@@ -35,9 +35,7 @@ export const createBaseClient = (options = {}) => {
 	// Eagerly do async integration
 	// Return proxies that will block on initialization if not yet initialized
 	if (options.fork?.url && options.proxy?.url) {
-		throw new Error(
-			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
-		)
+		throw new Error('Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!')
 	}
 	const common = Common.custom(
 		{
@@ -93,9 +91,7 @@ export const createBaseClient = (options = {}) => {
 			return {
 				proxy: {
 					...options.proxy,
-					...(options.persister
-						? { onCommit: /** @type any*/ (onCommit) }
-						: {}),
+					...(options.persister ? { onCommit: /** @type any*/ (onCommit) } : {}),
 				},
 			}
 		}
@@ -158,9 +154,9 @@ export const createBaseClient = (options = {}) => {
 		}
 
 		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (
-				stateManager
-			).blockTag || { blockTag: 'latest' }
+			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (stateManager).blockTag || {
+				blockTag: 'latest',
+			}
 			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
 				return numberToHex(blockTag.blockNumber)
 			}
@@ -256,18 +252,11 @@ export const createBaseClient = (options = {}) => {
 		getVm: () => vmPromise,
 		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
-		...(options.fork?.url
-			? { forkUrl: options.fork.url }
-			: { forkUrl: options.fork?.url }),
-		...(options.proxy?.url
-			? { proxyUrl: options.proxy.url }
-			: { proxyUrl: options.proxy?.url }),
+		...(options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }),
+		...(options.proxy?.url ? { proxyUrl: options.proxy.url } : { proxyUrl: options.proxy?.url }),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: async () => {
-			const [chainId, vm] = await Promise.allSettled([
-				chainIdPromise,
-				vmPromise,
-			])
+			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])
 			const errors = []
 			if (chainId.status === 'rejected') {
 				errors.push(chainId.reason)

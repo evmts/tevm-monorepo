@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / TraceType
+[API](../API.md) > TraceType
 
 # Type alias: TraceType
 
@@ -11,3 +11,6 @@
 ## Source
 
 [common/TraceType.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/TraceType.ts#L1)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

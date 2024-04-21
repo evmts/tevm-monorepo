@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / LoadStateParams
+[API](../../API.md) > [actions-types](../README.md) > LoadStateParams
 
-# Type alias: LoadStateParams\<TThrowOnFail\>
+# Type alias: LoadStateParams`<TThrowOnFail>`
 
 > **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -18,8 +18,13 @@ params for `tevm_loadState` method. Takes a [TevmState](../../index/type-aliases
 
 ## Type parameters
 
-• **TThrowOnFail** extends `boolean` = `boolean`
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
 
 ## Source
 
 packages/actions-types/types/params/LoadStateParams.d.ts:6
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

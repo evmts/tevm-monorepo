@@ -1,7 +1,7 @@
-import { addresses } from '../addresses'
-import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 import { useState } from 'react'
 import { useAccount, useBlockNumber, useContractEvent } from 'wagmi'
+import { addresses } from '../addresses'
+import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 
 export const WagmiEvents = () => {
 	const { address } = useAccount()
@@ -36,7 +36,7 @@ export const WagmiEvents = () => {
 			<div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
 				{events.map((event, i) => {
 					return (
-						<div>
+						<div key={i}>
 							<div>Event {i}</div>
 							<div>{JSON.stringify(event)}</div>
 						</div>

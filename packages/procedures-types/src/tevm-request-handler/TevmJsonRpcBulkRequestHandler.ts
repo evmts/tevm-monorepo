@@ -115,10 +115,5 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  * response - {@link EthGetBalanceJsonRpcResponse}
  */
 export type TevmJsonRpcBulkRequestHandler = (
-	requests: ReadonlyArray<
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest
-	>,
+	requests: ReadonlyArray<TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest | DebugJsonRpcRequest>,
 ) => Promise<Array<JsonRpcReturnTypeFromMethod<any>>>

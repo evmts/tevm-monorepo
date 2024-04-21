@@ -1,8 +1,8 @@
-**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/errors](../README.md) / ProxyFetchError
+[API](../API.md) > ProxyFetchError
 
 # Class: ProxyFetchError
 
@@ -21,15 +21,11 @@ Potentially could be network issues
 
 #### Parameters
 
-• **method**: `string`
-
-#### Returns
-
-[`ProxyFetchError`](ProxyFetchError.md)
+▪ **method**: `string`
 
 #### Overrides
 
-`Error.constructor`
+Error.constructor
 
 #### Source
 
@@ -47,13 +43,13 @@ Potentially could be network issues
 
 ***
 
-### cause?
+### cause
 
-> **`optional`** **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
-`Error.cause`
+Error.cause
 
 #### Source
 
@@ -67,7 +63,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-`Error.message`
+Error.message
 
 #### Source
 
@@ -81,7 +77,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-`Error.name`
+Error.name
 
 #### Source
 
@@ -89,13 +85,13 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### stack?
+### stack
 
-> **`optional`** **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
-`Error.stack`
+Error.stack
 
 #### Source
 
@@ -103,9 +99,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace()?
+### prepareStackTrace
 
-> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -115,17 +111,13 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-• **err**: `Error`
+▪ **err**: `Error`
 
-• **stackTraces**: `CallSite`[]
-
-#### Returns
-
-`any`
+▪ **stackTraces**: `CallSite`[]
 
 #### Inherited from
 
-`Error.prepareStackTrace`
+Error.prepareStackTrace
 
 #### Source
 
@@ -139,7 +131,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-`Error.stackTraceLimit`
+Error.stackTraceLimit
 
 #### Source
 
@@ -157,17 +149,13 @@ Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 ##### Inherited from
 
-`Error.captureStackTrace`
+Error.captureStackTrace
 
 ##### Source
 
@@ -181,42 +169,17 @@ Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 ##### Inherited from
 
-`Error.captureStackTrace`
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.11.30/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`Error.captureStackTrace`
+Error.captureStackTrace
 
 ##### Source
 
 node\_modules/.pnpm/bun-types@1.1.4/node\_modules/bun-types/globals.d.ts:1637
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

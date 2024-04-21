@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / AnvilSetCoinbaseJsonRpcRequest
+[API](../../API.md) > [procedures-types](../README.md) > AnvilSetCoinbaseJsonRpcRequest
 
 # Type alias: AnvilSetCoinbaseJsonRpcRequest
 
@@ -14,3 +14,6 @@ Not included atm because tevm_call supports it and i was getting methodNotFound 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:45
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

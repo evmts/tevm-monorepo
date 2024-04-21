@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBlockTransactionCountByHashJsonRpcRequest
+[API](../../API.md) > [procedures-types](../README.md) > EthGetBlockTransactionCountByHashJsonRpcRequest
 
 # Type alias: EthGetBlockTransactionCountByHashJsonRpcRequest
 
@@ -12,4 +12,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:234
+packages/procedures-types/dist/index.d.ts:211
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

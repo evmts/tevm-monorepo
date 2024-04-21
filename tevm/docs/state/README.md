@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / state
+[API](../API.md) > state
 
-# state
+# Module: state
 
 ## Index
 
@@ -33,6 +33,14 @@
 
 - [createTevmStateManager](functions/createTevmStateManager.md)
 
+## Table of contents
+
+### References
+
+- [ForkStateManagerOpts](README.md#forkstatemanageropts)
+- [ProxyStateManagerOpts](README.md#proxystatemanageropts)
+- [TevmState](README.md#tevmstate)
+
 ## References
 
 ### ForkStateManagerOpts
@@ -50,3 +58,6 @@ Re-exports [ProxyStateManagerOpts](../index/interfaces/ProxyStateManagerOpts.md)
 ### TevmState
 
 Re-exports [TevmState](../index/type-aliases/TevmState.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

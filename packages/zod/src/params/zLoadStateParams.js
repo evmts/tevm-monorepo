@@ -1,6 +1,6 @@
+import { z } from 'zod'
 import { zHex } from '../common/index.js'
 import { zBaseParams } from './zBaseParams.js'
-import { z } from 'zod'
 /**
  * Zod validator for a valid load state action
  */

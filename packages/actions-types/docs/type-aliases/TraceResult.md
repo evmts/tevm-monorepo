@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / TraceResult
+[API](../API.md) > TraceResult
 
 # Type alias: TraceResult
 
@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### calls?
+### calls
 
-> **`optional`** **calls**: [`TraceCall`](TraceCall.md)[]
+> **calls**?: [`TraceCall`](TraceCall.md)[]
 
 ### from
 
@@ -49,3 +49,6 @@
 ## Source
 
 [common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/TraceResult.ts#L6)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

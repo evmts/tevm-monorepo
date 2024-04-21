@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
 
-# Type alias: EthGetUncleByBlockNumberAndIndexJsonRpcProcedure()
+# Type alias: EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
 
 > **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
+▪ **request**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:835
+packages/procedures-types/dist/index.d.ts:789
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

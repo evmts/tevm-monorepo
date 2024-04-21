@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / AnvilImpersonateAccountJsonRpcRequest
+[API](../API.md) > AnvilImpersonateAccountJsonRpcRequest
 
 # Type alias: AnvilImpersonateAccountJsonRpcRequest
 
@@ -13,3 +13,6 @@ JSON-RPC request for `anvil_impersonateAccount` method
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L22)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

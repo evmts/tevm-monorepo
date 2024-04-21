@@ -1,5 +1,5 @@
-import { type Bytes, isBytes, parseBytes } from './index.js'
 import { assertType, describe, expect, it } from 'vitest'
+import { type Bytes, isBytes, parseBytes } from './index.js'
 
 describe(isBytes.name, () => {
 	it('should return true for valid Bytes', () => {

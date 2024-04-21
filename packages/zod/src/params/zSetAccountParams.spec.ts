@@ -1,7 +1,7 @@
-import { zSetAccountParams } from './zSetAccountParams.js'
-import type { SetAccountParams } from '@tevm/actions-types'
 import { expect, test } from 'bun:test'
+import type { SetAccountParams } from '@tevm/actions-types'
 import type { z } from 'zod'
+import { zSetAccountParams } from './zSetAccountParams.js'
 
 test('zSetAccountParams', () => {
 	const accountParams = {
@@ -9,18 +9,12 @@ test('zSetAccountParams', () => {
 		balance: 0x420n,
 		deployedBytecode: `0x${'69'.repeat(32)}`,
 		storageRoot: `0x${'69'.repeat(32)}`,
-	} as const satisfies z.infer<
-		typeof zSetAccountParams
-	> satisfies SetAccountParams
+	} as const satisfies z.infer<typeof zSetAccountParams> satisfies SetAccountParams
 	expect(zSetAccountParams.parse(accountParams)).toEqual(accountParams)
 	const minimalSetAccountParams = {
 		address: `0x${'69'.repeat(20)}`,
-	} as const satisfies z.infer<
-		typeof zSetAccountParams
-	> satisfies SetAccountParams
-	expect(zSetAccountParams.parse(minimalSetAccountParams)).toEqual(
-		minimalSetAccountParams,
-	)
+	} as const satisfies z.infer<typeof zSetAccountParams> satisfies SetAccountParams
+	expect(zSetAccountParams.parse(minimalSetAccountParams)).toEqual(minimalSetAccountParams)
 })
 
 test('zSetAccountParams works for 0', () => {
@@ -30,16 +24,10 @@ test('zSetAccountParams works for 0', () => {
 		deployedBytecode: `0x${'69'.repeat(32)}`,
 		storageRoot: `0x${'69'.repeat(32)}`,
 		throwOnFail: true,
-	} as const satisfies z.infer<
-		typeof zSetAccountParams
-	> satisfies SetAccountParams
+	} as const satisfies z.infer<typeof zSetAccountParams> satisfies SetAccountParams
 	expect(zSetAccountParams.parse(accountParams)).toEqual(accountParams)
 	const minimalSetAccountParams = {
 		address: `0x${'69'.repeat(20)}`,
-	} as const satisfies z.infer<
-		typeof zSetAccountParams
-	> satisfies SetAccountParams
-	expect(zSetAccountParams.parse(minimalSetAccountParams)).toEqual(
-		minimalSetAccountParams,
-	)
+	} as const satisfies z.infer<typeof zSetAccountParams> satisfies SetAccountParams
+	expect(zSetAccountParams.parse(minimalSetAccountParams)).toEqual(minimalSetAccountParams)
 })

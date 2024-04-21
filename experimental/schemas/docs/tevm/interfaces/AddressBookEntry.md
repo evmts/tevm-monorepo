@@ -1,16 +1,18 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [tevm](../README.md) / AddressBookEntry
+[API](../../API.md) > [tevm](../README.md) > AddressBookEntry
 
-# Interface: AddressBookEntry
+# Interface: AddressBookEntry`<>`
+
+## Type parameters
 
 ## Properties
 
 ### address
 
-> **address**: ```0x${string}```
+> **address**: \`0x${string}\`
 
 #### Source
 
@@ -25,3 +27,6 @@
 #### Source
 
 [experimental/schemas/src/tevm/SAddressBook.js:18](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L18)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

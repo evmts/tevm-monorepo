@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / GenesisState
+[API](../API.md) > GenesisState
 
 # Interface: GenesisState
 
@@ -17,7 +17,7 @@ Pattern 1 (with genesis state see [GenesisState](GenesisState.md) for format):
 ```
 
 Pattern 2 (with complex genesis state, containing contract accounts and storage).
-Note that in AccountState there are two
+Note that in [AccountState]([object Object]) there are two
 accepted types. This allows to easily insert accounts in the genesis state:
 
 A complex genesis state with Contract and EoA states would have the following format:
@@ -32,3 +32,6 @@ A complex genesis state with Contract and EoA states would have the following fo
 ## Indexable
 
  \[`key`: `PrefixedHexString`\]: `PrefixedHexString` \| `AccountState`
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

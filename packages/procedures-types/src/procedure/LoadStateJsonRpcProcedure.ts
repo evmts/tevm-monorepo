@@ -14,6 +14,4 @@ import type { LoadStateJsonRpcResponse } from '../responses/LoadStateJsonRpcResp
  *. }
  * console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result: {}}
  */
-export type LoadStateJsonRpcProcedure = (
-	request: LoadStateJsonRpcRequest,
-) => Promise<LoadStateJsonRpcResponse>
+export type LoadStateJsonRpcProcedure = (request: LoadStateJsonRpcRequest) => Promise<LoadStateJsonRpcResponse>

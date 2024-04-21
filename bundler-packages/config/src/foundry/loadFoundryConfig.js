@@ -1,7 +1,7 @@
 // TODO would be nice to break this up into composable effects
-import { execSync } from 'child_process'
+import { execSync } from 'node:child_process'
+import * as path from 'node:path'
 import { fail, logDebug, succeed, tap } from 'effect/Effect'
-import * as path from 'path'
 
 /**
  * Error thrown if foundry is not found in path while foundryProject is set in config
@@ -42,10 +42,7 @@ export class FoundryConfigError extends Error {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(forgeCommand, options) {
-		super(
-			`Unable to resolve foundry config using ${forgeCommand} config --json`,
-			options,
-		)
+		super(`Unable to resolve foundry config using ${forgeCommand} config --json`, options)
 	}
 }
 
@@ -82,13 +79,10 @@ export class InvalidRemappingsError extends Error {
  */
 export const loadFoundryConfig = (foundryProject, configFilePath) => {
 	if (!foundryProject) {
-		return tap(succeed({}), () =>
-			logDebug('loadFoundryConfig: skipping because foundryProject is not set'),
-		)
+		return tap(succeed({}), () => logDebug('loadFoundryConfig: skipping because foundryProject is not set'))
 	}
 
-	const forgeCommand =
-		typeof foundryProject === 'string' ? foundryProject : 'forge'
+	const forgeCommand = typeof foundryProject === 'string' ? foundryProject : 'forge'
 	let stdout
 	try {
 		stdout = execSync(`${forgeCommand} config --json`, {

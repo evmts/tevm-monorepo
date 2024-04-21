@@ -1,4 +1,4 @@
-import { Viewport } from 'next';
+import type { Viewport } from 'next';
 import { Fira_Code as FontMono, Inter as FontSans } from 'next/font/google';
 
 import { METADATA_BASE } from '@/lib/constants/site';

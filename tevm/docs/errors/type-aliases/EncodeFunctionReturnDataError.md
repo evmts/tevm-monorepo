@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [errors](../README.md) / EncodeFunctionReturnDataError
+[API](../../API.md) > [errors](../README.md) > EncodeFunctionReturnDataError
 
 # Type alias: EncodeFunctionReturnDataError
 
@@ -15,3 +15,6 @@ should have caught any errors and thrown more specific errors
 ## Source
 
 packages/errors/types/utils/EncodeFunctionReturnDataError.d.ts:7
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

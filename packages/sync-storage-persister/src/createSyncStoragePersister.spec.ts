@@ -1,7 +1,7 @@
+import { describe, expect, it } from 'bun:test'
+import type { SerializableTevmState } from '@tevm/state'
 import type { Storage } from './Storage.js'
 import { createSyncStoragePersister } from './createSyncStoragePersister.js'
-import type { SerializableTevmState } from '@tevm/state'
-import { describe, expect, it } from 'bun:test'
 
 describe(createSyncStoragePersister.name, () => {
 	// TODO we should test the async behavior of the throttle

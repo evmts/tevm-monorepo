@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / boolToHex
+[API](../API.md) > boolToHex
 
 # Function: boolToHex()
 
@@ -14,17 +14,15 @@ Encodes a boolean into a hex string
 
 ## Parameters
 
-• **value**: `boolean`
+▪ **value**: `boolean`
 
 Value to encode.
 
-• **opts?**: `BoolToHexOpts`
+▪ **opts?**: `BoolToHexOpts`
 
 Options.
 
 ## Returns
-
-[`Hex`](../type-aliases/Hex.md)
 
 Hex value.
 
@@ -55,3 +53,6 @@ const data = boolToHex(true, { size: 32 })
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:66
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

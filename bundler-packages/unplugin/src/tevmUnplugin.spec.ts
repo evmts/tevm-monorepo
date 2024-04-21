@@ -1,21 +1,13 @@
-import { tevmUnplugin } from './tevmUnplugin.js'
+import { existsSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { bundler } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
-import { existsSync } from 'fs'
-import { createRequire } from 'module'
 // @ts-expect-error
 import * as solc from 'solc'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
-import {
-	type Mock,
-	type MockedFunction,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	vi,
-} from 'vitest'
+import { type Mock, type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+import { tevmUnplugin } from './tevmUnplugin.js'
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
@@ -69,9 +61,7 @@ describe('unpluginFn', () => {
 		mockPlugin = new MockUnpluginContext()
 		mockLoadConfig.mockReturnValue(mockConfig)
 		mockBundler.mockReturnValue({
-			resolveEsmModule: vi
-				.fn()
-				.mockReturnValue({ code: 'mockedModule', modules: {} }),
+			resolveEsmModule: vi.fn().mockReturnValue({ code: 'mockedModule', modules: {} }),
 		})
 	})
 
@@ -190,9 +180,7 @@ describe('unpluginFn', () => {
 		await plugin?.buildStart?.call(mockPlugin)
 		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
 		await plugin.load?.call(mockPlugin, 'test.sol')
-		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(
-			mockedModule.modules[mockedModuleId].id,
-		)
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
 	})
 
 	it('should not add module id to watch files if it is a .sol file in node modules', async () => {
@@ -210,9 +198,7 @@ describe('unpluginFn', () => {
 		await plugin?.buildStart?.call(mockPlugin)
 		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
 		await plugin.load?.call(mockPlugin, 'test.sol')
-		expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(
-			mockedModule.modules[mockedModuleId].id,
-		)
+		expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
 	})
 
 	it('should not load non .sol files', async () => {
@@ -242,22 +228,13 @@ describe('unpluginFn', () => {
 	describe('unpluginFn.resolveId', () => {
 		it('should resolve to local @tevm/contract when id starts with @tevm/contract', async () => {
 			const plugin = tevmUnplugin({}, {} as any)
-			const mockCreateRequre = createRequire as MockedFunction<
-				typeof createRequire
-			>
+			const mockCreateRequre = createRequire as MockedFunction<typeof createRequire>
 			const mockRequireResolve = vi.fn()
 			mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/contract')
 			mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
-			const result = await plugin.resolveId?.call(
-				mockPlugin,
-				'@tevm/contract',
-				'/different/workspace',
-				{} as any,
-			)
+			const result = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', '/different/workspace', {} as any)
 
-			expect(result).toMatchInlineSnapshot(
-				'"/path/to/node_modules/@tevm/contract"',
-			)
+			expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@tevm/contract"')
 			expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "mock/process/dot/cwd/",
@@ -273,12 +250,7 @@ describe('unpluginFn', () => {
 		it('should return null when id does not start with @tevm/contract', async () => {
 			const plugin = tevmUnplugin({}, {} as any)
 
-			const result = await plugin.resolveId?.call(
-				mockPlugin,
-				'some/other/id',
-				'/some/workspace',
-				{} as any,
-			)
+			const result = await plugin.resolveId?.call(mockPlugin, 'some/other/id', '/some/workspace', {} as any)
 
 			expect(result).toBeNull()
 		})
@@ -294,12 +266,7 @@ describe('unpluginFn', () => {
 			)
 			expect(resultInNodeModules).toBeNull()
 
-			const resultInSameWorkspace = await plugin.resolveId?.call(
-				mockPlugin,
-				'@tevm/contract',
-				mockCwd,
-				{} as any,
-			)
+			const resultInSameWorkspace = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', mockCwd, {} as any)
 			expect(resultInSameWorkspace).toBeNull()
 		})
 	})

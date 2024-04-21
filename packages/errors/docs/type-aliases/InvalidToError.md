@@ -1,8 +1,8 @@
-**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/errors](../README.md) / InvalidToError
+[API](../API.md) > InvalidToError
 
 # Type alias: InvalidToError
 
@@ -13,3 +13,6 @@ Error thrown when `to` parameter is invalid
 ## Source
 
 [packages/errors/src/input/InvalidToError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidToError.ts#L6)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcSettings
+[API](../../API.md) > [solc](../README.md) > SolcSettings
 
 # Type alias: SolcSettings
 
@@ -10,46 +10,49 @@
 
 ## Type declaration
 
-### debug?
+### debug
 
-> **`optional`** **debug**: [`SolcDebugSettings`](SolcDebugSettings.md)
+> **debug**?: [`SolcDebugSettings`](SolcDebugSettings.md)
 
-### evmVersion?
+### evmVersion
 
-> **`optional`** **evmVersion**: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
+> **evmVersion**?: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
 
-### libraries?
+### libraries
 
-> **`optional`** **libraries**: `Record`\<`string`, `Record`\<`string`, `string`\>\>
+> **libraries**?: `Record`\<`string`, `Record`\<`string`, `string`\>\>
 
-### metadata?
+### metadata
 
-> **`optional`** **metadata**: `SolcMetadataSettings`
+> **metadata**?: `SolcMetadataSettings`
 
-### modelChecker?
+### modelChecker
 
-> **`optional`** **modelChecker**: [`SolcModelChecker`](SolcModelChecker.md)
+> **modelChecker**?: [`SolcModelChecker`](SolcModelChecker.md)
 
-### optimizer?
+### optimizer
 
-> **`optional`** **optimizer**: [`SolcOptimizer`](SolcOptimizer.md)
+> **optimizer**?: [`SolcOptimizer`](SolcOptimizer.md)
 
 ### outputSelection
 
 > **outputSelection**: [`SolcOutputSelection`](SolcOutputSelection.md)
 
-### remappings?
+### remappings
 
-> **`optional`** **remappings**: [`SolcRemapping`](SolcRemapping.md)
+> **remappings**?: [`SolcRemapping`](SolcRemapping.md)
 
-### stopAfter?
+### stopAfter
 
-> **`optional`** **stopAfter**: `"parsing"`
+> **stopAfter**?: `"parsing"`
 
-### viaIR?
+### viaIR
 
-> **`optional`** **viaIR**: `boolean`
+> **viaIR**?: `boolean`
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:67
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

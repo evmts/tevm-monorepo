@@ -1,10 +1,10 @@
-**@tevm/contract** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/contract](../README.md) / CreateScript
+[API](../API.md) > CreateScript
 
-# Type alias: CreateScript()
+# Type alias: CreateScript
 
 > **CreateScript**: \<`TName`, `THumanReadableAbi`\>(`{
 	name,
@@ -34,50 +34,49 @@ To use a json abi first pass it into `formatAbi` to turn it into human readable
 ## Example
 
 ```typescript
-import \{ type Script, createScript, formatAbi\} from 'tevm/contract'
-import \{ formatAbi \} from 'tevm/abi'
+import { type Script, createScript, formatAbi} from 'tevm/contract'
+import { formatAbi } from 'tevm/abi'
 
-const script = createScript(\{
+const script = createScript({
  name: 'MyScript',
  bytecode: '0x123...',
  deployedBytecode: '0x123...',
  humanReadableAbi: formatAbi([
-  \{
+  {
     name: 'balanceOf',
     inputs: [
-    \{
+    {
     name: 'owner',
     type: 'address',
-    \},
+    },
     ],
     outputs: [
-    \{
+    {
     name: 'balance',
     type: 'uint256',
-    \},
-  \}
+    },
+  }
   ]),
- \})
+ })
 
 ## Type parameters
 
-• **TName** extends `string`
+▪ **TName** extends `string`
 
-• **THumanReadableAbi** extends readonly `string`[]
+▪ **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-• **\{
+▪ **\{
 	name,
 	humanReadableAbi,
 	bytecode,
 	deployedBytecode,
 }**: [`CreateScriptParams`](CreateScriptParams.md)\<`TName`, `THumanReadableAbi`\>
 
-## Returns
-
-[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>
-
 ## Source
 
-[types.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L107)
+[types.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L98)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

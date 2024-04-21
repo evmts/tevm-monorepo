@@ -75,7 +75,7 @@ const AccountState = () => {
         <Skeleton className="h-6 w-24" />
       ) : (
         <CurrencyAmount
-          amount={account!.balance}
+          amount={account?.balance}
           symbol={chain.nativeCurrency.symbol}
           decimals={chain.nativeCurrency.decimals}
         />

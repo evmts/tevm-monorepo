@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / FilterParams
+[API](../API.md) > FilterParams
 
 # Type alias: FilterParams
 
@@ -31,3 +31,6 @@ An event filter optionsobject
 ## Source
 
 [common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/FilterParams.ts#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

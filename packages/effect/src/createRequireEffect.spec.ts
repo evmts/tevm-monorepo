@@ -1,19 +1,8 @@
-// TODO move this to @tevm/createRequire package
-import {
-	CreateRequireError,
-	RequireError,
-	createRequireEffect,
-} from './createRequireEffect.js'
+import { createRequire } from 'node:module'
 import { runSync } from 'effect/Effect'
-import { createRequire } from 'module'
-import {
-	type MockedFunction,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	vi,
-} from 'vitest'
+import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+// TODO move this to @tevm/createRequire package
+import { CreateRequireError, RequireError, createRequireEffect } from './createRequireEffect.js'
 
 vi.mock('module', () => ({
 	createRequire: vi.fn(),
@@ -46,9 +35,7 @@ describe(createRequireEffect.name, () => {
 			throw dummyError
 		})
 
-		expect(() => runSync(createRequireEffect(dummyUrl))).toThrowError(
-			new CreateRequireError(dummyUrl, dummyError),
-		)
+		expect(() => runSync(createRequireEffect(dummyUrl))).toThrowError(new CreateRequireError(dummyUrl, dummyError))
 	})
 
 	it('should throw RequireError when the require throws', async () => {
@@ -62,8 +49,6 @@ describe(createRequireEffect.name, () => {
 		const requireAsEffect = runSync(createRequireEffect(dummyUrl))
 
 		expect(mockCreateRequire).toHaveBeenCalledWith(dummyUrl)
-		expect(() => runSync(requireAsEffect('./foo'))).toThrowError(
-			new RequireError('./foo', dummyUrl),
-		)
+		expect(() => runSync(requireAsEffect('./foo'))).toThrowError(new RequireError('./foo', dummyUrl))
 	})
 })

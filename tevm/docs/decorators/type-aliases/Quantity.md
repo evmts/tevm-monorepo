@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [decorators](../README.md) / Quantity
+[API](../../API.md) > [decorators](../README.md) > Quantity
 
 # Type alias: Quantity
 
@@ -10,4 +10,7 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1361
+packages/decorators/dist/index.d.ts:1345
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

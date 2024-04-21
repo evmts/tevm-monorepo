@@ -1,6 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { targets } from './targets.js'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 
 /**
  * Creates tsup options from params
@@ -17,9 +17,7 @@ export const createTsUpOptions = ({
 	target = 'js',
 	format = ['cjs', 'esm'],
 }) => {
-	const { name } = JSON.parse(
-		readFileSync(join(process.cwd(), 'package.json'), 'utf-8'),
-	)
+	const { name } = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'))
 
 	return {
 		name,

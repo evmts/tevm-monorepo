@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseBytes
+[API](../../API.md) > [ethereum](../README.md) > parseBytes
 
 # Function: parseBytes()
 
@@ -12,15 +12,13 @@ Parses a Bytes and returns the value if no errors.
 
 ## Type parameters
 
-• **TBytes** extends ```0x${string}```
+▪ **TBytes** extends \`0x${string}\`
 
 ## Parameters
 
-• **hex**: `TBytes`
+▪ **hex**: `TBytes`
 
 ## Returns
-
-`TBytes`
 
 ## Example
 
@@ -32,3 +30,6 @@ const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
 ## Source
 
 [experimental/schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/parseBytes.js#L20)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

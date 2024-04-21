@@ -1,5 +1,5 @@
 import { tevmViemExtension } from '@tevm/viem'
-import { createClient, http, publicActions, testActions } from 'viem'
+import { http, createClient, publicActions, testActions } from 'viem'
 
 /**
  * Creates a remote tevm client for interacting with an http server

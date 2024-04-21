@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / CustomPredeploy
+[API](../../API.md) > [index](../README.md) > CustomPredeploy
 
-# Type alias: CustomPredeploy\<TName, THumanReadableAbi\>
+# Type alias: CustomPredeploy`<TName, THumanReadableAbi>`
 
 > **CustomPredeploy**\<`TName`, `THumanReadableAbi`\>: `object`
 
@@ -12,9 +12,10 @@ Params taken by the definePredeploy function
 
 ## Type parameters
 
-• **TName** extends `string`
-
-• **THumanReadableAbi** extends `ReadonlyArray`\<`string`\>
+| Parameter |
+| :------ |
+| `TName` extends `string` |
+| `THumanReadableAbi` extends `ReadonlyArray`\<`string`\> |
 
 ## Type declaration
 
@@ -29,3 +30,6 @@ Params taken by the definePredeploy function
 ## Source
 
 packages/predeploys/types/CustomPredeploy.d.ts:6
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

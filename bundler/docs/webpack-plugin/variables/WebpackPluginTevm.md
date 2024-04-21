@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [webpack-plugin](../README.md) / WebpackPluginTevm
+[API](../../API.md) > [webpack-plugin](../README.md) > WebpackPluginTevm
 
 # Variable: WebpackPluginTevm
 
@@ -84,3 +84,6 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
 ## Source
 
 bundler-packages/webpack/types/WebpackPluginTevm.d.ts:66
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

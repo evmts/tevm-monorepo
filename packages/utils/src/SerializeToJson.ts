@@ -24,13 +24,8 @@ export type JsonSerializableObject = { [key: string]: JsonSerializable }
 /**
  * A type that represents a JSON-serializable set.
  */
-export type JsonSerializableSet<
-	T extends bigint | string | number | boolean =
-		| bigint
-		| string
-		| number
-		| boolean,
-> = Set<T>
+export type JsonSerializableSet<T extends bigint | string | number | boolean = bigint | string | number | boolean> =
+	Set<T>
 
 /**
  * A helper type that converts a bigint to a hex string.
@@ -48,7 +43,7 @@ export type SetToHex<T> = T extends Set<any> ? Hex : T
 export type SerializeToJson<T> = T extends JsonSerializableSet<infer S>
 	? ReadonlyArray<S>
 	: T extends JsonSerializableObject
-	? { [P in keyof T]: SerializeToJson<T[P]> }
-	: T extends JsonSerializableArray
-	? SerializeToJson<T[number]>[]
-	: BigIntToHex<SetToHex<T>>
+		? { [P in keyof T]: SerializeToJson<T[P]> }
+		: T extends JsonSerializableArray
+			? SerializeToJson<T[number]>[]
+			: BigIntToHex<SetToHex<T>>

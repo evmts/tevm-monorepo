@@ -1,8 +1,8 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [utils](../README.md) / decodeAbiParametersEffect
+[API](../../API.md) > [utils](../README.md) > decodeAbiParametersEffect
 
 # Function: decodeAbiParametersEffect()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TParams** extends [readonly `unknown`[] \| readonly `AbiParameter`[], ```0x${string}```]
+▪ **TParams** extends [readonly `unknown`[] \| readonly `AbiParameter`[], \`0x${string}\`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `DecodeAbiParametersErrorType`, `unknown`[] \| readonly `unknown`[]\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/utils/abi/decodeAbiParametersEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeAbiParametersEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

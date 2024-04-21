@@ -1,21 +1,28 @@
 'use client';
 
-import { FC, Fragment, useCallback, useMemo, useRef, useState } from 'react';
-import { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
 import {
-  ColumnDef,
-  ColumnFiltersState,
+  Fragment,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type FC,
+} from 'react';
+import type { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
+import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
 } from '@tanstack/react-table';
 import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 
-import { Input as InputType } from '@/lib/types/tx';
+import type { Input as InputType } from '@/lib/types/tx';
 import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
@@ -101,7 +108,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       Object.fromEntries(
         Object.keys(inputValues).map((id) => [
           id,
-          Object.values(inputValues[id]['args']).every(
+          Object.values(inputValues[id].args).every(
             (value) => value !== undefined && value !== '',
           ),
         ]),
@@ -147,7 +154,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
         return;
       }
       // Check the value as well
-      if (value !== '' && isNaN(Number(value))) {
+      if (value !== '' && Number.isNaN(Number(value))) {
         toast.error('Invalid value', {
           description: 'Please enter a valid number for the value.',
         });
@@ -230,6 +237,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       );
     },
     [
+      data,
       chain,
       client,
       caller,
@@ -318,7 +326,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                     type="text"
                     placeholder="0"
                     className="h-7 w-full max-w-xs text-xs sm:h-9 sm:text-sm"
-                    value={inputValues[id]['value'] as string}
+                    value={inputValues[id].value as string}
                     onFocus={() => (focusedInputRef.current = `${id}-value`)}
                     onBlur={() => (focusedInputRef.current = null)}
                     autoFocus={focusedInputRef.current === `${id}-value`}
@@ -338,7 +346,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                     id={`${id}-args-${index}`}
                     placeholder={input.type}
                     className="h-7 w-full max-w-xs text-xs sm:h-9 sm:text-sm"
-                    value={inputValues[id]['args'][index] as string | number}
+                    value={inputValues[id].args[index] as string | number}
                     onFocus={() =>
                       (focusedInputRef.current = `${id}-args-${index}`)
                     }
@@ -384,12 +392,10 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                     ? row.original.inputs.map((input, index) => ({
                         type: input.type,
                         name: input.name,
-                        value: inputValues[id]['args'][index] as
-                          | string
-                          | number,
+                        value: inputValues[id].args[index] as string | number,
                       }))
                     : [],
-                  inputValues[id]['value'],
+                  inputValues[id].value,
                 )
               }
             >

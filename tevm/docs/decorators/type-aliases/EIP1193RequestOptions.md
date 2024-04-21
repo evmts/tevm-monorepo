@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [decorators](../README.md) / EIP1193RequestOptions
+[API](../../API.md) > [decorators](../README.md) > EIP1193RequestOptions
 
 # Type alias: EIP1193RequestOptions
 
@@ -10,14 +10,17 @@
 
 ## Type declaration
 
-### retryCount?
+### retryCount
 
-> **`optional`** **retryCount**: `number`
+> **retryCount**?: `number`
 
-### retryDelay?
+### retryDelay
 
-> **`optional`** **retryDelay**: `number`
+> **retryDelay**?: `number`
 
 ## Source
 
 packages/decorators/dist/index.d.ts:292
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

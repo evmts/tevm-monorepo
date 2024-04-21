@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [errors](../README.md) / InvalidOriginError
+[API](../../API.md) > [errors](../README.md) > InvalidOriginError
 
 # Type alias: InvalidOriginError
 
@@ -13,3 +13,6 @@ Error thrown when origin parameter is invalid
 ## Source
 
 packages/errors/types/input/InvalidOriginError.d.ts:5
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

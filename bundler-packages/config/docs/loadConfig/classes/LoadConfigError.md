@@ -1,8 +1,8 @@
-**@tevm/config** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/config** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/config](../../README.md) / [loadConfig](../README.md) / LoadConfigError
+[API](../../API.md) > [loadConfig](../README.md) > LoadConfigError
 
 # Class: LoadConfigError
 
@@ -20,21 +20,17 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 #### Parameters
 
-• **configFilePath**: `string`
+▪ **configFilePath**: `string`
 
-• **underlyingError**: [`LoadConfigErrorType`](../type-aliases/LoadConfigErrorType.md)
-
-#### Returns
-
-[`LoadConfigError`](LoadConfigError.md)
+▪ **underlyingError**: [`LoadConfigErrorType`](../type-aliases/LoadConfigErrorType.md)
 
 #### Overrides
 
-`Error.constructor`
+Error.constructor
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L40)
+[bundler-packages/config/src/loadConfig.js:29](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L29)
 
 ## Properties
 
@@ -44,17 +40,17 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L35)
+[bundler-packages/config/src/loadConfig.js:24](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L24)
 
 ***
 
-### cause?
+### cause
 
-> **`optional`** **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
-`Error.cause`
+Error.cause
 
 #### Source
 
@@ -68,7 +64,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-`Error.message`
+Error.message
 
 #### Source
 
@@ -82,21 +78,21 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-`Error.name`
+Error.name
 
 #### Source
 
-[bundler-packages/config/src/loadConfig.js:31](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L31)
+[bundler-packages/config/src/loadConfig.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L20)
 
 ***
 
-### stack?
+### stack
 
-> **`optional`** **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
-`Error.stack`
+Error.stack
 
 #### Source
 
@@ -104,9 +100,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace()?
+### prepareStackTrace
 
-> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -116,17 +112,13 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-• **err**: `Error`
+▪ **err**: `Error`
 
-• **stackTraces**: `CallSite`[]
-
-#### Returns
-
-`any`
+▪ **stackTraces**: `CallSite`[]
 
 #### Inherited from
 
-`Error.prepareStackTrace`
+Error.prepareStackTrace
 
 #### Source
 
@@ -140,7 +132,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-`Error.stackTraceLimit`
+Error.stackTraceLimit
 
 #### Source
 
@@ -156,18 +148,17 @@ Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-#### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 #### Inherited from
 
-`Error.captureStackTrace`
+Error.captureStackTrace
 
 #### Source
 
 node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

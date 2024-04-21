@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthAccountsParams
+[API](../API.md) > EthAccountsParams
 
 # Type alias: EthAccountsParams
 
@@ -13,3 +13,6 @@ Params taken by `eth_accounts` handler (no params)
 ## Source
 
 [params/EthParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L16)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

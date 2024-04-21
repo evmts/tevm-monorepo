@@ -12,7 +12,5 @@ export const gasPriceProcedure =
 		jsonrpc: '2.0',
 		method: req.method,
 		// TODO pass in a client instead
-		result: await gasPriceHandler(/** @type any*/ ({ getVm, forkUrl }))(
-			{},
-		).then(numberToHex),
+		result: await gasPriceHandler(/** @type any*/ ({ getVm, forkUrl }))({}).then(numberToHex),
 	})

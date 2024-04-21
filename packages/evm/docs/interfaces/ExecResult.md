@@ -1,8 +1,8 @@
-**@tevm/evm** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/evm](../README.md) / ExecResult
+[API](../API.md) > ExecResult
 
 # Interface: ExecResult
 
@@ -10,9 +10,9 @@ Result of executing a call via the EVM.
 
 ## Properties
 
-### blobGasUsed?
+### blobGasUsed
 
-> **`optional`** **blobGasUsed**: `bigint`
+> **blobGasUsed**?: `bigint`
 
 Amount of blob gas consumed by the transaction
 
@@ -22,9 +22,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### createdAddresses?
+### createdAddresses
 
-> **`optional`** **createdAddresses**: `Set`\<`string`\>
+> **createdAddresses**?: `Set`\<`string`\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -34,9 +34,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### exceptionError?
+### exceptionError
 
-> **`optional`** **exceptionError**: [`EvmError`](../classes/EvmError.md)
+> **exceptionError**?: [`EvmError`](../classes/EvmError.md)
 
 Description of the exception, if any occurred
 
@@ -58,9 +58,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### gas?
+### gas
 
-> **`optional`** **gas**: `bigint`
+> **gas**?: `bigint`
 
 Amount of gas left
 
@@ -70,9 +70,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### gasRefund?
+### gasRefund
 
-> **`optional`** **gasRefund**: `bigint`
+> **gasRefund**?: `bigint`
 
 The gas refund counter
 
@@ -82,9 +82,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### logs?
+### logs
 
-> **`optional`** **logs**: `Log`[]
+> **logs**?: `Log`[]
 
 Array of logs that the contract emitted
 
@@ -106,9 +106,9 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### runState?
+### runState
 
-> **`optional`** **runState**: `RunState`
+> **runState**?: `RunState`
 
 #### Source
 
@@ -116,12 +116,15 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### selfdestruct?
+### selfdestruct
 
-> **`optional`** **selfdestruct**: `Set`\<`string`\>
+> **selfdestruct**?: `Set`\<`string`\>
 
 A set of accounts to selfdestruct
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:282
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

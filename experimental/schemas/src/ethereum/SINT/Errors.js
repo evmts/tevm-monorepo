@@ -25,23 +25,13 @@ export class InvalidINTError extends TypeError {
 	 * @param {string} [options.docs] - The documentation URL.
 	 * @param {import('effect/ReadonlyArray').NonEmptyReadonlyArray<import('@effect/schema/ParseResult').ParseErrors>} [options.cause] - The cause of the error.
 	 */
-	constructor({
-		int,
-		size,
-		message,
-		cause,
-		docs = 'https://tevm.sh/reference/errors',
-	}) {
+	constructor({ int, size, message, cause, docs = 'https://tevm.sh/reference/errors' }) {
 		if (!message) {
 			const min = BigInt(1) << BigInt(size - 1)
 			if (int < -min) {
-				message = `Received ${int} is too small to be an INT${size}. Must be >= -2^${
-					size - 1
-				}.`
+				message = `Received ${int} is too small to be an INT${size}. Must be >= -2^${size - 1}.`
 			} else {
-				message = `Received ${int} is too large to be an INT${size}. Must be < 2^${
-					size - 1
-				}.`
+				message = `Received ${int} is too large to be an INT${size}. Must be < 2^${size - 1}.`
 			}
 		}
 		super(`${InvalidINTError.name}: ${message}\n${docs}`)

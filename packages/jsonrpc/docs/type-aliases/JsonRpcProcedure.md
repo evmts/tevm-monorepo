@@ -1,31 +1,29 @@
-**@tevm/jsonrpc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/jsonrpc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/jsonrpc](../README.md) / JsonRpcProcedure
+[API](../API.md) > JsonRpcProcedure
 
-# Type alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
+# Type alias: JsonRpcProcedure`<TMethod, TParams, TResult, TErrorCode>`
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\>: (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
 ## Type parameters
 
-• **TMethod** extends `string`
-
-• **TParams**
-
-• **TResult**
-
-• **TErrorCode** extends `string`
+| Parameter |
+| :------ |
+| `TMethod` extends `string` |
+| `TParams` |
+| `TResult` |
+| `TErrorCode` extends `string` |
 
 ## Parameters
 
-• **request**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
-
-## Returns
-
-`Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+▪ **request**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
 
 ## Source
 
 [JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

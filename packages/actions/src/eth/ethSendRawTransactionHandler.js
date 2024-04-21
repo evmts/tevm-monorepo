@@ -1,6 +1,6 @@
-import { callHandler } from '../index.js'
 import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { callHandler } from '../index.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -45,10 +45,7 @@ const getTx = (vm, txBuf) => {
 				common: vm.common,
 			})
 		case txType.BLOB: {
-			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(
-				txBuf,
-				{ common: vm.common },
-			)
+			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common })
 			const blobGasLimit = vm.common.param('gasConfig', 'maxblobGasPerBlock')
 			const blobGasPerBlob = vm.common.param('gasConfig', 'blobGasPerBlob')
 
@@ -97,14 +94,11 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			throwOnFail: false,
 			createTransaction: 'always',
 			...tx,
-			from: /** @type {import('@tevm/utils').Address}*/ (
-				tx.getSenderAddress().toString()
-			),
+			from: /** @type {import('@tevm/utils').Address}*/ (tx.getSenderAddress().toString()),
 			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
-			blobVersionedHashes:
-				/** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (
-					tx
-				).blobVersionedHashes.map((bytes) => bytesToHex(bytes)),
+			blobVersionedHashes: /** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (tx).blobVersionedHashes.map((bytes) =>
+				bytesToHex(bytes),
+			),
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {

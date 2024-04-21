@@ -1,8 +1,8 @@
-**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/decorators](../README.md) / JsonRpcSchemaTevm
+[API](../API.md) > JsonRpcSchemaTevm
 
 # Type alias: JsonRpcSchemaTevm
 
@@ -31,15 +31,15 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 ### tevm\_call.Method
 
-> **Method**: `"tevm_call"`
+> **tevm\_call.Method**: `"tevm_call"`
 
 ### tevm\_call.Parameters
 
-> **Parameters**: `CallJsonRpcRequest`\[`"params"`\]
+> **tevm\_call.Parameters**: `CallJsonRpcRequest`[`"params"`]
 
 ### tevm\_call.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
+> **tevm\_call.ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
 
 ### tevm\_dumpState
 
@@ -61,15 +61,15 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.Method
 
-> **Method**: `"tevm_dumpState"`
+> **tevm\_dumpState.Method**: `"tevm_dumpState"`
 
-### tevm\_dumpState.Parameters?
+### tevm\_dumpState.Parameters
 
-> **`optional`** **Parameters**: `DumpStateJsonRpcRequest`\[`"params"`\]
+> **tevm\_dumpState.Parameters**?: `DumpStateJsonRpcRequest`[`"params"`]
 
 ### tevm\_dumpState.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`DumpStateResult`\<`never`\>\>
+> **tevm\_dumpState.ReturnType**: `SerializeToJson`\<`DumpStateResult`\<`never`\>\>
 
 ### tevm\_getAccount
 
@@ -91,15 +91,15 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 ### tevm\_getAccount.Method
 
-> **Method**: `"tevm_getAccount"`
+> **tevm\_getAccount.Method**: `"tevm_getAccount"`
 
 ### tevm\_getAccount.Parameters
 
-> **Parameters**: `GetAccountJsonRpcRequest`\[`"params"`\]
+> **tevm\_getAccount.Parameters**: `GetAccountJsonRpcRequest`[`"params"`]
 
 ### tevm\_getAccount.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`GetAccountResult`\<`never`\>\>
+> **tevm\_getAccount.ReturnType**: `SerializeToJson`\<`GetAccountResult`\<`never`\>\>
 
 ### tevm\_loadState
 
@@ -122,15 +122,15 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.Method
 
-> **Method**: `"tevm_loadState"`
+> **tevm\_loadState.Method**: `"tevm_loadState"`
 
 ### tevm\_loadState.Parameters
 
-> **Parameters**: `LoadStateJsonRpcRequest`\[`"params"`\]
+> **tevm\_loadState.Parameters**: `LoadStateJsonRpcRequest`[`"params"`]
 
 ### tevm\_loadState.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
+> **tevm\_loadState.ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
 
 ### tevm\_script
 
@@ -153,15 +153,15 @@ provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', 
 
 ### tevm\_script.Method
 
-> **Method**: `"tevm_script"`
+> **tevm\_script.Method**: `"tevm_script"`
 
 ### tevm\_script.Parameters
 
-> **Parameters**: `ScriptJsonRpcRequest`\[`"params"`\]
+> **tevm\_script.Parameters**: `ScriptJsonRpcRequest`[`"params"`]
 
 ### tevm\_script.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
+> **tevm\_script.ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
 
 ### tevm\_setAccount
 
@@ -184,16 +184,19 @@ r
 
 ### tevm\_setAccount.Method
 
-> **Method**: `"tevm_setAccount"`
+> **tevm\_setAccount.Method**: `"tevm_setAccount"`
 
 ### tevm\_setAccount.Parameters
 
-> **Parameters**: `SetAccountJsonRpcRequest`\[`"params"`\]
+> **tevm\_setAccount.Parameters**: `SetAccountJsonRpcRequest`[`"params"`]
 
 ### tevm\_setAccount.ReturnType
 
-> **ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
+> **tevm\_setAccount.ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
 
 ## Source
 
-[packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L20)
+[packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

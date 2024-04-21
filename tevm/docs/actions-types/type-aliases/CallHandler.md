@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / CallHandler
+[API](../../API.md) > [actions-types](../README.md) > CallHandler
 
-# Type alias: CallHandler()
+# Type alias: CallHandler
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
 
@@ -29,12 +29,11 @@ skipBalance: true,
 
 ## Parameters
 
-• **action**: [`CallParams`](../../index/type-aliases/CallParams.md)
-
-## Returns
-
-`Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
+▪ **action**: [`CallParams`](../../index/type-aliases/CallParams.md)
 
 ## Source
 
 packages/actions-types/types/handlers/CallHandler.d.ts:19
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

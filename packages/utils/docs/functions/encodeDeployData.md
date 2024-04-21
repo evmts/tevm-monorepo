@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / encodeDeployData
+[API](../API.md) > encodeDeployData
 
 # Function: encodeDeployData()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **abi** extends readonly `unknown`[] \| `Abi`
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ## Parameters
 
-• **parameters**: `EncodeDeployDataParameters`\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>\[`number`\], `object`\>] extends [`never`] ? `false` : `true` : `true`, `ContractConstructorArgs`\<`abi`\>\>
-
-## Returns
-
-`EncodeDeployDataReturnType`
+▪ **parameters**: `EncodeDeployDataParameters`\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`, `ContractConstructorArgs`\<`abi`\>\>
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/abi/encodeDeployData.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

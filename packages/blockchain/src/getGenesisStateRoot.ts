@@ -1,5 +1,5 @@
-import { genGenesisStateRoot } from './genGenesisStateRoot.js'
 import { ChainGenesis, Common } from '@tevm/common'
+import { genGenesisStateRoot } from './genGenesisStateRoot.js'
 
 /**
  * Returns the genesis state root if chain is well known or an empty state's root otherwise
@@ -9,7 +9,5 @@ export async function getGenesisStateRoot(
 	common: Common,
 ): Promise<Uint8Array> {
 	const chainGenesis = ChainGenesis[chainId as keyof typeof ChainGenesis]
-	return chainGenesis !== undefined
-		? chainGenesis.stateRoot
-		: genGenesisStateRoot({}, common)
+	return chainGenesis !== undefined ? chainGenesis.stateRoot : genGenesisStateRoot({}, common)
 }

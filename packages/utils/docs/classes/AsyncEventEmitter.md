@@ -1,10 +1,10 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / AsyncEventEmitter
+[API](../API.md) > AsyncEventEmitter
 
-# Class: AsyncEventEmitter\<T\>
+# Class: AsyncEventEmitter`<T>`
 
 ## Extends
 
@@ -12,7 +12,7 @@
 
 ## Type parameters
 
-• **T** extends `EventMap`
+▪ **T** extends `EventMap`
 
 ## Constructors
 
@@ -22,15 +22,11 @@
 
 #### Parameters
 
-• **options?**: `EventEmitterOptions`
-
-#### Returns
-
-[`AsyncEventEmitter`](AsyncEventEmitter.md)\<`T`\>
+▪ **options?**: `EventEmitterOptions`
 
 #### Inherited from
 
-`EventEmitter.constructor`
+EventEmitter.constructor
 
 #### Source
 
@@ -62,7 +58,7 @@ v13.4.0, v12.16.0
 
 #### Inherited from
 
-`EventEmitter.captureRejectionSymbol`
+EventEmitter.captureRejectionSymbol
 
 #### Source
 
@@ -84,7 +80,7 @@ v13.4.0, v12.16.0
 
 #### Inherited from
 
-`EventEmitter.captureRejections`
+EventEmitter.captureRejections
 
 #### Source
 
@@ -136,7 +132,7 @@ v0.11.2
 
 #### Inherited from
 
-`EventEmitter.defaultMaxListeners`
+EventEmitter.defaultMaxListeners
 
 #### Source
 
@@ -159,7 +155,7 @@ v13.6.0, v12.17.0
 
 #### Inherited from
 
-`EventEmitter.errorMonitor`
+EventEmitter.errorMonitor
 
 #### Source
 
@@ -167,29 +163,25 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:40
 
 ## Methods
 
-### `[captureRejectionSymbol]`()?
+### [captureRejectionSymbol]()
 
 > **`optional`** **[captureRejectionSymbol]**\<`K`\>(`error`, `event`, ...`args`): `void`
 
 #### Type parameters
 
-• **K**
+▪ **K**
 
 #### Parameters
 
-• **error**: `Error`
+▪ **error**: `Error`
 
-• **event**: `string` \| `symbol`
+▪ **event**: `string` \| `symbol`
 
-• ...**args**: `AnyRest`
-
-#### Returns
-
-`void`
+▪ ...**args**: `AnyRest`
 
 #### Inherited from
 
-`EventEmitter.[captureRejectionSymbol]`
+EventEmitter.[captureRejectionSymbol]
 
 #### Source
 
@@ -203,21 +195,17 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:12
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.addListener`
+EventEmitter.addListener
 
 #### Source
 
@@ -231,19 +219,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **target**: `T`\[`E`\]
+▪ **target**: `T`[`E`]
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Source
 
@@ -257,19 +241,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **target**: `T`\[`E`\]
+▪ **target**: `T`[`E`]
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Source
 
@@ -283,21 +263,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• ...**args**: `Parameters`\<`T`\[`E`\]\>
-
-#### Returns
-
-`boolean`
+▪ ...**args**: `Parameters`\<`T`[`E`]\>
 
 #### Overrides
 
-`EventEmitter.emit`
+EventEmitter.emit
 
 #### Source
 
@@ -309,13 +285,9 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **eventNames**(): keyof `T` & `string`[]
 
-#### Returns
-
-keyof `T` & `string`[]
-
 #### Overrides
 
-`EventEmitter.eventNames`
+EventEmitter.eventNames
 
 #### Source
 
@@ -329,17 +301,13 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Source
 
@@ -351,13 +319,9 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **getMaxListeners**(): `number`
 
-#### Returns
-
-`number`
-
 #### Overrides
 
-`EventEmitter.getMaxListeners`
+EventEmitter.getMaxListeners
 
 #### Source
 
@@ -371,15 +335,11 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Parameters
 
-• **event**: keyof `T` & `string`
-
-#### Returns
-
-`number`
+▪ **event**: keyof `T` & `string`
 
 #### Overrides
 
-`EventEmitter.listenerCount`
+EventEmitter.listenerCount
 
 #### Source
 
@@ -389,23 +349,19 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### listeners()
 
-> **listeners**\<`E`\>(`event`): `T`\[`E`\][]
+> **listeners**\<`E`\>(`event`): `T`[`E`][]
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
-
-#### Returns
-
-`T`\[`E`\][]
+▪ **event**: `E` & `string`
 
 #### Overrides
 
-`EventEmitter.listeners`
+EventEmitter.listeners
 
 #### Source
 
@@ -421,21 +377,19 @@ Alias for `emitter.removeListener()`.
 
 #### Type parameters
 
-• **K**
+▪ **K**
 
 #### Parameters
 
-• **eventName**: `string` \| `symbol`
+▪ **eventName**: `string` \| `symbol`
 
-• **listener**
+▪ **listener**: (...`args`) => `void`
 
 #### Returns
 
-`this`
-
 #### Inherited from
 
-`EventEmitter.off`
+EventEmitter.off
 
 #### Since
 
@@ -453,21 +407,17 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:70
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.on`
+EventEmitter.on
 
 #### Source
 
@@ -481,21 +431,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.once`
+EventEmitter.once
 
 #### Source
 
@@ -509,21 +455,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.prependListener`
+EventEmitter.prependListener
 
 #### Source
 
@@ -537,21 +479,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.prependOnceListener`
+EventEmitter.prependOnceListener
 
 #### Source
 
@@ -593,19 +531,17 @@ emitter.emit('log');
 
 #### Type parameters
 
-• **K**
+▪ **K**
 
 #### Parameters
 
-• **eventName**: `string` \| `symbol`
+▪ **eventName**: `string` \| `symbol`
 
 #### Returns
 
-`Function`[]
-
 #### Inherited from
 
-`EventEmitter.rawListeners`
+EventEmitter.rawListeners
 
 #### Since
 
@@ -623,15 +559,11 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:77
 
 #### Parameters
 
-• **event?**: keyof `T` & `string`
-
-#### Returns
-
-`this`
+▪ **event?**: keyof `T` & `string`
 
 #### Overrides
 
-`EventEmitter.removeAllListeners`
+EventEmitter.removeAllListeners
 
 #### Source
 
@@ -645,21 +577,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Type parameters
 
-• **E** extends `string` \| `number` \| `symbol`
+▪ **E** extends `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+▪ **event**: `E` & `string`
 
-• **listener**: `T`\[`E`\]
-
-#### Returns
-
-`this`
+▪ **listener**: `T`[`E`]
 
 #### Overrides
 
-`EventEmitter.removeListener`
+EventEmitter.removeListener
 
 #### Source
 
@@ -673,15 +601,11 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Parameters
 
-• **maxListeners**: `number`
-
-#### Returns
-
-`this`
+▪ **maxListeners**: `number`
 
 #### Overrides
 
-`EventEmitter.setMaxListeners`
+EventEmitter.setMaxListeners
 
 #### Source
 
@@ -690,8 +614,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 ***
 
 ### addAbortListener()
-
-`Experimental`
 
 > **`static`** **addAbortListener**(`signal`, `resource`): `Disposable`
 
@@ -727,19 +649,17 @@ function example(signal) {
 
 #### Parameters
 
-• **signal**: `AbortSignal`
+▪ **signal**: `AbortSignal`
 
-• **resource**
+▪ **resource**: (`event`) => `void`
 
 #### Returns
-
-`Disposable`
 
 Disposable that removes the `abort` listener.
 
 #### Inherited from
 
-`EventEmitter.addAbortListener`
+EventEmitter.addAbortListener
 
 #### Since
 
@@ -782,17 +702,15 @@ import { getEventListeners, EventEmitter } from 'node:events';
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`
+▪ **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`
 
-• **name**: `string` \| `symbol`
+▪ **name**: `string` \| `symbol`
 
 #### Returns
 
-`Function`[]
-
 #### Inherited from
 
-`EventEmitter.getEventListeners`
+EventEmitter.getEventListeners
 
 #### Since
 
@@ -836,15 +754,13 @@ import { getMaxListeners, setMaxListeners, EventEmitter } from 'node:events';
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`
+▪ **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`
 
 #### Returns
 
-`number`
-
 #### Inherited from
 
-`EventEmitter.getMaxListeners`
+EventEmitter.getMaxListeners
 
 #### Since
 
@@ -856,7 +772,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:35
 
 ***
 
-### ~~listenerCount()~~
+### listenerCount()
 
 > **`static`** **listenerCount**(`emitter`, `eventName`): `number`
 
@@ -874,21 +790,19 @@ console.log(listenerCount(myEmitter, 'event'));
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+▪ **emitter**: `EventEmitter`\<`DefaultEventMap`\>
 
 The emitter to query
 
-• **eventName**: `string` \| `symbol`
+▪ **eventName**: `string` \| `symbol`
 
 The event name
 
 #### Returns
 
-`number`
-
 #### Inherited from
 
-`EventEmitter.listenerCount`
+EventEmitter.listenerCount
 
 #### Since
 
@@ -965,23 +879,21 @@ process.nextTick(() => ac.abort());
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+▪ **emitter**: `EventEmitter`\<`DefaultEventMap`\>
 
-• **eventName**: `string`
+▪ **eventName**: `string`
 
 The name of the event being listened for
 
-• **options?**: `StaticEventEmitterOptions`
+▪ **options?**: `StaticEventEmitterOptions`
 
 #### Returns
-
-`AsyncIterableIterator`\<`any`\>
 
 that iterates `eventName` events emitted by the `emitter`
 
 #### Inherited from
 
-`EventEmitter.on`
+EventEmitter.on
 
 #### Since
 
@@ -1078,19 +990,17 @@ ee.emit('foo'); // Prints: Waiting for the event was canceled!
 
 ##### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+▪ **emitter**: `EventEmitter`\<`DefaultEventMap`\>
 
-• **eventName**: `string` \| `symbol`
+▪ **eventName**: `string` \| `symbol`
 
-• **options?**: `StaticEventEmitterOptions`
+▪ **options?**: `StaticEventEmitterOptions`
 
 ##### Returns
 
-`Promise`\<`any`[]\>
-
 ##### Inherited from
 
-`EventEmitter.once`
+EventEmitter.once
 
 ##### Since
 
@@ -1106,19 +1016,15 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:20
 
 ##### Parameters
 
-• **emitter**: `_DOMEventTarget`
+▪ **emitter**: `_DOMEventTarget`
 
-• **eventName**: `string`
+▪ **eventName**: `string`
 
-• **options?**: `StaticEventEmitterOptions`
-
-##### Returns
-
-`Promise`\<`any`[]\>
+▪ **options?**: `StaticEventEmitterOptions`
 
 ##### Inherited from
 
-`EventEmitter.once`
+EventEmitter.once
 
 ##### Source
 
@@ -1141,19 +1047,17 @@ setMaxListeners(5, target, emitter);
 
 #### Parameters
 
-• **n?**: `number`
+▪ **n?**: `number`
 
 A non-negative number. The maximum number of listeners per `EventTarget` event.
 
-• ...**eventTargets?**: (`EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`)[]
+▪ ...**eventTargets?**: (`EventEmitter`\<`DefaultEventMap`\> \| `_DOMEventTarget`)[]
 
 #### Returns
 
-`void`
-
 #### Inherited from
 
-`EventEmitter.setMaxListeners`
+EventEmitter.setMaxListeners
 
 #### Since
 
@@ -1162,3 +1066,6 @@ v15.4.0
 #### Source
 
 node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:365
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

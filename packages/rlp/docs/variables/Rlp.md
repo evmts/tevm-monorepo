@@ -1,8 +1,8 @@
-**@tevm/rlp** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/rlp** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/rlp](../README.md) / Rlp
+[API](../API.md) > Rlp
 
 # Variable: Rlp
 
@@ -21,3 +21,6 @@
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+rlp@5.0.2/node\_modules/@ethereumjs/rlp/dist/esm/index.d.ts:34
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

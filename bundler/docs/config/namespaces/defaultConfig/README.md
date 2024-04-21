@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../../README.md) \| [API](../../../modules.md)
+**@tevm/bundler** ∙ [README](../../../README.md) ∙ [API](../../../API.md)
 
 ***
 
-[@tevm/bundler](../../../README.md) / [config](../../README.md) / defaultConfig
+[API](../../../API.md) > [config](../../README.md) > defaultConfig
 
 # Namespace: defaultConfig
 
@@ -15,3 +15,6 @@
 - [foundryProject](variables/foundryProject.md)
 - [libs](variables/libs.md)
 - [remappings](variables/remappings.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

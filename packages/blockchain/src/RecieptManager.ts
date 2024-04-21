@@ -1,15 +1,7 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Rlp } from '@tevm/rlp'
-import {
-	Bloom,
-	bytesToBigInt,
-	bytesToNumber,
-	equalsBytes,
-	hexToBytes,
-	numberToHex,
-	stringToHex,
-} from '@tevm/utils'
+import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 
 import { DBKey, MetaDBManager } from './MetaDbManager.js'
 
@@ -71,17 +63,12 @@ export interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
 	 */
 	blobGasPrice: bigint
 }
-export type TxReceipt =
-	| PreByzantiumTxReceipt
-	| PostByzantiumTxReceipt
-	| EIP4844BlobTxReceipt
+export type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
 /**
  * TxReceiptWithType extends TxReceipt to provide:
  *  - txType: byte prefix for serializing typed tx receipts
  */
-export type TxReceiptWithType =
-	| PreByzantiumTxReceiptWithType
-	| PostByzantiumTxReceiptWithType
+export type TxReceiptWithType = PreByzantiumTxReceiptWithType | PostByzantiumTxReceiptWithType
 interface PreByzantiumTxReceiptWithType extends PreByzantiumTxReceipt {
 	/* EIP-2718 Typed Transaction Envelope type */
 	txType: TransactionType
@@ -94,12 +81,7 @@ interface PostByzantiumTxReceiptWithType extends PostByzantiumTxReceipt {
 /**
  * Function return values
  */
-type GetReceiptByTxHashReturn = [
-	receipt: TxReceipt,
-	blockHash: Uint8Array,
-	txIndex: number,
-	logIndex: number,
-]
+type GetReceiptByTxHashReturn = [receipt: TxReceipt, blockHash: Uint8Array, txIndex: number, logIndex: number]
 type GetLogsReturn = {
 	log: EthjsLog
 	block: Block
@@ -125,11 +107,7 @@ enum IndexOperation {
  * Storage encodings
  */
 type rlpLog = EthjsLog
-type rlpReceipt = [
-	postStateOrStatus: Uint8Array,
-	cumulativeGasUsed: Uint8Array,
-	logs: rlpLog[],
-]
+type rlpReceipt = [postStateOrStatus: Uint8Array, cumulativeGasUsed: Uint8Array, logs: rlpLog[]]
 type rlpTxHash = [blockHash: Uint8Array, txIndex: Uint8Array]
 
 enum RlpConvert {
@@ -182,16 +160,8 @@ export class ReceiptsManager extends MetaDBManager {
 	 * @param calcBloom whether to calculate and return the logs bloom for each receipt (default: false)
 	 * @param includeTxType whether to include the tx type for each receipt (default: false)
 	 */
-	async getReceipts(
-		blockHash: Uint8Array,
-		calcBloom?: boolean,
-		includeTxType?: true,
-	): Promise<TxReceiptWithType[]>
-	async getReceipts(
-		blockHash: Uint8Array,
-		calcBloom?: boolean,
-		includeTxType?: false,
-	): Promise<TxReceipt[]>
+	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: true): Promise<TxReceiptWithType[]>
+	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: false): Promise<TxReceipt[]>
 	async getReceipts(
 		blockHash: Uint8Array,
 		calcBloom = false,
@@ -223,9 +193,7 @@ export class ReceiptsManager extends MetaDBManager {
 	 * Returns receipt by tx hash with additional metadata for the JSON RPC response, or null if not found
 	 * @param txHash the tx hash
 	 */
-	async getReceiptByTxHash(
-		txHash: Uint8Array,
-	): Promise<GetReceiptByTxHashReturn | null> {
+	async getReceiptByTxHash(txHash: Uint8Array): Promise<GetReceiptByTxHashReturn | null> {
 		const txHashIndex = await this.getIndex(IndexType.TxHash, txHash)
 		if (!txHashIndex) return null
 		const [blockHash, txIndex] = txHashIndex
@@ -272,9 +240,7 @@ export class ReceiptsManager extends MetaDBManager {
 				)
 			}
 			if (addresses && addresses.length > 0) {
-				logs = logs.filter((l) =>
-					addresses.some((a) => equalsBytes(a, l.log[0])),
-				)
+				logs = logs.filter((l) => addresses.some((a) => equalsBytes(a, l.log[0])))
 			}
 			if (topics.length > 0) {
 				// From https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter/:
@@ -289,8 +255,7 @@ export class ReceiptsManager extends MetaDBManager {
 					for (const [i, topic] of topics.entries()) {
 						if (Array.isArray(topic)) {
 							// Can match any items in this array
-							if (!topic.find((t) => equalsBytes(t, l.log[1][i] as Uint8Array)))
-								return false
+							if (!topic.find((t) => equalsBytes(t, l.log[1][i] as Uint8Array))) return false
 						} else if (!topic) {
 							// If null then can match any
 						} else {
@@ -304,13 +269,8 @@ export class ReceiptsManager extends MetaDBManager {
 			}
 			returnedLogs.push(...logs)
 			// TODO add stringToBytes to utils
-			returnedLogsSize += hexToBytes(
-				stringToHex(JSON.stringify(logs)),
-			).byteLength
-			if (
-				returnedLogs.length >= this.GET_LOGS_LIMIT ||
-				returnedLogsSize >= this.GET_LOGS_LIMIT_MEGABYTES * 1048576
-			) {
+			returnedLogsSize += hexToBytes(stringToHex(JSON.stringify(logs))).byteLength
+			if (returnedLogs.length >= this.GET_LOGS_LIMIT || returnedLogsSize >= this.GET_LOGS_LIMIT_MEGABYTES * 1048576) {
 				break
 			}
 		}
@@ -323,16 +283,8 @@ export class ReceiptsManager extends MetaDBManager {
 	 * @param type the {@link IndexType}
 	 * @param value for {@link IndexType.TxHash}, the block to save or delete the tx hash indexes for
 	 */
-	private async updateIndex(
-		operation: IndexOperation,
-		type: IndexType.TxHash,
-		value: Block,
-	): Promise<void>
-	private async updateIndex(
-		operation: IndexOperation,
-		type: IndexType,
-		value: any,
-	): Promise<void> {
+	private async updateIndex(operation: IndexOperation, type: IndexType.TxHash, value: Block): Promise<void>
+	private async updateIndex(operation: IndexOperation, type: IndexType, value: any): Promise<void> {
 		switch (type) {
 			case IndexType.TxHash: {
 				const block = value
@@ -359,14 +311,8 @@ export class ReceiptsManager extends MetaDBManager {
 	 * @param type the {@link IndexType}
 	 * @param value for {@link IndexType.TxHash}, the txHash to get
 	 */
-	private async getIndex(
-		type: IndexType.TxHash,
-		value: Uint8Array,
-	): Promise<TxHashIndex | null>
-	private async getIndex(
-		type: IndexType,
-		value: Uint8Array,
-	): Promise<any | null> {
+	private async getIndex(type: IndexType.TxHash, value: Uint8Array): Promise<TxHashIndex | null>
+	private async getIndex(type: IndexType, value: Uint8Array): Promise<any | null> {
 		switch (type) {
 			case IndexType.TxHash: {
 				const encoded = await this.get(DBKey.TxHash, value)
@@ -384,33 +330,13 @@ export class ReceiptsManager extends MetaDBManager {
 	 * @param type one of {@link RlpType}
 	 * @param value the value to encode or decode
 	 */
-	private rlp(
-		conversion: RlpConvert.Encode,
-		type: RlpType,
-		value: rlpOut,
-	): Uint8Array
-	private rlp(
-		conversion: RlpConvert.Decode,
-		type: RlpType.Receipts,
-		values: Uint8Array,
-	): TxReceipt[]
-	private rlp(
-		conversion: RlpConvert.Decode,
-		type: RlpType.Logs,
-		value: rlpLog[],
-	): EthjsLog[]
-	private rlp(
-		conversion: RlpConvert.Decode,
-		type: RlpType.TxHash,
-		value: Uint8Array,
-	): TxHashIndex
-	private rlp(
-		conversion: RlpConvert,
-		type: RlpType,
-		value: Uint8Array | rlpOut,
-	): Uint8Array | rlpOut {
+	private rlp(conversion: RlpConvert.Encode, type: RlpType, value: rlpOut): Uint8Array
+	private rlp(conversion: RlpConvert.Decode, type: RlpType.Receipts, values: Uint8Array): TxReceipt[]
+	private rlp(conversion: RlpConvert.Decode, type: RlpType.Logs, value: rlpLog[]): EthjsLog[]
+	private rlp(conversion: RlpConvert.Decode, type: RlpType.TxHash, value: Uint8Array): TxHashIndex
+	private rlp(conversion: RlpConvert, type: RlpType, value: Uint8Array | rlpOut): Uint8Array | rlpOut {
 		switch (type) {
-			case RlpType.Receipts:
+			case RlpType.Receipts: {
 				if (conversion === RlpConvert.Encode) {
 					return Rlp.encode(
 						(value as TxReceipt[]).map((r) => [
@@ -422,47 +348,41 @@ export class ReceiptsManager extends MetaDBManager {
 							this.rlp(RlpConvert.Encode, RlpType.Logs, r.logs),
 						]),
 					)
-				} else {
-					const decoded = Rlp.decode(
-						value as Uint8Array,
-					) as unknown as rlpReceipt[]
-					return decoded.map((r) => {
-						const gasUsed = r[1]
-						const logs = this.rlp(RlpConvert.Decode, RlpType.Logs, r[2])
-						if (r[0].length === 32) {
-							// Pre-Byzantium Receipt
-							return {
-								stateRoot: r[0],
-								cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-								logs,
-							} as PreByzantiumTxReceipt
-						} else {
-							// Post-Byzantium Receipt
-							return {
-								status: bytesToNumber(r[0]),
-								cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-								logs,
-							} as PostByzantiumTxReceipt
-						}
-					})
 				}
+				const decoded = Rlp.decode(value as Uint8Array) as unknown as rlpReceipt[]
+				return decoded.map((r) => {
+					const gasUsed = r[1]
+					const logs = this.rlp(RlpConvert.Decode, RlpType.Logs, r[2])
+					if (r[0].length === 32) {
+						// Pre-Byzantium Receipt
+						return {
+							stateRoot: r[0],
+							cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
+							logs,
+						} as PreByzantiumTxReceipt
+					}
+					// Post-Byzantium Receipt
+					return {
+						status: bytesToNumber(r[0]),
+						cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
+						logs,
+					} as PostByzantiumTxReceipt
+				})
+			}
 			case RlpType.Logs:
 				if (conversion === RlpConvert.Encode) {
 					return Rlp.encode(value as EthjsLog[])
-				} else {
-					return Rlp.decode(value as Uint8Array) as EthjsLog[]
 				}
-			case RlpType.TxHash:
+				return Rlp.decode(value as Uint8Array) as EthjsLog[]
+			case RlpType.TxHash: {
 				if (conversion === RlpConvert.Encode) {
 					const [blockHash, txIndex] = value as TxHashIndex
 					// TODO add numberToBytes to utils
 					return Rlp.encode([blockHash, hexToBytes(numberToHex(txIndex))])
-				} else {
-					const [blockHash, txIndex] = Rlp.decode(
-						value as Uint8Array,
-					) as unknown as rlpTxHash
-					return [blockHash, bytesToNumber(txIndex)] as TxHashIndex
 				}
+				const [blockHash, txIndex] = Rlp.decode(value as Uint8Array) as unknown as rlpTxHash
+				return [blockHash, bytesToNumber(txIndex)] as TxHashIndex
+			}
 			default:
 				throw new Error('Unknown rlp conversion')
 		}

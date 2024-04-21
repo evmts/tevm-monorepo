@@ -1,8 +1,8 @@
-**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/zod](../README.md) / validateLoadStateParams
+[API](../API.md) > validateLoadStateParams
 
 # Function: validateLoadStateParams()
 
@@ -10,12 +10,11 @@
 
 ## Parameters
 
-• **action**: `LoadStateParams`\<`boolean`\>
-
-## Returns
-
-`LoadStateError`[]
+▪ **action**: `LoadStateParams`\<`boolean`\>
 
 ## Source
 
 [packages/zod/src/validators/validateLoadStateParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateLoadStateParams.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

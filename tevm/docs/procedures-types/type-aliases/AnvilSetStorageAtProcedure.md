@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / AnvilSetStorageAtProcedure
+[API](../../API.md) > [procedures-types](../README.md) > AnvilSetStorageAtProcedure
 
-# Type alias: AnvilSetStorageAtProcedure()
+# Type alias: AnvilSetStorageAtProcedure
 
 > **AnvilSetStorageAtProcedure**: (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
@@ -12,12 +12,11 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 ## Parameters
 
-• **request**: [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
+▪ **request**: [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:760
+packages/procedures-types/dist/index.d.ts:714
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,5 +1,5 @@
-import { createLogger } from './logger.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createLogger } from './logger.js'
 
 type TestAny = any
 
@@ -38,14 +38,10 @@ describe(createLogger.name, () => {
 		logger.error(error)
 		logger.warn(warn)
 
-		expect(
-			pluginCreateInfo.project.projectService.logger.info,
-		).toHaveBeenCalledWith(`[tevm-ts-plugin] ${info}`)
-		expect(
-			pluginCreateInfo.project.projectService.logger.info,
-		).toHaveBeenCalledWith(`[tevm-ts-plugin] error: ${error}`)
-		expect(
-			pluginCreateInfo.project.projectService.logger.info,
-		).toHaveBeenCalledWith(`[tevm-ts-plugin] warning: ${warn}`)
+		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(`[tevm-ts-plugin] ${info}`)
+		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(`[tevm-ts-plugin] error: ${error}`)
+		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(
+			`[tevm-ts-plugin] warning: ${warn}`,
+		)
 	})
 })

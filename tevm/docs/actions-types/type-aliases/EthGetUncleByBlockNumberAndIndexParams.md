@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthGetUncleByBlockNumberAndIndexParams
+[API](../../API.md) > [actions-types](../README.md) > EthGetUncleByBlockNumberAndIndexParams
 
 # Type alias: EthGetUncleByBlockNumberAndIndexParams
 
@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Type declaration
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### uncleIndex
 
@@ -23,3 +23,6 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:195
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

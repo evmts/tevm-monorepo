@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / formatAbi
+[API](../API.md) > formatAbi
 
 # Function: formatAbi()
 
@@ -12,20 +12,21 @@ Parses JSON ABI into human-readable ABI
 
 ## Type parameters
 
-• **TAbi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+▪ **TAbi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
 
 ## Parameters
 
-• **abi**: `TAbi`
+▪ **abi**: `TAbi`
 
 ABI
 
 ## Returns
-
-[`FormatAbi`](../type-aliases/FormatAbi.md)\<`TAbi`\>
 
 Human-readable ABI
 
 ## Source
 
 node\_modules/.pnpm/abitype@1.0.2\_typescript@5.4.5\_zod@3.22.5/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

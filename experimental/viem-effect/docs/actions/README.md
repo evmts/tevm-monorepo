@@ -1,13 +1,16 @@
-**@tevm/viem-effect** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/viem-effect** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/viem-effect](../README.md) / actions
+[API](../API.md) > actions
 
-# actions
+# Module: actions
 
 ## Index
 
 ### Functions
 
 - [getContractEffect](functions/getContractEffect.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

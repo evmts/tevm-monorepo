@@ -25,13 +25,7 @@ export class InvalidBytesFixedError extends TypeError {
 	 * @param {string} [options.docs] - The documentation URL.
 	 * @param {import('effect/ReadonlyArray').NonEmptyReadonlyArray<import('@effect/schema/ParseResult').ParseErrors>} [options.cause] - The cause of the error.
 	 */
-	constructor({
-		bytes,
-		size,
-		message,
-		cause,
-		docs = 'https://tevm.sh/reference/errors',
-	}) {
+	constructor({ bytes, size, message, cause, docs = 'https://tevm.sh/reference/errors' }) {
 		if (!message) {
 			const expectedLength = 2 + size * 2 // "0x" prefix + two characters for each byte
 			message = `Received ${bytes} is not of correct length for Bytes${size}. Expected length: ${expectedLength}.`

@@ -1,16 +1,14 @@
+import fs from 'node:fs'
+import { access } from 'node:fs/promises'
+import { Effect } from 'effect'
+import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { FileAccessObject, Logger } from '../types.js'
 import { resolveEffect } from './resolvePromise.js'
-import { Effect } from 'effect'
-import fs from 'fs'
-import { access } from 'fs/promises'
-import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const fao: FileAccessObject = {
 	existsSync: (filePath: string) => fs.existsSync(filePath),
 	readFile: (filePath: string, encoding: string) =>
-		Promise.resolve(
-			fs.readFileSync(filePath, { encoding: encoding as 'utf8' }),
-		),
+		Promise.resolve(fs.readFileSync(filePath, { encoding: encoding as 'utf8' })),
 	readFileSync: (filePath: string) => fs.readFileSync(filePath, 'utf8'),
 	exists: async (filePath: string) => {
 		try {
@@ -40,18 +38,14 @@ describe('resolvePromise', () => {
 	})
 
 	it('should resolve a file path in the base directory', async () => {
-		const resolvedPath = await Effect.runPromise(
-			resolveEffect('./resolvePromise.spec.ts', __dirname, fao, logger),
-		)
+		const resolvedPath = await Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', __dirname, fao, logger))
 		expect(resolvedPath.endsWith('src/utils/resolvePromise.spec.ts')).toBe(true)
 	})
 
 	it('should handle readFile throwing', async () => {
 		fao.readFile = () => Promise.reject('readFile error')
 		await expect(
-			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
-			),
+			Effect.runPromise(resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger)),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: readFile error]')
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 			[
@@ -74,9 +68,7 @@ describe('resolvePromise', () => {
 	it('should throw an error for non-existent file', async () => {
 		fao.exists = () => Promise.resolve(false)
 		await expect(
-			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
-			),
+			Effect.runPromise(resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger)),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
 			`[Error: Cannot find module './resolvePromise.spec.tst' from './src/utils']`,
 		)
@@ -97,13 +89,9 @@ describe('resolvePromise', () => {
 			throw new Error('exists error')
 		}
 		expect(
-			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger),
-			),
+			Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger)),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: exists error]')
-		expect(
-			(logger.error as Mock).mock.calls[0].slice(0, 2),
-		).toMatchInlineSnapshot(`
+		expect((logger.error as Mock).mock.calls[0].slice(0, 2)).toMatchInlineSnapshot(`
       [
         [Error: exists error],
       ]

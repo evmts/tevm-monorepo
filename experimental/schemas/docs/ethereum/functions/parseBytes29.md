@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseBytes29
+[API](../../API.md) > [ethereum](../README.md) > parseBytes29
 
 # Function: parseBytes29()
 
@@ -12,15 +12,13 @@ Parses a Bytes29 and returns the value if no errors.
 
 ## Type parameters
 
-• **TBytes29** extends ```0x${string}```
+▪ **TBytes29** extends \`0x${string}\`
 
 ## Parameters
 
-• **bytes29**: `TBytes29`
+▪ **bytes29**: `TBytes29`
 
 ## Returns
-
-`TBytes29`
 
 ## Example
 
@@ -32,3 +30,6 @@ const parsedBytes29 = parseBytes29('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 ## Source
 
 [experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:471](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L471)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

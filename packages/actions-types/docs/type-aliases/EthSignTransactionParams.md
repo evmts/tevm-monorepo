@@ -1,12 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthSignTransactionParams
+[API](../API.md) > EthSignTransactionParams
 
 # Type alias: EthSignTransactionParams
-
-`Experimental`
 
 > **EthSignTransactionParams**: `object`
 
@@ -14,9 +12,9 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ## Type declaration
 
-### data?
+### data
 
-> **`optional`** **data**: [`Hex`](Hex.md)
+> **data**?: [`Hex`](Hex.md)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
@@ -27,39 +25,42 @@ Optional if creating a contract.
 
 The address from which the transaction is sent from
 
-### gas?
+### gas
 
-> **`optional`** **gas**: `bigint`
+> **gas**?: `bigint`
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
 
-### gasPrice?
+### gasPrice
 
-> **`optional`** **gasPrice**: `bigint`
+> **gasPrice**?: `bigint`
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
 
-### nonce?
+### nonce
 
-> **`optional`** **nonce**: `bigint`
+> **nonce**?: `bigint`
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
-### to?
+### to
 
-> **`optional`** **to**: [`Address`](Address.md)
+> **to**?: [`Address`](Address.md)
 
 The address the transaction is directed to. Optional if
 creating a contract
 
-### value?
+### value
 
-> **`optional`** **value**: `bigint`
+> **value**?: `bigint`
 
 Integer of the value sent with this transaction, in Wei.
 
 ## Source
 
 [params/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L249)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

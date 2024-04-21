@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / AnvilDropTransactionParams
+[API](../../API.md) > [actions-types](../README.md) > AnvilDropTransactionParams
 
 # Type alias: AnvilDropTransactionParams
 
@@ -21,3 +21,6 @@ The transaction hash
 ## Source
 
 packages/actions-types/types/params/AnvilParams.d.ts:62
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

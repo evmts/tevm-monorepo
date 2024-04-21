@@ -1,8 +1,8 @@
-**@tevm/block** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/block](../README.md) / valuesArrayToHeaderData
+[API](../API.md) > valuesArrayToHeaderData
 
 # Function: valuesArrayToHeaderData()
 
@@ -10,12 +10,11 @@
 
 ## Parameters
 
-• **values**: `BlockHeaderBytes`
-
-## Returns
-
-`HeaderData`
+▪ **values**: `BlockHeaderBytes`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/helpers.d.ts:8
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

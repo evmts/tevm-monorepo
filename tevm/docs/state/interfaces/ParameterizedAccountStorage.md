@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [state](../README.md) / ParameterizedAccountStorage
+[API](../../API.md) > [state](../README.md) > ParameterizedAccountStorage
 
 # Interface: ParameterizedAccountStorage
 
@@ -10,7 +10,7 @@
 
 ### balance
 
-> **balance**: ```0x${string}```
+> **balance**: \`0x${string}\`
 
 #### Source
 
@@ -20,7 +20,7 @@ packages/state/types/ParameterizedAccountStorage.d.ts:5
 
 ### codeHash
 
-> **codeHash**: ```0x${string}```
+> **codeHash**: \`0x${string}\`
 
 #### Source
 
@@ -30,7 +30,7 @@ packages/state/types/ParameterizedAccountStorage.d.ts:7
 
 ### nonce
 
-> **nonce**: ```0x${string}```
+> **nonce**: \`0x${string}\`
 
 #### Source
 
@@ -38,9 +38,9 @@ packages/state/types/ParameterizedAccountStorage.d.ts:4
 
 ***
 
-### storage?
+### storage
 
-> **`optional`** **storage**: `StorageDump`
+> **storage**?: `StorageDump`
 
 #### Source
 
@@ -50,8 +50,11 @@ packages/state/types/ParameterizedAccountStorage.d.ts:8
 
 ### storageRoot
 
-> **storageRoot**: ```0x${string}```
+> **storageRoot**: \`0x${string}\`
 
 #### Source
 
 packages/state/types/ParameterizedAccountStorage.d.ts:6
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

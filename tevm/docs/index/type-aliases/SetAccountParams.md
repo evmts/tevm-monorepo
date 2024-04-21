@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / SetAccountParams
+[API](../../API.md) > [index](../README.md) > SetAccountParams
 
-# Type alias: SetAccountParams\<TThrowOnFail\>
+# Type alias: SetAccountParams`<TThrowOnFail>`
 
 > **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -31,46 +31,51 @@ const accountParams: import('tevm/api').SetAccountParams = {
 
 Address of account
 
-### balance?
+### balance
 
-> **`optional`** **balance**: `bigint`
+> **balance**?: `bigint`
 
 Balance to set account to
 
-### deployedBytecode?
+### deployedBytecode
 
-> **`optional`** **deployedBytecode**: [`Hex`](Hex.md)
+> **deployedBytecode**?: [`Hex`](Hex.md)
 
 Contract bytecode to set account to
 
-### nonce?
+### nonce
 
-> **`optional`** **nonce**: `bigint`
+> **nonce**?: `bigint`
 
 Nonce to set account to
 
-### state?
+### state
 
-> **`optional`** **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> **state**?: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
-### stateDiff?
+### stateDiff
 
-> **`optional`** **stateDiff**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> **stateDiff**?: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
-### storageRoot?
+### storageRoot
 
-> **`optional`** **storageRoot**: [`Hex`](Hex.md)
+> **storageRoot**?: [`Hex`](Hex.md)
 
 Storage root to set account to
 
 ## Type parameters
 
-• **TThrowOnFail** extends `boolean` = `boolean`
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
 
 ## Source
 
 packages/actions-types/types/params/SetAccountParams.d.ts:16
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

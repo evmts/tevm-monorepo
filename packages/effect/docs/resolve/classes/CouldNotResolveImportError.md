@@ -1,8 +1,8 @@
-**@tevm/effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/effect](../../README.md) / [resolve](../README.md) / CouldNotResolveImportError
+[API](../../API.md) > [resolve](../README.md) > CouldNotResolveImportError
 
 # Class: CouldNotResolveImportError
 
@@ -20,23 +20,19 @@ Error thrown when 'node:resolve' throws
 
 #### Parameters
 
-• **importPath**: `string`
+▪ **importPath**: `string`
 
-• **absolutePath**: `string`
+▪ **absolutePath**: `string`
 
-• **cause**: `Error`
-
-#### Returns
-
-[`CouldNotResolveImportError`](CouldNotResolveImportError.md)
+▪ **cause**: `Error`
 
 #### Overrides
 
-`Error.constructor`
+Error.constructor
 
 #### Source
 
-[packages/effect/src/resolve.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L31)
+[packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
 
 ## Properties
 
@@ -46,17 +42,17 @@ Error thrown when 'node:resolve' throws
 
 #### Source
 
-[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
+[packages/effect/src/resolve.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L15)
 
 ***
 
-### cause?
+### cause
 
-> **`optional`** **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
-`Error.cause`
+Error.cause
 
 #### Source
 
@@ -70,7 +66,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-`Error.message`
+Error.message
 
 #### Source
 
@@ -84,21 +80,21 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-`Error.name`
+Error.name
 
 #### Source
 
-[packages/effect/src/resolve.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L25)
+[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
 
 ***
 
-### stack?
+### stack
 
-> **`optional`** **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
-`Error.stack`
+Error.stack
 
 #### Source
 
@@ -106,9 +102,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace()?
+### prepareStackTrace
 
-> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -118,17 +114,13 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-• **err**: `Error`
+▪ **err**: `Error`
 
-• **stackTraces**: `CallSite`[]
-
-#### Returns
-
-`any`
+▪ **stackTraces**: `CallSite`[]
 
 #### Inherited from
 
-`Error.prepareStackTrace`
+Error.prepareStackTrace
 
 #### Source
 
@@ -142,7 +134,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-`Error.stackTraceLimit`
+Error.stackTraceLimit
 
 #### Source
 
@@ -158,18 +150,17 @@ Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-#### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 #### Inherited from
 
-`Error.captureStackTrace`
+Error.captureStackTrace
 
 #### Source
 
 node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [utils](../README.md) / JsonSerializableSet
+[API](../../API.md) > [utils](../README.md) > JsonSerializableSet
 
-# Type alias: JsonSerializableSet\<T\>
+# Type alias: JsonSerializableSet`<T>`
 
 > **JsonSerializableSet**\<`T`\>: `Set`\<`T`\>
 
@@ -12,8 +12,13 @@ A type that represents a JSON-serializable set.
 
 ## Type parameters
 
-• **T** extends `bigint` \| `string` \| `number` \| `boolean` = `bigint` \| `string` \| `number` \| `boolean`
+| Parameter | Default |
+| :------ | :------ |
+| `T` extends `bigint` \| `string` \| `number` \| `boolean` | `bigint` \| `string` \| `number` \| `boolean` |
 
 ## Source
 
 packages/utils/types/SerializeToJson.d.ts:19
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

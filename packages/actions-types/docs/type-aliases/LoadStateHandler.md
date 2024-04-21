@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / LoadStateHandler
+[API](../API.md) > LoadStateHandler
 
-# Type alias: LoadStateHandler()
+# Type alias: LoadStateHandler
 
 > **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
@@ -30,12 +30,11 @@ await tevm.loadState({state})
 
 ## Parameters
 
-• **params**: [`LoadStateParams`](LoadStateParams.md)
-
-## Returns
-
-`Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
+▪ **params**: [`LoadStateParams`](LoadStateParams.md)
 
 ## Source
 
 [handlers/LoadStateHandler.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/LoadStateHandler.ts#L21)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

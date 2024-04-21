@@ -4,9 +4,6 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import { Cache } from './Cache.js'
-import type { TevmState } from './TevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { AccountFields, StorageDump, StorageRange } from '@tevm/common'
 import {
@@ -21,7 +18,10 @@ import {
 	toHex,
 } from '@tevm/utils'
 // TODO remove me for using `@tevm/jsonrpc` package
-import { type PublicClient, createPublicClient, http } from 'viem'
+import { http, type PublicClient, createPublicClient } from 'viem'
+import { Cache } from './Cache.js'
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ForkStateManagerOpts {
 	url: string
@@ -65,9 +65,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			name: 'tevm-state-manager-viem-client',
 		})
 		this.blockTag =
-			typeof opts.blockTag === 'bigint'
-				? { blockNumber: opts.blockTag }
-				: { blockTag: opts.blockTag ?? 'latest' }
+			typeof opts.blockTag === 'bigint' ? { blockNumber: opts.blockTag } : { blockTag: opts.blockTag ?? 'latest' }
 
 		this._contractCache = new Map()
 		this._storageCache = new StorageCache({
@@ -157,10 +155,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the `account` to add the `code` for
 	 * @param value - The value of the `code`
 	 */
-	async putContractCode(
-		address: EthjsAddress,
-		value: Uint8Array,
-	): Promise<void> {
+	async putContractCode(address: EthjsAddress, value: Uint8Array): Promise<void> {
 		// Store contract code in the cache
 		this._contractCache.set(address.toString(), value)
 	}
@@ -174,10 +169,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * corresponding to the provided address at the provided key.
 	 * If this does not exist an empty `Uint8Array` is returned.
 	 */
-	async getContractStorage(
-		address: EthjsAddress,
-		key: Uint8Array,
-	): Promise<Uint8Array> {
+	async getContractStorage(address: EthjsAddress, key: Uint8Array): Promise<Uint8Array> {
 		// Check storage slot in cache
 		if (key.length !== 32) {
 			throw new Error('Storage key must be 32 bytes long')
@@ -209,11 +201,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * Cannot be more than 32 bytes. Leading zeros are stripped.
 	 * If it is empty or filled with zeros, deletes the value.
 	 */
-	async putContractStorage(
-		address: EthjsAddress,
-		key: Uint8Array,
-		value: Uint8Array,
-	): Promise<void> {
+	async putContractStorage(address: EthjsAddress, key: Uint8Array, value: Uint8Array): Promise<void> {
 		this._storageCache.put(address, key, value)
 	}
 
@@ -243,11 +231,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		return Promise.resolve(dump)
 	}
 
-	dumpStorageRange(
-		_address: EthjsAddress,
-		_startKey: bigint,
-		_limit: number,
-	): Promise<StorageRange> {
+	dumpStorageRange(_address: EthjsAddress, _startKey: bigint, _limit: number): Promise<StorageRange> {
 		return Promise.reject()
 	}
 
@@ -263,15 +247,9 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			storageKeys: [],
 			...this.blockTag,
 		})
-		const proofBuf = proof.accountProof.map((proofNode: string) =>
-			toBytes(proofNode),
-		)
+		const proofBuf = proof.accountProof.map((proofNode: string) => toBytes(proofNode))
 		const trie = new Trie({ useKeyHashing: true })
-		const verified = await trie.verifyProof(
-			keccak256(proofBuf[0] as Uint8Array),
-			address.bytes,
-			proofBuf,
-		)
+		const verified = await trie.verifyProof(keccak256(proofBuf[0] as Uint8Array), address.bytes, proofBuf)
 		return verified !== null
 	}
 
@@ -281,13 +259,10 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	async getAccount(address: EthjsAddress): Promise<EthjsAccount | undefined> {
 		const elem = this._accountCache?.get(address)
 		if (elem !== undefined) {
-			return elem.accountRLP !== undefined
-				? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP)
-				: undefined
+			return elem.accountRLP !== undefined ? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP) : undefined
 		}
 		const rlp = (await this.getAccountFromProvider(address)).serialize()
-		const account =
-			rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
+		const account = rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
 		this._accountCache?.put(address, account)
 		return account
 	}
@@ -315,10 +290,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * Saves an account into state under the provided `address`.
 	 */
-	async putAccount(
-		address: EthjsAddress,
-		account: EthjsAccount | undefined,
-	): Promise<void> {
+	async putAccount(address: EthjsAddress, account: EthjsAccount | undefined): Promise<void> {
 		if (account !== undefined) {
 			this._accountCache?.put(address, account)
 		} else {
@@ -333,10 +305,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the account to modify
 	 * @param accountFields - Object containing account fields and values to modify
 	 */
-	async modifyAccountFields(
-		address: EthjsAddress,
-		accountFields: AccountFields,
-	): Promise<void> {
+	async modifyAccountFields(address: EthjsAddress, accountFields: AccountFields): Promise<void> {
 		let account = await this.getAccount(address)
 		if (!account) {
 			account = new EthjsAccount()
@@ -362,10 +331,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * @param storageSlots storage slots to get proof of
 	 * @returns an EIP-1186 formatted proof
 	 */
-	async getProof(
-		address: EthjsAddress,
-		storageSlots: Uint8Array[] = [],
-	): Promise<Proof> {
+	async getProof(address: EthjsAddress, storageSlots: Uint8Array[] = []): Promise<Proof> {
 		const proof = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: storageSlots.map((slot) => bytesToHex(slot)),
@@ -472,12 +438,8 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			this.putAccount(address, account)
 			if (storage !== undefined) {
 				for (const [storageKey, storageData] of Object.entries(storage)) {
-					const key = hexToBytes(
-						isHex(storageKey) ? storageKey : `0x${storageKey}`,
-					)
-					const data = hexToBytes(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
+					const key = hexToBytes(isHex(storageKey) ? storageKey : `0x${storageKey}`)
+					const data = hexToBytes(isHex(storageData) ? storageData : `0x${storageData}`)
 					this.putContractStorage(address, key, data)
 				}
 			}
@@ -500,9 +462,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			const account = await this.getAccount(EthjsAddress.fromString(hexAddress))
 
 			if (account !== undefined) {
-				const storage = await this.dumpStorage(
-					EthjsAddress.fromString(hexAddress),
-				)
+				const storage = await this.dumpStorage(EthjsAddress.fromString(hexAddress))
 
 				state[hexAddress] = {
 					...account,

@@ -1,70 +1,58 @@
 {
-  "name": "@tevm/vite-plugin",
-  "version": "1.0.0-next.41",
-  "private": false,
-  "description": "A vite plugin for tevm",
-  "keywords": [
-    "vite",
-    "plugin",
-    "solidity",
-    "sol",
-    "tevm"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "bundler/vite"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "types",
-    "src"
-  ],
-  "scripts": {
-    "//test": "vitest",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vite-plugin ",
-    "build:dist": "tsup",
-    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "generate:docs": "typedoc",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack"
-  },
-  "dependencies": {
-    "@tevm/unplugin": "workspace:^"
-  },
-  "devDependencies": {
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@tevm/vite-plugin",
+	"version": "1.0.0-next.41",
+	"private": false,
+	"description": "A vite plugin for tevm",
+	"keywords": ["vite", "plugin", "solidity", "sol", "tevm"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler/vite"
+	},
+	"license": "MIT",
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": ["dist", "types", "src"],
+	"scripts": {
+		"//test": "vitest",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vite-plugin ",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --apply-unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack"
+	},
+	"dependencies": {
+		"@tevm/unplugin": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

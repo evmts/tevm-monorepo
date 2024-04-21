@@ -1,8 +1,8 @@
-**@tevm/bundler-cache** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/bundler-cache** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/bundler-cache](../README.md) / FileAccessObject
+[API](../API.md) > FileAccessObject
 
 # Type alias: FileAccessObject
 
@@ -13,29 +13,21 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 ## Type declaration
 
-### exists()
+### exists
 
 > **exists**: (`path`) => `Promise`\<`boolean`\>
 
 #### Parameters
 
-• **path**: `string`
+▪ **path**: `string`
 
-#### Returns
-
-`Promise`\<`boolean`\>
-
-### existsSync()
+### existsSync
 
 > **existsSync**: (`path`) => `boolean`
 
 #### Parameters
 
-• **path**: `string`
-
-#### Returns
-
-`boolean`
+▪ **path**: `string`
 
 ### mkdir
 
@@ -45,33 +37,25 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 > **mkdirSync**: *typeof* `mkdirSync`
 
-### readFile()
+### readFile
 
 > **readFile**: (`path`, `encoding`) => `Promise`\<`string`\>
 
 #### Parameters
 
-• **path**: `string`
+▪ **path**: `string`
 
-• **encoding**: `BufferEncoding`
+▪ **encoding**: `BufferEncoding`
 
-#### Returns
-
-`Promise`\<`string`\>
-
-### readFileSync()
+### readFileSync
 
 > **readFileSync**: (`path`, `encoding`) => `string`
 
 #### Parameters
 
-• **path**: `string`
+▪ **path**: `string`
 
-• **encoding**: `BufferEncoding`
-
-#### Returns
-
-`string`
+▪ **encoding**: `BufferEncoding`
 
 ### stat
 
@@ -85,20 +69,19 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 > **writeFile**: *typeof* `writeFile`
 
-### writeFileSync()
+### writeFileSync
 
 > **writeFileSync**: (`path`, `data`) => `void`
 
 #### Parameters
 
-• **path**: `string`
+▪ **path**: `string`
 
-• **data**: `string`
-
-#### Returns
-
-`void`
+▪ **data**: `string`
 
 ## Source
 
 [types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L9)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

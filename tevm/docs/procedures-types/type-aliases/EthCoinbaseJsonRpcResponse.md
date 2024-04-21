@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthCoinbaseJsonRpcResponse
+[API](../../API.md) > [procedures-types](../README.md) > EthCoinbaseJsonRpcResponse
 
 # Type alias: EthCoinbaseJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `eth_coinbase` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:536
+packages/procedures-types/dist/index.d.ts:490
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

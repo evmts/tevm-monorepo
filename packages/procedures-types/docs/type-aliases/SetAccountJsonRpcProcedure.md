@@ -1,10 +1,10 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / SetAccountJsonRpcProcedure
+[API](../API.md) > SetAccountJsonRpcProcedure
 
-# Type alias: SetAccountJsonRpcProcedure()
+# Type alias: SetAccountJsonRpcProcedure
 
 > **SetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
 
@@ -12,12 +12,11 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Parameters
 
-• **request**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
+▪ **request**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
 
 ## Source
 
-[procedure/SetAccountJsonRpcProcedure.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/SetAccountJsonRpcProcedure.ts#L9)
+[procedure/SetAccountJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/SetAccountJsonRpcProcedure.ts#L6)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

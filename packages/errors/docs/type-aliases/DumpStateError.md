@@ -1,8 +1,8 @@
-**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/errors](../README.md) / DumpStateError
+[API](../API.md) > DumpStateError
 
 # Type alias: DumpStateError
 
@@ -24,3 +24,6 @@ if (errors?.length) {
 ## Source
 
 [packages/errors/src/actions/DumpStateError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/DumpStateError.ts#L14)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

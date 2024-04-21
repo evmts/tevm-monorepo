@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / Abi
+[API](../API.md) > Abi
 
 # Type alias: Abi
 
@@ -13,3 +13,6 @@ A valid [Ethereum JSON ABI](https://docs.soliditylang.org/en/latest/abi-spec.htm
 ## Source
 
 [common/Abi.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/Abi.ts#L6)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

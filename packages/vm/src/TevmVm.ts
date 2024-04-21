@@ -14,9 +14,7 @@ export class TevmVm extends VM {
 	 *
 	 * @param opts VM engine constructor options
 	 */
-	static override async create(
-		opts: Parameters<typeof VM.create>[0] = {},
-	): Promise<TevmVm> {
+	static override async create(opts: Parameters<typeof VM.create>[0] = {}): Promise<TevmVm> {
 		// Save if a `StateManager` was passed (for activatePrecompiles)
 		const didPassStateManager = opts.stateManager !== undefined
 
@@ -40,10 +38,7 @@ export class TevmVm extends VM {
 
 		if (opts.profilerOpts !== undefined) {
 			const profilerOpts = opts.profilerOpts
-			if (
-				profilerOpts.reportAfterBlock === true &&
-				profilerOpts.reportAfterTx === true
-			) {
+			if (profilerOpts.reportAfterBlock === true && profilerOpts.reportAfterTx === true) {
 				throw new Error(
 					'Cannot have `reportProfilerAfterBlock` and `reportProfilerAfterTx` set to `true` at the same time',
 				)
@@ -52,10 +47,7 @@ export class TevmVm extends VM {
 
 		if (opts.evm === undefined) {
 			let enableProfiler = false
-			if (
-				opts.profilerOpts?.reportAfterBlock === true ||
-				opts.profilerOpts?.reportAfterTx === true
-			) {
+			if (opts.profilerOpts?.reportAfterBlock === true || opts.profilerOpts?.reportAfterTx === true) {
 				enableProfiler = true
 			}
 			opts.evm = await Evm.create({
@@ -100,13 +92,9 @@ export class TevmVm extends VM {
 		// TODO we should deep copy once @tevm/blockchain is merged
 		const blockchain = this.blockchain.shallowCopy()
 		if (!('deepCopy' in this.stateManager)) {
-			throw new Error(
-				'StateManager does not support deepCopy. Was a Tevm state manager used?',
-			)
+			throw new Error('StateManager does not support deepCopy. Was a Tevm state manager used?')
 		}
-		const stateManager = await (
-			this.stateManager as TevmStateManager
-		).deepCopy()
+		const stateManager = await (this.stateManager as TevmStateManager).deepCopy()
 
 		const evmCopy = await createEvm({
 			blockchain,
@@ -116,8 +104,7 @@ export class TevmVm extends VM {
 			customPrecompiles: (this.evm as any)._customPrecompiles,
 			// customPredeploys isn't needed because it will be copied along in stateManager.deepCopy
 			// customPredeploys,
-			profiler:
-				Boolean((this.evm as any).optsCached?.profiler?.enabled) ?? false,
+			profiler: Boolean((this.evm as any).optsCached?.profiler?.enabled) ?? false,
 		})
 		return TevmVm.create({
 			stateManager,
@@ -126,9 +113,7 @@ export class TevmVm extends VM {
 			common,
 			evm: evmCopy,
 			setHardfork: this._setHardfork,
-			...(this._opts.profilerOpts
-				? { profilerOpts: this._opts.profilerOpts }
-				: {}),
+			...(this._opts.profilerOpts ? { profilerOpts: this._opts.profilerOpts } : {}),
 		})
 	}
 }

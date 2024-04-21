@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / decodeErrorResult
+[API](../API.md) > decodeErrorResult
 
 # Function: decodeErrorResult()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TAbi** extends readonly `unknown`[] \| `Abi`
+▪ **TAbi** extends readonly `unknown`[] \| `Abi`
 
 ## Parameters
 
-• **parameters**: `DecodeErrorResultParameters`\<`TAbi`\>
-
-## Returns
-
-`DecodeErrorResultReturnType`\<`TAbi`\>
+▪ **parameters**: `DecodeErrorResultParameters`\<`TAbi`\>
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/abi/decodeErrorResult.d.ts:26
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

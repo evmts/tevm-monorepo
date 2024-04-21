@@ -290,9 +290,7 @@ export const MOCKERC1155_ABI = [
 			{ internalType: 'uint256[]', name: 'ids', type: 'uint256[]' },
 		],
 		name: 'balanceOfBatch',
-		outputs: [
-			{ internalType: 'uint256[]', name: 'balances', type: 'uint256[]' },
-		],
+		outputs: [{ internalType: 'uint256[]', name: 'balances', type: 'uint256[]' }],
 		stateMutability: 'view',
 		type: 'function',
 	},

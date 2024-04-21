@@ -1,9 +1,9 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useMedia } from 'react-use';
 
-import { Chain } from '@/lib/types/providers';
+import type { Chain } from '@/lib/types/providers';
 import { EXAMPLE_VALUES } from '@/lib/constants/defaults';
 import { Button } from '@/components/ui/button';
 

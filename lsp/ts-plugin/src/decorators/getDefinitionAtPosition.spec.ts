@@ -1,10 +1,10 @@
-import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
-import { FileAccessObject } from '@tevm/base-bundler'
+import { access, mkdir, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import type { FileAccessObject } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
-import { access, mkdir, writeFile } from 'fs/promises'
-import { tmpdir } from 'os'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 
 // TODO these tests are awful this should be tested e2e against real fixtures
 
@@ -18,9 +18,7 @@ vi.mock('../utils', async () => {
 			getText: vi.fn(() => 'some text'),
 		})),
 		convertSolcAstToTsDefinitionInfo: vi.fn(),
-		findContractDefinitionFileNameFromTevmNode: vi.fn(
-			() => '/bar/Contract.sol',
-		),
+		findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
 	}
 })
 
@@ -102,9 +100,7 @@ describe('getDefinitionServiceDecorator', () => {
 					getText: vi.fn(() => 'some text'),
 				})),
 				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromTevmNode: vi.fn(
-					() => '/bar/Contract.sol',
-				),
+				findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
 			}
 		})
 	})
@@ -118,10 +114,7 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition(
-			'someFile.ts',
-			42,
-		)
+		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 		expect(definitions).toMatchInlineSnapshot(`
 			[
 			  {
@@ -166,12 +159,9 @@ describe('getDefinitionServiceDecorator', () => {
 	})
 
 	it('should return original definitions if ContractPath is null', () => {
-		vi.mock(
-			'../utils/findContractDefinitionFileNameFromTevmNode',
-			async () => ({
-				findContractDefinitionFileNameFromTevmNode: vi.fn(() => null),
-			}),
-		)
+		vi.mock('../utils/findContractDefinitionFileNameFromTevmNode', async () => ({
+			findContractDefinitionFileNameFromTevmNode: vi.fn(() => null),
+		}))
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -182,10 +172,7 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition(
-			'someFile.ts',
-			42,
-		)
+		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 
 		expect(definitions).toMatchInlineSnapshot(`
 			[
@@ -213,9 +200,7 @@ describe('getDefinitionServiceDecorator', () => {
 					getText: vi.fn(() => 'some text'),
 				})),
 				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromTevmNode: vi.fn(
-					() => '/bar/Contract.sol',
-				),
+				findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
 			}
 		})
 
@@ -228,10 +213,7 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition(
-			'someFile.ts',
-			42,
-		)
+		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 		expect(definitions).toMatchInlineSnapshot(`
 			[
 			  {
@@ -265,10 +247,7 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition(
-			'someFile.ts',
-			42,
-		)
+		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 		expect(definitions).toMatchInlineSnapshot(`
 			[
 			  {
@@ -310,10 +289,7 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition(
-			'someFile.ts',
-			42,
-		)
+		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 		expect(definitions).toMatchInlineSnapshot(`
 			[
 			  {

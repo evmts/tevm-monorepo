@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / Lock
+[API](../API.md) > Lock
 
 # Class: Lock
 
@@ -11,10 +11,6 @@
 ### new Lock()
 
 > **new Lock**(): [`Lock`](Lock.md)
-
-#### Returns
-
-[`Lock`](Lock.md)
 
 ## Properties
 
@@ -46,8 +42,6 @@ Returns a promise used to wait for a permit to become available. This method sho
 
 #### Returns
 
-`Promise`\<`boolean`\>
-
 A promise that gets resolved when execution is allowed to proceed.
 
 #### Source
@@ -63,10 +57,9 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 Increases the number of permits by one. If there are other functions waiting, one of them will
 continue to execute in a future iteration of the event loop.
 
-#### Returns
-
-`void`
-
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/lock.d.ts:13
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -10,12 +10,7 @@ import { version } from './version.js'
  * @returns {Promise<import('@tevm/compiler').ResolvedArtifacts | undefined>}
  */
 export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId) => {
-	const { path: artifactsPath } = getArtifactsPath(
-		entryModuleId,
-		'artifactsJson',
-		cwd,
-		cacheDir,
-	)
+	const { path: artifactsPath } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
 	if (!(await fs.exists(artifactsPath)) || !(await fs.exists(metadataPath))) {
@@ -44,8 +39,6 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId) => {
 	try {
 		return JSON.parse(content)
 	} catch (e) {
-		throw new Error(
-			`Cache miss for ${entryModuleId} because it isn't valid json`,
-		)
+		throw new Error(`Cache miss for ${entryModuleId} because it isn't valid json`)
 	}
 }

@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / server
+[API](../API.md) > server
 
-# server
+# Module: server
 
 ## Index
 
@@ -22,3 +22,6 @@
 - [createHttpHandler](functions/createHttpHandler.md)
 - [createNextApiHandler](functions/createNextApiHandler.md)
 - [createServer](functions/createServer.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

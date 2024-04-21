@@ -1,15 +1,18 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / SBytes22
+[API](../../API.md) > [ethereum](../README.md) > SBytes22
 
 # Variable: SBytes22
 
-> **`const`** **SBytes22**: `Schema`\<`string`, ```0x${string}```\>
+> **`const`** **SBytes22**: `Schema`\<`string`, \`0x${string}\`\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the Bytes22 type.
 
 ## Source
 
 [experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:516](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L516)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

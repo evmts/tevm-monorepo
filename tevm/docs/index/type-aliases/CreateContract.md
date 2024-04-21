@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / CreateContract
+[API](../../API.md) > [index](../README.md) > CreateContract
 
-# Type alias: CreateContract()
+# Type alias: CreateContract
 
 > **CreateContract**: \<`TName`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, }`) => [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>
 
@@ -41,18 +41,17 @@ const contract = createContract({
 
 ## Type parameters
 
-• **TName** extends `string`
+▪ **TName** extends `string`
 
-• **THumanReadableAbi** extends readonly `string`[]
+▪ **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-• **\{ name, humanReadableAbi, }**: [`CreateContractParams`](CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
-
-## Returns
-
-[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>
+▪ **\{ name, humanReadableAbi, }**: [`CreateContractParams`](CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Source
 
 packages/contract/types/types.d.ts:36
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

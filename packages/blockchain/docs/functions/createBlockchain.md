@@ -1,8 +1,8 @@
-**@tevm/blockchain** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/blockchain](../README.md) / createBlockchain
+[API](../API.md) > createBlockchain
 
 # Function: createBlockchain()
 
@@ -10,18 +10,19 @@
 
 ## Parameters
 
-• **options**
+▪ **options**: `object`
 
-• **options\.blockTag**: `undefined` \| ```0x${string}``` \| `BlockTag`
+▪ **options.blockTag**: `undefined` \| \`0x${string}\` \| `BlockTag`
 
-• **options\.common**: `Common`
+▪ **options.common**: `Common`
 
-• **options\.forkUrl**: `undefined` \| `string`
+▪ **options.forkUrl**: `undefined` \| `string`
 
 ## Returns
-
-`Promise`\<[`TevmBlockchain`](../classes/TevmBlockchain.md)\>
 
 ## Source
 
 [packages/blockchain/src/createBlockchain.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBlockchain.js#L13)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

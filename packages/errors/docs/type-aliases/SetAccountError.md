@@ -1,8 +1,8 @@
-**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/errors](../README.md) / SetAccountError
+[API](../API.md) > SetAccountError
 
 # Type alias: SetAccountError
 
@@ -24,3 +24,6 @@ if (errors?.length) {
 ## Source
 
 [packages/errors/src/actions/SetAccountError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/SetAccountError.ts#L21)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

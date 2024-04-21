@@ -1,25 +1,24 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [utils](../README.md) / getEventSelectorEffect
+[API](../../API.md) > [utils](../README.md) > getEventSelectorEffect
 
 # Function: getEventSelectorEffect()
 
-> **getEventSelectorEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetEventSelectorErrorType`, ```0x${string}```\>
+> **getEventSelectorEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetEventSelectorErrorType`, \`0x${string}\`\>
 
 ## Type parameters
 
-• **TParams** extends [`string` \| `AbiEvent`]
+▪ **TParams** extends [`string` \| `AbiEvent`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `GetEventSelectorErrorType`, ```0x${string}```\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/utils/hash/getEventSelectorEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/getEventSelectorEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

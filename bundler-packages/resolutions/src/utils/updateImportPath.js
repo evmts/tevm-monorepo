@@ -10,14 +10,11 @@ export const updateImportPaths = (code, resolvedImports) => {
 	const solidityImportRegex = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 	return succeed(
 		code.replaceAll(solidityImportRegex, (match, p1, p2, p3) => {
-			const resolvedImport = resolvedImports.find(
-				({ original }) => original === p2,
-			)
+			const resolvedImport = resolvedImports.find(({ original }) => original === p2)
 			if (resolvedImport) {
 				return `${p1}${resolvedImport.updated}${p3}`
-			} else {
-				return match
 			}
+			return match
 		}),
 	)
 }

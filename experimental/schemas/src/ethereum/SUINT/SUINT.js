@@ -4,19 +4,8 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import {
-	UINT8_MAX,
-	UINT16_MAX,
-	UINT32_MAX,
-	UINT64_MAX,
-	UINT128_MAX,
-	UINT256_MAX,
-} from './constants.js'
-import {
-	bigintFromSelf,
-	lessThanOrEqualToBigint,
-	nonNegativeBigint,
-} from '@effect/schema/Schema'
+import { bigintFromSelf, lessThanOrEqualToBigint, nonNegativeBigint } from '@effect/schema/Schema'
+import { UINT8_MAX, UINT16_MAX, UINT32_MAX, UINT64_MAX, UINT128_MAX, UINT256_MAX } from './constants.js'
 
 /**
  * Type representing a valid UINT8.
@@ -95,10 +84,7 @@ import {
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT8 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT8_MAX),
-)
+export const SUINT8 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT8_MAX))
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the UINT16 type.
  * @type {import('@effect/schema/Schema').Schema<bigint, UINT16>}
@@ -109,10 +95,7 @@ export const SUINT8 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT16 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT16_MAX),
-)
+export const SUINT16 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT16_MAX))
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the UINT16 type.
  * @type {import('@effect/schema/Schema').Schema<bigint, UINT32>}
@@ -123,10 +106,7 @@ export const SUINT16 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT32 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT32_MAX),
-)
+export const SUINT32 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT32_MAX))
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the UINT64 type.
  * @type {import('@effect/schema/Schema').Schema<bigint, UINT64>}
@@ -137,10 +117,7 @@ export const SUINT32 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT64 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT64_MAX),
-)
+export const SUINT64 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT64_MAX))
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the UINT128 type.
  * @type {import('@effect/schema/Schema').Schema<bigint, UINT128>}
@@ -151,10 +128,7 @@ export const SUINT64 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT128 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT128_MAX),
-)
+export const SUINT128 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT128_MAX))
 /**
  * [Effect schema](https://github.com/Effect-TS/schema) for the UINT256 type.
  * @type {import('@effect/schema/Schema').Schema<bigint, UINT256>}
@@ -165,7 +139,4 @@ export const SUINT128 = bigintFromSelf.pipe(
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
  */
-export const SUINT256 = bigintFromSelf.pipe(
-	nonNegativeBigint(),
-	lessThanOrEqualToBigint(UINT256_MAX),
-)
+export const SUINT256 = bigintFromSelf.pipe(nonNegativeBigint(), lessThanOrEqualToBigint(UINT256_MAX))

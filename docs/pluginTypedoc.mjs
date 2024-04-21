@@ -1,5 +1,5 @@
-import { typedocSidebar } from './sidebar.mjs'
 import starlightTypeDoc from 'starlight-typedoc'
+import { typedocSidebar } from './sidebar.mjs'
 
 export const pluginTypedoc = () =>
 	starlightTypeDoc({

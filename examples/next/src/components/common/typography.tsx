@@ -1,7 +1,7 @@
 // Some of these components are heavily inspired from shadcn/ui Typography
 // see https://ui.shadcn.com/docs/components/typography
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 import { Icons } from '@/components/common/icons';

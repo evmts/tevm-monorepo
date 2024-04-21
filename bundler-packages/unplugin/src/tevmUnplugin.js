@@ -1,17 +1,15 @@
-import { fao } from './fao.js'
+import { createRequire } from 'node:module'
 import { bundler, getContractPath } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { catchTag, logWarning, map, runPromise } from 'effect/Effect'
-import { createRequire } from 'module'
 // @ts-expect-error
 import defaultSolc from 'solc'
 import { z } from 'zod'
+import { fao } from './fao.js'
 
-const defaultVersion = defaultSolc
-	.version()
-	.slice(0, defaultSolc.version().indexOf('+'))
+const defaultVersion = defaultSolc.version().slice(0, defaultSolc.version().indexOf('+'))
 
 /**
  * @type {import("zod").ZodSchema<import('@tevm/solc').SolcVersions>}
@@ -67,9 +65,7 @@ export const tevmUnplugin = (options = {}) => {
 			config = await runPromise(
 				loadConfig(process.cwd()).pipe(
 					catchTag('FailedToReadConfigError', () =>
-						logWarning(
-							'Unable to find tevm.config.json. Using default config.',
-						).pipe(map(() => defaultConfig)),
+						logWarning('Unable to find tevm.config.json. Using default config.').pipe(map(() => defaultConfig)),
 					),
 				),
 			)
@@ -77,25 +73,12 @@ export const tevmUnplugin = (options = {}) => {
 			console.log('proces.cwd()', process.cwd())
 			const contractPackage = getContractPath(process.cwd())
 			const versionedSolc =
-				parsedSolcVersion.data === defaultVersion
-					? defaultSolc
-					: await createSolc(parsedSolcVersion.data)
-			moduleResolver = bundler(
-				config,
-				console,
-				fao,
-				versionedSolc,
-				solcCache,
-				contractPackage,
-			)
+				parsedSolcVersion.data === defaultVersion ? defaultSolc : await createSolc(parsedSolcVersion.data)
+			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache, contractPackage)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {
-			return (
-				id.endsWith('.sol') &&
-				!fao.existsSync(`${id}.ts`) &&
-				!fao.existsSync(`${id}.d.ts`)
-			)
+			return id.endsWith('.sol') && !fao.existsSync(`${id}.ts`) && !fao.existsSync(`${id}.d.ts`)
 		},
 		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
@@ -112,12 +95,7 @@ export const tevmUnplugin = (options = {}) => {
 		async load(id) {
 			const resolveBytecode = id.endsWith('.s.sol')
 
-			const { code, modules } = await moduleResolver.resolveEsmModule(
-				id,
-				process.cwd(),
-				false,
-				resolveBytecode,
-			)
+			const { code, modules } = await moduleResolver.resolveEsmModule(id, process.cwd(), false, resolveBytecode)
 			Object.values(modules).forEach((module) => {
 				if (module.id.includes('node_modules')) {
 					return

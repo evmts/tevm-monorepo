@@ -1,38 +1,36 @@
 {
-  "name": "@tevm/example-esbuild",
-  "version": "0.0.1",
-  "private": true,
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "scripts": {
-    "//build": "bun run build:app",
-    "//build:app": "NODE_ENV=production bun ./build.js",
-    "//test:coverage": "echo 'no coverage implemented' && bun test",
-    "//test:run": "bun test",
-    "dev": "bun run build && node ./dist/index.js",
-    "test": "bun test"
-  },
-  "dependencies": {
-    "@tevm/contract": "workspace:^",
-    "viem": "^2.0.0",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-foundry": "^1.1.1",
-    "@openzeppelin/contracts": "^4.9.3",
-    "@tevm/bun-plugin": "workspace:^",
-    "@tevm/esbuild-plugin": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^",
-    "@tevm/vite-plugin": "workspace:^",
-    "@types/live-server": "^1.2.2",
-    "@types/node": "^20.8.9",
-    "esbuild": "^0.19.5",
-    "isomorphic-fetch": "^3.0.0",
-    "live-server": "^1.2.2",
-    "solc": "0.8.22",
-    "tsx": "^3.14.0",
-    "typescript": "^5.2.2"
-  }
+	"name": "@tevm/example-esbuild",
+	"version": "0.0.1",
+	"private": true,
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"type": "module",
+	"scripts": {
+		"//build": "bun run build:app",
+		"//build:app": "NODE_ENV=production bun ./build.js",
+		"//test:coverage": "echo 'no coverage implemented' && bun test",
+		"//test:run": "bun test",
+		"dev": "bun run build && node ./dist/index.js",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@tevm/contract": "workspace:^",
+		"viem": "^2.0.0",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@nomicfoundation/hardhat-foundry": "^1.1.1",
+		"@openzeppelin/contracts": "^4.9.3",
+		"@tevm/bun-plugin": "workspace:^",
+		"@tevm/esbuild-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
+		"@types/live-server": "^1.2.2",
+		"@types/node": "^20.8.9",
+		"esbuild": "^0.19.5",
+		"isomorphic-fetch": "^3.0.0",
+		"live-server": "^1.2.2",
+		"solc": "0.8.22",
+		"tsx": "^3.14.0",
+		"typescript": "^5.2.2"
+	}
 }

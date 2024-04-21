@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / keccak256
+[API](../API.md) > keccak256
 
 # Function: keccak256()
 
@@ -10,18 +10,17 @@
 
 ## Type parameters
 
-• **TTo** extends `To` = `"hex"`
+▪ **TTo** extends `To` = `"hex"`
 
 ## Parameters
 
-• **value**: `Uint8Array` \| ```0x${string}```
+▪ **value**: `Uint8Array` \| \`0x${string}\`
 
-• **to\_?**: `TTo`
-
-## Returns
-
-`Keccak256Hash`\<`TTo`\>
+▪ **to\_?**: `TTo`
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/hash/keccak256.d.ts:9
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

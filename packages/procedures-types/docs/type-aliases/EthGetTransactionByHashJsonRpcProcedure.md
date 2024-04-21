@@ -1,21 +1,20 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthGetTransactionByHashJsonRpcProcedure
+[API](../API.md) > EthGetTransactionByHashJsonRpcProcedure
 
-# Type alias: EthGetTransactionByHashJsonRpcProcedure()
+# Type alias: EthGetTransactionByHashJsonRpcProcedure
 
 > **EthGetTransactionByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
+▪ **request**: [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md)
 
 ## Source
 
-[procedure/EthProcedure.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L167)
+[procedure/EthProcedure.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L151)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

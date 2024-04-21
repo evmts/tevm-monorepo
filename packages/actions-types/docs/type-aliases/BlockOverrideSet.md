@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / BlockOverrideSet
+[API](../API.md) > BlockOverrideSet
 
 # Type alias: BlockOverrideSet
 
@@ -14,42 +14,45 @@ Setting the block number to past block will not run in the context of that block
 
 ## Type declaration
 
-### baseFee?
+### baseFee
 
-> **`optional`** **baseFee**: `bigint`
+> **baseFee**?: `bigint`
 
 Block base fee (see EIP-1559)
 
-### blobBaseFee?
+### blobBaseFee
 
-> **`optional`** **blobBaseFee**: `bigint`
+> **blobBaseFee**?: `bigint`
 
 Block blob base fee (see EIP-4844)
 
-### coinbase?
+### coinbase
 
-> **`optional`** **coinbase**: `Address`
+> **coinbase**?: `Address`
 
 Block fee recipient
 
-### gasLimit?
+### gasLimit
 
-> **`optional`** **gasLimit**: `bigint`
+> **gasLimit**?: `bigint`
 
 Block gas capacity
 
-### number?
+### number
 
-> **`optional`** **number**: `bigint`
+> **number**?: `bigint`
 
 Fake block number
 
-### time?
+### time
 
-> **`optional`** **time**: `bigint`
+> **time**?: `bigint`
 
 Fake block timestamp
 
 ## Source
 
 [common/BlockOverrideSet.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/BlockOverrideSet.ts#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,43 +1,42 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / CreateEventFilterParameters
+[API](../API.md) > CreateEventFilterParameters
 
-# Type alias: CreateEventFilterParameters\<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, _EventName, _Args\>
+# Type alias: CreateEventFilterParameters`<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, _EventName, _Args>`
 
 > **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> extends infer TEventFilterArgs ? `object` \| `object` \| `object` \| `object` : `object`
 
 ## Type declaration
 
-### address?
+### address
 
-> **`optional`** **address**: `Address` \| `Address`[]
+> **address**?: `Address` \| `Address`[]
 
-### fromBlock?
+### fromBlock
 
-> **`optional`** **fromBlock**: `TFromBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
+> **fromBlock**?: `TFromBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
 
-### toBlock?
+### toBlock
 
-> **`optional`** **toBlock**: `TToBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
+> **toBlock**?: `TToBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
 
 ## Type parameters
 
-• **TAbiEvent** extends `AbiEvent` \| `undefined` = `undefined`
-
-• **TAbiEvents** extends readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
-
-• **TStrict** extends `boolean` \| `undefined` = `undefined`
-
-• **TFromBlock** extends [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
-
-• **TToBlock** extends [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
-
-• **_EventName** extends `string` \| `undefined` = `MaybeAbiEventName`\<`TAbiEvent`\>
-
-• **_Args** extends `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> \| `undefined` = `undefined`
+| Parameter | Default |
+| :------ | :------ |
+| `TAbiEvent` extends `AbiEvent` \| `undefined` | `undefined` |
+| `TAbiEvents` extends readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` | `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined` |
+| `TStrict` extends `boolean` \| `undefined` | `undefined` |
+| `TFromBlock` extends [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` | `undefined` |
+| `TToBlock` extends [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` | `undefined` |
+| `_EventName` extends `string` \| `undefined` | `MaybeAbiEventName`\<`TAbiEvent`\> |
+| `_Args` extends `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> \| `undefined` | `undefined` |
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

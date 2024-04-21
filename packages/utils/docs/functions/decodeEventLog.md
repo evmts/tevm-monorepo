@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / decodeEventLog
+[API](../API.md) > decodeEventLog
 
 # Function: decodeEventLog()
 
@@ -10,24 +10,23 @@
 
 ## Type parameters
 
-• **abi** extends readonly `unknown`[] \| `Abi`
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
-• **eventName** extends `undefined` \| `string` = `undefined`
+▪ **eventName** extends `undefined` \| `string` = `undefined`
 
-• **topics** extends ```0x${string}```[] = ```0x${string}```[]
+▪ **topics** extends \`0x${string}\`[] = \`0x${string}\`[]
 
-• **data** extends `undefined` \| ```0x${string}``` = `undefined`
+▪ **data** extends `undefined` \| \`0x${string}\` = `undefined`
 
-• **strict** extends `boolean` = `true`
+▪ **strict** extends `boolean` = `true`
 
 ## Parameters
 
-• **parameters**: `DecodeEventLogParameters`\<`abi`, `eventName`, `topics`, `data`, `strict`\>
-
-## Returns
-
-`DecodeEventLogReturnType`\<`abi`, `eventName`, `topics`, `data`, `strict`\>
+▪ **parameters**: `DecodeEventLogParameters`\<`abi`, `eventName`, `topics`, `data`, `strict`\>
 
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/abi/decodeEventLog.d.ts:32
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

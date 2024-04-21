@@ -1,5 +1,5 @@
-import { esbuildPluginTevm } from './esbuildPluginTevm.js'
 import { describe, expect, it, vi } from 'vitest'
+import { esbuildPluginTevm } from './esbuildPluginTevm.js'
 
 describe('esbuildPluginTevm', () => {
 	it('should properly export the unplugin bundler from @tevm/base-bundler', async () => {

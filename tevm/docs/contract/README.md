@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / contract
+[API](../API.md) > contract
 
-# contract
+# Module: contract
 
 ## Index
 
@@ -12,6 +12,22 @@
 
 - [MaybeExtractEventArgsFromAbi](type-aliases/MaybeExtractEventArgsFromAbi.md)
 - [ValueOf](type-aliases/ValueOf.md)
+
+## Table of contents
+
+### References
+
+- [Contract](README.md#contract)
+- [CreateContract](README.md#createcontract)
+- [CreateContractParams](README.md#createcontractparams)
+- [CreateScript](README.md#createscript)
+- [CreateScriptParams](README.md#createscriptparams)
+- [EventActionCreator](README.md#eventactioncreator)
+- [ReadActionCreator](README.md#readactioncreator)
+- [Script](README.md#script)
+- [WriteActionCreator](README.md#writeactioncreator)
+- [createContract](README.md#createcontract-1)
+- [createScript](README.md#createscript-1)
 
 ## References
 
@@ -78,3 +94,6 @@ Re-exports [createContract](../index/functions/createContract.md)
 ### createScript
 
 Re-exports [createScript](../index/functions/createScript.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

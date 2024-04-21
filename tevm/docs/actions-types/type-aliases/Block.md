@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / Block
+[API](../../API.md) > [actions-types](../README.md) > Block
 
 # Type alias: Block
 
@@ -12,15 +12,15 @@ Header information of an ethereum block
 
 ## Type declaration
 
-### baseFeePerGas?
+### baseFeePerGas
 
-> **`optional`** **`readonly`** **baseFeePerGas**: `bigint`
+> **`readonly`** **baseFeePerGas**?: `bigint`
 
 (Optional) The base fee per gas in the block, introduced in EIP-1559 for dynamic transaction fee calculation.
 
-### blobGasPrice?
+### blobGasPrice
 
-> **`optional`** **`readonly`** **blobGasPrice**: `bigint`
+> **`readonly`** **blobGasPrice**?: `bigint`
 
 The gas price for the block; may be undefined in blocks after EIP-1559.
 
@@ -57,3 +57,6 @@ The timestamp at which the block was mined or validated.
 ## Source
 
 packages/actions-types/types/common/Block.d.ts:5
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

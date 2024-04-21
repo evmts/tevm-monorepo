@@ -1,21 +1,20 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthGetTransactionReceiptHandler
+[API](../API.md) > EthGetTransactionReceiptHandler
 
-# Type alias: EthGetTransactionReceiptHandler()
+# Type alias: EthGetTransactionReceiptHandler
 
 > **EthGetTransactionReceiptHandler**: (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md)
-
-## Returns
-
-`Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
+▪ **request**: [`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md)
 
 ## Source
 
-[handlers/EthHandler.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L177)
+[handlers/EthHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L147)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,84 +1,70 @@
 {
-  "name": "@tevm/ethers",
-  "version": "1.0.0-next.42",
-  "private": false,
-  "description": "A collection of ethers.js utilities for working with Tevm",
-  "keywords": [
-    "ethers",
-    "solidity",
-    "forge",
-    "foundry",
-    "sol",
-    "typescript",
-    "web3",
-    "blockchain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "extensions/ethers"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "all": "bun run format && bun run lint && bun run build && bun run test:run && bun run generate:docs && bun run lint:deps && bun run lint:package",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ethers ",
-    "build:dist": "tsup",
-    "build:types": "tsup --dts-only",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "generate:docs": "typedoc",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack",
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@tevm/client-types": "workspace:^",
-    "@tevm/memory-client": "workspace:^",
-    "@tevm/procedures-types": "workspace:^",
-    "@tevm/utils": "workspace:1.0.0-next.40"
-  },
-  "devDependencies": {
-    "@tevm/base-client": "workspace:1.0.0-next.42",
-    "@tevm/contract": "workspace:^",
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "ethers": "^6.8.0"
-  },
-  "peerDependencies": {
-    "ethers": ">6.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@tevm/ethers",
+	"version": "1.0.0-next.42",
+	"private": false,
+	"description": "A collection of ethers.js utilities for working with Tevm",
+	"keywords": ["ethers", "solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "extensions/ethers"
+	},
+	"license": "MIT",
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist", "src"],
+	"scripts": {
+		"all": "bun run format && bun run lint && bun run build && bun run test:run && bun run generate:docs && bun run lint:deps && bun run lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ethers ",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --apply-unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/client-types": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/procedures-types": "workspace:^",
+		"@tevm/utils": "workspace:1.0.0-next.40"
+	},
+	"devDependencies": {
+		"@tevm/base-client": "workspace:1.0.0-next.42",
+		"@tevm/contract": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"ethers": "^6.8.0"
+	},
+	"peerDependencies": {
+		"ethers": ">6.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

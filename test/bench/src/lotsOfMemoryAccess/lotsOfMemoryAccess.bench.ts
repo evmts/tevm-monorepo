@@ -1,11 +1,9 @@
-import { lotsOfMemoryAccess } from './lotsOfMemoryAccess.js'
 import { bench, describe, expect } from 'vitest'
+import { lotsOfMemoryAccess } from './lotsOfMemoryAccess.js'
 
 /* ---------------------------------- TEVM ---------------------------------- */
-const alchemyKey = process.env['BENCH_ALCHEMY_KEY']
-const rpcUrl = alchemyKey
-	? `https://opt-mainnet.g.alchemy.com/v2/${alchemyKey}`
-	: 'https://mainnet.optimism.io'
+const alchemyKey = process.env.BENCH_ALCHEMY_KEY
+const rpcUrl = alchemyKey ? `https://opt-mainnet.g.alchemy.com/v2/${alchemyKey}` : 'https://mainnet.optimism.io'
 
 describe('import("@tevm/memory-client").createMemoryClient().contract - lotsOfMemoryAccess', () => {
 	bench(

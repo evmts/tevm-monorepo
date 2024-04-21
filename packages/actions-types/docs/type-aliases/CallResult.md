@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / CallResult
+[API](../API.md) > CallResult
 
-# Type alias: CallResult\<ErrorType\>
+# Type alias: CallResult`<ErrorType>`
 
 > **CallResult**\<`ErrorType`\>: `object`
 
@@ -12,31 +12,33 @@ Result of a Tevm VM Call method
 
 ## Type parameters
 
-• **ErrorType** = `CallError`
+| Parameter | Default |
+| :------ | :------ |
+| `ErrorType` | `CallError` |
 
 ## Type declaration
 
-### blobGasUsed?
+### blobGasUsed
 
-> **`optional`** **blobGasUsed**: `bigint`
+> **blobGasUsed**?: `bigint`
 
 Amount of blob gas consumed by the transaction
 
-### createdAddress?
+### createdAddress
 
-> **`optional`** **createdAddress**: [`Address`](Address.md)
+> **createdAddress**?: [`Address`](Address.md)
 
 Address of created account during transaction, if any
 
-### createdAddresses?
+### createdAddresses
 
-> **`optional`** **createdAddresses**: `Set`\<[`Address`](Address.md)\>
+> **createdAddresses**?: `Set`\<[`Address`](Address.md)\>
 
 Map of addresses which were created (used in EIP 6780)
 
-### errors?
+### errors
 
-> **`optional`** **errors**: `ErrorType`[]
+> **errors**?: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -46,21 +48,21 @@ Description of the exception, if any occurred
 
 Amount of gas the code used to run
 
-### gas?
+### gas
 
-> **`optional`** **gas**: `bigint`
+> **gas**?: `bigint`
 
 Amount of gas left
 
-### gasRefund?
+### gasRefund
 
-> **`optional`** **gasRefund**: `bigint`
+> **gasRefund**?: `bigint`
 
 The gas refund counter as a uint256
 
-### logs?
+### logs
 
-> **`optional`** **logs**: [`Log`](Log.md)[]
+> **logs**?: [`Log`](Log.md)[]
 
 Array of logs that the contract emitted
 
@@ -70,21 +72,21 @@ Array of logs that the contract emitted
 
 Encoded return value from the contract as hex string
 
-### selfdestruct?
+### selfdestruct
 
-> **`optional`** **selfdestruct**: `Set`\<[`Address`](Address.md)\>
+> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
 
 A set of accounts to selfdestruct
 
-### trace?
+### trace
 
-> **`optional`** **trace**: [`DebugTraceCallResult`](DebugTraceCallResult.md)
+> **trace**?: [`DebugTraceCallResult`](DebugTraceCallResult.md)
 
 The call trace if tracing is enabled on call
 
-### txHash?
+### txHash
 
-> **`optional`** **txHash**: [`Hex`](Hex.md)
+> **txHash**?: [`Hex`](Hex.md)
 
 The returned tx hash if the call was included in the chain
 Will not be defined if the call was not included in the chain
@@ -94,3 +96,6 @@ Whether a call is included in the chain depends on if the
 ## Source
 
 [result/CallResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

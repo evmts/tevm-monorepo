@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBlockTransactionCountByNumberJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > EthGetBlockTransactionCountByNumberJsonRpcProcedure
 
-# Type alias: EthGetBlockTransactionCountByNumberJsonRpcProcedure()
+# Type alias: EthGetBlockTransactionCountByNumberJsonRpcProcedure
 
 > **EthGetBlockTransactionCountByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](EthGetBlockTransactionCountByNumberJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](EthGetBlockTransactionCountByNumberJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](EthGetBlockTransactionCountByNumberJsonRpcResponse.md)\>
+▪ **request**: [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](EthGetBlockTransactionCountByNumberJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:821
+packages/procedures-types/dist/index.d.ts:775
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

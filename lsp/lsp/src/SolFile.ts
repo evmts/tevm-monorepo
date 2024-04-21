@@ -1,13 +1,9 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import { bundler, createCache } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
-import {
-	FileCapabilities,
-	FileKind,
-	type VirtualFile,
-} from '@volar/language-core'
+import { FileCapabilities, FileKind, type VirtualFile } from '@volar/language-core'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
-import { readFile } from 'fs/promises'
 // @ts-expect-error
 import solc from 'solc'
 import type ts from 'typescript/lib/tsserverlibrary.js'
@@ -50,12 +46,7 @@ export class SolFile implements VirtualFile {
 			solc,
 			cache,
 		)
-		const tsFile = b.resolveTsModuleSync(
-			this.fileName,
-			process.cwd(),
-			false,
-			false,
-		)
+		const tsFile = b.resolveTsModuleSync(this.fileName, process.cwd(), false, false)
 		this.embeddedFiles = [
 			{
 				fileName: `${this.fileName}.ts`,

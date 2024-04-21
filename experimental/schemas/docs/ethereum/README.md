@@ -1,10 +1,10 @@
-**@tevm/schemas** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/schemas** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/schemas](../README.md) / ethereum
+[API](../API.md) > ethereum
 
-# ethereum
+# Module: ethereum
 
 ## Index
 
@@ -283,3 +283,6 @@
 - [parseUINT64Safe](functions/parseUINT64Safe.md)
 - [parseUINT8](functions/parseUINT8.md)
 - [parseUINT8Safe](functions/parseUINT8Safe.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

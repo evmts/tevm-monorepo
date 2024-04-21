@@ -1,8 +1,8 @@
-import { fileExists } from './fileExists.js'
+import { constants } from 'node:fs'
+import { access } from 'node:fs/promises'
 import { runPromise } from 'effect/Effect'
-import { constants } from 'fs'
-import { access } from 'fs/promises'
 import { type Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { fileExists } from './fileExists.js'
 
 vi.mock('fs/promises')
 
@@ -16,10 +16,7 @@ describe('fileExists', () => {
 		accessMock.mockResolvedValueOnce(undefined)
 		const result = await runPromise(fileExists('path-to-existing-file.txt'))
 		expect(result).toBe(true)
-		expect(access).toHaveBeenCalledWith(
-			'path-to-existing-file.txt',
-			constants.F_OK,
-		)
+		expect(access).toHaveBeenCalledWith('path-to-existing-file.txt', constants.F_OK)
 	})
 
 	it('should return false if the file does not exist', async () => {
@@ -27,9 +24,6 @@ describe('fileExists', () => {
 		accessMock.mockRejectedValueOnce(mockError)
 		const result = await runPromise(fileExists('path-to-non-existing-file.txt'))
 		expect(result).toBe(false)
-		expect(access).toHaveBeenCalledWith(
-			'path-to-non-existing-file.txt',
-			constants.F_OK,
-		)
+		expect(access).toHaveBeenCalledWith('path-to-non-existing-file.txt', constants.F_OK)
 	})
 })

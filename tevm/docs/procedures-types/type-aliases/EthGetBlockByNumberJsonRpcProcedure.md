@@ -1,21 +1,20 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBlockByNumberJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > EthGetBlockByNumberJsonRpcProcedure
 
-# Type alias: EthGetBlockByNumberJsonRpcProcedure()
+# Type alias: EthGetBlockByNumberJsonRpcProcedure
 
 > **EthGetBlockByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
+▪ **request**: [`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:819
+packages/procedures-types/dist/index.d.ts:773
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

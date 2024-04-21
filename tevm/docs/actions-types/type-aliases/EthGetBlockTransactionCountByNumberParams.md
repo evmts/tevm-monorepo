@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthGetBlockTransactionCountByNumberParams
+[API](../../API.md) > [actions-types](../README.md) > EthGetBlockTransactionCountByNumberParams
 
 # Type alias: EthGetBlockTransactionCountByNumberParams
 
@@ -12,10 +12,13 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ## Type declaration
 
-### blockTag?
+### blockTag
 
-> **`optional`** **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:104
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

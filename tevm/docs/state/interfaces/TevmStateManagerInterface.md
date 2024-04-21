@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [state](../README.md) / TevmStateManagerInterface
+[API](../../API.md) > [state](../README.md) > TevmStateManagerInterface
 
 # Interface: TevmStateManagerInterface
 
@@ -12,13 +12,9 @@
 
 ## Properties
 
-### getAccountAddresses()
+### getAccountAddresses
 
-> **getAccountAddresses**: () => ```0x${string}```[]
-
-#### Returns
-
-```0x${string}```[]
+> **getAccountAddresses**: () => \`0x${string}\`[]
 
 #### Source
 
@@ -30,27 +26,21 @@ packages/state/types/TevmStateManagerInterface.d.ts:4
 
 > **originalStorageCache**: `object`
 
-#### clear()
+#### Type declaration
 
-##### Returns
+##### clear()
 
-`void`
+##### get()
 
-#### get()
+###### Parameters
 
-##### Parameters
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-• **key**: `Uint8Array`
-
-##### Returns
-
-`Promise`\<`Uint8Array`\>
+▪ **key**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.originalStorageCache`
+EvmStateManagerInterface.originalStorageCache
 
 #### Source
 
@@ -62,13 +52,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **checkpoint**(): `Promise`\<`void`\>
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Inherited from
 
-`EvmStateManagerInterface.checkpoint`
+EvmStateManagerInterface.checkpoint
 
 #### Source
 
@@ -82,15 +68,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.clearContractStorage`
+EvmStateManagerInterface.clearContractStorage
 
 #### Source
 
@@ -102,13 +84,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **commit**(): `Promise`\<`void`\>
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Inherited from
 
-`EvmStateManagerInterface.commit`
+EvmStateManagerInterface.commit
 
 #### Source
 
@@ -122,15 +100,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.deleteAccount`
+EvmStateManagerInterface.deleteAccount
 
 #### Source
 
@@ -144,15 +118,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### Returns
-
-`Promise`\<`StorageDump`\>
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.dumpStorage`
+EvmStateManagerInterface.dumpStorage
 
 #### Source
 
@@ -166,19 +136,15 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **startKey**: `bigint`
+▪ **startKey**: `bigint`
 
-• **limit**: `number`
-
-#### Returns
-
-`Promise`\<`StorageRange`\>
+▪ **limit**: `number`
 
 #### Inherited from
 
-`EvmStateManagerInterface.dumpStorageRange`
+EvmStateManagerInterface.dumpStorageRange
 
 #### Source
 
@@ -192,15 +158,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **initState**: `any`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **initState**: `any`
 
 #### Inherited from
 
-`EvmStateManagerInterface.generateCanonicalGenesis`
+EvmStateManagerInterface.generateCanonicalGenesis
 
 #### Source
 
@@ -214,15 +176,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### Returns
-
-`Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.getAccount`
+EvmStateManagerInterface.getAccount
 
 #### Source
 
@@ -230,21 +188,17 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ***
 
-### getAppliedKey()?
+### getAppliedKey()
 
 > **`optional`** **getAppliedKey**(`address`): `Uint8Array`
 
 #### Parameters
 
-• **address**: `Uint8Array`
-
-#### Returns
-
-`Uint8Array`
+▪ **address**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.getAppliedKey`
+EvmStateManagerInterface.getAppliedKey
 
 #### Source
 
@@ -258,15 +212,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### Returns
-
-`Promise`\<`Uint8Array`\>
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.getContractCode`
+EvmStateManagerInterface.getContractCode
 
 #### Source
 
@@ -280,17 +230,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **key**: `Uint8Array`
-
-#### Returns
-
-`Promise`\<`Uint8Array`\>
+▪ **key**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.getContractStorage`
+EvmStateManagerInterface.getContractStorage
 
 #### Source
 
@@ -304,17 +250,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **storageSlots?**: `Uint8Array`[]
-
-#### Returns
-
-`Promise`\<`Proof`\>
+▪ **storageSlots?**: `Uint8Array`[]
 
 #### Inherited from
 
-`EvmStateManagerInterface.getProof`
+EvmStateManagerInterface.getProof
 
 #### Source
 
@@ -326,13 +268,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\>
 
-#### Returns
-
-`Promise`\<`Uint8Array`\>
-
 #### Inherited from
 
-`EvmStateManagerInterface.getStateRoot`
+EvmStateManagerInterface.getStateRoot
 
 #### Source
 
@@ -346,15 +284,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **root**: `Uint8Array`
-
-#### Returns
-
-`Promise`\<`boolean`\>
+▪ **root**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.hasStateRoot`
+EvmStateManagerInterface.hasStateRoot
 
 #### Source
 
@@ -368,17 +302,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
 
 #### Inherited from
 
-`EvmStateManagerInterface.modifyAccountFields`
+EvmStateManagerInterface.modifyAccountFields
 
 #### Source
 
@@ -392,17 +322,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 #### Inherited from
 
-`EvmStateManagerInterface.putAccount`
+EvmStateManagerInterface.putAccount
 
 #### Source
 
@@ -416,17 +342,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **value**: `Uint8Array`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **value**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.putContractCode`
+EvmStateManagerInterface.putContractCode
 
 #### Source
 
@@ -440,19 +362,15 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **key**: `Uint8Array`
+▪ **key**: `Uint8Array`
 
-• **value**: `Uint8Array`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **value**: `Uint8Array`
 
 #### Inherited from
 
-`EvmStateManagerInterface.putContractStorage`
+EvmStateManagerInterface.putContractStorage
 
 #### Source
 
@@ -464,13 +382,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **revert**(): `Promise`\<`void`\>
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Inherited from
 
-`EvmStateManagerInterface.revert`
+EvmStateManagerInterface.revert
 
 #### Source
 
@@ -484,17 +398,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **stateRoot**: `Uint8Array`
+▪ **stateRoot**: `Uint8Array`
 
-• **clearCache?**: `boolean`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **clearCache?**: `boolean`
 
 #### Inherited from
 
-`EvmStateManagerInterface.setStateRoot`
+EvmStateManagerInterface.setStateRoot
 
 #### Source
 
@@ -508,16 +418,15 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-• **downlevelCaches?**: `boolean`
-
-#### Returns
-
-`EVMStateManagerInterface`
+▪ **downlevelCaches?**: `boolean`
 
 #### Inherited from
 
-`EvmStateManagerInterface.shallowCopy`
+EvmStateManagerInterface.shallowCopy
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:81
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthGetBalanceJsonRpcRequest
+[API](../API.md) > EthGetBalanceJsonRpcRequest
 
 # Type alias: EthGetBalanceJsonRpcRequest
 
@@ -12,4 +12,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L109)
+[requests/EthJsonRpcRequest.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L88)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

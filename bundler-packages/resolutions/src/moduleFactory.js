@@ -1,9 +1,9 @@
+import { gen } from 'effect/Effect'
 import { resolveImports } from './resolveImports.js'
 import { invariant } from './utils/invariant.js'
 import { safeFao } from './utils/safeFao.js'
 import { updateImportPaths } from './utils/updateImportPath.js'
 import { updatePragma } from './utils/updatePragma.js'
-import { gen } from 'effect/Effect'
 
 /**
  * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError | import("./utils/resolveImportPath.js").CouldNotResolveImportError | import("./utils/updatePragma.js").NoPragmaFoundError} ModuleFactoryError
@@ -50,14 +50,7 @@ import { gen } from 'effect/Effect'
  * console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCode: '...', importedIds: ['/path/to/Imported.sol'], code: '...' }
  * ```
  */
-export const moduleFactory = (
-	absolutePath,
-	rawCode,
-	remappings,
-	libs,
-	fao,
-	sync,
-) => {
+export const moduleFactory = (absolutePath, rawCode, remappings, libs, fao, sync) => {
 	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
@@ -71,17 +64,13 @@ export const moduleFactory = (
 
 			if (modules.has(absolutePath)) continue
 
-			const resolvedImports = yield* _(
-				resolveImports(absolutePath, rawCode, remappings, libs, sync),
-			)
+			const resolvedImports = yield* _(resolveImports(absolutePath, rawCode, remappings, libs, sync))
 
 			modules.set(absolutePath, {
 				id: absolutePath,
 				rawCode,
 				importedIds: resolvedImports.map(({ absolute }) => absolute),
-				code: yield* _(
-					updatePragma(yield* _(updateImportPaths(rawCode, resolvedImports))),
-				),
+				code: yield* _(updatePragma(yield* _(updateImportPaths(rawCode, resolvedImports)))),
 			})
 
 			for (const resolvedImport of resolvedImports) {

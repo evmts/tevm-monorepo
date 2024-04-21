@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / decorators
+[API](../API.md) > decorators
 
-# decorators
+# Module: decorators
 
 ## Index
 
@@ -44,6 +44,16 @@
 - [tevmActions](functions/tevmActions.md)
 - [tevmSend](functions/tevmSend.md)
 
+## Table of contents
+
+### References
+
+- [EIP1193Events](README.md#eip1193events)
+- [EIP1193RequestFn](README.md#eip1193requestfn)
+- [Eip1193RequestProvider](README.md#eip1193requestprovider)
+- [EthActionsApi](README.md#ethactionsapi)
+- [TevmActionsApi](README.md#tevmactionsapi)
+
 ## References
 
 ### EIP1193Events
@@ -73,3 +83,6 @@ Re-exports [EthActionsApi](../index/type-aliases/EthActionsApi.md)
 ### TevmActionsApi
 
 Re-exports [TevmActionsApi](../index/type-aliases/TevmActionsApi.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

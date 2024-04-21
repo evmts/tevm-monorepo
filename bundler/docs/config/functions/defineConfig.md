@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [config](../README.md) / defineConfig
+[API](../../API.md) > [config](../README.md) > defineConfig
 
 # Function: defineConfig()
 
@@ -12,23 +12,18 @@ Typesafe way to create an Tevm CompilerConfig
 
 ## Parameters
 
-• **configFactory**: `ConfigFactory`
+▪ **configFactory**: `ConfigFactory`
 
 ## Returns
 
-`object`
-
-### configFn()
-
-> **configFn**: (`configFilePath`) => `Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig`\>
-
-#### Parameters
-
-• **configFilePath**: `string`
-
-#### Returns
-
-`Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig`\>
+> ### configFn
+>
+> > **configFn**: (`configFilePath`) => `Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig`\>
+>
+> #### Parameters
+>
+> ▪ **configFilePath**: `string`
+>
 
 ## Example
 
@@ -45,4 +40,7 @@ export default defineConfig(() => ({
 
 ## Source
 
-bundler-packages/config/types/defineConfig.d.ts:38
+bundler-packages/config/types/defineConfig.d.ts:35
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

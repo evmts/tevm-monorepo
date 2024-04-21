@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / isUINT256
+[API](../../API.md) > [ethereum](../README.md) > isUINT256
 
 # Function: isUINT256()
 
@@ -12,11 +12,9 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT256.
 
 ## Parameters
 
-• **uint256**: `unknown`
+▪ **uint256**: `unknown`
 
 ## Returns
-
-`boolean`
 
 ## Example
 
@@ -28,4 +26,7 @@ isUINT256(BigInt("23158417847463239084714197001737581570653996933128112807891516
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L99)
+[experimental/schemas/src/ethereum/SUINT/isUINT.js:92](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L92)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

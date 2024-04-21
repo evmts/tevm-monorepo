@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [vite-plugin](../README.md) / vitePluginTevm
+[API](../../API.md) > [vite-plugin](../README.md) > vitePluginTevm
 
 # Function: vitePluginTevm()
 
@@ -15,13 +15,11 @@ To configure add this plugin to your vite config and add the ts-plugin to your t
 
 ## Parameters
 
-• **options?**
+▪ **options?**: `object`
 
-• **options\.solc?**: `any`
+▪ **options.solc?**: `any`
 
 ## Returns
-
-`Plugin`\<`any`\>
 
 ## Example
 
@@ -100,3 +98,6 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 bundler-packages/vite/types/vitePluginTevm.d.ts:71
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

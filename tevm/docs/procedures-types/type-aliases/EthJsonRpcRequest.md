@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthJsonRpcRequest
+[API](../../API.md) > [procedures-types](../README.md) > EthJsonRpcRequest
 
 # Type alias: EthJsonRpcRequest
 
@@ -10,4 +10,7 @@
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:367
+packages/procedures-types/dist/index.d.ts:327
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

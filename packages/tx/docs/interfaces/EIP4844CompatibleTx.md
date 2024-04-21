@@ -1,10 +1,10 @@
-**@tevm/tx** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/tx](../README.md) / EIP4844CompatibleTx
+[API](../API.md) > EIP4844CompatibleTx
 
-# Interface: EIP4844CompatibleTx\<T\>
+# Interface: EIP4844CompatibleTx`<T>`
 
 ## Extends
 
@@ -12,7 +12,7 @@
 
 ## Type parameters
 
-• **T** extends [`TransactionType`](../enumerations/TransactionType.md) = [`TransactionType`](../enumerations/TransactionType.md)
+▪ **T** extends [`TransactionType`](../enumerations/TransactionType.md) = [`TransactionType`](../enumerations/TransactionType.md)
 
 ## Properties
 
@@ -54,9 +54,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### blobs?
+### blobs
 
-> **`optional`** **blobs**: `Uint8Array`[]
+> **blobs**?: `Uint8Array`[]
 
 #### Source
 
@@ -134,9 +134,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### kzgCommitments?
+### kzgCommitments
 
-> **`optional`** **kzgCommitments**: `Uint8Array`[]
+> **kzgCommitments**?: `Uint8Array`[]
 
 #### Source
 
@@ -144,9 +144,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### kzgProofs?
+### kzgProofs
 
-> **`optional`** **kzgProofs**: `Uint8Array`[]
+> **kzgProofs**?: `Uint8Array`[]
 
 #### Source
 
@@ -206,9 +206,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### r?
+### r
 
-> **`optional`** **`readonly`** **r**: `bigint`
+> **`readonly`** **r**?: `bigint`
 
 #### Inherited from
 
@@ -220,9 +220,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### s?
+### s
 
-> **`optional`** **`readonly`** **s**: `bigint`
+> **`readonly`** **s**?: `bigint`
 
 #### Inherited from
 
@@ -234,9 +234,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### to?
+### to
 
-> **`optional`** **`readonly`** **to**: `Address`
+> **`readonly`** **to**?: `Address`
 
 #### Inherited from
 
@@ -262,9 +262,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### v?
+### v
 
-> **`optional`** **`readonly`** **v**: `bigint`
+> **`readonly`** **v**?: `bigint`
 
 #### Inherited from
 
@@ -294,10 +294,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **errorStr**(): `string`
 
-#### Returns
-
-`string`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`errorStr`](EIP1559CompatibleTx.md#errorstr)
@@ -311,10 +307,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### getBaseFee()
 
 > **getBaseFee**(): `bigint`
-
-#### Returns
-
-`bigint`
 
 #### Inherited from
 
@@ -330,10 +322,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getDataFee**(): `bigint`
 
-#### Returns
-
-`bigint`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`getDataFee`](EIP1559CompatibleTx.md#getdatafee)
@@ -347,10 +335,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### getHashedMessageToSign()
 
 > **getHashedMessageToSign**(): `Uint8Array`
-
-#### Returns
-
-`Uint8Array`
 
 #### Inherited from
 
@@ -366,10 +350,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getMessageToSign**(): `Uint8Array`
 
-#### Returns
-
-`Uint8Array`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`getMessageToSign`](EIP1559CompatibleTx.md#getmessagetosign)
@@ -383,10 +363,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### getMessageToVerifySignature()
 
 > **getMessageToVerifySignature**(): `Uint8Array`
-
-#### Returns
-
-`Uint8Array`
 
 #### Inherited from
 
@@ -402,10 +378,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getSenderAddress**(): `Address`
 
-#### Returns
-
-`Address`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`getSenderAddress`](EIP1559CompatibleTx.md#getsenderaddress)
@@ -419,10 +391,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### getSenderPublicKey()
 
 > **getSenderPublicKey**(): `Uint8Array`
-
-#### Returns
-
-`Uint8Array`
 
 #### Inherited from
 
@@ -438,10 +406,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getUpfrontCost**(): `bigint`
 
-#### Returns
-
-`bigint`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`getUpfrontCost`](EIP1559CompatibleTx.md#getupfrontcost)
@@ -455,10 +419,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### getValidationErrors()
 
 > **getValidationErrors**(): `string`[]
-
-#### Returns
-
-`string`[]
 
 #### Inherited from
 
@@ -474,10 +434,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **hash**(): `Uint8Array`
 
-#### Returns
-
-`Uint8Array`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`hash`](EIP1559CompatibleTx.md#hash)
@@ -491,10 +447,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### isSigned()
 
 > **isSigned**(): `boolean`
-
-#### Returns
-
-`boolean`
 
 #### Inherited from
 
@@ -510,10 +462,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **isValid**(): `boolean`
 
-#### Returns
-
-`boolean`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`isValid`](EIP1559CompatibleTx.md#isvalid)
@@ -528,10 +476,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **numBlobs**(): `number`
 
-#### Returns
-
-`number`
-
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:151
@@ -540,11 +484,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### raw()
 
-> **raw**(): `TxValuesArray`\[`T`\]
-
-#### Returns
-
-`TxValuesArray`\[`T`\]
+> **raw**(): `TxValuesArray`[`T`]
 
 #### Inherited from
 
@@ -560,10 +500,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **serialize**(): `Uint8Array`
 
-#### Returns
-
-`Uint8Array`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`serialize`](EIP1559CompatibleTx.md#serialize)
@@ -578,10 +514,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **serializeNetworkWrapper**(): `Uint8Array`
 
-#### Returns
-
-`Uint8Array`
-
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:150
@@ -590,15 +522,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### sign()
 
-> **sign**(`privateKey`): `Transaction`\[`T`\]
+> **sign**(`privateKey`): `Transaction`[`T`]
 
 #### Parameters
 
-• **privateKey**: `Uint8Array`
-
-#### Returns
-
-`Transaction`\[`T`\]
+▪ **privateKey**: `Uint8Array`
 
 #### Inherited from
 
@@ -616,11 +544,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 #### Parameters
 
-• **capability**: [`Capability`](../enumerations/Capability.md)
-
-#### Returns
-
-`boolean`
+▪ **capability**: [`Capability`](../enumerations/Capability.md)
 
 #### Inherited from
 
@@ -636,10 +560,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **toCreationAddress**(): `boolean`
 
-#### Returns
-
-`boolean`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`toCreationAddress`](EIP1559CompatibleTx.md#tocreationaddress)
@@ -653,10 +573,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 ### toJSON()
 
 > **toJSON**(): `JsonTx`
-
-#### Returns
-
-`JsonTx`
 
 #### Inherited from
 
@@ -672,10 +588,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **verifySignature**(): `boolean`
 
-#### Returns
-
-`boolean`
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`verifySignature`](EIP1559CompatibleTx.md#verifysignature)
@@ -683,3 +595,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:123
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

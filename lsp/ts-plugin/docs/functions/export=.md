@@ -1,8 +1,8 @@
-**@tevm/ts-plugin** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/ts-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/ts-plugin](../README.md) / export=
+[API](../API.md) > export=
 
 # Function: export=()
 
@@ -12,22 +12,23 @@
 
 ## Parameters
 
-• **mod**
+▪ **mod**: `object`
 
-• **mod\.typescript**: *typeof* `ts`
+▪ **mod.typescript**: *typeof* `ts`
 
 ## Returns
-
-`PluginModule`
 
 ## Example
 
 ```json
-\{
-  "plugins": [\{ "name": "tevm-ts-plugin"\}]
-\}
+{
+  "plugins": [{ "name": "tevm-ts-plugin"}]
+}
 @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
 
 ## Source
 
-[lsp/ts-plugin/src/tsPlugin.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L27)
+[lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

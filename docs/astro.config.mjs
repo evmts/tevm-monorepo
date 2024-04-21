@@ -1,9 +1,9 @@
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
 import { pluginLinkValidator } from './pluginLinkValidator.mjs'
 import { pluginTypedoc } from './pluginTypedoc.mjs'
 import { sidebar } from './sidebar.mjs'
 import { social } from './social.mjs'
-import starlight from '@astrojs/starlight'
-import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({

@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / SetAccountHandler
+[API](../API.md) > SetAccountHandler
 
-# Type alias: SetAccountHandler()
+# Type alias: SetAccountHandler
 
 > **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
@@ -24,12 +24,11 @@ await tevm.setAccount({
 
 ## Parameters
 
-• **params**: [`SetAccountParams`](SetAccountParams.md)
-
-## Returns
-
-`Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
+▪ **params**: [`SetAccountParams`](SetAccountParams.md)
 
 ## Source
 
 [handlers/SetAccountHandler.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/SetAccountHandler.ts#L14)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

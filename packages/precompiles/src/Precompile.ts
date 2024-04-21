@@ -1,4 +1,4 @@
-import { type Script } from '@tevm/contract'
+import type { Script } from '@tevm/contract'
 import type { ExecResult } from '@tevm/evm'
 import { EthjsAddress, type Hex, toHex } from '@tevm/utils'
 
@@ -26,16 +26,15 @@ import { EthjsAddress, type Hex, toHex } from '@tevm/utils'
 export abstract class Precompile<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
-	TContract extends ReturnType<
+	TContract extends ReturnType<Script<TName, THumanReadableAbi>['withAddress']> = ReturnType<
 		Script<TName, THumanReadableAbi>['withAddress']
-	> = ReturnType<Script<TName, THumanReadableAbi>['withAddress']>,
+	>,
 > {
 	/**
 	 *
 	 */
 	public abstract readonly contract: TContract
-	protected readonly ethjsAddress = () =>
-		EthjsAddress.fromString(this.contract.address)
+	protected readonly ethjsAddress = () => EthjsAddress.fromString(this.contract.address)
 	public readonly precompile = () => ({
 		address: this.ethjsAddress(),
 		function: (params: { data: Uint8Array; gasLimit: bigint }) => {

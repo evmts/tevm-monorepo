@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / BlockTag
+[API](../../API.md) > [actions-types](../README.md) > BlockTag
 
 # Type alias: BlockTag
 
@@ -11,3 +11,6 @@
 ## Source
 
 packages/actions-types/types/common/BlockTag.d.ts:1
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

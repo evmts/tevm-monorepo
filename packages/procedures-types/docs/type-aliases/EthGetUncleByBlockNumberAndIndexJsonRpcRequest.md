@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthGetUncleByBlockNumberAndIndexJsonRpcRequest
+[API](../API.md) > EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 
 # Type alias: EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 
@@ -12,4 +12,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L254)
+[requests/EthJsonRpcRequest.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L211)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

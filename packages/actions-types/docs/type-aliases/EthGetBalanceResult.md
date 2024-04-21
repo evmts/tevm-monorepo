@@ -1,8 +1,8 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / EthGetBalanceResult
+[API](../API.md) > EthGetBalanceResult
 
 # Type alias: EthGetBalanceResult
 
@@ -13,3 +13,6 @@ JSON-RPC response for `eth_getBalance` procedure
 ## Source
 
 [result/EthResult.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/EthResult.ts#L60)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / ContractParams
+[API](../../API.md) > [index](../README.md) > ContractParams
 
-# Type alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
+# Type alias: ContractParams`<TAbi, TFunctionName, TThrowOnFail>`
 
 > **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -20,12 +20,15 @@ The address to call.
 
 ## Type parameters
 
-• **TAbi** extends [`Abi`](../../actions-types/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../actions-types/type-aliases/Abi.md)
-
-• **TFunctionName** extends [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
-
-• **TThrowOnFail** extends `boolean` = `boolean`
+| Parameter | Default |
+| :------ | :------ |
+| `TAbi` extends [`Abi`](../../actions-types/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../actions-types/type-aliases/Abi.md) |
+| `TFunctionName` extends [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> |
+| `TThrowOnFail` extends `boolean` | `boolean` |
 
 ## Source
 
 packages/actions-types/types/params/ContractParams.d.ts:7
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

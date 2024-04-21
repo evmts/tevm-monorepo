@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / INT8\_MIN
+[API](../../API.md) > [ethereum](../README.md) > INT8\_MIN
 
 # Variable: INT8\_MIN
 
@@ -14,3 +14,6 @@ The minimum value a [INT8](../type-aliases/INT8.md) can be.
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L16)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

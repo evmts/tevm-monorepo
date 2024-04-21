@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetFilterLogsJsonRpcResponse
+[API](../../API.md) > [procedures-types](../README.md) > EthGetFilterLogsJsonRpcResponse
 
 # Type alias: EthGetFilterLogsJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `eth_getFilterLogs` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:580
+packages/procedures-types/dist/index.d.ts:534
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

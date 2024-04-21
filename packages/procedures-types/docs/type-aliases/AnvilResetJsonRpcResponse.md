@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / AnvilResetJsonRpcResponse
+[API](../API.md) > AnvilResetJsonRpcResponse
 
 # Type alias: AnvilResetJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `anvil_reset` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L80)
+[responses/AnvilJsonRpcResponse.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L72)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

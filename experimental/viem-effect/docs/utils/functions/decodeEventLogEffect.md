@@ -1,8 +1,8 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [utils](../README.md) / decodeEventLogEffect
+[API](../../API.md) > [utils](../README.md) > decodeEventLogEffect
 
 # Function: decodeEventLogEffect()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TParams** extends [`DecodeEventLogParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, ```0x${string}```[], `undefined` \| ```0x${string}```, `boolean`\>]
+▪ **TParams** extends [`DecodeEventLogParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, \`0x${string}\`[], `undefined` \| \`0x${string}\`, `boolean`\>]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `DecodeEventLogErrorType`, `object` \| `object`\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/utils/abi/decodeEventLogEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeEventLogEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

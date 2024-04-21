@@ -1,28 +1,24 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / Solc
+[API](../API.md) > Solc
 
 # Interface: Solc
 
 ## Properties
 
-### compile()
+### compile
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
 #### Parameters
 
-• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
-
-#### Returns
-
-[`SolcOutput`](../type-aliases/SolcOutput.md)
+▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 #### Source
 
-[solcTypes.ts:757](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L757)
+[solcTypes.ts:748](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L748)
 
 ***
 
@@ -32,7 +28,7 @@
 
 #### Source
 
-[solcTypes.ts:756](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L756)
+[solcTypes.ts:747](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L747)
 
 ***
 
@@ -42,27 +38,23 @@
 
 #### Source
 
-[solcTypes.ts:754](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L754)
+[solcTypes.ts:745](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L745)
 
 ***
 
-### loadRemoteVersion()
+### loadRemoteVersion
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
 #### Parameters
 
-• **versionString**: `string`
+▪ **versionString**: `string`
 
-• **callback**
-
-#### Returns
-
-`void`
+▪ **callback**: (`err`, `solc`?) => `void`
 
 #### Source
 
-[solcTypes.ts:758](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L758)
+[solcTypes.ts:749](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L749)
 
 ***
 
@@ -72,7 +64,7 @@
 
 #### Source
 
-[solcTypes.ts:755](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L755)
+[solcTypes.ts:746](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L746)
 
 ***
 
@@ -82,25 +74,21 @@
 
 #### Source
 
-[solcTypes.ts:753](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L753)
+[solcTypes.ts:744](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L744)
 
 ***
 
-### setupMethods()
+### setupMethods
 
 > **setupMethods**: (`soljson`) => `void`
 
 #### Parameters
 
-• **soljson**: `any`
-
-#### Returns
-
-`void`
+▪ **soljson**: `any`
 
 #### Source
 
-[solcTypes.ts:762](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L762)
+[solcTypes.ts:750](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L750)
 
 ***
 
@@ -110,4 +98,7 @@
 
 #### Source
 
-[solcTypes.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L752)
+[solcTypes.ts:743](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L743)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

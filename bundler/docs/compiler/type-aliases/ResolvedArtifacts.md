@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [compiler](../README.md) / ResolvedArtifacts
+[API](../../API.md) > [compiler](../README.md) > ResolvedArtifacts
 
 # Type alias: ResolvedArtifacts
 
@@ -13,3 +13,6 @@
 ## Source
 
 bundler-packages/compiler/types/src/index.d.ts:26
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

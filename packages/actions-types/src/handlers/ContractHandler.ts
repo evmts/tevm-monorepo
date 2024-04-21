@@ -1,6 +1,6 @@
-import type { ContractParams, ContractResult } from '../index.js'
 import type { Abi } from '@tevm/utils'
 import type { ContractFunctionName } from '@tevm/utils'
+import type { ContractParams, ContractResult } from '../index.js'
 
 // this handler is adapted from viem and purposefully matches the viem api (not exactly but close enough)
 

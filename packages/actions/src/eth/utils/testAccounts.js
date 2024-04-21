@@ -2,8 +2,7 @@ import { mnemonicToAccount } from '@tevm/utils'
 
 const oneToTen = Array.from(Array(10).keys())
 
-export const mnemonic =
-	'test test test test test test test test test test test junk'
+export const mnemonic = 'test test test test test test test test test test test junk'
 
 export const testAccounts =
 	/**

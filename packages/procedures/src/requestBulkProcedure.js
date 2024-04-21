@@ -6,14 +6,9 @@ import { requestProcedure } from './requestProcedure.js'
  */
 export const requestBulkProcedure = (client) => async (requests) => {
 	const handleRequest = requestProcedure(client)
-	const responses = await Promise.allSettled(
-		requests.map((request) => handleRequest(/** @type any*/ (request))),
-	)
+	const responses = await Promise.allSettled(requests.map((request) => handleRequest(/** @type any*/ (request))))
 	return responses.map((response, i) => {
-		const request =
-			/** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (
-				requests[i]
-			)
+		const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 		// this should never happen
 		if (response.status === 'rejected') {
 			console.error(response.reason)

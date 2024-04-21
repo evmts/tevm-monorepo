@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthCoinbaseJsonRpcRequest
+[API](../API.md) > EthCoinbaseJsonRpcRequest
 
 # Type alias: EthCoinbaseJsonRpcRequest
 
@@ -12,4 +12,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L77)
+[requests/EthJsonRpcRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L68)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/opstack](../README.md) / L1StandardBridgeAddresses
+[API](../API.md) > L1StandardBridgeAddresses
 
 # Variable: L1StandardBridgeAddresses
 
@@ -17,3 +17,6 @@
 ## Source
 
 [extensions/opstack/src/contracts/l1/L1StandardBridge.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l1/L1StandardBridge.ts#L21)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

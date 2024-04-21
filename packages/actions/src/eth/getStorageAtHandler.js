@@ -1,7 +1,7 @@
-import { NoForkUrlSetError } from './getBalanceHandler.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { NoForkUrlSetError } from './getBalanceHandler.js'
 
 /**
  * @param {object} options
@@ -16,16 +16,11 @@ export const getStorageAtHandler =
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending' || tag === 'latest') {
 			return bytesToHex(
-				await vm.stateManager.getContractStorage(
-					EthjsAddress.fromString(params.address),
-					hexToBytes(params.position),
-				),
+				await vm.stateManager.getContractStorage(EthjsAddress.fromString(params.address), hexToBytes(params.position)),
 			)
 		}
 		if (!forkUrl) {
-			throw new NoForkUrlSetError(
-				'Fork URL is required if tag is not "latest" or "pending"',
-			)
+			throw new NoForkUrlSetError('Fork URL is required if tag is not "latest" or "pending"')
 		}
 		const fetcher = createJsonRpcFetcher(forkUrl)
 		return fetcher
@@ -40,7 +35,7 @@ export const getStorageAtHandler =
 					/** @type {any} */
 					const err = new Error(res.error.message)
 					err.name = res.error.code
-					err['_tag'] = res.error.code
+					err._tag = res.error.code
 					throw err
 				}
 				return /**@type {import('@tevm/utils').Address}*/ (res.result)

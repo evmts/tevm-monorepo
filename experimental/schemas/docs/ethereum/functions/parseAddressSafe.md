@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseAddressSafe
+[API](../../API.md) > [ethereum](../README.md) > parseAddressSafe
 
 # Function: parseAddressSafe()
 
@@ -12,20 +12,21 @@ Parses an Address safely into an effect.
 
 ## Type parameters
 
-• **TAddress** extends ```0x${string}```
+▪ **TAddress** extends \`0x${string}\`
 
 ## Parameters
 
-• **address**: `TAddress`
+▪ **address**: `TAddress`
 
 The address to parse.
 
 ## Returns
-
-`Effect`\<`never`, [`InvalidAddressError`](../classes/InvalidAddressError.md), `TAddress`\>
 
 - An effect that resolves to the parsed address.
 
 ## Source
 
 [experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

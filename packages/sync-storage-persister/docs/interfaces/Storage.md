@@ -1,24 +1,20 @@
-**@tevm/sync-storage-persister** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/sync-storage-persister** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/sync-storage-persister](../README.md) / Storage
+[API](../API.md) > Storage
 
 # Interface: Storage
 
 ## Properties
 
-### getItem()
+### getItem
 
 > **getItem**: (`key`) => `null` \| `string`
 
 #### Parameters
 
-• **key**: `string`
-
-#### Returns
-
-`null` \| `string`
+▪ **key**: `string`
 
 #### Source
 
@@ -26,17 +22,13 @@
 
 ***
 
-### removeItem()
+### removeItem
 
 > **removeItem**: (`key`) => `void`
 
 #### Parameters
 
-• **key**: `string`
-
-#### Returns
-
-`void`
+▪ **key**: `string`
 
 #### Source
 
@@ -44,20 +36,19 @@
 
 ***
 
-### setItem()
+### setItem
 
 > **setItem**: (`key`, `value`) => `void`
 
 #### Parameters
 
-• **key**: `string`
+▪ **key**: `string`
 
-• **value**: `string`
-
-#### Returns
-
-`void`
+▪ **value**: `string`
 
 #### Source
 
 [Storage.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L3)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

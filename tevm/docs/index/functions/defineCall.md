@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / defineCall
+[API](../../API.md) > [index](../README.md) > defineCall
 
 # Function: defineCall()
 
@@ -10,31 +10,34 @@
 
 ## Type parameters
 
-• **TAbi** extends [`Abi`](../type-aliases/Abi.md)
+▪ **TAbi** extends [`Abi`](../type-aliases/Abi.md)
 
 ## Parameters
 
-• **abi**: `TAbi`
+▪ **abi**: `TAbi`
 
-• **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
+▪ **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
 
 ## Returns
 
-`Function`
-
+> > (`__namedParameters`): `Promise`\<`ExecResult`\>
+>
 > ### Parameters
 >
-> • **\_\_namedParameters**
+> ▪ **\_\_namedParameters**: `object`
 >
-> • **\_\_namedParameters\.data**: ```0x${string}```
+> ▪ **\_\_namedParameters.data**: \`0x${string}\`
 >
-> • **\_\_namedParameters\.gasLimit**: `bigint`
+> ▪ **\_\_namedParameters.gasLimit**: `bigint`
 >
-> ### Returns
+> ### Source
 >
-> `Promise`\<`ExecResult`\>
+> packages/precompiles/dist/index.d.ts:101
 >
 
 ## Source
 
 packages/precompiles/dist/index.d.ts:101
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / formatGwei
+[API](../API.md) > formatGwei
 
 # Function: formatGwei()
 
@@ -14,13 +14,11 @@ Converts numerical wei to a string representation of gwei.
 
 ## Parameters
 
-• **wei**: `bigint`
+▪ **wei**: `bigint`
 
-• **unit?**: `"wei"`
+▪ **unit?**: `"wei"`
 
 ## Returns
-
-`string`
 
 ## Example
 
@@ -34,3 +32,6 @@ formatGwei(1000000000n)
 ## Source
 
 node\_modules/.pnpm/viem@2.9.23\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/unit/formatGwei.d.ts:14
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

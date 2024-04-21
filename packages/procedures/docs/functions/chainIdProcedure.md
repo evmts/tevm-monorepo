@@ -1,8 +1,8 @@
-**@tevm/procedures** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures](../README.md) / chainIdProcedure
+[API](../API.md) > chainIdProcedure
 
 # Function: chainIdProcedure()
 
@@ -10,12 +10,13 @@
 
 ## Parameters
 
-• **getChainId**
+▪ **getChainId**: () => `Promise`\<`number`\>
 
 ## Returns
-
-`EthChainIdJsonRpcProcedure`
 
 ## Source
 
 [procedures/src/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/chainIdProcedure.js#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

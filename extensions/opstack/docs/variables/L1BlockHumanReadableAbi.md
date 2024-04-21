@@ -1,8 +1,8 @@
-**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/opstack](../README.md) / L1BlockHumanReadableAbi
+[API](../API.md) > L1BlockHumanReadableAbi
 
 # Variable: L1BlockHumanReadableAbi
 
@@ -11,3 +11,6 @@
 ## Source
 
 [extensions/opstack/src/contracts/l2/L1Block.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l2/L1Block.ts#L31)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

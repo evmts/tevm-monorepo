@@ -1,9 +1,9 @@
-import { setAccountHandler } from '../tevm/index.js'
-import { ethCallHandler } from './ethCallHandler.js'
+import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { setAccountHandler } from '../tevm/index.js'
+import { ethCallHandler } from './ethCallHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -314,9 +314,7 @@ describe('callHandler', () => {
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
 			}),
-		).toEqual(
-			'0x0000000000000000000000000000000000000000000000000000000000000000',
-		)
+		).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
 	})
 
 	it('should not modify state', async () => {
@@ -330,9 +328,6 @@ describe('callHandler', () => {
 				value: 420n,
 			}),
 		).toEqual('0x')
-		expect(
-			(await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))
-				?.balance,
-		).not.toEqual(420n)
+		expect((await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))?.balance).not.toEqual(420n)
 	})
 })

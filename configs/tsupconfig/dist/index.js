@@ -1,16 +1,11 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// src/createTsupOptions.js
 
 // src/targets.js
 var nodeTargets = ["node16"];
-var browserTargets = [
-  "chrome91",
-  "firefox90",
-  "edge91",
-  "safari15",
-  "ios15",
-  "opera77"
-];
+var browserTargets = ["chrome91", "firefox90", "edge91", "safari15", "ios15", "opera77"];
 var targets = {
   // target both node and browser applications
   js: browserTargets,
@@ -19,15 +14,15 @@ var targets = {
   // target browsers
   browser: browserTargets
 };
+
+// src/createTsupOptions.js
 var createTsUpOptions = ({
   entry = ["src/index.js"],
   outDir = "dist",
   target = "js",
   format = ["cjs", "esm"]
 }) => {
-  const { name } = JSON.parse(
-    readFileSync(join(process.cwd(), "package.json"), "utf-8")
-  );
+  const { name } = JSON.parse(readFileSync(join(process.cwd(), "package.json"), "utf-8"));
   return {
     name,
     entry,

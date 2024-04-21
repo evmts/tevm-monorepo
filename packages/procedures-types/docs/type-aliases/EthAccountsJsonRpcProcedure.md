@@ -1,21 +1,20 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthAccountsJsonRpcProcedure
+[API](../API.md) > EthAccountsJsonRpcProcedure
 
-# Type alias: EthAccountsJsonRpcProcedure()
+# Type alias: EthAccountsJsonRpcProcedure
 
 > **EthAccountsJsonRpcProcedure**: (`request`) => `Promise`\<[`EthAccountsJsonRpcResponse`](EthAccountsJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthAccountsJsonRpcRequest`](EthAccountsJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthAccountsJsonRpcResponse`](EthAccountsJsonRpcResponse.md)\>
+▪ **request**: [`EthAccountsJsonRpcRequest`](EthAccountsJsonRpcRequest.md)
 
 ## Source
 
 [procedure/EthProcedure.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L83)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

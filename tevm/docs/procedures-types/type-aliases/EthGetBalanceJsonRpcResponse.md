@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / EthGetBalanceJsonRpcResponse
+[API](../../API.md) > [procedures-types](../README.md) > EthGetBalanceJsonRpcResponse
 
 # Type alias: EthGetBalanceJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `eth_getBalance` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:552
+packages/procedures-types/dist/index.d.ts:506
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

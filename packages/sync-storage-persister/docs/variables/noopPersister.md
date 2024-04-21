@@ -1,8 +1,8 @@
-**@tevm/sync-storage-persister** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/sync-storage-persister** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/sync-storage-persister](../README.md) / noopPersister
+[API](../API.md) > noopPersister
 
 # Variable: noopPersister
 
@@ -10,30 +10,21 @@
 
 ## Type declaration
 
-### persistClient()
+### persistClient
 
 > **persistClient**: () => `void` = `noop`
 
-#### Returns
-
-`void`
-
-### removeClient()
+### removeClient
 
 > **removeClient**: () => `void` = `noop`
 
-#### Returns
-
-`void`
-
-### restoreClient()
+### restoreClient
 
 > **restoreClient**: () => `undefined`
-
-#### Returns
-
-`undefined`
 
 ## Source
 
 [noopPersister.js:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L2)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,11 +1,11 @@
-import { ERC20 } from './tests/ERC20.sol.js'
-import { tevmViemExtension } from './tevmViemExtension.js'
+import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { type Server, createServer } from 'node:http'
 import { Address } from '@ethereumjs/util'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
-import { Server, createServer } from 'http'
-import { type PublicClient, createPublicClient, http } from 'viem'
+import { http, type PublicClient, createPublicClient } from 'viem'
+import { ERC20 } from './tests/ERC20.sol.js'
+import { tevmViemExtension } from './tevmViemExtension.js'
 
 describe('tevmViemExtension', () => {
 	let tevm: MemoryClient
@@ -32,13 +32,7 @@ describe('tevmViemExtension', () => {
 		const response = await decorated.tevm.setAccount(params)
 
 		expect(response.errors).toBe(undefined as any)
-		expect(
-			(
-				await (
-					await tevm.getVm()
-				).stateManager.getAccount(Address.fromString(params.address))
-			)?.balance,
-		).toBe(420n)
+		expect((await (await tevm.getVm()).stateManager.getAccount(Address.fromString(params.address)))?.balance).toBe(420n)
 	})
 
 	it('runScript should call client.request with "tevm_script" and parse the response', async () => {
@@ -50,9 +44,7 @@ describe('tevmViemExtension', () => {
 		const response = await decorated.tevm.script(params)
 
 		expect(response.executionGasUsed).toEqual(2447n)
-		expect(response.rawData).toEqual(
-			'0x0000000000000000000000000000000000000000000000000000000000000000',
-		)
+		expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(response.data).toBe(0n)
 	})
 
@@ -63,9 +55,7 @@ describe('tevmViemExtension', () => {
 
 		expect(response).not.toHaveProperty('errors')
 
-		const account = await (
-			await tevm.getVm()
-		).stateManager.getAccount(Address.fromString(params.address))
+		const account = await (await tevm.getVm()).stateManager.getAccount(Address.fromString(params.address))
 
 		expect(account?.balance).toBe(420n)
 	})

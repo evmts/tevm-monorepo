@@ -1,7 +1,7 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { BaseCallParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Hex } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * The JSON-RPC request for the `tevm_script` method
@@ -15,9 +15,7 @@ export type ScriptJsonRpcRequest = JsonRpcRequest<
 	 * the same way normal contract calls are serialized into functionData
 	 */
 	[
-		params: SerializeToJson<
-			Omit<BaseCallParams, 'stateOverrideSet' | 'blockOverrideSet'>
-		> & {
+		params: SerializeToJson<Omit<BaseCallParams, 'stateOverrideSet' | 'blockOverrideSet'>> & {
 			/**
 			 * The raw call data
 			 */

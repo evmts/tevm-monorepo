@@ -1,10 +1,10 @@
-**tevm** • [Readme](../README.md) \| [API](../modules.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[tevm](../README.md) / index
+[API](../API.md) > index
 
-# index
+# Module: index
 
 ## Index
 
@@ -156,8 +156,17 @@
 - [toHex](functions/toHex.md)
 - [toRlp](functions/toRlp.md)
 
+## Table of contents
+
+### References
+
+- [bytesToBigInt](README.md#bytestobigint)
+
 ## References
 
 ### bytesToBigInt
 
 Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

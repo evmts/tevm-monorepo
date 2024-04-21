@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [server](../README.md) / createServer
+[API](../../API.md) > [server](../README.md) > createServer
 
 # Function: createServer()
 
@@ -10,14 +10,13 @@
 
 ## Parameters
 
-• **\_\_namedParameters**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
+▪ **\_\_namedParameters**: `Pick`\<[`MemoryClient`](../../index/type-aliases/MemoryClient.md), `"send"`\>
 
-• **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
-
-## Returns
-
-`Promise`\<`Server`\>
+▪ **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 ## Source
 
 packages/server/types/createServer.d.ts:2
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

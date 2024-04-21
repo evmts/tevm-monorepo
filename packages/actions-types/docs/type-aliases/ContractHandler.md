@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / ContractHandler
+[API](../API.md) > ContractHandler
 
-# Type alias: ContractHandler()
+# Type alias: ContractHandler
 
 > **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
@@ -13,18 +13,17 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 ## Type parameters
 
-• **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
 
-• **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 ## Parameters
 
-• **action**: [`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\>
-
-## Returns
-
-`Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+▪ **action**: [`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\>
 
 ## Source
 
 [handlers/ContractHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ContractHandler.ts#L11)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

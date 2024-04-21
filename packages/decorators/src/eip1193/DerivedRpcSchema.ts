@@ -11,6 +11,4 @@ import type { RpcSchemaOverride } from './RpcSchemaOverride.js'
 export type DerivedRpcSchema<
 	TRpcSchema extends RpcSchema | undefined,
 	TRpcSchemaOverride extends RpcSchemaOverride | undefined,
-> = TRpcSchemaOverride extends RpcSchemaOverride
-	? [TRpcSchemaOverride & { Method: string }]
-	: TRpcSchema
+> = TRpcSchemaOverride extends RpcSchemaOverride ? [TRpcSchemaOverride & { Method: string }] : TRpcSchema

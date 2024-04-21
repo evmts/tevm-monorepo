@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { extractChain } from 'viem';

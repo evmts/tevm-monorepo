@@ -1,8 +1,8 @@
-**@tevm/opstack** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/opstack](../README.md) / OptimismMintableERC20FactoryHumanReadableAbi
+[API](../API.md) > OptimismMintableERC20FactoryHumanReadableAbi
 
 # Variable: OptimismMintableERC20FactoryHumanReadableAbi
 
@@ -11,3 +11,6 @@
 ## Source
 
 [extensions/opstack/src/contracts/l1/OptimismMintableERC20Factory.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l1/OptimismMintableERC20Factory.ts#L31)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

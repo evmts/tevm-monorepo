@@ -1,21 +1,13 @@
 {
-  "extends": "@tevm/tsconfig/base.json",
-  "compilerOptions": {
-    "composite": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
-    "outDir": "types",
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "Bundler",
-    "module": "ES2020"
-  },
-  "include": [
-    "src",
-    "src/**/*.json",
-    "package.json"
-  ]
+	"extends": "@tevm/tsconfig/base.json",
+	"compilerOptions": {
+		"composite": true,
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"outDir": "types",
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "Bundler",
+		"module": "ES2020"
+	},
+	"include": ["src", "src/**/*.json", "package.json"]
 }

@@ -1,15 +1,21 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / INT32
+[API](../../API.md) > [ethereum](../README.md) > INT32
 
-# Type alias: INT32
+# Type alias: INT32`<>`
 
 > **INT32**\<\>: `bigint`
 
 ## Type parameters
 
+| Parameter |
+| :------ |
+
 ## Source
 
-[experimental/schemas/src/ethereum/SINT/SINT.js:40](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L40)
+[experimental/schemas/src/ethereum/SINT/SINT.js:36](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L36)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -89,26 +89,17 @@ export class DBOp {
 				break
 			}
 			case DBTarget.TotalDifficulty: {
-				this.baseDBOp.key = tdKey(
-					key?.blockNumber as bigint,
-					key?.blockHash as Uint8Array,
-				)
+				this.baseDBOp.key = tdKey(key?.blockNumber as bigint, key?.blockHash as Uint8Array)
 				this.cacheString = 'td'
 				break
 			}
 			case DBTarget.Body: {
-				this.baseDBOp.key = bodyKey(
-					key?.blockNumber as bigint,
-					key?.blockHash as Uint8Array,
-				)
+				this.baseDBOp.key = bodyKey(key?.blockNumber as bigint, key?.blockHash as Uint8Array)
 				this.cacheString = 'body'
 				break
 			}
 			case DBTarget.Header: {
-				this.baseDBOp.key = headerKey(
-					key?.blockNumber as bigint,
-					key?.blockHash as Uint8Array,
-				)
+				this.baseDBOp.key = headerKey(key?.blockNumber as bigint, key?.blockHash as Uint8Array)
 				this.cacheString = 'header'
 				break
 			}
@@ -120,11 +111,7 @@ export class DBOp {
 	}
 
 	// set operation: note: value/key is not in default order
-	public static set(
-		operationTarget: DBTarget,
-		value: Uint8Array | object,
-		key?: DatabaseKey,
-	): DBOp {
+	public static set(operationTarget: DBTarget, value: Uint8Array | object, key?: DatabaseKey): DBOp {
 		const dbOperation = new DBOp(operationTarget, key)
 		dbOperation.baseDBOp.value = value
 		dbOperation.baseDBOp.type = 'put'
@@ -145,10 +132,7 @@ export class DBOp {
 	}
 
 	public updateCache(cacheMap: CacheMap) {
-		if (
-			this.cacheString !== undefined &&
-			cacheMap[this.cacheString] !== undefined
-		) {
+		if (this.cacheString !== undefined && cacheMap[this.cacheString] !== undefined) {
 			if (this.baseDBOp.type === 'put') {
 				this.baseDBOp.value instanceof Uint8Array &&
 					cacheMap[this.cacheString].set(this.baseDBOp.key, this.baseDBOp.value)

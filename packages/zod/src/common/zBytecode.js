@@ -15,6 +15,4 @@ const isValidEthereumBytecode = (bytecode) => {
 /**
  * Zod validator for valid Ethereum bytecode
  */
-export const zBytecode = zHex
-	.refine(isValidEthereumBytecode, { message: 'InvalidLength' })
-	.describe('Valid bytecode')
+export const zBytecode = zHex.refine(isValidEthereumBytecode, { message: 'InvalidLength' }).describe('Valid bytecode')

@@ -1,6 +1,6 @@
-import { updateImportPaths } from './updateImportPath.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
+import { updateImportPaths } from './updateImportPath.js'
 
 describe('updateImportPaths', () => {
 	it('should update all import paths', () => {

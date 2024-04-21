@@ -1,8 +1,8 @@
-**@tevm/decorators** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/decorators](../README.md) / NetworkSync
+[API](../API.md) > NetworkSync
 
 # Type alias: NetworkSync
 
@@ -31,3 +31,6 @@ Block number at which syncing started
 ## Source
 
 [packages/decorators/src/eip1193/NetworkSync.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L11)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

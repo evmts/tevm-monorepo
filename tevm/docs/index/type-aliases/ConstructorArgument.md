@@ -1,19 +1,24 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / ConstructorArgument
+[API](../../API.md) > [index](../README.md) > ConstructorArgument
 
-# Type alias: ConstructorArgument\<T\>
+# Type alias: ConstructorArgument`<T>`
 
-> **ConstructorArgument**\<`T`\>: `T` extends (...`args`) => `any` ? `P`\[`0`\] : `never`
+> **ConstructorArgument**\<`T`\>: `T` extends (...`args`) => `any` ? `P`[`0`] : `never`
 
 Infers the the first argument of a class
 
 ## Type parameters
 
-• **T**
+| Parameter |
+| :------ |
+| `T` |
 
 ## Source
 
 packages/precompiles/dist/index.d.ts:9
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

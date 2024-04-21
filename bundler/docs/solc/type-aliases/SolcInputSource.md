@@ -1,8 +1,8 @@
-**@tevm/bundler** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/bundler](../../README.md) / [solc](../README.md) / SolcInputSource
+[API](../../API.md) > [solc](../README.md) > SolcInputSource
 
 # Type alias: SolcInputSource
 
@@ -10,14 +10,17 @@
 
 ## Type declaration
 
-### ast?
+### ast
 
-> **`optional`** **ast**: `SolcAst`
+> **ast**?: `SolcAst`
 
-### keccak256?
+### keccak256
 
-> **`optional`** **keccak256**: `HexNumber`
+> **keccak256**?: `HexNumber`
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:5
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

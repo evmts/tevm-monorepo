@@ -1,8 +1,8 @@
-**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/zod](../README.md) / zCallParams
+[API](../API.md) > zCallParams
 
 # Variable: zCallParams
 
@@ -13,3 +13,6 @@ Zod validator for a valid call action
 ## Source
 
 [packages/zod/src/params/zCallParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zCallParams.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

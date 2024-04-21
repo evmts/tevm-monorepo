@@ -1,22 +1,12 @@
+import type { BaseContract, ContractTransaction, ContractTransactionResponse, FunctionFragment, Result } from 'ethers'
 import type { ContractMethodArgs } from './ContractMethodArgs.js'
-import type {
-	BaseContract,
-	ContractTransaction,
-	ContractTransactionResponse,
-	FunctionFragment,
-	Result,
-} from 'ethers'
 
 export type BaseContractMethod<
 	TArguments extends ReadonlyArray<any> = ReadonlyArray<any>,
 	TReturnType = any,
-	TExtendedReturnType extends
-		| TReturnType
-		| ContractTransactionResponse = ContractTransactionResponse,
+	TExtendedReturnType extends TReturnType | ContractTransactionResponse = ContractTransactionResponse,
 > = {
-	(...args: ContractMethodArgs<TArguments>): Promise<
-		TReturnType | TExtendedReturnType
-	>
+	(...args: ContractMethodArgs<TArguments>): Promise<TReturnType | TExtendedReturnType>
 
 	name: string
 
@@ -26,12 +16,8 @@ export type BaseContractMethod<
 
 	getFragment: (...args: ContractMethodArgs<TArguments>) => FunctionFragment
 	estimateGas: (...args: ContractMethodArgs<TArguments>) => Promise<bigint>
-	populateTransaction: (
-		...args: ContractMethodArgs<TArguments>
-	) => Promise<ContractTransaction>
-	send: (
-		...args: ContractMethodArgs<TArguments>
-	) => Promise<ContractTransactionResponse>
+	populateTransaction: (...args: ContractMethodArgs<TArguments>) => Promise<ContractTransaction>
+	send: (...args: ContractMethodArgs<TArguments>) => Promise<ContractTransactionResponse>
 	staticCall: (...args: ContractMethodArgs<TArguments>) => Promise<TReturnType>
 	staticCallResult: (...args: ContractMethodArgs<TArguments>) => Promise<Result>
 

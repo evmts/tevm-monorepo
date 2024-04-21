@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [common](../README.md) / InvalidBlockNumberError
+[API](../../API.md) > [common](../README.md) > InvalidBlockNumberError
 
 # Class: InvalidBlockNumberError
 
@@ -21,33 +21,29 @@ A block number is invalid if it is not a non-negative integer.
 
 #### Parameters
 
-• **options**= `{}`
+▪ **options**: `object`= `{}`
 
 The options for the error.
 
-• **options\.blockNumber**: `unknown`
+▪ **options.blockNumber**: `unknown`
 
 The invalid block number.
 
-• **options\.cause**: `undefined` \| readonly [`ParseErrors`, `ParseErrors`]
+▪ **options.cause**: `undefined` \| readonly [`ParseErrors`, `ParseErrors`]
 
 The cause of the error.
 
-• **options\.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
+▪ **options.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
 
 The documentation URL.
 
-• **options\.message**: `undefined` \| `string`= `undefined`
+▪ **options.message**: `undefined` \| `string`= `undefined`
 
 The error message.
 
-#### Returns
-
-[`InvalidBlockNumberError`](InvalidBlockNumberError.md)
-
 #### Overrides
 
-`TypeError.constructor`
+TypeError.constructor
 
 #### Source
 
@@ -61,7 +57,7 @@ The error message.
 
 #### Inherited from
 
-`TypeError.cause`
+TypeError.cause
 
 #### Source
 
@@ -75,7 +71,7 @@ The error message.
 
 #### Inherited from
 
-`TypeError.message`
+TypeError.message
 
 #### Source
 
@@ -89,7 +85,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-`TypeError.name`
+TypeError.name
 
 #### Source
 
@@ -97,13 +93,13 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### stack?
+### stack
 
-> **`optional`** **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
-`TypeError.stack`
+TypeError.stack
 
 #### Source
 
@@ -111,9 +107,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace()?
+### prepareStackTrace
 
-> **`static`** **`optional`** **prepareStackTrace**: (`err`, `stackTraces`) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -123,17 +119,13 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-• **err**: `Error`
+▪ **err**: `Error`
 
-• **stackTraces**: `CallSite`[]
-
-#### Returns
-
-`any`
+▪ **stackTraces**: `CallSite`[]
 
 #### Inherited from
 
-`TypeError.prepareStackTrace`
+TypeError.prepareStackTrace
 
 #### Source
 
@@ -147,7 +139,7 @@ node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-`TypeError.stackTraceLimit`
+TypeError.stackTraceLimit
 
 #### Source
 
@@ -163,18 +155,17 @@ Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+▪ **targetObject**: `object`
 
-• **constructorOpt?**: `Function`
-
-#### Returns
-
-`void`
+▪ **constructorOpt?**: `Function`
 
 #### Inherited from
 
-`TypeError.captureStackTrace`
+TypeError.captureStackTrace
 
 #### Source
 
 node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

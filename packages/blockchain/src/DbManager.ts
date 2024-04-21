@@ -8,20 +8,10 @@ import { bytesToBigInt, bytesToHex, equalsBytes, hexToBytes } from '@tevm/utils'
 import { Cache } from './Cache.js'
 import { DBOp, DBTarget } from './operation.js'
 
-import type { DatabaseKey } from './operation.js'
-import type {
-	BlockBodyBytes,
-	BlockBytes,
-	BlockOptions,
-} from '@ethereumjs/block'
+import type { BlockBodyBytes, BlockBytes, BlockOptions } from '@ethereumjs/block'
 import type { Common } from '@ethereumjs/common'
-import type {
-	BatchDBOp,
-	DB,
-	DBObject,
-	DelBatch,
-	PutBatch,
-} from '@ethereumjs/util'
+import type { BatchDBOp, DB, DBObject, DelBatch, PutBatch } from '@ethereumjs/util'
+import type { DatabaseKey } from './operation.js'
 /**
  * @hidden
  */
@@ -43,10 +33,7 @@ export class DBManager {
 	public readonly common: Common
 	private _db: DB<Uint8Array | string, Uint8Array | string | DBObject>
 
-	constructor(
-		db: DB<Uint8Array | string, Uint8Array | string | DBObject>,
-		common: Common,
-	) {
+	constructor(db: DB<Uint8Array | string, Uint8Array | string | DBObject>, common: Common) {
 		this._db = db
 		this.common = common
 		this._cache = {
@@ -92,16 +79,14 @@ export class DBManager {
 	 * Fetches a block (header and body) given a block id,
 	 * which can be either its hash or its number.
 	 */
-	async getBlock(
-		blockId: Uint8Array | bigint | number,
-	): Promise<Block | undefined> {
+	async getBlock(blockId: Uint8Array | bigint | number): Promise<Block | undefined> {
 		let _blockId = blockId
 		if (typeof _blockId === 'number' && Number.isInteger(_blockId)) {
 			_blockId = BigInt(_blockId)
 		}
 
-		let number
-		let hash
+		let number: any
+		let hash: any
 		if (_blockId === undefined) return undefined
 		if (_blockId instanceof Uint8Array) {
 			hash = _blockId
@@ -127,13 +112,8 @@ export class DBManager {
 			// If this block had empty withdrawals push an empty array in body
 			if (header.withdrawalsRoot !== undefined) {
 				// Do extra validations for withdrawal before assuming empty withdrawals
-				if (
-					!equalsBytes(header.withdrawalsRoot, KECCAK256_RLP) &&
-					(body.length < 3 || body[2]?.length === 0)
-				) {
-					throw new Error(
-						'withdrawals root shoot be equal to hash of null when no withdrawals',
-					)
+				if (!equalsBytes(header.withdrawalsRoot, KECCAK256_RLP) && (body.length < 3 || body[2]?.length === 0)) {
+					throw new Error('withdrawals root shoot be equal to hash of null when no withdrawals')
 				}
 				if (body.length <= 3) body.push([])
 			}
@@ -144,10 +124,7 @@ export class DBManager {
 		if (number === BIGINT_0) {
 			opts.setHardfork = await this.getTotalDifficulty(hash, BIGINT_0)
 		} else {
-			opts.setHardfork = await this.getTotalDifficulty(
-				header.parentHash,
-				number - BIGINT_1,
-			)
+			opts.setHardfork = await this.getTotalDifficulty(header.parentHash, number - BIGINT_1)
 		}
 		return Block.fromValuesArray(blockData, opts)
 	}
@@ -155,10 +132,7 @@ export class DBManager {
 	/**
 	 * Fetches body of a block given its hash and number.
 	 */
-	async getBody(
-		blockHash: Uint8Array,
-		blockNumber: bigint,
-	): Promise<BlockBodyBytes> {
+	async getBody(blockHash: Uint8Array, blockNumber: bigint): Promise<BlockBodyBytes> {
 		const body = await this.get(DBTarget.Body, { blockHash, blockNumber })
 		if (body === undefined) {
 			return [[], []]
@@ -184,10 +158,7 @@ export class DBManager {
 			// be in canonical chain
 			const headerData = valuesArrayToHeaderData(headerValues as Uint8Array[])
 			const parentHash = headerData.parentHash as Uint8Array
-			opts.setHardfork = await this.getTotalDifficulty(
-				parentHash,
-				blockNumber - BIGINT_1,
-			)
+			opts.setHardfork = await this.getTotalDifficulty(parentHash, blockNumber - BIGINT_1)
 		}
 		return BlockHeader.fromValuesArray(headerValues as Uint8Array[], opts)
 	}
@@ -195,10 +166,7 @@ export class DBManager {
 	/**
 	 * Fetches total difficulty for a block given its hash and number.
 	 */
-	async getTotalDifficulty(
-		blockHash: Uint8Array,
-		blockNumber: bigint,
-	): Promise<bigint> {
+	async getTotalDifficulty(blockHash: Uint8Array, blockNumber: bigint): Promise<bigint> {
 		const td = await this.get(DBTarget.TotalDifficulty, {
 			blockHash,
 			blockNumber,
@@ -264,12 +232,7 @@ export class DBManager {
 	 */
 	async batch(ops: DBOp[]) {
 		const convertedOps: BatchDBOp[] = ops.map((op) => {
-			const type =
-				op.baseDBOp.type !== undefined
-					? op.baseDBOp.type
-					: op.baseDBOp.value !== undefined
-					? 'put'
-					: 'del'
+			const type = op.baseDBOp.type !== undefined ? op.baseDBOp.type : op.baseDBOp.value !== undefined ? 'put' : 'del'
 			const convertedOp = {
 				key: op.baseDBOp.key,
 				value: op.baseDBOp.value,
@@ -280,7 +243,7 @@ export class DBManager {
 				},
 			}
 			if (type === 'put') return convertedOp as PutBatch
-			else return convertedOp as DelBatch
+			return convertedOp as DelBatch
 		})
 		// update the current cache for each operation
 		ops.map((op) => op.updateCache(this._cache))

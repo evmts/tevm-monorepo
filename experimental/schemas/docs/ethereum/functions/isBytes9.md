@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / isBytes9
+[API](../../API.md) > [ethereum](../README.md) > isBytes9
 
 # Function: isBytes9()
 
@@ -12,11 +12,9 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes9.
 
 ## Parameters
 
-• **bytes9**: `unknown`
+▪ **bytes9**: `unknown`
 
 ## Returns
-
-`boolean`
 
 ## Example
 
@@ -29,3 +27,6 @@ isBytes9("0xfff"); // false
 ## Source
 
 [experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:176](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L176)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

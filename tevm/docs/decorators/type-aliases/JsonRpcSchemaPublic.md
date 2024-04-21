@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [decorators](../README.md) / JsonRpcSchemaPublic
+[API](../../API.md) > [decorators](../README.md) > JsonRpcSchemaPublic
 
 # Type alias: JsonRpcSchemaPublic
 
@@ -27,15 +27,15 @@ provider.request({ method: 'eth_blobGasPrice' })
 
 ### eth\_blobGasPrice.Method
 
-> **Method**: `"eth_blobGasPrice"`
+> **eth\_blobGasPrice.Method**: `"eth_blobGasPrice"`
 
-### eth\_blobGasPrice.Parameters?
+### eth\_blobGasPrice.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_blobGasPrice.Parameters**?: `undefined`
 
 ### eth\_blobGasPrice.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_blobGasPrice.ReturnType**: `Quantity$1`
 
 ### eth\_blockNumber
 
@@ -54,15 +54,15 @@ provider.request({ method: 'eth_blockNumber' })
 
 ### eth\_blockNumber.Method
 
-> **Method**: `"eth_blockNumber"`
+> **eth\_blockNumber.Method**: `"eth_blockNumber"`
 
-### eth\_blockNumber.Parameters?
+### eth\_blockNumber.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_blockNumber.Parameters**?: `undefined`
 
 ### eth\_blockNumber.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_blockNumber.ReturnType**: `Quantity$1`
 
 ### eth\_call
 
@@ -81,15 +81,15 @@ provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] 
 
 ### eth\_call.Method
 
-> **Method**: `"eth_call"`
+> **eth\_call.Method**: `"eth_call"`
 
 ### eth\_call.Parameters
 
-> **Parameters**: [`Partial`\<`RpcTransactionRequest`\>] \| [`Partial`\<`RpcTransactionRequest`\>, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`] \| [`Partial`\<`RpcTransactionRequest`\>, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`, `RpcStateOverride`]
+> **eth\_call.Parameters**: [`Partial`\<`RpcTransactionRequest`\>] \| [`Partial`\<`RpcTransactionRequest`\>, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`] \| [`Partial`\<`RpcTransactionRequest`\>, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`, `RpcStateOverride`]
 
 ### eth\_call.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_call.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_chainId
 
@@ -108,15 +108,15 @@ provider.request({ method: 'eth_chainId' })
 
 ### eth\_chainId.Method
 
-> **Method**: `"eth_chainId"`
+> **eth\_chainId.Method**: `"eth_chainId"`
 
-### eth\_chainId.Parameters?
+### eth\_chainId.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_chainId.Parameters**?: `undefined`
 
 ### eth\_chainId.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_chainId.ReturnType**: `Quantity$1`
 
 ### eth\_coinbase
 
@@ -135,15 +135,15 @@ provider.request({ method: 'eth_coinbase' })
 
 ### eth\_coinbase.Method
 
-> **Method**: `"eth_coinbase"`
+> **eth\_coinbase.Method**: `"eth_coinbase"`
 
-### eth\_coinbase.Parameters?
+### eth\_coinbase.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_coinbase.Parameters**?: `undefined`
 
 ### eth\_coinbase.ReturnType
 
-> **ReturnType**: [`Address`](../../index/type-aliases/Address.md)
+> **eth\_coinbase.ReturnType**: [`Address`](../../index/type-aliases/Address.md)
 
 ### eth\_estimateGas
 
@@ -165,15 +165,15 @@ provider.request({
 
 ### eth\_estimateGas.Method
 
-> **Method**: `"eth_estimateGas"`
+> **eth\_estimateGas.Method**: `"eth_estimateGas"`
 
 ### eth\_estimateGas.Parameters
 
-> **Parameters**: [`RpcTransactionRequest`] \| [`RpcTransactionRequest`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
+> **eth\_estimateGas.Parameters**: [`RpcTransactionRequest`] \| [`RpcTransactionRequest`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
 
 ### eth\_estimateGas.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_estimateGas.ReturnType**: `Quantity$1`
 
 ### eth\_feeHistory
 
@@ -200,15 +200,15 @@ provider.request({
 
 ### eth\_feeHistory.Method
 
-> **Method**: `"eth_feeHistory"`
+> **eth\_feeHistory.Method**: `"eth_feeHistory"`
 
 ### eth\_feeHistory.Parameters
 
-> **Parameters**: [`Quantity$1`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `number`[] \| `undefined`]
+> **eth\_feeHistory.Parameters**: [`Quantity$1`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `number`[] \| `undefined`]
 
 ### eth\_feeHistory.ReturnType
 
-> **ReturnType**: `RpcFeeHistory`
+> **eth\_feeHistory.ReturnType**: `RpcFeeHistory`
 
 ### eth\_gasPrice
 
@@ -227,15 +227,15 @@ provider.request({ method: 'eth_gasPrice' })
 
 ### eth\_gasPrice.Method
 
-> **Method**: `"eth_gasPrice"`
+> **eth\_gasPrice.Method**: `"eth_gasPrice"`
 
-### eth\_gasPrice.Parameters?
+### eth\_gasPrice.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_gasPrice.Parameters**?: `undefined`
 
 ### eth\_gasPrice.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_gasPrice.ReturnType**: `Quantity$1`
 
 ### eth\_getBalance
 
@@ -254,15 +254,15 @@ provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] })
 
 ### eth\_getBalance.Method
 
-> **Method**: `"eth_getBalance"`
+> **eth\_getBalance.Method**: `"eth_getBalance"`
 
 ### eth\_getBalance.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
+> **eth\_getBalance.Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
 
 ### eth\_getBalance.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getBalance.ReturnType**: `Quantity$1`
 
 ### eth\_getBlockByHash
 
@@ -290,15 +290,15 @@ provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] })
 
 ### eth\_getBlockByHash.Method
 
-> **Method**: `"eth_getBlockByHash"`
+> **eth\_getBlockByHash.Method**: `"eth_getBlockByHash"`
 
 ### eth\_getBlockByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `boolean`]
+> **eth\_getBlockByHash.Parameters**: [[`Hash`](Hash.md), `boolean`]
 
 ### eth\_getBlockByHash.ReturnType
 
-> **ReturnType**: `RpcBlock` \| `null`
+> **eth\_getBlockByHash.ReturnType**: `RpcBlock` \| `null`
 
 ### eth\_getBlockByNumber
 
@@ -326,15 +326,15 @@ provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] })
 
 ### eth\_getBlockByNumber.Method
 
-> **Method**: `"eth_getBlockByNumber"`
+> **eth\_getBlockByNumber.Method**: `"eth_getBlockByNumber"`
 
 ### eth\_getBlockByNumber.Parameters
 
-> **Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `boolean`]
+> **eth\_getBlockByNumber.Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `boolean`]
 
 ### eth\_getBlockByNumber.ReturnType
 
-> **ReturnType**: `RpcBlock` \| `null`
+> **eth\_getBlockByNumber.ReturnType**: `RpcBlock` \| `null`
 
 ### eth\_getBlockTransactionCountByHash
 
@@ -357,15 +357,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...
 
 ### eth\_getBlockTransactionCountByHash.Method
 
-> **Method**: `"eth_getBlockTransactionCountByHash"`
+> **eth\_getBlockTransactionCountByHash.Method**: `"eth_getBlockTransactionCountByHash"`
 
 ### eth\_getBlockTransactionCountByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **eth\_getBlockTransactionCountByHash.Parameters**: [[`Hash`](Hash.md)]
 
 ### eth\_getBlockTransactionCountByHash.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getBlockTransactionCountByHash.ReturnType**: `Quantity$1`
 
 ### eth\_getBlockTransactionCountByNumber
 
@@ -388,15 +388,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1
 
 ### eth\_getBlockTransactionCountByNumber.Method
 
-> **Method**: `"eth_getBlockTransactionCountByNumber"`
+> **eth\_getBlockTransactionCountByNumber.Method**: `"eth_getBlockTransactionCountByNumber"`
 
 ### eth\_getBlockTransactionCountByNumber.Parameters
 
-> **Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
+> **eth\_getBlockTransactionCountByNumber.Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
 
 ### eth\_getBlockTransactionCountByNumber.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getBlockTransactionCountByNumber.ReturnType**: `Quantity$1`
 
 ### eth\_getCode
 
@@ -419,15 +419,15 @@ provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] })
 
 ### eth\_getCode.Method
 
-> **Method**: `"eth_getCode"`
+> **eth\_getCode.Method**: `"eth_getCode"`
 
 ### eth\_getCode.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
+> **eth\_getCode.Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
 
 ### eth\_getCode.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_getCode.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_getFilterChanges
 
@@ -450,15 +450,15 @@ provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] })
 
 ### eth\_getFilterChanges.Method
 
-> **Method**: `"eth_getFilterChanges"`
+> **eth\_getFilterChanges.Method**: `"eth_getFilterChanges"`
 
 ### eth\_getFilterChanges.Parameters
 
-> **Parameters**: [`Quantity$1`]
+> **eth\_getFilterChanges.Parameters**: [`Quantity$1`]
 
 ### eth\_getFilterChanges.ReturnType
 
-> **ReturnType**: `RpcLog`[] \| [`Hex`](../../index/type-aliases/Hex.md)[]
+> **eth\_getFilterChanges.ReturnType**: `RpcLog`[] \| [`Hex`](../../index/type-aliases/Hex.md)[]
 
 ### eth\_getFilterLogs
 
@@ -481,15 +481,15 @@ provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] })
 
 ### eth\_getFilterLogs.Method
 
-> **Method**: `"eth_getFilterLogs"`
+> **eth\_getFilterLogs.Method**: `"eth_getFilterLogs"`
 
 ### eth\_getFilterLogs.Parameters
 
-> **Parameters**: [`Quantity$1`]
+> **eth\_getFilterLogs.Parameters**: [`Quantity$1`]
 
 ### eth\_getFilterLogs.ReturnType
 
-> **ReturnType**: `RpcLog`[]
+> **eth\_getFilterLogs.ReturnType**: `RpcLog`[]
 
 ### eth\_getLogs
 
@@ -512,15 +512,15 @@ provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock
 
 ### eth\_getLogs.Method
 
-> **Method**: `"eth_getLogs"`
+> **eth\_getLogs.Method**: `"eth_getLogs"`
 
 ### eth\_getLogs.Parameters
 
-> **Parameters**: [`object` & `object` \| `object`]
+> **eth\_getLogs.Parameters**: [`object` & `object` \| `object`]
 
 ### eth\_getLogs.ReturnType
 
-> **ReturnType**: `RpcLog`[]
+> **eth\_getLogs.ReturnType**: `RpcLog`[]
 
 ### eth\_getProof
 
@@ -545,15 +545,15 @@ provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'
 
 ### eth\_getProof.Method
 
-> **Method**: `"eth_getProof"`
+> **eth\_getProof.Method**: `"eth_getProof"`
 
 ### eth\_getProof.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), [`Hash`](Hash.md)[], `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
+> **eth\_getProof.Parameters**: [[`Address`](../../index/type-aliases/Address.md), [`Hash`](Hash.md)[], `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
 
 ### eth\_getProof.ReturnType
 
-> **ReturnType**: `RpcProof`
+> **eth\_getProof.ReturnType**: `RpcProof`
 
 ### eth\_getStorageAt
 
@@ -576,15 +576,15 @@ provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'lates
 
 ### eth\_getStorageAt.Method
 
-> **Method**: `"eth_getStorageAt"`
+> **eth\_getStorageAt.Method**: `"eth_getStorageAt"`
 
 ### eth\_getStorageAt.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), `Quantity$1`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
+> **eth\_getStorageAt.Parameters**: [[`Address`](../../index/type-aliases/Address.md), `Quantity$1`, `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
 
 ### eth\_getStorageAt.ReturnType
 
-> **ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
+> **eth\_getStorageAt.ReturnType**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### eth\_getTransactionByBlockHashAndIndex
 
@@ -607,15 +607,15 @@ provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x
 
 ### eth\_getTransactionByBlockHashAndIndex.Method
 
-> **Method**: `"eth_getTransactionByBlockHashAndIndex"`
+> **eth\_getTransactionByBlockHashAndIndex.Method**: `"eth_getTransactionByBlockHashAndIndex"`
 
 ### eth\_getTransactionByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `Quantity$1`]
+> **eth\_getTransactionByBlockHashAndIndex.Parameters**: [[`Hash`](Hash.md), `Quantity$1`]
 
 ### eth\_getTransactionByBlockHashAndIndex.ReturnType
 
-> **ReturnType**: `RpcTransaction` \| `null`
+> **eth\_getTransactionByBlockHashAndIndex.ReturnType**: `RpcTransaction` \| `null`
 
 ### eth\_getTransactionByBlockNumberAndIndex
 
@@ -638,15 +638,15 @@ provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['
 
 ### eth\_getTransactionByBlockNumberAndIndex.Method
 
-> **Method**: `"eth_getTransactionByBlockNumberAndIndex"`
+> **eth\_getTransactionByBlockNumberAndIndex.Method**: `"eth_getTransactionByBlockNumberAndIndex"`
 
 ### eth\_getTransactionByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `Quantity$1`]
+> **eth\_getTransactionByBlockNumberAndIndex.Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `Quantity$1`]
 
 ### eth\_getTransactionByBlockNumberAndIndex.ReturnType
 
-> **ReturnType**: `RpcTransaction` \| `null`
+> **eth\_getTransactionByBlockNumberAndIndex.ReturnType**: `RpcTransaction` \| `null`
 
 ### eth\_getTransactionByHash
 
@@ -669,15 +669,15 @@ provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] })
 
 ### eth\_getTransactionByHash.Method
 
-> **Method**: `"eth_getTransactionByHash"`
+> **eth\_getTransactionByHash.Method**: `"eth_getTransactionByHash"`
 
 ### eth\_getTransactionByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **eth\_getTransactionByHash.Parameters**: [[`Hash`](Hash.md)]
 
 ### eth\_getTransactionByHash.ReturnType
 
-> **ReturnType**: `RpcTransaction` \| `null`
+> **eth\_getTransactionByHash.ReturnType**: `RpcTransaction` \| `null`
 
 ### eth\_getTransactionCount
 
@@ -700,15 +700,15 @@ provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'
 
 ### eth\_getTransactionCount.Method
 
-> **Method**: `"eth_getTransactionCount"`
+> **eth\_getTransactionCount.Method**: `"eth_getTransactionCount"`
 
 ### eth\_getTransactionCount.Parameters
 
-> **Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
+> **eth\_getTransactionCount.Parameters**: [[`Address`](../../index/type-aliases/Address.md), `RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `RpcBlockIdentifier`]
 
 ### eth\_getTransactionCount.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getTransactionCount.ReturnType**: `Quantity$1`
 
 ### eth\_getTransactionReceipt
 
@@ -731,15 +731,15 @@ provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] })
 
 ### eth\_getTransactionReceipt.Method
 
-> **Method**: `"eth_getTransactionReceipt"`
+> **eth\_getTransactionReceipt.Method**: `"eth_getTransactionReceipt"`
 
 ### eth\_getTransactionReceipt.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **eth\_getTransactionReceipt.Parameters**: [[`Hash`](Hash.md)]
 
 ### eth\_getTransactionReceipt.ReturnType
 
-> **ReturnType**: `RpcTransactionReceipt` \| `null`
+> **eth\_getTransactionReceipt.ReturnType**: `RpcTransactionReceipt` \| `null`
 
 ### eth\_getUncleByBlockHashAndIndex
 
@@ -762,15 +762,15 @@ provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', 
 
 ### eth\_getUncleByBlockHashAndIndex.Method
 
-> **Method**: `"eth_getUncleByBlockHashAndIndex"`
+> **eth\_getUncleByBlockHashAndIndex.Method**: `"eth_getUncleByBlockHashAndIndex"`
 
 ### eth\_getUncleByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `Quantity$1`]
+> **eth\_getUncleByBlockHashAndIndex.Parameters**: [[`Hash`](Hash.md), `Quantity$1`]
 
 ### eth\_getUncleByBlockHashAndIndex.ReturnType
 
-> **ReturnType**: `RpcUncle` \| `null`
+> **eth\_getUncleByBlockHashAndIndex.ReturnType**: `RpcUncle` \| `null`
 
 ### eth\_getUncleByBlockNumberAndIndex
 
@@ -793,15 +793,15 @@ provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...'
 
 ### eth\_getUncleByBlockNumberAndIndex.Method
 
-> **Method**: `"eth_getUncleByBlockNumberAndIndex"`
+> **eth\_getUncleByBlockNumberAndIndex.Method**: `"eth_getUncleByBlockNumberAndIndex"`
 
 ### eth\_getUncleByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `Quantity$1`]
+> **eth\_getUncleByBlockNumberAndIndex.Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md), `Quantity$1`]
 
 ### eth\_getUncleByBlockNumberAndIndex.ReturnType
 
-> **ReturnType**: `RpcUncle` \| `null`
+> **eth\_getUncleByBlockNumberAndIndex.ReturnType**: `RpcUncle` \| `null`
 
 ### eth\_getUncleCountByBlockHash
 
@@ -824,15 +824,15 @@ provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] })
 
 ### eth\_getUncleCountByBlockHash.Method
 
-> **Method**: `"eth_getUncleCountByBlockHash"`
+> **eth\_getUncleCountByBlockHash.Method**: `"eth_getUncleCountByBlockHash"`
 
 ### eth\_getUncleCountByBlockHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **eth\_getUncleCountByBlockHash.Parameters**: [[`Hash`](Hash.md)]
 
 ### eth\_getUncleCountByBlockHash.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getUncleCountByBlockHash.ReturnType**: `Quantity$1`
 
 ### eth\_getUncleCountByBlockNumber
 
@@ -855,15 +855,15 @@ provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] }
 
 ### eth\_getUncleCountByBlockNumber.Method
 
-> **Method**: `"eth_getUncleCountByBlockNumber"`
+> **eth\_getUncleCountByBlockNumber.Method**: `"eth_getUncleCountByBlockNumber"`
 
 ### eth\_getUncleCountByBlockNumber.Parameters
 
-> **Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
+> **eth\_getUncleCountByBlockNumber.Parameters**: [`RpcBlockNumber` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)]
 
 ### eth\_getUncleCountByBlockNumber.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_getUncleCountByBlockNumber.ReturnType**: `Quantity$1`
 
 ### eth\_maxPriorityFeePerGas
 
@@ -886,15 +886,15 @@ provider.request({ method: 'eth_maxPriorityFeePerGas' })
 
 ### eth\_maxPriorityFeePerGas.Method
 
-> **Method**: `"eth_maxPriorityFeePerGas"`
+> **eth\_maxPriorityFeePerGas.Method**: `"eth_maxPriorityFeePerGas"`
 
-### eth\_maxPriorityFeePerGas.Parameters?
+### eth\_maxPriorityFeePerGas.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_maxPriorityFeePerGas.Parameters**?: `undefined`
 
 ### eth\_maxPriorityFeePerGas.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_maxPriorityFeePerGas.ReturnType**: `Quantity$1`
 
 ### eth\_newBlockFilter
 
@@ -917,15 +917,15 @@ provider.request({ method: 'eth_newBlockFilter' })
 
 ### eth\_newBlockFilter.Method
 
-> **Method**: `"eth_newBlockFilter"`
+> **eth\_newBlockFilter.Method**: `"eth_newBlockFilter"`
 
-### eth\_newBlockFilter.Parameters?
+### eth\_newBlockFilter.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_newBlockFilter.Parameters**?: `undefined`
 
 ### eth\_newBlockFilter.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_newBlockFilter.ReturnType**: `Quantity$1`
 
 ### eth\_newFilter
 
@@ -948,15 +948,15 @@ provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlo
 
 ### eth\_newFilter.Method
 
-> **Method**: `"eth_newFilter"`
+> **eth\_newFilter.Method**: `"eth_newFilter"`
 
 ### eth\_newFilter.Parameters
 
-> **Parameters**: [`object`]
+> **eth\_newFilter.Parameters**: [`object`]
 
 ### eth\_newFilter.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_newFilter.ReturnType**: `Quantity$1`
 
 ### eth\_newPendingTransactionFilter
 
@@ -979,15 +979,15 @@ provider.request({ method: 'eth_newPendingTransactionFilter' })
 
 ### eth\_newPendingTransactionFilter.Method
 
-> **Method**: `"eth_newPendingTransactionFilter"`
+> **eth\_newPendingTransactionFilter.Method**: `"eth_newPendingTransactionFilter"`
 
-### eth\_newPendingTransactionFilter.Parameters?
+### eth\_newPendingTransactionFilter.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_newPendingTransactionFilter.Parameters**?: `undefined`
 
 ### eth\_newPendingTransactionFilter.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **eth\_newPendingTransactionFilter.ReturnType**: `Quantity$1`
 
 ### eth\_protocolVersion
 
@@ -1010,15 +1010,15 @@ provider.request({ method: 'eth_protocolVersion' })
 
 ### eth\_protocolVersion.Method
 
-> **Method**: `"eth_protocolVersion"`
+> **eth\_protocolVersion.Method**: `"eth_protocolVersion"`
 
-### eth\_protocolVersion.Parameters?
+### eth\_protocolVersion.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **eth\_protocolVersion.Parameters**?: `undefined`
 
 ### eth\_protocolVersion.ReturnType
 
-> **ReturnType**: `string`
+> **eth\_protocolVersion.ReturnType**: `string`
 
 ### eth\_sendRawTransaction
 
@@ -1041,15 +1041,15 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 ### eth\_sendRawTransaction.Method
 
-> **Method**: `"eth_sendRawTransaction"`
+> **eth\_sendRawTransaction.Method**: `"eth_sendRawTransaction"`
 
 ### eth\_sendRawTransaction.Parameters
 
-> **Parameters**: [[`Hex`](../../index/type-aliases/Hex.md)]
+> **eth\_sendRawTransaction.Parameters**: [[`Hex`](../../index/type-aliases/Hex.md)]
 
 ### eth\_sendRawTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](Hash.md)
+> **eth\_sendRawTransaction.ReturnType**: [`Hash`](Hash.md)
 
 ### eth\_uninstallFilter
 
@@ -1072,15 +1072,15 @@ provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] })
 
 ### eth\_uninstallFilter.Method
 
-> **Method**: `"eth_uninstallFilter"`
+> **eth\_uninstallFilter.Method**: `"eth_uninstallFilter"`
 
 ### eth\_uninstallFilter.Parameters
 
-> **Parameters**: [`Quantity$1`]
+> **eth\_uninstallFilter.Parameters**: [`Quantity$1`]
 
 ### eth\_uninstallFilter.ReturnType
 
-> **ReturnType**: `boolean`
+> **eth\_uninstallFilter.ReturnType**: `boolean`
 
 ### net\_listening
 
@@ -1099,15 +1099,15 @@ provider.request({ method: 'net_listening' })
 
 ### net\_listening.Method
 
-> **Method**: `"net_listening"`
+> **net\_listening.Method**: `"net_listening"`
 
-### net\_listening.Parameters?
+### net\_listening.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **net\_listening.Parameters**?: `undefined`
 
 ### net\_listening.ReturnType
 
-> **ReturnType**: `boolean`
+> **net\_listening.ReturnType**: `boolean`
 
 ### net\_peerCount
 
@@ -1126,15 +1126,15 @@ provider.request({ method: 'net_peerCount' })
 
 ### net\_peerCount.Method
 
-> **Method**: `"net_peerCount"`
+> **net\_peerCount.Method**: `"net_peerCount"`
 
-### net\_peerCount.Parameters?
+### net\_peerCount.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **net\_peerCount.Parameters**?: `undefined`
 
 ### net\_peerCount.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **net\_peerCount.ReturnType**: `Quantity$1`
 
 ### net\_version
 
@@ -1153,15 +1153,15 @@ provider.request({ method: 'net_version' })
 
 ### net\_version.Method
 
-> **Method**: `"net_version"`
+> **net\_version.Method**: `"net_version"`
 
-### net\_version.Parameters?
+### net\_version.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **net\_version.Parameters**?: `undefined`
 
 ### net\_version.ReturnType
 
-> **ReturnType**: `Quantity$1`
+> **net\_version.ReturnType**: `Quantity$1`
 
 ### web3\_clientVersion
 
@@ -1180,15 +1180,15 @@ provider.request({ method: 'web3_clientVersion' })
 
 ### web3\_clientVersion.Method
 
-> **Method**: `"web3_clientVersion"`
+> **web3\_clientVersion.Method**: `"web3_clientVersion"`
 
-### web3\_clientVersion.Parameters?
+### web3\_clientVersion.Parameters
 
-> **`optional`** **Parameters**: `undefined`
+> **web3\_clientVersion.Parameters**?: `undefined`
 
 ### web3\_clientVersion.ReturnType
 
-> **ReturnType**: `string`
+> **web3\_clientVersion.ReturnType**: `string`
 
 ### web3\_sha3
 
@@ -1207,16 +1207,19 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 
 ### web3\_sha3.Method
 
-> **Method**: `"web3_sha3"`
+> **web3\_sha3.Method**: `"web3_sha3"`
 
 ### web3\_sha3.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **web3\_sha3.Parameters**: [[`Hash`](Hash.md)]
 
 ### web3\_sha3.ReturnType
 
-> **ReturnType**: `string`
+> **web3\_sha3.ReturnType**: `string`
 
 ## Source
 
 packages/decorators/dist/index.d.ts:794
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

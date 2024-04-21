@@ -4,11 +4,11 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { InvalidAddressError } from './Errors.js'
-import { SAddress } from './SAddress.js'
 import { parseEither } from '@effect/schema/Schema'
 import { Effect } from 'effect'
 import { mapError } from 'effect/Effect'
+import { InvalidAddressError } from './Errors.js'
+import { SAddress } from './SAddress.js'
 
 /**
  * Parses an Address safely into an effect.
@@ -19,11 +19,6 @@ import { mapError } from 'effect/Effect'
 export const parseAddressSafe = (address) => {
 	const out =
 		/** @type {Effect.Effect<never, InvalidAddressError, TAddress>} - An effect that resolves to the parsed address. */
-		(
-			mapError(
-				parseEither(SAddress)(address),
-				({ errors: cause }) => new InvalidAddressError({ address, cause }),
-			)
-		)
+		(mapError(parseEither(SAddress)(address), ({ errors: cause }) => new InvalidAddressError({ address, cause })))
 	return out
 }

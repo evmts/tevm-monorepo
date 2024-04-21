@@ -1,4 +1,4 @@
-import { createRequire } from 'module'
+import { createRequire } from 'node:module'
 
 /**
  * @type {readonly ['tevm/contract', '@tevm/contract']}
@@ -9,9 +9,7 @@ const contractPackages = ['tevm/contract', '@tevm/contract']
  * @returns {'tevm/contract' | '@tevm/contract'}
  */
 export const getContractPath = (basePath) => {
-	const require = createRequire(
-		basePath.endsWith('/') ? basePath : `${basePath}/`,
-	)
+	const require = createRequire(basePath.endsWith('/') ? basePath : `${basePath}/`)
 	for (const contractPackage of contractPackages) {
 		try {
 			require.resolve(contractPackage)

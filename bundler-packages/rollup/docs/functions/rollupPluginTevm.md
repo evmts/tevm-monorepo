@@ -1,8 +1,8 @@
-**@tevm/rollup-plugin** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/rollup-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/rollup-plugin](../README.md) / rollupPluginTevm
+[API](../API.md) > rollupPluginTevm
 
 # Function: rollupPluginTevm()
 
@@ -15,13 +15,11 @@ To configure add this plugin to your rollup config and add the ts-plugin to your
 
 ## Parameters
 
-• **options?**
+▪ **options?**: `object`
 
-• **options\.solc?**: `SolcVersions`
+▪ **options.solc?**: `SolcVersions`
 
 ## Returns
-
-`Plugin`\<`any`\>
 
 ## Example
 
@@ -104,3 +102,6 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bundler-packages/rollup/src/rollupPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L75)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

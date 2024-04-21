@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / EthBlockNumberParams
+[API](../../API.md) > [actions-types](../README.md) > EthBlockNumberParams
 
 # Type alias: EthBlockNumberParams
 
@@ -13,3 +13,6 @@ Based on the JSON-RPC request for `eth_blockNumber` procedure (no params)
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:10
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

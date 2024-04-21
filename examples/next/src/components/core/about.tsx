@@ -114,10 +114,7 @@ const About = () => {
             <span className="font-semibold">Low-level call</span>
             <List
               items={[
-                <>
-                  Call the current account with an arbitrary amount of native
-                  tokens and/or arbitrary encoded data.
-                </>,
+                'Call the current account with an arbitrary amount of native tokens and/or arbitrary encoded data.',
               ]}
             />
             {/* ---------------------------- CONTRACT INTERFACE ---------------------------- */}
@@ -129,20 +126,14 @@ const About = () => {
                   fill the inputs if relevant, and click{' '}
                   <InlineCode>Call</InlineCode> to send a transaction.
                 </>,
-                <>
-                  Read methods are highlighted when they were found with
-                  certitude.
-                </>,
+                'Read methods are highlighted when they were found with certitude.',
               ]}
             />
             {/* --------------------------- LOCAL TRANSACTIONS --------------------------- */}
             <span className="font-semibold">Local transactions</span>
             <List
               items={[
-                <>
-                  The history of transactions displayed is the one recorded by
-                  the client for the selected chain, since the last fork.
-                </>,
+                'The history of transactions displayed is the one recorded by the client for the selected chain, since the last fork.',
                 <>
                   You can navigate through the history, click{' '}
                   <InlineCode>

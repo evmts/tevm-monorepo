@@ -1,8 +1,8 @@
-**@tevm/errors** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/errors](../README.md) / CallError
+[API](../API.md) > CallError
 
 # Type alias: CallError
 
@@ -21,4 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-[packages/errors/src/actions/CallError.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/CallError.ts#L16)
+[packages/errors/src/actions/CallError.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/CallError.ts#L12)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

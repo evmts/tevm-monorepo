@@ -1,8 +1,8 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / EncodingOpts
+[API](../API.md) > EncodingOpts
 
 # Type alias: EncodingOpts
 
@@ -10,14 +10,17 @@
 
 ## Type declaration
 
-### keyEncoding?
+### keyEncoding
 
-> **`optional`** **keyEncoding**: [`KeyEncoding`](../enumerations/KeyEncoding.md)
+> **keyEncoding**?: [`KeyEncoding`](../enumerations/KeyEncoding.md)
 
-### valueEncoding?
+### valueEncoding
 
-> **`optional`** **valueEncoding**: [`ValueEncoding`](../enumerations/ValueEncoding.md)
+> **valueEncoding**?: [`ValueEncoding`](../enumerations/ValueEncoding.md)
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:15
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

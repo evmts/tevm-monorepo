@@ -1,6 +1,6 @@
-import type { EVMOpts } from './EvmOpts.js'
 import { EVM } from '@ethereumjs/evm'
 import type { TevmStateManager } from '@tevm/state'
+import type { EVMOpts } from './EvmOpts.js'
 
 /**
  * A wrapper around the EVM to expose some protected functionality of the EVMStateManger

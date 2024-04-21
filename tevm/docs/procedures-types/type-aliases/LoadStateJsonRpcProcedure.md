@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / LoadStateJsonRpcProcedure
+[API](../../API.md) > [procedures-types](../README.md) > LoadStateJsonRpcProcedure
 
-# Type alias: LoadStateJsonRpcProcedure()
+# Type alias: LoadStateJsonRpcProcedure
 
 > **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
@@ -25,12 +25,11 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 ## Parameters
 
-• **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
+▪ **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:866
+packages/procedures-types/dist/index.d.ts:820
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [accounts](../README.md) / hdKeyToAccountEffect
+[API](../../API.md) > [accounts](../README.md) > hdKeyToAccountEffect
 
 # Function: hdKeyToAccountEffect()
 
@@ -10,16 +10,15 @@
 
 ## Type parameters
 
-• **TParams** extends [`HDKey`, `HDOptions?`]
+▪ **TParams** extends [`HDKey`, `HDOptions?`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `never`, `HDAccount`\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/accounts/hdKeyToAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/hdKeyToAccountEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

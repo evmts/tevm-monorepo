@@ -1,25 +1,24 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [utils](../README.md) / recoverMessageAddressEffect
+[API](../../API.md) > [utils](../README.md) > recoverMessageAddressEffect
 
 # Function: recoverMessageAddressEffect()
 
-> **recoverMessageAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `RecoverMessageAddressErrorType`, ```0x${string}```\>
+> **recoverMessageAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `RecoverMessageAddressErrorType`, \`0x${string}\`\>
 
 ## Type parameters
 
-• **TParams** extends [`RecoverMessageAddressParameters`]
+▪ **TParams** extends [`RecoverMessageAddressParameters`]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `RecoverMessageAddressErrorType`, ```0x${string}```\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/utils/signature/recoverMessageAddressEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/recoverMessageAddressEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

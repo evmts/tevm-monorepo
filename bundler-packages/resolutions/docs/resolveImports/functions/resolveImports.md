@@ -1,8 +1,8 @@
-**@tevm/resolutions** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/resolutions** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/resolutions](../../README.md) / [resolveImports](../README.md) / resolveImports
+[API](../../API.md) > [resolveImports](../README.md) > resolveImports
 
 # Function: resolveImports()
 
@@ -12,19 +12,17 @@ Returns a the import resolutions for the given code
 
 ## Parameters
 
-• **absolutePath**: `string`
+▪ **absolutePath**: `string`
 
-• **code**: `string`
+▪ **code**: `string`
 
-• **remappings**: `Record`\<`string`, `string`\>
+▪ **remappings**: `Record`\<`string`, `string`\>
 
-• **libs**: readonly `string`[]
+▪ **libs**: readonly `string`[]
 
-• **sync**: `boolean`= `false`
+▪ **sync**: `boolean`= `false`
 
 ## Returns
-
-`Effect`\<`never`, [`ResolveImportsError`](../type-aliases/ResolveImportsError.md), readonly [`ResolvedImport`](../../types/type-aliases/ResolvedImport.md)[]\>
 
 ## Example
 
@@ -49,3 +47,6 @@ console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to
 ## Source
 
 [resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

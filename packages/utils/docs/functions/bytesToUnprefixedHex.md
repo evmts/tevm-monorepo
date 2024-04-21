@@ -1,23 +1,24 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / bytesToUnprefixedHex
+[API](../API.md) > bytesToUnprefixedHex
 
-# Function: ~~bytesToUnprefixedHex()~~
+# Function: bytesToUnprefixedHex()
 
 > **bytesToUnprefixedHex**(`bytes`): `string`
 
 ## Parameters
 
-• **bytes**: `Uint8Array`
+▪ **bytes**: `Uint8Array`
 
 ## Returns
-
-`string`
 
 ## Deprecated
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:6
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

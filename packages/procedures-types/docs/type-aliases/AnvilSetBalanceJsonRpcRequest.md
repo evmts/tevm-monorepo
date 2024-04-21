@@ -1,8 +1,8 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / AnvilSetBalanceJsonRpcRequest
+[API](../API.md) > AnvilSetBalanceJsonRpcRequest
 
 # Type alias: AnvilSetBalanceJsonRpcRequest
 
@@ -12,4 +12,7 @@ JSON-RPC request for `anvil_setBalance` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L85)
+[requests/AnvilJsonRpcRequest.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L76)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

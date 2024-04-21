@@ -1,13 +1,9 @@
-import { DBManager } from './DbManager.js'
-import {
-	CasperConsensus,
-	CliqueConsensus,
-	EthashConsensus,
-} from '@ethereumjs/blockchain'
+import { CasperConsensus, CliqueConsensus, EthashConsensus } from '@ethereumjs/blockchain'
 import { Block } from '@tevm/block'
 import { ConsensusAlgorithm } from '@tevm/common'
 import { genesisStateRoot } from '@tevm/trie'
 import { AsyncEventEmitter, Lock, createMemoryDb, parseGwei } from '@tevm/utils'
+import { DBManager } from './DbManager.js'
 
 /**
  * @param {object} options
@@ -32,9 +28,8 @@ export const createBlockchain = async ({ common }) => {
 			},
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
-							/** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
-				  }
+						withdrawals: /** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
+					}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -49,9 +44,7 @@ export const createBlockchain = async ({ common }) => {
 			case ConsensusAlgorithm.Ethash:
 				return new EthashConsensus()
 			default:
-				throw new Error(
-					`consensus algorithm ${common.consensusAlgorithm()} not supported`,
-				)
+				throw new Error(`consensus algorithm ${common.consensusAlgorithm()} not supported`)
 		}
 	})()
 

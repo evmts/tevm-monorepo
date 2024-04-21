@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [actions-types](../README.md) / DumpStateHandler
+[API](../../API.md) > [actions-types](../README.md) > DumpStateHandler
 
-# Type alias: DumpStateHandler()
+# Type alias: DumpStateHandler
 
 > **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
@@ -30,12 +30,11 @@ await tevm.loadState({state})
 
 ## Parameters
 
-• **params?**: `BaseParams`
-
-## Returns
-
-`Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
+▪ **params?**: `BaseParams`
 
 ## Source
 
 packages/actions-types/types/handlers/DumpStateHandler.d.ts:20
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

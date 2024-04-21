@@ -1,8 +1,8 @@
-**@tevm/solc** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/solc](../README.md) / SolcFunctionDebugData
+[API](../API.md) > SolcFunctionDebugData
 
 # Type alias: SolcFunctionDebugData
 
@@ -10,22 +10,25 @@
 
 ## Type declaration
 
-### entryPoint?
+### entryPoint
 
-> **`optional`** **entryPoint**: `number`
+> **entryPoint**?: `number`
 
-### id?
+### id
 
-> **`optional`** **id**: `number` \| `null`
+> **id**?: `number` \| `null`
 
-### parameterSlots?
+### parameterSlots
 
-> **`optional`** **parameterSlots**: `number`
+> **parameterSlots**?: `number`
 
-### returnSlots?
+### returnSlots
 
-> **`optional`** **returnSlots**: `number`
+> **returnSlots**?: `number`
 
 ## Source
 
-[solcTypes.ts:492](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L492)
+[solcTypes.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

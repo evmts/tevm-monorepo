@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [index](../README.md) / definePredeploy
+[API](../../API.md) > [index](../README.md) > definePredeploy
 
 # Function: definePredeploy()
 
@@ -12,17 +12,15 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Type parameters
 
-• **TName** extends `string`
+▪ **TName** extends `string`
 
-• **THumanReadableAbi** extends readonly `string`[]
+▪ **THumanReadableAbi** extends readonly `string`[]
 
 ## Parameters
 
-• **\_\_namedParameters**: `Pick`\<[`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"contract"`\>
+▪ **\_\_namedParameters**: `Pick`\<[`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"contract"`\>
 
 ## Returns
-
-[`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Example
 
@@ -49,3 +47,6 @@ const vm = createMemoryClient({
 ## Source
 
 packages/predeploys/types/definePredeploy.d.ts:25
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

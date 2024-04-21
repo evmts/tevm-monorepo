@@ -1,7 +1,7 @@
+import { getAddress, parseAbi } from '@tevm/utils'
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
-import { getAddress, parseAbi } from '@tevm/utils'
 
 /**
  * Creates a tevm Contract instance from human readable abi

@@ -1,7 +1,4 @@
-import type {
-	InvalidBytecodeError,
-	InvalidDeployedBytecodeError,
-} from '../input/index.js'
+import type { InvalidBytecodeError, InvalidDeployedBytecodeError } from '../input/index.js'
 import type { ContractError } from './ContractError.js'
 
 /**
@@ -13,7 +10,4 @@ import type { ContractError } from './ContractError.js'
  *  console.log(errors[0].message) // Invalid bytecode should be a hex string: 1234
  * }
  */
-export type ScriptError =
-	| ContractError
-	| InvalidBytecodeError
-	| InvalidDeployedBytecodeError
+export type ScriptError = ContractError | InvalidBytecodeError | InvalidDeployedBytecodeError

@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / parseUINT128
+[API](../../API.md) > [ethereum](../README.md) > parseUINT128
 
 # Function: parseUINT128()
 
@@ -12,15 +12,13 @@ Parses a UINT128 and returns the value if no errors.
 
 ## Type parameters
 
-• **TUINT128** extends `bigint`
+▪ **TUINT128** extends `bigint`
 
 ## Parameters
 
-• **uint128**: `TUINT128`
+▪ **uint128**: `TUINT128`
 
 ## Returns
-
-`TUINT128`
 
 ## Example
 
@@ -32,3 +30,6 @@ const parsedUINT128 = parseUINT128(BigInt("1701411834604692317316873037158841057
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L84)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

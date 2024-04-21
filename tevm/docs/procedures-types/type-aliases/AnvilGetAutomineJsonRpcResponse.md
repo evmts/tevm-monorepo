@@ -1,8 +1,8 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / AnvilGetAutomineJsonRpcResponse
+[API](../../API.md) > [procedures-types](../README.md) > AnvilGetAutomineJsonRpcResponse
 
 # Type alias: AnvilGetAutomineJsonRpcResponse
 
@@ -12,4 +12,7 @@ JSON-RPC response for `anvil_getAutomine` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:447
+packages/procedures-types/dist/index.d.ts:401
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

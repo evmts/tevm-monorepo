@@ -1,10 +1,10 @@
-**tevm** • [Readme](../../README.md) \| [API](../../modules.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[tevm](../../README.md) / [procedures-types](../README.md) / AnvilResetProcedure
+[API](../../API.md) > [procedures-types](../README.md) > AnvilResetProcedure
 
-# Type alias: AnvilResetProcedure()
+# Type alias: AnvilResetProcedure
 
 > **AnvilResetProcedure**: (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 
@@ -12,12 +12,11 @@ JSON-RPC procedure for `anvil_reset`
 
 ## Parameters
 
-• **request**: [`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
+▪ **request**: [`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md)
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:740
+packages/procedures-types/dist/index.d.ts:694
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

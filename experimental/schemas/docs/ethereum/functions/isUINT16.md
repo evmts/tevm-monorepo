@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [ethereum](../README.md) / isUINT16
+[API](../../API.md) > [ethereum](../README.md) > isUINT16
 
 # Function: isUINT16()
 
@@ -12,11 +12,9 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT16.
 
 ## Parameters
 
-• **uint16**: `unknown`
+▪ **uint16**: `unknown`
 
 ## Returns
-
-`boolean`
 
 ## Example
 
@@ -28,4 +26,7 @@ isUINT16(BigInt(65536));  // false
 
 ## Source
 
-[experimental/schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L43)
+[experimental/schemas/src/ethereum/SUINT/isUINT.js:36](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L36)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

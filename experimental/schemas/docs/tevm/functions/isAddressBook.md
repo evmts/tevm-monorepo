@@ -1,8 +1,8 @@
-**@tevm/schemas** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/schemas](../../README.md) / [tevm](../README.md) / isAddressBook
+[API](../../API.md) > [tevm](../README.md) > isAddressBook
 
 # Function: isAddressBook()
 
@@ -12,16 +12,15 @@ Type guard that returns true if an address book is a valid address
 
 ## Type parameters
 
-• **TContractNames** extends `string`
+▪ **TContractNames** extends `string`
 
 ## Parameters
 
-• **addressBook**: `unknown`
-
-## Returns
-
-`addressBook is AddressBook<TContractNames>`
+▪ **addressBook**: `unknown`
 
 ## Source
 
 [experimental/schemas/src/tevm/SAddressBook.js:38](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L38)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

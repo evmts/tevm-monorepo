@@ -1,25 +1,24 @@
-**@tevm/viem-effect** • [Readme](../../README.md) \| [API](../../modules.md)
+**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[@tevm/viem-effect](../../README.md) / [accounts](../README.md) / signTypedDataEffect
+[API](../../API.md) > [accounts](../README.md) > signTypedDataEffect
 
 # Function: signTypedDataEffect()
 
-> **signTypedDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignTypedDataErrorType`, ```0x${string}```\>
+> **signTypedDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignTypedDataErrorType`, \`0x${string}\`\>
 
 ## Type parameters
 
-• **TParams** extends [`SignTypedDataParameters`\<`object` \| `object`, `string`\>]
+▪ **TParams** extends [`SignTypedDataParameters`\<`object` \| `object`, `string`\>]
 
 ## Parameters
 
-• ...**args**: `TParams`
-
-## Returns
-
-`Effect`\<`never`, `SignTypedDataErrorType`, ```0x${string}```\>
+▪ ...**args**: `TParams`
 
 ## Source
 
 [experimental/viem-effect/src/accounts/utils/signTypedDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signTypedDataEffect.js#L7)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

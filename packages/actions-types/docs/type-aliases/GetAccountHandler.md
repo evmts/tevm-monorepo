@@ -1,10 +1,10 @@
-**@tevm/actions-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/actions-types](../README.md) / GetAccountHandler
+[API](../API.md) > GetAccountHandler
 
-# Type alias: GetAccountHandler()
+# Type alias: GetAccountHandler
 
 > **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
@@ -21,12 +21,11 @@ console.log(res.balance)
 
 ## Parameters
 
-• **params**: [`GetAccountParams`](GetAccountParams.md)
-
-## Returns
-
-`Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
+▪ **params**: [`GetAccountParams`](GetAccountParams.md)
 
 ## Source
 
 [handlers/GetAccountHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/GetAccountHandler.ts#L11)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

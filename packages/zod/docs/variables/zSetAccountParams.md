@@ -1,8 +1,8 @@
-**@tevm/zod** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/zod](../README.md) / zSetAccountParams
+[API](../API.md) > zSetAccountParams
 
 # Variable: zSetAccountParams
 
@@ -13,3 +13,6 @@ Zod validator for a valid setAccount action
 ## Source
 
 [packages/zod/src/params/zSetAccountParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zSetAccountParams.js#L8)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

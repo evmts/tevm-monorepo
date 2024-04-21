@@ -1,10 +1,10 @@
-**@tevm/config** • [Readme](../README.md) \| [API](../modules.md)
+**@tevm/config** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/config](../README.md) / loadConfig
+[API](../API.md) > loadConfig
 
-# loadConfig
+# Module: loadConfig
 
 ## Index
 
@@ -19,3 +19,6 @@
 ### Functions
 
 - [loadConfig](functions/loadConfig.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

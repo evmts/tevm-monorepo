@@ -1,16 +1,16 @@
-**@tevm/utils** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/utils](../README.md) / MapDb
+[API](../API.md) > MapDb
 
-# Class: MapDb\<TKey, TValue\>
+# Class: MapDb`<TKey, TValue>`
 
 ## Type parameters
 
-• **TKey** extends `Uint8Array` \| `string` \| `number`
+▪ **TKey** extends `Uint8Array` \| `string` \| `number`
 
-• **TValue** extends `Uint8Array` \| `string` \| [`DbObject`](../type-aliases/DbObject.md)
+▪ **TValue** extends `Uint8Array` \| `string` \| [`DbObject`](../type-aliases/DbObject.md)
 
 ## Implements
 
@@ -24,11 +24,7 @@
 
 #### Parameters
 
-• **database?**: `Map`\<`TKey`, `TValue`\>
-
-#### Returns
-
-[`MapDb`](MapDb.md)\<`TKey`, `TValue`\>
+▪ **database?**: `Map`\<`TKey`, `TValue`\>
 
 #### Source
 
@@ -54,13 +50,9 @@ Performs a batch operation on db.
 
 #### Parameters
 
-• **opStack**: [`BatchDbOp`](../type-aliases/BatchDbOp.md)\<`TKey`, `TValue`\>[]
+▪ **opStack**: [`BatchDbOp`](../type-aliases/BatchDbOp.md)\<`TKey`, `TValue`\>[]
 
 A stack of levelup operations
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -80,11 +72,7 @@ Removes a raw value in the underlying db.
 
 #### Parameters
 
-• **key**: `TKey`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **key**: `TKey`
 
 #### Implementation of
 
@@ -104,11 +92,9 @@ Retrieves a raw value from db.
 
 #### Parameters
 
-• **key**: `TKey`
+▪ **key**: `TKey`
 
 #### Returns
-
-`Promise`\<`undefined` \| `TValue`\>
 
 A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no value is found.
 
@@ -128,10 +114,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 Opens the database -- if applicable
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Implementation of
 
 [`Db`](../interfaces/Db.md).[`open`](../interfaces/Db.md#open)
@@ -150,15 +132,11 @@ Writes a value directly to db.
 
 #### Parameters
 
-• **key**: `TKey`
+▪ **key**: `TKey`
 
 The key as a `TValue`
 
-• **val**: `TValue`
-
-#### Returns
-
-`Promise`\<`void`\>
+▪ **val**: `TValue`
 
 #### Implementation of
 
@@ -178,8 +156,6 @@ Note that the returned shallow copy will share the underlying database with the 
 
 #### Returns
 
-[`Db`](../interfaces/Db.md)\<`TKey`, `TValue`\>
-
 DB
 
 #### Implementation of
@@ -189,3 +165,6 @@ DB
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/mapDB.d.ts:14
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

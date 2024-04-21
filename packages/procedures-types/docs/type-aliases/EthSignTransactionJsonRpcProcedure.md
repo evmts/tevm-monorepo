@@ -1,21 +1,20 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthSignTransactionJsonRpcProcedure
+[API](../API.md) > EthSignTransactionJsonRpcProcedure
 
-# Type alias: EthSignTransactionJsonRpcProcedure()
+# Type alias: EthSignTransactionJsonRpcProcedure
 
 > **EthSignTransactionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthSignTransactionJsonRpcRequest`](EthSignTransactionJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)\>
+▪ **request**: [`EthSignTransactionJsonRpcRequest`](EthSignTransactionJsonRpcRequest.md)
 
 ## Source
 
-[procedure/EthProcedure.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L211)
+[procedure/EthProcedure.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L191)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

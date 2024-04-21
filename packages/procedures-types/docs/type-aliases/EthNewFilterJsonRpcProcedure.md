@@ -1,21 +1,20 @@
-**@tevm/procedures-types** • [Readme](../README.md) \| [API](../globals.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[@tevm/procedures-types](../README.md) / EthNewFilterJsonRpcProcedure
+[API](../API.md) > EthNewFilterJsonRpcProcedure
 
-# Type alias: EthNewFilterJsonRpcProcedure()
+# Type alias: EthNewFilterJsonRpcProcedure
 
 > **EthNewFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
 
 ## Parameters
 
-• **request**: [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md)
-
-## Returns
-
-`Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
+▪ **request**: [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md)
 
 ## Source
 
-[procedure/EthProcedure.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L219)
+[procedure/EthProcedure.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L197)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
