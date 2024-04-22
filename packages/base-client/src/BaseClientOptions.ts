@@ -1,6 +1,6 @@
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
-import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
+import type { StateOptions } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { Hardfork } from './Hardfork.js'
@@ -9,7 +9,7 @@ import type { MiningConfig } from './MiningConfig.js'
 /**
  * Options for creating an Tevm MemoryClient instance
  */
-export type BaseClientOptions = {
+export type BaseClientOptions = StateOptions & {
 	/**
 	 * Configure logging options for the client
 	 */
@@ -38,18 +38,6 @@ export type BaseClientOptions = {
 	 * Eips to enable. Defaults to `[1559, 4895]`
 	 */
 	readonly eips?: ReadonlyArray<number>
-	/**
-	 * Options to initialize the client in `proxy` mode
-	 * When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL
-	 * Cannot be set if `fork` is also set
-	 */
-	readonly proxy?: ProxyStateManagerOpts
-	/**
-	 * Fork options fork a live network if enabled.
-	 * When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL
-	 * Cannot be set if `proxy` is also set
-	 */
-	readonly fork?: ForkStateManagerOpts
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive

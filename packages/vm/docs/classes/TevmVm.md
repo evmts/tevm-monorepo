@@ -140,7 +140,7 @@ VM.evm
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: `StateManager`
 
 #### Overrides
 

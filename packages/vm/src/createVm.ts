@@ -1,9 +1,8 @@
-import { ForkStateManager, NormalStateManager, ProxyStateManager } from '@tevm/state'
 import type { CreateVmOptions } from './CreateVmOptions.js'
 import { TevmVm } from './TevmVm.js'
 
 export const createVm = async ({ stateManager, evm, blockchain, common }: CreateVmOptions): Promise<TevmVm> => {
-	const vm = await TevmVm.create({
+	return TevmVm.create({
 		stateManager,
 		evm,
 		activatePrecompiles: true,
@@ -15,28 +14,4 @@ export const createVm = async ({ stateManager, evm, blockchain, common }: Create
 			reportAfterBlock: false,
 		},
 	})
-
-	const originalDeepCopy = vm.deepCopy.bind(vm)
-	vm.deepCopy = async (...args) => {
-		const newVm = await originalDeepCopy(...args)
-		const originalRunCall = newVm.evm.runCall.bind(newVm.evm)
-		newVm.evm.runCall = async (...args) => {
-			if (newVm.evm.stateManager instanceof NormalStateManager || newVm.evm.stateManager instanceof ForkStateManager) {
-				return originalRunCall(...args)
-			}
-			if (!(newVm.evm.stateManager instanceof ProxyStateManager)) {
-				throw new Error('Unknown state manager in shallow copy')
-			}
-			await newVm.evm.stateManager.lock()
-			try {
-				const res = await originalRunCall(...args)
-				return res
-			} finally {
-				await newVm.evm.stateManager.unlock()
-			}
-		}
-		return newVm
-	}
-
-	return vm
 }

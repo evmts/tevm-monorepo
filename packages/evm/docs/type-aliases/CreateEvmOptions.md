@@ -105,7 +105,7 @@ Enable profiler. Defaults to false.
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: `StateManager`
 
 A custom Tevm state manager
 

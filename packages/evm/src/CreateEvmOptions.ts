@@ -1,7 +1,7 @@
 import type { TevmBlockchain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
 import type { CustomPredeploy } from '@tevm/predeploys'
-import type { TevmStateManager } from '@tevm/state'
+import type { StateManager } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 
 export type CreateEvmOptions = {
@@ -12,7 +12,7 @@ export type CreateEvmOptions = {
 	/**
 	 * A custom Tevm state manager
 	 */
-	stateManager: TevmStateManager
+	stateManager: StateManager
 	/**
 	 * Enable profiler. Defaults to false.
 	 */

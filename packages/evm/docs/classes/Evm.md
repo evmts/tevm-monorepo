@@ -319,7 +319,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: `StateManager`
 
 #### Overrides
 
