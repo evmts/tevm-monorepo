@@ -8,7 +8,7 @@
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
-Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+Returns a new instance of the ForkStateManager with the same opts but no storage copied over
 
 ## Parameters
 

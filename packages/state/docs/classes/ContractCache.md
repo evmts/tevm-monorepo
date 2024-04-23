@@ -33,6 +33,16 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 [packages/state/src/ContractCache.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L16)
 
+## Accessors
+
+### \_checkpoints
+
+> **`get`** **\_checkpoints**(): `number`
+
+#### Source
+
+[packages/state/src/ContractCache.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L65)
+
 ## Methods
 
 ### checkpoint()
@@ -129,7 +139,17 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L68)
+[packages/state/src/ContractCache.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L76)
+
+***
+
+### size()
+
+> **size**(): `number`
+
+#### Source
+
+[packages/state/src/ContractCache.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L69)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

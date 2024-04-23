@@ -6,11 +6,11 @@
 
 # Function: createStateManager()
 
-> **createStateManager**(`options`): [`StateManager`](../interfaces/StateManager.md)
+> **createStateManager**(`options`?): [`StateManager`](../interfaces/StateManager.md)
 
 ## Parameters
 
-▪ **options**: [`StateOptions`](../type-aliases/StateOptions.md)
+▪ **options?**: [`StateOptions`](../type-aliases/StateOptions.md)= `{}`
 
 ## Returns
 

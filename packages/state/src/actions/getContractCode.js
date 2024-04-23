@@ -12,8 +12,14 @@ export const getContractCode = (baseState) => async (address) => {
 		_options,
 		_caches: { contracts },
 	} = baseState
+
 	const codeBytes = contracts.get(address)
-	if (codeBytes !== undefined && !_options.fork?.url) {
+
+	if (codeBytes !== undefined) {
+		return codeBytes
+	}
+
+	if (!_options.fork?.url) {
 		return new Uint8Array(0)
 	}
 
