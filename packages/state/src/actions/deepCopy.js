@@ -8,7 +8,7 @@ import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-	const newState = createBaseState(baseState._options)
-	await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
-	return newState
+  const newState = createBaseState(baseState._options)
+  await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
+  return newState
 }
