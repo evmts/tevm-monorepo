@@ -101,7 +101,6 @@ The configuration for mining. Defaults to 'auto'
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
-`proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
 #### Example
@@ -142,7 +141,7 @@ Sets the chain id of the current EVM
 
 | Parameter | Default |
 | :------ | :------ |
-| `TMode` extends `"fork"` \| `"proxy"` \| `"normal"` | `"fork"` \| `"proxy"` \| `"normal"` |
+| `TMode` extends `"fork"` \| `"normal"` | `"fork"` \| `"normal"` |
 | `TExtended` | `object` |
 
 ## Source

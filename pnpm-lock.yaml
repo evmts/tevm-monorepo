@@ -1981,9 +1981,6 @@ importers:
       '@tevm/common':
         specifier: workspace:1.0.0-next.40
         version: link:../common
-      '@tevm/trie':
-        specifier: workspace:^
-        version: link:../trie
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils

@@ -14,8 +14,6 @@
 
 ### Interfaces
 
-- [ForkStateManagerOpts](interfaces/ForkStateManagerOpts.md)
-- [ProxyStateManagerOpts](interfaces/ProxyStateManagerOpts.md)
 - [Storage](interfaces/Storage.md)
 
 ### Type Aliases
@@ -87,6 +85,7 @@
 - [ScriptResult](type-aliases/ScriptResult.md)
 - [SetAccountParams](type-aliases/SetAccountParams.md)
 - [SetAccountResult](type-aliases/SetAccountResult.md)
+- [StateOptions](type-aliases/StateOptions.md)
 - [SyncStoragePersister](type-aliases/SyncStoragePersister.md)
 - [TevmActionsApi](type-aliases/TevmActionsApi.md)
 - [TevmClient](type-aliases/TevmClient.md)
