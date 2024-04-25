@@ -36,7 +36,7 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Source
 
-[packages/state/src/actions/putContractStorage.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L8)
+[packages/state/src/actions/putContractStorage.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L23)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

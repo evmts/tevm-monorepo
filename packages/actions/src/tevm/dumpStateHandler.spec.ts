@@ -1,51 +1,51 @@
 import { dumpStateHandler } from './dumpStateHandler.js'
 import { loadStateHandler } from './loadStateHandler.js'
 import { createBaseClient } from '@tevm/base-client'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
-import { hexToBytes, keccak256, toRlp } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
+import { hexToBytes, toRlp } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {
-	const accountAddress = '0x0420042004200420042004200420042004200420'
-	const account = EthjsAddress.fromString(accountAddress)
+  const accountAddress = '0x0420042004200420042004200420042004200420'
+  const account = EthjsAddress.fromString(accountAddress)
 
-	const accountInstance = new EthjsAccount(0n, 100n)
+  const accountInstance = new EthjsAccount(0n, 100n)
 
-	const client = createBaseClient()
-	;(await client.getVm()).stateManager.putAccount(account, accountInstance)
+  const client = createBaseClient()
+    ; (await client.getVm()).stateManager.putAccount(account, accountInstance)
 
-	const storageKey = hexToBytes('0x1', { size: 32 })
-	const storageValue = hexToBytes('0x1', { size: 32 })
-	;(await client.getVm()).stateManager.putContractStorage(
-		account,
-		storageKey,
-		storageValue,
-	)
+  const storageKey = hexToBytes('0x1', { size: 32 })
+  const storageValue = hexToBytes('0x1', { size: 32 })
+    ; (await client.getVm()).stateManager.putContractStorage(
+      account,
+      storageKey,
+      storageValue,
+    )
 
-	const { state: dumpedState } = await dumpStateHandler(client)()
+  const { state: dumpedState } = await dumpStateHandler(client)()
 
-	const accountData = dumpedState[accountAddress]
+  const accountData = dumpedState[accountAddress]
 
-	expect(accountData?.nonce).toEqual(0n)
-	expect(accountData?.balance).toEqual(100n)
+  expect(accountData?.nonce).toEqual(0n)
+  expect(accountData?.balance).toEqual(100n)
 
-	//Trie stores the keccak256 of the storage key and the value is rlp encoded
-	const storage = accountData?.storage ?? {}
-	expect(storage[keccak256(storageKey, 'hex')]).toEqual(toRlp(storageValue))
+  const storage = accountData?.storage ?? {}
+  console.log(bytesToHex(storageKey), storage)
+  expect(storage[bytesToHex(storageKey).slice(2)]).toEqual(toRlp(storageValue))
 
-	expect(Object.keys(storage).length).toBe(1)
+  expect(Object.keys(storage).length).toBe(1)
 
-	const client2 = createBaseClient()
+  const client2 = createBaseClient()
 
-	await loadStateHandler(client2)({
-		state: dumpedState,
-	})
-	const accountStorage = await (
-		await client2.getVm()
-	).stateManager.getContractStorage(
-		account,
-		hexToBytes(keccak256(storageKey, 'hex')),
-	)
+  await loadStateHandler(client2)({
+    state: dumpedState,
+  })
+  const accountStorage = await (
+    await client2.getVm()
+  ).stateManager.getContractStorage(
+    account,
+    storageKey,
+  )
 
-	expect(accountStorage).toEqual(storageValue)
+  expect(accountStorage).toEqual(storageValue)
 })

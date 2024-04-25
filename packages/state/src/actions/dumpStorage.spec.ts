@@ -4,22 +4,22 @@ import { createBaseState } from '../createBaseState.js'
 import { dumpStorage } from './dumpStorage.js'
 
 describe(dumpStorage.name, () => {
-	it('should dump storage from a given contract address', async () => {
-		const baseState = createBaseState()
+  it('should dump storage from a given contract address', async () => {
+    const baseState = createBaseState()
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+    const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 
-		const key0 = hexToBytes('0x0')
-		const key1 = hexToBytes('0x1')
-		const value0 = hexToBytes('0x42')
-		const value1 = hexToBytes('0x69')
+    const key0 = hexToBytes('0x0')
+    const key1 = hexToBytes('0x1')
+    const value0 = hexToBytes('0x42')
+    const value1 = hexToBytes('0x69')
 
-		baseState._caches.storage.put(address, key0, value0)
-		baseState._caches.storage.put(address, key1, value1)
+    baseState._caches.storage.put(address, key0, value0)
+    baseState._caches.storage.put(address, key1, value1)
 
-		expect(await dumpStorage(baseState)(address)).toEqual({
-			'00': '0x42',
-			'01': '0x69',
-		})
-	})
+    expect(await dumpStorage(baseState)(address)).toEqual({
+      '00': '0x42',
+      '01': '0x69',
+    })
+  })
 })

@@ -1,3 +1,4 @@
+import { Rlp } from '@tevm/rlp'
 import { bytesToHex, hexToBytes } from 'viem'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
@@ -21,7 +22,8 @@ export const getContractStorage = (baseState) => async (address, key) => {
 
 	const cachedValue = storageCache.get(address, key)
 	if (cachedValue !== undefined) {
-		return cachedValue
+		const decoded = /** @type {Uint8Array}*/ (Rlp.decode(cachedValue))
+		return decoded
 	}
 
 	if (!baseState._options.fork?.url) {

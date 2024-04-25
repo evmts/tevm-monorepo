@@ -1,10 +1,11 @@
+import { Rlp } from '@tevm/rlp'
 import { EthjsAccount, EthjsAddress, hexToBytes, isHex } from '@tevm/utils'
 import { putAccount } from './putAccount.js'
 import { putContractCode } from './putContractCode.js'
 import { putContractStorage } from './putContractStorage.js'
 
 /**
- * Loads a {@link TevmState} into the state manager
+ j* Loads a {@link TevmState} into the state manager
  * @type {import("../state-types/index.js").StateAction<'generateCanonicalGenesis'>}
  */
 export const generateCanonicalGenesis = (baseState) => async (state) => {
@@ -25,7 +26,9 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 		if (storage !== undefined) {
 			for (const [storageKey, storageData] of Object.entries(storage)) {
 				const key = hexToBytes(isHex(storageKey) ? storageKey : `0x${storageKey}`)
-				const data = hexToBytes(isHex(storageData) ? storageData : `0x${storageData}`)
+				const data = /** @type {Uint8Array}*/ (
+					Rlp.decode(hexToBytes(isHex(storageData) ? storageData : `0x${storageData}`))
+				)
 				putContractStorage(baseState)(address, key, data)
 			}
 		}
