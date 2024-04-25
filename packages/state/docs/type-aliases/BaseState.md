@@ -18,7 +18,7 @@ The core data structure powering the state manager internally
 
 ### \_currentStateRoot
 
-> **\_currentStateRoot**: `Hex`
+> **\_currentStateRoot**: `Uint8Array`
 
 ### \_options
 
@@ -36,7 +36,7 @@ Mapping of hashes to State roots
 
 ## Source
 
-[packages/state/src/BaseState.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L8)
+[packages/state/src/BaseState.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

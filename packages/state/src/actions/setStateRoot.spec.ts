@@ -10,7 +10,7 @@ describe(setStateRoot.name, () => {
 		const address = `0x${'01'.repeat(20)}` as const
 		const baseState = createBaseState()
 		const root = hexToBytes(`0x${'11'.repeat(32)}`)
-		baseState._stateRoots.set(bytesToHex(root), {
+		baseState._stateRoots.set(root, {
 			[address]: {
 				balance: 420n,
 				nonce: 1n,

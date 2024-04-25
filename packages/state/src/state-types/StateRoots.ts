@@ -1,4 +1,6 @@
-import type { Hex } from 'viem'
 import type { TevmState } from './TevmState.js'
 
-export type StateRoots = Map<Hex, TevmState>
+/**
+ * Mapping of state roots as bytes to the state
+ */
+export type StateRoots = Map<Uint8Array, TevmState>

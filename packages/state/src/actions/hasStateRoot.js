@@ -1,9 +1,7 @@
-import { toHex } from 'viem'
-
 /**
  * Returns true if state root exists
  * @type {import("../state-types/index.js").StateAction<'hasStateRoot'>}
  */
 export const hasStateRoot = (baseState) => (root) => {
-	return Promise.resolve(baseState._stateRoots.has(toHex(root)))
+	return Promise.resolve(baseState._stateRoots.has(root))
 }

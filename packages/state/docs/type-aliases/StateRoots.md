@@ -6,11 +6,13 @@
 
 # Type alias: StateRoots
 
-> **StateRoots**: `Map`\<`Hex`, [`TevmState`](TevmState.md)\>
+> **StateRoots**: `Map`\<`Uint8Array`, [`TevmState`](TevmState.md)\>
+
+Mapping of state roots as bytes to the state
 
 ## Source
 
-[packages/state/src/state-types/StateRoots.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateRoots.ts#L4)
+[packages/state/src/state-types/StateRoots.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateRoots.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

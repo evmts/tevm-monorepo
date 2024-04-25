@@ -1,5 +1,4 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
-import { toHex } from 'viem'
 import { ContractCache } from './ContractCache.js'
 import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js'
 
@@ -11,8 +10,8 @@ import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js
  * Creates the core data structure the state manager operates on
  */
 export const createBaseState = (options = {}) => {
-	// TODO this is kinda hacky to always start with 0
-	const initialStateRoot = toHex(Uint8Array.from([0]), { size: 32 })
+	// TODO this is kinda hacky to always start with 420 we should instead derive the state root
+	const initialStateRoot = Uint8Array.from([420])
 	const stateRoots = options.stateRoots ?? new Map()
 	stateRoots.set(initialStateRoot, options.genesisState ?? {})
 	/**
@@ -20,7 +19,7 @@ export const createBaseState = (options = {}) => {
 	 */
 	const state = {
 		_currentStateRoot: initialStateRoot,
-		_stateRoots: options.stateRoots ?? new Map(),
+		_stateRoots: stateRoots,
 		_options: options,
 		_caches: {
 			contracts: new ContractCache(),

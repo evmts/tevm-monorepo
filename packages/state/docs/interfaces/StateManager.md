@@ -24,13 +24,13 @@ BaseState.\_caches
 
 #### Source
 
-[packages/state/src/BaseState.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L17)
+[packages/state/src/BaseState.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L16)
 
 ***
 
 ### \_currentStateRoot
 
-> **\_currentStateRoot**: \`0x${string}\`
+> **\_currentStateRoot**: `Uint8Array`
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ BaseState.\_currentStateRoot
 
 #### Source
 
-[packages/state/src/BaseState.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L15)
+[packages/state/src/BaseState.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L14)
 
 ***
 
@@ -52,7 +52,7 @@ BaseState.\_options
 
 #### Source
 
-[packages/state/src/BaseState.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L16)
+[packages/state/src/BaseState.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L15)
 
 ***
 
@@ -68,7 +68,7 @@ BaseState.\_stateRoots
 
 #### Source
 
-[packages/state/src/BaseState.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L14)
+[packages/state/src/BaseState.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L13)
 
 ***
 
@@ -120,7 +120,7 @@ BaseState.ready
 
 #### Source
 
-[packages/state/src/BaseState.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L10)
+[packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)
 
 ## Methods
 

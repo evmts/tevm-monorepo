@@ -1,4 +1,3 @@
-import type { Hex } from '@tevm/utils'
 import type { StateCache, StateOptions, StateRoots } from './state-types/index.js'
 
 /**
@@ -12,7 +11,7 @@ export type BaseState = {
 	 * Mapping of hashes to State roots
 	 */
 	_stateRoots: StateRoots
-	_currentStateRoot: Hex
+	_currentStateRoot: Uint8Array
 	_options: StateOptions
 	_caches: StateCache
 }

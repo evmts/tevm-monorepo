@@ -29,7 +29,7 @@ Returns true if state root exists
 
 ## Source
 
-[packages/state/src/actions/hasStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L7)
+[packages/state/src/actions/hasStateRoot.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L5)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
