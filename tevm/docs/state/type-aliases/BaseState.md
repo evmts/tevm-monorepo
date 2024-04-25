@@ -18,7 +18,7 @@ The core data structure powering the state manager internally
 
 ### \_currentStateRoot
 
-> **\_currentStateRoot**: [`Hex`](../../index/type-aliases/Hex.md)
+> **\_currentStateRoot**: `Uint8Array`
 
 ### \_options
 
@@ -36,7 +36,7 @@ Mapping of hashes to State roots
 
 ## Source
 
-packages/state/types/BaseState.d.ts:7
+packages/state/types/BaseState.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

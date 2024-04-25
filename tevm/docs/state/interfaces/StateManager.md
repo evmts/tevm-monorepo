@@ -24,13 +24,13 @@ BaseState.\_caches
 
 #### Source
 
-packages/state/types/BaseState.d.ts:15
+packages/state/types/BaseState.d.ts:14
 
 ***
 
 ### \_currentStateRoot
 
-> **\_currentStateRoot**: \`0x${string}\`
+> **\_currentStateRoot**: `Uint8Array`
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ BaseState.\_currentStateRoot
 
 #### Source
 
-packages/state/types/BaseState.d.ts:13
+packages/state/types/BaseState.d.ts:12
 
 ***
 
@@ -52,7 +52,7 @@ BaseState.\_options
 
 #### Source
 
-packages/state/types/BaseState.d.ts:14
+packages/state/types/BaseState.d.ts:13
 
 ***
 
@@ -68,7 +68,7 @@ BaseState.\_stateRoots
 
 #### Source
 
-packages/state/types/BaseState.d.ts:12
+packages/state/types/BaseState.d.ts:11
 
 ***
 
@@ -120,7 +120,7 @@ BaseState.ready
 
 #### Source
 
-packages/state/types/BaseState.d.ts:8
+packages/state/types/BaseState.d.ts:7
 
 ## Methods
 

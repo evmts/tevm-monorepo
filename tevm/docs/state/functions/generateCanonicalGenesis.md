@@ -8,7 +8,8 @@
 
 > **generateCanonicalGenesis**(`baseState`): (`initState`) => `Promise`\<`void`\>
 
-Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager
+j* Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager
+*
 
 ## Parameters
 

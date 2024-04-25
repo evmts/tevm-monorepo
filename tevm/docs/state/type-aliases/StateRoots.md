@@ -6,11 +6,13 @@
 
 # Type alias: StateRoots
 
-> **StateRoots**: `Map`\<[`Hex`](../../index/type-aliases/Hex.md), [`TevmState`](../../index/type-aliases/TevmState.md)\>
+> **StateRoots**: `Map`\<`Uint8Array`, [`TevmState`](../../index/type-aliases/TevmState.md)\>
+
+Mapping of state roots as bytes to the state
 
 ## Source
 
-packages/state/types/state-types/StateRoots.d.ts:3
+packages/state/types/state-types/StateRoots.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
