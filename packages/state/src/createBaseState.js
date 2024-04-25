@@ -1,4 +1,5 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { hexToBytes, keccak256 } from 'viem'
 import { ContractCache } from './ContractCache.js'
 import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js'
 
@@ -10,8 +11,7 @@ import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js
  * Creates the core data structure the state manager operates on
  */
 export const createBaseState = (options = {}) => {
-	// TODO this is kinda hacky to always start with 420 we should instead derive the state root
-	const initialStateRoot = Uint8Array.from([420])
+	const initialStateRoot = hexToBytes(keccak256('0x0'))
 	const stateRoots = options.stateRoots ?? new Map()
 	stateRoots.set(initialStateRoot, options.genesisState ?? {})
 	/**
