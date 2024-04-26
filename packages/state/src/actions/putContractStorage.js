@@ -1,17 +1,4 @@
-import { Rlp } from '@tevm/rlp'
-/**
- * Trims leading zeros from a `Uint8Array`
- * @param {Uint8Array} bytes
- */
-const stripZeros = (bytes) => {
-	let out = bytes
-	let first = out[0]
-	while (out.length > 0 && first?.toString() === '0') {
-		out = out.slice(1)
-		first = out[0]
-	}
-	return out
-}
+import { getAccount } from './getAccount.js'
 
 /**
  * Adds value to the cache for the `account`
@@ -20,9 +7,14 @@ const stripZeros = (bytes) => {
  * If it is empty or filled with zeros, deletes the value.
  * @type {import("../state-types/index.js").StateAction<'putContractStorage'>}
  */
-export const putContractStorage =
-	({ _caches: { storage } }) =>
-	async (address, key, value) => {
-		const encodedValue = Rlp.encode(stripZeros(value))
-		storage.put(address, key, encodedValue)
+export const putContractStorage = (baseState) => async (address, key, value) => {
+	if (key.length !== 32) {
+		throw new Error('Storage key must be 32 bytes long!')
 	}
+
+	const account = await getAccount(baseState)(address)
+	if (!account) {
+		throw new Error('cannot putContractStorage on non existing acccount!')
+	}
+	baseState._caches.storage.put(address, key, value)
+}

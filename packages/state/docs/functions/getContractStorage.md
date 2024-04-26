@@ -34,7 +34,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Source
 
-[packages/state/src/actions/getContractStorage.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L14)
+[packages/state/src/actions/getContractStorage.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

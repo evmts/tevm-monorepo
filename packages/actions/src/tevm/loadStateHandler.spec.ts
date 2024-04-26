@@ -1,7 +1,7 @@
 import { loadStateHandler } from './loadStateHandler.js'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
-import { bytesToHex, hexToBytes, toRlp } from '@tevm/utils'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
 test('should load state into the state manager', async () => {
@@ -55,5 +55,5 @@ test('should load state into the state manager', async () => {
     hexToBytes(hashedStorageKey),
   )
 
-  expect(toRlp(bytesToHex(storedValue))).toBe(storageValue)
+  expect(bytesToHex(storedValue)).toBe(storageValue)
 })

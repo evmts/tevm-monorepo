@@ -2,7 +2,7 @@ import { dumpStateHandler } from './dumpStateHandler.js'
 import { loadStateHandler } from './loadStateHandler.js'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
-import { hexToBytes, toRlp } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {
@@ -30,8 +30,7 @@ test('should dump important account info and storage', async () => {
   expect(accountData?.balance).toEqual(100n)
 
   const storage = accountData?.storage ?? {}
-  console.log(bytesToHex(storageKey), storage)
-  expect(storage[bytesToHex(storageKey).slice(2)]).toEqual(toRlp(storageValue))
+  expect(storage[bytesToHex(storageKey).slice(2)]).toEqual(bytesToHex(storageValue))
 
   expect(Object.keys(storage).length).toBe(1)
 

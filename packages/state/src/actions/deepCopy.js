@@ -1,4 +1,6 @@
 import { createBaseState } from '../createBaseState.js'
+import { checkpoint } from './checkpoint.js'
+import { commit } from './commit.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
 
@@ -10,5 +12,9 @@ import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
 export const deepCopy = (baseState) => async () => {
 	const newState = createBaseState(baseState._options)
 	await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
+
+	await checkpoint(newState)()
+	await commit(newState)()
+
 	return newState
 }
