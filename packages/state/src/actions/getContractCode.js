@@ -20,7 +20,7 @@ export const getContractCode = (baseState) => async (address) => {
 	}
 
 	if (!_options.fork?.url) {
-		return new Uint8Array(0)
+		return new Uint8Array()
 	}
 
 	const client = getForkClient(baseState)

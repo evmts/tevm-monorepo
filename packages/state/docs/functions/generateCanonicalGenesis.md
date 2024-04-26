@@ -30,7 +30,7 @@ j* Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ## Source
 
-[packages/state/src/actions/generateCannonicalGenesis.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L11)
+[packages/state/src/actions/generateCannonicalGenesis.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
