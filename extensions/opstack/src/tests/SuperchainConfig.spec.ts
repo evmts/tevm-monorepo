@@ -75,9 +75,9 @@ describe('SuperchainConfig', () => {
 			txHash: '0x5395668bd4fe43e49f0a7ad7297f90e92fb6340da58b469f252f777000c81eee',
 			createdAddresses: new Set(),
 			data: undefined,
-			executionGasUsed: 4146n,
-			gas: 16773069n,
-			gasRefund: 4800n,
+			executionGasUsed: 1346n,
+			gas: 16775869n,
+			gasRefund: 19900n,
 			logs: [
 				{
 					address: '0x6902690269026902690269026902690269026902',
