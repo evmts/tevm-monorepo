@@ -3,6 +3,7 @@ import type { ContractJsonRpcRequest } from './ContractJsonRpcRequest.js'
 import type { DumpStateJsonRpcRequest } from './DumpStateJsonRpcRequest.js'
 import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
 import type { LoadStateJsonRpcRequest } from './LoadStateJsonRpcRequest.js'
+import type { MineJsonRpcRequest } from './MineJsonRpcRequest.js'
 import type { ScriptJsonRpcRequest } from './ScriptJsonRpcRequest.js'
 import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
 
@@ -11,10 +12,11 @@ import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
  * `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
  */
 export type TevmJsonRpcRequest =
-	| GetAccountJsonRpcRequest
-	| SetAccountJsonRpcRequest
-	| CallJsonRpcRequest
-	| ContractJsonRpcRequest
-	| ScriptJsonRpcRequest
-	| LoadStateJsonRpcRequest
-	| DumpStateJsonRpcRequest
+  | GetAccountJsonRpcRequest
+  | SetAccountJsonRpcRequest
+  | CallJsonRpcRequest
+  | ContractJsonRpcRequest
+  | ScriptJsonRpcRequest
+  | LoadStateJsonRpcRequest
+  | DumpStateJsonRpcRequest
+  | MineJsonRpcRequest
