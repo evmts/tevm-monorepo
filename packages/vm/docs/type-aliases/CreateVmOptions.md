@@ -24,7 +24,7 @@
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: `StateManager`
 
 ## Source
 

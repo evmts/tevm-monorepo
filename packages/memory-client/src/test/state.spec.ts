@@ -47,17 +47,13 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 		})
 
 		const normalClient = createMemoryClient()
-		const proxyClient = createMemoryClient({
-			proxy: { url: 'https://mainnet.optimism.io' },
-		})
 		const clients = {
 			forkClient,
 			normalClient,
-			proxyClient,
 		}
 
 		for (const clientName in clients) {
-			const client = clients[clientName as 'forkClient' | 'normalClient' | 'proxyClient']
+			const client = clients[clientName as 'forkClient' | 'normalClient']
 			it(`Should properly track state with a ${clientName}`, async () => {
 				// Set the token contract
 				const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'

@@ -232,7 +232,7 @@ export class TxPool {
 		}
 
 		// Copy VM in order to not overwrite the state root of the VMExecution module which may be concurrently running blocks
-		const vmCopy = await this.vm.shallowCopy()
+		const vmCopy = await this.vm.deepCopy()
 		// TODO We should set state root to latest block so that account balance is correct when doing balance check
 		// This should be fixed via abstracting chain history wrt state and blockchain in the new `chain` object
 		// await vmCopy.stateManager.setStateRoot(block.stateRoot)

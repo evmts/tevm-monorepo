@@ -58,8 +58,8 @@ describe('OptimismPortal2', () => {
 			txHash: '0x0b5e9db89c75c1567b8a17faed5a2e96dee7d77a84c6c779dbc6f3aa3a035d57',
 			createdAddresses: new Set(),
 			data: undefined,
-			executionGasUsed: 51280n,
-			gas: 16725935n,
+			executionGasUsed: 51232n,
+			gas: 16725983n,
 			logs: [
 				{
 					address: '0xbEb5Fc579115071764c7423A4f12eDde41f106Ed',

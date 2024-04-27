@@ -2,7 +2,7 @@ import { VM } from '@ethereumjs/vm'
 import { type TevmBlockchain, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { Evm, createEvm, getActivePrecompiles } from '@tevm/evm'
-import { type TevmStateManager, createTevmStateManager } from '@tevm/state'
+import { type StateManager, createStateManager } from '@tevm/state'
 import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 
 export class TevmVm extends VM {
@@ -24,7 +24,7 @@ export class TevmVm extends VM {
 		}
 
 		if (opts.stateManager === undefined) {
-			opts.stateManager = createTevmStateManager({ common: opts.common })
+			opts.stateManager = createStateManager({})
 		}
 
 		if (opts.blockchain === undefined) {
@@ -83,7 +83,7 @@ export class TevmVm extends VM {
 		return new TevmVm(opts)
 	}
 
-	declare stateManager: TevmStateManager
+	declare stateManager: StateManager
 
 	public deepCopy = async (): Promise<TevmVm> => {
 		const common = this.common.copy()
@@ -94,7 +94,7 @@ export class TevmVm extends VM {
 		if (!('deepCopy' in this.stateManager)) {
 			throw new Error('StateManager does not support deepCopy. Was a Tevm state manager used?')
 		}
-		const stateManager = await (this.stateManager as TevmStateManager).deepCopy()
+		const stateManager = await (this.stateManager as StateManager).deepCopy()
 
 		const evmCopy = await createEvm({
 			blockchain,

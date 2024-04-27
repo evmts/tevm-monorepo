@@ -18,7 +18,7 @@ Creates the base instance of a memory client
 
 > ### extend
 >
-> > **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
+> > **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 >
 > Extends the base client with additional functionality. This enables optimal code splitting
 > and extensibility
@@ -101,11 +101,10 @@ Creates the base instance of a memory client
 >
 > ### mode
 >
-> > **`readonly`** **mode**: `"fork"` \| `"proxy"` \| `"normal"`
+> > **`readonly`** **mode**: `"fork"` \| `"normal"`
 >
 > The mode the current client is running in
 > `fork` mode will fetch and cache all state from the block forked from the provided URL
-> `proxy` mode will fetch all state from the latest block of the provided proxy URL
 > `normal` mode will not fetch any state and will only run the EVM in memory
 >
 > #### Example

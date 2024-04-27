@@ -22,6 +22,7 @@ const biomeConfig = {
 			'**/.vitepress/cache',
 			'**/.vitepress/dist',
 			'scaffold-tevm',
+			'docs/**/*',
 			'tevm/**/*',
 			'bundler/**/*',
 			'.vscode',

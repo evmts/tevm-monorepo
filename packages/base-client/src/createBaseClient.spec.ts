@@ -38,17 +38,4 @@ describe('createBaseClient', () => {
 		}))
 		expect(client.hello).toBe('world')
 	})
-
-	it('throws an error if both forkurl and proxyurl are set', () => {
-		expect(() =>
-			createBaseClient({
-				fork: {
-					url: 'https://foo.bar',
-				},
-				proxy: {
-					url: 'https://foo.bar',
-				},
-			}),
-		).toThrowError('Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!')
-	})
 })

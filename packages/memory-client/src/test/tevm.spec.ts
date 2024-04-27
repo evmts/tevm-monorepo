@@ -79,6 +79,13 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				address: address1,
 				balance,
 			})
+			expect(
+				(
+					await tevm.getAccount({
+						address: address1,
+					})
+				).balance,
+			).toBe(balance)
 			const transferAmount = 0x420n
 			// TODO test other input options
 			await tevm.call({

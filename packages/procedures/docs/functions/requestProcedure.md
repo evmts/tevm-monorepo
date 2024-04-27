@@ -21,7 +21,7 @@ bundle size.
 
 ▪ **client**: `object`
 
-▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
+▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -78,11 +78,10 @@ The configuration for mining. Defaults to 'auto'
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-▪ **client.mode**: `"fork"` \| `"proxy"` \| `"normal"`
+▪ **client.mode**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
-`proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
 **Example**

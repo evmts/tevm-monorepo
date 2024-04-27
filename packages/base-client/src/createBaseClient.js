@@ -3,7 +3,7 @@ import { Common } from '@tevm/common'
 import {} from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
-import { createTevmStateManager } from '@tevm/state'
+import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
@@ -34,9 +34,6 @@ export const createBaseClient = (options = {}) => {
 	// First do everything that is not async
 	// Eagerly do async integration
 	// Return proxies that will block on initialization if not yet initialized
-	if (options.fork?.url && options.proxy?.url) {
-		throw new Error('Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!')
-	}
 	const common = Common.custom(
 		{
 			name: 'TevmCustom',
@@ -50,17 +47,17 @@ export const createBaseClient = (options = {}) => {
 		},
 	)
 	/**
-	 * @returns {import('@tevm/state').TevmStateManagerOptions }
+	 * @returns {import('@tevm/state').StateOptions }
 	 */
 	const getStateManagerOpts = () => {
 		/**
-		 * @type {import('@tevm/state').ForkStateManagerOpts['onCommit']}
+		 * @type {import('@tevm/state').StateOptions['onCommit']}
 		 */
 		const onCommit = (stateManager) => {
 			if (!options.persister) {
 				throw new Error('No persister provided')
 			}
-			stateManager.dumpCanonicalGenesis().then((state) => {
+			dumpCanonicalGenesis(stateManager)().then((state) => {
 				/**
 				 * @type {import('@tevm/state').ParameterizedTevmState}
 				 */
@@ -87,23 +84,15 @@ export const createBaseClient = (options = {}) => {
 				},
 			}
 		}
-		if (options.proxy?.url) {
-			return {
-				proxy: {
-					...options.proxy,
-					...(options.persister ? { onCommit: /** @type any*/ (onCommit) } : {}),
-				},
-			}
-		}
 		// handle normal mode
 		if (options.persister) {
 			return {
-				normal: { onCommit: /** @type any*/ (onCommit) },
+				onCommit: /** @type any*/ (onCommit),
 			}
 		}
 		return {}
 	}
-	const stateManager = createTevmStateManager(getStateManagerOpts())
+	const stateManager = createStateManager(getStateManagerOpts())
 
 	/**
 	 * Create the extend function in a generic way
@@ -119,7 +108,7 @@ export const createBaseClient = (options = {}) => {
 		if (options.chainId) {
 			return options.chainId
 		}
-		const url = options.fork?.url ?? options.proxy?.url
+		const url = options.fork?.url
 		if (url) {
 			const id = await getChainId(url)
 			return id
@@ -154,7 +143,7 @@ export const createBaseClient = (options = {}) => {
 		}
 
 		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (stateManager).blockTag || {
+			const blockTag = /** @type {import('@tevm/state').StateManager}*/ getForkBlockTag(stateManager) || {
 				blockTag: 'latest',
 			}
 			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
@@ -251,9 +240,8 @@ export const createBaseClient = (options = {}) => {
 		setChainId,
 		getVm: () => vmPromise,
 		miningConfig: options.miningConfig ?? { type: 'auto' },
-		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
+		mode: options.fork?.url ? 'fork' : 'normal',
 		...(options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }),
-		...(options.proxy?.url ? { proxyUrl: options.proxy.url } : { proxyUrl: options.proxy?.url }),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: async () => {
 			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])

@@ -35,8 +35,8 @@ describe('SystemConfig', () => {
 			txHash: '0x9b7fb395707e1e509f8bddde0d5b1f3e217f8c58a465c196bb8a048f6f4126f8',
 			createdAddresses: new Set(),
 			data: undefined,
-			executionGasUsed: 6619n,
-			gas: 16770596n,
+			executionGasUsed: 3819n,
+			gas: 16773396n,
 			logs: [
 				{
 					address: '0x229047fed2591dbec1eF1118d64F7aF3dB9EB290',

@@ -128,8 +128,7 @@ export {
 
 export type {
   TevmState,
-  ForkStateManagerOpts,
-  ProxyStateManagerOpts,
+  StateOptions,
 } from "@tevm/state";
 
 export type {
