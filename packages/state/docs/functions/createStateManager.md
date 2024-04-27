@@ -16,7 +16,7 @@
 
 ## Source
 
-[packages/state/src/createStateManager.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createStateManager.js#L34)
+[packages/state/src/createStateManager.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createStateManager.js#L35)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
