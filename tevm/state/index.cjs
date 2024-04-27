@@ -104,6 +104,10 @@ Object.defineProperty(exports, "modifyAccountFields", {
   enumerable: true,
   get: function () { return state.modifyAccountFields; }
 });
+Object.defineProperty(exports, "originalStorageCache", {
+  enumerable: true,
+  get: function () { return state.originalStorageCache; }
+});
 Object.defineProperty(exports, "putAccount", {
   enumerable: true,
   get: function () { return state.putAccount; }

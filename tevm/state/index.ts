@@ -42,4 +42,5 @@ export {
   dumpCanonicalGenesis,
   getAccountFromProvider,
   generateCanonicalGenesis,
+  originalStorageCache,
 } from "@tevm/state";

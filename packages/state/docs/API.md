@@ -54,6 +54,7 @@
 - [getStateRoot](functions/getStateRoot.md)
 - [hasStateRoot](functions/hasStateRoot.md)
 - [modifyAccountFields](functions/modifyAccountFields.md)
+- [originalStorageCache](functions/originalStorageCache.md)
 - [putAccount](functions/putAccount.md)
 - [putContractCode](functions/putContractCode.md)
 - [putContractStorage](functions/putContractStorage.md)
