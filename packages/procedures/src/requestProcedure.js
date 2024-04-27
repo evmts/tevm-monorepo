@@ -91,6 +91,10 @@ export const requestProcedure = (client) => {
       case 'tevm_loadState': {
         return /** @type any */ (loadStateProcedure)(client)(request)
       }
+      case 'anvil_mine':
+      case 'tevm_mine': {
+        return /** @type any */ (mineProcedure)(client)(request)
+      }
       case 'eth_chainId':
         return /** @type any */ (chainIdProcedure(client)(request))
       case 'eth_call':
