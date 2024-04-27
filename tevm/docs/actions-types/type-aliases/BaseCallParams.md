@@ -20,7 +20,7 @@ Versioned hashes for each blob in a blob transaction
 
 ### blockOverrideSet
 
-> **blockOverrideSet**?: `BlockOverrideSet`
+> **blockOverrideSet**?: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 This option cannot be used when `createTransaction` is set to `true`
@@ -114,7 +114,7 @@ where it is set to true
 
 ### stateOverrideSet
 
-> **stateOverrideSet**?: `StateOverrideSet`
+> **stateOverrideSet**?: [`StateOverrideSet`](StateOverrideSet.md)
 
 The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
 This option cannot be used when `createTransaction` is set to `true`

@@ -13,6 +13,9 @@ export type {
   TraceCall,
   TraceParams,
   TraceResult,
+  MineParams,
+  MineResult,
+  MineHandler,
 } from "@tevm/actions-types";
 export type {
   TevmJsonRpcRequest,

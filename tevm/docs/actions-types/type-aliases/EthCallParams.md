@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 ### blockOverride
 
-> **blockOverride**?: `BlockOverrideSet`
+> **blockOverride**?: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 The block override set to provide different block values while executing the call
 
@@ -51,7 +51,7 @@ The integer of gasPrice used for each paid gas
 
 ### stateOverrideSet
 
-> **stateOverrideSet**?: `StateOverrideSet`
+> **stateOverrideSet**?: [`StateOverrideSet`](StateOverrideSet.md)
 
 The state override set to provide different state values while executing the call
 
