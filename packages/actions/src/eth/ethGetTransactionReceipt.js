@@ -25,7 +25,6 @@ const uintEquals = (a, b) => {
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
-	const chain = await client.getChain()
 	const vm = await client.getVm().then((vm) => vm.shallowCopy())
 
 	const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
@@ -91,14 +90,14 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	}
 
 	const [receipt, blockHash, txIndex, logIndex] = result
-	const block = await chain.getBlock(blockHash)
+	const block = await vm.blockchain.getBlock(blockHash)
 	// Check if block is in canonical chain
-	const blockByNumber = await chain.getBlock(block.header.number)
+	const blockByNumber = await vm.blockchain.getBlock(block.header.number)
 	if (!uintEquals(blockByNumber.hash(), block.hash())) {
 		return null
 	}
 
-	const parentBlock = await chain.getBlock(block.header.parentHash)
+	const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
 	const tx = block.transactions[txIndex]
 	if (!tx) {
 		// TODO check proxy url
@@ -147,7 +146,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
 		root:
 			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
-				? bytesToHex(/** @type any*/ (receipt).stateRoot)
+				? bytesToHex(/** @type any*/(receipt).stateRoot)
 				: undefined,
 		status: /** @type any*/ (receipt).status instanceof Uint8Array ? /** @type any*/ (receipt).status : undefined,
 		logs: await Promise.all(
