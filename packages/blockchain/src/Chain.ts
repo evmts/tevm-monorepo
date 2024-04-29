@@ -1,4 +1,4 @@
-import { type Blockchain } from '@ethereumjs/blockchain'
+import { type Blockchain, type BlockchainInterface } from '@ethereumjs/blockchain'
 import type { BaseChain } from './BaseChain.js'
 
 /**
@@ -12,14 +12,16 @@ shallowCopy
  * Blockchain
  */
 export type Chain = Pick<
-	Blockchain,
-	// needed by evm
-	// (used only if one calls BLOCKHASH opcode)
-	| 'getBlock'
-	// used by vm
-	| 'putBlock'
-	| 'validateHeader'
+  Blockchain,
+  // needed by evm
+  // (used only if one calls BLOCKHASH opcode)
+  | 'getBlock'
+  // used by vm
+  | 'putBlock'
+  | 'validateHeader'
 > & {
-	shallowCopy: () => Chain
-	deepCopy: () => Chain
+  shallowCopy: () => Chain
+  deepCopy: () => Chain
 } & BaseChain
+  // for type compatability we must also implement some unused methods
+  & BlockchainInterface
