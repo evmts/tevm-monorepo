@@ -1,5 +1,5 @@
 import { VM } from '@ethereumjs/vm'
-import { type TevmBlockchain, createBlockchain } from '@tevm/blockchain'
+import { type Chain, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { Evm, createEvm, getActivePrecompiles } from '@tevm/evm'
 import { type StateManager, createStateManager } from '@tevm/state'
@@ -7,7 +7,7 @@ import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 
 export class TevmVm extends VM {
 	declare evm: Evm
-	declare blockchain: TevmBlockchain
+	declare blockchain: Chain
 	declare common: Common
 	/**
 	 * VM async constructor. Creates engine instance and initializes it.

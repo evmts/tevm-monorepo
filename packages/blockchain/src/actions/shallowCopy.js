@@ -5,5 +5,5 @@ import { createBaseChain } from '../createBaseChain.js'
  * @returns {() => import('../BaseChain.js').BaseChain}
  */
 export const shallowCopy = (baseChain) => () => {
-  return createBaseChain(baseChain.options)
+	return createBaseChain(baseChain.options)
 }

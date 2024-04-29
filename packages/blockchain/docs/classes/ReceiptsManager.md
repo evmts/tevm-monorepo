@@ -6,27 +6,21 @@
 
 # Class: ReceiptsManager
 
-## Extends
-
-- `MetaDBManager`
-
 ## Constructors
 
-### new ReceiptsManager(options)
+### new ReceiptsManager(mapDb, chain)
 
-> **new ReceiptsManager**(`options`): [`ReceiptsManager`](ReceiptsManager.md)
+> **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
 
 #### Parameters
 
-▪ **options**: `MetaDBManagerOptions`
+▪ **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
-#### Inherited from
-
-MetaDBManager.constructor
+▪ **chain**: [`Chain`](../type-aliases/Chain.md)
 
 #### Source
 
-[packages/blockchain/src/MetaDbManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L45)
+[RecieptManager.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L126)
 
 ## Properties
 
@@ -38,7 +32,7 @@ Block range limit for getLogs
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L138)
+[RecieptManager.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L143)
 
 ***
 
@@ -50,7 +44,7 @@ Limit of logs to return in getLogs
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L128)
+[RecieptManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L133)
 
 ***
 
@@ -62,57 +56,29 @@ Size limit for the getLogs response in megabytes
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L133)
+[RecieptManager.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L138)
 
 ***
 
 ### chain
 
-> **`protected`** **chain**: [`Chain`](Chain.md)
-
-#### Inherited from
-
-MetaDBManager.chain
+> **`readonly`** **chain**: [`Chain`](../type-aliases/Chain.md)
 
 #### Source
 
-[packages/blockchain/src/MetaDbManager.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L41)
+[RecieptManager.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L128)
 
 ***
 
-### common
+### mapDb
 
-> **`protected`** **common**: `Common`
-
-#### Inherited from
-
-MetaDBManager.common
+> **`readonly`** **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
 #### Source
 
-[packages/blockchain/src/MetaDbManager.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L42)
+[RecieptManager.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L127)
 
 ## Methods
-
-### delete()
-
-> **delete**(`type`, `hash`): `Promise`\<`void`\>
-
-#### Parameters
-
-▪ **type**: `DBKey`
-
-▪ **hash**: `Uint8Array`
-
-#### Inherited from
-
-MetaDBManager.delete
-
-#### Source
-
-[packages/blockchain/src/MetaDbManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L71)
-
-***
 
 ### deleteReceipts()
 
@@ -124,27 +90,7 @@ MetaDBManager.delete
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L152)
-
-***
-
-### get()
-
-> **get**(`type`, `hash`): `Promise`\<`null` \| `Uint8Array`\>
-
-#### Parameters
-
-▪ **type**: `DBKey`
-
-▪ **hash**: `Uint8Array`
-
-#### Inherited from
-
-MetaDBManager.get
-
-#### Source
-
-[packages/blockchain/src/MetaDbManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L60)
+[RecieptManager.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L157)
 
 ***
 
@@ -166,7 +112,7 @@ for [IndexType.TxHash]([object Object]), the txHash to get
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:314](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L314)
+[RecieptManager.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L319)
 
 ***
 
@@ -188,7 +134,7 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:217](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L217)
+[RecieptManager.ts:222](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L222)
 
 ***
 
@@ -206,7 +152,7 @@ the tx hash
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L196)
+[RecieptManager.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L201)
 
 ***
 
@@ -214,7 +160,7 @@ the tx hash
 
 #### getReceipts(blockHash, calcBloom, includeTxType)
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<`TxReceiptWithType`[]\>
+> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
 Returns receipts for given blockHash
 
@@ -234,11 +180,11 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L163)
+[RecieptManager.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L168)
 
 #### getReceipts(blockHash, calcBloom, includeTxType)
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<`TxReceipt`[]\>
+> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
 ##### Parameters
 
@@ -250,7 +196,7 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L164)
+[RecieptManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L169)
 
 ***
 
@@ -266,29 +212,7 @@ Returns the logs bloom for a receipt's logs
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L395)
-
-***
-
-### put()
-
-> **put**(`type`, `hash`, `value`): `Promise`\<`void`\>
-
-#### Parameters
-
-▪ **type**: `DBKey`
-
-▪ **hash**: `Uint8Array`
-
-▪ **value**: `Uint8Array`
-
-#### Inherited from
-
-MetaDBManager.put
-
-#### Source
-
-[packages/blockchain/src/MetaDbManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MetaDbManager.ts#L56)
+[RecieptManager.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L400)
 
 ***
 
@@ -316,11 +240,11 @@ the value to encode or decode
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:333](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L333)
+[RecieptManager.ts:338](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L338)
 
 #### rlp(conversion, type, values)
 
-> **`private`** **rlp**(`conversion`, `type`, `values`): `TxReceipt`[]
+> **`private`** **rlp**(`conversion`, `type`, `values`): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 ##### Parameters
 
@@ -332,7 +256,7 @@ the value to encode or decode
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L334)
+[RecieptManager.ts:339](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L339)
 
 #### rlp(conversion, type, value)
 
@@ -348,7 +272,7 @@ the value to encode or decode
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:335](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L335)
+[RecieptManager.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L340)
 
 #### rlp(conversion, type, value)
 
@@ -364,7 +288,7 @@ the value to encode or decode
 
 ##### Source
 
-[packages/blockchain/src/RecieptManager.ts:336](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L336)
+[RecieptManager.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L341)
 
 ***
 
@@ -381,13 +305,13 @@ and removes tx hash indexes for one block past txLookupLimit.
 
 the block to save receipts for
 
-▪ **receipts**: `TxReceipt`[]
+▪ **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 the receipts to save
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L146)
+[RecieptManager.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L151)
 
 ***
 
@@ -413,7 +337,7 @@ for [IndexType.TxHash]([object Object]), the block to save or delete the tx hash
 
 #### Source
 
-[packages/blockchain/src/RecieptManager.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L286)
+[RecieptManager.ts:291](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L291)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
