@@ -146,7 +146,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
 		root:
 			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
-				? bytesToHex(/** @type any*/(receipt).stateRoot)
+				? bytesToHex(/** @type any*/ (receipt).stateRoot)
 				: undefined,
 		status: /** @type any*/ (receipt).status instanceof Uint8Array ? /** @type any*/ (receipt).status : undefined,
 		logs: await Promise.all(
