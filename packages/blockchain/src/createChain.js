@@ -20,6 +20,13 @@ export const createChain = async (options) => {
 			validateHeader: validateHeader(baseChain),
 			deepCopy: () => decorate(deepCopy(baseChain)()),
 			shallowCopy: () => decorate(shallowCopy(baseChain)()),
+			getCanonicalHeadBlock: () => {
+				const block = baseChain.blocksByTag.get('latest')
+				if (!block) {
+					throw new Error('No cannonical head exists on blockchain')
+				}
+				return Promise.resolve(block)
+			},
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
 			 */
@@ -29,8 +36,9 @@ export const createChain = async (options) => {
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['delBlock']}
 			 */
-			get delBlock() {
-				throw new Error('delBlock is not implemented')
+			delBlock: (blockHash) => {
+				baseChain.blocks.delete(blockHash)
+				return Promise.resolve()
 			},
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
@@ -41,20 +49,21 @@ export const createChain = async (options) => {
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['getIteratorHead']}
 			 */
-			get getIteratorHead() {
-				throw new Error('getIteratorHead is not implemented')
+			getIteratorHead: (name = 'vm') => {
+				const head = baseChain.blocksByTag.get(/** @type {import('viem').BlockTag}*/ (name))
+				if (!head) {
+					throw new Error(
+						`No block with tag ${name} exists. Current tags include ${[...baseChain.blocksByTag.keys()].join(',')}`,
+					)
+				}
+				return Promise.resolve(head)
 			},
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['setIteratorHead']}
 			 */
-			get setIteratorHead() {
-				throw new Error('setIteratorHead is not implemented')
-			},
-			/**
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['getCanonicalHeadBlock']}
-			 */
-			get getCanonicalHeadBlock() {
-				throw new Error('getCanonicalHeadBlock is not implemented')
+			setIteratorHead: (tag, headHash) => {
+				baseChain.blocksByTag.set(/** @type {import('viem').BlockTag}*/ (tag), baseChain.blocks.get(headHash))
+				return Promise.resolve()
 			},
 		}
 	}

@@ -26,13 +26,9 @@
 
 > **fork.url**: `string`
 
-### metaDB
-
-> **metaDB**: `AbstractLevel`\<`string` \| `Uint8Array`, `string` \| `Uint8Array`, `string` \| `Uint8Array`\>
-
 ## Source
 
-ChainOptions.ts:5
+[ChainOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

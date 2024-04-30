@@ -12,7 +12,7 @@
 
 ### blockchain
 
-> **blockchain**: `TevmBlockchain`
+> **blockchain**: `Chain`
 
 ### common
 

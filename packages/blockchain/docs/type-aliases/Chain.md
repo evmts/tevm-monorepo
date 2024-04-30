@@ -6,7 +6,7 @@
 
 # Type alias: Chain
 
-> **Chain**: `Pick`\<`Blockchain`, `"getBlock"` \| `"putBlock"` \| `"validateHeader"`\> & `object` & `BaseChain`
+> **Chain**: `Pick`\<`Blockchain`, `"getBlock"` \| `"putBlock"` \| `"validateHeader"`\> & `object` & `BaseChain` & `BlockchainInterface`
 
 Blockchain
 

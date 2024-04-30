@@ -84,7 +84,7 @@ node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 ### blockchain
 
-> **blockchain**: `TevmBlockchain`
+> **blockchain**: `Chain`
 
 #### Overrides
 
@@ -148,7 +148,7 @@ VM.stateManager
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L86)
+[packages/vm/src/TevmVm.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L90)
 
 ## Methods
 
@@ -190,7 +190,7 @@ node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L88)
+[packages/vm/src/TevmVm.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L92)
 
 ***
 
