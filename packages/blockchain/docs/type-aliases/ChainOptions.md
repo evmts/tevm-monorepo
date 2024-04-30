@@ -26,9 +26,17 @@
 
 > **fork.url**: `string`
 
+### genesisBlock
+
+> **genesisBlock**?: `Block`
+
+### genesisStateRoot
+
+> **genesisStateRoot**?: `Uint8Array`
+
 ## Source
 
-[ChainOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L4)
+[ChainOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L5)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

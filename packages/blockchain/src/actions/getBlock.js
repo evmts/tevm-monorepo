@@ -54,6 +54,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 		throw new Error(`Unknown blockid ${typesafeBlockId}`)
 	})()
 
+	// TODO this is broken
 	const fetchedBlock = Block.fromRPC(
 		/** @type any*/ (
 			await createClient({

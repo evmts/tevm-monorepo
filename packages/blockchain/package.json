@@ -51,7 +51,9 @@
 	"dependencies": {
 		"@ethereumjs/blockchain": "^7.2.0",
 		"@tevm/block": "workspace:^",
+		"@tevm/jsonrpc": "workspace:1.0.0-next.40",
 		"@tevm/rlp": "workspace:^",
+		"@tevm/trie": "workspace:1.0.0-next.42",
 		"@tevm/tx": "workspace:^",
 		"viem": "^2.9.28"
 	},

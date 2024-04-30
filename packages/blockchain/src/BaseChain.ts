@@ -18,4 +18,8 @@ export type BaseChain = {
 	 * Mapping of block numbers to blocks
 	 */
 	blocksByNumber: Map<bigint, Block | undefined>
+	/**
+	 * Returns a promise that resolves when the chain is ready
+	 */
+	ready: () => Promise<true>
 }
