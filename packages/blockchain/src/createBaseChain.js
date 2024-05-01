@@ -57,7 +57,7 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
   }
   // TODO handle errors from fetch better
   if (typeof blockTag === 'bigint') {
-    const { result } = /** @type {{result: import('viem').RpcBlock<'latest', true>}}*/ (
+    const { result, error } = /** @type {{result: import('viem').RpcBlock<'latest', true>, error: {code: number | string, message: string}}}*/ (
       await fetcher.request({
         jsonrpc: '2.0',
         id: 1,
@@ -65,18 +65,24 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
         params: [numberToHex(blockTag), true],
       })
     )
+    if (error) {
+      throw error
+    }
     if (!result) {
       throw new Error('No block found')
     }
     return asEthjsBlock(result)
   }
   if (typeof blockTag === 'string' && blockTag.startsWith('0x')) {
-    const { result } = await fetcher.request({
+    const { result, error } = await fetcher.request({
       jsonrpc: '2.0',
       id: 1,
       method: 'eth_getBlockByHash',
       params: [blockTag, true],
     })
+    if (error) {
+      throw error
+    }
     if (!result) {
       throw new Error('No block found')
     }
@@ -84,12 +90,15 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
   }
   if (isBlockTag(blockTag)) {
     // TODO add an isBlockTag helper
-    const { result } = await fetcher.request({
+    const { result, error } = await fetcher.request({
       jsonrpc: '2.0',
       id: 1,
       method: 'eth_getBlockByNumber',
       params: [blockTag],
     })
+    if (error) {
+      throw error
+    }
     if (!result) {
       throw new Error('No block found')
     }
