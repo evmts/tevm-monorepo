@@ -3,7 +3,13 @@ import type { Common } from '@tevm/common'
 import type { BlockTag } from '@tevm/utils'
 import type { ChainOptions } from './ChainOptions.js'
 
+/**
+ * Internal implementation of blockchain used to implement the public interface
+ */
 export type BaseChain = {
+  /**
+   * Options passed into factory function
+   */
 	options: ChainOptions
 	common: Common
 	/**

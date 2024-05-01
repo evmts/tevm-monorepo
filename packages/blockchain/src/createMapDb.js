@@ -17,6 +17,7 @@ export const typeToId = {
 }
 
 /**
+ * Creates a {MapDb} which uses an in memory map as it's underlying data structure
  * @param {import('./MapDb.js').MetaDBManagerOptions} options
  * @returns {import('./MapDb.js').MapDb}
  */
