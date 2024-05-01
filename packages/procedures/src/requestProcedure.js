@@ -54,7 +54,6 @@ import {
  * ```
  */
 export const requestProcedure = (client) => {
-<<<<<<< HEAD
   return async (request) => {
     switch (request.method) {
       case 'tevm_call':
@@ -90,10 +89,6 @@ export const requestProcedure = (client) => {
         return /** @type any */ (dumpStateProcedure)(client)(request)
       case 'tevm_loadState': {
         return /** @type any */ (loadStateProcedure)(client)(request)
-      }
-      case 'anvil_mine':
-      case 'tevm_mine': {
-        return /** @type any */ (mineProcedure)(client)(request)
       }
       case 'eth_chainId':
         return /** @type any */ (chainIdProcedure(client)(request))
