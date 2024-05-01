@@ -97,7 +97,7 @@ filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       jsonrpc: '2.0',
       id: 1,
       method: 'eth_getBlockByNumber',
-      params: [blockTag],
+      params: [blockTag, true],
     })
     if (error) {
       console.error(error)
