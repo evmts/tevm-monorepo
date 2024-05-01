@@ -47,7 +47,7 @@ const getBlockFromRpc = async ({ url, blockTag = 'latest' }) => {
         if (tx.type === '0x7e') {
           console.warn(
             `Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
-filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
+filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
           )
           return false
         }
