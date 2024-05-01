@@ -7,9 +7,7 @@
 		"url": "https://github.com/evmts/tevm-monorepo.git"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "commonjs",
 	"scripts": {
 		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=5",
