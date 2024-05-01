@@ -21,7 +21,7 @@ const KECCAK256_RLP = hexToBytes(KECCAK256_RLP_S)
  * @returns {boolean} true if valid block tag
  */
 const isBlockTag = (blockTag) => {
-	return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
+  return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
 }
 
 // TODO move this to @tevm/block
@@ -31,36 +31,61 @@ const isBlockTag = (blockTag) => {
  * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
  */
 const getBlockFromRpc = async ({ url, blockTag = 'latest' }) => {
-	const fetcher = createJsonRpcFetcher(url)
-	if (typeof blockTag === 'bigint') {
-		const { result } = await fetcher.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getBlockByNumber',
-			params: [numberToHex(blockTag), true],
-		})
-		return Block.fromRPC(/** @type {any}*/ (result))
-	}
-	if (typeof blockTag === 'string' && blockTag.startsWith('0x')) {
-		const { result } = await fetcher.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getBlockByHash',
-			params: [blockTag, true],
-		})
-		return Block.fromRPC(/** @type {any}*/ (result))
-	}
-	if (isBlockTag(blockTag)) {
-		// TODO add an isBlockTag helper
-		const { result } = await fetcher.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getBlockByNumber',
-			params: [blockTag],
-		})
-		return Block.fromRPC(/** @type {any}*/ (result))
-	}
-	throw new Error(`Invalid blocktag ${blockTag}`)
+  const fetcher = createJsonRpcFetcher(url)
+  /**
+   * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
+   * @returns {Block}
+   */
+  const asEthjsBlock = (rpcBlock) => {
+    return Block.fromRPC({
+      .../** @type {any}*/ (rpcBlock),
+      // filter out transactions we don't support as a hack
+      transactions: rpcBlock.transactions.filter((tx) => {
+        // we currently don't support optimism deposit tx which uses this custom code
+        // Optimism type is currently not in viem types
+        // @ts-expect-error
+        if (tx.type === '0x7E') {
+          console.warn(
+            `Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+filtering out block ${/** @type {import('viem').RpcBlock}*/(tx).hash}`,
+          )
+          return false
+        }
+        return true
+      }),
+    })
+  }
+  if (typeof blockTag === 'bigint') {
+    const { result } = /** @type {{result: import('viem').RpcBlock<'latest', true>}}*/ (
+      await fetcher.request({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'eth_getBlockByNumber',
+        params: [numberToHex(blockTag), true],
+      })
+    )
+    return asEthjsBlock(result)
+  }
+  if (typeof blockTag === 'string' && blockTag.startsWith('0x')) {
+    const { result } = await fetcher.request({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'eth_getBlockByHash',
+      params: [blockTag, true],
+    })
+    return asEthjsBlock(/** @type {any}*/(result))
+  }
+  if (isBlockTag(blockTag)) {
+    // TODO add an isBlockTag helper
+    const { result } = await fetcher.request({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'eth_getBlockByNumber',
+      params: [blockTag],
+    })
+    return asEthjsBlock(/** @type {any}*/(result))
+  }
+  throw new Error(`Invalid blocktag ${blockTag}`)
 }
 
 /**
@@ -70,52 +95,52 @@ const getBlockFromRpc = async ({ url, blockTag = 'latest' }) => {
  * @returns {Block}
  */
 const createGenesisBlock = (stateRoot, common) => {
-	const newCommon = common.copy()
-	newCommon.setHardforkBy({
-		blockNumber: 0,
-		td: BigInt(newCommon.genesis().difficulty),
-		timestamp: newCommon.genesis().timestamp ?? 0,
-	})
+  const newCommon = common.copy()
+  newCommon.setHardforkBy({
+    blockNumber: 0,
+    td: BigInt(newCommon.genesis().difficulty),
+    timestamp: newCommon.genesis().timestamp ?? 0,
+  })
 
-	/**
-	 * @type {import('@tevm/block').HeaderData}
-	 */
-	const header = {
-		...newCommon.genesis(),
-		number: 0,
-		stateRoot,
-		...(newCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
-	}
-	return Block.fromBlockData({ header, ...(newCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
+  /**
+   * @type {import('@tevm/block').HeaderData}
+   */
+  const header = {
+    ...newCommon.genesis(),
+    number: 0,
+    stateRoot,
+    ...(newCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
+  }
+  return Block.fromBlockData({ header, ...(newCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
 }
 /**
  * @param {import('./ChainOptions.js').ChainOptions} options
  * @returns {import('./BaseChain.js').BaseChain} Base chain object
  */
 export const createBaseChain = (options) => {
-	/**
-	 * @type {import('./BaseChain.js').BaseChain}
-	 */
-	const chain = {
-		options,
-		common: options.common,
-		blocks: new Map(),
-		blocksByTag: new Map(),
-		blocksByNumber: new Map(),
-		ready: () => genesisBlockPromise.then(() => true),
-	}
+  /**
+   * @type {import('./BaseChain.js').BaseChain}
+   */
+  const chain = {
+    options,
+    common: options.common,
+    blocks: new Map(),
+    blocksByTag: new Map(),
+    blocksByNumber: new Map(),
+    ready: () => genesisBlockPromise.then(() => true),
+  }
 
-	// Add genesis block and forked block to chain
-	const genesisBlockPromise = (async () => {
-		if (options.fork?.url) {
-			const block = await getBlockFromRpc(options.fork)
-			await putBlock(chain)(block)
-		} else {
-			await putBlock(chain)(
-				options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? EMPTY_STATE_ROOT, options.common),
-			)
-		}
-	})()
+  // Add genesis block and forked block to chain
+  const genesisBlockPromise = (async () => {
+    if (options.fork?.url) {
+      const block = await getBlockFromRpc(options.fork)
+      await putBlock(chain)(block)
+    } else {
+      await putBlock(chain)(
+        options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? EMPTY_STATE_ROOT, options.common),
+      )
+    }
+  })()
 
-	return chain
+  return chain
 }
