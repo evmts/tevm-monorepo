@@ -12,7 +12,7 @@ Zod validator for a valid mine action invocation
 
 ## Source
 
-packages/zod/src/params/zMineParams.js:7
+[packages/zod/src/params/zMineParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zMineParams.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

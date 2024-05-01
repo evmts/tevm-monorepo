@@ -11,5 +11,5 @@ import type { TevmRequestType } from './TevmRequestType.js'
  * ```
  */
 export type JsonRpcRequestTypeFromMethod<
-  TMethod extends keyof EthRequestType | keyof TevmRequestType | keyof AnvilRequestType | keyof DebugRequestType,
+	TMethod extends keyof EthRequestType | keyof TevmRequestType | keyof AnvilRequestType | keyof DebugRequestType,
 > = (EthRequestType & TevmRequestType & AnvilRequestType & DebugRequestType)[TMethod]

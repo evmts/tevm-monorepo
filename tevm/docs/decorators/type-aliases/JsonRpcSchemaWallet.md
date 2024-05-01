@@ -503,7 +503,7 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1386
+packages/decorators/dist/index.d.ts:1390
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

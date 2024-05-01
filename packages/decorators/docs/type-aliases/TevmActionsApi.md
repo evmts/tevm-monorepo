@@ -128,6 +128,12 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
+### mine
+
+> **mine**: `MineHandler`
+
+Mines 1 or more blocks
+
 ### script
 
 > **script**: `ScriptHandler`
@@ -178,7 +184,7 @@ await tevm.setAccount({
 
 ## Source
 
-[packages/decorators/src/actions/TevmActionsApi.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L15)
+[packages/decorators/src/actions/TevmActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

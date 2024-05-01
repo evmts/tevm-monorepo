@@ -16,22 +16,22 @@ import { withRetry } from 'viem'
  * @returns {import('@tevm/base-client').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
  */
 export const requestEip1193 = () => (client) => {
-  return {
-    request: async (args, options) => {
-      return withRetry(async () => {
-        const result = await requestProcedure(client)(
-					/** @type any*/({
-            jsonrpc: '2.0',
-            id: 1,
-            method: args.method,
-            ...(args.params ? { params: args.params } : {}),
-          }),
-        )
-        if (result.error) {
-          throw result.error
-        }
-        return /** @type {any}*/ (result.result)
-      }, options)
-    },
-  }
+	return {
+		request: async (args, options) => {
+			return withRetry(async () => {
+				const result = await requestProcedure(client)(
+					/** @type any*/ ({
+						jsonrpc: '2.0',
+						id: 1,
+						method: args.method,
+						...(args.params ? { params: args.params } : {}),
+					}),
+				)
+				if (result.error) {
+					throw result.error
+				}
+				return /** @type {any}*/ (result.result)
+			}, options)
+		},
+	}
 }

@@ -12,7 +12,7 @@ JSON-RPC response for `tevm_mine` method
 
 ## Source
 
-responses/MineJsonRpcResponse.ts:9
+[responses/MineJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/MineJsonRpcResponse.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

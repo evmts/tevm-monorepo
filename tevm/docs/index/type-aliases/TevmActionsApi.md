@@ -128,6 +128,12 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
+### mine
+
+> **mine**: [`MineHandler`](MineHandler.md)
+
+Mines 1 or more blocks
+
 ### script
 
 > **script**: [`ScriptHandler`](../../actions-types/type-aliases/ScriptHandler.md)

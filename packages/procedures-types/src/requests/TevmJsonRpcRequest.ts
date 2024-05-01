@@ -12,11 +12,11 @@ import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
  * `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
  */
 export type TevmJsonRpcRequest =
-  | GetAccountJsonRpcRequest
-  | SetAccountJsonRpcRequest
-  | CallJsonRpcRequest
-  | ContractJsonRpcRequest
-  | ScriptJsonRpcRequest
-  | LoadStateJsonRpcRequest
-  | DumpStateJsonRpcRequest
-  | MineJsonRpcRequest
+	| GetAccountJsonRpcRequest
+	| SetAccountJsonRpcRequest
+	| CallJsonRpcRequest
+	| ContractJsonRpcRequest
+	| ScriptJsonRpcRequest
+	| LoadStateJsonRpcRequest
+	| DumpStateJsonRpcRequest
+	| MineJsonRpcRequest

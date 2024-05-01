@@ -7,7 +7,7 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
  * JSON-RPC response for `tevm_mine` method
  */
 export type MineJsonRpcResponse = JsonRpcResponse<
-  'tevm_mine',
-  SerializeToJson<MineResult>,
-  any// MineError['_tag']
+	'tevm_mine',
+	SerializeToJson<MineResult>,
+	any // MineError['_tag']
 >

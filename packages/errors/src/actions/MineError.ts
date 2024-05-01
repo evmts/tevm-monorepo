@@ -5,7 +5,7 @@
  * const {errors} = await tevm.mine({})
  *
  * if (errors?.length) {
- *   console.log(errors[0].message) 
+ *   console.log(errors[0].message)
  * }
  */
 export type MineError = Error

@@ -16,7 +16,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:731
+packages/procedures-types/dist/index.d.ts:741
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

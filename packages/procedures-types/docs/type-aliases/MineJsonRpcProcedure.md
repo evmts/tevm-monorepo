@@ -16,7 +16,7 @@ Mine JSON-RPC tevm procedure mines 1 or more blocks
 
 ## Source
 
-procedure/MineJsonRpcProcedure.ts:6
+[procedure/MineJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/MineJsonRpcProcedure.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

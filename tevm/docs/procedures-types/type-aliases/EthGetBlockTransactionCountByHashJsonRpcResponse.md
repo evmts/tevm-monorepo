@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:518
+packages/procedures-types/dist/index.d.ts:523
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
