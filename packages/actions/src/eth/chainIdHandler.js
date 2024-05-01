@@ -4,5 +4,6 @@
  * @returns {import('@tevm/actions-types').EthChainIdHandler}
  */
 export const chainIdHandler = (client) => async () => {
-	return BigInt(await client.getChainId())
+	const { common } = await client.getVm()
+	return common.chainId()
 }

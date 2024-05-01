@@ -1,4 +1,4 @@
-import { ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
+import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
@@ -90,7 +90,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(client.getChainId)(request))
+				return /** @type any */ (chainIdProcedure(client)(request))
 			case 'eth_call':
 				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
@@ -108,7 +108,7 @@ export const requestProcedure = (client) => {
 			case 'eth_signTransaction':
 				return ethSignTransactionProcedure({
 					accounts: testAccounts,
-					getChainId: client.getChainId,
+					getChainId: () => chainIdHandler(client)().then((bigNumber) => Number(bigNumber)),
 				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
@@ -196,7 +196,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				client.setChainId(chainId)
+				console.warn('Warning: setChainId is currently a noop')
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,

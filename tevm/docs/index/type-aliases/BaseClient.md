@@ -40,26 +40,6 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-### getChain
-
-> **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
-
-Represents the entire blockchain including it's logs and historical state
-
-### getChainId
-
-> **`readonly`** **getChainId**: () => `Promise`\<`number`\>
-
-Gets the chainId of the current EVM
-
-#### Example
-
-```ts
-const client = createMemoryClient()
-const chainId = await client.getChainId()
-console.log(chainId)
-```
-
 ### getReceiptsManager
 
 > **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -126,16 +106,6 @@ have extra latency on the first call from initialization
 const client = createMemoryClient()
 await client.ready()
 ```
-
-### setChainId
-
-> **`readonly`** **setChainId**: (`chainId`) => `void`
-
-Sets the chain id of the current EVM
-
-#### Parameters
-
-▪ **chainId**: `number`
 
 ## Type parameters
 

@@ -20,7 +20,7 @@ const uintEquals = (a, b) => {
 }
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'forkUrl'| 'getVm' | 'getChain' | 'getReceiptsManager' >} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthGetTransactionReceiptHandler}
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {

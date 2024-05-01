@@ -44,26 +44,6 @@ Creates the base instance of a memory client
 > console.log(client.forkUrl)
 > ```
 >
-> ### getChain
->
-> > **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
->
-> Represents the entire blockchain including it's logs and historical state
->
-> ### getChainId
->
-> > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
->
-> Gets the chainId of the current EVM
->
-> #### Example
->
-> ```ts
-> const client = createMemoryClient()
-> const chainId = await client.getChainId()
-> console.log(chainId)
-> ```
->
 > ### getReceiptsManager
 >
 > > **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -131,16 +111,6 @@ Creates the base instance of a memory client
 > await client.ready()
 > ```
 >
-> ### setChainId
->
-> > **`readonly`** **setChainId**: (`chainId`) => `void`
->
-> Sets the chain id of the current EVM
->
-> #### Parameters
->
-> ▪ **chainId**: `number`
->
 
 ## Example
 
@@ -149,7 +119,7 @@ Creates the base instance of a memory client
 
 ## Source
 
-[createBaseClient.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L22)
+[createBaseClient.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L25)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

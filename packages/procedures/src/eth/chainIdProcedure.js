@@ -2,13 +2,13 @@ import { chainIdHandler } from '@tevm/actions'
 import { numberToHex } from '@tevm/utils'
 
 /**
- * @param {() => Promise<number>} getChainId
+ * @param {import('@tevm/base-client').BaseClient} baseClient
  * @returns {import('@tevm/procedures-types').EthChainIdJsonRpcProcedure}
  */
-export const chainIdProcedure = (getChainId) => async (req) => ({
+export const chainIdProcedure = (baseClient) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),
 	jsonrpc: '2.0',
 	method: req.method,
 	// TODO pass in a client instead
-	result: await chainIdHandler(/** @type any*/ ({ getChainId }))({}).then(numberToHex),
+	result: await chainIdHandler(baseClient)({}).then(numberToHex),
 })
