@@ -1,6 +1,10 @@
 import { deepCopy } from './actions/deepCopy.js'
+import { delBlock } from './actions/delBlock.js'
 import { getBlock } from './actions/getBlock.js'
+import { getCanonicalHeadBlock } from './actions/getCanonicalHeadBlock.js'
+import { getIteratorHead } from './actions/getIteratorHead.js'
 import { putBlock } from './actions/putBlock.js'
+import { setIteratorHead } from './actions/setIteratorHead.js'
 import { shallowCopy } from './actions/shallowCopy.js'
 import { validateHeader } from './actions/validateHeader.js'
 import { createBaseChain } from './createBaseChain.js'
@@ -15,18 +19,15 @@ export const createChain = async (options) => {
 	const decorate = (baseChain) => {
 		return {
 			...baseChain,
+			deepCopy: () => decorate(deepCopy(baseChain)()),
+			shallowCopy: () => decorate(shallowCopy(baseChain)()),
 			getBlock: getBlock(baseChain),
 			putBlock: putBlock(baseChain),
 			validateHeader: validateHeader(baseChain),
-			deepCopy: () => decorate(deepCopy(baseChain)()),
-			shallowCopy: () => decorate(shallowCopy(baseChain)()),
-			getCanonicalHeadBlock: () => {
-				const block = baseChain.blocksByTag.get('latest')
-				if (!block) {
-					throw new Error('No cannonical head exists on blockchain')
-				}
-				return Promise.resolve(block)
-			},
+			getCanonicalHeadBlock: getCanonicalHeadBlock(baseChain),
+			delBlock: delBlock(baseChain),
+			getIteratorHead: getIteratorHead(baseChain),
+			setIteratorHead: setIteratorHead(baseChain),
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
 			 */
@@ -34,36 +35,10 @@ export const createChain = async (options) => {
 				throw new Error('consensus is not implemented')
 			},
 			/**
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['delBlock']}
-			 */
-			delBlock: (blockHash) => {
-				baseChain.blocks.delete(blockHash)
-				return Promise.resolve()
-			},
-			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
 			 */
 			get iterator() {
 				throw new Error('iterator is not implemented')
-			},
-			/**
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['getIteratorHead']}
-			 */
-			getIteratorHead: (name = 'vm') => {
-				const head = baseChain.blocksByTag.get(/** @type {import('viem').BlockTag}*/ (name))
-				if (!head) {
-					throw new Error(
-						`No block with tag ${name} exists. Current tags include ${[...baseChain.blocksByTag.keys()].join(',')}`,
-					)
-				}
-				return Promise.resolve(head)
-			},
-			/**
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['setIteratorHead']}
-			 */
-			setIteratorHead: (tag, headHash) => {
-				baseChain.blocksByTag.set(/** @type {import('viem').BlockTag}*/ (tag), baseChain.blocks.get(headHash))
-				return Promise.resolve()
 			},
 		}
 	}
