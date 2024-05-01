@@ -84,7 +84,7 @@ export const useProviderStore = create<ProviderStore>()(
           // 1. Check if we already have the appropriate client for the selected chain
           // e.g. when searching a different account on the same chain
           let client =
-            (await currentClient?.getChainId()) === chain.id
+            (await currentClient?.eth.chainId()) === BigInt(chain.id)
               ? currentClient
               : null;
 
@@ -92,7 +92,7 @@ export const useProviderStore = create<ProviderStore>()(
           // already initialized earlier
           if (!client) {
             for (const c of initializedClients) {
-              if ((await c.getChainId()) === chain.id) {
+              if ((await c.eth.chainId()) === BigInt(chain.id)) {
                 client = c;
               }
             }
