@@ -55,6 +55,7 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       }),
     })
   }
+  // TODO handle errors from fetch better
   if (typeof blockTag === 'bigint') {
     const { result } = /** @type {{result: import('viem').RpcBlock<'latest', true>}}*/ (
       await fetcher.request({
@@ -64,6 +65,9 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
         params: [numberToHex(blockTag), true],
       })
     )
+    if (!result) {
+      throw new Error('No block found')
+    }
     return asEthjsBlock(result)
   }
   if (typeof blockTag === 'string' && blockTag.startsWith('0x')) {
@@ -73,6 +77,9 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       method: 'eth_getBlockByHash',
       params: [blockTag, true],
     })
+    if (!result) {
+      throw new Error('No block found')
+    }
     return asEthjsBlock(/** @type {any}*/(result))
   }
   if (isBlockTag(blockTag)) {
@@ -83,6 +90,9 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       method: 'eth_getBlockByNumber',
       params: [blockTag],
     })
+    if (!result) {
+      throw new Error('No block found')
+    }
     return asEthjsBlock(/** @type {any}*/(result))
   }
   throw new Error(`Invalid blocktag ${blockTag}`)
