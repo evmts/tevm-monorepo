@@ -24,7 +24,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ### header
 
-> **header**?: `HeaderData`
+> **header**?: [`HeaderData`](HeaderData.md)
 
 Header data for the block
 
@@ -46,7 +46,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 ### uncleHeaders
 
-> **uncleHeaders**?: `HeaderData`[]
+> **uncleHeaders**?: [`HeaderData`](HeaderData.md)[]
 
 #### Source
 

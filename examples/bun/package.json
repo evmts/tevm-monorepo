@@ -2,9 +2,7 @@
 	"name": "@tevm/example-bun",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"scripts": {
 		"dev": "bun --watch readContract.ts",
 		"test": "bun run test"

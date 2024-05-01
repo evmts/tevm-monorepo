@@ -10,7 +10,7 @@
 
 ## Source
 
-packages/trie/src/EMPTY\_STATE\_ROOT.js:1
+[packages/trie/src/EMPTY\_STATE\_ROOT.js:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/trie/src/EMPTY_STATE_ROOT.js#L1)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
