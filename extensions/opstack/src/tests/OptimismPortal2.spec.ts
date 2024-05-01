@@ -29,7 +29,7 @@ describe('OptimismPortal2', () => {
 				...client.op.OptimismPortal2.write.donateETH(),
 			}),
 		).toEqual({
-			txHash: '0x130ed94bbd3e1cadb97744c7443ffb540dde697748afa2d0d9c1cab9f8696ec5',
+			txHash: '0x4cd05cfb83cbce6976adb8069883f5cca780110e2a37e230ca1d91de89440dea',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 164n,
@@ -55,11 +55,11 @@ describe('OptimismPortal2', () => {
 				...client.op.OptimismPortal2.write.depositTransaction(to, value, gasLimit, isCreation, data),
 			}),
 		).toEqual({
-			txHash: '0x0b5e9db89c75c1567b8a17faed5a2e96dee7d77a84c6c779dbc6f3aa3a035d57',
+			executionGasUsed: 51245n,
+			gas: 16725970n,
+			txHash: '0x03c3633c57cc1a96c15ca09083b56f1753bf9a0e82b571c58c0739ed7cec6c02',
 			createdAddresses: new Set(),
 			data: undefined,
-			executionGasUsed: 51232n,
-			gas: 16725983n,
 			logs: [
 				{
 					address: '0xbEb5Fc579115071764c7423A4f12eDde41f106Ed',

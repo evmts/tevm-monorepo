@@ -3,11 +3,12 @@
 import { Rlp } from '@tevm/rlp'
 import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 
-import { DBKey, MetaDBManager } from './MetaDbManager.js'
-
 import type { Block } from '@tevm/block'
 import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
+import type { Chain } from './Chain.js'
+import type { MapDb } from './MapDb.js'
+import { getBlock } from './actions/getBlock.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
 /**
@@ -121,7 +122,11 @@ enum RlpType {
 }
 type rlpOut = EthjsLog[] | TxReceipt[] | TxHashIndex
 
-export class ReceiptsManager extends MetaDBManager {
+export class ReceiptsManager {
+	constructor(
+		public readonly mapDb: MapDb,
+		public readonly chain: Chain,
+	) {}
 	/**
 	 * Limit of logs to return in getLogs
 	 */
@@ -145,12 +150,12 @@ export class ReceiptsManager extends MetaDBManager {
 	 */
 	async saveReceipts(block: Block, receipts: TxReceipt[]) {
 		const encoded = this.rlp(RlpConvert.Encode, RlpType.Receipts, receipts)
-		await this.put(DBKey.Receipts, block.hash(), encoded)
+		await this.mapDb.put('Receipts', block.hash(), encoded)
 		void this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
 	}
 
 	async deleteReceipts(block: Block) {
-		await this.delete(DBKey.Receipts, block.hash())
+		await this.mapDb.delete('Receipts', block.hash())
 		void this.updateIndex(IndexOperation.Delete, IndexType.TxHash, block)
 	}
 
@@ -167,7 +172,7 @@ export class ReceiptsManager extends MetaDBManager {
 		calcBloom = false,
 		includeTxType = false,
 	): Promise<TxReceipt[] | TxReceiptWithType[]> {
-		const encoded = await this.get(DBKey.Receipts, blockHash)
+		const encoded = await this.mapDb.get('Receipts', blockHash)
 		if (!encoded) return []
 		let receipts = this.rlp(RlpConvert.Decode, RlpType.Receipts, encoded)
 		if (calcBloom) {
@@ -177,7 +182,7 @@ export class ReceiptsManager extends MetaDBManager {
 			})
 		}
 		if (includeTxType) {
-			const block = await this.chain.getBlock(blockHash)
+			const block = await getBlock(this.chain)(blockHash)
 			receipts = (receipts as TxReceiptWithType[]).map((r, i) => {
 				const type = block.transactions[i]?.type
 				if (type) {
@@ -223,7 +228,7 @@ export class ReceiptsManager extends MetaDBManager {
 		const returnedLogs: GetLogsReturn = []
 		let returnedLogsSize = 0
 		for (let i = from.header.number; i <= to.header.number; i++) {
-			const block = await this.chain.getBlock(i)
+			const block = await getBlock(this.chain)(i)
 			const receipts = await this.getReceipts(block.hash())
 			if (receipts.length === 0) continue
 			let logs: GetLogsReturn = []
@@ -292,11 +297,11 @@ export class ReceiptsManager extends MetaDBManager {
 					for (const [i, tx] of block.transactions.entries()) {
 						const index: TxHashIndex = [block.hash(), i]
 						const encoded = this.rlp(RlpConvert.Encode, RlpType.TxHash, index)
-						await this.put(DBKey.TxHash, tx.hash(), encoded)
+						await this.mapDb.put('TxHash', tx.hash(), encoded)
 					}
 				} else if (operation === IndexOperation.Delete) {
 					for (const tx of block.transactions) {
-						await this.delete(DBKey.TxHash, tx.hash())
+						await this.mapDb.delete('TxHash', tx.hash())
 					}
 				}
 				break
@@ -315,7 +320,7 @@ export class ReceiptsManager extends MetaDBManager {
 	private async getIndex(type: IndexType, value: Uint8Array): Promise<any | null> {
 		switch (type) {
 			case IndexType.TxHash: {
-				const encoded = await this.get(DBKey.TxHash, value)
+				const encoded = await this.mapDb.get('TxHash', value)
 				if (!encoded) return null
 				return this.rlp(RlpConvert.Decode, RlpType.TxHash, encoded)
 			}

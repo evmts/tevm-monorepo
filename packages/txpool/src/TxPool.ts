@@ -217,17 +217,17 @@ export class TxPool {
 			}
 		}
 		// TODO
-		const block = await this.vm.blockchain.getCanonicalHeadHeader()
-		if (typeof block.baseFeePerGas === 'bigint' && block.baseFeePerGas !== 0n) {
-			if (currentGasPrice.maxFee < block.baseFeePerGas / 2n && !isLocalTransaction) {
+		const block = await this.vm.blockchain.getCanonicalHeadBlock()
+		if (typeof block.header.baseFeePerGas === 'bigint' && block.header.baseFeePerGas !== 0n) {
+			if (currentGasPrice.maxFee < block.header.baseFeePerGas / 2n && !isLocalTransaction) {
 				throw new Error(
-					`Tx cannot pay basefee of ${block.baseFeePerGas}, have ${currentGasPrice.maxFee} (not within 50% range of current basefee)`,
+					`Tx cannot pay basefee of ${block.header.baseFeePerGas}, have ${currentGasPrice.maxFee} (not within 50% range of current basefee)`,
 				)
 			}
 		}
-		if (tx.gasLimit > block.gasLimit) {
+		if (tx.gasLimit > block.header.gasLimit) {
 			throw new Error(
-				`Tx gaslimit of ${tx.gasLimit} exceeds block gas limit of ${block.gasLimit} (exceeds last block gas limit)`,
+				`Tx gaslimit of ${tx.gasLimit} exceeds block gas limit of ${block.header.gasLimit} (exceeds last block gas limit)`,
 			)
 		}
 

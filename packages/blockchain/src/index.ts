@@ -1,4 +1,18 @@
-export { createBlockchain } from './createBlockchain.js'
-export { type TevmBlockchain } from './TevmBlockchain.js'
-export { Chain } from './Chain.js'
-export { ReceiptsManager } from './RecieptManager.js'
+export { createChain } from './createChain.js'
+export {
+	ReceiptsManager,
+	type BaseTxReceipt,
+	type EIP4844BlobTxReceipt,
+	type PreByzantiumTxReceipt,
+	type PostByzantiumTxReceipt,
+	type TxReceipt,
+	type TxReceiptWithType,
+} from './RecieptManager.js'
+export { createMapDb } from './createMapDb.js'
+export type {
+	MapDb,
+	MetaDBManagerOptions,
+	DbType,
+} from './MapDb.js'
+export type { Chain } from './Chain.js'
+export type { ChainOptions } from './ChainOptions.js'

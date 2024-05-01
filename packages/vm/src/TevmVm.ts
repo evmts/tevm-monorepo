@@ -1,5 +1,5 @@
 import { VM } from '@ethereumjs/vm'
-import { type TevmBlockchain, createBlockchain } from '@tevm/blockchain'
+import { type Chain, createChain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { Evm, createEvm, getActivePrecompiles } from '@tevm/evm'
 import { type StateManager, createStateManager } from '@tevm/state'
@@ -7,7 +7,7 @@ import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 
 export class TevmVm extends VM {
 	declare evm: Evm
-	declare blockchain: TevmBlockchain
+	declare blockchain: Chain
 	declare common: Common
 	/**
 	 * VM async constructor. Creates engine instance and initializes it.
@@ -18,26 +18,27 @@ export class TevmVm extends VM {
 		// Save if a `StateManager` was passed (for activatePrecompiles)
 		const didPassStateManager = opts.stateManager !== undefined
 
+		const normalizedOpts = { ...opts }
 		// Add common, SM, blockchain, EVM here
-		if (opts.common === undefined) {
-			opts.common = new Common({ chain: 1, eips: [1559, 4895] })
+		if (normalizedOpts.common === undefined) {
+			normalizedOpts.common = new Common({ chain: 1, eips: [1559, 4895] })
 		}
 
-		if (opts.stateManager === undefined) {
-			opts.stateManager = createStateManager({})
+		if (normalizedOpts.stateManager === undefined) {
+			normalizedOpts.stateManager = createStateManager({})
 		}
 
-		if (opts.blockchain === undefined) {
-			opts.blockchain = await createBlockchain({ common: opts.common })
+		if (normalizedOpts.blockchain === undefined) {
+			normalizedOpts.blockchain = await createChain({ common: normalizedOpts.common })
 		}
 
-		const genesisState = opts.genesisState ?? {}
-		if (opts.genesisState !== undefined) {
-			await opts.stateManager.generateCanonicalGenesis(genesisState)
+		const genesisState = normalizedOpts.genesisState ?? {}
+		if (normalizedOpts.genesisState !== undefined) {
+			await normalizedOpts.stateManager.generateCanonicalGenesis(genesisState)
 		}
 
-		if (opts.profilerOpts !== undefined) {
-			const profilerOpts = opts.profilerOpts
+		if (normalizedOpts.profilerOpts !== undefined) {
+			const profilerOpts = normalizedOpts.profilerOpts
 			if (profilerOpts.reportAfterBlock === true && profilerOpts.reportAfterTx === true) {
 				throw new Error(
 					'Cannot have `reportProfilerAfterBlock` and `reportProfilerAfterTx` set to `true` at the same time',
@@ -45,27 +46,30 @@ export class TevmVm extends VM {
 			}
 		}
 
-		if (opts.evm === undefined) {
+		if (normalizedOpts.evm === undefined) {
 			let enableProfiler = false
-			if (opts.profilerOpts?.reportAfterBlock === true || opts.profilerOpts?.reportAfterTx === true) {
+			if (
+				normalizedOpts.profilerOpts?.reportAfterBlock === true ||
+				normalizedOpts.profilerOpts?.reportAfterTx === true
+			) {
 				enableProfiler = true
 			}
-			opts.evm = await Evm.create({
-				common: opts.common,
-				stateManager: opts.stateManager,
-				blockchain: opts.blockchain,
+			normalizedOpts.evm = await Evm.create({
+				common: normalizedOpts.common,
+				stateManager: normalizedOpts.stateManager,
+				...(normalizedOpts.blockchain !== undefined ? { blockchain: opts.blockchain } : {}),
 				profiler: {
 					enabled: enableProfiler,
 				},
 			})
 		}
 
-		if (opts.activatePrecompiles === true && !didPassStateManager) {
-			await opts.evm.journal.checkpoint()
+		if (normalizedOpts.activatePrecompiles === true && !didPassStateManager) {
+			await normalizedOpts.evm.journal.checkpoint()
 			// put 1 wei in each of the precompiles in order to make the accounts non-empty and thus not have them deduct `callNewAccount` gas.
-			for (const [addressStr] of getActivePrecompiles(opts.common)) {
+			for (const [addressStr] of getActivePrecompiles(normalizedOpts.common)) {
 				const address = new EthjsAddress(hexToBytes(`0x${addressStr}`))
-				let account = await opts.evm.stateManager.getAccount(address)
+				let account = await normalizedOpts.evm.stateManager.getAccount(address)
 				// Only do this if it is not overridden in genesis
 				// Note: in the case that custom genesis has storage fields, this is preserved
 				if (account === undefined) {
@@ -74,13 +78,13 @@ export class TevmVm extends VM {
 						balance: 1,
 						storageRoot: account.storageRoot,
 					})
-					await opts.evm.stateManager.putAccount(address, newAccount)
+					await normalizedOpts.evm.stateManager.putAccount(address, newAccount)
 				}
 			}
-			await opts.evm.journal.commit()
+			await normalizedOpts.evm.journal.commit()
 		}
 
-		return new TevmVm(opts)
+		return new TevmVm(normalizedOpts)
 	}
 
 	declare stateManager: StateManager

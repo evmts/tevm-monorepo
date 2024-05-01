@@ -1,5 +1,5 @@
-import { ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
-import { BlockHeader } from '@tevm/block'
+import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
+import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
@@ -90,7 +90,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(client.getChainId)(request))
+				return /** @type any */ (chainIdProcedure(client)(request))
 			case 'eth_call':
 				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
@@ -108,7 +108,7 @@ export const requestProcedure = (client) => {
 			case 'eth_signTransaction':
 				return ethSignTransactionProcedure({
 					accounts: testAccounts,
-					getChainId: client.getChainId,
+					getChainId: () => chainIdHandler(client)().then((bigNumber) => Number(bigNumber)),
 				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
@@ -196,7 +196,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				client.setChainId(chainId)
+				console.warn('Warning: setChainId is currently a noop')
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
@@ -213,8 +213,8 @@ export const requestProcedure = (client) => {
 						// same default as hardhat
 						result: await client
 							.getVm()
-							.then((vm) => vm.blockchain.getCanonicalHeadHeader())
-							.then((header) => header.coinbase),
+							.then((vm) => vm.blockchain.getCanonicalHeadBlock())
+							.then((block) => block.header.coinbase),
 					}
 				}
 				if (!client.forkUrl) {
@@ -282,12 +282,16 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setCoinbase'}*/ ('hardhat_setCoinbase'):
 			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'): {
 				const vm = await client.getVm()
-				const header = await vm.blockchain.getCanonicalHeadHeader()
+				const currentBlock = await vm.blockchain.getCanonicalHeadBlock()
 				const newHeader = BlockHeader.fromHeaderData({
-					...header.raw(),
+					...currentBlock.header.raw(),
 					coinbase: request.params[0],
 				})
-				vm.blockchain.putHeader(newHeader)
+				const newBlock = Block.fromBlockData({
+					...currentBlock,
+					header: newHeader,
+				})
+				vm.blockchain.putBlock(newBlock)
 				return {
 					method: request.method,
 					result: true,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { createBlockchain } from '@tevm/blockchain'
+import { createChain } from '@tevm/blockchain'
 import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
@@ -9,7 +9,7 @@ describe(createVm.name, () => {
 	it('wraps ethereumjs vm', async () => {
 		const common = createCommon({})
 		const stateManager = createStateManager({})
-		const blockchain = await createBlockchain({
+		const blockchain = await createChain({
 			common,
 		})
 		const evm = await createEvm({
@@ -31,7 +31,7 @@ describe(createVm.name, () => {
 			.then((b) => b.toJSON())
 		expect(newBlock).toMatchObject({
 			header: {
-				baseFeePerGas: '0x342770c0',
+				baseFeePerGas: '0x7',
 				blobGasUsed: '0x0',
 				coinbase: '0x0000000000000000000000000000000000000000',
 				difficulty: '0x0',
@@ -45,10 +45,10 @@ describe(createVm.name, () => {
 				nonce: '0x0000000000000000',
 				number: '0x1',
 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-				parentHash: '0xe4000aed2620e6dd377af93917b22f21275cf97679249222c7f69b82759e425c',
 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-				//  "stateRoot": "0x7e9c1d8ffc75d0809c9162a697cd5344b99b1973a35c2c07277b75b0bbb7340c",
-				// "timestamp": "0x661f5473",
+				parentHash: '0x132beabf95d2760ad961b16554f35e9e81988df57a6de18fc21c69d756feacdc',
+				stateRoot: '0xbc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a',
+				// timestamp: "0x663196f1",
 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',

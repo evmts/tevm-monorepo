@@ -18,7 +18,7 @@ This constructor takes the values, validates them, assigns them and freezes the 
 
 #### Parameters
 
-▪ **headerData**: `HeaderData`
+▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
 
 ▪ **opts?**: `BlockOptions`
 
@@ -646,7 +646,7 @@ Static constructor to create a block header from a header data dictionary
 
 #### Parameters
 
-▪ **headerData?**: `HeaderData`
+▪ **headerData?**: [`HeaderData`](../interfaces/HeaderData.md)
 
 ▪ **opts?**: `BlockOptions`
 

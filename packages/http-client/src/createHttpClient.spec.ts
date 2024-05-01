@@ -98,7 +98,7 @@ describe(createHttpClient.name, () => {
 		})
 
 		it('can use tevm.eth.blockNumber', async () => {
-			expect(await client.eth.blockNumber()).toEqual(0n)
+			expect(await client.eth.blockNumber()).toBeGreaterThan(119469089n)
 		})
 
 		// this test isn't blocked just moving fast and breaking things atm

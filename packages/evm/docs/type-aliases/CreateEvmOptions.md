@@ -18,7 +18,7 @@ Enable/disable unlimited contract size. Defaults to false.
 
 ### blockchain
 
-> **blockchain**: `TevmBlockchain`
+> **blockchain**: `Chain`
 
 ### common
 

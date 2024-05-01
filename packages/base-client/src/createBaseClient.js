@@ -1,4 +1,4 @@
-import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
+import { ReceiptsManager, createChain, createMapDb } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import {} from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
@@ -7,10 +7,12 @@ import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
-import { MemoryLevel } from 'memory-level'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
+
+// TODO the common code is not very good and should be moved to common package
+// it has rotted from a previous implementation where the chainId was not used by vm
 
 /**
  * Creates the base instance of a memory client
@@ -22,30 +24,23 @@ import { getChainId } from './getChainId.js'
  */
 export const createBaseClient = (options = {}) => {
 	/**
-	 * @type {number|undefined}
+	 * @param {number} chainId
 	 */
-	let overrideChainId = undefined
-	/**
-	 * @param {number} id
-	 */
-	const setChainId = (id) => {
-		overrideChainId = id
+	const createCommon = (chainId) => {
+		return Common.custom(
+			{
+				name: 'TevmCustom',
+				chainId,
+				networkId: 10,
+			},
+			{
+				hardfork: options.hardfork ?? 'cancun',
+				baseChain: 1,
+				eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
+			},
+		)
 	}
-	// First do everything that is not async
-	// Eagerly do async integration
-	// Return proxies that will block on initialization if not yet initialized
-	const common = Common.custom(
-		{
-			name: 'TevmCustom',
-			chainId: 10,
-			networkId: 10,
-		},
-		{
-			hardfork: options.hardfork ?? 'cancun',
-			baseChain: 1,
-			eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
-		},
-	)
+
 	/**
 	 * @returns {import('@tevm/state').StateOptions }
 	 */
@@ -115,6 +110,7 @@ export const createBaseClient = (options = {}) => {
 		}
 		return DEFAULT_CHAIN_ID
 	}
+
 	const initVm = async () => {
 		// Handle initializing the state from the persisted state
 		/**
@@ -154,11 +150,19 @@ export const createBaseClient = (options = {}) => {
 			}
 			return 'latest'
 		})()
-		// TODO replace with chain
-		const blockchain = await createBlockchain({
+		const common = createCommon(await initChainId())
+		const blockchain = await createChain({
 			common,
-			...(options.fork?.url !== undefined ? { forkUrl: options.fork.url } : {}),
-			...(blockTag !== undefined ? { blockTag } : {}),
+			...(options.fork?.url !== undefined
+				? {
+						fork: {
+							url: options.fork.url,
+							blockTag: blockTag.startsWith('0x')
+								? hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTag))
+								: /** @type {import('@tevm/utils').BlockTag}*/ (blockTag),
+						},
+					}
+				: {}),
 		})
 		const evm = await createEvm({
 			common,
@@ -190,25 +194,15 @@ export const createBaseClient = (options = {}) => {
 			)
 		}
 
-		await statePromise
+		await Promise.all([statePromise, blockchain.ready()])
 
 		return vm
 	}
 
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
-	const chainIdPromise = initChainId()
-	const chainPromise = vmPromise.then((vm) => {
-		return Chain.create({
-			common: vm.common,
-		})
-	})
-	const receiptManagerPromise = chainPromise.then((chain) => {
-		return new ReceiptsManager({
-			common: chain.common,
-			chain,
-			metaDB: /** @type any*/ (new MemoryLevel()),
-		})
+	const receiptManagerPromise = vmPromise.then((vm) => {
+		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 
 	/**
@@ -222,42 +216,19 @@ export const createBaseClient = (options = {}) => {
 			name: 'TevmClient',
 			level: options.loggingLevel ?? 'warn',
 		}),
-		getChain: () => {
-			return chainPromise
-		},
 		getReceiptsManager: () => {
 			return receiptManagerPromise
 		},
 		getTxPool: () => {
 			return txPoolPromise
 		},
-		getChainId: () => {
-			if (overrideChainId) {
-				return Promise.resolve(overrideChainId)
-			}
-			return chainIdPromise
-		},
-		setChainId,
 		getVm: () => vmPromise,
 		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: options.fork?.url ? 'fork' : 'normal',
 		...(options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: async () => {
-			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])
-			const errors = []
-			if (chainId.status === 'rejected') {
-				errors.push(chainId.reason)
-			}
-			if (vm.status === 'rejected') {
-				errors.push(vm.reason)
-			}
-			if (errors.length > 1) {
-				throw new AggregateError(errors)
-			}
-			if (errors.length === 1) {
-				throw errors[0]
-			}
+			await vmPromise
 			return true
 		},
 	}

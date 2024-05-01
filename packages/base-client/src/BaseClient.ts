@@ -1,4 +1,4 @@
-import type { Chain, ReceiptsManager } from '@tevm/blockchain'
+import type { ReceiptsManager } from '@tevm/blockchain'
 import type { Logger } from '@tevm/logger'
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
@@ -17,30 +17,12 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 */
 	readonly getReceiptsManager: () => Promise<ReceiptsManager>
 	/**
-	 * Represents the entire blockchain including it's logs and historical state
-	 */
-	readonly getChain: () => Promise<Chain>
-	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
 	 * - 'interval' will mine a block every `interval` milliseconds
 	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 	 */
 	readonly miningConfig: MiningConfig
-	/**
-	 * Gets the chainId of the current EVM
-	 * @example
-	 * ```ts
-	 * const client = createMemoryClient()
-	 * const chainId = await client.getChainId()
-	 * console.log(chainId)
-	 * ```
-	 */
-	readonly getChainId: () => Promise<number>
-	/**
-	 * Sets the chain id of the current EVM
-	 */
-	readonly setChainId: (chainId: number) => void
 	/**
 	 * Fork url if the EVM is forked
 	 * @example

@@ -1,1 +1,1 @@
-export { Block, BlockHeader } from '@ethereumjs/block'
+export { Block, BlockHeader, type BlockData, type HeaderData } from '@ethereumjs/block'

@@ -2,7 +2,7 @@ import { ethGetTransactionReceiptHandler } from '@tevm/actions'
 import { numberToHex } from '@tevm/utils'
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'forkUrl'| 'getVm' | 'getChain' | 'getReceiptsManager' >} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcProcedure}
  */
 export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) => {
