@@ -29,8 +29,9 @@ const isBlockTag = (blockTag) => {
  * @param {object} params
  * @param {string} params.url
  * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
+ * @param {import('@tevm/common').Common} common
  */
-const getBlockFromRpc = async ({ url, blockTag = 'latest' }) => {
+const getBlockFromRpc = async ({ url, blockTag = 'latest' }, common) => {
   const fetcher = createJsonRpcFetcher(url)
   /**
    * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
@@ -53,7 +54,7 @@ filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
         }
         return true
       }),
-    })
+    }, undefined, { common, setHardfork: false, freeze: true, skipConsensusFormatValidation: true })
   }
   // TODO handle errors from fetch better
   if (typeof blockTag === 'bigint') {
@@ -155,7 +156,7 @@ export const createBaseChain = (options) => {
   // Add genesis block and forked block to chain
   const genesisBlockPromise = (async () => {
     if (options.fork?.url) {
-      const block = await getBlockFromRpc(options.fork)
+      const block = await getBlockFromRpc(options.fork, options.common)
       await putBlock(chain)(block)
     } else {
       await putBlock(chain)(
