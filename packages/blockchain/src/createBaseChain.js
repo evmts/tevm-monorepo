@@ -81,9 +81,11 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       params: [blockTag, true],
     })
     if (error) {
+      console.error(error)
       throw error
     }
     if (!result) {
+      console.error(error)
       throw new Error('No block found')
     }
     return asEthjsBlock(/** @type {any}*/(result))
@@ -97,6 +99,7 @@ filtering out block ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
       params: [blockTag],
     })
     if (error) {
+      console.error(error)
       throw error
     }
     if (!result) {
