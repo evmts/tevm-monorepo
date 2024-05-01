@@ -10,7 +10,7 @@ import { validateMineParams } from '@tevm/zod'
  */
 export const mineHandler =
   (client, options = {}) =>
-    async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
+    async ({ throwOnFail = options.throwOnFail ?? true, ...params } = {}) => {
       const errors = validateMineParams(params)
       if (errors.length > 0) {
         return maybeThrowOnFail(throwOnFail, { errors })
