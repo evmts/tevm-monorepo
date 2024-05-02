@@ -16,13 +16,13 @@ export const mineHandler =
         return maybeThrowOnFail(throwOnFail, { errors })
       }
       const { interval = 1, blockCount = 1 } = params
-      const pool = await client.getTxPool()
-      const vm = await client.getVm().then(vm => vm.deepCopy())
-      const receiptsManager = await client.getReceiptsManager()
-      const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
-      let timestamp = Math.max(Date.now() / 1000, Number(parentBlock.header.timestamp))
 
       for (let count = 0; count < blockCount; count++) {
+        const pool = await client.getTxPool()
+        const vm = await client.getVm()
+        const receiptsManager = await client.getReceiptsManager()
+        const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+        let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
         timestamp = count === 0 ? timestamp : timestamp + interval
         const blockBuilder = await vm.buildBlock({
           parentBlock,
@@ -40,16 +40,14 @@ export const mineHandler =
             // cliqueSigner,
             // proof of work not currently supported
             //calcDifficultyFromHeader,
-            setHardfork: true,
+            setHardfork: false,
             putBlockIntoBlockchain: false,
           },
         })
         // TODO create a Log manager
         const orderedTx = await pool.txsByPriceAndNonce(vm, { baseFee: parentBlock.header.calcNextBaseFee() })
+        console.log('processing orderedTx length', orderedTx.length)
 
-        console.info(
-          `Miner: Assembling block from ${orderedTx.length} eligible txs (baseFee: ${parentBlock.header.calcNextBaseFee()}`
-        )
         let index = 0
         let blockFull = false
         /**
@@ -58,37 +56,35 @@ export const mineHandler =
         const receipts = []
         while (index < orderedTx.length && !blockFull) {
           const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/(orderedTx[index])
+          console.log('processing next tx...', index)
           try {
+            try {
+              nextTx.hash()
+              console.log('hash worked huh?')
+            } catch (e) {
+              throw new Error('tx.hash() does not work')
+            }
             const txResult = await blockBuilder.addTransaction(nextTx, {
               skipHardForkValidation: true,
             })
             receipts.push(txResult.receipt)
           } catch (error) {
-            if (
-            /** @type {Error}*/(error).message ===
-              'tx has a higher gas limit than the remaining gas in the block'
-            ) {
-              if (blockBuilder.gasUsed > parentBlock.header.gasLimit - BigInt(21000)) {
-                // If block has less than 21000 gas remaining, consider it full
-                blockFull = true
-                console.info(
-                  `Miner: Assembled block full (gasLeft: ${parentBlock.header.gasLimit - blockBuilder.gasUsed})`
-                )
-              }
-            } else {
-              // If there is an error adding a tx, it will be skipped
-              const hash = bytesToHex(nextTx.hash())
-              console.debug(
-                `Skipping tx ${hash}, error encountered when trying to add tx:\n${error}`
-              )
-            }
+            console.error('There wasn an error adding tx to block', error)
+            // TODO remove me
+            throw error
           }
           index++
         }
         const block = await blockBuilder.build()
+        console.log('saving receipts...', receipts)
+        block.transactions.forEach(tx => {
+          tx.hash()
+        })
         await receiptsManager?.saveReceipts(block, receipts)
-        vm.blockchain.putBlock(block)
+        await vm.blockchain.putBlock(block)
+        console.log('put block', bytesToHex(block.hash()))
         pool.removeNewBlockTxs([block])
+        console.log('block exists?', bytesToHex(await vm.blockchain.getBlock(block.hash()).then(b => b.header.hash())))
       }
       return {}
-	}
+    }

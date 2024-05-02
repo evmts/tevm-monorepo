@@ -36,10 +36,10 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
         address,
         new EthjsAccount(
           params.nonce ?? account?.nonce,
-          params.balance,
+          params.balance ?? account?.nonce,
           (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined ? hexToBytes(account.storageRoot) : undefined),
           (params.deployedBytecode &&
-            hexToBytes(keccak256(params.deployedBytecode))) ?? (account?.deployedBytecode !== undefined ? hexToBytes(account?.deployedBytecode) : undefined),
+            hexToBytes(keccak256(params.deployedBytecode))) ?? (account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined),
         ),
       ),
     )
