@@ -3,6 +3,7 @@ import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { validateSetAccountParams } from '@tevm/zod'
+import { getAccountHandler } from './getAccountHandler.js'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
@@ -29,15 +30,16 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
   const promises = []
   try {
     const vm = await client.getVm()
+    const account = await getAccountHandler(client)(params).catch(() => undefined)
     promises.push(
       vm.stateManager.putAccount(
         address,
         new EthjsAccount(
-          params.nonce,
+          params.nonce ?? account?.nonce,
           params.balance,
-          params.storageRoot && hexToBytes(params.storageRoot),
-          params.deployedBytecode &&
-          hexToBytes(keccak256(params.deployedBytecode)),
+          (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined ? hexToBytes(account.storageRoot) : undefined),
+          (params.deployedBytecode &&
+            hexToBytes(keccak256(params.deployedBytecode))) ?? (account?.deployedBytecode !== undefined ? hexToBytes(account?.deployedBytecode) : undefined),
         ),
       ),
     )
