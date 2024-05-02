@@ -3,6 +3,7 @@ export {
 	type EIP4844CompatibleTx,
 	type TxData,
 	type TypedTransaction,
+	type TxOptions,
 	TransactionType,
 	LegacyTransaction,
 	AccessListEIP2930Transaction,
@@ -14,4 +15,6 @@ export {
 	isBlobEIP4844Tx,
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
+	type JsonRpcTx,
+	type JsonTx,
 } from '@ethereumjs/tx'
