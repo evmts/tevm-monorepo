@@ -33,7 +33,7 @@ This method returns the right transaction.
 
 A Uint8Array or Uint8Array[]
 
-▪ **txOptions?**: `TxOptions`
+▪ **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -59,7 +59,7 @@ a url string for a JSON-RPC provider or an Ethers JsonRPCProvider object
 
 Transaction hash
 
-▪ **txOptions?**: `TxOptions`
+▪ **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -90,7 +90,7 @@ Note that this normalizes some of the parameters
 
 The RPC-encoded data
 
-▪ **txOptions?**: `TxOptions`
+▪ **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -118,7 +118,7 @@ This method tries to decode serialized data.
 
 The data Uint8Array
 
-▪ **txOptions?**: `TxOptions`
+▪ **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -144,7 +144,7 @@ Create a transaction from a `txData` object
 
 The transaction data. The `type` field will determine which transaction type is returned (if undefined, creates a legacy transaction)
 
-▪ **txOptions?**: `TxOptions`
+▪ **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 Options to pass on to the constructor of the transaction
 

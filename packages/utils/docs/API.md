@@ -9,6 +9,7 @@
 ### Enumerations
 
 - [KeyEncoding](enumerations/KeyEncoding.md)
+- [TypeOutput](enumerations/TypeOutput.md)
 - [ValueEncoding](enumerations/ValueEncoding.md)
 
 ### Classes
@@ -16,11 +17,13 @@
 - [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
+- [Withdrawal](classes/Withdrawal.md)
 
 ### Interfaces
 
 - [Db](interfaces/Db.md)
 - [GenesisState](interfaces/GenesisState.md)
+- [JsonRpcWithdrawal](interfaces/JsonRpcWithdrawal.md)
 
 ### Type Aliases
 
@@ -32,10 +35,13 @@
 - [AbiParametersToPrimitiveTypes](type-aliases/AbiParametersToPrimitiveTypes.md)
 - [Account](type-aliases/Account.md)
 - [Address](type-aliases/Address.md)
+- [AddressLike](type-aliases/AddressLike.md)
 - [BatchDbOp](type-aliases/BatchDbOp.md)
+- [BigIntLike](type-aliases/BigIntLike.md)
 - [BigIntToHex](type-aliases/BigIntToHex.md)
 - [BlockNumber](type-aliases/BlockNumber.md)
 - [BlockTag](type-aliases/BlockTag.md)
+- [BytesLike](type-aliases/BytesLike.md)
 - [ContractFunctionName](type-aliases/ContractFunctionName.md)
 - [CreateEventFilterParameters](type-aliases/CreateEventFilterParameters.md)
 - [CreateMemoryDbFn](type-aliases/CreateMemoryDbFn.md)
@@ -64,6 +70,11 @@
 - [SetToHex](type-aliases/SetToHex.md)
 - [WithdrawalData](type-aliases/WithdrawalData.md)
 
+### Variables
+
+- [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
+- [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
+
 ### Functions
 
 - [boolToBytes](functions/boolToBytes.md)
@@ -73,6 +84,7 @@
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
 - [bytesToUnprefixedHex](functions/bytesToUnprefixedHex.md)
+- [bytesToUtf8](functions/bytesToUtf8.md)
 - [concatBytes](functions/concatBytes.md)
 - [createMemoryDb](functions/createMemoryDb.md)
 - [decodeAbiParameters](functions/decodeAbiParameters.md)
@@ -80,6 +92,8 @@
 - [decodeEventLog](functions/decodeEventLog.md)
 - [decodeFunctionData](functions/decodeFunctionData.md)
 - [decodeFunctionResult](functions/decodeFunctionResult.md)
+- [ecrecover](functions/ecrecover.md)
+- [ecsign](functions/ecsign.md)
 - [encodeAbiParameters](functions/encodeAbiParameters.md)
 - [encodeDeployData](functions/encodeDeployData.md)
 - [encodeErrorResult](functions/encodeErrorResult.md)
@@ -88,6 +102,7 @@
 - [encodeFunctionResult](functions/encodeFunctionResult.md)
 - [encodePacked](functions/encodePacked.md)
 - [equalsBytes](functions/equalsBytes.md)
+- [fetchFromProvider](functions/fetchFromProvider.md)
 - [formatAbi](functions/formatAbi.md)
 - [formatEther](functions/formatEther.md)
 - [formatGwei](functions/formatGwei.md)
@@ -96,6 +111,7 @@
 - [fromHex](functions/fromHex.md)
 - [fromRlp](functions/fromRlp.md)
 - [getAddress](functions/getAddress.md)
+- [getProvider](functions/getProvider.md)
 - [hexToBigInt](functions/hexToBigInt.md)
 - [hexToBool](functions/hexToBool.md)
 - [hexToBytes](functions/hexToBytes.md)
@@ -110,10 +126,13 @@
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
+- [setLengthLeft](functions/setLengthLeft.md)
 - [stringToHex](functions/stringToHex.md)
 - [toBytes](functions/toBytes.md)
 - [toHex](functions/toHex.md)
 - [toRlp](functions/toRlp.md)
+- [toType](functions/toType.md)
+- [zeros](functions/zeros.md)
 
 ## References
 

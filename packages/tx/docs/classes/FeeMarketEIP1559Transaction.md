@@ -31,7 +31,7 @@ varying data types.
 
 ▪ **txData**: `FeeMarketEIP1559TxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Overrides
 
@@ -239,7 +239,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### txOptions
 
-> **`protected`** **`readonly`** **txOptions**: `TxOptions`
+> **`protected`** **`readonly`** **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Inherited from
 
@@ -747,7 +747,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### toJSON()
 
-> **toJSON**(): `JsonTx`
+> **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
 
 Returns an object with the JSON representation of the transaction
 
@@ -808,7 +808,7 @@ accessList, signatureYParity, signatureR, signatureS])`
 
 ▪ **serialized**: `Uint8Array`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -833,7 +833,7 @@ Notes:
 
 ▪ **txData**: `FeeMarketEIP1559TxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -854,7 +854,7 @@ accessList, signatureYParity, signatureR, signatureS]`
 
 ▪ **values**: `FeeMarketEIP1559TxValuesArray`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 

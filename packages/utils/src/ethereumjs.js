@@ -18,4 +18,5 @@ export {
 	ecrecover,
 	ecsign,
 	zeros,
+	AsyncEventEmitter,
 } from '@ethereumjs/util'

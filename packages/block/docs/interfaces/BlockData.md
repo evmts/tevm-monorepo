@@ -12,13 +12,13 @@ A block's data.
 
 ### executionWitness
 
-> **executionWitness**?: `null` \| `VerkleExecutionWitness`
+> **executionWitness**?: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:139
+[types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
 
 ***
 
@@ -30,7 +30,17 @@ Header data for the block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:132
+[types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
+
+***
+
+### requests
+
+> **requests**?: `ClRequest`[]
+
+#### Source
+
+[types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
 
 ***
 
@@ -40,7 +50,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:133
+[types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
 
 ***
 
@@ -50,7 +60,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:134
+[types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
 
 ***
 
@@ -60,7 +70,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:135
+[types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

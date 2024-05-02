@@ -97,6 +97,7 @@ export {
 	ecrecover,
 	ecsign,
 	zeros,
+	AsyncEventEmitter,
 } from './ethereumjs.js'
 export type {
 	GenesisState,

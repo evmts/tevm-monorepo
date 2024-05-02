@@ -1517,23 +1517,20 @@ importers:
 
   packages/block:
     dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.2.0
-        version: 5.2.0
       '@tevm/common':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../common
       '@tevm/rlp':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../rlp
       '@tevm/trie':
         specifier: workspace:1.0.0-next.42
         version: link:../trie
       '@tevm/tx':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../tx
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/tsconfig':
