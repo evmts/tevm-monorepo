@@ -28,10 +28,10 @@ import type {
   RunTxResult,
   TxReceipt,
 } from '../utils/types.js'
-import type { Vm } from '../Vm.js'
 import type { Evm } from '@tevm/evm'
 import { Bloom } from '@ethereumjs/vm'
 import { runTx } from './runTx.js'
+import type { BaseVm } from '../BaseVm.js'
 
 const parentBeaconBlockRootAddress = EthjsAddress.fromString(
   '0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02'
@@ -42,7 +42,7 @@ export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
 /**
  * @ignore
  */
-export const runBlock = (vm: Vm): RunBlock => async (opts) => {
+export const runBlock = (vm: BaseVm): RunBlock => async (opts) => {
 
   const state = vm.stateManager
 
@@ -164,7 +164,7 @@ export const runBlock = (vm: Vm): RunBlock => async (opts) => {
  * @param {Block} block
  * @param {RunBlockOpts} opts
  */
-const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise<ApplyBlockResult> => {
+const applyBlock = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts): Promise<ApplyBlockResult> => {
   // Validate block
   if (opts.skipBlockValidation !== true) {
     if (block.header.gasLimit >= BigInt('0x8000000000000000')) {
@@ -244,7 +244,7 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
  * @param block The current block to save the parent block hash of
  */
 export const accumulateParentBlockHash = (
-  vm: Vm,
+  vm: BaseVm,
 ) => async (
   currentBlockNumber: bigint,
   parentHash: Uint8Array
@@ -267,7 +267,7 @@ export const accumulateParentBlockHash = (
       await vm.evm.journal.putAccount(historyAddress, new EthjsAccount())
     }
 
-    async function putBlockHash(vm: Vm, hash: Uint8Array, number: bigint) {
+    async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {
       // ringKey is the key the hash is actually put in (it is a ring buffer)
       const ringKey = number % historyServeWindow
       const key = setLengthLeft(toBytes(ringKey), 32)
@@ -292,7 +292,7 @@ export const accumulateParentBlockHash = (
   }
 
 export const accumulateParentBeaconBlockRoot = (
-  vm: Vm,
+  vm: BaseVm,
 ) => async (
   root: Uint8Array,
   timestamp: bigint
@@ -335,7 +335,7 @@ export const accumulateParentBeaconBlockRoot = (
  * @param {Block} block
  * @param {RunBlockOpts} opts
  */
-const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) => {
+const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts) => {
   const bloom = new Bloom(undefined, vm.common)
   // the total amount of gas used processing these transactions
   let gasUsed = 0n
@@ -402,7 +402,7 @@ const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) =
   }
 }
 
-const assignWithdrawals = (vm: Vm) => async (block: Block): Promise<void> => {
+const assignWithdrawals = (vm: BaseVm) => async (block: Block): Promise<void> => {
   const withdrawals = block.withdrawals!
   for (const withdrawal of withdrawals) {
     const { address, amount } = withdrawal
@@ -418,7 +418,7 @@ const assignWithdrawals = (vm: Vm) => async (block: Block): Promise<void> => {
  * Calculates block rewards for miner and ommers and puts
  * the updated balances of their accounts to state.
  */
-const assignBlockRewards = (vm: Vm) => async (block: Block): Promise<void> => {
+const assignBlockRewards = (vm: BaseVm) => async (block: Block): Promise<void> => {
   const minerReward = vm.common.param('pow', 'minerReward')
   const ommers = block.uncleHeaders
   // Reward ommers
@@ -541,7 +541,7 @@ async function _genTxTrie(block: Block) {
  * @param msg Base error message
  * @hidden
  */
-function _errorMsg(msg: string, vm: Vm, block: Block) {
+function _errorMsg(msg: string, vm: BaseVm, block: Block) {
   const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
 
   const errorMsg = `${msg} (${vm.common.hardfork.name} -> ${blockErrorStr})`

@@ -4,7 +4,6 @@ import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import {
   EthjsAccount,
   EthjsAddress,
-  bytesToHex,
   bytesToUnprefixedHex,
   equalsBytes,
   hexToBytes,
@@ -21,9 +20,7 @@ import type {
   RunTxResult,
   TxReceipt,
 } from '../utils/types.js'
-import type { Vm } from '../Vm.js'
 import type { Common } from '@tevm/common'
-import type { Evm } from '@tevm/evm'
 import type {
   AccessList,
   AccessListEIP2930Transaction,
@@ -33,6 +30,7 @@ import type {
   TypedTransaction,
 } from '@tevm/tx'
 import { Bloom } from '@ethereumjs/vm'
+import type { BaseVm } from '../BaseVm.js'
 
 // TODO Might want to move these to utils these are getting copy pasted a lot
 export const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
@@ -58,7 +56,7 @@ function execHardfork(
 /**
  * @ignore
  */
-export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
+export const runTx = (vm: BaseVm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   // create a reasonable default if no block is given
   opts.block = opts.block ?? Block.fromBlockData({}, { common: vm.common })
 
@@ -151,7 +149,7 @@ export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> =
   }
 }
 
-const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
+const _runTx = (vm: BaseVm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   const state = vm.stateManager
 
   if (vm.common.isActivatedEIP(6800)) {
@@ -474,7 +472,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   // Generate the tx receipt
   const gasUsed = opts.blockGasUsed !== undefined ? opts.blockGasUsed : block.header.gasUsed
   const cumulativeGasUsed = gasUsed + results.totalGasSpent
-  results.receipt = await generateTxReceipt.bind(vm)(
+  results.receipt = await generateTxReceipt(vm)(
     tx,
     results,
     cumulativeGasUsed,
@@ -525,56 +523,57 @@ function txLogsBloom(logs?: any[], common?: Common): Bloom {
  * @param blobGasUsed The blob gas used in the tx
  * @param blobGasPrice The blob gas price for the block including this tx
  */
-export async function generateTxReceipt(
-  this: Vm,
+export const generateTxReceipt = (
+  vm: BaseVm,
+) => async (
   tx: TypedTransaction,
   txResult: RunTxResult,
   cumulativeGasUsed: bigint,
   blobGasUsed?: bigint,
   blobGasPrice?: bigint
-): Promise<TxReceipt> {
-  const baseReceipt: BaseTxReceipt = {
-    cumulativeBlockGasUsed: cumulativeGasUsed,
-    bitvector: txResult.bloom.bitvector,
-    logs: txResult.execResult.logs ?? [],
-  }
-
-  let receipt
-
-  if (!tx.supports(Capability.EIP2718TypedTransaction)) {
-    // Legacy transaction
-    if (this.common.gteHardfork('byzantium') === true) {
-      // Post-Byzantium
-      receipt = {
-        status: txResult.execResult.exceptionError !== undefined ? 0 : 1, // Receipts have a 0 as status on error
-        ...baseReceipt,
-      } as PostByzantiumTxReceipt
-    } else {
-      // Pre-Byzantium
-      const stateRoot = await this.stateManager.getStateRoot()
-      receipt = {
-        stateRoot,
-        ...baseReceipt,
-      } as PreByzantiumTxReceipt
+): Promise<TxReceipt> => {
+    const baseReceipt: BaseTxReceipt = {
+      cumulativeBlockGasUsed: cumulativeGasUsed,
+      bitvector: txResult.bloom.bitvector,
+      logs: txResult.execResult.logs ?? [],
     }
-  } else {
-    // Typed EIP-2718 Transaction
-    if (isBlobEIP4844Tx(tx)) {
-      receipt = {
-        blobGasUsed,
-        blobGasPrice,
-        status: txResult.execResult.exceptionError ? 0 : 1,
-        ...baseReceipt,
-      } as EIP4844BlobTxReceipt
+
+    let receipt
+
+    if (!tx.supports(Capability.EIP2718TypedTransaction)) {
+      // Legacy transaction
+      if (vm.common.gteHardfork('byzantium') === true) {
+        // Post-Byzantium
+        receipt = {
+          status: txResult.execResult.exceptionError !== undefined ? 0 : 1, // Receipts have a 0 as status on error
+          ...baseReceipt,
+        } as PostByzantiumTxReceipt
+      } else {
+        // Pre-Byzantium
+        const stateRoot = await vm.stateManager.getStateRoot()
+        receipt = {
+          stateRoot,
+          ...baseReceipt,
+        } as PreByzantiumTxReceipt
+      }
     } else {
-      receipt = {
-        status: txResult.execResult.exceptionError ? 0 : 1,
-        ...baseReceipt,
-      } as PostByzantiumTxReceipt
+      // Typed EIP-2718 Transaction
+      if (isBlobEIP4844Tx(tx)) {
+        receipt = {
+          blobGasUsed,
+          blobGasPrice,
+          status: txResult.execResult.exceptionError ? 0 : 1,
+          ...baseReceipt,
+        } as EIP4844BlobTxReceipt
+      } else {
+        receipt = {
+          status: txResult.execResult.exceptionError ? 0 : 1,
+          ...baseReceipt,
+        } as PostByzantiumTxReceipt
+      }
     }
+    return receipt
   }
-  return receipt
-}
 
 /**
  * Internal helper function to create an annotated error message

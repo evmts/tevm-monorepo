@@ -27,9 +27,9 @@ import {
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
-import type { Vm } from '../Vm.js'
 import { Bloom } from '@ethereumjs/vm'
 import { runTx } from './runTx.js'
+import type { BaseVm } from '../BaseVm.js'
 
 export enum BuildStatus {
   Reverted = 'reverted',
@@ -56,7 +56,7 @@ export class BlockBuilder {
    */
   private _minerValue = 0n
 
-  private readonly vm: Vm
+  private readonly vm: BaseVm
   private blockOpts: BuilderOpts
   private headerData: HeaderData
   private transactions: TypedTransaction[] = []
@@ -73,7 +73,7 @@ export class BlockBuilder {
     return this._minerValue
   }
 
-  constructor(vm: Vm, opts: BuildBlockOpts) {
+  constructor(vm: BaseVm, opts: BuildBlockOpts) {
     this.vm = vm
     this.blockOpts = { putBlockIntoBlockchain: true, ...opts.blockOpts, common: this.vm.common }
 
@@ -399,7 +399,7 @@ export class BlockBuilder {
 
 export type BuildBlock = (opts: BuildBlockOpts) => Promise<BlockBuilder>
 
-export const buildBlock = (vm: Vm): BuildBlock => async (opts) => {
+export const buildBlock = (vm: BaseVm): BuildBlock => async (opts) => {
   const blockBuilder = new BlockBuilder(vm, opts)
   await blockBuilder.initState()
   return blockBuilder
