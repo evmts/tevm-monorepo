@@ -11,6 +11,13 @@ export type BaseVm = {
   blockchain: Chain
   evm: Evm
   events: AsyncEventEmitter<VMEvents>
+  /**
+   * This is copied from ethereumjs and we want to match the interface
+   * Cached emit() function, not for public usage
+   * set to public due to implementation internals
+   * @hidden
+   */
+  _emit: (topic: keyof VMEvents, data: any) => Promise<void>
   ready: () => Promise<true>
 }
 

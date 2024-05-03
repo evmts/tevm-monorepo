@@ -12,6 +12,7 @@ import {
   toType,
   zeros,
   parseGwei,
+  keccak256,
 } from '@tevm/utils'
 
 import {
@@ -22,7 +23,7 @@ import {
   rewardAccount,
 } from './runBlock.js'
 
-import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from './types.js'
+import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
 import type { Vm } from '../Vm.js'
@@ -319,18 +320,18 @@ export class BlockBuilder {
       ...this.headerData,
       stateRoot,
       transactionsTrie,
-      withdrawalsRoot,
+      ...(withdrawalsRoot !== undefined ? { withdrawalsRoot } : {}),
+      ...(blobGasUsed !== undefined ? { blobGasUsed } : {}),
       receiptTrie,
       logsBloom,
       gasUsed,
       timestamp,
       // correct excessBlobGas should already be part of headerData used above
-      blobGasUsed,
     }
 
     if (consensusType === ConsensusType.ProofOfWork) {
-      headerData.nonce = sealOpts?.nonce ?? headerData.nonce
-      headerData.mixHash = sealOpts?.mixHash ?? headerData.mixHash
+      headerData.nonce = sealOpts?.nonce ?? headerData.nonce as Uint8Array
+      headerData.mixHash = sealOpts?.mixHash ?? headerData.mixHash as Uint8Array
     }
 
     const blockData = {
@@ -341,13 +342,13 @@ export class BlockBuilder {
     const block = Block.fromBlockData(blockData, blockOpts)
 
     block.transactions.forEach(tx => {
-      tx.hash = (() => {
+      tx.hash = () => {
         try {
           return tx.hash()
         } catch (e) {
-          return keccak256(tx.getHashedMessageToSign())
+          return keccak256(tx.getHashedMessageToSign(), 'bytes')
         }
-      })()
+      }
     })
 
     if (this.blockOpts.putBlockIntoBlockchain === true) {
