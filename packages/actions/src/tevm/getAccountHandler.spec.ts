@@ -1,6 +1,6 @@
+import { createBaseClient } from '@tevm/base-client'
 import { getAccountHandler } from './getAccountHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
-import { Vm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -9,8 +9,8 @@ const ERC20_BYTECODE =
 
 describe('getAccount', () => {
 	it('should get an account from evm', async () => {
-		const vm = await Vm.create()
-		const res = await setAccountHandler({ getVm: async () => vm } as any)({
+		const client = createBaseClient()
+		const res = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
@@ -26,8 +26,8 @@ describe('getAccount', () => {
 	})
 
 	it('should validate params', async () => {
-		const vm = await Vm.create()
-		const res = await setAccountHandler({ getVm: async () => vm } as any)({
+		const client = createBaseClient()
+		const res = await setAccountHandler(client)({
 			// @ts-expect-error
 			address: 'not an address',
 			throwOnFail: false,

@@ -1,13 +1,14 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
-import { Vm } from '@tevm/vm'
 import { addPredeploy } from './addPredeploy.js'
+import { createBaseClient } from './createBaseClient.js'
+import type { BaseClient } from './BaseClient.js'
 
 describe('addPredeploy', () => {
-	let vm: Vm
+	let client: BaseClient
 
 	beforeEach(async () => {
-		vm = await Vm.create()
+		client = createBaseClient()
 	})
 
 	it('should add a predeploy with all parameters provided', async () => {
@@ -39,13 +40,13 @@ describe('addPredeploy', () => {
 		const balance = 100n
 
 		await addPredeploy({
-			vm,
+			vm: await client.getVm(),
 			address,
 			nonce,
 			balance,
 		})
 
-		const account = await vm.stateManager.getAccount(EthjsAddress.fromString(address))
+		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
 		expect(account).toEqual
 	})
 })
