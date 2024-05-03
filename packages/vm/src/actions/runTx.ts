@@ -8,6 +8,7 @@ import {
   bytesToUnprefixedHex,
   equalsBytes,
   hexToBytes,
+  type Hex,
 } from '@tevm/utils'
 
 import type {
@@ -66,7 +67,7 @@ export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> =
     const hfs = vm.common.hardforks()
     const preMergeIndex = hfs.findIndex((hf) => hf.ttd !== null && hf.ttd !== undefined) - 1
     // If no pre merge hf found, set it to first hf even if its merge
-    const preMergeHf = preMergeIndex >= 0 ? hfs[preMergeIndex].name : hfs[0].name
+    const preMergeHf = (preMergeIndex >= 0 ? hfs[preMergeIndex]?.name : hfs[0]?.name) as string
 
     // If block and tx don't have a same hardfork, set tx hardfork to block
     if (
@@ -81,13 +82,13 @@ export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> =
         .common.hardfork(), preMergeHf)
     ) {
       // Block and VM's hardfork should match as well
-      const msg = _errorMsg('block has a different hardfork than the vm', vm, opts.block, opts.tx)
+      const msg = _errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
       throw new Error(msg)
     }
   }
 
   if (opts.skipBlockGasLimitValidation !== true && opts.block.header.gasLimit < opts.tx.gasLimit) {
-    const msg = _errorMsg('tx has a higher gas limit than the block', vm, opts.block, opts.tx)
+    const msg = _errorMsg('tx has a higher gas limit than the block', opts.block, opts.tx)
     throw new Error(msg)
   }
 
@@ -110,7 +111,6 @@ export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> =
       await vm.evm.journal.revert()
       const msg = _errorMsg(
         'Cannot run transaction: EIP 2930 is not activated.',
-        vm,
         opts.block,
         opts.tx
       )
@@ -120,7 +120,6 @@ export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> =
       await vm.evm.journal.revert()
       const msg = _errorMsg(
         'Cannot run transaction: EIP 1559 is not activated.',
-        vm,
         opts.block,
         opts.tx
       )
@@ -199,7 +198,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
       `tx gas limit ${Number(gasLimit)} is lower than the minimum gas limit of ${Number(
         txBaseFee
       )}`,
-      vm,
       block,
       tx
     )
@@ -217,7 +215,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
       const msg = _errorMsg(
         `Transaction's ${'maxFeePerGas' in tx ? 'maxFeePerGas' : 'gasPrice'
         } (${maxFeePerGas}) is less than the block's baseFeePerGas (${baseFeePerGas})`,
-        vm,
         block,
         tx
       )
@@ -232,7 +229,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   const { nonce, balance } = fromAccount
   // EIP-3607: Reject transactions from senders with deployed code
   if (vm.common.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
-    const msg = _errorMsg('invalid sender address, address is not EOA (EIP-3607)', vm, block, tx)
+    const msg = _errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
     throw new Error(msg)
   }
 
@@ -248,7 +245,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     } else {
       const msg = _errorMsg(
         `sender doesn't have enough funds to send tx. The upfront cost is: ${upFrontCost} and the sender's account (${caller}) only has: ${balance}`,
-        vm,
         block,
         tx
       )
@@ -269,7 +265,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
 
   if (tx instanceof BlobEIP4844Transaction) {
     if (!vm.common.isActivatedEIP(4844)) {
-      const msg = _errorMsg('blob transactions are only valid with EIP4844 active', vm, block, tx)
+      const msg = _errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
       throw new Error(msg)
     }
     // EIP-4844 spec
@@ -283,7 +279,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     if (opts.block === undefined) {
       const msg = _errorMsg(
         `Block option must be supplied to compute blob gas price`,
-        vm,
         block,
         tx
       )
@@ -293,7 +288,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     if (castTx.maxFeePerBlobGas < blobGasPrice) {
       const msg = _errorMsg(
         `Transaction's maxFeePerBlobGas ${castTx.maxFeePerBlobGas}) is less than block blobGasPrice (${blobGasPrice}).`,
-        vm,
         block,
         tx
       )
@@ -309,7 +303,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     } else {
       const msg = _errorMsg(
         `sender doesn't have enough funds to send tx. The max cost is: ${maxCost} and the sender's account (${caller}) only has: ${balance}`,
-        vm,
         block,
         tx
       )
@@ -321,7 +314,6 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     if (nonce !== tx.nonce) {
       const msg = _errorMsg(
         `the tx doesn't have the correct nonce. account has nonce of: ${nonce} tx has nonce of: ${tx.nonce}`,
-        vm,
         block,
         tx
       )
@@ -373,10 +365,10 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
     gasPrice,
     caller,
     gasLimit,
-    to,
+    ...(to !== undefined ? { to } : {}),
+    ...(blobVersionedHashes !== undefined ? { blobVersionedHashes } : {}),
     value,
     data,
-    blobVersionedHashes,
   })) as RunTxResult
 
   /*
@@ -444,7 +436,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
    */
   if (results.execResult.selfdestruct !== undefined) {
     for (const addressToSelfdestructHex of results.execResult.selfdestruct) {
-      const address = new EthjsAddress(hexToBytes(addressToSelfdestructHex))
+      const address = new EthjsAddress(hexToBytes(addressToSelfdestructHex as Hex))
       if (vm.common.isActivatedEIP(6780)) {
         // skip cleanup of addresses not in createdAddresses
         if (!results.execResult.createdAddresses!.has(address.toString())) {
@@ -473,7 +465,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   }
 
   if (opts.reportPreimages === true && vm.evm.journal.preimages !== undefined) {
-    results.preimages = vm.evm.journal.preimages
+    results.preimages = vm.evm.journal.preimages as any
   }
 
   await vm.evm.journal.cleanup()
@@ -498,7 +490,7 @@ const _runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
    * @property {Object} result result of the transaction
    */
   const event: AfterTxEvent = { transaction: tx, ...results }
-  await this._emit('afterTx', event)
+  await vm._emit('afterTx', event)
 
   return results
 }
@@ -534,7 +526,7 @@ function txLogsBloom(logs?: any[], common?: Common): Bloom {
  * @param blobGasPrice The blob gas price for the block including this tx
  */
 export async function generateTxReceipt(
-  this: VM,
+  this: Vm,
   tx: TypedTransaction,
   txResult: RunTxResult,
   cumulativeGasUsed: bigint,
@@ -590,10 +582,10 @@ export async function generateTxReceipt(
  * @param msg Base error message
  * @hidden
  */
-function _errorMsg(msg: string, vm: VM, block: Block, tx: TypedTransaction) {
+function _errorMsg(msg: string, block: Block, tx: TypedTransaction) {
   const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
   const txErrorStr = 'errorStr' in tx ? tx.errorStr() : 'tx'
 
-  const errorMsg = `${msg} (${vm.errorStr()} -> ${blockErrorStr} -> ${txErrorStr})`
+  const errorMsg = `${msg} -> ${blockErrorStr} -> ${txErrorStr})`
   return errorMsg
 }
