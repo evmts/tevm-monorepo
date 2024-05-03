@@ -1,0 +1,4 @@
+ignores: [
+  "@tevm/trie"
+]
+skip-missing: true
