@@ -10,6 +10,7 @@
 
 - [Block](classes/Block.md)
 - [BlockHeader](classes/BlockHeader.md)
+- [ClRequest](classes/ClRequest.md)
 
 ### Interfaces
 

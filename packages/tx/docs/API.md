@@ -30,6 +30,8 @@
 
 ### Type Aliases
 
+- [AccessList](type-aliases/AccessList.md)
+- [AccessListItem](type-aliases/AccessListItem.md)
 - [TypedTransaction](type-aliases/TypedTransaction.md)
 
 ### Functions

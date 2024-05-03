@@ -14,7 +14,7 @@
 
 ▪ **options.forkUrl?**: `string`
 
-▪ **options.getVm**: () => `Promise`\<`TevmVm`\>
+▪ **options.getVm**: () => `Promise`\<`Vm`\>
 
 ## Returns
 

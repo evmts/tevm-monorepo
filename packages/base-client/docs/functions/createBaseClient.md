@@ -58,7 +58,7 @@ Creates the base instance of a memory client
 >
 > ### getVm
 >
-> > **`readonly`** **getVm**: () => `Promise`\<`TevmVm`\>
+> > **`readonly`** **getVm**: () => `Promise`\<`Vm`\>
 >
 > Internal instance of the VM. Can be used for lower level operations.
 > Normally not recomended to use unless building libraries or extensions

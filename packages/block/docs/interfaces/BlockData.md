@@ -36,7 +36,7 @@ Header data for the block
 
 ### requests
 
-> **requests**?: `ClRequest`[]
+> **requests**?: [`ClRequest`](../classes/ClRequest.md)[]
 
 #### Source
 

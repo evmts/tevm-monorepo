@@ -36,7 +36,7 @@ Interface for querying receipts and historical state
 
 Gets the pool of pending transactions to be included in next block
 
-▪ **client.getVm?**: () => `Promise`\<`TevmVm`\>
+▪ **client.getVm?**: () => `Promise`\<`Vm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions

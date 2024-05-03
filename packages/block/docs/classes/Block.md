@@ -29,7 +29,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ▪ **withdrawals?**: `Withdrawal`[]
 
-▪ **requests?**: `ClRequest`[]
+▪ **requests?**: [`ClRequest`](ClRequest.md)[]
 
 ▪ **executionWitness?**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
@@ -113,7 +113,7 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ### requests
 
-> **`readonly`** **requests**?: `ClRequest`[]
+> **`readonly`** **requests**?: [`ClRequest`](ClRequest.md)[]
 
 #### Source
 
@@ -550,7 +550,7 @@ Returns the requests trie root for an array of CLRequests
 
 #### Parameters
 
-▪ **requests**: `ClRequest`[]
+▪ **requests**: [`ClRequest`](ClRequest.md)[]
 
 an array of CLRequests
 

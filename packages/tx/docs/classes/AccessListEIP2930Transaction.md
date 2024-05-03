@@ -45,7 +45,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 ### AccessListJSON
 
-> **`readonly`** **AccessListJSON**: `AccessList`
+> **`readonly`** **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
 #### Source
 

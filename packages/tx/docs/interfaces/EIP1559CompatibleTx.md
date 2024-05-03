@@ -18,7 +18,7 @@
 
 ### AccessListJSON
 
-> **`readonly`** **AccessListJSON**: `AccessList`
+> **`readonly`** **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
 #### Inherited from
 
