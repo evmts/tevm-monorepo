@@ -18,8 +18,6 @@ import {
   parseGwei,
 } from '@tevm/utils'
 
-import { Bloom } from './bloom/index.js'
-
 import type {
   AfterBlockEvent,
   ApplyBlockResult,
@@ -29,23 +27,21 @@ import type {
   RunBlockResult,
   RunTxResult,
   TxReceipt,
-} from './types.js'
+} from '../utils/types.js'
 import type { Vm } from '../Vm.js'
 import type { Evm } from '@tevm/evm'
+import { Bloom } from '@ethereumjs/vm'
 
 const parentBeaconBlockRootAddress = EthjsAddress.fromString(
   '0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02'
 )
 
-const stateRootCPLabel = 'New state root, DAO HF, checkpoints, block validation'
-const processTxsLabel = 'Tx processing [ use per-tx profiler for more details ]'
-const withdrawalsRewardsCommitLabel = 'Withdrawals, Rewards, EVM journal commit'
-const entireBlockLabel = 'Entire block'
+export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
 
 /**
  * @ignore
  */
-export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResult> {
+export const runBlock = (vm: Vm): RunBlock => async (opts) => {
 
   const state = vm.stateManager
 

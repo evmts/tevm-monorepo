@@ -5,14 +5,13 @@ import { Trie } from '@tevm/trie'
 import { BlobEIP4844Transaction } from '@tevm/tx'
 import {
   EthjsAddress,
-  GWEI_TO_WEI,
   KECCAK256_RLP,
   TypeOutput,
   Withdrawal,
   toBytes,
   toType,
   zeros,
-  Bloom,
+  parseGwei,
 } from '@tevm/utils'
 
 import {
@@ -27,6 +26,7 @@ import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from './
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
 import type { Vm } from '../Vm.js'
+import { Bloom } from '@ethereumjs/vm'
 
 export enum BuildStatus {
   Reverted = 'reverted',
@@ -70,7 +70,7 @@ export class BlockBuilder {
     return this._minerValue
   }
 
-  constructor(vm: VM, opts: BuildBlockOpts) {
+  constructor(vm: Vm, opts: BuildBlockOpts) {
     this.vm = vm
     this.blockOpts = { putBlockIntoBlockchain: true, ...opts.blockOpts, common: this.vm.common }
 
@@ -172,7 +172,7 @@ export class BlockBuilder {
       this.headerData.coinbase !== undefined
         ? new EthjsAddress(toBytes(this.headerData.coinbase))
         : EthjsAddress.zero()
-    await rewardAccount(this.vm.evm, coinbase, reward, this.vm.common)
+    await rewardAccount(this.vm.evm, coinbase, reward)
   }
 
   /**
@@ -188,7 +188,7 @@ export class BlockBuilder {
       if (amount === 0n) continue
       // Withdrawal amount is represented in Gwei so needs to be
       // converted to wei
-      await rewardAccount(this.vm.evm, address, amount * GWEI_TO_WEI, this.vm.common)
+      await rewardAccount(this.vm.evm, address, parseGwei(amount.toString()))
     }
   }
 
@@ -394,7 +394,9 @@ export class BlockBuilder {
   }
 }
 
-export const buildBlock = (vm: Vm) => async (opts: BuildBlockOpts): Promise<BlockBuilder> => {
+export type BuildBlock = (opts: BuildBlockOpts) => Promise<BlockBuilder>
+
+export const buildBlock = (vm: Vm): BuildBlock => async (opts) => {
   const blockBuilder = new BlockBuilder(vm, opts)
   await blockBuilder.initState()
   return blockBuilder
