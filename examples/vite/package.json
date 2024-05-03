@@ -2,7 +2,9 @@
 	"name": "@tevm/example-vite",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"scripts": {
 		"//build:app": "vite build",
 		"anvil": "source .env && anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY",
