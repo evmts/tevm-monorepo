@@ -8,7 +8,6 @@ import {
   KECCAK256_RLP,
   TypeOutput,
   Withdrawal,
-  toBytes,
   toType,
   zeros,
   parseGwei,
@@ -250,9 +249,9 @@ export class BlockBuilder {
     }
 
     const blockData = { header, transactions: this.transactions }
-    const block = Block.fromBlockData(blockData, this.blockOpts)
+    const block = Block.fromBlockData(blockData as any, this.blockOpts)
 
-    const result = await runTx(this.vm)({ tx, block, skipHardForkValidation })
+    const result = await runTx(this.vm)({ tx, block, skipHardForkValidation } as any)
 
     // If tx is a blob transaction, remove blobs/kzg commitments before adding to block per EIP-4844
     if (tx instanceof BlobEIP4844Transaction) {

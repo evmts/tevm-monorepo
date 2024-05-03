@@ -31,6 +31,7 @@ import type {
 import type { Vm } from '../Vm.js'
 import type { Evm } from '@tevm/evm'
 import { Bloom } from '@ethereumjs/vm'
+import { runTx } from './runTx.js'
 
 const parentBeaconBlockRootAddress = EthjsAddress.fromString(
   '0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02'
@@ -104,7 +105,8 @@ export const runBlock = (vm: Vm): RunBlock => async (opts) => {
       ...block,
       header: { ...block.header, ...generatedFields },
     }
-    block = Block.fromBlockData(blockData, { common: vm.common })
+    // TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
+    block = Block.fromBlockData(blockData as any, { common: vm.common })
   } else if (vm.common.isActivatedEIP(6800) === false) {
     // Only validate the following headers if verkle blocks aren't activated
     if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
@@ -138,7 +140,7 @@ export const runBlock = (vm: Vm): RunBlock => async (opts) => {
     stateRoot,
     gasUsed: result.gasUsed,
     receiptsRoot: result.receiptsRoot,
-    preimages: result.preimages,
+    ...(result.preimages !== undefined ? { preimages: result.preimages } : {}),
   }
 
   const afterBlockEvent: AfterBlockEvent = { ...results, block }
@@ -229,7 +231,7 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
     await assignBlockRewards(vm)(block)
   }
 
-  return blockResults
+  return blockResults as any
 }
 
 /**
@@ -365,9 +367,9 @@ const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) =
     }
 
     // Run the tx through the VM
-    const { skipBalance, skipNonce, skipHardForkValidation, reportPreimages } = opts
+    const { skipBalance = false, skipNonce = false, skipHardForkValidation = true, reportPreimages = false } = opts
 
-    const txRes = await vm.runTx({
+    const txRes = await runTx(vm)({
       tx,
       block,
       skipBalance,
@@ -542,7 +544,7 @@ async function _genTxTrie(block: Block) {
 function _errorMsg(msg: string, vm: Vm, block: Block) {
   const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
 
-  const errorMsg = `${msg} (${vm.errorStr()} -> ${blockErrorStr})`
+  const errorMsg = `${msg} (${vm.common.hardfork.name} -> ${blockErrorStr})`
   return errorMsg
 }
 
