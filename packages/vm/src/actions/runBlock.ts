@@ -6,7 +6,6 @@ import { TransactionType, type TypedTransaction } from '@tevm/tx'
 import {
   EthjsAddress,
   EthjsAccount,
-  GWEI_TO_WEI,
   KECCAK256_RLP,
   bytesToHex,
   concatBytes,
@@ -16,6 +15,7 @@ import {
   numberToHex,
   toBytes,
   type Hex,
+  parseGwei,
 } from '@tevm/utils'
 
 import { Bloom } from './bloom/index.js'
@@ -412,7 +412,7 @@ const assignWithdrawals = (vm: Vm) => async (block: Block): Promise<void> => {
     // converted to wei
     // Note: event if amount is 0, still reward the account
     // such that the account is touched and marked for cleanup if it is empty
-    await rewardAccount(vm.evm, address, amount * GWEI_TO_WEI)
+    await rewardAccount(vm.evm, address, parseGwei(amount.toString()))
   }
 }
 
