@@ -3,4 +3,5 @@ export { type BeaconPayloadJson, executionPayloadFromBeaconPayload } from './fro
 export { BlockHeader } from './header.js'
 export { getDifficulty, valuesArrayToHeaderData } from './helpers.js'
 export { blockFromRpc } from './from-rpc.js'
+export { ClRequest } from './ClRequest.js'
 export * from './types.js'

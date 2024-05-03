@@ -2,16 +2,17 @@ import type { Bloom } from '@ethereumjs/vm'
 import type { Block, BlockOptions, HeaderData } from '@tevm/block'
 import type { Chain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
-import type { Evm, EvmResult, Log } from '@tevm/evm'
+import type { Evm, EvmResult } from '@tevm/evm'
 import type { StateManager } from '@tevm/state'
 import type { AccessList, TypedTransaction } from '@tevm/tx'
 import type {
   BigIntLike,
-  CLRequest,
+  EthjsLog,
   GenesisState,
-  PrefixedHexString,
+  Hex,
   WithdrawalData,
 } from '@tevm/utils'
+import type { ClRequest } from '@tevm/block'
 
 export type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
 
@@ -30,7 +31,7 @@ export interface BaseTxReceipt {
   /**
    * Logs emitted
    */
-  logs: Log[]
+  logs: EthjsLog[]
 }
 
 /**
@@ -317,7 +318,7 @@ export interface ApplyBlockResult {
   /**
    * Preimages mapping of the touched accounts from the block (see reportPreimages option)
    */
-  preimages?: Map<PrefixedHexString, Uint8Array>
+  preimages?: Map<Hex, Uint8Array>
 }
 
 /**
@@ -340,7 +341,7 @@ export interface RunBlockResult extends Omit<ApplyBlockResult, 'bloom'> {
   /**
    * Any CL requests that were processed in the course of this block
    */
-  requests?: CLRequest[]
+  requests?: ClRequest[]
 }
 
 export interface AfterBlockEvent extends RunBlockResult {
@@ -410,7 +411,7 @@ export interface RunTxOpts {
 /**
  * Execution result of a transaction
  */
-export interface RunTxResult extends EVMResult {
+export interface RunTxResult extends EvmResult {
   /**
    * Bloom filter resulted from transaction
    */
@@ -446,7 +447,7 @@ export interface RunTxResult extends EVMResult {
   /**
    * Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
    */
-  preimages?: Map<PrefixedHexString, Uint8Array>
+  preimages?: Map<Hex, Uint8Array>
 
   /**
    * The value that accrues to the miner by this transaction
