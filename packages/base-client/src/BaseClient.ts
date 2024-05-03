@@ -1,7 +1,7 @@
 import type { ReceiptsManager } from '@tevm/blockchain'
 import type { Logger } from '@tevm/logger'
 import type { TxPool } from '@tevm/txpool'
-import type { TevmVm } from '@tevm/vm'
+import type { Vm } from '@tevm/vm'
 import type { MiningConfig } from './MiningConfig.js'
 
 /**
@@ -61,7 +61,7 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * Normally not recomended to use unless building libraries or extensions
 	 * on top of Tevm.
 	 */
-	readonly getVm: () => Promise<TevmVm>
+	readonly getVm: () => Promise<Vm>
 	/**
 	 * Gets the pool of pending transactions to be included in next block
 	 */

@@ -33,7 +33,7 @@ export class BlobGasLimitExceededError extends Error {
 
 /**
  * @internal
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/vm').Vm} vm
  * @param {Uint8Array} txBuf
  */
 const getTx = (vm, txBuf) => {

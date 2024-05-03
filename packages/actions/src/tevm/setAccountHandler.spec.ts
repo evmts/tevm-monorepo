@@ -2,7 +2,7 @@ import { setAccountHandler } from './setAccountHandler.js'
 import { Evm } from '@tevm/evm'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
-import { TevmVm } from '@tevm/vm'
+import { Vm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -12,7 +12,7 @@ const ERC20_BYTECODE =
 describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
 		const evm = await Evm.create()
-		const vm = await TevmVm.create({ evm })
+		const vm = await Vm.create({ evm })
 		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
@@ -30,7 +30,7 @@ describe('setAccountHandler', () => {
 
 	it('should validate params', async () => {
 		const evm = await Evm.create()
-		const vm = await TevmVm.create({ evm })
+		const vm = await Vm.create({ evm })
 		// @ts-expect-error
 		const res = await setAccountHandler({ vm })({
 			// address: ERC20_ADDRESS,
@@ -58,7 +58,7 @@ describe('setAccountHandler', () => {
 		const evm = await Evm.create({
 			stateManager: stateManager as any,
 		})
-		const vm = await TevmVm.create({ evm, stateManager: stateManager as any })
+		const vm = await Vm.create({ evm, stateManager: stateManager as any })
 		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,

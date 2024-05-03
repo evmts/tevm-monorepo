@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
-import { TevmVm } from '@tevm/vm'
+import { Vm } from '@tevm/vm'
 import { addPredeploy } from './addPredeploy.js'
 
 describe('addPredeploy', () => {
-	let vm: TevmVm
+	let vm: Vm
 
 	beforeEach(async () => {
-		vm = await TevmVm.create()
+		vm = await Vm.create()
 	})
 
 	it('should add a predeploy with all parameters provided', async () => {
