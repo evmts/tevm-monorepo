@@ -14,6 +14,7 @@
 
 ### Classes
 
+- [AsyncEventEmitter](classes/AsyncEventEmitter.md)
 - [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)

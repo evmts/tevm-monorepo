@@ -39,6 +39,7 @@
 
 ### Functions
 
+- [blockFromRpc](functions/blockFromRpc.md)
 - [executionPayloadFromBeaconPayload](functions/executionPayloadFromBeaconPayload.md)
 - [getDifficulty](functions/getDifficulty.md)
 - [valuesArrayToHeaderData](functions/valuesArrayToHeaderData.md)

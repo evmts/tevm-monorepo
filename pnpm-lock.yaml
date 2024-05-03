@@ -2098,6 +2098,9 @@ importers:
       '@ethereumjs/vm':
         specifier: ^8.0.0
         version: 8.0.0
+      '@tevm/block':
+        specifier: workspace:1.0.0-next.42
+        version: link:../block
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
@@ -2107,6 +2110,15 @@ importers:
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
+      '@tevm/rlp':
+        specifier: workspace:1.0.0-next.42
+        version: link:../rlp
+      '@tevm/trie':
+        specifier: workspace:1.0.0-next.42
+        version: link:../trie
+      '@tevm/tx':
+        specifier: workspace:1.0.0-next.42
+        version: link:../tx
       '@tevm/utils':
         specifier: workspace:1.0.0-next.40
         version: link:../utils

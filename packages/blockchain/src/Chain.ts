@@ -13,7 +13,8 @@ shallowCopy
 /**
  * Blockchain
  */
-export type Chain = {} & BaseChain & { // for type compatability we must also implement some unused methods
+export type Chain = {} & BaseChain & {
+		// for type compatability we must also implement some unused methods
 		/**
 		 * Returns a shallow copy of the blockchain that may share state with the original
 		 */
