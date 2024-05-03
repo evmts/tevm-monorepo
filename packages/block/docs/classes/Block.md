@@ -10,46 +10,56 @@ An object that represents the block.
 
 ## Constructors
 
-### new Block(header, transactions, uncleHeaders, withdrawals, opts, executionWitness)
+### new Block(opts, header, transactions, uncleHeaders, withdrawals, requests, executionWitness)
 
-> **new Block**(`header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `opts`?, `executionWitness`?): [`Block`](Block.md)
+> **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): [`Block`](Block.md)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
 
 #### Parameters
 
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
 ▪ **header?**: [`BlockHeader`](BlockHeader.md)
 
-▪ **transactions?**: `TypedTransaction`[]
+▪ **transactions?**: `TypedTransaction`[]= `[]`
 
-▪ **uncleHeaders?**: [`BlockHeader`](BlockHeader.md)[]
+▪ **uncleHeaders?**: [`BlockHeader`](BlockHeader.md)[]= `[]`
 
 ▪ **withdrawals?**: `Withdrawal`[]
 
-▪ **opts?**: `BlockOptions`
+▪ **requests?**: [`ClRequest`](ClRequest.md)[]
 
-▪ **executionWitness?**: `null` \| `VerkleExecutionWitness`
+▪ **executionWitness?**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:95
+[block.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L331)
 
 ## Properties
 
 ### cache
 
-> **`protected`** **cache**: `object`
+> **`protected`** **cache**: `object` = `{}`
 
 #### Type declaration
+
+##### requestsRoot
+
+> **requestsRoot**?: `Uint8Array`
 
 ##### txTrieRoot
 
 > **txTrieRoot**?: `Uint8Array`
 
+##### withdrawalsTrieRoot
+
+> **withdrawalsTrieRoot**?: `Uint8Array`
+
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:25
+[block.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L55)
 
 ***
 
@@ -59,13 +69,13 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:17
+[block.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L45)
 
 ***
 
 ### executionWitness
 
-> **`readonly`** **executionWitness**?: `null` \| `VerkleExecutionWitness`
+> **`readonly`** **executionWitness**?: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
@@ -73,7 +83,7 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:24
+[block.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L53)
 
 ***
 
@@ -83,7 +93,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:13
+[block.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L40)
 
 ***
 
@@ -97,27 +107,37 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:18
+[block.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L46)
+
+***
+
+### requests
+
+> **`readonly`** **requests**?: [`ClRequest`](ClRequest.md)[]
+
+#### Source
+
+[block.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L44)
 
 ***
 
 ### transactions
 
-> **`readonly`** **transactions**: `TypedTransaction`[]
+> **`readonly`** **transactions**: `TypedTransaction`[] = `[]`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:14
+[block.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L41)
 
 ***
 
 ### uncleHeaders
 
-> **`readonly`** **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[]
+> **`readonly`** **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[] = `[]`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:15
+[block.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L42)
 
 ***
 
@@ -127,33 +147,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:16
-
-***
-
-### fromJsonRpcProvider
-
-> **`static`** **fromJsonRpcProvider**: (`provider`, `blockTag`, `opts`) => `Promise`\<[`Block`](Block.md)\>
-
-Method to retrieve a block from a JSON-RPC provider and format as a [Block](Block.md)
-
-#### Parameters
-
-▪ **provider**: `string` \| `EthersProvider`
-
-either a url for a remote provider or an Ethers JsonRpcProvider object
-
-▪ **blockTag**: `string` \| `bigint`
-
-block hash or block number to be run
-
-▪ **opts**: `BlockOptions`
-
-[BlockOptions]([object Object])
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:76
+[block.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L43)
 
 ## Methods
 
@@ -165,7 +159,7 @@ Return a compact error string representation of the object
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:190
+[block.ts:798](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L798)
 
 ***
 
@@ -183,7 +177,7 @@ the parent of this `Block`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:175
+[block.ts:732](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L732)
 
 ***
 
@@ -195,7 +189,7 @@ Generates transaction trie for validation.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:115
+[block.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L452)
 
 ***
 
@@ -211,7 +205,7 @@ an array of error strings
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:126
+[block.ts:498](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L498)
 
 ***
 
@@ -223,7 +217,7 @@ Returns the hash of the block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:103
+[block.ts:431](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L431)
 
 ***
 
@@ -235,19 +229,29 @@ Determines if this block is the genesis block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:107
+[block.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L438)
 
 ***
 
 ### raw()
 
-> **raw**(): `BlockBytes`
+> **raw**(): [`BlockBytes`](../type-aliases/BlockBytes.md)
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:99
+[block.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L409)
+
+***
+
+### requestsTrieIsValid()
+
+> **requestsTrieIsValid**(): `Promise`\<`boolean`\>
+
+#### Source
+
+[block.ts:475](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L475)
 
 ***
 
@@ -259,19 +263,29 @@ Returns the rlp encoding of the block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:111
+[block.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L445)
+
+***
+
+### toExecutionPayload()
+
+> **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
+
+#### Source
+
+[block.ts:764](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L764)
 
 ***
 
 ### toJSON()
 
-> **toJSON**(): `JsonBlock`
+> **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
 Returns the block in JSON format.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:186
+[block.ts:749](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L749)
 
 ***
 
@@ -287,7 +301,7 @@ True if all transactions are valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:131
+[block.ts:548](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L548)
 
 ***
 
@@ -304,7 +318,7 @@ True if the transaction trie is valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:121
+[block.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L461)
 
 ***
 
@@ -320,7 +334,7 @@ true if the uncle's hash is valid, false otherwise.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:154
+[block.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L665)
 
 ***
 
@@ -340,13 +354,13 @@ header of parent block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:149
+[block.ts:619](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L619)
 
 ***
 
 ### validateData()
 
-> **validateData**(`onlyHeader`?, `verifyTxs`?): `Promise`\<`void`\>
+> **validateData**(`onlyHeader`, `verifyTxs`): `Promise`\<`void`\>
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -357,17 +371,17 @@ It checks:
 
 #### Parameters
 
-▪ **onlyHeader?**: `boolean`
+▪ **onlyHeader**: `boolean`= `false`
 
 if only passed the header, skip validating txTrie and unclesHash (default: false)
 
-▪ **verifyTxs?**: `boolean`
+▪ **verifyTxs**: `boolean`= `true`
 
 if set to `false`, will not check for transaction validation errors (default: true)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:142
+[block.ts:564](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L564)
 
 ***
 
@@ -386,7 +400,7 @@ the parent of this `Block`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:182
+[block.ts:742](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L742)
 
 ***
 
@@ -404,7 +418,7 @@ Header does not count an uncle twice.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:169
+[block.ts:708](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L708)
 
 ***
 
@@ -420,25 +434,25 @@ true if the withdrawals trie root is valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:159
+[block.ts:678](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L678)
 
 ***
 
 ### fromBeaconPayloadJson()
 
-> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`?): `Promise`\<[`Block`](Block.md)\>
+> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
 Method to retrieve a block from a beacon payload json
 
 #### Parameters
 
-▪ **payload**: `BeaconPayloadJson`
+▪ **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
 
 json of a beacon beacon fetched from beacon apis
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
-[BlockOptions]([object Object])
+[BlockOptions](../interfaces/BlockOptions.md)
 
 #### Returns
 
@@ -446,41 +460,41 @@ the block constructed block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:90
+[block.ts:322](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L322)
 
 ***
 
 ### fromBlockData()
 
-> **`static`** **fromBlockData**(`blockData`?, `opts`?): [`Block`](Block.md)
+> **`static`** **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from a block data dictionary
 
 #### Parameters
 
-▪ **blockData?**: [`BlockData`](../interfaces/BlockData.md)
+▪ **blockData**: [`BlockData`](../interfaces/BlockData.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:46
+[block.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L109)
 
 ***
 
 ### fromExecutionPayload()
 
-> **`static`** **fromExecutionPayload**(`payload`, `opts`?): `Promise`\<[`Block`](Block.md)\>
+> **`static`** **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
 Method to retrieve a block from an execution payload
 
 #### Parameters
 
-▪ **payload**: `ExecutionPayload`
+▪ **payload**: [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
-[BlockOptions]([object Object])
+[BlockOptions](../interfaces/BlockOptions.md)
 
 #### Returns
 
@@ -488,13 +502,13 @@ the block constructed block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:83
+[block.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L260)
 
 ***
 
 ### fromRLPSerializedBlock()
 
-> **`static`** **fromRLPSerializedBlock**(`serialized`, `opts`?): [`Block`](Block.md)
+> **`static`** **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from a RLP-serialized block
 
@@ -502,53 +516,55 @@ Static constructor to create a block from a RLP-serialized block
 
 ▪ **serialized**: `Uint8Array`
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:53
-
-***
-
-### fromRPC()
-
-> **`static`** **fromRPC**(`blockData`, `uncles`?, `opts`?): [`Block`](Block.md)
-
-Creates a new block object from Ethereum JSON RPC.
-
-#### Parameters
-
-▪ **blockData**: `JsonRpcBlock`
-
-▪ **uncles?**: `any`[]
-
-Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
-
-▪ **opts?**: `BlockOptions`
-
-An object describing the blockchain
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:68
+[block.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L164)
 
 ***
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`values`, `opts`?): [`Block`](Block.md)
+> **`static`** **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from an array of Bytes values
 
 #### Parameters
 
-▪ **values**: `BlockBytes`
+▪ **values**: [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:60
+[block.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L180)
+
+***
+
+### genRequestsTrieRoot()
+
+> **`static`** **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+
+Returns the requests trie root for an array of CLRequests
+
+#### Parameters
+
+▪ **requests**: [`ClRequest`](ClRequest.md)[]
+
+an array of CLRequests
+
+▪ **emptyTrie?**: `Trie`
+
+optional empty trie used to generate the root
+
+#### Returns
+
+a 32 byte Uint8Array representing the requests trie root
+
+#### Source
+
+[block.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L93)
 
 ***
 
@@ -568,7 +584,7 @@ array of TypedTransaction to compute the root of
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:39
+[block.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L79)
 
 ***
 
@@ -588,7 +604,7 @@ array of Withdrawal to compute the root of
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:33
+[block.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L66)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

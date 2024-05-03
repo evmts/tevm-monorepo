@@ -12,7 +12,7 @@ An object that represents the block header.
 
 ### new BlockHeader(headerData, opts)
 
-> **new BlockHeader**(`headerData`, `opts`?): [`BlockHeader`](BlockHeader.md)
+> **new BlockHeader**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
@@ -20,7 +20,7 @@ This constructor takes the values, validates them, assigns them and freezes the 
 
 ▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
@@ -31,23 +31,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:66
+[header.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L148)
 
 ## Properties
-
-### \_getBlobGasPrice
-
-> **`private`** **\_getBlobGasPrice**: `any`
-
-Returns the blob gas price depending upon the `excessBlobGas` value
-
-#### Param
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:96
-
-***
 
 ### baseFeePerGas
 
@@ -55,7 +41,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:26
+[header.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L58)
 
 ***
 
@@ -65,7 +51,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:28
+[header.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L60)
 
 ***
 
@@ -75,7 +61,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:33
+[header.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L69)
 
 ***
 
@@ -85,7 +71,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:13
+[header.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L45)
 
 ***
 
@@ -95,7 +81,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:31
+[header.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L65)
 
 ***
 
@@ -105,7 +91,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:18
+[header.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L50)
 
 ***
 
@@ -115,7 +101,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:29
+[header.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L61)
 
 ***
 
@@ -125,7 +111,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:23
+[header.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L55)
 
 ***
 
@@ -135,7 +121,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:20
+[header.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L52)
 
 ***
 
@@ -145,7 +131,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:21
+[header.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L53)
 
 ***
 
@@ -159,7 +145,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:32
+[header.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L67)
 
 ***
 
@@ -169,7 +155,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:17
+[header.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L49)
 
 ***
 
@@ -179,7 +165,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:24
+[header.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L56)
 
 ***
 
@@ -189,7 +175,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:25
+[header.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L57)
 
 ***
 
@@ -199,7 +185,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:19
+[header.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L51)
 
 ***
 
@@ -209,7 +195,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:30
+[header.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L62)
 
 ***
 
@@ -219,7 +205,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:11
+[header.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L43)
 
 ***
 
@@ -229,7 +215,17 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:16
+[header.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L48)
+
+***
+
+### requestsRoot
+
+> **`readonly`** **requestsRoot**?: `Uint8Array`
+
+#### Source
+
+[header.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L63)
 
 ***
 
@@ -239,7 +235,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:14
+[header.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L46)
 
 ***
 
@@ -249,7 +245,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:22
+[header.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L54)
 
 ***
 
@@ -259,7 +255,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:15
+[header.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L47)
 
 ***
 
@@ -269,7 +265,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:12
+[header.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L44)
 
 ***
 
@@ -279,7 +275,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:27
+[header.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L59)
 
 ## Accessors
 
@@ -291,7 +287,7 @@ EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:37
+[header.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L76)
 
 ## Methods
 
@@ -309,7 +305,7 @@ if any check fails
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:75
+[header.ts:399](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L399)
 
 ***
 
@@ -321,7 +317,23 @@ Validates correct buffer lengths, throws if invalid.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:70
+[header.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L312)
+
+***
+
+### \_getBlobGasPrice()
+
+> **`private`** **\_getBlobGasPrice**(`excessBlobGas`): `bigint`
+
+Returns the blob gas price depending upon the `excessBlobGas` value
+
+#### Parameters
+
+▪ **excessBlobGas**: `bigint`
+
+#### Source
+
+[header.ts:567](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L567)
 
 ***
 
@@ -335,7 +347,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:125
+[header.ts:682](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L682)
 
 ***
 
@@ -348,7 +360,7 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:189
+[header.ts:926](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L926)
 
 ***
 
@@ -370,7 +382,7 @@ the total blob gas fee for numBlobs blobs
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:103
+[header.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L581)
 
 ***
 
@@ -382,7 +394,7 @@ Calculates the base fee for a potential next block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:86
+[header.ts:522](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L522)
 
 ***
 
@@ -398,7 +410,7 @@ The blob gas price
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:112
+[header.ts:607](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L607)
 
 ***
 
@@ -410,7 +422,7 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:107
+[header.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L592)
 
 ***
 
@@ -427,7 +439,7 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliquei
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:165
+[header.ts:825](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L825)
 
 ***
 
@@ -440,7 +452,7 @@ Returns extra seal data
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:150
+[header.ts:795](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L795)
 
 ***
 
@@ -453,7 +465,7 @@ Returns extra vanity data
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:145
+[header.ts:786](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L786)
 
 ***
 
@@ -466,7 +478,7 @@ header (only clique PoA, throws otherwise)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:140
+[header.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L774)
 
 ***
 
@@ -478,7 +490,7 @@ PoA clique signature hash without the seal.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:135
+[header.ts:763](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L763)
 
 ***
 
@@ -490,7 +502,7 @@ Returns the signer address
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:176
+[header.ts:862](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L862)
 
 ***
 
@@ -509,7 +521,7 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:172
+[header.ts:850](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L850)
 
 ***
 
@@ -521,7 +533,7 @@ Return a compact error string representation of the object
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:193
+[header.ts:948](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L948)
 
 ***
 
@@ -539,7 +551,7 @@ the header from the parent `Block` of this header
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:131
+[header.ts:694](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L694)
 
 ***
 
@@ -555,7 +567,7 @@ the price in gwei per unit of blob gas spent
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:91
+[header.ts:556](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L556)
 
 ***
 
@@ -567,7 +579,7 @@ Returns the hash of the block header.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:120
+[header.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L665)
 
 ***
 
@@ -579,19 +591,19 @@ Checks if the block header is a genesis header.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:124
+[header.ts:678](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L678)
 
 ***
 
 ### raw()
 
-> **raw**(): `BlockHeaderBytes`
+> **raw**(): [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:116
+[header.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L614)
 
 ***
 
@@ -603,19 +615,19 @@ Returns the rlp encoding of the block header.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:180
+[header.ts:879](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L879)
 
 ***
 
 ### toJSON()
 
-> **toJSON**(): `JsonHeader`
+> **toJSON**(): [`JsonHeader`](../interfaces/JsonHeader.md)
 
 Returns the block header in JSON format.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:184
+[header.ts:886](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L886)
 
 ***
 
@@ -634,31 +646,31 @@ the header from the parent `Block` of this header
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:82
+[header.ts:483](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L483)
 
 ***
 
 ### fromHeaderData()
 
-> **`static`** **fromHeaderData**(`headerData`?, `opts`?): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromHeaderData**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a header data dictionary
 
 #### Parameters
 
-▪ **headerData?**: [`HeaderData`](../interfaces/HeaderData.md)
+▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:44
+[header.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L90)
 
 ***
 
 ### fromRLPSerializedHeader()
 
-> **`static`** **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`?): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a RLP-serialized header
 
@@ -666,29 +678,29 @@ Static constructor to create a block header from a RLP-serialized header
 
 ▪ **serializedHeaderData**: `Uint8Array`
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:51
+[header.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L100)
 
 ***
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`values`, `opts`?): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromValuesArray**(`values`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from an array of Bytes values
 
 #### Parameters
 
-▪ **values**: `BlockHeaderBytes`
+▪ **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
-▪ **opts?**: `BlockOptions`
+▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:58
+[header.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L114)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

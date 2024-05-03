@@ -1,6 +1,6 @@
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').Blockchain['getCanonicalHeadBlock']}
+ * @returns {import('../Chain.js').Chain['getCanonicalHeadBlock']}
  */
 export const getCanonicalHeadBlock = (baseChain) => () => {
 	const block = baseChain.blocksByTag.get('latest')

@@ -8,7 +8,7 @@ import {
 	isLegacyTx,
 } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
-import type { TevmVm } from '@tevm/vm'
+import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
 import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
@@ -23,7 +23,7 @@ const MAX_POOL_SIZE = 5000
 const MAX_TXS_PER_ACCOUNT = 100
 
 export interface TxPoolOptions {
-	vm: TevmVm
+	vm: Vm
 }
 
 type TxPoolObject = {
@@ -57,7 +57,7 @@ type GasPrice = {
  * @memberof module:service
  */
 export class TxPool {
-	private vm: TevmVm
+	private vm: Vm
 
 	private opened: boolean
 
@@ -448,7 +448,7 @@ export class TxPool {
 	 *
 	 * @param baseFee Provide a baseFee to exclude txs with a lower gasPrice
 	 */
-	async txsByPriceAndNonce(vm: TevmVm, { baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
+	async txsByPriceAndNonce(vm: Vm, { baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
 		const txs: TypedTransaction[] = []
 		// Separate the transactions by account and sort by nonce
 		const byNonce = new Map<string, TypedTransaction[]>()

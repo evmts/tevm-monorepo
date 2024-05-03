@@ -1,6 +1,6 @@
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').Blockchain['putBlock']}
+ * @returns {import('../Chain.js').Chain['putBlock']}
  */
 export const putBlock = (baseChain) => (block) => {
 	if (block.common.chainId() !== baseChain.common.chainId()) {

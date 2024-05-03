@@ -23,10 +23,15 @@
 
 - [EIP1559CompatibleTx](interfaces/EIP1559CompatibleTx.md)
 - [EIP4844CompatibleTx](interfaces/EIP4844CompatibleTx.md)
+- [JsonRpcTx](interfaces/JsonRpcTx.md)
+- [JsonTx](interfaces/JsonTx.md)
 - [TxData](interfaces/TxData.md)
+- [TxOptions](interfaces/TxOptions.md)
 
 ### Type Aliases
 
+- [AccessList](type-aliases/AccessList.md)
+- [AccessListItem](type-aliases/AccessListItem.md)
 - [TypedTransaction](type-aliases/TypedTransaction.md)
 
 ### Functions

@@ -6,13 +6,10 @@
 
 ## Exports
 
-### Classes
-
-- [TevmVm](classes/TevmVm.md)
-
 ### Type Aliases
 
 - [CreateVmOptions](type-aliases/CreateVmOptions.md)
+- [Vm](type-aliases/Vm.md)
 
 ### Functions
 

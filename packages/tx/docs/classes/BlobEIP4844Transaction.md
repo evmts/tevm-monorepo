@@ -31,7 +31,7 @@ varying data types.
 
 ▪ **txData**: `BlobEIP4844TxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Overrides
 
@@ -45,7 +45,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 ### AccessListJSON
 
-> **`readonly`** **AccessListJSON**: `AccessList`
+> **`readonly`** **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
 #### Source
 
@@ -289,7 +289,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### txOptions
 
-> **`protected`** **`readonly`** **txOptions**: `TxOptions`
+> **`protected`** **`readonly`** **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Inherited from
 
@@ -823,7 +823,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### toJSON()
 
-> **toJSON**(): `JsonTx`
+> **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
 
 #### Overrides
 
@@ -881,7 +881,7 @@ Creates a transaction from the network encoding of a blob transaction (with blob
 
 a buffer representing a serialized BlobTransactionNetworkWrapper
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 any TxOptions defined
 
@@ -908,7 +908,7 @@ access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`
 
 ▪ **serialized**: `Uint8Array`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -924,7 +924,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 ▪ **txData**: `BlobEIP4844TxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -945,7 +945,7 @@ accessList, signatureYParity, signatureR, signatureS]`
 
 ▪ **values**: `BlobEIP4844TxValuesArray`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -966,9 +966,9 @@ The minimal representation is used when adding transactions to an execution payl
 
 a [BlobEIP4844Transaction](BlobEIP4844Transaction.md) containing optional blobs/kzg commitments
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
-dictionary of [TxOptions]([object Object])
+dictionary of [TxOptions](../interfaces/TxOptions.md)
 
 #### Returns
 

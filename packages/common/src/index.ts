@@ -8,4 +8,6 @@ export {
 	type AccountFields,
 	type StorageRange,
 	ConsensusAlgorithm,
+	type CliqueConfig,
+	ConsensusType,
 } from '@ethereumjs/common'

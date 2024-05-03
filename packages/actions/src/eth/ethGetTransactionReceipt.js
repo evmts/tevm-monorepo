@@ -25,7 +25,7 @@ const uintEquals = (a, b) => {
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
-	const vm = await client.getVm().then((vm) => vm.shallowCopy())
+	const vm = await client.getVm().then((vm) => vm.deepCopy())
 
 	const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
 

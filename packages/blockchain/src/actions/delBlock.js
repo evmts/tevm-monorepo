@@ -1,6 +1,6 @@
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').BlockchainInterface['delBlock']}
+ * @returns {import('../Chain.js').Chain['delBlock']}
  */
 export const delBlock = (baseChain) => (blockHash) => {
 	baseChain.blocks.delete(blockHash)

@@ -16,7 +16,7 @@ A block header's data.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:119
+[types.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L128)
 
 ***
 
@@ -26,7 +26,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:121
+[types.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L130)
 
 ***
 
@@ -36,7 +36,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:106
+[types.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L115)
 
 ***
 
@@ -46,7 +46,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:111
+[types.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L120)
 
 ***
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:122
+[types.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L131)
 
 ***
 
@@ -66,7 +66,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:116
+[types.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L125)
 
 ***
 
@@ -76,7 +76,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:113
+[types.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L122)
 
 ***
 
@@ -86,7 +86,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:114
+[types.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L123)
 
 ***
 
@@ -96,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:110
+[types.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L119)
 
 ***
 
@@ -106,7 +106,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:117
+[types.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L126)
 
 ***
 
@@ -116,7 +116,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:118
+[types.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L127)
 
 ***
 
@@ -126,7 +126,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:112
+[types.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L121)
 
 ***
 
@@ -136,7 +136,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:123
+[types.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L132)
 
 ***
 
@@ -146,7 +146,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:104
+[types.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L113)
 
 ***
 
@@ -156,7 +156,17 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:109
+[types.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L118)
+
+***
+
+### requestsRoot
+
+> **requestsRoot**?: `BytesLike`
+
+#### Source
+
+[types.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L133)
 
 ***
 
@@ -166,7 +176,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:107
+[types.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L116)
 
 ***
 
@@ -176,7 +186,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:115
+[types.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L124)
 
 ***
 
@@ -186,7 +196,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:108
+[types.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L117)
 
 ***
 
@@ -196,7 +206,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:105
+[types.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L114)
 
 ***
 
@@ -206,7 +216,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:120
+[types.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L129)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
