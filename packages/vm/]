@@ -37,6 +37,7 @@ const parentBeaconBlockRootAddress = EthjsAddress.fromString(
   '0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02'
 )
 
+let enableProfiler = false
 const stateRootCPLabel = 'New state root, DAO HF, checkpoints, block validation'
 const processTxsLabel = 'Tx processing [ use per-tx profiler for more details ]'
 const withdrawalsRewardsCommitLabel = 'Withdrawals, Rewards, EVM journal commit'
@@ -46,13 +47,28 @@ const entireBlockLabel = 'Entire block'
  * @ignore
  */
 export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResult> {
+  if (vm._opts.profilerOpts?.reportAfterBlock === true) {
+    enableProfiler = true
+    // eslint-disable-next-line no-console
+    console.time(entireBlockLabel)
+  }
 
   const state = vm.stateManager
 
   const { root } = opts
   const clearCache = opts.clearCache ?? true
+  const setHardfork = opts.setHardfork ?? false
   let { block } = opts
   const generateFields = opts.generate === true
+
+  if (enableProfiler) {
+    const title = `Profiler run - Block ${block.header.number} (${bytesToHex(block.hash())} with ${block.transactions.length
+      } txs`
+    // eslint-disable-next-line no-console
+    console.log(title)
+    // eslint-disable-next-line no-console
+    console.time(stateRootCPLabel)
+  }
 
   /**
    * The `beforeBlock` event.
@@ -62,6 +78,22 @@ export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResu
    * @property {Block} block emits the block that is about to be processed
    */
   await vm._emit('beforeBlock', block)
+
+  if (setHardfork !== false || vm._setHardfork !== false) {
+    const setHardforkUsed = setHardfork ?? vm._setHardfork
+    if (setHardforkUsed === true) {
+      vm.common.setHardforkBy({
+        blockNumber: block.header.number,
+        timestamp: block.header.timestamp,
+      })
+    } else if (typeof setHardforkUsed !== 'boolean') {
+      vm.common.setHardforkBy({
+        blockNumber: block.header.number,
+        td: setHardforkUsed,
+        timestamp: block.header.timestamp,
+      })
+    }
+  }
 
   // Set state root if provided
   if (root) {
@@ -84,9 +116,13 @@ export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResu
   let result: ApplyBlockResult
 
   try {
-    result = await applyBlock(vm)(block, opts)
+    result = await applyBlock.bind(vm)(block, opts)
   } catch (err: any) {
     await vm.evm.journal.revert()
+    if (enableProfiler) {
+      // eslint-disable-next-line no-console
+      console.timeEnd(withdrawalsRewardsCommitLabel)
+    }
     throw err
   }
 
@@ -135,6 +171,11 @@ export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResu
     }
   }
 
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.timeEnd(withdrawalsRewardsCommitLabel)
+  }
+
   const results: RunBlockResult = {
     receipts: result.receipts,
     logsBloom: result.bloom.bitvector,
@@ -155,6 +196,20 @@ export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResu
    * @property {AfterBlockEvent} result emits the results of processing a block
    */
   await vm._emit('afterBlock', afterBlockEvent)
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.timeEnd(entireBlockLabel)
+    const logs = (<EVM>vm.evm).getPerformanceLogs()
+    if (logs.precompiles.length === 0 && logs.opcodes.length === 0) {
+      // eslint-disable-next-line no-console
+      console.log('No block txs with precompile or opcode execution.')
+    }
+
+    vm.emitEVMProfile(logs.precompiles, 'Precompile performance')
+    vm.emitEVMProfile(logs.opcodes, 'Opcodes performance')
+      ; (<EVM>vm.evm).clearPerformanceLogs()
+  }
+
   return results
 }
 
@@ -166,7 +221,7 @@ export async function runBlock(vm: Vm, opts: RunBlockOpts): Promise<RunBlockResu
  * @param {Block} block
  * @param {RunBlockOpts} opts
  */
-const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise<ApplyBlockResult> => {
+async function applyBlock(vm: Vm, block: Block, opts: RunBlockOpts): Promise<ApplyBlockResult> {
   // Validate block
   if (opts.skipBlockValidation !== true) {
     if (block.header.gasLimit >= BigInt('0x8000000000000000')) {
@@ -185,16 +240,26 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
     }
   }
   if (vm.common.isActivatedEIP(4788)) {
-    await accumulateParentBeaconBlockRoot(vm)(
+    await accumulateParentBeaconBlockRoot.bind(vm)(
       block.header.parentBeaconBlockRoot!,
       block.header.timestamp
     )
   }
   if (vm.common.isActivatedEIP(2935)) {
-    await accumulateParentBlockHash(vm)(block.header.number, block.header.parentHash)
+    await accumulateParentBlockHash.bind(vm)(block.header.number, block.header.parentHash)
   }
 
-  const blockResults = await applyTransactions(vm)(block, opts)
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.timeEnd(stateRootCPLabel)
+  }
+
+  const blockResults = await applyTransactions.bind(vm)(block, opts)
+
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.time(withdrawalsRewardsCommitLabel)
+  }
 
   // Add txResult preimages to the blockResults preimages
   // Also add the coinbase preimage
@@ -220,7 +285,7 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
 
   if (vm.common.isActivatedEIP(4895)) {
     if (opts.reportPreimages === true) vm.evm.journal.startReportingPreimages!()
-    await assignWithdrawals(vm)(block)
+    await assignWithdrawals.bind(vm)(block)
     if (opts.reportPreimages === true && vm.evm.journal.preimages !== undefined) {
       for (const [key, preimage] of vm.evm.journal.preimages) {
         blockResults.preimages.set(key, preimage)
@@ -230,7 +295,7 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
   }
   // Pay ommers and miners
   if (block.common.consensusType() === ConsensusType.ProofOfWork) {
-    await assignBlockRewards(vm)(block)
+    await assignBlockRewards.bind(vm)(block)
   }
 
   return blockResults
@@ -245,90 +310,88 @@ const applyBlock = (vm: Vm) => async (block: Block, opts: RunBlockOpts): Promise
  * @param this The VM to run on
  * @param block The current block to save the parent block hash of
  */
-export const accumulateParentBlockHash = (
+export async function accumulateParentBlockHash(
   vm: Vm,
-) => async (
   currentBlockNumber: bigint,
   parentHash: Uint8Array
-) => {
-    if (!vm.common.isActivatedEIP(2935)) {
-      throw new Error('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
-    }
-    const historyAddress = EthjsAddress.fromString(
-      numberToHex(vm.common.param('vm', 'historyStorageAddress'))
-    )
-    const historyServeWindow = vm.common.param('vm', 'historyServeWindow')
+) {
+  if (!vm.common.isActivatedEIP(2935)) {
+    throw new Error('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
+  }
+  const historyAddress = EthjsAddress.fromString(
+    numberToHex(vm.common.param('vm', 'historyStorageAddress'))
+  )
+  const historyServeWindow = vm.common.param('vm', 'historyServeWindow')
 
-    // Is this the fork block?
-    const forkTime = vm.common.eipTimestamp(2935)
-    if (forkTime === null) {
-      throw new Error('EIP 2935 should be activated by timestamp')
-    }
-
-    if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
-      await vm.evm.journal.putAccount(historyAddress, new EthjsAccount())
-    }
-
-    async function putBlockHash(vm: Vm, hash: Uint8Array, number: bigint) {
-      // ringKey is the key the hash is actually put in (it is a ring buffer)
-      const ringKey = number % historyServeWindow
-      const key = setLengthLeft(toBytes(ringKey), 32)
-      await vm.stateManager.putContractStorage(historyAddress, key, hash)
-    }
-    await putBlockHash(vm, parentHash, currentBlockNumber - 1n)
-
-    const parentBlock = await vm.blockchain.getBlock(parentHash)
-
-    // If on the fork block, store the old block hashes as well
-    if (parentBlock.header.timestamp < forkTime) {
-      let ancestor = parentBlock
-      for (let i = 0; i < Number(historyServeWindow) - 1; i++) {
-        if (ancestor.header.number === 0n) {
-          break
-        }
-
-        ancestor = await vm.blockchain.getBlock(ancestor.header.parentHash)
-        await putBlockHash(vm, ancestor.hash(), ancestor.header.number)
-      }
-    }
+  // Is this the fork block?
+  const forkTime = vm.common.eipTimestamp(2935)
+  if (forkTime === null) {
+    throw new Error('EIP 2935 should be activated by timestamp')
   }
 
-export const accumulateParentBeaconBlockRoot = (
+  if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
+    await vm.evm.journal.putAccount(historyAddress, new EthjsAccount())
+  }
+
+  async function putBlockHash(vm: Vm, hash: Uint8Array, number: bigint) {
+    // ringKey is the key the hash is actually put in (it is a ring buffer)
+    const ringKey = number % historyServeWindow
+    const key = setLengthLeft(toBytes(ringKey), 32)
+    await vm.stateManager.putContractStorage(historyAddress, key, hash)
+  }
+  await putBlockHash(vm, parentHash, currentBlockNumber - 1n)
+
+  const parentBlock = await vm.blockchain.getBlock(parentHash)
+
+  // If on the fork block, store the old block hashes as well
+  if (parentBlock.header.timestamp < forkTime) {
+    let ancestor = parentBlock
+    for (let i = 0; i < Number(historyServeWindow) - 1; i++) {
+      if (ancestor.header.number === 0n) {
+        break
+      }
+
+      ancestor = await vm.blockchain.getBlock(ancestor.header.parentHash)
+      await putBlockHash(vm, ancestor.hash(), ancestor.header.number)
+    }
+  }
+}
+
+export async function accumulateParentBeaconBlockRoot(
   vm: Vm,
-) => async (
   root: Uint8Array,
   timestamp: bigint
-) => {
-    if (!vm.common.isActivatedEIP(4788)) {
-      throw new Error('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
-    }
-    // Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
-    const historicalRootsLength = BigInt(vm.common.param('vm', 'historicalRootsLength'))
-    const timestampIndex = timestamp % historicalRootsLength
-    const timestampExtended = timestampIndex + historicalRootsLength
-
-    /**
-     * Note: (by Jochem)
-     * If we don't do this (put account if undefined / non-existant), block runner crashes because the beacon root address does not exist
-     * This is hence (for me) again a reason why it should /not/ throw if the address does not exist
-     * All ethereum accounts have empty storage by default
-     */
-
-    if ((await vm.stateManager.getAccount(parentBeaconBlockRootAddress)) === undefined) {
-      await vm.evm.journal.putAccount(parentBeaconBlockRootAddress, new EthjsAccount())
-    }
-
-    await vm.stateManager.putContractStorage(
-      parentBeaconBlockRootAddress,
-      setLengthLeft(toBytes(timestampIndex), 32),
-      toBytes(timestamp)
-    )
-    await vm.stateManager.putContractStorage(
-      parentBeaconBlockRootAddress,
-      setLengthLeft(toBytes(timestampExtended), 32),
-      root
-    )
+) {
+  if (!vm.common.isActivatedEIP(4788)) {
+    throw new Error('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
   }
+  // Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
+  const historicalRootsLength = BigInt(vm.common.param('vm', 'historicalRootsLength'))
+  const timestampIndex = timestamp % historicalRootsLength
+  const timestampExtended = timestampIndex + historicalRootsLength
+
+  /**
+   * Note: (by Jochem)
+   * If we don't do this (put account if undefined / non-existant), block runner crashes because the beacon root address does not exist
+   * This is hence (for me) again a reason why it should /not/ throw if the address does not exist
+   * All ethereum accounts have empty storage by default
+   */
+
+  if ((await vm.stateManager.getAccount(parentBeaconBlockRootAddress)) === undefined) {
+    await vm.evm.journal.putAccount(parentBeaconBlockRootAddress, new EthjsAccount())
+  }
+
+  await vm.stateManager.putContractStorage(
+    parentBeaconBlockRootAddress,
+    setLengthLeft(toBytes(timestampIndex), 32),
+    toBytes(timestamp)
+  )
+  await vm.stateManager.putContractStorage(
+    parentBeaconBlockRootAddress,
+    setLengthLeft(toBytes(timestampExtended), 32),
+    root
+  )
+}
 
 /**
  * Applies the transactions in a block, computing the receipts
@@ -337,7 +400,12 @@ export const accumulateParentBeaconBlockRoot = (
  * @param {Block} block
  * @param {RunBlockOpts} opts
  */
-const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) => {
+async function applyTransactions(vm: Vm, block: Block, opts: RunBlockOpts) {
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.time(processTxsLabel)
+  }
+
   const bloom = new Bloom(undefined, vm.common)
   // the total amount of gas used processing these transactions
   let gasUsed = 0n
@@ -392,6 +460,11 @@ const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) =
     await receiptTrie!.put(Rlp.encode(txIdx), encodedReceipt)
   }
 
+  if (enableProfiler) {
+    // eslint-disable-next-line no-console
+    console.timeEnd(processTxsLabel)
+  }
+
   const receiptsRoot = receiptTrie !== undefined ? receiptTrie.root() : KECCAK256_RLP
 
   return {
@@ -404,7 +477,7 @@ const applyTransactions = (vm: Vm) => async (block: Block, opts: RunBlockOpts) =
   }
 }
 
-const assignWithdrawals = (vm: Vm) => async (block: Block): Promise<void> => {
+async function assignWithdrawals(vm: Vm, block: Block): Promise<void> {
   const withdrawals = block.withdrawals!
   for (const withdrawal of withdrawals) {
     const { address, amount } = withdrawal
@@ -420,7 +493,7 @@ const assignWithdrawals = (vm: Vm) => async (block: Block): Promise<void> => {
  * Calculates block rewards for miner and ommers and puts
  * the updated balances of their accounts to state.
  */
-const assignBlockRewards = (vm: Vm) => async (block: Block): Promise<void> => {
+async function assignBlockRewards(vm: Vm, block: Block): Promise<void> {
   const minerReward = vm.common.param('pow', 'minerReward')
   const ommers = block.uncleHeaders
   // Reward ommers
@@ -455,7 +528,7 @@ export function calculateMinerReward(minerReward: bigint, ommersNum: number): bi
 }
 
 export async function rewardAccount(
-  evm: Evm,
+  evm: EVMInterface,
   address: EthjsAddress,
   reward: bigint,
 ): Promise<EthjsAccount> {
@@ -493,7 +566,7 @@ export function encodeReceipt(receipt: TxReceipt, txType: TransactionType) {
 /**
  * Apply the DAO fork changes to the VM
  */
-async function _applyDAOHardfork(evm: Evm) {
+async function _applyDAOHardfork(evm: EVMInterface) {
   const state = evm.stateManager
 
   /* DAO account list */
