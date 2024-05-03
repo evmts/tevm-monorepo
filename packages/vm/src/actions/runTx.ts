@@ -37,16 +37,6 @@ import { Bloom } from '@ethereumjs/vm'
 export const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
 export const KECCAK256_NULL = hexToBytes(KECCAK256_NULL_S)
 
-const initLabel = 'EVM journal init, address/slot warming, fee validation'
-const balanceNonceLabel = 'Balance/Nonce checks and update'
-const executionLabel = 'Execution'
-const logsGasBalanceLabel = 'Logs, gas usage, account/miner balances'
-const accountsCleanUpLabel = 'Accounts clean up'
-const accessListLabel = 'Access list label'
-const journalCacheCleanUpLabel = 'Journal/cache cleanup'
-const receiptsLabel = 'Receipts'
-const entireTxLabel = 'Entire tx'
-
 /**
  * Returns the hardfork excluding the merge hf which has
  * no effect on the vm execution capabilities.
@@ -67,7 +57,7 @@ function execHardfork(
 /**
  * @ignore
  */
-export const runTx = (vm: VM) => async (opts: RunTxOpts): Promise<RunTxResult> => {
+export const runTx = (vm: Vm) => async (opts: RunTxOpts): Promise<RunTxResult> => {
   // create a reasonable default if no block is given
   opts.block = opts.block ?? Block.fromBlockData({}, { common: vm.common })
 

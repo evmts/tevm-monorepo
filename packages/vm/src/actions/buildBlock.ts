@@ -13,6 +13,8 @@ import {
   zeros,
   parseGwei,
   keccak256,
+  hexToBytes,
+  type Hex,
 } from '@tevm/utils'
 
 import {
@@ -28,6 +30,7 @@ import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
 import type { Vm } from '../Vm.js'
 import { Bloom } from '@ethereumjs/vm'
+import { runTx } from './runTx.js'
 
 export enum BuildStatus {
   Reverted = 'reverted',
@@ -59,7 +62,7 @@ export class BlockBuilder {
   private headerData: HeaderData
   private transactions: TypedTransaction[] = []
   private transactionResults: RunTxResult[] = []
-  private withdrawals?: Withdrawal[]
+  private withdrawals?: Withdrawal[] | undefined
   private checkpointed = false
   private blockStatus: BlockStatus = { status: BuildStatus.Pending }
 
@@ -171,7 +174,7 @@ export class BlockBuilder {
     const reward = calculateMinerReward(minerReward, 0)
     const coinbase =
       this.headerData.coinbase !== undefined
-        ? new EthjsAddress(toBytes(this.headerData.coinbase))
+        ? new EthjsAddress(this.headerData.coinbase instanceof EthjsAddress ? this.headerData.coinbase.toBytes() : typeof this.headerData.coinbase === 'string' ? hexToBytes(this.headerData.coinbase as Hex) : this.headerData.coinbase)
         : EthjsAddress.zero()
     await rewardAccount(this.vm.evm, coinbase, reward)
   }
@@ -249,7 +252,7 @@ export class BlockBuilder {
     const blockData = { header, transactions: this.transactions }
     const block = Block.fromBlockData(blockData, this.blockOpts)
 
-    const result = await this.vm.runTx({ tx, block, skipHardForkValidation })
+    const result = await runTx(this.vm)({ tx, block, skipHardForkValidation })
 
     // If tx is a blob transaction, remove blobs/kzg commitments before adding to block per EIP-4844
     if (tx instanceof BlobEIP4844Transaction) {
