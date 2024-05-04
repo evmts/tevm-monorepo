@@ -50,9 +50,13 @@
 	},
 	"dependencies": {
 		"@ethereumjs/vm": "^8.0.0",
+		"@tevm/block": "workspace:1.0.0-next.42",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/evm": "workspace:^",
+		"@tevm/rlp": "workspace:1.0.0-next.42",
+		"@tevm/trie": "workspace:1.0.0-next.42",
+		"@tevm/tx": "workspace:1.0.0-next.42",
 		"@tevm/utils": "workspace:1.0.0-next.40"
 	},
 	"devDependencies": {

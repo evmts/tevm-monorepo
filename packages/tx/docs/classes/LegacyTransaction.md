@@ -28,7 +28,7 @@ varying data types.
 
 ▪ **txData**: `LegacyTxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Overrides
 
@@ -206,7 +206,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### txOptions
 
-> **`protected`** **`readonly`** **txOptions**: `TxOptions`
+> **`protected`** **`readonly`** **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Inherited from
 
@@ -720,7 +720,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### toJSON()
 
-> **toJSON**(): `JsonTx`
+> **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
 
 Returns an object with the JSON representation of the transaction.
 
@@ -780,7 +780,7 @@ Format: `rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])`
 
 ▪ **serialized**: `Uint8Array`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -803,7 +803,7 @@ Notes:
 
 ▪ **txData**: `LegacyTxData`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 
@@ -823,7 +823,7 @@ Format: `[nonce, gasPrice, gasLimit, to, value, data, v, r, s]`
 
 ▪ **values**: `LegacyTxValuesArray`
 
-▪ **opts?**: `TxOptions`
+▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 #### Source
 

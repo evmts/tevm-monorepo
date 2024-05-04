@@ -1,6 +1,6 @@
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').BlockchainInterface['getIteratorHead']}
+ * @returns {import('../Chain.js').Chain['getIteratorHead']}
  */
 export const getIteratorHead =
 	(baseChain) =>

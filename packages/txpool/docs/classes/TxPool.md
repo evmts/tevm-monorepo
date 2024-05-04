@@ -155,7 +155,7 @@ The number of txs currently in the pool
 
 ### vm
 
-> **`private`** **vm**: `TevmVm`
+> **`private`** **vm**: `Vm`
 
 #### Source
 
@@ -401,7 +401,7 @@ the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 
-▪ **vm**: `TevmVm`
+▪ **vm**: `Vm`
 
 ▪ **\_\_namedParameters**: `object`= `{}`
 

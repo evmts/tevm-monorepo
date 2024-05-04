@@ -2,7 +2,7 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
 /**
  * @internal
  * Prepares a trace to be listened to
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/base-client').BaseClient['logger']} logger
  * @param {import('@tevm/evm').EvmRunCallOpts} params
  * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('@tevm/actions-types').DebugTraceCallResult}>}

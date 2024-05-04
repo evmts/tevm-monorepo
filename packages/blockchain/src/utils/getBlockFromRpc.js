@@ -1,4 +1,4 @@
-import { Block } from '@tevm/block'
+import { Block, blockFromRpc } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 
@@ -24,7 +24,7 @@ export const getBlockFromRpc = async ({ url, blockTag = 'latest' }, common) => {
 	 * @returns {Block}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
-		return Block.fromRPC(
+		return blockFromRpc(
 			{
 				.../** @type {any}*/ (rpcBlock),
 				// filter out transactions we don't support as a hack
@@ -42,7 +42,6 @@ filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
 					return true
 				}),
 			},
-			undefined,
 			{ common, setHardfork: false, freeze: true, skipConsensusFormatValidation: true },
 		)
 	}

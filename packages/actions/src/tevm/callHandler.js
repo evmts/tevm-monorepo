@@ -37,7 +37,7 @@ export const callHandler =
       }
 
       /**
-       * @type {import('@tevm/vm').TevmVm}
+       * @type {import('@tevm/vm').Vm}
        */
       let copiedVm
 
@@ -186,14 +186,16 @@ export const callHandler =
       if (shouldCreateTransaction) {
         const pool = await client.getTxPool()
         const { data: txOpts } = await callHandlerOpts(client, params)
-        // TODO known bug here we should be allowing unlimited code size here based on user providing option
-        // Just lazily not looking up how to get it from client.getVm().evm yet
-        // Possible we need to make property public on client
+
         const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
         const priorityFee = 0n
         let gasLimit = evmResult.execResult.executionGasUsed * 11n / 10n
         const MIN_GAS = 21000n
         gasLimit = gasLimit > MIN_GAS ? gasLimit : MIN_GAS
+
+        // TODO known bug here we should be allowing unlimited code size here based on user providing option
+        // Just lazily not looking up how to get it from client.getVm().evm yet
+        // Possible we need to make property public on client
         const tx = FeeMarketEIP1559Transaction.fromTxData(
           {
             // TODO tevm_call should take nonce
@@ -225,6 +227,7 @@ export const callHandler =
         )
         // So we can `impersonate` accounts we need to hack the `hash()` method to always exist whether signed or unsigned
         // TODO we should be configuring tevm_call to sometimes only accept signed transactions
+        // TODO let's just make an ImpersonatedTx type in `@tevm/tx`
         const wrappedTx = new Proxy(tx, {
           get(target, prop) {
             if (prop === 'hash') {
@@ -266,12 +269,10 @@ export const callHandler =
           const balanceNeeded = tx.value + (gasLimit * tx.maxFeePerGas)
           const hasBalance = balanceNeeded <= account.balance
           if (txOpts?.skipBalance && !hasBalance) {
-            console.log('nonce before', account.nonce)
             await setAccountHandler(client)({
               address,
               balance: balanceNeeded
             })
-            console.log('nonce after', (await getAccountHandler(client)({ address })).nonce)
           }
           await copiedVm.stateManager.checkpoint()
           await copiedVm.stateManager.commit()
@@ -321,4 +322,4 @@ export const callHandler =
           callHandlerResult(evmResult, txHash, trace),
         )
       )
-	}
+    }

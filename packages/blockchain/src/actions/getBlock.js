@@ -4,7 +4,7 @@ import { putBlock } from './putBlock.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').Blockchain['getBlock']}
+ * @returns {import('../Chain.js').Chain['getBlock']}
  */
 export const getBlock = (baseChain) => async (blockId) => {
 	const block = (() => {

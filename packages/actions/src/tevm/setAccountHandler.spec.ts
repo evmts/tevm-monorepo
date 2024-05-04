@@ -1,9 +1,10 @@
+import { createBaseClient } from '@tevm/base-client'
 import { setAccountHandler } from './setAccountHandler.js'
 import { Evm } from '@tevm/evm'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
-import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
+import { createVm } from '@tevm/vm'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -11,9 +12,9 @@ const ERC20_BYTECODE =
 
 describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
-		const evm = await Evm.create()
-		const vm = await TevmVm.create({ evm })
-		const res = await setAccountHandler({ getVm: async () => vm } as any)({
+		const client = createBaseClient()
+		const vm = await client.getVm()
+		const res = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
@@ -29,8 +30,8 @@ describe('setAccountHandler', () => {
 	})
 
 	it('should validate params', async () => {
-		const evm = await Evm.create()
-		const vm = await TevmVm.create({ evm })
+		const client = createBaseClient()
+		const vm = await client.getVm()
 		// @ts-expect-error
 		const res = await setAccountHandler({ vm })({
 			// address: ERC20_ADDRESS,
@@ -58,7 +59,8 @@ describe('setAccountHandler', () => {
 		const evm = await Evm.create({
 			stateManager: stateManager as any,
 		})
-		const vm = await TevmVm.create({ evm, stateManager: stateManager as any })
+		const {common, blockchain} = await createBaseClient().getVm()
+		const vm = createVm({ evm, stateManager: stateManager as any, common, blockchain })
 		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,

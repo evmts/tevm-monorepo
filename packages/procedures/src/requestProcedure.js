@@ -284,14 +284,30 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'): {
 				const vm = await client.getVm()
 				const currentBlock = await vm.blockchain.getCanonicalHeadBlock()
-				const newHeader = BlockHeader.fromHeaderData({
-					...currentBlock.header.raw(),
-					coinbase: request.params[0],
-				})
-				const newBlock = Block.fromBlockData({
-					...currentBlock,
-					header: newHeader,
-				})
+				const newHeader = BlockHeader.fromHeaderData(
+					{
+						...currentBlock.header.raw(),
+						coinbase: request.params[0],
+					},
+					{
+						common: vm.common,
+						freeze: true,
+						setHardfork: false,
+					},
+				)
+				// TODO this as any is not necessary we shouldn't be doing this instead fix types please
+				const newBlock = Block.fromBlockData(
+					/** @type {any}*/ ({
+						...currentBlock,
+						withdrawals: currentBlock.withdrawals,
+						header: newHeader,
+					}),
+					{
+						common: vm.common,
+						freeze: true,
+						setHardfork: false,
+					},
+				)
 				vm.blockchain.putBlock(newBlock)
 				return {
 					method: request.method,

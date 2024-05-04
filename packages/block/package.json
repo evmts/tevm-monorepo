@@ -49,7 +49,11 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/block": "^5.2.0"
+		"@tevm/common": "workspace:^",
+		"@tevm/rlp": "workspace:^",
+		"@tevm/trie": "workspace:1.0.0-next.42",
+		"@tevm/tx": "workspace:^",
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

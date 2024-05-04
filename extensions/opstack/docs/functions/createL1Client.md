@@ -279,26 +279,6 @@ All constants including vital OP stack addresses and owners are available and tr
 > console.log(res.balance)
 > ```
 >
-> ### getChain
->
-> > **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
->
-> Represents the entire blockchain including it's logs and historical state
->
-> ### getChainId
->
-> > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
->
-> Gets the chainId of the current EVM
->
-> #### Example
->
-> ```ts
-> const client = createMemoryClient()
-> const chainId = await client.getChainId()
-> console.log(chainId)
-> ```
->
 > ### getReceiptsManager
 >
 > > **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -313,7 +293,7 @@ All constants including vital OP stack addresses and owners are available and tr
 >
 > ### getVm
 >
-> > **`readonly`** **getVm**: () => `Promise`\<`TevmVm`\>
+> > **`readonly`** **getVm**: () => `Promise`\<`Vm`\>
 >
 > Internal instance of the VM. Can be used for lower level operations.
 > Normally not recomended to use unless building libraries or extensions
@@ -1008,16 +988,6 @@ All constants including vital OP stack addresses and owners are available and tr
 > balance: parseEther('1.0')
 > })
 > ```
->
-> ### setChainId
->
-> > **`readonly`** **setChainId**: (`chainId`) => `void`
->
-> Sets the chain id of the current EVM
->
-> #### Parameters
->
-> ▪ **chainId**: `number`
 >
 > ### emit()
 >

@@ -54,7 +54,7 @@ Gets the pool of pending transactions to be included in next block
 
 ### getVm
 
-> **`readonly`** **getVm**: () => `Promise`\<`TevmVm`\>
+> **`readonly`** **getVm**: () => `Promise`\<`Vm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions

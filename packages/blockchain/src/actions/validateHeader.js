@@ -3,7 +3,7 @@ import { getBlock } from './getBlock.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
- * @returns {import('@ethereumjs/blockchain').Blockchain['validateHeader']}
+ * @returns {import('../Chain.js').Chain['validateHeader']}
  */
 export const validateHeader = (baseChain) => async (header, height) => {
 	if (header.isGenesis()) {
