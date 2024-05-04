@@ -21,7 +21,7 @@ Used for saving preimages
 
 ## Source
 
-packages/state/types/actions/getAppliedKey.d.ts:7
+packages/state/dist/index.d.ts:239
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

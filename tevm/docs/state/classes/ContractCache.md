@@ -21,7 +21,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:6
+packages/state/dist/index.d.ts:48
 
 ## Properties
 
@@ -31,7 +31,7 @@ packages/state/types/ContractCache.d.ts:6
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:7
+packages/state/dist/index.d.ts:49
 
 ## Accessors
 
@@ -41,7 +41,7 @@ packages/state/types/ContractCache.d.ts:7
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:36
+packages/state/dist/index.d.ts:78
 
 ## Methods
 
@@ -53,7 +53,7 @@ packages/state/types/ContractCache.d.ts:36
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:35
+packages/state/dist/index.d.ts:77
 
 ***
 
@@ -65,7 +65,7 @@ packages/state/types/ContractCache.d.ts:35
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:15
+packages/state/dist/index.d.ts:57
 
 ***
 
@@ -77,7 +77,7 @@ packages/state/types/ContractCache.d.ts:15
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:11
+packages/state/dist/index.d.ts:53
 
 ***
 
@@ -93,7 +93,7 @@ packages/state/types/ContractCache.d.ts:11
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:31
+packages/state/dist/index.d.ts:73
 
 ***
 
@@ -109,7 +109,7 @@ packages/state/types/ContractCache.d.ts:31
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:20
+packages/state/dist/index.d.ts:62
 
 ***
 
@@ -127,7 +127,7 @@ packages/state/types/ContractCache.d.ts:20
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:26
+packages/state/dist/index.d.ts:68
 
 ***
 
@@ -139,7 +139,7 @@ packages/state/types/ContractCache.d.ts:26
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:41
+packages/state/dist/index.d.ts:83
 
 ***
 
@@ -149,7 +149,7 @@ packages/state/types/ContractCache.d.ts:41
 
 #### Source
 
-packages/state/types/ContractCache.d.ts:37
+packages/state/dist/index.d.ts:79
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

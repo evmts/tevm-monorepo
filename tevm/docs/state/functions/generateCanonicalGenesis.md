@@ -8,8 +8,7 @@
 
 > **generateCanonicalGenesis**(`baseState`): (`initState`) => `Promise`\<`void`\>
 
-j* Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager
-*
+Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager
 
 ## Parameters
 
@@ -30,7 +29,7 @@ j* Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state man
 
 ## Source
 
-packages/state/types/actions/generateCannonicalGenesis.d.ts:5
+packages/state/dist/index.d.ts:218
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

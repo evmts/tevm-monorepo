@@ -14,7 +14,7 @@
 
 #### Source
 
-packages/state/types/state-types/ForkOptions.d.ts:4
+packages/state/dist/index.d.ts:18
 
 ***
 
@@ -24,7 +24,7 @@ packages/state/types/state-types/ForkOptions.d.ts:4
 
 #### Source
 
-packages/state/types/state-types/ForkOptions.d.ts:3
+packages/state/dist/index.d.ts:17
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

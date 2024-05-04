@@ -12,7 +12,7 @@ Mapping of state roots as bytes to the state
 
 ## Source
 
-packages/state/types/state-types/StateRoots.d.ts:5
+packages/state/dist/index.d.ts:145
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

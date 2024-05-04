@@ -30,7 +30,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Source
 
-packages/state/types/actions/getContractCode.d.ts:6
+packages/state/dist/index.d.ts:246
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

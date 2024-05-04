@@ -26,7 +26,7 @@ last call to checkpoint.
 
 ## Source
 
-packages/state/types/actions/commit.d.ts:6
+packages/state/dist/index.d.ts:185
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

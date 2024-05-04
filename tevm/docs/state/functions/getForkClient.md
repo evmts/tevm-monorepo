@@ -6,7 +6,7 @@
 
 # Function: getForkClient()
 
-> **getForkClient**(`__namedParameters`): `PublicClient`
+> **getForkClient**(`__namedParameters`): `viem.PublicClient`
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-packages/state/types/actions/getForkClient.d.ts:12
+packages/state/dist/index.d.ts:263
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

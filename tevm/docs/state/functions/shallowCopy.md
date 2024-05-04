@@ -6,7 +6,7 @@
 
 # Function: shallowCopy()
 
-> **shallowCopy**(`baseState`): () => `BaseState`
+> **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
 ## Parameters
 
@@ -14,12 +14,12 @@
 
 ## Returns
 
-> > (): `BaseState`
+> > (): [`BaseState`](../type-aliases/BaseState.md)
 >
 
 ## Source
 
-packages/state/types/actions/shallowCopy.d.ts:1
+packages/state/dist/index.d.ts:326
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

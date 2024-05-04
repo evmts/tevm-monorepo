@@ -26,7 +26,7 @@ The shape of the internal cache
 
 ## Source
 
-packages/state/types/state-types/StateCache.d.ts:7
+packages/state/dist/index.d.ts:90
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

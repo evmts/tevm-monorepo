@@ -31,7 +31,7 @@ Changes the currently loaded state root
 
 ## Source
 
-packages/state/types/actions/setStateRoot.d.ts:19
+packages/state/dist/index.d.ts:324
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

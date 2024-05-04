@@ -4,5 +4,5 @@
  * @returns {(root: Uint8Array, state: import('../state-types/TevmState.js').TevmState) => void}
  */
 export const saveStateRoot = (baseState) => (root, value) => {
-  baseState._stateRoots.set(root, value)
+	baseState._stateRoots.set(root, value)
 }

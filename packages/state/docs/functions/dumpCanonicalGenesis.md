@@ -27,7 +27,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 ## Source
 
-[packages/state/src/actions/dumpCannonicalGenesis.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L9)
+[packages/state/src/actions/dumpCannonicalGenesis.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

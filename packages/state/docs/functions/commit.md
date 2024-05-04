@@ -26,7 +26,7 @@ last call to checkpoint.
 
 ## Source
 
-[packages/state/src/actions/commit.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L6)
+[packages/state/src/actions/commit.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -29,7 +29,7 @@ Clears all storage entries for the account corresponding to `address`.
 
 ## Source
 
-packages/state/types/actions/clearContractStorage.d.ts:5
+packages/state/dist/index.d.ts:178
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

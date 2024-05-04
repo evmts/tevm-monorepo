@@ -29,7 +29,7 @@ Gets the code corresponding to the provided `address`.
 
 ## Source
 
-packages/state/types/actions/getAccount.d.ts:5
+packages/state/dist/index.d.ts:224
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

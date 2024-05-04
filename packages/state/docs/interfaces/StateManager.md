@@ -504,6 +504,25 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ***
 
+### saveStateRoot()
+
+> **saveStateRoot**(`root`, `state`): `void`
+
+Saves a state root to the state root mapping
+THis API is considered unstable
+
+#### Parameters
+
+▪ **root**: `Uint8Array`
+
+▪ **state**: [`TevmState`](../type-aliases/TevmState.md)
+
+#### Source
+
+[packages/state/src/StateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L28)
+
+***
+
 ### setStateRoot()
 
 > **setStateRoot**(`stateRoot`, `clearCache`?): `Promise`\<`void`\>

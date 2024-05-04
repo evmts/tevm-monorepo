@@ -32,7 +32,7 @@ corresponding to `address` to reference this.
 
 ## Source
 
-packages/state/types/actions/putContractCode.d.ts:6
+packages/state/dist/index.d.ts:302
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

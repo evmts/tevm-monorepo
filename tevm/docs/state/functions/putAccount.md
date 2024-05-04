@@ -31,7 +31,7 @@ Saves an account into state under the provided `address`.
 
 ## Source
 
-packages/state/types/actions/putAccount.d.ts:5
+packages/state/dist/index.d.ts:295
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

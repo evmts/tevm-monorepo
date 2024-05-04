@@ -31,7 +31,7 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Source
 
-packages/state/types/actions/dumpStorage.d.ts:7
+packages/state/dist/index.d.ts:207
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

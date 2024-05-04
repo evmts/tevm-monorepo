@@ -24,7 +24,7 @@ BaseState.\_caches
 
 #### Source
 
-packages/state/types/BaseState.d.ts:14
+packages/state/dist/index.d.ts:108
 
 ***
 
@@ -38,7 +38,7 @@ BaseState.\_currentStateRoot
 
 #### Source
 
-packages/state/types/BaseState.d.ts:12
+packages/state/dist/index.d.ts:106
 
 ***
 
@@ -52,7 +52,7 @@ BaseState.\_options
 
 #### Source
 
-packages/state/types/BaseState.d.ts:13
+packages/state/dist/index.d.ts:107
 
 ***
 
@@ -68,7 +68,7 @@ BaseState.\_stateRoots
 
 #### Source
 
-packages/state/types/BaseState.d.ts:11
+packages/state/dist/index.d.ts:105
 
 ***
 
@@ -80,7 +80,7 @@ Returns contract addresses
 
 #### Source
 
-packages/state/types/StateManager.d.ts:9
+packages/state/dist/index.d.ts:115
 
 ***
 
@@ -120,7 +120,7 @@ BaseState.ready
 
 #### Source
 
-packages/state/types/BaseState.d.ts:7
+packages/state/dist/index.d.ts:101
 
 ## Methods
 
@@ -146,7 +146,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/StateManager.d.ts:21
+packages/state/dist/index.d.ts:127
 
 ***
 
@@ -190,7 +190,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/types/StateManager.d.ts:13
+packages/state/dist/index.d.ts:119
 
 ***
 
@@ -220,7 +220,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 #### Source
 
-packages/state/types/StateManager.d.ts:17
+packages/state/dist/index.d.ts:123
 
 ***
 
@@ -501,6 +501,25 @@ EvmStateManagerInterface.revert
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
+
+***
+
+### saveStateRoot()
+
+> **saveStateRoot**(`root`, `state`): `void`
+
+Saves a state root to the state root mapping
+THis API is considered unstable
+
+#### Parameters
+
+▪ **root**: `Uint8Array`
+
+▪ **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
+
+#### Source
+
+packages/state/dist/index.d.ts:133
 
 ***
 

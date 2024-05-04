@@ -36,7 +36,7 @@ Mapping of hashes to State roots
 
 ## Source
 
-packages/state/types/BaseState.d.ts:6
+packages/state/dist/index.d.ts:100
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -25,7 +25,7 @@ Gets the current state root
 
 ## Source
 
-packages/state/types/actions/getStateRoot.d.ts:5
+packages/state/dist/index.d.ts:275
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

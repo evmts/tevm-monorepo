@@ -6,7 +6,7 @@
 
 # Function: createStateManager()
 
-> **createStateManager**(`options`?): `StateManager`
+> **createStateManager**(`options`?): [`StateManager`](../interfaces/StateManager.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-packages/state/types/createStateManager.d.ts:1
+packages/state/dist/index.d.ts:157
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

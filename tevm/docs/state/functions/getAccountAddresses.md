@@ -18,12 +18,12 @@
 >
 > ### Source
 >
-> packages/state/types/StateManager.d.ts:9
+> packages/state/dist/index.d.ts:115
 >
 
 ## Source
 
-packages/state/types/actions/getAccountAddresses.d.ts:4
+packages/state/dist/index.d.ts:229
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
