@@ -5,6 +5,6 @@ import { bytesToHex } from 'viem'
  * @returns {import('@ethereumjs/blockchain').BlockchainInterface['delBlock']}
  */
 export const delBlock = (baseChain) => (blockHash) => {
-  baseChain.blocks.delete(bytesToHex(blockHash))
-  return Promise.resolve()
+	baseChain.blocks.delete(bytesToHex(blockHash))
+	return Promise.resolve()
 }
