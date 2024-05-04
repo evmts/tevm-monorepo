@@ -218,7 +218,8 @@ export const callHandler =
           {
             allowUnlimitedInitCodeSize: false,
             common: copiedVm.common,
-            freeze: true,
+            // we don't want to freeze because there is a hack to set tx.hash when building a block
+            freeze: false,
           },
         )
         client.logger.debug(
@@ -266,7 +267,7 @@ export const callHandler =
           const account = await getAccountHandler(client)({
             address
           })
-          const balanceNeeded = tx.value + (gasLimit * tx.maxFeePerGas)
+          const balanceNeeded = wrappedTx.value + (gasLimit * wrappedTx.maxFeePerGas)
           const hasBalance = balanceNeeded <= account.balance
           if (txOpts?.skipBalance && !hasBalance) {
             await setAccountHandler(client)({
@@ -282,7 +283,7 @@ export const callHandler =
             e,
             'callHandler: Unexpected error adding transaction to mempool and checkpointing state. Removing transaction from mempool and reverting state',
           )
-          pool.removeByHash(bytesToHex(tx.hash()))
+          pool.removeByHash(bytesToHex(wrappedTx.hash()))
           // don't expect this to ever happen at this point but being defensive
           await copiedVm.stateManager.revert()
           return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {

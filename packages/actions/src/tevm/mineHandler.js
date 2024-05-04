@@ -1,3 +1,4 @@
+import { bytesToHex } from '@tevm/utils'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateMineParams } from '@tevm/zod'
 
@@ -15,6 +16,12 @@ export const mineHandler =
         return maybeThrowOnFail(throwOnFail, { errors })
       }
       const { interval = 1, blockCount = 1 } = params
+
+
+      /**
+       * @type {Array<import('@tevm/utils').Hex>}
+       */
+      const blockHashes = []
 
       for (let count = 0; count < blockCount; count++) {
         const pool = await client.getTxPool()
@@ -66,9 +73,11 @@ export const mineHandler =
         block.transactions.forEach(tx => {
           tx.hash()
         })
-        await receiptsManager?.saveReceipts(block, receipts)
+        await receiptsManager.saveReceipts(block, receipts)
         await vm.blockchain.putBlock(block)
         pool.removeNewBlockTxs([block])
+
+        blockHashes.push(bytesToHex(block.hash()))
       }
-      return {}
+      return { blockHashes }
     }
