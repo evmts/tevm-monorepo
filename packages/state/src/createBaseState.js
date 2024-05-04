@@ -11,30 +11,30 @@ import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js
  * Creates the core data structure the state manager operates on
  */
 export const createBaseState = (options = {}) => {
-	const initialStateRoot = hexToBytes(keccak256('0x0'))
-	const stateRoots = options.stateRoots ?? new Map()
-	stateRoots.set(initialStateRoot, options.genesisState ?? {})
-	/**
-	 * @type {import('./BaseState.js').BaseState}
-	 */
-	const state = {
-		_currentStateRoot: initialStateRoot,
-		_stateRoots: stateRoots,
-		_options: options,
-		_caches: {
-			contracts: new ContractCache(),
-			accounts: new AccountCache({
-				size: 100000,
-				type: CacheType.ORDERED_MAP,
-			}),
-			storage: new StorageCache({
-				size: 100000,
-				type: CacheType.ORDERED_MAP,
-			}),
-		},
-		ready: () => genesisPromise.then(() => true),
-	}
-	const genesisPromise =
-		options.genesisState !== undefined ? generateCanonicalGenesis(state)(options.genesisState) : Promise.resolve()
-	return state
+  const initialStateRoot = hexToBytes(keccak256('0x0'))
+  const stateRoots = options.stateRoots ?? new Map()
+  stateRoots.set(initialStateRoot, options.genesisState ?? {})
+  /**
+   * @type {import('./BaseState.js').BaseState}
+   */
+  const state = {
+    _currentStateRoot: initialStateRoot,
+    _stateRoots: stateRoots,
+    _options: options,
+    _caches: {
+      contracts: new ContractCache(),
+      accounts: new AccountCache({
+        size: 100_000,
+        type: CacheType.ORDERED_MAP,
+      }),
+      storage: new StorageCache({
+        size: 100_000,
+        type: CacheType.ORDERED_MAP,
+      }),
+    },
+    ready: () => genesisPromise.then(() => true),
+  }
+  const genesisPromise =
+    options.genesisState !== undefined ? generateCanonicalGenesis(state)(options.genesisState) : Promise.resolve()
+  return state
 }
