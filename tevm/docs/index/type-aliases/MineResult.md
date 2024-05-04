@@ -6,21 +6,13 @@
 
 # Type alias: MineResult
 
-> **MineResult**: `object`
+> **MineResult**: `object` \| `object`
 
 Result of Mine Method
 
-## Type declaration
-
-### errors
-
-> **errors**?: `Error`[]
-
-Description of the exception, if any occurred
-
 ## Source
 
-packages/actions-types/types/result/MineResult.d.ts:4
+packages/actions-types/types/result/MineResult.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

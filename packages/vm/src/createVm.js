@@ -24,5 +24,6 @@ export const createVm = (opts) => {
 		}
 	}
 
-	return decorate(baseVm)
+	const out = decorate(baseVm)
+	return out
 }

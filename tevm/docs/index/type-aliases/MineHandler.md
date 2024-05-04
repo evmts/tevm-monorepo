@@ -6,7 +6,7 @@
 
 # Type alias: MineHandler
 
-> **MineHandler**: (`params`) => `Promise`\<[`MineResult`](MineResult.md)\>
+> **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
 Mines a block including all transactions in the mempool
 
@@ -19,7 +19,7 @@ console.log(res.errors) // undefined
 
 ## Parameters
 
-▪ **params**: [`MineParams`](MineParams.md)
+▪ **params?**: [`MineParams`](MineParams.md)
 
 ## Source
 

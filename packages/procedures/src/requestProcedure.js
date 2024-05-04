@@ -291,7 +291,7 @@ export const requestProcedure = (client) => {
 					},
 					{
 						common: vm.common,
-						freeze: true,
+						freeze: false,
 						setHardfork: false,
 					},
 				)
@@ -304,7 +304,7 @@ export const requestProcedure = (client) => {
 					}),
 					{
 						common: vm.common,
-						freeze: true,
+						freeze: false,
 						setHardfork: false,
 					},
 				)
