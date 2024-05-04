@@ -2,6 +2,8 @@ import { bytesToHex } from '@tevm/utils'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateMineParams } from '@tevm/zod'
 
+// TODO Errors can leave us in bad states
+
 /**
  * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
@@ -17,7 +19,6 @@ export const mineHandler =
       }
       const { interval = 1, blockCount = 1 } = params
 
-
       /**
        * @type {Array<import('@tevm/utils').Hex>}
        */
@@ -28,8 +29,13 @@ export const mineHandler =
         const vm = await client.getVm()
         const receiptsManager = await client.getReceiptsManager()
         const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+
+        // Save the old state just in case it had changed since genesis (e.g. from doing setAccount)
+        vm.stateManager.saveStateRoot(parentBlock.header.stateRoot, await vm.stateManager.dumpCanonicalGenesis())
+
         let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
         timestamp = count === 0 ? timestamp : timestamp + interval
+
         const blockBuilder = await vm.buildBlock({
           parentBlock,
           headerData: {
@@ -71,8 +77,12 @@ export const mineHandler =
           index++
         }
         const block = await blockBuilder.build()
-        await receiptsManager.saveReceipts(block, receipts)
-        await vm.blockchain.putBlock(block)
+        vm.stateManager.saveStateRoot(block.header.stateRoot, await vm.stateManager.dumpCanonicalGenesis())
+        await Promise.all([
+          vm.stateManager.setStateRoot(block.header.stateRoot),
+          receiptsManager.saveReceipts(block, receipts),
+          vm.blockchain.putBlock(block),
+        ])
         pool.removeNewBlockTxs([block])
 
         blockHashes.push(bytesToHex(block.hash()))
