@@ -63,6 +63,7 @@ export const mineHandler =
         while (index < orderedTx.length && !blockFull) {
           const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/(orderedTx[index])
           nextTx.hash()
+          console.log('new tx', bytesToHex(nextTx.hash()))
           const txResult = await blockBuilder.addTransaction(nextTx, {
             skipHardForkValidation: true,
           })
@@ -70,9 +71,6 @@ export const mineHandler =
           index++
         }
         const block = await blockBuilder.build()
-        block.transactions.forEach(tx => {
-          tx.hash()
-        })
         await receiptsManager.saveReceipts(block, receipts)
         await vm.blockchain.putBlock(block)
         pool.removeNewBlockTxs([block])

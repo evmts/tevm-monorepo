@@ -87,8 +87,9 @@ describe(mineHandler.name, () => {
     blockHashes?.forEach(async blockHash => console.log('receiptszzz', await receiptsManager.getReceipts(hexToBytes(blockHash))))
     // const block = await (await client.getVm()).blockchain.getCanonicalHeadBlock()
     const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(callResult.txHash as Hex))
+
     expect(
       receipt
-    ).toEqual({} as any)
+    ).toMatchSnapshot()
   })
 })
