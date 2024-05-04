@@ -15,6 +15,29 @@ export const callHandlerOpts = async (client, params) => {
   const opts = {}
   const vm = await client.getVm()
 
+  // TODO need better error handling here
+  const block = await (() => {
+    if (params.blockTag === undefined) {
+      return vm.blockchain.blocksByTag.get('latest')
+    }
+    if (typeof params.blockTag === 'bigint') {
+      return vm.blockchain.getBlock(params.blockTag)
+    }
+    if (typeof params.blockTag === 'string' && params.blockTag.startsWith('0x')) {
+      return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/(params.blockTag)))
+    }
+    // TODO support all these and resolve all of them both vs fork and non fork
+    if (params.blockTag === 'latest' || params.blockTag === 'safe' || params.blockTag === 'pending' || params.blockTag === 'earliest' || params.blockTag === 'finalized') {
+      return vm.blockchain.blocksByTag.get(/** */(params.blockTag))
+    }
+    throw new Error(`Unknown blocktag ${params.blockTag}`)
+  })()
+  if (!block) {
+    // TODO need better error handling here
+    throw new Error('No block found')
+  }
+  opts.block = block
+
   // handle block overrides
   if (params.blockTag) {
     client.logger.debug(

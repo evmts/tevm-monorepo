@@ -2,14 +2,28 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, keccak256 } from '@tevm/utils'
 import { validateCallParams } from '@tevm/zod'
-import { setAccountHandler } from './setAccountHandler.js'
-import { getAccountHandler } from './getAccountHandler.js'
+import { createTransaction } from './createTransaction.js'
 
-// TODO tevm_call should optionally take a signature too
-const requireSig = false
+/**
+ * The callHandler is the most important function in Tevm.
+ * It is the direct implementation of `tevm_call`.
+ * It is also wrapped by all call-like actions including
+ * - `tevm_contract`
+ * - `tevm_script`
+ * - `eth_call`
+ * - `debug_traceCall`
+ * - etc.
+ *
+ * If it needs to create a transaction on the chain it sends it's results to [createTransactionHandler](./createTrasactionHandler.js)
+ *
+ * It has 5 steps
+ * 0. Validate params
+ * 1. Clone vm
+ * 2. Run vm
+ * 3. Create tx (if necessary)
+ * 4. Return result
+ */
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -21,8 +35,12 @@ const requireSig = false
 export const callHandler =
   (client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
     async (params) => {
+      /**
+       * ***************
+       * 0 VALIDATE PARAMS
+       * ***************
+       */
       client.logger.debug(params, 'callHandler: Executing call with params')
-
       const validationErrors = validateCallParams(params)
       if (validationErrors.length > 0) {
         client.logger.debug(validationErrors, 'Params do not pass validation')
@@ -35,21 +53,38 @@ export const callHandler =
           rawData: '0x',
         })
       }
+      const { errors, data: evmInput } = await callHandlerOpts(client, params)
+      if (errors ?? !evmInput) {
+        client.logger.error(
+          errors ?? evmInput,
+          'callHandler: Unexpected error converting params to ethereumjs params',
+        )
+        return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+          errors: /** @type {import('@tevm/errors').CallError[]}*/ (errors),
+          executionGasUsed: 0n,
+          rawData: /** @type {`0x${string}`}*/('0x'),
+        })
+      }
 
+      /**
+       * ************
+       * 1 CLONE THE VM WITH BLOCK TAG
+       * ************
+       */
+      client.logger.debug(
+        'Cloning vm to execute a call...',
+      )
       /**
        * @type {import('@tevm/vm').Vm}
        */
-      let copiedVm
-
-      const vm = await client.getVm()
-
+      let vm
       try {
-        client.logger.debug(
-          params.createTransaction
-            ? 'Using existing vm to execute a new transaction'
-            : 'Cloning vm to execute a call...',
-        )
-        copiedVm = params.createTransaction ? vm : await vm.deepCopy()
+        vm = await client.getVm().then(vm => vm.deepCopy())
+        // TODO why is this broken?
+        const stateRoot = /** @type any*/(evmInput?.block?.header).stateRoot
+        if (stateRoot) {
+          vm.stateManager.setStateRoot(stateRoot)
+        }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -71,55 +106,31 @@ export const callHandler =
       }
 
       /**
-       * @type {import('@tevm/utils').Hex | undefined}
+       * ************
+       * 2 RUN THE EVM
+       * ************
        */
-      let txHash = undefined
-
       /**
        * @type {import('@tevm/evm').EvmResult | undefined}
        */
-      let evmResult = undefined
+      let evmOutput = undefined
       /**
        * @type {import('@tevm/actions-types').DebugTraceCallResult | undefined}
        */
       let trace = undefined
-
       try {
-        const { errors, data: opts } = await callHandlerOpts(client, params)
-        if (errors ?? !opts) {
-          client.logger.error(
-            errors ?? opts,
-            'callHandler: Unexpected error converting params to ethereumjs params',
-          )
-          return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-            errors: /** @type {import('@tevm/errors').CallError[]}*/ (errors),
-            executionGasUsed: 0n,
-            /**
-             * @type {`0x${string}`}
-             */
-            rawData: '0x',
-          })
-        }
 
-        client.logger.debug(opts, 'callHandler: Executing runCall with params')
+        client.logger.debug(evmInput, 'callHandler: Executing runCall with params')
         if (params.createTrace) {
           const { trace: _trace, ...res } = await runCallWithTrace(
-            copiedVm,
+            vm,
             client.logger,
-            opts,
+            evmInput,
           )
-          evmResult = res
+          evmOutput = res
           trace = _trace
         } else {
-          evmResult = await copiedVm.evm.runCall(opts)
-        }
-
-        if (params.createTransaction && !evmResult.execResult.exceptionError) {
-          // We might want to consider executing all calls statelessly and seperately updating state after call is added
-          // // to cannonical chain
-          client.logger.debug('Checkpointing and committing evm state')
-          copiedVm.stateManager.checkpoint()
-          copiedVm.stateManager.commit()
+          evmOutput = await vm.evm.runCall(evmInput)
         }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')
@@ -143,8 +154,12 @@ export const callHandler =
           rawData: '0x',
         })
       }
-      // Note there could be other errors when attempting to add to chain
-      // We don't even need to try if this is false though.
+
+      /**
+       * ****************************
+       * 3 CREATE TRANSACTION WITH CALL (if neessary)
+       * ****************************
+       */
       const shouldCreateTransaction = (() => {
         if (params.createTransaction === undefined) {
           client.logger.debug(
@@ -174,7 +189,7 @@ export const callHandler =
           client.logger.debug(
             "callHandler: Creating transaction because config set to 'on-success'",
           )
-          return evmResult.execResult.exceptionError === undefined
+          return evmOutput.execResult.exceptionError === undefined
         }
         /**
          * @type {never} this typechecks that we've exhausted all cases
@@ -182,145 +197,32 @@ export const callHandler =
         const invalidOption = params.createTransaction
         throw new Error(`Invalid createTransaction value: ${invalidOption}`)
       })()
-
       if (shouldCreateTransaction) {
-        const pool = await client.getTxPool()
-        const { data: txOpts } = await callHandlerOpts(client, params)
-
-        const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
-        const priorityFee = 0n
-        let gasLimit = evmResult.execResult.executionGasUsed * 11n / 10n
-        const MIN_GAS = 21000n
-        gasLimit = gasLimit > MIN_GAS ? gasLimit : MIN_GAS
-
-        // TODO known bug here we should be allowing unlimited code size here based on user providing option
-        // Just lazily not looking up how to get it from client.getVm().evm yet
-        // Possible we need to make property public on client
-        const tx = FeeMarketEIP1559Transaction.fromTxData(
-          {
-            // TODO tevm_call should take nonce
-            // TODO should write tests that this works with multiple tx nonces
-            // TODO we should take into account the txPool already having tx in it with same nonce
-            nonce:
-              (
-                (await copiedVm.stateManager.getAccount(
-                  EthjsAddress.fromString(
-                    params.from ?? params.caller ?? params.origin ?? `0x${'00'.repeat(20)}`,
-                  ),
-                )) ?? { nonce: 0n }
-              ).nonce,
-            gasLimit,
-            maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
-            maxPriorityFeePerGas: 0n,
-            ...txOpts,
-            gasPrice: null,
-          },
-          {
-            allowUnlimitedInitCodeSize: false,
-            common: copiedVm.common,
-            // we don't want to freeze because there is a hack to set tx.hash when building a block
-            freeze: false,
-          },
-        )
-        client.logger.debug(
-          tx,
-          'callHandler: Created a new transaction from transaction data',
-        )
-        // So we can `impersonate` accounts we need to hack the `hash()` method to always exist whether signed or unsigned
-        // TODO we should be configuring tevm_call to sometimes only accept signed transactions
-        // TODO let's just make an ImpersonatedTx type in `@tevm/tx`
-        const wrappedTx = new Proxy(tx, {
-          get(target, prop) {
-            if (prop === 'hash') {
-              return () => {
-                try {
-                  return target.hash()
-                } catch (e) {
-                  return keccak256(target.getHashedMessageToSign(), 'bytes')
-                }
-              }
-            }
-            if (prop === 'isSigned') {
-              return () => true
-            }
-            if (prop === 'getSenderAddress') {
-              return () =>
-                EthjsAddress.fromString(
-                  params.from ?? params.caller ?? `0x${'00'.repeat(20)}`,
-                )
-            }
-            return Reflect.get(target, prop)
-          },
-        })
-        try {
-          client.logger.debug(
-            { requireSig, skipBalance: txOpts?.skipBalance },
-            'callHandler: Adding tx to mempool',
-          )
-          const poolPromise = pool.add(wrappedTx, requireSig, txOpts?.skipBalance ?? false)
-          txHash = bytesToHex(wrappedTx.hash())
-          client.logger.debug(
-            txHash,
-            'callHandler: received txHash now checkpointing state',
-          )
-          const address = params.from ?? params.origin ?? params.caller ?? `0x${'00'.repeat(20)}`
-          const account = await getAccountHandler(client)({
-            address
-          })
-          const balanceNeeded = wrappedTx.value + (gasLimit * wrappedTx.maxFeePerGas)
-          const hasBalance = balanceNeeded <= account.balance
-          if (txOpts?.skipBalance && !hasBalance) {
-            await setAccountHandler(client)({
-              address,
-              balance: balanceNeeded
-            })
-          }
-          await copiedVm.stateManager.checkpoint()
-          await copiedVm.stateManager.commit()
-          await poolPromise
-        } catch (e) {
-          client.logger.error(
-            e,
-            'callHandler: Unexpected error adding transaction to mempool and checkpointing state. Removing transaction from mempool and reverting state',
-          )
-          pool.removeByHash(bytesToHex(wrappedTx.hash()))
-          // don't expect this to ever happen at this point but being defensive
-          await copiedVm.stateManager.revert()
-          return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-            ...callHandlerResult(evmResult, undefined, trace),
-            errors: [
+        const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
+        if ('errors' in txRes && txRes.errors.length) {
+          return /** @type {any}*/ (
+            maybeThrowOnFail(
+              params.throwOnFail ?? defaultThrowOnFail,
               {
-                name: 'UnexpectedError',
-                _tag: 'UnexpectedError',
-                message:
-                  typeof e === 'string'
-                    ? e
-                    : e instanceof Error
-                      ? e.message
-                      : 'unknown error',
-              },
-            ],
-            executionGasUsed: 0n,
-            /**
-             * @type {`0x${string}`}
-             */
-            rawData: '0x',
-          })
-        }
-      } else {
-        // we want to revert state manager if the transaction should NOT be added to chain
-        // Don't bother though if the state manager is just a copy
-        if (vm === copiedVm) {
-          client.logger.debug(
-            'Reverting state manager rather than adding transaction to mempool',
+                ...('errors' in txRes ? { errors: txRes.errors } : {}),
+                ...callHandlerResult(evmOutput, undefined, trace),
+              }
+            )
           )
-          await copiedVm.stateManager.revert()
         }
       }
-      return /** @type {any}*/ (
-        maybeThrowOnFail(
-          params.throwOnFail ?? defaultThrowOnFail,
-          callHandlerResult(evmResult, txHash, trace),
-        )
-      )
-    }
+
+      /**
+       * ******************
+       * 4 RETURN CALL RESULT
+       * ******************
+       */
+      return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+        ...callHandlerResult(evmOutput, undefined, trace),
+        executionGasUsed: 0n,
+        /**
+         * @type {`0x${string}`}
+         */
+        rawData: '0x',
+      })
+  }
