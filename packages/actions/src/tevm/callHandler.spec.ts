@@ -341,7 +341,7 @@ describe('callHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
       txHash:
-        '0x38dd3a80d0b591b59d425b9492f3ae36251cab5ca27d1c3337e147bb2a40cf1b'
+        "0xb4df2c67ad5891984ea71d01309d55d4e7ae00c554b78517e861f028c9fbcbfc"
     })
     expect(
       (

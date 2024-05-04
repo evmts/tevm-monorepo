@@ -30,19 +30,25 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
   const promises = []
   try {
     const vm = await client.getVm()
-    const account = await getAccountHandler(client)(params).catch(() => undefined)
+    const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
+    if (account.errors?.length && account.errors[0]?._tag !== 'AccountNotFoundError') {
+      console.error('there was an unexpected error getting account', account.errors)
+      throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[1]
+    }
+    console.log('storage root', account?.storageRoot, (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined ? hexToBytes(account.storageRoot) : undefined))
     promises.push(
       vm.stateManager.putAccount(
         address,
         new EthjsAccount(
           params.nonce ?? account?.nonce,
           params.balance ?? account?.nonce,
-          (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined ? hexToBytes(account.storageRoot) : undefined),
+          (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined && account?.storageRoot !== '0x' ? hexToBytes(account.storageRoot) : undefined),
           (params.deployedBytecode &&
             hexToBytes(keccak256(params.deployedBytecode))) ?? (account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined),
         ),
       ),
     )
+    console.log('put account worked')
     if (params.deployedBytecode) {
       promises.push(
         vm.stateManager.putContractCode(

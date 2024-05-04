@@ -36,7 +36,7 @@ Interface for querying receipts and historical state
 
 Gets the pool of pending transactions to be included in next block
 
-▪ **client.getVm?**: () => `Promise`\<`TevmVm`\>
+▪ **client.getVm?**: () => `Promise`\<`Vm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
@@ -91,7 +91,7 @@ whether to default to throwing or not when errors occur
 
 ## Source
 
-[packages/actions/src/tevm/mineHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/mineHandler.js#L12)
+[packages/actions/src/tevm/mineHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/mineHandler.js#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
