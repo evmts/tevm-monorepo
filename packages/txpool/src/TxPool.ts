@@ -7,7 +7,7 @@ import {
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
+import { EthjsAccount, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
@@ -448,12 +448,11 @@ export class TxPool {
 	 *
 	 * @param baseFee Provide a baseFee to exclude txs with a lower gasPrice
 	 */
-	async txsByPriceAndNonce(vm: Vm, { baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
+	async txsByPriceAndNonce({ baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
 		const txs: TypedTransaction[] = []
 		// Separate the transactions by account and sort by nonce
 		const byNonce = new Map<string, TypedTransaction[]>()
 		const skippedStats = { byNonce: 0, byPrice: 0, byBlobsLimit: 0 }
-		console.log('pool objects', [...this.pool.entries()].length)
 		for (const [address, poolObjects] of this.pool) {
 			let txsSortedByNonce = poolObjects.map((obj) => obj.tx).sort((a, b) => Number(a.nonce - b.nonce))
 			// TODO we should be checking this but removing for now works
@@ -481,7 +480,6 @@ export class TxPool {
 			}
 			byNonce.set(address, txsSortedByNonce)
 		}
-		console.log({ byNonce })
 		// Initialize a price based heap with the head transactions
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>

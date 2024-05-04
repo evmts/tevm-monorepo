@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { mineHandler } from "./mineHandler.js";
 import { createBaseClient, type BaseClient } from "@tevm/base-client";
-import { bytesToHex, hexToBytes } from "@tevm/utils";
+import { hexToBytes } from "@tevm/utils";
 import { callHandler } from "./callHandler.js";
 
 const getBlockNumber = (client: BaseClient) => {
@@ -12,7 +12,6 @@ const getBlockNumber = (client: BaseClient) => {
 }
 
 describe(mineHandler.name, () => {
-  /**
   it('as a default it should mine 1 block', async () => {
     const client = createBaseClient()
     expect(
@@ -53,7 +52,6 @@ describe(mineHandler.name, () => {
     const parentBlock = await client.getVm().then(vm => vm.blockchain.getBlock(latestBlock.header.parentHash))
     expect(parentBlock.header.timestamp + 2n).toBe(latestBlock.header.timestamp)
   })
-  */
 
   it('works with transactions in the tx pool', async () => {
     const client = createBaseClient()
@@ -81,11 +79,10 @@ describe(mineHandler.name, () => {
 
     // receipt should exist now
     const receiptsManager = await client.getReceiptsManager()
-    const block = await (await client.getVm()).blockchain.getCanonicalHeadBlock()
-    console.log('block receipts', await receiptsManager.getReceipts(block.hash()))
+    // const block = await (await client.getVm()).blockchain.getCanonicalHeadBlock()
     const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes('0x38dd3a80d0b591b59d425b9492f3ae36251cab5ca27d1c3337e147bb2a40cf1b'))
     expect(
       receipt
-    ).toEqual({})
+    ).toEqual({} as any)
   })
 })

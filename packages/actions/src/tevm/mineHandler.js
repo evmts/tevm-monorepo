@@ -1,4 +1,3 @@
-import { bytesToHex } from '@tevm/utils'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateMineParams } from '@tevm/zod'
 
@@ -42,11 +41,11 @@ export const mineHandler =
             //calcDifficultyFromHeader,
             setHardfork: false,
             putBlockIntoBlockchain: false,
+            common: vm.common
           },
         })
         // TODO create a Log manager
-        const orderedTx = await pool.txsByPriceAndNonce(vm, { baseFee: parentBlock.header.calcNextBaseFee() })
-        console.log('processing orderedTx length', orderedTx.length)
+        const orderedTx = await pool.txsByPriceAndNonce({ baseFee: parentBlock.header.calcNextBaseFee() })
 
         let index = 0
         let blockFull = false
@@ -56,35 +55,20 @@ export const mineHandler =
         const receipts = []
         while (index < orderedTx.length && !blockFull) {
           const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/(orderedTx[index])
-          console.log('processing next tx...', index)
-          try {
-            try {
-              nextTx.hash()
-              console.log('hash worked huh?')
-            } catch (e) {
-              throw new Error('tx.hash() does not work')
-            }
-            const txResult = await blockBuilder.addTransaction(nextTx, {
-              skipHardForkValidation: true,
-            })
-            receipts.push(txResult.receipt)
-          } catch (error) {
-            console.error('There wasn an error adding tx to block', error)
-            // TODO remove me
-            throw error
-          }
+          nextTx.hash()
+          const txResult = await blockBuilder.addTransaction(nextTx, {
+            skipHardForkValidation: true,
+          })
+          receipts.push(txResult.receipt)
           index++
         }
         const block = await blockBuilder.build()
-        console.log('saving receipts...', receipts)
         block.transactions.forEach(tx => {
           tx.hash()
         })
         await receiptsManager?.saveReceipts(block, receipts)
         await vm.blockchain.putBlock(block)
-        console.log('put block', bytesToHex(block.hash()))
         pool.removeNewBlockTxs([block])
-        console.log('block exists?', bytesToHex(await vm.blockchain.getBlock(block.hash()).then(b => b.header.hash())))
       }
       return {}
     }
