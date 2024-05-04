@@ -88,8 +88,22 @@ describe(mineHandler.name, () => {
     // const block = await (await client.getVm()).blockchain.getCanonicalHeadBlock()
     const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(callResult.txHash as Hex))
 
+    if (receipt === null) throw new Error('Receipt is null')
+
     expect(
-      receipt
+      receipt[0].logs
     ).toMatchSnapshot()
+    expect(
+      receipt[0].bitvector
+    ).toMatchSnapshot()
+    expect(
+      receipt[0].cumulativeBlockGasUsed
+    ).toMatchSnapshot()
+    expect(
+      receipt[1]
+    ).toBeDefined()
+    expect(
+      receipt[2]
+    ).toBeDefined()
   })
 })
