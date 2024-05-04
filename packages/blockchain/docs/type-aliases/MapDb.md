@@ -40,7 +40,7 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 ## Source
 
-[MapDb.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MapDb.ts#L18)
+[MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MapDb.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

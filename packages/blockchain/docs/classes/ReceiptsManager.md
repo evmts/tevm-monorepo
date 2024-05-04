@@ -112,7 +112,7 @@ for [IndexType.TxHash]([object Object]), the txHash to get
 
 #### Source
 
-[RecieptManager.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L319)
+[RecieptManager.ts:321](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L321)
 
 ***
 
@@ -134,7 +134,7 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Source
 
-[RecieptManager.ts:222](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L222)
+[RecieptManager.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L224)
 
 ***
 
@@ -212,7 +212,7 @@ Returns the logs bloom for a receipt's logs
 
 #### Source
 
-[RecieptManager.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L400)
+[RecieptManager.ts:402](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L402)
 
 ***
 
@@ -240,7 +240,7 @@ the value to encode or decode
 
 ##### Source
 
-[RecieptManager.ts:338](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L338)
+[RecieptManager.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L340)
 
 #### rlp(conversion, type, values)
 
@@ -256,7 +256,7 @@ the value to encode or decode
 
 ##### Source
 
-[RecieptManager.ts:339](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L339)
+[RecieptManager.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L341)
 
 #### rlp(conversion, type, value)
 
@@ -272,7 +272,7 @@ the value to encode or decode
 
 ##### Source
 
-[RecieptManager.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L340)
+[RecieptManager.ts:342](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L342)
 
 #### rlp(conversion, type, value)
 
@@ -288,7 +288,7 @@ the value to encode or decode
 
 ##### Source
 
-[RecieptManager.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L341)
+[RecieptManager.ts:343](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L343)
 
 ***
 
@@ -337,7 +337,7 @@ for [IndexType.TxHash]([object Object]), the block to save or delete the tx hash
 
 #### Source
 
-[RecieptManager.ts:291](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L291)
+[RecieptManager.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L293)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
