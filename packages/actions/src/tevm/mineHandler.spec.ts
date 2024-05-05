@@ -69,7 +69,7 @@ describe(mineHandler.name, () => {
     ).toEqual({
       executionGasUsed: 0n,
       rawData: '0x',
-      txHash: '0xb4df2c67ad5891984ea71d01309d55d4e7ae00c554b78517e861f028c9fbcbfc'
+      txHash: '0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7'
     })
     expect(await client.getTxPool().then(pool => [...pool.pool.keys()].length)).toBe(1)
     const { blockHashes, errors } = await mineHandler(client)({

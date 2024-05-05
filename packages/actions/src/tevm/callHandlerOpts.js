@@ -169,7 +169,5 @@ export const callHandlerOpts = async (client, params) => {
     opts.gasLimit = BigInt(params.gas)
   }
 
-  console.log({ caller, origin })
-
   return errors.length > 0 ? { data: opts, errors } : { data: opts }
 }

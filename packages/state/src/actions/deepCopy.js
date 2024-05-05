@@ -10,11 +10,14 @@ import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-	const newState = createBaseState(baseState._options)
-	await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
+  const newState = createBaseState(baseState._options)
+  await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
 
-	await checkpoint(newState)()
-	await commit(newState)()
+  await checkpoint(newState)()
+  await commit(newState)()
 
-	return newState
+  newState._stateRoots = new Map(baseState._stateRoots)
+  newState._currentStateRoot = Uint8Array.from(baseState._currentStateRoot)
+
+  return newState
 }

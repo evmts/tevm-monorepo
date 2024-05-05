@@ -1510,6 +1510,9 @@ importers:
       '@tevm/vm':
         specifier: workspace:^
         version: link:../vm
+      pino-pretty:
+        specifier: ^11.0.0
+        version: 11.0.0
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1626,7 +1629,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.17.2)(typescript@5.4.5)
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
+        version: 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1782,6 +1785,9 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      pino-pretty:
+        specifier: ^11.0.0
+        version: 11.0.0
 
   packages/memory-client:
     dependencies:
@@ -5175,28 +5181,6 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
-    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
-    peerDependencies:
-      solc: '*'
-    dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.2)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@types/node': 20.12.7
-      bundle-require: 4.0.2(esbuild@0.19.5)
-      effect: 2.0.0-next.54
-      jsonc-parser: 3.2.1
-      solc: 0.8.22
-      viem: 1.19.11(typescript@5.4.5)(zod@3.23.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - esbuild
-      - fast-check
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
-
   /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
@@ -5219,24 +5203,17 @@ packages:
       - zod
     dev: true
 
-  /@evmts/core@1.0.0-next.12(viem@2.9.28):
-    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
-    peerDependencies:
-      viem: '>1.0.0'
-    dependencies:
-      viem: 2.9.28(typescript@5.4.5)(zod@3.23.4)
-    dev: true
-
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
-    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
+  /@evmts/config@1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.2)
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@types/node': 20.12.7
+      bundle-require: 4.0.2(esbuild@0.20.2)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
-      resolve: 1.22.8
       solc: 0.8.22
       viem: 1.19.11(typescript@5.4.5)(zod@3.23.4)
     transitivePeerDependencies:
@@ -5246,6 +5223,14 @@ packages:
       - typescript
       - utf-8-validate
       - zod
+    dev: true
+
+  /@evmts/core@1.0.0-next.12(viem@2.9.28):
+    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
+    peerDependencies:
+      viem: '>1.0.0'
+    dependencies:
+      viem: 2.9.28(typescript@5.4.5)(zod@3.23.4)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
@@ -5269,24 +5254,22 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
-    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
+  /@evmts/effect@1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
+    peerDependencies:
+      solc: '*'
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.12.7
-      '@types/resolve': 1.20.5
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.2)
+      bundle-require: 4.0.2(esbuild@0.20.2)
       effect: 2.0.0-next.54
-      glob: 10.3.10
+      jsonc-parser: 3.2.1
       resolve: 1.22.8
-      solidity-ast: 0.4.53
-      unplugin: 1.5.1
+      solc: 0.8.22
+      viem: 1.19.11(typescript@5.4.5)(zod@3.23.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
       - fast-check
-      - solc
       - typescript
       - utf-8-validate
       - zod
@@ -5315,18 +5298,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/runtime@1.0.0-next.13:
-    resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/tsconfig': 1.0.0-next.5
-      effect: 2.0.0-next.54
-    dev: true
-
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
-    resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
-    dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5345,11 +5321,41 @@ packages:
       - zod
     dev: true
 
+  /@evmts/runtime@1.0.0-next.13:
+    resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
+    dependencies:
+      '@evmts/tsconfig': 1.0.0-next.5
+      effect: 2.0.0-next.54
+    dev: true
+
   /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
       '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
       '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
+      '@evmts/tsconfig': 1.0.0-next.5
+      '@types/node': 20.12.7
+      '@types/resolve': 1.20.5
+      effect: 2.0.0-next.54
+      glob: 10.3.10
+      resolve: 1.22.8
+      solidity-ast: 0.4.53
+      unplugin: 1.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - esbuild
+      - fast-check
+      - solc
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: true
+
+  /@evmts/solc@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+    resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
+    dependencies:
+      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5393,12 +5399,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5418,10 +5424,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -8883,7 +8889,7 @@ packages:
       '@tanstack/react-query': ^4.36.1
     dependencies:
       '@tanstack/query-persist-client-core': 4.36.1
-      '@tanstack/react-query': 4.36.1(react@18.3.1)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
 
   /@tanstack/react-query@4.36.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -8901,7 +8907,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /@tanstack/react-query@4.36.1(react@18.3.1):
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -8918,6 +8923,7 @@ packages:
       '@tanstack/query-core': 4.36.1
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+    dev: true
 
   /@tanstack/react-query@5.29.2(react@18.2.0):
     resolution: {integrity: sha512-nyuWILR4u7H5moLGSiifLh8kIqQDLNOHGuSz0rcp+J75fNc8aQLyr5+I2JCHU3n+nJrTTW1ssgAD8HiKD7IFBQ==}
@@ -10236,7 +10242,7 @@ packages:
       '@walletconnect/jsonrpc-provider': 1.0.13
       '@walletconnect/jsonrpc-types': 1.0.3
       '@walletconnect/jsonrpc-utils': 1.0.8
-      '@walletconnect/modal': 2.6.2(react@18.3.1)
+      '@walletconnect/modal': 2.6.2(@types/react@18.2.37)(react@18.2.0)
       '@walletconnect/sign-client': 2.10.2
       '@walletconnect/types': 2.10.2
       '@walletconnect/universal-provider': 2.10.2
@@ -10405,7 +10411,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal-core@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-cv8ibvdOJQv2B+nyxP9IIFdxvQznMz8OOr/oR/AaUZym4hjXNL/l1a2UlSQBXrVjo3xxbouMxLb3kBsHoYP2CA==}
@@ -10414,6 +10419,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/modal-ui@2.6.2(@types/react@18.2.37)(react@18.2.0):
     resolution: {integrity: sha512-rbdstM1HPGvr7jprQkyPggX7rP4XiCG85ZA+zWBEX0dVQg8PpAgRUqpeub4xQKDgY7pY/xLRXSiCVdWGqvG2HA==}
@@ -10425,7 +10431,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal-ui@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-rbdstM1HPGvr7jprQkyPggX7rP4XiCG85ZA+zWBEX0dVQg8PpAgRUqpeub4xQKDgY7pY/xLRXSiCVdWGqvG2HA==}
@@ -10437,6 +10442,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/modal@2.6.2(@types/react@18.2.37)(react@18.2.0):
     resolution: {integrity: sha512-eFopgKi8AjKf/0U4SemvcYw9zlLpx9njVN8sf6DAkowC2Md0gPU/UNEbH1Wwj407pEKnEds98pKWib1NN1ACoA==}
@@ -10446,7 +10452,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-eFopgKi8AjKf/0U4SemvcYw9zlLpx9njVN8sf6DAkowC2Md0gPU/UNEbH1Wwj407pEKnEds98pKWib1NN1ACoA==}
@@ -10456,6 +10461,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/randombytes@1.0.3:
     resolution: {integrity: sha512-35lpzxcHFbTN3ABefC9W+uBpNZl1GC4Wpx0ed30gibfO/y9oLdy1NznbV96HARQKSBV9J9M/rrtIvf6a23jfYw==}
@@ -11018,7 +11024,6 @@ packages:
     engines: {node: '>=6.5'}
     dependencies:
       event-target-shim: 5.0.1
-    dev: false
 
   /accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -12358,6 +12363,16 @@ packages:
       load-tsconfig: 0.2.5
     dev: true
 
+  /bundle-require@4.0.2(esbuild@0.20.2):
+    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      esbuild: '>=0.17'
+    dependencies:
+      esbuild: 0.20.2
+      load-tsconfig: 0.2.5
+    dev: true
+
   /busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
     engines: {node: '>=10.16.0'}
@@ -12921,6 +12936,9 @@ packages:
       color-convert: 2.0.1
       color-string: 1.9.1
 
+  /colorette@2.0.20:
+    resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
+
   /colors@1.4.0:
     resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==}
     engines: {node: '>=0.1.90'}
@@ -13344,6 +13362,9 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.4
     dev: true
+
+  /dateformat@4.6.3:
+    resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
 
   /debounce-fn@5.1.2:
     resolution: {integrity: sha512-Sr4SdOZ4vw6eQDvPYNxHogvrxmCIld/VenC5JbNrFwMiwd7lY/Z18ZFfo+EWNG4DD9nFlAujWAo/wGuOPHmy5A==}
@@ -14562,7 +14583,6 @@ packages:
   /event-target-shim@5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
-    dev: false
 
   /eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
@@ -14768,6 +14788,9 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       pure-rand: 6.1.0
+
+  /fast-copy@3.0.2:
+    resolution: {integrity: sha512-dl0O9Vhju8IrcLndv2eU4ldt1ftXMqqfgN4H1cpmGV7P6jeB9FwpN9a2c8DPGE1Ys88rNUJVYDHq73CGAGOPfQ==}
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -15997,6 +16020,9 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
     dev: true
+
+  /help-me@5.0.0:
+    resolution: {integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==}
 
   /hexoid@1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
@@ -19192,7 +19218,6 @@ packages:
   /on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
     engines: {node: '>=14.0.0'}
-    dev: false
 
   /on-finished@2.3.0:
     resolution: {integrity: sha512-ikqdkGAAyf/X/gPhXGvfgAytDZtDbr+bkNUJ0N9h5MI/dmdgCs3l6hoHrcUv41sRKew3jIwrp4qQDXiK99Utww==}
@@ -19746,7 +19771,25 @@ packages:
     dependencies:
       readable-stream: 4.5.2
       split2: 4.2.0
-    dev: false
+
+  /pino-pretty@11.0.0:
+    resolution: {integrity: sha512-YFJZqw59mHIY72wBnBs7XhLGG6qpJMa4pEQTRgEPEbjIYbng2LXEZZF1DoyDg9CfejEy8uZCyzpcBXXG0oOCwQ==}
+    hasBin: true
+    dependencies:
+      colorette: 2.0.20
+      dateformat: 4.6.3
+      fast-copy: 3.0.2
+      fast-safe-stringify: 2.1.1
+      help-me: 5.0.0
+      joycon: 3.1.1
+      minimist: 1.2.8
+      on-exit-leak-free: 2.1.2
+      pino-abstract-transport: 1.1.0
+      pump: 3.0.0
+      readable-stream: 4.5.2
+      secure-json-parse: 2.7.0
+      sonic-boom: 3.8.1
+      strip-json-comments: 3.1.1
 
   /pino-std-serializers@4.0.0:
     resolution: {integrity: sha512-cK0pekc1Kjy5w9V2/n+8MkZwusa6EyyxfeQCB799CQRhRt/CqYKiWs5adeu8Shve2ZNffvfC/7J64A2PJo1W/Q==}
@@ -20563,6 +20606,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: true
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -20654,7 +20698,6 @@ packages:
       events: 3.3.0
       process: 0.11.10
       string_decoder: 1.3.0
-    dev: false
 
   /readdirp@2.2.1:
     resolution: {integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==}
@@ -21333,6 +21376,9 @@ packages:
       extend-shallow: 2.0.1
       kind-of: 6.0.3
 
+  /secure-json-parse@2.7.0:
+    resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
+
   /semver-compare@1.0.0:
     resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
     dev: true
@@ -21910,7 +21956,6 @@ packages:
     resolution: {integrity: sha512-y4Z8LCDBuum+PBP3lSV7RHrXscqksve/bi0as7mhwVnBW+/wUqKT/2Kb7um8yqcFy0duYbbPxzt89Zy2nOCaxg==}
     dependencies:
       atomic-sleep: 1.0.0
-    dev: false
 
   /sonner@1.4.41(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-uG511ggnnsw6gcn/X+YKkWPo5ep9il9wYi3QJxHsYe7yTZ4+cOd1wuodOUmOpFuXL+/RE3R04LczdNCDygTDgQ==}
@@ -22378,7 +22423,6 @@ packages:
   /strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
-    dev: true
 
   /strip-literal@1.3.0:
     resolution: {integrity: sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==}
@@ -23858,7 +23902,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
 
   /use-sync-external-store@1.2.0(react@18.3.1):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
@@ -23866,6 +23909,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.3.1
+    dev: true
 
   /use@3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
@@ -23967,7 +24011,6 @@ packages:
       proxy-compare: 2.5.1
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /valtio@1.11.2(react@18.3.1):
     resolution: {integrity: sha512-1XfIxnUXzyswPAPXo1P3Pdx2mq/pIqZICkWN60Hby0d9Iqb+MEIpqgYVlbflvHdrp2YR/q3jyKWRPJJ100yxaw==}
@@ -23984,6 +24027,7 @@ packages:
       proxy-compare: 2.5.1
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+    dev: true
 
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}

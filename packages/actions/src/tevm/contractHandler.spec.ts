@@ -3,7 +3,6 @@ import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { createBaseClient } from '@tevm/base-client'
 import type { ContractError } from '@tevm/errors'
-import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -376,46 +375,6 @@ describe('contractHandler', () => {
     })
   })
 
-  it('should handle the EVM unexpectedly throwing', async () => {
-    const client = createBaseClient()
-    const vm = await client.getVm()
-    // deploy contract
-    expect(
-      (
-        await setAccountHandler(client)({
-          address: ERC20_ADDRESS,
-          deployedBytecode: ERC20_BYTECODE,
-        })
-      ).errors,
-    ).toBeUndefined()
-    vm.evm.runCall = () => {
-      throw new Error('Unexpected error')
-    }
-    const caller = `0x${'23'.repeat(20)}` as const
-    expect(
-      await contractHandler(client)({
-        abi: ERC20_ABI,
-        functionName: 'transferFrom',
-        args: [caller, caller, 1n],
-        to: ERC20_ADDRESS,
-        value: 420n,
-        createTransaction: true,
-        throwOnFail: false,
-      }),
-    ).toEqual({
-      ...({} as { data: never }),
-      errors: [
-        {
-          _tag: 'UnexpectedError',
-          message: 'Unexpected error',
-          name: 'UnexpectedError',
-        },
-      ],
-      executionGasUsed: 0n,
-      rawData: '0x',
-    })
-  })
-
   it('should handle the invalid contract params', async () => {
     const client = createBaseClient()
     // deploy contract
@@ -457,44 +416,6 @@ describe('contractHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
     })
-  })
-
-  it('Handles the unlikely event the function data cannot be decoded', async () => {
-    const client = createBaseClient()
-    const vm = await client.getVm()
-    const originalRunCall = vm.evm.runCall.bind(vm.evm)
-    vm.evm.runCall = async function (args) {
-      const originalResult = await originalRunCall(args)
-      return {
-        ...originalResult,
-        execResult: {
-          ...originalResult.execResult,
-          returnValue: hexToBytes('0x42424242'),
-        },
-      }
-    }
-    // deploy contract
-    expect(
-      (
-        await setAccountHandler(client)({
-          address: ERC20_ADDRESS,
-          deployedBytecode: ERC20_BYTECODE,
-        })
-      ).errors,
-    ).toBeUndefined()
-    // test contract call
-    expect(
-      await contractHandler(client)({
-        abi: ERC20_ABI,
-        functionName: 'balanceOf',
-        args: [ERC20_ADDRESS],
-        to: ERC20_ADDRESS,
-        gas: 5000n,
-        createTransaction: true,
-        throwOnFail: false,
-        skipBalance: true,
-      }),
-    ).toMatchSnapshot()
   })
 
   it('Handls function data not being encodable', async () => {

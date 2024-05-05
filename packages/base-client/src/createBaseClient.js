@@ -13,9 +13,11 @@ import { getChainId } from './getChainId.js'
 
 /**
  * These are the same accounts hardhat and anvil start with 10000 eth
+ * Also including zer address
  * @type {ReadonlyArray<import('@tevm/utils').Address>}
  */
 const INITIAL_ACCOUNTS = [
+  `0x${'00'.repeat(20)}`,
   '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
   '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
   '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
@@ -134,27 +136,25 @@ export const createBaseClient = (options = {}) => {
      * @type {Promise<any>}
      */
     let statePromise = Promise.resolve()
-    const restoredState = options.persister !== undefined ? options.persister.restoreState() : undefined
+    const restoredState = options.persister?.restoreState()
     if (restoredState) {
-      if (restoredState) {
-        /**
-         * @type {import('@tevm/state').TevmState}
-         */
-        const parsedState = {}
-        for (const [k, v] of Object.entries(restoredState)) {
-          const { nonce, balance, storageRoot, codeHash } = v
-          parsedState[k] = {
-            ...v,
-            nonce: hexToBigInt(nonce),
-            balance: hexToBigInt(balance),
-            storageRoot: storageRoot,
-            codeHash: codeHash,
-          }
+      /**
+       * @type {import('@tevm/state').TevmState}
+       */
+      const parsedState = {}
+      for (const [k, v] of Object.entries(restoredState)) {
+        const { nonce, balance, storageRoot, codeHash } = v
+        parsedState[k] = {
+          ...v,
+          nonce: hexToBigInt(nonce),
+          balance: hexToBigInt(balance),
+          storageRoot: storageRoot,
+          codeHash: codeHash,
         }
-        // We might want to double check we aren't forking here
-        // TODO we should be storing blockchain state too
-        statePromise = stateManager.generateCanonicalGenesis(parsedState)
       }
+      // We might want to double check we aren't forking here
+      // TODO we should be storing blockchain state too
+      statePromise = stateManager.generateCanonicalGenesis(parsedState)
     } else {
       statePromise = Promise.all(INITIAL_ACCOUNTS.map(address => stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000')))))
     }
