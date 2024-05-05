@@ -4,7 +4,6 @@ import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateCallParams } from '@tevm/zod'
 import { createTransaction } from './createTransaction.js'
-import { bytesToHex } from '@tevm/utils'
 
 /**
  * The callHandler is the most important function in Tevm.

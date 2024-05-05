@@ -161,7 +161,7 @@ export const callHandlerOpts = async (client, params) => {
   if (caller) {
     opts.caller = EthjsAddress.fromString(caller)
   }
-  const origin = params.origin || params.from
+  const origin = params.origin || params.from || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
   if (origin) {
     opts.origin = EthjsAddress.fromString(origin)
   }
