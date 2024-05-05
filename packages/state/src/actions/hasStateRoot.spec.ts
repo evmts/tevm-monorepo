@@ -7,6 +7,10 @@ describe(hasStateRoot.name, () => {
 		const baseState = createBaseState()
 		expect(await hasStateRoot(baseState)(baseState._currentStateRoot)).toEqual(true)
 	})
+	it('should work even if uint8array object reference is different', async () => {
+		const baseState = createBaseState()
+		expect(await hasStateRoot(baseState)(Uint8Array.from(baseState._currentStateRoot))).toEqual(true)
+	})
 	it('should return false if it does not have the state root', async () => {
 		const baseState = createBaseState()
 		expect(await hasStateRoot(baseState)(Uint8Array.from([1, 2, 3]))).toEqual(false)

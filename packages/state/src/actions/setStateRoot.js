@@ -21,7 +21,7 @@ export class NoStateRootExistsError extends Error {
  * @type {import("../state-types/index.js").StateAction<'setStateRoot'>}
  */
 export const setStateRoot = (baseState) => (root) => {
-	const genesis = baseState._stateRoots.get(root)
+	const genesis = baseState._stateRoots.get(bytesToHex(root))
 	if (!genesis) {
 		throw new NoStateRootExistsError(`State root for ${bytesToHex(root)} does not exist`)
 	}
