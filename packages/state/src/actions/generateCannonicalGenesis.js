@@ -48,5 +48,6 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 	} catch (e) {
 		console.error('There was an errror generating cannonical genesis. Reverting back to old state', e)
 		baseState._caches = _caches
+		throw e
 	}
 }
