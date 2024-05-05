@@ -4,6 +4,7 @@ import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateCallParams } from '@tevm/zod'
 import { createTransaction } from './createTransaction.js'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * The callHandler is the most important function in Tevm.
@@ -81,6 +82,9 @@ export const callHandler =
       try {
         vm = await client.getVm().then(vm => vm.deepCopy())
         // TODO why is this broken?
+        /**
+         * @type {Uint8Array}
+         */
         const stateRoot = /** @type any*/(evmInput?.block?.header).stateRoot
         if (stateRoot) {
           vm.stateManager.setStateRoot(stateRoot)
