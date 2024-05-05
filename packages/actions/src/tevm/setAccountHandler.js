@@ -48,7 +48,6 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
         ),
       ),
     )
-    console.log('put account worked')
     if (params.deployedBytecode) {
       promises.push(
         vm.stateManager.putContractCode(
@@ -85,7 +84,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
     }
 
     await vm.stateManager.checkpoint()
-    await vm.stateManager.commit()
+    await vm.stateManager.commit(false)
     // TODO offer way of setting contract storage with evm.stateManager.putContractStorage
     return {}
   } catch (e) {

@@ -157,7 +157,7 @@ export const callHandlerOpts = async (client, params) => {
   if (params.value) {
     opts.value = BigInt(params.value)
   }
-  const caller = params.caller || params.from
+  const caller = params.caller || params.from || params.origin || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
   if (caller) {
     opts.caller = EthjsAddress.fromString(caller)
   }
@@ -168,6 +168,8 @@ export const callHandlerOpts = async (client, params) => {
   if (params.gas) {
     opts.gasLimit = BigInt(params.gas)
   }
+
+  console.log({ caller, origin })
 
   return errors.length > 0 ? { data: opts, errors } : { data: opts }
 }
