@@ -11,19 +11,19 @@ import { saveStateRoot } from './saveStateRoot.js'
  */
 export const commit =
 	(baseState) =>
-	async (createNewStateRoot = true) => {
+	async (createNewStateRoot = false) => {
 		baseState._caches.accounts.commit()
-		baseState._caches.storage.commit()
 		baseState._caches.contracts.commit()
+		baseState._caches.storage.commit()
 		// This is kinda hacky we are just ranodmly generating new state roots
 		// since we don't use a trie we are kinda hacking this
+		// This might be needlessy slow as state gets big but for now it feels the most rubust wrt correctness
 		const state = await dumpCanonicalGenesis(baseState)()
 		/**
 		 * @type {import('@tevm/state').ParameterizedTevmState}
 		 */
 		const jsonSerializableState = {}
 
-		// This might be needlessy slow as state gets big but for now it feels the most rubust wrt correctness
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash } = v
 			jsonSerializableState[k] = {

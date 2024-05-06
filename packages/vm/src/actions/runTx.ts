@@ -124,7 +124,6 @@ export const runTx =
 			if (vm.common.isActivatedEIP(2929)) {
 				vm.evm.journal.cleanJournal()
 			}
-			vm.evm.stateManager.originalStorageCache.clear()
 		}
 	}
 
@@ -446,7 +445,6 @@ const _runTx =
 		}
 
 		await vm.evm.journal.cleanup()
-		state.originalStorageCache.clear()
 
 		// Generate the tx receipt
 		const gasUsed = opts.blockGasUsed !== undefined ? opts.blockGasUsed : block.header.gasUsed

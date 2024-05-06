@@ -31,7 +31,7 @@ export const mineHandler =
         const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 
         // Save the old state just in case it had changed since genesis (e.g. from doing setAccount)
-        vm.stateManager.saveStateRoot(parentBlock.header.stateRoot, await vm.stateManager.dumpCanonicalGenesis())
+        vm.stateManager.saveStateRoot(vm.stateManager._currentStateRoot, await vm.stateManager.dumpCanonicalGenesis())
 
         let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
         timestamp = count === 0 ? timestamp : timestamp + interval
@@ -69,17 +69,18 @@ export const mineHandler =
         while (index < orderedTx.length && !blockFull) {
           const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/(orderedTx[index])
           nextTx.hash()
-          console.log('new tx', bytesToHex(nextTx.hash()))
+          client.logger.debug(bytesToHex(nextTx.hash()), 'new tx added')
           const txResult = await blockBuilder.addTransaction(nextTx, {
             skipHardForkValidation: true,
           })
           receipts.push(txResult.receipt)
           index++
         }
+        await vm.stateManager.checkpoint()
+        const createNewStateRoot = true
+        await vm.stateManager.commit(createNewStateRoot)
         const block = await blockBuilder.build()
-        vm.stateManager.saveStateRoot(block.header.stateRoot, await vm.stateManager.dumpCanonicalGenesis())
         await Promise.all([
-          vm.stateManager.setStateRoot(block.header.stateRoot),
           receiptsManager.saveReceipts(block, receipts),
           vm.blockchain.putBlock(block),
         ])
