@@ -35,7 +35,6 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
       console.error('there was an unexpected error getting account', account.errors)
       throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[1]
     }
-    console.log('storage root', account?.storageRoot, (params.storageRoot && hexToBytes(params.storageRoot)) ?? (account?.storageRoot !== undefined ? hexToBytes(account.storageRoot) : undefined))
     promises.push(
       vm.stateManager.putAccount(
         address,

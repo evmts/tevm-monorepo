@@ -145,9 +145,8 @@ export const callHandler =
           evmOutput = res
           trace = _trace
         } else {
-          console.log(Object.keys(evmInput))
           evmOutput = await vm.evm.runCall(evmInput)
-          console.log('res here', evmOutput.execResult.executionGasUsed, evmOutput.execResult.exceptionError)
+          trace = undefined
         }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')
@@ -234,7 +233,6 @@ export const callHandler =
             }
           )
         }
-        console.log('here we go...')
         const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
         txHash = 'txHash' in txRes ? txRes.txHash : undefined
         if ('errors' in txRes && txRes.errors.length) {
@@ -249,7 +247,7 @@ export const callHandler =
             )
           )
         }
-        console.log('tx is added', txRes)
+        client.logger.debug(txHash, 'Transaction successfully added')
       }
 
       /**

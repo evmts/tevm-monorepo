@@ -13,7 +13,6 @@ export const fsPrecompile = definePrecompile({
 		},
 		writeFile: async ({ args }) => {
 			await fs.writeFile(...args)
-			console.log('success!', args)
 			return { returnValue: true, executionGasUsed: 0n }
 		},
 	}),
