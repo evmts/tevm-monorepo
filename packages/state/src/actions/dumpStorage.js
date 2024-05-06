@@ -7,17 +7,17 @@ import { bytesToHex } from 'viem'
  * @type {import("../state-types/index.js").StateAction<'dumpStorage'>}
  */
 export const dumpStorage =
-  ({ _caches: { storage } }) =>
-    (address) => {
-      const storageMap = storage.dump(address)
-      /**
-       * @type {import("@tevm/common").StorageDump}
-       */
-      const dump = {}
-      if (storageMap !== undefined) {
-        for (const slot of storageMap) {
-          dump[slot[0]] = bytesToHex(slot[1])
-        }
-      }
-      return Promise.resolve(dump)
+	({ _caches: { storage } }) =>
+	(address) => {
+		const storageMap = storage.dump(address)
+		/**
+		 * @type {import("@tevm/common").StorageDump}
+		 */
+		const dump = {}
+		if (storageMap !== undefined) {
+			for (const slot of storageMap) {
+				dump[slot[0]] = bytesToHex(slot[1])
+			}
+		}
+		return Promise.resolve(dump)
 	}

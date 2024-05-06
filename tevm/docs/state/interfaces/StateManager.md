@@ -170,15 +170,25 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ### commit()
 
-> **commit**(): `Promise`\<`void`\>
+> **commit**(`createNewStateRoot`?): `Promise`\<`void`\>
 
-#### Inherited from
+Commits the current state.
+
+#### Parameters
+
+▪ **createNewStateRoot?**: `boolean`
+
+Whether to create a new state root
+Defaults to true.
+This api is not stable
+
+#### Overrides
 
 EvmStateManagerInterface.commit
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
+packages/state/dist/index.d.ts:137
 
 ***
 

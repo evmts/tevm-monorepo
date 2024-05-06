@@ -27,7 +27,7 @@ Resets all internal caches
 
 ## Source
 
-packages/state/dist/index.d.ts:172
+packages/state/dist/index.d.ts:183
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
