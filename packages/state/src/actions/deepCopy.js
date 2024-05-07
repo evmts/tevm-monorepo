@@ -1,8 +1,5 @@
 import { createBaseState } from '../createBaseState.js'
-import { checkpoint } from './checkpoint.js'
-import { commit } from './commit.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
-import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
 
 /**
  * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
@@ -10,15 +7,20 @@ import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-  const newState = createBaseState(baseState._options)
+  if (
+    baseState._caches.accounts._checkpoints > 0 ||
+    baseState._caches.storage._checkpoints > 0 ||
+    baseState._caches.contracts._checkpoints > 0
+  ) {
+    throw new Error('Attempted to deepCopy state with uncommitted checkpoints')
+  }
+  const newStateRoots = new Map([...baseState._stateRoots.entries()].map(([root, state]) => [root, Object.fromEntries(Object.entries(state).map(([accountKey, storage]) => [accountKey, { ...storage }]))]))
+  const newState = createBaseState({
+    ...baseState._options,
+    stateRoots: newStateRoots,
+    genesisState: await dumpCanonicalGenesis(baseState)()
+  })
   await newState.ready()
-  await generateCanonicalGenesis(newState)(await dumpCanonicalGenesis(baseState)())
-
-  await checkpoint(newState)()
-  await commit(newState)()
-
-  newState._stateRoots = new Map(baseState._stateRoots)
-  newState._currentStateRoot = Uint8Array.from(baseState._currentStateRoot)
-
+  newState._currentStateRoot = baseState._currentStateRoot
   return newState
 }
