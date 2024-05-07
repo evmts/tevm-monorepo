@@ -30,9 +30,6 @@ export const mineHandler =
         const receiptsManager = await client.getReceiptsManager()
         const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 
-        // Save the old state just in case it had changed since genesis (e.g. from doing setAccount)
-        vm.stateManager.saveStateRoot(vm.stateManager._currentStateRoot, await vm.stateManager.dumpCanonicalGenesis())
-
         let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
         timestamp = count === 0 ? timestamp : timestamp + interval
 
