@@ -1,5 +1,4 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
-import { hexToBytes } from '@tevm/utils'
 import { ContractCache } from './ContractCache.js'
 import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js'
 import { commit } from './actions/commit.js'
@@ -15,7 +14,6 @@ const INITIAL_STATE_ROOT = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001
  * Creates the core data structure the state manager operates on
  */
 export const createBaseState = (options = {}) => {
-  const initialStateRoot = hexToBytes(INITIAL_STATE_ROOT)
   /**
    * @type {import('./state-types/StateRoots.js').StateRoots}
    */
@@ -25,7 +23,7 @@ export const createBaseState = (options = {}) => {
    * @type {import('./BaseState.js').BaseState}
    */
   const state = {
-    _currentStateRoot: initialStateRoot,
+    _currentStateRoot: INITIAL_STATE_ROOT,
     _stateRoots: stateRoots,
     _options: options,
     _caches: {

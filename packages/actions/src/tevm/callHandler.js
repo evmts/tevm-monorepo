@@ -4,7 +4,7 @@ import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateCallParams } from '@tevm/zod'
 import { createTransaction } from './createTransaction.js'
-import { EthjsAccount, EthjsAddress, bytesToBigint } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 
 /**
  * The callHandler is the most important function in Tevm.
@@ -75,19 +75,65 @@ export const callHandler =
       client.logger.debug(
         'Cloning vm to execute a call...',
       )
+
+
+      // TODO DELETE ME
+      const _vm = await client.getVm()
+      const _shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
+      const _isContract = evmInput.to && (await _vm.stateManager.getContractCode(evmInput.to)).length > 0
+      if (_shouldHaveContract && !_isContract) {
+        client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
+      } else {
+        console.log('contract exists', evmInput.to && bytesToHex(await _vm.stateManager.getContractCode(evmInput.to)))
+      }
+
+      if (bytesToHex(/** @type any*/(evmInput?.block?.header)?.stateRoot) !== _vm.stateManager._currentStateRoot) {
+        console.log('state roots', 'block', bytesToHex(/** @type any*/(evmInput?.block?.header)?.stateRoot), 'current', _vm.stateManager._currentStateRoot)
+        throw new Error('state roots unexpecedly do not match')
+      }
+
+      // TODO delete me
+      await client.getVm().then(vm => {
+        const stateRoot = /** @type any*/(evmInput?.block?.header)?.stateRoot
+        if (!vm.stateManager._stateRoots.get(bytesToHex(stateRoot))?.[params.to ?? '0x']?.deployedBytecode) {
+          throw new Error('The deployed bytecode does not exist on the original vm instance')
+        }
+      })
+
+
       /**
        * @type {import('@tevm/vm').Vm}
        */
       let vm
       try {
         vm = await client.getVm().then(vm => vm.deepCopy())
-        // TODO why is this broken?
+        // TODO DELETE ME
+        let shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
+        let isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
+        if (shouldHaveContract && !isContract) {
+          client.logger.warn(`before state rootData is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
+          throw new Error('bytecode gone after deep copy!')
+        } else {
+          console.log('before state rootcontract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
+        }
         /**
          * @type {Uint8Array}
          */
         const stateRoot = /** @type any*/(evmInput?.block?.header).stateRoot
+        if (shouldHaveContract && !vm.stateManager._stateRoots.get(bytesToHex(stateRoot))?.[params.to ?? '0x']?.deployedBytecode) {
+          throw new Error('Bytecode doesnt exist on state root though it does exist in client')
+        }
         if (stateRoot) {
           vm.stateManager.setStateRoot(stateRoot)
+        }
+        // TODO DELETE ME
+        shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
+        isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
+        if (shouldHaveContract && !isContract) {
+          client.logger.warn(`before state rootData is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
+          throw new Error('bytecode gone after setting state root!')
+        } else {
+          console.log('before state rootcontract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
         }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
@@ -109,9 +155,13 @@ export const callHandler =
         })
       }
 
-      // Do a quick check
-      if (evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n && !(await vm.stateManager.getAccount(evmInput.to).catch(() => new EthjsAccount()))?.isContract()) {
-        client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to.toString()} with no contract bytecode!`)
+      // Do a quick defensive check
+      const shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
+      const isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
+      if (shouldHaveContract && !isContract) {
+        client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
+      } else {
+        console.log('contract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
       }
 
       /**
@@ -148,6 +198,11 @@ export const callHandler =
           evmOutput = await vm.evm.runCall(evmInput)
           trace = undefined
         }
+        client.logger.debug({
+          returnValue: bytesToHex(evmOutput.execResult.returnValue),
+          exceptionError: evmOutput.execResult.exceptionError,
+          executionGasUsed: evmOutput.execResult.executionGasUsed,
+        }, 'callHandler: runCall result')
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {

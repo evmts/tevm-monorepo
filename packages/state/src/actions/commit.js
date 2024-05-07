@@ -1,4 +1,4 @@
-import { bytesToHex, keccak256, numberToHex, toHex } from 'viem'
+import { keccak256, numberToHex, toHex } from 'viem'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 
 // TODO we might want to sometimes prune state roots
@@ -35,12 +35,12 @@ export const commit =
             ...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
           }
         }
-        return keccak256(toHex(JSON.stringify(jsonSerializableState)), 'bytes')
+        return keccak256(toHex(JSON.stringify(jsonSerializableState)))
       }
       const newStateRoot = createNewStateRoot
         ? createStateRoot()
         : baseState._currentStateRoot
-      baseState._stateRoots.set(bytesToHex(newStateRoot), state)
+      baseState._stateRoots.set(newStateRoot, state)
       baseState._currentStateRoot = newStateRoot
       baseState._options.onCommit?.(baseState)
       return

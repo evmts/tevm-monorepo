@@ -84,7 +84,13 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 
     await vm.stateManager.checkpoint()
     await vm.stateManager.commit(false)
-    // TODO offer way of setting contract storage with evm.stateManager.putContractStorage
+
+    if (params.deployedBytecode) {
+      const state = vm.stateManager._stateRoots.get(vm.stateManager._currentStateRoot)
+      if (state?.[params.address]?.deployedBytecode === undefined) {
+        throw new Error('Contract bytecode never added in setAccountHandler')
+      }
+    }
     return {}
   } catch (e) {
     errors.push(

@@ -36,11 +36,12 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
       const deployedBytecode = contracts.get(EthjsAddress.fromString(hexAddress))
 
       state[hexAddress] = {
-        ...account,
+        nonce: account.nonce,
+        balance: account.balance,
         storageRoot: bytesToHex(account.storageRoot),
         codeHash: bytesToHex(account.codeHash),
         storage,
-        ...(deployedBytecode
+        ...(deployedBytecode !== undefined
           ? {
             deployedBytecode: toHex(deployedBytecode),
           }

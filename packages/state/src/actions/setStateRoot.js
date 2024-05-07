@@ -36,7 +36,7 @@ export const setStateRoot = (baseState) => async (root) => {
   }
   const oldStateRoot = baseState._currentStateRoot
   try {
-    baseState._currentStateRoot = root
+    baseState._currentStateRoot = bytesToHex(root)
     await generateCanonicalGenesis(baseState)(genesis)
     await checkpoint(baseState)()
     await commit(baseState)()
