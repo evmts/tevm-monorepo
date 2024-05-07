@@ -32,7 +32,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
     const vm = await client.getVm()
     const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
     if (account.errors?.length && account.errors[0]?._tag !== 'AccountNotFoundError') {
-      console.error('there was an unexpected error getting account', account.errors)
+      client.logger.error('there was an unexpected error getting account', account.errors)
       throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[1]
     }
     promises.push(
