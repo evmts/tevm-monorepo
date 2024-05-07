@@ -52,6 +52,8 @@ export const mineHandler =
             // cliqueSigner,
             // proof of work not currently supported
             //calcDifficultyFromHeader,
+            //ck
+            freeze: false,
             setHardfork: false,
             putBlockIntoBlockchain: false,
             common: vm.common
@@ -68,11 +70,16 @@ export const mineHandler =
         const receipts = []
         while (index < orderedTx.length && !blockFull) {
           const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/(orderedTx[index])
-          nextTx.hash()
           client.logger.debug(bytesToHex(nextTx.hash()), 'new tx added')
           const txResult = await blockBuilder.addTransaction(nextTx, {
             skipHardForkValidation: true,
           })
+          if (txResult.execResult.exceptionError) {
+            if (txResult.execResult.exceptionError.error === 'out of gas') {
+              client.logger.debug(txResult.execResult.executionGasUsed, 'out of gas')
+            }
+            client.logger.debug(txResult.execResult.exceptionError, `There was an exception when building block for tx ${bytesToHex(nextTx.hash())}`)
+          }
           receipts.push(txResult.receipt)
           index++
         }
