@@ -84,7 +84,6 @@ describe(mineHandler.name, () => {
 
     // receipt should exist now
     const receiptsManager = await client.getReceiptsManager()
-    blockHashes?.forEach(async blockHash => console.log('receiptszzz', await receiptsManager.getReceipts(hexToBytes(blockHash))))
     // const block = await (await client.getVm()).blockchain.getCanonicalHeadBlock()
     const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(callResult.txHash as Hex))
 
