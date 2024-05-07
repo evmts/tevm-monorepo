@@ -24,9 +24,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
     const priorityFee = 0n
-    let gasLimit = evmOutput.execResult.executionGasUsed * 11n / 10n
-    const MIN_GAS = 21000n
-    gasLimit = gasLimit > MIN_GAS ? gasLimit : MIN_GAS
+    const gasLimit = 21000n + evmOutput.execResult.executionGasUsed * 11n / 10n
 
     const sender = evmInput.origin ?? evmInput.caller ?? EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
 
@@ -47,7 +45,9 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         gasLimit,
         maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
         maxPriorityFeePerGas: 0n,
-        ...evmInput,
+        ...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
+        ...(evmInput.data !== undefined ? { data: evmInput.data } : {}),
+        ...(evmInput.value !== undefined ? { value: evmInput.value } : {}),
         gasPrice: null,
       },
       {
