@@ -197,7 +197,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				console.warn('Warning: setChainId is currently a noop')
+				client.logger.warn('Warning: setChainId is currently a noop')
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,

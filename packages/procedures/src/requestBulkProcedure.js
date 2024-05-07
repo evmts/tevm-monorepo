@@ -11,7 +11,7 @@ export const requestBulkProcedure = (client) => async (requests) => {
 		const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 		// this should never happen
 		if (response.status === 'rejected') {
-			console.error(response.reason)
+			client.logger.error(response.reason)
 			return {
 				id: request.id,
 				method: request.method,
