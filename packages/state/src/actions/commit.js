@@ -25,13 +25,14 @@ export const commit =
         const jsonSerializableState = {}
 
         for (const [k, v] of Object.entries(state)) {
-          const { nonce, balance, storageRoot, codeHash, } = v
+          const { nonce, balance, storageRoot, codeHash, deployedBytecode } = v
           jsonSerializableState[k] = {
             ...v,
             nonce: numberToHex(nonce),
             balance: numberToHex(balance),
             storageRoot: storageRoot,
             codeHash: codeHash,
+            ...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
           }
         }
         return keccak256(toHex(JSON.stringify(jsonSerializableState)), 'bytes')
