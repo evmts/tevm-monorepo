@@ -42,7 +42,7 @@ describe('memoryTransport', () => {
 		expect(
 			await client.readContract({
 				...daiContract.read.balanceOf(`0x${'69'.repeat(20)}`),
-				blockTag: 'pending',
+				blockTag: 'latest',
 			}),
 		).toBe(0n)
 	})

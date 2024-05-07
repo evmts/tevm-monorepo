@@ -120,14 +120,28 @@ export const tevmViemExtension = () => {
 					}),
 				)
 			)
-			out.data = decodeFunctionResult(
-				/** @type any*/ ({
-					data: out.rawData,
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
-				}),
-			)
+			if (out.rawData === '0x') {
+				throw new Error('UnexpectedError: data is 0x')
+			}
+			try {
+				out.data = decodeFunctionResult(
+					/** @type any*/ ({
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+			} catch (e) {
+				console.error({
+					input: {
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					},
+				})
+			}
 			return out
 		}
 
@@ -247,7 +261,9 @@ export const tevmViemExtension = () => {
 					}),
 				),
 			})
-
+			if (out.rawData === '0x') {
+				throw new Error('UnexpectedError: data is 0x')
+			}
 			const data = decodeFunctionResult(
 				/** @type any*/ ({
 					data: out.rawData,
