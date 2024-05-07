@@ -224,7 +224,6 @@ export const callHandler =
         const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
         const hasEth = evmInput.skipBalance || ((account)?.balance ?? 0n) > 0n
         if (!hasEth) {
-          console.error('no eth throwing')
           return maybeThrowOnFail(
             params.throwOnFail ?? defaultThrowOnFail,
             {
@@ -236,7 +235,6 @@ export const callHandler =
         const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
         txHash = 'txHash' in txRes ? txRes.txHash : undefined
         if ('errors' in txRes && txRes.errors.length) {
-          console.error(txRes.errors)
           return /** @type {any}*/ (
             maybeThrowOnFail(
               params.throwOnFail ?? defaultThrowOnFail,
