@@ -1,6 +1,6 @@
 import { Block } from '@tevm/block'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
-import { bytesToHex, hexToBytes } from 'viem'
+import { hexToBytes } from 'viem'
 import { putBlock } from './actions/putBlock.js'
 import { getBlockFromRpc } from './utils/getBlockFromRpc.js'
 
