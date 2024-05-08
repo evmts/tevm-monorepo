@@ -1,6 +1,6 @@
 import { callHandler } from './callHandler.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { EthjsAddress } from '@tevm/utils'
 import {
   decodeErrorResult,
   decodeFunctionResult,
@@ -141,8 +141,6 @@ export const contractHandler =
       let decodedResult
       try {
         if (result.rawData === '0x') {
-          let bytecode = await vm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
-          bytecode = await vm.deepCopy().then(vm => vm.stateManager.getContractCode(EthjsAddress.fromString(params.to)))
           throw new Error('0x data returned from EVM with no error message. This indicates a the contract was missing or bug in Tevm if no other errors were thrown')
         }
         decodedResult = decodeFunctionResult(
