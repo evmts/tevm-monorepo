@@ -3,24 +3,14 @@
 	"version": "1.0.0-next.40",
 	"private": false,
 	"description": "WASM JS bindings for REVM for use in Tevm",
-	"keywords": [
-		"solidity",
-		"forge",
-		"foundry",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
+	"keywords": ["solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "packages/revm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -33,13 +23,7 @@
 	},
 	"main": "dist/cjs/revm.js",
 	"module": "dist/esm/revm.js",
-	"files": [
-		"dist",
-		"src",
-		"cargo.toml",
-		"Cargo.lock",
-		"types"
-	],
+	"files": ["dist", "src", "cargo.toml", "Cargo.lock", "types"],
 	"scripts": {
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",

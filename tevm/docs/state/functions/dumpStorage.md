@@ -31,7 +31,7 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Source
 
-packages/state/dist/index.d.ts:218
+packages/state/dist/index.d.ts:219
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

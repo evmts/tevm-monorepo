@@ -28,6 +28,16 @@ packages/state/dist/index.d.ts:12
 
 ***
 
+### deployedBytecode
+
+> **deployedBytecode**?: \`0x${string}\`
+
+#### Source
+
+packages/state/dist/index.d.ts:13
+
+***
+
 ### nonce
 
 > **nonce**: `bigint`
@@ -44,7 +54,7 @@ packages/state/dist/index.d.ts:9
 
 #### Source
 
-packages/state/dist/index.d.ts:13
+packages/state/dist/index.d.ts:14
 
 ***
 

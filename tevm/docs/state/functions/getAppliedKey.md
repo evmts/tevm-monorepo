@@ -21,7 +21,7 @@ Used for saving preimages
 
 ## Source
 
-packages/state/dist/index.d.ts:250
+packages/state/dist/index.d.ts:251
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

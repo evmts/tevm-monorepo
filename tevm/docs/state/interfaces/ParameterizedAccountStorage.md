@@ -14,7 +14,7 @@
 
 #### Source
 
-packages/state/dist/index.d.ts:23
+packages/state/dist/index.d.ts:24
 
 ***
 
@@ -24,7 +24,7 @@ packages/state/dist/index.d.ts:23
 
 #### Source
 
-packages/state/dist/index.d.ts:25
+packages/state/dist/index.d.ts:26
 
 ***
 
@@ -34,7 +34,7 @@ packages/state/dist/index.d.ts:25
 
 #### Source
 
-packages/state/dist/index.d.ts:22
+packages/state/dist/index.d.ts:23
 
 ***
 
@@ -44,7 +44,7 @@ packages/state/dist/index.d.ts:22
 
 #### Source
 
-packages/state/dist/index.d.ts:26
+packages/state/dist/index.d.ts:27
 
 ***
 
@@ -54,7 +54,7 @@ packages/state/dist/index.d.ts:26
 
 #### Source
 
-packages/state/dist/index.d.ts:24
+packages/state/dist/index.d.ts:25
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -31,7 +31,7 @@ Get an EIP-1186 proof from the provider
 
 ## Source
 
-packages/state/dist/index.d.ts:280
+packages/state/dist/index.d.ts:281
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

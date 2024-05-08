@@ -10,11 +10,11 @@
 
 ## Index signature
 
- \[`key`: `string`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
+ \[`key`: `Address`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
 
 ## Source
 
-packages/state/dist/index.d.ts:149
+packages/state/dist/index.d.ts:150
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

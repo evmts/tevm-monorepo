@@ -21,7 +21,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-packages/state/dist/index.d.ts:48
+packages/state/dist/index.d.ts:49
 
 ## Properties
 
@@ -31,7 +31,7 @@ packages/state/dist/index.d.ts:48
 
 #### Source
 
-packages/state/dist/index.d.ts:49
+packages/state/dist/index.d.ts:50
 
 ## Accessors
 
@@ -41,7 +41,7 @@ packages/state/dist/index.d.ts:49
 
 #### Source
 
-packages/state/dist/index.d.ts:78
+packages/state/dist/index.d.ts:79
 
 ## Methods
 
@@ -53,7 +53,7 @@ packages/state/dist/index.d.ts:78
 
 #### Source
 
-packages/state/dist/index.d.ts:77
+packages/state/dist/index.d.ts:78
 
 ***
 
@@ -65,7 +65,7 @@ packages/state/dist/index.d.ts:77
 
 #### Source
 
-packages/state/dist/index.d.ts:57
+packages/state/dist/index.d.ts:58
 
 ***
 
@@ -77,7 +77,7 @@ packages/state/dist/index.d.ts:57
 
 #### Source
 
-packages/state/dist/index.d.ts:53
+packages/state/dist/index.d.ts:54
 
 ***
 
@@ -93,7 +93,7 @@ packages/state/dist/index.d.ts:53
 
 #### Source
 
-packages/state/dist/index.d.ts:73
+packages/state/dist/index.d.ts:74
 
 ***
 
@@ -109,7 +109,7 @@ packages/state/dist/index.d.ts:73
 
 #### Source
 
-packages/state/dist/index.d.ts:62
+packages/state/dist/index.d.ts:63
 
 ***
 
@@ -127,7 +127,7 @@ packages/state/dist/index.d.ts:62
 
 #### Source
 
-packages/state/dist/index.d.ts:68
+packages/state/dist/index.d.ts:69
 
 ***
 
@@ -139,7 +139,7 @@ packages/state/dist/index.d.ts:68
 
 #### Source
 
-packages/state/dist/index.d.ts:83
+packages/state/dist/index.d.ts:84
 
 ***
 
@@ -149,7 +149,7 @@ packages/state/dist/index.d.ts:83
 
 #### Source
 
-packages/state/dist/index.d.ts:79
+packages/state/dist/index.d.ts:80
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

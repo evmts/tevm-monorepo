@@ -24,13 +24,13 @@ BaseState.\_caches
 
 #### Source
 
-packages/state/dist/index.d.ts:108
+packages/state/dist/index.d.ts:109
 
 ***
 
 ### \_currentStateRoot
 
-> **\_currentStateRoot**: `Uint8Array`
+> **\_currentStateRoot**: \`0x${string}\`
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ BaseState.\_currentStateRoot
 
 #### Source
 
-packages/state/dist/index.d.ts:106
+packages/state/dist/index.d.ts:107
 
 ***
 
@@ -52,7 +52,7 @@ BaseState.\_options
 
 #### Source
 
-packages/state/dist/index.d.ts:107
+packages/state/dist/index.d.ts:108
 
 ***
 
@@ -68,7 +68,7 @@ BaseState.\_stateRoots
 
 #### Source
 
-packages/state/dist/index.d.ts:105
+packages/state/dist/index.d.ts:106
 
 ***
 
@@ -80,7 +80,7 @@ Returns contract addresses
 
 #### Source
 
-packages/state/dist/index.d.ts:115
+packages/state/dist/index.d.ts:116
 
 ***
 
@@ -120,7 +120,7 @@ BaseState.ready
 
 #### Source
 
-packages/state/dist/index.d.ts:101
+packages/state/dist/index.d.ts:102
 
 ## Methods
 
@@ -146,7 +146,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/dist/index.d.ts:127
+packages/state/dist/index.d.ts:128
 
 ***
 
@@ -188,7 +188,7 @@ EvmStateManagerInterface.commit
 
 #### Source
 
-packages/state/dist/index.d.ts:137
+packages/state/dist/index.d.ts:138
 
 ***
 
@@ -200,7 +200,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/dist/index.d.ts:119
+packages/state/dist/index.d.ts:120
 
 ***
 
@@ -230,7 +230,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 #### Source
 
-packages/state/dist/index.d.ts:123
+packages/state/dist/index.d.ts:124
 
 ***
 
@@ -529,7 +529,7 @@ THis API is considered unstable
 
 #### Source
 
-packages/state/dist/index.d.ts:133
+packages/state/dist/index.d.ts:134
 
 ***
 

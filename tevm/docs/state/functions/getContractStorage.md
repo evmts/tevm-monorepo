@@ -34,7 +34,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Source
 
-packages/state/dist/index.d.ts:266
+packages/state/dist/index.d.ts:267
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
