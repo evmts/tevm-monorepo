@@ -39,15 +39,15 @@ const MOCKERC20_ABI = [
 
 describe('Testing tevm state managers with mix of createTransaction: true and false', () => {
 	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
-		const caller = `0x${'1'.repeat(40)}` as const
 		// Create client
 		const forkClient = createMemoryClient({
 			fork: {
 				url: 'https://mainnet.optimism.io',
 			},
+			loggingLevel: 'debug',
 		})
 
-		const normalClient = createMemoryClient()
+		const normalClient = createMemoryClient({ loggingLevel: 'debug' })
 		const clients = {
 			forkClient,
 			normalClient,
@@ -80,11 +80,10 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					executionGasUsed,
 				} = await client.contract({
 					from,
-					caller,
 					to: token,
 					abi: MOCKERC20_ABI,
 					functionName: 'mint',
-					args: [caller, amount],
+					args: [from, amount],
 					createTransaction: true,
 				})
 				expect(mintErrors).toBeUndefined()
@@ -106,22 +105,20 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 				expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
 
 				const { data: balanceNotIncluded, errors: contractErrors2 } = await client.contract({
-					caller,
 					to: token,
 					abi: MOCKERC20_ABI,
 					functionName: 'balanceOf',
-					args: [caller],
+					args: [from],
 					// createTransaction: true,
 				})
 
 				// Check balance of caller
 				const { data: balanceIncluded, errors: contractErrors } = await client.contract({
 					from,
-					caller,
 					to: token,
 					abi: MOCKERC20_ABI,
 					functionName: 'balanceOf',
-					args: [caller],
+					args: [from],
 					createTransaction: true,
 				})
 

@@ -1,15 +1,15 @@
 import { http, createPublicClient } from 'viem'
 
 export class NoForkError extends Error {
-  /**
-   * @override
-   * @type {'NoForkError'}
-   */
-  name = 'NoForkError'
-  /**
-   * @type {'NoForkError'}
-   */
-  _tag = 'NoForkError'
+	/**
+	 * @override
+	 * @type {'NoForkError'}
+	 */
+	name = 'NoForkError'
+	/**
+	 * @type {'NoForkError'}
+	 */
+	_tag = 'NoForkError'
 }
 
 /**
@@ -18,11 +18,11 @@ export class NoForkError extends Error {
  * @returns {import('viem').PublicClient}
  */
 export const getForkClient = ({ options: { fork } }) => {
-  if (!fork) {
-    throw new NoForkError('Cannot initialize a client with no fork url set')
-  }
-  return createPublicClient({
-    transport: http(fork.url),
-    name: 'tevm-state-manager-viem-client',
-  })
+	if (!fork) {
+		throw new NoForkError('Cannot initialize a client with no fork url set')
+	}
+	return createPublicClient({
+		transport: http(fork.url),
+		name: 'tevm-state-manager-viem-client',
+	})
 }

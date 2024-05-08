@@ -29,7 +29,7 @@ Deletes an account from state under the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:205
+packages/state/dist/index.d.ts:212
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

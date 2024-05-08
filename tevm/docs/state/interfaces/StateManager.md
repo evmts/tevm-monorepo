@@ -6,69 +6,21 @@
 
 # Interface: StateManager
 
-The core data structure powering the state manager internally
-
 ## Extends
 
-- `EVMStateManagerInterface`.[`BaseState`](../type-aliases/BaseState.md)
+- `EVMStateManagerInterface`
 
 ## Properties
 
-### \_caches
+### \_baseState
 
-> **\_caches**: [`StateCache`](../type-aliases/StateCache.md)
+> **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-#### Inherited from
-
-BaseState.\_caches
+The internal state representation
 
 #### Source
 
-packages/state/dist/index.d.ts:109
-
-***
-
-### \_currentStateRoot
-
-> **\_currentStateRoot**: \`0x${string}\`
-
-#### Inherited from
-
-BaseState.\_currentStateRoot
-
-#### Source
-
-packages/state/dist/index.d.ts:107
-
-***
-
-### \_options
-
-> **\_options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
-
-#### Inherited from
-
-BaseState.\_options
-
-#### Source
-
-packages/state/dist/index.d.ts:108
-
-***
-
-### \_stateRoots
-
-> **\_stateRoots**: [`StateRoots`](../type-aliases/StateRoots.md)
-
-Mapping of hashes to State roots
-
-#### Inherited from
-
-BaseState.\_stateRoots
-
-#### Source
-
-packages/state/dist/index.d.ts:106
+packages/state/dist/index.d.ts:117
 
 ***
 
@@ -80,7 +32,7 @@ Returns contract addresses
 
 #### Source
 
-packages/state/dist/index.d.ts:116
+packages/state/dist/index.d.ts:122
 
 ***
 
@@ -114,13 +66,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **ready**: () => `Promise`\<`true`\>
 
-#### Inherited from
-
-BaseState.ready
-
 #### Source
 
-packages/state/dist/index.d.ts:102
+packages/state/dist/index.d.ts:118
 
 ## Methods
 
@@ -146,7 +94,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/dist/index.d.ts:128
+packages/state/dist/index.d.ts:134
 
 ***
 
@@ -188,7 +136,7 @@ EvmStateManagerInterface.commit
 
 #### Source
 
-packages/state/dist/index.d.ts:138
+packages/state/dist/index.d.ts:144
 
 ***
 
@@ -200,7 +148,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/dist/index.d.ts:120
+packages/state/dist/index.d.ts:126
 
 ***
 
@@ -230,7 +178,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 #### Source
 
-packages/state/dist/index.d.ts:124
+packages/state/dist/index.d.ts:130
 
 ***
 
@@ -529,7 +477,7 @@ THis API is considered unstable
 
 #### Source
 
-packages/state/dist/index.d.ts:134
+packages/state/dist/index.d.ts:140
 
 ***
 

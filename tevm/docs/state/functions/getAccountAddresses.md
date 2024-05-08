@@ -18,12 +18,12 @@
 >
 > ### Source
 >
-> packages/state/dist/index.d.ts:116
+> packages/state/dist/index.d.ts:122
 >
 
 ## Source
 
-packages/state/dist/index.d.ts:241
+packages/state/dist/index.d.ts:248
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

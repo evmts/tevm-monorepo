@@ -4,8 +4,8 @@
  * @type {import("../state-types/index.js").StateAction<'checkpoint'>}
  */
 export const checkpoint = (baseState) => () => {
-  baseState.caches.accounts.checkpoint()
-  baseState.caches.storage.checkpoint()
-  baseState.caches.contracts.checkpoint()
-  return Promise.resolve()
+	baseState.caches.accounts.checkpoint()
+	baseState.caches.storage.checkpoint()
+	baseState.caches.contracts.checkpoint()
+	return Promise.resolve()
 }

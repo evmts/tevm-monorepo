@@ -29,7 +29,7 @@ Returns true if state root exists
 
 ## Source
 
-packages/state/dist/index.d.ts:293
+packages/state/dist/index.d.ts:300
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

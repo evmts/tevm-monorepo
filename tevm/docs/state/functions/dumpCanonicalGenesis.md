@@ -22,12 +22,12 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 >
 > ### Source
 >
-> packages/state/dist/index.d.ts:124
+> packages/state/dist/index.d.ts:130
 >
 
 ## Source
 
-packages/state/dist/index.d.ts:211
+packages/state/dist/index.d.ts:218
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

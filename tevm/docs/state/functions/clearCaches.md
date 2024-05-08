@@ -22,12 +22,12 @@ Resets all internal caches
 >
 > ### Source
 >
-> packages/state/dist/index.d.ts:128
+> packages/state/dist/index.d.ts:134
 >
 
 ## Source
 
-packages/state/dist/index.d.ts:184
+packages/state/dist/index.d.ts:191
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

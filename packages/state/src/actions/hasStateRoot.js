@@ -5,5 +5,5 @@ import { bytesToHex } from '@tevm/utils'
  * @type {import("../state-types/index.js").StateAction<'hasStateRoot'>}
  */
 export const hasStateRoot = (baseState) => (root) => {
-  return Promise.resolve(baseState.stateRoots.has(bytesToHex(root)))
+	return Promise.resolve(baseState.stateRoots.has(bytesToHex(root)))
 }

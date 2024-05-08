@@ -19,7 +19,7 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:338
+packages/state/dist/index.d.ts:345
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

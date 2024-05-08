@@ -31,7 +31,7 @@ Changes the currently loaded state root
 
 ## Source
 
-packages/state/dist/index.d.ts:336
+packages/state/dist/index.d.ts:343
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
