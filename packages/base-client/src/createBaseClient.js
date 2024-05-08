@@ -1,6 +1,6 @@
 import { ReceiptsManager, createChain, createMapDb } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
-import {} from '@tevm/errors'
+import { } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
@@ -131,11 +131,48 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const initVm = async () => {
-		// Handle initializing the state from the persisted state
-		/**
-		 * @type {Promise<any>}
-		 */
-		let statePromise = stateManager.ready()
+		const blockTag = (() => {
+			const blockTag = /** @type {import('@tevm/state').StateManager}*/ getForkBlockTag(stateManager._baseState) || {
+				blockTag: 'latest',
+			}
+			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
+				return numberToHex(blockTag.blockNumber)
+			}
+			if ('blockTag' in blockTag && blockTag.blockTag !== undefined) {
+				return blockTag.blockTag
+			}
+			return 'latest'
+		})()
+		const common = createCommon(await initChainId())
+		const blockchain = await createChain({
+			common,
+			...(options.fork?.url !== undefined
+				? {
+					fork: {
+						url: options.fork.url,
+						blockTag: blockTag.startsWith('0x')
+							? hexToBigInt(/** @type {import('@tevm/utils').Hex}*/(blockTag))
+							: /** @type {import('@tevm/utils').BlockTag}*/ (blockTag),
+					},
+				}
+				: {}),
+		})
+
+		await blockchain.ready()
+
+		const headBlock = await blockchain.getCanonicalHeadBlock()
+		const initialState = await stateManager.dumpCanonicalGenesis()
+		stateManager = createStateManager({
+			...getStateManagerOpts(),
+			stateRoots: new Map([
+				...stateManager._baseState.stateRoots.entries(),
+				[bytesToHex(headBlock.header.stateRoot), initialState],
+			]),
+			currentStateRoot: bytesToHex(headBlock.header.stateRoot),
+		})
+
+		await stateManager.ready()
+
 		const restoredState = options.persister?.restoreState()
 		if (restoredState) {
 			/**
@@ -158,43 +195,17 @@ export const createBaseClient = (options = {}) => {
 				genesisState: parsedState,
 				...getStateManagerOpts(),
 			})
-			statePromise = stateManager.ready()
+			await stateManager.ready()
 		}
 
-		statePromise = statePromise.then(() =>
-			Promise.all(
-				INITIAL_ACCOUNTS.map((address) =>
-					stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000'))),
-				),
+		Promise.all(
+			INITIAL_ACCOUNTS.map((address) =>
+				stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000'))),
 			),
 		)
 
-		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').StateManager}*/ getForkBlockTag(stateManager) || {
-				blockTag: 'latest',
-			}
-			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
-				return numberToHex(blockTag.blockNumber)
-			}
-			if ('blockTag' in blockTag && blockTag.blockTag !== undefined) {
-				return blockTag.blockTag
-			}
-			return 'latest'
-		})()
-		const common = createCommon(await initChainId())
-		const blockchain = await createChain({
-			common,
-			...(options.fork?.url !== undefined
-				? {
-						fork: {
-							url: options.fork.url,
-							blockTag: blockTag.startsWith('0x')
-								? hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTag))
-								: /** @type {import('@tevm/utils').BlockTag}*/ (blockTag),
-						},
-					}
-				: {}),
-		})
+		await stateManager.checkpoint()
+		await stateManager.commit()
 		const evm = await createEvm({
 			common,
 			stateManager,
@@ -203,6 +214,13 @@ export const createBaseClient = (options = {}) => {
 			customPrecompiles: options.customPrecompiles ?? [],
 			profiler: options.profiler ?? false,
 		})
+		const vm = createVm({
+			stateManager,
+			evm,
+			blockchain,
+			common,
+		})
+
 		/**
 		 * Add custom predeploys
 		 */
@@ -217,20 +235,6 @@ export const createBaseClient = (options = {}) => {
 				}),
 			)
 		}
-
-		await Promise.all([statePromise, blockchain.ready()])
-
-		const headBlock = await blockchain.getCanonicalHeadBlock()
-		const initialState = await stateManager.dumpCanonicalGenesis()
-		stateManager._stateRoots.set(bytesToHex(headBlock.header.stateRoot), initialState)
-		stateManager._currentStateRoot = bytesToHex(headBlock.header.stateRoot)
-
-		const vm = createVm({
-			stateManager,
-			evm,
-			blockchain,
-			common,
-		})
 
 		await vm.ready()
 
