@@ -12,27 +12,35 @@ The core data structure powering the state manager internally
 
 ## Type declaration
 
-### \_caches
+### caches
 
-> **\_caches**: [`StateCache`](StateCache.md)
+> **caches**: [`StateCache`](StateCache.md)
 
-### \_currentStateRoot
+### getCurrentStateRoot
 
-> **\_currentStateRoot**: `Hex`
+> **getCurrentStateRoot**: () => `Hex`
 
-### \_options
+### options
 
-> **\_options**: [`StateOptions`](StateOptions.md)
-
-### \_stateRoots
-
-> **\_stateRoots**: [`StateRoots`](StateRoots.md)
-
-Mapping of hashes to State roots
+> **options**: [`StateOptions`](StateOptions.md)
 
 ### ready
 
 > **ready**: () => `Promise`\<`true`\>
+
+### setCurrentStateRoot
+
+> **setCurrentStateRoot**: (`newStateRoot`) => `void`
+
+#### Parameters
+
+▪ **newStateRoot**: `Hex`
+
+### stateRoots
+
+> **stateRoots**: [`StateRoots`](StateRoots.md)
+
+Mapping of hashes to State roots
 
 ## Source
 

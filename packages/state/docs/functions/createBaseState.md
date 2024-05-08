@@ -20,7 +20,7 @@ Creates the core data structure the state manager operates on
 
 ## Source
 
-[packages/state/src/createBaseState.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createBaseState.js#L16)
+[packages/state/src/createBaseState.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createBaseState.js#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

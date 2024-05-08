@@ -6,69 +6,21 @@
 
 # Interface: StateManager
 
-The core data structure powering the state manager internally
-
 ## Extends
 
-- `EVMStateManagerInterface`.[`BaseState`](../type-aliases/BaseState.md)
+- `EVMStateManagerInterface`
 
 ## Properties
 
-### \_caches
+### \_baseState
 
-> **\_caches**: [`StateCache`](../type-aliases/StateCache.md)
+> **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-#### Inherited from
-
-BaseState.\_caches
+The internal state representation
 
 #### Source
 
-[packages/state/src/BaseState.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L17)
-
-***
-
-### \_currentStateRoot
-
-> **\_currentStateRoot**: \`0x${string}\`
-
-#### Inherited from
-
-BaseState.\_currentStateRoot
-
-#### Source
-
-[packages/state/src/BaseState.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L15)
-
-***
-
-### \_options
-
-> **\_options**: [`StateOptions`](../type-aliases/StateOptions.md)
-
-#### Inherited from
-
-BaseState.\_options
-
-#### Source
-
-[packages/state/src/BaseState.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L16)
-
-***
-
-### \_stateRoots
-
-> **\_stateRoots**: [`StateRoots`](../type-aliases/StateRoots.md)
-
-Mapping of hashes to State roots
-
-#### Inherited from
-
-BaseState.\_stateRoots
-
-#### Source
-
-[packages/state/src/BaseState.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L14)
+[packages/state/src/StateManager.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L10)
 
 ***
 
@@ -80,7 +32,7 @@ Returns contract addresses
 
 #### Source
 
-[packages/state/src/StateManager.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L10)
+[packages/state/src/StateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L15)
 
 ***
 
@@ -114,13 +66,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **ready**: () => `Promise`\<`true`\>
 
-#### Inherited from
-
-BaseState.ready
-
 #### Source
 
-[packages/state/src/BaseState.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L10)
+[packages/state/src/StateManager.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L11)
 
 ## Methods
 
@@ -146,7 +94,7 @@ Resets all internal caches
 
 #### Source
 
-[packages/state/src/StateManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L22)
+[packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
 
 ***
 
@@ -188,7 +136,7 @@ EvmStateManagerInterface.commit
 
 #### Source
 
-[packages/state/src/StateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L32)
+[packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
 
 ***
 
@@ -200,7 +148,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-[packages/state/src/StateManager.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L14)
+[packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
 
 ***
 
@@ -230,7 +178,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 #### Source
 
-[packages/state/src/StateManager.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L18)
+[packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
 
 ***
 
@@ -529,7 +477,7 @@ THis API is considered unstable
 
 #### Source
 
-[packages/state/src/StateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L28)
+[packages/state/src/StateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L33)
 
 ***
 

@@ -3,14 +3,24 @@
 	"version": "1.0.0-next.41",
 	"private": false,
 	"description": "Cache for tevm bundler",
-	"keywords": ["solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "bundler/base"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -28,7 +38,11 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/src/index.d.ts",
-	"files": ["dist", "types", "src"],
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
 	"scripts": {
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",

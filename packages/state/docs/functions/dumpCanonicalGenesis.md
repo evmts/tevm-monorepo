@@ -22,12 +22,12 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 >
 > ### Source
 >
-> [packages/state/src/StateManager.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L18)
+> [packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
 >
 
 ## Source
 
-[packages/state/src/actions/dumpCannonicalGenesis.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L11)
+[packages/state/src/actions/dumpCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

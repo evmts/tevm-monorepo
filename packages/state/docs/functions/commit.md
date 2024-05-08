@@ -31,7 +31,7 @@ last call to checkpoint.
 >
 > ### Source
 >
-> [packages/state/src/StateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L32)
+> [packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
 >
 
 ## Source
