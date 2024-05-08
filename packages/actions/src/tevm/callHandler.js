@@ -75,12 +75,6 @@ export const callHandler =
       client.logger.debug(
         'Cloning vm to execute a call...',
       )
-
-
-      if (bytesToHex(/** @type any*/(evmInput?.block?.header)?.stateRoot) !== _vm.stateManager._currentStateRoot) {
-        throw new Error('state roots unexpecedly do not match')
-      }
-
       /**
        * @type {import('@tevm/vm').Vm}
        */
@@ -120,7 +114,7 @@ export const callHandler =
       const isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
       if (shouldHaveContract && !isContract) {
         client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-      } 
+      }
 
       /**
        * ************
