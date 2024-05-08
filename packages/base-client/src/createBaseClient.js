@@ -1,6 +1,6 @@
 import { ReceiptsManager, createChain, createMapDb } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
-import { } from '@tevm/errors'
+import {} from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
@@ -148,13 +148,13 @@ export const createBaseClient = (options = {}) => {
 			common,
 			...(options.fork?.url !== undefined
 				? {
-					fork: {
-						url: options.fork.url,
-						blockTag: blockTag.startsWith('0x')
-							? hexToBigInt(/** @type {import('@tevm/utils').Hex}*/(blockTag))
-							: /** @type {import('@tevm/utils').BlockTag}*/ (blockTag),
-					},
-				}
+						fork: {
+							url: options.fork.url,
+							blockTag: blockTag.startsWith('0x')
+								? hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTag))
+								: /** @type {import('@tevm/utils').BlockTag}*/ (blockTag),
+						},
+					}
 				: {}),
 		})
 
