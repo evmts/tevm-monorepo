@@ -11,34 +11,34 @@ import { putContractStorage } from './putContractStorage.js'
  * @type {import("../state-types/index.js").StateAction<'getContractStorage'>}
  */
 export const getContractStorage = (baseState) => async (address, key) => {
-	const {
-		_caches: { storage: storageCache },
-	} = baseState
-	// Check storage slot in cache
-	if (key.length !== 32) {
-		throw new Error('Storage key must be 32 bytes long')
-	}
+  const {
+    caches: { storage: storageCache },
+  } = baseState
+  // Check storage slot in cache
+  if (key.length !== 32) {
+    throw new Error('Storage key must be 32 bytes long')
+  }
 
-	const cachedValue = storageCache.get(address, key)
-	if (cachedValue !== undefined) {
-		return cachedValue
-	}
+  const cachedValue = storageCache.get(address, key)
+  if (cachedValue !== undefined) {
+    return cachedValue
+  }
 
-	if (!baseState._options.fork?.url) {
-		return hexToBytes('0x0')
-	}
+  if (!baseState.options.fork?.url) {
+    return hexToBytes('0x0')
+  }
 
-	const client = getForkClient(baseState)
-	const blockTag = getForkBlockTag(baseState)
+  const client = getForkClient(baseState)
+  const blockTag = getForkBlockTag(baseState)
 
-	const storage = await client.getStorageAt({
-		address: /** @type {import('@tevm/utils').Address} */ (address.toString()),
-		slot: bytesToHex(key),
-		...blockTag,
-	})
-	const value = hexToBytes(storage ?? '0x0')
+  const storage = await client.getStorageAt({
+    address: /** @type {import('@tevm/utils').Address} */ (address.toString()),
+    slot: bytesToHex(key),
+    ...blockTag,
+  })
+  const value = hexToBytes(storage ?? '0x0')
 
-	await putContractStorage(baseState)(address, key, value)
+  await putContractStorage(baseState)(address, key, value)
 
-	return value
+  return value
 }

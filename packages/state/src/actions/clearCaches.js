@@ -3,7 +3,7 @@
  * @type {import("../state-types/index.js").StateAction<'clearCaches'>}
  */
 export const clearCaches = (baseClient) => () => {
-	baseClient._caches.storage.clear()
-	baseClient._caches.contracts.clear()
-	baseClient._caches.accounts.clear()
+  baseClient.caches.storage.clear()
+  baseClient.caches.contracts.clear()
+  baseClient.caches.accounts.clear()
 }

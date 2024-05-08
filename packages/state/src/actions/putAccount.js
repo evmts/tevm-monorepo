@@ -3,9 +3,9 @@
  * @type {import("../state-types/index.js").StateAction<'putAccount'>}
  */
 export const putAccount = (baseState) => async (address, account) => {
-	if (account !== undefined) {
-		baseState._caches.accounts?.put(address, account)
-	} else {
-		baseState._caches.accounts?.del(address)
-	}
+  if (account !== undefined) {
+    baseState.caches.accounts?.put(address, account)
+  } else {
+    baseState.caches.accounts?.del(address)
+  }
 }

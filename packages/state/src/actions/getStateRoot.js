@@ -5,5 +5,5 @@ import { hexToBytes } from 'ethereum-cryptography/utils'
  * @type {import("../state-types/index.js").StateAction<'getStateRoot'>}
  */
 export const getStateRoot = (baseState) => async () => {
-	return hexToBytes(baseState._currentStateRoot)
+  return hexToBytes(baseState.getCurrentStateRoot())
 }

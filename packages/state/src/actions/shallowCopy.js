@@ -8,15 +8,15 @@ import { createBaseState } from '../createBaseState.js'
  * @returns {() => import('../BaseState.js').BaseState}
  */
 export const shallowCopy = (baseState) => () => {
-	const newState = createBaseState(baseState._options)
-	newState._caches.contracts = new ContractCache()
-	newState._caches.storage = new StorageCache({
-		size: 100000,
-		type: CacheType.ORDERED_MAP,
-	})
-	newState._caches.accounts = new AccountCache({
-		size: 100000,
-		type: CacheType.ORDERED_MAP,
-	})
-	return newState
+  const newState = createBaseState(baseState.options)
+  newState.caches.contracts = new ContractCache()
+  newState.caches.storage = new StorageCache({
+    size: 100000,
+    type: CacheType.ORDERED_MAP,
+  })
+  newState.caches.accounts = new AccountCache({
+    size: 100000,
+    type: CacheType.ORDERED_MAP,
+  })
+  return newState
 }
