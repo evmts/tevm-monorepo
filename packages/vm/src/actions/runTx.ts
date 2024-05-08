@@ -133,10 +133,6 @@ const _runTx =
 		await vm.ready()
 		const state = vm.stateManager
 
-		if (vm.common.isActivatedEIP(6800)) {
-			console.warn('verkle state is currently not supported in tevm')
-		}
-
 		const { tx, block } = opts
 
 		if (!block) {

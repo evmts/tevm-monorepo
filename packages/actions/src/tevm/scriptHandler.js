@@ -100,7 +100,6 @@ export const scriptHandler = (client, options = {}) => async (params) => {
   }
 
   if (!stateRoot[scriptAddress]) {
-    console.log('huh state root', stateRoot)
     throw new Error('The contract is not added to the state root')
   }
 

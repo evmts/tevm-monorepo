@@ -46,7 +46,7 @@ export const createBaseClient = (options = {}) => {
 	 * @param {number} chainId
 	 */
 	const createCommon = (chainId) => {
-		return Common.custom(
+		const common = Common.custom(
 			{
 				name: 'TevmCustom',
 				chainId,
@@ -58,6 +58,10 @@ export const createBaseClient = (options = {}) => {
 				eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
 			},
 		)
+		if (common.isActivatedEIP(6800)) {
+			console.warn('verkle state is currently not supported in tevm')
+		}
+		return common
 	}
 
 	/**
@@ -144,6 +148,7 @@ export const createBaseClient = (options = {}) => {
 			return 'latest'
 		})()
 		const common = createCommon(await initChainId())
+		
 		const blockchain = await createChain({
 			common,
 			...(options.fork?.url !== undefined

@@ -101,11 +101,8 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
       }
       const state = vm.stateManager._baseState.stateRoots.get(vm.stateManager._baseState.getCurrentStateRoot())
       if (state?.[getAddress(params.address)]?.deployedBytecode === undefined) {
-        console.error('state after committing', state, params.address, state?.[params.address], state?.[params.address]?.deployedBytecode)
         throw new Error('InternalERror: statemanager cache Contract bytecode never added in setAccountHandler after checkpointing')
-      } else {
-        console.log('Contract looks like its in there')
-      }
+      } 
     }
     return {}
   } catch (e) {

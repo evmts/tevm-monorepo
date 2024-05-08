@@ -18,11 +18,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"src",
-		"dist",
-		"types"
-	],
+	"files": ["src", "dist", "types"],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:run && bun run generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx build:dist && nx build:types",
