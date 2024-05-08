@@ -88,7 +88,15 @@ export const callHandler =
         if (!stateRoot) {
           throw new Error('UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm')
         }
-        vm.stateManager.setStateRoot(stateRoot)
+        console.log(
+          'before setting state root'
+          , params.to && await vm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
+        )
+        await vm.stateManager.setStateRoot(stateRoot)
+        console.log(
+          'after setting state root'
+          , params.to && await vm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
+        )
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -231,6 +239,14 @@ export const callHandler =
         const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
         const hasEth = evmInput.skipBalance || ((account)?.balance ?? 0n) > 0n
         if (!hasEth) {
+          console.log(
+            'new vm'
+            , params.to && await vm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
+          )
+          console.log(
+            'original vm'
+            , await client.getVm().then(vm => params.to && vm.stateManager.getContractCode(EthjsAddress.fromString(params.to)))
+          )
           return maybeThrowOnFail(
             params.throwOnFail ?? defaultThrowOnFail,
             {

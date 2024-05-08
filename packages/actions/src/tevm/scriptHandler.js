@@ -1,7 +1,7 @@
 import { callHandler } from './callHandler.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { setAccountHandler } from './setAccountHandler.js'
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
 import {
   decodeErrorResult,
   decodeFunctionResult,
@@ -67,7 +67,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
   }
 
   const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
-  const scriptAddress = /** @type {import('@tevm/utils').Address}*/ (
+  const scriptAddress = getAddress(
     EthjsAddress.generate(
       EthjsAddress.fromString(`0x${'6969'.repeat(10)}`),
       randomBigInt,
@@ -94,12 +94,13 @@ export const scriptHandler = (client, options = {}) => async (params) => {
     })
   }
 
-  const stateRoot = vm.stateManager._stateRoots.get(vm.stateManager._currentStateRoot)
+  const stateRoot = vm.stateManager._baseState.stateRoots.get(vm.stateManager._baseState.getCurrentStateRoot())
   if (!stateRoot) {
     throw new Error('state root doesnt exist')
   }
 
   if (!stateRoot[scriptAddress]) {
+    console.log('huh state root', stateRoot)
     throw new Error('The contract is not added to the state root')
   }
 
@@ -107,10 +108,10 @@ export const scriptHandler = (client, options = {}) => async (params) => {
     throw new Error('No deployed bytecode!')
   }
 
-
   // This should never happen just being defensive
   const doesContractStillExist = await vm.stateManager.getContractCode(EthjsAddress.fromString(scriptAddress))
   if (bytesToHex(doesContractStillExist) !== params.deployedBytecode) {
+    client.logger.debug(bytesToHex(doesContractStillExist), params.deployedBytecode)
     throw new Error("NoContractCode: Script contract code was not successfully added to the vm. This indicates a bug in tevm. Consider opening an issue")
   }
 
