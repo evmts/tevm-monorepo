@@ -7,25 +7,25 @@ import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-	if (
-		baseState._caches.accounts._checkpoints > 0 ||
-		baseState._caches.storage._checkpoints > 0 ||
-		baseState._caches.contracts._checkpoints > 0
-	) {
-		throw new Error('Attempted to deepCopy state with uncommitted checkpoints')
-	}
-	const newStateRoots = new Map(
-		[...baseState._stateRoots.entries()].map(([root, state]) => [
-			root,
-			Object.fromEntries(Object.entries(state).map(([accountKey, storage]) => [accountKey, { ...storage }])),
-		]),
-	)
-	const newState = createBaseState({
-		...baseState._options,
-		stateRoots: newStateRoots,
-		genesisState: await dumpCanonicalGenesis(baseState)(),
-	})
-	await newState.ready()
-	newState._currentStateRoot = baseState._currentStateRoot
-	return newState
+  if (
+    baseState._caches.accounts._checkpoints > 0 ||
+    baseState._caches.storage._checkpoints > 0 ||
+    baseState._caches.contracts._checkpoints > 0
+  ) {
+    throw new Error('Attempted to deepCopy state with uncommitted checkpoints')
+  }
+  const newStateRoots = new Map(
+    [...baseState._stateRoots.entries()].map(([root, state]) => [
+      root,
+      Object.fromEntries(Object.entries(state).map(([accountKey, storage]) => [accountKey, { ...storage }])),
+    ]),
+  )
+  const newState = createBaseState({
+    ...baseState._options,
+    stateRoots: newStateRoots,
+    genesisState: await dumpCanonicalGenesis(baseState)(),
+  })
+  await newState.ready()
+  newState._currentStateRoot = baseState._currentStateRoot
+  return newState
 }
