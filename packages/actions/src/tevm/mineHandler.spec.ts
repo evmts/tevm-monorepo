@@ -24,16 +24,22 @@ describe(mineHandler.name, () => {
   })
 
   it('should work in forked mode too', async () => {
+    console.log(0)
     const client = createBaseClient({ fork: { url: 'https://mainnet.optimism.io' } })
+    console.log(1)
     const bn = await getBlockNumber(client)
+    console.log(2)
     expect(
       bn
     ).toBeGreaterThan(119504797n)
+    console.log(3)
     await mineHandler(client)({})
+    console.log(4)
     expect(
       await getBlockNumber(client)
     ).toBe(bn + 1n)
-  })
+    console.log(5)
+  }, { timeout: 10_000 })
 
   it('can be passed blockCount and interval props', async () => {
     const client = createBaseClient()
