@@ -28,6 +28,16 @@
 
 ***
 
+### deployedBytecode
+
+> **deployedBytecode**?: \`0x${string}\`
+
+#### Source
+
+[packages/state/src/state-types/AccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L9)
+
+***
+
 ### nonce
 
 > **nonce**: `bigint`
@@ -44,7 +54,7 @@
 
 #### Source
 
-[packages/state/src/state-types/AccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L9)
+[packages/state/src/state-types/AccountStorage.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L10)
 
 ***
 

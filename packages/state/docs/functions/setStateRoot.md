@@ -31,7 +31,7 @@ Changes the currently loaded state root
 
 ## Source
 
-[packages/state/src/actions/setStateRoot.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/setStateRoot.js#L23)
+[packages/state/src/actions/setStateRoot.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/setStateRoot.js#L25)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
