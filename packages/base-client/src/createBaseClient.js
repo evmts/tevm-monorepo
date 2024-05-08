@@ -222,7 +222,6 @@ export const createBaseClient = (options = {}) => {
     const initialState = await stateManager.dumpCanonicalGenesis()
     stateManager._stateRoots.set(bytesToHex(headBlock.header.stateRoot), initialState)
     stateManager._currentStateRoot = bytesToHex(headBlock.header.stateRoot)
-    console.log('state root in createVm', stateManager._currentStateRoot)
 
     const vm = createVm({
       stateManager,
@@ -231,11 +230,7 @@ export const createBaseClient = (options = {}) => {
       common,
     })
 
-    console.log('awaiting ready...')
-
     await vm.ready()
-
-    console.log('vm is ready')
 
     return vm
   }

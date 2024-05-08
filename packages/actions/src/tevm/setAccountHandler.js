@@ -30,7 +30,6 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
   const promises = []
   try {
     const vm = await client.getVm()
-    console.log('stateRoot in setAccountHandler', vm.stateManager._currentStateRoot)
     const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
     if (account.errors?.length && account.errors[0]?._tag !== 'AccountNotFoundError') {
       client.logger.error('there was an unexpected error getting account', account.errors)
@@ -85,7 +84,6 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 
     await vm.stateManager.checkpoint()
     await vm.stateManager.commit(false)
-    console.log('stateRoot in setAccountHandler after commmit', vm.stateManager._currentStateRoot)
 
     if (params.deployedBytecode) {
       const state = vm.stateManager._stateRoots.get(vm.stateManager._currentStateRoot)

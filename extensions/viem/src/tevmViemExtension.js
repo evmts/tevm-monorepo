@@ -133,7 +133,7 @@ export const tevmViemExtension = () => {
 					}),
 				)
 			} catch (e) {
-				console.error({
+				console.error('Unable to decode function data', {
 					input: {
 						data: out.rawData,
 						abi: params.abi,
@@ -141,6 +141,7 @@ export const tevmViemExtension = () => {
 						args: params.args,
 					},
 				})
+				throw e
 			}
 			return out
 		}

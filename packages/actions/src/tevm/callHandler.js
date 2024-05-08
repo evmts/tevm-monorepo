@@ -77,30 +77,9 @@ export const callHandler =
       )
 
 
-      // TODO DELETE ME
-      const _vm = await client.getVm()
-      console.log('stateRoot in callHandler', _vm.stateManager._currentStateRoot)
-      const _shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
-      const _isContract = evmInput.to && (await _vm.stateManager.getContractCode(evmInput.to)).length > 0
-      if (_shouldHaveContract && !_isContract) {
-        client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-      } else {
-        console.log('contract exists', evmInput.to && bytesToHex(await _vm.stateManager.getContractCode(evmInput.to)))
-      }
-
       if (bytesToHex(/** @type any*/(evmInput?.block?.header)?.stateRoot) !== _vm.stateManager._currentStateRoot) {
-        console.log('state roots', 'block', bytesToHex(/** @type any*/(evmInput?.block?.header)?.stateRoot), 'current', _vm.stateManager._currentStateRoot)
         throw new Error('state roots unexpecedly do not match')
       }
-
-      // TODO delete me
-      await client.getVm().then(vm => {
-        const stateRoot = /** @type any*/(evmInput?.block?.header)?.stateRoot
-        if (!vm.stateManager._stateRoots.get(bytesToHex(stateRoot))?.[params.to ?? '0x']?.deployedBytecode) {
-          throw new Error('The deployed bytecode does not exist on the original vm instance')
-        }
-      })
-
 
       /**
        * @type {import('@tevm/vm').Vm}
@@ -108,34 +87,14 @@ export const callHandler =
       let vm
       try {
         vm = await client.getVm().then(vm => vm.deepCopy())
-        // TODO DELETE ME
-        let shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
-        let isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
-        if (shouldHaveContract && !isContract) {
-          client.logger.warn(`before state rootData is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-          throw new Error('bytecode gone after deep copy!')
-        } else {
-          console.log('before state rootcontract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
-        }
         /**
          * @type {Uint8Array}
          */
         const stateRoot = /** @type any*/(evmInput?.block?.header).stateRoot
-        if (shouldHaveContract && !vm.stateManager._stateRoots.get(bytesToHex(stateRoot))?.[params.to ?? '0x']?.deployedBytecode) {
-          throw new Error('Bytecode doesnt exist on state root though it does exist in client')
+        if (!stateRoot) {
+          throw new Error('UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm')
         }
-        if (stateRoot) {
-          vm.stateManager.setStateRoot(stateRoot)
-        }
-        // TODO DELETE ME
-        shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
-        isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
-        if (shouldHaveContract && !isContract) {
-          client.logger.warn(`before state rootData is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-          throw new Error('bytecode gone after setting state root!')
-        } else {
-          console.log('before state rootcontract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
-        }
+        vm.stateManager.setStateRoot(stateRoot)
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -161,9 +120,7 @@ export const callHandler =
       const isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
       if (shouldHaveContract && !isContract) {
         client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-      } else {
-        console.log('contract exists', evmInput.to && bytesToHex(await vm.stateManager.getContractCode(evmInput.to)))
-      }
+      } 
 
       /**
        * ************

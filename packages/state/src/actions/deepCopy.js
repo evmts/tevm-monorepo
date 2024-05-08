@@ -7,7 +7,6 @@ import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-  console.log('in deepCopy', baseState._currentStateRoot)
   if (
     baseState._caches.accounts._checkpoints > 0 ||
     baseState._caches.storage._checkpoints > 0 ||
@@ -22,7 +21,6 @@ export const deepCopy = (baseState) => async () => {
     genesisState: await dumpCanonicalGenesis(baseState)()
   })
   await newState.ready()
-  console.log('setting in deepCopy', baseState._currentStateRoot)
   newState._currentStateRoot = baseState._currentStateRoot
   return newState
 }

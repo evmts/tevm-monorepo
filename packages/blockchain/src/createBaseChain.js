@@ -60,7 +60,6 @@ export const createBaseChain = (options) => {
 	const genesisBlockPromise = (async () => {
 		if (options.fork?.url) {
 			const block = await getBlockFromRpc(options.fork, options.common)
-			console.log('Blockchain: genesis block', bytesToHex(block.header.stateRoot))
 			await putBlock(chain)(block)
 		} else {
 			await putBlock(chain)(

@@ -200,11 +200,9 @@ export class ReceiptsManager {
 	 */
 	async getReceiptByTxHash(txHash: Uint8Array): Promise<GetReceiptByTxHashReturn | null> {
 		const txHashIndex = await this.getIndex(IndexType.TxHash, txHash)
-		console.log({ txHashIndex, db: this.mapDb['_cache' as unknown as keyof typeof this.mapDb] })
 		if (!txHashIndex) return null
 		const [blockHash, txIndex] = txHashIndex
 		const receipts = await this.getReceipts(blockHash)
-		console.log({ receipts })
 		if (receipts.length === 0) return null
 		let logIndex = 0
 		receipts.slice(0, txIndex).map((r) => {
