@@ -1,6 +1,6 @@
 import { Block } from '@tevm/block'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
-import { hexToBytes } from 'viem'
+import { bytesToHex, hexToBytes } from 'viem'
 import { putBlock } from './actions/putBlock.js'
 import { getBlockFromRpc } from './utils/getBlockFromRpc.js'
 
@@ -60,6 +60,7 @@ export const createBaseChain = (options) => {
 	const genesisBlockPromise = (async () => {
 		if (options.fork?.url) {
 			const block = await getBlockFromRpc(options.fork, options.common)
+			console.log('Blockchain: genesis block', bytesToHex(block.header.stateRoot))
 			await putBlock(chain)(block)
 		} else {
 			await putBlock(chain)(

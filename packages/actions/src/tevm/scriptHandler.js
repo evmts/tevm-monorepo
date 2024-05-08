@@ -18,7 +18,9 @@ import { validateScriptParams } from '@tevm/zod'
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (client, options = {}) => async (params) => {
+  console.log('stateRoot in script handler', (await client.getVm()).stateManager._currentStateRoot)
   const vm = await client.getVm().then(vm => vm.deepCopy())
+  console.log('stateRoot in script handler after deep copy', vm.stateManager._currentStateRoot)
   const { throwOnFail = options.throwOnFail ?? true } = params
   /**
    * @type {import('@tevm/utils').Hex}
@@ -95,6 +97,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
   }
 
   const stateRoot = vm.stateManager._stateRoots.get(vm.stateManager._currentStateRoot)
+  console.log('stateRoot in scriptHandler', stateRoot)
 
   if (!stateRoot) {
     throw new Error('state root doesnt exist')

@@ -5,11 +5,11 @@ import { createBaseChain } from '../createBaseChain.js'
  * @returns {() => import('../BaseChain.js').BaseChain}
  */
 export const deepCopy = (baseChain) => () => {
-  const chain = createBaseChain({
-    common: baseChain.common.copy(),
-  })
-  chain.blocksByTag = new Map(baseChain.blocksByTag.entries())
-  chain.blocks = new Map(baseChain.blocks.entries())
-  chain.blocksByNumber = new Map(baseChain.blocksByNumber.entries())
-  return chain
+	const chain = createBaseChain({
+		common: baseChain.common.copy(),
+	})
+	chain.blocksByTag = new Map(baseChain.blocksByTag.entries())
+	chain.blocks = new Map(baseChain.blocks.entries())
+	chain.blocksByNumber = new Map(baseChain.blocksByNumber.entries())
+	return chain
 }

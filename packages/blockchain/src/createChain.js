@@ -17,8 +17,7 @@ export const createChain = async (options) => {
 	 * @param {import('./BaseChain.js').BaseChain} baseChain
 	 */
 	const decorate = (baseChain) => {
-		return {
-			...baseChain,
+		return Object.assign(baseChain, {
 			deepCopy: () => decorate(deepCopy(baseChain)()),
 			shallowCopy: () => decorate(shallowCopy(baseChain)()),
 			getBlock: getBlock(baseChain),
@@ -40,7 +39,7 @@ export const createChain = async (options) => {
 			get iterator() {
 				throw new Error('iterator is not implemented')
 			},
-		}
+		})
 	}
 	return decorate(createBaseChain(options))
 }

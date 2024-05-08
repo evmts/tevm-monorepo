@@ -21,6 +21,9 @@ describe('tevmViemExtension', () => {
     client = createPublicClient({
       transport: http('http://localhost:6969'),
     })
+    console.log('waiting to run test')
+    await tevm.ready()
+    console.log('starting test')
   })
 
   afterAll(() => {
@@ -52,7 +55,7 @@ describe('tevmViemExtension', () => {
     expect(response.executionGasUsed).toEqual(2447n)
     expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
     expect(response.data).toBe(0n)
-  })
+  }, { timeout: 20_000 })
 
   /*
     it('putAccount should call client.request with "tevm_putAccount" and parse the response', async () => {

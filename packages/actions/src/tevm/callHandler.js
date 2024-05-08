@@ -79,6 +79,7 @@ export const callHandler =
 
       // TODO DELETE ME
       const _vm = await client.getVm()
+      console.log('stateRoot in callHandler', _vm.stateManager._currentStateRoot)
       const _shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
       const _isContract = evmInput.to && (await _vm.stateManager.getContractCode(evmInput.to)).length > 0
       if (_shouldHaveContract && !_isContract) {

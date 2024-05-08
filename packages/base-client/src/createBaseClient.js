@@ -201,13 +201,6 @@ export const createBaseClient = (options = {}) => {
       customPrecompiles: options.customPrecompiles ?? [],
       profiler: options.profiler ?? false,
     })
-    const vm = createVm({
-      stateManager,
-      evm,
-      blockchain,
-      common,
-    })
-
     /**
      * Add custom predeploys
      */
@@ -223,12 +216,26 @@ export const createBaseClient = (options = {}) => {
       )
     }
 
-    await Promise.all([statePromise, blockchain.ready(), vm.ready()])
+    await Promise.all([statePromise, blockchain.ready()])
 
     const headBlock = await blockchain.getCanonicalHeadBlock()
-    const initialState = await vm.stateManager.dumpCanonicalGenesis()
-    vm.stateManager.saveStateRoot(headBlock.header.stateRoot, initialState)
-    vm.stateManager._currentStateRoot = bytesToHex(headBlock.header.stateRoot)
+    const initialState = await stateManager.dumpCanonicalGenesis()
+    stateManager._stateRoots.set(bytesToHex(headBlock.header.stateRoot), initialState)
+    stateManager._currentStateRoot = bytesToHex(headBlock.header.stateRoot)
+    console.log('state root in createVm', stateManager._currentStateRoot)
+
+    const vm = createVm({
+      stateManager,
+      evm,
+      blockchain,
+      common,
+    })
+
+    console.log('awaiting ready...')
+
+    await vm.ready()
+
+    console.log('vm is ready')
 
     return vm
   }
