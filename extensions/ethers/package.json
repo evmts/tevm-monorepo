@@ -71,6 +71,7 @@
 	"devDependencies": {
 		"@tevm/base-client": "workspace:1.0.0-next.42",
 		"@tevm/contract": "workspace:^",
+		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"ethers": "^6.8.0"

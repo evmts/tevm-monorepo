@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'bun:test'
 import { getChainId } from './getChainId.js'
+import {getAlchemyUrl} from '@tevm/test-utils'
 
 describe('getChainId', () => {
 	it('should return the chain id when successful', async () => {
-		const url = 'https://mainnet.optimism.io'
+		const url = getAlchemyUrl()
 		const chainId = await getChainId(url)
 		expect(chainId).toBe(10)
 	})

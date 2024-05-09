@@ -6,6 +6,7 @@ import { createHttpHandler } from '@tevm/server'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from 'viem'
 import { createHttpClient } from './createHttpClient.js'
+import {getAlchemyUrl} from '@tevm/test-utils'
 
 describe(createHttpClient.name, () => {
 	let tevm: MemoryClient
@@ -14,7 +15,7 @@ describe(createHttpClient.name, () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createHttpClient({ url: 'http://localhost:6969' })

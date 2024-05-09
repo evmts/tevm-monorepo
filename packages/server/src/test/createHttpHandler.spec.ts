@@ -5,6 +5,7 @@ import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/uti
 import supertest from 'supertest'
 import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
+import {getAlchemyUrl} from '@tevm/test-utils'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -15,7 +16,7 @@ describe('createHttpHandler', () => {
 	it('should create an http handler', async () => {
 		const tevm = createMemoryClient({
 			fork: {
-				url: 'https://mainnet.optimism.io',
+				url: getAlchemyUrl(),
 				blockTag: 115325880n,
 			},
 		})

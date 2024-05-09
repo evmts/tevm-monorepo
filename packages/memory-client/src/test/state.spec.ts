@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '../createMemoryClient.js'
+import { getAlchemyUrl } from '@tevm/test-utils'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
 
@@ -42,7 +43,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 		// Create client
 		const forkClient = createMemoryClient({
 			fork: {
-				url: 'https://mainnet.optimism.io',
+				url: getAlchemyUrl(),
 			},
 		})
 

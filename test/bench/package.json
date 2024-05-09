@@ -3,14 +3,24 @@
 	"version": "1.0.0-next.39",
 	"private": true,
 	"description": "A typesafe library for writing forge scripts in typescript",
-	"keywords": ["solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "packages/bench"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -28,7 +38,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "src", "!src/**/*.spec.ts", "types"],
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
 	"scripts": {
 		"all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
@@ -46,6 +61,7 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:1.0.0-next.40",
+		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/viem": "workspace:1.0.0-next.41",
 		"tevm": "workspace:^",
 		"viem": "^2.9.9"

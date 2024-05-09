@@ -3,6 +3,7 @@ import { createContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createPublicClient, numberToHex } from 'viem'
 import { tevmTransport } from './tevmTransport.js'
+import {getAlchemyUrl} from '@tevm/test-utils'
 
 const daiContract = createContract({
 	name: 'DAI',
@@ -12,7 +13,7 @@ const daiContract = createContract({
 describe('memoryTransport', () => {
 	it('creates a new transport instance', async () => {
 		const tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 
 		const client = createPublicClient({
@@ -25,7 +26,7 @@ describe('memoryTransport', () => {
 
 	it('can be used as backend to publicClient', async () => {
 		const tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 
 		const client = createPublicClient({
@@ -49,7 +50,7 @@ describe('memoryTransport', () => {
 
 	it.todo('can do tevm requests', async () => {
 		const tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 
 		const client = createPublicClient({

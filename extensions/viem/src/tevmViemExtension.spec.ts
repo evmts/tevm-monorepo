@@ -6,6 +6,7 @@ import { createHttpHandler } from '@tevm/server'
 import { http, type PublicClient, createPublicClient } from 'viem'
 import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
+import { getAlchemyUrl } from '@tevm/test-utils'
 
 describe('tevmViemExtension', () => {
 	let tevm: MemoryClient
@@ -14,7 +15,7 @@ describe('tevmViemExtension', () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createPublicClient({
