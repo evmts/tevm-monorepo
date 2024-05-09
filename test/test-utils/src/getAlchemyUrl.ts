@@ -39,9 +39,9 @@ const ALCHEMY_HOSTS = Object.freeze({
 /**
  * Returns an alchemy url based on env variables for the given chain
  */
-export const getAlchemyUrl = (chainId: keyof typeof ALCHEMY_HOSTS = 'optimism', alchemyKey = process.env['ALCHEMY_KEY'] ?? DEFAULT_ALCHEMY_KEY): string => {
+export const getAlchemyUrl = (chainId: keyof typeof ALCHEMY_HOSTS = 'optimism', alchemyKey = process.env['TEVM_TEST_ALCHEMY_KEY'] ?? DEFAULT_ALCHEMY_KEY): string => {
   if (alchemyKey === DEFAULT_ALCHEMY_KEY) {
-    console.warn(`Using default alchemy key. Please override it with the 'ALCHEMY_KEY' environment variable or pass in an explicit key as the second arg to 'getAlchemyUrl'
+    console.warn(`Using default alchemy key. Please override it with the 'TEVM_TEST_ALCHEMY_KEY' environment variable or pass in an explicit key as the second arg to 'getAlchemyUrl'
 Using default alchemy key '${DEFAULT_ALCHEMY_KEY}' and may face throttling`)
   }
   return ['https://', ALCHEMY_HOSTS[chainId], 'v2', alchemyKey].join('/')
