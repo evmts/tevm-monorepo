@@ -148,7 +148,7 @@ export const createBaseClient = (options = {}) => {
 			return 'latest'
 		})()
 		const common = createCommon(await initChainId())
-		
+
 		const blockchain = await createChain({
 			common,
 			...(options.fork?.url !== undefined
