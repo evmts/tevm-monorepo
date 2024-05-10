@@ -55,6 +55,7 @@ import {
  */
 export const requestProcedure = (client) => {
 	return async (request) => {
+		client.logger.debug(request, 'JSON-RPC request received')
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure(client)(request))
