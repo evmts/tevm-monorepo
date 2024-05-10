@@ -203,14 +203,12 @@ export const createBaseClient = (options = {}) => {
 			await stateManager.ready()
 		}
 
-		Promise.all(
+		await Promise.all(
 			INITIAL_ACCOUNTS.map((address) =>
 				stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000'))),
 			),
 		)
 
-		await stateManager.checkpoint()
-		await stateManager.commit()
 		const evm = await createEvm({
 			common,
 			stateManager,
@@ -240,6 +238,9 @@ export const createBaseClient = (options = {}) => {
 				}),
 			)
 		}
+
+		await stateManager.checkpoint()
+		await stateManager.commit()
 
 		await vm.ready()
 
