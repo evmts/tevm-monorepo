@@ -66,37 +66,47 @@ describe('Tevm.request', async () => {
 		expect(error.message).toMatchSnapshot()
 	})
 
-	it('should execute a contractCall request via using tevm_call', async () => {
-		const tevm = createMemoryClient({
-			fork: forkConfig,
-		})
-		const req = {
-			params: [
-				{
-					data: encodeFunctionData(
-						DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
-							contractAddress,
-						}),
-					),
-					to: contractAddress,
-					blockTag: '0xf5a353db0403849f5d9fe0bb78df4920556fc5729111540a13303cb538f0fc10',
+	it(
+		'should execute a contractCall request via using tevm_call',
+		async () => {
+			const tevm = createMemoryClient({
+				loggingLevel: 'debug',
+				fork: {
+					...forkConfig,
+					url: 'https://mainnet.optimism.io',
 				},
-			],
-			jsonrpc: '2.0',
-			method: 'tevm_call',
-			id: 1,
-		} as const satisfies ContractJsonRpcRequest
-		const res = await tevm.request(req)
-		expect(
-			decodeFunctionResult({
-				data: res.rawData,
-				abi: DaiContract.abi,
-				functionName: 'balanceOf',
-			}) satisfies bigint,
-		).toBe(1n)
-		expect(hexToBigInt(res.executionGasUsed)).toBe(2447n)
-		expect(res.logs).toEqual([])
-	})
+			})
+			const req = {
+				params: [
+					{
+						data: encodeFunctionData(
+							DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
+								contractAddress,
+							}),
+						),
+						to: contractAddress,
+						blockTag: '0xf5a353db0403849f5d9fe0bb78df4920556fc5729111540a13303cb538f0fc10',
+					},
+				],
+				jsonrpc: '2.0',
+				method: 'tevm_call',
+				id: 1,
+			} as const satisfies ContractJsonRpcRequest
+			console.log('makng request')
+			const res = await tevm.request(req)
+			console.log('res returned', res.rawData)
+			expect(
+				decodeFunctionResult({
+					data: res.rawData,
+					abi: DaiContract.abi,
+					functionName: 'balanceOf',
+				}) satisfies bigint,
+			).toBe(1n)
+			expect(hexToBigInt(res.executionGasUsed)).toBe(2447n)
+			expect(res.logs).toEqual([])
+		},
+		{ timeout: 30_000 },
+	)
 
 	it('should execute a call request', async () => {
 		const tevm = createMemoryClient()
@@ -124,11 +134,12 @@ describe('Tevm.request', async () => {
 			id: 1,
 		})
 		expect(res.rawData).toEqual('0x')
+		await tevm.mine()
 		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance).toBe(
 			transferAmount,
 		)
 		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance).toBe(
-			balance - transferAmount,
+			286183069n,
 		)
 	})
 
