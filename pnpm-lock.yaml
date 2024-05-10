@@ -1635,7 +1635,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.17.2)(typescript@5.4.5)
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
+        version: 1.0.0-next.19(esbuild@0.19.12)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2011,6 +2011,9 @@ importers:
       '@tevm/common':
         specifier: workspace:1.0.0-next.40
         version: link:../common
+      '@tevm/test-utils':
+        specifier: workspace:1.0.0-next.39
+        version: link:../../test/test-utils
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -5208,15 +5211,15 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.2)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@types/node': 20.12.7
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      bundle-require: 4.0.2(esbuild@0.19.12)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
       solc: 0.8.22
@@ -5260,13 +5263,13 @@ packages:
       viem: 2.9.28(typescript@5.4.5)(zod@3.23.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.2)
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      bundle-require: 4.0.2(esbuild@0.19.12)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
       resolve: 1.22.8
@@ -5302,11 +5305,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5355,11 +5358,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5426,12 +5429,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.12)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.12)(fast-check@3.17.2)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5451,10 +5454,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.12)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.12)(fast-check@3.17.2)(typescript@5.4.5)(zod@3.23.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -8916,7 +8919,7 @@ packages:
       '@tanstack/react-query': ^4.36.1
     dependencies:
       '@tanstack/query-persist-client-core': 4.36.1
-      '@tanstack/react-query': 4.36.1(react@18.3.1)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
 
   /@tanstack/react-query@4.36.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -8934,7 +8937,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /@tanstack/react-query@4.36.1(react@18.3.1):
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -8951,6 +8953,7 @@ packages:
       '@tanstack/query-core': 4.36.1
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+    dev: true
 
   /@tanstack/react-query@5.29.2(react@18.2.0):
     resolution: {integrity: sha512-nyuWILR4u7H5moLGSiifLh8kIqQDLNOHGuSz0rcp+J75fNc8aQLyr5+I2JCHU3n+nJrTTW1ssgAD8HiKD7IFBQ==}
@@ -10269,7 +10272,7 @@ packages:
       '@walletconnect/jsonrpc-provider': 1.0.13
       '@walletconnect/jsonrpc-types': 1.0.3
       '@walletconnect/jsonrpc-utils': 1.0.8
-      '@walletconnect/modal': 2.6.2(react@18.3.1)
+      '@walletconnect/modal': 2.6.2(@types/react@18.2.37)(react@18.2.0)
       '@walletconnect/sign-client': 2.10.2
       '@walletconnect/types': 2.10.2
       '@walletconnect/universal-provider': 2.10.2
@@ -10438,7 +10441,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal-core@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-cv8ibvdOJQv2B+nyxP9IIFdxvQznMz8OOr/oR/AaUZym4hjXNL/l1a2UlSQBXrVjo3xxbouMxLb3kBsHoYP2CA==}
@@ -10447,6 +10449,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/modal-ui@2.6.2(@types/react@18.2.37)(react@18.2.0):
     resolution: {integrity: sha512-rbdstM1HPGvr7jprQkyPggX7rP4XiCG85ZA+zWBEX0dVQg8PpAgRUqpeub4xQKDgY7pY/xLRXSiCVdWGqvG2HA==}
@@ -10458,7 +10461,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal-ui@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-rbdstM1HPGvr7jprQkyPggX7rP4XiCG85ZA+zWBEX0dVQg8PpAgRUqpeub4xQKDgY7pY/xLRXSiCVdWGqvG2HA==}
@@ -10470,6 +10472,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/modal@2.6.2(@types/react@18.2.37)(react@18.2.0):
     resolution: {integrity: sha512-eFopgKi8AjKf/0U4SemvcYw9zlLpx9njVN8sf6DAkowC2Md0gPU/UNEbH1Wwj407pEKnEds98pKWib1NN1ACoA==}
@@ -10479,7 +10482,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
-    dev: false
 
   /@walletconnect/modal@2.6.2(react@18.3.1):
     resolution: {integrity: sha512-eFopgKi8AjKf/0U4SemvcYw9zlLpx9njVN8sf6DAkowC2Md0gPU/UNEbH1Wwj407pEKnEds98pKWib1NN1ACoA==}
@@ -10489,6 +10491,7 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react
+    dev: true
 
   /@walletconnect/randombytes@1.0.3:
     resolution: {integrity: sha512-35lpzxcHFbTN3ABefC9W+uBpNZl1GC4Wpx0ed30gibfO/y9oLdy1NznbV96HARQKSBV9J9M/rrtIvf6a23jfYw==}
@@ -20596,6 +20599,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: true
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -23891,7 +23895,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
 
   /use-sync-external-store@1.2.0(react@18.3.1):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
@@ -23899,6 +23902,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.3.1
+    dev: true
 
   /use@3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
@@ -24000,7 +24004,6 @@ packages:
       proxy-compare: 2.5.1
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /valtio@1.11.2(react@18.3.1):
     resolution: {integrity: sha512-1XfIxnUXzyswPAPXo1P3Pdx2mq/pIqZICkWN60Hby0d9Iqb+MEIpqgYVlbflvHdrp2YR/q3jyKWRPJJ100yxaw==}
@@ -24017,6 +24020,7 @@ packages:
       proxy-compare: 2.5.1
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+    dev: true
 
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
