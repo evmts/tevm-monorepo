@@ -31,7 +31,10 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
     // Possible we need to make property public on client
-    const tx = FeeMarketEIP1559Transaction.fromTxData(
+    /**
+     * @param {bigint} gasLimit
+     */
+    const getTx = async (gasLimit) => FeeMarketEIP1559Transaction.fromTxData(
       {
         // TODO tevm_call should take nonce
         // TODO should write tests that this works with multiple tx nonces
@@ -57,6 +60,10 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         freeze: false,
       },
     )
+    let tx = await getTx(gasLimit)
+    if (tx.getBaseFee() > gasLimit) {
+      tx = await getTx(tx.getBaseFee())
+    }
     client.logger.debug(
       tx,
       'callHandler: Created a new transaction from transaction data',
