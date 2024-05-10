@@ -42,6 +42,10 @@ const INITIAL_ACCOUNTS = [
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+	const logger = createLogger({
+		name: 'TevmClient',
+		level: options.loggingLevel ?? 'warn',
+	})
 	/**
 	 * @param {number} chainId
 	 */
@@ -50,7 +54,8 @@ export const createBaseClient = (options = {}) => {
 			{
 				name: 'TevmCustom',
 				chainId,
-				networkId: 10,
+				// TODO what is diff between chainId and networkId???
+				networkId: chainId,
 			},
 			{
 				hardfork: options.hardfork ?? 'cancun',
@@ -61,6 +66,7 @@ export const createBaseClient = (options = {}) => {
 		if (common.isActivatedEIP(6800)) {
 			console.warn('verkle state is currently not supported in tevm')
 		}
+		logger.debug(common.eips(), 'Created common with eips enabled')
 		return common
 	}
 
@@ -75,6 +81,7 @@ export const createBaseClient = (options = {}) => {
 			if (!options.persister) {
 				throw new Error('No persister provided')
 			}
+			logger.debug('persisting state manager...')
 			dumpCanonicalGenesis(stateManager)().then((state) => {
 				/**
 				 * @type {import('@tevm/state').ParameterizedTevmState}
@@ -147,6 +154,8 @@ export const createBaseClient = (options = {}) => {
 			}
 			return 'latest'
 		})()
+		logger.debug(blockTag, 'creating vm with blockTag...')
+
 		const common = createCommon(await initChainId())
 
 		const blockchain = await createChain({
@@ -166,11 +175,16 @@ export const createBaseClient = (options = {}) => {
 		await blockchain.ready()
 
 		const headBlock = await blockchain.getCanonicalHeadBlock()
+
+		logger.debug(headBlock.toJSON(), 'created blockchain with head block')
+
 		const initialState = await stateManager.dumpCanonicalGenesis()
+
 		stateManager = createStateManager({
 			...getStateManagerOpts(),
 			stateRoots: new Map([
 				...stateManager._baseState.stateRoots.entries(),
+				// if we fork we need to make sure our state root applies to the head block
 				[bytesToHex(headBlock.header.stateRoot), initialState],
 			]),
 			currentStateRoot: bytesToHex(headBlock.header.stateRoot),
@@ -180,6 +194,7 @@ export const createBaseClient = (options = {}) => {
 
 		const restoredState = options.persister?.restoreState()
 		if (restoredState) {
+			logger.debug(restoredState, 'Restoring persisted state...')
 			/**
 			 * @type {import('@tevm/state').TevmState}
 			 */
@@ -207,7 +222,9 @@ export const createBaseClient = (options = {}) => {
 			INITIAL_ACCOUNTS.map((address) =>
 				stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000'))),
 			),
-		)
+		).then(() => {
+			logger.debug(INITIAL_ACCOUNTS, 'Accounts loaded with 1000 ETH')
+		})
 
 		const evm = await createEvm({
 			common,
@@ -217,17 +234,20 @@ export const createBaseClient = (options = {}) => {
 			customPrecompiles: options.customPrecompiles ?? [],
 			profiler: options.profiler ?? false,
 		})
+		logger.debug('created EVM interpreter')
 		const vm = createVm({
 			stateManager,
 			evm,
 			blockchain,
 			common,
 		})
+		logger.debug('created vm')
 
 		/**
 		 * Add custom predeploys
 		 */
 		if (options.customPredeploys) {
+			logger.debug(options.customPredeploys, 'adding predeploys')
 			await Promise.all(
 				options.customPredeploys.map((predeploy) => {
 					addPredeploy({
@@ -239,10 +259,13 @@ export const createBaseClient = (options = {}) => {
 			)
 		}
 
+		logger.debug('state initialized checkpointing...')
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		await vm.ready()
+		await vm.ready().then(() => {
+			logger.debug('vm is ready for use')
+		})
 
 		return vm
 	}
@@ -250,6 +273,7 @@ export const createBaseClient = (options = {}) => {
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const receiptManagerPromise = vmPromise.then((vm) => {
+		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 
@@ -260,10 +284,7 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		logger: createLogger({
-			name: 'TevmClient',
-			level: options.loggingLevel ?? 'warn',
-		}),
+		logger,
 		getReceiptsManager: () => {
 			return receiptManagerPromise
 		},
