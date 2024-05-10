@@ -11,6 +11,8 @@ const biomeConfig = {
 		ignore: [
 			'.nx',
 			'node_modules',
+			'package.json',
+			'**/package.json',
 			'**/coverage',
 			'**/node_modules',
 			'**/dist',
