@@ -1,6 +1,7 @@
 import { hexToBytes } from 'viem'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * Gets the code corresponding to the provided `address`.
@@ -8,36 +9,41 @@ import { getForkClient } from './getForkClient.js'
  * @type {import("../state-types/index.js").StateAction<'getContractCode'>}
  */
 export const getContractCode = (baseState) => async (address) => {
-	const {
-		options,
-		caches: { contracts },
-	} = baseState
+  const {
+    options,
+    caches: { contracts },
+  } = baseState
 
-	const codeBytes = contracts.get(address)
+  const codeBytes = contracts.get(address)
 
-	if (codeBytes !== undefined) {
-		return codeBytes
-	}
+  if (codeBytes !== undefined) {
+    return codeBytes
+  }
 
-	if (!options.fork?.url) {
-		return new Uint8Array()
-	}
+  if (!options.fork?.url) {
+    return new Uint8Array()
+  }
 
-	const client = getForkClient(baseState)
-	const blockTag = getForkBlockTag(baseState)
+  baseState.logger.debug({ address }, 'Fetching contract code from remote RPC...')
 
-	const remoteCode = await client.getBytecode({
-		address: /** @type {import('@tevm/utils').Address}*/ (address.toString()),
-		...blockTag,
-	})
+  const client = getForkClient(baseState)
+  const blockTag = getForkBlockTag(baseState)
 
-	if (!remoteCode) {
-		return new Uint8Array(0)
-	}
+  const remoteCode = await client.getBytecode({
+    address: /** @type {import('@tevm/utils').Address}*/ (address.toString()),
+    ...blockTag,
+  })
 
-	const remoteCodeBytes = hexToBytes(remoteCode)
+  if (!remoteCode) {
+    baseState.logger.debug({ address }, 'No remote code found')
+    return new Uint8Array()
+  }
 
-	contracts.put(address, remoteCodeBytes)
+  const remoteCodeBytes = hexToBytes(remoteCode)
 
-	return remoteCodeBytes
+  contracts.put(address, remoteCodeBytes)
+
+  baseState.logger.debug({ address, deployedBytecode: bytesToHex(remoteCodeBytes) }, 'Cached forked contract bytecode to state')
+
+  return remoteCodeBytes
 }

@@ -42,9 +42,10 @@ const INITIAL_ACCOUNTS = [
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+  const loggingLevel = options.loggingLevel ?? 'warn'
   const logger = createLogger({
     name: 'TevmClient',
-    level: options.loggingLevel ?? 'warn',
+    level,
   })
   /**
    * @param {number} chainId
@@ -103,6 +104,7 @@ export const createBaseClient = (options = {}) => {
     }
     if (options.fork?.url) {
       return {
+        loggingLevel,
         fork: {
           ...options.fork,
           ...(options.persister ? { onCommit } : {}),
@@ -112,10 +114,13 @@ export const createBaseClient = (options = {}) => {
     // handle normal mode
     if (options.persister) {
       return {
+        loggingLevel,
         onCommit: /** @type any*/ (onCommit),
       }
     }
-    return {}
+    return {
+      loggingLevel,
+    }
   }
   let stateManager = createStateManager(getStateManagerOpts())
 

@@ -6,23 +6,25 @@ import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
 describe(deleteAccount.name, () => {
-	it('should delete an accoount from state', async () => {
-		const baseState = createBaseState()
+  it('should delete an accoount from state', async () => {
+    const baseState = createBaseState({
+      loggingLevel: 'warn'
+    })
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
-		const balance = 420n
-		const nonce = 2n
-		const account = EthjsAccount.fromAccountData({
-			balance,
-			nonce,
-		})
+    const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+    const balance = 420n
+    const nonce = 2n
+    const account = EthjsAccount.fromAccountData({
+      balance,
+      nonce,
+    })
 
-		await putAccount(baseState)(address, account)
+    await putAccount(baseState)(address, account)
 
-		expect(await getAccount(baseState)(address)).toEqual(account)
+    expect(await getAccount(baseState)(address)).toEqual(account)
 
-		await deleteAccount(baseState)(address)
+    await deleteAccount(baseState)(address)
 
-		expect(await getAccount(baseState)(address)).toBeUndefined()
-	})
+    expect(await getAccount(baseState)(address)).toBeUndefined()
+  })
 })
