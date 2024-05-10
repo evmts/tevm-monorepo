@@ -21,7 +21,7 @@ export const commit =
 				return baseState.getCurrentStateRoot()
 			}
 			/**
-			 * @type {import('@tevm/state').ParameterizedTevmState}
+			 * @type {import('../state-types/ParameterizedTevmState.js').ParameterizedTevmState}
 			 */
 			const jsonSerializableState = {}
 
