@@ -3,10 +3,10 @@ import { type Server, createServer } from 'node:http'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from 'viem'
 import { createHttpClient } from './createHttpClient.js'
-import {getAlchemyUrl} from '@tevm/test-utils'
 
 describe(createHttpClient.name, () => {
 	let tevm: MemoryClient

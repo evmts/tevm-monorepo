@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
 import { createContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { createPublicClient, numberToHex } from 'viem'
 import { tevmTransport } from './tevmTransport.js'
-import {getAlchemyUrl} from '@tevm/test-utils'
 
 const daiContract = createContract({
 	name: 'DAI',

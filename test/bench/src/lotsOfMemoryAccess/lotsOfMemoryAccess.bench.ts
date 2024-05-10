@@ -1,6 +1,6 @@
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { bench, describe, expect } from 'vitest'
 import { lotsOfMemoryAccess } from './lotsOfMemoryAccess.js'
-import {getAlchemyUrl} from '@tevm/test-utils'
 
 const rpcUrl = getAlchemyUrl()
 

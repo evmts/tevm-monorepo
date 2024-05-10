@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { createMemoryClient } from '../createMemoryClient.js'
 import { getAlchemyUrl } from '@tevm/test-utils'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
 

@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { getBalanceHandler } from './getBalanceHandler.js'
-import { getAlchemyUrl } from '@tevm/test-utils'
 
 describe(getBalanceHandler.name, () => {
 	it('should fetch balance from state manager if tag is not defined defaulting the tag to `pending`', async () => {

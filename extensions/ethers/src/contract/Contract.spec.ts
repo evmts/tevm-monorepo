@@ -1,7 +1,7 @@
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { JsonRpcProvider, type ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
 import { Contract } from './Contract.js'
-import { getAlchemyUrl } from '@tevm/test-utils'
 
 const abi = [
 	{ inputs: [], stateMutability: 'nonpayable', type: 'constructor' },

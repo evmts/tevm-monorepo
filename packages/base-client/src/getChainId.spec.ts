@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { getChainId } from './getChainId.js'
-import {getAlchemyUrl} from '@tevm/test-utils'
 
 describe('getChainId', () => {
 	it('should return the chain id when successful', async () => {
