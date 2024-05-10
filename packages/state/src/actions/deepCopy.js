@@ -1,5 +1,5 @@
-import { dumpCanonicalGenesis } from '../../dist/index.js'
 import { createBaseState } from '../createBaseState.js'
+import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
 
 /**
