@@ -45,7 +45,7 @@ export const createBaseClient = (options = {}) => {
   const loggingLevel = options.loggingLevel ?? 'warn'
   const logger = createLogger({
     name: 'TevmClient',
-    level,
+    level: loggingLevel,
   })
   /**
    * @param {number} chainId
@@ -164,6 +164,7 @@ export const createBaseClient = (options = {}) => {
     const common = createCommon(await initChainId())
 
     const blockchain = await createChain({
+      loggingLevel,
       common,
       ...(options.fork?.url !== undefined
         ? {
@@ -238,6 +239,7 @@ export const createBaseClient = (options = {}) => {
       allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
       customPrecompiles: options.customPrecompiles ?? [],
       profiler: options.profiler ?? false,
+      loggingLevel,
     })
     logger.debug('created EVM interpreter')
     const vm = createVm({
