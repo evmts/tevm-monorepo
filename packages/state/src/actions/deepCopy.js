@@ -8,21 +8,21 @@ import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
  * @returns {() => Promise<import('../BaseState.js').BaseState>}
  */
 export const deepCopy = (baseState) => async () => {
-  await baseState.ready()
-  if (
-    baseState.caches.accounts._checkpoints > 0 ||
-    baseState.caches.storage._checkpoints > 0 ||
-    baseState.caches.contracts._checkpoints > 0
-  ) {
-    throw new Error('Attempted to deepCopy state with uncommitted checkpoints')
-  }
-  const newState = createBaseState({
-    ...baseState.options,
-  })
-  await newState.ready()
-  const currentState = await dumpCanonicalGenesis(baseState)()
-  await generateCanonicalGenesis(newState)(currentState)
-  newState.stateRoots.set(baseState.getCurrentStateRoot(), currentState)
-  newState.setCurrentStateRoot(baseState.getCurrentStateRoot())
-  return newState
+	await baseState.ready()
+	if (
+		baseState.caches.accounts._checkpoints > 0 ||
+		baseState.caches.storage._checkpoints > 0 ||
+		baseState.caches.contracts._checkpoints > 0
+	) {
+		throw new Error('Attempted to deepCopy state with uncommitted checkpoints')
+	}
+	const newState = createBaseState({
+		...baseState.options,
+	})
+	await newState.ready()
+	const currentState = await dumpCanonicalGenesis(baseState)()
+	await generateCanonicalGenesis(newState)(currentState)
+	newState.stateRoots.set(baseState.getCurrentStateRoot(), currentState)
+	newState.setCurrentStateRoot(baseState.getCurrentStateRoot())
+	return newState
 }
