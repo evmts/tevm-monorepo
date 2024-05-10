@@ -1,10 +1,11 @@
 import { createContract, createScript } from '@tevm/contract'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
 
-const FORK_URL = 'https://mainnet.optimism.io'
+const FORK_URL = getAlchemyUrl()
 
 describe(TevmProvider.name, () => {
 	let provider: TevmProvider

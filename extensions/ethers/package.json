@@ -3,14 +3,25 @@
 	"version": "1.0.0-next.42",
 	"private": false,
 	"description": "A collection of ethers.js utilities for working with Tevm",
-	"keywords": ["ethers", "solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"ethers",
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "extensions/ethers"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -28,7 +39,10 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "src"],
+	"files": [
+		"dist",
+		"src"
+	],
 	"scripts": {
 		"all": "bun run format && bun run lint && bun run build && bun run test:run && bun run generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ethers ",
@@ -57,6 +71,7 @@
 	"devDependencies": {
 		"@tevm/base-client": "workspace:1.0.0-next.42",
 		"@tevm/contract": "workspace:^",
+		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"ethers": "^6.8.0"

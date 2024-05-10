@@ -1,11 +1,10 @@
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { bench, describe, expect } from 'vitest'
 import { lotsOfMemoryAccess } from './lotsOfMemoryAccess.js'
 
-/* ---------------------------------- TEVM ---------------------------------- */
-const alchemyKey = process.env.BENCH_ALCHEMY_KEY
-const rpcUrl = alchemyKey ? `https://opt-mainnet.g.alchemy.com/v2/${alchemyKey}` : 'https://mainnet.optimism.io'
+const rpcUrl = getAlchemyUrl()
 
-describe('import("@tevm/memory-client").createMemoryClient().contract - lotsOfMemoryAccess', () => {
+describe('import("@tevm/memory-client").createMemoryClient().contract - lotsOfMemoryAccess', async () => {
 	bench(
 		'initialize a brand new tevm client and then execute a call with lots of storage requirements. This is similar to how one might use tevm in a serverless function where tevm is reinitialized often',
 		async () => {

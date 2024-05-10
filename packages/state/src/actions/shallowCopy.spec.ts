@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { createBaseState } from '../createBaseState.js'
 import { shallowCopy } from './shallowCopy.js'
@@ -7,7 +8,7 @@ describe(shallowCopy.name, () => {
 	it('should just create same base state with same options', async () => {
 		const options = {
 			fork: {
-				url: 'https://mainnet.optimism.io',
+				url: getAlchemyUrl(),
 			},
 		}
 
