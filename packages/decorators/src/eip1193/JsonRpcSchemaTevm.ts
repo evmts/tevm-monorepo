@@ -8,7 +8,7 @@ import type {
 	SetAccountJsonRpcRequest,
 } from '@tevm/procedures-types'
 import type { SerializeToJson } from '@tevm/utils'
-import type { DumpStateResult, LoadStateResult } from '../../../actions-types/dist/index.cjs'
+import type { DumpStateResult, LoadStateResult } from '@tevm/actions-types'
 
 export type JsonRpcSchemaTevm = {
 	/**
