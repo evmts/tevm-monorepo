@@ -3,6 +3,7 @@ import { type Server, createServer } from 'node:http'
 import { Address } from '@ethereumjs/util'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { http, type PublicClient, createPublicClient } from 'viem'
 import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
@@ -14,7 +15,7 @@ describe('tevmViemExtension', () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
-			fork: { url: 'https://mainnet.optimism.io' },
+			fork: { url: getAlchemyUrl() },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createPublicClient({

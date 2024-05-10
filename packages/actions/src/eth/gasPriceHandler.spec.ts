@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { parseGwei } from '@tevm/utils'
 import { gasPriceHandler } from './gasPriceHandler.js'
 
@@ -42,7 +43,7 @@ describe(gasPriceHandler.name, () => {
 		}
 		const handler = gasPriceHandler({
 			getVm: async () => ({ blockchain }) as any,
-			forkUrl: 'https://mainnet.optimism.io',
+			forkUrl: getAlchemyUrl(),
 		} as any)
 		expect(await handler({})).toBe(6n)
 		expect(await handler({})).toBe(6n)
@@ -78,13 +79,13 @@ describe(gasPriceHandler.name, () => {
 		expect(
 			await gasPriceHandler({
 				getVm: async () => ({ blockchain }) as any,
-				forkUrl: 'https://mainnet.optimism.io',
+				forkUrl: getAlchemyUrl(),
 			} as any)({}),
 		).toBe(7n)
 		expect(
 			await gasPriceHandler({
 				getVm: async () => ({ blockchain }) as any,
-				forkUrl: 'https://mainnet.optimism.io',
+				forkUrl: getAlchemyUrl(),
 			} as any)({}),
 		).toBe(8n)
 		expect(global.fetch).toHaveBeenCalledTimes(2)

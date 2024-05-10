@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -37,7 +38,7 @@ const addabi = [
 ] as const
 
 const forkConfig = {
-	url: 'https://mainnet.optimism.io',
+	url: getAlchemyUrl(),
 	blockTag: 111791332n,
 }
 

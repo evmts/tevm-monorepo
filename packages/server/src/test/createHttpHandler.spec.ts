@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
 import { createHttpHandler } from '../createHttpHandler.js'
@@ -15,7 +16,7 @@ describe('createHttpHandler', () => {
 	it('should create an http handler', async () => {
 		const tevm = createMemoryClient({
 			fork: {
-				url: 'https://mainnet.optimism.io',
+				url: getAlchemyUrl(),
 				blockTag: 115325880n,
 			},
 		})

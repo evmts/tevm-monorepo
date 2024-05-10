@@ -71,6 +71,7 @@
 	"devDependencies": {
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
+		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
