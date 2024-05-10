@@ -1,5 +1,5 @@
 import { EthjsAddress, bytesToHex, getAddress, toHex } from '@tevm/utils'
-import { getContractCode } from '../../dist/index.js'
+import { getContractCode } from './getContractCode.js'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 
