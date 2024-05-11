@@ -6,15 +6,15 @@ import { createTransport } from 'viem'
  * @returns {import('viem').Transport} The transport function
  */
 export const tevmTransport = ({ request }, options) => {
-  return () => {
-    return createTransport({
-      request: /** @type any*/ (request),
-      type: 'tevm',
-      name: options?.name ?? 'Tevm transport',
-      key: options?.key ?? 'tevm',
-      timeout: options?.timeout ?? 20_000,
-      retryCount: options?.retryCount ?? 3,
-      retryDelay: options?.retryDelay ?? 150,
-    })
-  }
+	return () => {
+		return createTransport({
+			request: /** @type any*/ (request),
+			type: 'tevm',
+			name: options?.name ?? 'Tevm transport',
+			key: options?.key ?? 'tevm',
+			timeout: options?.timeout ?? 20_000,
+			retryCount: options?.retryCount ?? 3,
+			retryDelay: options?.retryDelay ?? 150,
+		})
+	}
 }
