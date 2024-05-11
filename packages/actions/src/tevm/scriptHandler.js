@@ -173,9 +173,6 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 
   let decodedResult
   try {
-    if (result.rawData === '0x') {
-      throw new Error('0x data returned from EVM with no error message. This indicates a the contract was missing or bug in Tevm if no other errors were thrown')
-    }
     decodedResult = decodeFunctionResult(
 			/** @type {any} */({
         abi: params.abi,
@@ -184,6 +181,9 @@ export const scriptHandler = (client, options = {}) => async (params) => {
       }),
     )
   } catch (e) {
+    if (result.rawData === '0x' && params.abi) {
+      client.logger.error('0x data returned from EVM with no error message. This may indicate a the contract was missing from the evm state if no other errors were thrown')
+    }
     /**
      * @type {import('@tevm/errors').ContractError}
      */
