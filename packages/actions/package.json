@@ -64,6 +64,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/block": "workspace:1.0.0-next.42",
 		"@tevm/blockchain": "workspace:1.0.0-next.42",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/tx": "workspace:1.0.0-next.42",

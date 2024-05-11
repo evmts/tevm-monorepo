@@ -1416,6 +1416,9 @@ importers:
 
   packages/actions:
     dependencies:
+      '@tevm/block':
+        specifier: workspace:1.0.0-next.42
+        version: link:../block
       '@tevm/blockchain':
         specifier: workspace:1.0.0-next.42
         version: link:../blockchain
