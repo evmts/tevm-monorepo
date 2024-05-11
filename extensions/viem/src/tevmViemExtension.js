@@ -262,8 +262,12 @@ export const tevmViemExtension = () => {
 					}),
 				),
 			})
+			/**
+			 * @type {any}
+			 */
+			let data
 			try {
-				const data = decodeFunctionResult(
+				data = decodeFunctionResult(
 					/** @type any*/ ({
 						data: out.rawData,
 						abi: params.abi,
