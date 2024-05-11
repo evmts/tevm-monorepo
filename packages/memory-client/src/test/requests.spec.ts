@@ -16,7 +16,7 @@ const forkConfig = {
 describe('Tevm.request', async () => {
   const tevm = createMemoryClient()
 
-  it.skip('should execute a script request', async () => {
+  it('should execute a script request', async () => {
     const req = {
       params: [
         {
@@ -44,7 +44,7 @@ describe('Tevm.request', async () => {
     expect(res.logs).toEqual([])
   })
 
-  it.skip('should throw an error if attempting a tevm_contractCall request', async () => {
+  it('should throw an error if attempting a tevm_contractCall request', async () => {
     const tevm = createMemoryClient()
     const req = {
       params: [
@@ -105,7 +105,7 @@ describe('Tevm.request', async () => {
     { timeout: 60_000 },
   )
 
-  it.skip('should execute a call request', async () => {
+  it('should execute a call request', async () => {
     const tevm = createMemoryClient()
     const balance = 0x11111111n
     const address1 = '0x1f420000000000000000000000000000000000ff'
@@ -140,7 +140,7 @@ describe('Tevm.request', async () => {
     )
   })
 
-  it.skip('Should execute a putAccount request', async () => {
+  it('Should execute a putAccount request', async () => {
     const tevm = createMemoryClient()
     const balance = 0x11111111n
     const res = await tevm.request({
