@@ -5,7 +5,7 @@ import { bytesToHex } from 'viem'
  * @returns {import('../Chain.js').Chain['delBlock']}
  */
 export const delBlock = (baseChain) => (blockHash) => {
-  baseChain.blocks.delete(bytesToHex(blockHash))
-  baseChain.logger.debug({ blockHash }, 'deleted block')
-  return Promise.resolve()
+	baseChain.blocks.delete(bytesToHex(blockHash))
+	baseChain.logger.debug({ blockHash }, 'deleted block')
+	return Promise.resolve()
 }

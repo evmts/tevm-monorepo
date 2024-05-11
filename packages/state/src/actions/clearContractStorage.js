@@ -3,7 +3,7 @@
  * @type {import("../state-types/index.js").StateAction<'clearContractStorage'>}
  */
 export const clearContractStorage = (baseState) => (address) => {
-  baseState.caches.storage.clearContractStorage(address)
-  baseState.logger.debug({ address }, 'State manager cleared at address.')
-  return Promise.resolve()
+	baseState.caches.storage.clearContractStorage(address)
+	baseState.logger.debug({ address }, 'State manager cleared at address.')
+	return Promise.resolve()
 }

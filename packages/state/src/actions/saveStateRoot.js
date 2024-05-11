@@ -7,5 +7,5 @@ import { bytesToHex } from '@tevm/utils'
  */
 export const saveStateRoot = (baseState) => (root, value) => {
 	baseState.stateRoots.set(bytesToHex(root), value)
-	baseState.logger.debug({root: bytesToHex(root), value }, 'Saved state root')
+	baseState.logger.debug({ root: bytesToHex(root), value }, 'Saved state root')
 }
