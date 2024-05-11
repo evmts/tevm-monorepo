@@ -10,6 +10,10 @@
 
 ## Type declaration
 
+### currentStateRoot
+
+> **currentStateRoot**?: `Hex`
+
 ### fork
 
 > **fork**?: [`ForkOptions`](../../state/interfaces/ForkOptions.md)
@@ -17,6 +21,12 @@
 ### genesisState
 
 > **genesisState**?: [`TevmState`](TevmState.md)
+
+### loggingLevel
+
+> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+
+Configure logging options for the client
 
 ### onCommit
 
@@ -34,7 +44,7 @@ Called when state manager commits state
 
 ## Source
 
-packages/state/types/state-types/StateOptions.d.ts:5
+packages/state/dist/index.d.ts:167
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

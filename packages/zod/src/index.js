@@ -18,6 +18,7 @@ export {
 	zBaseCallParams,
 	zGetAccountParams,
 	zSetAccountParams,
+	zMineParams,
 } from './params/index.js'
 export {
 	validateCallParams,
@@ -27,4 +28,5 @@ export {
 	validateBaseCallParams,
 	validateContractParams,
 	validateLoadStateParams,
+	validateMineParams,
 } from './validators/index.js'

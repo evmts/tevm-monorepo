@@ -4,6 +4,10 @@ var errors = require('@tevm/errors');
 
 
 
+Object.defineProperty(exports, "InvalidCreateParams", {
+  enumerable: true,
+  get: function () { return errors.InvalidCreateParams; }
+});
 Object.defineProperty(exports, "NoProxyConfiguredError", {
   enumerable: true,
   get: function () { return errors.NoProxyConfiguredError; }

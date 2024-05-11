@@ -15,18 +15,33 @@ export const callHandlerOpts = async (client, params) => {
   const opts = {}
   const vm = await client.getVm()
 
-  // handle block overrides
-  if (params.blockTag) {
-    client.logger.debug(
-      params.blockTag,
-      'callHandlerOpts: Fetching specific block tag for call. This feature is not currently implemented so just using cannonical head',
-    )
-    // TODO handle getting block tags
-    opts.block = await vm.blockchain.getCanonicalHeadBlock()
-  } else {
-    opts.block = await vm.blockchain.getCanonicalHeadBlock()
+  // TODO need better error handling here
+  const block = await (() => {
+    if (params.blockTag === undefined) {
+      return vm.blockchain.blocksByTag.get('latest')
+    }
+    if (typeof params.blockTag === 'bigint') {
+      return vm.blockchain.getBlock(params.blockTag)
+    }
+    if (typeof params.blockTag === 'string' && params.blockTag.startsWith('0x')) {
+      return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/(params.blockTag)))
+    }
+    // TODO support all these and resolve all of them both vs fork and non fork
+    if (params.blockTag === 'latest' || params.blockTag === 'safe' || params.blockTag === 'pending' || params.blockTag === 'earliest' || params.blockTag === 'finalized') {
+      return vm.blockchain.blocksByTag.get(/** */(params.blockTag))
+    }
+    throw new Error(`Unknown blocktag ${params.blockTag}`)
+  })()
+  if (!block) {
+    // TODO need better error handling here
+    throw new Error('No block found')
   }
 
+  client.logger.debug({block: block.header}, 'Using block')
+  
+  opts.block = block
+
+  // handle block overrides
   if (params.blockOverrideSet) {
     client.logger.debug(
       params.blockOverrideSet,
@@ -134,17 +149,18 @@ export const callHandlerOpts = async (client, params) => {
   if (params.value) {
     opts.value = BigInt(params.value)
   }
-  const caller = params.caller || params.from
+  const caller = params.caller || params.from || params.origin || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
   if (caller) {
     opts.caller = EthjsAddress.fromString(caller)
   }
-  const origin = params.origin || params.from
+  const origin = params.origin || params.from || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
   if (origin) {
     opts.origin = EthjsAddress.fromString(origin)
   }
   if (params.gas) {
     opts.gasLimit = BigInt(params.gas)
   }
+
 
   return errors.length > 0 ? { data: opts, errors } : { data: opts }
 }

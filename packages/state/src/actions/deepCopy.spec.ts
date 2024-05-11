@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
 import { createBaseState } from '../createBaseState.js'
+import { checkpoint } from './checkpoint.js'
+import { commit } from './commit.js'
 import { deepCopy } from './deepCopy.js'
 import { getAccount } from './getAccount.js'
 import { getContractCode } from './getContractCode.js'
@@ -12,7 +14,9 @@ const deployedBytecode =
 
 describe(deepCopy.name, () => {
 	it('should create a copy of the state', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 
@@ -24,16 +28,17 @@ describe(deepCopy.name, () => {
 
 		await putContractCode(baseState)(address, hexToBytes(deployedBytecode))
 
-		const checkState = async (state: typeof baseState) => {
-			expect(await getAccount(state)(address)).toEqual(account)
-			expect(await getContractCode(state)(address)).toEqual(hexToBytes(deployedBytecode))
-		}
+		await checkpoint(baseState)()
+		await commit(baseState)()
 
-		await checkState(baseState)
+		expect(await getAccount(baseState)(address)).toEqual(account)
+		expect(await getContractCode(baseState)(address)).toEqual(hexToBytes(deployedBytecode))
 
 		const newState = await deepCopy(baseState)()
 
-		await checkState(baseState)
-		await checkState(newState)
+		expect(await getAccount(baseState)(address)).toEqual(account)
+		expect(await getContractCode(baseState)(address)).toEqual(hexToBytes(deployedBytecode))
+		expect(await getAccount(newState)(address)).toEqual(account)
+		expect(await getContractCode(newState)(address)).toEqual(hexToBytes(deployedBytecode))
 	})
 })

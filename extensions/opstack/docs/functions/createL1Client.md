@@ -329,6 +329,12 @@ All constants including vital OP stack addresses and owners are available and tr
 >
 > The logger instance
 >
+> ### mine
+>
+> > **mine**: `MineHandler`
+>
+> Mines 1 or more blocks
+>
 > ### miningConfig
 >
 > > **`readonly`** **miningConfig**: `MiningConfig`

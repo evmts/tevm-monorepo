@@ -19,7 +19,7 @@ export const createBaseVm = (opts) => {
 			return new Promise((resolve) => events.emit(topic, data, resolve))
 		},
 		ready: async () => {
-			await Promise.all([opts.blockchain.ready()])
+			await Promise.all([opts.blockchain.ready(), opts.stateManager.ready()])
 			return true
 		},
 	}

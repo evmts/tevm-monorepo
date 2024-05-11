@@ -9,10 +9,12 @@ import { putBlock } from './putBlock.js'
 export const getBlock = (baseChain) => async (blockId) => {
 	const block = (() => {
 		if (typeof blockId === 'bigint' || typeof blockId === 'number') {
+			baseChain.logger.debug({ blockId: BigInt(blockId) }, 'getting block by number')
 			return baseChain.blocksByNumber.get(BigInt(blockId))
 		}
 		if (blockId instanceof Uint8Array) {
-			return baseChain.blocks.get(blockId)
+			baseChain.logger.debug({ blockId: bytesToHex(blockId) }, 'getting block by hash')
+			return baseChain.blocks.get(bytesToHex(blockId))
 		}
 		/**
 		 * @type {never}
@@ -22,6 +24,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 	})()
 
 	if (block !== undefined) {
+		baseChain.logger.debug(block.header.toJSON(), 'Block found in cache')
 		return block
 	}
 
@@ -33,6 +36,8 @@ export const getBlock = (baseChain) => async (blockId) => {
 		)
 	}
 
+	baseChain.logger.debug('Fetching block from remote rpc...')
+
 	const fetchedBlock = await getBlockFromRpc(
 		{
 			url: baseChain.options.fork?.url,
@@ -41,7 +46,9 @@ export const getBlock = (baseChain) => async (blockId) => {
 		baseChain.common,
 	)
 
+	baseChain.logger.debug(fetchedBlock.header.toJSON(), 'Saving forked block to blockchain')
+
 	await putBlock(baseChain)(fetchedBlock)
 
-	return getBlock(baseChain)(blockId)
+	return fetchedBlock
 }

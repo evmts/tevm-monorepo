@@ -15,14 +15,14 @@ export const createVm = (opts) => {
 	 * @param {import("./BaseVm.js").BaseVm} baseVm
 	 */
 	const decorate = (baseVm) => {
-		return {
-			...baseVm,
+		return Object.assign(baseVm, {
 			deepCopy: () => deepCopy(baseVm)().then((baseVm) => decorate(baseVm)),
 			buildBlock: buildBlock(baseVm),
 			runBlock: runBlock(baseVm),
 			runTx: runTx(baseVm),
-		}
+		})
 	}
 
-	return decorate(baseVm)
+	const out = decorate(baseVm)
+	return out
 }

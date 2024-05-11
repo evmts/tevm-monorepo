@@ -54,6 +54,7 @@
 - [InvalidUrlError](type-aliases/InvalidUrlError.md)
 - [InvalidValueError](type-aliases/InvalidValueError.md)
 - [LoadStateError](type-aliases/LoadStateError.md)
+- [MineError](type-aliases/MineError.md)
 - [ScriptError](type-aliases/ScriptError.md)
 - [SetAccountError](type-aliases/SetAccountError.md)
 - [TevmEVMErrorMessage](type-aliases/TevmEVMErrorMessage.md)

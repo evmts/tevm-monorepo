@@ -1,6 +1,6 @@
 import { CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-const zeroBytes = Uint8Array.from([])
+const oneBytes = Uint8Array.from([1])
 
 /**
  * Contract cache is a mapping of addresses to deployedBytecode
@@ -35,7 +35,7 @@ export class ContractCache {
 	 * @returns {Uint8Array | undefined}
 	 */
 	get(address) {
-		return this.storageCache.get(address, zeroBytes)
+		return this.storageCache.get(address, oneBytes)
 	}
 
 	/**
@@ -44,7 +44,7 @@ export class ContractCache {
 	 * @returns {void}
 	 */
 	put(address, bytecode) {
-		this.storageCache.put(address, zeroBytes, bytecode)
+		this.storageCache.put(address, oneBytes, bytecode)
 	}
 
 	/**
@@ -52,7 +52,7 @@ export class ContractCache {
 	 * @returns {void}
 	 */
 	del(address) {
-		this.storageCache.del(address, zeroBytes)
+		this.storageCache.del(address, oneBytes)
 	}
 
 	/**

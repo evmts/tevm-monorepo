@@ -7,7 +7,7 @@ export const getAccountAddresses = (baseState) => () => {
 	 */
 	const accountAddresses = []
 	//Tevm initializes stateManager account cache with an ordered map cache
-	baseState._caches.accounts._orderedMapCache?.forEach((e) => {
+	baseState.caches.accounts._orderedMapCache?.forEach((e) => {
 		accountAddresses.push(e[0])
 	})
 	return /** @type {import("viem").Address[]}*/ (accountAddresses)

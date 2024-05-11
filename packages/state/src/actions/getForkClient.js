@@ -17,7 +17,7 @@ export class NoForkError extends Error {
  * @param {import('../BaseState.js').BaseState} baseState
  * @returns {import('viem').PublicClient}
  */
-export const getForkClient = ({ _options: { fork } }) => {
+export const getForkClient = ({ options: { fork } }) => {
 	if (!fork) {
 		throw new NoForkError('Cannot initialize a client with no fork url set')
 	}

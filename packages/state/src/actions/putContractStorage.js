@@ -8,13 +8,7 @@ const stripZeros = (bytes) => {
 	if (!(bytes instanceof Uint8Array)) {
 		throw new Error('Unexpected type')
 	}
-	let out = bytes
-	let first = out[0]
-	while (out.length > 0 && first === 0) {
-		out = out.slice(1)
-		first = out[0]
-	}
-	return out
+	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
 }
 /**
  * Adds value to the cache for the `account`
@@ -32,5 +26,5 @@ export const putContractStorage = (baseState) => async (address, key, value) => 
 	if (!account) {
 		throw new Error('cannot putContractStorage on non existing acccount!')
 	}
-	baseState._caches.storage.put(address, key, stripZeros(value))
+	baseState.caches.storage.put(address, key, stripZeros(value))
 }

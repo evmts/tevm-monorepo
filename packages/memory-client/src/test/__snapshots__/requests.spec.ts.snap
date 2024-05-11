@@ -3,3 +3,7 @@
 exports[`Tevm.request should throw an error if attempting a tevm_contractCall request 1`] = `-32601`;
 
 exports[`Tevm.request should throw an error if attempting a tevm_contractCall request 2`] = `"UnsupportedMethodError: Unknown method tevm_NotARequest"`;
+
+exports[`Tevm.request should execute a contractCall request via using tevm_call 1`] = `-32601`;
+
+exports[`Tevm.request should execute a contractCall request via using tevm_call 2`] = `"UnsupportedMethodError: Unknown method tevm_NotARequest"`;

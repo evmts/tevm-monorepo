@@ -196,7 +196,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.11.30/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 

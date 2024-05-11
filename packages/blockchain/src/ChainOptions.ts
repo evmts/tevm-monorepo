@@ -1,11 +1,16 @@
 import type { Block } from '@tevm/block'
 import type { Common } from '@tevm/common'
+import { type LogOptions } from '@tevm/logger'
 import type { BlockTag } from 'viem'
 
 /**
  * Options passed into `createChain` to initialize a Chain object
  */
 export type ChainOptions = {
+	/**
+	 * Logging level of blockchain package. Defaults to `warn`
+	 */
+	loggingLevel?: LogOptions['level']
 	/**
 	 * A Common instance
 	 */

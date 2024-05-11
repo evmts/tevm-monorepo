@@ -5,11 +5,30 @@ import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBigInt, numberToHex, parseEther, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
+
+/**
+ * These are the same accounts hardhat and anvil start with 10000 eth
+ * Also including zer address
+ * @type {ReadonlyArray<import('@tevm/utils').Address>}
+ */
+const INITIAL_ACCOUNTS = [
+	`0x${'00'.repeat(20)}`,
+	'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+	'0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+	'0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+	'0x90F79bf6EB2c4f870365E785982E1f101E93b906',
+	'0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
+	'0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
+	'0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	'0x14dC79964da2C08b23698B3D3cc7Ca32193d9955',
+	'0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f',
+	'0xa0Ee7A142d267C1f36714E4a8F75612F20a79720',
+]
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -23,15 +42,21 @@ import { getChainId } from './getChainId.js'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+	const loggingLevel = options.loggingLevel ?? 'warn'
+	const logger = createLogger({
+		name: 'TevmClient',
+		level: loggingLevel,
+	})
 	/**
 	 * @param {number} chainId
 	 */
 	const createCommon = (chainId) => {
-		return Common.custom(
+		const common = Common.custom(
 			{
 				name: 'TevmCustom',
 				chainId,
-				networkId: 10,
+				// TODO what is diff between chainId and networkId???
+				networkId: chainId,
 			},
 			{
 				hardfork: options.hardfork ?? 'cancun',
@@ -39,6 +64,11 @@ export const createBaseClient = (options = {}) => {
 				eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
 			},
 		)
+		if (common.isActivatedEIP(6800)) {
+			console.warn('verkle state is currently not supported in tevm')
+		}
+		logger.debug(common.eips(), 'Created common with eips enabled')
+		return common
 	}
 
 	/**
@@ -52,6 +82,7 @@ export const createBaseClient = (options = {}) => {
 			if (!options.persister) {
 				throw new Error('No persister provided')
 			}
+			logger.debug('persisting state manager...')
 			dumpCanonicalGenesis(stateManager)().then((state) => {
 				/**
 				 * @type {import('@tevm/state').ParameterizedTevmState}
@@ -73,6 +104,7 @@ export const createBaseClient = (options = {}) => {
 		}
 		if (options.fork?.url) {
 			return {
+				loggingLevel,
 				fork: {
 					...options.fork,
 					...(options.persister ? { onCommit } : {}),
@@ -82,12 +114,15 @@ export const createBaseClient = (options = {}) => {
 		// handle normal mode
 		if (options.persister) {
 			return {
+				loggingLevel,
 				onCommit: /** @type any*/ (onCommit),
 			}
 		}
-		return {}
+		return {
+			loggingLevel,
+		}
 	}
-	const stateManager = createStateManager(getStateManagerOpts())
+	let stateManager = createStateManager(getStateManagerOpts())
 
 	/**
 	 * Create the extend function in a generic way
@@ -112,34 +147,8 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const initVm = async () => {
-		// Handle initializing the state from the persisted state
-		/**
-		 * @type {Promise<any>}
-		 */
-		let statePromise = Promise.resolve()
-		if (options.persister) {
-			const restoredState = options.persister.restoreState()
-			if (restoredState) {
-				/**
-				 * @type {import('@tevm/state').TevmState}
-				 */
-				const parsedState = {}
-				for (const [k, v] of Object.entries(restoredState)) {
-					const { nonce, balance, storageRoot, codeHash } = v
-					parsedState[k] = {
-						...v,
-						nonce: hexToBigInt(nonce),
-						balance: hexToBigInt(balance),
-						storageRoot: storageRoot,
-						codeHash: codeHash,
-					}
-				}
-				statePromise = stateManager.generateCanonicalGenesis(parsedState)
-			}
-		}
-
 		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').StateManager}*/ getForkBlockTag(stateManager) || {
+			const blockTag = /** @type {import('@tevm/state').StateManager}*/ getForkBlockTag(stateManager._baseState) || {
 				blockTag: 'latest',
 			}
 			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
@@ -150,8 +159,12 @@ export const createBaseClient = (options = {}) => {
 			}
 			return 'latest'
 		})()
+		logger.debug(blockTag, 'creating vm with blockTag...')
+
 		const common = createCommon(await initChainId())
+
 		const blockchain = await createChain({
+			loggingLevel,
 			common,
 			...(options.fork?.url !== undefined
 				? {
@@ -164,6 +177,61 @@ export const createBaseClient = (options = {}) => {
 					}
 				: {}),
 		})
+
+		await blockchain.ready()
+
+		const headBlock = await blockchain.getCanonicalHeadBlock()
+
+		logger.debug(headBlock.toJSON().header, 'created blockchain with head block')
+
+		const initialState = await stateManager.dumpCanonicalGenesis()
+
+		stateManager = createStateManager({
+			...getStateManagerOpts(),
+			stateRoots: new Map([
+				...stateManager._baseState.stateRoots.entries(),
+				// if we fork we need to make sure our state root applies to the head block
+				[bytesToHex(headBlock.header.stateRoot), initialState],
+			]),
+			currentStateRoot: bytesToHex(headBlock.header.stateRoot),
+		})
+
+		await stateManager.ready()
+
+		const restoredState = options.persister?.restoreState()
+		if (restoredState) {
+			logger.debug(restoredState, 'Restoring persisted state...')
+			/**
+			 * @type {import('@tevm/state').TevmState}
+			 */
+			const parsedState = {}
+			for (const [k, v] of Object.entries(restoredState)) {
+				const { nonce, balance, storageRoot, codeHash } = v
+				parsedState[/** @type {import('@tevm/utils').Address}*/ (k)] = {
+					...v,
+					nonce: hexToBigInt(nonce),
+					balance: hexToBigInt(balance),
+					storageRoot: storageRoot,
+					codeHash: codeHash,
+				}
+			}
+			// We might want to double check we aren't forking and overwriting this somehow
+			// TODO we should be storing blockchain state too
+			stateManager = createStateManager({
+				genesisState: parsedState,
+				...getStateManagerOpts(),
+			})
+			await stateManager.ready()
+		}
+
+		await Promise.all(
+			INITIAL_ACCOUNTS.map((address) =>
+				stateManager.putAccount(EthjsAddress.fromString(address), new EthjsAccount(0n, parseEther('1000'))),
+			),
+		).then(() => {
+			logger.debug(INITIAL_ACCOUNTS, 'Accounts loaded with 1000 ETH')
+		})
+
 		const evm = await createEvm({
 			common,
 			stateManager,
@@ -171,18 +239,22 @@ export const createBaseClient = (options = {}) => {
 			allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
 			customPrecompiles: options.customPrecompiles ?? [],
 			profiler: options.profiler ?? false,
+			loggingLevel,
 		})
-		const vm = await createVm({
+		logger.debug('created EVM interpreter')
+		const vm = createVm({
 			stateManager,
 			evm,
 			blockchain,
 			common,
 		})
+		logger.debug('created vm')
 
 		/**
 		 * Add custom predeploys
 		 */
 		if (options.customPredeploys) {
+			logger.debug(options.customPredeploys, 'adding predeploys')
 			await Promise.all(
 				options.customPredeploys.map((predeploy) => {
 					addPredeploy({
@@ -194,7 +266,13 @@ export const createBaseClient = (options = {}) => {
 			)
 		}
 
-		await Promise.all([statePromise, blockchain.ready()])
+		logger.debug('state initialized checkpointing...')
+		await stateManager.checkpoint()
+		await stateManager.commit()
+
+		await vm.ready().then(() => {
+			logger.debug('vm is ready for use')
+		})
 
 		return vm
 	}
@@ -202,6 +280,7 @@ export const createBaseClient = (options = {}) => {
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const receiptManagerPromise = vmPromise.then((vm) => {
+		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 
@@ -212,10 +291,7 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		logger: createLogger({
-			name: 'TevmClient',
-			level: options.loggingLevel ?? 'warn',
-		}),
+		logger,
 		getReceiptsManager: () => {
 			return receiptManagerPromise
 		},

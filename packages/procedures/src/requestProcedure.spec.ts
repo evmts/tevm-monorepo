@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
-import { type EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { type EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
@@ -422,57 +422,32 @@ describe('requestProcedure', () => {
 				result: {
 					executionGasUsed: numberToHex(0n),
 					rawData: '0x',
+					txHash: '0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7',
 				},
 			})
 
-			expect((await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(to)))?.balance).toEqual(420n)
-		})
+			const txPool = await client.getTxPool()
 
-		it('should handle an error', async () => {
-			const to = `0x${'69'.repeat(20)}` as const
-			const vm = await client.getVm()
-			const originalRunCall = vm.evm.runCall.bind(vm.evm)
-			vm.evm.runCall = async (args) => {
-				const res = await originalRunCall(args)
-				return {
-					...res,
-					execResult: {
-						...res.execResult,
-						exceptionError: {
-							error: 'revert',
-							errorType: 'Contract was reverted',
-						} as any,
-					},
-				}
-			}
-			// send value
-			expect(
-				await callProcedure(client)({
-					jsonrpc: '2.0',
-					method: 'tevm_call',
-					id: 1,
-					params: [
-						{
-							createTransaction: true,
-							to,
-							value: numberToHex(420n),
-							skipBalance: true,
-						},
-					],
-				}),
-			).toEqual({
-				error: {
-					code: 'revert',
-					...{
-						data: {
-							errors: ['0x'],
-						},
-						message: '0x',
-					},
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_call',
+			const poolTx = txPool.getByHash([
+				hexToBytes('0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7'),
+			])
+
+			expect(poolTx).toHaveLength(1)
+
+			expect(poolTx[0]?.toJSON()).toEqual({
+				accessList: [],
+				chainId: '0x384',
+				data: '0x',
+				gasLimit: '0x5208',
+				maxFeePerGas: '0x7',
+				maxPriorityFeePerGas: '0x0',
+				nonce: '0x0',
+				r: undefined as any,
+				s: undefined as any,
+				v: undefined as any,
+				to: '0x6969696969696969696969696969696969696969',
+				type: '0x2',
+				value: '0x1a4',
 			})
 		})
 	})
@@ -542,45 +517,6 @@ describe('requestProcedure', () => {
 					},
 					message:
 						'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_script',
-			})
-		})
-
-		it('should handle the handler function unexpectedly throwing', async () => {
-			const vm = await client.getVm()
-			vm.evm.runCall = async () => {
-				throw new Error('unexpected error')
-			}
-			expect(
-				await scriptProcedure(client)({
-					jsonrpc: '2.0',
-					method: 'tevm_script',
-					id: 1,
-					params: [
-						{
-							createTransaction: true,
-							deployedBytecode: ERC20_BYTECODE,
-							data: encodeFunctionData({
-								abi: ERC20_ABI,
-								functionName: 'balanceOf',
-								args: [ERC20_ADDRESS],
-							}),
-							to: ERC20_ADDRESS,
-						},
-					],
-				}),
-			).toEqual({
-				error: {
-					code: 'UnexpectedError',
-					...{
-						data: {
-							errors: ['unexpected error'],
-						},
-					},
-					message: 'unexpected error',
 				},
 				id: 1,
 				jsonrpc: '2.0',

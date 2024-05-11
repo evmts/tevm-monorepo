@@ -2,8 +2,9 @@
  * Resets all internal caches
  * @type {import("../state-types/index.js").StateAction<'clearCaches'>}
  */
-export const clearCaches = (baseClient) => () => {
-	baseClient._caches.storage.clear()
-	baseClient._caches.contracts.clear()
-	baseClient._caches.accounts.clear()
+export const clearCaches = (baseState) => () => {
+	baseState.caches.storage.clear()
+	baseState.caches.contracts.clear()
+	baseState.caches.accounts.clear()
+	baseState.logger.debug('State manager cleared.')
 }

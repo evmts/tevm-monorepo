@@ -6,15 +6,15 @@
 
 # Function: createBaseState()
 
-> **createBaseState**(`options`?): `BaseState`
+> **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
 ## Parameters
 
-▪ **options?**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+▪ **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
 
 ## Source
 
-packages/state/types/createBaseState.d.ts:1
+packages/state/dist/index.d.ts:184
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

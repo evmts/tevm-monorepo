@@ -1,4 +1,5 @@
 export type {
+	MineJsonRpcRequest,
 	AnvilJsonRpcRequest,
 	DebugJsonRpcRequest,
 	CallJsonRpcRequest,
@@ -68,6 +69,7 @@ export type {
 	AnvilSetCoinbaseJsonRpcRequest,
 } from './requests/index.js'
 export type {
+	MineJsonRpcResponse,
 	DumpStateJsonRpcResponse,
 	AnvilSetCoinbaseJsonRpcResponse,
 	CallJsonRpcResponse,
@@ -131,6 +133,7 @@ export type {
 	LoadStateJsonRpcResponse,
 } from './responses/index.js'
 export type {
+	MineJsonRpcProcedure,
 	CallJsonRpcProcedure,
 	ContractJsonRpcProcedure,
 	ScriptJsonRpcProcedure,

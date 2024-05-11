@@ -18,6 +18,7 @@ import {
 	getCodeProcedure,
 	getStorageAtProcedure,
 	loadStateProcedure,
+	mineProcedure,
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
@@ -54,6 +55,8 @@ import {
  */
 export const requestProcedure = (client) => {
 	return async (request) => {
+		await client.ready()
+		client.logger.debug(request, 'JSON-RPC request received')
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure(client)(request))
@@ -196,7 +199,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				console.warn('Warning: setChainId is currently a noop')
+				client.logger.warn('Warning: setChainId is currently a noop')
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
@@ -290,7 +293,7 @@ export const requestProcedure = (client) => {
 					},
 					{
 						common: vm.common,
-						freeze: true,
+						freeze: false,
 						setHardfork: false,
 					},
 				)
@@ -303,7 +306,7 @@ export const requestProcedure = (client) => {
 					}),
 					{
 						common: vm.common,
-						freeze: true,
+						freeze: false,
 						setHardfork: false,
 					},
 				)
@@ -314,6 +317,10 @@ export const requestProcedure = (client) => {
 					jsonrpc: '2.0',
 					...(request.id ? { id: request.id } : {}),
 				}
+			}
+			case 'anvil_mine':
+			case 'tevm_mine': {
+				return /** @type any */ (mineProcedure)(client)(request)
 			}
 			case 'debug_traceCall': {
 				const debugTraceCallRequest =
@@ -381,7 +388,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getTransactionByBlockHashAndIndex':
 			case 'eth_getTransactionByBlockNumberAndIndex':
 			case 'debug_traceTransaction':
-			case 'anvil_mine':
 			case 'anvil_reset':
 			case 'anvil_dumpState':
 			case 'anvil_loadState':

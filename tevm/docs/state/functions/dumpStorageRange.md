@@ -31,7 +31,7 @@
 
 ## Source
 
-packages/state/types/actions/dumpStorageRange.d.ts:4
+packages/state/dist/index.d.ts:237
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

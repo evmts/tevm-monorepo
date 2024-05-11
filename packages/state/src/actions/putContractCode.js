@@ -4,6 +4,6 @@
  * @type {import("../state-types/index.js").StateAction<'putContractCode'>}
  */
 export const putContractCode = (baseState) => (address, value) => {
-	baseState._caches.contracts.put(address, value)
+	baseState.caches.contracts.put(address, value)
 	return Promise.resolve()
 }

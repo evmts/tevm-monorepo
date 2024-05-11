@@ -16,7 +16,7 @@ Procedure for handling script JSON-RPC requests
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:830
+packages/procedures-types/dist/index.d.ts:840
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,4 +1,5 @@
 import { Block } from '@tevm/block'
+import { createLogger } from '@tevm/logger'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
 import { hexToBytes } from 'viem'
 import { putBlock } from './actions/putBlock.js'
@@ -34,6 +35,7 @@ const createGenesisBlock = (stateRoot, common) => {
 		...newCommon.genesis(),
 		number: 0,
 		stateRoot,
+		gasLimit: 30_000_000n,
 		...(newCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
 	}
 	return Block.fromBlockData({ header, ...(newCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
@@ -43,10 +45,15 @@ const createGenesisBlock = (stateRoot, common) => {
  * @returns {import('./BaseChain.js').BaseChain} Base chain object
  */
 export const createBaseChain = (options) => {
+	const logger = createLogger({
+		name: '@tevm/blockchain',
+		level: options.loggingLevel ?? 'warn',
+	})
 	/**
 	 * @type {import('./BaseChain.js').BaseChain}
 	 */
 	const chain = {
+		logger,
 		options,
 		common: options.common,
 		blocks: new Map(),

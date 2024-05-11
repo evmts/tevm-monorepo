@@ -1,3 +1,4 @@
+import { bytesToHex } from '@tevm/utils'
 import { hexToBytes } from 'viem'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
@@ -9,8 +10,8 @@ import { getForkClient } from './getForkClient.js'
  */
 export const getContractCode = (baseState) => async (address) => {
 	const {
-		_options,
-		_caches: { contracts },
+		options,
+		caches: { contracts },
 	} = baseState
 
 	const codeBytes = contracts.get(address)
@@ -19,9 +20,11 @@ export const getContractCode = (baseState) => async (address) => {
 		return codeBytes
 	}
 
-	if (!_options.fork?.url) {
+	if (!options.fork?.url) {
 		return new Uint8Array()
 	}
+
+	baseState.logger.debug({ address }, 'Fetching contract code from remote RPC...')
 
 	const client = getForkClient(baseState)
 	const blockTag = getForkBlockTag(baseState)
@@ -32,12 +35,18 @@ export const getContractCode = (baseState) => async (address) => {
 	})
 
 	if (!remoteCode) {
-		return new Uint8Array(0)
+		baseState.logger.debug({ address }, 'No remote code found')
+		return new Uint8Array()
 	}
 
 	const remoteCodeBytes = hexToBytes(remoteCode)
 
 	contracts.put(address, remoteCodeBytes)
+
+	baseState.logger.debug(
+		{ address, deployedBytecode: bytesToHex(remoteCodeBytes) },
+		'Cached forked contract bytecode to state',
+	)
 
 	return remoteCodeBytes
 }

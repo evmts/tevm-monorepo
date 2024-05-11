@@ -10,11 +10,11 @@
 
 ### cache
 
-> **cache**: `Map`\<`string` \| `Uint8Array`, `Uint8Array`\>
+> **cache**: `Map`\<\`0x${string}\`, `Uint8Array`\>
 
 #### Source
 
-[MapDb.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MapDb.ts#L12)
+[MapDb.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/MapDb.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

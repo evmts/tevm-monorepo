@@ -21,7 +21,7 @@ A tevm Evm instance with tevm specific defaults
 
 ## Source
 
-[packages/evm/src/createEvm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.ts#L9)
+[packages/evm/src/createEvm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.ts#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

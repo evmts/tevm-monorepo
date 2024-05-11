@@ -1,4 +1,3 @@
-import { getAlchemyUrl } from '@tevm/test-utils'
 import { JsonRpcProvider, type ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
 import { Contract } from './Contract.js'
@@ -246,7 +245,7 @@ const abi = [
 	},
 ] as const
 
-const provider = new JsonRpcProvider(getAlchemyUrl(), 10)
+const provider = new JsonRpcProvider('https://mainnet.optimism.io', 10)
 const addresses = { 10: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' } as const
 
 describe('ethers.Contract', () => {

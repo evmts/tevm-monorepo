@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { getAlchemyUrl } from '@tevm/test-utils'
+import { type Hex, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
@@ -39,15 +40,14 @@ const MOCKERC20_ABI = [
 
 describe('Testing tevm state managers with mix of createTransaction: true and false', () => {
 	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
-		const caller = `0x${'1'.repeat(40)}` as const
 		// Create client
 		const forkClient = createMemoryClient({
 			fork: {
-				url: getAlchemyUrl(),
+				url: 'https://mainnet.optimism.io',
 			},
 		})
 
-		const normalClient = createMemoryClient()
+		const normalClient = createMemoryClient({ loggingLevel: 'warn' })
 		const clients = {
 			forkClient,
 			normalClient,
@@ -55,53 +55,87 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 
 		for (const clientName in clients) {
 			const client = clients[clientName as 'forkClient' | 'normalClient']
-			it(`Should properly track state with a ${clientName}`, async () => {
-				// Set the token contract
-				const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'
-				expect(
-					await client.setAccount({
-						address: token,
-						deployedBytecode: MOCKERC20_BYTECODE,
-					}),
-				).toEqual({})
+			it(
+				`Should properly track state with a ${clientName}`,
+				async () => {
+					// Set the token contract
+					const from = `0x${'69'.repeat(20)}` as const
+					const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'
+					console.log('setting accounts...')
+					expect(
+						await client.setAccount({
+							address: token,
+							deployedBytecode: MOCKERC20_BYTECODE,
+						}),
+					).toEqual({})
+					expect(
+						await client.setAccount({
+							address: from,
+							balance: parseEther('1'),
+						}),
+					).toEqual({})
 
-				const amount = BigInt(1e18)
-				// Mint tokens
-				const { errors: mintErrors } = await client.contract({
-					caller,
-					to: token,
-					abi: MOCKERC20_ABI,
-					functionName: 'mint',
-					args: [caller, amount],
-					createTransaction: true,
-				})
-				expect(mintErrors).toBeUndefined()
+					const amount = BigInt(1e18)
+					console.log('minting tokens...')
+					// Mint tokens
+					const {
+						errors: mintErrors,
+						txHash,
+						executionGasUsed,
+					} = await client.contract({
+						from,
+						to: token,
+						abi: MOCKERC20_ABI,
+						functionName: 'mint',
+						args: [from, amount],
+						createTransaction: true,
+					})
+					expect(mintErrors).toBeUndefined()
+					expect(txHash?.startsWith('0x')).toBe(true)
+					expect(executionGasUsed).toBe(46495n)
 
-				// Check balance of caller
-				const { data: balanceIncluded, errors: contractErrors } = await client.contract({
-					caller,
-					to: token,
-					abi: MOCKERC20_ABI,
-					functionName: 'balanceOf',
-					args: [caller],
-					createTransaction: true,
-				})
+					console.log('mining block...')
+					const { blockHashes, errors } = await client.mine()
 
-				expect(contractErrors).toBeUndefined()
-				expect(balanceIncluded).toBe(amount)
+					expect(errors).toBeUndefined()
+					expect(blockHashes).toHaveLength(1)
 
-				const { data: balanceNotIncluded, errors: contractErrors2 } = await client.contract({
-					caller,
-					to: token,
-					abi: MOCKERC20_ABI,
-					functionName: 'balanceOf',
-					args: [caller],
-					// createTransaction: true,
-				})
+					const rm = await client.getReceiptsManager()
+					const vm = await client.getVm()
 
-				expect(contractErrors2).toBeUndefined()
-				expect(balanceNotIncluded).toBe(amount)
-			})
+					const block = await vm.blockchain.getBlock(hexToBytes(blockHashes?.[0] as Hex))
+					expect(block).toBe(await vm.blockchain.getCanonicalHeadBlock())
+
+					expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toBe(txHash as Hex)
+					expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
+
+					console.log('checking balanceOf...')
+					const { data: balanceNotIncluded, errors: contractErrors2 } = await client.contract({
+						to: token,
+						abi: MOCKERC20_ABI,
+						functionName: 'balanceOf',
+						args: [from],
+						// createTransaction: true,
+					})
+
+					console.log('checking balanceOf createTransaction=true...')
+					// Check balance of caller
+					const { data: balanceIncluded, errors: contractErrors } = await client.contract({
+						from,
+						to: token,
+						abi: MOCKERC20_ABI,
+						functionName: 'balanceOf',
+						args: [from],
+						createTransaction: true,
+					})
+
+					expect(contractErrors2).toBeUndefined()
+					expect(contractErrors).toBeUndefined()
+					expect(balanceIncluded).toBe(amount)
+					expect(balanceNotIncluded).toBe(amount)
+				},
+				{ timeout: 60_000 },
+			)
 		}
 	})
 })

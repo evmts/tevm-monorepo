@@ -6,7 +6,7 @@
 
 # Function: commit()
 
-> **commit**(`baseState`): () => `Promise`\<`void`\>
+> **commit**(`baseState`): (`createNewStateRoot`?) => `Promise`\<`void`\>
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
@@ -17,16 +17,26 @@ last call to checkpoint.
 
 ## Returns
 
-> > (): `Promise`\<`void`\>
+> > (`createNewStateRoot`?): `Promise`\<`void`\>
+>
+> Commits the current state.
+>
+> ### Parameters
+>
+> ▪ **createNewStateRoot?**: `boolean`
+>
+> Whether to create a new state root
+> Defaults to true.
+> This api is not stable
 >
 > ### Source
 >
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
+> packages/state/dist/index.d.ts:146
 >
 
 ## Source
 
-packages/state/types/actions/commit.d.ts:6
+packages/state/dist/index.d.ts:210
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

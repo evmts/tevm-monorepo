@@ -73,7 +73,7 @@ export class BlockBuilder {
 
 	constructor(vm: BaseVm, opts: BuildBlockOpts) {
 		this.vm = vm
-		this.blockOpts = { putBlockIntoBlockchain: true, ...opts.blockOpts, common: this.vm.common }
+		this.blockOpts = { putBlockIntoBlockchain: true, common: this.vm.common, freeze: false, ...opts.blockOpts }
 
 		this.headerData = {
 			...opts.headerData,
@@ -339,6 +339,7 @@ export class BlockBuilder {
 		const block = Block.fromBlockData(blockData, blockOpts)
 
 		block.transactions.forEach((tx) => {
+			tx.isSigned = () => true
 			tx.hash = () => {
 				try {
 					return tx.hash()
@@ -396,6 +397,7 @@ export type BuildBlock = (opts: BuildBlockOpts) => Promise<BlockBuilder>
 export const buildBlock =
 	(vm: BaseVm): BuildBlock =>
 	async (opts) => {
+		await vm.ready()
 		const blockBuilder = new BlockBuilder(vm, opts)
 		await blockBuilder.initState()
 		return blockBuilder

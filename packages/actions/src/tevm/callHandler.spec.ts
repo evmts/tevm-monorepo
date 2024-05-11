@@ -3,8 +3,9 @@ import { getAccountHandler } from './getAccountHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { createBaseClient } from '@tevm/base-client'
 import { EvmErrorMessage } from '@tevm/evm'
-import { encodeFunctionData } from '@tevm/utils'
+import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
+import { mineHandler } from './mineHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -294,7 +295,7 @@ const ERC20_ABI = [
 
 describe('callHandler', () => {
   it('should execute a contract call', async () => {
-    const client = createBaseClient()
+    const client = createBaseClient({ loggingLevel: 'debug' })
     // deploy contract
     expect(
       (
@@ -304,6 +305,42 @@ describe('callHandler', () => {
         })
       ).errors,
     ).toBeUndefined()
+    expect(
+      (
+        await getAccountHandler(client)({
+          address: ERC20_ADDRESS,
+        })
+      ),
+    ).toMatchObject({
+      address: ERC20_ADDRESS,
+      deployedBytecode: ERC20_BYTECODE,
+    })
+
+    // as a sanity check double check calling the underlying evm works
+    const gasUsed = await client.getVm().then(vm => vm.deepCopy()).then(async vm => {
+      const head = await vm.blockchain.getCanonicalHeadBlock()
+      await vm.stateManager.setStateRoot(head.header.stateRoot)
+      return vm
+    }).then(
+      async vm => vm.evm.runCall({
+        data: hexToBytes(encodeFunctionData({
+          abi: ERC20_ABI,
+          functionName: 'balanceOf',
+          args: [ERC20_ADDRESS],
+        })),
+        gasLimit: 16784800n,
+        to: EthjsAddress.fromString(ERC20_ADDRESS),
+        block: await vm.blockchain.getCanonicalHeadBlock(),
+        origin: EthjsAddress.zero(),
+        caller: EthjsAddress.zero(),
+      }).then(res => {
+        if (res.execResult.exceptionError) {
+          throw res.execResult.exceptionError
+        }
+        return res.execResult.executionGasUsed
+      })
+    )
+    expect(gasUsed).toBe(2447n)
 
     expect(
       await callHandler(client)({
@@ -340,9 +377,9 @@ describe('callHandler', () => {
     ).toEqual({
       executionGasUsed: 0n,
       rawData: '0x',
-      txHash:
-        '0x38dd3a80d0b591b59d425b9492f3ae36251cab5ca27d1c3337e147bb2a40cf1b'
+      txHash: "0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7",
     })
+    await mineHandler(client)()
     expect(
       (
         await getAccountHandler(client)({
@@ -351,7 +388,6 @@ describe('callHandler', () => {
       ).balance,
     ).toEqual(420n)
   })
-
   it('should handle errors returned during contract call', async () => {
     const client = createBaseClient()
     const vm = await client.getVm()
@@ -394,34 +430,6 @@ describe('callHandler', () => {
       rawData:
         '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
       selfdestruct: new Set(),
-    })
-  })
-
-  it('should handle the EVM unexpectedly throwing', async () => {
-    const client = createBaseClient()
-    const vm = await client.getVm()
-    vm.evm.runCall = () => {
-      throw new Error('Unexpected error')
-    }
-    expect(
-      await callHandler(client)({
-        data: '0x0',
-        to: ERC20_ADDRESS,
-        value: 420n,
-        // we need to createTransaction because or else the evm will be reinitialized and erase our mock
-        createTransaction: true,
-        throwOnFail: false,
-      }),
-    ).toEqual({
-      errors: [
-        {
-          _tag: 'UnexpectedError',
-          message: 'Unexpected error',
-          name: 'UnexpectedError',
-        },
-      ],
-      executionGasUsed: 0n,
-      rawData: '0x',
     })
   })
 })

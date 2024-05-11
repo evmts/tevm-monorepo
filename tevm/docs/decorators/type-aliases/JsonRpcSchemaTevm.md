@@ -69,7 +69,7 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.ReturnType
 
-> **tevm\_dumpState.ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<`DumpStateResult`\<`never`\>\>
+> **tevm\_dumpState.ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`DumpStateResult`](../../actions-types/type-aliases/DumpStateResult.md)\<`never`\>\>
 
 ### tevm\_getAccount
 
@@ -130,7 +130,7 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.ReturnType
 
-> **tevm\_loadState.ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<`LoadStateResult`\<`never`\>\>
+> **tevm\_loadState.ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`LoadStateResult`](../../actions-types/type-aliases/LoadStateResult.md)\<`never`\>\>
 
 ### tevm\_script
 
@@ -196,7 +196,7 @@ r
 
 ## Source
 
-packages/decorators/dist/index.d.ts:325
+packages/decorators/dist/index.d.ts:303
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

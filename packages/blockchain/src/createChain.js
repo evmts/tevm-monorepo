@@ -17,9 +17,8 @@ export const createChain = async (options) => {
 	 * @param {import('./BaseChain.js').BaseChain} baseChain
 	 */
 	const decorate = (baseChain) => {
-		return {
-			...baseChain,
-			deepCopy: () => decorate(deepCopy(baseChain)()),
+		return Object.assign(baseChain, {
+			deepCopy: async () => decorate(await deepCopy(baseChain)()),
 			shallowCopy: () => decorate(shallowCopy(baseChain)()),
 			getBlock: getBlock(baseChain),
 			putBlock: putBlock(baseChain),
@@ -29,18 +28,17 @@ export const createChain = async (options) => {
 			getIteratorHead: getIteratorHead(baseChain),
 			setIteratorHead: setIteratorHead(baseChain),
 			/**
+			 * Unused but part of interface
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
 			 */
-			get consensus() {
-				throw new Error('consensus is not implemented')
-			},
+			consensus: /** @type {any}*/ ({}),
 			/**
 			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
 			 */
-			get iterator() {
+			iterator: () => {
 				throw new Error('iterator is not implemented')
 			},
-		}
+		})
 	}
 	return decorate(createBaseChain(options))
 }

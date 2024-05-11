@@ -3,7 +3,7 @@
  * @param {import("../BaseState.js").BaseState} baseState
  * @returns {undefined | {blockTag: import("viem").BlockTag} | { blockNumber: bigint}}
  */
-export const getForkBlockTag = ({ _options: { fork } }) => {
+export const getForkBlockTag = ({ options: { fork } }) => {
 	if (!fork) {
 		return undefined
 	}

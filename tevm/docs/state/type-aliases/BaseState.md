@@ -12,31 +12,43 @@ The core data structure powering the state manager internally
 
 ## Type declaration
 
-### \_caches
+### caches
 
-> **\_caches**: [`StateCache`](StateCache.md)
+> **caches**: [`StateCache`](StateCache.md)
 
-### \_currentStateRoot
+### getCurrentStateRoot
 
-> **\_currentStateRoot**: `Uint8Array`
+> **getCurrentStateRoot**: () => [`Hex`](../../index/type-aliases/Hex.md)
 
-### \_options
+### logger
 
-> **\_options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+> **logger**: `Logger`
 
-### \_stateRoots
+### options
 
-> **\_stateRoots**: [`StateRoots`](StateRoots.md)
-
-Mapping of hashes to State roots
+> **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
 
 ### ready
 
 > **ready**: () => `Promise`\<`true`\>
 
+### setCurrentStateRoot
+
+> **setCurrentStateRoot**: (`newStateRoot`) => `void`
+
+#### Parameters
+
+▪ **newStateRoot**: [`Hex`](../../index/type-aliases/Hex.md)
+
+### stateRoots
+
+> **stateRoots**: [`StateRoots`](StateRoots.md)
+
+Mapping of hashes to State roots
+
 ## Source
 
-packages/state/types/BaseState.d.ts:6
+packages/state/dist/index.d.ts:102
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

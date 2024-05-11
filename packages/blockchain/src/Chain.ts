@@ -19,7 +19,7 @@ export type Chain = {} & BaseChain & {
 		 * Returns a shallow copy of the blockchain that may share state with the original
 		 */
 		shallowCopy: () => Chain
-		deepCopy: () => Chain
+		deepCopy: () => Promise<Chain>
 		consensus: Consensus
 		/**
 		 * Adds a block to the blockchain.

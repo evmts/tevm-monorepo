@@ -42,7 +42,7 @@ filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
 					return true
 				}),
 			},
-			{ common, setHardfork: false, freeze: true, skipConsensusFormatValidation: true },
+			{ common, setHardfork: false, freeze: false, skipConsensusFormatValidation: true },
 		)
 	}
 	// TODO handle errors from fetch better

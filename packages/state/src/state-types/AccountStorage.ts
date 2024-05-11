@@ -6,5 +6,6 @@ export interface AccountStorage {
 	balance: bigint
 	storageRoot: Hex
 	codeHash: Hex
+	deployedBytecode?: Hex
 	storage?: StorageDump
 }

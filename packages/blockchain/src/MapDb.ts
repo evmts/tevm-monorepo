@@ -1,3 +1,5 @@
+import type { Hex } from '@tevm/utils'
+
 // this type is from ethereumjs and not all options are guaranteed to be used
 export type DbType =
 	| 'Receipts'
@@ -9,7 +11,7 @@ export type DbType =
 	| 'Preimage'
 
 export interface MetaDBManagerOptions {
-	cache: Map<string | Uint8Array, Uint8Array>
+	cache: Map<Hex, Uint8Array>
 }
 
 /**

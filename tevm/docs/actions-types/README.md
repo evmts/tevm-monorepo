@@ -53,6 +53,7 @@
 - [AnvilStopImpersonatingAccountResult](type-aliases/AnvilStopImpersonatingAccountResult.md)
 - [BaseCallParams](type-aliases/BaseCallParams.md)
 - [Block](type-aliases/Block.md)
+- [BlockOverrideSet](type-aliases/BlockOverrideSet.md)
 - [BlockResult](type-aliases/BlockResult.md)
 - [BlockTag](type-aliases/BlockTag.md)
 - [CallHandler](type-aliases/CallHandler.md)
@@ -192,6 +193,7 @@
 - [NetworkConfig](type-aliases/NetworkConfig.md)
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
+- [StateOverrideSet](type-aliases/StateOverrideSet.md)
 - [StructLog](type-aliases/StructLog.md)
 - [TraceType](type-aliases/TraceType.md)
 - [TransactionParams](type-aliases/TransactionParams.md)
@@ -209,6 +211,9 @@
 - [ContractResult](README.md#contractresult)
 - [GetAccountParams](README.md#getaccountparams)
 - [GetAccountResult](README.md#getaccountresult)
+- [MineHandler](README.md#minehandler)
+- [MineParams](README.md#mineparams)
+- [MineResult](README.md#mineresult)
 - [ScriptParams](README.md#scriptparams)
 - [ScriptResult](README.md#scriptresult)
 - [SetAccountParams](README.md#setaccountparams)
@@ -258,6 +263,24 @@ Re-exports [GetAccountParams](../index/type-aliases/GetAccountParams.md)
 ### GetAccountResult
 
 Re-exports [GetAccountResult](../index/type-aliases/GetAccountResult.md)
+
+***
+
+### MineHandler
+
+Re-exports [MineHandler](../index/type-aliases/MineHandler.md)
+
+***
+
+### MineParams
+
+Re-exports [MineParams](../index/type-aliases/MineParams.md)
+
+***
+
+### MineResult
+
+Re-exports [MineResult](../index/type-aliases/MineResult.md)
 
 ***
 

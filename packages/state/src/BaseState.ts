@@ -1,3 +1,5 @@
+import type { Logger } from '@tevm/logger'
+import type { Hex } from '@tevm/utils'
 import type { StateCache, StateOptions, StateRoots } from './state-types/index.js'
 
 /**
@@ -7,11 +9,13 @@ import type { StateCache, StateOptions, StateRoots } from './state-types/index.j
 export type BaseState = {
 	// Returns true when ready
 	ready: () => Promise<true>
+	logger: Logger
 	/**
 	 * Mapping of hashes to State roots
 	 */
-	_stateRoots: StateRoots
-	_currentStateRoot: Uint8Array
-	_options: StateOptions
-	_caches: StateCache
+	stateRoots: StateRoots
+	options: StateOptions
+	caches: StateCache
+	getCurrentStateRoot: () => Hex
+	setCurrentStateRoot: (newStateRoot: Hex) => void
 }

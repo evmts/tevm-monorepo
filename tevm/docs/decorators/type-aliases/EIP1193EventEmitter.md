@@ -32,7 +32,7 @@ True if the event was emitted, false otherwise.
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1605
+packages/decorators/dist/index.d.ts:1583
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

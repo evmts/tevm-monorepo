@@ -1,6 +1,7 @@
 import type { Block } from '@tevm/block'
 import type { Common } from '@tevm/common'
-import type { BlockTag } from '@tevm/utils'
+import type { Logger } from '@tevm/logger'
+import type { BlockTag, Hex } from '@tevm/utils'
 import type { ChainOptions } from './ChainOptions.js'
 
 /**
@@ -15,7 +16,7 @@ export type BaseChain = {
 	/**
 	 * Mapping of block hashes to blocks
 	 */
-	blocks: Map<Uint8Array, Block | undefined>
+	blocks: Map<Hex, Block | undefined>
 	/**
 	 * Mapping of named block tags such as 'latest' to blocks
 	 */
@@ -28,4 +29,8 @@ export type BaseChain = {
 	 * Returns a promise that resolves when the chain is ready
 	 */
 	ready: () => Promise<true>
+	/**
+	 * Logger
+	 */
+	logger: Logger
 }

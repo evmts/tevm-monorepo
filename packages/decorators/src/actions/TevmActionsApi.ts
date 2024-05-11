@@ -4,6 +4,7 @@ import type {
 	DumpStateHandler,
 	GetAccountHandler,
 	LoadStateHandler,
+	MineHandler,
 	ScriptHandler,
 	SetAccountHandler,
 } from '@tevm/actions-types'
@@ -134,4 +135,8 @@ export type TevmActionsApi = {
 	 * ```
 	 */
 	loadState: LoadStateHandler
+	/**
+	 * Mines 1 or more blocks
+	 */
+	mine: MineHandler
 }

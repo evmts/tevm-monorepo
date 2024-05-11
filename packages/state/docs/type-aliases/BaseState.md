@@ -12,31 +12,43 @@ The core data structure powering the state manager internally
 
 ## Type declaration
 
-### \_caches
+### caches
 
-> **\_caches**: [`StateCache`](StateCache.md)
+> **caches**: [`StateCache`](StateCache.md)
 
-### \_currentStateRoot
+### getCurrentStateRoot
 
-> **\_currentStateRoot**: `Uint8Array`
+> **getCurrentStateRoot**: () => `Hex`
 
-### \_options
+### logger
 
-> **\_options**: [`StateOptions`](StateOptions.md)
+> **logger**: `Logger`
 
-### \_stateRoots
+### options
 
-> **\_stateRoots**: [`StateRoots`](StateRoots.md)
-
-Mapping of hashes to State roots
+> **options**: [`StateOptions`](StateOptions.md)
 
 ### ready
 
 > **ready**: () => `Promise`\<`true`\>
 
+### setCurrentStateRoot
+
+> **setCurrentStateRoot**: (`newStateRoot`) => `void`
+
+#### Parameters
+
+▪ **newStateRoot**: `Hex`
+
+### stateRoots
+
+> **stateRoots**: [`StateRoots`](StateRoots.md)
+
+Mapping of hashes to State roots
+
 ## Source
 
-[packages/state/src/BaseState.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L7)
+[packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

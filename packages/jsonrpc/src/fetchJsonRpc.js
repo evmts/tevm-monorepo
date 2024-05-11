@@ -65,7 +65,6 @@ export const createJsonRpcFetcher = (
 			}
 			try {
 				const out = await res.json()
-				console.log(out)
 				if (typeof out !== 'object') {
 					throw new Error('JSON-RPC response was not an object')
 				}

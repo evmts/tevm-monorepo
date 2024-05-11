@@ -44,6 +44,7 @@ export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
 export const runBlock =
 	(vm: BaseVm): RunBlock =>
 	async (opts) => {
+		await vm.ready()
 		const state = vm.stateManager
 
 		const { root } = opts

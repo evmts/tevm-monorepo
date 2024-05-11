@@ -19,6 +19,7 @@
 - [zGetAccountParams](variables/zGetAccountParams.md)
 - [zHex](variables/zHex.md)
 - [zJsonRpcRequest](variables/zJsonRpcRequest.md)
+- [zMineParams](variables/zMineParams.md)
 - [zNetworkConfig](variables/zNetworkConfig.md)
 - [zScriptParams](variables/zScriptParams.md)
 - [zSetAccountParams](variables/zSetAccountParams.md)
@@ -32,6 +33,7 @@
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)
+- [validateMineParams](functions/validateMineParams.md)
 - [validateScriptParams](functions/validateScriptParams.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
 

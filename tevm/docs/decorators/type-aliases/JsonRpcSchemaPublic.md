@@ -1219,7 +1219,7 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 
 ## Source
 
-packages/decorators/dist/index.d.ts:794
+packages/decorators/dist/index.d.ts:772
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

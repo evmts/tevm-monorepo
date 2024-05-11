@@ -12,3 +12,4 @@ export type {
 	DebugTraceCallResult,
 	DebugTraceTransactionResult,
 } from './DebugResult.js'
+export type { MineResult } from './MineResult.js'

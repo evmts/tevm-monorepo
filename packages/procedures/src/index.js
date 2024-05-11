@@ -8,6 +8,7 @@ export {
 	contractProcedure,
 	dumpStateProcedure,
 	loadStateProcedure,
+	mineProcedure,
 } from './tevm/index.js'
 export {
 	blockNumberProcedure,

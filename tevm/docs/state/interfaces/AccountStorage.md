@@ -14,7 +14,7 @@
 
 #### Source
 
-packages/state/types/state-types/AccountStorage.d.ts:5
+packages/state/dist/index.d.ts:11
 
 ***
 
@@ -24,7 +24,17 @@ packages/state/types/state-types/AccountStorage.d.ts:5
 
 #### Source
 
-packages/state/types/state-types/AccountStorage.d.ts:7
+packages/state/dist/index.d.ts:13
+
+***
+
+### deployedBytecode
+
+> **deployedBytecode**?: \`0x${string}\`
+
+#### Source
+
+packages/state/dist/index.d.ts:14
 
 ***
 
@@ -34,7 +44,7 @@ packages/state/types/state-types/AccountStorage.d.ts:7
 
 #### Source
 
-packages/state/types/state-types/AccountStorage.d.ts:4
+packages/state/dist/index.d.ts:10
 
 ***
 
@@ -44,7 +54,7 @@ packages/state/types/state-types/AccountStorage.d.ts:4
 
 #### Source
 
-packages/state/types/state-types/AccountStorage.d.ts:8
+packages/state/dist/index.d.ts:15
 
 ***
 
@@ -54,7 +64,7 @@ packages/state/types/state-types/AccountStorage.d.ts:8
 
 #### Source
 
-packages/state/types/state-types/AccountStorage.d.ts:6
+packages/state/dist/index.d.ts:12
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

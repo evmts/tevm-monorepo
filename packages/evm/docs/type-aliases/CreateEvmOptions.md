@@ -97,6 +97,12 @@ const tevm = createMemoryClient({
 })
 ```
 
+### loggingLevel
+
+> **loggingLevel**?: `LogOptions`[`"level"`]
+
+The logging level to run the evm at. Defaults to 'warn'
+
 ### profiler
 
 > **profiler**?: `boolean`
@@ -111,7 +117,7 @@ A custom Tevm state manager
 
 ## Source
 
-[packages/evm/src/CreateEvmOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L7)
+[packages/evm/src/CreateEvmOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

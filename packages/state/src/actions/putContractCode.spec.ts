@@ -10,7 +10,9 @@ const deployedBytecode =
 
 describe(putContractCode.name, () => {
 	it('should put account into account cache', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 

@@ -16,7 +16,6 @@ const formatBlockTag = (blockTag) => {
 }
 
 /**
- * @deprecated in favor of the viem transport
  * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  * @example
@@ -120,14 +119,29 @@ export const tevmViemExtension = () => {
 					}),
 				)
 			)
-			out.data = decodeFunctionResult(
-				/** @type any*/ ({
-					data: out.rawData,
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
-				}),
-			)
+			try {
+				out.data = decodeFunctionResult(
+					/** @type any*/ ({
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+			} catch (e) {
+				if (out.rawData === '0x') {
+					throw new Error('UnexpectedError: data is 0x')
+				}
+				console.error('Unable to decode function data', {
+					input: {
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					},
+				})
+				throw e
+			}
 			return out
 		}
 
@@ -217,6 +231,7 @@ export const tevmViemExtension = () => {
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
+				console.error(response.error)
 				throw new Error('No result in response')
 			}
 			const { result } = response
@@ -247,15 +262,25 @@ export const tevmViemExtension = () => {
 					}),
 				),
 			})
-
-			const data = decodeFunctionResult(
-				/** @type any*/ ({
-					data: out.rawData,
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
-				}),
-			)
+			/**
+			 * @type {any}
+			 */
+			let data
+			try {
+				data = decodeFunctionResult(
+					/** @type any*/ ({
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+			} catch (e) {
+				if (out.rawData === '0x') {
+					console.error('UnexpectedError: data is 0x')
+				}
+				throw e
+			}
 			return /** @type any*/ ({
 				...out,
 				rawData: out.rawData,

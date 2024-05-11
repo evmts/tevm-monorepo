@@ -5,7 +5,9 @@ import { dumpStorage } from './dumpStorage.js'
 
 describe(dumpStorage.name, () => {
 	it('should dump storage from a given contract address', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 
@@ -14,8 +16,8 @@ describe(dumpStorage.name, () => {
 		const value0 = hexToBytes('0x42')
 		const value1 = hexToBytes('0x69')
 
-		baseState._caches.storage.put(address, key0, value0)
-		baseState._caches.storage.put(address, key1, value1)
+		baseState.caches.storage.put(address, key0, value0)
+		baseState.caches.storage.put(address, key1, value1)
 
 		expect(await dumpStorage(baseState)(address)).toEqual({
 			'00': '0x42',

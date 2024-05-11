@@ -6,69 +6,21 @@
 
 # Interface: StateManager
 
-The core data structure powering the state manager internally
-
 ## Extends
 
-- `EVMStateManagerInterface`.[`BaseState`](../type-aliases/BaseState.md)
+- `EVMStateManagerInterface`
 
 ## Properties
 
-### \_caches
+### \_baseState
 
-> **\_caches**: [`StateCache`](../type-aliases/StateCache.md)
+> **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-#### Inherited from
-
-BaseState.\_caches
+The internal state representation
 
 #### Source
 
-packages/state/types/BaseState.d.ts:14
-
-***
-
-### \_currentStateRoot
-
-> **\_currentStateRoot**: `Uint8Array`
-
-#### Inherited from
-
-BaseState.\_currentStateRoot
-
-#### Source
-
-packages/state/types/BaseState.d.ts:12
-
-***
-
-### \_options
-
-> **\_options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
-
-#### Inherited from
-
-BaseState.\_options
-
-#### Source
-
-packages/state/types/BaseState.d.ts:13
-
-***
-
-### \_stateRoots
-
-> **\_stateRoots**: [`StateRoots`](../type-aliases/StateRoots.md)
-
-Mapping of hashes to State roots
-
-#### Inherited from
-
-BaseState.\_stateRoots
-
-#### Source
-
-packages/state/types/BaseState.d.ts:11
+packages/state/dist/index.d.ts:119
 
 ***
 
@@ -80,7 +32,7 @@ Returns contract addresses
 
 #### Source
 
-packages/state/types/StateManager.d.ts:9
+packages/state/dist/index.d.ts:124
 
 ***
 
@@ -114,13 +66,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **ready**: () => `Promise`\<`true`\>
 
-#### Inherited from
-
-BaseState.ready
-
 #### Source
 
-packages/state/types/BaseState.d.ts:7
+packages/state/dist/index.d.ts:120
 
 ## Methods
 
@@ -146,7 +94,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/StateManager.d.ts:21
+packages/state/dist/index.d.ts:136
 
 ***
 
@@ -170,15 +118,25 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ### commit()
 
-> **commit**(): `Promise`\<`void`\>
+> **commit**(`createNewStateRoot`?): `Promise`\<`void`\>
 
-#### Inherited from
+Commits the current state.
+
+#### Parameters
+
+▪ **createNewStateRoot?**: `boolean`
+
+Whether to create a new state root
+Defaults to true.
+This api is not stable
+
+#### Overrides
 
 EvmStateManagerInterface.commit
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
+packages/state/dist/index.d.ts:146
 
 ***
 
@@ -190,7 +148,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/types/StateManager.d.ts:13
+packages/state/dist/index.d.ts:128
 
 ***
 
@@ -220,7 +178,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 #### Source
 
-packages/state/types/StateManager.d.ts:17
+packages/state/dist/index.d.ts:132
 
 ***
 
@@ -501,6 +459,25 @@ EvmStateManagerInterface.revert
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
+
+***
+
+### saveStateRoot()
+
+> **saveStateRoot**(`root`, `state`): `void`
+
+Saves a state root to the state root mapping
+THis API is considered unstable
+
+#### Parameters
+
+▪ **root**: `Uint8Array`
+
+▪ **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
+
+#### Source
+
+packages/state/dist/index.d.ts:142
 
 ***
 

@@ -6,7 +6,9 @@ import { putAccount } from './putAccount.js'
 
 describe(putAccount.name, () => {
 	it('should put account into account cache', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n
@@ -22,7 +24,9 @@ describe(putAccount.name, () => {
 	})
 
 	it('should delete account of account is undefined', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n

@@ -26,54 +26,60 @@ import {
 	shallowCopy,
 } from './actions/index.js'
 import { originalStorageCache } from './actions/originalStorageCache.js'
+import { saveStateRoot } from './actions/saveStateRoot.js'
 import { createBaseState } from './createBaseState.js'
 
 /**
- * @param {import('./state-types/StateOptions.js').StateOptions} [options]
+ * @param {import('./state-types/StateOptions.js').StateOptions} options
  * @returns {import('./StateManager.js').StateManager}
  */
-export const createStateManager = (options = {}) => {
-	const baseState = createBaseState(options)
-	/**
-	 * @param {import('./BaseState.js').BaseState} baseState
-	 * @returns {import('./StateManager.js').StateManager}
-	 */
-	const decorate = (baseState) => {
-		return {
-			...baseState,
-			deepCopy: async () => {
-				return decorate(await deepCopy(baseState)())
-			},
-			shallowCopy: () => {
-				return decorate(shallowCopy(baseState)())
-			},
-			dumpCanonicalGenesis: dumpCanonicalGenesis(baseState),
-			generateCanonicalGenesis: generateCanonicalGenesis(baseState),
-			putAccount: putAccount(baseState),
-			clearCaches: clearCaches(baseState),
-			commit: commit(baseState),
-			checkpoint: checkpoint(baseState),
-			revert: revert(baseState),
-			getProof: getProof(baseState),
-			getContractCode: getContractCode(baseState),
-			getAccount: getAccount(baseState),
-			dumpStorage: dumpStorage(baseState),
-			getStateRoot: getStateRoot(baseState),
-			hasStateRoot: hasStateRoot(baseState),
-			setStateRoot: setStateRoot(baseState),
-			deleteAccount: deleteAccount(baseState),
-			putContractCode: putContractCode(baseState),
-			dumpStorageRange: dumpStorageRange(baseState),
-			getContractStorage: getContractStorage(baseState),
-			putContractStorage: putContractStorage(baseState),
-			modifyAccountFields: modifyAccountFields(baseState),
-			clearContractStorage: clearContractStorage(baseState),
-			getAccountAddresses: getAccountAddresses(baseState),
-			// Unused provided to fulfill interface
-			getAppliedKey: /** @type {any}*/ (getAppliedKey(baseState)),
-			originalStorageCache: originalStorageCache(baseState),
-		}
-	}
+export const createStateManager = (options) => {
+	return decorate(createBaseState(options))
+}
 
-	return decorate(baseState)
+/**
+ * @param {import('./BaseState.js').BaseState} state
+ * @returns {import('./StateManager.js').StateManager}
+ */
+const decorate = (state) => {
+	/**
+	 * @type {import('./StateManager.js').StateManager}
+	 */
+	const wrappedState = {
+		ready: state.ready,
+		_baseState: state,
+		deepCopy: async () => {
+			return decorate(await deepCopy(state)())
+		},
+		shallowCopy: () => {
+			return decorate(shallowCopy(state)())
+		},
+		dumpCanonicalGenesis: () => dumpCanonicalGenesis(state)(),
+		generateCanonicalGenesis: generateCanonicalGenesis(state),
+		putAccount: putAccount(state),
+		clearCaches: clearCaches(state),
+		commit: commit(state),
+		checkpoint: checkpoint(state),
+		revert: revert(state),
+		getProof: getProof(state),
+		getContractCode: getContractCode(state),
+		getAccount: getAccount(state),
+		dumpStorage: dumpStorage(state),
+		getStateRoot: getStateRoot(state),
+		hasStateRoot: hasStateRoot(state),
+		setStateRoot: setStateRoot(state),
+		saveStateRoot: saveStateRoot(state),
+		deleteAccount: deleteAccount(state),
+		putContractCode: putContractCode(state),
+		dumpStorageRange: dumpStorageRange(state),
+		getContractStorage: getContractStorage(state),
+		putContractStorage: putContractStorage(state),
+		modifyAccountFields: modifyAccountFields(state),
+		clearContractStorage: clearContractStorage(state),
+		getAccountAddresses: getAccountAddresses(state),
+		// Unused provided to fulfill interface
+		getAppliedKey: /** @type {any}*/ (getAppliedKey(state)),
+		originalStorageCache: originalStorageCache(state),
+	}
+	return wrappedState
 }

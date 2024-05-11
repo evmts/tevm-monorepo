@@ -12,7 +12,7 @@ import { putContractStorage } from './putContractStorage.js'
  */
 export const getContractStorage = (baseState) => async (address, key) => {
 	const {
-		_caches: { storage: storageCache },
+		caches: { storage: storageCache },
 	} = baseState
 	// Check storage slot in cache
 	if (key.length !== 32) {
@@ -24,9 +24,11 @@ export const getContractStorage = (baseState) => async (address, key) => {
 		return cachedValue
 	}
 
-	if (!baseState._options.fork?.url) {
+	if (!baseState.options.fork?.url) {
 		return hexToBytes('0x0')
 	}
+
+	baseState.logger.debug({ address, key }, 'Fetching storage from remote RPC')
 
 	const client = getForkClient(baseState)
 	const blockTag = getForkBlockTag(baseState)
@@ -39,6 +41,8 @@ export const getContractStorage = (baseState) => async (address, key) => {
 	const value = hexToBytes(storage ?? '0x0')
 
 	await putContractStorage(baseState)(address, key, value)
+
+	baseState.logger.debug({ address, key, value }, 'Cached forked storage to state')
 
 	return value
 }

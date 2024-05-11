@@ -22,7 +22,7 @@ Resets all internal caches
 >
 > ### Source
 >
-> [packages/state/src/StateManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L22)
+> [packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
 >
 
 ## Source

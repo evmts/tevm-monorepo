@@ -22,12 +22,12 @@ Resets all internal caches
 >
 > ### Source
 >
-> packages/state/types/StateManager.d.ts:21
+> packages/state/dist/index.d.ts:136
 >
 
 ## Source
 
-packages/state/types/actions/clearCaches.d.ts:5
+packages/state/dist/index.d.ts:197
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

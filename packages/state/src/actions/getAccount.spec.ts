@@ -6,7 +6,9 @@ import { putAccount } from './putAccount.js'
 
 describe(getAccount.name, () => {
 	it('Should get an account', async () => {
-		const baseState = createBaseState()
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n

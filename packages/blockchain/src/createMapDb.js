@@ -1,6 +1,6 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
-import { concatBytes, hexToBytes, numberToHex } from '@tevm/utils'
+import { concatBytes, hexToBytes, numberToHex, toHex } from '@tevm/utils'
 
 /**
  * Only append new items to the bottom of the list to
@@ -25,14 +25,15 @@ export const createMapDb = ({ cache }) => {
 	/**
 	 * @param {import('./MapDb.js').DbType} type
 	 * @param {Uint8Array} key
-	 * @returns {Uint8Array}
+	 * @returns {import('@tevm/utils').Hex}
 	 */
 	const dbKey = (type, key) => {
 		// TODO add numberToBytes to utils
-		return concatBytes(hexToBytes(numberToHex(typeToId[type])), key)
+		return toHex(concatBytes(hexToBytes(numberToHex(typeToId[type])), key))
 	}
 
 	return {
+		...{ _cache: cache },
 		put(type, hash, value) {
 			cache.set(dbKey(type, hash), value)
 			return Promise.resolve()

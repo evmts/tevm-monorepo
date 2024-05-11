@@ -30,13 +30,17 @@ test('Call precompile from solidity script', async () => {
 
 	const client = createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
+		loggingLevel: 'trace',
 	})
 
-	const result = await client.script(WriteHelloWorld.write.write(fsPrecompile.contract.address))
-
-	expect(result.errors).toBeUndefined()
+	const result = await client.script({
+		...WriteHelloWorld.write.write(fsPrecompile.contract.address),
+		throwOnFail: false,
+	})
 
 	expect(existsSync('test.txt')).toBe(true)
 
 	rmSync('test.txt')
+
+	expect(result.errors).toBeUndefined()
 })

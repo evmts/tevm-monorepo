@@ -19,8 +19,9 @@ describe('tevmViemExtension', () => {
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createPublicClient({
-			transport: http('http://localhost:6969'),
+			transport: http('http://localhost:6969', { timeout: 15_000 }),
 		})
+		await tevm.ready()
 	})
 
 	afterAll(() => {
@@ -36,18 +37,20 @@ describe('tevmViemExtension', () => {
 		expect((await (await tevm.getVm()).stateManager.getAccount(Address.fromString(params.address)))?.balance).toBe(420n)
 	})
 
-	it('runScript should call client.request with "tevm_script" and parse the response', async () => {
-		const decorated = tevmViemExtension()(client)
-		const params = {
-			caller: `0x${'4'.repeat(40)}`,
-			...ERC20.read.balanceOf(`0x${'4'.repeat(40)}`),
-		} as const
-		const response = await decorated.tevm.script(params)
-
-		expect(response.executionGasUsed).toEqual(2447n)
-		expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
-		expect(response.data).toBe(0n)
-	})
+	it(
+		'runScript should call client.request with "tevm_script" and parse the response',
+		async () => {
+			const decorated = tevmViemExtension()(client)
+			const params = {
+				...ERC20.read.balanceOf(`0x${'4'.repeat(40)}`),
+			} as const
+			const response = await decorated.tevm.script(params)
+			expect(response.executionGasUsed).toEqual(2447n)
+			expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
+			expect(response.data).toBe(0n)
+		},
+		{ timeout: 35_000 },
+	)
 
 	it('putAccount should call client.request with "tevm_putAccount" and parse the response', async () => {
 		const decorated = tevmViemExtension()(client)

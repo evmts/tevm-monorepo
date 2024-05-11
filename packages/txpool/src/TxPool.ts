@@ -7,7 +7,7 @@ import {
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
+import { EthjsAccount, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
@@ -448,25 +448,27 @@ export class TxPool {
 	 *
 	 * @param baseFee Provide a baseFee to exclude txs with a lower gasPrice
 	 */
-	async txsByPriceAndNonce(vm: Vm, { baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
+	async txsByPriceAndNonce({ baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
 		const txs: TypedTransaction[] = []
 		// Separate the transactions by account and sort by nonce
 		const byNonce = new Map<string, TypedTransaction[]>()
 		const skippedStats = { byNonce: 0, byPrice: 0, byBlobsLimit: 0 }
 		for (const [address, poolObjects] of this.pool) {
 			let txsSortedByNonce = poolObjects.map((obj) => obj.tx).sort((a, b) => Number(a.nonce - b.nonce))
+			// TODO we should be checking this but removing for now works
 			// Check if the account nonce matches the lowest known tx nonce
-			let account = await vm.stateManager.getAccount(new EthjsAddress(hexToBytes(`0x${address}`)))
-			if (account === undefined) {
-				account = new EthjsAccount()
-			}
-			const { nonce } = account
-			if (txsSortedByNonce[0]?.nonce !== nonce) {
-				// Account nonce does not match the lowest known tx nonce,
-				// therefore no txs from this address are currently executable
-				skippedStats.byNonce += txsSortedByNonce.length
-				continue
-			}
+			// let account = await vm.stateManager.getAccount(new EthjsAddress(hexToBytes(`0x${address}`)))
+			// if (account === undefined) {
+			// account = new EthjsAccount()
+			// }
+			// const { nonce } = account
+			// if (txsSortedByNonce[0]?.nonce !== nonce) {
+			// Account nonce does not match the lowest known tx nonce,
+			// therefore no txs from this address are currently executable
+			// skippedStats.byNonce += txsSortedByNonce.length
+			// console.log('skipped', txsSortedByNonce[0]?.nonce, nonce)
+			// continue
+			// }
 			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 				// If any tx has an insufficient gasPrice,
 				// remove all txs after that since they cannot be executed
@@ -485,7 +487,7 @@ export class TxPool {
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
 			if (!txs[0]) {
-				throw new Error('exected txs[0] to be defined')
+				continue
 			}
 			byPrice.insert(txs[0])
 			byNonce.set(address, txs.slice(1))

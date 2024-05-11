@@ -36,6 +36,7 @@
 - [getCodeHandler](functions/getCodeHandler.md)
 - [getStorageAtHandler](functions/getStorageAtHandler.md)
 - [loadStateHandler](functions/loadStateHandler.md)
+- [mineHandler](functions/mineHandler.md)
 - [scriptHandler](functions/scriptHandler.md)
 - [setAccountHandler](functions/setAccountHandler.md)
 - [traceCallHandler](functions/traceCallHandler.md)

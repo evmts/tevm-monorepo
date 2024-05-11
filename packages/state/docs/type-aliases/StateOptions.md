@@ -10,6 +10,10 @@
 
 ## Type declaration
 
+### currentStateRoot
+
+> **currentStateRoot**?: `Hex`
+
 ### fork
 
 > **fork**?: [`ForkOptions`](../interfaces/ForkOptions.md)
@@ -17,6 +21,12 @@
 ### genesisState
 
 > **genesisState**?: [`TevmState`](TevmState.md)
+
+### loggingLevel
+
+> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+
+Configure logging options for the client
 
 ### onCommit
 
@@ -34,7 +44,7 @@ Called when state manager commits state
 
 ## Source
 
-[packages/state/src/state-types/StateOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L6)
+[packages/state/src/state-types/StateOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

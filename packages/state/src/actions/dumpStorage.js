@@ -7,7 +7,7 @@ import { bytesToHex } from 'viem'
  * @type {import("../state-types/index.js").StateAction<'dumpStorage'>}
  */
 export const dumpStorage =
-	({ _caches: { storage } }) =>
+	({ caches: { storage } }) =>
 	(address) => {
 		const storageMap = storage.dump(address)
 		/**

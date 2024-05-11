@@ -169,7 +169,7 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L560)
+[TxPool.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L562)
 
 ***
 
@@ -241,7 +241,7 @@ Close pool
 
 #### Source
 
-[TxPool.ts:553](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L553)
+[TxPool.ts:555](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L555)
 
 ***
 
@@ -356,7 +356,7 @@ Stop pool execution
 
 #### Source
 
-[TxPool.ts:542](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L542)
+[TxPool.ts:544](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L544)
 
 ***
 
@@ -384,7 +384,7 @@ Gas price (both tip and max fee)
 
 ### txsByPriceAndNonce()
 
-> **txsByPriceAndNonce**(`vm`, `__namedParameters`): `Promise`\<`TypedTransaction`[]\>
+> **txsByPriceAndNonce**(`baseFee`): `Promise`\<`TypedTransaction`[]\>
 
 Returns eligible txs to be mined sorted by price in such a way that the
 nonce orderings within a single account are maintained.
@@ -401,13 +401,13 @@ the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 
-▪ **vm**: `Vm`
+▪ **baseFee**: `object`= `{}`
 
-▪ **\_\_namedParameters**: `object`= `{}`
+Provide a baseFee to exclude txs with a lower gasPrice
 
-▪ **\_\_namedParameters.allowedBlobs?**: `number`
+▪ **baseFee.allowedBlobs?**: `number`
 
-▪ **\_\_namedParameters.baseFee?**: `bigint`
+▪ **baseFee.baseFee?**: `bigint`
 
 #### Source
 
