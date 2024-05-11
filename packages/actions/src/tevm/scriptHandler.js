@@ -18,6 +18,7 @@ import { validateScriptParams } from '@tevm/zod'
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (client, options = {}) => async (params) => {
+  client.logger.debug({ functionName: params.functionName, abi: params.abi, args: params.args, deployedBytecode: params.deployedBytecode }, 'Processing script...')
   const vm = await client.getVm().then(vm => vm.deepCopy())
   const { throwOnFail = options.throwOnFail ?? true } = params
   /**
@@ -73,6 +74,8 @@ export const scriptHandler = (client, options = {}) => async (params) => {
       randomBigInt,
     ).toString()
   )
+
+  client.logger.debug({ address: scriptAddress }, 'Deploying script to randomly generated address')
 
   const accountRes = await setAccountHandler(
     {
