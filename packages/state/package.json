@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/state",
-	"version": "1.0.0-next.40",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "A custom implementation of ethereumjs state manager",
 	"keywords": [
@@ -63,7 +63,7 @@
 	},
 	"dependencies": {
 		"@ethereumjs/statemanager": "^2.3.0",
-		"@tevm/common": "workspace:1.0.0-next.40",
+		"@tevm/common": "workspace:1.1.0-next.45",
 		"@tevm/logger": "workspace:1.0.0-next.42",
 		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/utils": "workspace:^",

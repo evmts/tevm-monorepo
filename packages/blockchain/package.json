@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/blockchain",
-	"version": "1.0.0-next.42",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "A custom implementation of ethereumjs blockchain",
 	"keywords": [
@@ -72,7 +72,7 @@
 		"viem": "^2.9.28"
 	},
 	"devDependencies": {
-		"@tevm/common": "workspace:1.0.0-next.40",
+		"@tevm/common": "workspace:1.1.0-next.45",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/utils": "workspace:^"

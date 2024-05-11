@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/viem",
-	"version": "1.0.0-next.41",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [
@@ -78,7 +78,7 @@
 		"@tevm/test-utils": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:1.0.0-next.40",
+		"@tevm/utils": "workspace:1.1.0-next.45",
 		"abitype": "^1.0.0",
 		"viem": "^2.7.16"
 	},

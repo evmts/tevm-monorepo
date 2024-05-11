@@ -1,5 +1,35 @@
 # @tevm/contract
 
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#976](https://github.com/evmts/tevm-monorepo/pull/976) [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ability for tevm_getAccount procedure and getAccount action to optionally return contract storage
+
+- [#1042](https://github.com/evmts/tevm-monorepo/pull/1042) [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new tevm_mine and anvil_mine support for mining blocks. This includes the JSON-RPC support as well as a new tevm.mine() action to the main tevm api
+
+- [#976](https://github.com/evmts/tevm-monorepo/pull/976) [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948) Thanks [@roninjin10](https://github.com/roninjin10)! - Added stateOverrides and blockOverrides to tevm_call, tevm_contract, tevm_script, eth_call, and their associated JSON-RPC procedures
+
+- [#1036](https://github.com/evmts/tevm-monorepo/pull/1036) [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new traceConfig option to call, script, and contract methods to optionally return a trace
+
+- [`5bc2874`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb) - Added eth*sendTransaction and eth_sendRawTransaction along with various anvil* methods
+
+- [#976](https://github.com/evmts/tevm-monorepo/pull/976) [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for setting contract storage to tevm_setAccount and the setAccount action"
+
+### Patch Changes
+
+- [#1020](https://github.com/evmts/tevm-monorepo/pull/1020) [`ca9ea64`](https://github.com/evmts/tevm-monorepo/commit/ca9ea649ce016b6684b713643a2229d67a18cd62) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to return the createdAddress
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all of tevm to latest version of Ethereumjs. This update adds support for 4844, fixes major bugs in tevm regarding browser compatibility, and an issue that was causing tevm to crash in Next.js app router.
+
+- Updated dependencies [[`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/zod@1.1.0-next.45
+  - @tevm/blockchain@1.1.0-next.45
+  - @tevm/block@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/tx@1.1.0-next.45
+  - @tevm/vm@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

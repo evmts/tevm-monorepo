@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/vm",
-	"version": "1.0.0-next.42",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "A custom implementation of ethereumjs vm",
 	"keywords": [
@@ -63,14 +63,14 @@
 	},
 	"dependencies": {
 		"@ethereumjs/vm": "^8.0.0",
-		"@tevm/block": "workspace:1.0.0-next.42",
+		"@tevm/block": "workspace:1.1.0-next.45",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/rlp": "workspace:1.0.0-next.42",
-		"@tevm/trie": "workspace:1.0.0-next.42",
-		"@tevm/tx": "workspace:1.0.0-next.42",
-		"@tevm/utils": "workspace:1.0.0-next.40"
+		"@tevm/trie": "workspace:1.1.0-next.45",
+		"@tevm/tx": "workspace:1.1.0-next.45",
+		"@tevm/utils": "workspace:1.1.0-next.45"
 	},
 	"devDependencies": {
 		"@tevm/state": "workspace:^",

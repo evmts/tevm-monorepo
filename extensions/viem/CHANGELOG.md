@@ -1,5 +1,11 @@
 # @tevm/viem
 
+## 1.1.0-next.45
+
+### Patch Changes
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
 ## 1.0.0-next.41
 
 ### Patch Changes
