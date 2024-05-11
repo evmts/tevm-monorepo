@@ -14,6 +14,9 @@ import { createStateManager } from '@tevm/state'
  * @returns {Promise<void>}
  */
 const forkAndCacheBlock = async (client, block) => {
+  client.logger.warn(`Detected block tag for a call was set to a different block tag than the chain was forked from. 
+Tevm can peform slowly when this happens from needing to process that blocks entire transaction list.
+This will be fixed in future versions.`)
           client.logger.debug('Forking a new block based on block tag...')
           // if no state root fork the block with a fresh state manager
           const vm = await client.getVm()
@@ -120,6 +123,9 @@ export const callHandler =
         // this will never happen the type is wrong internally
         if (!block) {
           throw new Error('UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm')
+        }
+        if (params.createTransaction && block !== await vm.blockchain.getCanonicalHeadBlock()) {
+          throw new Error('Creating transactions on past blocks is not currently supported')
         }
         // TODO why doesn't this type have stateRoot prop? It is always there.
         // Haven't looked into it so it might be a simple fix.
