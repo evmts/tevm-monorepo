@@ -1,5 +1,32 @@
 # @tevm/contract
 
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1042](https://github.com/evmts/tevm-monorepo/pull/1042) [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new tevm_mine and anvil_mine support for mining blocks. This includes the JSON-RPC support as well as a new tevm.mine() action to the main tevm api
+
+### Patch Changes
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new public exports to top level tevm package
+
+- Updated dependencies [[`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`5bc2874`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921), [`7c172f9`](https://github.com/evmts/tevm-monorepo/commit/7c172f9da63c490e89f93b831309e4f0183e8da7)]:
+  - @tevm/procedures-types@1.1.0-next.45
+  - @tevm/actions-types@1.1.0-next.45
+  - @tevm/decorators@1.1.0-next.45
+  - @tevm/errors@1.1.0-next.45
+  - @tevm/memory-client@1.1.0-next.45
+  - @tevm/base-client@1.1.0-next.45
+  - @tevm/http-client@1.1.0-next.45
+  - @tevm/precompiles@1.1.0-next.45
+  - @tevm/predeploys@1.1.0-next.45
+  - @tevm/server@1.1.0-next.45
+  - @tevm/state@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/contract@1.1.0-next.45
+  - @tevm/client-types@1.1.0-next.45
+  - @tevm/sync-storage-persister@1.1.0-next.45
+
 ## 1.0.0-next.44
 
 ### Patch Changes

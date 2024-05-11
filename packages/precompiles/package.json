@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/precompiles",
-	"version": "1.0.0-next.40",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "Precompile definition for Tevm",
 	"keywords": [
@@ -61,11 +61,11 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
-		"@tevm/utils": "workspace:1.0.0-next.40"
+		"@tevm/utils": "workspace:1.1.0-next.45"
 	},
 	"devDependencies": {
 		"@tevm/bun-plugin": "workspace:^",
-		"@tevm/evm": "workspace:1.0.0-next.42",
+		"@tevm/evm": "workspace:1.1.0-next.45",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",

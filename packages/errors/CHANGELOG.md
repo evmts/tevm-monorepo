@@ -1,5 +1,11 @@
 # @tevm/errors
 
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1042](https://github.com/evmts/tevm-monorepo/pull/1042) [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new tevm_mine and anvil_mine support for mining blocks. This includes the JSON-RPC support as well as a new tevm.mine() action to the main tevm api
+
 ## 1.0.0-next.40
 
 ### Patch Changes

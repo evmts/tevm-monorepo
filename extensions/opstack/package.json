@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/opstack",
-	"version": "1.0.0-next.43",
+	"version": "1.1.0-next.45",
 	"private": false,
 	"description": "Op stack utilities for tevm",
 	"keywords": [

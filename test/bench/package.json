@@ -60,9 +60,9 @@
 		"bench:ui": "vitest bench --ui"
 	},
 	"dependencies": {
-		"@tevm/contract": "workspace:1.0.0-next.40",
+		"@tevm/contract": "workspace:1.1.0-next.45",
 		"@tevm/test-utils": "workspace:1.0.0-next.39",
-		"@tevm/viem": "workspace:1.0.0-next.41",
+		"@tevm/viem": "workspace:1.1.0-next.45",
 		"tevm": "workspace:^",
 		"viem": "^2.9.9"
 	},

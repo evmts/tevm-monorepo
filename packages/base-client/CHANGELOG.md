@@ -1,5 +1,29 @@
 # @tevm/client
 
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1036](https://github.com/evmts/tevm-monorepo/pull/1036) [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added logConfig option to base client options to configure log level of client
+
+### Patch Changes
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all of tevm to latest version of Ethereumjs. This update adds support for 4844, fixes major bugs in tevm regarding browser compatibility, and an issue that was causing tevm to crash in Next.js app router.
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921), [`7c172f9`](https://github.com/evmts/tevm-monorepo/commit/7c172f9da63c490e89f93b831309e4f0183e8da7)]:
+  - @tevm/errors@1.1.0-next.45
+  - @tevm/blockchain@1.1.0-next.45
+  - @tevm/predeploys@1.1.0-next.45
+  - @tevm/common@1.1.0-next.45
+  - @tevm/txpool@1.1.0-next.45
+  - @tevm/state@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/evm@1.1.0-next.45
+  - @tevm/vm@1.1.0-next.45
+  - @tevm/sync-storage-persister@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes
