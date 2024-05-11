@@ -14,7 +14,7 @@
 
 The Tevm instance
 
-▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"`\>
+▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"` \| `"timeout"` \| `"retryDelay"` \| `"retryCount"`\>
 
 ## Returns
 
