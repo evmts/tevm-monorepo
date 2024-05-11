@@ -70,7 +70,7 @@ describe('Tevm.request', async () => {
     'should execute a contractCall request via using tevm_call',
     async () => {
       const tevm = createMemoryClient({
-        loggingLevel: 'trace',
+        loggingLevel: 'warn',
         fork: forkConfig,
       })
       const req = {
@@ -89,9 +89,7 @@ describe('Tevm.request', async () => {
         method: 'tevm_call',
         id: 1,
       } as const satisfies ContractJsonRpcRequest
-      console.log('makng request')
       const res = await tevm.request(req)
-      console.log('res returned', res.rawData)
       expect(
         decodeFunctionResult({
           data: res.rawData,

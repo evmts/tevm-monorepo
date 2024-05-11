@@ -17,25 +17,19 @@ export const callHandlerOpts = async (client, params) => {
 
   // TODO need better error handling here
   const block = await (() => {
-    console.log('params.blocktag', params.blockTag)
     if (params.blockTag === undefined) {
-      console.log('defaulting latest...')
       return vm.blockchain.blocksByTag.get('latest')
     }
     if (typeof params.blockTag === 'bigint') {
-      console.log('getting block by number...')
       return vm.blockchain.getBlock(params.blockTag)
     }
     if (typeof params.blockTag === 'string' && params.blockTag.startsWith('0x')) {
-      console.log('getting block by block hash', (/** @type {import('@tevm/utils').Hex}*/(params.blockTag)))
       return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/(params.blockTag)))
     }
     // TODO support all these and resolve all of them both vs fork and non fork
     if (params.blockTag === 'latest' || params.blockTag === 'safe' || params.blockTag === 'pending' || params.blockTag === 'earliest' || params.blockTag === 'finalized') {
-      console.log('getting latest...')
       return vm.blockchain.blocksByTag.get(/** */(params.blockTag))
     }
-    console.log('failure')
     throw new Error(`Unknown blocktag ${params.blockTag}`)
   })()
   if (!block) {
@@ -47,7 +41,6 @@ export const callHandlerOpts = async (client, params) => {
   
   opts.block = block
 
-  console.log('huh')
   // handle block overrides
   if (params.blockOverrideSet) {
     client.logger.debug(
@@ -99,7 +92,6 @@ export const callHandlerOpts = async (client, params) => {
    * @type {Array<Error>}
    */
   const errors = []
-  console.log('huh')
 
   // handle state overrides
   if (params.stateOverrideSet) {
@@ -124,65 +116,51 @@ export const callHandlerOpts = async (client, params) => {
       }
     }
   }
-  console.log('huh')
 
   if (params.to) {
     opts.to = EthjsAddress.fromString(params.to)
   }
-  console.log('huh')
   if (params.data) {
     opts.data = hexToBytes(params.data)
   }
-  console.log('huh')
   if (params.salt) {
     opts.salt = hexToBytes(params.salt)
   }
-  console.log('huh')
   if (params.depth) {
     opts.depth = params.depth
   }
-  console.log('huh')
   if (params.blobVersionedHashes) {
     opts.blobVersionedHashes = params.blobVersionedHashes.map((hash) =>
       hexToBytes(hash),
     )
   }
-  console.log('huh')
   if (params.selfdestruct) {
     opts.selfdestruct = params.selfdestruct
   }
-  console.log('huh')
   if (params.skipBalance) {
     opts.skipBalance = Boolean(params.skipBalance)
   }
-  console.log('huh')
   if (params.gasRefund) {
     opts.gasRefund = BigInt(params.gasRefund)
   }
-  console.log('huh')
   if (params.gasPrice) {
     opts.gasPrice = BigInt(params.gasPrice)
   }
-  console.log('huh')
   if (params.value) {
     opts.value = BigInt(params.value)
   }
   const caller = params.caller || params.from || params.origin || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
-  console.log('huh')
   if (caller) {
     opts.caller = EthjsAddress.fromString(caller)
   }
   const origin = params.origin || params.from || (params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
-  console.log('huh')
   if (origin) {
     opts.origin = EthjsAddress.fromString(origin)
   }
-  console.log('huh')
   if (params.gas) {
     opts.gasLimit = BigInt(params.gas)
   }
 
-  console.log('huh')
 
   return errors.length > 0 ? { data: opts, errors } : { data: opts }
 }

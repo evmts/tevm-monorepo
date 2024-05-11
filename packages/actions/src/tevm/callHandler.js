@@ -89,9 +89,7 @@ export const callHandler =
           rawData: '0x',
         })
       }
-      console.log('valid params')
       const { errors, data: evmInput } = await callHandlerOpts(client, params)
-      console.log('got opts')
       if (errors ?? !evmInput) {
         client.logger.error(
           errors ?? evmInput,
