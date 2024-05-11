@@ -36,7 +36,7 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Source
 
-packages/state/dist/index.d.ts:330
+packages/state/dist/index.d.ts:336
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

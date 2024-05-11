@@ -20,6 +20,10 @@ The core data structure powering the state manager internally
 
 > **getCurrentStateRoot**: () => `Hex`
 
+### logger
+
+> **logger**: `Logger`
+
 ### options
 
 > **options**: [`StateOptions`](StateOptions.md)
@@ -44,7 +48,7 @@ Mapping of hashes to State roots
 
 ## Source
 
-[packages/state/src/BaseState.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L8)
+[packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -28,7 +28,7 @@ Error.constructor
 
 #### Source
 
-packages/decorators/dist/index.d.ts:269
+packages/decorators/dist/index.d.ts:267
 
 ## Properties
 
@@ -52,7 +52,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-packages/decorators/dist/index.d.ts:267
+packages/decorators/dist/index.d.ts:265
 
 ***
 
@@ -62,7 +62,7 @@ packages/decorators/dist/index.d.ts:267
 
 #### Source
 
-packages/decorators/dist/index.d.ts:268
+packages/decorators/dist/index.d.ts:266
 
 ***
 

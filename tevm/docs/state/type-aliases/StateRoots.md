@@ -12,7 +12,7 @@ Mapping of state roots as hex string to the state
 
 ## Source
 
-packages/state/dist/index.d.ts:163
+packages/state/dist/index.d.ts:165
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

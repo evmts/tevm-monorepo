@@ -20,6 +20,10 @@ The core data structure powering the state manager internally
 
 > **getCurrentStateRoot**: () => [`Hex`](../../index/type-aliases/Hex.md)
 
+### logger
+
+> **logger**: `Logger`
+
 ### options
 
 > **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
@@ -44,7 +48,7 @@ Mapping of hashes to State roots
 
 ## Source
 
-packages/state/dist/index.d.ts:101
+packages/state/dist/index.d.ts:102
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

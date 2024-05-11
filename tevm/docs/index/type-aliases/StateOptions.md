@@ -22,6 +22,12 @@
 
 > **genesisState**?: [`TevmState`](TevmState.md)
 
+### loggingLevel
+
+> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+
+Configure logging options for the client
+
 ### onCommit
 
 > **onCommit**?: (`stateManager`) => `void`
@@ -38,7 +44,7 @@ Called when state manager commits state
 
 ## Source
 
-packages/state/dist/index.d.ts:165
+packages/state/dist/index.d.ts:167
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

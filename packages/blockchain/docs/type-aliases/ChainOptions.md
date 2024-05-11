@@ -47,9 +47,15 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 
 > **genesisStateRoot**?: `Uint8Array`
 
+### loggingLevel
+
+> **loggingLevel**?: `LogOptions`[`"level"`]
+
+Logging level of blockchain package. Defaults to `warn`
+
 ## Source
 
-[ChainOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L8)
+[ChainOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

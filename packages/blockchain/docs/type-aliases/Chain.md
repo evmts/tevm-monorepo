@@ -20,7 +20,7 @@ Blockchain
 
 ### deepCopy
 
-> **deepCopy**: () => [`Chain`](Chain.md)
+> **deepCopy**: () => `Promise`\<[`Chain`](Chain.md)\>
 
 ### events
 

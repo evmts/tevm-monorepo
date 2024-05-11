@@ -31,12 +31,12 @@ last call to checkpoint.
 >
 > ### Source
 >
-> packages/state/dist/index.d.ts:144
+> packages/state/dist/index.d.ts:146
 >
 
 ## Source
 
-packages/state/dist/index.d.ts:204
+packages/state/dist/index.d.ts:210
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
