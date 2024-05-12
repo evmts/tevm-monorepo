@@ -13,6 +13,7 @@ import { validateMineParams } from '@tevm/zod'
 export const mineHandler =
   (client, options = {}) =>
     async ({ throwOnFail = options.throwOnFail ?? true, ...params } = {}) => {
+      client.logger.debug({ throwOnFail, ...params }, 'mineHandler called with params')
       const errors = validateMineParams(params)
       if (errors.length > 0) {
         return maybeThrowOnFail(throwOnFail, { errors })
@@ -23,6 +24,8 @@ export const mineHandler =
        * @type {Array<import('@tevm/utils').Hex>}
        */
       const blockHashes = []
+
+      client.logger.debug({ blockCount }, 'processing txs')
 
       for (let count = 0; count < blockCount; count++) {
         const pool = await client.getTxPool()

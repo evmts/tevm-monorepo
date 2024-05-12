@@ -422,14 +422,14 @@ describe('requestProcedure', () => {
 				result: {
 					executionGasUsed: numberToHex(0n),
 					rawData: '0x',
-					txHash: '0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7',
+					txHash: '0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80',
 				},
 			})
 
 			const txPool = await client.getTxPool()
 
 			const poolTx = txPool.getByHash([
-				hexToBytes('0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7'),
+				hexToBytes('0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80'),
 			])
 
 			expect(poolTx).toHaveLength(1)
@@ -438,7 +438,7 @@ describe('requestProcedure', () => {
 				accessList: [],
 				chainId: '0x384',
 				data: '0x',
-				gasLimit: '0x5208',
+				gasLimit: '0x5a3c',
 				maxFeePerGas: '0x7',
 				maxPriorityFeePerGas: '0x0',
 				nonce: '0x0',

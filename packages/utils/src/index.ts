@@ -9,6 +9,7 @@ export type {
 	AbiFunction,
 	AbiItemType,
 	Address,
+	EncodeDeployDataParameters,
 	Hex,
 	BlockTag,
 	ParseAbi,
@@ -28,6 +29,7 @@ export type {
 	Account,
 	HDAccount,
 	Filter,
+	ContractConstructorArgs,
 } from './abitype.js'
 export {
 	mnemonicToAccount,

@@ -10,11 +10,11 @@
 
 ## Type parameters
 
-▪ **abi** extends readonly `unknown`[] \| `Abi`
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ## Parameters
 
-▪ **parameters**: `EncodeDeployDataParameters`\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`, `ContractConstructorArgs`\<`abi`\>\>
+▪ **parameters**: [`EncodeDeployDataParameters`](../type-aliases/EncodeDeployDataParameters.md)\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`, [`ContractConstructorArgs`](../type-aliases/ContractConstructorArgs.md)\<`abi`\>\>
 
 ## Source
 
