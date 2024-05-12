@@ -2,4 +2,4 @@
 "@tevm/base-client": patch
 ---
 
-Fixed bug with state persistance not working in forked mode
+Fixed bug with state persistence not working in forked mode
