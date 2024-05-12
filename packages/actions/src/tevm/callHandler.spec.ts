@@ -377,7 +377,7 @@ describe('callHandler', () => {
     ).toEqual({
       executionGasUsed: 0n,
       rawData: '0x',
-      txHash: "0x64e99762de5811774c34c1eb222eca76509b95529c94081cc311607cf55306a7",
+      txHash: "0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80",
     })
     await mineHandler(client)()
     expect(
