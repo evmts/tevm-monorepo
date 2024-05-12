@@ -1,4 +1,4 @@
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { bytesToHex } from '@tevm/utils'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateMineParams } from '@tevm/zod'
 
