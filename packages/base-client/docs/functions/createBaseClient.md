@@ -119,7 +119,7 @@ Creates the base instance of a memory client
 
 ## Source
 
-[createBaseClient.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L43)
+[createBaseClient.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L25)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
