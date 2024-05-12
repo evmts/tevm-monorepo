@@ -24,7 +24,37 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
     const priorityFee = 0n
-    const gasLimit = 21000n + evmOutput.execResult.executionGasUsed * 11n / 10n
+
+    const dataFee = (() => {
+      let out = 0n
+      for (const entry of evmInput.data ?? []) {
+        out += vm.common.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
+      }
+      return out
+    })()
+
+    const baseFee = (() => {
+      let out = dataFee
+      const txFee = vm.common.param('gasPrices', 'tx')
+      if (txFee) {
+        out += txFee
+      }
+      const isCreation = (evmInput.to?.bytes.length ?? 0) === 0
+      if (vm.common.gteHardfork('homestead') && isCreation) {
+        const txCreationFee = vm.common.param('gasPrices', 'txCreation')
+        if (txCreationFee) {
+          out += txCreationFee
+        }
+      }
+      return out
+    })()
+
+    const minimumGasLimit = baseFee + evmOutput.execResult.executionGasUsed
+    const gasLimitWithExecutionBuffer = evmInput.gasLimit ?? (minimumGasLimit * 11n / 10n)
+
+    if (gasLimitWithExecutionBuffer < minimumGasLimit) {
+      console.warn(`The manually set gas limit set by tx is lower than the estimated cost. It may fail once mined.`)
+    }
 
     const sender = evmInput.origin ?? evmInput.caller ?? EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
 
@@ -60,10 +90,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         freeze: false,
       },
     )
-    let tx = await getTx(gasLimit)
-    if (tx.getBaseFee() > gasLimit) {
-      tx = await getTx(tx.getBaseFee())
-    }
+    const tx = await getTx(gasLimitWithExecutionBuffer)
     client.logger.debug(
       tx,
       'callHandler: Created a new transaction from transaction data',
@@ -105,7 +132,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
       const account = await getAccountHandler(client)({
         address: /** @type {import('@tevm/utils').Hex}*/(sender.toString())
       })
-      const balanceNeeded = wrappedTx.value + (gasLimit * wrappedTx.maxFeePerGas)
+      const balanceNeeded = wrappedTx.value + (gasLimitWithExecutionBuffer * wrappedTx.maxFeePerGas)
       const hasBalance = balanceNeeded <= account.balance
       if (evmInput?.skipBalance && !hasBalance) {
         await setAccountHandler(client)({
