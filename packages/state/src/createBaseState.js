@@ -26,7 +26,11 @@ export const createBaseState = (options) => {
 	 * @type {import('./state-types/StateRoots.js').StateRoots}
 	 */
 	const stateRoots = options.stateRoots ?? new Map()
-	stateRoots.set(INITIAL_STATE_ROOT, options.genesisState ?? {})
+	if (options.genesisState && options.currentStateRoot) {
+		stateRoots.set(options.currentStateRoot, options.genesisState)
+	} else {
+		stateRoots.set(INITIAL_STATE_ROOT, options.genesisState ?? {})
+	}
 	let currentStateRoot = options.currentStateRoot ?? INITIAL_STATE_ROOT
 	/**
 	 * @type {import('./BaseState.js').BaseState}
@@ -61,10 +65,7 @@ export const createBaseState = (options) => {
 			: Promise.resolve().then(() => {
 					if (options.currentStateRoot) {
 						state.setCurrentStateRoot(options.currentStateRoot)
-						if (!options.stateRoots) {
-							throw new Error('cannot createState with currentStateRoot but no stateRoots prop')
-						}
-						return generateCanonicalGenesis(state)(stateRoots.get(options.currentStateRoot))
+						return generateCanonicalGenesis(state)(options.genesisState ?? stateRoots.get(options.currentStateRoot))
 					}
 					return Promise.resolve()
 				})
