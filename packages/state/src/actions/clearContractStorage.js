@@ -4,6 +4,6 @@
  */
 export const clearContractStorage = (baseState) => (address) => {
 	baseState.caches.storage.clearContractStorage(address)
-	baseState.logger.debug({ address }, 'State manager cleared at address.')
+	baseState.logger.debug({ address: address.toString() }, 'State manager cleared at address.')
 	return Promise.resolve()
 }
