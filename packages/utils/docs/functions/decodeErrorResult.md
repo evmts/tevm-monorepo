@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-▪ **TAbi** extends readonly `unknown`[] \| `Abi`
+▪ **TAbi** extends `Abi` \| readonly `unknown`[]
 
 ## Parameters
 

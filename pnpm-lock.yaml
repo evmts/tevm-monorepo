@@ -2209,13 +2209,13 @@ importers:
   test/bench:
     dependencies:
       '@tevm/contract':
-        specifier: workspace:1.1.0-next.45
+        specifier: 'workspace:'
         version: link:../../packages/contract
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: 'workspace:'
         version: link:../test-utils
       '@tevm/viem':
-        specifier: workspace:1.1.0-next.45
+        specifier: 'workspace:'
         version: link:../../extensions/viem
       tevm:
         specifier: workspace:^
@@ -2225,7 +2225,7 @@ importers:
         version: 2.9.9(typescript@5.4.5)(zod@3.23.4)
     devDependencies:
       '@tevm/bundler':
-        specifier: workspace:1.0.0-next.41
+        specifier: 'workspace:'
         version: link:../../bundler
       '@tevm/tsconfig':
         specifier: workspace:^

@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-▪ **abi** extends readonly `unknown`[] \| `Abi`
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **functionName** extends `undefined` \| `string` = `undefined`
 
