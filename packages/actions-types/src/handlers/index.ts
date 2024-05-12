@@ -5,8 +5,8 @@ export type { ContractHandler } from './ContractHandler.js'
 export type { ScriptHandler } from './ScriptHandler.js'
 export type * from './AnvilHandler.js'
 export type {
-  DebugTraceCallHandler,
-  DebugTraceTransactionHandler,
+	DebugTraceCallHandler,
+	DebugTraceTransactionHandler,
 } from './DebugHandler.js'
 export type * from './EthHandler.js'
 export type { DumpStateHandler } from './DumpStateHandler.js'
