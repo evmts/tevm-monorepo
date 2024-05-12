@@ -8,8 +8,9 @@ export type * from './AnvilResult.js'
 export type { DumpStateResult } from './DumpStateResult.js'
 export type { LoadStateResult } from './LoadStateResult.js'
 export type {
-	StructLog,
-	DebugTraceCallResult,
-	DebugTraceTransactionResult,
+  StructLog,
+  DebugTraceCallResult,
+  DebugTraceTransactionResult,
 } from './DebugResult.js'
 export type { MineResult } from './MineResult.js'
+export type { DeployResult } from './DeployResult.js'
