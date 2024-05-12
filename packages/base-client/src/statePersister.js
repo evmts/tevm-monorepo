@@ -26,5 +26,7 @@ export const statePersister = (persister, logger) => (stateManager) => {
     }
 
     persister.persistTevmState(parsedState)
-  })
+  }).catch((error) => {
+    logger.error('Failed to persist state:', error);
+  });
 }
