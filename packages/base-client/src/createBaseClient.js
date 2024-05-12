@@ -1,6 +1,5 @@
 import { ReceiptsManager, createChain, createMapDb } from '@tevm/blockchain'
-import { Common } from '@tevm/common'
-import {} from '@tevm/errors'
+import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
@@ -47,30 +46,6 @@ export const createBaseClient = (options = {}) => {
 		name: 'TevmClient',
 		level: loggingLevel,
 	})
-	/**
-	 * @param {number} chainId
-	 */
-	const createCommon = (chainId) => {
-		const common = Common.custom(
-			{
-				name: 'TevmCustom',
-				chainId,
-				// TODO what is diff between chainId and networkId???
-				networkId: chainId,
-			},
-			{
-				hardfork: options.hardfork ?? 'cancun',
-				baseChain: 1,
-				eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
-			},
-		)
-		if (common.isActivatedEIP(6800)) {
-			console.warn('verkle state is currently not supported in tevm')
-		}
-		logger.debug(common.eips(), 'Created common with eips enabled')
-		return common
-	}
-
 	/**
 	 * @returns {import('@tevm/state').StateOptions }
 	 */
@@ -161,7 +136,14 @@ export const createBaseClient = (options = {}) => {
 		})()
 		logger.debug(blockTag, 'creating vm with blockTag...')
 
-		const common = createCommon(await initChainId())
+		// TODO we will eventually want to be setting common hardfork based on chain id and block number
+		// ethereumjs does this for mainnet but we forgo all this functionality
+		const common = createCommon({
+			chainId: BigInt(await initChainId()),
+			hardfork: 'cancun',
+			loggingLevel,
+			eips: options.eips ?? [],
+		})
 
 		const blockchain = await createChain({
 			loggingLevel,

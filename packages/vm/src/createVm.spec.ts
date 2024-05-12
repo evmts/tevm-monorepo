@@ -7,7 +7,7 @@ import { createVm } from './createVm.js'
 
 describe(createVm.name, () => {
 	it('wraps ethereumjs vm', async () => {
-		const common = createCommon({})
+		const common = createCommon({ chainId: 10n, eips: [], hardfork: 'cancun', loggingLevel: 'warn' })
 		const stateManager = createStateManager({})
 		const blockchain = await createChain({
 			common,
