@@ -24,7 +24,7 @@ An error with a tag
 
 ## Source
 
-[TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
+[extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

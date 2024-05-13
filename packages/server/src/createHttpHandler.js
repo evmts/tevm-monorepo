@@ -3,14 +3,11 @@ import { zJsonRpcRequest } from '@tevm/zod'
 import { BadRequestError } from './BadRequestError.js'
 
 /**
- * @typedef {Pick<import('@tevm/memory-client').MemoryClient, 'send'>} CreateHttpHandlerParameters
- */
-
 /**
  * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
  * Any unimplemented methods will be proxied to the given proxyUrl
  * This handler works for any server that supports the Node.js http module
- * @param {CreateHttpHandlerParameters} parameters
+ * @param {import('@tevm/memory-client').MemoryClient} client
  * @returns {import('http').RequestListener}
  * @example
  * import { createHttpHandler } from 'tevm/server'
@@ -31,7 +28,7 @@ import { BadRequestError } from './BadRequestError.js'
  * server.listen(PORT, () => console.log({ listening: PORT }))
  *
  */
-export const createHttpHandler = (parameters) => {
+export const createHttpHandler = (client) => {
 	/**
 	 * @param {import('http').IncomingMessage} req
 	 * @param {import('http').ServerResponse} res
@@ -92,7 +89,7 @@ export const createHttpHandler = (parameters) => {
 				 */
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
-					requests.map((request) => parameters.send(/** @type any*/ (request))),
+					requests.map((request) => client._tevm.send(/** @type any*/ (request))),
 				)
 				responses.map((response, i) => {
 					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
@@ -119,7 +116,7 @@ export const createHttpHandler = (parameters) => {
 				// TODO update this type to accept any jsonrpc request if a fork url pass through exists
 				// We don't officially support it until we explicitly implement all the endpoints instead of
 				// blindly passing through
-				const response = await parameters.send(/** @type any*/ (request))
+				const response = await client._tevm.send(/** @type any*/ (request))
 				res.writeHead(200, { 'Content-Type': 'application/json' })
 				return res.end(JSON.stringify(response))
 			} catch (e) {

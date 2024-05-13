@@ -9,20 +9,20 @@ describe('OptimismPortal2', () => {
 	})
 
 	it('should initialize contract correctly', async () => {
-		expect(await client.contract(client.op.OptimismPortal2.read.disputeGameFactory())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.disputeGameFactory())).toMatchObject({
 			data: client.op.DisputeGameFactory.address,
 		})
-		expect(await client.contract(client.op.OptimismPortal2.read.systemConfig())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.systemConfig())).toMatchObject({
 			data: client.op.SystemConfig.address,
 		})
-		expect(await client.contract(client.op.OptimismPortal2.read.superchainConfig())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.superchainConfig())).toMatchObject({
 			data: client.op.SuperchainConfig.address,
 		})
 	})
 
 	it('can light eth on fire', async () => {
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				createTransaction: true,
 				skipBalance: true, // skipBalance automatically mints the value eth
 				value: 420n,
@@ -48,7 +48,7 @@ describe('OptimismPortal2', () => {
 		const data = '0x0'
 
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				createTransaction: true,
 				skipBalance: true, // skipBalance automatically mints the value eth
 				value,

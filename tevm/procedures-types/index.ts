@@ -1,4 +1,7 @@
 export type {
+  MineJsonRpcRequest,
+  MineJsonRpcResponse,
+  MineJsonRpcProcedure,
   CallJsonRpcRequest,
   ScriptJsonRpcRequest,
   GetAccountJsonRpcRequest,

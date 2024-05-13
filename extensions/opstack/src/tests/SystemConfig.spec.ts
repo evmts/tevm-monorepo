@@ -6,27 +6,27 @@ describe('SystemConfig', () => {
 
 	beforeEach(async () => {
 		client = createL1Client()
-		await client.ready()
+		await client.tevmReady()
 	})
 
 	it('should initialize contract correctly', async () => {
-		expect(await client.contract(client.op.SystemConfig.read.owner())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.scalar())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.version())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.overhead())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.optimismMintableERC20Factory())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.minimumGasLimit())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.l1StandardBridge())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.batchInbox())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.startBlock())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.batcherHash())).toMatchSnapshot()
-		expect(await client.contract(client.op.SystemConfig.read.optimismPortal())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.owner())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.scalar())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.version())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.overhead())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.optimismMintableERC20Factory())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.minimumGasLimit())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.l1StandardBridge())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.batchInbox())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.startBlock())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.batcherHash())).toMatchSnapshot()
+		expect(await client.tevmContract(client.op.SystemConfig.read.optimismPortal())).toMatchSnapshot()
 	})
 
 	it('can interact with the contract as the owner to change the l2 gas limit', async () => {
 		const newGasLimit = 420420420n
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				createTransaction: true,
 				from: client.op.SYSTEM_CONFIG_OWNER,
 				...client.op.SystemConfig.write.setGasLimit(newGasLimit),
@@ -52,7 +52,7 @@ describe('SystemConfig', () => {
 			selfdestruct: new Set(),
 		})
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				...client.op.SystemConfig.read.gasLimit(),
 			}),
 		).toHaveProperty('data', newGasLimit)

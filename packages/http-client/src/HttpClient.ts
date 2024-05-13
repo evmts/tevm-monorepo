@@ -1,13 +1,7 @@
 import type { TevmClient } from '@tevm/client-types'
 
 /**
- * A remote Tevm client for talking to a Tevm backend over HTTP JSON-RPC
- * Implements the tevm interface so interacting with it is the same api
- * as interacting with a `MemoryTevm` instance directly
- * @see {@link TevmClient}
- * @example
- * ```typescript
- * import { TevmClient, createTevmClient } from "tevm/client";
+ * @deprecated a new http client will be created in a future version. For now it's recomended to use viem
  */
 export type HttpClient = TevmClient & {
 	/**

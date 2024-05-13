@@ -11,19 +11,19 @@ describe('SuperchainConfig', () => {
 	})
 
 	it('should initialize contract as unpaused', async () => {
-		expect(await client.contract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
+		expect(await client.tevmContract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
 	})
 
 	it('should initialize the guardian', async () => {
 		// should have intialized contract with guardian
-		expect(await client.contract(SuperchainConfig.read.guardian())).toMatchObject({ data: client.op.GUARDIAN })
+		expect(await client.tevmContract(SuperchainConfig.read.guardian())).toMatchObject({ data: client.op.GUARDIAN })
 	})
 
 	it('should be able to pause and unpause as the guardian', async () => {
 		// won't work if we aren't guardian
 		const notGuardian = `0x${'ff'.repeat(20)}` as const
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				from: notGuardian,
 				createTransaction: true,
 				throwOnFail: false,
@@ -38,10 +38,10 @@ describe('SuperchainConfig', () => {
 			},
 		])
 		// assert it's not paused
-		expect(await client.contract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
+		expect(await client.tevmContract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
 		// pause it
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				from: client.op.GUARDIAN,
 				createTransaction: true,
 				...SuperchainConfig.write.pause('pausing'),
@@ -63,10 +63,10 @@ describe('SuperchainConfig', () => {
 			selfdestruct: new Set(),
 		})
 		// assert it's paused
-		expect(await client.contract(SuperchainConfig.read.paused())).toMatchObject({ data: true })
+		expect(await client.tevmContract(SuperchainConfig.read.paused())).toMatchObject({ data: true })
 		// unpause it
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				from: client.op.GUARDIAN,
 				createTransaction: true,
 				...SuperchainConfig.write.unpause(),
@@ -89,6 +89,6 @@ describe('SuperchainConfig', () => {
 			selfdestruct: new Set(),
 		})
 		// assert it's unpaused
-		expect(await client.contract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
+		expect(await client.tevmContract(SuperchainConfig.read.paused())).toMatchObject({ data: false })
 	})
 })

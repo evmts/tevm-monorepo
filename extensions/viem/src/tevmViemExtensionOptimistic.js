@@ -3,7 +3,7 @@ import { tevmViemExtension } from './tevmViemExtension.js'
 
 // TODO handle the transaction reverting
 /**
- * @deprecated in favor of the viem transport
+ * @deprecated Viem is built into the tevm memory client now without needing this
  * @experimental
  * This extension is highly experimental and should not be used in production.
  *
@@ -32,7 +32,7 @@ import { tevmViemExtension } from './tevmViemExtension.js'
  *		})
  *		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
  *			method: 'tevm_contract',
-					params: params,
+          params: params,
  *			jsonrpc: '2.0',
  *		})
  *		expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({

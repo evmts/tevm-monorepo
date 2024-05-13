@@ -63,23 +63,23 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 		],
 	})
 	const asyncPrepare = async () => {
-		await client.ready()
+		await client.tevmReady()
 		await Promise.all([
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...SuperchainConfig.write.initialize(constants.GUARDIAN, false),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...DisputeGameFactory.write.initialize(constants.DISPUTE_GAME_FACTORY_OWNER),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...L1StandardBridge.write.initialize(L1CrossDomainMessenger.address, SuperchainConfig.address),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
-				// this contract is deprecated that is why the constants are not public, client.contract(
+				// this contract is deprecated that is why the constants are not public, client.tevmContract(
 				...L2OutputOracle.write.initialize(
 					// submission interval
 					1800n,
@@ -97,7 +97,7 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 					604800n,
 				),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...SystemConfig.write.initialize(
 					constants.SYSTEM_CONFIG_OWNER,
@@ -118,19 +118,19 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 					},
 				),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...OptimismPortal2.write.initialize(DisputeGameFactory.address, SystemConfig.address, SuperchainConfig.address),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...OptimismMintableERC20Factory.write.initialize(L1StandardBridge.address),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...L1CrossDomainMessenger.write.initialize(SuperchainConfig.address, OptimismPortal2.address),
 			}),
-			client.contract({
+			client.tevmContract({
 				createTransaction: true,
 				...L1Erc721Bridge.write.initialize(L1CrossDomainMessenger.address, SuperchainConfig.address),
 			}),
@@ -142,9 +142,9 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
 	return {
 		...client,
 		op: { ...contracts, ...constants },
-		ready: async () => {
+		tevmReady: async () => {
 			await asyncPreparePromise
-			return client.ready()
+			return client.tevmReady()
 		},
 	}
 }

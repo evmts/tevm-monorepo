@@ -6,7 +6,7 @@ const FIB_200 = 280571172992510140037611932413038677189525n
 
 describe('import("@tevm/memory-client").createMemoryClient().script - pure computation no state access', async () => {
 	// wait for tevm to initialize so we don't measure that
-	await tevm.ready()
+	await tevm.tevmReady()
 	bench('should do fibanci(3) computation in solidity', async () => {
 		expect(await pureComputationSol(3n)).toEqual(2n)
 	})

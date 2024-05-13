@@ -127,7 +127,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	/**
 	 * An instance of the TevmClient interface.
 	 * @see [Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/)
-	 * @type {import('@tevm/memory-client').MemoryClient}
+	 * @type {import('@tevm/memory-client').MemoryClient['_tevm']}
 	 * ## Tevm actions support
 	 *
 	 * The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
@@ -167,16 +167,16 @@ export class TevmProvider extends JsonRpcApiProvider {
 	tevm
 
 	/**
-	 * @param {import('@tevm/memory-client').MemoryClient} tevm An instance of the Tevm interface.
+	 * @param {import('@tevm/memory-client').MemoryClient} memoryClient An instance of a tevm Memory client
 	 */
-	constructor(tevm) {
+	constructor(memoryClient) {
 		super(undefined, {
 			staticNetwork: true,
 			batchMaxCount: 1,
 			batchStallTime: 0,
 			cacheTimeout: -1,
 		})
-		this.tevm = tevm
+		this.tevm = memoryClient._tevm
 	}
 
 	/**

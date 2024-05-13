@@ -6,6 +6,12 @@
 
 # Module: memory-client
 
+## Index
+
+### Type Aliases
+
+- [TevmActions](type-aliases/TevmActions.md)
+
 ## Table of contents
 
 ### References

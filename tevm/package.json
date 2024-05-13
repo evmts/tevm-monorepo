@@ -214,7 +214,8 @@
 		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/sync-storage-persister": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/utils": "workspace:^",
+		"@tevm/viem": "workspace:1.1.0-next.47"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

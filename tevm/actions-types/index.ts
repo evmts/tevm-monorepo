@@ -1,4 +1,7 @@
 export type {
+  DeployParams,
+  DeployResult,
+  DeployHandler,
   MineResult,
   MineParams,
   MineHandler,

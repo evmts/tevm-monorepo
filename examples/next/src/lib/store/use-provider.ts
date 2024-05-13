@@ -84,7 +84,7 @@ export const useProviderStore = create<ProviderStore>()(
           // 1. Check if we already have the appropriate client for the selected chain
           // e.g. when searching a different account on the same chain
           let client =
-            (await currentClient?.eth.chainId()) === BigInt(chain.id)
+            (await currentClient?.getChainId()) === chain.id
               ? currentClient
               : null;
 
@@ -92,7 +92,7 @@ export const useProviderStore = create<ProviderStore>()(
           // already initialized earlier
           if (!client) {
             for (const c of initializedClients) {
-              if ((await c.eth.chainId()) === BigInt(chain.id)) {
+              if ((await c.getChainId()) === chain.id) {
                 client = c;
               }
             }
@@ -120,7 +120,7 @@ export const useProviderStore = create<ProviderStore>()(
               },
             });
 
-            await client.ready();
+            await client.tevmReady();
 
             // Set its fork time if it's never been initialized
             // This is aligned with the client being completely new, or already used

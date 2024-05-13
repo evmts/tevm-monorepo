@@ -43,10 +43,10 @@ const forkConfig = {
 }
 
 describe('Tevm should create a local vm in JavaScript', () => {
-	describe('Tevm.script', () => {
+	describe('client.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.script(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
+			const res = await tevm.tevmScript(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
 			expect(res.data).toBe(0n)
 			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
@@ -58,7 +58,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 		it('should work for add contract', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.script({
+			const res = await tevm.tevmScript({
 				deployedBytecode: addbytecode,
 				abi: addabi,
 				functionName: 'add',
@@ -70,26 +70,26 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 	})
 
-	describe('Tevm.call', () => {
+	describe('client.tevmCall', () => {
 		it('should execute a call on the vm', async () => {
 			const tevm = createMemoryClient()
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
-			await tevm.setAccount({
+			await tevm.tevmSetAccount({
 				address: address1,
 				balance,
 			})
 			expect(
 				(
-					await tevm.getAccount({
+					await tevm.tevmGetAccount({
 						address: address1,
 					})
 				).balance,
 			).toBe(balance)
 			const transferAmount = 0x420n
 			// TODO test other input options
-			await tevm.call({
+			await tevm.tevmCall({
 				caller: address1,
 				data: '0x0',
 				to: address2,
@@ -97,22 +97,22 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				origin: address1,
 				createTransaction: true,
 			})
-			await tevm.mine()
+			await tevm.mine({ blocks: 1 })
 			expect(
-				(await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
+				(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
 			).toBe(transferAmount)
 			expect(
-				(await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
+				(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
 			).toBe(286183069n)
 			// TODO test other return properties
 		})
 	})
 
-	describe('Tevm.contract', () => {
+	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
 			const tevm = createMemoryClient({ fork: forkConfig })
 			// TODO test other inputs
-			const res = await tevm.contract({
+			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
 					contractAddress,
@@ -125,11 +125,11 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 	})
 
-	describe('Tevm.account', () => {
+	describe('client.account', () => {
 		it('should insert a new account with eth into the state', async () => {
 			const tevm = createMemoryClient()
 			const balance = 0x11111111n
-			const account = await tevm.setAccount({
+			const account = await tevm.tevmSetAccount({
 				address: '0xff420000000000000000000000000000000000ff',
 				balance,
 			})
@@ -137,7 +137,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 		it('should insert a new contract with bytecode', async () => {
 			const tevm = createMemoryClient()
-			const code = await tevm.setAccount({
+			const code = await tevm.tevmSetAccount({
 				deployedBytecode: DaiContract.deployedBytecode,
 				address: '0xff420000000000000000000000000000000000ff',
 			})

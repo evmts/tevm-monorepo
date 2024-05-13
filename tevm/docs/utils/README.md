@@ -8,18 +8,38 @@
 
 ## Index
 
+### Enumerations
+
+- [KeyEncoding](enumerations/KeyEncoding.md)
+- [TypeOutput](enumerations/TypeOutput.md)
+- [ValueEncoding](enumerations/ValueEncoding.md)
+
 ### Classes
 
+- [AsyncEventEmitter](classes/AsyncEventEmitter.md)
+- [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
+- [Withdrawal](classes/Withdrawal.md)
 
 ### Interfaces
 
+- [Db](interfaces/Db.md)
 - [GenesisState](interfaces/GenesisState.md)
+- [JsonRpcWithdrawal](interfaces/JsonRpcWithdrawal.md)
 
 ### Type Aliases
 
+- [AddressLike](type-aliases/AddressLike.md)
+- [BatchDbOp](type-aliases/BatchDbOp.md)
+- [BigIntLike](type-aliases/BigIntLike.md)
 - [BigIntToHex](type-aliases/BigIntToHex.md)
+- [BytesLike](type-aliases/BytesLike.md)
+- [ContractConstructorArgs](type-aliases/ContractConstructorArgs.md)
+- [DbObject](type-aliases/DbObject.md)
+- [EncodeDeployDataParameters](type-aliases/EncodeDeployDataParameters.md)
+- [EncodingOpts](type-aliases/EncodingOpts.md)
+- [EthjsLog](type-aliases/EthjsLog.md)
 - [JsonSerializable](type-aliases/JsonSerializable.md)
 - [JsonSerializableArray](type-aliases/JsonSerializableArray.md)
 - [JsonSerializableObject](type-aliases/JsonSerializableObject.md)
@@ -28,9 +48,24 @@
 - [SetToHex](type-aliases/SetToHex.md)
 - [WithdrawalData](type-aliases/WithdrawalData.md)
 
+### Variables
+
+- [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
+- [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
+
 ### Functions
 
+- [bytesToUnprefixedHex](functions/bytesToUnprefixedHex.md)
+- [bytesToUtf8](functions/bytesToUtf8.md)
+- [concatBytes](functions/concatBytes.md)
+- [ecrecover](functions/ecrecover.md)
+- [ecsign](functions/ecsign.md)
 - [equalsBytes](functions/equalsBytes.md)
+- [fetchFromProvider](functions/fetchFromProvider.md)
+- [getProvider](functions/getProvider.md)
+- [setLengthLeft](functions/setLengthLeft.md)
+- [toType](functions/toType.md)
+- [zeros](functions/zeros.md)
 
 ## Table of contents
 

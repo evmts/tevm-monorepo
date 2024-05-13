@@ -153,6 +153,9 @@ export {
 } from "@tevm/base-client";
 
 export { type MemoryClient, createMemoryClient } from "@tevm/memory-client";
+export {
+  tevmTransport,
+} from '@tevm/viem'
 
 export {
   type ConstructorArgument,

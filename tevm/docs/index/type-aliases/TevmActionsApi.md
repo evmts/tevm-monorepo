@@ -67,7 +67,7 @@ console.log(res.data) // "hello"
 
 ### deploy
 
-> **deploy**: `DeployHandler`
+> **deploy**: [`DeployHandler`](../../actions-types/type-aliases/DeployHandler.md)
 
 Creates a transaction to deploys a contract to tevm
 

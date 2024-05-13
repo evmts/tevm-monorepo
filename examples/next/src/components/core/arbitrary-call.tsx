@@ -90,7 +90,7 @@ const ArbitraryCall = () => {
     });
 
     // Process the transaction
-    const tx = await client.call({
+    const tx = await client.tevmCall({
       from: caller,
       to: account.address,
       data: isHex(dataInput) ? dataInput : '0x',

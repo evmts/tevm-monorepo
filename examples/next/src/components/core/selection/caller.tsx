@@ -109,7 +109,7 @@ const CallerSelection = () => {
     setFetchingOwner(true);
     const loading = toast.loading('Fetching the owner...');
 
-    const tx = await client.contract({
+    const tx = await client.tevmContract({
       from: caller,
       to: account.address,
       functionName: ownerMethod,

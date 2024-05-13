@@ -30,7 +30,7 @@ A mapping of `tevm_*` method names to their request type
 
 ### tevm\_mine
 
-> **tevm\_mine**: `MineJsonRpcRequest`
+> **tevm\_mine**: [`MineJsonRpcRequest`](MineJsonRpcRequest.md)
 
 ### tevm\_script
 

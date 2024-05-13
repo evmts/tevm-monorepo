@@ -15,19 +15,19 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 ### address
 
-> **address**: `AddressLike`
+> **address**: [`AddressLike`](AddressLike.md)
 
 ### amount
 
-> **amount**: `BigIntLike`
+> **amount**: [`BigIntLike`](BigIntLike.md)
 
 ### index
 
-> **index**: `BigIntLike`
+> **index**: [`BigIntLike`](BigIntLike.md)
 
 ### validatorIndex
 
-> **validatorIndex**: `BigIntLike`
+> **validatorIndex**: [`BigIntLike`](BigIntLike.md)
 
 ## Source
 
