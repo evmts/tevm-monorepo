@@ -1,5 +1,12 @@
 # @tevm/viem
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- Updated dependencies [[`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/jsonrpc@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Patch Changes

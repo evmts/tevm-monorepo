@@ -1,5 +1,15 @@
 # @tevm/state
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- [#1063](https://github.com/evmts/tevm-monorepo/pull/1063) [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc) Thanks [@roninjin10](https://github.com/roninjin10)! - Added retry support for fetching blocks from rpc
+
+- Updated dependencies [[`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/jsonrpc@1.1.0-next.46
+  - @tevm/block@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Patch Changes

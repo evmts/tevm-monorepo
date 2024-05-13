@@ -1,5 +1,11 @@
 # @tevm/jsonrpc
 
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1063](https://github.com/evmts/tevm-monorepo/pull/1063) [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc) Thanks [@roninjin10](https://github.com/roninjin10)! - Added retry support to JSON-RPC
+
 ## 1.0.0-next.40
 
 ### Patch Changes

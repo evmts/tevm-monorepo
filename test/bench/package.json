@@ -62,7 +62,7 @@
 	"dependencies": {
 		"@tevm/contract": "workspace:",
 		"@tevm/test-utils": "workspace:",
-		"@tevm/viem": "workspace:",
+		"@tevm/viem": "workspace:1.1.0-next.46",
 		"tevm": "workspace:^",
 		"viem": "^2.9.9"
 	},

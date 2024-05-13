@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- [#1057](https://github.com/evmts/tevm-monorepo/pull/1057) [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bug with not allowign genesisstate with no state roots
+
+- Updated dependencies [[`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d)]:
+  - @tevm/common@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Patch Changes

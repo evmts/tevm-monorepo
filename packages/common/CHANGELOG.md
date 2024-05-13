@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1054](https://github.com/evmts/tevm-monorepo/pull/1054) [`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added logging and chainId params to common. This moves logic that was previously in createBaseClient to the common factory
+
 ## 1.1.0-next.45
 
 ### Patch Changes
