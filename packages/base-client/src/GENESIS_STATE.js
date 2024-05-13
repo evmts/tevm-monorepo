@@ -1,9 +1,11 @@
+import { parseEther } from '@tevm/utils'
+
 /**
  * These are the same accounts hardhat and anvil start with 10000 eth
  * Also including zer address
  * @type {ReadonlyArray<import('@tevm/utils').Address>}
  */
-export const INITIAL_ACCOUNTS = [
+const INITIAL_ACCOUNTS = [
 	`0x${'00'.repeat(20)}`,
 	'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 	'0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
@@ -16,3 +18,20 @@ export const INITIAL_ACCOUNTS = [
 	'0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f',
 	'0xa0Ee7A142d267C1f36714E4a8F75612F20a79720',
 ]
+
+const INITIAL_BALANCE = parseEther('1000')
+
+/**
+ * @type {import('@tevm/state').TevmState}
+ */
+export const GENESIS_STATE = Object.fromEntries(
+	INITIAL_ACCOUNTS.map((address) => [
+		address,
+		{
+			nonce: 0n,
+			balance: INITIAL_BALANCE,
+			storageRoot: '0x',
+			codeHash: '0x',
+		},
+	]),
+)
