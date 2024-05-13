@@ -10,7 +10,6 @@ import { createBaseVm } from './createBaseVm.js'
  */
 export const createVm = (opts) => {
 	const baseVm = createBaseVm(opts)
-
 	/**
 	 * @param {import("./BaseVm.js").BaseVm} baseVm
 	 */
@@ -22,7 +21,5 @@ export const createVm = (opts) => {
 			runTx: runTx(baseVm),
 		})
 	}
-
-	const out = decorate(baseVm)
-	return out
+	return decorate(baseVm)
 }
