@@ -52,7 +52,8 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 			}
 		}
 	} catch (e) {
-		console.error('There was an error generating cannonical genesis. Reverting back to old state', e)
+		baseState.logger.debug(state)
+		baseState.logger.error(e, 'There was an error generating cannonical genesis. Reverting back to old state')
 		baseState.caches = oldCaches
 		throw e
 	}

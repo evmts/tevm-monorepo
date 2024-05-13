@@ -23,6 +23,7 @@ test('Call predeploy from TypeScript', async () => {
 	})
 
 	const tevm = createMemoryClient({
+		loggingLevel: 'debug',
 		customPredeploys: [predeploy],
 	})
 

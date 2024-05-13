@@ -12,6 +12,7 @@ export const dumpStateHandler =
     async ({ throwOnFail = options.throwOnFail } = {}) => {
       try {
         const vm = await client.getVm()
+        await vm.stateManager.ready()
         if (
           'dumpCanonicalGenesis' in vm.stateManager
         ) {
