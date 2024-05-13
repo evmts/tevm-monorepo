@@ -142,7 +142,7 @@ export const createL1Client = ({ chainId = 10 }: { chainId?: 10 } = {}) => {
   return {
     ...client,
     op: { ...contracts, ...constants },
-    ready: async () => {
+    tevmReady: async () => {
       await asyncPreparePromise
       return client.tevmReady()
     },

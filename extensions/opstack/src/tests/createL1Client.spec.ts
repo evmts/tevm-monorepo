@@ -5,13 +5,13 @@ describe('createL1Client', () => {
   it('Should initialize a memory client syncronously with a ready function to see when client is ready', async () => {
     const client = createL1Client()
     expect(client._tevm.mode).toBe('normal')
-    expect(await client.ready()).toBeTruthy()
+    expect(await client.tevmReady()).toBeTruthy()
   })
 
   it('should deploy a lot of contracts', async () => {
     const client = createL1Client()
 
-    expect(await client.ready()).toBeTruthy()
+    expect(await client.tevmReady()).toBeTruthy()
 
     const accounts = await Promise.all([
       client.tevmGetAccount(client.op.L1Erc721Bridge),
