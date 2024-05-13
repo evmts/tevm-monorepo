@@ -15,8 +15,8 @@ const simpleConstructorAbi = parseAbi([
 describe('deployHandler', () => {
   it('should deploy a contract', async () => {
     const client = createBaseClient({ loggingLevel: 'warn' })
-    // TODO this type is fucked atm
     const initialValue = 420n
+    // TODO this type is fucked atm
     const deployResult = await deployHandler(client)({
       abi: simpleConstructorAbi,
       bytecode: simpleConstructorBytecode,
