@@ -37,41 +37,41 @@ import { createClient, createTransport, publicActions, testActions } from 'viem'
  *  ```
  */
 export const createMemoryClient = (options) => {
-  const tevm = createBaseClient(options)
-    .extend(tevmSend())
-    .extend(eip1993EventEmitter())
-    .extend(requestEip1193())
-    .extend(tevmActions())
+	const tevm = createBaseClient(options)
+		.extend(tevmSend())
+		.extend(eip1993EventEmitter())
+		.extend(requestEip1193())
+		.extend(tevmActions())
 
-  return createClient({
-    type: 'tevm',
-    transport: () =>
-      createTransport({
-        request: /** @type any*/ (tevm.request),
-        type: 'tevm',
-        name: /**options?.name ??*/ 'Tevm transport',
-        key: /*options?.key ??*/ 'tevm',
-        timeout: /*options?.timeout ?? */ 20_000,
-        retryCount: /*options?.retryCount ??*/ 3,
-        retryDelay: /* options?.retryDelay ?? */ 150,
-      }),
-  })
-    .extend(testActions({ mode: 'anvil' }))
-    .extend(publicActions)
-    .extend(() => {
-      return {
-        _tevm: tevm,
-        tevmReady: tevm.ready,
-        tevmCall: tevm.call,
-        tevmContract: tevm.contract,
-        tevmScript: tevm.script,
-        tevmDeploy: tevm.deploy,
-        tevmMine: tevm.mine,
-        tevmLoadState: tevm.loadState,
-        tevmDumpState: tevm.dumpState,
-        tevmSetAccount: tevm.setAccount,
-        tevmGetAccount: tevm.getAccount,
-        ...(tevm.forkUrl !== undefined ? { forkUrl: tevm.forkUrl } : {}),
-      }
-    })
+	return createClient({
+		type: 'tevm',
+		transport: () =>
+			createTransport({
+				request: /** @type any*/ (tevm.request),
+				type: 'tevm',
+				name: /**options?.name ??*/ 'Tevm transport',
+				key: /*options?.key ??*/ 'tevm',
+				timeout: /*options?.timeout ?? */ 20_000,
+				retryCount: /*options?.retryCount ??*/ 3,
+				retryDelay: /* options?.retryDelay ?? */ 150,
+			}),
+	})
+		.extend(testActions({ mode: 'anvil' }))
+		.extend(publicActions)
+		.extend(() => {
+			return {
+				_tevm: tevm,
+				tevmReady: tevm.ready,
+				tevmCall: tevm.call,
+				tevmContract: tevm.contract,
+				tevmScript: tevm.script,
+				tevmDeploy: tevm.deploy,
+				tevmMine: tevm.mine,
+				tevmLoadState: tevm.loadState,
+				tevmDumpState: tevm.dumpState,
+				tevmSetAccount: tevm.setAccount,
+				tevmGetAccount: tevm.getAccount,
+				...(tevm.forkUrl !== undefined ? { forkUrl: tevm.forkUrl } : {}),
+			}
+		})
 }

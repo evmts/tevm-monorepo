@@ -1,6 +1,6 @@
-import type { Prettify } from 'viem/chains'
 import { type JsonRpcSchemaTevm } from '@tevm/decorators'
-import type { Client, Transport, PublicRpcSchema, TestRpcSchema, PublicActions, TestActions } from 'viem'
+import type { Client, PublicActions, PublicRpcSchema, TestActions, TestRpcSchema, Transport } from 'viem'
+import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 
 /**
@@ -38,20 +38,20 @@ import type { TevmActions } from './TevmActions.js'
  *  ```
  */
 export type MemoryClient = Prettify<
-  Client<
-    Transport,
-    undefined,
-    undefined,
-    [
-      ...PublicRpcSchema,
-      ...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
-      JsonRpcSchemaTevm['tevm_call'],
-      JsonRpcSchemaTevm['tevm_script'],
-      JsonRpcSchemaTevm['tevm_dumpState'],
-      JsonRpcSchemaTevm['tevm_loadState'],
-      JsonRpcSchemaTevm['tevm_getAccount'],
-      JsonRpcSchemaTevm['tevm_setAccount'],
-    ],
-    PublicActions & TestActions & TevmActions
-  >
+	Client<
+		Transport,
+		undefined,
+		undefined,
+		[
+			...PublicRpcSchema,
+			...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
+			JsonRpcSchemaTevm['tevm_call'],
+			JsonRpcSchemaTevm['tevm_script'],
+			JsonRpcSchemaTevm['tevm_dumpState'],
+			JsonRpcSchemaTevm['tevm_loadState'],
+			JsonRpcSchemaTevm['tevm_getAccount'],
+			JsonRpcSchemaTevm['tevm_setAccount'],
+		],
+		PublicActions & TestActions & TevmActions
+	>
 >

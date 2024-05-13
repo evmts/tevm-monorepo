@@ -29,8 +29,8 @@ import { createHttpHandler } from './createHttpHandler.js'
  * ```
  */
 export const createServer = async (client, serverOptions) => {
-  if (serverOptions === undefined) {
-    return httpCreateServer(createHttpHandler(client))
-  }
-  return httpCreateServer(serverOptions, createHttpHandler(client))
+	if (serverOptions === undefined) {
+		return httpCreateServer(createHttpHandler(client))
+	}
+	return httpCreateServer(serverOptions, createHttpHandler(client))
 }

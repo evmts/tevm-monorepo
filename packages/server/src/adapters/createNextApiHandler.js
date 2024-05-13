@@ -14,8 +14,8 @@ import { createHttpHandler } from '../createHttpHandler.js'
  * ```
  */
 export const createNextApiHandler = (client) => {
-  const handler = createHttpHandler(client)
-  return async (req, res) => {
-    handler(req, res)
-  }
+	const handler = createHttpHandler(client)
+	return async (req, res) => {
+		handler(req, res)
+	}
 }

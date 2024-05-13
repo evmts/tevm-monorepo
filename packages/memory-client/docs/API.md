@@ -9,6 +9,7 @@
 ### Type Aliases
 
 - [MemoryClient](type-aliases/MemoryClient.md)
+- [TevmActions](type-aliases/TevmActions.md)
 
 ### Functions
 
