@@ -1,6 +1,7 @@
 import {
 	callHandler,
 	contractHandler,
+	deployHandler,
 	dumpStateHandler,
 	getAccountHandler,
 	loadStateHandler,
@@ -81,6 +82,15 @@ const mineAction = () => (client) => {
 		mine: mineHandler(client),
 	}
 }
+/**
+ * @internal
+ * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'deploy'>>}
+ */
+const deployAction = () => (client) => {
+	return {
+		deploy: deployHandler(client),
+	}
+}
 
 /**
  * @returns {import('@tevm/base-client').Extension<import('./TevmActionsApi.js').TevmActionsApi>}
@@ -95,4 +105,5 @@ export const tevmActions = () => (client) => {
 		.extend(getAccountAction())
 		.extend(scriptAction())
 		.extend(mineAction())
+		.extend(deployAction())
 }

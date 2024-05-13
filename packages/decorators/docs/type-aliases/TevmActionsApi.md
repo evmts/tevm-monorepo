@@ -65,6 +65,12 @@ const res = await tevm.contract({
 console.log(res.data) // "hello"
 ```
 
+### deploy
+
+> **deploy**: `DeployHandler`
+
+Creates a transaction to deploys a contract to tevm
+
 ### dumpState
 
 > **dumpState**: `DumpStateHandler`
@@ -184,7 +190,7 @@ await tevm.setAccount({
 
 ## Source
 
-[packages/decorators/src/actions/TevmActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L16)
+[packages/decorators/src/actions/TevmActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

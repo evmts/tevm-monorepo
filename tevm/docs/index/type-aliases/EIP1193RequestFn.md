@@ -30,7 +30,7 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:299
+packages/decorators/dist/index.d.ts:303
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

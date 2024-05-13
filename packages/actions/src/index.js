@@ -26,5 +26,6 @@ export {
 	dumpStateHandler,
 	loadStateHandler,
 	mineHandler,
+	deployHandler,
 } from './tevm/index.js'
 export { traceCallHandler } from './debug/index.js'

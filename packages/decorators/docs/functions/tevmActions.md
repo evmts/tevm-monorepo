@@ -12,7 +12,7 @@
 
 ## Source
 
-[packages/decorators/src/actions/tevmActions.js:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L88)
+[packages/decorators/src/actions/tevmActions.js:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L98)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
