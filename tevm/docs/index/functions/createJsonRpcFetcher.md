@@ -6,13 +6,15 @@
 
 # Function: createJsonRpcFetcher()
 
-> **createJsonRpcFetcher**(`url`, `headers`?): `JsonRpcClient`
+> **createJsonRpcFetcher**(`url`, `headers`?, `retries`?): `JsonRpcClient`
 
 ## Parameters
 
 ▪ **url**: `string`
 
 ▪ **headers?**: [`HeadersInit`](../type-aliases/HeadersInit.md)
+
+▪ **retries?**: `number`
 
 ## Source
 

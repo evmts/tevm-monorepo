@@ -63,14 +63,14 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"viem": "^2.10.3"
+	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"dependencies": {
-		"viem": "^2.10.3"
 	}
 }
