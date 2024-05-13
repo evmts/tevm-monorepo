@@ -104,6 +104,11 @@ filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
 			}
 			throw new Error(`Invalid blocktag ${blockTag}`)
 		},
-		{ retryCount: 3, delay: 200 },
+		{
+			retryCount: 3,
+			delay: ({ count }) => {
+				return count * 200
+			},
+		},
 	)
 }

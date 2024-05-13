@@ -90,7 +90,12 @@ export const createJsonRpcFetcher = (
 						throw new Error('JSON-RPC response was not valid JSON')
 					}
 				},
-				{ retryCount: retries },
+				{
+					retryCount: retries,
+					delay: ({ count }) => {
+						return count * 200
+					},
+				},
 			)
 		},
 	}
