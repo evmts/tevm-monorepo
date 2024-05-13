@@ -69,5 +69,8 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"viem": "^2.10.3"
 	}
 }
