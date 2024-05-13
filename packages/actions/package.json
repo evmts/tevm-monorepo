@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/actions",
-	"version": "1.1.0-next.45",
+	"version": "1.1.0-next.46",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [
@@ -64,8 +64,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/block": "workspace:1.1.0-next.45",
-		"@tevm/blockchain": "workspace:1.1.0-next.45",
+		"@tevm/block": "workspace:1.1.0-next.46",
+		"@tevm/blockchain": "workspace:1.1.0-next.46",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/tx": "workspace:1.1.0-next.45",
 		"@tevm/utils": "workspace:^",

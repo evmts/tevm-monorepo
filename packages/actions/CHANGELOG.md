@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1062](https://github.com/evmts/tevm-monorepo/pull/1062) [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1) Thanks [@roninjin10](https://github.com/roninjin10)! - Added deployHandler to tevm
+
+### Patch Changes
+
+- [#1058](https://github.com/evmts/tevm-monorepo/pull/1058) [`77fb31d`](https://github.com/evmts/tevm-monorepo/commit/77fb31dd3e4642495860b3bde1c6bc6527f2bb19) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with `createTransaction` setting the wrong gas limit on contract creation
+
+- Updated dependencies [[`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/jsonrpc@1.1.0-next.46
+  - @tevm/blockchain@1.1.0-next.46
+  - @tevm/zod@1.1.0-next.45
+  - @tevm/block@1.1.0-next.46
+  - @tevm/vm@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Minor Changes

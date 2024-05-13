@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/viem@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Patch Changes

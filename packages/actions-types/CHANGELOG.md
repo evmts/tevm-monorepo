@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1062](https://github.com/evmts/tevm-monorepo/pull/1062) [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1) Thanks [@roninjin10](https://github.com/roninjin10)! - Added deployHandler to tevm
+
 ## 1.1.0-next.45
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @tevm/state
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- Updated dependencies [[`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d)]:
+  - @tevm/common@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @tevm/client
 
+## 1.1.0-next.46
+
+### Patch Changes
+
+- [#1056](https://github.com/evmts/tevm-monorepo/pull/1056) [`c0c9e30`](https://github.com/evmts/tevm-monorepo/commit/c0c9e302c6900ed9ad31c50667813d35dc5366e9) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with state persistance not working in forked mode
+
+- [#1057](https://github.com/evmts/tevm-monorepo/pull/1057) [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388) Thanks [@roninjin10](https://github.com/roninjin10)! - Optimized performance of forking
+
+- Updated dependencies [[`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc), [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/common@1.1.0-next.46
+  - @tevm/jsonrpc@1.1.0-next.46
+  - @tevm/state@1.1.0-next.46
+  - @tevm/blockchain@1.1.0-next.46
+  - @tevm/evm@1.1.0-next.46
+  - @tevm/vm@1.1.0-next.46
+  - @tevm/sync-storage-persister@1.1.0-next.46
+  - @tevm/txpool@1.1.0-next.46
+
 ## 1.1.0-next.45
 
 ### Minor Changes
