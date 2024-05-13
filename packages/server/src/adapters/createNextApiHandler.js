@@ -2,7 +2,7 @@ import { createHttpHandler } from '../createHttpHandler.js'
 
 /**
  * Creates a Next.js API handler for a Tevm JSON-RPC server
- * @param {Pick<import('@tevm/memory-client').MemoryClient, 'send'>} client
+ * @param {import('@tevm/memory-client').MemoryClient} client
  * @returns {import('next').NextApiHandler}
  * @example
  * ```typescript
@@ -14,8 +14,8 @@ import { createHttpHandler } from '../createHttpHandler.js'
  * ```
  */
 export const createNextApiHandler = (client) => {
-	const handler = createHttpHandler(client)
-	return async (req, res) => {
-		handler(req, res)
-	}
+  const handler = createHttpHandler(client)
+  return async (req, res) => {
+    handler(req, res)
+  }
 }
