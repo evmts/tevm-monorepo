@@ -64,10 +64,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/block": "workspace:1.1.0-next.46",
-		"@tevm/blockchain": "workspace:1.1.0-next.46",
+		"@tevm/block": "workspace:^",
+		"@tevm/blockchain": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/tx": "workspace:1.1.0-next.45",
+		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",
 		"@tevm/zod": "workspace:^"
@@ -78,7 +78,7 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@tevm/test-utils": "workspace:1.0.0-next.39",
+		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/vm": "workspace:^"

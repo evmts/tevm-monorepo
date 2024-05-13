@@ -62,7 +62,7 @@
 		"lint:package": "bunx publint --strict && attw --pack"
 	},
 	"dependencies": {
-		"@tevm/compiler": "workspace:1.0.0-next.41",
+		"@tevm/compiler": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.8.9"

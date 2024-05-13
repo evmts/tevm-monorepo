@@ -62,9 +62,9 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/block": "workspace:1.1.0-next.46",
+		"@tevm/block": "workspace:^",
 		"@tevm/tx": "workspace:^",
-		"@tevm/utils": "workspace:1.1.0-next.45",
+		"@tevm/utils": "workspace:^",
 		"qheap": "^1.4.0"
 	},
 	"devDependencies": {

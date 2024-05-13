@@ -62,7 +62,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@tevm/base-client": "workspace:1.1.0-next.46",
+		"@tevm/base-client": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",

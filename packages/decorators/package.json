@@ -63,15 +63,15 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/actions-types": "workspace:1.1.0-next.46",
+		"@tevm/actions-types": "workspace:^",
 		"@tevm/procedures": "workspace:^",
-		"@tevm/procedures-types": "workspace:1.1.0-next.45",
-		"@tevm/utils": "workspace:1.1.0-next.45",
+		"@tevm/procedures-types": "workspace:^",
+		"@tevm/utils": "workspace:^",
 		"viem": "^2.7.16"
 	},
 	"devDependencies": {
-		"@tevm/base-client": "workspace:1.1.0-next.46",
-		"@tevm/client-types": "workspace:1.1.0-next.45",
+		"@tevm/base-client": "workspace:^",
+		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

@@ -61,11 +61,11 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
-		"@tevm/utils": "workspace:1.1.0-next.45"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/bun-plugin": "workspace:^",
-		"@tevm/evm": "workspace:1.1.0-next.46",
+		"@tevm/evm": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
