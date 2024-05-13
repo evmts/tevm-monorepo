@@ -2,14 +2,15 @@ import { ReceiptsManager, createChain, createMapDb } from '@tevm/blockchain'
 import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
-import { createStateManager, dumpCanonicalGenesis, getForkBlockTag } from '@tevm/state'
+import { createStateManager, getForkBlockTag } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBigInt, numberToHex, parseEther, toHex } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBigInt, numberToHex, parseEther } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { INITIAL_ACCOUNTS } from './INITIAL_ACCOUNTS.js'
 import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
+import { statePersister } from './statePersister.js'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -28,57 +29,28 @@ export const createBaseClient = (options = {}) => {
 		name: 'TevmClient',
 		level: loggingLevel,
 	})
+
 	/**
 	 * @returns {import('@tevm/state').StateOptions }
 	 */
 	const getStateManagerOpts = () => {
-		/**
-		 * @type {import('@tevm/state').StateOptions['onCommit']}
-		 */
-		const onCommit = (stateManager) => {
-			if (!options.persister) {
-				throw new Error('No persister provided')
-			}
-			logger.debug('persisting state manager...')
-			dumpCanonicalGenesis(stateManager)().then((state) => {
-				/**
-				 * @type {import('@tevm/state').ParameterizedTevmState}
-				 */
-				const parsedState = {}
-
-				for (const [k, v] of Object.entries(state)) {
-					const { nonce, balance, storageRoot, codeHash } = v
-					parsedState[k] = {
-						...v,
-						nonce: toHex(nonce),
-						balance: toHex(balance),
-						storageRoot: storageRoot,
-						codeHash: codeHash,
-					}
-				}
-				options.persister?.persistTevmState(parsedState)
-			})
-		}
 		if (options.fork?.url) {
 			return {
 				loggingLevel,
 				fork: {
 					...options.fork,
-					...(options.persister ? { onCommit } : {}),
+					...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				},
 			}
 		}
 		// handle normal mode
-		if (options.persister) {
-			return {
-				loggingLevel,
-				onCommit: /** @type any*/ (onCommit),
-			}
-		}
 		return {
 			loggingLevel,
+			...(options.fork?.url ? options.fork : {}),
+			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
 	}
+
 	let stateManager = createStateManager(getStateManagerOpts())
 
 	/**
