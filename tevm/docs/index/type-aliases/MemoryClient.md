@@ -6,10 +6,10 @@
 
 # Type alias: MemoryClient
 
-> **MemoryClient**: [`BaseClient`](BaseClient.md) & [`EthActionsApi`](EthActionsApi.md) & [`TevmActionsApi`](TevmActionsApi.md) & [`EIP1193EventEmitter`](../../decorators/type-aliases/EIP1193EventEmitter.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md) & `object` & `object`
+> **MemoryClient**: `Prettify`\<`Client`\<`Transport`, `undefined`, `undefined`, [`...PublicRpcSchema`, `...TestRpcSchema<"anvil" | "ganache" | "hardhat">`, [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_call"`], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_script"`], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_dumpState"`], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_loadState"`], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_getAccount"`], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)[`"tevm_setAccount"`]], `PublicActions` & `TestActions` & [`TevmActions`](../../memory-client/type-aliases/TevmActions.md)\>\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the [TevmClient](TevmClient.md) interface with an in memory EVM instance.
+It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
 
 ## See
 
@@ -31,13 +31,13 @@ const tevm = createMemoryClient({
 
 const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 
-await tevm.contract(
+await tevm.tevmContract(
   MyERC721.write.mint({
     caller: address,
   }),
 )
 
-const balance = await tevm.runContractCall(
+const balance = await tevm.tevmContract(
  MyERC721.read.balanceOf({
  caller: address,
  }),
@@ -45,21 +45,9 @@ const balance = await tevm.runContractCall(
  console.log(balance) // 1n
  ```
 
-## Type declaration
-
-### send
-
-> **send**: [`TevmJsonRpcRequestHandler`](TevmJsonRpcRequestHandler.md)
-
-## Type declaration
-
-### sendBulk
-
-> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](TevmJsonRpcBulkRequestHandler.md)
-
 ## Source
 
-packages/memory-client/types/MemoryClient.d.ts:38
+packages/memory-client/types/MemoryClient.d.ts:39
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

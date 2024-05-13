@@ -191,7 +191,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
           strData.toString().length > 100
             ? `${strData.toString().slice(0, 100)}...`
             : // or the entire data if it's less than 100 characters
-            data;
+              data;
 
         toast.success('Transaction successful!', {
           id: loading,
@@ -390,10 +390,10 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                   row.original.name || '', // we're actually confident this is not undefined
                   row.original.inputs?.length
                     ? row.original.inputs.map((input, index) => ({
-                      type: input.type,
-                      name: input.name,
-                      value: inputValues[id].args[index] as string | number,
-                    }))
+                        type: input.type,
+                        name: input.name,
+                        value: inputValues[id].args[index] as string | number,
+                      }))
                     : [],
                   inputValues[id].value,
                 )
@@ -443,29 +443,29 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
     columns: isTablet
       ? columns
       : [
-        {
-          ...columns[0],
-          cell: ({ row }) => {
-            const mut = row.original.stateMutability;
+          {
+            ...columns[0],
+            cell: ({ row }) => {
+              const mut = row.original.stateMutability;
 
-            if (loading) return <SkeletonCell />;
+              if (loading) return <SkeletonCell />;
 
-            return (
-              <div className="flex flex-col gap-1">
-                <pre className="text-xs sm:text-sm">{row.original.name}</pre>
-                {/* We can't show for sure write functions, because sometimes the abi will specify
+              return (
+                <div className="flex flex-col gap-1">
+                  <pre className="text-xs sm:text-sm">{row.original.name}</pre>
+                  {/* We can't show for sure write functions, because sometimes the abi will specify
                   "nonpayable/payable" for all functions if it couldn't determine the state */}
-                <span>
-                  {mut && (mut === 'pure' || mut === 'view') ? (
-                    <Badge variant="secondary">read</Badge>
-                  ) : null}
-                </span>
-              </div>
-            );
+                  <span>
+                    {mut && (mut === 'pure' || mut === 'view') ? (
+                      <Badge variant="secondary">read</Badge>
+                    ) : null}
+                  </span>
+                </div>
+              );
+            },
           },
-        },
-        ...columns.slice(2, columns.length),
-      ],
+          ...columns.slice(2, columns.length),
+        ],
     getCoreRowModel: getCoreRowModel(),
     // Pagination
     getPaginationRowModel: getPaginationRowModel(),

@@ -154,6 +154,7 @@
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
 - [stringToHex](functions/stringToHex.md)
+- [tevmTransport](functions/tevmTransport.md)
 - [toBytes](functions/toBytes.md)
 - [toHex](functions/toHex.md)
 - [toRlp](functions/toRlp.md)

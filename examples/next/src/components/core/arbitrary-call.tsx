@@ -110,7 +110,7 @@ const ArbitraryCall = () => {
         tx.rawData.toString().length > 100
           ? `${tx.rawData.toString().slice(0, 100)}...`
           : // or the entire data if it's less than 100 characters
-          tx.rawData;
+            tx.rawData;
 
       toast.success('Transaction successful!', {
         id: loading,
