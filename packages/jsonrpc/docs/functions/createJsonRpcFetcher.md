@@ -6,7 +6,7 @@
 
 # Function: createJsonRpcFetcher()
 
-> **createJsonRpcFetcher**(`url`, `headers`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
+> **createJsonRpcFetcher**(`url`, `headers`, `retries`?): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 
 Makes a JSON-RPC request to a url
 
@@ -19,6 +19,10 @@ to JSON RPC backend
 ▪ **headers**: [`HeadersInit`](../type-aliases/HeadersInit.md)= `undefined`
 
 to send with the request
+
+▪ **retries?**: `number`= `3`
+
+defaults to 3
 
 ## Returns
 
@@ -41,7 +45,7 @@ const {result: block} = await fetchJsonRpc(url, params)
 
 ## Source
 
-[fetchJsonRpc.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L17)
+[fetchJsonRpc.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

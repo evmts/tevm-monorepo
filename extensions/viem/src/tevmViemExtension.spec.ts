@@ -17,9 +17,9 @@ describe('tevmViemExtension', () => {
 		tevm = createMemoryClient({
 			fork: { url: getAlchemyUrl() },
 		})
-		server = createServer(createHttpHandler(tevm)).listen(6969)
+		server = createServer(createHttpHandler(tevm)).listen(6420)
 		client = createPublicClient({
-			transport: http('http://localhost:6969', { timeout: 15_000 }),
+			transport: http('http://localhost:6420', { timeout: 15_000 }),
 		})
 		await tevm.ready()
 	})
