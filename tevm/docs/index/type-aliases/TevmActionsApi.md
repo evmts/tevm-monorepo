@@ -65,6 +65,12 @@ const res = await tevm.contract({
 console.log(res.data) // "hello"
 ```
 
+### deploy
+
+> **deploy**: `DeployHandler`
+
+Creates a transaction to deploys a contract to tevm
+
 ### dumpState
 
 > **dumpState**: [`DumpStateHandler`](../../actions-types/type-aliases/DumpStateHandler.md)

@@ -22,6 +22,7 @@
 - [callHandler](functions/callHandler.md)
 - [chainIdHandler](functions/chainIdHandler.md)
 - [contractHandler](functions/contractHandler.md)
+- [deployHandler](functions/deployHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [ethAccountsHandler](functions/ethAccountsHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)

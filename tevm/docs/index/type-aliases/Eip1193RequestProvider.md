@@ -18,7 +18,7 @@ The default EIP1193 compatable provider request method with enabled tevm methods
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1599
+packages/decorators/dist/index.d.ts:1603
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
