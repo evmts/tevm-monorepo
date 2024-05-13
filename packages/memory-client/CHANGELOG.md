@@ -1,5 +1,11 @@
 # @tevm/client
 
+## 1.1.0-next.48
+
+### Minor Changes
+
+- [#1067](https://github.com/evmts/tevm-monorepo/pull/1067) [`dad4eb0`](https://github.com/evmts/tevm-monorepo/commit/dad4eb0025c68be4b1f3177a7726e0e8d55a4c8c) Thanks [@roninjin10](https://github.com/roninjin10)! - [BREAKING] Implemented MemoryClient as a viem client
+
 ## 1.1.0-next.47
 
 ### Patch Changes
