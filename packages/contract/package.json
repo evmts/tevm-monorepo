@@ -64,7 +64,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/utils": "workspace:1.1.0-next.45"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@evmts/core": "1.0.0-next.12",

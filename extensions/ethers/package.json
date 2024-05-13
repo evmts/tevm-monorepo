@@ -66,12 +66,12 @@
 		"@tevm/client-types": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/utils": "workspace:1.1.0-next.45"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/base-client": "workspace:1.1.0-next.46",
+		"@tevm/base-client": "workspace:^",
 		"@tevm/contract": "workspace:^",
-		"@tevm/test-utils": "workspace:1.0.0-next.39",
+		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"ethers": "^6.8.0"

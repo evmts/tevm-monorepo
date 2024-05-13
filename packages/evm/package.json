@@ -65,9 +65,9 @@
 		"@ethereumjs/evm": "^3.0.0",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
-		"@tevm/logger": "workspace:1.0.0-next.42",
+		"@tevm/logger": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
-		"@tevm/utils": "workspace:1.1.0-next.45"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/state": "workspace:^",

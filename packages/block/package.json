@@ -64,7 +64,7 @@
 	"dependencies": {
 		"@tevm/common": "workspace:^",
 		"@tevm/rlp": "workspace:^",
-		"@tevm/trie": "workspace:1.1.0-next.45",
+		"@tevm/trie": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},

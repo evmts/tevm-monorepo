@@ -70,7 +70,7 @@
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
-		"@tevm/contract": "workspace:1.1.0-next.45",
+		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.8.9"

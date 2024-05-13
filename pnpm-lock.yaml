@@ -166,7 +166,7 @@ importers:
         specifier: workspace:^
         version: link:../config
       '@tevm/solc':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../solc
       effect:
         specifier: 2.0.0-next.54
@@ -191,7 +191,7 @@ importers:
   bundler-packages/bundler-cache:
     dependencies:
       '@tevm/compiler':
-        specifier: workspace:1.0.0-next.41
+        specifier: workspace:^
         version: link:../compiler
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -496,7 +496,7 @@ importers:
         version: 3.22.4
     devDependencies:
       '@tevm/contract':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1187,17 +1187,17 @@ importers:
         specifier: workspace:^
         version: link:../../packages/procedures-types
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../../packages/utils
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../../packages/base-client
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1240,7 +1240,7 @@ importers:
   extensions/viem:
     dependencies:
       '@tevm/jsonrpc':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../../packages/jsonrpc
     devDependencies:
       '@ethereumjs/util':
@@ -1268,7 +1268,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/state
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1277,7 +1277,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../../packages/utils
       abitype:
         specifier: ^1.0.0
@@ -1375,7 +1375,7 @@ importers:
         specifier: workspace:^
         version: link:../../bundler-packages/config
       '@tevm/contract':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../../packages/contract
       '@tevm/tsupconfig':
         specifier: workspace:^
@@ -1417,16 +1417,16 @@ importers:
   packages/actions:
     dependencies:
       '@tevm/block':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../block
       '@tevm/blockchain':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../blockchain
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
       '@tevm/tx':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../tx
       '@tevm/utils':
         specifier: workspace:^
@@ -1454,7 +1454,7 @@ importers:
         specifier: workspace:^
         version: link:../state
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1466,7 +1466,7 @@ importers:
   packages/actions-types:
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../base-client
       '@tevm/errors':
         specifier: workspace:^
@@ -1539,7 +1539,7 @@ importers:
         specifier: workspace:^
         version: link:../rlp
       '@tevm/trie':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../trie
       '@tevm/tx':
         specifier: workspace:^
@@ -1567,7 +1567,7 @@ importers:
         specifier: workspace:^
         version: link:../jsonrpc
       '@tevm/logger':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../logger
       '@tevm/rlp':
         specifier: workspace:^
@@ -1583,7 +1583,7 @@ importers:
         version: 2.9.28(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/common':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../common
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1598,7 +1598,7 @@ importers:
   packages/client-types:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/actions-types':
@@ -1620,7 +1620,7 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       '@tevm/logger':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../logger
     devDependencies:
       '@tevm/tsconfig':
@@ -1633,7 +1633,7 @@ importers:
   packages/contract:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@evmts/core':
@@ -1644,7 +1644,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.18.0)(typescript@5.4.5)
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
-        version: 1.0.0-next.19(esbuild@0.21.2)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1658,26 +1658,26 @@ importers:
         specifier: workspace:^
         version: link:../actions
       '@tevm/actions-types':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../actions-types
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
       '@tevm/procedures-types':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../procedures-types
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
       viem:
         specifier: ^2.7.16
         version: 2.7.16(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../base-client
       '@tevm/client-types':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../client-types
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1732,13 +1732,13 @@ importers:
         specifier: workspace:^
         version: link:../common
       '@tevm/logger':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../logger
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../predeploys
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/state':
@@ -1773,7 +1773,7 @@ importers:
         specifier: workspace:^
         version: link:../server
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1782,7 +1782,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
 
   packages/jsonrpc:
@@ -1823,10 +1823,10 @@ importers:
         specifier: workspace:^
         version: link:../decorators
       '@tevm/evm':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../evm
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/predeploys':
@@ -1836,7 +1836,7 @@ importers:
         specifier: workspace:^
         version: link:../procedures-types
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1851,14 +1851,14 @@ importers:
         specifier: workspace:^
         version: link:../contract
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/bun-plugin':
         specifier: workspace:^
         version: link:../../bundler-packages/bun
       '@tevm/evm':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../evm
       '@tevm/memory-client':
         specifier: workspace:^
@@ -1895,7 +1895,7 @@ importers:
         specifier: workspace:^
         version: link:../actions
       '@tevm/block':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../block
     devDependencies:
       '@tevm/actions-types':
@@ -1935,7 +1935,7 @@ importers:
   packages/procedures-types:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/actions-types':
@@ -1995,7 +1995,7 @@ importers:
         specifier: workspace:^
         version: link:../procedures-types
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2025,13 +2025,13 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@tevm/common':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../common
       '@tevm/logger':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../logger
       '@tevm/test-utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:^
         version: link:../../test/test-utils
       '@tevm/utils':
         specifier: workspace:^
@@ -2053,7 +2053,7 @@ importers:
   packages/sync-storage-persister:
     dependencies:
       '@tevm/state':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../state
     devDependencies:
       '@tevm/tsconfig':
@@ -2092,13 +2092,13 @@ importers:
   packages/txpool:
     dependencies:
       '@tevm/block':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../block
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
       qheap:
         specifier: ^1.4.0
@@ -2142,7 +2142,7 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       '@tevm/block':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../block
       '@tevm/blockchain':
         specifier: workspace:^
@@ -2154,16 +2154,16 @@ importers:
         specifier: workspace:^
         version: link:../evm
       '@tevm/rlp':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../rlp
       '@tevm/trie':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../trie
       '@tevm/tx':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../tx
       '@tevm/utils':
-        specifier: workspace:1.1.0-next.45
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@tevm/state':
@@ -2219,7 +2219,7 @@ importers:
         specifier: 'workspace:'
         version: link:../test-utils
       '@tevm/viem':
-        specifier: workspace:1.1.0-next.46
+        specifier: workspace:^
         version: link:../../extensions/viem
       tevm:
         specifier: workspace:^
@@ -5556,6 +5556,28 @@ packages:
       - zod
     dev: true
 
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
+    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+    peerDependencies:
+      solc: '*'
+    dependencies:
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.18.0)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@types/node': 20.12.7
+      bundle-require: 4.0.2(esbuild@0.19.5)
+      effect: 2.0.0-next.54
+      jsonc-parser: 3.2.1
+      solc: 0.8.22
+      viem: 1.19.11(typescript@5.4.5)(zod@3.23.8)
+    transitivePeerDependencies:
+      - bufferutil
+      - esbuild
+      - fast-check
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: true
+
   /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
@@ -5578,17 +5600,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+  /@evmts/core@1.0.0-next.12(viem@2.10.3):
+    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
+    peerDependencies:
+      viem: '>1.0.0'
+    dependencies:
+      viem: 2.10.3(typescript@5.4.5)(zod@3.23.8)
+    dev: true
+
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
+    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.18.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
-      '@types/node': 20.12.7
-      bundle-require: 4.0.2(esbuild@0.21.2)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
+      resolve: 1.22.8
       solc: 0.8.22
       viem: 1.19.11(typescript@5.4.5)(zod@3.23.8)
     transitivePeerDependencies:
@@ -5598,14 +5627,6 @@ packages:
       - typescript
       - utf-8-validate
       - zod
-    dev: true
-
-  /@evmts/core@1.0.0-next.12(viem@2.10.3):
-    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
-    peerDependencies:
-      viem: '>1.0.0'
-    dependencies:
-      viem: 2.10.3(typescript@5.4.5)(zod@3.23.8)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
@@ -5629,22 +5650,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
-    peerDependencies:
-      solc: '*'
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
+    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.18.0)
-      bundle-require: 4.0.2(esbuild@0.21.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/tsconfig': 1.0.0-next.5
+      '@types/node': 20.12.7
+      '@types/resolve': 1.20.5
       effect: 2.0.0-next.54
-      jsonc-parser: 3.2.1
+      glob: 10.3.10
       resolve: 1.22.8
-      solc: 0.8.22
-      viem: 1.19.11(typescript@5.4.5)(zod@3.23.8)
+      solidity-ast: 0.4.53
+      unplugin: 1.5.1
     transitivePeerDependencies:
       - bufferutil
       - esbuild
       - fast-check
+      - solc
       - typescript
       - utf-8-validate
       - zod
@@ -5673,29 +5696,6 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
-    dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
-      '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.12.7
-      '@types/resolve': 1.20.5
-      effect: 2.0.0-next.54
-      glob: 10.3.10
-      resolve: 1.22.8
-      solidity-ast: 0.4.53
-      unplugin: 1.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - esbuild
-      - fast-check
-      - solc
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
-
   /@evmts/runtime@1.0.0-next.13:
     resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
     dependencies:
@@ -5703,11 +5703,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5726,11 +5726,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.23-fixed)(typescript@5.4.5)(zod@3.22.5)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5774,12 +5774,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.21.2)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.21.2)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.18.0)(solc@0.8.22)(typescript@5.4.5)(zod@3.23.8)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.12.7
       '@types/resolve': 1.20.5
@@ -5799,10 +5799,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.21.2)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.21.2)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.18.0)(typescript@5.4.5)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -12870,16 +12870,6 @@ packages:
       esbuild: '>=0.17'
     dependencies:
       esbuild: 0.19.5
-      load-tsconfig: 0.2.5
-    dev: true
-
-  /bundle-require@4.0.2(esbuild@0.21.2):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.21.2
       load-tsconfig: 0.2.5
     dev: true
 

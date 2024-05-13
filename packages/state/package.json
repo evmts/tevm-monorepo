@@ -63,9 +63,9 @@
 	},
 	"dependencies": {
 		"@ethereumjs/statemanager": "^2.3.0",
-		"@tevm/common": "workspace:1.1.0-next.46",
-		"@tevm/logger": "workspace:1.0.0-next.42",
-		"@tevm/test-utils": "workspace:1.0.0-next.39",
+		"@tevm/common": "workspace:^",
+		"@tevm/logger": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"ethereum-cryptography": "^2.1.3",
 		"viem": "^2.9.28"
