@@ -1,5 +1,21 @@
 # @tevm/state
 
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/block@1.1.0-next.47
+  - @tevm/blockchain@1.1.0-next.47
+  - @tevm/common@1.1.0-next.47
+  - @tevm/evm@1.1.0-next.47
+  - @tevm/rlp@1.1.0-next.47
+  - @tevm/trie@1.1.0-next.47
+  - @tevm/tx@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+
 ## 1.1.0-next.46
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @tevm/bundler
 
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/base-bundler@1.1.0-next.47
+  - @tevm/bun-plugin@1.1.0-next.47
+  - @tevm/compiler@1.1.0-next.47
+  - @tevm/config@1.1.0-next.47
+  - @tevm/esbuild-plugin@1.1.0-next.47
+  - @tevm/rollup-plugin@1.1.0-next.47
+  - @tevm/rspack-plugin@1.1.0-next.47
+  - @tevm/solc@1.1.0-next.47
+  - @tevm/vite-plugin@1.1.0-next.47
+  - @tevm/webpack-plugin@1.1.0-next.47
+  - @tevm/tsconfig@1.1.0-next.47
+  - @tevm/tsupconfig@1.1.0-next.47
+  - @tevm/ts-plugin@1.1.0-next.47
+
 ## 1.0.0-next.41
 
 ### Patch Changes
