@@ -71,6 +71,12 @@ All constants including vital OP stack addresses and owners are available and tr
 > console.log(res.data) // "hello"
 > ```
 >
+> ### deploy
+>
+> > **deploy**: `DeployHandler`
+>
+> Creates a transaction to deploys a contract to tevm
+>
 > ### dumpState
 >
 > > **dumpState**: `DumpStateHandler`
