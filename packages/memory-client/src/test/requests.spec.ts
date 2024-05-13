@@ -32,7 +32,7 @@ describe('Tevm.request', async () => {
 			method: 'tevm_script',
 			id: 1,
 		} as const satisfies ScriptJsonRpcRequest
-		const res = await tevm.request(req)
+		const res = await tevm._tevm.request(req)
 		expect(
 			decodeFunctionResult({
 				abi: DaiContract.abi,
@@ -89,7 +89,7 @@ describe('Tevm.request', async () => {
 				method: 'tevm_call',
 				id: 1,
 			} as const satisfies ContractJsonRpcRequest
-			const res = await tevm.request(req)
+			const res = await tevm._tevm.request(req)
 			expect(
 				decodeFunctionResult({
 					data: res.rawData,
@@ -108,12 +108,12 @@ describe('Tevm.request', async () => {
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.setAccount({
+		await tevm.tevmSetAccount({
 			address: address1,
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.request({
+		const res = await tevm._tevm.request({
 			params: [
 				{
 					caller: address1,
@@ -129,19 +129,19 @@ describe('Tevm.request', async () => {
 			id: 1,
 		})
 		expect(res.rawData).toEqual('0x')
-		await tevm.mine()
-		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance).toBe(
-			transferAmount,
-		)
-		expect((await (await tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance).toBe(
-			286183069n,
-		)
+		await tevm.tevmMine()
+		expect(
+			(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
+		).toBe(transferAmount)
+		expect(
+			(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
+		).toBe(286183069n)
 	})
 
 	it('Should execute a putAccount request', async () => {
 		const tevm = createMemoryClient()
 		const balance = 0x11111111n
-		const res = await tevm.request({
+		const res = await tevm._tevm.request({
 			method: 'tevm_setAccount',
 			params: [
 				{
@@ -152,7 +152,7 @@ describe('Tevm.request', async () => {
 			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await (await tevm.getVm()).stateManager.getAccount(
+		const account = await (await tevm._tevm.getVm()).stateManager.getAccount(
 			EthjsAddress.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
@@ -170,7 +170,7 @@ describe('Tevm.request', async () => {
 		const initialValue = 420n
 		const tevm = createMemoryClient()
 		// TODO this type is fucked atm
-		const deployResult = await tevm.deploy({
+		const deployResult = await tevm.tevmDeploy({
 			abi: simpleConstructorAbi,
 			bytecode: simpleConstructorBytecode,
 			args: [initialValue],
@@ -186,8 +186,8 @@ describe('Tevm.request', async () => {
 			selfdestruct: new Set(),
 			txHash: '0x2a872fc2c05d90cbbdfbed7a5c831533dc1d02c1be4ab374b7d9c66e9ccec0e8',
 		})
-		const mineResult = await tevm.mine()
-		const vm = await tevm.getVm()
+		const mineResult = await tevm.tevmMine()
+		const vm = await tevm._tevm.getVm()
 		expect(mineResult.errors).toBeUndefined()
 		expect(mineResult.blockHashes).toHaveLength(1)
 
@@ -203,7 +203,7 @@ describe('Tevm.request', async () => {
 		// expect((await vm.stateManager.getAccount(EthjsAddress.fromString(deployResult.createdAddress as Hex)))?.isContract()).toBeTrue()
 		expect(
 			(
-				await tevm.contract({
+				await tevm.tevmContract({
 					abi: simpleConstructorAbi,
 					functionName: 'get',
 					to: deployResult.createdAddress as Hex,

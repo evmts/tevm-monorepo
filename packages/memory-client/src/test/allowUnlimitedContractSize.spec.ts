@@ -15,7 +15,7 @@ describe('allowUnlimitedContractSize option', () => {
 		*/
 		const data = '0x62FFFFFF6000F3'
 
-		const res = await tevm.call({
+		const res = await tevm.tevmCall({
 			caller: address1,
 			data,
 			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
@@ -33,7 +33,7 @@ describe('allowUnlimitedContractSize option', () => {
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 
 		const data = '0x62FFFFFF6000F3'
-		const res = await tevm.call({
+		const res = await tevm.tevmCall({
 			caller: address1,
 			data,
 			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
