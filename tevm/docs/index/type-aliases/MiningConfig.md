@@ -2,11 +2,11 @@
 
 ***
 
-[API](../../API.md) > [base-client](../README.md) > MiningConfig
+[API](../../API.md) > [index](../README.md) > MiningConfig
 
 # Type alias: MiningConfig
 
-> **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](../../index/type-aliases/AutoMining.md) \| `GasMining`
+> **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
 ## Source
 

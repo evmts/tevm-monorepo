@@ -2,25 +2,21 @@
 
 ***
 
-[API](../../API.md) > [base-client](../README.md) > IntervalMining
+[API](../../API.md) > [index](../README.md) > ManualMining
 
-# Type alias: IntervalMining
+# Type alias: ManualMining
 
-> **IntervalMining**: `object`
+> **ManualMining**: `object`
 
 ## Type declaration
 
-### interval
-
-> **interval**: `number`
-
 ### type
 
-> **type**: `"interval"`
+> **type**: `"manual"`
 
 ## Source
 
-packages/base-client/types/MiningConfig.d.ts:1
+packages/base-client/types/MiningConfig.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

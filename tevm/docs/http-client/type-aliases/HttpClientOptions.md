@@ -8,6 +8,8 @@
 
 > **HttpClientOptions**: `object`
 
+## Deprecated
+
 Options for a HttpClient
 
 ## Type declaration
@@ -26,7 +28,7 @@ Remote URL to connect to
 
 ## Source
 
-packages/http-client/types/HttpClientOptions.d.ts:4
+packages/http-client/types/HttpClientOptions.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

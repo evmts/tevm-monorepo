@@ -6,17 +6,12 @@
 
 # Module: memory-client
 
-## Index
-
-### Type Aliases
-
-- [TevmActions](type-aliases/TevmActions.md)
-
 ## Table of contents
 
 ### References
 
 - [MemoryClient](README.md#memoryclient)
+- [TevmActions](README.md#tevmactions)
 - [createMemoryClient](README.md#creatememoryclient)
 
 ## References
@@ -24,6 +19,12 @@
 ### MemoryClient
 
 Re-exports [MemoryClient](../index/type-aliases/MemoryClient.md)
+
+***
+
+### TevmActions
+
+Re-exports [TevmActions](../index/type-aliases/TevmActions.md)
 
 ***
 
