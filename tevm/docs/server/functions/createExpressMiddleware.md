@@ -286,7 +286,7 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
-▪ **client.extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `undefined`, `undefined`, [`object`, `object`, `object`, `object`, `object`], `{ [K in string | number | symbol]: client[K] }` & `PublicActions` & `TestActions` & [`TevmActions`](../../memory-client/type-aliases/TevmActions.md)\>
+▪ **client.extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `undefined`, `undefined`, [`object`, `object`, `object`, `object`, `object`], `{ [K in string | number | symbol]: client[K] }` & `PublicActions` & `TestActions` & [`TevmActions`](../../index/type-aliases/TevmActions.md)\>
 
 ▪ **client.getAutomine**: () => `Promise`\<`boolean`\>
 

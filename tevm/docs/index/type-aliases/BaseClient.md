@@ -68,7 +68,7 @@ The logger instance
 
 ### miningConfig
 
-> **`readonly`** **miningConfig**: [`MiningConfig`](../../base-client/type-aliases/MiningConfig.md)
+> **`readonly`** **miningConfig**: [`MiningConfig`](MiningConfig.md)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction

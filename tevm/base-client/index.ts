@@ -1,5 +1,7 @@
 export {
   createBaseClient,
+  prefundedAccounts,
+  GENESIS_STATE,
   type Hardfork,
   type Extension,
   type BaseClient,
