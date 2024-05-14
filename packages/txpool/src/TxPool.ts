@@ -7,7 +7,7 @@ import {
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
-import { EthjsAccount, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
@@ -430,6 +430,11 @@ export class TxPool {
 			}
 		}
 		throw new Error(`tx of type ${(tx as TypedTransaction).type} unknown`)
+	}
+
+	async getBySenderAddress(address: EthjsAddress): Promise<Array<TxPoolObject>> {
+		const unprefixedAddress = address.toString().slice(2)
+		return this.pool.get(unprefixedAddress) ?? []
 	}
 
 	/**

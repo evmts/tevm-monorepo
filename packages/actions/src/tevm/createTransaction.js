@@ -58,24 +58,21 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     const sender = evmInput.origin ?? evmInput.caller ?? EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
 
+    const txPool = await client.getTxPool()
+    const txs = await txPool.getBySenderAddress(sender)
+
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
     // Possible we need to make property public on client
-    /**
-     * @param {bigint} gasLimit
-     */
-    const getTx = async (gasLimit) => FeeMarketEIP1559Transaction.fromTxData(
+    const tx = FeeMarketEIP1559Transaction.fromTxData(
       {
-        // TODO tevm_call should take nonce
-        // TODO should write tests that this works with multiple tx nonces
-        // TODO we should take into account the txPool already having tx in it with same nonce
         nonce:
           (
             (await vm.stateManager.getAccount(
               sender,
             )) ?? { nonce: 0n }
-          ).nonce,
-        gasLimit,
+          ).nonce + BigInt(txs.length),
+        gasLimit: gasLimitWithExecutionBuffer,
         maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
         maxPriorityFeePerGas: 0n,
         ...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
@@ -90,7 +87,6 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         freeze: false,
       },
     )
-    const tx = await getTx(gasLimitWithExecutionBuffer)
     client.logger.debug(
       tx,
       'callHandler: Created a new transaction from transaction data',
@@ -145,6 +141,23 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         txHash
       }
     } catch (e) {
+      if (typeof e === 'object' && e !== null && '_tag' in e && e._tag === 'AccountNotFoundError') {
+        return maybeThrowOnFail(throwOnFail ?? defaultThrowOnFail, {
+          errors: [
+            {
+              name: 'NoBalanceError',
+              _tag: 'NoBalanceError',
+              message: 'Attempting to create a transaction with an uninitialized account with no balance',
+            },
+          ],
+          executionGasUsed: 0n,
+          /**
+           * @type {`0x${string}`}
+           */
+          rawData: '0x',
+        })
+
+      }
       client.logger.error(
         e,
         'callHandler: Unexpected error adding transaction to mempool and checkpointing state. Removing transaction from mempool and reverting state',
@@ -162,7 +175,9 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
                 ? e
                 : e instanceof Error
                   ? e.message
-                  : 'unknown error',
+                  : typeof e === 'object' && e !== null && 'message' in e
+                    ? e.message
+                    : 'unknown error',
           },
         ],
         executionGasUsed: 0n,
