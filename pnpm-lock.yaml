@@ -2245,6 +2245,10 @@ importers:
         version: 20.11.19
 
   test/test-utils:
+    dependencies:
+      '@tevm/contract':
+        specifier: workspace:1.1.0-next.47
+        version: link:../../packages/contract
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
