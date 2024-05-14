@@ -5,8 +5,9 @@ export type { CustomPrecompile } from './CustomPrecompile.js'
 export type { Extension } from './Extension.js'
 export type { Hardfork } from './Hardfork.js'
 export type {
-	MiningConfig,
-	AutoMining,
-	ManualMining,
-	IntervalMining,
+  MiningConfig,
+  AutoMining,
+  ManualMining,
+  IntervalMining,
 } from './MiningConfig.js'
+export { prefundedAccounts, GENESIS_STATE } from './GENESIS_STATE.js'

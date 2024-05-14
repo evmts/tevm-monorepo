@@ -143,6 +143,8 @@ export type {
 } from "@tevm/decorators";
 
 export {
+  GENESIS_STATE,
+  prefundedAccounts,
   createBaseClient,
   type Hardfork,
   type Extension,
@@ -150,9 +152,12 @@ export {
   type CustomPrecompile,
   type BaseClientOptions,
   type AutoMining,
+  type ManualMining,
+  type MiningConfig,
+  type IntervalMining
 } from "@tevm/base-client";
 
-export { type MemoryClient, createMemoryClient } from "@tevm/memory-client";
+export { type MemoryClient, createMemoryClient, type TevmActions } from "@tevm/memory-client";
 export {
   tevmTransport,
 } from '@tevm/viem'
