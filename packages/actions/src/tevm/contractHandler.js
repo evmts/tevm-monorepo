@@ -116,15 +116,23 @@ export const contractHandler =
               err,
               'contractHandler: Contract revert error. Decoding the error',
             )
-            const decodedError = decodeErrorResult(
+            /**
+             * @type {undefined |ReturnType<typeof decodeErrorResult>}
+             */
+            let decodedError = undefined
+            try {
+              decodedError = decodeErrorResult(
 						/** @type {any} */({
-                abi: params.abi,
-                data: err.message,
-                functionName: params.functionName,
-              }),
-            )
-            const message = `Revert: ${decodedError.errorName} ${JSON.stringify(
-              decodedError,
+                  abi: params.abi,
+                  data: err.message,
+                  functionName: params.functionName,
+                }),
+              )
+            } catch (e) {
+              client.logger.debug(e, 'There was an error decoding error result')
+            }
+            const message = `Revert: ${decodedError?.errorName ?? `There was a revert with no revert message ${err.message}`} ${JSON.stringify(
+              decodedError ?? err,
             )}`
             client.logger.debug(message, 'Revert message decoded')
             return {
