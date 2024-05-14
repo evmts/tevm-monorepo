@@ -1,5 +1,12 @@
 # @tevm/ethers
 
+## 1.1.0-next.48
+
+### Patch Changes
+
+- Updated dependencies [[`dad4eb0`](https://github.com/evmts/tevm-monorepo/commit/dad4eb0025c68be4b1f3177a7726e0e8d55a4c8c)]:
+  - @tevm/memory-client@1.1.0-next.48
+
 ## 1.1.0-next.47
 
 ### Patch Changes

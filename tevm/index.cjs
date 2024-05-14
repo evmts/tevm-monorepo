@@ -207,9 +207,17 @@ Object.defineProperty(exports, "toRlp", {
   enumerable: true,
   get: function () { return utils.toRlp; }
 });
+Object.defineProperty(exports, "GENESIS_STATE", {
+  enumerable: true,
+  get: function () { return baseClient.GENESIS_STATE; }
+});
 Object.defineProperty(exports, "createBaseClient", {
   enumerable: true,
   get: function () { return baseClient.createBaseClient; }
+});
+Object.defineProperty(exports, "prefundedAccounts", {
+  enumerable: true,
+  get: function () { return baseClient.prefundedAccounts; }
 });
 Object.defineProperty(exports, "createMemoryClient", {
   enumerable: true,

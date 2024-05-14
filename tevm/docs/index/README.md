@@ -70,17 +70,20 @@
 - [Hardfork](type-aliases/Hardfork.md)
 - [HeadersInit](type-aliases/HeadersInit.md)
 - [Hex](type-aliases/Hex.md)
+- [IntervalMining](type-aliases/IntervalMining.md)
 - [JsonRpcClient](type-aliases/JsonRpcClient.md)
 - [JsonRpcProcedure](type-aliases/JsonRpcProcedure.md)
 - [JsonRpcRequest](type-aliases/JsonRpcRequest.md)
 - [JsonRpcRequestTypeFromMethod](type-aliases/JsonRpcRequestTypeFromMethod.md)
 - [JsonRpcResponse](type-aliases/JsonRpcResponse.md)
 - [JsonRpcReturnTypeFromMethod](type-aliases/JsonRpcReturnTypeFromMethod.md)
+- [ManualMining](type-aliases/ManualMining.md)
 - [MemoryClient](type-aliases/MemoryClient.md)
 - [MemoryDb](type-aliases/MemoryDb.md)
 - [MineHandler](type-aliases/MineHandler.md)
 - [MineParams](type-aliases/MineParams.md)
 - [MineResult](type-aliases/MineResult.md)
+- [MiningConfig](type-aliases/MiningConfig.md)
 - [ParseAbi](type-aliases/ParseAbi.md)
 - [ReadActionCreator](type-aliases/ReadActionCreator.md)
 - [Script](type-aliases/Script.md)
@@ -90,6 +93,7 @@
 - [SetAccountResult](type-aliases/SetAccountResult.md)
 - [StateOptions](type-aliases/StateOptions.md)
 - [SyncStoragePersister](type-aliases/SyncStoragePersister.md)
+- [TevmActions](type-aliases/TevmActions.md)
 - [TevmActionsApi](type-aliases/TevmActionsApi.md)
 - [TevmClient](type-aliases/TevmClient.md)
 - [TevmJsonRpcBulkRequestHandler](type-aliases/TevmJsonRpcBulkRequestHandler.md)
@@ -100,6 +104,11 @@
 - [TraceParams](type-aliases/TraceParams.md)
 - [TraceResult](type-aliases/TraceResult.md)
 - [WriteActionCreator](type-aliases/WriteActionCreator.md)
+
+### Variables
+
+- [GENESIS\_STATE](variables/GENESIS_STATE.md)
+- [prefundedAccounts](variables/prefundedAccounts.md)
 
 ### Functions
 
