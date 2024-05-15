@@ -1,5 +1,5 @@
-import type { ReceiptsManager } from '@tevm/blockchain'
 import type { Logger } from '@tevm/logger'
+import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
 import type { Vm } from '@tevm/vm'
 import type { MiningConfig } from './MiningConfig.js'

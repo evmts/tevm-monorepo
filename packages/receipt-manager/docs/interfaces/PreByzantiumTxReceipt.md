@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -27,7 +27,7 @@ Bloom bitvector
 
 #### Source
 
-[RecieptManager.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L25)
+[RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
 ***
 
@@ -43,7 +43,7 @@ Cumulative gas used in the block including this tx
 
 #### Source
 
-[RecieptManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L21)
+[RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
 ***
 
@@ -59,7 +59,7 @@ Logs emitted
 
 #### Source
 
-[RecieptManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L29)
+[RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
 
 ***
 
@@ -71,7 +71,7 @@ Intermediary state root
 
 #### Source
 
-[RecieptManager.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L49)
+[RecieptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L48)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

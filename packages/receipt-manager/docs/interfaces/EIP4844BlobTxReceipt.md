@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -27,7 +27,7 @@ Bloom bitvector
 
 #### Source
 
-[RecieptManager.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L25)
+[RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
 ***
 
@@ -42,7 +42,7 @@ and is only provided as part of receipt metadata.
 
 #### Source
 
-[RecieptManager.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L65)
+[RecieptManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L64)
 
 ***
 
@@ -57,7 +57,7 @@ and is only provided as part of receipt metadata.
 
 #### Source
 
-[RecieptManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L58)
+[RecieptManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L57)
 
 ***
 
@@ -73,7 +73,7 @@ Cumulative gas used in the block including this tx
 
 #### Source
 
-[RecieptManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L21)
+[RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
 ***
 
@@ -89,7 +89,7 @@ Logs emitted
 
 #### Source
 
-[RecieptManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L29)
+[RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
 
 ***
 
@@ -105,7 +105,7 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 #### Source
 
-[RecieptManager.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L39)
+[RecieptManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

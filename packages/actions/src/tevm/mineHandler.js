@@ -65,7 +65,7 @@ export const mineHandler =
         let index = 0
         let blockFull = false
         /**
-         * @type {Array<import('@tevm/blockchain').TxReceipt>}
+         * @type {Array<import('@tevm/receipt-manager').TxReceipt>}
          */
         const receipts = []
         while (index < orderedTx.length && !blockFull) {

@@ -4,11 +4,10 @@ import { Rlp } from '@tevm/rlp'
 import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 
 import type { Block } from '@tevm/block'
+import { type Chain, getBlock } from '@tevm/blockchain'
 import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
-import type { Chain } from './Chain.js'
 import type { MapDb } from './MapDb.js'
-import { getBlock } from './actions/getBlock.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
 /**
