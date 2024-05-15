@@ -66,9 +66,7 @@
 		"@tevm/block": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
-		"@tevm/rlp": "workspace:^",
 		"@tevm/trie": "workspace:^",
-		"@tevm/tx": "workspace:^",
 		"viem": "^2.9.28"
 	},
 	"devDependencies": {
