@@ -68,6 +68,7 @@
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
+		"@tevm/receipt-manager": "workspace:1.1.0-next.47",
 		"@tevm/state": "workspace:^",
 		"@tevm/sync-storage-persister": "workspace:^",
 		"@tevm/txpool": "workspace:^",
