@@ -28,7 +28,7 @@ constructor parameters
 
 #### Source
 
-[TxPool.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L113)
+[TxPool.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L118)
 
 ## Properties
 
@@ -41,7 +41,7 @@ tx pool preparation (sorting out included txs)
 
 #### Source
 
-[TxPool.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L96)
+[TxPool.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L101)
 
 ***
 
@@ -54,7 +54,7 @@ txs (for cleanup/memory reasons)
 
 #### Source
 
-[TxPool.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L107)
+[TxPool.ts:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L112)
 
 ***
 
@@ -66,7 +66,7 @@ Number of minutes to keep txs in the pool
 
 #### Source
 
-[TxPool.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L101)
+[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
 
 ***
 
@@ -76,7 +76,7 @@ Number of minutes to keep txs in the pool
 
 #### Source
 
-[TxPool.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L67)
+[TxPool.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L72)
 
 ***
 
@@ -86,7 +86,7 @@ Number of minutes to keep txs in the pool
 
 #### Source
 
-[TxPool.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L68)
+[TxPool.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L73)
 
 ***
 
@@ -103,7 +103,7 @@ all txs from the pool.
 
 #### Source
 
-[TxPool.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L90)
+[TxPool.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L95)
 
 ***
 
@@ -113,7 +113,7 @@ all txs from the pool.
 
 #### Source
 
-[TxPool.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L62)
+[TxPool.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L67)
 
 ***
 
@@ -127,7 +127,7 @@ Maps an address to a `TxPoolObject`
 
 #### Source
 
-[TxPool.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L75)
+[TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
 
 ***
 
@@ -137,7 +137,7 @@ Maps an address to a `TxPoolObject`
 
 #### Source
 
-[TxPool.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L64)
+[TxPool.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L69)
 
 ***
 
@@ -149,7 +149,7 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
+[TxPool.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L85)
 
 ***
 
@@ -159,7 +159,7 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L60)
+[TxPool.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L65)
 
 ## Methods
 
@@ -169,7 +169,7 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:567](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L567)
+[TxPool.ts:578](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L578)
 
 ***
 
@@ -185,7 +185,7 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+▪ **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
 Transaction
 
@@ -195,7 +195,7 @@ Transaction
 
 #### Source
 
-[TxPool.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L295)
+[TxPool.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L300)
 
 ***
 
@@ -211,13 +211,13 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+▪ **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
 Transaction
 
 #### Source
 
-[TxPool.ts:265](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L265)
+[TxPool.ts:270](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L270)
 
 ***
 
@@ -229,7 +229,7 @@ Regular tx pool cleanup
 
 #### Source
 
-[TxPool.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L359)
+[TxPool.ts:364](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L364)
 
 ***
 
@@ -241,19 +241,19 @@ Close pool
 
 #### Source
 
-[TxPool.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L560)
+[TxPool.ts:571](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L571)
 
 ***
 
 ### getByHash()
 
-> **getByHash**(`txHashes`): `TypedTransaction`[]
+> **getByHash**(`txHashes`): (`TypedTransaction` \| `ImpersonatedTx`)[]
 
 Returns the available txs from the pool
 
 #### Parameters
 
-▪ **txHashes**: `Uint8Array`[]
+▪ **txHashes**: readonly `Uint8Array`[]
 
 #### Returns
 
@@ -261,7 +261,7 @@ Array with tx objects
 
 #### Source
 
-[TxPool.ts:305](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L305)
+[TxPool.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310)
 
 ***
 
@@ -275,7 +275,7 @@ Array with tx objects
 
 #### Source
 
-[TxPool.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L435)
+[TxPool.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L446)
 
 ***
 
@@ -289,7 +289,7 @@ priority tip, and omitting it returns the max total fee.
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+▪ **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
 The tx
 
@@ -300,7 +300,7 @@ gasPrice to determine the leftover priority tip.
 
 #### Source
 
-[TxPool.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L393)
+[TxPool.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L398)
 
 ***
 
@@ -312,7 +312,7 @@ Open pool
 
 #### Source
 
-[TxPool.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L126)
+[TxPool.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L131)
 
 ***
 
@@ -330,7 +330,7 @@ Hash of the transaction
 
 #### Source
 
-[TxPool.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L326)
+[TxPool.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L331)
 
 ***
 
@@ -346,7 +346,7 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Source
 
-[TxPool.ts:346](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L346)
+[TxPool.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L351)
 
 ***
 
@@ -358,7 +358,7 @@ Start tx processing
 
 #### Source
 
-[TxPool.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L138)
+[TxPool.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L143)
 
 ***
 
@@ -370,7 +370,7 @@ Stop pool execution
 
 #### Source
 
-[TxPool.ts:549](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L549)
+[TxPool.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L560)
 
 ***
 
@@ -382,7 +382,7 @@ Returns the GasPrice object to provide information of the tx' gas prices
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+▪ **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
 Tx to use
 
@@ -392,13 +392,13 @@ Gas price (both tip and max fee)
 
 #### Source
 
-[TxPool.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L411)
+[TxPool.ts:416](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L416)
 
 ***
 
 ### txsByPriceAndNonce()
 
-> **txsByPriceAndNonce**(`baseFee`): `Promise`\<`TypedTransaction`[]\>
+> **txsByPriceAndNonce**(`baseFee`): `Promise`\<(`TypedTransaction` \| `ImpersonatedTx`)[]\>
 
 Returns eligible txs to be mined sorted by price in such a way that the
 nonce orderings within a single account are maintained.
@@ -425,7 +425,7 @@ Provide a baseFee to exclude txs with a lower gasPrice
 
 #### Source
 
-[TxPool.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L456)
+[TxPool.ts:467](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L467)
 
 ***
 
@@ -437,7 +437,7 @@ Validates a transaction against the pool and other constraints
 
 #### Parameters
 
-▪ **tx**: `TypedTransaction`
+▪ **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
 The tx to validate
 
@@ -449,7 +449,7 @@ The tx to validate
 
 #### Source
 
-[TxPool.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L175)
+[TxPool.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L180)
 
 ***
 
@@ -459,13 +459,13 @@ The tx to validate
 
 #### Parameters
 
-▪ **existingTx**: `TypedTransaction`
+▪ **existingTx**: `TypedTransaction` \| `ImpersonatedTx`
 
-▪ **addedTx**: `TypedTransaction`
+▪ **addedTx**: `TypedTransaction` \| `ImpersonatedTx`
 
 #### Source
 
-[TxPool.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L148)
+[TxPool.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

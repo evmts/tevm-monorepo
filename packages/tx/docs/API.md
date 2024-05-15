@@ -16,6 +16,7 @@
 - [AccessListEIP2930Transaction](classes/AccessListEIP2930Transaction.md)
 - [BlobEIP4844Transaction](classes/BlobEIP4844Transaction.md)
 - [FeeMarketEIP1559Transaction](classes/FeeMarketEIP1559Transaction.md)
+- [ImpersonatedTx](classes/ImpersonatedTx.md)
 - [LegacyTransaction](classes/LegacyTransaction.md)
 - [TransactionFactory](classes/TransactionFactory.md)
 
