@@ -1,5 +1,20 @@
 # @tevm/client
 
+## 1.1.0-next.49
+
+### Minor Changes
+
+- [#1069](https://github.com/evmts/tevm-monorepo/pull/1069) [`a6655fc`](https://github.com/evmts/tevm-monorepo/commit/a6655fc2414d06b3bd2caf72f88ec2ccff20a075) Thanks [@roninjin10](https://github.com/roninjin10)! - Exported `prefundedAccount` as an array of contract addresses that are prefunded. These map to the the same accounts prefunded by anvil and hardhat.
+
+### Patch Changes
+
+- Updated dependencies [[`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8), [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8), [`2ba2c27`](https://github.com/evmts/tevm-monorepo/commit/2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5)]:
+  - @tevm/txpool@1.1.0-next.49
+  - @tevm/state@1.1.0-next.49
+  - @tevm/evm@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.49
+  - @tevm/vm@1.1.0-next.47
+
 ## 1.1.0-next.47
 
 ### Patch Changes

@@ -73,7 +73,8 @@
     "@tevm/tx": "1.0.0-next.42",
     "@tevm/txpool": "1.0.0-next.42",
     "@tevm/scripts": "1.0.0",
-    "@tevm/test-utils": "1.0.0-next.39"
+    "@tevm/test-utils": "1.0.0-next.39",
+    "mdt-repro": "0.0.1"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -94,6 +95,7 @@
     "chatty-mayflies-appear",
     "chilled-comics-taste",
     "chilled-lions-relate",
+    "chilled-sloths-kiss",
     "chilly-rocks-yawn",
     "chilly-trees-explain",
     "clean-jobs-work",
@@ -168,6 +170,7 @@
     "lovely-carrots-tie",
     "lovely-crabs-switch",
     "lucky-dolphins-grin",
+    "mean-beds-provide",
     "metal-flowers-move",
     "metal-turkeys-call",
     "mighty-tips-smash",
@@ -180,6 +183,7 @@
     "nervous-bags-applaud",
     "nervous-humans-count",
     "nervous-mails-shop",
+    "new-ties-refuse",
     "nine-poets-bow",
     "odd-rockets-breathe",
     "pink-keys-add",
@@ -209,6 +213,7 @@
     "rotten-snakes-accept",
     "rude-dragons-sing",
     "rude-papayas-sparkle",
+    "selfish-apricots-cry",
     "selfish-ears-count",
     "selfish-ears-cover",
     "selfish-jars-develop",
@@ -268,6 +273,7 @@
     "unlucky-rice-applaud",
     "warm-glasses-glow",
     "warm-swans-explode",
+    "warm-vans-occur",
     "weak-keys-ring",
     "wicked-ravens-bow",
     "wild-bears-look",
@@ -275,6 +281,7 @@
     "witty-beers-lick",
     "yellow-birds-type",
     "yellow-pugs-buy",
-    "yellow-weeks-provide"
+    "yellow-weeks-provide",
+    "young-actors-battle"
   ]
 }
