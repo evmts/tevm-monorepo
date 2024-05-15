@@ -1,5 +1,5 @@
 {
-  "name": "tevm-app",
+  "name": "mdt-repro",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
