@@ -21,6 +21,7 @@
 		"@tevm/example*",
 		"@tevm/docs*",
 		"svelte-ethers",
+		"mdt-repro",
 		"@tevm/bench",
 		"@tevm/scripts"
 	]
