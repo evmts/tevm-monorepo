@@ -13,7 +13,7 @@ import type { Vm } from '@tevm/vm'
 import type { Block } from '@tevm/block'
 import {
 	type FeeMarketEIP1559Transaction,
-	ImpersonatedTx,
+	type ImpersonatedTx,
 	type LegacyTransaction,
 	type TypedTransaction,
 } from '@tevm/tx'
@@ -414,7 +414,7 @@ export class TxPool {
 	 * @returns Gas price (both tip and max fee)
 	 */
 	private txGasPrice(tx: TypedTransaction | ImpersonatedTx): GasPrice {
-		if (tx instanceof ImpersonatedTx) {
+		if ('isImpersonated' in tx && tx.isImpersonated) {
 			return {
 				maxFee: tx.maxFeePerGas,
 				tip: tx.maxPriorityFeePerGas,

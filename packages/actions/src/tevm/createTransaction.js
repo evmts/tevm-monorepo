@@ -1,4 +1,4 @@
-import { ImpersonatedTx } from '@tevm/tx'
+import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { setAccountHandler } from './setAccountHandler.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
@@ -75,7 +75,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
     // Possible we need to make property public on client
-    const tx = new ImpersonatedTx(
+    const tx = createImpersonatedTx(
       {
         impersonatedAddress: sender,
         nonce,
