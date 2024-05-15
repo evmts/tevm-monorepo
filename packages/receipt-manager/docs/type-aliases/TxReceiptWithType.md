@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -13,7 +13,7 @@ TxReceiptWithType extends TxReceipt to provide:
 
 ## Source
 
-[RecieptManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L72)
+[RecieptManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L71)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

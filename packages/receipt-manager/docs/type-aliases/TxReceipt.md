@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -10,7 +10,7 @@
 
 ## Source
 
-[RecieptManager.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/RecieptManager.ts#L67)
+[RecieptManager.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L66)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/receipt-manager** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 
@@ -17,14 +17,14 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/blockchain" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/blockchain.svg" />
+<a href="https://www.npmjs.com/package/@tevm/receipt-manager" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/receipt-manager.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/blockchain@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/blockchain" />
+<a href="https://bundlephobia.com/package/@tevm/receipt-manager@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/receipt-manager" />
 </a>
 
-# @tevm/blockchain
+# @tevm/receipt-manager
 
 Tevm vm blockchain package for holding tevm blockchain.
 

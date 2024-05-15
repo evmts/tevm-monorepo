@@ -2,11 +2,11 @@
 
 ***
 
-[API](../API.md) > createChain
+[API](../API.md) > createBaseChain
 
-# Function: createChain()
+# Function: createBaseChain()
 
-> **createChain**(`options`): `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
+> **createBaseChain**(`options`): `BaseChain`
 
 ## Parameters
 
@@ -14,9 +14,11 @@
 
 ## Returns
 
+Base chain object
+
 ## Source
 
-[createChain.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L15)
+[createBaseChain.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L47)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

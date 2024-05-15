@@ -1,4 +1,4 @@
-**@tevm/blockchain** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/receipt-manager** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 
@@ -20,8 +20,6 @@
 
 ### Type Aliases
 
-- [Chain](type-aliases/Chain.md)
-- [ChainOptions](type-aliases/ChainOptions.md)
 - [DbType](type-aliases/DbType.md)
 - [MapDb](type-aliases/MapDb.md)
 - [TxReceipt](type-aliases/TxReceipt.md)
@@ -29,7 +27,6 @@
 
 ### Functions
 
-- [createChain](functions/createChain.md)
 - [createMapDb](functions/createMapDb.md)
 
 ***
