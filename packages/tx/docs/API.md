@@ -23,6 +23,7 @@
 
 - [EIP1559CompatibleTx](interfaces/EIP1559CompatibleTx.md)
 - [EIP4844CompatibleTx](interfaces/EIP4844CompatibleTx.md)
+- [ImpersonatedTx](interfaces/ImpersonatedTx.md)
 - [JsonRpcTx](interfaces/JsonRpcTx.md)
 - [JsonTx](interfaces/JsonTx.md)
 - [TxData](interfaces/TxData.md)
@@ -36,6 +37,7 @@
 
 ### Functions
 
+- [createImpersonatedTx](functions/createImpersonatedTx.md)
 - [isAccessListEIP2930Tx](functions/isAccessListEIP2930Tx.md)
 - [isBlobEIP4844Tx](functions/isBlobEIP4844Tx.md)
 - [isFeeMarketEIP1559Tx](functions/isFeeMarketEIP1559Tx.md)

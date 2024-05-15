@@ -11,7 +11,12 @@ import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsByt
 import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
+import {
+	type FeeMarketEIP1559Transaction,
+	type ImpersonatedTx,
+	type LegacyTransaction,
+	type TypedTransaction,
+} from '@tevm/tx'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
@@ -27,7 +32,7 @@ export interface TxPoolOptions {
 }
 
 type TxPoolObject = {
-	tx: TypedTransaction
+	tx: TypedTransaction | ImpersonatedTx
 	hash: UnprefixedHash
 	added: number
 	error?: Error
@@ -145,7 +150,7 @@ export class TxPool {
 		return true
 	}
 
-	private validateTxGasBump(existingTx: TypedTransaction, addedTx: TypedTransaction) {
+	private validateTxGasBump(existingTx: TypedTransaction | ImpersonatedTx, addedTx: TypedTransaction | ImpersonatedTx) {
 		const existingTxGasPrice = this.txGasPrice(existingTx)
 		const newGasPrice = this.txGasPrice(addedTx)
 		const minTipCap =
@@ -173,7 +178,7 @@ export class TxPool {
 	 * @param tx The tx to validate
 	 */
 	private async validate(
-		tx: TypedTransaction,
+		tx: TypedTransaction | ImpersonatedTx,
 		isLocalTransaction = false,
 		requireSignature = true,
 		skipBalance = false,
@@ -262,7 +267,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async addUnverified(tx: TypedTransaction) {
+	async addUnverified(tx: TypedTransaction | ImpersonatedTx) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2)
@@ -292,7 +297,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction, requireSignature = true, skipBalance = false) {
+	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false) {
 		await this.validate(tx, true, requireSignature, skipBalance)
 		return this.addUnverified(tx)
 	}
@@ -302,7 +307,7 @@ export class TxPool {
 	 * @param txHashes
 	 * @returns Array with tx objects
 	 */
-	getByHash(txHashes: Uint8Array[]): TypedTransaction[] {
+	getByHash(txHashes: ReadonlyArray<Uint8Array>): Array<TypedTransaction | ImpersonatedTx> {
 		const found = []
 		for (const txHash of txHashes) {
 			const txHashStr = bytesToUnprefixedHex(txHash)
@@ -390,7 +395,7 @@ export class TxPool {
 	 * @param baseFee Provide a baseFee to subtract from the legacy
 	 * gasPrice to determine the leftover priority tip.
 	 */
-	private normalizedGasPrice(tx: TypedTransaction, baseFee?: bigint) {
+	private normalizedGasPrice(tx: TypedTransaction | ImpersonatedTx, baseFee?: bigint) {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
 		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
@@ -408,7 +413,13 @@ export class TxPool {
 	 * @param tx Tx to use
 	 * @returns Gas price (both tip and max fee)
 	 */
-	private txGasPrice(tx: TypedTransaction): GasPrice {
+	private txGasPrice(tx: TypedTransaction | ImpersonatedTx): GasPrice {
+		if ('isImpersonated' in tx && tx.isImpersonated) {
+			return {
+				maxFee: tx.maxFeePerGas,
+				tip: tx.maxPriorityFeePerGas,
+			}
+		}
 		if (isLegacyTx(tx)) {
 			return {
 				maxFee: tx.gasPrice,
@@ -454,9 +465,9 @@ export class TxPool {
 	 * @param baseFee Provide a baseFee to exclude txs with a lower gasPrice
 	 */
 	async txsByPriceAndNonce({ baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
-		const txs: TypedTransaction[] = []
+		const txs: Array<TypedTransaction | ImpersonatedTx> = []
 		// Separate the transactions by account and sort by nonce
-		const byNonce = new Map<string, TypedTransaction[]>()
+		const byNonce = new Map<string, Array<TypedTransaction | ImpersonatedTx>>()
 		const skippedStats = { byNonce: 0, byPrice: 0, byBlobsLimit: 0 }
 		for (const [address, poolObjects] of this.pool) {
 			let txsSortedByNonce = poolObjects.map((obj) => obj.tx).sort((a, b) => Number(a.nonce - b.nonce))
@@ -489,7 +500,7 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) - this.normalizedGasPrice(a, baseFee) < 0n,
-		}) as QHeap<TypedTransaction>
+		}) as QHeap<TypedTransaction | ImpersonatedTx>
 		for (const [address, txs] of byNonce) {
 			if (!txs[0]) {
 				continue

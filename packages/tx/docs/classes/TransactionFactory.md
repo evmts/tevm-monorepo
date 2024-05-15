@@ -20,7 +20,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### fromBlockBodyData()
 
-> **`static`** **fromBlockBodyData**(`data`, `txOptions`?): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> **`static`** **fromBlockBodyData**(`data`, `txOptions`?): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
 When decoding a BlockBody, in the transactions field, a field is either:
 A Uint8Array (a TypedTransaction - encoded as TransactionType || rlp(TransactionPayload))
@@ -45,7 +45,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### fromJsonRpcProvider()
 
-> **`static`** **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)\>
+> **`static`** **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)\>
 
 Method to retrieve a transaction from the provider
 
