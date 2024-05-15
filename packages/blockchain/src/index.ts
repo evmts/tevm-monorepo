@@ -1,12 +1,15 @@
 export { createChain } from './createChain.js'
+export { createBaseChain } from './createBaseChain.js'
 export {
-  ReceiptsManager,
-  type BaseTxReceipt,
-  type EIP4844BlobTxReceipt,
-  type PreByzantiumTxReceipt,
-  type PostByzantiumTxReceipt,
-  type TxReceipt,
-  type TxReceiptWithType,
-} from './RecieptManager.js'
+  deepCopy,
+  delBlock,
+  getBlock,
+  putBlock,
+  shallowCopy,
+  validateHeader,
+  getIteratorHead,
+  setIteratorHead,
+  getCanonicalHeadBlock,
+} from './actions/index.js'
 export type { Chain } from './Chain.js'
 export type { ChainOptions } from './ChainOptions.js'
