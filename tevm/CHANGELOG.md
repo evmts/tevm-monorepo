@@ -1,5 +1,28 @@
 # @tevm/contract
 
+## 1.1.0-next.49
+
+### Minor Changes
+
+- [#1074](https://github.com/evmts/tevm-monorepo/pull/1074) [`2ba2c27`](https://github.com/evmts/tevm-monorepo/commit/2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5) Thanks [@roninjin10](https://github.com/roninjin10)! - Added bySenderAddress method to return all mempool tx from a single sender address
+
+### Patch Changes
+
+- [#1076](https://github.com/evmts/tevm-monorepo/pull/1076) [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not updating nonce when more than one tx is in the tx pool
+
+- Updated dependencies [[`a6655fc`](https://github.com/evmts/tevm-monorepo/commit/a6655fc2414d06b3bd2caf72f88ec2ccff20a075), [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8)]:
+  - @tevm/base-client@1.1.0-next.49
+  - @tevm/state@1.1.0-next.49
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+  - @tevm/memory-client@1.1.0-next.49
+  - @tevm/server@1.1.0-next.47
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.49
+  - @tevm/procedures-types@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.49
+  - @tevm/precompiles@1.1.0-next.47
+
 ## 1.1.0-next.48
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.1.0-next.49
+
+### Patch Changes
+
+- [#1076](https://github.com/evmts/tevm-monorepo/pull/1076) [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Cleaned up how deep copying works. Change should help with performance a bit.
+
+- Updated dependencies [[`3546dc4`](https://github.com/evmts/tevm-monorepo/commit/3546dc42267a66f1b80f0422547867c653724f5d)]:
+  - @tevm/test-utils@1.1.0-next.49
+
 ## 1.1.0-next.47
 
 ### Patch Changes
