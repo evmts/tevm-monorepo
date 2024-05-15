@@ -61,6 +61,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
     const txPool = await client.getTxPool()
     const txs = await txPool.getBySenderAddress(sender)
 
+<<<<<<< HEAD
     const nonce = (
       (await vm.stateManager.getAccount(
         sender,
@@ -69,12 +70,23 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
+=======
+>>>>>>> 2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
     // Possible we need to make property public on client
     const tx = FeeMarketEIP1559Transaction.fromTxData(
       {
+<<<<<<< HEAD
         nonce,
+=======
+        nonce:
+          (
+            (await vm.stateManager.getAccount(
+              sender,
+            )) ?? { nonce: 0n }
+          ).nonce + BigInt(txs.length),
+>>>>>>> 2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5
         gasLimit: gasLimitWithExecutionBuffer,
         maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
         maxPriorityFeePerGas: 0n,
