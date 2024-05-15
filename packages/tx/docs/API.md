@@ -16,7 +16,6 @@
 - [AccessListEIP2930Transaction](classes/AccessListEIP2930Transaction.md)
 - [BlobEIP4844Transaction](classes/BlobEIP4844Transaction.md)
 - [FeeMarketEIP1559Transaction](classes/FeeMarketEIP1559Transaction.md)
-- [ImpersonatedTx](classes/ImpersonatedTx.md)
 - [LegacyTransaction](classes/LegacyTransaction.md)
 - [TransactionFactory](classes/TransactionFactory.md)
 
@@ -24,6 +23,7 @@
 
 - [EIP1559CompatibleTx](interfaces/EIP1559CompatibleTx.md)
 - [EIP4844CompatibleTx](interfaces/EIP4844CompatibleTx.md)
+- [ImpersonatedTx](interfaces/ImpersonatedTx.md)
 - [JsonRpcTx](interfaces/JsonRpcTx.md)
 - [JsonTx](interfaces/JsonTx.md)
 - [TxData](interfaces/TxData.md)
@@ -37,6 +37,7 @@
 
 ### Functions
 
+- [createImpersonatedTx](functions/createImpersonatedTx.md)
 - [isAccessListEIP2930Tx](functions/isAccessListEIP2930Tx.md)
 - [isBlobEIP4844Tx](functions/isBlobEIP4844Tx.md)
 - [isFeeMarketEIP1559Tx](functions/isFeeMarketEIP1559Tx.md)
