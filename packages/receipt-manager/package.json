@@ -62,15 +62,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/blockchain": "^7.2.0",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:1.1.0-next.47",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/logger": "workspace:^",
 		"@tevm/rlp": "workspace:^",
-		"@tevm/trie": "workspace:^",
-		"@tevm/tx": "workspace:^",
-		"viem": "^2.9.28"
+		"@tevm/tx": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",

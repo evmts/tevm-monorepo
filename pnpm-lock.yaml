@@ -1956,33 +1956,18 @@ importers:
 
   packages/receipt-manager:
     dependencies:
-      '@ethereumjs/blockchain':
-        specifier: ^7.2.0
-        version: 7.2.0
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
       '@tevm/blockchain':
         specifier: workspace:1.1.0-next.47
         version: link:../blockchain
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/logger':
-        specifier: workspace:^
-        version: link:../logger
       '@tevm/rlp':
         specifier: workspace:^
         version: link:../rlp
-      '@tevm/trie':
-        specifier: workspace:^
-        version: link:../trie
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
-      viem:
-        specifier: ^2.9.28
-        version: 2.10.5(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/common':
         specifier: workspace:^
