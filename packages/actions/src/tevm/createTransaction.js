@@ -1,10 +1,12 @@
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, keccak256 } from '@tevm/utils'
+import { ImpersonatedTx } from '@tevm/tx'
+import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { setAccountHandler } from './setAccountHandler.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { getAccountHandler } from './getAccountHandler.js'
 
 // TODO tevm_call should optionally take a signature too
+// When it takes a real signature (like in case of eth.sendRawTransaction) we should
+// use FeeMarketEIP1559Transaction rather than Impersonated
 const requireSig = false
 
 /**
@@ -69,11 +71,13 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
+    // TODO we should be allowing actual real signed tx too here
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
     // Possible we need to make property public on client
-    const tx = FeeMarketEIP1559Transaction.fromTxData(
+    const tx = new ImpersonatedTx(
       {
+        impersonatedAddress: sender,
         nonce,
         gasLimit: gasLimitWithExecutionBuffer,
         maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
@@ -94,36 +98,13 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
       tx,
       'callHandler: Created a new transaction from transaction data',
     )
-    // So we can `impersonate` accounts we need to hack the `hash()` method to always exist whether signed or unsigned
-    // TODO we should be configuring tevm_call to sometimes only accept signed transactions
-    // TODO let's just make an ImpersonatedTx type in `@tevm/tx`
-    const wrappedTx = new Proxy(tx, {
-      get(target, prop) {
-        if (prop === 'hash') {
-          return () => {
-            try {
-              return target.hash()
-            } catch (e) {
-              return keccak256(target.getHashedMessageToSign(), 'bytes')
-            }
-          }
-        }
-        if (prop === 'isSigned') {
-          return () => true
-        }
-        if (prop === 'getSenderAddress') {
-          return () => sender
-        }
-        return Reflect.get(target, prop)
-      },
-    })
     try {
       client.logger.debug(
         { requireSig, skipBalance: evmInput.skipBalance },
         'callHandler: Adding tx to mempool',
       )
-      const poolPromise = pool.add(wrappedTx, requireSig, evmInput.skipBalance ?? false)
-      const txHash = bytesToHex(wrappedTx.hash())
+      const poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
+      const txHash = bytesToHex(tx.hash())
       client.logger.debug(
         txHash,
         'callHandler: received txHash',
@@ -131,7 +112,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
       const account = await getAccountHandler(client)({
         address: /** @type {import('@tevm/utils').Hex}*/(sender.toString())
       })
-      const balanceNeeded = wrappedTx.value + (gasLimitWithExecutionBuffer * wrappedTx.maxFeePerGas)
+      const balanceNeeded = tx.value + (gasLimitWithExecutionBuffer * tx.maxFeePerGas)
       const hasBalance = balanceNeeded <= account.balance
       if (evmInput?.skipBalance && !hasBalance) {
         await setAccountHandler(client)({
@@ -165,7 +146,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         e,
         'callHandler: Unexpected error adding transaction to mempool and checkpointing state. Removing transaction from mempool and reverting state',
       )
-      pool.removeByHash(bytesToHex(wrappedTx.hash()))
+      pool.removeByHash(bytesToHex(tx.hash()))
       // don't expect this to ever happen at this point but being defensive
       await vm.stateManager.revert()
       return maybeThrowOnFail(throwOnFail ?? defaultThrowOnFail, {

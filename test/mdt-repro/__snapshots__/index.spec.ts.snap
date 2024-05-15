@@ -23,3 +23,21 @@ exports[`tanrikulu usecase should work 2`] = `
   "selfdestruct":   Set {},
 }
 `;
+
+exports[`tanrikulu usecase should work 3`] = `
+{
+  "createdAddresses":   Set {},
+  "errors": [
+    {
+      "_tag": "revert",
+      "message": "Revert: There was a revert with no revert message 0x {"name":"revert","_tag":"revert","message":"0x"}",
+      "name": "revert",
+    },
+  ],
+  "executionGasUsed": 67454n,
+  "gas": 16709761n,
+  "logs": [],
+  "rawData": "0x",
+  "selfdestruct":   Set {},
+}
+`;
