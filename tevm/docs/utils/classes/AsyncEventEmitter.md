@@ -207,7 +207,7 @@ EventEmitter.[captureRejectionSymbol]
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:553
+node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/events.d.ts:545
 
 ***
 
@@ -447,7 +447,7 @@ v10.0.0
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:708
+node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/events.d.ts:700
 
 ***
 
@@ -651,7 +651,7 @@ v9.4.0
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/events.d.ts:779
+node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/events.d.ts:771
 
 ***
 

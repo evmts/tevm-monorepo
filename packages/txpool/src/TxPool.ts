@@ -117,7 +117,7 @@ export class TxPool {
 		this.handled = new Map<UnprefixedHash, HandledObject>()
 
 		this.opened = false
-		this.running = false
+		this.running = true
 	}
 
 	/**
