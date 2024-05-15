@@ -1,6 +1,7 @@
 {
   "name": "mdt-repro",
   "module": "index.ts",
+  "version": "0.0.1",
   "type": "module",
   "devDependencies": {
     "bun-types": "latest"
