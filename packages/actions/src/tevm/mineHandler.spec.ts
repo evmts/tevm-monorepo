@@ -104,5 +104,8 @@ describe(mineHandler.name, () => {
     expect(
       receipt[2]
     ).toBeDefined()
+
+    // should remove tx from mempool
+    expect(await client.getTxPool().then(pool => [...pool.pool.keys()].length)).toBe(0)
   })
 })
