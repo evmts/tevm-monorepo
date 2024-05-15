@@ -3,7 +3,7 @@ import { getAccountHandler } from './getAccountHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { createBaseClient } from '@tevm/base-client'
 import { EvmErrorMessage } from '@tevm/evm'
-import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { EthjsAddress, encodeFunctionData, hexToBytes, parseEther, type Address } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 import { mineHandler } from './mineHandler.js'
 
@@ -431,5 +431,81 @@ describe('callHandler', () => {
         '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
       selfdestruct: new Set(),
     })
+  })
+
+  it('should be able to send multiple tx from same account and then mine it', async () => {
+    const client = createBaseClient()
+    const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+    const to = `0x${'42'.repeat(20)}` as const
+    const { errors } = await setAccountHandler(client)({
+      address: from.toString() as Address,
+      nonce: 69n,
+      balance: parseEther('1000')
+    })
+    expect(errors).toBeUndefined()
+    // send value
+    expect(
+      await callHandler(client)({
+        createTransaction: true,
+        to,
+        value: 1n,
+        skipBalance: true,
+        from: from.toString() as Address,
+      }),
+    ).toEqual({
+      executionGasUsed: 0n,
+      rawData: '0x',
+      txHash: "0xa5be8692fbb39d79a9d2aa2e87333d6620ceeec3cf52da8bef4d3dec3743145e",
+    })
+    expect(
+      await callHandler(client)({
+        createTransaction: true,
+        to,
+        value: 2n,
+        skipBalance: true,
+        from: from.toString() as Address,
+      }),
+    ).toEqual({
+      executionGasUsed: 0n,
+      rawData: '0x',
+      txHash: "0xc4b3576c1bbdda23cf40aa5b6efe08d4c881d569820b6d996cfd611e323af6a9",
+    })
+    expect(
+      await callHandler(client)({
+        createTransaction: true,
+        to,
+        value: 3n,
+        skipBalance: true,
+        from: from.toString() as Address,
+      }),
+    ).toEqual({
+      executionGasUsed: 0n,
+      rawData: '0x',
+      txHash: "0x27a596c1e6c26b8fc84f4dc07337b75300e29ab0ba5918fe7509414e62ff9fe9",
+    })
+    const txPool = await client.getTxPool()
+    // ts hashes are in pool
+    expect((await txPool.getBySenderAddress(from)).map(tx => tx.hash)).toEqual([
+      "a5be8692fbb39d79a9d2aa2e87333d6620ceeec3cf52da8bef4d3dec3743145e",
+      "c4b3576c1bbdda23cf40aa5b6efe08d4c881d569820b6d996cfd611e323af6a9",
+      "27a596c1e6c26b8fc84f4dc07337b75300e29ab0ba5918fe7509414e62ff9fe9"
+    ])
+    await mineHandler(client)()
+    // the value should be sent
+    expect(
+      (
+        await getAccountHandler(client)({
+          address: to,
+        })
+      ).balance,
+    ).toEqual(1n + 2n + 3n)
+    // nonce should be increased by 3
+    expect(
+      (
+        await getAccountHandler(client)({
+          address: from.toString() as Address,
+        })
+      ).nonce,
+    ).toEqual(69n + 3n)
   })
 })

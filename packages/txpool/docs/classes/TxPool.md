@@ -169,7 +169,7 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L562)
+[TxPool.ts:567](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L567)
 
 ***
 
@@ -241,7 +241,7 @@ Close pool
 
 #### Source
 
-[TxPool.ts:555](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L555)
+[TxPool.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L560)
 
 ***
 
@@ -262,6 +262,20 @@ Array with tx objects
 #### Source
 
 [TxPool.ts:305](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L305)
+
+***
+
+### getBySenderAddress()
+
+> **getBySenderAddress**(`address`): `Promise`\<`TxPoolObject`[]\>
+
+#### Parameters
+
+▪ **address**: `Address`
+
+#### Source
+
+[TxPool.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L435)
 
 ***
 
@@ -356,7 +370,7 @@ Stop pool execution
 
 #### Source
 
-[TxPool.ts:544](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L544)
+[TxPool.ts:549](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L549)
 
 ***
 
@@ -411,7 +425,7 @@ Provide a baseFee to exclude txs with a lower gasPrice
 
 #### Source
 
-[TxPool.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L451)
+[TxPool.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L456)
 
 ***
 
