@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.51
+
+### Patch Changes
+
+- [#1084](https://github.com/evmts/tevm-monorepo/pull/1084) [`93b04d6`](https://github.com/evmts/tevm-monorepo/commit/93b04d6a3cd06180e3567d07bec655c7a135a8c3) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with empty accounts not being returned empty in statemanager when in forked mode. This bug would affect both gas estimation and contract creation
+
 ## 1.1.0-next.49
 
 ### Patch Changes
