@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ContractCache
+[@tevm/state](../globals.md) / ContractCache
 
 # Class: ContractCache
 
@@ -11,13 +11,17 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ## Constructors
 
-### new ContractCache(storageCache)
+### new ContractCache()
 
 > **new ContractCache**(`storageCache`): [`ContractCache`](ContractCache.md)
 
 #### Parameters
 
-▪ **storageCache**: `StorageCache`= `undefined`
+• **storageCache**: `StorageCache`= `undefined`
+
+#### Returns
+
+[`ContractCache`](ContractCache.md)
 
 #### Source
 
@@ -37,7 +41,11 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ### \_checkpoints
 
-> **`get`** **\_checkpoints**(): `number`
+> `get` **\_checkpoints**(): `number`
+
+#### Returns
+
+`number`
 
 #### Source
 
@@ -51,6 +59,8 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Returns
 
+`void`
+
 #### Source
 
 [packages/state/src/ContractCache.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L61)
@@ -62,6 +72,8 @@ It is implemented via extending StorageCache and hardcoding slot 0
 > **clear**(): `void`
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -75,6 +87,8 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Returns
 
+`void`
+
 #### Source
 
 [packages/state/src/ContractCache.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L22)
@@ -87,9 +101,11 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -103,9 +119,11 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
 #### Returns
+
+`undefined` \| `Uint8Array`
 
 #### Source
 
@@ -119,11 +137,13 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-▪ **address**: `Address`
+• **address**: `Address`
 
-▪ **bytecode**: `Uint8Array`
+• **bytecode**: `Uint8Array`
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -137,6 +157,8 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Returns
 
+`void`
+
 #### Source
 
 [packages/state/src/ContractCache.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L76)
@@ -147,9 +169,10 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **size**(): `number`
 
+#### Returns
+
+`number`
+
 #### Source
 
 [packages/state/src/ContractCache.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L69)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

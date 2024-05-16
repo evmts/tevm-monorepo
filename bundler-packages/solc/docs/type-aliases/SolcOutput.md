@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/solc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SolcOutput
+[@tevm/solc](../globals.md) / SolcOutput
 
 # Type alias: SolcOutput
 
@@ -18,9 +18,9 @@
 
  \[`sourceFile`: `string`\]: `object`
 
-### errors
+### errors?
 
-> **errors**?: [`SolcErrorEntry`](SolcErrorEntry.md)[]
+> `optional` **errors**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
 
 ### sources
 
@@ -33,6 +33,3 @@
 ## Source
 
 [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

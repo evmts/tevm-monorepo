@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > createBaseState
+[tevm](../../modules.md) / [state](../README.md) / createBaseState
 
 # Function: createBaseState()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+• **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+
+## Returns
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Source
 
 packages/state/dist/index.d.ts:184
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > bytesToUtf8
+[@tevm/utils](../globals.md) / bytesToUtf8
 
 # Function: bytesToUtf8()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **data**: `Uint8Array`
+• **data**: `Uint8Array`
+
+## Returns
+
+`string`
 
 ## Source
 
 node\_modules/.pnpm/ethereum-cryptography@2.1.3/node\_modules/ethereum-cryptography/utils.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

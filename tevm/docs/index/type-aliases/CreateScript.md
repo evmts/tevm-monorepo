@@ -1,17 +1,17 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > CreateScript
+[tevm](../../modules.md) / [index](../README.md) / CreateScript
 
-# Type alias: CreateScript
+# Type alias: CreateScript()
 
 > **CreateScript**: \<`TName`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, }`) => [`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>
 
 Type of `createScript` factory function
 Creates a tevm Script instance from human readable abi
 
-## Example
+## Examples
 
 ```typescript
 import { type Script, createScript} from 'tevm/contract'
@@ -25,8 +25,6 @@ const script: Script = createScript({
 ```
 
 To use a json abi first pass it into `formatAbi` to turn it into human readable
-
-## Example
 
 ```typescript
 import { type Script, createScript, formatAbi} from 'tevm/contract'
@@ -56,17 +54,18 @@ const script = createScript({
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** *extends* `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** *extends* readonly `string`[]
 
 ## Parameters
 
-▪ **\{ name, humanReadableAbi, bytecode, deployedBytecode, }**: [`CreateScriptParams`](CreateScriptParams.md)\<`TName`, `THumanReadableAbi`\>
+• **\{ name, humanReadableAbi, bytecode, deployedBytecode, \}**: [`CreateScriptParams`](CreateScriptParams.md)\<`TName`, `THumanReadableAbi`\>
+
+## Returns
+
+[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Source
 
 packages/contract/types/types.d.ts:85
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

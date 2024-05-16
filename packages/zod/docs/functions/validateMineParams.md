@@ -1,8 +1,8 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/zod**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > validateMineParams
+[@tevm/zod](../globals.md) / validateMineParams
 
 # Function: validateMineParams()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **action**: `MineParams`\<`boolean`\>
+• **action**: `MineParams`\<`boolean`\>
 
 ## Returns
+
+`Error`[]
 
 ## Source
 
 [packages/zod/src/validators/validateMineParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateMineParams.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

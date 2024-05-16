@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DebugReturnType
+[@tevm/procedures-types](../globals.md) / DebugReturnType
 
 # Type alias: DebugReturnType
 
@@ -23,6 +23,3 @@ A mapping of `debug_*` method names to their return type
 ## Source
 
 [tevm-request-handler/DebugReturnType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/DebugReturnType.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

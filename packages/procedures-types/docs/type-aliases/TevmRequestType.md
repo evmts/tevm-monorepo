@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmRequestType
+[@tevm/procedures-types](../globals.md) / TevmRequestType
 
 # Type alias: TevmRequestType
 
@@ -43,6 +43,3 @@ A mapping of `tevm_*` method names to their request type
 ## Source
 
 [tevm-request-handler/TevmRequestType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmRequestType.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

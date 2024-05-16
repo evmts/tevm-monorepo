@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > tevmTransport
+[tevm](../../modules.md) / [index](../README.md) / tevmTransport
 
 # Function: tevmTransport()
 
@@ -10,13 +10,14 @@
 
 ## Parameters
 
-▪ **\_\_namedParameters**: `Pick`\<`object`, `"request"`\>
+• **\_\_namedParameters**: `Pick`\<`object`, `"request"`\>
 
-▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\<`undefined`\>\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryDelay"` \| `"retryCount"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\<`undefined`\>\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryDelay"` \| `"retryCount"`\>
+
+## Returns
+
+`Transport`
 
 ## Source
 
 extensions/viem/types/tevmTransport.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

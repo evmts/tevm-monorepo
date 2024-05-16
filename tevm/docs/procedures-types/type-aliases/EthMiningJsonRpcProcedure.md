@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthMiningJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthMiningJsonRpcProcedure
 
-# Type alias: EthMiningJsonRpcProcedure
+# Type alias: EthMiningJsonRpcProcedure()
 
 > **EthMiningJsonRpcProcedure**: (`request`) => `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md)
+• **request**: [`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:800
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

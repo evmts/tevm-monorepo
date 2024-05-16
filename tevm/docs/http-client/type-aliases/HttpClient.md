@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [http-client](../README.md) > HttpClient
+[tevm](../../modules.md) / [http-client](../README.md) / HttpClient
 
-# Type alias: HttpClient
+# Type alias: ~~HttpClient~~
 
 > **HttpClient**: [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
@@ -14,13 +14,13 @@ a new http client will be created in a future version. For now it's recomended t
 
 ## Type declaration
 
-### name
+### ~~name~~
 
 > **name**: `string`
 
 Name of the client
 
-### url
+### ~~url~~
 
 > **url**: `string`
 
@@ -29,6 +29,3 @@ The url being used to connect to the remote Tevm backend
 ## Source
 
 packages/http-client/types/HttpClient.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

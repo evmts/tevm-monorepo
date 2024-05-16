@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > http-client
+[tevm](../modules.md) / http-client
 
-# Module: http-client
+# http-client
 
 ## Index
 
@@ -16,6 +16,3 @@
 ### Functions
 
 - [createHttpClient](functions/createHttpClient.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

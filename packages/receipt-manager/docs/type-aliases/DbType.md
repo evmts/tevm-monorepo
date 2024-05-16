@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DbType
+[@tevm/receipt-manager](../globals.md) / DbType
 
 # Type alias: DbType
 
@@ -11,6 +11,3 @@
 ## Source
 
 [MapDb.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

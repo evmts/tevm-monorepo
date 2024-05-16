@@ -1,8 +1,8 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [parseJson](../README.md) > parseJson
+[@tevm/effect](../../modules.md) / [parseJson](../README.md) / parseJson
 
 # Function: parseJson()
 
@@ -12,9 +12,11 @@ Parses a json string
 
 ## Parameters
 
-▪ **jsonStr**: `string`
+• **jsonStr**: `string`
 
 ## Returns
+
+`Effect`\<`never`, [`ParseJsonError`](../classes/ParseJsonError.md), `unknown`\>
 
 ## Throws
 
@@ -30,6 +32,3 @@ const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tev
 ## Source
 
 [packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

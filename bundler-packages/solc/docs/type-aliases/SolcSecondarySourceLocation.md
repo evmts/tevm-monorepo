@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/solc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SolcSecondarySourceLocation
+[@tevm/solc](../globals.md) / SolcSecondarySourceLocation
 
 # Type alias: SolcSecondarySourceLocation
 
@@ -17,6 +17,3 @@
 ## Source
 
 [solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

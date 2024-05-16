@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BaseCallParams
+[@tevm/actions-types](../globals.md) / BaseCallParams
 
-# Type alias: BaseCallParams`<TThrowOnFail>`
+# Type alias: BaseCallParams\<TThrowOnFail\>
 
 > **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -12,42 +12,42 @@ Properties shared accross call-like params
 
 ## Type declaration
 
-### blobVersionedHashes
+### blobVersionedHashes?
 
-> **blobVersionedHashes**?: [`Hex`](Hex.md)[]
+> `optional` **blobVersionedHashes**: [`Hex`](Hex.md)[]
 
 Versioned hashes for each blob in a blob transaction
 
-### blockOverrideSet
+### blockOverrideSet?
 
-> **blockOverrideSet**?: [`BlockOverrideSet`](BlockOverrideSet.md)
+> `optional` **blockOverrideSet**: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 This option cannot be used when `createTransaction` is set to `true`
 Setting the block number to past block will not run in the context of that blocks state. To do that fork that block number first.
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`BlockParam`](BlockParam.md)
+> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
 The block number or block tag to execute the call at. Defaults to `latest`
 
-### caller
+### caller?
 
-> **caller**?: [`Address`](Address.md)
+> `optional` **caller**: [`Address`](Address.md)
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
-### createTrace
+### createTrace?
 
-> **createTrace**?: `boolean`
+> `optional` **createTrace**: `boolean`
 
 Whether to return a complete trace with the call
 
-### createTransaction
+### createTransaction?
 
-> **createTransaction**?: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
+> `optional` **createTransaction**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
 
 Whether or not to update the state or run call in a dry-run. Defaults to `never`
 - `on-success`: Only update the state if the call is successful
@@ -58,63 +58,63 @@ Whether or not to update the state or run call in a dry-run. Defaults to `never`
 Always will still not include the transaction if it's not valid to be included in
 the chain such as the gas limit being too low.
 
-### depth
+### depth?
 
-> **depth**?: `number`
+> `optional` **depth**: `number`
 
 The call depth. Defaults to `0`
 
-### from
+### from?
 
-> **from**?: [`Address`](Address.md)
+> `optional` **from**: [`Address`](Address.md)
 
 The from address for the call. Defaults to the zero address.
 It is also possible to set the `origin` and `caller` addresses seperately using
 those options. Otherwise both are set to the `from` address
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> `optional` **gas**: `bigint`
 
 The gas limit for the call.
 Defaults to 0xffffff (16_777_215n)
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: `bigint`
+> `optional` **gasPrice**: `bigint`
 
 The gas price for the call.
 
-### gasRefund
+### gasRefund?
 
-> **gasRefund**?: `bigint`
+> `optional` **gasRefund**: `bigint`
 
 Refund counter. Defaults to `0`
 
-### origin
+### origin?
 
-> **origin**?: [`Address`](Address.md)
+> `optional` **origin**: [`Address`](Address.md)
 
 The address where the call originated from. Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
-### selfdestruct
+### selfdestruct?
 
-> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
+> `optional` **selfdestruct**: `Set`\<[`Address`](Address.md)\>
 
 Addresses to selfdestruct. Defaults to the empty set.
 
-### skipBalance
+### skipBalance?
 
-> **skipBalance**?: `boolean`
+> `optional` **skipBalance**: `boolean`
 
 Set caller to msg.value of less than msg.value
 Defaults to false exceipt for when running scripts
 where it is set to true
 
-### stateOverrideSet
+### stateOverrideSet?
 
-> **stateOverrideSet**?: [`StateOverrideSet`](StateOverrideSet.md)
+> `optional` **stateOverrideSet**: [`StateOverrideSet`](StateOverrideSet.md)
 
 The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
 This option cannot be used when `createTransaction` is set to `true`
@@ -141,27 +141,22 @@ It can be used to debug smart contracts in an already deployed large suite of co
 }
 ```
 
-### to
+### to?
 
-> **to**?: [`Address`](Address.md)
+> `optional` **to**: [`Address`](Address.md)
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 
-### value
+### value?
 
-> **value**?: `bigint`
+> `optional` **value**: `bigint`
 
 The value in ether that is being sent to `opts.address`. Defaults to `0`
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** *extends* `boolean` = `boolean`
 
 ## Source
 
 [params/BaseCallParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

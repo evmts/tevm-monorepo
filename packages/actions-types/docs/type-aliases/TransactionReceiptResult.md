@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TransactionReceiptResult
+[@tevm/actions-types](../globals.md) / TransactionReceiptResult
 
 # Type alias: TransactionReceiptResult
 
@@ -14,63 +14,60 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blobGasPrice
 
-> **`readonly`** **blobGasPrice**: `bigint`
+> `readonly` **blobGasPrice**: `bigint`
 
 ### blobGasUsed
 
-> **`readonly`** **blobGasUsed**: `bigint`
+> `readonly` **blobGasUsed**: `bigint`
 
 ### blockHash
 
-> **`readonly`** **blockHash**: [`Hex`](Hex.md)
+> `readonly` **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `bigint`
+> `readonly` **blockNumber**: `bigint`
 
 ### contractAddress
 
-> **`readonly`** **contractAddress**: [`Hex`](Hex.md)
+> `readonly` **contractAddress**: [`Hex`](Hex.md)
 
 ### cumulativeGasUsed
 
-> **`readonly`** **cumulativeGasUsed**: `bigint`
+> `readonly` **cumulativeGasUsed**: `bigint`
 
 ### from
 
-> **`readonly`** **from**: [`Hex`](Hex.md)
+> `readonly` **from**: [`Hex`](Hex.md)
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: `bigint`
+> `readonly` **gasUsed**: `bigint`
 
 ### logs
 
-> **`readonly`** **logs**: readonly [`FilterLog`](FilterLog.md)[]
+> `readonly` **logs**: readonly [`FilterLog`](FilterLog.md)[]
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: [`Hex`](Hex.md)
+> `readonly` **logsBloom**: [`Hex`](Hex.md)
 
 ### status
 
-> **`readonly`** **status**: [`Hex`](Hex.md)
+> `readonly` **status**: [`Hex`](Hex.md)
 
 ### to
 
-> **`readonly`** **to**: [`Hex`](Hex.md)
+> `readonly` **to**: [`Hex`](Hex.md)
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: [`Hex`](Hex.md)
+> `readonly` **transactionHash**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `bigint`
+> `readonly` **transactionIndex**: `bigint`
 
 ## Source
 
 [common/TransactionReceiptResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/TransactionReceiptResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

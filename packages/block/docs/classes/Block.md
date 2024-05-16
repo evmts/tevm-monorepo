@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Block
+[@tevm/block](../globals.md) / Block
 
 # Class: Block
 
@@ -10,7 +10,7 @@ An object that represents the block.
 
 ## Constructors
 
-### new Block(opts, header, transactions, uncleHeaders, withdrawals, requests, executionWitness)
+### new Block()
 
 > **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): [`Block`](Block.md)
 
@@ -19,19 +19,23 @@ Use the static factory methods to assist in creating a Block object from varying
 
 #### Parameters
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
-▪ **header?**: [`BlockHeader`](BlockHeader.md)
+• **header?**: [`BlockHeader`](BlockHeader.md)
 
-▪ **transactions?**: `TypedTransaction`[]= `[]`
+• **transactions?**: `TypedTransaction`[]= `[]`
 
-▪ **uncleHeaders?**: [`BlockHeader`](BlockHeader.md)[]= `[]`
+• **uncleHeaders?**: [`BlockHeader`](BlockHeader.md)[]= `[]`
 
-▪ **withdrawals?**: `Withdrawal`[]
+• **withdrawals?**: `Withdrawal`[]
 
-▪ **requests?**: [`ClRequest`](ClRequest.md)[]
+• **requests?**: [`ClRequest`](ClRequest.md)[]
 
-▪ **executionWitness?**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+• **executionWitness?**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+
+#### Returns
+
+[`Block`](Block.md)
 
 #### Source
 
@@ -41,21 +45,19 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ### cache
 
-> **`protected`** **cache**: `object` = `{}`
+> `protected` **cache**: `object` = `{}`
 
-#### Type declaration
+#### requestsRoot?
 
-##### requestsRoot
+> `optional` **requestsRoot**: `Uint8Array`
 
-> **requestsRoot**?: `Uint8Array`
+#### txTrieRoot?
 
-##### txTrieRoot
+> `optional` **txTrieRoot**: `Uint8Array`
 
-> **txTrieRoot**?: `Uint8Array`
+#### withdrawalsTrieRoot?
 
-##### withdrawalsTrieRoot
-
-> **withdrawalsTrieRoot**?: `Uint8Array`
+> `optional` **withdrawalsTrieRoot**: `Uint8Array`
 
 #### Source
 
@@ -65,7 +67,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ### common
 
-> **`readonly`** **common**: `Common`
+> `readonly` **common**: `Common`
 
 #### Source
 
@@ -73,9 +75,9 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ***
 
-### executionWitness
+### executionWitness?
 
-> **`readonly`** **executionWitness**?: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `optional` `readonly` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
@@ -89,7 +91,7 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ### header
 
-> **`readonly`** **header**: [`BlockHeader`](BlockHeader.md)
+> `readonly` **header**: [`BlockHeader`](BlockHeader.md)
 
 #### Source
 
@@ -97,13 +99,17 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ***
 
-### keccakFunction
+### keccakFunction()
 
-> **`protected`** **keccakFunction**: (`msg`) => `Uint8Array`
+> `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
 #### Parameters
 
-▪ **msg**: `Uint8Array`
+• **msg**: `Uint8Array`
+
+#### Returns
+
+`Uint8Array`
 
 #### Source
 
@@ -111,9 +117,9 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ***
 
-### requests
+### requests?
 
-> **`readonly`** **requests**?: [`ClRequest`](ClRequest.md)[]
+> `optional` `readonly` **requests**: [`ClRequest`](ClRequest.md)[]
 
 #### Source
 
@@ -123,7 +129,7 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ### transactions
 
-> **`readonly`** **transactions**: `TypedTransaction`[] = `[]`
+> `readonly` **transactions**: `TypedTransaction`[] = `[]`
 
 #### Source
 
@@ -133,7 +139,7 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ### uncleHeaders
 
-> **`readonly`** **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[] = `[]`
+> `readonly` **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[] = `[]`
 
 #### Source
 
@@ -141,9 +147,9 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 ***
 
-### withdrawals
+### withdrawals?
 
-> **`readonly`** **withdrawals**?: `Withdrawal`[]
+> `optional` `readonly` **withdrawals**: `Withdrawal`[]
 
 #### Source
 
@@ -156,6 +162,10 @@ and will not lead to execution of the block via vm with verkle stateless manager
 > **errorStr**(): `string`
 
 Return a compact error string representation of the object
+
+#### Returns
+
+`string`
 
 #### Source
 
@@ -171,9 +181,13 @@ Returns the canonical difficulty for this block.
 
 #### Parameters
 
-▪ **parentBlock**: [`Block`](Block.md)
+• **parentBlock**: [`Block`](Block.md)
 
 the parent of this `Block`
+
+#### Returns
+
+`bigint`
 
 #### Source
 
@@ -186,6 +200,10 @@ the parent of this `Block`
 > **genTxTrie**(): `Promise`\<`Uint8Array`\>
 
 Generates transaction trie for validation.
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Source
 
@@ -201,6 +219,8 @@ Validates transaction signatures and minimum gas requirements.
 
 #### Returns
 
+`string`[]
+
 an array of error strings
 
 #### Source
@@ -215,6 +235,10 @@ an array of error strings
 
 Returns the hash of the block.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [block.ts:431](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L431)
@@ -226,6 +250,10 @@ Returns the hash of the block.
 > **isGenesis**(): `boolean`
 
 Determines if this block is the genesis block.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -239,6 +267,10 @@ Determines if this block is the genesis block.
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
+#### Returns
+
+[`BlockBytes`](../type-aliases/BlockBytes.md)
+
 #### Source
 
 [block.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L409)
@@ -248,6 +280,10 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 ### requestsTrieIsValid()
 
 > **requestsTrieIsValid**(): `Promise`\<`boolean`\>
+
+#### Returns
+
+`Promise`\<`boolean`\>
 
 #### Source
 
@@ -261,6 +297,10 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 Returns the rlp encoding of the block.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [block.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L445)
@@ -270,6 +310,10 @@ Returns the rlp encoding of the block.
 ### toExecutionPayload()
 
 > **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
+
+#### Returns
+
+[`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
 #### Source
 
@@ -282,6 +326,10 @@ Returns the rlp encoding of the block.
 > **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
 Returns the block in JSON format.
+
+#### Returns
+
+[`JsonBlock`](../interfaces/JsonBlock.md)
 
 #### Source
 
@@ -296,6 +344,8 @@ Returns the block in JSON format.
 Validates transaction signatures and minimum gas requirements.
 
 #### Returns
+
+`boolean`
 
 True if all transactions are valid, false otherwise
 
@@ -314,6 +364,8 @@ and do a check on the root hash.
 
 #### Returns
 
+`Promise`\<`boolean`\>
+
 True if the transaction trie is valid, false otherwise
 
 #### Source
@@ -329,6 +381,8 @@ True if the transaction trie is valid, false otherwise
 Validates the uncle's hash.
 
 #### Returns
+
+`boolean`
 
 true if the uncle's hash is valid, false otherwise.
 
@@ -348,9 +402,13 @@ blob gas per block
 
 #### Parameters
 
-▪ **parentHeader**: [`BlockHeader`](BlockHeader.md)
+• **parentHeader**: [`BlockHeader`](BlockHeader.md)
 
 header of parent block
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -371,13 +429,17 @@ It checks:
 
 #### Parameters
 
-▪ **onlyHeader**: `boolean`= `false`
+• **onlyHeader**: `boolean`= `false`
 
 if only passed the header, skip validating txTrie and unclesHash (default: false)
 
-▪ **verifyTxs**: `boolean`= `true`
+• **verifyTxs**: `boolean`= `true`
 
 if set to `false`, will not check for transaction validation errors (default: true)
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -394,9 +456,13 @@ Throws if invalid
 
 #### Parameters
 
-▪ **parentBlock**: [`Block`](Block.md)
+• **parentBlock**: [`Block`](Block.md)
 
 the parent of this `Block`
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -416,6 +482,10 @@ The rules for uncles checked are the following:
 Header has at most 2 uncles.
 Header does not count an uncle twice.
 
+#### Returns
+
+`void`
+
 #### Source
 
 [block.ts:708](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L708)
@@ -430,6 +500,8 @@ Validates the withdrawal root
 
 #### Returns
 
+`Promise`\<`boolean`\>
+
 true if the withdrawals trie root is valid, false otherwise
 
 #### Source
@@ -440,21 +512,23 @@ true if the withdrawals trie root is valid, false otherwise
 
 ### fromBeaconPayloadJson()
 
-> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
 Method to retrieve a block from a beacon payload json
 
 #### Parameters
 
-▪ **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
+• **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
 
 json of a beacon beacon fetched from beacon apis
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 [BlockOptions](../interfaces/BlockOptions.md)
 
 #### Returns
+
+`Promise`\<[`Block`](Block.md)\>
 
 the block constructed block
 
@@ -466,15 +540,19 @@ the block constructed block
 
 ### fromBlockData()
 
-> **`static`** **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
+> `static` **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from a block data dictionary
 
 #### Parameters
 
-▪ **blockData**: [`BlockData`](../interfaces/BlockData.md)
+• **blockData**: [`BlockData`](../interfaces/BlockData.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`Block`](Block.md)
 
 #### Source
 
@@ -484,19 +562,21 @@ Static constructor to create a block from a block data dictionary
 
 ### fromExecutionPayload()
 
-> **`static`** **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
 Method to retrieve a block from an execution payload
 
 #### Parameters
 
-▪ **payload**: [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
+• **payload**: [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 [BlockOptions](../interfaces/BlockOptions.md)
 
 #### Returns
+
+`Promise`\<[`Block`](Block.md)\>
 
 the block constructed block
 
@@ -508,15 +588,19 @@ the block constructed block
 
 ### fromRLPSerializedBlock()
 
-> **`static`** **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
+> `static` **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from a RLP-serialized block
 
 #### Parameters
 
-▪ **serialized**: `Uint8Array`
+• **serialized**: `Uint8Array`
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`Block`](Block.md)
 
 #### Source
 
@@ -526,15 +610,19 @@ Static constructor to create a block from a RLP-serialized block
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
+> `static` **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
 
 Static constructor to create a block from an array of Bytes values
 
 #### Parameters
 
-▪ **values**: [`BlockBytes`](../type-aliases/BlockBytes.md)
+• **values**: [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`Block`](Block.md)
 
 #### Source
 
@@ -544,21 +632,23 @@ Static constructor to create a block from an array of Bytes values
 
 ### genRequestsTrieRoot()
 
-> **`static`** **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
 
 Returns the requests trie root for an array of CLRequests
 
 #### Parameters
 
-▪ **requests**: [`ClRequest`](ClRequest.md)[]
+• **requests**: [`ClRequest`](ClRequest.md)[]
 
 an array of CLRequests
 
-▪ **emptyTrie?**: `Trie`
+• **emptyTrie?**: `Trie`
 
 optional empty trie used to generate the root
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 a 32 byte Uint8Array representing the requests trie root
 
@@ -570,17 +660,21 @@ a 32 byte Uint8Array representing the requests trie root
 
 ### genTransactionsTrieRoot()
 
-> **`static`** **genTransactionsTrieRoot**(`txs`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
 
 Returns the txs trie root for array of TypedTransaction
 
 #### Parameters
 
-▪ **txs**: `TypedTransaction`[]
+• **txs**: `TypedTransaction`[]
 
 array of TypedTransaction to compute the root of
 
-▪ **emptyTrie?**: `Trie`
+• **emptyTrie?**: `Trie`
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Source
 
@@ -590,21 +684,22 @@ array of TypedTransaction to compute the root of
 
 ### genWithdrawalsTrieRoot()
 
-> **`static`** **genWithdrawalsTrieRoot**(`wts`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
 
 Returns the withdrawals trie root for array of Withdrawal.
 
 #### Parameters
 
-▪ **wts**: `Withdrawal`[]
+• **wts**: `Withdrawal`[]
 
 array of Withdrawal to compute the root of
 
-▪ **emptyTrie?**: `Trie`
+• **emptyTrie?**: `Trie`
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 #### Source
 
 [block.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L66)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

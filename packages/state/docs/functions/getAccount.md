@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getAccount
+[@tevm/state](../globals.md) / getAccount
 
 # Function: getAccount()
 
@@ -12,24 +12,20 @@ Gets the code corresponding to the provided `address`.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`): `Promise`\<`undefined` \| `Account`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+### Returns
+
+`Promise`\<`undefined` \| `Account`\>
 
 ## Source
 
 [packages/state/src/actions/getAccount.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

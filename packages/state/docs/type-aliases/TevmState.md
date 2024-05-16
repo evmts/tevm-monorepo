@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmState
+[@tevm/state](../globals.md) / TevmState
 
 # Type alias: TevmState
 
@@ -15,6 +15,3 @@
 ## Source
 
 [packages/state/src/state-types/TevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/TevmState.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

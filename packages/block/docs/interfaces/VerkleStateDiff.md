@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > VerkleStateDiff
+[@tevm/block](../globals.md) / VerkleStateDiff
 
 # Interface: VerkleStateDiff
 
@@ -10,7 +10,7 @@
 
 ### stem
 
-> **stem**: \`0x${string}\`
+> **stem**: \`0x$\{string\}\`
 
 #### Source
 
@@ -25,6 +25,3 @@
 #### Source
 
 [types.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L83)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

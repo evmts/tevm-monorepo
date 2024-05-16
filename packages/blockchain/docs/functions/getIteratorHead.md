@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getIteratorHead
+[@tevm/blockchain](../globals.md) / getIteratorHead
 
 # Function: getIteratorHead()
 
@@ -10,28 +10,24 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (`name`?): `Promise`\<`Block`\>
->
-> Returns the specified iterator head.
->
-> ### Parameters
->
-> ▪ **name?**: `string`
->
-> Optional name of the iterator head (default: 'vm')
->
-> ### Source
->
-> [Chain.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L67)
->
+`Function`
+
+Returns the specified iterator head.
+
+### Parameters
+
+• **name?**: `string`
+
+Optional name of the iterator head (default: 'vm')
+
+### Returns
+
+`Promise`\<`Block`\>
 
 ## Source
 
 [actions/getIteratorHead.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

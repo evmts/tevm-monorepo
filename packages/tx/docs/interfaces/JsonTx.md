@@ -1,8 +1,8 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > JsonTx
+[@tevm/tx](../globals.md) / JsonTx
 
 # Interface: JsonTx
 
@@ -15,9 +15,9 @@ and not all the values are present on all tx types
 
 ## Properties
 
-### accessList
+### accessList?
 
-> **accessList**?: `JsonAccessListItem`[]
+> `optional` **accessList**: `JsonAccessListItem`[]
 
 #### Source
 
@@ -25,9 +25,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### blobVersionedHashes
+### blobVersionedHashes?
 
-> **blobVersionedHashes**?: `string`[]
+> `optional` **blobVersionedHashes**: `string`[]
 
 #### Source
 
@@ -35,9 +35,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### chainId
+### chainId?
 
-> **chainId**?: `string`
+> `optional` **chainId**: `string`
 
 #### Source
 
@@ -45,9 +45,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### data
+### data?
 
-> **data**?: `string`
+> `optional` **data**: `string`
 
 #### Source
 
@@ -55,9 +55,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### gasLimit
+### gasLimit?
 
-> **gasLimit**?: `string`
+> `optional` **gasLimit**: `string`
 
 #### Source
 
@@ -65,9 +65,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: `string`
+> `optional` **gasPrice**: `string`
 
 #### Source
 
@@ -75,9 +75,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### maxFeePerBlobGas
+### maxFeePerBlobGas?
 
-> **maxFeePerBlobGas**?: `string`
+> `optional` **maxFeePerBlobGas**: `string`
 
 #### Source
 
@@ -85,9 +85,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### maxFeePerGas
+### maxFeePerGas?
 
-> **maxFeePerGas**?: `string`
+> `optional` **maxFeePerGas**: `string`
 
 #### Source
 
@@ -95,9 +95,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### maxPriorityFeePerGas
+### maxPriorityFeePerGas?
 
-> **maxPriorityFeePerGas**?: `string`
+> `optional` **maxPriorityFeePerGas**: `string`
 
 #### Source
 
@@ -105,9 +105,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### nonce
+### nonce?
 
-> **nonce**?: `string`
+> `optional` **nonce**: `string`
 
 #### Source
 
@@ -115,9 +115,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### r
+### r?
 
-> **r**?: `string`
+> `optional` **r**: `string`
 
 #### Source
 
@@ -125,9 +125,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### s
+### s?
 
-> **s**?: `string`
+> `optional` **s**: `string`
 
 #### Source
 
@@ -135,9 +135,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### to
+### to?
 
-> **to**?: `string`
+> `optional` **to**: `string`
 
 #### Source
 
@@ -145,9 +145,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### type
+### type?
 
-> **type**?: `string`
+> `optional` **type**: `string`
 
 #### Source
 
@@ -155,9 +155,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### v
+### v?
 
-> **v**?: `string`
+> `optional` **v**: `string`
 
 #### Source
 
@@ -165,13 +165,10 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### value
+### value?
 
-> **value**?: `string`
+> `optional` **value**: `string`
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:358
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

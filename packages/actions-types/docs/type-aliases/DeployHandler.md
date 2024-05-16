@@ -1,30 +1,31 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DeployHandler
+[@tevm/actions-types](../globals.md) / DeployHandler
 
-# Type alias: DeployHandler
+# Type alias: DeployHandler()
 
 > **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
 ## Type parameters
 
-▪ **TThrowOnFail** extends `boolean` = `boolean`
+• **TThrowOnFail** *extends* `boolean` = `boolean`
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
-▪ **THasConstructor** = `TAbi` extends `Abi` ? `Abi` extends `TAbi` ? `true` : [`Extract`\<`TAbi`[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`
+• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
 
-▪ **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
+• **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
 
 ## Parameters
 
-▪ **action**: [`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>
+• **action**: [`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>
+
+## Returns
+
+`Promise`\<[`DeployResult`](DeployResult.md)\>
 
 ## Source
 
 [handlers/DeployHandler.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DeployHandler.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

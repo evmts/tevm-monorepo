@@ -1,16 +1,13 @@
-**@tevm/config** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/config**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > defaultConfig
+[@tevm/config](../modules.md) / defaultConfig
 
-# Module: defaultConfig
+# defaultConfig
 
 ## Index
 
 ### Variables
 
 - [defaultConfig](variables/defaultConfig.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

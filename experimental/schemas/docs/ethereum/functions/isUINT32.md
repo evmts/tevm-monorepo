@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > isUINT32
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / isUINT32
 
 # Function: isUINT32()
 
@@ -12,9 +12,11 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT32.
 
 ## Parameters
 
-▪ **uint32**: `unknown`
+• **uint32**: `unknown`
 
 ## Returns
+
+`boolean`
 
 ## Example
 
@@ -27,6 +29,3 @@ isUINT32(BigInt(4294967296));  // false
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/isUINT.js:50](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L50)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

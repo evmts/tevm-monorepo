@@ -1,29 +1,25 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getAccountAddresses
+[@tevm/state](../globals.md) / getAccountAddresses
 
 # Function: getAccountAddresses()
 
-> **getAccountAddresses**(`baseState`): () => \`0x${string}\`[]
+> **getAccountAddresses**(`baseState`): () => \`0x$\{string\}\`[]
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): \`0x${string}\`[]
->
-> ### Source
->
-> [packages/state/src/StateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L15)
->
+`Function`
+
+### Returns
+
+\`0x$\{string\}\`[]
 
 ## Source
 
 [packages/state/src/actions/getAccountAddresses.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccountAddresses.js#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

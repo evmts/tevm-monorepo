@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > DecodeFunctionDataError
+[tevm](../../modules.md) / [errors](../README.md) / DecodeFunctionDataError
 
 # Type alias: DecodeFunctionDataError
 
@@ -25,6 +25,3 @@ errors.forEach(error => {
 ## Source
 
 packages/errors/types/utils/DecodeFunctionDataError.d.ts:13
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

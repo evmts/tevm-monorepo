@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > GetAccountJsonRpcRequest
+[tevm](../../modules.md) / [procedures-types](../README.md) / GetAccountJsonRpcRequest
 
 # Type alias: GetAccountJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `tevm_getAccount` method
 ## Source
 
 packages/procedures-types/dist/index.d.ts:332
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

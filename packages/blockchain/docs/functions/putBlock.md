@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > putBlock
+[@tevm/blockchain](../globals.md) / putBlock
 
 # Function: putBlock()
 
@@ -10,28 +10,24 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (`block`): `Promise`\<`void`\>
->
-> Adds a block to the blockchain.
->
-> ### Parameters
->
-> ▪ **block**: `Block`
->
-> The block to be added to the blockchain.
->
-> ### Source
->
-> [Chain.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L29)
->
+`Function`
+
+Adds a block to the blockchain.
+
+### Parameters
+
+• **block**: `Block`
+
+The block to be added to the blockchain.
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [actions/putBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/putBlock.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

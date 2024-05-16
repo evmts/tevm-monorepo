@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > dumpCanonicalGenesis
+[@tevm/state](../globals.md) / dumpCanonicalGenesis
 
 # Function: dumpCanonicalGenesis()
 
@@ -12,22 +12,18 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
->
-> Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
->
-> ### Source
->
-> [packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
->
+`Function`
+
+Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
+
+### Returns
+
+`Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
 ## Source
 
 [packages/state/src/actions/dumpCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L12)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

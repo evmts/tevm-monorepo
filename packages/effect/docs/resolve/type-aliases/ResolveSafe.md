@@ -1,27 +1,25 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [resolve](../README.md) > ResolveSafe
+[@tevm/effect](../../modules.md) / [resolve](../README.md) / ResolveSafe
 
-# Type alias: ResolveSafe`<>`
+# Type alias: ResolveSafe()
 
 > **ResolveSafe**\<\>: (`importPath`, `options`) => `Effect`
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-
 ## Parameters
 
-▪ **importPath**: `string`
+• **importPath**: `string`
 
-▪ **options**: `SyncOpts` & `AsyncOpts`
+• **options**: `SyncOpts` & `AsyncOpts`
+
+## Returns
+
+`Effect`
 
 ## Source
 
 [packages/effect/src/resolve.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

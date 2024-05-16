@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > valuesArrayToHeaderData
+[@tevm/block](../globals.md) / valuesArrayToHeaderData
 
 # Function: valuesArrayToHeaderData()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+• **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+
+## Returns
+
+[`HeaderData`](../interfaces/HeaderData.md)
 
 ## Source
 
 [helpers.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L24)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

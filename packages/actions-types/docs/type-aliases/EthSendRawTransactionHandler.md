@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthSendRawTransactionHandler
+[@tevm/actions-types](../globals.md) / EthSendRawTransactionHandler
 
-# Type alias: EthSendRawTransactionHandler
+# Type alias: EthSendRawTransactionHandler()
 
 > **EthSendRawTransactionHandler**: (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
+• **request**: [`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
+
+## Returns
+
+`Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L163)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

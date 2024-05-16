@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilResetResult
+[@tevm/actions-types](../globals.md) / AnvilResetResult
 
 # Type alias: AnvilResetResult
 
@@ -11,6 +11,3 @@
 ## Source
 
 [result/AnvilResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/AnvilResult.ts#L15)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > clearCaches
+[tevm](../../modules.md) / [state](../README.md) / clearCaches
 
 # Function: clearCaches()
 
@@ -12,22 +12,18 @@ Resets all internal caches
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): `void`
->
-> Resets all internal caches
->
-> ### Source
->
-> packages/state/dist/index.d.ts:136
->
+`Function`
+
+Resets all internal caches
+
+### Returns
+
+`void`
 
 ## Source
 
 packages/state/dist/index.d.ts:197
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

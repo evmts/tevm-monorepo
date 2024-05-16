@@ -1,10 +1,12 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthSendTransactionParams
+[@tevm/actions-types](../globals.md) / EthSendTransactionParams
 
 # Type alias: EthSendTransactionParams
+
+`Experimental`
 
 > **EthSendTransactionParams**: [`CallParams`](CallParams.md)
 
@@ -14,6 +16,3 @@ This type is a placeholder
 ## Source
 
 [params/EthParams.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L237)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

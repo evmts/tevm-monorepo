@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > fromBytes
+[@tevm/utils](../globals.md) / fromBytes
 
 # Function: fromBytes()
 
@@ -15,31 +15,31 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 ## Type parameters
 
-▪ **TTo** extends `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
+• **TTo** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
 
 ## Parameters
 
-▪ **bytes**: `Uint8Array`
+• **bytes**: `Uint8Array`
 
 Byte array to decode.
 
-▪ **toOrOpts**: `FromBytesParameters`\<`TTo`\>
+• **toOrOpts**: `FromBytesParameters`\<`TTo`\>
 
 Type to convert to or options.
 
 ## Returns
 
+`FromBytesReturnType`\<`TTo`\>
+
 Decoded value.
 
-## Example
+## Examples
 
 ```ts
 import { fromBytes } from 'viem'
 const data = fromBytes(new Uint8Array([1, 164]), 'number')
 // 420
 ```
-
-## Example
 
 ```ts
 import { fromBytes } from 'viem'
@@ -53,6 +53,3 @@ const data = fromBytes(
 ## Source
 
 node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

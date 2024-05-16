@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > toType
+[tevm](../../modules.md) / [utils](../README.md) / toType
 
 # Function: toType()
 
@@ -15,17 +15,21 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type parameters
 
-▪ **T** extends [`TypeOutput`](../enumerations/TypeOutput.md)
+• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 
-▪ **input**: `null`
+• **input**: `null`
 
 value to convert
 
-▪ **outputType**: `T`
+• **outputType**: `T`
 
 type to output
+
+### Returns
+
+`null`
 
 ### Source
 
@@ -37,13 +41,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### Type parameters
 
-▪ **T** extends [`TypeOutput`](../enumerations/TypeOutput.md)
+• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 
-▪ **input**: `undefined`
+• **input**: `undefined`
 
-▪ **outputType**: `T`
+• **outputType**: `T`
+
+### Returns
+
+`undefined`
 
 ### Source
 
@@ -51,21 +59,22 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ## toType(input, outputType)
 
-> **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`[`T`]
+> **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
 
 ### Type parameters
 
-▪ **T** extends [`TypeOutput`](../enumerations/TypeOutput.md)
+• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 
-▪ **input**: `ToBytesInputTypes`
+• **input**: `ToBytesInputTypes`
 
-▪ **outputType**: `T`
+• **outputType**: `T`
+
+### Returns
+
+`TypeOutputReturnType`\[`T`\]
 
 ### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TypeOutput
+[@tevm/utils](../globals.md) / TypeOutput
 
 # Enumeration: TypeOutput
 
@@ -47,6 +47,3 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:20
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DumpStateResult
+[@tevm/actions-types](../globals.md) / DumpStateResult
 
-# Type alias: DumpStateResult`<ErrorType>`
+# Type alias: DumpStateResult\<ErrorType\>
 
 > **DumpStateResult**\<`ErrorType`\>: `object`
 
@@ -12,15 +12,13 @@ Result of the dumpState method
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `ErrorType` | `DumpStateError` |
+• **ErrorType** = `DumpStateError`
 
 ## Type declaration
 
-### errors
+### errors?
 
-> **errors**?: `ErrorType`[]
+> `optional` **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
 
@@ -33,6 +31,3 @@ The serialized tevm state
 ## Source
 
 [result/DumpStateResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DumpStateResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/evm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > CreateEvmOptions
+[@tevm/evm](../globals.md) / CreateEvmOptions
 
 # Type alias: CreateEvmOptions
 
@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### allowUnlimitedContractSize
+### allowUnlimitedContractSize?
 
-> **allowUnlimitedContractSize**?: `boolean`
+> `optional` **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 
@@ -26,9 +26,9 @@ Enable/disable unlimited contract size. Defaults to false.
 
 Ethereumjs common object
 
-### customPrecompiles
+### customPrecompiles?
 
-> **customPrecompiles**?: [`CustomPrecompile`](CustomPrecompile.md)[]
+> `optional` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -77,9 +77,9 @@ const fsPrecompile = definePrecompile({
 
 const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
-### customPredeploys
+### customPredeploys?
 
-> **customPredeploys**?: `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`\>\>
+> `optional` **customPredeploys**: `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -97,15 +97,15 @@ const tevm = createMemoryClient({
 })
 ```
 
-### loggingLevel
+### loggingLevel?
 
-> **loggingLevel**?: `LogOptions`[`"level"`]
+> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 The logging level to run the evm at. Defaults to 'warn'
 
-### profiler
+### profiler?
 
-> **profiler**?: `boolean`
+> `optional` **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
 
@@ -118,6 +118,3 @@ A custom Tevm state manager
 ## Source
 
 [packages/evm/src/CreateEvmOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

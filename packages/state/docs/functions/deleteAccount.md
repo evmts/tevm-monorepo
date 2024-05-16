@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > deleteAccount
+[@tevm/state](../globals.md) / deleteAccount
 
 # Function: deleteAccount()
 
@@ -12,24 +12,20 @@ Deletes an account from state under the provided `address`.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [packages/state/src/actions/deleteAccount.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deleteAccount.js#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

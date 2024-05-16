@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > GetAccountParams
+[@tevm/actions-types](../globals.md) / GetAccountParams
 
-# Type alias: GetAccountParams`<TThrowOnFail>`
+# Type alias: GetAccountParams\<TThrowOnFail\>
 
 > **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -26,9 +26,9 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 Address of account
 
-### returnStorage
+### returnStorage?
 
-> **returnStorage**?: `boolean`
+> `optional` **returnStorage**: `boolean`
 
 If true the handler will return the contract storage
 It only returns storage that happens to be cached in the vm
@@ -38,13 +38,8 @@ Be aware that this can be very expensive if a contract has a lot of storage
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** *extends* `boolean` = `boolean`
 
 ## Source
 
 [params/GetAccountParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/GetAccountParams.ts#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

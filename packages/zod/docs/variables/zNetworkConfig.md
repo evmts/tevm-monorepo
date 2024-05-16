@@ -1,16 +1,23 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/zod**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > zNetworkConfig
+[@tevm/zod](../globals.md) / zNetworkConfig
 
 # Variable: zNetworkConfig
 
-> **`const`** **zNetworkConfig**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
+> `const` **zNetworkConfig**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
+
+## Type declaration
+
+### blockTag
+
+> **blockTag**: `ZodOptional`\<`ZodUnion`\<[`ZodLiteral`\<`"latest"`\>, `ZodLiteral`\<`"earliest"`\>, `ZodLiteral`\<`"pending"`\>, `ZodLiteral`\<`"safe"`\>, `ZodLiteral`\<`"finalized"`\>, `ZodBigInt`, `ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\>]\>\>
+
+### url
+
+> **url**: `ZodString`
 
 ## Source
 
 [packages/zod/src/common/zNetworkConfig.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/common/zNetworkConfig.js#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

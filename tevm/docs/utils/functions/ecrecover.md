@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > ecrecover
+[tevm](../../modules.md) / [utils](../README.md) / ecrecover
 
 # Function: ecrecover()
 
@@ -13,23 +13,22 @@ NOTE: Accepts `v === 0 | v === 1` for EIP1559 transactions
 
 ## Parameters
 
-▪ **msgHash**: `Uint8Array`
+• **msgHash**: `Uint8Array`
 
-▪ **v**: `bigint`
+• **v**: `bigint`
 
-▪ **r**: `Uint8Array`
+• **r**: `Uint8Array`
 
-▪ **s**: `Uint8Array`
+• **s**: `Uint8Array`
 
-▪ **chainId?**: `bigint`
+• **chainId?**: `bigint`
 
 ## Returns
+
+`Uint8Array`
 
 Recovered public key
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:19
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

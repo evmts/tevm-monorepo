@@ -1,8 +1,8 @@
-**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/memory-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmActions
+[@tevm/memory-client](../globals.md) / TevmActions
 
 # Type alias: TevmActions
 
@@ -30,51 +30,52 @@
 
 ### tevmCall
 
-> **tevmCall**: `TevmActionsApi`[`"call"`]
+> **tevmCall**: `TevmActionsApi`\[`"call"`\]
 
 ### tevmContract
 
-> **tevmContract**: `TevmActionsApi`[`"contract"`]
+> **tevmContract**: `TevmActionsApi`\[`"contract"`\]
 
 ### tevmDeploy
 
-> **tevmDeploy**: `TevmActionsApi`[`"deploy"`]
+> **tevmDeploy**: `TevmActionsApi`\[`"deploy"`\]
 
 ### tevmDumpState
 
-> **tevmDumpState**: `TevmActionsApi`[`"dumpState"`]
+> **tevmDumpState**: `TevmActionsApi`\[`"dumpState"`\]
 
-### tevmForkUrl
+### tevmForkUrl?
 
-> **tevmForkUrl**?: `string`
+> `optional` **tevmForkUrl**: `string`
 
 ### tevmGetAccount
 
-> **tevmGetAccount**: `TevmActionsApi`[`"getAccount"`]
+> **tevmGetAccount**: `TevmActionsApi`\[`"getAccount"`\]
 
 ### tevmLoadState
 
-> **tevmLoadState**: `TevmActionsApi`[`"loadState"`]
+> **tevmLoadState**: `TevmActionsApi`\[`"loadState"`\]
 
 ### tevmMine
 
-> **tevmMine**: `TevmActionsApi`[`"mine"`]
+> **tevmMine**: `TevmActionsApi`\[`"mine"`\]
 
-### tevmReady
+### tevmReady()
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
+#### Returns
+
+`Promise`\<`true`\>
+
 ### tevmScript
 
-> **tevmScript**: `TevmActionsApi`[`"script"`]
+> **tevmScript**: `TevmActionsApi`\[`"script"`\]
 
 ### tevmSetAccount
 
-> **tevmSetAccount**: `TevmActionsApi`[`"setAccount"`]
+> **tevmSetAccount**: `TevmActionsApi`\[`"setAccount"`\]
 
 ## Source
 
 [packages/memory-client/src/TevmActions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

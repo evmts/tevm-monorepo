@@ -1,24 +1,25 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [accounts](../README.md) > signMessageEffect
+[@tevm/viem-effect](../../modules.md) / [accounts](../README.md) / signMessageEffect
 
 # Function: signMessageEffect()
 
-> **signMessageEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignMessageErrorType`, \`0x${string}\`\>
+> **signMessageEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignMessageErrorType`, \`0x$\{string\}\`\>
 
 ## Type parameters
 
-▪ **TParams** extends [`SignMessageParameters`]
+• **TParams** *extends* [`SignMessageParameters`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `SignMessageErrorType`, \`0x$\{string\}\`\>
 
 ## Source
 
 [experimental/viem-effect/src/accounts/utils/signMessageEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signMessageEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

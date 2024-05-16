@@ -1,8 +1,8 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [resolve](../README.md) > CouldNotResolveImportError
+[@tevm/effect](../../modules.md) / [resolve](../README.md) / CouldNotResolveImportError
 
 # Class: CouldNotResolveImportError
 
@@ -14,21 +14,25 @@ Error thrown when 'node:resolve' throws
 
 ## Constructors
 
-### new CouldNotResolveImportError(importPath, absolutePath, cause)
+### new CouldNotResolveImportError()
 
 > **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`): [`CouldNotResolveImportError`](CouldNotResolveImportError.md)
 
 #### Parameters
 
-▪ **importPath**: `string`
+• **importPath**: `string`
 
-▪ **absolutePath**: `string`
+• **absolutePath**: `string`
 
-▪ **cause**: `Error`
+• **cause**: `Error`
+
+#### Returns
+
+[`CouldNotResolveImportError`](CouldNotResolveImportError.md)
 
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
 #### Source
 
@@ -46,13 +50,13 @@ Error.constructor
 
 ***
 
-### cause
+### cause?
 
-> **cause**?: `unknown`
+> `optional` **cause**: `unknown`
 
 #### Inherited from
 
-Error.cause
+`Error.cause`
 
 #### Source
 
@@ -66,7 +70,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
 #### Source
 
@@ -80,7 +84,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-Error.name
+`Error.name`
 
 #### Source
 
@@ -88,13 +92,13 @@ Error.name
 
 ***
 
-### stack
+### stack?
 
-> **stack**?: `string`
+> `optional` **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
 #### Source
 
@@ -102,9 +106,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+> `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -114,13 +118,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-▪ **err**: `Error`
+• **err**: `Error`
 
-▪ **stackTraces**: `CallSite`[]
+• **stackTraces**: `CallSite`[]
+
+#### Returns
+
+`any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
 #### Source
 
@@ -130,11 +138,11 @@ node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
 
 ### stackTraceLimit
 
-> **`static`** **stackTraceLimit**: `number`
+> `static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
 #### Source
 
@@ -144,23 +152,24 @@ node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace()
 
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
 #### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 #### Source
 
 node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

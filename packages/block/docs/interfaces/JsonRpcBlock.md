@@ -1,16 +1,16 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > JsonRpcBlock
+[@tevm/block](../globals.md) / JsonRpcBlock
 
 # Interface: JsonRpcBlock
 
 ## Properties
 
-### baseFeePerGas
+### baseFeePerGas?
 
-> **baseFeePerGas**?: `string`
+> `optional` **baseFeePerGas**: `string`
 
 #### Source
 
@@ -18,9 +18,9 @@
 
 ***
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `string`
+> `optional` **blobGasUsed**: `string`
 
 #### Source
 
@@ -38,9 +38,9 @@
 
 ***
 
-### excessBlobGas
+### excessBlobGas?
 
-> **excessBlobGas**?: `string`
+> `optional` **excessBlobGas**: `string`
 
 #### Source
 
@@ -48,9 +48,9 @@
 
 ***
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 #### Source
 
@@ -118,9 +118,9 @@
 
 ***
 
-### mixHash
+### mixHash?
 
-> **mixHash**?: `string`
+> `optional` **mixHash**: `string`
 
 #### Source
 
@@ -148,9 +148,9 @@
 
 ***
 
-### parentBeaconBlockRoot
+### parentBeaconBlockRoot?
 
-> **parentBeaconBlockRoot**?: `string`
+> `optional` **parentBeaconBlockRoot**: `string`
 
 #### Source
 
@@ -178,9 +178,9 @@
 
 ***
 
-### requests
+### requests?
 
-> **requests**?: `string`[]
+> `optional` **requests**: `string`[]
 
 #### Source
 
@@ -188,9 +188,9 @@
 
 ***
 
-### requestsRoot
+### requestsRoot?
 
-> **requestsRoot**?: `string`
+> `optional` **requestsRoot**: `string`
 
 #### Source
 
@@ -270,7 +270,7 @@
 
 ### uncles
 
-> **uncles**: \`0x${string}\`[] \| `string`[]
+> **uncles**: \`0x$\{string\}\`[] \| `string`[]
 
 #### Source
 
@@ -278,9 +278,9 @@
 
 ***
 
-### withdrawals
+### withdrawals?
 
-> **withdrawals**?: `JsonRpcWithdrawal`[]
+> `optional` **withdrawals**: `JsonRpcWithdrawal`[]
 
 #### Source
 
@@ -288,13 +288,10 @@
 
 ***
 
-### withdrawalsRoot
+### withdrawalsRoot?
 
-> **withdrawalsRoot**?: `string`
+> `optional` **withdrawalsRoot**: `string`
 
 #### Source
 
 [types.ts:245](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L245)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

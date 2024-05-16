@@ -1,10 +1,10 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ViemTevmClient
+[@tevm/viem](../globals.md) / ViemTevmClient
 
-# Type alias: ViemTevmClient
+# Type alias: ~~ViemTevmClient~~
 
 > **ViemTevmClient**: `object`
 
@@ -15,13 +15,10 @@ The decorated properties added by the `tevmViemExtension`
 
 ## Type declaration
 
-### tevm
+### ~~tevm~~
 
 > **tevm**: `TevmClient`
 
 ## Source
 
 [extensions/viem/src/ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

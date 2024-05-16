@@ -1,18 +1,20 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > getAppliedKey
+[tevm](../../modules.md) / [state](../README.md) / getAppliedKey
 
-# Function: getAppliedKey()
+# Function: ~~getAppliedKey()~~
 
 > **getAppliedKey**(`baseState`): `undefined` \| (`address`) => `Uint8Array`
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
+
+`undefined` \| (`address`) => `Uint8Array`
 
 ## Deprecated
 
@@ -22,6 +24,3 @@ Used for saving preimages
 ## Source
 
 packages/state/dist/index.d.ts:264
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilSetStorageAtJsonRpcRequest
+[@tevm/procedures-types](../globals.md) / AnvilSetStorageAtJsonRpcRequest
 
 # Type alias: AnvilSetStorageAtJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `anvil_setStorageAt` method
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L91)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

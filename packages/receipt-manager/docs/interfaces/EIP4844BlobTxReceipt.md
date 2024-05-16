@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EIP4844BlobTxReceipt
+[@tevm/receipt-manager](../globals.md) / EIP4844BlobTxReceipt
 
 # Interface: EIP4844BlobTxReceipt
 
@@ -106,6 +106,3 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 #### Source
 
 [RecieptManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

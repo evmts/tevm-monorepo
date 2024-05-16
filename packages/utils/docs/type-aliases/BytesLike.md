@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BytesLike
+[@tevm/utils](../globals.md) / BytesLike
 
 # Type alias: BytesLike
 
@@ -11,6 +11,3 @@
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > MineHandler
+[tevm](../../modules.md) / [index](../README.md) / MineHandler
 
-# Type alias: MineHandler
+# Type alias: MineHandler()
 
 > **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
@@ -19,11 +19,12 @@ console.log(res.errors) // undefined
 
 ## Parameters
 
-▪ **params?**: [`MineParams`](MineParams.md)
+• **params?**: [`MineParams`](MineParams.md)
+
+## Returns
+
+`Promise`\<[`MineResult`](MineResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/MineHandler.d.ts:8
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

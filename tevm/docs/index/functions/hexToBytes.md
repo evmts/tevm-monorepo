@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > hexToBytes
+[tevm](../../modules.md) / [index](../README.md) / hexToBytes
 
 # Function: hexToBytes()
 
@@ -14,25 +14,25 @@ Encodes a hex string into a byte array.
 
 ## Parameters
 
-▪ **hex\_**: \`0x${string}\`
+• **hex\_**: \`0x$\{string\}\`
 
-▪ **opts?**: `HexToBytesOpts`
+• **opts?**: `HexToBytesOpts`
 
 Options.
 
 ## Returns
 
+`ByteArray`
+
 Byte array value.
 
-## Example
+## Examples
 
 ```ts
 import { hexToBytes } from 'viem'
 const data = hexToBytes('0x48656c6c6f20776f726c6421')
 // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
 ```
-
-## Example
 
 ```ts
 import { hexToBytes } from 'viem'
@@ -43,6 +43,3 @@ const data = hexToBytes('0x48656c6c6f20776f726c6421', { size: 32 })
 ## Source
 
 node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:87
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

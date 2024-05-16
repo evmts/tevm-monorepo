@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Log
+[@tevm/actions-types](../globals.md) / Log
 
 # Type alias: Log
 
@@ -14,19 +14,16 @@ Generic log information
 
 ### address
 
-> **`readonly`** **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### data
 
-> **`readonly`** **data**: [`Hex`](Hex.md)
+> `readonly` **data**: [`Hex`](Hex.md)
 
 ### topics
 
-> **`readonly`** **topics**: [`Hex`](Hex.md)[]
+> `readonly` **topics**: [`Hex`](Hex.md)[]
 
 ## Source
 
 [common/Log.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/Log.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

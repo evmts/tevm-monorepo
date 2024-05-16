@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/errors**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ContractError
+[@tevm/errors](../globals.md) / ContractError
 
 # Type alias: ContractError
 
@@ -22,6 +22,3 @@ if (errors?.length) {
 ## Source
 
 [packages/errors/src/actions/ContractError.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ContractError.ts#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,26 +1,25 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > StateAction
+[@tevm/state](../globals.md) / StateAction
 
-# Type alias: StateAction`<T>`
+# Type alias: StateAction()\<T\>
 
-> **StateAction**\<`T`\>: (`baseState`) => [`StateManager`](../interfaces/StateManager.md)[`T`]
+> **StateAction**\<`T`\>: (`baseState`) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `T` extends keyof [`StateManager`](../interfaces/StateManager.md) |
+• **T** *extends* keyof [`StateManager`](../interfaces/StateManager.md)
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](BaseState.md)
+• **baseState**: [`BaseState`](BaseState.md)
+
+## Returns
+
+[`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
 ## Source
 
 [packages/state/src/state-types/StateAction.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateAction.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

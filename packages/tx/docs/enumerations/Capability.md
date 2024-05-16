@@ -1,12 +1,12 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Capability
+[@tevm/tx](../globals.md) / Capability
 
 # Enumeration: Capability
 
-Can be used in conjunction with [Transaction[TransactionType].supports]([object Object])
+Can be used in conjunction with Transaction[TransactionType].supports
 to query on tx capabilities
 
 ## Enumeration Members
@@ -60,6 +60,3 @@ See: [2930](https://eips.ethereum.org/EIPS/eip-2930) Access Lists EIP
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:32
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

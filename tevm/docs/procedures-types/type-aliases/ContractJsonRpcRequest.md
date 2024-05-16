@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > ContractJsonRpcRequest
+[tevm](../../modules.md) / [procedures-types](../README.md) / ContractJsonRpcRequest
 
 # Type alias: ContractJsonRpcRequest
 
@@ -14,6 +14,3 @@ in favor of overloading tevm_call
 ## Source
 
 packages/procedures-types/dist/index.d.ts:111
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

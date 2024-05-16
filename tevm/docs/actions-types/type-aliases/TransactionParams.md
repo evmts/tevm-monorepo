@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > TransactionParams
+[tevm](../../modules.md) / [actions-types](../README.md) / TransactionParams
 
 # Type alias: TransactionParams
 
@@ -14,35 +14,32 @@ A transaction request object
 
 ### from
 
-> **`readonly`** **from**: [`Address`](Address.md)
+> `readonly` **from**: [`Address`](Address.md)
 
-### gas
+### gas?
 
-> **`readonly`** **gas**?: [`Hex`](Hex.md)
+> `optional` `readonly` **gas**: [`Hex`](Hex.md)
 
-### gasPrice
+### gasPrice?
 
-> **`readonly`** **gasPrice**?: [`Hex`](Hex.md)
+> `optional` `readonly` **gasPrice**: [`Hex`](Hex.md)
 
 ### input
 
-> **`readonly`** **input**: [`Hex`](Hex.md)
+> `readonly` **input**: [`Hex`](Hex.md)
 
-### nonce
+### nonce?
 
-> **`readonly`** **nonce**?: [`Hex`](Hex.md)
+> `optional` `readonly` **nonce**: [`Hex`](Hex.md)
 
-### to
+### to?
 
-> **`readonly`** **to**?: [`Address`](Address.md)
+> `optional` `readonly` **to**: [`Address`](Address.md)
 
-### value
+### value?
 
-> **`readonly`** **value**?: [`Hex`](Hex.md)
+> `optional` `readonly` **value**: [`Hex`](Hex.md)
 
 ## Source
 
 packages/actions-types/types/common/TransactionParams.d.ts:6
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

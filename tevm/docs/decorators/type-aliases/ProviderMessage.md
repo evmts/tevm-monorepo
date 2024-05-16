@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > ProviderMessage
+[tevm](../../modules.md) / [decorators](../README.md) / ProviderMessage
 
 # Type alias: ProviderMessage
 
@@ -21,6 +21,3 @@
 ## Source
 
 packages/decorators/dist/index.d.ts:264
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

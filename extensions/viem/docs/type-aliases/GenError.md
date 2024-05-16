@@ -1,10 +1,10 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > GenError
+[@tevm/viem](../globals.md) / GenError
 
-# Type alias: GenError`<TErrorType, TTag>`
+# Type alias: GenError\<TErrorType, TTag\>
 
 > **GenError**\<`TErrorType`, `TTag`\>: `object`
 
@@ -13,10 +13,9 @@ Errors are yielded rather than throwing
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TErrorType` |
-| `TTag` extends `string` |
+• **TErrorType**
+
+• **TTag** *extends* `string`
 
 ## Type declaration
 
@@ -24,9 +23,9 @@ Errors are yielded rather than throwing
 
 > **error**: `TErrorType`
 
-### errors
+### errors?
 
-> **errors**?: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
+> `optional` **errors**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
 
 ### success
 
@@ -39,6 +38,3 @@ Errors are yielded rather than throwing
 ## Source
 
 [extensions/viem/src/GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

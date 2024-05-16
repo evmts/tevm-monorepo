@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilSetStorageAtParams
+[@tevm/actions-types](../globals.md) / AnvilSetStorageAtParams
 
 # Type alias: AnvilSetStorageAtParams
 
@@ -33,6 +33,3 @@ The value to set
 ## Source
 
 [params/AnvilParams.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L133)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,18 +1,18 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TxOptions
+[@tevm/tx](../globals.md) / TxOptions
 
 # Interface: TxOptions
 
-The options for initializing a [Transaction]([object Object]).
+The options for initializing a Transaction.
 
 ## Properties
 
-### allowUnlimitedInitCodeSize
+### allowUnlimitedInitCodeSize?
 
-> **allowUnlimitedInitCodeSize**?: `boolean`
+> `optional` **allowUnlimitedInitCodeSize**: `boolean`
 
 Allows unlimited contract code-size init while debugging. This (partially) disables EIP-3860.
 Gas cost for initcode size analysis will still be charged. Use with caution.
@@ -23,16 +23,16 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### common
+### common?
 
-> **common**?: `Common`
+> `optional` **common**: `Common`
 
-A [Common]([object Object]) object defining the chain and hardfork for the transaction.
+A Common object defining the chain and hardfork for the transaction.
 
 Object will be internally copied so that tx behavior don't incidentally
 change on future HF changes.
 
-Default: [Common]([object Object]) object set to `mainnet` and the default hardfork as defined in the [Common]([object Object]) class.
+Default: Common object set to `mainnet` and the default hardfork as defined in the Common class.
 
 Current default hardfork: `istanbul`
 
@@ -42,9 +42,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### freeze
+### freeze?
 
-> **freeze**?: `boolean`
+> `optional` **freeze**: `boolean`
 
 A transaction object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the tx parameters.
@@ -59,6 +59,3 @@ Default: true
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:60
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

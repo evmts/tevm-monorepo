@@ -1,20 +1,21 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthGetUncleByBlockHashAndIndexJsonRpcProcedure
+[@tevm/procedures-types](../globals.md) / EthGetUncleByBlockHashAndIndexJsonRpcProcedure
 
-# Type alias: EthGetUncleByBlockHashAndIndexJsonRpcProcedure
+# Type alias: EthGetUncleByBlockHashAndIndexJsonRpcProcedure()
 
 > **EthGetUncleByBlockHashAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](EthGetUncleByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](EthGetUncleByBlockHashAndIndexJsonRpcRequest.md)
+• **request**: [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](EthGetUncleByBlockHashAndIndexJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](EthGetUncleByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L167)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

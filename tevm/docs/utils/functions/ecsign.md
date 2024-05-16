@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > ecsign
+[tevm](../../modules.md) / [utils](../README.md) / ecsign
 
 # Function: ecsign()
 
@@ -15,15 +15,16 @@ accordingly, otherwise return a "static" `v` just derived from the `recovery` bi
 
 ## Parameters
 
-▪ **msgHash**: `Uint8Array`
+• **msgHash**: `Uint8Array`
 
-▪ **privateKey**: `Uint8Array`
+• **privateKey**: `Uint8Array`
 
-▪ **chainId?**: `bigint`
+• **chainId?**: `bigint`
+
+## Returns
+
+`ECDSASignature`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:12
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

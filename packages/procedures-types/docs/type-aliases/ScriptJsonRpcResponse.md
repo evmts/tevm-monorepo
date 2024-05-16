@@ -1,12 +1,12 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ScriptJsonRpcResponse
+[@tevm/procedures-types](../globals.md) / ScriptJsonRpcResponse
 
 # Type alias: ScriptJsonRpcResponse
 
-> **ScriptJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<`CallResult`\>, `ScriptError`[`"_tag"`]\>
+> **ScriptJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<`CallResult`\>, `ScriptError`\[`"_tag"`\]\>
 
 JSON-RPC response for `tevm_script` method
 
@@ -29,6 +29,3 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 ## Source
 
 [responses/ScriptJsonRpcResponse.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/ScriptJsonRpcResponse.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

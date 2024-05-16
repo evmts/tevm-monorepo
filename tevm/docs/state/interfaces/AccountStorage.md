@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > AccountStorage
+[tevm](../../modules.md) / [state](../README.md) / AccountStorage
 
 # Interface: AccountStorage
 
@@ -20,7 +20,7 @@ packages/state/dist/index.d.ts:11
 
 ### codeHash
 
-> **codeHash**: \`0x${string}\`
+> **codeHash**: \`0x$\{string\}\`
 
 #### Source
 
@@ -28,9 +28,9 @@ packages/state/dist/index.d.ts:13
 
 ***
 
-### deployedBytecode
+### deployedBytecode?
 
-> **deployedBytecode**?: \`0x${string}\`
+> `optional` **deployedBytecode**: \`0x$\{string\}\`
 
 #### Source
 
@@ -48,9 +48,9 @@ packages/state/dist/index.d.ts:10
 
 ***
 
-### storage
+### storage?
 
-> **storage**?: `StorageDump`
+> `optional` **storage**: `StorageDump`
 
 #### Source
 
@@ -60,11 +60,8 @@ packages/state/dist/index.d.ts:15
 
 ### storageRoot
 
-> **storageRoot**: \`0x${string}\`
+> **storageRoot**: \`0x$\{string\}\`
 
 #### Source
 
 packages/state/dist/index.d.ts:12
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

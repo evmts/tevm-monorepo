@@ -1,22 +1,26 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ReceiptsManager
+[@tevm/receipt-manager](../globals.md) / ReceiptsManager
 
 # Class: ReceiptsManager
 
 ## Constructors
 
-### new ReceiptsManager(mapDb, chain)
+### new ReceiptsManager()
 
 > **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
 
 #### Parameters
 
-▪ **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
+• **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
-▪ **chain**: `Chain`
+• **chain**: `Chain`
+
+#### Returns
+
+[`ReceiptsManager`](ReceiptsManager.md)
 
 #### Source
 
@@ -62,7 +66,7 @@ Size limit for the getLogs response in megabytes
 
 ### chain
 
-> **`readonly`** **chain**: `Chain`
+> `readonly` **chain**: `Chain`
 
 #### Source
 
@@ -72,7 +76,7 @@ Size limit for the getLogs response in megabytes
 
 ### mapDb
 
-> **`readonly`** **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
+> `readonly` **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
 #### Source
 
@@ -86,7 +90,11 @@ Size limit for the getLogs response in megabytes
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -96,19 +104,23 @@ Size limit for the getLogs response in megabytes
 
 ### getIndex()
 
-> **`private`** **getIndex**(`type`, `value`): `Promise`\<`null` \| `TxHashIndex`\>
+> `private` **getIndex**(`type`, `value`): `Promise`\<`null` \| `TxHashIndex`\>
 
 Returns the value for an index or null if not found
 
 #### Parameters
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-the [IndexType]([object Object])
+the IndexType
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
 
-for [IndexType.TxHash]([object Object]), the txHash to get
+for IndexType.TxHash, the txHash to get
+
+#### Returns
+
+`Promise`\<`null` \| `TxHashIndex`\>
 
 #### Source
 
@@ -124,13 +136,17 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Parameters
 
-▪ **from**: `Block`
+• **from**: `Block`
 
-▪ **to**: `Block`
+• **to**: `Block`
 
-▪ **addresses?**: `Uint8Array`[]
+• **addresses?**: `Uint8Array`[]
 
-▪ **topics?**: (`null` \| `Uint8Array` \| `Uint8Array`[])[]= `[]`
+• **topics?**: (`null` \| `Uint8Array` \| `Uint8Array`[])[]= `[]`
+
+#### Returns
+
+`Promise`\<`GetLogsReturn`\>
 
 #### Source
 
@@ -146,9 +162,13 @@ Returns receipt by tx hash with additional metadata for the JSON RPC response, o
 
 #### Parameters
 
-▪ **txHash**: `Uint8Array`
+• **txHash**: `Uint8Array`
 
 the tx hash
+
+#### Returns
+
+`Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
 
 #### Source
 
@@ -166,17 +186,21 @@ Returns receipts for given blockHash
 
 ##### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
 the block hash
 
-▪ **calcBloom?**: `boolean`
+• **calcBloom?**: `boolean`
 
 whether to calculate and return the logs bloom for each receipt (default: false)
 
-▪ **includeTxType?**: `true`
+• **includeTxType?**: `true`
 
 whether to include the tx type for each receipt (default: false)
+
+##### Returns
+
+`Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
 ##### Source
 
@@ -188,11 +212,15 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
-▪ **calcBloom?**: `boolean`
+• **calcBloom?**: `boolean`
 
-▪ **includeTxType?**: `false`
+• **includeTxType?**: `false`
+
+##### Returns
+
+`Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
 ##### Source
 
@@ -202,13 +230,17 @@ whether to include the tx type for each receipt (default: false)
 
 ### logsBloom()
 
-> **`private`** **logsBloom**(`logs`): `Bloom`
+> `private` **logsBloom**(`logs`): `Bloom`
 
 Returns the logs bloom for a receipt's logs
 
 #### Parameters
 
-▪ **logs**: `Log`[]
+• **logs**: `Log`[]
+
+#### Returns
+
+`Bloom`
 
 #### Source
 
@@ -220,23 +252,27 @@ Returns the logs bloom for a receipt's logs
 
 #### rlp(conversion, type, value)
 
-> **`private`** **rlp**(`conversion`, `type`, `value`): `Uint8Array`
+> `private` **rlp**(`conversion`, `type`, `value`): `Uint8Array`
 
 Rlp encodes or decodes the specified data type for storage or retrieval from the metaDB
 
 ##### Parameters
 
-▪ **conversion**: `Encode`
+• **conversion**: `Encode`
 
-[RlpConvert.Encode]([object Object]) or [RlpConvert.Decode]([object Object])
+RlpConvert.Encode or RlpConvert.Decode
 
-▪ **type**: `RlpType`
+• **type**: `RlpType`
 
-one of [RlpType]([object Object])
+one of RlpType
 
-▪ **value**: `rlpOut`
+• **value**: `rlpOut`
 
 the value to encode or decode
+
+##### Returns
+
+`Uint8Array`
 
 ##### Source
 
@@ -244,15 +280,19 @@ the value to encode or decode
 
 #### rlp(conversion, type, values)
 
-> **`private`** **rlp**(`conversion`, `type`, `values`): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
+> `private` **rlp**(`conversion`, `type`, `values`): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `Receipts`
+• **type**: `Receipts`
 
-▪ **values**: `Uint8Array`
+• **values**: `Uint8Array`
+
+##### Returns
+
+[`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 ##### Source
 
@@ -260,15 +300,19 @@ the value to encode or decode
 
 #### rlp(conversion, type, value)
 
-> **`private`** **rlp**(`conversion`, `type`, `value`): `Log`[]
+> `private` **rlp**(`conversion`, `type`, `value`): `Log`[]
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `Logs`
+• **type**: `Logs`
 
-▪ **value**: `Log`[]
+• **value**: `Log`[]
+
+##### Returns
+
+`Log`[]
 
 ##### Source
 
@@ -276,15 +320,19 @@ the value to encode or decode
 
 #### rlp(conversion, type, value)
 
-> **`private`** **rlp**(`conversion`, `type`, `value`): `TxHashIndex`
+> `private` **rlp**(`conversion`, `type`, `value`): `TxHashIndex`
 
 ##### Parameters
 
-▪ **conversion**: `Decode`
+• **conversion**: `Decode`
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+##### Returns
+
+`TxHashIndex`
 
 ##### Source
 
@@ -301,13 +349,17 @@ and removes tx hash indexes for one block past txLookupLimit.
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
 
 the block to save receipts for
 
-▪ **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
+• **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 the receipts to save
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
@@ -317,27 +369,28 @@ the receipts to save
 
 ### updateIndex()
 
-> **`private`** **updateIndex**(`operation`, `type`, `value`): `Promise`\<`void`\>
+> `private` **updateIndex**(`operation`, `type`, `value`): `Promise`\<`void`\>
 
 Saves or deletes an index from the metaDB
 
 #### Parameters
 
-▪ **operation**: `IndexOperation`
+• **operation**: `IndexOperation`
 
-the [IndexOperation]([object Object])
+the IndexOperation
 
-▪ **type**: `TxHash`
+• **type**: `TxHash`
 
-the [IndexType]([object Object])
+the IndexType
 
-▪ **value**: `Block`
+• **value**: `Block`
 
-for [IndexType.TxHash]([object Object]), the block to save or delete the tx hash indexes for
+for IndexType.TxHash, the block to save or delete the tx hash indexes for
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Source
 
 [RecieptManager.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L293)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

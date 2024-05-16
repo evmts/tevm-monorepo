@@ -1,18 +1,15 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/zod**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > zBytecode
+[@tevm/zod](../globals.md) / zBytecode
 
 # Variable: zBytecode
 
-> **`const`** **zBytecode**: `ZodEffects`\<`ZodEffects`\<`ZodString`, \`0x${string}\`, `string`\>, \`0x${string}\`, `string`\>
+> `const` **zBytecode**: `ZodEffects`\<`ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\>, \`0x$\{string\}\`, `string`\>
 
 Zod validator for valid Ethereum bytecode
 
 ## Source
 
 [packages/zod/src/common/zBytecode.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/common/zBytecode.js#L18)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

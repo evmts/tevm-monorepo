@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > deepCopy
+[@tevm/blockchain](../globals.md) / deepCopy
 
 # Function: deepCopy()
 
@@ -10,20 +10,16 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (): `Promise`\<`BaseChain`\>
->
-> ### Source
->
-> [actions/deepCopy.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/deepCopy.js#L5)
->
+`Function`
+
+### Returns
+
+`Promise`\<`BaseChain`\>
 
 ## Source
 
 [actions/deepCopy.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/deepCopy.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

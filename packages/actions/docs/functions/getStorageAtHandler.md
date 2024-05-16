@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getStorageAtHandler
+[@tevm/actions](../globals.md) / getStorageAtHandler
 
 # Function: getStorageAtHandler()
 
@@ -10,17 +10,16 @@
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.forkUrl**: `undefined` \| `string`
+• **options.forkUrl**: `undefined` \| `string`
 
-▪ **options.getVm**: () => `Promise`\<`Vm`\>
+• **options.getVm**
 
 ## Returns
+
+`EthGetStorageAtHandler`
 
 ## Source
 
 [packages/actions/src/eth/getStorageAtHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtHandler.js#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

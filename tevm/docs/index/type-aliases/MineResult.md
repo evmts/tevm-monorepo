@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > MineResult
+[tevm](../../modules.md) / [index](../README.md) / MineResult
 
 # Type alias: MineResult
 
@@ -13,6 +13,3 @@ Result of Mine Method
 ## Source
 
 packages/actions-types/types/result/MineResult.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

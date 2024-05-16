@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > utils
+[tevm](../modules.md) / utils
 
-# Module: utils
+# utils
 
 ## Index
 
@@ -66,84 +66,6 @@
 - [setLengthLeft](functions/setLengthLeft.md)
 - [toType](functions/toType.md)
 - [zeros](functions/zeros.md)
-
-## Table of contents
-
-### References
-
-- [Abi](README.md#abi)
-- [AbiConstructor](README.md#abiconstructor)
-- [AbiEvent](README.md#abievent)
-- [AbiFunction](README.md#abifunction)
-- [AbiItemType](README.md#abiitemtype)
-- [AbiParametersToPrimitiveTypes](README.md#abiparameterstoprimitivetypes)
-- [Account](README.md#account)
-- [Address](README.md#address)
-- [BlockNumber](README.md#blocknumber)
-- [BlockTag](README.md#blocktag)
-- [ContractFunctionName](README.md#contractfunctionname)
-- [CreateEventFilterParameters](README.md#createeventfilterparameters)
-- [CreateMemoryDbFn](README.md#creatememorydbfn)
-- [DecodeFunctionResultReturnType](README.md#decodefunctionresultreturntype)
-- [EncodeFunctionDataParameters](README.md#encodefunctiondataparameters)
-- [ExtractAbiEvent](README.md#extractabievent)
-- [ExtractAbiEventNames](README.md#extractabieventnames)
-- [ExtractAbiEvents](README.md#extractabievents)
-- [ExtractAbiFunction](README.md#extractabifunction)
-- [ExtractAbiFunctionNames](README.md#extractabifunctionnames)
-- [Filter](README.md#filter)
-- [FormatAbi](README.md#formatabi)
-- [GetEventArgs](README.md#geteventargs)
-- [HDAccount](README.md#hdaccount)
-- [Hex](README.md#hex)
-- [MemoryDb](README.md#memorydb)
-- [ParseAbi](README.md#parseabi)
-- [boolToBytes](README.md#booltobytes)
-- [boolToHex](README.md#booltohex)
-- [bytesToBigInt](README.md#bytestobigint)
-- [bytesToBigint](README.md#bytestobigint-1)
-- [bytesToBool](README.md#bytestobool)
-- [bytesToHex](README.md#bytestohex)
-- [bytesToNumber](README.md#bytestonumber)
-- [createMemoryDb](README.md#creatememorydb)
-- [decodeAbiParameters](README.md#decodeabiparameters)
-- [decodeErrorResult](README.md#decodeerrorresult)
-- [decodeEventLog](README.md#decodeeventlog)
-- [decodeFunctionData](README.md#decodefunctiondata)
-- [decodeFunctionResult](README.md#decodefunctionresult)
-- [encodeAbiParameters](README.md#encodeabiparameters)
-- [encodeDeployData](README.md#encodedeploydata)
-- [encodeErrorResult](README.md#encodeerrorresult)
-- [encodeEventTopics](README.md#encodeeventtopics)
-- [encodeFunctionData](README.md#encodefunctiondata)
-- [encodeFunctionResult](README.md#encodefunctionresult)
-- [encodePacked](README.md#encodepacked)
-- [formatAbi](README.md#formatabi-1)
-- [formatEther](README.md#formatether)
-- [formatGwei](README.md#formatgwei)
-- [formatLog](README.md#formatlog)
-- [fromBytes](README.md#frombytes)
-- [fromHex](README.md#fromhex)
-- [fromRlp](README.md#fromrlp)
-- [getAddress](README.md#getaddress)
-- [hexToBigInt](README.md#hextobigint)
-- [hexToBool](README.md#hextobool)
-- [hexToBytes](README.md#hextobytes)
-- [hexToNumber](README.md#hextonumber)
-- [hexToString](README.md#hextostring)
-- [isAddress](README.md#isaddress)
-- [isBytes](README.md#isbytes)
-- [isHex](README.md#ishex)
-- [keccak256](README.md#keccak256)
-- [mnemonicToAccount](README.md#mnemonictoaccount)
-- [numberToHex](README.md#numbertohex)
-- [parseAbi](README.md#parseabi-1)
-- [parseEther](README.md#parseether)
-- [parseGwei](README.md#parsegwei)
-- [stringToHex](README.md#stringtohex)
-- [toBytes](README.md#tobytes)
-- [toHex](README.md#tohex)
-- [toRlp](README.md#torlp)
 
 ## References
 
@@ -582,6 +504,3 @@ Re-exports [toHex](../index/functions/toHex.md)
 ### toRlp
 
 Re-exports [toRlp](../index/functions/toRlp.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

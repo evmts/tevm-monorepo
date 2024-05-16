@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > parseINT16Safe
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / parseINT16Safe
 
 # Function: parseINT16Safe()
 
@@ -12,19 +12,18 @@ Safely parses an INT16 into an [Effect](https://www.effect.website/docs/essentia
 
 ## Type parameters
 
-▪ **TINT16**
+• **TINT16**
 
 extends bigint
 
 ## Parameters
 
-▪ **int16**: `TINT16`
+• **int16**: `TINT16`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT16`\>
 
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/parseINTSafe.js:43](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINTSafe.js#L43)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TevmJsonRpcRequest
+[tevm](../../modules.md) / [index](../README.md) / TevmJsonRpcRequest
 
 # Type alias: TevmJsonRpcRequest
 
@@ -14,6 +14,3 @@ A Tevm JSON-RPC request
 ## Source
 
 packages/procedures-types/dist/index.d.ts:384
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

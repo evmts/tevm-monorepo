@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > ManualMining
+[tevm](../../modules.md) / [index](../README.md) / ManualMining
 
 # Type alias: ManualMining
 
@@ -17,6 +17,3 @@
 ## Source
 
 packages/base-client/types/MiningConfig.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

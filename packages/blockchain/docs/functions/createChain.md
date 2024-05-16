@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createChain
+[@tevm/blockchain](../globals.md) / createChain
 
 # Function: createChain()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
+• **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
 
 ## Returns
+
+`Promise`\<[`Chain`](../type-aliases/Chain.md)\>
 
 ## Source
 
 [createChain.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L15)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Withdrawal
+[@tevm/utils](../globals.md) / Withdrawal
 
 # Class: Withdrawal
 
@@ -10,7 +10,7 @@ Representation of EIP-4895 withdrawal data
 
 ## Constructors
 
-### new Withdrawal(index, validatorIndex, address, amount)
+### new Withdrawal()
 
 > **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): [`Withdrawal`](Withdrawal.md)
 
@@ -20,15 +20,19 @@ Its amount is in Gwei to match CL representation and for eventual ssz withdrawal
 
 #### Parameters
 
-▪ **index**: `bigint`
+• **index**: `bigint`
 
-▪ **validatorIndex**: `bigint`
+• **validatorIndex**: `bigint`
 
-▪ **address**: [`EthjsAddress`](EthjsAddress.md)
+• **address**: [`EthjsAddress`](EthjsAddress.md)
 
-▪ **amount**: `bigint`
+• **amount**: `bigint`
 
 withdrawal amount in Gwei to match the CL repesentation and eventually ssz withdrawalsRoot
+
+#### Returns
+
+[`Withdrawal`](Withdrawal.md)
 
 #### Source
 
@@ -38,7 +42,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### address
 
-> **`readonly`** **address**: [`EthjsAddress`](EthjsAddress.md)
+> `readonly` **address**: [`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -48,7 +52,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### amount
 
-> **`readonly`** **amount**: `bigint`
+> `readonly` **amount**: `bigint`
 
 withdrawal amount in Gwei to match the CL repesentation and eventually ssz withdrawalsRoot
 
@@ -60,7 +64,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### index
 
-> **`readonly`** **index**: `bigint`
+> `readonly` **index**: `bigint`
 
 #### Source
 
@@ -70,7 +74,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### validatorIndex
 
-> **`readonly`** **validatorIndex**: `bigint`
+> `readonly` **validatorIndex**: `bigint`
 
 #### Source
 
@@ -81,6 +85,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 ### raw()
 
 > **raw**(): `WithdrawalBytes`
+
+#### Returns
+
+`WithdrawalBytes`
 
 #### Source
 
@@ -94,22 +102,23 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Returns
 
-> ##### address
->
-> > **address**: `string`
->
-> ##### amount
->
-> > **amount**: `string`
->
-> ##### index
->
-> > **index**: `string`
->
-> ##### validatorIndex
->
-> > **validatorIndex**: `string`
->
+`object`
+
+##### address
+
+> **address**: `string`
+
+##### amount
+
+> **amount**: `string`
+
+##### index
+
+> **index**: `string`
+
+##### validatorIndex
+
+> **validatorIndex**: `string`
 
 #### Source
 
@@ -123,22 +132,23 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Returns
 
-> ##### address
->
-> > **address**: `Uint8Array`
->
-> ##### amount
->
-> > **amount**: `bigint`
->
-> ##### index
->
-> > **index**: `bigint`
->
-> ##### validatorIndex
->
-> > **validatorIndex**: `bigint`
->
+`object`
+
+##### address
+
+> **address**: `Uint8Array`
+
+##### amount
+
+> **amount**: `bigint`
+
+##### index
+
+> **index**: `bigint`
+
+##### validatorIndex
+
+> **validatorIndex**: `bigint`
 
 #### Source
 
@@ -148,11 +158,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`withdrawalArray`): [`Withdrawal`](Withdrawal.md)
+> `static` **fromValuesArray**(`withdrawalArray`): [`Withdrawal`](Withdrawal.md)
 
 #### Parameters
 
-▪ **withdrawalArray**: `WithdrawalBytes`
+• **withdrawalArray**: `WithdrawalBytes`
+
+#### Returns
+
+[`Withdrawal`](Withdrawal.md)
 
 #### Source
 
@@ -162,11 +176,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### fromWithdrawalData()
 
-> **`static`** **fromWithdrawalData**(`withdrawalData`): [`Withdrawal`](Withdrawal.md)
+> `static` **fromWithdrawalData**(`withdrawalData`): [`Withdrawal`](Withdrawal.md)
 
 #### Parameters
 
-▪ **withdrawalData**: [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+• **withdrawalData**: [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+
+#### Returns
+
+[`Withdrawal`](Withdrawal.md)
 
 #### Source
 
@@ -176,23 +194,22 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### toBytesArray()
 
-> **`static`** **toBytesArray**(`withdrawal`): `WithdrawalBytes`
+> `static` **toBytesArray**(`withdrawal`): `WithdrawalBytes`
 
 Convert a withdrawal to a buffer array
 
 #### Parameters
 
-▪ **withdrawal**: [`Withdrawal`](Withdrawal.md) \| [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+• **withdrawal**: [`Withdrawal`](Withdrawal.md) \| [`WithdrawalData`](../type-aliases/WithdrawalData.md)
 
 the withdrawal to convert
 
 #### Returns
+
+`WithdrawalBytes`
 
 buffer array of the withdrawal
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:52
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

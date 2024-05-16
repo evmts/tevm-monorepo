@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > putAccount
+[tevm](../../modules.md) / [state](../README.md) / putAccount
 
 # Function: putAccount()
 
@@ -12,26 +12,22 @@ Saves an account into state under the provided `address`.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `account`?): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
-> ▪ **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
->
+`Function`
+
+### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+• **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:320
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

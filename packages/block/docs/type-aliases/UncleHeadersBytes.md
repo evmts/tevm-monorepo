@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > UncleHeadersBytes
+[@tevm/block](../globals.md) / UncleHeadersBytes
 
 # Type alias: UncleHeadersBytes
 
@@ -11,6 +11,3 @@
 ## Source
 
 [types.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L173)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

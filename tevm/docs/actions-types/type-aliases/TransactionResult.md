@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > TransactionResult
+[tevm](../../modules.md) / [actions-types](../README.md) / TransactionResult
 
 # Type alias: TransactionResult
 
@@ -15,63 +15,60 @@ json rpc procedures
 
 ### blockHash
 
-> **`readonly`** **blockHash**: [`Hex`](Hex.md)
+> `readonly` **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
+> `readonly` **blockNumber**: [`Hex`](Hex.md)
 
 ### from
 
-> **`readonly`** **from**: [`Hex`](Hex.md)
+> `readonly` **from**: [`Hex`](Hex.md)
 
 ### gas
 
-> **`readonly`** **gas**: [`Hex`](Hex.md)
+> `readonly` **gas**: [`Hex`](Hex.md)
 
 ### gasPrice
 
-> **`readonly`** **gasPrice**: [`Hex`](Hex.md)
+> `readonly` **gasPrice**: [`Hex`](Hex.md)
 
 ### hash
 
-> **`readonly`** **hash**: [`Hex`](Hex.md)
+> `readonly` **hash**: [`Hex`](Hex.md)
 
 ### input
 
-> **`readonly`** **input**: [`Hex`](Hex.md)
+> `readonly` **input**: [`Hex`](Hex.md)
 
 ### nonce
 
-> **`readonly`** **nonce**: [`Hex`](Hex.md)
+> `readonly` **nonce**: [`Hex`](Hex.md)
 
 ### r
 
-> **`readonly`** **r**: [`Hex`](Hex.md)
+> `readonly` **r**: [`Hex`](Hex.md)
 
 ### s
 
-> **`readonly`** **s**: [`Hex`](Hex.md)
+> `readonly` **s**: [`Hex`](Hex.md)
 
 ### to
 
-> **`readonly`** **to**: [`Hex`](Hex.md)
+> `readonly` **to**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
+> `readonly` **transactionIndex**: [`Hex`](Hex.md)
 
 ### v
 
-> **`readonly`** **v**: [`Hex`](Hex.md)
+> `readonly` **v**: [`Hex`](Hex.md)
 
 ### value
 
-> **`readonly`** **value**: [`Hex`](Hex.md)
+> `readonly` **value**: [`Hex`](Hex.md)
 
 ## Source
 
 packages/actions-types/types/common/TransactionResult.d.ts:6
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

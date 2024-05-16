@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > ContractCache
+[tevm](../../modules.md) / [state](../README.md) / ContractCache
 
 # Class: ContractCache
 
@@ -11,13 +11,17 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ## Constructors
 
-### new ContractCache(storageCache)
+### new ContractCache()
 
 > **new ContractCache**(`storageCache`?): [`ContractCache`](ContractCache.md)
 
 #### Parameters
 
-▪ **storageCache?**: `StorageCache`
+• **storageCache?**: `StorageCache`
+
+#### Returns
+
+[`ContractCache`](ContractCache.md)
 
 #### Source
 
@@ -37,7 +41,11 @@ packages/state/dist/index.d.ts:51
 
 ### \_checkpoints
 
-> **`get`** **\_checkpoints**(): `number`
+> `get` **\_checkpoints**(): `number`
+
+#### Returns
+
+`number`
 
 #### Source
 
@@ -51,6 +59,8 @@ packages/state/dist/index.d.ts:80
 
 #### Returns
 
+`void`
+
 #### Source
 
 packages/state/dist/index.d.ts:79
@@ -62,6 +72,8 @@ packages/state/dist/index.d.ts:79
 > **clear**(): `void`
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -75,6 +87,8 @@ packages/state/dist/index.d.ts:59
 
 #### Returns
 
+`void`
+
 #### Source
 
 packages/state/dist/index.d.ts:55
@@ -87,9 +101,11 @@ packages/state/dist/index.d.ts:55
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -103,9 +119,11 @@ packages/state/dist/index.d.ts:75
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Returns
+
+`undefined` \| `Uint8Array`
 
 #### Source
 
@@ -119,11 +137,13 @@ packages/state/dist/index.d.ts:64
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-▪ **bytecode**: `Uint8Array`
+• **bytecode**: `Uint8Array`
 
 #### Returns
+
+`void`
 
 #### Source
 
@@ -137,6 +157,8 @@ packages/state/dist/index.d.ts:70
 
 #### Returns
 
+`void`
+
 #### Source
 
 packages/state/dist/index.d.ts:85
@@ -147,9 +169,10 @@ packages/state/dist/index.d.ts:85
 
 > **size**(): `number`
 
+#### Returns
+
+`number`
+
 #### Source
 
 packages/state/dist/index.d.ts:81
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

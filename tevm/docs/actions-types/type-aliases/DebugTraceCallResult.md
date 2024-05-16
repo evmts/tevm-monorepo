@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > DebugTraceCallResult
+[tevm](../../modules.md) / [actions-types](../README.md) / DebugTraceCallResult
 
 # Type alias: DebugTraceCallResult
 
@@ -12,23 +12,20 @@
 
 ### failed
 
-> **`readonly`** **failed**: `boolean`
+> `readonly` **failed**: `boolean`
 
 ### gas
 
-> **`readonly`** **gas**: `bigint`
+> `readonly` **gas**: `bigint`
 
 ### returnValue
 
-> **`readonly`** **returnValue**: [`Hex`](Hex.md)
+> `readonly` **returnValue**: [`Hex`](Hex.md)
 
 ### structLogs
 
-> **`readonly`** **structLogs**: `ReadonlyArray`\<[`StructLog`](StructLog.md)\>
+> `readonly` **structLogs**: `ReadonlyArray`\<[`StructLog`](StructLog.md)\>
 
 ## Source
 
 packages/actions-types/types/result/DebugResult.d.ts:16
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

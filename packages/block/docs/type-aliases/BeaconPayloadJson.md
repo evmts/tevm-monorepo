@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BeaconPayloadJson
+[@tevm/block](../globals.md) / BeaconPayloadJson
 
 # Type alias: BeaconPayloadJson
 
@@ -14,9 +14,9 @@
 
 > **base\_fee\_per\_gas**: `Hex`
 
-### blob\_gas\_used
+### blob\_gas\_used?
 
-> **blob\_gas\_used**?: `Hex`
+> `optional` **blob\_gas\_used**: `Hex`
 
 ### block\_hash
 
@@ -26,13 +26,13 @@
 
 > **block\_number**: `Hex`
 
-### excess\_blob\_gas
+### excess\_blob\_gas?
 
-> **excess\_blob\_gas**?: `Hex`
+> `optional` **excess\_blob\_gas**: `Hex`
 
-### execution\_witness
+### execution\_witness?
 
-> **execution\_witness**?: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `optional` **execution\_witness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 ### extra\_data
 
@@ -54,9 +54,9 @@
 
 > **logs\_bloom**: `Hex`
 
-### parent\_beacon\_block\_root
+### parent\_beacon\_block\_root?
 
-> **parent\_beacon\_block\_root**?: `Hex`
+> `optional` **parent\_beacon\_block\_root**: `Hex`
 
 ### parent\_hash
 
@@ -82,13 +82,10 @@
 
 > **transactions**: `Hex`[]
 
-### withdrawals
+### withdrawals?
 
-> **withdrawals**?: `BeaconWithdrawal`[]
+> `optional` **withdrawals**: `BeaconWithdrawal`[]
 
 ## Source
 
 [from-beacon-payload.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

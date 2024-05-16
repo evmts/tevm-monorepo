@@ -1,8 +1,8 @@
-**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > chainIdProcedure
+[@tevm/procedures](../globals.md) / chainIdProcedure
 
 # Function: chainIdProcedure()
 
@@ -10,14 +10,14 @@
 
 ## Parameters
 
-▪ **baseClient**: `object`
+• **baseClient**
 
-▪ **baseClient.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+• **baseClient.extend**
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-▪ **baseClient.forkUrl?**: `string`
+• **baseClient.forkUrl?**: `string`
 
 Fork url if the EVM is forked
 
@@ -28,32 +28,32 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-▪ **baseClient.getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+• **baseClient.getReceiptsManager**
 
 Interface for querying receipts and historical state
 
-▪ **baseClient.getTxPool**: () => `Promise`\<`TxPool`\>
+• **baseClient.getTxPool**
 
 Gets the pool of pending transactions to be included in next block
 
-▪ **baseClient.getVm**: () => `Promise`\<`Vm`\>
+• **baseClient.getVm**
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
-▪ **baseClient.logger**: `Logger`
+• **baseClient.logger**: `Logger`
 
 The logger instance
 
-▪ **baseClient.miningConfig**: `MiningConfig`
+• **baseClient.miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-▪ **baseClient.mode**: `"fork"` \| `"normal"`
+• **baseClient.mode**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
@@ -68,7 +68,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-▪ **baseClient.ready**: () => `Promise`\<`true`\>
+• **baseClient.ready**
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -83,9 +83,8 @@ await client.ready()
 
 ## Returns
 
+`EthChainIdJsonRpcProcedure`
+
 ## Source
 
 [procedures/src/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/chainIdProcedure.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

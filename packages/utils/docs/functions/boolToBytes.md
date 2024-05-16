@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > boolToBytes
+[@tevm/utils](../globals.md) / boolToBytes
 
 # Function: boolToBytes()
 
@@ -14,27 +14,27 @@ Encodes a boolean into a byte array.
 
 ## Parameters
 
-▪ **value**: `boolean`
+• **value**: `boolean`
 
 Boolean value to encode.
 
-▪ **opts?**: `BoolToBytesOpts`
+• **opts?**: `BoolToBytesOpts`
 
 Options.
 
 ## Returns
 
+`Uint8Array`
+
 Byte array value.
 
-## Example
+## Examples
 
 ```ts
 import { boolToBytes } from 'viem'
 const data = boolToBytes(true)
 // Uint8Array([1])
 ```
-
-## Example
 
 ```ts
 import { boolToBytes } from 'viem'
@@ -45,6 +45,3 @@ const data = boolToBytes(true, { size: 32 })
 ## Source
 
 node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:62
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

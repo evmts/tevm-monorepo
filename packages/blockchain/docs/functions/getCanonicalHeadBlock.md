@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getCanonicalHeadBlock
+[@tevm/blockchain](../globals.md) / getCanonicalHeadBlock
 
 # Function: getCanonicalHeadBlock()
 
@@ -10,22 +10,18 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (): `Promise`\<`Block`\>
->
-> Returns the latest full block in the canonical chain.
->
-> ### Source
->
-> [Chain.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L85)
->
+`Function`
+
+Returns the latest full block in the canonical chain.
+
+### Returns
+
+`Promise`\<`Block`\>
 
 ## Source
 
 [actions/getCanonicalHeadBlock.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

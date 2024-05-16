@@ -1,16 +1,16 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > ForkOptions
+[tevm](../../modules.md) / [state](../README.md) / ForkOptions
 
 # Interface: ForkOptions
 
 ## Properties
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
+> `optional` **blockTag**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 #### Source
 
@@ -25,6 +25,3 @@ packages/state/dist/index.d.ts:20
 #### Source
 
 packages/state/dist/index.d.ts:19
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > HDAccount
+[@tevm/utils](../globals.md) / HDAccount
 
 # Type alias: HDAccount
 
@@ -12,9 +12,10 @@
 
 ### getHdKey()
 
+#### Returns
+
+`HDKey`
+
 ## Source
 
 node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/accounts/types.d.ts:31
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

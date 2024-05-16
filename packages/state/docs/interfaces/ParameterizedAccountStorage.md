@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ParameterizedAccountStorage
+[@tevm/state](../globals.md) / ParameterizedAccountStorage
 
 # Interface: ParameterizedAccountStorage
 
@@ -10,7 +10,7 @@
 
 ### balance
 
-> **balance**: \`0x${string}\`
+> **balance**: \`0x$\{string\}\`
 
 #### Source
 
@@ -20,7 +20,7 @@
 
 ### codeHash
 
-> **codeHash**: \`0x${string}\`
+> **codeHash**: \`0x$\{string\}\`
 
 #### Source
 
@@ -30,7 +30,7 @@
 
 ### nonce
 
-> **nonce**: \`0x${string}\`
+> **nonce**: \`0x$\{string\}\`
 
 #### Source
 
@@ -38,9 +38,9 @@
 
 ***
 
-### storage
+### storage?
 
-> **storage**?: `StorageDump`
+> `optional` **storage**: `StorageDump`
 
 #### Source
 
@@ -50,11 +50,8 @@
 
 ### storageRoot
 
-> **storageRoot**: \`0x${string}\`
+> **storageRoot**: \`0x$\{string\}\`
 
 #### Source
 
 [packages/state/src/state-types/ParameterizedAccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

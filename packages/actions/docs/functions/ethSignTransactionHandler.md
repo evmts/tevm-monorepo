@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ethSignTransactionHandler
+[@tevm/actions](../globals.md) / ethSignTransactionHandler
 
 # Function: ethSignTransactionHandler()
 
@@ -10,17 +10,16 @@
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.accounts**: readonly `HDAccount`[]
+• **options.accounts**: readonly `HDAccount`[]
 
-▪ **options.getChainId**: () => `Promise`\<`number`\>
+• **options.getChainId**
 
 ## Returns
+
+`EthSignTransactionHandler`
 
 ## Source
 
 [packages/actions/src/eth/ethSignTransactionHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignTransactionHandler.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

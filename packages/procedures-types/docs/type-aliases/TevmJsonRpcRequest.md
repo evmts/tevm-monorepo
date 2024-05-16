@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmJsonRpcRequest
+[@tevm/procedures-types](../globals.md) / TevmJsonRpcRequest
 
 # Type alias: TevmJsonRpcRequest
 
@@ -14,6 +14,3 @@ A Tevm JSON-RPC request
 ## Source
 
 [requests/TevmJsonRpcRequest.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/TevmJsonRpcRequest.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

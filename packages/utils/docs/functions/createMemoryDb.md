@@ -1,10 +1,12 @@
-**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/utils**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createMemoryDb
+[@tevm/utils](../globals.md) / createMemoryDb
 
 # Function: createMemoryDb()
+
+`Internal`
 
 > **createMemoryDb**(`initialDb`?): [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`, `Uint8Array`\>
 
@@ -13,11 +15,12 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Parameters
 
-▪ **initialDb?**: `Map`\<`Uint8Array`, `Uint8Array`\>
+• **initialDb?**: `Map`\<`Uint8Array`, `Uint8Array`\>
+
+## Returns
+
+[`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`, `Uint8Array`\>
 
 ## Source
 
 [packages/utils/src/createMemoryDb.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

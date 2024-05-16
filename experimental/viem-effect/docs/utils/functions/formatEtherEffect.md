@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > formatEtherEffect
+[@tevm/viem-effect](../../modules.md) / [utils](../README.md) / formatEtherEffect
 
 # Function: formatEtherEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`bigint`, `"wei"` \| `"gwei"`]
+• **TParams** *extends* [`bigint`, `"wei"` \| `"gwei"`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `FormatUnitsErrorType`, `string`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/unit/formatEtherEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/formatEtherEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

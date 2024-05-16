@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > actions-types
+[tevm](../modules.md) / actions-types
 
-# Module: actions-types
+# actions-types
 
 ## Index
 
@@ -203,28 +203,6 @@
 - [TransactionReceiptResult](type-aliases/TransactionReceiptResult.md)
 - [TransactionResult](type-aliases/TransactionResult.md)
 
-## Table of contents
-
-### References
-
-- [BlockParam](README.md#blockparam)
-- [CallParams](README.md#callparams)
-- [CallResult](README.md#callresult)
-- [ContractParams](README.md#contractparams)
-- [ContractResult](README.md#contractresult)
-- [GetAccountParams](README.md#getaccountparams)
-- [GetAccountResult](README.md#getaccountresult)
-- [MineHandler](README.md#minehandler)
-- [MineParams](README.md#mineparams)
-- [MineResult](README.md#mineresult)
-- [ScriptParams](README.md#scriptparams)
-- [ScriptResult](README.md#scriptresult)
-- [SetAccountParams](README.md#setaccountparams)
-- [SetAccountResult](README.md#setaccountresult)
-- [TraceCall](README.md#tracecall)
-- [TraceParams](README.md#traceparams)
-- [TraceResult](README.md#traceresult)
-
 ## References
 
 ### BlockParam
@@ -326,6 +304,3 @@ Re-exports [TraceParams](../index/type-aliases/TraceParams.md)
 ### TraceResult
 
 Re-exports [TraceResult](../index/type-aliases/TraceResult.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

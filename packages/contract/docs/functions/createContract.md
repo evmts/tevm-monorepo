@@ -1,8 +1,8 @@
-**@tevm/contract** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/contract**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createContract
+[@tevm/contract](../globals.md) / createContract
 
 # Function: createContract()
 
@@ -12,17 +12,19 @@ Creates a tevm Contract instance from human readable abi
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** *extends* `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** *extends* readonly `string`[]
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
+• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Returns
 
-## Example
+[`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`\>
+
+## Examples
 
 ```typescript
 import { type Contract, createContract} from 'tevm/contract'
@@ -36,8 +38,6 @@ const contract: Contract = createContract({
 ```
 
 To use a json abi first pass it into `formatAbi` to turn it into human readable
-
-## Example
 
 ```typescript
 import { type Contract, createContract} from 'tevm/contract'
@@ -53,6 +53,3 @@ const contract = createContract({
 ## Source
 
 [createContract.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L34)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > MineParams
+[tevm](../../modules.md) / [index](../README.md) / MineParams
 
-# Type alias: MineParams`<TThrowOnFail>`
+# Type alias: MineParams\<TThrowOnFail\>
 
 > **MineParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
@@ -20,27 +20,22 @@ const mineParams: import('@tevm/actions-types').MineParams = {
 
 ## Type declaration
 
-### blockCount
+### blockCount?
 
-> **blockCount**?: `number`
+> `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
-### interval
+### interval?
 
-> **interval**?: `number`
+> `optional` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TThrowOnFail` extends `boolean` | `boolean` |
+• **TThrowOnFail** *extends* `boolean` = `boolean`
 
 ## Source
 
 packages/actions-types/types/params/MineParams.d.ts:9
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

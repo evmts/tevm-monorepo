@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockData
+[@tevm/block](../globals.md) / BlockData
 
 # Interface: BlockData
 
@@ -10,9 +10,9 @@ A block's data.
 
 ## Properties
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 
@@ -22,9 +22,9 @@ EIP-6800: Verkle Proof Data (experimental)
 
 ***
 
-### header
+### header?
 
-> **header**?: [`HeaderData`](HeaderData.md)
+> `optional` **header**: [`HeaderData`](HeaderData.md)
 
 Header data for the block
 
@@ -34,9 +34,9 @@ Header data for the block
 
 ***
 
-### requests
+### requests?
 
-> **requests**?: [`ClRequest`](../classes/ClRequest.md)[]
+> `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
 #### Source
 
@@ -44,9 +44,9 @@ Header data for the block
 
 ***
 
-### transactions
+### transactions?
 
-> **transactions**?: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
+> `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
 
 #### Source
 
@@ -54,9 +54,9 @@ Header data for the block
 
 ***
 
-### uncleHeaders
+### uncleHeaders?
 
-> **uncleHeaders**?: [`HeaderData`](HeaderData.md)[]
+> `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
 #### Source
 
@@ -64,13 +64,10 @@ Header data for the block
 
 ***
 
-### withdrawals
+### withdrawals?
 
-> **withdrawals**?: `WithdrawalData`[]
+> `optional` **withdrawals**: `WithdrawalData`[]
 
 #### Source
 
 [types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

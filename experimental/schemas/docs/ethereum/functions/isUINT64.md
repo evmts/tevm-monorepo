@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > isUINT64
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / isUINT64
 
 # Function: isUINT64()
 
@@ -12,9 +12,11 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT64.
 
 ## Parameters
 
-▪ **uint64**: `unknown`
+• **uint64**: `unknown`
 
 ## Returns
+
+`boolean`
 
 ## Example
 
@@ -27,6 +29,3 @@ isUINT64(BigInt("18446744073709551616"));  // false
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/isUINT.js:64](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L64)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/bun-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/bun-plugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > bunPluginTevm
+[@tevm/bun-plugin](../globals.md) / bunPluginTevm
 
 # Function: bunPluginTevm()
 
@@ -13,19 +13,21 @@ will transform solidity contract imports into Tevm `Contract` instances.
 
 ## Parameters
 
-▪ **SolcVersions**: `object`
+• **SolcVersions**
 
 Which solc version to use
 
-▪ **SolcVersions.solc?**: `SolcVersions`= `defaultSolc.version`
+• **SolcVersions.solc?**: `SolcVersions`= `defaultSolc.version`
 
 ## Returns
+
+`BunPlugin`
 
 - A bun plugin
 
 To configure add this plugin to your Bun config and add the ts-plugin to your tsconfig.json
 
-## Example
+## Examples
 
 ```ts plugin.ts
 // Configure plugin in a plugin.ts file
@@ -43,8 +45,6 @@ preload = ["./plugins.ts"]
 For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
 The ts-plugin will provide type hints, code completion, and other features.
 
-## Example
-
 ```json
 {
   "compilerOptions": {
@@ -55,8 +55,6 @@ The ts-plugin will provide type hints, code completion, and other features.
 
 Once the esbuild plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
 turn them into Tevm `Contract` instances.
-
-## Example
 
 ```typescript
 // Solidity imports are automaticlaly turned into Tevm Contract objects
@@ -74,8 +72,6 @@ tevm.contract(
 
 Under the hood the esbuild plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
 
-## Example
-
 ```typescript
 import { createContract } from '@tevm/contract'
 
@@ -88,8 +84,6 @@ export const ERC20 = createContract({
 ```
 
 For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
-
-## Example
 
 ```json
 {
@@ -108,6 +102,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

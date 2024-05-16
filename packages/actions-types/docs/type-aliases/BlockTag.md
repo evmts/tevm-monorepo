@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockTag
+[@tevm/actions-types](../globals.md) / BlockTag
 
 # Type alias: BlockTag
 
@@ -11,6 +11,3 @@
 ## Source
 
 [common/BlockTag.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/BlockTag.ts#L1)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

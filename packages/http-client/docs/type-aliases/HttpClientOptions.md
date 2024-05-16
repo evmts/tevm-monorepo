@@ -1,10 +1,10 @@
-**@tevm/http-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/http-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > HttpClientOptions
+[@tevm/http-client](../globals.md) / HttpClientOptions
 
-# Type alias: HttpClientOptions
+# Type alias: ~~HttpClientOptions~~
 
 > **HttpClientOptions**: `object`
 
@@ -14,21 +14,18 @@ Options for a HttpClient
 
 ## Type declaration
 
-### name
+### ~~name?~~
 
-> **`readonly`** **name**?: `string`
+> `optional` `readonly` **name**: `string`
 
 Optional name for the client
 
-### url
+### ~~url~~
 
-> **`readonly`** **url**: `string`
+> `readonly` **url**: `string`
 
 Remote URL to connect to
 
 ## Source
 
 [HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

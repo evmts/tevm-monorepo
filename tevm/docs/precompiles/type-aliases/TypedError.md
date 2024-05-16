@@ -1,18 +1,16 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [precompiles](../README.md) > TypedError
+[tevm](../../modules.md) / [precompiles](../README.md) / TypedError
 
-# Type alias: TypedError`<TName>`
+# Type alias: TypedError\<TName\>
 
 > **TypedError**\<`TName`\>: `object`
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TName` extends `string` |
+• **TName** *extends* `string`
 
 ## Type declaration
 
@@ -31,6 +29,3 @@
 ## Source
 
 packages/precompiles/dist/index.d.ts:16
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

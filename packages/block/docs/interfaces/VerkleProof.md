@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > VerkleProof
+[@tevm/block](../globals.md) / VerkleProof
 
 # Interface: VerkleProof
 
@@ -10,7 +10,7 @@
 
 ### commitmentsByPath
 
-> **commitmentsByPath**: \`0x${string}\`[]
+> **commitmentsByPath**: \`0x$\{string\}\`[]
 
 #### Source
 
@@ -20,7 +20,7 @@
 
 ### d
 
-> **d**: \`0x${string}\`
+> **d**: \`0x$\{string\}\`
 
 #### Source
 
@@ -30,7 +30,7 @@
 
 ### depthExtensionPresent
 
-> **depthExtensionPresent**: \`0x${string}\`
+> **depthExtensionPresent**: \`0x$\{string\}\`
 
 #### Source
 
@@ -42,19 +42,17 @@
 
 > **ipaProof**: `object`
 
-#### Type declaration
+#### cl
 
-##### cl
+> **cl**: \`0x$\{string\}\`[]
 
-> **cl**: \`0x${string}\`[]
+#### cr
 
-##### cr
+> **cr**: \`0x$\{string\}\`[]
 
-> **cr**: \`0x${string}\`[]
+#### finalEvaluation
 
-##### finalEvaluation
-
-> **finalEvaluation**: \`0x${string}\`
+> **finalEvaluation**: \`0x$\{string\}\`
 
 #### Source
 
@@ -64,11 +62,8 @@
 
 ### otherStems
 
-> **otherStems**: \`0x${string}\`[]
+> **otherStems**: \`0x$\{string\}\`[]
 
 #### Source
 
 [types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

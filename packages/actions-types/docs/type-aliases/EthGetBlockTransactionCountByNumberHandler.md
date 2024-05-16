@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthGetBlockTransactionCountByNumberHandler
+[@tevm/actions-types](../globals.md) / EthGetBlockTransactionCountByNumberHandler
 
-# Type alias: EthGetBlockTransactionCountByNumberHandler
+# Type alias: EthGetBlockTransactionCountByNumberHandler()
 
 > **EthGetBlockTransactionCountByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetBlockTransactionCountByNumberParams`](EthGetBlockTransactionCountByNumberParams.md)
+• **request**: [`EthGetBlockTransactionCountByNumberParams`](EthGetBlockTransactionCountByNumberParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L109)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

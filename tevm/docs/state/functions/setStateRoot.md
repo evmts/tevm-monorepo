@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > setStateRoot
+[tevm](../../modules.md) / [state](../README.md) / setStateRoot
 
 # Function: setStateRoot()
 
@@ -12,26 +12,22 @@ Changes the currently loaded state root
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`stateRoot`, `clearCache`?): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **stateRoot**: `Uint8Array`
->
-> ▪ **clearCache?**: `boolean`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
->
+`Function`
+
+### Parameters
+
+• **stateRoot**: `Uint8Array`
+
+• **clearCache?**: `boolean`
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:349
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

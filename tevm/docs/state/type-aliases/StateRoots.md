@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > StateRoots
+[tevm](../../modules.md) / [state](../README.md) / StateRoots
 
 # Type alias: StateRoots
 
@@ -13,6 +13,3 @@ Mapping of state roots as hex string to the state
 ## Source
 
 packages/state/dist/index.d.ts:165
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

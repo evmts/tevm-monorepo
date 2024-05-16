@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > shallowCopy
+[@tevm/state](../globals.md) / shallowCopy
 
 # Function: shallowCopy()
 
@@ -12,20 +12,16 @@ Returns a new instance of the ForkStateManager with the same opts but no storage
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): [`BaseState`](../type-aliases/BaseState.md)
->
-> ### Source
->
-> [packages/state/src/actions/shallowCopy.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/shallowCopy.js#L8)
->
+`Function`
+
+### Returns
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Source
 
 [packages/state/src/actions/shallowCopy.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/shallowCopy.js#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DeployResult
+[@tevm/actions-types](../globals.md) / DeployResult
 
 # Type alias: DeployResult
 
@@ -11,6 +11,3 @@
 ## Source
 
 [result/DeployResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DeployResult.ts#L3)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
