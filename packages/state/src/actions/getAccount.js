@@ -1,4 +1,4 @@
-import { EthjsAccount, bytesToHex } from '@tevm/utils'
+import { EthjsAccount } from '@tevm/utils'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
 
 /**
@@ -17,11 +17,18 @@ export const getAccount = (baseState) => async (address) => {
 		return undefined
 	}
 	baseState.logger.debug({ address }, 'fetching account from remote RPC')
-	const rlp = (
-		await getAccountFromProvider(baseState)(/** @type {import('@tevm/utils').Address}*/ (address.toString()))
-	).serialize()
-	const account = rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
+	const account = await getAccountFromProvider(baseState)(
+		/** @type {import('@tevm/utils').Address}*/ (address.toString()),
+	)
+	if (
+		account.nonce === 0n &&
+		account.balance === 0n &&
+		account.codeHash.every((d) => d === 0) &&
+		account.storageRoot.every((d) => d === 0)
+	) {
+		return undefined
+	}
 	accounts.put(address, account)
-	baseState.logger.debug({ address, rlp: bytesToHex(rlp) }, 'Cached forked account in state manager')
+	baseState.logger.debug({ address, account }, 'Cached forked account in state manager')
 	return account
 }
