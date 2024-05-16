@@ -63,8 +63,7 @@
   },
   "dependencies": {
     "@tevm/block": "workspace:^",
-    "@tevm/blockchain": "workspace:1.1.0-next.47",
-    "@tevm/jsonrpc": "workspace:1.1.0-next.47",
+    "@tevm/blockchain": "workspace:^",
     "@tevm/rlp": "workspace:^",
     "@tevm/tx": "workspace:^"
   },

@@ -16,6 +16,7 @@ export {
 	BlobGasLimitExceededError,
 	MissingAccountError,
 	NoForkUrlSetError,
+	ethGetLogsHandler,
 } from './eth/index.js'
 export {
 	callHandler,

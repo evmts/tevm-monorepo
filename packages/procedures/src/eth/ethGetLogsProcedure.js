@@ -1,5 +1,5 @@
+import { ethGetLogsHandler } from '@tevm/actions'
 import { numberToHex } from '@tevm/utils'
-import { ethGetLogsHandler } from '../../../actions/types/eth/ethGetLogsHandler.js'
 
 /**
  * Executes a message call without creating a transaction on the block chain.

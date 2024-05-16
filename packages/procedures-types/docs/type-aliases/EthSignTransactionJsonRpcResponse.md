@@ -12,7 +12,7 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L254)
+[responses/EthJsonRpcResponse.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L262)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

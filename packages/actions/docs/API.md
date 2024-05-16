@@ -26,6 +26,7 @@
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [ethAccountsHandler](functions/ethAccountsHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)
+- [ethGetLogsHandler](functions/ethGetLogsHandler.md)
 - [ethGetTransactionReceiptHandler](functions/ethGetTransactionReceiptHandler.md)
 - [ethSendRawTransactionHandler](functions/ethSendRawTransactionHandler.md)
 - [ethSendTransactionHandler](functions/ethSendTransactionHandler.md)

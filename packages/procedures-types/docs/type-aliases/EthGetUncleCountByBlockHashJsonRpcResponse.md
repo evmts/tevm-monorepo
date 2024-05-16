@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L144)
+[responses/EthJsonRpcResponse.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L152)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L184)
+[responses/EthJsonRpcResponse.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L192)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

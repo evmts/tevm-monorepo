@@ -13,6 +13,7 @@
 - [chainIdProcedure](functions/chainIdProcedure.md)
 - [contractProcedure](functions/contractProcedure.md)
 - [dumpStateProcedure](functions/dumpStateProcedure.md)
+- [ethGetLogsProcedure](functions/ethGetLogsProcedure.md)
 - [gasPriceProcedure](functions/gasPriceProcedure.md)
 - [getAccountProcedure](functions/getAccountProcedure.md)
 - [getBalanceProcedure](functions/getBalanceProcedure.md)
