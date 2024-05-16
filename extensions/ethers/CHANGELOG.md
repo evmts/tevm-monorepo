@@ -1,5 +1,13 @@
 # @tevm/ethers
 
+## 1.1.0-next.51
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/procedures-types@1.1.0-next.50
+  - @tevm/memory-client@1.1.0-next.51
+
 ## 1.1.0-next.50
 
 ### Patch Changes
