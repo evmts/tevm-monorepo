@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmReturnType
+[@tevm/procedures-types](../globals.md) / TevmReturnType
 
 # Type alias: TevmReturnType
 
@@ -28,6 +28,10 @@ A mapping of `tevm_*` method names to their return type
 
 > **tevm\_loadState**: [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)
 
+### tevm\_mine
+
+> **tevm\_mine**: [`MineJsonRpcResponse`](MineJsonRpcResponse.md)
+
 ### tevm\_script
 
 > **tevm\_script**: [`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)
@@ -38,7 +42,4 @@ A mapping of `tevm_*` method names to their return type
 
 ## Source
 
-[tevm-request-handler/TevmReturnType.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmReturnType.ts#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[tevm-request-handler/TevmReturnType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmReturnType.ts#L14)

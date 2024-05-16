@@ -1,5 +1,5 @@
-import { ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
-import { BlockHeader } from '@tevm/block'
+import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
+import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
@@ -12,12 +12,14 @@ import {
 	callProcedure,
 	chainIdProcedure,
 	dumpStateProcedure,
+	ethGetLogsProcedure,
 	gasPriceProcedure,
 	getAccountProcedure,
 	getBalanceProcedure,
 	getCodeProcedure,
 	getStorageAtProcedure,
 	loadStateProcedure,
+	mineProcedure,
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
@@ -54,6 +56,8 @@ import {
  */
 export const requestProcedure = (client) => {
 	return async (request) => {
+		await client.ready()
+		client.logger.debug(request, 'JSON-RPC request received')
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure(client)(request))
@@ -90,7 +94,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(client.getChainId)(request))
+				return /** @type any */ (chainIdProcedure(client)(request))
 			case 'eth_call':
 				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
@@ -108,7 +112,7 @@ export const requestProcedure = (client) => {
 			case 'eth_signTransaction':
 				return ethSignTransactionProcedure({
 					accounts: testAccounts,
-					getChainId: client.getChainId,
+					getChainId: () => chainIdHandler(client)().then((bigNumber) => Number(bigNumber)),
 				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
@@ -196,7 +200,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				client.setChainId(chainId)
+				client.logger.warn('Warning: setChainId is currently a noop')
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
@@ -213,8 +217,8 @@ export const requestProcedure = (client) => {
 						// same default as hardhat
 						result: await client
 							.getVm()
-							.then((vm) => vm.blockchain.getCanonicalHeadHeader())
-							.then((header) => header.coinbase),
+							.then((vm) => vm.blockchain.getCanonicalHeadBlock())
+							.then((block) => block.header.coinbase),
 					}
 				}
 				if (!client.forkUrl) {
@@ -282,18 +286,42 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setCoinbase'}*/ ('hardhat_setCoinbase'):
 			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'): {
 				const vm = await client.getVm()
-				const header = await vm.blockchain.getCanonicalHeadHeader()
-				const newHeader = BlockHeader.fromHeaderData({
-					...header.raw(),
-					coinbase: request.params[0],
-				})
-				vm.blockchain.putHeader(newHeader)
+				const currentBlock = await vm.blockchain.getCanonicalHeadBlock()
+				const newHeader = BlockHeader.fromHeaderData(
+					{
+						...currentBlock.header.raw(),
+						coinbase: request.params[0],
+					},
+					{
+						common: vm.common,
+						freeze: false,
+						setHardfork: false,
+					},
+				)
+				// TODO this as any is not necessary we shouldn't be doing this instead fix types please
+				const newBlock = Block.fromBlockData(
+					/** @type {any}*/ ({
+						...currentBlock,
+						withdrawals: currentBlock.withdrawals,
+						header: newHeader,
+					}),
+					{
+						common: vm.common,
+						freeze: false,
+						setHardfork: false,
+					},
+				)
+				vm.blockchain.putBlock(newBlock)
 				return {
 					method: request.method,
 					result: true,
 					jsonrpc: '2.0',
 					...(request.id ? { id: request.id } : {}),
 				}
+			}
+			case 'anvil_mine':
+			case 'tevm_mine': {
+				return /** @type any */ (mineProcedure)(client)(request)
 			}
 			case 'debug_traceCall': {
 				const debugTraceCallRequest =
@@ -340,7 +368,12 @@ export const requestProcedure = (client) => {
 					(request)
 				return ethGetTransactionReceiptJsonRpcProcedure(client)(getTransactionReceiptRequest)
 			}
-			case 'eth_getLogs':
+			case 'eth_getLogs': {
+				const ethGetLogsRequest =
+					/** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcRequest}*/
+					(request)
+				return ethGetLogsProcedure(client)(ethGetLogsRequest)
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_getBlockByHash':
@@ -361,7 +394,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getTransactionByBlockHashAndIndex':
 			case 'eth_getTransactionByBlockNumberAndIndex':
 			case 'debug_traceTransaction':
-			case 'anvil_mine':
 			case 'anvil_reset':
 			case 'anvil_dumpState':
 			case 'anvil_loadState':

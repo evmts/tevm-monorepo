@@ -1,8 +1,8 @@
-**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/common**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > CliqueConfig
+[@tevm/common](../globals.md) / CliqueConfig
 
 # Type alias: CliqueConfig
 
@@ -21,6 +21,3 @@
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:9
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

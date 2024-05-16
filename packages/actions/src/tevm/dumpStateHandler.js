@@ -1,10 +1,5 @@
 import { createError } from './createError.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
-import {
-	ForkStateManager,
-	NormalStateManager,
-	ProxyStateManager,
-} from '@tevm/state'
 
 /**
  * @param {import("@tevm/base-client").BaseClient} client
@@ -13,34 +8,32 @@ import {
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
 export const dumpStateHandler =
-	(client, options = {}) =>
-	async ({ throwOnFail = options.throwOnFail } = {}) => {
-		try {
-			const vm = await client.getVm()
-			if (
-				vm.stateManager instanceof NormalStateManager ||
-				vm.stateManager instanceof ProxyStateManager ||
-				vm.stateManager instanceof ForkStateManager
-			) {
-				return { state: await vm.stateManager.dumpCanonicalGenesis() }
-			} else {
-				throw new Error(
-					'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',
-				)
-			}
-		} catch (e) {
-			return maybeThrowOnFail(throwOnFail ?? true, {
-				state: {},
-				errors: [
-					createError(
-						'UnexpectedError',
-						typeof e === 'string'
-							? e
-							: e instanceof Error
-							? e.message
-							: 'unknown error',
-					),
-				],
-			})
-		}
+  (client, options = {}) =>
+    async ({ throwOnFail = options.throwOnFail } = {}) => {
+      try {
+        const vm = await client.getVm()
+        if (
+          'dumpCanonicalGenesis' in vm.stateManager
+        ) {
+          return { state: await vm.stateManager.dumpCanonicalGenesis() }
+        } else {
+          throw new Error(
+            'Unsupported state manager. Must use a Tevm state manager from `@tevm/state` package. This may indicate a bug in tevm internal code.',
+          )
+        }
+      } catch (e) {
+        return maybeThrowOnFail(throwOnFail ?? true, {
+          state: {},
+          errors: [
+            createError(
+              'UnexpectedError',
+              typeof e === 'string'
+                ? e
+                : e instanceof Error
+                  ? e.message
+                  : 'unknown error',
+            ),
+          ],
+        })
+      }
 	}

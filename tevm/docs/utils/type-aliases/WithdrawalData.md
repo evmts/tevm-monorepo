@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > WithdrawalData
+[tevm](../../modules.md) / [utils](../README.md) / WithdrawalData
 
 # Type alias: WithdrawalData
 
@@ -15,23 +15,20 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 ### address
 
-> **address**: `AddressLike`
+> **address**: [`AddressLike`](AddressLike.md)
 
 ### amount
 
-> **amount**: `BigIntLike`
+> **amount**: [`BigIntLike`](BigIntLike.md)
 
 ### index
 
-> **index**: `BigIntLike`
+> **index**: [`BigIntLike`](BigIntLike.md)
 
 ### validatorIndex
 
-> **validatorIndex**: `BigIntLike`
+> **validatorIndex**: [`BigIntLike`](BigIntLike.md)
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

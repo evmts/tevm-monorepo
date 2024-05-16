@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > ParameterizedTevmState
+[tevm](../../modules.md) / [state](../README.md) / ParameterizedTevmState
 
 # Type alias: ParameterizedTevmState
 
@@ -14,7 +14,4 @@
 
 ## Source
 
-packages/state/types/ParameterizedTevmState.d.ts:2
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/state/dist/index.d.ts:31

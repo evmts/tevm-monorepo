@@ -8,6 +8,7 @@ export {
 	contractProcedure,
 	dumpStateProcedure,
 	loadStateProcedure,
+	mineProcedure,
 } from './tevm/index.js'
 export {
 	blockNumberProcedure,
@@ -16,4 +17,5 @@ export {
 	gasPriceProcedure,
 	getBalanceProcedure,
 	getStorageAtProcedure,
+	ethGetLogsProcedure,
 } from './eth/index.js'

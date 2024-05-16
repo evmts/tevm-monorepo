@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthHashrateHandler
+[@tevm/actions-types](../globals.md) / EthHashrateHandler
 
-# Type alias: EthHashrateHandler
+# Type alias: EthHashrateHandler()
 
 > **EthHashrateHandler**: (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
 ## Parameters
 
-▪ **request?**: [`EthHashrateParams`](EthHashrateParams.md)
+• **request?**: [`EthHashrateParams`](EthHashrateParams.md)
+
+## Returns
+
+`Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L95)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

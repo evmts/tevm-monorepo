@@ -16,6 +16,7 @@ export {
 	BlobGasLimitExceededError,
 	MissingAccountError,
 	NoForkUrlSetError,
+	ethGetLogsHandler,
 } from './eth/index.js'
 export {
 	callHandler,
@@ -25,5 +26,7 @@ export {
 	contractHandler,
 	dumpStateHandler,
 	loadStateHandler,
+	mineHandler,
+	deployHandler,
 } from './tevm/index.js'
 export { traceCallHandler } from './debug/index.js'

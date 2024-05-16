@@ -11,6 +11,8 @@ const biomeConfig = {
 		ignore: [
 			'.nx',
 			'node_modules',
+			'package.json',
+			'**/package.json',
 			'**/coverage',
 			'**/node_modules',
 			'**/dist',
@@ -22,6 +24,7 @@ const biomeConfig = {
 			'**/.vitepress/cache',
 			'**/.vitepress/dist',
 			'scaffold-tevm',
+			'docs/**/*',
 			'tevm/**/*',
 			'bundler/**/*',
 			'.vscode',

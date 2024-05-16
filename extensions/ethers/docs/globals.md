@@ -1,4 +1,4 @@
-**@tevm/ethers** • [Readme](README.md) \| API
+[**@tevm/ethers**](README.md) • **Docs**
 
 ***
 

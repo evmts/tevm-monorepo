@@ -1,20 +1,24 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/evm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EvmError
+[@tevm/evm](../globals.md) / EvmError
 
 # Class: EvmError
 
 ## Constructors
 
-### new EvmError(error)
+### new EvmError()
 
 > **new EvmError**(`error`): [`EvmError`](EvmError.md)
 
 #### Parameters
 
-▪ **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
+• **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
+
+#### Returns
+
+[`EvmError`](EvmError.md)
 
 #### Source
 
@@ -39,6 +43,3 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:38
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

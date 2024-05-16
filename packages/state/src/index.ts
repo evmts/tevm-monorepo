@@ -1,21 +1,48 @@
+export type {
+	TevmState,
+	SerializableTevmState,
+	ParameterizedTevmState,
+	ParameterizedAccountStorage,
+	ForkOptions,
+	AccountStorage,
+	StateCache,
+	StateRoots,
+	StateOptions,
+	StateAction,
+} from './state-types/index.js'
+export { type BaseState } from './BaseState.js'
+export { ContractCache } from './ContractCache.js'
+export { type StateManager } from './StateManager.js'
+export { createStateManager } from './createStateManager.js'
+export { createBaseState } from './createBaseState.js'
 export {
-	ForkStateManager,
-	type ForkStateManagerOpts,
-} from './ForkStateManager.js'
-export {
-	ProxyStateManager,
-	type ProxyStateManagerOpts,
-} from './ProxyStateManager.js'
-export { type TevmStateManagerInterface } from './TevmStateManagerInterface.js'
-export { NormalStateManager } from './NormalStateManager.js'
-export type { AccountStorage } from './AccountStorage.js'
-export type { ParameterizedTevmState } from './ParameterizedTevmState.js'
-export type { ParameterizedAccountStorage } from './ParameterizedAccountStorage.js'
-export type { TevmState } from './TevmState.js'
-export type { SerializableTevmState } from './SerializableTevmState.js'
-export type { Cache, GetContractStorage } from './Cache.js'
-export {
-	type TevmStateManager,
-	type TevmStateManagerOptions,
-	createTevmStateManager,
-} from './TevmStateManager.js'
+	commit,
+	revert,
+	deepCopy,
+	getProof,
+	checkpoint,
+	getAccount,
+	putAccount,
+	clearCaches,
+	dumpStorage,
+	shallowCopy,
+	getStateRoot,
+	hasStateRoot,
+	setStateRoot,
+	deleteAccount,
+	getForkClient,
+	getAppliedKey,
+	getContractCode,
+	getForkBlockTag,
+	putContractCode,
+	dumpStorageRange,
+	getContractStorage,
+	putContractStorage,
+	getAccountAddresses,
+	modifyAccountFields,
+	clearContractStorage,
+	dumpCanonicalGenesis,
+	getAccountFromProvider,
+	generateCanonicalGenesis,
+	originalStorageCache,
+} from './actions/index.js'

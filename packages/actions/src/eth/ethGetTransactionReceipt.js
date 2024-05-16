@@ -20,13 +20,12 @@ const uintEquals = (a, b) => {
 }
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'forkUrl'| 'getVm' | 'getChain' | 'getReceiptsManager' >} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthGetTransactionReceiptHandler}
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
-	const chain = await client.getChain()
-	const vm = await client.getVm().then((vm) => vm.shallowCopy())
+	const vm = await client.getVm().then((vm) => vm.deepCopy())
 
 	const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
 
@@ -91,14 +90,14 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	}
 
 	const [receipt, blockHash, txIndex, logIndex] = result
-	const block = await chain.getBlock(blockHash)
+	const block = await vm.blockchain.getBlock(blockHash)
 	// Check if block is in canonical chain
-	const blockByNumber = await chain.getBlock(block.header.number)
+	const blockByNumber = await vm.blockchain.getBlock(block.header.number)
 	if (!uintEquals(blockByNumber.hash(), block.hash())) {
 		return null
 	}
 
-	const parentBlock = await chain.getBlock(block.header.parentHash)
+	const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
 	const tx = block.transactions[txIndex]
 	if (!tx) {
 		// TODO check proxy url

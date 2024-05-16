@@ -1,9 +1,11 @@
 import type {
 	CallHandler,
 	ContractHandler,
+	DeployHandler,
 	DumpStateHandler,
 	GetAccountHandler,
 	LoadStateHandler,
+	MineHandler,
 	ScriptHandler,
 	SetAccountHandler,
 } from '@tevm/actions-types'
@@ -134,4 +136,12 @@ export type TevmActionsApi = {
 	 * ```
 	 */
 	loadState: LoadStateHandler
+	/**
+	 * Mines 1 or more blocks
+	 */
+	mine: MineHandler
+	/**
+	 * Creates a transaction to deploys a contract to tevm
+	 */
+	deploy: DeployHandler
 }

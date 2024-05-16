@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > FilterLog
+[tevm](../../modules.md) / [actions-types](../README.md) / FilterLog
 
 # Type alias: FilterLog
 
@@ -14,43 +14,40 @@ FilterLog type for eth JSON-RPC procedures
 
 ### address
 
-> **`readonly`** **address**: [`Hex`](Hex.md)
+> `readonly` **address**: [`Hex`](Hex.md)
 
 ### blockHash
 
-> **`readonly`** **blockHash**: [`Hex`](Hex.md)
+> `readonly` **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `bigint`
+> `readonly` **blockNumber**: `bigint`
 
 ### data
 
-> **`readonly`** **data**: [`Hex`](Hex.md)
+> `readonly` **data**: [`Hex`](Hex.md)
 
 ### logIndex
 
-> **`readonly`** **logIndex**: `bigint`
+> `readonly` **logIndex**: `bigint`
 
 ### removed
 
-> **`readonly`** **removed**: `boolean`
+> `readonly` **removed**: `boolean`
 
 ### topics
 
-> **`readonly`** **topics**: readonly [`Hex`](Hex.md)[]
+> `readonly` **topics**: readonly [`Hex`](Hex.md)[]
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: [`Hex`](Hex.md)
+> `readonly` **transactionHash**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `bigint`
+> `readonly` **transactionIndex**: `bigint`
 
 ## Source
 
 packages/actions-types/types/common/FilterLog.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

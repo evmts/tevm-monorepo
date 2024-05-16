@@ -1,8 +1,8 @@
-**@tevm/config** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/config**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [loadConfig](../README.md) > loadConfig
+[@tevm/config](../../modules.md) / [loadConfig](../README.md) / loadConfig
 
 # Function: loadConfig()
 
@@ -12,9 +12,11 @@ Loads an Tevm config from the given path
 
 ## Parameters
 
-▪ **configFilePath**: `string`
+• **configFilePath**: `string`
 
 ## Returns
+
+`Effect`\<`never`, [`LoadConfigError`](../classes/LoadConfigError.md), [`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md)\>
 
 ## Example
 
@@ -30,6 +32,3 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 ## Source
 
 [bundler-packages/config/src/loadConfig.js:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L54)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

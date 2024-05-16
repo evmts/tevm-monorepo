@@ -1,4 +1,4 @@
-**@tevm/precompiles** • [Readme](README.md) \| API
+[**@tevm/precompiles**](README.md) • **Docs**
 
 ***
 

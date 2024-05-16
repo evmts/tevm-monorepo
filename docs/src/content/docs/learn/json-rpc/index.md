@@ -28,8 +28,6 @@ Tevm methods are feature-rich methods that provide a high level of control over 
 - [`tevm_script`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure) - Runs the provided bytecode against the EVM state
 - [`tevm_dumpState`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcprocedure) - Returns the state of the VM
 - [`tevm_loadState`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcprocedure) - Initializes the state of the VM
-- 🚧 `tevm_traceContractCall`
-- 🚧 `tevm_traceScript`
 
 ## Eth methods
 
@@ -47,17 +45,17 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 - [`eth_signTransaction'](/reference/tevm/procedures-types/type-aliases/ethsigntransactionjsonrpcprocedure)
 - 🚧 [`eth_getLogs'](/reference/tevm/procedures-types/type-aliases/ethgetlogsjsonrpcprocedure)
 - [`eth_coinbase'](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcprocedure)
-- 🚧 [`eth_hashrate'](/reference/tevm/procedures-types/type-aliases/ethhashratejsonrpcprocedure)
+- [`eth_hashrate'](/reference/tevm/procedures-types/type-aliases/ethhashratejsonrpcprocedure)
 - 🚧 [`eth_newFilter'](/reference/tevm/procedures-types/type-aliases/ethnewfilterjsonrpcprocedure)
 - 🚧 [`eth_getFilterLogs'](/reference/tevm/procedures-types/type-aliases/ethgetfilterlogsjsonrpcprocedure)
 - 🚧 [`eth_getBlockByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcprocedure)
 - 🚧 [`eth_newBlockFilter'](/reference/tevm/procedures-types/type-aliases/ethnewblockfilterjsonrpcprocedure)
-- 🚧 [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
+- [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
 - [`eth_sendTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendtransactionjsonrpcprocedure)
 - 🚧 [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
 - 🚧 [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
 - 🚧 [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)
-- 🚧 [`eth_sendRawTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure)
+- [`eth_sendRawTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure)
 - 🚧 [`eth_getTransactionCount'](/reference/tevm/procedures-types/type-aliases/ethgettransactioncountjsonrpcprocedure)
 - 🚧 [`eth_getTransactionByHash'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyhashjsonrpcprocedure)
 - 🚧 [`eth_getTransactionReceipt'](/reference/tevm/procedures-types/type-aliases/ethgettransactionreceiptjsonrpcprocedure)
@@ -70,7 +68,7 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 ## Debug methods
 
 - 🚧 [`debug_traceTransaction`](/reference/tevm/procedures-types/type-aliases/debugtracetransactionprocedure)
-- 🚧 [`debug_traceCall`](/reference/tevm/procedures-types/type-aliases/debugtracecallprocedure)
+- [`debug_traceCall`](/reference/tevm/procedures-types/type-aliases/debugtracecallprocedure)
 
 ## Anvil/Hardhat methods
 

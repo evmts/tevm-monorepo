@@ -13,6 +13,9 @@ export type {
   TraceCall,
   TraceParams,
   TraceResult,
+  MineParams,
+  MineResult,
+  MineHandler,
 } from "@tevm/actions-types";
 export type {
   TevmJsonRpcRequest,
@@ -128,8 +131,7 @@ export {
 
 export type {
   TevmState,
-  ForkStateManagerOpts,
-  ProxyStateManagerOpts,
+  StateOptions,
 } from "@tevm/state";
 
 export type {
@@ -141,6 +143,8 @@ export type {
 } from "@tevm/decorators";
 
 export {
+  GENESIS_STATE,
+  prefundedAccounts,
   createBaseClient,
   type Hardfork,
   type Extension,
@@ -148,9 +152,15 @@ export {
   type CustomPrecompile,
   type BaseClientOptions,
   type AutoMining,
+  type ManualMining,
+  type MiningConfig,
+  type IntervalMining
 } from "@tevm/base-client";
 
-export { type MemoryClient, createMemoryClient } from "@tevm/memory-client";
+export { type MemoryClient, createMemoryClient, type TevmActions } from "@tevm/memory-client";
+export {
+  tevmTransport,
+} from '@tevm/viem'
 
 export {
   type ConstructorArgument,

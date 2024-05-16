@@ -1,5 +1,166 @@
 # @tevm/contract
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/viem@1.1.0-next.52
+  - @tevm/actions-types@1.1.0-next.52
+  - @tevm/base-client@1.1.0-next.52
+  - @tevm/client-types@1.1.0-next.52
+  - @tevm/contract@1.1.0-next.52
+  - @tevm/decorators@1.1.0-next.52
+  - @tevm/errors@1.1.0-next.52
+  - @tevm/http-client@1.1.0-next.52
+  - @tevm/jsonrpc@1.1.0-next.52
+  - @tevm/memory-client@1.1.0-next.52
+  - @tevm/precompiles@1.1.0-next.52
+  - @tevm/predeploys@1.1.0-next.52
+  - @tevm/procedures-types@1.1.0-next.52
+  - @tevm/server@1.1.0-next.52
+  - @tevm/state@1.1.0-next.52
+  - @tevm/sync-storage-persister@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+
+## 1.1.0-next.51
+
+### Patch Changes
+
+- Updated dependencies [[`93b04d6`](https://github.com/evmts/tevm-monorepo/commit/93b04d6a3cd06180e3567d07bec655c7a135a8c3)]:
+  - @tevm/state@1.1.0-next.51
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/base-client@1.1.0-next.51
+  - @tevm/procedures-types@1.1.0-next.50
+  - @tevm/sync-storage-persister@1.1.0-next.51
+  - @tevm/decorators@1.1.0-next.50
+  - @tevm/memory-client@1.1.0-next.51
+  - @tevm/http-client@1.1.0-next.47
+  - @tevm/precompiles@1.1.0-next.47
+  - @tevm/server@1.1.0-next.47
+
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4)]:
+  - @tevm/procedures-types@1.1.0-next.50
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/client-types@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.50
+  - @tevm/memory-client@1.1.0-next.50
+  - @tevm/server@1.1.0-next.47
+  - @tevm/base-client@1.1.0-next.50
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/precompiles@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+
+## 1.1.0-next.49
+
+### Minor Changes
+
+- [#1074](https://github.com/evmts/tevm-monorepo/pull/1074) [`2ba2c27`](https://github.com/evmts/tevm-monorepo/commit/2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5) Thanks [@roninjin10](https://github.com/roninjin10)! - Added bySenderAddress method to return all mempool tx from a single sender address
+
+### Patch Changes
+
+- [#1076](https://github.com/evmts/tevm-monorepo/pull/1076) [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not updating nonce when more than one tx is in the tx pool
+
+- Updated dependencies [[`a6655fc`](https://github.com/evmts/tevm-monorepo/commit/a6655fc2414d06b3bd2caf72f88ec2ccff20a075), [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8)]:
+  - @tevm/base-client@1.1.0-next.49
+  - @tevm/state@1.1.0-next.49
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+  - @tevm/memory-client@1.1.0-next.49
+  - @tevm/server@1.1.0-next.47
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.49
+  - @tevm/procedures-types@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.49
+  - @tevm/precompiles@1.1.0-next.47
+
+## 1.1.0-next.48
+
+### Patch Changes
+
+- Updated dependencies [[`dad4eb0`](https://github.com/evmts/tevm-monorepo/commit/dad4eb0025c68be4b1f3177a7726e0e8d55a4c8c)]:
+  - @tevm/memory-client@1.1.0-next.48
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+  - @tevm/precompiles@1.1.0-next.47
+  - @tevm/server@1.1.0-next.47
+
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/base-client@1.1.0-next.47
+  - @tevm/client-types@1.1.0-next.47
+  - @tevm/contract@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.47
+  - @tevm/errors@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+  - @tevm/jsonrpc@1.1.0-next.47
+  - @tevm/memory-client@1.1.0-next.47
+  - @tevm/precompiles@1.1.0-next.47
+  - @tevm/predeploys@1.1.0-next.47
+  - @tevm/procedures-types@1.1.0-next.47
+  - @tevm/server@1.1.0-next.47
+  - @tevm/state@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+
+## 1.1.0-next.46
+
+### Patch Changes
+
+- Updated dependencies [[`c0c9e30`](https://github.com/evmts/tevm-monorepo/commit/c0c9e302c6900ed9ad31c50667813d35dc5366e9), [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc), [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388), [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388)]:
+  - @tevm/base-client@1.1.0-next.46
+  - @tevm/actions-types@1.1.0-next.46
+  - @tevm/memory-client@1.1.0-next.46
+  - @tevm/decorators@1.1.0-next.46
+  - @tevm/jsonrpc@1.1.0-next.46
+  - @tevm/state@1.1.0-next.46
+  - @tevm/client-types@1.1.0-next.45
+  - @tevm/procedures-types@1.1.0-next.45
+  - @tevm/server@1.1.0-next.45
+  - @tevm/http-client@1.1.0-next.46
+  - @tevm/precompiles@1.1.0-next.45
+  - @tevm/sync-storage-persister@1.1.0-next.46
+
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1042](https://github.com/evmts/tevm-monorepo/pull/1042) [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new tevm_mine and anvil_mine support for mining blocks. This includes the JSON-RPC support as well as a new tevm.mine() action to the main tevm api
+
+### Patch Changes
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new public exports to top level tevm package
+
+- Updated dependencies [[`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`5bc2874`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921), [`7c172f9`](https://github.com/evmts/tevm-monorepo/commit/7c172f9da63c490e89f93b831309e4f0183e8da7)]:
+  - @tevm/procedures-types@1.1.0-next.45
+  - @tevm/actions-types@1.1.0-next.45
+  - @tevm/decorators@1.1.0-next.45
+  - @tevm/errors@1.1.0-next.45
+  - @tevm/memory-client@1.1.0-next.45
+  - @tevm/base-client@1.1.0-next.45
+  - @tevm/http-client@1.1.0-next.45
+  - @tevm/precompiles@1.1.0-next.45
+  - @tevm/predeploys@1.1.0-next.45
+  - @tevm/server@1.1.0-next.45
+  - @tevm/state@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/contract@1.1.0-next.45
+  - @tevm/client-types@1.1.0-next.45
+  - @tevm/sync-storage-persister@1.1.0-next.45
+
 ## 1.0.0-next.44
 
 ### Patch Changes

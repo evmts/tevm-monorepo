@@ -1,8 +1,8 @@
-**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getStorageAtProcedure
+[@tevm/procedures](../globals.md) / getStorageAtProcedure
 
 # Function: getStorageAtProcedure()
 
@@ -10,17 +10,16 @@
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.forkUrl?**: `string`
+• **options.forkUrl?**: `string`
 
-▪ **options.getVm**: () => `Promise`\<`TevmVm`\>
+• **options.getVm**
 
 ## Returns
+
+`EthGetStorageAtJsonRpcProcedure`
 
 ## Source
 
 [procedures/src/eth/getStorageAtProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getStorageAtProcedure.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

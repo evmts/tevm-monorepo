@@ -1,4 +1,4 @@
-**tevm** • [Readme](README.md) \| API
+[**tevm**](README.md) • **Docs**
 
 ***
 

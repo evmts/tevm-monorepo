@@ -10,3 +10,4 @@ export type {
 	ManualMining,
 	IntervalMining,
 } from './MiningConfig.js'
+export { prefundedAccounts, GENESIS_STATE } from './GENESIS_STATE.js'

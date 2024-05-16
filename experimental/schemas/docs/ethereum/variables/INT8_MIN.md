@@ -1,12 +1,12 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > INT8\_MIN
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / INT8\_MIN
 
 # Variable: INT8\_MIN
 
-> **`const`** **INT8\_MIN**: `bigint` = `-BigInt('0x80')`
+> `const` **INT8\_MIN**: `bigint` = `-BigInt('0x80')`
 
 The minimum value a [INT8](../type-aliases/INT8.md) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
@@ -14,6 +14,3 @@ The minimum value a [INT8](../type-aliases/INT8.md) can be.
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,10 +18,16 @@ packages/*/docs
 bundler/*/docs
 extensions/*/docs
 docs/src/content/reference
-**/docs
-lsp/*/docs
-vm/*/docs
-tevm/docs
+bundler/**/docs
+bundler-packages/**/docs
+configs/**/docs
+examples/**/docs
+experimental/**/docs
+extensions/**/docs
+lsp/**/docs
+packages/**/docs
+test/**/docs
+tevm/**/docs
 **/generated/**/*
 
 **/dist/

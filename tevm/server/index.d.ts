@@ -1,1 +1,1 @@
-export { BadRequestError, CreateHttpHandlerParameters, createExpressMiddleware, createHttpHandler, createNextApiHandler, createServer } from '@tevm/server';
+export { BadRequestError, createExpressMiddleware, createHttpHandler, createNextApiHandler, createServer } from '@tevm/server';

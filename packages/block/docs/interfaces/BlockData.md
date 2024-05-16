@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockData
+[@tevm/block](../globals.md) / BlockData
 
 # Interface: BlockData
 
@@ -10,57 +10,64 @@ A block's data.
 
 ## Properties
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: `null` \| `VerkleExecutionWitness`
+> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:139
+[types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
 
 ***
 
-### header
+### header?
 
-> **header**?: `HeaderData`
+> `optional` **header**: [`HeaderData`](HeaderData.md)
 
 Header data for the block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:132
+[types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
 
 ***
 
-### transactions
+### requests?
 
-> **transactions**?: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
+> `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:133
+[types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
 
 ***
 
-### uncleHeaders
+### transactions?
 
-> **uncleHeaders**?: `HeaderData`[]
+> `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:134
+[types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
 
 ***
 
-### withdrawals
+### uncleHeaders?
 
-> **withdrawals**?: `WithdrawalData`[]
+> `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/types.d.ts:135
+[types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
 
 ***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+
+### withdrawals?
+
+> `optional` **withdrawals**: `WithdrawalData`[]
+
+#### Source
+
+[types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)

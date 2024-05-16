@@ -1,10 +1,10 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > SAddress
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / SAddress
 
-# Type alias: SAddress`<>`
+# Type alias: SAddress
 
 > **SAddress**\<\>: [`SAddressSchema`](SAddressSchema.md)
 
@@ -14,12 +14,6 @@ Effect/schema for Address type.
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-
 ## Source
 
 [experimental/schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L31)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

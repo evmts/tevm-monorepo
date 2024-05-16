@@ -1,5 +1,9 @@
 ignores: [
   "@tevm/actions-types",
+  "@tevm/blockchain",
+  "@tevm/procedures-types",
+  "@tevm/receipt-manager",
+  "@tevm/block",
   "@tevm/errors"
 ]
 skip-missing: true

@@ -1,16 +1,17 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > ethActions
+[tevm](../../modules.md) / [decorators](../README.md) / ethActions
 
 # Function: ethActions()
 
 > **ethActions**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`EthActionsApi`](../../index/type-aliases/EthActionsApi.md)\>
 
+## Returns
+
+[`Extension`](../../index/type-aliases/Extension.md)\<[`EthActionsApi`](../../index/type-aliases/EthActionsApi.md)\>
+
 ## Source
 
-packages/decorators/dist/index.d.ts:92
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/decorators/dist/index.d.ts:90

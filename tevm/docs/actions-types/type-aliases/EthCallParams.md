@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthCallParams
+[tevm](../../modules.md) / [actions-types](../README.md) / EthCallParams
 
 # Type alias: EthCallParams
 
@@ -12,64 +12,61 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 ## Type declaration
 
-### blockOverride
+### blockOverride?
 
-> **blockOverride**?: `BlockOverrideSet`
+> `optional` **blockOverride**: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 The block override set to provide different block values while executing the call
 
-### blockTag
+### blockTag?
 
-> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 The block number hash or block tag
 
-### data
+### data?
 
-> **data**?: [`Hex`](Hex.md)
+> `optional` **data**: [`Hex`](Hex.md)
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 Defaults to zero data
 
-### from
+### from?
 
-> **from**?: [`Address`](Address.md)
+> `optional` **from**: [`Address`](Address.md)
 
 The address from which the transaction is sent. Defaults to zero address
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> `optional` **gas**: `bigint`
 
 The integer of gas provided for the transaction execution
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: `bigint`
+> `optional` **gasPrice**: `bigint`
 
 The integer of gasPrice used for each paid gas
 
-### stateOverrideSet
+### stateOverrideSet?
 
-> **stateOverrideSet**?: `StateOverrideSet`
+> `optional` **stateOverrideSet**: [`StateOverrideSet`](StateOverrideSet.md)
 
 The state override set to provide different state values while executing the call
 
-### to
+### to?
 
-> **to**?: [`Address`](Address.md)
+> `optional` **to**: [`Address`](Address.md)
 
 The address to which the transaction is addressed. Defaults to zero address
 
-### value
+### value?
 
-> **value**?: `bigint`
+> `optional` **value**: `bigint`
 
 The integer of value sent with this transaction
 
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

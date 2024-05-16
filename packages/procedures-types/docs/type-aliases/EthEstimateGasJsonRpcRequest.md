@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthEstimateGasJsonRpcRequest
+[@tevm/procedures-types](../globals.md) / EthEstimateGasJsonRpcRequest
 
 # Type alias: EthEstimateGasJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_estimateGas` procedure
 ## Source
 
 [requests/EthJsonRpcRequest.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L73)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

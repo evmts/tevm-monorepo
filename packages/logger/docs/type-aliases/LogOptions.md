@@ -1,8 +1,8 @@
-**@tevm/logger** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/logger**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > LogOptions
+[@tevm/logger](../globals.md) / LogOptions
 
 # Type alias: LogOptions
 
@@ -28,6 +28,3 @@ The name of the logger. Adds a name field to every JSON line logged.
 ## Source
 
 [LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

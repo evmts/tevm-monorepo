@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > parseINT256Safe
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / parseINT256Safe
 
 # Function: parseINT256Safe()
 
@@ -12,19 +12,18 @@ Safely parses an INT256 into an [Effect](https://www.effect.website/docs/essenti
 
 ## Type parameters
 
-▪ **TINT256**
+• **TINT256**
 
 extends bigint
 
 ## Parameters
 
-▪ **int256**: `TINT256`
+• **int256**: `TINT256`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT256`\>
 
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/parseINTSafe.js:139](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINTSafe.js#L139)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

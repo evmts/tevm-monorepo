@@ -11,3 +11,5 @@ export type {
 export type * from './EthHandler.js'
 export type { DumpStateHandler } from './DumpStateHandler.js'
 export type { LoadStateHandler } from './LoadStateHandler.js'
+export type { MineHandler } from './MineHandler.js'
+export type { DeployHandler } from './DeployHandler.js'

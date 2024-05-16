@@ -1,22 +1,17 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SetToHex
+[@tevm/procedures-types](../globals.md) / SetToHex
 
-# Type alias: SetToHex`<T>`
+# Type alias: SetToHex\<T\>
 
-> **SetToHex**\<`T`\>: `T` extends `Set`\<`any`\> ? `Hex` : `T`
+> **SetToHex**\<`T`\>: `T` *extends* `Set`\<`any`\> ? `Hex` : `T`
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `T` |
+• **T**
 
 ## Source
 
 [utils/SerializeToJson.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/utils/SerializeToJson.ts#L18)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

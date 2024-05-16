@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > DebugTraceTransactionHandler
+[@tevm/actions-types](../globals.md) / DebugTraceTransactionHandler
 
-# Type alias: DebugTraceTransactionHandler
+# Type alias: DebugTraceTransactionHandler()
 
 > **DebugTraceTransactionHandler**: (`params`) => `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
 
 ## Parameters
 
-▪ **params**: [`DebugTraceTransactionParams`](DebugTraceTransactionParams.md)\<`boolean`\>
+• **params**: [`DebugTraceTransactionParams`](DebugTraceTransactionParams.md)\<`boolean`\>
+
+## Returns
+
+`Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
 
 ## Source
 
 [handlers/DebugHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

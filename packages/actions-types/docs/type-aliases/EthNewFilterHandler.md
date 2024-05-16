@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthNewFilterHandler
+[@tevm/actions-types](../globals.md) / EthNewFilterHandler
 
-# Type alias: EthNewFilterHandler
+# Type alias: EthNewFilterHandler()
 
 > **EthNewFilterHandler**: (`request`) => `Promise`\<[`EthNewFilterResult`](EthNewFilterResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthNewFilterParams`](EthNewFilterParams.md)
+• **request**: [`EthNewFilterParams`](EthNewFilterParams.md)
+
+## Returns
+
+`Promise`\<[`EthNewFilterResult`](EthNewFilterResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L175)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

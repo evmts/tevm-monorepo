@@ -120,7 +120,7 @@ export const useProviderStore = create<ProviderStore>()(
               },
             });
 
-            await client.ready();
+            await client.tevmReady();
 
             // Set its fork time if it's never been initialized
             // This is aligned with the client being completely new, or already used

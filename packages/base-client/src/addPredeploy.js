@@ -8,7 +8,7 @@ import { hexToBytes, keccak256 } from '@tevm/utils'
  * We don't reuse setAccountAction because of circular dependencies
  * All actions depend on this package.
  * @param {object} params
- * @param {import('@tevm/vm').TevmVm} params.vm
+ * @param {import('@tevm/vm').Vm} params.vm
  * @param {bigint} [params.nonce]
  * @param {bigint} [params.balance]
  * @param {import('@tevm/utils').Hex} [params.storageRoot]
@@ -30,6 +30,4 @@ export const addPredeploy = async ({ vm, nonce, balance, storageRoot, deployedBy
 	if (deployedBytecode) {
 		await vm.stateManager.putContractCode(ethjsAddress, hexToBytes(deployedBytecode))
 	}
-	await vm.stateManager.checkpoint()
-	await vm.stateManager.commit()
 }

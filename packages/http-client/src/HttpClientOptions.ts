@@ -1,4 +1,5 @@
 /**
+ * @deprecated
  * Options for a HttpClient
  */
 export type HttpClientOptions = {

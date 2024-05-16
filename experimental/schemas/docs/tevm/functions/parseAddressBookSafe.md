@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [tevm](../README.md) > parseAddressBookSafe
+[@tevm/schemas](../../modules.md) / [tevm](../README.md) / parseAddressBookSafe
 
 # Function: parseAddressBookSafe()
 
@@ -12,13 +12,15 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 ## Type parameters
 
-▪ **TAddressBook** extends [`types`](../../types/README.md)
+• **TAddressBook** *extends* [`types`](../../types/README.md)
 
 ## Parameters
 
-▪ **addressBook**: `TAddressBook`
+• **addressBook**: `TAddressBook`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidAddressBookError`](../classes/InvalidAddressBookError.md), `TAddressBook`\>
 
 ## Example
 
@@ -35,6 +37,3 @@ const parsedAddressBookEffect = parseAddressBookSafe({
 ## Source
 
 [experimental/schemas/src/tevm/SAddressBook.js:90](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L90)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/unplugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/unplugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createUnplugin
+[@tevm/unplugin](../globals.md) / createUnplugin
 
 # Function: createUnplugin()
 
@@ -10,17 +10,18 @@
 
 ## Type parameters
 
-▪ **UserOptions**
+• **UserOptions**
 
-▪ **Nested** extends `boolean` = `boolean`
+• **Nested** *extends* `boolean` = `boolean`
 
 ## Parameters
 
-▪ **factory**: `UnpluginFactory`\<`UserOptions`, `Nested`\>
+• **factory**: `UnpluginFactory`\<`UserOptions`, `Nested`\>
+
+## Returns
+
+`UnpluginInstance`\<`UserOptions`, `Nested`\>
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.10.1/node\_modules/unplugin/dist/index.d.mts:172
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:120

@@ -1,20 +1,21 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthSendRawTransactionJsonRpcProcedure
+[@tevm/procedures-types](../globals.md) / EthSendRawTransactionJsonRpcProcedure
 
-# Type alias: EthSendRawTransactionJsonRpcProcedure
+# Type alias: EthSendRawTransactionJsonRpcProcedure()
 
 > **EthSendRawTransactionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
+• **request**: [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
 
 ## Source
 
 [procedure/EthProcedure.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/EthProcedure.ts#L181)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

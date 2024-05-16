@@ -9,27 +9,27 @@ describe('OptimismPortal2', () => {
 	})
 
 	it('should initialize contract correctly', async () => {
-		expect(await client.contract(client.op.OptimismPortal2.read.disputeGameFactory())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.disputeGameFactory())).toMatchObject({
 			data: client.op.DisputeGameFactory.address,
 		})
-		expect(await client.contract(client.op.OptimismPortal2.read.systemConfig())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.systemConfig())).toMatchObject({
 			data: client.op.SystemConfig.address,
 		})
-		expect(await client.contract(client.op.OptimismPortal2.read.superchainConfig())).toMatchObject({
+		expect(await client.tevmContract(client.op.OptimismPortal2.read.superchainConfig())).toMatchObject({
 			data: client.op.SuperchainConfig.address,
 		})
 	})
 
 	it('can light eth on fire', async () => {
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				createTransaction: true,
 				skipBalance: true, // skipBalance automatically mints the value eth
 				value: 420n,
 				...client.op.OptimismPortal2.write.donateETH(),
 			}),
 		).toEqual({
-			txHash: '0x130ed94bbd3e1cadb97744c7443ffb540dde697748afa2d0d9c1cab9f8696ec5',
+			txHash: '0x4cd05cfb83cbce6976adb8069883f5cca780110e2a37e230ca1d91de89440dea',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 164n,
@@ -48,18 +48,18 @@ describe('OptimismPortal2', () => {
 		const data = '0x0'
 
 		expect(
-			await client.contract({
+			await client.tevmContract({
 				createTransaction: true,
 				skipBalance: true, // skipBalance automatically mints the value eth
 				value,
 				...client.op.OptimismPortal2.write.depositTransaction(to, value, gasLimit, isCreation, data),
 			}),
 		).toEqual({
-			txHash: '0x0b5e9db89c75c1567b8a17faed5a2e96dee7d77a84c6c779dbc6f3aa3a035d57',
+			executionGasUsed: 51245n,
+			gas: 16725970n,
+			txHash: '0x03c3633c57cc1a96c15ca09083b56f1753bf9a0e82b571c58c0739ed7cec6c02',
 			createdAddresses: new Set(),
 			data: undefined,
-			executionGasUsed: 51280n,
-			gas: 16725935n,
 			logs: [
 				{
 					address: '0xbEb5Fc579115071764c7423A4f12eDde41f106Ed',

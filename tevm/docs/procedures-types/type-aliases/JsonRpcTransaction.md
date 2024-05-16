@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > JsonRpcTransaction
+[tevm](../../modules.md) / [procedures-types](../README.md) / JsonRpcTransaction
 
 # Type alias: JsonRpcTransaction
 
@@ -12,9 +12,9 @@ the transaction call object for methods like `eth_call`
 
 ## Type declaration
 
-### data
+### data?
 
-> **data**?: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **data**: [`Hex`](../../index/type-aliases/Hex.md)
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 
@@ -24,33 +24,30 @@ The hash of the method signature and encoded parameters. For more information, s
 
 The address from which the transaction is sent
 
-### gas
+### gas?
 
-> **gas**?: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **gas**: [`Hex`](../../index/type-aliases/Hex.md)
 
 The integer of gas provided for the transaction execution
 
-### gasPrice
+### gasPrice?
 
-> **gasPrice**?: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **gasPrice**: [`Hex`](../../index/type-aliases/Hex.md)
 
 The integer of gasPrice used for each paid gas encoded as hexadecimal
 
-### to
+### to?
 
-> **to**?: [`Address`](../../index/type-aliases/Address.md)
+> `optional` **to**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to which the transaction is addressed
 
-### value
+### value?
 
-> **value**?: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **value**: [`Hex`](../../index/type-aliases/Hex.md)
 
 The integer of value sent with this transaction encoded as hexadecimal
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:133
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

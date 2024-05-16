@@ -7,9 +7,11 @@ export type {
 	Hex,
 	ContractFunctionName,
 	EncodeFunctionDataParameters,
+	EncodeDeployDataParameters,
 	DecodeFunctionResultReturnType,
 	Account,
 	HDAccount,
+	ContractConstructorArgs,
 } from 'viem'
 export type {
 	Address,

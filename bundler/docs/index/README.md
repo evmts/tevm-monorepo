@@ -1,10 +1,10 @@
-**@tevm/bundler** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/bundler**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > index
+[@tevm/bundler](../modules.md) / index
 
-# Module: index
+# index
 
 ## Index
 
@@ -21,6 +21,3 @@
 ### Functions
 
 - [bundler](functions/bundler.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > parseBytes1Safe
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / parseBytes1Safe
 
 # Function: parseBytes1Safe()
 
@@ -12,19 +12,18 @@ Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentia
 
 ## Type parameters
 
-▪ **TBytes1**
+• **TBytes1**
 
 extends string
 
 ## Parameters
 
-▪ **bytes1**: `TBytes1`
+• **bytes1**: `TBytes1`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes1`\>
 
 ## Source
 
 [experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:52](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L52)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

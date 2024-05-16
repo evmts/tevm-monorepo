@@ -1,0 +1,5 @@
+ignores: [
+  "@types/node",
+  "@tevm/contract"
+]
+skip-missing: true

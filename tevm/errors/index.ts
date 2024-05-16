@@ -4,6 +4,8 @@ export {
   UnsupportedMethodError,
   UnexpectedInternalServerError,
   UnknownMethodError,
+  InvalidCreateParams,
+  type MineError,
   type DecodeFunctionDataError,
   type EncodeFunctionReturnDataError,
   type InvalidAbiError,

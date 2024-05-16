@@ -1,10 +1,12 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ViemTevmExtension
+[@tevm/viem](../globals.md) / ViemTevmExtension
 
-# Type alias: ViemTevmExtension
+# Type alias: ~~ViemTevmExtension()~~
+
+`Experimental`
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
@@ -71,9 +73,10 @@ for (const result of client.tevm.writeContractOptimistic({
 	}
 }
 
+## Returns
+
+[`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
+
 ## Source
 
-[ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)

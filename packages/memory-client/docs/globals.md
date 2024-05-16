@@ -1,4 +1,4 @@
-**@tevm/memory-client** • [Readme](README.md) \| API
+[**@tevm/memory-client**](README.md) • **Docs**
 
 ***
 
@@ -7,6 +7,7 @@
 ## Type Aliases
 
 - [MemoryClient](type-aliases/MemoryClient.md)
+- [TevmActions](type-aliases/TevmActions.md)
 
 ## Functions
 

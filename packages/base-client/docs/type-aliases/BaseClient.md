@@ -1,10 +1,10 @@
-**@tevm/base-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BaseClient
+[@tevm/base-client](../globals.md) / BaseClient
 
-# Type alias: BaseClient`<TMode, TExtended>`
+# Type alias: BaseClient\<TMode, TExtended\>
 
 > **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
 
@@ -12,24 +12,28 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
 
-### extend
+### extend()
 
-> **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
 #### Type parameters
 
-▪ **TExtension** extends `Record`\<`string`, `any`\>
+• **TExtension** *extends* `Record`\<`string`, `any`\>
 
 #### Parameters
 
-▪ **decorator**: (`client`) => `TExtension`
+• **decorator**
 
-### forkUrl
+#### Returns
 
-> **`readonly`** **forkUrl**?: `string`
+[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>
+
+### forkUrl?
+
+> `optional` `readonly` **forkUrl**: `string`
 
 Fork url if the EVM is forked
 
@@ -40,55 +44,47 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-### getChain
+### getReceiptsManager()
 
-> **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
-
-Represents the entire blockchain including it's logs and historical state
-
-### getChainId
-
-> **`readonly`** **getChainId**: () => `Promise`\<`number`\>
-
-Gets the chainId of the current EVM
-
-#### Example
-
-```ts
-const client = createMemoryClient()
-const chainId = await client.getChainId()
-console.log(chainId)
-```
-
-### getReceiptsManager
-
-> **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
 
 Interface for querying receipts and historical state
 
-### getTxPool
+#### Returns
 
-> **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
+`Promise`\<`ReceiptsManager`\>
+
+### getTxPool()
+
+> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
 
 Gets the pool of pending transactions to be included in next block
 
-### getVm
+#### Returns
 
-> **`readonly`** **getVm**: () => `Promise`\<`TevmVm`\>
+`Promise`\<`TxPool`\>
+
+### getVm()
+
+> `readonly` **getVm**: () => `Promise`\<`Vm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+#### Returns
+
+`Promise`\<`Vm`\>
+
 ### logger
 
-> **`readonly`** **logger**: `Logger`
+> `readonly` **logger**: `Logger`
 
 The logger instance
 
 ### miningConfig
 
-> **`readonly`** **miningConfig**: [`MiningConfig`](MiningConfig.md)
+> `readonly` **miningConfig**: [`MiningConfig`](MiningConfig.md)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -97,11 +93,10 @@ The configuration for mining. Defaults to 'auto'
 
 ### mode
 
-> **`readonly`** **mode**: `TMode`
+> `readonly` **mode**: `TMode`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
-`proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
 #### Example
@@ -113,9 +108,9 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-### ready
+### ready()
 
-> **`readonly`** **ready**: () => `Promise`\<`true`\>
+> `readonly` **ready**: () => `Promise`\<`true`\>
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -128,26 +123,16 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-### setChainId
+#### Returns
 
-> **`readonly`** **setChainId**: (`chainId`) => `void`
-
-Sets the chain id of the current EVM
-
-#### Parameters
-
-▪ **chainId**: `number`
+`Promise`\<`true`\>
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TMode` extends `"fork"` \| `"proxy"` \| `"normal"` | `"fork"` \| `"proxy"` \| `"normal"` |
-| `TExtended` | `object` |
+• **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
+
+• **TExtended** = `object`
 
 ## Source
 
 [BaseClient.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

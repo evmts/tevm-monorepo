@@ -1,16 +1,20 @@
-import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
-import { Common } from '@tevm/common'
-import {} from '@tevm/errors'
+import { createChain } from '@tevm/blockchain'
+import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
-import { createTevmStateManager } from '@tevm/state'
+import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
+import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
+import { KECCAK256_RLP, bytesToHex, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
-import { MemoryLevel } from 'memory-level'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
-import { addPredeploy } from './addPredeploy.js'
+import { GENESIS_STATE } from './GENESIS_STATE.js'
+import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
+import { statePersister } from './statePersister.js'
+
+// TODO the common code is not very good and should be moved to common package
+// it has rotted from a previous implementation where the chainId was not used by vm
 
 /**
  * Creates the base instance of a memory client
@@ -21,89 +25,35 @@ import { getChainId } from './getChainId.js'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
-	/**
-	 * @type {number|undefined}
-	 */
-	let overrideChainId = undefined
-	/**
-	 * @param {number} id
-	 */
-	const setChainId = (id) => {
-		overrideChainId = id
-	}
-	// First do everything that is not async
-	// Eagerly do async integration
-	// Return proxies that will block on initialization if not yet initialized
-	if (options.fork?.url && options.proxy?.url) {
-		throw new Error('Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!')
-	}
-	const common = Common.custom(
-		{
-			name: 'TevmCustom',
-			chainId: 10,
-			networkId: 10,
-		},
-		{
-			hardfork: options.hardfork ?? 'cancun',
-			baseChain: 1,
-			eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
-		},
-	)
-	/**
-	 * @returns {import('@tevm/state').TevmStateManagerOptions }
-	 */
-	const getStateManagerOpts = () => {
-		/**
-		 * @type {import('@tevm/state').ForkStateManagerOpts['onCommit']}
-		 */
-		const onCommit = (stateManager) => {
-			if (!options.persister) {
-				throw new Error('No persister provided')
-			}
-			stateManager.dumpCanonicalGenesis().then((state) => {
-				/**
-				 * @type {import('@tevm/state').ParameterizedTevmState}
-				 */
-				const parsedState = {}
+	const loggingLevel = options.loggingLevel ?? 'warn'
+	const logger = createLogger({
+		name: 'TevmClient',
+		level: loggingLevel,
+	})
 
-				for (const [k, v] of Object.entries(state)) {
-					const { nonce, balance, storageRoot, codeHash } = v
-					parsedState[k] = {
-						...v,
-						nonce: toHex(nonce),
-						balance: toHex(balance),
-						storageRoot: storageRoot,
-						codeHash: codeHash,
-					}
-				}
-				options.persister?.persistTevmState(parsedState)
-			})
-		}
+	/**
+	 * @returns {Promise<import('@tevm/state').StateOptions>}
+	 */
+	const getStateManagerOpts = async () => {
 		if (options.fork?.url) {
+			// if the user passed in latest we must use an explicit block tag
+			const blockTag = await blockTagPromise
 			return {
+				loggingLevel,
 				fork: {
 					...options.fork,
-					...(options.persister ? { onCommit } : {}),
-				},
-			}
-		}
-		if (options.proxy?.url) {
-			return {
-				proxy: {
-					...options.proxy,
-					...(options.persister ? { onCommit: /** @type any*/ (onCommit) } : {}),
+					blockTag,
+					...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				},
 			}
 		}
 		// handle normal mode
-		if (options.persister) {
-			return {
-				normal: { onCommit: /** @type any*/ (onCommit) },
-			}
+		return {
+			loggingLevel,
+			...(options.fork?.url ? options.fork : {}),
+			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
-		return {}
 	}
-	const stateManager = createTevmStateManager(getStateManagerOpts())
 
 	/**
 	 * Create the extend function in a generic way
@@ -115,33 +65,84 @@ export const createBaseClient = (options = {}) => {
 		return /** @type {any}*/ (client)
 	}
 
-	const initChainId = async () => {
+	const chainIdPromise = (async () => {
 		if (options.chainId) {
 			return options.chainId
 		}
-		const url = options.fork?.url ?? options.proxy?.url
+		const url = options.fork?.url
 		if (url) {
 			const id = await getChainId(url)
 			return id
 		}
 		return DEFAULT_CHAIN_ID
-	}
-	const initVm = async () => {
-		// Handle initializing the state from the persisted state
-		/**
-		 * @type {Promise<any>}
-		 */
-		let statePromise = Promise.resolve()
-		if (options.persister) {
-			const restoredState = options.persister.restoreState()
+	})().then((chainId) => {
+		logger.debug({ chainId }, 'Creating client with chainId')
+		return BigInt(chainId)
+	})
+
+	const blockTagPromise = (async () => {
+		if (options.fork === undefined) {
+			// this is ultimately unused
+			return 0n
+		}
+		// TODO handle other moving block tags like `safe`
+		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
+		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
+			const latestBlockNumber = await getBlockNumber(options.fork.url)
+			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
+			return latestBlockNumber
+		}
+		return options.fork.blockTag
+	})()
+
+	const commonPromise = chainIdPromise.then((chainId) => {
+		// TODO we will eventually want to be setting common hardfork based on chain id and block number
+		// ethereumjs does this for mainnet but we forgo all this functionality
+		return createCommon({
+			chainId,
+			hardfork: 'cancun',
+			loggingLevel,
+			eips: options.eips ?? [],
+		})
+	})
+
+	const blockchainPromise = Promise.all([commonPromise, blockTagPromise]).then(([common, blockTag]) => {
+		return createChain({
+			loggingLevel,
+			common,
+			...(options.fork?.url !== undefined
+				? {
+						fork: {
+							url: options.fork.url,
+							blockTag,
+						},
+					}
+				: {}),
+		})
+	})
+
+	const stateManagerPromise = blockchainPromise
+		.then(async (blockchain) => {
+			// wait for blockchain to initialize so we have the correct state root
+			await blockchain.ready()
+			return blockchain
+		})
+		.then((chain) => chain.getCanonicalHeadBlock())
+		.then(async (headBlock) => {
+			const stateRootHex = bytesToHex(headBlock.header.stateRoot)
+			const restoredState = options.persister?.restoreState()
 			if (restoredState) {
+				logger.debug(restoredState, 'Restoring persisted state...')
+				logger.warn(
+					'State persistence is an experimental feature. It currently does not persist the blockchain state only the EVM state.',
+				)
 				/**
 				 * @type {import('@tevm/state').TevmState}
 				 */
 				const parsedState = {}
 				for (const [k, v] of Object.entries(restoredState)) {
 					const { nonce, balance, storageRoot, codeHash } = v
-					parsedState[k] = {
+					parsedState[/** @type {import('@tevm/utils').Address}*/ (k)] = {
 						...v,
 						nonce: hexToBigInt(nonce),
 						balance: hexToBigInt(balance),
@@ -149,78 +150,79 @@ export const createBaseClient = (options = {}) => {
 						codeHash: codeHash,
 					}
 				}
-				statePromise = stateManager.generateCanonicalGenesis(parsedState)
+				// We might want to double check we aren't forking and overwriting this somehow
+				// TODO we should be storing blockchain state too
+				return createStateManager({
+					genesisState: parsedState,
+					currentStateRoot: bytesToHex(headBlock.header.stateRoot),
+					stateRoots: new Map([[stateRootHex, parsedState]]),
+					...(await getStateManagerOpts()),
+				})
 			}
-		}
-
-		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (stateManager).blockTag || {
-				blockTag: 'latest',
+			const genesisState = {
+				...GENESIS_STATE,
+				// add predeploys to genesis state
+				...Object.fromEntries(
+					(options.customPredeploys ?? []).map((predeploy) => [
+						predeploy.address,
+						{
+							nonce: 0n,
+							deployedBytecode: predeploy.contract.deployedBytecode,
+							// TODO this is definitely wrong but should work
+							storageRoot: bytesToHex(KECCAK256_RLP),
+							codeHash: keccak256(predeploy.contract.deployedBytecode),
+						},
+					]),
+				),
 			}
-			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
-				return numberToHex(blockTag.blockNumber)
-			}
-			if ('blockTag' in blockTag && blockTag.blockTag !== undefined) {
-				return blockTag.blockTag
-			}
-			return 'latest'
-		})()
-		// TODO replace with chain
-		const blockchain = await createBlockchain({
-			common,
-			...(options.fork?.url !== undefined ? { forkUrl: options.fork.url } : {}),
-			...(blockTag !== undefined ? { blockTag } : {}),
-		})
-		const evm = await createEvm({
-			common,
-			stateManager,
-			blockchain,
-			allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-			customPrecompiles: options.customPrecompiles ?? [],
-			profiler: options.profiler ?? false,
-		})
-		const vm = await createVm({
-			stateManager,
-			evm,
-			blockchain,
-			common,
+			return createStateManager({
+				...(await getStateManagerOpts()),
+				currentStateRoot: stateRootHex,
+				stateRoots: new Map([[bytesToHex(headBlock.header.stateRoot), genesisState]]),
+				genesisState,
+			})
 		})
 
-		/**
-		 * Add custom predeploys
-		 */
-		if (options.customPredeploys) {
-			await Promise.all(
-				options.customPredeploys.map((predeploy) => {
-					addPredeploy({
-						vm,
-						address: predeploy.address,
-						deployedBytecode: predeploy.contract.deployedBytecode,
-					})
-				}),
-			)
-		}
+	const evmPromise = Promise.all([commonPromise, stateManagerPromise, blockchainPromise]).then(
+		([common, stateManager, blockchain]) => {
+			return createEvm({
+				common,
+				stateManager,
+				blockchain,
+				allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
+				customPrecompiles: options.customPrecompiles ?? [],
+				profiler: options.profiler ?? false,
+				loggingLevel,
+			})
+		},
+	)
 
-		await statePromise
-
+	const vmPromise = evmPromise.then((evm) => {
+		const vm = createVm({
+			stateManager: evm.stateManager,
+			evm: evm,
+			// TODO this inherited type is wrong thus we need to cast this
+			blockchain: /** @type {import('@tevm/blockchain').Chain} */ (evm.blockchain),
+			common: evm.common,
+		})
 		return vm
-	}
+	})
 
-	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
-	const chainIdPromise = initChainId()
-	const chainPromise = vmPromise.then((vm) => {
-		return Chain.create({
-			common: vm.common,
-		})
+	const receiptManagerPromise = vmPromise.then((vm) => {
+		logger.debug('initializing receipts manager...')
+		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
-	const receiptManagerPromise = chainPromise.then((chain) => {
-		return new ReceiptsManager({
-			common: chain.common,
-			chain,
-			metaDB: /** @type any*/ (new MemoryLevel()),
-		})
-	})
+
+	/**
+	 * @returns {Promise<true>}
+	 */
+	const ready = async () => {
+		await blockchainPromise.then((b) => b.ready())
+		await stateManagerPromise.then((b) => b.ready())
+		await vmPromise.then((vm) => vm.ready())
+		return true
+	}
 
 	/**
 	 * Create and return the baseClient
@@ -229,50 +231,24 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		logger: createLogger({
-			name: 'TevmClient',
-			level: options.loggingLevel ?? 'warn',
-		}),
-		getChain: () => {
-			return chainPromise
-		},
-		getReceiptsManager: () => {
+		logger,
+		getReceiptsManager: async () => {
+			await ready()
 			return receiptManagerPromise
 		},
-		getTxPool: () => {
+		getTxPool: async () => {
+			await ready()
 			return txPoolPromise
 		},
-		getChainId: () => {
-			if (overrideChainId) {
-				return Promise.resolve(overrideChainId)
-			}
-			return chainIdPromise
+		getVm: async () => {
+			await ready()
+			return vmPromise
 		},
-		setChainId,
-		getVm: () => vmPromise,
 		miningConfig: options.miningConfig ?? { type: 'auto' },
-		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
-		...(options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }),
-		...(options.proxy?.url ? { proxyUrl: options.proxy.url } : { proxyUrl: options.proxy?.url }),
+		mode: options.fork?.url ? 'fork' : 'normal',
+		...(options.fork?.url ? { forkUrl: options.fork.url } : {}),
 		extend: (extension) => extend(baseClient)(extension),
-		ready: async () => {
-			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])
-			const errors = []
-			if (chainId.status === 'rejected') {
-				errors.push(chainId.reason)
-			}
-			if (vm.status === 'rejected') {
-				errors.push(vm.reason)
-			}
-			if (errors.length > 1) {
-				throw new AggregateError(errors)
-			}
-			if (errors.length === 1) {
-				throw errors[0]
-			}
-			return true
-		},
+		ready,
 	}
-
 	return baseClient
 }

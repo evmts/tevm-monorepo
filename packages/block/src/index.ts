@@ -1,6 +1,7 @@
-export {
-	Block,
-	BlockHeader,
-	type BlockData,
-	valuesArrayToHeaderData,
-} from '@ethereumjs/block'
+export { Block } from './block.js'
+export { type BeaconPayloadJson, executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
+export { BlockHeader } from './header.js'
+export { getDifficulty, valuesArrayToHeaderData } from './helpers.js'
+export { blockFromRpc } from './from-rpc.js'
+export { ClRequest } from './ClRequest.js'
+export * from './types.js'

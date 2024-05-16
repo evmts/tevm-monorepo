@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthGetTransactionByBlockHashAndIndexHandler
+[@tevm/actions-types](../globals.md) / EthGetTransactionByBlockHashAndIndexHandler
 
-# Type alias: EthGetTransactionByBlockHashAndIndexHandler
+# Type alias: EthGetTransactionByBlockHashAndIndexHandler()
 
 > **EthGetTransactionByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md)
+• **request**: [`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L139)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

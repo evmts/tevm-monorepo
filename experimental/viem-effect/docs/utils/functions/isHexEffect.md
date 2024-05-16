@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > isHexEffect
+[@tevm/viem-effect](../../modules.md) / [utils](../README.md) / isHexEffect
 
 # Function: isHexEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`unknown`, `Object?`]
+• **TParams** *extends* [`unknown`, `Object?`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `IsHexErrorType`, `boolean`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/data/isHexEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/isHexEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

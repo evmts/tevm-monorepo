@@ -9,14 +9,14 @@ test('Call precompile from TypeScript', async () => {
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
-	const result = await client.contract(fsPrecompile.contract.write.writeFile('test1.txt', 'hello world'))
+	const result = await client.tevmContract(fsPrecompile.contract.write.writeFile('test1.txt', 'hello world'))
 
 	expect(result.errors).toBeUndefined()
 
 	expect(existsSync('test1.txt')).toBe(true)
 	expect(
 		(
-			await client.contract({
+			await client.tevmContract({
 				...fsPrecompile.contract.read.readFile('test1.txt'),
 			})
 		).data,
@@ -30,13 +30,17 @@ test('Call precompile from solidity script', async () => {
 
 	const client = createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
+		loggingLevel: 'trace',
 	})
 
-	const result = await client.script(WriteHelloWorld.write.write(fsPrecompile.contract.address))
-
-	expect(result.errors).toBeUndefined()
+	const result = await client.tevmScript({
+		...WriteHelloWorld.write.write(fsPrecompile.contract.address),
+		throwOnFail: false,
+	})
 
 	expect(existsSync('test.txt')).toBe(true)
 
 	rmSync('test.txt')
+
+	expect(result.errors).toBeUndefined()
 })

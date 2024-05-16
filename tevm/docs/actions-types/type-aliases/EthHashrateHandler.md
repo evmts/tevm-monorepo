@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthHashrateHandler
+[tevm](../../modules.md) / [actions-types](../README.md) / EthHashrateHandler
 
-# Type alias: EthHashrateHandler
+# Type alias: EthHashrateHandler()
 
 > **EthHashrateHandler**: (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
 ## Parameters
 
-▪ **request?**: [`EthHashrateParams`](EthHashrateParams.md)
+• **request?**: [`EthHashrateParams`](EthHashrateParams.md)
+
+## Returns
+
+`Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/EthHandler.d.ts:9
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

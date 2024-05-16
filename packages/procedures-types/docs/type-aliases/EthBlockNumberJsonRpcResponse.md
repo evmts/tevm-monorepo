@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthBlockNumberJsonRpcResponse
+[@tevm/procedures-types](../globals.md) / EthBlockNumberJsonRpcResponse
 
 # Type alias: EthBlockNumberJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `eth_blockNumber` procedure
 ## Source
 
 [responses/EthJsonRpcResponse.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

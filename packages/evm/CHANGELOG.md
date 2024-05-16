@@ -1,5 +1,60 @@
 # @tevm/state
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/blockchain@1.1.0-next.52
+  - @tevm/common@1.1.0-next.52
+  - @tevm/logger@1.1.0-next.52
+  - @tevm/predeploys@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`71e5c1e`](https://github.com/evmts/tevm-monorepo/commit/71e5c1ead386f43a3bfbdd53acffcb5b49ad3433)]:
+  - @tevm/blockchain@1.1.0-next.50
+
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/blockchain@1.1.0-next.47
+  - @tevm/common@1.1.0-next.47
+  - @tevm/logger@1.1.0-next.47
+  - @tevm/predeploys@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+
+## 1.1.0-next.46
+
+### Patch Changes
+
+- Updated dependencies [[`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/common@1.1.0-next.46
+  - @tevm/blockchain@1.1.0-next.46
+
+## 1.1.0-next.45
+
+### Patch Changes
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all of tevm to latest version of Ethereumjs. This update adds support for 4844, fixes major bugs in tevm regarding browser compatibility, and an issue that was causing tevm to crash in Next.js app router.
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/blockchain@1.1.0-next.45
+  - @tevm/predeploys@1.1.0-next.45
+  - @tevm/common@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

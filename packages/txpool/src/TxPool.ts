@@ -7,11 +7,16 @@ import {
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
-import type { TevmVm } from '@tevm/vm'
+import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
+import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
+import {
+	type FeeMarketEIP1559Transaction,
+	type ImpersonatedTx,
+	type LegacyTransaction,
+	type TypedTransaction,
+} from '@tevm/tx'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
@@ -23,11 +28,11 @@ const MAX_POOL_SIZE = 5000
 const MAX_TXS_PER_ACCOUNT = 100
 
 export interface TxPoolOptions {
-	vm: TevmVm
+	vm: Vm
 }
 
 type TxPoolObject = {
-	tx: TypedTransaction
+	tx: TypedTransaction | ImpersonatedTx
 	hash: UnprefixedHash
 	added: number
 	error?: Error
@@ -57,7 +62,7 @@ type GasPrice = {
  * @memberof module:service
  */
 export class TxPool {
-	private vm: TevmVm
+	private vm: Vm
 
 	private opened: boolean
 
@@ -117,7 +122,7 @@ export class TxPool {
 		this.handled = new Map<UnprefixedHash, HandledObject>()
 
 		this.opened = false
-		this.running = false
+		this.running = true
 	}
 
 	/**
@@ -145,7 +150,7 @@ export class TxPool {
 		return true
 	}
 
-	private validateTxGasBump(existingTx: TypedTransaction, addedTx: TypedTransaction) {
+	private validateTxGasBump(existingTx: TypedTransaction | ImpersonatedTx, addedTx: TypedTransaction | ImpersonatedTx) {
 		const existingTxGasPrice = this.txGasPrice(existingTx)
 		const newGasPrice = this.txGasPrice(addedTx)
 		const minTipCap =
@@ -173,7 +178,7 @@ export class TxPool {
 	 * @param tx The tx to validate
 	 */
 	private async validate(
-		tx: TypedTransaction,
+		tx: TypedTransaction | ImpersonatedTx,
 		isLocalTransaction = false,
 		requireSignature = true,
 		skipBalance = false,
@@ -217,22 +222,22 @@ export class TxPool {
 			}
 		}
 		// TODO
-		const block = await this.vm.blockchain.getCanonicalHeadHeader()
-		if (typeof block.baseFeePerGas === 'bigint' && block.baseFeePerGas !== 0n) {
-			if (currentGasPrice.maxFee < block.baseFeePerGas / 2n && !isLocalTransaction) {
+		const block = await this.vm.blockchain.getCanonicalHeadBlock()
+		if (typeof block.header.baseFeePerGas === 'bigint' && block.header.baseFeePerGas !== 0n) {
+			if (currentGasPrice.maxFee < block.header.baseFeePerGas / 2n && !isLocalTransaction) {
 				throw new Error(
-					`Tx cannot pay basefee of ${block.baseFeePerGas}, have ${currentGasPrice.maxFee} (not within 50% range of current basefee)`,
+					`Tx cannot pay basefee of ${block.header.baseFeePerGas}, have ${currentGasPrice.maxFee} (not within 50% range of current basefee)`,
 				)
 			}
 		}
-		if (tx.gasLimit > block.gasLimit) {
+		if (tx.gasLimit > block.header.gasLimit) {
 			throw new Error(
-				`Tx gaslimit of ${tx.gasLimit} exceeds block gas limit of ${block.gasLimit} (exceeds last block gas limit)`,
+				`Tx gaslimit of ${tx.gasLimit} exceeds block gas limit of ${block.header.gasLimit} (exceeds last block gas limit)`,
 			)
 		}
 
 		// Copy VM in order to not overwrite the state root of the VMExecution module which may be concurrently running blocks
-		const vmCopy = await this.vm.shallowCopy()
+		const vmCopy = await this.vm.deepCopy()
 		// TODO We should set state root to latest block so that account balance is correct when doing balance check
 		// This should be fixed via abstracting chain history wrt state and blockchain in the new `chain` object
 		// await vmCopy.stateManager.setStateRoot(block.stateRoot)
@@ -262,7 +267,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async addUnverified(tx: TypedTransaction) {
+	async addUnverified(tx: TypedTransaction | ImpersonatedTx) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2)
@@ -292,7 +297,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction, requireSignature = true, skipBalance = false) {
+	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false) {
 		await this.validate(tx, true, requireSignature, skipBalance)
 		return this.addUnverified(tx)
 	}
@@ -302,7 +307,7 @@ export class TxPool {
 	 * @param txHashes
 	 * @returns Array with tx objects
 	 */
-	getByHash(txHashes: Uint8Array[]): TypedTransaction[] {
+	getByHash(txHashes: ReadonlyArray<Uint8Array>): Array<TypedTransaction | ImpersonatedTx> {
 		const found = []
 		for (const txHash of txHashes) {
 			const txHashStr = bytesToUnprefixedHex(txHash)
@@ -390,7 +395,7 @@ export class TxPool {
 	 * @param baseFee Provide a baseFee to subtract from the legacy
 	 * gasPrice to determine the leftover priority tip.
 	 */
-	private normalizedGasPrice(tx: TypedTransaction, baseFee?: bigint) {
+	private normalizedGasPrice(tx: TypedTransaction | ImpersonatedTx, baseFee?: bigint) {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
 		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
@@ -408,7 +413,13 @@ export class TxPool {
 	 * @param tx Tx to use
 	 * @returns Gas price (both tip and max fee)
 	 */
-	private txGasPrice(tx: TypedTransaction): GasPrice {
+	private txGasPrice(tx: TypedTransaction | ImpersonatedTx): GasPrice {
+		if ('isImpersonated' in tx && tx.isImpersonated) {
+			return {
+				maxFee: tx.maxFeePerGas,
+				tip: tx.maxPriorityFeePerGas,
+			}
+		}
 		if (isLegacyTx(tx)) {
 			return {
 				maxFee: tx.gasPrice,
@@ -432,6 +443,11 @@ export class TxPool {
 		throw new Error(`tx of type ${(tx as TypedTransaction).type} unknown`)
 	}
 
+	async getBySenderAddress(address: EthjsAddress): Promise<Array<TxPoolObject>> {
+		const unprefixedAddress = address.toString().slice(2)
+		return this.pool.get(unprefixedAddress) ?? []
+	}
+
 	/**
 	 * Returns eligible txs to be mined sorted by price in such a way that the
 	 * nonce orderings within a single account are maintained.
@@ -448,25 +464,27 @@ export class TxPool {
 	 *
 	 * @param baseFee Provide a baseFee to exclude txs with a lower gasPrice
 	 */
-	async txsByPriceAndNonce(vm: TevmVm, { baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
-		const txs: TypedTransaction[] = []
+	async txsByPriceAndNonce({ baseFee, allowedBlobs }: { baseFee?: bigint; allowedBlobs?: number } = {}) {
+		const txs: Array<TypedTransaction | ImpersonatedTx> = []
 		// Separate the transactions by account and sort by nonce
-		const byNonce = new Map<string, TypedTransaction[]>()
+		const byNonce = new Map<string, Array<TypedTransaction | ImpersonatedTx>>()
 		const skippedStats = { byNonce: 0, byPrice: 0, byBlobsLimit: 0 }
 		for (const [address, poolObjects] of this.pool) {
 			let txsSortedByNonce = poolObjects.map((obj) => obj.tx).sort((a, b) => Number(a.nonce - b.nonce))
+			// TODO we should be checking this but removing for now works
 			// Check if the account nonce matches the lowest known tx nonce
-			let account = await vm.stateManager.getAccount(new EthjsAddress(hexToBytes(`0x${address}`)))
-			if (account === undefined) {
-				account = new EthjsAccount()
-			}
-			const { nonce } = account
-			if (txsSortedByNonce[0]?.nonce !== nonce) {
-				// Account nonce does not match the lowest known tx nonce,
-				// therefore no txs from this address are currently executable
-				skippedStats.byNonce += txsSortedByNonce.length
-				continue
-			}
+			// let account = await vm.stateManager.getAccount(new EthjsAddress(hexToBytes(`0x${address}`)))
+			// if (account === undefined) {
+			// account = new EthjsAccount()
+			// }
+			// const { nonce } = account
+			// if (txsSortedByNonce[0]?.nonce !== nonce) {
+			// Account nonce does not match the lowest known tx nonce,
+			// therefore no txs from this address are currently executable
+			// skippedStats.byNonce += txsSortedByNonce.length
+			// console.log('skipped', txsSortedByNonce[0]?.nonce, nonce)
+			// continue
+			// }
 			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 				// If any tx has an insufficient gasPrice,
 				// remove all txs after that since they cannot be executed
@@ -482,10 +500,10 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) - this.normalizedGasPrice(a, baseFee) < 0n,
-		}) as QHeap<TypedTransaction>
+		}) as QHeap<TypedTransaction | ImpersonatedTx>
 		for (const [address, txs] of byNonce) {
 			if (!txs[0]) {
-				throw new Error('exected txs[0] to be defined')
+				continue
 			}
 			byPrice.insert(txs[0])
 			byNonce.set(address, txs.slice(1))

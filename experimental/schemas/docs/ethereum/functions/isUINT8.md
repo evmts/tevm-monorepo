@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > isUINT8
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / isUINT8
 
 # Function: isUINT8()
 
@@ -12,9 +12,11 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT8.
 
 ## Parameters
 
-▪ **uint8**: `unknown`
+• **uint8**: `unknown`
 
 ## Returns
+
+`boolean`
 
 ## Example
 
@@ -27,6 +29,3 @@ isUINT8(BigInt(256));  // false
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/isUINT.js:22](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/isUINT.js#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

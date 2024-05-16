@@ -1,8 +1,8 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/opstack**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createL2ToL1MessagePasser
+[@tevm/opstack](../globals.md) / createL2ToL1MessagePasser
 
 # Function: createL2ToL1MessagePasser()
 
@@ -13,9 +13,11 @@ Currently only supports chainId 10
 
 ## Parameters
 
-▪ **chainId**: `10`= `10`
+• **chainId**: `10`= `10`
 
 ## Returns
+
+`Omit`\<`Script`\<`"L2ToL1MessagePasser"`, readonly [`"receive() external payable"`, `"function MESSAGE_VERSION() view returns (uint16)"`, `"function burn()"`, `"function initiateWithdrawal(address _target, uint256 _gasLimit, bytes _data) payable"`, `"function messageNonce() view returns (uint256)"`, `"function sentMessages(bytes32) view returns (bool)"`, `"function version() view returns (string)"`, `"event MessagePassed(uint256 indexed nonce, address indexed sender, address indexed target, uint256 value, uint256 gasLimit, bytes data, bytes32 withdrawalHash)"`, `"event WithdrawerBalanceBurnt(uint256 indexed amount)"`]\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`
 
 ## Example
 
@@ -27,6 +29,3 @@ const L2ToL1MessagePasser = createL2ToL1MessagePasser()
 ## Source
 
 [extensions/opstack/src/contracts/l2/L2ToL1MessagePasser.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l2/L2ToL1MessagePasser.ts#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

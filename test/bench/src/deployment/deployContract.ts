@@ -19,7 +19,7 @@ export const deployContractWithCall: ContractDeployment = async (initialValue) =
 	const client = createMemoryClient()
 
 	// manually call the constructor function
-	const deployResult = await client.call({
+	const deployResult = await client.tevmCall({
 		data: encodeDeployData({
 			abi: SimpleConstructor.abi,
 			bytecode: SimpleConstructor.bytecode,
@@ -33,7 +33,7 @@ export const deployContractWithCall: ContractDeployment = async (initialValue) =
 		throw new Error('Did not create any addresses')
 	}
 	// check that correctly set
-	const { data } = await client.contract({
+	const { data } = await client.tevmContract({
 		abi: SimpleConstructor.abi,
 		functionName: 'get',
 		args: [],

@@ -1,4 +1,4 @@
-**@tevm/txpool** • [Readme](README.md) \| API
+[**@tevm/txpool**](README.md) • **Docs**
 
 ***
 

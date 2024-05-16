@@ -1,28 +1,32 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EIP1559CompatibleTx
+[@tevm/tx](../globals.md) / EIP1559CompatibleTx
 
-# Interface: EIP1559CompatibleTx`<T>`
+# Interface: EIP1559CompatibleTx\<T\>
 
 ## Extends
 
 - `EIP2930CompatibleTx`\<`T`\>
 
+## Extended by
+
+- [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md)
+
 ## Type parameters
 
-▪ **T** extends [`TransactionType`](../enumerations/TransactionType.md) = [`TransactionType`](../enumerations/TransactionType.md)
+• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md) = [`TransactionType`](../enumerations/TransactionType.md)
 
 ## Properties
 
 ### AccessListJSON
 
-> **`readonly`** **AccessListJSON**: `AccessList`
+> `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
 #### Inherited from
 
-EIP2930CompatibleTx.AccessListJSON
+`EIP2930CompatibleTx.AccessListJSON`
 
 #### Source
 
@@ -32,11 +36,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### accessList
 
-> **`readonly`** **accessList**: `AccessListBytes`
+> `readonly` **accessList**: `AccessListBytes`
 
 #### Inherited from
 
-EIP2930CompatibleTx.accessList
+`EIP2930CompatibleTx.accessList`
 
 #### Source
 
@@ -46,11 +50,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### cache
 
-> **`readonly`** **cache**: `TransactionCache`
+> `readonly` **cache**: `TransactionCache`
 
 #### Inherited from
 
-EIP2930CompatibleTx.cache
+`EIP2930CompatibleTx.cache`
 
 #### Source
 
@@ -60,11 +64,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### chainId
 
-> **`readonly`** **chainId**: `bigint`
+> `readonly` **chainId**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.chainId
+`EIP2930CompatibleTx.chainId`
 
 #### Source
 
@@ -74,11 +78,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### common
 
-> **`readonly`** **common**: `Common`
+> `readonly` **common**: `Common`
 
 #### Inherited from
 
-EIP2930CompatibleTx.common
+`EIP2930CompatibleTx.common`
 
 #### Source
 
@@ -88,11 +92,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### data
 
-> **`readonly`** **data**: `Uint8Array`
+> `readonly` **data**: `Uint8Array`
 
 #### Inherited from
 
-EIP2930CompatibleTx.data
+`EIP2930CompatibleTx.data`
 
 #### Source
 
@@ -102,11 +106,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### gasLimit
 
-> **`readonly`** **gasLimit**: `bigint`
+> `readonly` **gasLimit**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.gasLimit
+`EIP2930CompatibleTx.gasLimit`
 
 #### Source
 
@@ -116,7 +120,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### maxFeePerGas
 
-> **`readonly`** **maxFeePerGas**: `bigint`
+> `readonly` **maxFeePerGas**: `bigint`
 
 #### Source
 
@@ -126,7 +130,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### maxPriorityFeePerGas
 
-> **`readonly`** **maxPriorityFeePerGas**: `bigint`
+> `readonly` **maxPriorityFeePerGas**: `bigint`
 
 #### Source
 
@@ -136,11 +140,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### nonce
 
-> **`readonly`** **nonce**: `bigint`
+> `readonly` **nonce**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.nonce
+`EIP2930CompatibleTx.nonce`
 
 #### Source
 
@@ -148,13 +152,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### r
+### r?
 
-> **`readonly`** **r**?: `bigint`
+> `optional` `readonly` **r**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.r
+`EIP2930CompatibleTx.r`
 
 #### Source
 
@@ -162,13 +166,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### s
+### s?
 
-> **`readonly`** **s**?: `bigint`
+> `optional` `readonly` **s**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.s
+`EIP2930CompatibleTx.s`
 
 #### Source
 
@@ -176,13 +180,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### to
+### to?
 
-> **`readonly`** **to**?: `Address`
+> `optional` `readonly` **to**: `Address`
 
 #### Inherited from
 
-EIP2930CompatibleTx.to
+`EIP2930CompatibleTx.to`
 
 #### Source
 
@@ -196,7 +200,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 #### Inherited from
 
-EIP2930CompatibleTx.type
+`EIP2930CompatibleTx.type`
 
 #### Source
 
@@ -204,13 +208,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### v
+### v?
 
-> **`readonly`** **v**?: `bigint`
+> `optional` `readonly` **v**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.v
+`EIP2930CompatibleTx.v`
 
 #### Source
 
@@ -220,11 +224,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### value
 
-> **`readonly`** **value**: `bigint`
+> `readonly` **value**: `bigint`
 
 #### Inherited from
 
-EIP2930CompatibleTx.value
+`EIP2930CompatibleTx.value`
 
 #### Source
 
@@ -236,9 +240,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **errorStr**(): `string`
 
+#### Returns
+
+`string`
+
 #### Inherited from
 
-EIP2930CompatibleTx.errorStr
+`EIP2930CompatibleTx.errorStr`
 
 #### Source
 
@@ -250,9 +258,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getBaseFee**(): `bigint`
 
+#### Returns
+
+`bigint`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getBaseFee
+`EIP2930CompatibleTx.getBaseFee`
 
 #### Source
 
@@ -264,9 +276,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getDataFee**(): `bigint`
 
+#### Returns
+
+`bigint`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getDataFee
+`EIP2930CompatibleTx.getDataFee`
 
 #### Source
 
@@ -278,9 +294,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getHashedMessageToSign**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getHashedMessageToSign
+`EIP2930CompatibleTx.getHashedMessageToSign`
 
 #### Source
 
@@ -292,9 +312,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getMessageToSign**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getMessageToSign
+`EIP2930CompatibleTx.getMessageToSign`
 
 #### Source
 
@@ -306,9 +330,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getMessageToVerifySignature**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getMessageToVerifySignature
+`EIP2930CompatibleTx.getMessageToVerifySignature`
 
 #### Source
 
@@ -320,9 +348,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getSenderAddress**(): `Address`
 
+#### Returns
+
+`Address`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getSenderAddress
+`EIP2930CompatibleTx.getSenderAddress`
 
 #### Source
 
@@ -334,9 +366,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getSenderPublicKey**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getSenderPublicKey
+`EIP2930CompatibleTx.getSenderPublicKey`
 
 #### Source
 
@@ -348,9 +384,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getUpfrontCost**(): `bigint`
 
+#### Returns
+
+`bigint`
+
 #### Inherited from
 
-EIP2930CompatibleTx.getUpfrontCost
+`EIP2930CompatibleTx.getUpfrontCost`
 
 #### Source
 
@@ -362,9 +402,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **getValidationErrors**(): `string`[]
 
+#### Returns
+
+`string`[]
+
 #### Inherited from
 
-EIP2930CompatibleTx.getValidationErrors
+`EIP2930CompatibleTx.getValidationErrors`
 
 #### Source
 
@@ -376,9 +420,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **hash**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.hash
+`EIP2930CompatibleTx.hash`
 
 #### Source
 
@@ -390,9 +438,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **isSigned**(): `boolean`
 
+#### Returns
+
+`boolean`
+
 #### Inherited from
 
-EIP2930CompatibleTx.isSigned
+`EIP2930CompatibleTx.isSigned`
 
 #### Source
 
@@ -404,9 +456,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **isValid**(): `boolean`
 
+#### Returns
+
+`boolean`
+
 #### Inherited from
 
-EIP2930CompatibleTx.isValid
+`EIP2930CompatibleTx.isValid`
 
 #### Source
 
@@ -416,11 +472,15 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### raw()
 
-> **raw**(): `TxValuesArray`[`T`]
+> **raw**(): `TxValuesArray`\[`T`\]
+
+#### Returns
+
+`TxValuesArray`\[`T`\]
 
 #### Inherited from
 
-EIP2930CompatibleTx.raw
+`EIP2930CompatibleTx.raw`
 
 #### Source
 
@@ -432,9 +492,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **serialize**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Inherited from
 
-EIP2930CompatibleTx.serialize
+`EIP2930CompatibleTx.serialize`
 
 #### Source
 
@@ -444,15 +508,19 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### sign()
 
-> **sign**(`privateKey`): `Transaction`[`T`]
+> **sign**(`privateKey`): `Transaction`\[`T`\]
 
 #### Parameters
 
-▪ **privateKey**: `Uint8Array`
+• **privateKey**: `Uint8Array`
+
+#### Returns
+
+`Transaction`\[`T`\]
 
 #### Inherited from
 
-EIP2930CompatibleTx.sign
+`EIP2930CompatibleTx.sign`
 
 #### Source
 
@@ -466,11 +534,15 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 #### Parameters
 
-▪ **capability**: [`Capability`](../enumerations/Capability.md)
+• **capability**: [`Capability`](../enumerations/Capability.md)
+
+#### Returns
+
+`boolean`
 
 #### Inherited from
 
-EIP2930CompatibleTx.supports
+`EIP2930CompatibleTx.supports`
 
 #### Source
 
@@ -482,9 +554,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **toCreationAddress**(): `boolean`
 
+#### Returns
+
+`boolean`
+
 #### Inherited from
 
-EIP2930CompatibleTx.toCreationAddress
+`EIP2930CompatibleTx.toCreationAddress`
 
 #### Source
 
@@ -494,11 +570,15 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### toJSON()
 
-> **toJSON**(): `JsonTx`
+> **toJSON**(): [`JsonTx`](JsonTx.md)
+
+#### Returns
+
+[`JsonTx`](JsonTx.md)
 
 #### Inherited from
 
-EIP2930CompatibleTx.toJSON
+`EIP2930CompatibleTx.toJSON`
 
 #### Source
 
@@ -510,13 +590,14 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **verifySignature**(): `boolean`
 
+#### Returns
+
+`boolean`
+
 #### Inherited from
 
-EIP2930CompatibleTx.verifySignature
+`EIP2930CompatibleTx.verifySignature`
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:123
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

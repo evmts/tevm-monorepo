@@ -1,5 +1,82 @@
 # @tevm/client
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/actions@1.1.0-next.52
+  - @tevm/actions-types@1.1.0-next.52
+  - @tevm/procedures@1.1.0-next.52
+  - @tevm/procedures-types@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4)]:
+  - @tevm/procedures-types@1.1.0-next.50
+  - @tevm/actions@1.1.0-next.50
+  - @tevm/procedures@1.1.0-next.50
+  - @tevm/actions-types@1.1.0-next.47
+
+## 1.1.0-next.49
+
+### Patch Changes
+
+- Updated dependencies [[`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8)]:
+  - @tevm/actions@1.1.0-next.49
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/procedures@1.1.0-next.49
+  - @tevm/procedures-types@1.1.0-next.47
+
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/actions@1.1.0-next.47
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/procedures@1.1.0-next.47
+  - @tevm/procedures-types@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1062](https://github.com/evmts/tevm-monorepo/pull/1062) [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1) Thanks [@roninjin10](https://github.com/roninjin10)! - Added deployHandler to tevm
+
+### Patch Changes
+
+- Updated dependencies [[`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1), [`77fb31d`](https://github.com/evmts/tevm-monorepo/commit/77fb31dd3e4642495860b3bde1c6bc6527f2bb19)]:
+  - @tevm/actions@1.1.0-next.46
+  - @tevm/actions-types@1.1.0-next.46
+  - @tevm/procedures@1.1.0-next.46
+  - @tevm/procedures-types@1.1.0-next.45
+
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1042](https://github.com/evmts/tevm-monorepo/pull/1042) [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new tevm_mine and anvil_mine support for mining blocks. This includes the JSON-RPC support as well as a new tevm.mine() action to the main tevm api
+
+### Patch Changes
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`ca9ea64`](https://github.com/evmts/tevm-monorepo/commit/ca9ea649ce016b6684b713643a2229d67a18cd62), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`5bc2874`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb), [`46311bb`](https://github.com/evmts/tevm-monorepo/commit/46311bbff7f9de5acc2fa48fafad4ea2ddc60948), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/procedures-types@1.1.0-next.45
+  - @tevm/actions-types@1.1.0-next.45
+  - @tevm/procedures@1.1.0-next.45
+  - @tevm/actions@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

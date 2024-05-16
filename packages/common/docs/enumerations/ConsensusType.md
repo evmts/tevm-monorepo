@@ -1,8 +1,8 @@
-**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/common**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ConsensusType
+[@tevm/common](../globals.md) / ConsensusType
 
 # Enumeration: ConsensusType
 
@@ -35,6 +35,3 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:43
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

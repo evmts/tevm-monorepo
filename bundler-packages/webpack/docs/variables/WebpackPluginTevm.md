@@ -1,16 +1,16 @@
-**@tevm/webpack-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/webpack-plugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > WebpackPluginTevm
+[@tevm/webpack-plugin](../globals.md) / WebpackPluginTevm
 
 # Variable: WebpackPluginTevm
 
-> **`const`** **WebpackPluginTevm**: `TevmWebpackPluginConstructor`
+> `const` **WebpackPluginTevm**: `TevmWebpackPluginConstructor`
 
 Webpack plugin for tevm. Enables Solidity imports in JavaScript.
 
-## Example
+## Examples
 
 ```typescript
 import { WebpackPluginTevm } from '@tevm/webpack'
@@ -23,8 +23,6 @@ export default {
 
 For LSP support you must also configure tevm/ts-plugin in your tsconfig.json
 
-## Example
-
 ```json
 {
   "compilerOptions": {
@@ -35,8 +33,6 @@ For LSP support you must also configure tevm/ts-plugin in your tsconfig.json
 
 Once the vite plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
 turn them into Tevm `Contract` instances.
-
-## Example
 
 ```typescript
 // Solidity imports are automaticlaly turned into Tevm Contract objects
@@ -54,8 +50,6 @@ tevm.contract(
 
 Under the hood the vite plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
 
-## Example
-
 ```typescript
 import { createContract } from '@tevm/contract'
 
@@ -68,8 +62,6 @@ export const ERC20 = createContract({
 ```
 
 For custom configuration add a [tevm.config.json](https://todo.todo.todo) file to your project root.
-
-## Example
 
 ```json
 {
@@ -84,6 +76,3 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
 ## Source
 
 [WebpackPluginTevm.js:78](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/webpack/src/WebpackPluginTevm.js#L78)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,26 +1,27 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [wrapInEffect](../README.md) > WrapInEffect
+[@tevm/viem-effect](../../modules.md) / [wrapInEffect](../README.md) / WrapInEffect
 
-# Type alias: WrapInEffect
+# Type alias: WrapInEffect()
 
 > **WrapInEffect**: \<`TViemFunction`, `TErrorType`\>(`viemFunction`) => [`WrappedInEffect`](WrappedInEffect.md)\<`TViemFunction`, `TErrorType`\>
 
 ## Type parameters
 
-▪ **TViemFunction** extends [`AnyFunction`](../../types/type-aliases/AnyFunction.md)
+• **TViemFunction** *extends* [`AnyFunction`](../../types/type-aliases/AnyFunction.md)
 
-▪ **TErrorType** extends `Error`
+• **TErrorType** *extends* `Error`
 
 ## Parameters
 
-▪ **viemFunction**: `TViemFunction`
+• **viemFunction**: `TViemFunction`
+
+## Returns
+
+[`WrappedInEffect`](WrappedInEffect.md)\<`TViemFunction`, `TErrorType`\>
 
 ## Source
 
 [experimental/viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

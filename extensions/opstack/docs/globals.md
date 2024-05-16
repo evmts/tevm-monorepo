@@ -1,4 +1,4 @@
-**@tevm/opstack** • [Readme](README.md) \| API
+[**@tevm/opstack**](README.md) • **Docs**
 
 ***
 

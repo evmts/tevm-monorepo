@@ -1,15 +1,16 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > errors
+[tevm](../modules.md) / errors
 
-# Module: errors
+# errors
 
 ## Index
 
 ### Classes
 
+- [InvalidCreateParams](classes/InvalidCreateParams.md)
 - [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
 - [ProxyFetchError](classes/ProxyFetchError.md)
 - [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)
@@ -55,11 +56,9 @@
 - [InvalidUrlError](type-aliases/InvalidUrlError.md)
 - [InvalidValueError](type-aliases/InvalidValueError.md)
 - [LoadStateError](type-aliases/LoadStateError.md)
+- [MineError](type-aliases/MineError.md)
 - [ScriptError](type-aliases/ScriptError.md)
 - [SetAccountError](type-aliases/SetAccountError.md)
 - [TevmEVMErrorMessage](type-aliases/TevmEVMErrorMessage.md)
 - [TypedError](type-aliases/TypedError.md)
 - [UnexpectedError](type-aliases/UnexpectedError.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

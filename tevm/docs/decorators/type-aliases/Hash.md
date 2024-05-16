@@ -1,16 +1,13 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [decorators](../README.md) > Hash
+[tevm](../../modules.md) / [decorators](../README.md) / Hash
 
 # Type alias: Hash
 
-> **Hash**: \`0x${string}\`
+> **Hash**: \`0x$\{string\}\`
 
 ## Source
 
-packages/decorators/dist/index.d.ts:397
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/decorators/dist/index.d.ts:379

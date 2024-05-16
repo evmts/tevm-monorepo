@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > UnsupportedMethodError
+[tevm](../../modules.md) / [errors](../README.md) / UnsupportedMethodError
 
 # Class: UnsupportedMethodError
 
@@ -14,17 +14,21 @@ Error when a given JSON-RPC method is not supported
 
 ## Constructors
 
-### new UnsupportedMethodError(method)
+### new UnsupportedMethodError()
 
 > **new UnsupportedMethodError**(`method`): [`UnsupportedMethodError`](UnsupportedMethodError.md)
 
 #### Parameters
 
-▪ **method**: `string`
+• **method**: `string`
+
+#### Returns
+
+[`UnsupportedMethodError`](UnsupportedMethodError.md)
 
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
 #### Source
 
@@ -42,13 +46,13 @@ packages/errors/types/client/UnsupportedMethodError.d.ts:17
 
 ***
 
-### cause
+### cause?
 
-> **cause**?: `unknown`
+> `optional` **cause**: `unknown`
 
 #### Inherited from
 
-Error.cause
+`Error.cause`
 
 #### Source
 
@@ -62,7 +66,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
 #### Source
 
@@ -76,7 +80,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Overrides
 
-Error.name
+`Error.name`
 
 #### Source
 
@@ -84,13 +88,13 @@ packages/errors/types/client/UnsupportedMethodError.d.ts:13
 
 ***
 
-### stack
+### stack?
 
-> **stack**?: `string`
+> `optional` **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
 #### Source
 
@@ -98,9 +102,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+> `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
@@ -110,13 +114,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
-▪ **err**: `Error`
+• **err**: `Error`
 
-▪ **stackTraces**: `CallSite`[]
+• **stackTraces**: `CallSite`[]
+
+#### Returns
+
+`any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
 #### Source
 
@@ -126,11 +134,11 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:2
 
 ### stackTraceLimit
 
-> **`static`** **stackTraceLimit**: `number`
+> `static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
 #### Source
 
@@ -142,19 +150,23 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:3
 
 #### captureStackTrace(targetObject, constructorOpt)
 
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
@@ -162,23 +174,24 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:2
 
 #### captureStackTrace(targetObject, constructorOpt)
 
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
 ##### Parameters
 
-▪ **targetObject**: `object`
+• **targetObject**: `object`
 
-▪ **constructorOpt?**: `Function`
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
 
 ##### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.12.7/node\_modules/@types/node/globals.d.ts:21
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/globals.d.ts:21

@@ -1,18 +1,22 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > tevmViemExtensionOptimistic
+[@tevm/viem](../globals.md) / tevmViemExtensionOptimistic
 
-# Function: tevmViemExtensionOptimistic()
+# Function: ~~tevmViemExtensionOptimistic()~~
+
+`Experimental`
 
 > **tevmViemExtensionOptimistic**(): [`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
 
 ## Returns
 
+[`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
+
 ## Deprecated
 
-in favor of the viem transport
+Viem is built into the tevm memory client now without needing this
 
 This extension is highly experimental and should not be used in production.
 
@@ -43,7 +47,7 @@ for (const result of client.tevm.writeContractOptimistic({
 		})
 		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
 			method: 'tevm_contract',
-				params: params,
+         params: params,
 			jsonrpc: '2.0',
 		})
 		expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({
@@ -76,7 +80,4 @@ for (const result of client.tevm.writeContractOptimistic({
 
 ## Source
 
-[tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)

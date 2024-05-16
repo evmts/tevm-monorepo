@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from 'bun:test'
+import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { getBalanceHandler } from './getBalanceHandler.js'
 
@@ -55,7 +56,7 @@ describe(getBalanceHandler.name, () => {
 		expect(
 			await getBalanceHandler({
 				getVm: async () => ({ stateManager }) as any,
-				forkUrl: 'https://mainnet.optimism.io',
+				forkUrl: getAlchemyUrl(),
 			})({ address, blockTag: blockNumber }),
 		).toEqual(5536669375141759n)
 	})

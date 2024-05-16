@@ -63,7 +63,7 @@ export const useConfigStore = create<ConfigStore>()(
       // This will be called upon search, chain change/reset, and after making a call
       updateAccount: async (address, { updateAbi, chain, client }) => {
         set({ fetchingAccount: true });
-        const account = await client.getAccount({ address });
+        const account = await client.tevmGetAccount({ address });
 
         // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
         if (updateAbi && account.isContract) {

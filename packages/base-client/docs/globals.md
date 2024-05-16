@@ -1,4 +1,4 @@
-**@tevm/base-client** • [Readme](README.md) \| API
+[**@tevm/base-client**](README.md) • **Docs**
 
 ***
 
@@ -15,6 +15,11 @@
 - [IntervalMining](type-aliases/IntervalMining.md)
 - [ManualMining](type-aliases/ManualMining.md)
 - [MiningConfig](type-aliases/MiningConfig.md)
+
+## Variables
+
+- [GENESIS\_STATE](variables/GENESIS_STATE.md)
+- [prefundedAccounts](variables/prefundedAccounts.md)
 
 ## Functions
 

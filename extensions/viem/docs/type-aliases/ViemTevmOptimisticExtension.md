@@ -1,10 +1,12 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ViemTevmOptimisticExtension
+[@tevm/viem](../globals.md) / ViemTevmOptimisticExtension
 
-# Type alias: ViemTevmOptimisticExtension
+# Type alias: ~~ViemTevmOptimisticExtension()~~
+
+`Experimental`
 
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
@@ -33,9 +35,10 @@ await client.tevm.account({
 
 [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
 
+## Returns
+
+[`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
+
 ## Source
 
-[ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)

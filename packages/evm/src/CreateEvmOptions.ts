@@ -1,10 +1,15 @@
-import type { TevmBlockchain } from '@tevm/blockchain'
+import type { Chain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
+import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
-import type { TevmStateManager } from '@tevm/state'
+import type { StateManager } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 
 export type CreateEvmOptions = {
+	/**
+	 * The logging level to run the evm at. Defaults to 'warn'
+	 */
+	loggingLevel?: LogOptions['level']
 	/**
 	 * Ethereumjs common object
 	 */
@@ -12,12 +17,12 @@ export type CreateEvmOptions = {
 	/**
 	 * A custom Tevm state manager
 	 */
-	stateManager: TevmStateManager
+	stateManager: StateManager
 	/**
 	 * Enable profiler. Defaults to false.
 	 */
 	profiler?: boolean
-	blockchain: TevmBlockchain
+	blockchain: Chain
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive

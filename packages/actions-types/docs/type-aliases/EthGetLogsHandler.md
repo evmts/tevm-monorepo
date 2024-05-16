@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthGetLogsHandler
+[@tevm/actions-types](../globals.md) / EthGetLogsHandler
 
-# Type alias: EthGetLogsHandler
+# Type alias: EthGetLogsHandler()
 
 > **EthGetLogsHandler**: (`request`) => `Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetLogsParams`](EthGetLogsParams.md)
+• **request**: [`EthGetLogsParams`](EthGetLogsParams.md)
+
+## Returns
+
+`Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
 
 ## Source
 
 [handlers/EthHandler.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/EthHandler.ts#L119)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

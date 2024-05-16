@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilReturnType
+[@tevm/procedures-types](../globals.md) / AnvilReturnType
 
 # Type alias: AnvilReturnType
 
@@ -71,6 +71,3 @@ A mapping of `anvil_*` method names to their return type
 ## Source
 
 [tevm-request-handler/AnvilReturnType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/AnvilReturnType.ts#L21)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

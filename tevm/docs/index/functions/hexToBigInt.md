@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > hexToBigInt
+[tevm](../../modules.md) / [index](../README.md) / hexToBigInt
 
 # Function: hexToBigInt()
 
@@ -14,27 +14,27 @@ Decodes a hex value into a bigint.
 
 ## Parameters
 
-▪ **hex**: \`0x${string}\`
+• **hex**: \`0x$\{string\}\`
 
 Hex value to decode.
 
-▪ **opts?**: `HexToBigIntOpts`
+• **opts?**: `HexToBigIntOpts`
 
 Options.
 
 ## Returns
 
+`bigint`
+
 BigInt value.
 
-## Example
+## Examples
 
 ```ts
 import { hexToBigInt } from 'viem'
 const data = hexToBigInt('0x1a4', { signed: true })
 // 420n
 ```
-
-## Example
 
 ```ts
 import { hexToBigInt } from 'viem'
@@ -44,7 +44,4 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:74
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:74

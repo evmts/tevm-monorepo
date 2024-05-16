@@ -1,18 +1,15 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetFilterChangesJsonRpcResponse
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGetFilterChangesJsonRpcResponse
 
 # Type alias: EthGetFilterChangesJsonRpcResponse
 
-> **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getFilterChanges"`, [`FilterLog`](../../actions-types/type-aliases/FilterLog.md)[], `string` \| `number`\>
+> **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getFilterChanges"`, [`SerializeToJson`](SerializeToJson.md)\<[`FilterLog`](../../actions-types/type-aliases/FilterLog.md)\>[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:530
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:535

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
 # Type alias: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
@@ -12,7 +12,4 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:566
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:571

@@ -1,63 +1,75 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > state
+[tevm](../modules.md) / state
 
-# Module: state
+# state
 
 ## Index
 
 ### Classes
 
-- [Cache](classes/Cache.md)
-- [ForkStateManager](classes/ForkStateManager.md)
-- [NormalStateManager](classes/NormalStateManager.md)
-- [ProxyStateManager](classes/ProxyStateManager.md)
+- [ContractCache](classes/ContractCache.md)
 
 ### Interfaces
 
 - [AccountStorage](interfaces/AccountStorage.md)
+- [ForkOptions](interfaces/ForkOptions.md)
 - [ParameterizedAccountStorage](interfaces/ParameterizedAccountStorage.md)
-- [TevmStateManagerInterface](interfaces/TevmStateManagerInterface.md)
+- [StateManager](interfaces/StateManager.md)
 
 ### Type Aliases
 
-- [GetContractStorage](type-aliases/GetContractStorage.md)
+- [BaseState](type-aliases/BaseState.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
-- [TevmStateManager](type-aliases/TevmStateManager.md)
-- [TevmStateManagerOptions](type-aliases/TevmStateManagerOptions.md)
+- [StateAction](type-aliases/StateAction.md)
+- [StateCache](type-aliases/StateCache.md)
+- [StateRoots](type-aliases/StateRoots.md)
 
 ### Functions
 
-- [createTevmStateManager](functions/createTevmStateManager.md)
-
-## Table of contents
-
-### References
-
-- [ForkStateManagerOpts](README.md#forkstatemanageropts)
-- [ProxyStateManagerOpts](README.md#proxystatemanageropts)
-- [TevmState](README.md#tevmstate)
+- [checkpoint](functions/checkpoint.md)
+- [clearCaches](functions/clearCaches.md)
+- [clearContractStorage](functions/clearContractStorage.md)
+- [commit](functions/commit.md)
+- [createBaseState](functions/createBaseState.md)
+- [createStateManager](functions/createStateManager.md)
+- [deepCopy](functions/deepCopy.md)
+- [deleteAccount](functions/deleteAccount.md)
+- [dumpCanonicalGenesis](functions/dumpCanonicalGenesis.md)
+- [dumpStorage](functions/dumpStorage.md)
+- [dumpStorageRange](functions/dumpStorageRange.md)
+- [generateCanonicalGenesis](functions/generateCanonicalGenesis.md)
+- [getAccount](functions/getAccount.md)
+- [getAccountAddresses](functions/getAccountAddresses.md)
+- [getAccountFromProvider](functions/getAccountFromProvider.md)
+- [getAppliedKey](functions/getAppliedKey.md)
+- [getContractCode](functions/getContractCode.md)
+- [getContractStorage](functions/getContractStorage.md)
+- [getForkBlockTag](functions/getForkBlockTag.md)
+- [getForkClient](functions/getForkClient.md)
+- [getProof](functions/getProof.md)
+- [getStateRoot](functions/getStateRoot.md)
+- [hasStateRoot](functions/hasStateRoot.md)
+- [modifyAccountFields](functions/modifyAccountFields.md)
+- [originalStorageCache](functions/originalStorageCache.md)
+- [putAccount](functions/putAccount.md)
+- [putContractCode](functions/putContractCode.md)
+- [putContractStorage](functions/putContractStorage.md)
+- [revert](functions/revert.md)
+- [setStateRoot](functions/setStateRoot.md)
+- [shallowCopy](functions/shallowCopy.md)
 
 ## References
 
-### ForkStateManagerOpts
+### StateOptions
 
-Re-exports [ForkStateManagerOpts](../index/interfaces/ForkStateManagerOpts.md)
-
-***
-
-### ProxyStateManagerOpts
-
-Re-exports [ProxyStateManagerOpts](../index/interfaces/ProxyStateManagerOpts.md)
+Re-exports [StateOptions](../index/type-aliases/StateOptions.md)
 
 ***
 
 ### TevmState
 
 Re-exports [TevmState](../index/type-aliases/TevmState.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

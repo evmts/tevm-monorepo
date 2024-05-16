@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > DebugTraceCallProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / DebugTraceCallProcedure
 
-# Type alias: DebugTraceCallProcedure
+# Type alias: DebugTraceCallProcedure()
 
 > **DebugTraceCallProcedure**: (`request`) => `Promise`\<[`DebugTraceCallJsonRpcResponse`](DebugTraceCallJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ JSON-RPC procedure for `debug_traceCall`
 
 ## Parameters
 
-▪ **request**: [`DebugTraceCallJsonRpcRequest`](DebugTraceCallJsonRpcRequest.md)
+• **request**: [`DebugTraceCallJsonRpcRequest`](DebugTraceCallJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`DebugTraceCallJsonRpcResponse`](DebugTraceCallJsonRpcResponse.md)\>
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:747
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:757

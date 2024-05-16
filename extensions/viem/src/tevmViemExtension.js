@@ -16,144 +16,22 @@ const formatBlockTag = (blockTag) => {
 }
 
 /**
- * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/) with tevm
- * specif actions namspaced under `client.tevm`
- * It is used together with [tevmTransport](https://tevm.sh/generated/tevm/tevmTransport)
+ * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  * @example
  * ```js
- * import { tevmViemExtension, tevmTransport } from 'tevm/viem'
- * import { createPublicClient } from 'viem'
+ * import { createClient, parseEth } from 'viem'
+ * import { tevmViemExtension } from '@tevm/viem-extension'
  *
- * const client = createPublicClient({
- *   'https://mainnet.optimism.io'
- * }).extend(tevmViemExtension())
- * ```
- * ## With a backend server
+ * const client = createClient('https://mainnet.optimism.io')
+ *   .extend(tevmViemExtension())
  *
- * This decorator can also be used with a [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver)
- * @example
- * ```typescript
- * // Server code
- * import { createServer } from '@tevm/server'
- *
- * const server = createServer({
- *  fork: {
- *    url: 'https://mainnet.optimism.io'
- *  }
- * })
- *
- * server.listen(8545)
- *
- * // Client code
- * import { tevmViemExtension } from 'tevm/viem'
- * import { createPublicClient, http } from 'viem'
- * import { optimism } from 'viem/chains'
- *
- * const client = createPublicClient({
- *   transport: http('http://localhost:8545'),
- *   chain: optimism,
+ * await client.tevm.account({
+ *   address: `0x${'12'.repeat(20)}`,
+ *   balance: parseEth('420'),
  * })
  * ```
- *
- * ## client.tevm.call
- *
- * A low level call to tevm backend similar to [client.call](https://viem.sh/docs/clients/public.html#call) but with advanced tevm specific parameters
- * Unlike a normal call one can optionally chose to create a transaction on the blockchain with the call
- * Tevm also supports geth style `stateOverrideSet` and `blockOverrideSet` parameters
- * @example
- * ```typescript
- * client.tevm.call({
- *   to: `0x${'2'.repeat(40)}`,
- *   // Will create a transaction in the tevm blockchain based on call
- *   createTransaction: true,
- *   // Skip balance will automatically mint msg.value if account has less than msg.value
- *   skipBalance: true,
- *   // You can arbitrarily set the caller and origin
- *   caller: `0x${'1'.repeat(40)}`,
- *   origin: `0x${'2'.repeat(40)}`,
- *   // You can customize the call depth
- *   depth: 0,
- * })
- * ```
- *
- * ## client.tevm.contract
- *
- * A `call` like method for executing contract code with tevm backend similar to [client.readContract](https://viem.sh/docs/clients/public.html#readContract) but with advanced tevm specific parameters
- * It can create transactions just like writeContract as well iwth `createTransaction`
- * See `client.tevm.call` for more details on the custom options
- * @example
- * ```typescript
- * client.tevm.contract({
- *   // Takes params similar to readContract and writeContract
- *   abi: parseAbi(['function balanceOf(address): uint256']),
- *   functionName: 'balanceOf',
- *   args: [address]
- *   to: erc20Address,
- * })
- * ```
- *
- * ## client.tevm.script
- *
- * Another `call` like method for executing arbitrary contract bytecode in the evm.
- * Unlike `client.tevm.contract` it does not require the contract to already be deployed
- * Similar to `client.tevm.call` it can create transactions with `createTransaction`
- * See `client.tevm.call` for more details on the custom options
- * @example
- * ```typescript
- * client.tevm.script({
- *  // Takes params similar to readContract and writeContract
- *  abi: parseAbi(['function foo(address): uint256']),
- *  functionName: 'foo',
- *  args: [address],
- *  deployedBytecode: '0x1234...',
- *  to: '0x
- * })
- * ```
- *
- * ## client.tevm.getAccount
- *
- * A method for getting the account state of an address
- * It can optionally also return contract storage
- * @example
- * ```typescript
- * const account = await client.tevm.getAccount({
- *  address: `0x${'2'.repeat(40)}`,
- * })
- * console.log(account) // { balance: 0n, nonce: 0n, storageRoot: '0x0', codeHash: '0x0',... }
- * ```
- *
- * ## client.tevm.setAccount
- *
- * A method for setting the account state of an address
- * It can optionally also set contract storage
- * @example
- * ```typescript
- * const account = await client.tevm.setAccount({
- * address: `0x${'2'.repeat(40)}`,
- * balance: 100n,
- * nonce: 0n,
- * storageRoot: '0x0',
- * codeHash: '0x0',
- * deployedBytecode: '0x0',
- * })
- * ```
- *
- * ## client.tevm.dumpState
- *
- * Dumps the entire tevm state into a JSON-serializable object
- * @example
- * ```typescript
- * const state = await client.tevm.dumpState()
- * ```
- *
- * ## client.tevm.loadState
- *
- * Loads a tevm state generated with `client.tevm.dumpState` into the tevm state
- * @example
- * ```typescript
- * await client.tevm.loadState(state)
- * ```
+ * @see [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
  */
 export const tevmViemExtension = () => {
 	return (client) => {
@@ -209,6 +87,14 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
+		 * @type {import('@tevm/client-types').TevmClient['requestBulk']}
+		 */
+		const requestBulk = async () => {
+			// TODO implement this when we refactor the tevm client to using fetch instead of viem
+			throw new Error('Bulk json rpc requests are not yet implemented')
+		}
+
+		/**
 		 * @type {import('@tevm/actions-types').ScriptHandler}
 		 */
 		const script = async (params) => {
@@ -233,14 +119,29 @@ export const tevmViemExtension = () => {
 					}),
 				)
 			)
-			out.data = decodeFunctionResult(
-				/** @type any*/ ({
-					data: out.rawData,
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
-				}),
-			)
+			try {
+				out.data = decodeFunctionResult(
+					/** @type any*/ ({
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+			} catch (e) {
+				if (out.rawData === '0x') {
+					throw new Error('UnexpectedError: data is 0x')
+				}
+				console.error('Unable to decode function data', {
+					input: {
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					},
+				})
+				throw e
+			}
 			return out
 		}
 
@@ -330,6 +231,7 @@ export const tevmViemExtension = () => {
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
+				console.error(response.error)
 				throw new Error('No result in response')
 			}
 			const { result } = response
@@ -360,20 +262,70 @@ export const tevmViemExtension = () => {
 					}),
 				),
 			})
-
-			const data = decodeFunctionResult(
-				/** @type any*/ ({
-					data: out.rawData,
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
-				}),
-			)
+			/**
+			 * @type {any}
+			 */
+			let data
+			try {
+				data = decodeFunctionResult(
+					/** @type any*/ ({
+						data: out.rawData,
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+			} catch (e) {
+				if (out.rawData === '0x') {
+					console.error('UnexpectedError: data is 0x')
+				}
+				throw e
+			}
 			return /** @type any*/ ({
 				...out,
 				rawData: out.rawData,
 				data: /**@type any*/ (data),
 			})
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthBlockNumberHandler}
+		 */
+		const blockNumber = async () => {
+			return hexToBigInt(
+				formatResult(
+					await request({
+						method: 'eth_blockNumber',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthCallHandler}
+		 */
+		const ethCall = async ({ blockTag = 'latest', to, gas, data, from = `0x${'0'.repeat(40)}`, value, gasPrice }) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_call',
+						jsonrpc: '2.0',
+						params: [
+							{
+								from,
+								...(gas ? { gas: numberToHex(gas) } : {}),
+								...(gasPrice ? { gasPrice: numberToHex(gasPrice) } : {}),
+								...(to ? { to } : {}),
+								...(value ? { value: numberToHex(value) } : {}),
+								...(data ? { data } : {}),
+							},
+							formatBlockTag(blockTag),
+						],
+					}),
+				)
+			)
 		}
 
 		/**
@@ -388,6 +340,21 @@ export const tevmViemExtension = () => {
 						params: [],
 					}),
 				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthChainIdHandler}
+		 */
+		const chainId = async () => {
+			return hexToBigInt(
+				formatResult(
+					await request({
+						method: 'eth_chainId',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				),
 			)
 		}
 
@@ -424,10 +391,80 @@ export const tevmViemExtension = () => {
 				)
 			)
 		}
+		/**
+		 * @type {import('@tevm/actions-types').EthGasPriceHandler}
+		 */
+		const gasPrice = async () => {
+			return hexToBigInt(
+				formatResult(
+					await request({
+						method: 'eth_gasPrice',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthGetBalanceHandler}
+		 */
+		const getBalance = async (params) => {
+			return hexToBigInt(
+				formatResult(
+					await request({
+						method: 'eth_getBalance',
+						jsonrpc: '2.0',
+						params: [params.address, formatBlockTag(params.blockTag)],
+					}),
+				),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthGetCodeHandler}
+		 */
+		const getCode = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getCode',
+						jsonrpc: '2.0',
+						params: [params.address, formatBlockTag(params.blockTag)],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthGetStorageAtHandler}
+		 */
+		const getStorageAt = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getStorageAt',
+						jsonrpc: '2.0',
+						params: [params.address, params.position, formatBlockTag(params.blockTag)],
+					}),
+				)
+			)
+		}
 
 		return {
 			tevm: {
+				eth: {
+					call: ethCall,
+					blockNumber,
+					chainId,
+					gasPrice,
+					getBalance,
+					getCode,
+					getStorageAt,
+				},
+				accounts: testAccounts,
 				request,
+				requestBulk,
 				script,
 				getAccount,
 				setAccount,

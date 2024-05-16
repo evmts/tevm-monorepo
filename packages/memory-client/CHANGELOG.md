@@ -1,5 +1,96 @@
 # @tevm/client
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/base-client@1.1.0-next.52
+  - @tevm/contract@1.1.0-next.52
+  - @tevm/decorators@1.1.0-next.52
+  - @tevm/evm@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+
+## 1.1.0-next.51
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-client@1.1.0-next.51
+  - @tevm/evm@1.1.0-next.50
+  - @tevm/decorators@1.1.0-next.50
+
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/decorators@1.1.0-next.50
+  - @tevm/base-client@1.1.0-next.50
+  - @tevm/evm@1.1.0-next.50
+
+## 1.1.0-next.49
+
+### Patch Changes
+
+- Updated dependencies [[`a6655fc`](https://github.com/evmts/tevm-monorepo/commit/a6655fc2414d06b3bd2caf72f88ec2ccff20a075)]:
+  - @tevm/base-client@1.1.0-next.49
+  - @tevm/decorators@1.1.0-next.49
+  - @tevm/evm@1.1.0-next.47
+
+## 1.1.0-next.48
+
+### Minor Changes
+
+- [#1067](https://github.com/evmts/tevm-monorepo/pull/1067) [`dad4eb0`](https://github.com/evmts/tevm-monorepo/commit/dad4eb0025c68be4b1f3177a7726e0e8d55a4c8c) Thanks [@roninjin10](https://github.com/roninjin10)! - [BREAKING] Implemented MemoryClient as a viem client
+
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/base-client@1.1.0-next.47
+  - @tevm/contract@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.47
+  - @tevm/evm@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+
+## 1.1.0-next.46
+
+### Minor Changes
+
+- [#1062](https://github.com/evmts/tevm-monorepo/pull/1062) [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1) Thanks [@roninjin10](https://github.com/roninjin10)! - Added deployHandler to tevm
+
+### Patch Changes
+
+- [#1057](https://github.com/evmts/tevm-monorepo/pull/1057) [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388) Thanks [@roninjin10](https://github.com/roninjin10)! - Optimized performance of forking
+
+- Updated dependencies [[`c0c9e30`](https://github.com/evmts/tevm-monorepo/commit/c0c9e302c6900ed9ad31c50667813d35dc5366e9), [`d77e373`](https://github.com/evmts/tevm-monorepo/commit/d77e373694960e268a4b56a94dea676911ec0af1), [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388)]:
+  - @tevm/base-client@1.1.0-next.46
+  - @tevm/decorators@1.1.0-next.46
+  - @tevm/evm@1.1.0-next.46
+
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1036](https://github.com/evmts/tevm-monorepo/pull/1036) [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new traceConfig option to call, script, and contract methods to optionally return a trace
+
+### Patch Changes
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/decorators@1.1.0-next.45
+  - @tevm/base-client@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/evm@1.1.0-next.45
+  - @tevm/contract@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

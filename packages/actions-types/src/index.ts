@@ -61,6 +61,8 @@ export type {
 	EthGetTransactionByBlockHashAndIndexParams,
 	EthGetTransactionByBlockNumberAndIndexParams,
 	LoadStateParams,
+	MineParams,
+	DeployParams,
 } from './params/index.js'
 export type {
 	Abi,
@@ -145,6 +147,8 @@ export type {
 	AnvilStopImpersonatingAccountHandler,
 	DumpStateHandler,
 	LoadStateHandler,
+	MineHandler,
+	DeployHandler,
 } from './handlers/index.js'
 export type {
 	StructLog,
@@ -208,4 +212,6 @@ export type {
 	DebugTraceTransactionResult,
 	DumpStateResult,
 	LoadStateResult,
+	MineResult,
+	DeployResult,
 } from './result/index.js'

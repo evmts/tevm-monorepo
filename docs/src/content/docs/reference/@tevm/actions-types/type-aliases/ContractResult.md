@@ -1,0 +1,20 @@
+---
+editUrl: false
+next: false
+prev: false
+title: "ContractResult"
+---
+
+> **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](/reference/tevm/actions-types/type-aliases/callresult/), `"errors"`\> & `object` \| [`CallResult`](/reference/tevm/actions-types/type-aliases/callresult/)\<`ErrorType`\> & `object`
+
+## Type parameters
+
+• **TAbi** *extends* [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions-types/type-aliases/abi/)
+
+• **TFunctionName** *extends* [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+
+• **ErrorType** = [`ContractError`](/reference/tevm/errors/type-aliases/contracterror/)
+
+## Source
+
+[result/ContractResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ContractResult.ts#L6)

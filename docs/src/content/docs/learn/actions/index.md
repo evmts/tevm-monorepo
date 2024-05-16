@@ -33,10 +33,9 @@ TevmClient methods are the main recomended way to interact with Tevm. 🚧 means
 - [`TevmClient.setAccount`](/reference/tevm/actions-types/type-aliases/setaccounthandler) - directly modifies the state of an account
 - [`TevmClient.contract`](/reference/tevm/actions-types/type-aliases/callhandler) - Similar to eth call but with additional properties to control the VM execution
 - [`TevmClient.script`](/reference/tevm/actions-types/type-aliases/scripthandler) - Runs the provided bytecode against the EVM state
-- 🚧 `TevmClient.traceContractCall`
-- 🚧 `TevmClient.traceScript`
 - [`TevmClient.dumpState`](/reference/tevm/actions-types/type-aliases/dumpstatehandler) - Returns the state of the VM
 - [`TevmClient.loadState`](/reference/tevm/actions-types/type-aliases/loadstatehandler) - Initializes the state of the VM
+- [`TevmClient.deploy`](/reference/tevm/actions-types/type-aliases/deploy) - Creates a transaction to deploy a contract
 
 Note the `call` family of actions including `TevmClient.call`, `TevmClient.contract`, and `TevmClient.script` will execute in a sandbox and not modify the state. This behavior can be disabled via passing in a `enableTransaction: true` parameter.
 
@@ -55,21 +54,21 @@ TevmClient plans on implementing most of the [ethereum JSON-RPC](https://ethereu
 - [`TevmClient.eth.sign'](/reference/tevm/actions-types/type-aliases/ethsignhandler)
 - [`TevmClient.eth.signTransaction'](/reference/tevm/actions-types/type-aliases/ethsigntransactionhandler)
 - 🚧 [`TevmClient.eth.getLogs'](/reference/tevm/actions-types/type-aliases/ethgetlogshandler)
-- 🚧 [`TevmClient.eth.coinbase'](/reference/tevm/actions-types/type-aliases/ethcoinbasehandler)
-- 🚧 [`TevmClient.eth.hashrate'](/reference/tevm/actions-types/type-aliases/ethhashratehandler)
+- [`TevmClient.eth.coinbase'](/reference/tevm/actions-types/type-aliases/ethcoinbasehandler)
+- [`TevmClient.eth.hashrate'](/reference/tevm/actions-types/type-aliases/ethhashratehandler)
 - 🚧 [`TevmClient.eth.newFilter'](/reference/tevm/actions-types/type-aliases/ethnewfilterhandler)
 - 🚧 [`TevmClient.eth.getFilterLogs'](/reference/tevm/actions-types/type-aliases/ethgetfilterlogshandler)
 - 🚧 [`TevmClient.eth.getBlockByHash'](/reference/tevm/actions-types/type-aliases/ethgetblockbyhashhandler)
 - 🚧 [`TevmClient.eth.newBlockFilter'](/reference/tevm/actions-types/type-aliases/ethnewblockfilterhandler)
-- 🚧 [`TevmClient.eth.protocolVersion'](/reference/tevm/actions-types/type-aliases/ethprotocolversionhandler)
-- 🚧 [`TevmClient.eth.sendTransaction'](/reference/tevm/actions-types/type-aliases/ethsendtransactionhandler)
+- [`TevmClient.eth.protocolVersion'](/reference/tevm/actions-types/type-aliases/ethprotocolversionhandler)
+- [`TevmClient.eth.sendTransaction'](/reference/tevm/actions-types/type-aliases/ethsendtransactionhandler)
 - 🚧 [`TevmClient.eth.uninstallFilter'](/reference/tevm/actions-types/type-aliases/ethuninstallfilterhandler)
 - 🚧 [`TevmClient.eth.getBlockByNumber'](/reference/tevm/actions-types/type-aliases/ethgetblockbynumberhandler)
 - 🚧 [`TevmClient.eth.getFilterChanges'](/reference/tevm/actions-types/type-aliases/ethgetfilterchangeshandler)
-- 🚧 [`TevmClient.eth.sendRawTransaction'](/reference/tevm/actions-types/type-aliases/ethsendrawtransactionhandler)
+- [`TevmClient.eth.sendRawTransaction'](/reference/tevm/actions-types/type-aliases/ethsendrawtransactionhandler)
 - 🚧 [`TevmClient.eth.getTransactionCount'](/reference/tevm/actions-types/type-aliases/ethgettransactioncounthandler)
-- 🚧 [`TevmClient.eth.getTransactionByHash'](/reference/tevm/actions-types/type-aliases/ethgettransactionbyhashhandler)
-- 🚧 [`TevmClient.eth.getTransactionReceipt'](/reference/tevm/actions-types/type-aliases/ethgettransactionreceipthandler)
+- 🚧 [`TevmClient.eth.getTransactionByHash'](/reference/tevm/actions-types/type-aliases/ethgettransactionbyhashhandler
+- [`TevmClient.eth.getTransactionReceipt'](/reference/tevm/actions-types/type-aliases/ethgettransactionreceipthandler)
 - 🚧 `TevmClient.eth.newPendingTransactionFilter'
 - 🚧 [`TevmClient.eth.getBlockTransactionCountByHash'](/reference/tevm/actions-types/type-aliases/ethgetblocktransactioncountbyhashhandler)
 - 🚧 `TevmClient.eth.getBlockTransactionCountByNumber'
@@ -79,22 +78,22 @@ TevmClient plans on implementing most of the [ethereum JSON-RPC](https://ethereu
 ## Debug methods
 
 - 🚧 [`TevmClient.debug.traceTransaction`](/reference/tevm/actions-types/type-aliases/debugtracetransactionhandler)
-- 🚧 [`TevmClient.debug.traceCall`](/reference/tevm/actions-types/type-aliases/debugtracecallhandler)
+- [`TevmClient.debug.traceCall`](/reference/tevm/actions-types/type-aliases/debugtracecallhandler)
 
 ## Anvil/Hardhat methods
 
 Anvil/hardhat methods are provided for compatability
 
-- 🚧 [`TevmClient.anvil.mine'](/reference/tevm/actions-types/type-aliases/anvilminehandler)
+- [`TevmClient.anvil.mine'](/reference/tevm/actions-types/type-aliases/anvilminehandler)
 - 🚧 [`TevmClient.anvil.reset'](/reference/tevm/actions-types/type-aliases/anvilresethandler)
-- 🚧 [`TevmClient.anvil.setCode'](/reference/tevm/actions-types/type-aliases/anvilsetcodehandler)
-- 🚧 [`TevmClient.anvil.setNonce'](/reference/tevm/actions-types/type-aliases/anvilsetnoncehandler)
+- [`TevmClient.anvil.setCode'](/reference/tevm/actions-types/type-aliases/anvilsetcodehandler)
+- [`TevmClient.anvil.setNonce'](/reference/tevm/actions-types/type-aliases/anvilsetnoncehandler)
 - 🚧 [`TevmClient.anvil.dumpState'](/reference/tevm/actions-types/type-aliases/anvildumpstatehandler)
 - 🚧 [`TevmClient.anvil.loadState'](/reference/tevm/actions-types/type-aliases/anvilloadstatehandler)
-- 🚧 [`TevmClient.anvil.setBalance'](/reference/tevm/actions-types/type-aliases/anvilsetbalancehandler)
-- 🚧 [`TevmClient.anvil.setChainId'](/reference/tevm/actions-types/type-aliases/anvilsetchainidhandler)
-- 🚧 [`TevmClient.anvil.getAutomine'](/reference/tevm/actions-types/type-aliases/anvilgetautominehandler)
-- 🚧 [`TevmClient.anvil.setStorageAt'](/reference/tevm/actions-types/type-aliases/anvilsetstorageathandler)
+- [`TevmClient.anvil.setBalance'](/reference/tevm/actions-types/type-aliases/anvilsetbalancehandler)
+- [`TevmClient.anvil.setChainId'](/reference/tevm/actions-types/type-aliases/anvilsetchainidhandler)
+- [`TevmClient.anvil.getAutomine'](/reference/tevm/actions-types/type-aliases/anvilgetautominehandler)
+- [`TevmClient.anvil.setStorageAt'](/reference/tevm/actions-types/type-aliases/anvilsetstorageathandler)
 - 🚧 [`TevmClient.anvil.dropTransaction'](/reference/tevm/actions-types/type-aliases/anvildroptransactionhandler)
 - 🚧 [`TevmClient.anvil.impersonateAccount'](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccounthandler)
 - 🚧 [`TevmClient.anvil.stopImpersonatingAccount'](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccounthandler)

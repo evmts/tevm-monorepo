@@ -14,11 +14,11 @@ const prepare = async () => {
 	const client = createL1Client()
 
 	// Set contracts
-	await client.setAccount({
+	await client.tevmSetAccount({
 		address: L1Block.address,
 		deployedBytecode: L1Block.deployedBytecode,
 	})
-	await client.setAccount({
+	await client.tevmSetAccount({
 		address: GasPriceOracle.address,
 		deployedBytecode: GasPriceOracle.deployedBytecode,
 	})
@@ -30,13 +30,13 @@ const prepare = async () => {
 const setEcotoneAndCheck = async (client: L1Client) => {
 	try {
 		// Set Ecotone
-		const writeRes = await client.contract({
+		const writeRes = await client.tevmContract({
 			...GasPriceOracle.write.setEcotone(),
 			caller: DEPOSITOR_ACCOUNT,
 			createTransaction: true,
 		})
 		expect(writeRes).toEqual({
-			txHash: '0x7ee048dd02317d35781ef64e803eb1d3638cf539def0b6d6d9f2b86264d9dc60',
+			txHash: '0x6fc8fc8ce3d357da9acaf317aef2f8b3975c74fa25c9e1dbef986729863f335a',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 25588n,
@@ -47,7 +47,7 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 		})
 
 		// Check if Ecotone is active
-		const res = await client.contract({
+		const res = await client.tevmContract({
 			...GasPriceOracle.read.isEcotone(),
 		})
 		expect(res).toEqual({
@@ -61,12 +61,12 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 		})
 
 		// Check again with createTransaction: true
-		const res2 = await client.contract({
+		const res2 = await client.tevmContract({
 			...GasPriceOracle.read.isEcotone(),
 			createTransaction: true,
 		})
 		expect(res2).toEqual({
-			txHash: '0x0aca6409d550c4841d025f2054eb7ec66ca777d5237926917e5a310f23638e4d',
+			txHash: '0xf06592fea5c1383e1946c01baba05c1ff69d69ebc4d617edff6e8b42ca090474',
 			createdAddresses: new Set(),
 			data: true,
 			executionGasUsed: 377n,

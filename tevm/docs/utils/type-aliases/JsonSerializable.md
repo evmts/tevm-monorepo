@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > JsonSerializable
+[tevm](../../modules.md) / [utils](../README.md) / JsonSerializable
 
 # Type alias: JsonSerializable
 
@@ -13,6 +13,3 @@ A type that represents a JSON-serializable value.
 ## Source
 
 packages/utils/types/SerializeToJson.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

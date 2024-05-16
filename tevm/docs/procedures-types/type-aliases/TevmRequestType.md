@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > TevmRequestType
+[tevm](../../modules.md) / [procedures-types](../README.md) / TevmRequestType
 
 # Type alias: TevmRequestType
 
@@ -28,6 +28,10 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_loadState**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
+### tevm\_mine
+
+> **tevm\_mine**: [`MineJsonRpcRequest`](MineJsonRpcRequest.md)
+
 ### tevm\_script
 
 > **tevm\_script**: [`ScriptJsonRpcRequest`](ScriptJsonRpcRequest.md)
@@ -38,7 +42,4 @@ A mapping of `tevm_*` method names to their request type
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:978
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:993

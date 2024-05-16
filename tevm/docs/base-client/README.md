@@ -1,30 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > base-client
+[tevm](../modules.md) / base-client
 
-# Module: base-client
-
-## Index
-
-### Type Aliases
-
-- [IntervalMining](type-aliases/IntervalMining.md)
-- [ManualMining](type-aliases/ManualMining.md)
-- [MiningConfig](type-aliases/MiningConfig.md)
-
-## Table of contents
-
-### References
-
-- [AutoMining](README.md#automining)
-- [BaseClient](README.md#baseclient)
-- [BaseClientOptions](README.md#baseclientoptions)
-- [CustomPrecompile](README.md#customprecompile)
-- [Extension](README.md#extension)
-- [Hardfork](README.md#hardfork)
-- [createBaseClient](README.md#createbaseclient)
+# base-client
 
 ## References
 
@@ -58,9 +38,33 @@ Re-exports [Extension](../index/type-aliases/Extension.md)
 
 ***
 
+### GENESIS\_STATE
+
+Re-exports [GENESIS_STATE](../index/variables/GENESIS_STATE.md)
+
+***
+
 ### Hardfork
 
 Re-exports [Hardfork](../index/type-aliases/Hardfork.md)
+
+***
+
+### IntervalMining
+
+Re-exports [IntervalMining](../index/type-aliases/IntervalMining.md)
+
+***
+
+### ManualMining
+
+Re-exports [ManualMining](../index/type-aliases/ManualMining.md)
+
+***
+
+### MiningConfig
+
+Re-exports [MiningConfig](../index/type-aliases/MiningConfig.md)
 
 ***
 
@@ -69,4 +73,7 @@ Re-exports [Hardfork](../index/type-aliases/Hardfork.md)
 Re-exports [createBaseClient](../index/functions/createBaseClient.md)
 
 ***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+
+### prefundedAccounts
+
+Re-exports [prefundedAccounts](../index/variables/prefundedAccounts.md)

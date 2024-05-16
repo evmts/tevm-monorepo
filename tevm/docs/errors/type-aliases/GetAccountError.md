@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > GetAccountError
+[tevm](../../modules.md) / [errors](../README.md) / GetAccountError
 
 # Type alias: GetAccountError
 
@@ -24,6 +24,3 @@ if (errors?.length) {
 ## Source
 
 packages/errors/types/actions/GetAccountError.d.ts:14
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

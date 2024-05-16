@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetBlockByHashJsonRpcResponse
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGetBlockByHashJsonRpcResponse
 
 # Type alias: EthGetBlockByHashJsonRpcResponse
 
@@ -12,7 +12,4 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:510
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:515

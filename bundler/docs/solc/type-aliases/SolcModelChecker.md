@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/bundler**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcModelChecker
+[@tevm/bundler](../../modules.md) / [solc](../README.md) / SolcModelChecker
 
 # Type alias: SolcModelChecker
 
@@ -14,13 +14,13 @@
 
 > **contracts**: [`SolcModelCheckerContracts`](SolcModelCheckerContracts.md)
 
-### divModNoSlacks
+### divModNoSlacks?
 
-> **divModNoSlacks**?: `boolean`
+> `optional` **divModNoSlacks**: `boolean`
 
-### engine
+### engine?
 
-> **engine**?: `"all"` \| `"bmc"` \| `"chc"` \| `"none"`
+> `optional` **engine**: `"all"` \| `"bmc"` \| `"chc"` \| `"none"`
 
 ### extCalls
 
@@ -30,33 +30,30 @@
 
 > **invariants**: (`"contract"` \| `"reentrancy"`)[]
 
-### showProved
+### showProved?
 
-> **showProved**?: `boolean`
+> `optional` **showProved**: `boolean`
 
-### showUnproved
+### showUnproved?
 
-> **showUnproved**?: `boolean`
+> `optional` **showUnproved**: `boolean`
 
-### showUnsupported
+### showUnsupported?
 
-> **showUnsupported**?: `boolean`
+> `optional` **showUnsupported**: `boolean`
 
 ### solvers
 
 > **solvers**: (`"cvc4"` \| `"smtlib2"` \| `"z3"`)[]
 
-### targets
+### targets?
 
-> **targets**?: (`"underflow"` \| `"overflow"` \| `"assert"`)[]
+> `optional` **targets**: (`"underflow"` \| `"overflow"` \| `"assert"`)[]
 
-### timeout
+### timeout?
 
-> **timeout**?: `boolean`
+> `optional` **timeout**: `boolean`
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:45
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

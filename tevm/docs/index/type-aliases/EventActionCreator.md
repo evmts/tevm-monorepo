@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > EventActionCreator
+[tevm](../../modules.md) / [index](../README.md) / EventActionCreator
 
-# Type alias: EventActionCreator`<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs>`
+# Type alias: EventActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
 
 > **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
 
@@ -20,17 +20,16 @@ tevm.eth.getLog(
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `THumanReadableAbi` extends readonly `string`[] | - |
-| `TBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
-| `TDeployedBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
-| `TAddress` extends [`Address`](Address.md) \| `undefined` | - |
-| `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
+• **THumanReadableAbi** *extends* readonly `string`[]
+
+• **TBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
+
+• **TDeployedBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
+
+• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+
+• **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
 ## Source
 
 packages/contract/types/event/EventActionCreator.d.ts:16
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

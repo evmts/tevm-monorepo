@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TevmState
+[tevm](../../modules.md) / [index](../README.md) / TevmState
 
 # Type alias: TevmState
 
@@ -10,11 +10,8 @@
 
 ## Index signature
 
- \[`key`: `string`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
+ \[`key`: `Address`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
 
 ## Source
 
-packages/state/types/TevmState.d.ts:2
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/state/dist/index.d.ts:158

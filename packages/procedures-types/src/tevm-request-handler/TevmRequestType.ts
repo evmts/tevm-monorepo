@@ -3,6 +3,7 @@ import type {
 	DumpStateJsonRpcRequest,
 	GetAccountJsonRpcRequest,
 	LoadStateJsonRpcRequest,
+	MineJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
 } from '../requests/index.js'
@@ -17,4 +18,5 @@ export type TevmRequestType = {
 	tevm_dumpState: DumpStateJsonRpcRequest
 	tevm_getAccount: GetAccountJsonRpcRequest
 	tevm_setAccount: SetAccountJsonRpcRequest
+	tevm_mine: MineJsonRpcRequest
 }

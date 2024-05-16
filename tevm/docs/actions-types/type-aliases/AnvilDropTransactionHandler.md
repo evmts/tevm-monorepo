@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > AnvilDropTransactionHandler
+[tevm](../../modules.md) / [actions-types](../README.md) / AnvilDropTransactionHandler
 
-# Type alias: AnvilDropTransactionHandler
+# Type alias: AnvilDropTransactionHandler()
 
 > **AnvilDropTransactionHandler**: (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
 ## Parameters
 
-▪ **params**: [`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
+• **params**: [`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
+
+## Returns
+
+`Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/AnvilHandler.d.ts:8
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

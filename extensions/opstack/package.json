@@ -1,16 +1,26 @@
 {
 	"name": "@tevm/opstack",
-	"version": "1.0.0-next.43",
+	"version": "1.1.0-next.52",
 	"private": false,
 	"description": "Op stack utilities for tevm",
-	"keywords": ["solidity", "forge", "foundry", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "extensions/opstack"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -28,8 +38,14 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
+		"//test:coverage": "bun test --coverage",
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/opstack",
 		"build:dist": "tsup",
@@ -44,7 +60,6 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "bun test --watch",
-		"test:coverage": "bun test --coverage",
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},

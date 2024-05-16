@@ -15,7 +15,9 @@ export class NoForkUrlSetError extends Error {
 }
 
 /**
- * @param {import('@tevm/base-client').BaseClient} options
+ * @param {object} options
+ * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
+ * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetBalanceHandler}
  */
 export const getBalanceHandler =

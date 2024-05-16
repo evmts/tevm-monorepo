@@ -1,8 +1,8 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > isFeeMarketEIP1559Tx
+[@tevm/tx](../globals.md) / isFeeMarketEIP1559Tx
 
 # Function: isFeeMarketEIP1559Tx()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+• **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+
+## Returns
+
+`tx is FeeMarketEIP1559Transaction`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:95
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

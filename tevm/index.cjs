@@ -5,6 +5,7 @@ var contract = require('@tevm/contract');
 var utils = require('@tevm/utils');
 var baseClient = require('@tevm/base-client');
 var memoryClient = require('@tevm/memory-client');
+var viem = require('@tevm/viem');
 var precompiles = require('@tevm/precompiles');
 var syncStoragePersister = require('@tevm/sync-storage-persister');
 
@@ -206,13 +207,25 @@ Object.defineProperty(exports, "toRlp", {
   enumerable: true,
   get: function () { return utils.toRlp; }
 });
+Object.defineProperty(exports, "GENESIS_STATE", {
+  enumerable: true,
+  get: function () { return baseClient.GENESIS_STATE; }
+});
 Object.defineProperty(exports, "createBaseClient", {
   enumerable: true,
   get: function () { return baseClient.createBaseClient; }
 });
+Object.defineProperty(exports, "prefundedAccounts", {
+  enumerable: true,
+  get: function () { return baseClient.prefundedAccounts; }
+});
 Object.defineProperty(exports, "createMemoryClient", {
   enumerable: true,
   get: function () { return memoryClient.createMemoryClient; }
+});
+Object.defineProperty(exports, "tevmTransport", {
+  enumerable: true,
+  get: function () { return viem.tevmTransport; }
 });
 Object.defineProperty(exports, "defineCall", {
   enumerable: true,

@@ -1,4 +1,4 @@
-**@tevm/actions** • [Readme](README.md) \| API
+[**@tevm/actions**](README.md) • **Docs**
 
 ***
 
@@ -20,9 +20,11 @@
 - [callHandler](functions/callHandler.md)
 - [chainIdHandler](functions/chainIdHandler.md)
 - [contractHandler](functions/contractHandler.md)
+- [deployHandler](functions/deployHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [ethAccountsHandler](functions/ethAccountsHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)
+- [ethGetLogsHandler](functions/ethGetLogsHandler.md)
 - [ethGetTransactionReceiptHandler](functions/ethGetTransactionReceiptHandler.md)
 - [ethSendRawTransactionHandler](functions/ethSendRawTransactionHandler.md)
 - [ethSendTransactionHandler](functions/ethSendTransactionHandler.md)
@@ -34,6 +36,7 @@
 - [getCodeHandler](functions/getCodeHandler.md)
 - [getStorageAtHandler](functions/getStorageAtHandler.md)
 - [loadStateHandler](functions/loadStateHandler.md)
+- [mineHandler](functions/mineHandler.md)
 - [scriptHandler](functions/scriptHandler.md)
 - [setAccountHandler](functions/setAccountHandler.md)
 - [traceCallHandler](functions/traceCallHandler.md)

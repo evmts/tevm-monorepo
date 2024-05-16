@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthAccountsResult
+[@tevm/actions-types](../globals.md) / EthAccountsResult
 
 # Type alias: EthAccountsResult
 
@@ -11,6 +11,3 @@
 ## Source
 
 [result/EthResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/EthResult.ts#L13)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -3,7 +3,7 @@ import { createCommon } from './createCommon.js'
 
 describe(createCommon.name, () => {
 	it('wraps ethereumjs common with default eips', () => {
-		const common = createCommon()
+		const common = createCommon({ chainId: 10n, hardfork: 'cancun', loggingLevel: 'warn' })
 		expect(common.hardfork()).toBe('cancun')
 		expect(common.isActivatedEIP(1559)).toEqual(true)
 		expect(common.isActivatedEIP(4788)).toEqual(true)

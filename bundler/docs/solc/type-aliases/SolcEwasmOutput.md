@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/bundler**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcEwasmOutput
+[@tevm/bundler](../../modules.md) / [solc](../README.md) / SolcEwasmOutput
 
 # Type alias: SolcEwasmOutput
 
@@ -21,6 +21,3 @@
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:207
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,6 +9,7 @@ export type {
 	AbiFunction,
 	AbiItemType,
 	Address,
+	EncodeDeployDataParameters,
 	Hex,
 	BlockTag,
 	ParseAbi,
@@ -28,6 +29,7 @@ export type {
 	Account,
 	HDAccount,
 	Filter,
+	ContractConstructorArgs,
 } from './abitype.js'
 export {
 	mnemonicToAccount,
@@ -85,11 +87,19 @@ export {
 	concatBytes,
 	KeyEncoding,
 	ValueEncoding,
-	Lock,
-	MapDb,
-	AsyncEventEmitter,
+	setLengthLeft,
+	toType,
+	TypeOutput,
+	bytesToUtf8,
+	fetchFromProvider,
+	getProvider,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
+	Withdrawal,
+	ecrecover,
+	ecsign,
+	zeros,
+	AsyncEventEmitter,
 } from './ethereumjs.js'
 export type {
 	GenesisState,
@@ -98,6 +108,10 @@ export type {
 	DBObject as DbObject,
 	BatchDBOp as BatchDbOp,
 	EncodingOpts,
+	AddressLike,
+	BigIntLike,
+	BytesLike,
+	JsonRpcWithdrawal,
 } from '@ethereumjs/util'
 export type { Log as EthjsLog } from '@ethereumjs/evm'
 export type {

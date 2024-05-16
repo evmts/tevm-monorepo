@@ -1,5 +1,122 @@
 # @tevm/client
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/blockchain@1.1.0-next.52
+  - @tevm/common@1.1.0-next.52
+  - @tevm/evm@1.1.0-next.52
+  - @tevm/jsonrpc@1.1.0-next.52
+  - @tevm/logger@1.1.0-next.52
+  - @tevm/predeploys@1.1.0-next.52
+  - @tevm/receipt-manager@1.1.0-next.52
+  - @tevm/state@1.1.0-next.52
+  - @tevm/sync-storage-persister@1.1.0-next.52
+  - @tevm/txpool@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+  - @tevm/vm@1.1.0-next.52
+
+## 1.1.0-next.51
+
+### Patch Changes
+
+- Updated dependencies [[`93b04d6`](https://github.com/evmts/tevm-monorepo/commit/93b04d6a3cd06180e3567d07bec655c7a135a8c3)]:
+  - @tevm/state@1.1.0-next.51
+  - @tevm/evm@1.1.0-next.50
+  - @tevm/sync-storage-persister@1.1.0-next.51
+  - @tevm/vm@1.1.0-next.50
+
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`71e5c1e`](https://github.com/evmts/tevm-monorepo/commit/71e5c1ead386f43a3bfbdd53acffcb5b49ad3433)]:
+  - @tevm/blockchain@1.1.0-next.50
+  - @tevm/receipt-manager@1.1.0-next.50
+  - @tevm/evm@1.1.0-next.50
+  - @tevm/vm@1.1.0-next.50
+  - @tevm/txpool@1.1.0-next.49
+
+## 1.1.0-next.49
+
+### Minor Changes
+
+- [#1069](https://github.com/evmts/tevm-monorepo/pull/1069) [`a6655fc`](https://github.com/evmts/tevm-monorepo/commit/a6655fc2414d06b3bd2caf72f88ec2ccff20a075) Thanks [@roninjin10](https://github.com/roninjin10)! - Exported `prefundedAccount` as an array of contract addresses that are prefunded. These map to the the same accounts prefunded by anvil and hardhat.
+
+### Patch Changes
+
+- Updated dependencies [[`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8), [`40547fe`](https://github.com/evmts/tevm-monorepo/commit/40547fe96681c4d590b99c50350d86e0197e10c8), [`2ba2c27`](https://github.com/evmts/tevm-monorepo/commit/2ba2c278c11e524a7fbb0a8201e7f82c8ec9a4f5)]:
+  - @tevm/txpool@1.1.0-next.49
+  - @tevm/state@1.1.0-next.49
+  - @tevm/evm@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.49
+  - @tevm/vm@1.1.0-next.47
+
+## 1.1.0-next.47
+
+### Patch Changes
+
+- [#1064](https://github.com/evmts/tevm-monorepo/pull/1064) [`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed test-utils package being mistakedly private
+
+- Updated dependencies [[`85d9143`](https://github.com/evmts/tevm-monorepo/commit/85d9143262396416a5d94b527f7bd3148ab51069)]:
+  - @tevm/blockchain@1.1.0-next.47
+  - @tevm/common@1.1.0-next.47
+  - @tevm/evm@1.1.0-next.47
+  - @tevm/jsonrpc@1.1.0-next.47
+  - @tevm/logger@1.1.0-next.47
+  - @tevm/predeploys@1.1.0-next.47
+  - @tevm/state@1.1.0-next.47
+  - @tevm/sync-storage-persister@1.1.0-next.47
+  - @tevm/txpool@1.1.0-next.47
+  - @tevm/utils@1.1.0-next.47
+  - @tevm/vm@1.1.0-next.47
+
+## 1.1.0-next.46
+
+### Patch Changes
+
+- [#1056](https://github.com/evmts/tevm-monorepo/pull/1056) [`c0c9e30`](https://github.com/evmts/tevm-monorepo/commit/c0c9e302c6900ed9ad31c50667813d35dc5366e9) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with state persistance not working in forked mode
+
+- [#1057](https://github.com/evmts/tevm-monorepo/pull/1057) [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388) Thanks [@roninjin10](https://github.com/roninjin10)! - Optimized performance of forking
+
+- Updated dependencies [[`4da1830`](https://github.com/evmts/tevm-monorepo/commit/4da1830d2c0df764156b79f12508d11702694b3d), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc), [`2a7e1db`](https://github.com/evmts/tevm-monorepo/commit/2a7e1db74c68f8e803026b95a1ce957445db1388), [`413533d`](https://github.com/evmts/tevm-monorepo/commit/413533de36b359711253ba6918afcb1363ec14bc)]:
+  - @tevm/common@1.1.0-next.46
+  - @tevm/jsonrpc@1.1.0-next.46
+  - @tevm/state@1.1.0-next.46
+  - @tevm/blockchain@1.1.0-next.46
+  - @tevm/evm@1.1.0-next.46
+  - @tevm/vm@1.1.0-next.46
+  - @tevm/sync-storage-persister@1.1.0-next.46
+  - @tevm/txpool@1.1.0-next.46
+
+## 1.1.0-next.45
+
+### Minor Changes
+
+- [#1036](https://github.com/evmts/tevm-monorepo/pull/1036) [`cd536c2`](https://github.com/evmts/tevm-monorepo/commit/cd536c269b6a1590a0e25e1fe89865dc1464852a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added logConfig option to base client options to configure log level of client
+
+### Patch Changes
+
+- [#1002](https://github.com/evmts/tevm-monorepo/pull/1002) [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all of tevm to latest version of Ethereumjs. This update adds support for 4844, fixes major bugs in tevm regarding browser compatibility, and an issue that was causing tevm to crash in Next.js app router.
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`2a00b2f`](https://github.com/evmts/tevm-monorepo/commit/2a00b2fe10171aaa0607aed66c29d8df8c3437c8), [`95ecf92`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`07a10a3`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921), [`7c172f9`](https://github.com/evmts/tevm-monorepo/commit/7c172f9da63c490e89f93b831309e4f0183e8da7)]:
+  - @tevm/errors@1.1.0-next.45
+  - @tevm/blockchain@1.1.0-next.45
+  - @tevm/predeploys@1.1.0-next.45
+  - @tevm/common@1.1.0-next.45
+  - @tevm/txpool@1.1.0-next.45
+  - @tevm/state@1.1.0-next.45
+  - @tevm/utils@1.1.0-next.45
+  - @tevm/evm@1.1.0-next.45
+  - @tevm/vm@1.1.0-next.45
+  - @tevm/sync-storage-persister@1.1.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

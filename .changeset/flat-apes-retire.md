@@ -2,6 +2,7 @@
 "@tevm/procedures-types": minor
 "@tevm/actions-types": minor
 "@tevm/memory-client": minor
+"@tevm/client-types": minor
 "@tevm/procedures": minor
 "@tevm/actions": minor
 "@tevm/viem": minor

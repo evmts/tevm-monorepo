@@ -1,16 +1,13 @@
-**@tevm/vm** • [Readme](README.md) \| API
+[**@tevm/vm**](README.md) • **Docs**
 
 ***
 
 # @tevm/vm
 
-## Classes
-
-- [TevmVm](classes/TevmVm.md)
-
 ## Type Aliases
 
 - [CreateVmOptions](type-aliases/CreateVmOptions.md)
+- [Vm](type-aliases/Vm.md)
 
 ## Functions
 

@@ -1,15 +1,24 @@
-**@tevm/blockchain** • [Readme](README.md) \| API
+[**@tevm/blockchain**](README.md) • **Docs**
 
 ***
 
 # @tevm/blockchain
 
-## Classes
+## Type Aliases
 
-- [Chain](classes/Chain.md)
-- [ReceiptsManager](classes/ReceiptsManager.md)
-- [TevmBlockchain](classes/TevmBlockchain.md)
+- [Chain](type-aliases/Chain.md)
+- [ChainOptions](type-aliases/ChainOptions.md)
 
 ## Functions
 
-- [createBlockchain](functions/createBlockchain.md)
+- [createBaseChain](functions/createBaseChain.md)
+- [createChain](functions/createChain.md)
+- [deepCopy](functions/deepCopy.md)
+- [delBlock](functions/delBlock.md)
+- [getBlock](functions/getBlock.md)
+- [getCanonicalHeadBlock](functions/getCanonicalHeadBlock.md)
+- [getIteratorHead](functions/getIteratorHead.md)
+- [putBlock](functions/putBlock.md)
+- [setIteratorHead](functions/setIteratorHead.md)
+- [shallowCopy](functions/shallowCopy.md)
+- [validateHeader](functions/validateHeader.md)

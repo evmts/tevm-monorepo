@@ -1,4 +1,4 @@
-**@tevm/actions-types** • [Readme](README.md) \| API
+[**@tevm/actions-types**](README.md) • **Docs**
 
 ***
 
@@ -65,6 +65,9 @@
 - [DebugTraceTransactionHandler](type-aliases/DebugTraceTransactionHandler.md)
 - [DebugTraceTransactionParams](type-aliases/DebugTraceTransactionParams.md)
 - [DebugTraceTransactionResult](type-aliases/DebugTraceTransactionResult.md)
+- [DeployHandler](type-aliases/DeployHandler.md)
+- [DeployParams](type-aliases/DeployParams.md)
+- [DeployResult](type-aliases/DeployResult.md)
 - [DumpStateHandler](type-aliases/DumpStateHandler.md)
 - [DumpStateResult](type-aliases/DumpStateResult.md)
 - [EmptyParams](type-aliases/EmptyParams.md)
@@ -193,6 +196,9 @@
 - [LoadStateParams](type-aliases/LoadStateParams.md)
 - [LoadStateResult](type-aliases/LoadStateResult.md)
 - [Log](type-aliases/Log.md)
+- [MineHandler](type-aliases/MineHandler.md)
+- [MineParams](type-aliases/MineParams.md)
+- [MineResult](type-aliases/MineResult.md)
 - [NetworkConfig](type-aliases/NetworkConfig.md)
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [ScriptParams](type-aliases/ScriptParams.md)

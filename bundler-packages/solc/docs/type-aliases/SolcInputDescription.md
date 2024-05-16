@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/solc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SolcInputDescription
+[@tevm/solc](../globals.md) / SolcInputDescription
 
 # Type alias: SolcInputDescription
 
@@ -14,9 +14,9 @@
 
 > **language**: [`SolcLanguage`](SolcLanguage.md)
 
-### settings
+### settings?
 
-> **settings**?: [`SolcSettings`](SolcSettings.md)
+> `optional` **settings**: [`SolcSettings`](SolcSettings.md)
 
 ### sources
 
@@ -25,6 +25,3 @@
 ## Source
 
 [solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

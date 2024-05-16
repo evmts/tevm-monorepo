@@ -1,12 +1,12 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > SUINT256
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / SUINT256
 
 # Variable: SUINT256
 
-> **`const`** **SUINT256**: `Schema`\<`bigint`, `bigint`\>
+> `const` **SUINT256**: `Schema`\<`bigint`, `bigint`\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the UINT256 type.
 
@@ -21,6 +21,3 @@ export const SUINT256: Schema<bigint, UINT256>;
 ## Source
 
 [experimental/schemas/src/ethereum/SUINT/SUINT.js:142](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L142)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

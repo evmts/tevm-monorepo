@@ -1,10 +1,11 @@
-import type { BaseClient } from '@tevm/base-client'
-import type { EIP1193EventEmitter, Eip1193RequestProvider, EthActionsApi, TevmActionsApi } from '@tevm/decorators'
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
+import { type JsonRpcSchemaTevm } from '@tevm/decorators'
+import type { Client, PublicActions, PublicRpcSchema, TestActions, TestRpcSchema, Transport } from 'viem'
+import type { Prettify } from 'viem/chains'
+import type { TevmActions } from './TevmActions.js'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
- * Implements the {@link TevmClient} interface with an in memory EVM instance.
+ * It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
  *
  * @see {@link TevmClient}
  * @see {@link https://todo.todo WrappedEvm} for an remote client
@@ -22,13 +23,13 @@ import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@
  *
  * const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 
- * await tevm.contract(
+ * await tevm.tevmContract(
  *   MyERC721.write.mint({
  *     caller: address,
  *   }),
  * )
  *
- * const balance = await tevm.runContractCall(
+ * const balance = await tevm.tevmContract(
  *  MyERC721.read.balanceOf({
  *  caller: address,
  *  }),
@@ -36,10 +37,21 @@ import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@
  *  console.log(balance) // 1n
  *  ```
  */
-export type MemoryClient = BaseClient &
-	EthActionsApi &
-	TevmActionsApi &
-	EIP1193EventEmitter &
-	Eip1193RequestProvider & { send: TevmJsonRpcRequestHandler } & {
-		sendBulk: TevmJsonRpcBulkRequestHandler
-	}
+export type MemoryClient = Prettify<
+	Client<
+		Transport,
+		undefined,
+		undefined,
+		[
+			...PublicRpcSchema,
+			...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
+			JsonRpcSchemaTevm['tevm_call'],
+			JsonRpcSchemaTevm['tevm_script'],
+			JsonRpcSchemaTevm['tevm_dumpState'],
+			JsonRpcSchemaTevm['tevm_loadState'],
+			JsonRpcSchemaTevm['tevm_getAccount'],
+			JsonRpcSchemaTevm['tevm_setAccount'],
+		],
+		PublicActions & TestActions & TevmActions
+	>
+>

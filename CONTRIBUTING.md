@@ -49,6 +49,14 @@ This includes
 
 3. Understand the repo in [monorepo section](#monorepo) and [packages](#packages) sections
 
+## Secrets
+
+Many of the tests use alchemy. They do not require an alchemy key but not providing one can cause throttling. To provide an alchemy key set `TEVM_TEST_ALCHEMY_KEY` environment variable in your shell.
+
+## Nx can get slow
+
+Sometimes you may notice nx slowing down. When this happens try running `pnpm nx reset` and it should reset it to being fast again.
+
 ## Monorepo
 
 Tevm is a monorepo using

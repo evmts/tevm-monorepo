@@ -1,10 +1,12 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthSignParams
+[@tevm/actions-types](../globals.md) / EthSignParams
 
 # Type alias: EthSignParams
+
+`Experimental`
 
 > **EthSignParams**: `object`
 
@@ -23,6 +25,3 @@ Based on the JSON-RPC request for `eth_sign` procedure
 ## Source
 
 [params/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L243)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

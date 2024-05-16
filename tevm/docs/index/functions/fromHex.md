@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > fromHex
+[tevm](../../modules.md) / [index](../README.md) / fromHex
 
 # Function: fromHex()
 
@@ -15,23 +15,25 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Type parameters
 
-▪ **TTo** extends `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
+• **TTo** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
 
 ## Parameters
 
-▪ **hex**: \`0x${string}\`
+• **hex**: \`0x$\{string\}\`
 
 Hex string to decode.
 
-▪ **toOrOpts**: `FromHexParameters`\<`TTo`\>
+• **toOrOpts**: `FromHexParameters`\<`TTo`\>
 
 Type to convert to or options.
 
 ## Returns
 
+`FromHexReturnType`\<`TTo`\>
+
 Decoded value.
 
-## Example
+## Examples
 
 ```ts
 import { fromHex } from 'viem'
@@ -39,15 +41,11 @@ const data = fromHex('0x1a4', 'number')
 // 420
 ```
 
-## Example
-
 ```ts
 import { fromHex } from 'viem'
 const data = fromHex('0x48656c6c6f20576f726c6421', 'string')
 // 'Hello world'
 ```
-
-## Example
 
 ```ts
 import { fromHex } from 'viem'
@@ -60,7 +58,4 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47

@@ -1,0 +1,17 @@
+{
+  "name": "mdt-repro",
+  "module": "index.ts",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@ensdomains/dnsprovejs": "^0.5.1",
+    "ethers": "^6.11.1",
+    "tevm": "workspace:^"
+  }
+}

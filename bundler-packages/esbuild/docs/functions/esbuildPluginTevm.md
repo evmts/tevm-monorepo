@@ -1,8 +1,8 @@
-**@tevm/esbuild-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/esbuild-plugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > esbuildPluginTevm
+[@tevm/esbuild-plugin](../globals.md) / esbuildPluginTevm
 
 # Function: esbuildPluginTevm()
 
@@ -15,13 +15,15 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ## Parameters
 
-▪ **options?**: `object`
+• **options?**
 
-▪ **options.solc?**: `SolcVersions`
+• **options.solc?**: `SolcVersions`
 
 ## Returns
 
-## Example
+`Plugin`
+
+## Examples
 
 ```typescript
 import { esbuildPluginTevm } from '@tevm/esbuild-plugin'
@@ -38,8 +40,6 @@ build({
 For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
 The ts-plugin will provide type hints, code completion, and other features.
 
-## Example
-
 ```json
 {
   "compilerOptions": {
@@ -50,8 +50,6 @@ The ts-plugin will provide type hints, code completion, and other features.
 
 Once the esbuild plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
 turn them into Tevm `Contract` instances.
-
-## Example
 
 ```typescript
 // Solidity imports are automaticlaly turned into Tevm Contract objects
@@ -69,8 +67,6 @@ tevm.contract(
 
 Under the hood the esbuild plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
 
-## Example
-
 ```typescript
 import { createContract } from '@tevm/contract'
 
@@ -83,8 +79,6 @@ export const ERC20 = createContract({
 ```
 
 For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
-
-## Example
 
 ```json
 {
@@ -103,6 +97,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

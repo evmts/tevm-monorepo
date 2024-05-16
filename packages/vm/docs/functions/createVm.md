@@ -1,20 +1,21 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/vm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createVm
+[@tevm/vm](../globals.md) / createVm
 
 # Function: createVm()
 
-> **createVm**(`__namedParameters`): `Promise`\<[`TevmVm`](../classes/TevmVm.md)\>
+> **createVm**(`opts`): [`Vm`](../type-aliases/Vm.md)
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateVmOptions`](../type-aliases/CreateVmOptions.md)
+• **opts**: `VmOpts`
+
+## Returns
+
+[`Vm`](../type-aliases/Vm.md)
 
 ## Source
 
-[packages/vm/src/createVm.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/createVm.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[createVm.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/createVm.js#L11)

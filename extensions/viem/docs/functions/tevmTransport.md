@@ -1,8 +1,8 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > tevmTransport
+[@tevm/viem](../globals.md) / tevmTransport
 
 # Function: tevmTransport()
 
@@ -10,19 +10,18 @@
 
 ## Parameters
 
-▪ **tevm**: `Pick`\<`MemoryClient`, `"request"`\>
+• **tevm**: `Pick`\<`object`, `"request"`\>
 
 The Tevm instance
 
-▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"` \| `"timeout"` \| `"retryDelay"` \| `"retryCount"`\>
 
 ## Returns
+
+`Transport`\<`string`, `Record`\<`string`, `any`\>, `EIP1193RequestFn`\>
 
 The transport function
 
 ## Source
 
-[tevmTransport.js:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmTransport.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/tevmTransport.js:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmTransport.js#L8)

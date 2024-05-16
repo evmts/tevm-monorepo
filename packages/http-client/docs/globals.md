@@ -1,4 +1,4 @@
-**@tevm/http-client** • [Readme](README.md) \| API
+[**@tevm/http-client**](README.md) • **Docs**
 
 ***
 

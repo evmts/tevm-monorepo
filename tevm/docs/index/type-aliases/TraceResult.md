@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TraceResult
+[tevm](../../modules.md) / [index](../README.md) / TraceResult
 
 # Type alias: TraceResult
 
@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### calls
+### calls?
 
-> **calls**?: [`TraceCall`](TraceCall.md)[]
+> `optional` **calls**: [`TraceCall`](TraceCall.md)[]
 
 ### from
 
@@ -49,6 +49,3 @@
 ## Source
 
 packages/actions-types/types/common/TraceResult.d.ts:5
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

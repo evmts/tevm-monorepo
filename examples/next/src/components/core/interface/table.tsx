@@ -168,7 +168,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       });
 
       // Start processing the transaction
-      const tx = await client.contract({
+      const tx = await client.tevmContract({
         from: caller,
         to: account.address,
         functionName,

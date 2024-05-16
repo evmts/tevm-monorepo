@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
 
-# Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
+# Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure()
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
+• **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:785
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:795

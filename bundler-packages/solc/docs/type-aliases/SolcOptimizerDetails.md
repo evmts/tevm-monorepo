@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/solc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SolcOptimizerDetails
+[@tevm/solc](../globals.md) / SolcOptimizerDetails
 
 # Type alias: SolcOptimizerDetails
 
@@ -49,6 +49,3 @@
 ## Source
 
 [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

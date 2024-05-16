@@ -1,4 +1,4 @@
-**@tevm/decorators** • [Readme](README.md) \| API
+[**@tevm/decorators**](README.md) • **Docs**
 
 ***
 

@@ -1,5 +1,5 @@
 import { EVM } from '@ethereumjs/evm'
-import type { TevmStateManager } from '@tevm/state'
+import type { StateManager } from '@tevm/state'
 import type { EVMOpts } from './EvmOpts.js'
 
 /**
@@ -9,5 +9,5 @@ import type { EVMOpts } from './EvmOpts.js'
  */
 export class Evm extends EVM {
 	public declare static create: (options?: EVMOpts) => Promise<Evm>
-	public declare stateManager: TevmStateManager
+	public declare stateManager: StateManager
 }

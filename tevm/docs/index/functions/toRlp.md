@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > toRlp
+[tevm](../../modules.md) / [index](../README.md) / toRlp
 
 # Function: toRlp()
 
@@ -10,17 +10,18 @@
 
 ## Type parameters
 
-▪ **to** extends `To` = `"hex"`
+• **to** *extends* `To` = `"hex"`
 
 ## Parameters
 
-▪ **bytes**: `RecursiveArray`\<`Uint8Array`\> \| `RecursiveArray`\<\`0x${string}\`\>
+• **bytes**: `RecursiveArray`\<`Uint8Array`\> \| `RecursiveArray`\<\`0x$\{string\}\`\>
 
-▪ **to?**: `to` \| `To`
+• **to?**: `to` \| `To`
+
+## Returns
+
+`ToRlpReturnType`\<`to`\>
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.22.5/node\_modules/viem/\_types/utils/encoding/toRlp.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toRlp.d.ts:10

@@ -1,11 +1,11 @@
-import type { TevmBlockchain } from '@tevm/blockchain'
+import type { Chain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
 import type { Evm } from '@tevm/evm'
-import type { TevmStateManager } from '@tevm/state'
+import type { StateManager } from '@tevm/state'
 
 export type CreateVmOptions = {
-	stateManager: TevmStateManager
+	stateManager: StateManager
 	evm: Evm
-	blockchain: TevmBlockchain
+	blockchain: Chain
 	common: Common
 }

@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/decorators**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > LogTopic
+[@tevm/decorators](../globals.md) / LogTopic
 
 # Type alias: LogTopic
 
@@ -11,6 +11,3 @@
 ## Source
 
 [packages/decorators/src/eip1193/misc.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/misc.ts#L10)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

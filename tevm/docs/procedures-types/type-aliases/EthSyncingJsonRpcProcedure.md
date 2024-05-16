@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthSyncingJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthSyncingJsonRpcProcedure
 
-# Type alias: EthSyncingJsonRpcProcedure
+# Type alias: EthSyncingJsonRpcProcedure()
 
 > **EthSyncingJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSyncingJsonRpcResponse`](EthSyncingJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthSyncingJsonRpcRequest`](EthSyncingJsonRpcRequest.md)
+• **request**: [`EthSyncingJsonRpcRequest`](EthSyncingJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthSyncingJsonRpcResponse`](EthSyncingJsonRpcResponse.md)\>
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:796
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+packages/procedures-types/dist/index.d.ts:806

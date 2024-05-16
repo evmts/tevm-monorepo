@@ -8,7 +8,7 @@ export const tevm = createMemoryClient()
  * Tests fib sequence in solidity
  */
 export const pureComputationSol = async (i: bigint): Promise<bigint> => {
-	return tevm.script(Fibonacci.read.calculate(i)).then((res) => res.data) as Promise<bigint>
+	return tevm.tevmScript(Fibonacci.read.calculate(i)).then((res) => res.data) as Promise<bigint>
 }
 /**
  * Tests fib sequence in ts

@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > EthGetTransactionCountResult
+[@tevm/actions-types](../globals.md) / EthGetTransactionCountResult
 
 # Type alias: EthGetTransactionCountResult
 
@@ -13,6 +13,3 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 ## Source
 
 [result/EthResult.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/EthResult.ts#L119)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

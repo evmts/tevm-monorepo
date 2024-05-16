@@ -1,12 +1,12 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [common](../README.md) > SUrl
+[@tevm/schemas](../../modules.md) / [common](../README.md) / SUrl
 
 # Variable: SUrl
 
-> **`const`** **SUrl**: `Schema`\<`string`, `string`\>
+> `const` **SUrl**: `Schema`\<`string`, `string`\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the Url type.
 
@@ -20,6 +20,3 @@ export const SUrl: Schema<string, Url>;
 ## Source
 
 [experimental/schemas/src/common/SUrl.js:51](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L51)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

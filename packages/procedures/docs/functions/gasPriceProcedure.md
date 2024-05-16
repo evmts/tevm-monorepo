@@ -1,8 +1,8 @@
-**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > gasPriceProcedure
+[@tevm/procedures](../globals.md) / gasPriceProcedure
 
 # Function: gasPriceProcedure()
 
@@ -10,14 +10,14 @@
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
+• **options.extend**
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-▪ **options.forkUrl?**: `string`
+• **options.forkUrl?**: `string`
 
 Fork url if the EVM is forked
 
@@ -28,52 +28,35 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-▪ **options.getChain**: () => `Promise`\<`Chain`\>
-
-Represents the entire blockchain including it's logs and historical state
-
-▪ **options.getChainId**: () => `Promise`\<`number`\>
-
-Gets the chainId of the current EVM
-
-**Example**
-
-```ts
-const client = createMemoryClient()
-const chainId = await client.getChainId()
-console.log(chainId)
-```
-
-▪ **options.getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+• **options.getReceiptsManager**
 
 Interface for querying receipts and historical state
 
-▪ **options.getTxPool**: () => `Promise`\<`TxPool`\>
+• **options.getTxPool**
 
 Gets the pool of pending transactions to be included in next block
 
-▪ **options.getVm**: () => `Promise`\<`TevmVm`\>
+• **options.getVm**
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
-▪ **options.logger**: `Logger`
+• **options.logger**: `Logger`
 
 The logger instance
 
-▪ **options.miningConfig**: `MiningConfig`
+• **options.miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-▪ **options.mode**: `"fork"` \| `"proxy"` \| `"normal"`
+• **options.mode**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
-`proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
 **Example**
@@ -85,7 +68,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-▪ **options.ready**: () => `Promise`\<`true`\>
+• **options.ready**
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -98,15 +81,10 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-▪ **options.setChainId**: (`chainId`) => `void`
-
-Sets the chain id of the current EVM
-
 ## Returns
+
+`EthGasPriceJsonRpcProcedure`
 
 ## Source
 
 [procedures/src/eth/gasPriceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/gasPriceProcedure.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

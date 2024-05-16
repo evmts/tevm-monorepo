@@ -1,8 +1,8 @@
-**@tevm/base-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Hardfork
+[@tevm/base-client](../globals.md) / Hardfork
 
 # Type alias: Hardfork
 
@@ -13,6 +13,3 @@ Ethereum hardfork option
 ## Source
 
 [Hardfork.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Hardfork.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

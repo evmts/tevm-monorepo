@@ -23,16 +23,21 @@ test('Call predeploy from TypeScript', async () => {
 	})
 
 	const tevm = createMemoryClient({
+		loggingLevel: 'debug',
 		customPredeploys: [predeploy],
 	})
 
+	await tevm.tevmReady()
+
 	// Predeploy Contract exists in vm
 	expect(
-		await (await tevm.getVm()).stateManager.getContractCode(new EthjsAddress(hexToBytes(predeployAddress))),
+		await (await tevm._tevm.getVm()).stateManager.getContractCode(new EthjsAddress(hexToBytes(predeployAddress))),
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call
-	const res = await tevm.contract(predeploy.contract.withAddress(predeploy.address).read.balanceOf(predeploy.address))
+	const res = await tevm.tevmContract(
+		predeploy.contract.withAddress(predeploy.address).read.balanceOf(predeploy.address),
+	)
 
 	expect(res.errors).toEqual(undefined as any)
 	expect(res.data).toBe(0n)

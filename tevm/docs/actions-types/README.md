@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > actions-types
+[tevm](../modules.md) / actions-types
 
-# Module: actions-types
+# actions-types
 
 ## Index
 
@@ -53,6 +53,7 @@
 - [AnvilStopImpersonatingAccountResult](type-aliases/AnvilStopImpersonatingAccountResult.md)
 - [BaseCallParams](type-aliases/BaseCallParams.md)
 - [Block](type-aliases/Block.md)
+- [BlockOverrideSet](type-aliases/BlockOverrideSet.md)
 - [BlockResult](type-aliases/BlockResult.md)
 - [BlockTag](type-aliases/BlockTag.md)
 - [CallHandler](type-aliases/CallHandler.md)
@@ -63,6 +64,9 @@
 - [DebugTraceTransactionHandler](type-aliases/DebugTraceTransactionHandler.md)
 - [DebugTraceTransactionParams](type-aliases/DebugTraceTransactionParams.md)
 - [DebugTraceTransactionResult](type-aliases/DebugTraceTransactionResult.md)
+- [DeployHandler](type-aliases/DeployHandler.md)
+- [DeployParams](type-aliases/DeployParams.md)
+- [DeployResult](type-aliases/DeployResult.md)
 - [DumpStateHandler](type-aliases/DumpStateHandler.md)
 - [DumpStateResult](type-aliases/DumpStateResult.md)
 - [EmptyParams](type-aliases/EmptyParams.md)
@@ -192,30 +196,12 @@
 - [NetworkConfig](type-aliases/NetworkConfig.md)
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
+- [StateOverrideSet](type-aliases/StateOverrideSet.md)
 - [StructLog](type-aliases/StructLog.md)
 - [TraceType](type-aliases/TraceType.md)
 - [TransactionParams](type-aliases/TransactionParams.md)
 - [TransactionReceiptResult](type-aliases/TransactionReceiptResult.md)
 - [TransactionResult](type-aliases/TransactionResult.md)
-
-## Table of contents
-
-### References
-
-- [BlockParam](README.md#blockparam)
-- [CallParams](README.md#callparams)
-- [CallResult](README.md#callresult)
-- [ContractParams](README.md#contractparams)
-- [ContractResult](README.md#contractresult)
-- [GetAccountParams](README.md#getaccountparams)
-- [GetAccountResult](README.md#getaccountresult)
-- [ScriptParams](README.md#scriptparams)
-- [ScriptResult](README.md#scriptresult)
-- [SetAccountParams](README.md#setaccountparams)
-- [SetAccountResult](README.md#setaccountresult)
-- [TraceCall](README.md#tracecall)
-- [TraceParams](README.md#traceparams)
-- [TraceResult](README.md#traceresult)
 
 ## References
 
@@ -261,6 +247,24 @@ Re-exports [GetAccountResult](../index/type-aliases/GetAccountResult.md)
 
 ***
 
+### MineHandler
+
+Re-exports [MineHandler](../index/type-aliases/MineHandler.md)
+
+***
+
+### MineParams
+
+Re-exports [MineParams](../index/type-aliases/MineParams.md)
+
+***
+
+### MineResult
+
+Re-exports [MineResult](../index/type-aliases/MineResult.md)
+
+***
+
 ### ScriptParams
 
 Re-exports [ScriptParams](../index/type-aliases/ScriptParams.md)
@@ -300,6 +304,3 @@ Re-exports [TraceParams](../index/type-aliases/TraceParams.md)
 ### TraceResult
 
 Re-exports [TraceResult](../index/type-aliases/TraceResult.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

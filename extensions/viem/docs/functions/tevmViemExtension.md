@@ -1,19 +1,18 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > tevmViemExtension
+[@tevm/viem](../globals.md) / tevmViemExtension
 
 # Function: tevmViemExtension()
 
 > **tevmViemExtension**(): [`ViemTevmClientDecorator`](../type-aliases/ViemTevmClientDecorator.md)
 
+Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
+
 ## Returns
 
-## Deprecated
-
-in favor of the viem transport
-Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
+[`ViemTevmClientDecorator`](../type-aliases/ViemTevmClientDecorator.md)
 
 ## Example
 
@@ -36,7 +35,4 @@ await client.tevm.account({
 
 ## Source
 
-[tevmViemExtension.js:37](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtension.js#L37)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/tevmViemExtension.js:36](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtension.js#L36)

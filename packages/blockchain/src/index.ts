@@ -1,4 +1,15 @@
-export { createBlockchain } from './createBlockchain.js'
-export { type Blockchain } from './TevmBlockchain.js'
-export { Chain } from './Chain.js'
-export { ReceiptsManager } from './RecieptManager.js'
+export { createChain } from './createChain.js'
+export { createBaseChain } from './createBaseChain.js'
+export {
+	deepCopy,
+	delBlock,
+	getBlock,
+	putBlock,
+	shallowCopy,
+	validateHeader,
+	getIteratorHead,
+	setIteratorHead,
+	getCanonicalHeadBlock,
+} from './actions/index.js'
+export type { Chain } from './Chain.js'
+export type { ChainOptions } from './ChainOptions.js'

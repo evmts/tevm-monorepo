@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { createBlockchain } from '@tevm/blockchain'
+import { createChain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
-import { createTevmStateManager } from '@tevm/state'
+import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { createEvm } from './createEvm.js'
 
@@ -10,10 +10,10 @@ describe(createEvm.name, () => {
 		const common = new Common({ chain: 1 })
 		const vm = await createEvm({
 			common,
-			blockchain: await createBlockchain({
+			blockchain: await createChain({
 				common,
 			}),
-			stateManager: createTevmStateManager({ normal: {} }),
+			stateManager: createStateManager({}),
 		})
 		const res = await vm.runCall({
 			skipBalance: true,

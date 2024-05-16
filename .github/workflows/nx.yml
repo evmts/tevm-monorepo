@@ -12,6 +12,7 @@ env:
   NODE_OPTIONS: '--max_old_space_size=4096'
   NX_BRANCH: ${{ github.event.number || github.ref_name }}
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  TEVM_TEST_ALCHEMY_KEY: ${{ secrets.TEVM_TEST_ALCHEMY_KEY }}
 
 jobs:
   agents:

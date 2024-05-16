@@ -7,9 +7,7 @@ export {
 	type EVMStateManagerInterface as EvmStateManagerInterface,
 	type AccountFields,
 	type StorageRange,
-	type CliqueConfig,
 	ConsensusAlgorithm,
-	ChainGenesis,
-	Chain as CommonChainId,
+	type CliqueConfig,
 	ConsensusType,
 } from '@ethereumjs/common'

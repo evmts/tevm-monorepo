@@ -1,10 +1,12 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ViemTevmOptimisticClient
+[@tevm/viem](../globals.md) / ViemTevmOptimisticClient
 
-# Type alias: ViemTevmOptimisticClient`<TChain, TAccount>`
+# Type alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
+
+`Experimental`
 
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
 
@@ -16,38 +18,38 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 ## Type parameters
 
-| Parameter | Default |
-| :------ | :------ |
-| `TChain` extends `Chain` \| `undefined` | `Chain` |
-| `TAccount` extends `Account` \| `undefined` | `Account` \| `undefined` |
+• **TChain** *extends* `Chain` \| `undefined` = `Chain`
+
+• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Type declaration
 
-### tevm
+### ~~tevm~~
 
 > **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
 
 #### Type declaration
 
-##### writeContractOptimistic()
+##### ~~writeContractOptimistic()~~
 
 ###### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
-▪ **TFunctionName** extends `string` = `ContractFunctionName`\<`TAbi`\>
+• **TFunctionName** *extends* `string` = `ContractFunctionName`\<`TAbi`\>
 
-▪ **TArgs** extends `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
+• **TArgs** *extends* `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
 
-▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined` \| `Chain`
+• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
 
 ###### Parameters
 
-▪ **action**: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>
+• **action**: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>
+
+###### Returns
+
+`AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>
 
 ## Source
 
-[ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

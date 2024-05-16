@@ -1,4 +1,4 @@
-**@tevm/procedures-types** • [Readme](README.md) \| API
+[**@tevm/procedures-types**](README.md) • **Docs**
 
 ***
 
@@ -199,6 +199,9 @@
 - [LoadStateJsonRpcProcedure](type-aliases/LoadStateJsonRpcProcedure.md)
 - [LoadStateJsonRpcRequest](type-aliases/LoadStateJsonRpcRequest.md)
 - [LoadStateJsonRpcResponse](type-aliases/LoadStateJsonRpcResponse.md)
+- [MineJsonRpcProcedure](type-aliases/MineJsonRpcProcedure.md)
+- [MineJsonRpcRequest](type-aliases/MineJsonRpcRequest.md)
+- [MineJsonRpcResponse](type-aliases/MineJsonRpcResponse.md)
 - [ScriptJsonRpcProcedure](type-aliases/ScriptJsonRpcProcedure.md)
 - [ScriptJsonRpcRequest](type-aliases/ScriptJsonRpcRequest.md)
 - [ScriptJsonRpcResponse](type-aliases/ScriptJsonRpcResponse.md)
