@@ -17,4 +17,5 @@ export {
 	gasPriceProcedure,
 	getBalanceProcedure,
 	getStorageAtProcedure,
+	ethGetLogsProcedure,
 } from './eth/index.js'
