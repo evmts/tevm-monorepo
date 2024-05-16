@@ -109,7 +109,7 @@ export type EthGetCodeJsonRpcResponse = JsonRpcResponse<'eth_getCode', Hex, stri
  */
 export type EthGetFilterChangesJsonRpcResponse = JsonRpcResponse<
 	'eth_getFilterChanges',
-	Array<FilterLog>,
+	Array<SerializeToJson<FilterLog>>,
 	string | number
 >
 
@@ -117,13 +117,21 @@ export type EthGetFilterChangesJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `eth_getFilterLogs` procedure
  */
-export type EthGetFilterLogsJsonRpcResponse = JsonRpcResponse<'eth_getFilterLogs', Array<FilterLog>, string | number>
+export type EthGetFilterLogsJsonRpcResponse = JsonRpcResponse<
+	'eth_getFilterLogs',
+	Array<SerializeToJson<FilterLog>>,
+	string | number
+>
 
 // eth_getLogs
 /**
  * JSON-RPC response for `eth_getLogs` procedure
  */
-export type EthGetLogsJsonRpcResponse = JsonRpcResponse<'eth_getLogs', Array<FilterLog>, string | number>
+export type EthGetLogsJsonRpcResponse = JsonRpcResponse<
+	'eth_getLogs',
+	Array<SerializeToJson<SerializeToJson<FilterLog>>>,
+	string | number
+>
 
 // eth_getStorageAt
 /**

@@ -1,4 +1,5 @@
-import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { EthjsAddress, bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/blockchain').Chain} blockchain
@@ -49,6 +50,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 	throw new Error('Unknown block param pased to blockNumberHandler')
 }
 
+// TODO support EIP-234
 /**
  * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthGetLogsHandler}
@@ -64,36 +66,80 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	// TODO make this more parallized
 	const fromBlock = await vm.blockchain.getBlock(await parseBlockParam(vm.blockchain, params.filterParams.fromBlock))
 	const toBlock = await vm.blockchain.getBlock(await parseBlockParam(vm.blockchain, params.filterParams.toBlock))
+	const forkedBlock = vm.blockchain.blocksByTag.get('forked')
 
-	// let's make sure that we cached most of the blocks already otherwise we will burn a lot of alchemy credits
-	if (toBlock.header.number - fromBlock.header.number > 200) {
-		let uncachedBlocks = 0
-		for (let i = fromBlock.header.number; i <= toBlock.header.number; i++) {
-			uncachedBlocks += vm.blockchain.blocksByNumber.has(i) ? 0 : 1
-			if (uncachedBlocks > 200) {
-				throw new Error(
-					'Block range provided to eth_getLogs traverses more than 200 uncached blocks. This will be too slow and cost too many rpc credits. This restriction will be lifted in a future version when forked logs are fetched in a safer way',
-				)
-			}
+	/**
+	 * @type {import('@tevm/actions-types').EthGetLogsResult}
+	 */
+	const logs = []
+
+	const fetchFromRpc = forkedBlock && forkedBlock.header.number >= fromBlock.header.number
+
+	if (fetchFromRpc) {
+		// if the range includes prefork blocks (including fork since we don't have receipts for the fork block) then we need to fetch the logs from the forked chain
+		if (!client.forkUrl) {
+			throw new Error(
+				'InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm',
+			)
+		}
+		const fetcher = createJsonRpcFetcher(client.forkUrl)
+		const { result: jsonRpcLogs, error } = await fetcher.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getLogs',
+			params: [
+				{
+					fromBlock: numberToHex(fromBlock.header.number),
+					toBlock: numberToHex(forkedBlock.header.number),
+					address: params.filterParams.address,
+					topics: params.filterParams.topics,
+				},
+			],
+		})
+		if (error) {
+			throw new Error(`Error fetching logs from forked chain: ${error.message}`)
+		}
+		if (!jsonRpcLogs) {
+			throw new Error('Error fetching logs from forked chain: no logs returned')
+		}
+		const typedLogs = /** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcResponse['result']}*/ (jsonRpcLogs)
+		if (typedLogs !== undefined) {
+			logs.push(
+				...typedLogs.map((log) => {
+					return {
+						removed: false,
+						logIndex: hexToBigInt(log.logIndex),
+						transactionIndex: hexToBigInt(log.transactionIndex),
+						transactionHash: log.transactionHash,
+						blockHash: log.blockHash,
+						blockNumber: hexToBigInt(log.blockNumber),
+						address: log.address,
+						topics: log.topics,
+						data: log.data,
+					}
+				}),
+			)
 		}
 	}
-
-	const logs = await receiptsManager.getLogs(
-		fromBlock,
+	const cachedLogs = await receiptsManager.getLogs(
+		fetchFromRpc ? fromBlock : /** @type {import('@tevm/block').Block}*/ (forkedBlock),
 		toBlock,
 		[EthjsAddress.fromString(params.filterParams.address).bytes],
 		params.filterParams.topics.map((topic) => hexToBytes(topic)),
 	)
-	return logs.map(({ log, block, tx, txIndex, logIndex }) => ({
-		// what does this mean?
-		removed: false,
-		logIndex: BigInt(logIndex),
-		transactionIndex: BigInt(txIndex),
-		transactionHash: bytesToHex(tx.hash()),
-		blockHash: bytesToHex(block.hash()),
-		blockNumber: block.header.number,
-		address: bytesToHex(log[0]),
-		topics: log[1].map((topic) => bytesToHex(topic)),
-		data: bytesToHex(log[2]),
-	}))
+	logs.push(
+		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({
+			// what does this mean?
+			removed: false,
+			logIndex: BigInt(logIndex),
+			transactionIndex: BigInt(txIndex),
+			transactionHash: bytesToHex(tx.hash()),
+			blockHash: bytesToHex(block.hash()),
+			blockNumber: block.header.number,
+			address: bytesToHex(log[0]),
+			topics: log[1].map((topic) => bytesToHex(topic)),
+			data: bytesToHex(log[2]),
+		})),
+	)
+	return logs
 }
