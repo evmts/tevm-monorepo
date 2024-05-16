@@ -1,15 +1,24 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Rlp } from '@tevm/rlp'
-import { Bloom, bytesToBigInt, bytesToHex, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
+import {
+	Bloom,
+	bytesToBigInt,
+	bytesToHex,
+	bytesToNumber,
+	equalsBytes,
+	hexToBytes,
+	numberToHex,
+	stringToHex,
+} from '@tevm/utils'
 
-import type {EthGetTransactionReceiptJsonRpcResponse} from '@tevm/procedures-types'
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import type { EthGetTransactionReceiptJsonRpcResponse } from '@tevm/procedures-types'
 import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
 import type { MapDb } from './MapDb.js'
-import {createJsonRpcFetcher} from '@tevm/jsonrpc'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
 /**
@@ -228,7 +237,7 @@ export class ReceiptsManager {
 		to: Block,
 		addresses?: Uint8Array[],
 		topics: (Uint8Array | Uint8Array[] | null)[] = [],
-		forkUrl?: string
+		forkUrl?: string,
 	): Promise<GetLogsReturn> {
 		const returnedLogs: GetLogsReturn = []
 		let returnedLogsSize = 0
@@ -237,19 +246,21 @@ export class ReceiptsManager {
 			if (!cachedBlock) {
 				const uncachedBlock = await getBlock(this.chain)(i)
 				if (!forkUrl) {
-					throw new Error(`cannot get logs for uncached block ${i} without a fork url! If not forking a blocknumber that doesn not exist may have been specified`)
+					throw new Error(
+						`cannot get logs for uncached block ${i} without a fork url! If not forking a blocknumber that doesn not exist may have been specified`,
+					)
 				}
 				const fetcher = createJsonRpcFetcher(forkUrl)
-				uncachedBlock.transactions.map(async tx => {
+				uncachedBlock.transactions.map(async (tx) => {
 					tx.hash()
 					// TODO we need a robust way of knowing if we have actually fetched receipts or not
 					// for example, the forked block is not eagerly fetching receipts so we should track this
-				const receiptResponse = await fetcher.request({
-					jsonrpc: '2.0',
-					id: 1,
-					method: 'eth_getTransactionReceipt',
-					params: [bytesToHex(tx.hash())]
-				}) as EthGetTransactionReceiptJsonRpcResponse
+					const receiptResponse = (await fetcher.request({
+						jsonrpc: '2.0',
+						id: 1,
+						method: 'eth_getTransactionReceipt',
+						params: [bytesToHex(tx.hash())],
+					})) as EthGetTransactionReceiptJsonRpcResponse
 				})
 				// save receipt and mark that we lazily fetched this blocks receipts
 			}
