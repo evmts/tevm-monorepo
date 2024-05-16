@@ -93,7 +93,7 @@ export const createJsonRpcFetcher = (
 				{
 					retryCount: retries,
 					delay: ({ count }) => {
-						return count * 200
+						return count * 300
 					},
 				},
 			)
