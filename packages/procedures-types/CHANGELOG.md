@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.1.0-next.50
+
+### Minor Changes
+
+- [#1083](https://github.com/evmts/tevm-monorepo/pull/1083) [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4) Thanks [@roninjin10](https://github.com/roninjin10)! - Added jsonrpc support for eth_getLogs to @tevm/procedures
+
+### Patch Changes
+
+- [#1083](https://github.com/evmts/tevm-monorepo/pull/1083) [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed wrong type for FilterLogs in JSON-RPC responses to return Hex instead of BigInt
+
 ## 1.1.0-next.47
 
 ### Patch Changes
