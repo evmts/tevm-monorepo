@@ -1968,6 +1968,12 @@ importers:
       '@tevm/blockchain':
         specifier: workspace:1.1.0-next.47
         version: link:../blockchain
+      '@tevm/jsonrpc':
+        specifier: workspace:1.1.0-next.47
+        version: link:../jsonrpc
+      '@tevm/procedures-types':
+        specifier: workspace:1.1.0-next.47
+        version: link:../procedures-types
       '@tevm/rlp':
         specifier: workspace:^
         version: link:../rlp
