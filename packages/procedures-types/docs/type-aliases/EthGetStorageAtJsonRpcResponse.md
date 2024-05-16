@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getStorageAt` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L132)
+[responses/EthJsonRpcResponse.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L140)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,6 +12,7 @@ import {
 	callProcedure,
 	chainIdProcedure,
 	dumpStateProcedure,
+	ethGetLogsProcedure,
 	gasPriceProcedure,
 	getAccountProcedure,
 	getBalanceProcedure,
@@ -367,7 +368,12 @@ export const requestProcedure = (client) => {
 					(request)
 				return ethGetTransactionReceiptJsonRpcProcedure(client)(getTransactionReceiptRequest)
 			}
-			case 'eth_getLogs':
+			case 'eth_getLogs': {
+				const ethGetLogsRequest =
+					/** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcRequest}*/
+					(request)
+				return ethGetLogsProcedure(client)(ethGetLogsRequest)
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_getBlockByHash':

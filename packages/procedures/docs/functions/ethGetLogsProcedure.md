@@ -2,20 +2,13 @@
 
 ***
 
-[API](../API.md) > requestProcedure
+[API](../API.md) > ethGetLogsProcedure
 
-# Function: requestProcedure()
+# Function: ethGetLogsProcedure()
 
-> **requestProcedure**(`client`): `TevmJsonRpcRequestHandler`
+> **ethGetLogsProcedure**(`client`): `EthGetLogsJsonRpcProcedure`
 
-Request handler for JSON-RPC requests.
-
-This implementation of the Tevm requestProcedure spec
-implements it via the ethereumjs VM.
-
-Most users will want to use `Tevm.request` instead of
-this method but this method may be desired if hyper optimizing
-bundle size.
+Executes a message call without creating a transaction on the block chain.
 
 ## Parameters
 
@@ -92,26 +85,9 @@ await client.ready()
 
 ## Returns
 
-## Example
-
-```typescript
-const blockNumberResponse = await tevm.request({
- method: 'eth_blockNumber',
- params: []
- id: 1
- jsonrpc: '2.0'
-})
-const accountResponse = await tevm.request({
- method: 'tevm_getAccount',
- params: [{address: '0x123...'}]
- id: 1
- jsonrpc: '2.0'
-})
-```
-
 ## Source
 
-[procedures/src/requestProcedure.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L57)
+[procedures/src/eth/ethGetLogsProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetLogsProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

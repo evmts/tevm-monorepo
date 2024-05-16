@@ -6,7 +6,7 @@
 
 # Type alias: EthGetLogsJsonRpcResponse
 
-> **EthGetLogsJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getLogs"`, [`FilterLog`](../../actions-types/type-aliases/FilterLog.md)[], `string` \| `number`\>
+> **EthGetLogsJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getLogs"`, [`SerializeToJson`](SerializeToJson.md)\<[`SerializeToJson`](SerializeToJson.md)\<[`FilterLog`](../../actions-types/type-aliases/FilterLog.md)\>\>[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getLogs` procedure
 
