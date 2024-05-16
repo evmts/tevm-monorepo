@@ -20,7 +20,7 @@ export type BaseChain = {
 	/**
 	 * Mapping of named block tags such as 'latest' to blocks
 	 */
-	blocksByTag: Map<BlockTag, Block | undefined>
+	blocksByTag: Map<BlockTag | 'forked', Block | undefined>
 	/**
 	 * Mapping of block numbers to blocks
 	 */

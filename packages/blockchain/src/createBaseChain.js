@@ -67,6 +67,7 @@ export const createBaseChain = (options) => {
 		if (options.fork?.url) {
 			const block = await getBlockFromRpc(options.fork, options.common)
 			await putBlock(chain)(block)
+			chain.blocksByTag.set('forked', block)
 		} else {
 			await putBlock(chain)(
 				options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? EMPTY_STATE_ROOT, options.common),
