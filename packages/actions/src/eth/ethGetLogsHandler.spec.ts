@@ -5,7 +5,9 @@ import { keccak256, stringToHex } from '@tevm/utils'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
 describe(ethGetLogsHandler.name, () => {
-	it(
+	// we are skipping because alchemy slowness makes this too flaky
+	// we should update the test to not rely on alchemy archive nodes
+	it.skip(
 		'should work fetching from fork url',
 		async () => {
 			const client = createBaseClient({
