@@ -1,5 +1,30 @@
 # @tevm/contract
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/viem@1.1.0-next.52
+  - @tevm/actions-types@1.1.0-next.52
+  - @tevm/base-client@1.1.0-next.52
+  - @tevm/client-types@1.1.0-next.52
+  - @tevm/contract@1.1.0-next.52
+  - @tevm/decorators@1.1.0-next.52
+  - @tevm/errors@1.1.0-next.52
+  - @tevm/http-client@1.1.0-next.52
+  - @tevm/jsonrpc@1.1.0-next.52
+  - @tevm/memory-client@1.1.0-next.52
+  - @tevm/precompiles@1.1.0-next.52
+  - @tevm/predeploys@1.1.0-next.52
+  - @tevm/procedures-types@1.1.0-next.52
+  - @tevm/server@1.1.0-next.52
+  - @tevm/state@1.1.0-next.52
+  - @tevm/sync-storage-persister@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+
 ## 1.1.0-next.51
 
 ### Patch Changes

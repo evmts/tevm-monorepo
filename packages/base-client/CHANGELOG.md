@@ -1,5 +1,25 @@
 # @tevm/client
 
+## 1.1.0-next.52
+
+### Patch Changes
+
+- [#1088](https://github.com/evmts/tevm-monorepo/pull/1088) [`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to include changeset for tx package. Bumping every package just to be safe
+
+- Updated dependencies [[`65e4089`](https://github.com/evmts/tevm-monorepo/commit/65e40891fca12fc7fde5d1e177527cd70b28cb1f)]:
+  - @tevm/blockchain@1.1.0-next.52
+  - @tevm/common@1.1.0-next.52
+  - @tevm/evm@1.1.0-next.52
+  - @tevm/jsonrpc@1.1.0-next.52
+  - @tevm/logger@1.1.0-next.52
+  - @tevm/predeploys@1.1.0-next.52
+  - @tevm/receipt-manager@1.1.0-next.52
+  - @tevm/state@1.1.0-next.52
+  - @tevm/sync-storage-persister@1.1.0-next.52
+  - @tevm/txpool@1.1.0-next.52
+  - @tevm/utils@1.1.0-next.52
+  - @tevm/vm@1.1.0-next.52
+
 ## 1.1.0-next.51
 
 ### Patch Changes
