@@ -1,5 +1,16 @@
 # @tevm/state
 
+## 1.1.0-next.50
+
+### Minor Changes
+
+- [#1079](https://github.com/evmts/tevm-monorepo/pull/1079) [`71e5c1e`](https://github.com/evmts/tevm-monorepo/commit/71e5c1ead386f43a3bfbdd53acffcb5b49ad3433) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved receipts manager to it's own package
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`71e5c1e`](https://github.com/evmts/tevm-monorepo/commit/71e5c1ead386f43a3bfbdd53acffcb5b49ad3433)]:
+  - @tevm/blockchain@1.1.0-next.50
+
 ## 1.1.0-next.47
 
 ### Patch Changes

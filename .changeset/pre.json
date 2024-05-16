@@ -74,7 +74,8 @@
     "@tevm/txpool": "1.0.0-next.42",
     "@tevm/scripts": "1.0.0",
     "@tevm/test-utils": "1.0.0-next.39",
-    "mdt-repro": "0.0.1"
+    "mdt-repro": "0.0.1",
+    "@tevm/receipt-manager": "1.1.0-next.47"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -108,6 +109,7 @@
     "curly-bats-decide",
     "curly-singers-sing",
     "dirty-flowers-smell",
+    "dirty-yaks-repeat",
     "dull-crabs-doubt",
     "dull-jeans-work",
     "dull-pumpkins-breathe",
@@ -130,6 +132,7 @@
     "fast-socks-ring",
     "few-bears-lick",
     "few-pandas-nail",
+    "few-pots-nail",
     "few-trains-allow",
     "fifty-insects-rest",
     "fifty-squids-suffer",
@@ -163,9 +166,11 @@
     "hungry-llamas-kiss",
     "hungry-parents-fail",
     "khaki-gifts-study",
+    "kind-pens-sleep",
     "large-mice-invite",
     "large-tips-dance",
     "late-moons-sing",
+    "lemon-birds-jam",
     "lemon-worms-bathe",
     "lovely-carrots-tie",
     "lovely-crabs-switch",
@@ -282,6 +287,7 @@
     "yellow-birds-type",
     "yellow-pugs-buy",
     "yellow-weeks-provide",
-    "young-actors-battle"
+    "young-actors-battle",
+    "young-sloths-cheat"
   ]
 }

@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.50
+
+### Minor Changes
+
+- [#1083](https://github.com/evmts/tevm-monorepo/pull/1083) [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated blockchain to save the forked block under block tag 'forked'
+
+- [#1079](https://github.com/evmts/tevm-monorepo/pull/1079) [`71e5c1e`](https://github.com/evmts/tevm-monorepo/commit/71e5c1ead386f43a3bfbdd53acffcb5b49ad3433) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved receipts manager to it's own package
+
 ## 1.1.0-next.47
 
 ### Patch Changes

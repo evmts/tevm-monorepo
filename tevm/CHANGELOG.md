@@ -1,5 +1,21 @@
 # @tevm/contract
 
+## 1.1.0-next.50
+
+### Patch Changes
+
+- Updated dependencies [[`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4), [`1a9c577`](https://github.com/evmts/tevm-monorepo/commit/1a9c57797871fc51fe8240bec745b981da030ac4)]:
+  - @tevm/procedures-types@1.1.0-next.50
+  - @tevm/viem@1.1.0-next.47
+  - @tevm/client-types@1.1.0-next.47
+  - @tevm/decorators@1.1.0-next.50
+  - @tevm/memory-client@1.1.0-next.50
+  - @tevm/server@1.1.0-next.47
+  - @tevm/base-client@1.1.0-next.50
+  - @tevm/actions-types@1.1.0-next.47
+  - @tevm/precompiles@1.1.0-next.47
+  - @tevm/http-client@1.1.0-next.47
+
 ## 1.1.0-next.49
 
 ### Minor Changes
