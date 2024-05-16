@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ChainOptions
+[@tevm/blockchain](../globals.md) / ChainOptions
 
 # Type alias: ChainOptions
 
@@ -18,44 +18,41 @@ Options passed into `createChain` to initialize a Chain object
 
 A Common instance
 
-### fork
+### fork?
 
-> **fork**?: `object`
+> `optional` **fork**: `object`
 
 Optional fork config for forking a live chain
 
-### fork.blockTag
+### fork.blockTag?
 
-> **fork.blockTag**?: `BlockTag` \| `bigint` \| \`0x${string}\`
+> `optional` **blockTag**: `BlockTag` \| `bigint` \| \`0x$\{string\}\`
 
 Optional block tag to fork
 Defaults to 'latest'
 
 ### fork.url
 
-> **fork.url**: `string`
+> **url**: `string`
 
 JSON-RPC url to fork
 
-### genesisBlock
+### genesisBlock?
 
-> **genesisBlock**?: `Block`
+> `optional` **genesisBlock**: `Block`
 
 Override the genesis block. If fork is provided it will be fetched from fork. Otherwise a default genesis is provided.
 
-### genesisStateRoot
+### genesisStateRoot?
 
-> **genesisStateRoot**?: `Uint8Array`
+> `optional` **genesisStateRoot**: `Uint8Array`
 
-### loggingLevel
+### loggingLevel?
 
-> **loggingLevel**?: `LogOptions`[`"level"`]
+> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Logging level of blockchain package. Defaults to `warn`
 
 ## Source
 
 [ChainOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

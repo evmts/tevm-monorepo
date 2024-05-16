@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > state
+[tevm](../modules.md) / state
 
-# Module: state
+# state
 
 ## Index
 
@@ -62,13 +62,6 @@
 - [setStateRoot](functions/setStateRoot.md)
 - [shallowCopy](functions/shallowCopy.md)
 
-## Table of contents
-
-### References
-
-- [StateOptions](README.md#stateoptions)
-- [TevmState](README.md#tevmstate)
-
 ## References
 
 ### StateOptions
@@ -80,6 +73,3 @@ Re-exports [StateOptions](../index/type-aliases/StateOptions.md)
 ### TevmState
 
 Re-exports [TevmState](../index/type-aliases/TevmState.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

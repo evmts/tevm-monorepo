@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ClRequest
+[@tevm/block](../globals.md) / ClRequest
 
 # Class: ClRequest
 
@@ -12,15 +12,19 @@
 
 ## Constructors
 
-### new ClRequest(type, bytes)
+### new ClRequest()
 
 > **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
 
 #### Parameters
 
-▪ **type**: `number`
+• **type**: `number`
 
-▪ **bytes**: `Uint8Array`
+• **bytes**: `Uint8Array`
+
+#### Returns
+
+[`ClRequest`](ClRequest.md)
 
 #### Source
 
@@ -34,7 +38,7 @@
 
 #### Implementation of
 
-CLRequestType.bytes
+`CLRequestType.bytes`
 
 #### Source
 
@@ -48,7 +52,7 @@ CLRequestType.bytes
 
 #### Implementation of
 
-CLRequestType.type
+`CLRequestType.type`
 
 #### Source
 
@@ -60,13 +64,14 @@ CLRequestType.type
 
 > **serialize**(): `Uint8Array`
 
+#### Returns
+
+`Uint8Array`
+
 #### Implementation of
 
-CLRequestType.serialize
+`CLRequestType.serialize`
 
 #### Source
 
 [ClRequest.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createStateManager
+[@tevm/state](../globals.md) / createStateManager
 
 # Function: createStateManager()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **options**: [`StateOptions`](../type-aliases/StateOptions.md)
+• **options**: [`StateOptions`](../type-aliases/StateOptions.md)
 
 ## Returns
+
+[`StateManager`](../interfaces/StateManager.md)
 
 ## Source
 
 [packages/state/src/createStateManager.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createStateManager.js#L36)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

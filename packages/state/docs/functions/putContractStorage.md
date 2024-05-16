@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > putContractStorage
+[@tevm/state](../globals.md) / putContractStorage
 
 # Function: putContractStorage()
 
@@ -15,28 +15,24 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `key`, `value`): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ▪ **key**: `Uint8Array`
->
-> ▪ **value**: `Uint8Array`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+• **key**: `Uint8Array`
+
+• **value**: `Uint8Array`
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [packages/state/src/actions/putContractStorage.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,12 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > GenResult
+[@tevm/viem](../globals.md) / GenResult
 
-# Type alias: GenResult`<TDataType, TTag>`
+# Type alias: GenResult\<TDataType, TTag\>
+
+`Experimental`
 
 > **GenResult**\<`TDataType`, `TTag`\>: `object`
 
@@ -12,10 +14,9 @@ A result type for a single yield of writeContractOptimistic
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TDataType` |
-| `TTag` extends `string` |
+• **TDataType**
+
+• **TTag** *extends* `string`
 
 ## Type declaration
 
@@ -23,9 +24,9 @@ A result type for a single yield of writeContractOptimistic
 
 > **data**: `TDataType`
 
-### errors
+### errors?
 
-> **errors**?: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
+> `optional` **errors**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
 
 ### success
 
@@ -38,6 +39,3 @@ A result type for a single yield of writeContractOptimistic
 ## Source
 
 [extensions/viem/src/GenResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

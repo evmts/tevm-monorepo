@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/errors**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > InvalidOriginError
+[@tevm/errors](../globals.md) / InvalidOriginError
 
 # Type alias: InvalidOriginError
 
@@ -13,6 +13,3 @@ Error thrown when origin parameter is invalid
 ## Source
 
 [packages/errors/src/input/InvalidOriginError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidOriginError.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

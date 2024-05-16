@@ -46,7 +46,7 @@ describe(TevmProvider.name, () => {
 					balance: toHex(420n),
 					deployedBytecode: '0x',
 					nonce: toHex(1n),
-					storageRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 					storage: undefined,
 					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 					isContract: false,

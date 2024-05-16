@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TraceCall
+[tevm](../../modules.md) / [index](../README.md) / TraceCall
 
 # Type alias: TraceCall
 
@@ -10,21 +10,21 @@
 
 ## Type declaration
 
-### calls
+### calls?
 
-> **calls**?: [`TraceCall`](TraceCall.md)[]
+> `optional` **calls**: [`TraceCall`](TraceCall.md)[]
 
 ### from
 
 > **from**: [`Address`](../../actions-types/type-aliases/Address.md)
 
-### gas
+### gas?
 
-> **gas**?: `bigint`
+> `optional` **gas**: `bigint`
 
-### gasUsed
+### gasUsed?
 
-> **gasUsed**?: `bigint`
+> `optional` **gasUsed**: `bigint`
 
 ### input
 
@@ -42,13 +42,10 @@
 
 > **type**: [`TraceType`](../../actions-types/type-aliases/TraceType.md)
 
-### value
+### value?
 
-> **value**?: `bigint`
+> `optional` **value**: `bigint`
 
 ## Source
 
 packages/actions-types/types/common/TraceCall.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

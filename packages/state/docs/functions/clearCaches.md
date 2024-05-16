@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > clearCaches
+[@tevm/state](../globals.md) / clearCaches
 
 # Function: clearCaches()
 
@@ -12,22 +12,18 @@ Resets all internal caches
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): `void`
->
-> Resets all internal caches
->
-> ### Source
->
-> [packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
->
+`Function`
+
+Resets all internal caches
+
+### Returns
+
+`void`
 
 ## Source
 
 [packages/state/src/actions/clearCaches.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearCaches.js#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,20 +1,20 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockOptions
+[@tevm/block](../globals.md) / BlockOptions
 
 # Interface: BlockOptions
 
 An object to set to which blockchain the blocks and their headers belong. This could be specified
-using a [Common]([object Object]) object, or `chain` and `hardfork`. Defaults to mainnet without specifying a
+using a Common object, or `chain` and `hardfork`. Defaults to mainnet without specifying a
 hardfork.
 
 ## Properties
 
-### calcDifficultyFromHeader
+### calcDifficultyFromHeader?
 
-> **calcDifficultyFromHeader**?: [`BlockHeader`](../classes/BlockHeader.md)
+> `optional` **calcDifficultyFromHeader**: [`BlockHeader`](../classes/BlockHeader.md)
 
 If a preceding [BlockHeader](../classes/BlockHeader.md) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
@@ -29,9 +29,9 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 ***
 
-### cliqueSigner
+### cliqueSigner?
 
-> **cliqueSigner**?: `Uint8Array`
+> `optional` **cliqueSigner**: `Uint8Array`
 
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
@@ -46,13 +46,13 @@ Will throw if provided on a non-PoA chain.
 
 > **common**: `Common`
 
-A [Common]([object Object]) object defining the chain and the hardfork a block/block header belongs to.
+A Common object defining the chain and the hardfork a block/block header belongs to.
 
 Object will be internally copied so that tx behavior don't incidentally
 change on future HF changes.
 
-Default: [Common]([object Object]) object set to `mainnet` and the HF currently defined as the default
-hardfork in the [Common]([object Object]) class.
+Default: Common object set to `mainnet` and the HF currently defined as the default
+hardfork in the Common class.
 
 Current default hardfork: `merge`
 
@@ -62,9 +62,9 @@ Current default hardfork: `merge`
 
 ***
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 #### Source
 
@@ -72,9 +72,9 @@ Current default hardfork: `merge`
 
 ***
 
-### freeze
+### freeze?
 
-> **freeze**?: `boolean`
+> `optional` **freeze**: `boolean`
 
 A block object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the block parameters.
@@ -92,9 +92,9 @@ Default: true
 
 ***
 
-### setHardfork
+### setHardfork?
 
-> **setHardfork**?: `boolean` \| `BigIntLike`
+> `optional` **setHardfork**: `boolean` \| `BigIntLike`
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -102,7 +102,7 @@ for older Hfs.
 Additionally it is possible to pass in a specific TD value to support live-Merge-HF
 transitions. Note that this should only be needed in very rare and specific scenarios.
 
-Default: `false` (HF is set to whatever default HF is set by the [Common]([object Object]) instance)
+Default: `false` (HF is set to whatever default HF is set by the Common instance)
 
 #### Source
 
@@ -110,15 +110,12 @@ Default: `false` (HF is set to whatever default HF is set by the [Common]([objec
 
 ***
 
-### skipConsensusFormatValidation
+### skipConsensusFormatValidation?
 
-> **skipConsensusFormatValidation**?: `boolean`
+> `optional` **skipConsensusFormatValidation**: `boolean`
 
 Skip consensus format validation checks on header if set. Defaults to false.
 
 #### Source
 
 [types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L64)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**@tevm/effect** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/effect**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > parseJson
+[@tevm/effect](../modules.md) / parseJson
 
-# Module: parseJson
+# parseJson
 
 ## Index
 
@@ -15,6 +15,3 @@
 ### Functions
 
 - [parseJson](functions/parseJson.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

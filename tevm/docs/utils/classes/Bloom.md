@@ -1,14 +1,14 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > Bloom
+[tevm](../../modules.md) / [utils](../README.md) / Bloom
 
 # Class: Bloom
 
 ## Constructors
 
-### new Bloom(bitvector)
+### new Bloom()
 
 > **new Bloom**(`bitvector`?): [`Bloom`](Bloom.md)
 
@@ -16,7 +16,11 @@ Represents a Bloom filter.
 
 #### Parameters
 
-▪ **bitvector?**: `Uint8Array`
+• **bitvector?**: `Uint8Array`
+
+#### Returns
+
+[`Bloom`](Bloom.md)
 
 #### Source
 
@@ -42,9 +46,13 @@ Adds an element to a bit vector of a 64 byte bloom filter.
 
 #### Parameters
 
-▪ **e**: `Uint8Array`
+• **e**: `Uint8Array`
 
 The element to add
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -60,9 +68,13 @@ Checks if an element is in the bloom.
 
 #### Parameters
 
-▪ **e**: `Uint8Array`
+• **e**: `Uint8Array`
 
 The element to check
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -78,9 +90,11 @@ Checks if multiple topics are in a bloom.
 
 #### Parameters
 
-▪ **topics**: `Uint8Array`[]
+• **topics**: `Uint8Array`[]
 
 #### Returns
+
+`boolean`
 
 `true` if every topic is in the bloom
 
@@ -98,11 +112,12 @@ Bitwise or blooms together.
 
 #### Parameters
 
-▪ **bloom**: [`Bloom`](Bloom.md)
+• **bloom**: [`Bloom`](Bloom.md)
+
+#### Returns
+
+`void`
 
 #### Source
 
 packages/utils/types/Bloom.d.ts:25
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

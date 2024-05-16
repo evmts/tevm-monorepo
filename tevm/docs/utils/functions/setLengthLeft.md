@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > setLengthLeft
+[tevm](../../modules.md) / [utils](../README.md) / setLengthLeft
 
 # Function: setLengthLeft()
 
@@ -13,19 +13,18 @@ Or it truncates the beginning if it exceeds.
 
 ## Parameters
 
-▪ **msg**: `Uint8Array`
+• **msg**: `Uint8Array`
 
 the value to pad
 
-▪ **length**: `number`
+• **length**: `number`
 
 the number of bytes the output should be
 
 ## Returns
 
+`Uint8Array`
+
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:58
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

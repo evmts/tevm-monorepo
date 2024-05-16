@@ -1,10 +1,12 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ViemTevmOptimisticClientDecorator
+[@tevm/viem](../globals.md) / ViemTevmOptimisticClientDecorator
 
-# Type alias: ViemTevmOptimisticClientDecorator
+# Type alias: ~~ViemTevmOptimisticClientDecorator()~~
+
+`Experimental`
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
@@ -16,19 +18,20 @@ A viem decorator for `tevmViemExtension`
 
 ## Type parameters
 
-▪ **TTransport** extends `Transport` = `Transport`
+• **TTransport** *extends* `Transport` = `Transport`
 
-▪ **TChain** extends `Chain` \| `undefined` = `Chain` \| `undefined`
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
-▪ **TAccount** extends `Account` \| `undefined` = `Account` \| `undefined`
+• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Parameters
 
-▪ **client**: `Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
+• **client**: `Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
+
+## Returns
+
+[`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
 ## Source
 
 [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > GetAccountJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / GetAccountJsonRpcProcedure
 
-# Type alias: GetAccountJsonRpcProcedure
+# Type alias: GetAccountJsonRpcProcedure()
 
 > **GetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Parameters
 
-▪ **request**: [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
+• **request**: [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:815
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

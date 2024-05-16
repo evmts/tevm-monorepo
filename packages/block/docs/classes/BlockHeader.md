@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockHeader
+[@tevm/block](../globals.md) / BlockHeader
 
 # Class: BlockHeader
 
@@ -10,7 +10,7 @@ An object that represents the block header.
 
 ## Constructors
 
-### new BlockHeader(headerData, opts)
+### new BlockHeader()
 
 > **new BlockHeader**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
@@ -18,11 +18,13 @@ This constructor takes the values, validates them, assigns them and freezes the 
 
 #### Parameters
 
-▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
+
+[`BlockHeader`](BlockHeader.md)
 
 #### Deprecated
 
@@ -35,9 +37,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ## Properties
 
-### baseFeePerGas
+### baseFeePerGas?
 
-> **`readonly`** **baseFeePerGas**?: `bigint`
+> `optional` `readonly` **baseFeePerGas**: `bigint`
 
 #### Source
 
@@ -45,9 +47,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### blobGasUsed
+### blobGasUsed?
 
-> **`readonly`** **blobGasUsed**?: `bigint`
+> `optional` `readonly` **blobGasUsed**: `bigint`
 
 #### Source
 
@@ -57,7 +59,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### cache
 
-> **`protected`** **cache**: `HeaderCache`
+> `protected` **cache**: `HeaderCache`
 
 #### Source
 
@@ -67,7 +69,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### coinbase
 
-> **`readonly`** **coinbase**: `Address`
+> `readonly` **coinbase**: `Address`
 
 #### Source
 
@@ -77,7 +79,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### common
 
-> **`readonly`** **common**: `Common`
+> `readonly` **common**: `Common`
 
 #### Source
 
@@ -87,7 +89,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### difficulty
 
-> **`readonly`** **difficulty**: `bigint`
+> `readonly` **difficulty**: `bigint`
 
 #### Source
 
@@ -95,9 +97,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### excessBlobGas
+### excessBlobGas?
 
-> **`readonly`** **excessBlobGas**?: `bigint`
+> `optional` `readonly` **excessBlobGas**: `bigint`
 
 #### Source
 
@@ -107,7 +109,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### extraData
 
-> **`readonly`** **extraData**: `Uint8Array`
+> `readonly` **extraData**: `Uint8Array`
 
 #### Source
 
@@ -117,7 +119,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### gasLimit
 
-> **`readonly`** **gasLimit**: `bigint`
+> `readonly` **gasLimit**: `bigint`
 
 #### Source
 
@@ -127,7 +129,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: `bigint`
+> `readonly` **gasUsed**: `bigint`
 
 #### Source
 
@@ -135,13 +137,17 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### keccakFunction
+### keccakFunction()
 
-> **`protected`** **keccakFunction**: (`msg`) => `Uint8Array`
+> `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
 #### Parameters
 
-▪ **msg**: `Uint8Array`
+• **msg**: `Uint8Array`
+
+#### Returns
+
+`Uint8Array`
 
 #### Source
 
@@ -151,7 +157,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: `Uint8Array`
+> `readonly` **logsBloom**: `Uint8Array`
 
 #### Source
 
@@ -161,7 +167,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### mixHash
 
-> **`readonly`** **mixHash**: `Uint8Array`
+> `readonly` **mixHash**: `Uint8Array`
 
 #### Source
 
@@ -171,7 +177,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### nonce
 
-> **`readonly`** **nonce**: `Uint8Array`
+> `readonly` **nonce**: `Uint8Array`
 
 #### Source
 
@@ -181,7 +187,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### number
 
-> **`readonly`** **number**: `bigint`
+> `readonly` **number**: `bigint`
 
 #### Source
 
@@ -189,9 +195,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### parentBeaconBlockRoot
+### parentBeaconBlockRoot?
 
-> **`readonly`** **parentBeaconBlockRoot**?: `Uint8Array`
+> `optional` `readonly` **parentBeaconBlockRoot**: `Uint8Array`
 
 #### Source
 
@@ -201,7 +207,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### parentHash
 
-> **`readonly`** **parentHash**: `Uint8Array`
+> `readonly` **parentHash**: `Uint8Array`
 
 #### Source
 
@@ -211,7 +217,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### receiptTrie
 
-> **`readonly`** **receiptTrie**: `Uint8Array`
+> `readonly` **receiptTrie**: `Uint8Array`
 
 #### Source
 
@@ -219,9 +225,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### requestsRoot
+### requestsRoot?
 
-> **`readonly`** **requestsRoot**?: `Uint8Array`
+> `optional` `readonly` **requestsRoot**: `Uint8Array`
 
 #### Source
 
@@ -231,7 +237,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### stateRoot
 
-> **`readonly`** **stateRoot**: `Uint8Array`
+> `readonly` **stateRoot**: `Uint8Array`
 
 #### Source
 
@@ -241,7 +247,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### timestamp
 
-> **`readonly`** **timestamp**: `bigint`
+> `readonly` **timestamp**: `bigint`
 
 #### Source
 
@@ -251,7 +257,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### transactionsTrie
 
-> **`readonly`** **transactionsTrie**: `Uint8Array`
+> `readonly` **transactionsTrie**: `Uint8Array`
 
 #### Source
 
@@ -261,7 +267,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### uncleHash
 
-> **`readonly`** **uncleHash**: `Uint8Array`
+> `readonly` **uncleHash**: `Uint8Array`
 
 #### Source
 
@@ -269,9 +275,9 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ***
 
-### withdrawalsRoot
+### withdrawalsRoot?
 
-> **`readonly`** **withdrawalsRoot**?: `Uint8Array`
+> `optional` `readonly` **withdrawalsRoot**: `Uint8Array`
 
 #### Source
 
@@ -281,9 +287,13 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### prevRandao
 
-> **`get`** **prevRandao**(): `Uint8Array`
+> `get` **prevRandao**(): `Uint8Array`
 
 EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
+
+#### Returns
+
+`Uint8Array`
 
 #### Source
 
@@ -293,11 +303,13 @@ EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
 ### \_consensusFormatValidation()
 
-> **`protected`** **\_consensusFormatValidation**(): `void`
+> `protected` **\_consensusFormatValidation**(): `void`
 
 Checks static parameters related to consensus algorithm
 
 #### Returns
+
+`void`
 
 #### Throws
 
@@ -311,9 +323,13 @@ if any check fails
 
 ### \_genericFormatValidation()
 
-> **`protected`** **\_genericFormatValidation**(): `void`
+> `protected` **\_genericFormatValidation**(): `void`
 
 Validates correct buffer lengths, throws if invalid.
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -323,13 +339,17 @@ Validates correct buffer lengths, throws if invalid.
 
 ### \_getBlobGasPrice()
 
-> **`private`** **\_getBlobGasPrice**(`excessBlobGas`): `bigint`
+> `private` **\_getBlobGasPrice**(`excessBlobGas`): `bigint`
 
 Returns the blob gas price depending upon the `excessBlobGas` value
 
 #### Parameters
 
-▪ **excessBlobGas**: `bigint`
+• **excessBlobGas**: `bigint`
+
+#### Returns
+
+`bigint`
 
 #### Source
 
@@ -339,11 +359,15 @@ Returns the blob gas price depending upon the `excessBlobGas` value
 
 ### \_requireClique()
 
-> **`protected`** **\_requireClique**(`name`): `void`
+> `protected` **\_requireClique**(`name`): `void`
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -353,10 +377,14 @@ Returns the blob gas price depending upon the `excessBlobGas` value
 
 ### \_validateDAOExtraData()
 
-> **`protected`** **\_validateDAOExtraData**(): `void`
+> `protected` **\_validateDAOExtraData**(): `void`
 
 Validates extra data is DAO_ExtraData for DAO_ForceExtraDataRange blocks after DAO
 activation block (see: https://blog.slock.it/hard-fork-specification-24b889e70703)
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -372,11 +400,13 @@ Returns the total fee for blob gas spent for including blobs in block.
 
 #### Parameters
 
-▪ **numBlobs**: `number`
+• **numBlobs**: `number`
 
 number of blobs in the transaction/block
 
 #### Returns
+
+`bigint`
 
 the total blob gas fee for numBlobs blobs
 
@@ -392,6 +422,10 @@ the total blob gas fee for numBlobs blobs
 
 Calculates the base fee for a potential next block
 
+#### Returns
+
+`bigint`
+
 #### Source
 
 [header.ts:522](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L522)
@@ -406,6 +440,8 @@ Calculate the blob gas price of the block built on top of this one
 
 #### Returns
 
+`bigint`
+
 The blob gas price
 
 #### Source
@@ -419,6 +455,10 @@ The blob gas price
 > **calcNextExcessBlobGas**(): `bigint`
 
 Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
+
+#### Returns
+
+`bigint`
 
 #### Source
 
@@ -437,6 +477,10 @@ This function throws if not called on an epoch
 transition block and should therefore be used
 in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliqueisepochtransition)
 
+#### Returns
+
+`Address`[]
+
 #### Source
 
 [header.ts:825](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L825)
@@ -449,6 +493,10 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliquei
 
 Returns extra seal data
 (only clique PoA, throws otherwise)
+
+#### Returns
+
+`Uint8Array`
 
 #### Source
 
@@ -463,6 +511,10 @@ Returns extra seal data
 Returns extra vanity data
 (only clique PoA, throws otherwise)
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [header.ts:786](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L786)
@@ -476,6 +528,10 @@ Returns extra vanity data
 Checks if the block header is an epoch transition
 header (only clique PoA, throws otherwise)
 
+#### Returns
+
+`boolean`
+
 #### Source
 
 [header.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L774)
@@ -488,6 +544,10 @@ header (only clique PoA, throws otherwise)
 
 PoA clique signature hash without the seal.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [header.ts:763](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L763)
@@ -499,6 +559,10 @@ PoA clique signature hash without the seal.
 > **cliqueSigner**(): `Address`
 
 Returns the signer address
+
+#### Returns
+
+`Address`
 
 #### Source
 
@@ -517,7 +581,11 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Parameters
 
-▪ **signerList**: `Address`[]
+• **signerList**: `Address`[]
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -530,6 +598,10 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 > **errorStr**(): `string`
 
 Return a compact error string representation of the object
+
+#### Returns
+
+`string`
 
 #### Source
 
@@ -545,9 +617,13 @@ Returns the canonical difficulty for this block.
 
 #### Parameters
 
-▪ **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
+• **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
 
 the header from the parent `Block` of this header
+
+#### Returns
+
+`bigint`
 
 #### Source
 
@@ -563,6 +639,8 @@ Returns the price per unit of blob gas for a blob transaction in the current/pen
 
 #### Returns
 
+`bigint`
+
 the price in gwei per unit of blob gas spent
 
 #### Source
@@ -577,6 +655,10 @@ the price in gwei per unit of blob gas spent
 
 Returns the hash of the block header.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [header.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L665)
@@ -588,6 +670,10 @@ Returns the hash of the block header.
 > **isGenesis**(): `boolean`
 
 Checks if the block header is a genesis header.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -601,6 +687,10 @@ Checks if the block header is a genesis header.
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
+#### Returns
+
+[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+
 #### Source
 
 [header.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L614)
@@ -613,6 +703,10 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 Returns the rlp encoding of the block header.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 [header.ts:879](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L879)
@@ -624,6 +718,10 @@ Returns the rlp encoding of the block header.
 > **toJSON**(): [`JsonHeader`](../interfaces/JsonHeader.md)
 
 Returns the block header in JSON format.
+
+#### Returns
+
+[`JsonHeader`](../interfaces/JsonHeader.md)
 
 #### Source
 
@@ -640,9 +738,13 @@ Throws if out of bounds.
 
 #### Parameters
 
-▪ **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
+• **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
 
 the header from the parent `Block` of this header
+
+#### Returns
+
+`void`
 
 #### Source
 
@@ -652,15 +754,19 @@ the header from the parent `Block` of this header
 
 ### fromHeaderData()
 
-> **`static`** **fromHeaderData**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromHeaderData**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a header data dictionary
 
 #### Parameters
 
-▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`BlockHeader`](BlockHeader.md)
 
 #### Source
 
@@ -670,15 +776,19 @@ Static constructor to create a block header from a header data dictionary
 
 ### fromRLPSerializedHeader()
 
-> **`static`** **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a RLP-serialized header
 
 #### Parameters
 
-▪ **serializedHeaderData**: `Uint8Array`
+• **serializedHeaderData**: `Uint8Array`
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`BlockHeader`](BlockHeader.md)
 
 #### Source
 
@@ -688,19 +798,20 @@ Static constructor to create a block header from a RLP-serialized header
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`values`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromValuesArray**(`values`, `opts`): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from an array of Bytes values
 
 #### Parameters
 
-▪ **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+• **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
-▪ **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+
+#### Returns
+
+[`BlockHeader`](BlockHeader.md)
 
 #### Source
 
 [header.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L114)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

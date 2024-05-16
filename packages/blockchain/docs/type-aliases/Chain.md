@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Chain
+[@tevm/blockchain](../globals.md) / Chain
 
 # Type alias: Chain
 
@@ -12,27 +12,33 @@ Blockchain
 
 ## Type declaration
 
-## Type declaration
-
 ### consensus
 
 > **consensus**: `Consensus`
 
-### deepCopy
+### deepCopy()
 
 > **deepCopy**: () => `Promise`\<[`Chain`](Chain.md)\>
 
-### events
+#### Returns
 
-> **events**?: `AsyncEventEmitter`\<`BlockchainEvents`\>
+`Promise`\<[`Chain`](Chain.md)\>
+
+### events?
+
+> `optional` **events**: `AsyncEventEmitter`\<`BlockchainEvents`\>
 
 Optional events emitter
 
-### shallowCopy
+### shallowCopy()
 
 > **shallowCopy**: () => [`Chain`](Chain.md)
 
 Returns a shallow copy of the blockchain that may share state with the original
+
+#### Returns
+
+[`Chain`](Chain.md)
 
 ### delBlock()
 
@@ -41,9 +47,13 @@ deleted and any encountered heads are set to the parent block.
 
 #### Parameters
 
-▪ **blockHash**: `Uint8Array`
+• **blockHash**: `Uint8Array`
 
 The hash of the block to be deleted
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### getBlock()
 
@@ -51,11 +61,19 @@ Returns a block by its hash or number.
 
 #### Parameters
 
-▪ **blockId**: `number` \| `bigint` \| `Uint8Array`
+• **blockId**: `number` \| `bigint` \| `Uint8Array`
+
+#### Returns
+
+`Promise`\<`Block`\>
 
 ### getCanonicalHeadBlock()
 
 Returns the latest full block in the canonical chain.
+
+#### Returns
+
+`Promise`\<`Block`\>
 
 ### getIteratorHead()
 
@@ -63,19 +81,27 @@ Returns the specified iterator head.
 
 #### Parameters
 
-▪ **name?**: `string`
+• **name?**: `string`
 
 Optional name of the iterator head (default: 'vm')
 
-### getTotalDifficulty()
+#### Returns
+
+`Promise`\<`Block`\>
+
+### getTotalDifficulty()?
 
 Gets total difficulty for a block specified by hash and number
 
 #### Parameters
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
 
-▪ **number?**: `bigint`
+• **number?**: `bigint`
+
+#### Returns
+
+`Promise`\<`bigint`\>
 
 ### iterator()
 
@@ -84,20 +110,24 @@ the onBlock function on each block.
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
 
 Name of the state root head
 
-▪ **onBlock**: `OnBlock`
+• **onBlock**: `OnBlock`
 
 Function called on each block with params (block: Block,
 
-▪ **maxBlocks?**: `number`
+• **maxBlocks?**: `number`
 
 optional maximum number of blocks to iterate through
 reorg: boolean)
 
-▪ **releaseLockOnCallback?**: `boolean`
+• **releaseLockOnCallback?**: `boolean`
+
+#### Returns
+
+`Promise`\<`number`\>
 
 ### putBlock()
 
@@ -105,9 +135,13 @@ Adds a block to the blockchain.
 
 #### Parameters
 
-▪ **block**: `Block`
+• **block**: `Block`
 
 The block to be added to the blockchain.
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### setIteratorHead()
 
@@ -116,13 +150,17 @@ When calling the iterator, the iterator will start running the first child block
 
 #### Parameters
 
-▪ **tag**: `string`
+• **tag**: `string`
 
 The tag to save the headHash to
 
-▪ **headHash**: `Uint8Array`
+• **headHash**: `Uint8Array`
 
 The head hash to save
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### validateHeader()
 
@@ -130,17 +168,18 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 #### Parameters
 
-▪ **header**: `BlockHeader`
+• **header**: `BlockHeader`
 
 header to be validated
 
-▪ **height?**: `bigint`
+• **height?**: `bigint`
 
 If this is an uncle header, this is the height of the block that is including it
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [Chain.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

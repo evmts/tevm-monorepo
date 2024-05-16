@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TxReceiptWithType
+[@tevm/receipt-manager](../globals.md) / TxReceiptWithType
 
 # Type alias: TxReceiptWithType
 
@@ -14,6 +14,3 @@ TxReceiptWithType extends TxReceipt to provide:
 ## Source
 
 [RecieptManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L71)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

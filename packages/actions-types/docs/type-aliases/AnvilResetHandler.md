@@ -1,20 +1,21 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilResetHandler
+[@tevm/actions-types](../globals.md) / AnvilResetHandler
 
-# Type alias: AnvilResetHandler
+# Type alias: AnvilResetHandler()
 
 > **AnvilResetHandler**: (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
 ## Parameters
 
-▪ **params**: [`AnvilResetParams`](AnvilResetParams.md)
+• **params**: [`AnvilResetParams`](AnvilResetParams.md)
+
+## Returns
+
+`Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
 ## Source
 
 [handlers/AnvilHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/AnvilHandler.ts#L48)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

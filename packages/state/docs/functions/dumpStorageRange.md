@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > dumpStorageRange
+[@tevm/state](../globals.md) / dumpStorageRange
 
 # Function: dumpStorageRange()
 
@@ -10,28 +10,24 @@
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ▪ **startKey**: `bigint`
->
-> ▪ **limit**: `number`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+• **startKey**: `bigint`
+
+• **limit**: `number`
+
+### Returns
+
+`Promise`\<`StorageRange`\>
 
 ## Source
 
 [packages/state/src/actions/dumpStorageRange.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

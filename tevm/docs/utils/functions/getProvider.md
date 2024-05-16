@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > getProvider
+[tevm](../../modules.md) / [utils](../README.md) / getProvider
 
 # Function: getProvider()
 
@@ -10,17 +10,16 @@
 
 ## Parameters
 
-▪ **provider**: `string` \| `EthersProvider`
+• **provider**: `string` \| `EthersProvider`
 
-a URL string or [EthersProvider]([object Object])
+a URL string or EthersProvider
 
 ## Returns
+
+`string`
 
 the extracted URL string for the JSON-RPC Provider
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/provider.d.ts:28
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

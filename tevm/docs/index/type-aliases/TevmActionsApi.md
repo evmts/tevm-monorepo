@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TevmActionsApi
+[tevm](../../modules.md) / [index](../README.md) / TevmActionsApi
 
 # Type alias: TevmActionsApi
 
@@ -79,7 +79,7 @@ Dumps the current state of the VM into a JSON-seralizable object
 
 State can be dumped as follows
 
-#### Example
+#### Examples
 
 ```typescript
 const {state} = await tevm.dumpState()
@@ -87,8 +87,6 @@ fs.writeFileSync('state.json', JSON.stringify(state))
 ```
 
 And then loaded as follows
-
-#### Example
 
 ```typescript
 const state = JSON.parse(fs.readFileSync('state.json'))
@@ -118,7 +116,7 @@ Loads a previously dumped state into the VM
 
 State can be dumped as follows
 
-#### Example
+#### Examples
 
 ```typescript
 const {state} = await tevm.dumpState()
@@ -126,8 +124,6 @@ fs.writeFileSync('state.json', JSON.stringify(state))
 ```
 
 And then loaded as follows
-
-#### Example
 
 ```typescript
 const state = JSON.parse(fs.readFileSync('state.json'))
@@ -148,7 +144,7 @@ Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
 to true.
 
-#### Example
+#### Examples
 
 ```typescript
 const res = tevm.script({
@@ -159,8 +155,6 @@ const res = tevm.script({
 })
 ```
 Contract handlers provide a more ergonomic way to execute scripts
-
-#### Example
 
 ```typescript
 ipmort {MyScript} from './MyScript.s.sol'
@@ -191,6 +185,3 @@ await tevm.setAccount({
 ## Source
 
 packages/decorators/dist/index.d.ts:96
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/vm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Vm
+[@tevm/vm](../globals.md) / Vm
 
 # Type alias: Vm
 
@@ -14,9 +14,13 @@
 
 > **buildBlock**: `BuildBlock`
 
-### deepCopy
+### deepCopy()
 
 > **deepCopy**: () => `Promise`\<[`Vm`](Vm.md)\>
+
+#### Returns
+
+`Promise`\<[`Vm`](Vm.md)\>
 
 ### runBlock
 
@@ -25,6 +29,3 @@
 ## Source
 
 [Vm.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/Vm.ts#L5)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

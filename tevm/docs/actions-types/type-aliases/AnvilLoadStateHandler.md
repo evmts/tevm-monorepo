@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > AnvilLoadStateHandler
+[tevm](../../modules.md) / [actions-types](../README.md) / AnvilLoadStateHandler
 
-# Type alias: AnvilLoadStateHandler
+# Type alias: AnvilLoadStateHandler()
 
 > **AnvilLoadStateHandler**: (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
 ## Parameters
 
-▪ **params**: [`AnvilLoadStateParams`](AnvilLoadStateParams.md)
+• **params**: [`AnvilLoadStateParams`](AnvilLoadStateParams.md)
+
+## Returns
+
+`Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
 ## Source
 
 packages/actions-types/types/handlers/AnvilHandler.d.ts:15
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

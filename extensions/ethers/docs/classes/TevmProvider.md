@@ -1,8 +1,8 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/ethers**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TevmProvider
+[@tevm/ethers](../globals.md) / TevmProvider
 
 # Class: TevmProvider
 
@@ -12,7 +12,7 @@ An [ethers JsonRpcApiProvider](https://docs.ethers.org/v6/api/providers/jsonrpc/
 
 The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient](../clients/) as it's backend.
 
-## Example
+## Examples
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -28,8 +28,6 @@ const provider = await TevmProvider.createMemoryProvider({
 
 The constructor takes any instance of tevm including the `httpClient`.
 
-## Example
-
 ```typescript
 import {createHttpClient} from '@tevm/http-client'
 const provider = new TevmProvider(createHttpClient({url: 'https://localhost:8080'}))
@@ -38,8 +36,6 @@ const provider = new TevmProvider(createHttpClient({url: 'https://localhost:8080
 ## Ethers provider support
 
 You can use all the normal ethers apis to interact with tevm.
-
-## Example
 
 ```typescript
 const provider = await TevmProvider.createMemoryProvider({
@@ -56,8 +52,6 @@ console.log(
 ## Tevm actions support
 
 The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
-
-## Example
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -94,8 +88,6 @@ console.log(result)
 
 An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
 
-## Example
-
 ```typescript
 await provider.send('tevm_setAccount', {
   address: `0x${'69'.repeat(20)}`,
@@ -122,35 +114,35 @@ console.log(await provider.send('tevm_getAccount', {
 
 ## Constructors
 
-### new TevmProvider(memoryClient)
+### new TevmProvider()
 
 > **new TevmProvider**(`memoryClient`): [`TevmProvider`](TevmProvider.md)
 
 #### Parameters
 
-▪ **memoryClient**: `object`
+• **memoryClient**
 
 An instance of a tevm Memory client
 
-▪ **memoryClient.\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+• **memoryClient.\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
-▪ **memoryClient.account**: `undefined`
+• **memoryClient.account**: `undefined`
 
 The Account of the Client.
 
-▪ **memoryClient.batch?**: `object`
+• **memoryClient.batch?**
 
 Flags for batch settings.
 
-▪ **memoryClient.batch.multicall?**: `boolean` \| `object`
+• **memoryClient.batch.multicall?**: `boolean` \| `object`
 
 Toggle to enable `eth_call` multicall aggregation.
 
-▪ **memoryClient.cacheTime**: `number`
+• **memoryClient.cacheTime**: `number`
 
 Time (in ms) that cached data will remain in memory.
 
-▪ **memoryClient.call**: (`parameters`) => `Promise`\<`CallReturnType`\>
+• **memoryClient.call**
 
 Executes a new message call immediately without submitting a transaction to the network.
 
@@ -174,15 +166,15 @@ const data = await client.call({
 })
 ```
 
-▪ **memoryClient.ccipRead?**: `false` \| `object`
+• **memoryClient.ccipRead?**: `false` \| `object`
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-▪ **memoryClient.chain**: `undefined`
+• **memoryClient.chain**: `undefined`
 
 Chain for the client.
 
-▪ **memoryClient.createBlockFilter**: () => `Promise`\<`object`\>
+• **memoryClient.createBlockFilter**
 
 Creates a Filter to listen for new block hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -203,7 +195,7 @@ const filter = await createBlockFilter(client)
 // { id: "0x345a6572337856574a76364e457a4366", type: 'block' }
 ```
 
-▪ **memoryClient.createContractEventFilter**: \<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+• **memoryClient.createContractEventFilter**
 
 Creates a Filter to retrieve event logs that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges) or [`getFilterLogs`](https://viem.sh/docs/actions/public/getFilterLogs).
 
@@ -224,7 +216,7 @@ const filter = await client.createContractEventFilter({
 })
 ```
 
-▪ **memoryClient.createEventFilter**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<`{ [K in string | number | symbol]: Filter<"event", TAbiEvents, _EventName, _Args, TStrict, TFromBlock, TToBlock>[K] }`\>
+• **memoryClient.createEventFilter**
 
 Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for new events that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -246,7 +238,7 @@ const filter = await client.createEventFilter({
 })
 ```
 
-▪ **memoryClient.createPendingTransactionFilter**: () => `Promise`\<`object`\>
+• **memoryClient.createPendingTransactionFilter**
 
 Creates a Filter to listen for new pending transaction hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -267,7 +259,7 @@ const filter = await client.createPendingTransactionFilter()
 // { id: "0x345a6572337856574a76364e457a4366", type: 'transaction' }
 ```
 
-▪ **memoryClient.dropTransaction**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.dropTransaction**
 
 Removes a transaction from the mempool.
 
@@ -289,7 +281,7 @@ await client.dropTransaction({
 })
 ```
 
-▪ **memoryClient.dumpState**: () => `Promise`\<\`0x${string}\`\>
+• **memoryClient.dumpState**
 
 Serializes the current state (including contracts code, contract's storage,
 accounts properties, etc.) into a savable data blob.
@@ -310,7 +302,7 @@ const client = createTestClient({
 await client.dumpState()
 ```
 
-▪ **memoryClient.estimateContractGas**: \<`TChain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
+• **memoryClient.estimateContractGas**
 
 Estimates the gas required to successfully execute a contract write function call.
 
@@ -338,7 +330,7 @@ const gas = await client.estimateContractGas({
 })
 ```
 
-▪ **memoryClient.estimateFeesPerGas**: \<`TChainOverride`, `TType`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\>
+• **memoryClient.estimateFeesPerGas**
 
 Returns an estimate for the fees per gas for a transaction to be included
 in the next block.
@@ -359,7 +351,7 @@ const maxPriorityFeePerGas = await client.estimateFeesPerGas()
 // { maxFeePerGas: ..., maxPriorityFeePerGas: ... }
 ```
 
-▪ **memoryClient.estimateGas**: (`args`) => `Promise`\<`bigint`\>
+• **memoryClient.estimateGas**
 
 Estimates the gas necessary to complete a transaction without submitting it to the network.
 
@@ -383,7 +375,7 @@ const gasEstimate = await client.estimateGas({
 })
 ```
 
-▪ **memoryClient.estimateMaxPriorityFeePerGas**: \<`TChainOverride`\>(`args`?) => `Promise`\<`bigint`\>
+• **memoryClient.estimateMaxPriorityFeePerGas**
 
 Returns an estimate for the max priority fee per gas (in wei) for a transaction
 to be included in the next block.
@@ -404,9 +396,9 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
-▪ **memoryClient.extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `undefined`, `undefined`, [`object`, `object`, `object`, `object`, `object`], `{ [K in string | number | symbol]: client[K] }` & `PublicActions` & `TestActions` & `TevmActions`\>
+• **memoryClient.extend**
 
-▪ **memoryClient.getAutomine**: () => `Promise`\<`boolean`\>
+• **memoryClient.getAutomine**
 
 Returns the automatic mining status of the node.
 
@@ -426,7 +418,7 @@ const client = createTestClient({
 const isAutomining = await client.getAutomine()
 ```
 
-▪ **memoryClient.getBalance**: (`args`) => `Promise`\<`bigint`\>
+• **memoryClient.getBalance**
 
 Returns the balance of an address in wei.
 
@@ -462,7 +454,7 @@ const balance = await client.getBalance({
 // 10000000000000000000000n (wei)
 ```
 
-▪ **memoryClient.getBlobBaseFee**: () => `Promise`\<`bigint`\>
+• **memoryClient.getBlobBaseFee**
 
 Returns the base fee per blob gas in wei.
 
@@ -483,7 +475,7 @@ const client = createPublicClient({
 const blobBaseFee = await client.getBlobBaseFee()
 ```
 
-▪ **memoryClient.getBlock**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`?) => `Promise`\<`object`\>
+• **memoryClient.getBlock**
 
 Returns information about a block at a block number, hash, or tag.
 
@@ -506,7 +498,7 @@ const client = createPublicClient({
 const block = await client.getBlock()
 ```
 
-▪ **memoryClient.getBlockNumber**: (`args`?) => `Promise`\<`bigint`\>
+• **memoryClient.getBlockNumber**
 
 Returns the number of the most recent block seen.
 
@@ -528,7 +520,7 @@ const blockNumber = await client.getBlockNumber()
 // 69420n
 ```
 
-▪ **memoryClient.getBlockTransactionCount**: (`args`?) => `Promise`\<`number`\>
+• **memoryClient.getBlockTransactionCount**
 
 Returns the number of Transactions at a block number, hash, or tag.
 
@@ -550,7 +542,7 @@ const client = createPublicClient({
 const count = await client.getBlockTransactionCount()
 ```
 
-▪ **memoryClient.getBytecode**: (`args`) => `Promise`\<`GetBytecodeReturnType`\>
+• **memoryClient.getBytecode**
 
 Retrieves the bytecode at an address.
 
@@ -572,7 +564,7 @@ const code = await client.getBytecode({
 })
 ```
 
-▪ **memoryClient.getChainId**: () => `Promise`\<`number`\>
+• **memoryClient.getChainId**
 
 Returns the chain ID associated with the current network.
 
@@ -593,7 +585,7 @@ const chainId = await client.getChainId()
 // 1
 ```
 
-▪ **memoryClient.getContractEvents**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+• **memoryClient.getContractEvents**
 
 Returns a list of event logs emitted by a contract.
 
@@ -618,7 +610,7 @@ const logs = await client.getContractEvents(client, {
 })
 ```
 
-▪ **memoryClient.getEnsAddress**: (`args`) => `Promise`\<`GetEnsAddressReturnType`\>
+• **memoryClient.getEnsAddress**
 
 Gets address for ENS name.
 
@@ -648,7 +640,7 @@ const ensAddress = await client.getEnsAddress({
 // '0xd2135CfB216b74109775236E36d4b433F1DF507B'
 ```
 
-▪ **memoryClient.getEnsAvatar**: (`args`) => `Promise`\<`GetEnsAvatarReturnType`\>
+• **memoryClient.getEnsAvatar**
 
 Gets the avatar of an ENS name.
 
@@ -678,7 +670,7 @@ const ensAvatar = await client.getEnsAvatar({
 // 'https://ipfs.io/ipfs/Qma8mnp6xV3J2cRNf3mTth5C8nV11CAnceVinc3y8jSbio'
 ```
 
-▪ **memoryClient.getEnsName**: (`args`) => `Promise`\<`GetEnsNameReturnType`\>
+• **memoryClient.getEnsName**
 
 Gets primary name for specified address.
 
@@ -705,7 +697,7 @@ const ensName = await client.getEnsName({
 // 'wevm.eth'
 ```
 
-▪ **memoryClient.getEnsResolver**: (`args`) => `Promise`\<\`0x${string}\`\>
+• **memoryClient.getEnsResolver**
 
 Gets resolver for ENS name.
 
@@ -735,7 +727,7 @@ const resolverAddress = await client.getEnsResolver({
 // '0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41'
 ```
 
-▪ **memoryClient.getEnsText**: (`args`) => `Promise`\<`GetEnsTextReturnType`\>
+• **memoryClient.getEnsText**
 
 Gets a text record for specified ENS name.
 
@@ -766,7 +758,7 @@ const twitterRecord = await client.getEnsText({
 // 'wagmi_sh'
 ```
 
-▪ **memoryClient.getFeeHistory**: (`args`) => `Promise`\<`GetFeeHistoryReturnType`\>
+• **memoryClient.getFeeHistory**
 
 Returns a collection of historical gas information.
 
@@ -789,7 +781,7 @@ const feeHistory = await client.getFeeHistory({
 })
 ```
 
-▪ **memoryClient.getFilterChanges**: \<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+• **memoryClient.getFilterChanges**
 
 Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter) since the last time it was called.
 
@@ -811,7 +803,7 @@ Depending on the type of filter, the return value will be different:
 - If the filter was created with `createPendingTransactionFilter`, it returns a list of transaction hashes.
 - If the filter was created with `createBlockFilter`, it returns a list of block hashes.
 
-**Example**
+**Examples**
 
 ```ts
 // Blocks
@@ -825,8 +817,6 @@ const client = createPublicClient({
 const filter = await client.createBlockFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
-
-**Example**
 
 ```ts
 // Contract Events
@@ -845,8 +835,6 @@ const filter = await client.createContractEventFilter({
 const logs = await client.getFilterChanges({ filter })
 ```
 
-**Example**
-
 ```ts
 // Raw Events
 import { createPublicClient, http, parseAbiItem } from 'viem'
@@ -863,8 +851,6 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterChanges({ filter })
 ```
 
-**Example**
-
 ```ts
 // Transactions
 import { createPublicClient, http } from 'viem'
@@ -878,7 +864,7 @@ const filter = await client.createPendingTransactionFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
 
-▪ **memoryClient.getFilterLogs**: \<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+• **memoryClient.getFilterLogs**
 
 Returns a list of event logs since the filter was created.
 
@@ -906,7 +892,7 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterLogs({ filter })
 ```
 
-▪ **memoryClient.getGasPrice**: () => `Promise`\<`bigint`\>
+• **memoryClient.getGasPrice**
 
 Returns the current price of gas (in wei).
 
@@ -926,7 +912,7 @@ const client = createPublicClient({
 const gasPrice = await client.getGasPrice()
 ```
 
-▪ **memoryClient.getLogs**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+• **memoryClient.getLogs**
 
 Returns a list of event logs matching the provided parameters.
 
@@ -947,7 +933,7 @@ const client = createPublicClient({
 const logs = await client.getLogs()
 ```
 
-▪ **memoryClient.getProof**: (`args`) => `Promise`\<`GetProofReturnType`\>
+• **memoryClient.getProof**
 
 Returns the account and storage values of the specified account including the Merkle-proof.
 
@@ -971,7 +957,7 @@ const block = await client.getProof({
 })
 ```
 
-▪ **memoryClient.getStorageAt**: (`args`) => `Promise`\<`GetStorageAtReturnType`\>
+• **memoryClient.getStorageAt**
 
 Returns the value from a storage slot at a given address.
 
@@ -995,7 +981,7 @@ const code = await client.getStorageAt({
 })
 ```
 
-▪ **memoryClient.getTransaction**: \<`TBlockTag`\>(`args`) => `Promise`\<`object` \| `object` \| `object` \| `object`\>
+• **memoryClient.getTransaction**
 
 Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#transaction) given a hash or block identifier.
 
@@ -1018,7 +1004,7 @@ const transaction = await client.getTransaction({
 })
 ```
 
-▪ **memoryClient.getTransactionConfirmations**: (`args`) => `Promise`\<`bigint`\>
+• **memoryClient.getTransactionConfirmations**
 
 Returns the number of blocks passed (confirmations) since the transaction was processed on a block.
 
@@ -1041,7 +1027,7 @@ const confirmations = await client.getTransactionConfirmations({
 })
 ```
 
-▪ **memoryClient.getTransactionCount**: (`args`) => `Promise`\<`number`\>
+• **memoryClient.getTransactionCount**
 
 Returns the number of [Transactions](https://viem.sh/docs/glossary/terms#transaction) an Account has broadcast / sent.
 
@@ -1063,7 +1049,7 @@ const transactionCount = await client.getTransactionCount({
 })
 ```
 
-▪ **memoryClient.getTransactionReceipt**: (`args`) => `Promise`\<`TransactionReceipt`\>
+• **memoryClient.getTransactionReceipt**
 
 Returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt) given a [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash.
 
@@ -1086,7 +1072,7 @@ const transactionReceipt = await client.getTransactionReceipt({
 })
 ```
 
-▪ **memoryClient.getTxpoolContent**: () => `Promise`\<`GetTxpoolContentReturnType`\>
+• **memoryClient.getTxpoolContent**
 
 Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1106,7 +1092,7 @@ const client = createTestClient({
 const content = await client.getTxpoolContent()
 ```
 
-▪ **memoryClient.getTxpoolStatus**: () => `Promise`\<`GetTxpoolStatusReturnType`\>
+• **memoryClient.getTxpoolStatus**
 
 Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1126,7 +1112,7 @@ const client = createTestClient({
 const status = await client.getTxpoolStatus()
 ```
 
-▪ **memoryClient.impersonateAccount**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.impersonateAccount**
 
 Impersonate an account or contract address. This lets you send transactions from that account even if you don't have access to its private key.
 
@@ -1148,7 +1134,7 @@ await client.impersonateAccount({
 })
 ```
 
-▪ **memoryClient.increaseTime**: (`args`) => `Promise`\<\`0x${string}\`\>
+• **memoryClient.increaseTime**
 
 Jump forward in time by the given amount of time, in seconds.
 
@@ -1170,7 +1156,7 @@ await client.increaseTime({
 })
 ```
 
-▪ **memoryClient.inspectTxpool**: () => `Promise`\<`InspectTxpoolReturnType`\>
+• **memoryClient.inspectTxpool**
 
 Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1190,11 +1176,11 @@ const client = createTestClient({
 const data = await client.inspectTxpool()
 ```
 
-▪ **memoryClient.key**: `string`
+• **memoryClient.key**: `string`
 
 A key for the client.
 
-▪ **memoryClient.loadState**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.loadState**
 
 Adds state previously dumped with `dumpState` to the current chain.
 
@@ -1214,7 +1200,7 @@ const client = createTestClient({
 await client.loadState({ state: '0x...' })
 ```
 
-▪ **memoryClient.mine**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.mine**
 
 Mine a specified number of blocks.
 
@@ -1234,7 +1220,7 @@ const client = createTestClient({
 await client.mine({ blocks: 1 })
 ```
 
-▪ **memoryClient.multicall**: \<`contracts`, `allowFailure`\>(`args`) => `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
+• **memoryClient.multicall**
 
 Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but batches up multiple functions on a contract in a single RPC call via the [`multicall3` contract](https://github.com/mds1/multicall).
 
@@ -1272,21 +1258,21 @@ const result = await client.multicall({
 // [{ result: 424122n, status: 'success' }, { result: 1000000n, status: 'success' }]
 ```
 
-▪ **memoryClient.name**: `string`
+• **memoryClient.name**: `string`
 
 A name for the client.
 
-▪ **memoryClient.pollingInterval**: `number`
+• **memoryClient.pollingInterval**: `number`
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-▪ **memoryClient.prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<(...), (...)> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever<(...)> extends true ? unknown : ExactPartial<(...)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends readonly PrepareTransactionRequestParameterType[] ? any[any][number] : "type" | "gas" | "nonce" | "blobVersionedHashes" | "chainId" | "fees">> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
+• **memoryClient.prepareTransactionRequest**
 
 Prepares a transaction request for signing.
 
 - Docs: https://viem.sh/docs/actions/wallet/prepareTransactionRequest
 
-**Example**
+**Examples**
 
 ```ts
 import { createWalletClient, custom } from 'viem'
@@ -1302,8 +1288,6 @@ const request = await client.prepareTransactionRequest({
   value: 1n,
 })
 ```
-
-**Example**
 
 ```ts
 // Account Hoisting
@@ -1322,7 +1306,7 @@ const request = await client.prepareTransactionRequest({
 })
 ```
 
-▪ **memoryClient.readContract**: \<`abi`, `functionName`, `args`\>(`args`) => `Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
+• **memoryClient.readContract**
 
 Calls a read-only function on a contract, and returns the response.
 
@@ -1355,7 +1339,7 @@ const result = await client.readContract({
 // 424122n
 ```
 
-▪ **memoryClient.removeBlockTimestampInterval**: () => `Promise`\<`void`\>
+• **memoryClient.removeBlockTimestampInterval**
 
 Removes [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval) if it exists.
 
@@ -1376,11 +1360,11 @@ const client = createTestClient({
 await client.removeBlockTimestampInterval()
 ```
 
-▪ **memoryClient.request**: `EIP1193RequestFn`\<[`object`, `object`, `object`, `object`, `object`]\>
+• **memoryClient.request**: `EIP1193RequestFn`\<[`object`, `object`, `object`, `object`, `object`]\>
 
 Request function wrapped with friendly error handling
 
-▪ **memoryClient.reset**: (`args`?) => `Promise`\<`void`\>
+• **memoryClient.reset**
 
 Resets fork back to its original state.
 
@@ -1400,7 +1384,7 @@ const client = createTestClient({
 await client.reset({ blockNumber: 69420n })
 ```
 
-▪ **memoryClient.revert**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.revert**
 
 Revert the state of the blockchain at the current block.
 
@@ -1420,7 +1404,7 @@ const client = createTestClient({
 await client.revert({ id: '0x…' })
 ```
 
-▪ **memoryClient.sendRawTransaction**: (`args`) => `Promise`\<\`0x${string}\`\>
+• **memoryClient.sendRawTransaction**
 
 Sends a **signed** transaction to the network
 
@@ -1444,7 +1428,7 @@ const hash = await client.sendRawTransaction({
 })
 ```
 
-▪ **memoryClient.sendUnsignedTransaction**: \<`TChain`\>(`args`) => `Promise`\<\`0x${string}\`\>
+• **memoryClient.sendUnsignedTransaction**
 
 Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1468,7 +1452,7 @@ const hash = await client.sendUnsignedTransaction({
 })
 ```
 
-▪ **memoryClient.setAutomine**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setAutomine**
 
 Enables or disables the automatic mining of new blocks with each new transaction submitted to the network.
 
@@ -1488,7 +1472,7 @@ const client = createTestClient({
 await client.setAutomine()
 ```
 
-▪ **memoryClient.setBalance**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setBalance**
 
 Modifies the balance of an account.
 
@@ -1511,7 +1495,7 @@ await client.setBalance({
 })
 ```
 
-▪ **memoryClient.setBlockGasLimit**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setBlockGasLimit**
 
 Sets the block's gas limit.
 
@@ -1531,7 +1515,7 @@ const client = createTestClient({
 await client.setBlockGasLimit({ gasLimit: 420_000n })
 ```
 
-▪ **memoryClient.setBlockTimestampInterval**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setBlockTimestampInterval**
 
 Similar to [`increaseTime`](https://viem.sh/docs/actions/test/increaseTime), but sets a block timestamp `interval`. The timestamp of future blocks will be computed as `lastBlock_timestamp` + `interval`.
 
@@ -1551,7 +1535,7 @@ const client = createTestClient({
 await client.setBlockTimestampInterval({ interval: 5 })
 ```
 
-▪ **memoryClient.setCode**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setCode**
 
 Modifies the bytecode stored at an account's address.
 
@@ -1574,7 +1558,7 @@ await client.setCode({
 })
 ```
 
-▪ **memoryClient.setCoinbase**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setCoinbase**
 
 Sets the coinbase address to be used in new blocks.
 
@@ -1596,7 +1580,7 @@ await client.setCoinbase({
 })
 ```
 
-▪ **memoryClient.setIntervalMining**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setIntervalMining**
 
 Sets the automatic mining interval (in seconds) of blocks. Setting the interval to 0 will disable automatic mining.
 
@@ -1616,7 +1600,7 @@ const client = createTestClient({
 await client.setIntervalMining({ interval: 5 })
 ```
 
-▪ **memoryClient.setLoggingEnabled**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setLoggingEnabled**
 
 Enable or disable logging on the test node network.
 
@@ -1636,7 +1620,7 @@ const client = createTestClient({
 await client.setLoggingEnabled()
 ```
 
-▪ **memoryClient.setMinGasPrice**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setMinGasPrice**
 
 Change the minimum gas price accepted by the network (in wei).
 
@@ -1660,7 +1644,7 @@ await client.setMinGasPrice({
 })
 ```
 
-▪ **memoryClient.setNextBlockBaseFeePerGas**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setNextBlockBaseFeePerGas**
 
 Sets the next block's base fee per gas.
 
@@ -1682,7 +1666,7 @@ await client.setNextBlockBaseFeePerGas({
 })
 ```
 
-▪ **memoryClient.setNextBlockTimestamp**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setNextBlockTimestamp**
 
 Sets the next block's timestamp.
 
@@ -1702,7 +1686,7 @@ const client = createTestClient({
 await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 ```
 
-▪ **memoryClient.setNonce**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setNonce**
 
 Modifies (overrides) the nonce of an account.
 
@@ -1725,7 +1709,7 @@ await client.setNonce({
 })
 ```
 
-▪ **memoryClient.setRpcUrl**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setRpcUrl**
 
 Sets the backend RPC URL.
 
@@ -1745,7 +1729,7 @@ const client = createTestClient({
 await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 ```
 
-▪ **memoryClient.setStorageAt**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.setStorageAt**
 
 Writes to a slot of an account's storage.
 
@@ -1769,7 +1753,7 @@ await client.setStorageAt({
 })
 ```
 
-▪ **memoryClient.simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
+• **memoryClient.simulateContract**
 
 Simulates/validates a contract interaction. This is useful for retrieving **return data** and **revert reasons** of contract write functions.
 
@@ -1801,7 +1785,7 @@ const result = await client.simulateContract({
 })
 ```
 
-▪ **memoryClient.snapshot**: () => `Promise`\<\`0x${string}\`\>
+• **memoryClient.snapshot**
 
 Snapshot the state of the blockchain at the current block.
 
@@ -1822,7 +1806,7 @@ const client = createTestClient({
 await client.snapshot()
 ```
 
-▪ **memoryClient.stopImpersonatingAccount**: (`args`) => `Promise`\<`void`\>
+• **memoryClient.stopImpersonatingAccount**
 
 Stop impersonating an account after having previously used [`impersonateAccount`](https://viem.sh/docs/actions/test/impersonateAccount).
 
@@ -1845,41 +1829,41 @@ await client.stopImpersonatingAccount({
 })
 ```
 
-▪ **memoryClient.tevmCall**: `CallHandler`
+• **memoryClient.tevmCall**: `CallHandler`
 
-▪ **memoryClient.tevmContract**: `ContractHandler`
+• **memoryClient.tevmContract**: `ContractHandler`
 
-▪ **memoryClient.tevmDeploy**: `DeployHandler`
+• **memoryClient.tevmDeploy**: `DeployHandler`
 
-▪ **memoryClient.tevmDumpState**: `DumpStateHandler`
+• **memoryClient.tevmDumpState**: `DumpStateHandler`
 
-▪ **memoryClient.tevmForkUrl?**: `string`
+• **memoryClient.tevmForkUrl?**: `string`
 
-▪ **memoryClient.tevmGetAccount**: `GetAccountHandler`
+• **memoryClient.tevmGetAccount**: `GetAccountHandler`
 
-▪ **memoryClient.tevmLoadState**: `LoadStateHandler`
+• **memoryClient.tevmLoadState**: `LoadStateHandler`
 
-▪ **memoryClient.tevmMine**: `MineHandler`
+• **memoryClient.tevmMine**: `MineHandler`
 
-▪ **memoryClient.tevmReady**: () => `Promise`\<`true`\>
+• **memoryClient.tevmReady**
 
-▪ **memoryClient.tevmScript**: `ScriptHandler`
+• **memoryClient.tevmScript**: `ScriptHandler`
 
-▪ **memoryClient.tevmSetAccount**: `SetAccountHandler`
+• **memoryClient.tevmSetAccount**: `SetAccountHandler`
 
-▪ **memoryClient.transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
+• **memoryClient.transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
 
 The RPC transport
 
-▪ **memoryClient.type**: `string`
+• **memoryClient.type**: `string`
 
 The type of client.
 
-▪ **memoryClient.uid**: `string`
+• **memoryClient.uid**: `string`
 
 A unique ID for the client.
 
-▪ **memoryClient.uninstallFilter**: (`args`) => `Promise`\<`boolean`\>
+• **memoryClient.uninstallFilter**
 
 Destroys a Filter that was created from one of the following Actions:
 
@@ -1902,11 +1886,11 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
-▪ **memoryClient.verifyMessage**: (`args`) => `Promise`\<`boolean`\>
+• **memoryClient.verifyMessage**
 
-▪ **memoryClient.verifyTypedData**: (`args`) => `Promise`\<`boolean`\>
+• **memoryClient.verifyTypedData**
 
-▪ **memoryClient.waitForTransactionReceipt**: (`args`) => `Promise`\<`TransactionReceipt`\>
+• **memoryClient.waitForTransactionReceipt**
 
 Waits for the [Transaction](https://viem.sh/docs/glossary/terms#transaction) to be included on a [Block](https://viem.sh/docs/glossary/terms#block) (one confirmation), and then returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt). If the Transaction reverts, then the action will throw an error.
 
@@ -1946,7 +1930,7 @@ const transactionReceipt = await client.waitForTransactionReceipt({
 })
 ```
 
-▪ **memoryClient.watchBlockNumber**: (`args`) => `WatchBlockNumberReturnType`
+• **memoryClient.watchBlockNumber**
 
 Watches and returns incoming block numbers.
 
@@ -1971,7 +1955,7 @@ const unwatch = await client.watchBlockNumber({
 })
 ```
 
-▪ **memoryClient.watchBlocks**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`) => `WatchBlocksReturnType`
+• **memoryClient.watchBlocks**
 
 Watches and returns information for incoming blocks.
 
@@ -1996,7 +1980,7 @@ const unwatch = await client.watchBlocks({
 })
 ```
 
-▪ **memoryClient.watchContractEvent**: \<`TAbi`, `TEventName`, `TStrict`\>(`args`) => `WatchContractEventReturnType`
+• **memoryClient.watchContractEvent**
 
 Watches and returns emitted contract event logs.
 
@@ -2027,7 +2011,7 @@ const unwatch = client.watchContractEvent({
 })
 ```
 
-▪ **memoryClient.watchEvent**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`\>(`args`) => `WatchEventReturnType`
+• **memoryClient.watchEvent**
 
 Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#event-log).
 
@@ -2060,7 +2044,7 @@ const unwatch = client.watchEvent({
 })
 ```
 
-▪ **memoryClient.watchPendingTransactions**: (`args`) => `WatchPendingTransactionsReturnType`
+• **memoryClient.watchPendingTransactions**
 
 Watches and returns pending transaction hashes.
 
@@ -2090,9 +2074,13 @@ const unwatch = await client.watchPendingTransactions({
 })
 ```
 
+#### Returns
+
+[`TevmProvider`](TevmProvider.md)
+
 #### Overrides
 
-JsonRpcApiProvider.constructor
+`JsonRpcApiProvider.constructor`
 
 #### Source
 
@@ -2102,11 +2090,11 @@ JsonRpcApiProvider.constructor
 
 ### #private
 
-> **`private`** **#private**: `any`
+> `private` **#private**: `any`
 
 #### Inherited from
 
-JsonRpcApiProvider.#private
+`JsonRpcApiProvider.#private`
 
 #### Source
 
@@ -2116,11 +2104,11 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 ### #private
 
-> **`private`** **#private**: `any`
+> `private` **#private**: `any`
 
 #### Inherited from
 
-JsonRpcApiProvider.#private
+`JsonRpcApiProvider.#private`
 
 #### Source
 
@@ -2173,24 +2161,28 @@ console.log(result)
 
 #### Type declaration
 
-##### extend
+##### extend()
 
-> **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
 ###### Type parameters
 
-▪ **TExtension** extends `Record`\<`string`, `any`\>
+• **TExtension** *extends* `Record`\<`string`, `any`\>
 
 ###### Parameters
 
-▪ **decorator**: (`client`) => `TExtension`
+• **decorator**
 
-##### forkUrl
+###### Returns
 
-> **`readonly`** **forkUrl**?: `string`
+`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+
+##### forkUrl?
+
+> `optional` `readonly` **forkUrl**: `string`
 
 Fork url if the EVM is forked
 
@@ -2201,35 +2193,47 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-##### getReceiptsManager
+##### getReceiptsManager()
 
-> **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
 
 Interface for querying receipts and historical state
 
-##### getTxPool
+###### Returns
 
-> **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
+`Promise`\<`ReceiptsManager`\>
+
+##### getTxPool()
+
+> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
 
 Gets the pool of pending transactions to be included in next block
 
-##### getVm
+###### Returns
 
-> **`readonly`** **getVm**: () => `Promise`\<`Vm`\>
+`Promise`\<`TxPool`\>
+
+##### getVm()
+
+> `readonly` **getVm**: () => `Promise`\<`Vm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+###### Returns
+
+`Promise`\<`Vm`\>
+
 ##### logger
 
-> **`readonly`** **logger**: `Logger`
+> `readonly` **logger**: `Logger`
 
 The logger instance
 
 ##### miningConfig
 
-> **`readonly`** **miningConfig**: `MiningConfig`
+> `readonly` **miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -2238,7 +2242,7 @@ The configuration for mining. Defaults to 'auto'
 
 ##### mode
 
-> **`readonly`** **mode**: `"fork"` \| `"normal"`
+> `readonly` **mode**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
@@ -2253,9 +2257,9 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-##### ready
+##### ready()
 
-> **`readonly`** **ready**: () => `Promise`\<`true`\>
+> `readonly` **ready**: () => `Promise`\<`true`\>
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -2267,6 +2271,10 @@ have extra latency on the first call from initialization
 const client = createMemoryClient()
 await client.ready()
 ```
+
+###### Returns
+
+`Promise`\<`true`\>
 
 #### Type declaration
 
@@ -2290,10 +2298,14 @@ await client.ready()
 
 ### \_network
 
-> **`get`** **\_network**(): `Network`
+> `get` **\_network**(): `Network`
 
 Gets the [[Network]] this provider has committed to. On each call, the network
  is detected, and if it has changed, the call will reject.
+
+#### Returns
+
+`Network`
 
 #### Source
 
@@ -2303,13 +2315,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 ### destroyed
 
-> **`get`** **destroyed**(): `boolean`
+> `get` **destroyed**(): `boolean`
 
 If this provider has been destroyed using the [[destroy]] method.
 
  Once destroyed, all resources are reclaimed, internal event loops
  and timers are cleaned up and no further requests may be sent to
  the provider.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -2319,16 +2335,20 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### disableCcipRead
 
-> **`get`** **disableCcipRead**(): `boolean`
+> `get` **disableCcipRead**(): `boolean`
 
 Prevent any CCIP-read operation, regardless of whether requested
  in a [[call]] using ``enableCcipRead``.
 
-> **`set`** **disableCcipRead**(`value`): `void`
+> `set` **disableCcipRead**(`value`): `void`
 
 #### Parameters
 
-▪ **value**: `boolean`
+• **value**: `boolean`
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -2338,7 +2358,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### paused
 
-> **`get`** **paused**(): `boolean`
+> `get` **paused**(): `boolean`
 
 Whether the provider is currently paused.
 
@@ -2350,11 +2370,15 @@ Whether the provider is currently paused.
  which will buffer any events that occur while paused until the
  provider is unpaused.
 
-> **`set`** **paused**(`pause`): `void`
+> `set` **paused**(`pause`): `void`
 
 #### Parameters
 
-▪ **pause**: `boolean`
+• **pause**: `boolean`
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -2364,9 +2388,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### plugins
 
-> **`get`** **plugins**(): `AbstractProviderPlugin`[]
+> `get` **plugins**(): `AbstractProviderPlugin`[]
 
 Returns all the registered plug-ins.
+
+#### Returns
+
+`AbstractProviderPlugin`[]
 
 #### Source
 
@@ -2376,7 +2404,11 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### pollingInterval
 
-> **`get`** **pollingInterval**(): `number`
+> `get` **pollingInterval**(): `number`
+
+#### Returns
+
+`number`
 
 #### Source
 
@@ -2386,10 +2418,14 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### provider
 
-> **`get`** **provider**(): `this`
+> `get` **provider**(): `this`
 
 Returns ``this``, to allow an **AbstractProvider** to implement
  the [[ContractRunner]] interface.
+
+#### Returns
+
+`this`
 
 #### Source
 
@@ -2399,9 +2435,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### ready
 
-> **`get`** **ready**(): `boolean`
+> `get` **ready**(): `boolean`
 
 Returns true only if the [[_start]] has been called.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -2417,11 +2457,15 @@ Clear a timer created using the [[_setTimeout]] method.
 
 #### Parameters
 
-▪ **timerId**: `number`
+• **timerId**: `number`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_clearTimeout
+`JsonRpcApiProvider._clearTimeout`
 
 #### Source
 
@@ -2439,9 +2483,13 @@ Sub-classes may override this; it detects the *actual* network that
  Keep in mind that [[send]] may only be used once [[ready]], otherwise the
  _send primitive must be used instead.
 
+#### Returns
+
+`Promise`\<`Network`\>
+
 #### Inherited from
 
-JsonRpcApiProvider.\_detectNetwork
+`JsonRpcApiProvider._detectNetwork`
 
 #### Source
 
@@ -2457,11 +2505,15 @@ Perform %%func%% on each subscriber.
 
 #### Parameters
 
-▪ **func**: (`s`) => `void`
+• **func**
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_forEachSubscriber
+`JsonRpcApiProvider._forEachSubscriber`
 
 #### Source
 
@@ -2479,11 +2531,15 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 #### Parameters
 
-▪ **address**: `AddressLike`
+• **address**: `AddressLike`
+
+#### Returns
+
+`string` \| `Promise`\<`string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getAddress
+`JsonRpcApiProvider._getAddress`
 
 #### Source
 
@@ -2500,11 +2556,15 @@ Returns or resolves to a valid block tag for %%blockTag%%, resolving
 
 #### Parameters
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`string` \| `Promise`\<`string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getBlockTag
+`JsonRpcApiProvider._getBlockTag`
 
 #### Source
 
@@ -2522,11 +2582,15 @@ Returns or resolves to a filter for %%filter%%, resolving any ENS
 
 #### Parameters
 
-▪ **filter**: `Filter` \| `FilterByBlockHash`
+• **filter**: `Filter` \| `FilterByBlockHash`
+
+#### Returns
+
+`PerformActionFilter` \| `Promise`\<`PerformActionFilter`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getFilter
+`JsonRpcApiProvider._getFilter`
 
 #### Source
 
@@ -2536,7 +2600,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### \_getOption()
 
-> **\_getOption**\<`K`\>(`key`): `JsonRpcApiProviderOptions`[`K`]
+> **\_getOption**\<`K`\>(`key`): `JsonRpcApiProviderOptions`\[`K`\]
 
 Returns the value associated with the option %%key%%.
 
@@ -2544,15 +2608,19 @@ Returns the value associated with the option %%key%%.
 
 #### Type parameters
 
-▪ **K** extends keyof `JsonRpcApiProviderOptions`
+• **K** *extends* keyof `JsonRpcApiProviderOptions`
 
 #### Parameters
 
-▪ **key**: `K`
+• **key**: `K`
+
+#### Returns
+
+`JsonRpcApiProviderOptions`\[`K`\]
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getOption
+`JsonRpcApiProvider._getOption`
 
 #### Source
 
@@ -2566,11 +2634,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 #### Parameters
 
-▪ **chainId**: `number`
+• **chainId**: `number`
+
+#### Returns
+
+`AbstractProvider`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getProvider
+`JsonRpcApiProvider._getProvider`
 
 #### Source
 
@@ -2589,11 +2661,15 @@ Return a Subscriber that will manage the %%sub%%.
 
 #### Parameters
 
-▪ **sub**: `Subscription`
+• **sub**: `Subscription`
+
+#### Returns
+
+`Subscriber`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getSubscriber
+`JsonRpcApiProvider._getSubscriber`
 
 #### Source
 
@@ -2611,11 +2687,15 @@ Returns or resovles to a transaction for %%request%%, resolving
 
 #### Parameters
 
-▪ **\_request**: `TransactionRequest`
+• **\_request**: `TransactionRequest`
+
+#### Returns
+
+`PerformActionTransaction` \| `Promise`\<`PerformActionTransaction`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.\_getTransactionRequest
+`JsonRpcApiProvider._getTransactionRequest`
 
 #### Source
 
@@ -2634,11 +2714,15 @@ Resolves to the non-normalized value by performing %%req%%.
 
 #### Parameters
 
-▪ **req**: `PerformActionRequest`
+• **req**: `PerformActionRequest`
+
+#### Returns
+
+`Promise`\<`any`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.\_perform
+`JsonRpcApiProvider._perform`
 
 #### Source
 
@@ -2660,13 +2744,17 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 #### Parameters
 
-▪ **oldSub**: `Subscriber`
+• **oldSub**: `Subscriber`
 
-▪ **newSub**: `Subscriber`
+• **newSub**: `Subscriber`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_recoverSubscriber
+`JsonRpcApiProvider._recoverSubscriber`
 
 #### Source
 
@@ -2682,11 +2770,15 @@ Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 #### Parameters
 
-▪ **payload**: `JsonRpcPayload` \| `JsonRpcPayload`[]
+• **payload**: `JsonRpcPayload` \| `JsonRpcPayload`[]
+
+#### Returns
+
+`Promise`\<(`JsonRpcResult` \| `JsonRpcError`)[]\>
 
 #### Overrides
 
-JsonRpcApiProvider.\_send
+`JsonRpcApiProvider._send`
 
 #### Source
 
@@ -2707,13 +2799,17 @@ Create a timer that will execute %%func%% after at least %%timeout%%
 
 #### Parameters
 
-▪ **\_func**: () => `void`
+• **\_func**
 
-▪ **timeout?**: `number`
+• **timeout?**: `number`
+
+#### Returns
+
+`number`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_setTimeout
+`JsonRpcApiProvider._setTimeout`
 
 #### Source
 
@@ -2731,9 +2827,13 @@ Sub-classes **MUST** call this. Until [[_start]] has been called, no calls
 
  Calling it multiple times is safe and has no effect.
 
+#### Returns
+
+`void`
+
 #### Inherited from
 
-JsonRpcApiProvider.\_start
+`JsonRpcApiProvider._start`
 
 #### Source
 
@@ -2749,9 +2849,13 @@ Resolves once the [[_start]] has been called. This can be used in
  sub-classes to defer sending data until the connection has been
  established.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Inherited from
 
-JsonRpcApiProvider.\_waitUntilReady
+`JsonRpcApiProvider._waitUntilReady`
 
 #### Source
 
@@ -2769,13 +2873,17 @@ Provides the opportunity for a sub-class to wrap a block before
 
 #### Parameters
 
-▪ **value**: `BlockParams`
+• **value**: `BlockParams`
 
-▪ **network**: `Network`
+• **network**: `Network`
+
+#### Returns
+
+`Block`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_wrapBlock
+`JsonRpcApiProvider._wrapBlock`
 
 #### Source
 
@@ -2793,13 +2901,17 @@ Provides the opportunity for a sub-class to wrap a log before
 
 #### Parameters
 
-▪ **value**: `LogParams`
+• **value**: `LogParams`
 
-▪ **network**: `Network`
+• **network**: `Network`
+
+#### Returns
+
+`Log`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_wrapLog
+`JsonRpcApiProvider._wrapLog`
 
 #### Source
 
@@ -2817,13 +2929,17 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-▪ **value**: `TransactionReceiptParams`
+• **value**: `TransactionReceiptParams`
 
-▪ **network**: `Network`
+• **network**: `Network`
+
+#### Returns
+
+`TransactionReceipt`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_wrapTransactionReceipt
+`JsonRpcApiProvider._wrapTransactionReceipt`
 
 #### Source
 
@@ -2841,13 +2957,17 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-▪ **tx**: `TransactionResponseParams`
+• **tx**: `TransactionResponseParams`
 
-▪ **network**: `Network`
+• **network**: `Network`
+
+#### Returns
+
+`TransactionResponse`
 
 #### Inherited from
 
-JsonRpcApiProvider.\_wrapTransactionResponse
+`JsonRpcApiProvider._wrapTransactionResponse`
 
 #### Source
 
@@ -2861,13 +2981,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ **listener**: `Listener`
+• **listener**: `Listener`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.addListener
+`JsonRpcApiProvider.addListener`
 
 #### Source
 
@@ -2883,11 +3007,15 @@ Attach a new plug-in.
 
 #### Parameters
 
-▪ **plugin**: `AbstractProviderPlugin`
+• **plugin**: `AbstractProviderPlugin`
+
+#### Returns
+
+`this`
 
 #### Inherited from
 
-JsonRpcApiProvider.attachPlugin
+`JsonRpcApiProvider.attachPlugin`
 
 #### Source
 
@@ -2901,11 +3029,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **signedTx**: `string`
+• **signedTx**: `string`
+
+#### Returns
+
+`Promise`\<`TransactionResponse`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.broadcastTransaction
+`JsonRpcApiProvider.broadcastTransaction`
 
 #### Source
 
@@ -2919,11 +3051,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **\_tx**: `TransactionRequest`
+• **\_tx**: `TransactionRequest`
+
+#### Returns
+
+`Promise`\<`string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.call
+`JsonRpcApiProvider.call`
 
 #### Source
 
@@ -2939,15 +3075,19 @@ Resolves to the data for executing the CCIP-read operations.
 
 #### Parameters
 
-▪ **tx**: `PerformActionTransaction`
+• **tx**: `PerformActionTransaction`
 
-▪ **calldata**: `string`
+• **calldata**: `string`
 
-▪ **urls**: `string`[]
+• **urls**: `string`[]
+
+#### Returns
+
+`Promise`\<`null` \| `string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.ccipReadFetch
+`JsonRpcApiProvider.ccipReadFetch`
 
 #### Source
 
@@ -2959,9 +3099,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 > **destroy**(): `void`
 
+#### Returns
+
+`void`
+
 #### Inherited from
 
-JsonRpcApiProvider.destroy
+`JsonRpcApiProvider.destroy`
 
 #### Source
 
@@ -2975,13 +3119,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ ...**args**: `any`[]
+• ...**args**: `any`[]
+
+#### Returns
+
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.emit
+`JsonRpcApiProvider.emit`
 
 #### Source
 
@@ -2995,11 +3143,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **\_tx**: `TransactionRequest`
+• **\_tx**: `TransactionRequest`
+
+#### Returns
+
+`Promise`\<`bigint`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.estimateGas
+`JsonRpcApiProvider.estimateGas`
 
 #### Source
 
@@ -3013,11 +3165,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getAvatar
+`JsonRpcApiProvider.getAvatar`
 
 #### Source
 
@@ -3031,13 +3187,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **address**: `AddressLike`
+• **address**: `AddressLike`
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`bigint`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getBalance
+`JsonRpcApiProvider.getBalance`
 
 #### Source
 
@@ -3051,13 +3211,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **block**: `BlockTag`
+• **block**: `BlockTag`
 
-▪ **prefetchTxs?**: `boolean`
+• **prefetchTxs?**: `boolean`
+
+#### Returns
+
+`Promise`\<`null` \| `Block`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getBlock
+`JsonRpcApiProvider.getBlock`
 
 #### Source
 
@@ -3069,9 +3233,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 > **getBlockNumber**(): `Promise`\<`number`\>
 
+#### Returns
+
+`Promise`\<`number`\>
+
 #### Inherited from
 
-JsonRpcApiProvider.getBlockNumber
+`JsonRpcApiProvider.getBlockNumber`
 
 #### Source
 
@@ -3085,13 +3253,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **address**: `AddressLike`
+• **address**: `AddressLike`
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getCode
+`JsonRpcApiProvider.getCode`
 
 #### Source
 
@@ -3103,9 +3275,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 > **getFeeData**(): `Promise`\<`FeeData`\>
 
+#### Returns
+
+`Promise`\<`FeeData`\>
+
 #### Inherited from
 
-JsonRpcApiProvider.getFeeData
+`JsonRpcApiProvider.getFeeData`
 
 #### Source
 
@@ -3119,11 +3295,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **\_filter**: `Filter` \| `FilterByBlockHash`
+• **\_filter**: `Filter` \| `FilterByBlockHash`
+
+#### Returns
+
+`Promise`\<`Log`[]\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getLogs
+`JsonRpcApiProvider.getLogs`
 
 #### Source
 
@@ -3135,9 +3315,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 > **getNetwork**(): `Promise`\<`Network`\>
 
+#### Returns
+
+`Promise`\<`Network`\>
+
 #### Inherited from
 
-JsonRpcApiProvider.getNetwork
+`JsonRpcApiProvider.getNetwork`
 
 #### Source
 
@@ -3153,15 +3337,19 @@ Get a plugin by name.
 
 #### Type parameters
 
-▪ **T** extends `AbstractProviderPlugin` = `AbstractProviderPlugin`
+• **T** *extends* `AbstractProviderPlugin` = `AbstractProviderPlugin`
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
+
+#### Returns
+
+`null` \| `T`
 
 #### Inherited from
 
-JsonRpcApiProvider.getPlugin
+`JsonRpcApiProvider.getPlugin`
 
 #### Source
 
@@ -3175,11 +3363,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `EnsResolver`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getResolver
+`JsonRpcApiProvider.getResolver`
 
 #### Source
 
@@ -3198,13 +3390,17 @@ Returns an ethers-style Error for the given JSON-RPC error
 
 #### Parameters
 
-▪ **payload**: `JsonRpcPayload`
+• **payload**: `JsonRpcPayload`
 
-▪ **\_error**: `JsonRpcError`
+• **\_error**: `JsonRpcError`
+
+#### Returns
+
+`Error`
 
 #### Inherited from
 
-JsonRpcApiProvider.getRpcError
+`JsonRpcApiProvider.getRpcError`
 
 #### Source
 
@@ -3221,11 +3417,15 @@ Returns the request method and arguments required to perform
 
 #### Parameters
 
-▪ **req**: `PerformActionRequest`
+• **req**: `PerformActionRequest`
+
+#### Returns
+
+`null` \| `object`
 
 #### Inherited from
 
-JsonRpcApiProvider.getRpcRequest
+`JsonRpcApiProvider.getRpcRequest`
 
 #### Source
 
@@ -3243,11 +3443,15 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 #### Parameters
 
-▪ **tx**: `TransactionRequest`
+• **tx**: `TransactionRequest`
+
+#### Returns
+
+`JsonRpcTransactionRequest`
 
 #### Inherited from
 
-JsonRpcApiProvider.getRpcTransaction
+`JsonRpcApiProvider.getRpcTransaction`
 
 #### Source
 
@@ -3272,11 +3476,15 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 #### Parameters
 
-▪ **address?**: `string` \| `number`
+• **address?**: `string` \| `number`
+
+#### Returns
+
+`Promise`\<`JsonRpcSigner`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getSigner
+`JsonRpcApiProvider.getSigner`
 
 #### Source
 
@@ -3290,15 +3498,19 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 #### Parameters
 
-▪ **address**: `AddressLike`
+• **address**: `AddressLike`
 
-▪ **\_position**: `BigNumberish`
+• **\_position**: `BigNumberish`
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getStorage
+`JsonRpcApiProvider.getStorage`
 
 #### Source
 
@@ -3312,11 +3524,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **hash**: `string`
+• **hash**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `TransactionResponse`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getTransaction
+`JsonRpcApiProvider.getTransaction`
 
 #### Source
 
@@ -3330,13 +3546,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **address**: `AddressLike`
+• **address**: `AddressLike`
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`number`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getTransactionCount
+`JsonRpcApiProvider.getTransactionCount`
 
 #### Source
 
@@ -3350,11 +3570,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **hash**: `string`
+• **hash**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `TransactionReceipt`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getTransactionReceipt
+`JsonRpcApiProvider.getTransactionReceipt`
 
 #### Source
 
@@ -3368,11 +3592,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **hash**: `string`
+• **hash**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.getTransactionResult
+`JsonRpcApiProvider.getTransactionResult`
 
 #### Source
 
@@ -3384,9 +3612,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 > **listAccounts**(): `Promise`\<`JsonRpcSigner`[]\>
 
+#### Returns
+
+`Promise`\<`JsonRpcSigner`[]\>
+
 #### Inherited from
 
-JsonRpcApiProvider.listAccounts
+`JsonRpcApiProvider.listAccounts`
 
 #### Source
 
@@ -3400,11 +3632,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 #### Parameters
 
-▪ **event?**: `ProviderEvent`
+• **event?**: `ProviderEvent`
+
+#### Returns
+
+`Promise`\<`number`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.listenerCount
+`JsonRpcApiProvider.listenerCount`
 
 #### Source
 
@@ -3418,11 +3654,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event?**: `ProviderEvent`
+• **event?**: `ProviderEvent`
+
+#### Returns
+
+`Promise`\<`Listener`[]\>
 
 #### Inherited from
 
-JsonRpcApiProvider.listeners
+`JsonRpcApiProvider.listeners`
 
 #### Source
 
@@ -3436,11 +3676,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **address**: `string`
+• **address**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.lookupAddress
+`JsonRpcApiProvider.lookupAddress`
 
 #### Source
 
@@ -3454,13 +3698,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ **listener?**: `Listener`
+• **listener?**: `Listener`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.off
+`JsonRpcApiProvider.off`
 
 #### Source
 
@@ -3474,13 +3722,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ **listener**: `Listener`
+• **listener**: `Listener`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.on
+`JsonRpcApiProvider.on`
 
 #### Source
 
@@ -3494,13 +3746,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ **listener**: `Listener`
+• **listener**: `Listener`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.once
+`JsonRpcApiProvider.once`
 
 #### Source
 
@@ -3518,11 +3774,15 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 #### Parameters
 
-▪ **dropWhilePaused?**: `boolean`
+• **dropWhilePaused?**: `boolean`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
-JsonRpcApiProvider.pause
+`JsonRpcApiProvider.pause`
 
 #### Source
 
@@ -3536,11 +3796,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event?**: `ProviderEvent`
+• **event?**: `ProviderEvent`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.removeAllListeners
+`JsonRpcApiProvider.removeAllListeners`
 
 #### Source
 
@@ -3554,13 +3818,17 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **event**: `ProviderEvent`
+• **event**: `ProviderEvent`
 
-▪ **listener**: `Listener`
+• **listener**: `Listener`
+
+#### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Inherited from
 
-JsonRpcApiProvider.removeListener
+`JsonRpcApiProvider.removeListener`
 
 #### Source
 
@@ -3574,11 +3842,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **name**: `string`
+• **name**: `string`
+
+#### Returns
+
+`Promise`\<`null` \| `string`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.resolveName
+`JsonRpcApiProvider.resolveName`
 
 #### Source
 
@@ -3592,9 +3864,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 Resume the provider.
 
+#### Returns
+
+`void`
+
 #### Inherited from
 
-JsonRpcApiProvider.resume
+`JsonRpcApiProvider.resume`
 
 #### Source
 
@@ -3620,13 +3896,17 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 #### Parameters
 
-▪ **method**: `string`
+• **method**: `string`
 
-▪ **params**: `any`[] \| `Record`\<`string`, `any`\>
+• **params**: `any`[] \| `Record`\<`string`, `any`\>
+
+#### Returns
+
+`Promise`\<`any`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.send
+`JsonRpcApiProvider.send`
 
 #### Source
 
@@ -3640,11 +3920,15 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provide
 
 #### Parameters
 
-▪ **blockTag?**: `BlockTag`
+• **blockTag?**: `BlockTag`
+
+#### Returns
+
+`Promise`\<`Block`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.waitForBlock
+`JsonRpcApiProvider.waitForBlock`
 
 #### Source
 
@@ -3658,15 +3942,19 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 #### Parameters
 
-▪ **hash**: `string`
+• **hash**: `string`
 
-▪ **\_confirms?**: `null` \| `number`
+• **\_confirms?**: `null` \| `number`
 
-▪ **timeout?**: `null` \| `number`
+• **timeout?**: `null` \| `number`
+
+#### Returns
+
+`Promise`\<`null` \| `TransactionReceipt`\>
 
 #### Inherited from
 
-JsonRpcApiProvider.waitForTransaction
+`JsonRpcApiProvider.waitForTransaction`
 
 #### Source
 
@@ -3676,17 +3964,19 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### createMemoryProvider()
 
-> **`static`** **`readonly`** **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> `static` `readonly` **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-▪ **options**: `BaseClientOptions`
+• **options**: `BaseClientOptions`
 
 Options to create a new TevmProvider.
 
 #### Returns
+
+`Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 A new TevmProvider instance.
 
@@ -3707,6 +3997,3 @@ const blockNumber = await provider.getBlockNumber()
 #### Source
 
 [extensions/ethers/src/TevmProvider.js:123](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L123)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

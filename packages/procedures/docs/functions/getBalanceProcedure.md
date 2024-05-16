@@ -1,8 +1,8 @@
-**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getBalanceProcedure
+[@tevm/procedures](../globals.md) / getBalanceProcedure
 
 # Function: getBalanceProcedure()
 
@@ -10,17 +10,16 @@
 
 ## Parameters
 
-▪ **options**: `object`
+• **options**
 
-▪ **options.forkUrl?**: `string`
+• **options.forkUrl?**: `string`
 
-▪ **options.getVm**: () => `Promise`\<`Vm`\>
+• **options.getVm**
 
 ## Returns
+
+`EthGetBalanceJsonRpcProcedure`
 
 ## Source
 
 [procedures/src/eth/getBalanceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getBalanceProcedure.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

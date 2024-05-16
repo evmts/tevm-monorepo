@@ -1,12 +1,12 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [common](../README.md) > SBlockNumber
+[@tevm/schemas](../../modules.md) / [common](../README.md) / SBlockNumber
 
 # Variable: SBlockNumber
 
-> **`const`** **SBlockNumber**: `Schema`\<`number`, `number`\>
+> `const` **SBlockNumber**: `Schema`\<`number`, `number`\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the BlockNumber type.
 
@@ -20,6 +20,3 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 ## Source
 
 [experimental/schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L33)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

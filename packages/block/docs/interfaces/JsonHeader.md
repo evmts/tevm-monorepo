@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > JsonHeader
+[@tevm/block](../globals.md) / JsonHeader
 
 # Interface: JsonHeader
 
@@ -10,9 +10,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ## Properties
 
-### baseFeePerGas
+### baseFeePerGas?
 
-> **baseFeePerGas**?: `string`
+> `optional` **baseFeePerGas**: `string`
 
 #### Source
 
@@ -20,9 +20,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `string`
+> `optional` **blobGasUsed**: `string`
 
 #### Source
 
@@ -30,9 +30,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### coinbase
+### coinbase?
 
-> **coinbase**?: `string`
+> `optional` **coinbase**: `string`
 
 #### Source
 
@@ -40,9 +40,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### difficulty
+### difficulty?
 
-> **difficulty**?: `string`
+> `optional` **difficulty**: `string`
 
 #### Source
 
@@ -50,9 +50,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### excessBlobGas
+### excessBlobGas?
 
-> **excessBlobGas**?: `string`
+> `optional` **excessBlobGas**: `string`
 
 #### Source
 
@@ -60,9 +60,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### extraData
+### extraData?
 
-> **extraData**?: `string`
+> `optional` **extraData**: `string`
 
 #### Source
 
@@ -70,9 +70,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### gasLimit
+### gasLimit?
 
-> **gasLimit**?: `string`
+> `optional` **gasLimit**: `string`
 
 #### Source
 
@@ -80,9 +80,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### gasUsed
+### gasUsed?
 
-> **gasUsed**?: `string`
+> `optional` **gasUsed**: `string`
 
 #### Source
 
@@ -90,9 +90,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### logsBloom
+### logsBloom?
 
-> **logsBloom**?: `string`
+> `optional` **logsBloom**: `string`
 
 #### Source
 
@@ -100,9 +100,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### mixHash
+### mixHash?
 
-> **mixHash**?: `string`
+> `optional` **mixHash**: `string`
 
 #### Source
 
@@ -110,9 +110,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### nonce
+### nonce?
 
-> **nonce**?: `string`
+> `optional` **nonce**: `string`
 
 #### Source
 
@@ -120,9 +120,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### number
+### number?
 
-> **number**?: `string`
+> `optional` **number**: `string`
 
 #### Source
 
@@ -130,9 +130,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### parentBeaconBlockRoot
+### parentBeaconBlockRoot?
 
-> **parentBeaconBlockRoot**?: `string`
+> `optional` **parentBeaconBlockRoot**: `string`
 
 #### Source
 
@@ -140,9 +140,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### parentHash
+### parentHash?
 
-> **parentHash**?: `string`
+> `optional` **parentHash**: `string`
 
 #### Source
 
@@ -150,9 +150,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### receiptTrie
+### receiptTrie?
 
-> **receiptTrie**?: `string`
+> `optional` **receiptTrie**: `string`
 
 #### Source
 
@@ -160,9 +160,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### requestsRoot
+### requestsRoot?
 
-> **requestsRoot**?: `string`
+> `optional` **requestsRoot**: `string`
 
 #### Source
 
@@ -170,9 +170,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### stateRoot
+### stateRoot?
 
-> **stateRoot**?: `string`
+> `optional` **stateRoot**: `string`
 
 #### Source
 
@@ -180,9 +180,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### timestamp
+### timestamp?
 
-> **timestamp**?: `string`
+> `optional` **timestamp**: `string`
 
 #### Source
 
@@ -190,9 +190,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### transactionsTrie
+### transactionsTrie?
 
-> **transactionsTrie**?: `string`
+> `optional` **transactionsTrie**: `string`
 
 #### Source
 
@@ -200,9 +200,9 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### uncleHash
+### uncleHash?
 
-> **uncleHash**?: `string`
+> `optional` **uncleHash**: `string`
 
 #### Source
 
@@ -210,13 +210,10 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ***
 
-### withdrawalsRoot
+### withdrawalsRoot?
 
-> **withdrawalsRoot**?: `string`
+> `optional` **withdrawalsRoot**: `string`
 
 #### Source
 
 [types.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L211)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

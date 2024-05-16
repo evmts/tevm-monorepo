@@ -1,8 +1,8 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/opstack**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > L1Client
+[@tevm/opstack](../globals.md) / L1Client
 
 # Type alias: L1Client
 
@@ -11,6 +11,3 @@
 ## Source
 
 [extensions/opstack/src/createL1Client.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/createL1Client.ts#L152)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

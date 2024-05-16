@@ -1,14 +1,18 @@
-**@tevm/viem** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > tevmViemExtensionOptimistic
+[@tevm/viem](../globals.md) / tevmViemExtensionOptimistic
 
-# Function: tevmViemExtensionOptimistic()
+# Function: ~~tevmViemExtensionOptimistic()~~
+
+`Experimental`
 
 > **tevmViemExtensionOptimistic**(): [`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
 
 ## Returns
+
+[`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
 
 ## Deprecated
 
@@ -77,6 +81,3 @@ for (const result of client.tevm.writeContractOptimistic({
 ## Source
 
 [extensions/viem/src/tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

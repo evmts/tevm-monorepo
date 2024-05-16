@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/errors**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > MineError
+[@tevm/errors](../globals.md) / MineError
 
 # Type alias: MineError
 
@@ -23,6 +23,3 @@ if (errors?.length) {
 ## Source
 
 [packages/errors/src/actions/MineError.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/MineError.ts#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

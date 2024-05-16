@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/decorators**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > tevmActions
+[@tevm/decorators](../globals.md) / tevmActions
 
 # Function: tevmActions()
 
@@ -10,9 +10,8 @@
 
 ## Returns
 
+`Extension`\<[`TevmActionsApi`](../type-aliases/TevmActionsApi.md)\>
+
 ## Source
 
 [packages/decorators/src/actions/tevmActions.js:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L98)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockBytes
+[@tevm/block](../globals.md) / BlockBytes
 
 # Type alias: BlockBytes
 
@@ -11,6 +11,3 @@
 ## Source
 
 [types.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L158)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

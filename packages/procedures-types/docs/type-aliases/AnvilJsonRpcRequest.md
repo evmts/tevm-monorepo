@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilJsonRpcRequest
+[@tevm/procedures-types](../globals.md) / AnvilJsonRpcRequest
 
 # Type alias: AnvilJsonRpcRequest
 
@@ -11,6 +11,3 @@
 ## Source
 
 [requests/AnvilJsonRpcRequest.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L113)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

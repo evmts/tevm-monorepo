@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > ContractJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / ContractJsonRpcProcedure
 
 # Type alias: ContractJsonRpcProcedure
 
@@ -15,6 +15,3 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 ## Source
 
 packages/procedures-types/dist/index.d.ts:748
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

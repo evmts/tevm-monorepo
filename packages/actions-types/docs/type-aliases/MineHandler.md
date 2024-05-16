@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > MineHandler
+[@tevm/actions-types](../globals.md) / MineHandler
 
-# Type alias: MineHandler
+# Type alias: MineHandler()
 
 > **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
@@ -19,11 +19,12 @@ console.log(res.errors) // undefined
 
 ## Parameters
 
-▪ **params?**: [`MineParams`](MineParams.md)
+• **params?**: [`MineParams`](MineParams.md)
+
+## Returns
+
+`Promise`\<[`MineResult`](MineResult.md)\>
 
 ## Source
 
 [handlers/MineHandler.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/MineHandler.ts#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

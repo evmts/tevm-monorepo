@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > EthjsAddress
+[tevm](../../modules.md) / [utils](../README.md) / EthjsAddress
 
 # Class: EthjsAddress
 
@@ -10,13 +10,17 @@ Handling and generating Ethereum addresses
 
 ## Constructors
 
-### new EthjsAddress(bytes)
+### new EthjsAddress()
 
 > **new EthjsAddress**(`bytes`): [`EthjsAddress`](EthjsAddress.md)
 
 #### Parameters
 
-▪ **bytes**: `Uint8Array`
+• **bytes**: `Uint8Array`
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -26,7 +30,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### bytes
 
-> **`readonly`** **bytes**: `Uint8Array`
+> `readonly` **bytes**: `Uint8Array`
 
 #### Source
 
@@ -42,7 +46,11 @@ Is address equal to another.
 
 #### Parameters
 
-▪ **address**: [`EthjsAddress`](EthjsAddress.md)
+• **address**: [`EthjsAddress`](EthjsAddress.md)
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -57,6 +65,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 True if address is in the address range defined
 by EIP-1352
 
+#### Returns
+
+`boolean`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:51
@@ -68,6 +80,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 > **isZero**(): `boolean`
 
 Is address zero.
+
+#### Returns
+
+`boolean`
 
 #### Source
 
@@ -81,6 +97,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 Returns a new Uint8Array representation of address.
 
+#### Returns
+
+`Uint8Array`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:59
@@ -93,6 +113,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 Returns hex encoding of address.
 
+#### Returns
+
+`string`
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:55
@@ -101,15 +125,19 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### fromPrivateKey()
 
-> **`static`** **fromPrivateKey**(`privateKey`): [`EthjsAddress`](EthjsAddress.md)
+> `static` **fromPrivateKey**(`privateKey`): [`EthjsAddress`](EthjsAddress.md)
 
 Returns an address for a given private key.
 
 #### Parameters
 
-▪ **privateKey**: `Uint8Array`
+• **privateKey**: `Uint8Array`
 
 A private key must be 256 bits wide
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -119,15 +147,19 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### fromPublicKey()
 
-> **`static`** **fromPublicKey**(`pubKey`): [`EthjsAddress`](EthjsAddress.md)
+> `static` **fromPublicKey**(`pubKey`): [`EthjsAddress`](EthjsAddress.md)
 
 Returns an address for a given public key.
 
 #### Parameters
 
-▪ **pubKey**: `Uint8Array`
+• **pubKey**: `Uint8Array`
 
 The two points of an uncompressed key
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -137,15 +169,19 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### fromString()
 
-> **`static`** **fromString**(`str`): [`EthjsAddress`](EthjsAddress.md)
+> `static` **fromString**(`str`): [`EthjsAddress`](EthjsAddress.md)
 
 Returns an Address object from a hex-encoded string.
 
 #### Parameters
 
-▪ **str**: `string`
+• **str**: `string`
 
 Hex-encoded address
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -155,19 +191,23 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### generate()
 
-> **`static`** **generate**(`from`, `nonce`): [`EthjsAddress`](EthjsAddress.md)
+> `static` **generate**(`from`, `nonce`): [`EthjsAddress`](EthjsAddress.md)
 
 Generates an address for a newly created contract.
 
 #### Parameters
 
-▪ **from**: [`EthjsAddress`](EthjsAddress.md)
+• **from**: [`EthjsAddress`](EthjsAddress.md)
 
 The address which is creating this new address
 
-▪ **nonce**: `bigint`
+• **nonce**: `bigint`
 
 The nonce of the from account
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -177,23 +217,27 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### generate2()
 
-> **`static`** **generate2**(`from`, `salt`, `initCode`): [`EthjsAddress`](EthjsAddress.md)
+> `static` **generate2**(`from`, `salt`, `initCode`): [`EthjsAddress`](EthjsAddress.md)
 
 Generates an address for a contract created using CREATE2.
 
 #### Parameters
 
-▪ **from**: [`EthjsAddress`](EthjsAddress.md)
+• **from**: [`EthjsAddress`](EthjsAddress.md)
 
 The address which is creating this new address
 
-▪ **salt**: `Uint8Array`
+• **salt**: `Uint8Array`
 
 A salt
 
-▪ **initCode**: `Uint8Array`
+• **initCode**: `Uint8Array`
 
 The init code of the contract being created
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
@@ -203,13 +247,14 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### zero()
 
-> **`static`** **zero**(): [`EthjsAddress`](EthjsAddress.md)
+> `static` **zero**(): [`EthjsAddress`](EthjsAddress.md)
 
 Returns the zero address.
+
+#### Returns
+
+[`EthjsAddress`](EthjsAddress.md)
 
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

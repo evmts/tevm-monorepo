@@ -1,10 +1,10 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ScriptHandler
+[@tevm/actions-types](../globals.md) / ScriptHandler
 
-# Type alias: ScriptHandler
+# Type alias: ScriptHandler()
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
@@ -12,7 +12,7 @@ Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
 to true.
 
-## Example
+## Examples
 
 ```typescript
 const res = tevm.script({
@@ -24,8 +24,6 @@ const res = tevm.script({
 ```
 Contract handlers provide a more ergonomic way to execute scripts
 
-## Example
-
 ```typescript
 ipmort {MyScript} from './MyScript.s.sol'
 
@@ -36,17 +34,18 @@ const res = tevm.script(
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
-▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 ## Parameters
 
-▪ **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+• **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+
+## Returns
+
+`Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 ## Source
 
 [handlers/ScriptHandler.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ScriptHandler.ts#L30)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > getContractStorage
+[tevm](../../modules.md) / [state](../README.md) / getContractStorage
 
 # Function: getContractStorage()
 
@@ -15,26 +15,22 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `key`): `Promise`\<`Uint8Array`\>
->
-> ### Parameters
->
-> ▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
-> ▪ **key**: `Uint8Array`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
->
+`Function`
+
+### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+• **key**: `Uint8Array`
+
+### Returns
+
+`Promise`\<`Uint8Array`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:280
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

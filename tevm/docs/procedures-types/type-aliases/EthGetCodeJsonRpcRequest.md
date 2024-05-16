@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGetCodeJsonRpcRequest
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGetCodeJsonRpcRequest
 
 # Type alias: EthGetCodeJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `eth_getCode` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:219
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

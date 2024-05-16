@@ -1,16 +1,13 @@
-**@tevm/opstack** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/opstack**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > L2StandardBridgeDeployedBytecode
+[@tevm/opstack](../globals.md) / L2StandardBridgeDeployedBytecode
 
 # Variable: L2StandardBridgeDeployedBytecode
 
-> **`const`** **L2StandardBridgeDeployedBytecode**: \`0x${string}\`
+> `const` **L2StandardBridgeDeployedBytecode**: \`0x$\{string\}\`
 
 ## Source
 
 [extensions/opstack/src/contracts/l2/L2StandardBridge.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/extensions/opstack/src/contracts/l2/L2StandardBridge.ts#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

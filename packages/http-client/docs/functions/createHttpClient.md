@@ -1,18 +1,20 @@
-**@tevm/http-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/http-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createHttpClient
+[@tevm/http-client](../globals.md) / createHttpClient
 
-# Function: createHttpClient()
+# Function: ~~createHttpClient()~~
 
 > **createHttpClient**(`params`): [`HttpClient`](../type-aliases/HttpClient.md)
 
 ## Parameters
 
-▪ **params**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+• **params**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
 
 ## Returns
+
+[`HttpClient`](../type-aliases/HttpClient.md)
 
 ## Deprecated
 
@@ -28,6 +30,3 @@ For now we suggest you use viem
 ## Source
 
 [createHttpClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

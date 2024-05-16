@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > validateHeader
+[@tevm/blockchain](../globals.md) / validateHeader
 
 # Function: validateHeader()
 
@@ -10,32 +10,28 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (`header`, `height`?): `Promise`\<`void`\>
->
-> Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
->
-> ### Parameters
->
-> ▪ **header**: `BlockHeader`
->
-> header to be validated
->
-> ▪ **height?**: `bigint`
->
-> If this is an uncle header, this is the height of the block that is including it
->
-> ### Source
->
-> [Chain.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L60)
->
+`Function`
+
+Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
+
+### Parameters
+
+• **header**: `BlockHeader`
+
+header to be validated
+
+• **height?**: `bigint`
+
+If this is an uncle header, this is the height of the block that is including it
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [actions/validateHeader.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/validateHeader.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

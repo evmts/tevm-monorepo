@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > TevmActions
+[tevm](../../modules.md) / [index](../README.md) / TevmActions
 
 # Type alias: TevmActions
 
@@ -30,51 +30,52 @@
 
 ### tevmCall
 
-> **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)[`"call"`]
+> **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)\[`"call"`\]
 
 ### tevmContract
 
-> **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)[`"contract"`]
+> **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)\[`"contract"`\]
 
 ### tevmDeploy
 
-> **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)[`"deploy"`]
+> **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
 
 ### tevmDumpState
 
-> **tevmDumpState**: [`TevmActionsApi`](TevmActionsApi.md)[`"dumpState"`]
+> **tevmDumpState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"dumpState"`\]
 
-### tevmForkUrl
+### tevmForkUrl?
 
-> **tevmForkUrl**?: `string`
+> `optional` **tevmForkUrl**: `string`
 
 ### tevmGetAccount
 
-> **tevmGetAccount**: [`TevmActionsApi`](TevmActionsApi.md)[`"getAccount"`]
+> **tevmGetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"getAccount"`\]
 
 ### tevmLoadState
 
-> **tevmLoadState**: [`TevmActionsApi`](TevmActionsApi.md)[`"loadState"`]
+> **tevmLoadState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"loadState"`\]
 
 ### tevmMine
 
-> **tevmMine**: [`TevmActionsApi`](TevmActionsApi.md)[`"mine"`]
+> **tevmMine**: [`TevmActionsApi`](TevmActionsApi.md)\[`"mine"`\]
 
-### tevmReady
+### tevmReady()
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
+#### Returns
+
+`Promise`\<`true`\>
+
 ### tevmScript
 
-> **tevmScript**: [`TevmActionsApi`](TevmActionsApi.md)[`"script"`]
+> **tevmScript**: [`TevmActionsApi`](TevmActionsApi.md)\[`"script"`\]
 
 ### tevmSetAccount
 
-> **tevmSetAccount**: [`TevmActionsApi`](TevmActionsApi.md)[`"setAccount"`]
+> **tevmSetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"setAccount"`\]
 
 ## Source
 
 packages/memory-client/types/TevmActions.d.ts:4
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

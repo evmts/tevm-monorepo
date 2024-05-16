@@ -1,8 +1,8 @@
-**@tevm/rollup-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/rollup-plugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > rollupPluginTevm
+[@tevm/rollup-plugin](../globals.md) / rollupPluginTevm
 
 # Function: rollupPluginTevm()
 
@@ -15,13 +15,15 @@ To configure add this plugin to your rollup config and add the ts-plugin to your
 
 ## Parameters
 
-▪ **options?**: `object`
+• **options?**
 
-▪ **options.solc?**: `SolcVersions`
+• **options.solc?**: `SolcVersions`
 
 ## Returns
 
-## Example
+`Plugin`\<`any`\>
+
+## Examples
 
 ```typescript
 import { defineConfig } from 'rollup';
@@ -37,8 +39,6 @@ export default defineConfig({
 For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
 The ts-plugin will provide type hints, code completion, and other features.
 
-## Example
-
 ```json
 {
   "compilerOptions": {
@@ -49,8 +49,6 @@ The ts-plugin will provide type hints, code completion, and other features.
 
 Once the rollup plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
 turn them into Tevm `Contract` instances.
-
-## Example
 
 ```typescript
 // Solidity imports are automaticlaly turned into Tevm Contract objects
@@ -68,8 +66,6 @@ tevm.contract(
 
 Under the hood the rollup plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
 
-## Example
-
 ```typescript
 import { createContract } from '@tevm/contract'
 
@@ -82,8 +78,6 @@ export const ERC20 = createContract({
 ```
 
 For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
-
-## Example
 
 ```json
 {
@@ -102,6 +96,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## Source
 
 [bundler-packages/rollup/src/rollupPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L75)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

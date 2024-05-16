@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > HeaderData
+[@tevm/block](../globals.md) / HeaderData
 
 # Interface: HeaderData
 
@@ -10,9 +10,9 @@ A block header's data.
 
 ## Properties
 
-### baseFeePerGas
+### baseFeePerGas?
 
-> **baseFeePerGas**?: `BigIntLike`
+> `optional` **baseFeePerGas**: `BigIntLike`
 
 #### Source
 
@@ -20,9 +20,9 @@ A block header's data.
 
 ***
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `BigIntLike`
+> `optional` **blobGasUsed**: `BigIntLike`
 
 #### Source
 
@@ -30,9 +30,9 @@ A block header's data.
 
 ***
 
-### coinbase
+### coinbase?
 
-> **coinbase**?: `AddressLike`
+> `optional` **coinbase**: `AddressLike`
 
 #### Source
 
@@ -40,9 +40,9 @@ A block header's data.
 
 ***
 
-### difficulty
+### difficulty?
 
-> **difficulty**?: `BigIntLike`
+> `optional` **difficulty**: `BigIntLike`
 
 #### Source
 
@@ -50,9 +50,9 @@ A block header's data.
 
 ***
 
-### excessBlobGas
+### excessBlobGas?
 
-> **excessBlobGas**?: `BigIntLike`
+> `optional` **excessBlobGas**: `BigIntLike`
 
 #### Source
 
@@ -60,9 +60,9 @@ A block header's data.
 
 ***
 
-### extraData
+### extraData?
 
-> **extraData**?: `BytesLike`
+> `optional` **extraData**: `BytesLike`
 
 #### Source
 
@@ -70,9 +70,9 @@ A block header's data.
 
 ***
 
-### gasLimit
+### gasLimit?
 
-> **gasLimit**?: `BigIntLike`
+> `optional` **gasLimit**: `BigIntLike`
 
 #### Source
 
@@ -80,9 +80,9 @@ A block header's data.
 
 ***
 
-### gasUsed
+### gasUsed?
 
-> **gasUsed**?: `BigIntLike`
+> `optional` **gasUsed**: `BigIntLike`
 
 #### Source
 
@@ -90,9 +90,9 @@ A block header's data.
 
 ***
 
-### logsBloom
+### logsBloom?
 
-> **logsBloom**?: `BytesLike`
+> `optional` **logsBloom**: `BytesLike`
 
 #### Source
 
@@ -100,9 +100,9 @@ A block header's data.
 
 ***
 
-### mixHash
+### mixHash?
 
-> **mixHash**?: `BytesLike`
+> `optional` **mixHash**: `BytesLike`
 
 #### Source
 
@@ -110,9 +110,9 @@ A block header's data.
 
 ***
 
-### nonce
+### nonce?
 
-> **nonce**?: `BytesLike`
+> `optional` **nonce**: `BytesLike`
 
 #### Source
 
@@ -120,9 +120,9 @@ A block header's data.
 
 ***
 
-### number
+### number?
 
-> **number**?: `BigIntLike`
+> `optional` **number**: `BigIntLike`
 
 #### Source
 
@@ -130,9 +130,9 @@ A block header's data.
 
 ***
 
-### parentBeaconBlockRoot
+### parentBeaconBlockRoot?
 
-> **parentBeaconBlockRoot**?: `BytesLike`
+> `optional` **parentBeaconBlockRoot**: `BytesLike`
 
 #### Source
 
@@ -140,9 +140,9 @@ A block header's data.
 
 ***
 
-### parentHash
+### parentHash?
 
-> **parentHash**?: `BytesLike`
+> `optional` **parentHash**: `BytesLike`
 
 #### Source
 
@@ -150,9 +150,9 @@ A block header's data.
 
 ***
 
-### receiptTrie
+### receiptTrie?
 
-> **receiptTrie**?: `BytesLike`
+> `optional` **receiptTrie**: `BytesLike`
 
 #### Source
 
@@ -160,9 +160,9 @@ A block header's data.
 
 ***
 
-### requestsRoot
+### requestsRoot?
 
-> **requestsRoot**?: `BytesLike`
+> `optional` **requestsRoot**: `BytesLike`
 
 #### Source
 
@@ -170,9 +170,9 @@ A block header's data.
 
 ***
 
-### stateRoot
+### stateRoot?
 
-> **stateRoot**?: `BytesLike`
+> `optional` **stateRoot**: `BytesLike`
 
 #### Source
 
@@ -180,9 +180,9 @@ A block header's data.
 
 ***
 
-### timestamp
+### timestamp?
 
-> **timestamp**?: `BigIntLike`
+> `optional` **timestamp**: `BigIntLike`
 
 #### Source
 
@@ -190,9 +190,9 @@ A block header's data.
 
 ***
 
-### transactionsTrie
+### transactionsTrie?
 
-> **transactionsTrie**?: `BytesLike`
+> `optional` **transactionsTrie**: `BytesLike`
 
 #### Source
 
@@ -200,9 +200,9 @@ A block header's data.
 
 ***
 
-### uncleHash
+### uncleHash?
 
-> **uncleHash**?: `BytesLike`
+> `optional` **uncleHash**: `BytesLike`
 
 #### Source
 
@@ -210,13 +210,10 @@ A block header's data.
 
 ***
 
-### withdrawalsRoot
+### withdrawalsRoot?
 
-> **withdrawalsRoot**?: `BytesLike`
+> `optional` **withdrawalsRoot**: `BytesLike`
 
 #### Source
 
 [types.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L129)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

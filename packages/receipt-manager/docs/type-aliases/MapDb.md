@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > MapDb
+[@tevm/receipt-manager](../globals.md) / MapDb
 
 # Type alias: MapDb
 
@@ -16,31 +16,40 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 #### Parameters
 
-▪ **type**: [`DbType`](DbType.md)
+• **type**: [`DbType`](DbType.md)
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### get()
 
 #### Parameters
 
-▪ **type**: [`DbType`](DbType.md)
+• **type**: [`DbType`](DbType.md)
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`null` \| `Uint8Array`\>
 
 ### put()
 
 #### Parameters
 
-▪ **type**: [`DbType`](DbType.md)
+• **type**: [`DbType`](DbType.md)
 
-▪ **hash**: `Uint8Array`
+• **hash**: `Uint8Array`
 
-▪ **value**: `Uint8Array`
+• **value**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

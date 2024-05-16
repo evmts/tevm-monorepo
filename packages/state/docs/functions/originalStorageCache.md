@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > originalStorageCache
+[@tevm/state](../globals.md) / originalStorageCache
 
 # Function: originalStorageCache()
 
@@ -13,24 +13,30 @@ last call to checkpoint.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> ### clear()
->
-> ### get()
->
-> #### Parameters
->
-> ▪ **address**: `Address`
->
-> ▪ **key**: `Uint8Array`
->
+`object`
+
+### clear()
+
+#### Returns
+
+`void`
+
+### get()
+
+#### Parameters
+
+• **address**: `Address`
+
+• **key**: `Uint8Array`
+
+#### Returns
+
+`Promise`\<`Uint8Array`\>
 
 ## Source
 
 [packages/state/src/actions/originalStorageCache.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/originalStorageCache.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/errors**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BaseCallError
+[@tevm/errors](../globals.md) / BaseCallError
 
 # Type alias: BaseCallError
 
@@ -13,6 +13,3 @@ Errors returned by all call based tevm procedures including call, contract, and 
 ## Source
 
 [packages/errors/src/actions/BaseCallError.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/BaseCallError.ts#L26)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

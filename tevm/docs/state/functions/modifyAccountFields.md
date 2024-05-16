@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > modifyAccountFields
+[tevm](../../modules.md) / [state](../README.md) / modifyAccountFields
 
 # Function: modifyAccountFields()
 
@@ -14,26 +14,22 @@ fields, then saves the account into state. Account fields can include
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `accountFields`): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
-> ▪ **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
->
+`Function`
+
+### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+• **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:314
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

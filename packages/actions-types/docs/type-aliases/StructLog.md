@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > StructLog
+[@tevm/actions-types](../globals.md) / StructLog
 
 # Type alias: StructLog
 
@@ -12,43 +12,40 @@
 
 ### depth
 
-> **`readonly`** **depth**: `number`
+> `readonly` **depth**: `number`
 
-### error
+### error?
 
-> **`readonly`** **error**?: `object`
+> `optional` `readonly` **error**: `object`
 
 ### error.error
 
-> **error.error**: `string`
+> **error**: `string`
 
 ### error.errorType
 
-> **error.errorType**: `string`
+> **errorType**: `string`
 
 ### gas
 
-> **`readonly`** **gas**: `bigint`
+> `readonly` **gas**: `bigint`
 
 ### gasCost
 
-> **`readonly`** **gasCost**: `bigint`
+> `readonly` **gasCost**: `bigint`
 
 ### op
 
-> **`readonly`** **op**: `string`
+> `readonly` **op**: `string`
 
 ### pc
 
-> **`readonly`** **pc**: `number`
+> `readonly` **pc**: `number`
 
 ### stack
 
-> **`readonly`** **stack**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `readonly` **stack**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 ## Source
 
 [result/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DebugResult.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

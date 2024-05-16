@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > putContractStorage
+[tevm](../../modules.md) / [state](../README.md) / putContractStorage
 
 # Function: putContractStorage()
 
@@ -15,28 +15,24 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`, `key`, `value`): `Promise`\<`void`\>
->
-> ### Parameters
->
-> ▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
-> ▪ **key**: `Uint8Array`
->
-> ▪ **value**: `Uint8Array`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
->
+`Function`
+
+### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+• **key**: `Uint8Array`
+
+• **value**: `Uint8Array`
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:336
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/vm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > CreateVmOptions
+[@tevm/vm](../globals.md) / CreateVmOptions
 
 # Type alias: CreateVmOptions
 
@@ -29,6 +29,3 @@
 ## Source
 
 [CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > hashMessageEffect
+[@tevm/viem-effect](../../modules.md) / [utils](../README.md) / hashMessageEffect
 
 # Function: hashMessageEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`SignableMessage`, `To`]
+• **TParams** *extends* [`SignableMessage`, `To`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `HashMessageErrorType`, `HashMessage`\<`To`\>\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/signature/hashMessageEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/hashMessageEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

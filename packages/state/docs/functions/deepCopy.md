@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > deepCopy
+[@tevm/state](../globals.md) / deepCopy
 
 # Function: deepCopy()
 
@@ -12,20 +12,16 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
->
-> ### Source
->
-> [packages/state/src/actions/deepCopy.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deepCopy.js#L7)
->
+`Function`
+
+### Returns
+
+`Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
 ## Source
 
 [packages/state/src/actions/deepCopy.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deepCopy.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

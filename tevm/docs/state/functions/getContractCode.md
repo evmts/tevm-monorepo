@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > getContractCode
+[tevm](../../modules.md) / [state](../README.md) / getContractCode
 
 # Function: getContractCode()
 
@@ -13,24 +13,20 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`): `Promise`\<`Uint8Array`\>
->
-> ### Parameters
->
-> ▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
->
+`Function`
+
+### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+### Returns
+
+`Promise`\<`Uint8Array`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:271
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockHeaderBytes
+[@tevm/block](../globals.md) / BlockHeaderBytes
 
 # Type alias: BlockHeaderBytes
 
@@ -13,6 +13,3 @@ BlockHeaderBuffer is a Buffer array, except for the Verkle PreState which is an 
 ## Source
 
 [types.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L167)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

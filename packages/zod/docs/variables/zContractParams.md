@@ -1,18 +1,15 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/zod**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > zContractParams
+[@tevm/zod](../globals.md) / zContractParams
 
 # Variable: zContractParams
 
-> **`const`** **zContractParams**: `ZodEffects`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
+> `const` **zContractParams**: `ZodEffects`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
 
 Zod validator for a valid contract action
 
 ## Source
 
 [packages/zod/src/params/zContractParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zContractParams.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

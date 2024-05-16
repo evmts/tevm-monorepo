@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BlockBodyBytes
+[@tevm/block](../globals.md) / BlockBodyBytes
 
 # Type alias: BlockBodyBytes
 
@@ -11,6 +11,3 @@
 ## Source
 
 [types.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L168)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

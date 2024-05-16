@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthGasPriceJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthGasPriceJsonRpcProcedure
 
-# Type alias: EthGasPriceJsonRpcProcedure
+# Type alias: EthGasPriceJsonRpcProcedure()
 
 > **EthGasPriceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md)
+• **request**: [`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:780
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

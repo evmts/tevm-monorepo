@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > WithdrawalV1
+[@tevm/block](../globals.md) / WithdrawalV1
 
 # Type alias: WithdrawalV1
 
@@ -29,6 +29,3 @@
 ## Source
 
 [types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

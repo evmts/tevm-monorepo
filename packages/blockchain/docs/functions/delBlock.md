@@ -1,8 +1,8 @@
-**@tevm/blockchain** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/blockchain**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > delBlock
+[@tevm/blockchain](../globals.md) / delBlock
 
 # Function: delBlock()
 
@@ -10,29 +10,25 @@
 
 ## Parameters
 
-▪ **baseChain**: `BaseChain`
+• **baseChain**: `BaseChain`
 
 ## Returns
 
-> > (`blockHash`): `Promise`\<`void`\>
->
-> Deletes a block from the blockchain. All child blocks in the chain are
-> deleted and any encountered heads are set to the parent block.
->
-> ### Parameters
->
-> ▪ **blockHash**: `Uint8Array`
->
-> The hash of the block to be deleted
->
-> ### Source
->
-> [Chain.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L37)
->
+`Function`
+
+Deletes a block from the blockchain. All child blocks in the chain are
+deleted and any encountered heads are set to the parent block.
+
+### Parameters
+
+• **blockHash**: `Uint8Array`
+
+The hash of the block to be deleted
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [actions/delBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

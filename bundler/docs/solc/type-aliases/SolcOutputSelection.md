@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/bundler**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcOutputSelection
+[@tevm/bundler](../../modules.md) / [solc](../README.md) / SolcOutputSelection
 
 # Type alias: SolcOutputSelection
 
@@ -15,6 +15,3 @@
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:35
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

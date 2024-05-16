@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > TransactionsBytes
+[@tevm/block](../globals.md) / TransactionsBytes
 
 # Type alias: TransactionsBytes
 
@@ -13,6 +13,3 @@ TransactionsBytes can be an array of serialized txs for Typed Transactions or an
 ## Source
 
 [types.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L172)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

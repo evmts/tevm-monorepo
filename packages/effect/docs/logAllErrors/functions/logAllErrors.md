@@ -1,10 +1,12 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [logAllErrors](../README.md) > logAllErrors
+[@tevm/effect](../../modules.md) / [logAllErrors](../README.md) / logAllErrors
 
 # Function: logAllErrors()
+
+`Internal`
 
 > **logAllErrors**(`e`): `Effect`\<`never`, `never`, `void`\>
 
@@ -12,9 +14,11 @@ Logs all errors and causes from effect
 
 ## Parameters
 
-▪ **e**: `unknown`
+• **e**: `unknown`
 
 ## Returns
+
+`Effect`\<`never`, `never`, `void`\>
 
 ## Example
 
@@ -28,6 +32,3 @@ someEffect.pipe(
 ## Source
 
 [packages/effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

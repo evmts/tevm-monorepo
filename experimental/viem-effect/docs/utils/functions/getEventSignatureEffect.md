@@ -1,8 +1,8 @@
-**@tevm/viem-effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/viem-effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [utils](../README.md) > getEventSignatureEffect
+[@tevm/viem-effect](../../modules.md) / [utils](../README.md) / getEventSignatureEffect
 
 # Function: getEventSignatureEffect()
 
@@ -10,15 +10,16 @@
 
 ## Type parameters
 
-▪ **TParams** extends [`string` \| `AbiEvent`]
+• **TParams** *extends* [`string` \| `AbiEvent`]
 
 ## Parameters
 
-▪ ...**args**: `TParams`
+• ...**args**: `TParams`
+
+## Returns
+
+`Effect`\<`never`, `GetEventSignatureErrorType`, `string`\>
 
 ## Source
 
 [experimental/viem-effect/src/utils/hash/getEventSignatureEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/getEventSignatureEffect.js#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

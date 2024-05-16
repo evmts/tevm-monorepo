@@ -1,20 +1,21 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > EthCoinbaseJsonRpcProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / EthCoinbaseJsonRpcProcedure
 
-# Type alias: EthCoinbaseJsonRpcProcedure
+# Type alias: EthCoinbaseJsonRpcProcedure()
 
 > **EthCoinbaseJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
 ## Parameters
 
-▪ **request**: [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
+• **request**: [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:777
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

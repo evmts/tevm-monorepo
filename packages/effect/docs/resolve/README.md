@@ -1,10 +1,10 @@
-**@tevm/effect** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/effect**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > resolve
+[@tevm/effect](../modules.md) / resolve
 
-# Module: resolve
+# resolve
 
 ## Index
 
@@ -20,6 +20,3 @@
 
 - [resolveAsync](functions/resolveAsync.md)
 - [resolveSync](functions/resolveSync.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

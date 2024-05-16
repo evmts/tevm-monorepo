@@ -1,8 +1,8 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > isBlobEIP4844Tx
+[@tevm/tx](../globals.md) / isBlobEIP4844Tx
 
 # Function: isBlobEIP4844Tx()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+• **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+
+## Returns
+
+`tx is BlobEIP4844Transaction`
 
 ## Source
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:96
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

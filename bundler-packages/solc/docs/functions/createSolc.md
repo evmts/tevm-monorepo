@@ -1,8 +1,8 @@
-**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/solc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createSolc
+[@tevm/solc](../globals.md) / createSolc
 
 # Function: createSolc()
 
@@ -10,15 +10,14 @@
 
 ## Parameters
 
-▪ **release**: keyof [`Releases`](../type-aliases/Releases.md)
+• **release**: keyof [`Releases`](../type-aliases/Releases.md)
 
 ## Returns
+
+`Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
 An instance of solc
 
 ## Source
 
 [solc.js:135](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L135)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

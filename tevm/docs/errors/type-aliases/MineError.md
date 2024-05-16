@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > MineError
+[tevm](../../modules.md) / [errors](../README.md) / MineError
 
 # Type alias: MineError
 
@@ -23,6 +23,3 @@ if (errors?.length) {
 ## Source
 
 packages/errors/types/actions/MineError.d.ts:10
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

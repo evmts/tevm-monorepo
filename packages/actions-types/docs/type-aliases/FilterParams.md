@@ -1,8 +1,8 @@
-**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > FilterParams
+[@tevm/actions-types](../globals.md) / FilterParams
 
 # Type alias: FilterParams
 
@@ -14,23 +14,20 @@ An event filter optionsobject
 
 ### address
 
-> **`readonly`** **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### fromBlock
 
-> **`readonly`** **fromBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` **fromBlock**: [`BlockParam`](BlockParam.md)
 
 ### toBlock
 
-> **`readonly`** **toBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` **toBlock**: [`BlockParam`](BlockParam.md)
 
 ### topics
 
-> **`readonly`** **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `readonly` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 ## Source
 
 [common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/FilterParams.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

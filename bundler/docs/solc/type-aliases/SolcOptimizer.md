@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/bundler**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcOptimizer
+[@tevm/bundler](../../modules.md) / [solc](../README.md) / SolcOptimizer
 
 # Type alias: SolcOptimizer
 
@@ -14,9 +14,9 @@
 
 > **details**: [`SolcOptimizerDetails`](SolcOptimizerDetails.md)
 
-### enabled
+### enabled?
 
-> **enabled**?: `boolean`
+> `optional` **enabled**: `boolean`
 
 ### runs
 
@@ -25,6 +25,3 @@
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:29
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

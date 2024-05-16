@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > procedures-types
+[tevm](../modules.md) / procedures-types
 
-# Module: procedures-types
+# procedures-types
 
 ## Index
 
@@ -216,16 +216,6 @@
 - [TevmRequestType](type-aliases/TevmRequestType.md)
 - [TevmReturnType](type-aliases/TevmReturnType.md)
 
-## Table of contents
-
-### References
-
-- [JsonRpcRequestTypeFromMethod](README.md#jsonrpcrequesttypefrommethod)
-- [JsonRpcReturnTypeFromMethod](README.md#jsonrpcreturntypefrommethod)
-- [TevmJsonRpcBulkRequestHandler](README.md#tevmjsonrpcbulkrequesthandler)
-- [TevmJsonRpcRequest](README.md#tevmjsonrpcrequest)
-- [TevmJsonRpcRequestHandler](README.md#tevmjsonrpcrequesthandler)
-
 ## References
 
 ### JsonRpcRequestTypeFromMethod
@@ -255,6 +245,3 @@ Re-exports [TevmJsonRpcRequest](../index/type-aliases/TevmJsonRpcRequest.md)
 ### TevmJsonRpcRequestHandler
 
 Re-exports [TevmJsonRpcRequestHandler](../index/type-aliases/TevmJsonRpcRequestHandler.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

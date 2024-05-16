@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [common](../README.md) > parseBlockNumberSafe
+[@tevm/schemas](../../modules.md) / [common](../README.md) / parseBlockNumberSafe
 
 # Function: parseBlockNumberSafe()
 
@@ -12,13 +12,15 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 
 ## Type parameters
 
-▪ **TBlockNumber** extends `number`
+• **TBlockNumber** *extends* `number`
 
 ## Parameters
 
-▪ **blockNumber**: `TBlockNumber`
+• **blockNumber**: `TBlockNumber`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidBlockNumberError`](../classes/InvalidBlockNumberError.md), `TBlockNumber`\>
 
 ## Example
 
@@ -30,6 +32,3 @@ const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef12345678
 ## Source
 
 [experimental/schemas/src/common/SBlockNumber.js:84](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L84)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

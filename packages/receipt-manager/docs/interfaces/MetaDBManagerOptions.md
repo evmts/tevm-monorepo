@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > MetaDBManagerOptions
+[@tevm/receipt-manager](../globals.md) / MetaDBManagerOptions
 
 # Interface: MetaDBManagerOptions
 
@@ -10,11 +10,8 @@
 
 ### cache
 
-> **cache**: `Map`\<\`0x${string}\`, `Uint8Array`\>
+> **cache**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
 
 #### Source
 
 [MapDb.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L14)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

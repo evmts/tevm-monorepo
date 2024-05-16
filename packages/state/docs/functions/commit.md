@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > commit
+[@tevm/state](../globals.md) / commit
 
 # Function: commit()
 
@@ -13,30 +13,26 @@ last call to checkpoint.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`createNewStateRoot`?): `Promise`\<`void`\>
->
-> Commits the current state.
->
-> ### Parameters
->
-> ▪ **createNewStateRoot?**: `boolean`
->
-> Whether to create a new state root
-> Defaults to true.
-> This api is not stable
->
-> ### Source
->
-> [packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
->
+`Function`
+
+Commits the current state.
+
+### Parameters
+
+• **createNewStateRoot?**: `boolean`
+
+Whether to create a new state root
+Defaults to true.
+This api is not stable
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 [packages/state/src/actions/commit.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

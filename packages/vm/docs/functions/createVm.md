@@ -1,8 +1,8 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/vm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createVm
+[@tevm/vm](../globals.md) / createVm
 
 # Function: createVm()
 
@@ -10,13 +10,12 @@
 
 ## Parameters
 
-▪ **opts**: `VmOpts`
+• **opts**: `VmOpts`
 
 ## Returns
+
+[`Vm`](../type-aliases/Vm.md)
 
 ## Source
 
 [createVm.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/createVm.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

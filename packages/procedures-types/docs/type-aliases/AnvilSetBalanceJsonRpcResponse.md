@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > AnvilSetBalanceJsonRpcResponse
+[@tevm/procedures-types](../globals.md) / AnvilSetBalanceJsonRpcResponse
 
 # Type alias: AnvilSetBalanceJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `anvil_setBalance` procedure
 ## Source
 
 [responses/AnvilJsonRpcResponse.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L86)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

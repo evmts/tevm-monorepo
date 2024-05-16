@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > JsonBlock
+[@tevm/block](../globals.md) / JsonBlock
 
 # Interface: JsonBlock
 
@@ -10,9 +10,9 @@ An object with the block's data represented as strings.
 
 ## Properties
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
 #### Source
 
@@ -20,9 +20,9 @@ An object with the block's data represented as strings.
 
 ***
 
-### header
+### header?
 
-> **header**?: [`JsonHeader`](JsonHeader.md)
+> `optional` **header**: [`JsonHeader`](JsonHeader.md)
 
 Header data for the block
 
@@ -32,9 +32,9 @@ Header data for the block
 
 ***
 
-### requests
+### requests?
 
-> **requests**?: `null` \| \`0x${string}\`[]
+> `optional` **requests**: `null` \| \`0x$\{string\}\`[]
 
 #### Source
 
@@ -42,9 +42,9 @@ Header data for the block
 
 ***
 
-### transactions
+### transactions?
 
-> **transactions**?: `JsonTx`[]
+> `optional` **transactions**: `JsonTx`[]
 
 #### Source
 
@@ -52,9 +52,9 @@ Header data for the block
 
 ***
 
-### uncleHeaders
+### uncleHeaders?
 
-> **uncleHeaders**?: [`JsonHeader`](JsonHeader.md)[]
+> `optional` **uncleHeaders**: [`JsonHeader`](JsonHeader.md)[]
 
 #### Source
 
@@ -62,13 +62,10 @@ Header data for the block
 
 ***
 
-### withdrawals
+### withdrawals?
 
-> **withdrawals**?: `JsonRpcWithdrawal`[]
+> `optional` **withdrawals**: `JsonRpcWithdrawal`[]
 
 #### Source
 
 [types.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L185)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

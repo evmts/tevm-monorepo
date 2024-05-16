@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > IntervalMining
+[tevm](../../modules.md) / [index](../README.md) / IntervalMining
 
 # Type alias: IntervalMining
 
@@ -21,6 +21,3 @@
 ## Source
 
 packages/base-client/types/MiningConfig.d.ts:1
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

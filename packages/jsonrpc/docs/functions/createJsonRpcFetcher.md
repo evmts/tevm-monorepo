@@ -1,8 +1,8 @@
-**@tevm/jsonrpc** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/jsonrpc**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createJsonRpcFetcher
+[@tevm/jsonrpc](../globals.md) / createJsonRpcFetcher
 
 # Function: createJsonRpcFetcher()
 
@@ -12,19 +12,21 @@ Makes a JSON-RPC request to a url
 
 ## Parameters
 
-▪ **url**: `string`
+• **url**: `string`
 
 to JSON RPC backend
 
-▪ **headers**: [`HeadersInit`](../type-aliases/HeadersInit.md)= `undefined`
+• **headers**: [`HeadersInit`](../type-aliases/HeadersInit.md)= `undefined`
 
 to send with the request
 
-▪ **retries?**: `number`= `3`
+• **retries?**: `number`= `3`
 
 defaults to 3
 
 ## Returns
+
+[`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 
 the `result` field from the JSON-RPC response
 
@@ -46,6 +48,3 @@ const {result: block} = await fetchJsonRpc(url, params)
 ## Source
 
 [fetchJsonRpc.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L20)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

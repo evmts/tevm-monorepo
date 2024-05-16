@@ -1,14 +1,14 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > BaseTxReceipt
+[@tevm/receipt-manager](../globals.md) / BaseTxReceipt
 
 # Interface: BaseTxReceipt
 
 Abstract interface with common transaction receipt fields
 
-## Extended By
+## Extended by
 
 - [`PreByzantiumTxReceipt`](PreByzantiumTxReceipt.md)
 - [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md)
@@ -48,6 +48,3 @@ Logs emitted
 #### Source
 
 [RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

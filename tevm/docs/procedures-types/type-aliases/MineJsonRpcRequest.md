@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > MineJsonRpcRequest
+[tevm](../../modules.md) / [procedures-types](../README.md) / MineJsonRpcRequest
 
 # Type alias: MineJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `tevm_mine` method
 ## Source
 
 packages/procedures-types/dist/index.d.ts:378
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [common](../README.md) > parseUrlSafe
+[@tevm/schemas](../../modules.md) / [common](../README.md) / parseUrlSafe
 
 # Function: parseUrlSafe()
 
@@ -12,13 +12,15 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 ## Type parameters
 
-▪ **TUrl** extends `string`
+• **TUrl** *extends* `string`
 
 ## Parameters
 
-▪ **url**: `TUrl`
+• **url**: `TUrl`
 
 ## Returns
+
+`Effect`\<`never`, [`InvalidUrlError`](../classes/InvalidUrlError.md), `TUrl`\>
 
 ## Example
 
@@ -30,6 +32,3 @@ const parsedUrlEffect = parseUrlSafe('https://tevm.sh');
 ## Source
 
 [experimental/schemas/src/common/SUrl.js:91](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L91)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

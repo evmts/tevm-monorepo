@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ContractJsonRpcResponse
+[@tevm/procedures-types](../globals.md) / ContractJsonRpcResponse
 
 # Type alias: ContractJsonRpcResponse
 
@@ -14,6 +14,3 @@ in favor of overloading tevm_call
 ## Source
 
 [responses/ContractJsonRpcResponse.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/ContractJsonRpcResponse.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

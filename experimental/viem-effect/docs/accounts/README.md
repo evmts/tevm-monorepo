@@ -1,10 +1,10 @@
-**@tevm/viem-effect** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/viem-effect**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > accounts
+[@tevm/viem-effect](../modules.md) / accounts
 
-# Module: accounts
+# accounts
 
 ## Index
 
@@ -23,6 +23,3 @@
 - [signTransactionEffect](functions/signTransactionEffect.md)
 - [signTypedDataEffect](functions/signTypedDataEffect.md)
 - [toAccountEffect](functions/toAccountEffect.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

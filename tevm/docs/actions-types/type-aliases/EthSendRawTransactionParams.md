@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > EthSendRawTransactionParams
+[tevm](../../modules.md) / [actions-types](../README.md) / EthSendRawTransactionParams
 
 # Type alias: EthSendRawTransactionParams
 
@@ -20,6 +20,3 @@ This type is a placeholder
 ## Source
 
 packages/actions-types/types/params/EthParams.d.ts:211
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

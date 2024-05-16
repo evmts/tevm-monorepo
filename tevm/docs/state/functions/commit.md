@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > commit
+[tevm](../../modules.md) / [state](../README.md) / commit
 
 # Function: commit()
 
@@ -13,30 +13,26 @@ last call to checkpoint.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`createNewStateRoot`?): `Promise`\<`void`\>
->
-> Commits the current state.
->
-> ### Parameters
->
-> ▪ **createNewStateRoot?**: `boolean`
->
-> Whether to create a new state root
-> Defaults to true.
-> This api is not stable
->
-> ### Source
->
-> packages/state/dist/index.d.ts:146
->
+`Function`
+
+Commits the current state.
+
+### Parameters
+
+• **createNewStateRoot?**: `boolean`
+
+Whether to create a new state root
+Defaults to true.
+This api is not stable
+
+### Returns
+
+`Promise`\<`void`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:210
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

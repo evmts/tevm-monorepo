@@ -1,8 +1,8 @@
-**@tevm/bundler** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/bundler**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [solc](../README.md) > SolcModelCheckerContracts
+[@tevm/bundler](../../modules.md) / [solc](../README.md) / SolcModelCheckerContracts
 
 # Type alias: SolcModelCheckerContracts
 
@@ -10,11 +10,8 @@
 
 ## Index signature
 
- \[`fileName`: \`${string}.sol\`\]: `string`[]
+ \[`fileName`: \`$\{string\}.sol\`\]: `string`[]
 
 ## Source
 
 bundler-packages/solc/types/src/solcTypes.d.ts:42
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

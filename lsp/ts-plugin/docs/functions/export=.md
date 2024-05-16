@@ -1,8 +1,8 @@
-**@tevm/ts-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/ts-plugin**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > export=
+[@tevm/ts-plugin](../globals.md) / export=
 
 # Function: export=()
 
@@ -12,11 +12,13 @@
 
 ## Parameters
 
-▪ **mod**: `object`
+• **mod**
 
-▪ **mod.typescript**: *typeof* `ts`
+• **mod.typescript**: *typeof* `ts`
 
 ## Returns
+
+`PluginModule`
 
 ## Example
 
@@ -29,6 +31,3 @@
 ## Source
 
 [lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

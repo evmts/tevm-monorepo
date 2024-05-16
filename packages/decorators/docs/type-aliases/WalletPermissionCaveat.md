@@ -1,8 +1,8 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/decorators**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > WalletPermissionCaveat
+[@tevm/decorators](../globals.md) / WalletPermissionCaveat
 
 # Type alias: WalletPermissionCaveat
 
@@ -21,6 +21,3 @@
 ## Source
 
 [packages/decorators/src/eip1193/WalletPermissionCaveat.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

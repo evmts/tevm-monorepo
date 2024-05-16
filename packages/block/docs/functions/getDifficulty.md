@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getDifficulty
+[@tevm/block](../globals.md) / getDifficulty
 
 # Function: getDifficulty()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+
+## Returns
+
+`bigint` \| `null`
 
 ## Source
 
 [helpers.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L81)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,12 @@
-**@tevm/effect** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/effect**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [createRequireEffect](../README.md) > createRequireEffect
+[@tevm/effect](../../modules.md) / [createRequireEffect](../README.md) / createRequireEffect
 
 # Function: createRequireEffect()
+
+`Internal`
 
 > **createRequireEffect**(`url`): `Effect`\<`never`, [`CreateRequireError`](../classes/CreateRequireError.md), (`id`) => `Effect`\<`never`, [`RequireError`](../classes/RequireError.md), `any`\>\>
 
@@ -14,11 +16,13 @@ in a way that is compatible with both. It also wraps them weith Effect for bette
 
 ## Parameters
 
-▪ **url**: `string`
+• **url**: `string`
 
 url to create require from
 
 ## Returns
+
+`Effect`\<`never`, [`CreateRequireError`](../classes/CreateRequireError.md), (`id`) => `Effect`\<`never`, [`RequireError`](../classes/RequireError.md), `any`\>\>
 
 require function
 
@@ -37,6 +41,3 @@ https://nodejs.org/api/modules.html#modules_module_createrequire_filename
 ## Source
 
 [packages/effect/src/createRequireEffect.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L50)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**@tevm/receipt-manager** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/receipt-manager**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > PreByzantiumTxReceipt
+[@tevm/receipt-manager](../globals.md) / PreByzantiumTxReceipt
 
 # Interface: PreByzantiumTxReceipt
 
@@ -72,6 +72,3 @@ Intermediary state root
 #### Source
 
 [RecieptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L48)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

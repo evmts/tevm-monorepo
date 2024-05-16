@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > ExecutionPayload
+[@tevm/block](../globals.md) / ExecutionPayload
 
 # Type alias: ExecutionPayload
 
@@ -14,9 +14,9 @@
 
 > **baseFeePerGas**: `Hex` \| `string`
 
-### blobGasUsed
+### blobGasUsed?
 
-> **blobGasUsed**?: `Hex` \| `string`
+> `optional` **blobGasUsed**: `Hex` \| `string`
 
 ### blockHash
 
@@ -26,13 +26,13 @@
 
 > **blockNumber**: `Hex` \| `string`
 
-### excessBlobGas
+### excessBlobGas?
 
-> **excessBlobGas**?: `Hex` \| `string`
+> `optional` **excessBlobGas**: `Hex` \| `string`
 
-### executionWitness
+### executionWitness?
 
-> **executionWitness**?: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
+> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
 ### extraData
 
@@ -54,9 +54,9 @@
 
 > **logsBloom**: `Hex` \| `string`
 
-### parentBeaconBlockRoot
+### parentBeaconBlockRoot?
 
-> **parentBeaconBlockRoot**?: `Hex` \| `string`
+> `optional` **parentBeaconBlockRoot**: `Hex` \| `string`
 
 ### parentHash
 
@@ -70,9 +70,9 @@
 
 > **receiptsRoot**: `Hex` \| `string`
 
-### requestsRoot
+### requestsRoot?
 
-> **requestsRoot**?: `Hex` \| `string` \| `null`
+> `optional` **requestsRoot**: `Hex` \| `string` \| `null`
 
 ### stateRoot
 
@@ -86,13 +86,10 @@
 
 > **transactions**: `Hex`[] \| `string`[]
 
-### withdrawals
+### withdrawals?
 
-> **withdrawals**?: [`WithdrawalV1`](WithdrawalV1.md)[]
+> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
 ## Source
 
 [types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

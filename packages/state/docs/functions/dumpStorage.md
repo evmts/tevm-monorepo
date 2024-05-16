@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > dumpStorage
+[@tevm/state](../globals.md) / dumpStorage
 
 # Function: dumpStorage()
 
@@ -14,24 +14,20 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`): `Promise`\<`StorageDump`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+### Returns
+
+`Promise`\<`StorageDump`\>
 
 ## Source
 
 [packages/state/src/actions/dumpStorage.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorage.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

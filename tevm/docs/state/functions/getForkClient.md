@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > getForkClient
+[tevm](../../modules.md) / [state](../README.md) / getForkClient
 
 # Function: getForkClient()
 
@@ -10,11 +10,12 @@
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`BaseState`](../type-aliases/BaseState.md)
+• **\_\_namedParameters**: [`BaseState`](../type-aliases/BaseState.md)
+
+## Returns
+
+`viem.PublicClient`
 
 ## Source
 
 packages/state/dist/index.d.ts:288
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

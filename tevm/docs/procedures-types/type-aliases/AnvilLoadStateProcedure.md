@@ -1,10 +1,10 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > AnvilLoadStateProcedure
+[tevm](../../modules.md) / [procedures-types](../README.md) / AnvilLoadStateProcedure
 
-# Type alias: AnvilLoadStateProcedure
+# Type alias: AnvilLoadStateProcedure()
 
 > **AnvilLoadStateProcedure**: (`request`) => `Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
 
@@ -12,11 +12,12 @@ JSON-RPC procedure for `anvil_loadState`
 
 ## Parameters
 
-▪ **request**: [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
+• **request**: [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
+
+## Returns
+
+`Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
 
 ## Source
 
 packages/procedures-types/dist/index.d.ts:736
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

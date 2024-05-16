@@ -1,8 +1,8 @@
-**@tevm/actions** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/actions**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > traceCallHandler
+[@tevm/actions](../globals.md) / traceCallHandler
 
 # Function: traceCallHandler()
 
@@ -12,14 +12,14 @@ Returns a trace of an eth_call within the context of the given block execution u
 
 ## Parameters
 
-▪ **client**: `object`
+• **client**
 
-▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+• **client.extend**
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-▪ **client.forkUrl?**: `string`
+• **client.forkUrl?**: `string`
 
 Fork url if the EVM is forked
 
@@ -30,32 +30,32 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-▪ **client.getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+• **client.getReceiptsManager**
 
 Interface for querying receipts and historical state
 
-▪ **client.getTxPool**: () => `Promise`\<`TxPool`\>
+• **client.getTxPool**
 
 Gets the pool of pending transactions to be included in next block
 
-▪ **client.getVm**: () => `Promise`\<`Vm`\>
+• **client.getVm**
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
-▪ **client.logger**: `Logger`
+• **client.logger**: `Logger`
 
 The logger instance
 
-▪ **client.miningConfig**: `MiningConfig`
+• **client.miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-▪ **client.mode**: `"fork"` \| `"normal"`
+• **client.mode**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
@@ -70,7 +70,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-▪ **client.ready**: () => `Promise`\<`true`\>
+• **client.ready**
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -85,12 +85,11 @@ await client.ready()
 
 ## Returns
 
+`DebugTraceCallHandler`
+
 an execution trace of an eth_call in the context of a given block execution
 mirroring the output from traceTransaction
 
 ## Source
 
 [packages/actions/src/debug/traceCallHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

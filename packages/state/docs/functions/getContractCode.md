@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > getContractCode
+[@tevm/state](../globals.md) / getContractCode
 
 # Function: getContractCode()
 
@@ -13,24 +13,20 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (`address`): `Promise`\<`Uint8Array`\>
->
-> ### Parameters
->
-> ▪ **address**: `Address`
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
->
+`Function`
+
+### Parameters
+
+• **address**: `Address`
+
+### Returns
+
+`Promise`\<`Uint8Array`\>
 
 ## Source
 
 [packages/state/src/actions/getContractCode.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L11)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

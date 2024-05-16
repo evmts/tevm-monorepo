@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [state](../README.md) > getStateRoot
+[tevm](../../modules.md) / [state](../README.md) / getStateRoot
 
 # Function: getStateRoot()
 
@@ -12,20 +12,16 @@ Gets the current state root
 
 ## Parameters
 
-▪ **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-> > (): `Promise`\<`Uint8Array`\>
->
-> ### Source
->
-> node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
->
+`Function`
+
+### Returns
+
+`Promise`\<`Uint8Array`\>
 
 ## Source
 
 packages/state/dist/index.d.ts:300
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

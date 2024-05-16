@@ -1,12 +1,12 @@
-**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**@tevm/schemas**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [ethereum](../README.md) > SINT256
+[@tevm/schemas](../../modules.md) / [ethereum](../README.md) / SINT256
 
 # Variable: SINT256
 
-> **`const`** **SINT256**: `Schema`\<`bigint`, `bigint`\>
+> `const` **SINT256**: `Schema`\<`bigint`, `bigint`\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the INT256 type.
 
@@ -21,6 +21,3 @@ export const SINT256: Schema<bigint, INT256>;
 ## Source
 
 [experimental/schemas/src/ethereum/SINT/SINT.js:124](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L124)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,18 +1,29 @@
-**@tevm/zod** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/zod**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > zGetAccountParams
+[@tevm/zod](../globals.md) / zGetAccountParams
 
 # Variable: zGetAccountParams
 
-> **`const`** **zGetAccountParams**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
+> `const` **zGetAccountParams**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
 
 Zod validator for a valid getAccount action
+
+## Type declaration
+
+### address
+
+> **address**: `ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\> = `zAddress`
+
+### returnStorage
+
+> **returnStorage**: `ZodOptional`\<`ZodBoolean`\>
+
+### throwOnFail
+
+> **throwOnFail**: `ZodOptional`\<`ZodBoolean`\>
 
 ## Source
 
 [packages/zod/src/params/zGetAccountParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zGetAccountParams.js#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > FilterParams
+[tevm](../../modules.md) / [actions-types](../README.md) / FilterParams
 
 # Type alias: FilterParams
 
@@ -14,23 +14,20 @@ An event filter optionsobject
 
 ### address
 
-> **`readonly`** **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### fromBlock
 
-> **`readonly`** **fromBlock**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` **fromBlock**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### toBlock
 
-> **`readonly`** **toBlock**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` **toBlock**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### topics
 
-> **`readonly`** **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `readonly` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 ## Source
 
 packages/actions-types/types/common/FilterParams.d.ts:7
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

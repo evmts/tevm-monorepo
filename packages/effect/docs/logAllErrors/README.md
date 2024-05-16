@@ -1,16 +1,13 @@
-**@tevm/effect** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/effect**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > logAllErrors
+[@tevm/effect](../modules.md) / logAllErrors
 
-# Module: logAllErrors
+# logAllErrors
 
 ## Index
 
 ### Functions
 
 - [logAllErrors](functions/logAllErrors.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

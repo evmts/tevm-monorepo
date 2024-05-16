@@ -1,8 +1,8 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/state**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > StateOptions
+[@tevm/state](../globals.md) / StateOptions
 
 # Type alias: StateOptions
 
@@ -10,41 +10,42 @@
 
 ## Type declaration
 
-### currentStateRoot
+### currentStateRoot?
 
-> **currentStateRoot**?: `Hex`
+> `optional` **currentStateRoot**: `Hex`
 
-### fork
+### fork?
 
-> **fork**?: [`ForkOptions`](../interfaces/ForkOptions.md)
+> `optional` **fork**: [`ForkOptions`](../interfaces/ForkOptions.md)
 
-### genesisState
+### genesisState?
 
-> **genesisState**?: [`TevmState`](TevmState.md)
+> `optional` **genesisState**: [`TevmState`](TevmState.md)
 
-### loggingLevel
+### loggingLevel?
 
-> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
-### onCommit
+### onCommit()?
 
-> **onCommit**?: (`stateManager`) => `void`
+> `optional` **onCommit**: (`stateManager`) => `void`
 
 Called when state manager commits state
 
 #### Parameters
 
-▪ **stateManager**: [`BaseState`](BaseState.md)
+• **stateManager**: [`BaseState`](BaseState.md)
 
-### stateRoots
+#### Returns
 
-> **stateRoots**?: [`StateRoots`](StateRoots.md)
+`void`
+
+### stateRoots?
+
+> `optional` **stateRoots**: [`StateRoots`](StateRoots.md)
 
 ## Source
 
 [packages/state/src/state-types/StateOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

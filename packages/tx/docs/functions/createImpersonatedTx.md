@@ -1,8 +1,8 @@
-**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tx**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > createImpersonatedTx
+[@tevm/tx](../globals.md) / createImpersonatedTx
 
 # Function: createImpersonatedTx()
 
@@ -10,15 +10,14 @@
 
 ## Parameters
 
-▪ **txData**: `FeeMarketEIP1559TxData` & `object`
+• **txData**: `FeeMarketEIP1559TxData` & `object`
 
-▪ **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
+• **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
 
 ## Returns
+
+[`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
 ## Source
 
 [packages/tx/src/createImpersonatedTx.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L9)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

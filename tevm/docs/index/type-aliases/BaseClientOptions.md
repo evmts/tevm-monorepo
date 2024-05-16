@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [index](../README.md) > BaseClientOptions
+[tevm](../../modules.md) / [index](../README.md) / BaseClientOptions
 
 # Type alias: BaseClientOptions
 
@@ -12,21 +12,21 @@ Options for creating an Tevm MemoryClient instance
 
 ## Type declaration
 
-### allowUnlimitedContractSize
+### allowUnlimitedContractSize?
 
-> **`readonly`** **allowUnlimitedContractSize**?: `boolean`
+> `optional` `readonly` **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 
-### chainId
+### chainId?
 
-> **`readonly`** **chainId**?: `number`
+> `optional` `readonly` **chainId**: `number`
 
 Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
 
-### customPrecompiles
+### customPrecompiles?
 
-> **`readonly`** **customPrecompiles**?: [`CustomPrecompile`](CustomPrecompile.md)[]
+> `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -75,9 +75,9 @@ const fsPrecompile = definePrecompile({
 
 const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
-### customPredeploys
+### customPredeploys?
 
-> **`readonly`** **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](CustomPredeploy.md)\<`any`, `any`\>\>
+> `optional` `readonly` **customPredeploys**: `ReadonlyArray`\<[`CustomPredeploy`](CustomPredeploy.md)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -95,36 +95,36 @@ const tevm = createMemoryClient({
 })
 ```
 
-### eips
+### eips?
 
-> **`readonly`** **eips**?: `ReadonlyArray`\<`number`\>
+> `optional` `readonly` **eips**: `ReadonlyArray`\<`number`\>
 
 Eips to enable. Defaults to `[1559, 4895]`
 
-### hardfork
+### hardfork?
 
-> **`readonly`** **hardfork**?: [`Hardfork`](Hardfork.md)
+> `optional` `readonly` **hardfork**: [`Hardfork`](Hardfork.md)
 
 Hardfork to use. Defaults to `shanghai`
 
-### loggingLevel
+### loggingLevel?
 
-> **`readonly`** **loggingLevel**?: `LogOptions`[`"level"`]
+> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
-### miningConfig
+### miningConfig?
 
-> **`readonly`** **miningConfig**?: [`MiningConfig`](MiningConfig.md)
+> `optional` `readonly` **miningConfig**: [`MiningConfig`](MiningConfig.md)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-### persister
+### persister?
 
-> **`readonly`** **persister**?: [`SyncStoragePersister`](SyncStoragePersister.md)
+> `optional` `readonly` **persister**: [`SyncStoragePersister`](SyncStoragePersister.md)
 
 The memory client can optionally initialize and persist it's state to an external source like local storage
 using `createSyncPersister`
@@ -144,15 +144,12 @@ const persister = createSyncPersister({
 const memoryClient = createMemoryClient({ persister })
 ```
 
-### profiler
+### profiler?
 
-> **`readonly`** **profiler**?: `boolean`
+> `optional` `readonly` **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
 
 ## Source
 
 packages/base-client/types/BaseClientOptions.d.ts:11
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

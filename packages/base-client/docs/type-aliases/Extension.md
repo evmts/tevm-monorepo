@@ -1,26 +1,25 @@
-**@tevm/base-client** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > Extension
+[@tevm/base-client](../globals.md) / Extension
 
-# Type alias: Extension`<TExtended>`
+# Type alias: Extension()\<TExtended\>
 
 > **Extension**\<`TExtended`\>: (`client`) => `TExtended`
 
 ## Type parameters
 
-| Parameter |
-| :------ |
-| `TExtended` |
+• **TExtended**
 
 ## Parameters
 
-▪ **client**: [`BaseClient`](BaseClient.md)
+• **client**: [`BaseClient`](BaseClient.md)
+
+## Returns
+
+`TExtended`
 
 ## Source
 
 [Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Extension.ts#L3)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

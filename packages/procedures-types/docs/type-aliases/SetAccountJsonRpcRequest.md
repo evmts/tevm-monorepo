@@ -1,8 +1,8 @@
-**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/procedures-types**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > SetAccountJsonRpcRequest
+[@tevm/procedures-types](../globals.md) / SetAccountJsonRpcRequest
 
 # Type alias: SetAccountJsonRpcRequest
 
@@ -13,6 +13,3 @@ JSON-RPC request for `tevm_setAccount` method
 ## Source
 
 [requests/SetAccountJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/SetAccountJsonRpcRequest.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

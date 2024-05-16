@@ -1,16 +1,13 @@
-**@tevm/tsupconfig** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/tsupconfig**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > js
+[@tevm/tsupconfig](../globals.md) / js
 
 # Variable: js
 
-> **`const`** **js**: `Options`
+> `const` **js**: `Options`
 
 ## Source
 
 [js.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/js.js#L3)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

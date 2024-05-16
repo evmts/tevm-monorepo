@@ -1,27 +1,10 @@
-**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
+[**tevm**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > base-client
+[tevm](../modules.md) / base-client
 
-# Module: base-client
-
-## Table of contents
-
-### References
-
-- [AutoMining](README.md#automining)
-- [BaseClient](README.md#baseclient)
-- [BaseClientOptions](README.md#baseclientoptions)
-- [CustomPrecompile](README.md#customprecompile)
-- [Extension](README.md#extension)
-- [GENESIS\_STATE](README.md#genesis-state)
-- [Hardfork](README.md#hardfork)
-- [IntervalMining](README.md#intervalmining)
-- [ManualMining](README.md#manualmining)
-- [MiningConfig](README.md#miningconfig)
-- [createBaseClient](README.md#createbaseclient)
-- [prefundedAccounts](README.md#prefundedaccounts)
+# base-client
 
 ## References
 
@@ -94,6 +77,3 @@ Re-exports [createBaseClient](../index/functions/createBaseClient.md)
 ### prefundedAccounts
 
 Re-exports [prefundedAccounts](../index/variables/prefundedAccounts.md)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

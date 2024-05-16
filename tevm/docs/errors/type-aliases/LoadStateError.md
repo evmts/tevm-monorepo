@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [errors](../README.md) > LoadStateError
+[tevm](../../modules.md) / [errors](../README.md) / LoadStateError
 
 # Type alias: LoadStateError
 
@@ -24,6 +24,3 @@ if (errors?.length) {
 ## Source
 
 packages/errors/types/actions/LoadStateError.d.ts:13
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

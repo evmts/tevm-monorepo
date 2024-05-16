@@ -1,8 +1,8 @@
-**@tevm/precompiles** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/precompiles**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > definePrecompile
+[@tevm/precompiles](../globals.md) / definePrecompile
 
 # Function: definePrecompile()
 
@@ -10,17 +10,18 @@
 
 ## Type parameters
 
-▪ **TName** extends `string`
+• **TName** *extends* `string`
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+• **THumanReadableAbi** *extends* readonly `string`[]
 
 ## Parameters
 
-▪ **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>, `"contract"` \| `"call"`\>
+• **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>, `"contract"` \| `"call"`\>
+
+## Returns
+
+`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
 
 ## Source
 
 [precompiles/src/definePrecompile.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L4)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

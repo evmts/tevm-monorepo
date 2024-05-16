@@ -1,8 +1,8 @@
-**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/block**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > executionPayloadFromBeaconPayload
+[@tevm/block](../globals.md) / executionPayloadFromBeaconPayload
 
 # Function: executionPayloadFromBeaconPayload()
 
@@ -13,11 +13,12 @@ The JSON data can be retrieved from a consensus layer (CL) client on this Beacon
 
 ## Parameters
 
-▪ **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
+• **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
+
+## Returns
+
+[`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
 ## Source
 
 [from-beacon-payload.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L93)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

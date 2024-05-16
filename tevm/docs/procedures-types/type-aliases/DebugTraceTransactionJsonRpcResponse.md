@@ -1,8 +1,8 @@
-**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[API](../../API.md) > [procedures-types](../README.md) > DebugTraceTransactionJsonRpcResponse
+[tevm](../../modules.md) / [procedures-types](../README.md) / DebugTraceTransactionJsonRpcResponse
 
 # Type alias: DebugTraceTransactionJsonRpcResponse
 
@@ -13,6 +13,3 @@ JSON-RPC response for `debug_traceTransaction` procedure
 ## Source
 
 packages/procedures-types/dist/index.d.ts:463
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

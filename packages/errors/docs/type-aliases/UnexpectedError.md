@@ -1,8 +1,8 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+[**@tevm/errors**](../README.md) • **Docs**
 
 ***
 
-[API](../API.md) > UnexpectedError
+[@tevm/errors](../globals.md) / UnexpectedError
 
 # Type alias: UnexpectedError
 
@@ -15,6 +15,3 @@ means an error wasn't properly handled already
 ## Source
 
 [packages/errors/src/UnexpectedError.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/UnexpectedError.ts#L8)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
