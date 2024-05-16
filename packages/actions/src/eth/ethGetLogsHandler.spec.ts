@@ -4,9 +4,10 @@ import { keccak256, stringToHex } from '@tevm/utils'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
 describe(ethGetLogsHandler.name, () => {
-	// we are skipping because alchemy slowness makes this too flaky
+	// we are skipping because alchemy slowness makes this too flaky on ci
+	// remove skip to run locally
 	// we should update the test to not rely on alchemy archive nodes
-	it(
+	it.skip(
 		'should work fetching from fork url',
 		async () => {
 			const client = createBaseClient({
