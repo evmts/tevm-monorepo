@@ -17,6 +17,7 @@ describe(ethGetLogsHandler.name, () => {
 				},
 			})
 
+			console.log('this test sometimes will time out because we are forking an ancient block number')
 			expect(
 				await ethGetLogsHandler(client)({
 					filterParams: {
@@ -30,7 +31,7 @@ describe(ethGetLogsHandler.name, () => {
 			).toMatchSnapshot()
 		},
 		// big timeout because these blocks are very old
-		{ timeout: 30_000 },
+		{ timeout: 60_000 },
 	)
 
 	it.todo('should work fetching logs that were created by tevm after forking')
