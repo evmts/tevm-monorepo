@@ -90,7 +90,10 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			params: [
 				{
 					fromBlock: numberToHex(fromBlock.header.number),
-					toBlock: numberToHex(forkedBlock.header.number),
+					toBlock:
+						toBlock.header.number < forkedBlock.header.number
+							? numberToHex(toBlock.header.number)
+							: numberToHex(forkedBlock.header.number),
 					address: params.filterParams.address,
 					topics: params.filterParams.topics,
 				},
@@ -121,6 +124,12 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			)
 		}
 	}
+
+	// if log filter doesn't go into tevm mined blocks then we don't need to check the cache
+	if (forkedBlock && toBlock.header.number <= forkedBlock.header.number) {
+		return logs
+	}
+
 	const cachedLogs = await receiptsManager.getLogs(
 		fetchFromRpc ? fromBlock : /** @type {import('@tevm/block').Block}*/ (forkedBlock),
 		toBlock,

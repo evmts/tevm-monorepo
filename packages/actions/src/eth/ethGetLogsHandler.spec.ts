@@ -7,15 +7,12 @@ import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 describe(ethGetLogsHandler.name, () => {
 	// we are skipping because alchemy slowness makes this too flaky
 	// we should update the test to not rely on alchemy archive nodes
-	it.skip(
+	it(
 		'should work fetching from fork url',
 		async () => {
 			const client = createBaseClient({
-				// these logs slow down the client and reduce chances of us getting throttled for these very very old blocks
-				loggingLevel: 'debug',
 				fork: {
 					url: getAlchemyUrl(),
-					blockTag: 1_000_000n,
 				},
 			})
 
