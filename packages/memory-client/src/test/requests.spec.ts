@@ -211,4 +211,35 @@ describe('Tevm.request', async () => {
 			).data,
 		).toBe(initialValue)
 	})
+
+	// repoing a reported bug
+	it('Should be able to create a contract using these foundry artifacts', async () => {
+		const memoryClient = createMemoryClient({ fork: forkConfig })
+		// const account = await memoryClient.tevmGetAccount({ address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c' })
+		// expect(account).toBeUndefined()
+		const res = await memoryClient.tevmCall({
+			from: '0xef987cde72bc6a9e351d2460214d75f095b1b862',
+			data: '0x608060405234801561001057600080fd5b5060405161012938038061012983398101604081905261002f91610037565b600055610050565b60006020828403121561004957600080fd5b5051919050565b60cb8061005e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806301339c211460375780638c59507c14603f575b600080fd5b603d6059565b005b604760005481565b60405190815260200160405180910390f35b7f7c84ba1c5769a0155145414f13e03f1d0d6a3a7e5d4f6d45262df4d9d48c32cd600054604051608b91815260200190565b60405180910390a156fea2646970667358221220dea4bdd87c9ec514fbd0563f520e4a0e34d2930f1a35ff63b903349d337010fe64736f6c634300081300330000000000000000000000000000000000000000000000000000000000000002',
+			value: 0n,
+			skipBalance: true,
+			throwOnFail: false,
+		})
+
+		expect(res.errors).toBeUndefined()
+		expect(res.createdAddress).toEqual('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
+	})
+
+	it('Should get the same account in forked or not forked mode', async () => {
+		const forkedClient = createMemoryClient({ fork: forkConfig })
+		const nonForkedClient = createMemoryClient()
+		const forkedAccount = await forkedClient.tevmGetAccount({
+			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
+			throwOnFail: false,
+		})
+		const nonForkedAccount = await nonForkedClient.tevmGetAccount({
+			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
+			throwOnFail: false,
+		})
+		expect(forkedAccount).toEqual(nonForkedAccount)
+	})
 })
