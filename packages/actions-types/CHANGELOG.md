@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.53
+
+### Minor Changes
+
+- [#1093](https://github.com/evmts/tevm-monorepo/pull/1093) [`db1fe77`](https://github.com/evmts/tevm-monorepo/commit/db1fe776b0e0f0f2ccd5421109e9ec8b6bb78eff) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for generating access lists
+
 ## 1.1.0-next.52
 
 ### Patch Changes
