@@ -12,8 +12,9 @@ export type CallResult<ErrorType = CallError> = {
 	trace?: DebugTraceCallResult
 	/**
 	 * The access list if enabled on call
+	 * Mapping of addresses to storage slots
 	 */
-	accessList?: Record<Address, Set<string>>
+	accessList?: Record<Address, Set<Hex>>
 	/**
 	 * The returned tx hash if the call was included in the chain
 	 * Will not be defined if the call was not included in the chain

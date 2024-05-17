@@ -5,7 +5,7 @@ import { bytesToHex, getAddress, isBytes, toHex } from '@tevm/utils'
 * @param {import('@tevm/evm').EvmResult} evmResult
 * @param {import('@tevm/utils').Hex | undefined} txHash
 * @param {import('@tevm/actions-types').DebugTraceCallResult | undefined} trace
-* @param {import('@tevm/actions-types').CallResult['accessList'] | undefined} accessList
+* @param {Map<string, Set<string>> | undefined} accessList returned by the evm
 * @returns {import('@tevm/actions-types').CallResult}
 */
 export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
@@ -23,9 +23,15 @@ out.trace = trace
 
 if (accessList) {
 // this might break next ethjs release
-out.accessList = Object.fromEntries([...Object.entries(accessList)].map(([address, storageKeys]) => [`0x${address}`, storageKeys]))
+out.accessList = /** @type {Record<import('@tevm/utils').Address, Set<import('@tevm/utils').Hex>>} */(
+Object.fromEntries(
+[...accessList.entries()]
+.map(([address, storageKeys]) => {
+const hexKeys = new Set([...storageKeys].map(key => `0x${key}`))
+return [`0x${address}`, hexKeys]
+}))
+)
 }
-
 if (txHash) {
 out.txHash = txHash
 }
