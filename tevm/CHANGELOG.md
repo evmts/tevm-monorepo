@@ -1,5 +1,24 @@
 # @tevm/contract
 
+## 1.1.0-next.54
+
+### Patch Changes
+
+- [#1098](https://github.com/evmts/tevm-monorepo/pull/1098) [`f2c13d4`](https://github.com/evmts/tevm-monorepo/commit/f2c13d47a38f581cec0bc430cc2a66dd259f38cc) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with tevm package not being properly generated"
+
+- [#1095](https://github.com/evmts/tevm-monorepo/pull/1095) [`f04be52`](https://github.com/evmts/tevm-monorepo/commit/f04be524126dde2d1642e53af6ab54c3b42d9cf7) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed storage keys of access list to be prefixed with 0x
+
+- Updated dependencies [[`f04be52`](https://github.com/evmts/tevm-monorepo/commit/f04be524126dde2d1642e53af6ab54c3b42d9cf7)]:
+  - @tevm/actions-types@1.1.0-next.54
+  - @tevm/memory-client@1.1.0-next.54
+  - @tevm/viem@1.1.0-next.52
+  - @tevm/client-types@1.1.0-next.52
+  - @tevm/decorators@1.1.0-next.54
+  - @tevm/procedures-types@1.1.0-next.52
+  - @tevm/server@1.1.0-next.52
+  - @tevm/http-client@1.1.0-next.52
+  - @tevm/precompiles@1.1.0-next.52
+
 ## 1.1.0-next.53
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @tevm/client
 
+## 1.1.0-next.54
+
+### Patch Changes
+
+- [#1095](https://github.com/evmts/tevm-monorepo/pull/1095) [`f04be52`](https://github.com/evmts/tevm-monorepo/commit/f04be524126dde2d1642e53af6ab54c3b42d9cf7) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed storage keys of access list to be prefixed with 0x
+
+- Updated dependencies []:
+  - @tevm/decorators@1.1.0-next.54
+
 ## 1.1.0-next.53
 
 ### Minor Changes
