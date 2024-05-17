@@ -180,7 +180,8 @@ export const callHandler =
        */
       let trace = undefined
       /**
-       * @type {import('@tevm/actions-types').CallResult['accessList'] | undefined}
+       * evm returns an access list without the 0x prefix
+       * @type {Map<string, Set<string>> | undefined}
        */
       let accessList = undefined
       try {
@@ -214,7 +215,7 @@ export const callHandler =
         }, 'callHandler: runCall result')
         if (params.createAccessList) {
           // on next version of ethjs this type will be right
-          accessList = Object.fromEntries(vm.evm.journal.accessList?.entries() ?? [])
+          accessList = vm.evm.journal.accessList
         }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')

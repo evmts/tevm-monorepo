@@ -363,7 +363,7 @@ describe('callHandler', () => {
       createdAddresses: new Set(),
       accessList: Object.fromEntries([
         ["0x3333333333333333333333333333333333333333", new Set([
-          "c042e0f5eb0064bf1d9722ec18e39f827a2cf491b49d2d4c34a5ecf7a61b44b7",
+          "0xc042e0f5eb0064bf1d9722ec18e39f827a2cf491b49d2d4c34a5ecf7a61b44b7",
         ])],
       ])
     })
