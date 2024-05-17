@@ -5,6 +5,8 @@ description: Introduction to clients and actions
 
 ## Tevm Clients
 
+Note: this guide is out of date and will be updated soon
+
 Tevm clients provide a JavaScript api for interacting with the Tevm API. This api provides a uniform API for interacting with Tevm whether interacting with a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) directly or remotely interacting via an [HttpCLient](/reference/tevm/http-client/type-aliases/httpclient). Tevm clients share the same [actions](/learn/actions) based interface along with a [`request`](/reference/tevm/client-types/type-aliases/tevmclient#request) method for handling JSON-RPC requests.
 
 The following clients are available
@@ -28,9 +30,11 @@ The default client most folks will want to use is `MemoryClient`. It comes with 
 To create a memoryclient simply initialize it with `createMemoryClient`.
 
 ```typescript
-import {createMemoryClient} from 'tevm'
+import { createMemoryClient } from "tevm";
 
-const client = createMemoryClient({fork: {url: 'https://mainnet.optimism.io'}})
+const client = createMemoryClient({
+  fork: { url: "https://mainnet.optimism.io" },
+});
 ```
 
 ## Browser usage
@@ -45,7 +49,7 @@ The main interface for interacting with any Tevm client is it's `actions api`. S
 
 ## Procedures
 
-Tevm also has an `client.request` method for doing JSON procedure calls.  For `MemoryClient` this procedure call happens in memory and for `HttpClient` this procedure call is resolved remotely using JSON-RPC (json remote procedure call). For more information see the [JSON-RPC](/learn/json-rpc) docs and the [`client.request`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) generated reference docs.
+Tevm also has an `client.request` method for doing JSON procedure calls. For `MemoryClient` this procedure call happens in memory and for `HttpClient` this procedure call is resolved remotely using JSON-RPC (json remote procedure call). For more information see the [JSON-RPC](/learn/json-rpc) docs and the [`client.request`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) generated reference docs.
 
 ## Modes
 
@@ -58,11 +62,11 @@ In normal mode the Tevm client initializes a new empty EVM instance in memory. I
 If you want to add any contracts to your normal clients the NormalMode supports the `predeploy` and `precompile` options as do all modes. You can also use `client.setAccount` to manually add bytecode to a contract address.
 
 ```typescript
-import { createMemoryClient } from 'tevm'
+import { createMemoryClient } from "tevm";
 
-const memoryClient = createMemoryClient()
-console.log(memoryClient.mode) // normal
-console.log(await memoryClient.eth.blockNumber()) // 0n
+const memoryClient = createMemoryClient();
+console.log(memoryClient.mode); // normal
+console.log(await memoryClient.eth.blockNumber()); // 0n
 ```
 
 ### Fork mode
@@ -126,15 +130,15 @@ It is possible to persist the tevm client to a syncronous source using the `pers
 - The memory client still keeps the state in memory as source of truth even with state persistence. It is simply backing up the state to storage so it can rehydrate itself on future initializations
 
 ```typescript
-import {createMemoryClient, createSyncPersister} from 'tevm'
-import {createMemoryClient} from 'tevm/sync-storage-persister'
+import { createMemoryClient, createSyncPersister } from "tevm";
+import { createMemoryClient } from "tevm/sync-storage-persister";
 
 // Client state will be hydrated and persisted from/to local storage
 const clientWithLocalStoragePersistence = createMemoryClient({
   persister: createSyncPersister({
-    storage: localStorage
-  })
-})
+    storage: localStorage,
+  }),
+});
 ```
 
 ## BaseClient and decorators
@@ -142,17 +146,25 @@ const clientWithLocalStoragePersistence = createMemoryClient({
 The `BaseClient` is the lowest level client. Additional functionality can be added via `client decorators`. Client decorators follow the same [viem decorator pattern](https://viem.sh/docs/clients/custom) which allows you to add additional functionality to the base client using the `extend` method. You can even write your own extensions.
 
 ```typescript
-import {createBaseClient} from 'tevm/base-client'
-import {tevmSend, eip1993EventEmitter, requestEip1193, ethActions, tevmActions} from 'tevm/decorators'
+import { createBaseClient } from "tevm/base-client";
+import {
+  tevmSend,
+  eip1993EventEmitter,
+  requestEip1193,
+  ethActions,
+  tevmActions,
+} from "tevm/decorators";
 
-const client = createBaseClient({fork: {url: 'https://mainnet.optimism.io'}})
+const client = createBaseClient({
+  fork: { url: "https://mainnet.optimism.io" },
+})
   .extend(tevmSend())
   .extend(eip1993EventEmitter())
   .extend(requestEip1193())
   .extend(ethActions())
-  .extend(tevmActions())
+  .extend(tevmActions());
 ```
 
 The above code creates a client that is exactly the same as the `MemoryClient`.
 
-The baseClient by itself contains no functionality beyond just the low level `getVm` property to get the internal vm instance and some other low level properties. If optimizing code splitting it can be a good choice however being used with specific decorators or being used with the low level `actions` implementations from the `tevm/actions` package.  For most users however, we recomend using `memoryclient` unless you have a good reason for not doing so.
+The baseClient by itself contains no functionality beyond just the low level `getVm` property to get the internal vm instance and some other low level properties. If optimizing code splitting it can be a good choice however being used with specific decorators or being used with the low level `actions` implementations from the `tevm/actions` package. For most users however, we recomend using `memoryclient` unless you have a good reason for not doing so.

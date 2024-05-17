@@ -25,6 +25,10 @@ title: "zBaseCallParams"
 
 > **caller**: `ZodOptional`\<`ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\>\>
 
+### createAccessList
+
+> **createAccessList**: `ZodOptional`\<`ZodBoolean`\>
+
 ### createTrace
 
 > **createTrace**: `ZodOptional`\<`ZodBoolean`\>

@@ -5,15 +5,13 @@ description: Tevm introduction
 
 # Tevm Quick Start Guide
 
-Note: this quick start guide has not yet been verified for correctness
-
 ## Introduction
 
 We will be creating a simple counter app using TypeScript and html.
 
-This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments.
+This guide will get you familiar with the most essential features of Tevm.
 
-We will be creating a project from scratch with minimal tevm usage and slowly adding more and more tevm features.
+We will be creating a project from scratch so we understand every piece.
 
 ## Prerequisites
 
@@ -59,7 +57,7 @@ npm install --save-dev vite typescript
 
 ## Scaffold the initial project
 
-We are going to be using a minimal vanilla setup with no framework. There are guides for specific frameworks including [Next.js](todo.todo).0
+We are going to be using a minimal vanilla setup with no framework.
 
 1. Create a tsconfig
 
@@ -72,10 +70,10 @@ See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more inform
 ```bash
 echo '{
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2021",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -112,32 +110,40 @@ echo '
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>
-'
+' > index.html
 ```
 
-You will see it is importing a `src/main.tsx` file in a script tag. Go ahead and add that too
+You will see it is importing a `src/main.ts` file in a script tag. Go ahead and add that too
 
 ```bash
-echo '
-const app = document.querySelector('#app')
-app.innerHtml = "<div>Hello Tevm</div.";
-'
+mkdir src && echo '
+const app = document.querySelector("#app") as Element;
+app.innerHTML = "<div>Hello Tevm</div>";
+' > src/main.ts
 ```
 
 Now double check that you can run your application
 
 ```bash
-npx vitest ./index.html
+npx vite .
 ```
 
-Hit `o` key on keyboard to open up [`http://localhost:5173`](http://localhost:5173) in your browser
+Hit `o` key and then `<Enter>` to open up [`http://localhost:5173`](http://localhost:5173) in your browser
 
 You should see `Hello Tevm` rendered
+
+Consider adding this command to your package.json for convenience
+
+```json
+"scripts": {
+  "dev": "npx vite ."
+}
+```
 
 3. Add pollyfills
 
@@ -155,17 +161,17 @@ If you are using Tevm in node.js or bun no polyfills are necessary. Over time te
 
 ```
 echo '
-import { defineConfig } from 'vite'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { defineConfig } from "vite"
+import { nodePolyfills } from "vite-plugin-node-polyfills"
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	define: {
-		global: 'globalThis',
+		global: "globalThis",
 	},
 	plugins: [
 		nodePolyfills({
-			include: ['stream'],
+			include: ["stream"],
 			globals: {
 				process: true,
 				Buffer: true,
@@ -177,9 +183,11 @@ export default defineConfig({
 ' > vite.config.js
 ```
 
+Restart your vite server.
+
 ## Create memory client
 
-Now let's create a MemoryClient. A memory client is a [viem client](https://viem.sh/docs/clients/intro.html) using an in-memory transport. This means instead of sending requests to a RPC provider like alchemy it will be processing requests with tevm in memory.
+Now let's create a MemoryClient. A memory client is a [viem client](https://viem.sh/docs/clients/intro.html) using an in-memory [transport](https://viem.sh/docs/clients/intro#transports). This means instead of sending requests to a RPC provider like alchemy it will be processing requests with tevm in memory in a local EVM instance running in JavaScript.
 
 Memory client is similar to `anvil` it can
 
@@ -187,23 +195,33 @@ Memory client is similar to `anvil` it can
 - Run special scripts that have advanced functionality
 - Extremely hackable. Can mint yourself eth, run traces, or modify storage
 
-1. In the `index.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
+1. In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
 ```typescript
-import { createMemoryClient, hexToNumber } from "tevm";
+import { createMemoryClient } from "tevm";
 
-const app = document.querySelector("#app");
+const app = document.querySelector("#app") as Element;
 
 const memoryClient = createMemoryClient({
   fork: {
+    // Note: we may face throttling using the public endpoint
     url: "https://mainnet.optimism.io",
   },
 });
 
 async function runApp() {
-  app.innerHtml = `<div id="blocknumber"></div>`;
+  app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+`;
+  const status = app.querySelector("#status")!;
+
+  status.innerHTML = "Fetching block number...";
+
   const blockNumber = await memoryClient.getBlockNumber();
-  document.querySelector("#blocknumber").innerText = `${bn}`;
+  document.querySelector("#blocknumber")!.innerHTML =
+    `ForkBlock: ${blockNumber}`;
+
+  status.innerHTML = "Done";
 }
 
 runApp();
@@ -211,34 +229,53 @@ runApp();
 
 When we fork a network the blocknumber will be pinned to the block number at the time of the fork. As you mine new blocks you will not get updates from the chain unless you refork it.
 
+:::caution[Tevm performance]
+Currently it is known that Tevm is pretty slow especially when the fork url is slow. Currently tevm is focused on feature completeness and correctness. Performance improvements will come after stable 1.0.0 release.
+
+Consider using an authenticated RPC url to help speed up performance.
+:::
+
 ## Viem client API
 
 Because the tevm client is a viem client it has access to most of the [public viem actions api](https://viem.sh/docs/actions/public/introduction) as well as [test actions](https://viem.sh/docs/actions/test/introduction)
 
-Wallet actions are not yet supported but will receive support in a later version of tevm. For now you will still be able to send tx.
+Wallet actions are not yet supported but will receive support in a later version of tevm. Don't worry though, you can still create transactions using the custom tevmActions.
 
 Refer to viem docs for more details about how these actions work.
 
+:::caution[Tevm performance]
+Not all viem apis have been tested yet though many should work. See this test for an idea of which endpoints have been implemented and validated.
+
+https://github.com/evmts/tevm-monorepo
+:::
+
 ## Tevm account actions
 
-In addition to the viem api there are also powerful tevm specific actions. Let's start with the account actions.
+In addition to the viem api there are also powerful tevm specific actions. Let's start with the account actions
 
 - `tevm.setAccount` will allow us to arbitrarily update any account
 - `tevm.getAccount` will allow us to query for a specific account
 
-Let's use setAccount to give ourselves some eth.
-
 1. Add a div to add some of our account information
 
 ```typescript
-app.innerHtml = `<div id="blocknumber"></div>
-<div id="address"></div>
-<div id="nonce"></div>
-<div id="balance"></div>
+app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Address: <span id="address"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Nonce: <span id="nonce"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Balance: <span id="balance"></span>
+</div>
 `;
 ```
 
 2. Add function to update account balance and add it to runApp() {}
+
+You should see it throw an `Account not found` error
 
 ```typescript
 // addresses and abis must be as const for tevm types
@@ -254,42 +291,67 @@ async function updateAccount() {
     return;
   }
   console.log(account); // console log the account to get familiar with what properties are on it
-  document.querySelector("#address").innerText = address;
-  document.querySelector("#nonce").innerText = String(account.nonce);
-  document.querySelector("#balance").innerText = String(account.balance);
+  document.querySelector("#address")!.innerHTML = address;
+  document.querySelector("#nonce")!.innerHTML = String(account.nonce);
+  document.querySelector("#balance")!.innerHTML = String(account.balance);
 }
 // remember to call `await updateAccount()` in runApp()
 ```
 
-A couple of things are happening here.
-
-- Tevm by default will throw if an error happens. But it is recomended you use the `throwOnFail: false` property when building production apps to instead return the error as a value.
-- if you want to not throw as a default you can pass `throwOnFail: false` to createMemoryClient()
-- Tevm errors are strongly typed (though at this moment not every error is accounted for)
 - getAccount will throw if the account is uninitialized (e.g. it has never been touched by the evm)
+- Tevm by default will throw if an error happens. It is recomended you use the `throwOnFail: false` property when building production apps to instead return the error as a value.
+- if you want to not throw as a default you can pass `throwOnFail: false` to createMemoryClient() (not implemented yet but will be soon)
+- Tevm errors are strongly typed though at this moment not every error is accounted for.
 
 Note: there is also a `returnStorage` param that will return all cached storage for a given account if it is a contract. If the contract is forked it will only return the storage tevm knows about and has cached not the entire contract storage on the forked chain.
 
 3. Let's give ourselves some eth to initialize the account
 
+Use `tevmSetAccount` to initialize the account.
+
 ```typescript
 async function runApp() {
-  app.innerHtml = `<div id="blocknumber"></div>`;
+async function runApp() {
+app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Address: <span id="address"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Nonce: <span id="nonce"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Balance: <span id="balance"></span>
+</div>
+`;
+  const status = app.querySelector("#status")!
 
+  status.innerHTML = "Fetching block number..."
   const blockNumber = await memoryClient.getBlockNumber();
-  document.querySelector("#blocknumber").innerText = `${bn}`;
+  document.querySelector("#blocknumber")!.innerText = `${blockNumber}`;
 
-  const setAccountResult = await memoryClient.setAccount({
+  status.innerHTML = "Setting account..."
+  const setAccountResult = await memoryClient.tevmSetAccount({
     address,
-    value: 420n,
+    balance: 420n,
+    throwOnFail: false,
   });
-  if (setAccountResult.errors) console.error(errors);
+  if (setAccountResult.errors) console.error(setAccountResult.errors);
 
+  status.innerHTML = "Updating account..."
   await updateAccount();
+
+  status.innerHTML = "done"
 }
 ```
 
 Now we should see the account balance of 420n and a nonce of 0n.
+
+:::tip[Creating your own client]
+In addition to memory client you can also create your own client using lower level primitives like `createTevmTransport` and `tevmActions`. This can be helpful if you prefer to not include actions you aren't going to use or want to add your own actions.
+
+See the [`createMemoryClient`](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js) both for how memory client is constructed and how to build your own client.
+:::
 
 ## Quick note on prefunded accounts
 
@@ -334,25 +396,37 @@ Let's try out tevmCall by sending eth to ourselves from a `prefundedAccount` rat
 import { prefundedAccounts } from "tevm";
 
 async function runApp() {
-  app.innerHtml = `<div id="blocknumber"></div>`;
+  app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Address: <span id="address"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Nonce: <span id="nonce"></span>
+</div>
+<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+  Balance: <span id="balance"></span>
+</div>
+`;
 
   const blockNumber = await memoryClient.getBlockNumber();
-  document.querySelector("#blocknumber").innerText = `${bn}`;
+  document.querySelector("#blocknumber").innerText = `${blockNumber}`;
 
-  // const setAccountResult = await memoryClient.setAccount({address, value: 420n})
   const callResult = await memoryClient.tevmCall({
     // this is the default `from` address so this line isn't actually necessary
     from: prefundedAccounts[0],
     to: address,
     value: 420n,
+    throwOnFail: false,
   });
-  if (callResult.errors) console.error(callResult.errors);
+  // aggregate error is a good way to throw an array of errors
+  if (callResult.errors) throw new AggregateError(callResult.errors);
 
   await updateAccount();
 }
 ```
 
-After we run this code we should see a problem. The balance never updated even though there are no errors. This is because we just did a normal `call` which executes against the EVM but doesn't actually update any state. This is the default and best used for simply reading the evm. Let's fix this using `createTransaction`.
+After we run this code we should see an error in our console. The balance never updated even though there are no errors. This is because we just did a normal `call` which executes against the EVM but doesn't actually update any state. This is the default and best used for simply reading the evm. Let's fix this using `createTransaction`.
 
 ```typescript
 const callResult = await memoryClient.tevmCall({
@@ -360,7 +434,8 @@ const callResult = await memoryClient.tevmCall({
   from: prefundedAccounts[0],
   to: address,
   value: 420n,
-  createTransaction: true,
+  // on-success will only create a transaction if the initial run of it doesn't revert
+  createTransaction: "on-success",
 });
 if (callResult.errors) console.error(callResult.errors);
 ```
@@ -381,13 +456,18 @@ const mempool = await memoryClient._tevm.getMempool();
 console.log(await mempool.getBySenderAddress());
 ```
 
+:::tip[Using the low level api]
+The low level API on \_tevm is the same API used internally to implement all of tevm. It's api is stable. Tevm believes in remaining maximally hackable and nearly anything you can imagine is possible if you use the low level api.
+The actions api is a more streamlined experience however so use the low level api at your own risk.
+:::
+
 ## Mining blocks
 
 While `cheat` methods like `tevmSetAccount` will immediately update the state for the current block. `call` methods like `tevmCall` will not update the state until a new block is mined.
 
 Currently tevm only supports `manual` mining but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call `tevm.mine()`
 
-First delete the mempool code and then replace it with a memoryClient.mine()
+First delete the mempool code and then replace it with a memoryClient.tevmMine()
 
 ```typescript
 const callResult = await memoryClient.tevmCall({
@@ -399,10 +479,10 @@ const callResult = await memoryClient.tevmCall({
 });
 if (callResult.errors) console.error(callResult.errors);
 
-const mineResult = await memoryClient.mine();
+const mineResult = await memoryClient.tevmMine();
 // AggregateError is a good way to combine an array of errors into a single error
 if (mineResult.errors) throw new AggregateError(mineResult.errors);
-console.log(mineResult.blockHash);
+console.log(mineResult.blockHashes);
 ```
 
 Now that we mined a block we should finally see our account balance update.
@@ -597,7 +677,7 @@ Add the `tevm/bundler/ts-plugin` to the typescript config (note I think you migh
     "plugins": [
        {name: '@tevm/bundler/ts-plugin'}
     ]
-    "target": "ES2020",
+    "target": "ES2021",
     ...
 }
 ```

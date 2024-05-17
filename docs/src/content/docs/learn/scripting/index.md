@@ -5,6 +5,8 @@ description: TODO
 
 ## Advanced scripting
 
+Note: this guide is out of date and will be updated soon
+
 Scripting is a powerful unlock for JavaScript applications. When used well you will start to find scripting to be some of the best ways to accomplish building your applications.
 
 ## Using precompiles
@@ -58,40 +60,40 @@ A precompile is defined with following
 
 You can define the call function from scratch. It is passed the raw data and you can use `decodeFunctionData` to decode it. You can use `encodeFunctionResult` to encode the return type
 
-Rather than defining a call from scratch we are going to use the [`defineCall`](/reference/tevm/precompiles/functions/defineCall) utility. This utility will take an ABI and then allow us to fill in the interface for the precompile in a typesafe way. It will return the proper types from the ABI.  It will also handle the encoding and decoding for you nicely.
+Rather than defining a call from scratch we are going to use the [`defineCall`](/reference/tevm/precompiles/functions/defineCall) utility. This utility will take an ABI and then allow us to fill in the interface for the precompile in a typesafe way. It will return the proper types from the ABI. It will also handle the encoding and decoding for you nicely.
 
 ```typescript fsPrecompile.ts
-import fs from 'fs/promises'
-import { defineCall, definePrecompile } from '@tevm/precompiles'
+import fs from "fs/promises";
+import { defineCall, definePrecompile } from "@tevm/precompiles";
 // Import the precompile interface or create one with `createContract`
-import { Fs } from './Fs.sol'
+import { Fs } from "./Fs.sol";
 
-    // The precompile interface contract must be configured with an address
-const contract = Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2')
+// The precompile interface contract must be configured with an address
+const contract = Fs.withAddress("0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2");
 
 // defineCall lets us create the call handler in a typesafe way
 const call = defineCall(Fs.abi, {
-	// the abi will typecheck that we are implementing every method with the correct returnValue
-	writeFile: async ({ args }) => {
-		await fs.writeFile(...args)
-		return {
-			returnValue: true,
-			executionGasUsed: 0n,
-			logs: [contract.events.FileWrite(...args)]
-		}
-	},
-	readFile: async ({ args }) => {
-		return {
-			returnValue: await fs.readFile(...args, 'utf8'),
-			executionGasUsed: 0n,
-		}
-	},
-})
+  // the abi will typecheck that we are implementing every method with the correct returnValue
+  writeFile: async ({ args }) => {
+    await fs.writeFile(...args);
+    return {
+      returnValue: true,
+      executionGasUsed: 0n,
+      logs: [contract.events.FileWrite(...args)],
+    };
+  },
+  readFile: async ({ args }) => {
+    return {
+      returnValue: await fs.readFile(...args, "utf8"),
+      executionGasUsed: 0n,
+    };
+  },
+});
 
 export const fsPrecompile = definePrecompile({
-    contract,
-    call,
-})
+  contract,
+  call,
+});
 ```
 
 ### 3. Pass your precompile into `MemoryClient`
@@ -101,19 +103,19 @@ Pass your precompile into the [MemoryClient](../clients/) to configure the VM wi
 We can use our precompile just like any other solidity contract.
 
 ```typescript example.ts
-import {createMemoryClient} from '@tevm/memory-client'
-import {fsPrecompile} from './fsPrecompile.js'
+import { createMemoryClient } from "@tevm/memory-client";
+import { fsPrecompile } from "./fsPrecompile.js";
 
 const client = createMemoryClient({
-	customPrecompiles: [fsPrecompile.precompile()],
-})
+  customPrecompiles: [fsPrecompile.precompile()],
+});
 
 await client.contract(
-	fsPrecompile.contract.write.writeFile('./test.txt', 'hello world'),
-)
+  fsPrecompile.contract.write.writeFile("./test.txt", "hello world"),
+);
 
-import {readFileSync} from 'fs'
-console.log(readFileSync('./test1.txt')) // 'hello world'
+import { readFileSync } from "fs";
+console.log(readFileSync("./test1.txt")); // 'hello world'
 ```
 
 ### 4. Use in solidity code
@@ -138,25 +140,25 @@ contract ReadHelloWorld {
 We can now call our contract in TypeScript
 
 ```typescript example.ts
-import {createMemoryClient} from '@tevm/memory-client'
-import {fsPrecompile} from './fsPrecompile.js'
-import {ReadHelloWorld} from './ReadHelloWorld.sol'
+import { createMemoryClient } from "@tevm/memory-client";
+import { fsPrecompile } from "./fsPrecompile.js";
+import { ReadHelloWorld } from "./ReadHelloWorld.sol";
 
 const client = createMemoryClient({
-	customPrecompiles: [fsPrecompile.precompile()],
-})
+  customPrecompiles: [fsPrecompile.precompile()],
+});
 
 // call our precompile directly
 await client.contract(
-	fsPrecompile.contract.write.writeFile('./test.txt', 'hello world'),
-)
+  fsPrecompile.contract.write.writeFile("./test.txt", "hello world"),
+);
 
 // call our contract that uses our precompile
 const result = client.contract(
-  await ReadHelloWorld.read.readFileFromSolidity('./test.txt')
-)
+  await ReadHelloWorld.read.readFileFromSolidity("./test.txt"),
+);
 
-console.log(result) // hello world
+console.log(result); // hello world
 ```
 
 ## State overrides
