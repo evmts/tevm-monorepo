@@ -1,5 +1,26 @@
 # @tevm/contract
 
+## 1.1.0-next.53
+
+### Minor Changes
+
+- [#1093](https://github.com/evmts/tevm-monorepo/pull/1093) [`db1fe77`](https://github.com/evmts/tevm-monorepo/commit/db1fe776b0e0f0f2ccd5421109e9ec8b6bb78eff) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for generating access lists
+
+### Patch Changes
+
+- [#1092](https://github.com/evmts/tevm-monorepo/pull/1092) [`214a814`](https://github.com/evmts/tevm-monorepo/commit/214a81453d7a4dab647e7c1f91fa4ada3d3939da) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where eth_getBalance which previously was implemented for block tag 'pending' was not updated. Now eth_getBalance works for all block tags except pending.
+
+- Updated dependencies [[`214a814`](https://github.com/evmts/tevm-monorepo/commit/214a81453d7a4dab647e7c1f91fa4ada3d3939da), [`db1fe77`](https://github.com/evmts/tevm-monorepo/commit/db1fe776b0e0f0f2ccd5421109e9ec8b6bb78eff)]:
+  - @tevm/memory-client@1.1.0-next.53
+  - @tevm/actions-types@1.1.0-next.53
+  - @tevm/viem@1.1.0-next.52
+  - @tevm/http-client@1.1.0-next.52
+  - @tevm/precompiles@1.1.0-next.52
+  - @tevm/server@1.1.0-next.52
+  - @tevm/decorators@1.1.0-next.53
+  - @tevm/client-types@1.1.0-next.52
+  - @tevm/procedures-types@1.1.0-next.52
+
 ## 1.1.0-next.52
 
 ### Patch Changes
