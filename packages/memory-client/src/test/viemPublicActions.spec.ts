@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
+import { prefundedAccounts } from '@tevm/base-client'
 import { simpleContract } from '@tevm/test-utils'
-import { type PublicActions, encodeFunctionData } from 'viem'
+import type { Address } from '@tevm/utils'
+import { type PublicActions, encodeFunctionData, parseEther } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -59,7 +61,9 @@ describe('viemPublicActions', () => {
 		estimateFeesPerGas: () => {},
 		estimateGas: () => {},
 		estimateMaxPriorityFeePerGas: () => {},
-		getBalance: () => {},
+		getBalance: async () => {
+			expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(parseEther('1000'))
+		},
 		getBlobBaseFee: () => {},
 		getBlock: () => {},
 		getBlockNumber: () => {},
