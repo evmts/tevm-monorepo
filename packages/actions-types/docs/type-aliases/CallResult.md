@@ -18,9 +18,10 @@ Result of a Tevm VM Call method
 
 ### accessList?
 
-> `optional` **accessList**: `Record`\<[`Address`](Address.md), `Set`\<`string`\>\>
+> `optional` **accessList**: `Record`\<[`Address`](Address.md), `Set`\<[`Hex`](Hex.md)\>\>
 
 The access list if enabled on call
+Mapping of addresses to storage slots
 
 ### blobGasUsed?
 
