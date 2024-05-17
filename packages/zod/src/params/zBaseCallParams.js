@@ -6,6 +6,10 @@ import { zBlockParam } from './zBlockParam.js'
 export const zBaseCallParams = zBaseParams
 	.extend({
 		createTrace: z.boolean().optional().describe('If true, the call will also return a `trace` on the trace property'),
+		createAccessList: z
+			.boolean()
+			.optional()
+			.describe('If true, the call will also return a `accessList` on the accessList property'),
 		createTransaction: z.union([
 			z.boolean().optional().describe('If true, this call is a create transaction. Defaults to false.'),
 			z.literal('on-success'),

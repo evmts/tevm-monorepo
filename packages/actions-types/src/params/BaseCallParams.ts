@@ -7,8 +7,14 @@ import type { BaseParams } from './BaseParams.js'
 export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
 	/**
 	 * Whether to return a complete trace with the call
+	 * Defaults to `false`
 	 */
 	createTrace?: boolean
+	/**
+	 * Whether to return an access list
+	 * Defaults to `false`
+	 */
+	createAccessList?: boolean
 	/**
 	 * Whether or not to update the state or run call in a dry-run. Defaults to `never`
 	 * - `on-success`: Only update the state if the call is successful
@@ -81,29 +87,29 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<
 	blobVersionedHashes?: Hex[]
 	// state override description and api is adapted from geth https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth
 	/**
-		 * The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
-		 * This option cannot be used when `createTransaction` is set to `true`
-		 *
-		 * The goal of the state override set is manyfold:
+* The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
+* This option cannot be used when `createTransaction` is set to `true`
+*
+* The goal of the state override set is manyfold:
 
-		 * It can be used by DApps to reduce the amount of contract code needed to be deployed on chain. Code that simply returns internal state or does pre-defined validations can be kept off chain and fed to the node on-demand.
-		 * It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
-		 * It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
-		 * @example
-		 * ```ts
-		 * {
-		 *   "0xd9c9cd5f6779558b6e0ed4e6acf6b1947e7fa1f3": {
-		 *     "balance": "0xde0b6b3a7640000"
-		 *   },
-		 *   "0xebe8efa441b9302a0d7eaecc277c09d20d684540": {
-		 *     "code": "0x...",
-		 *     "state": {
-		 *       "0x...": "0x..."
-		 *     }
-		 *   }
-		 * }
-		 * ```
-		 */
+* It can be used by DApps to reduce the amount of contract code needed to be deployed on chain. Code that simply returns internal state or does pre-defined validations can be kept off chain and fed to the node on-demand.
+* It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
+* It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
+* @example
+* ```ts
+* {
+*   "0xd9c9cd5f6779558b6e0ed4e6acf6b1947e7fa1f3": {
+*     "balance": "0xde0b6b3a7640000"
+*   },
+*   "0xebe8efa441b9302a0d7eaecc277c09d20d684540": {
+*     "code": "0x...",
+*     "state": {
+*       "0x...": "0x..."
+*     }
+*   }
+* }
+* ```
+*/
 	stateOverrideSet?: StateOverrideSet
 	/**
 	 * The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
