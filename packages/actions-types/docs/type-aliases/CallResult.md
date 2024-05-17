@@ -18,7 +18,7 @@ Result of a Tevm VM Call method
 
 ### accessList?
 
-> `optional` **accessList**: `Map`\<[`Address`](Address.md), `Set`\<`string`\>\>
+> `optional` **accessList**: `Record`\<[`Address`](Address.md), `Set`\<`string`\>\>
 
 The access list if enabled on call
 
