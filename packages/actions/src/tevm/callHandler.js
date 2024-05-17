@@ -298,7 +298,7 @@ export const callHandler =
             params.throwOnFail ?? defaultThrowOnFail,
             {
               errors: [{ _tag: 'InsufficientBalance', name: 'InsufficientBalance', message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address` }],
-              ...callHandlerResult(evmOutput, undefined, trace),
+              ...callHandlerResult(evmOutput, undefined, trace, accessList),
             }
           )
         }
@@ -310,7 +310,7 @@ export const callHandler =
               params.throwOnFail ?? defaultThrowOnFail,
               {
                 ...('errors' in txRes ? { errors: txRes.errors } : {}),
-                ...callHandlerResult(evmOutput, undefined, trace),
+                ...callHandlerResult(evmOutput, undefined, trace, accessList),
               }
             )
           )
