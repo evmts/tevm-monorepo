@@ -105,7 +105,7 @@ export const callProcedure = (client) => async (request) => {
   }
 
   /**
-   * @type {Record<`0x${string}`, Array<string>> | undefined}
+   * @type {Record<`0x${string}`, Array<import('@tevm/utils').Hex>> | undefined}
    */
   const accessList = result.accessList !== undefined ? Object.fromEntries(Object.entries(result.accessList).map(([key, value]) => [key, [...value]])) : undefined
 
