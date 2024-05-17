@@ -489,6 +489,11 @@ Now that we mined a block we should finally see our account balance update.
 
 ## Advanced calls with `tevmContract` and `tevmDeploy`
 
+:::Danger[Not verified]
+The tevm quick start guide thus far has only been verified up to the `Mining blocks` step.
+Any further steps may have bugs and typos. A full documentationr revamp is underway and should be completed by end of May.
+:::
+
 All `call-like` endpoints for tevm use tevmCall under the hood including `eth_call`, `debug_traceCall`, `eth_sendRawTransaction`, and some special tevm methods like `tevmContract`, `tevmDeploy` and `tevmScript`. We will talk about `tevmScript` later.
 
 Note we could use `tevmCall` and the `encodeDeployData` utility provided by viem but using `tevmDeploy` is a lot more ergonomic. `tevmDeploy` has access to all the special cheat properties (TODO link to BaseCallParams docs) that a normal `tevmCall` has
