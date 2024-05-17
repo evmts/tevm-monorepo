@@ -5,15 +5,17 @@ description: JSON Remote Procedure Calls
 
 ## JSON-RPC Requests
 
+Note: this guide is out of date and will be updated soon
+
 All [clients](/learn/clients) implement a [`tevm.request()`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) method for handling JSON-RPC requests.
 
 ```typescript
-const {result, errors, id, method, jsonrpc} = await client.request({
- method: 'eth_blockNumber',
- params: [],
- id: 1,
- jsonrpc: '2.0',
-})
+const { result, errors, id, method, jsonrpc } = await client.request({
+  method: "eth_blockNumber",
+  params: [],
+  id: 1,
+  jsonrpc: "2.0",
+});
 ```
 
 Below are all procedures implemented or planned to be implemented. 🚧 means the procedure is still under construction
@@ -33,7 +35,7 @@ Tevm methods are feature-rich methods that provide a high level of control over 
 
 Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc) spec
 
-- [`eth_accounts'](/reference/tevm/procedures-types/type-aliases/ethaccountsjsonrpcprocedure) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic:          test test test test test test test test test test test junk
+- [`eth_accounts'](/reference/tevm/procedures-types/type-aliases/ethaccountsjsonrpcprocedure) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic: test test test test test test test test test test test junk
 - [`eth_call'](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure)
 - [`eth_chainId'](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcprocedure)
 - [`eth_estimateGas'](/reference/tevm/procedures-types/type-aliases/ethestimategasjsonrpcprocedure)

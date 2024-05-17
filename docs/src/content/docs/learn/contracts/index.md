@@ -5,6 +5,8 @@ description: Guide on using contract action creators
 
 ## Contract action creators
 
+Note: this guide is out of date and will be updated soon
+
 The [`@tevm/contracts`](/reference/tevm/contract/api) package is an optional module in `tevm` for cleaning up your contract code. It represents a contract or script and provides a typesafe api for creating [actions](/learn/actions)
 
 In the following diff the added code shows how to dispatch a [`script`](/reference/tevm/actions-types/type-aliases/scripthandler) action with a contract action creator. The removed code is both how you would do it without an action creator and also the returned value of the action creator.
@@ -66,7 +68,7 @@ See the [contract reference docs](/reference/tevm/contract/api) for more informa
 
 ## Contracts vs scripts
 
-There are two types of contracts.  
+There are two types of contracts.
 
 1. [Contracts](/reference/tevm/contract/type-aliases/contract) which are created with [createContract](/reference/tevm/contract/functions/createcontract)
 2. [Scripts](/reference/tevm/contract/type-aliases/script) which are created with [createScript](/reference/tevm/contract/functions/createscript)
@@ -82,8 +84,8 @@ Contracts by default don't have any address thus you need to add an address when
 ```typescript
 await client.contract({
   ...MyContract.read.balanceOf(address),
-  to: contractAddress
-})
+  to: contractAddress,
+});
 ```
 
 Tevm contracts have a `withAddress` method that cleans this up.
@@ -91,7 +93,7 @@ Tevm contracts have a `withAddress` method that cleans this up.
 ```typescript
 await client.contract(
   MyContract.withAddress(contractAddress).read.balanceOf(address),
-)
+);
 ```
 
 If you want to consistently associate this address with this contract you can export the addressed contract from a typescript file.
@@ -106,7 +108,7 @@ export {
 
 Contracts and their action creators are intentionally designed to compose well with other libraries outside of Tevm including `ethers` `viem` and `wagmi`.
 
-Because the `tevm` api tries to stay maximally consistent with the `viem` api the integration with wagmi and viem is first-class.  For example, the below example shows how a read action creator can compose with [viem readContract action](https://viem.sh/docs/contract/readContract.html).
+Because the `tevm` api tries to stay maximally consistent with the `viem` api the integration with wagmi and viem is first-class. For example, the below example shows how a read action creator can compose with [viem readContract action](https://viem.sh/docs/contract/readContract.html).
 
 ```typescript
 import {createClient, http} from 'viem'

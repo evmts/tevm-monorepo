@@ -15,6 +15,13 @@ Result of a Tevm VM Call method
 
 ## Type declaration
 
+### accessList?
+
+> `optional` **accessList**: `Record`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/), `Set`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>\>
+
+The access list if enabled on call
+Mapping of addresses to storage slots
+
 ### blobGasUsed?
 
 > `optional` **blobGasUsed**: `bigint`

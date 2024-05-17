@@ -5,6 +5,8 @@ description: Tevm actions api
 
 ## Overview
 
+Note: this guide is out of date and will be updated soon
+
 Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [viem's actions api](https://viem.sh/docs/actions/public/getbalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](/learn/json-rpc)
 
 ### Error handling
@@ -43,7 +45,7 @@ Note the `call` family of actions including `TevmClient.call`, `TevmClient.contr
 
 TevmClient plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc) spec
 
-- [`TevmClient.eth.accounts'](/reference/tevm/actions-types/type-aliases/ethaccountshandler) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic:          test test test test test test test test test test test junk
+- [`TevmClient.eth.accounts'](/reference/tevm/actions-types/type-aliases/ethaccountshandler) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic: test test test test test test test test test test test junk
 - [`TevmClient.eth.call'](/reference/tevm/actions-types/type-aliases/ethcallhandler)
 - [`TevmClient.eth.chainId'](/reference/tevm/actions-types/type-aliases/ethchainidhandler)
 - [`TevmClient.eth.estimateGas'](/reference/tevm/actions-types/type-aliases/ethestimategashandler)
@@ -101,4 +103,3 @@ Anvil/hardhat methods are provided for compatability
 ## Tree shakeable actions
 
 Like viem, TevmClient provides tree shakable versions of the actions in the [tevm/procedures](/reference/tevm/procedures/api) package. But for Tevm it is recomended you use the higher level [client apis](/learn/clients). If bundle size is a concern a more effective way of reducing bundle size is using a [remote http client](/reference/tevm/http-client/api) and running the EVM on a [backend server](/reference/tevm/server/api)
-

@@ -5,6 +5,8 @@ description: A guide to getting solidity imports with the tevm bundler
 
 Solidity imports simplify your tevm code via compiling contracts to ABI and bytecode consumable by JavaScript directly in your JavaScript build pipeline. Solidity imports are purely optional but highly recomended.
 
+Note: this guide is out of date and will be updated soon
+
 ## Requirements
 
 To support solidity imports the following steps must be taken:
@@ -25,7 +27,7 @@ npm install @tevm/bundler
 After installing you can use any tevm build tool package via a deep import to it's subpackage.
 
 ```typescript
-import {rollupPluginTevm} from '@tevm/bundler/rollup-plugin'
+import { rollupPluginTevm } from "@tevm/bundler/rollup-plugin";
 ```
 
 It is also possible to install these subpackages as standalone packages if you prefer.
@@ -45,7 +47,7 @@ A JavaScript bundler is code that runs at buildtime to turn an import graph into
 2. Next it will look for import paths ending in `.sol`. When it sees one it will use [node resolution](https://medium.com/outbrain-engineering/node-js-module-resolution-af46715784ef) to find the file. If a JavaScript file e.g. `.sol.js` file already exists it will immediately resolve that. Otherwise it kicks off the process of resolving the contract into it's ABI and bytecode.
 
 ```typescript
-import {ERC20} from '@openzeppelin/contracts/tokens/ERC20/ERC20.sol'
+import { ERC20 } from "@openzeppelin/contracts/tokens/ERC20/ERC20.sol";
 ```
 
 3. Before it compiles the contracts it will first resolve the entire solidity import resolution graph and source code with [@tevm/resolutions](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/resolutions). This resolutions will continue resolving imports in solidity files based on `node resolution`, foundry configuration (if foundry is configured), and your `tevm.config.json` remappings and lib.
@@ -57,37 +59,37 @@ import {ERC20} from '@openzeppelin/contracts/tokens/ERC20/ERC20.sol'
 6. Once it gets the artifacts it will then use the [@tevm/contracts](/learn/contracts) to turn the artifacts into a `TevmContract` or `TevmScript` via the [@tevm/runtime] package. The runtime code will look like the following:
 
 ```javascript
-import { createContract } from '@tevm/contract'
+import { createContract } from "@tevm/contract";
 const _ERC20 = {
-	name: 'ERC20',
-	humanReadableAbi: [
-		'constructor()',
-		'event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)',
-		'event ApprovalForAll(address indexed owner, address indexed operator, bool approved)',
-		'event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)',
-		'function approve(address to, uint256 tokenId)',
-		'function balanceOf(address owner) view returns (uint256)',
-		'function getApproved(uint256 tokenId) view returns (address)',
-		'function isApprovedForAll(address owner, address operator) view returns (bool)',
-		'function mint()',
-		'function mint(uint256 tokenId)',
-		'function name() view returns (string)',
-		'function ownerOf(uint256 tokenId) view returns (address)',
-		'function safeTransferFrom(address from, address to, uint256 tokenId)',
-		'function safeTransferFrom(address from, address to, uint256 tokenId, bytes data)',
-		'function setApprovalForAll(address operator, bool approved)',
-		'function supportsInterface(bytes4 interfaceid) view returns (bool)',
-		'function symbol() view returns (string)',
-		'function tokenURI(uint256 tokenId) pure returns (string)',
-		'function totalSupply() view returns (uint256)',
-		'function transferFrom(address from, address to, uint256 tokenId)',
-	],
-}
+  name: "ERC20",
+  humanReadableAbi: [
+    "constructor()",
+    "event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)",
+    "event ApprovalForAll(address indexed owner, address indexed operator, bool approved)",
+    "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
+    "function approve(address to, uint256 tokenId)",
+    "function balanceOf(address owner) view returns (uint256)",
+    "function getApproved(uint256 tokenId) view returns (address)",
+    "function isApprovedForAll(address owner, address operator) view returns (bool)",
+    "function mint()",
+    "function mint(uint256 tokenId)",
+    "function name() view returns (string)",
+    "function ownerOf(uint256 tokenId) view returns (address)",
+    "function safeTransferFrom(address from, address to, uint256 tokenId)",
+    "function safeTransferFrom(address from, address to, uint256 tokenId, bytes data)",
+    "function setApprovalForAll(address operator, bool approved)",
+    "function supportsInterface(bytes4 interfaceid) view returns (bool)",
+    "function symbol() view returns (string)",
+    "function tokenURI(uint256 tokenId) pure returns (string)",
+    "function totalSupply() view returns (uint256)",
+    "function transferFrom(address from, address to, uint256 tokenId)",
+  ],
+};
 /**
  * Jsdoc comments will be included
  * @property mint() Allows an address to mint
  */
-export const ERC20 = createContract(_wagmimintexample)
+export const ERC20 = createContract(_wagmimintexample);
 ```
 
 The TypeScript plugin generates a similar dts file.
@@ -96,25 +98,25 @@ The TypeScript plugin generates a similar dts file.
 
 The [@tevm/base-bundler](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler) is used to create the following bundler integrations. Click on your bundler of choice to see the reference docs for your bundler.
 
-- [bun](/reference/tevm/bun-plugin/functions/bunplugintevm) 
-- [esbuild](/reference/tevm/esbuild-plugin/functions/esbuildplugintevm) 
-- [rollup](/reference/tevm/rollup-plugin/functions/rollupplugintevm) 
-- [vite](/reference/tevm/vite-plugin/functions/viteplugintevm) 
-- [rspack](/reference/tevm/rspack-plugin/functions/rspackplugintevm) 
-- [webpack](/reference/tevm/webpack-plugin/variables/webpackplugintevm) 
+- [bun](/reference/tevm/bun-plugin/functions/bunplugintevm)
+- [esbuild](/reference/tevm/esbuild-plugin/functions/esbuildplugintevm)
+- [rollup](/reference/tevm/rollup-plugin/functions/rollupplugintevm)
+- [vite](/reference/tevm/vite-plugin/functions/viteplugintevm)
+- [rspack](/reference/tevm/rspack-plugin/functions/rspackplugintevm)
+- [webpack](/reference/tevm/webpack-plugin/variables/webpackplugintevm)
 
 If your bundler is not supported consider [opening an issue](https://github.com/evmts/tevm-monorepo/issues/new) as it is likely a small lift to add support.
 
 ## LSP
 
-Once you integrate a bundler your code will run correctly but you will still see diagnostics (red underlines) on your solidity imports. This is from your editor's LSP.  LSP (language server protocol) is a standard first created by VSCode that is now used by most editors including Vim, Neovim, Jetbrains, Sublime, and more.  Tevm supports solidity imports via a custom [typescript plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin) called [tevm/ts-plugin](https://github.com/evmts/tevm-monorepo/tree/main/lsp).
+Once you integrate a bundler your code will run correctly but you will still see diagnostics (red underlines) on your solidity imports. This is from your editor's LSP. LSP (language server protocol) is a standard first created by VSCode that is now used by most editors including Vim, Neovim, Jetbrains, Sublime, and more. Tevm supports solidity imports via a custom [typescript plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin) called [tevm/ts-plugin](https://github.com/evmts/tevm-monorepo/tree/main/lsp).
 
 Configuring the LSP is easy just simply `tevm/bundler/ts-plugin` to your tsconfig plugins
 
 ```json
 {
   "compilerOptions": {
-    "plugins": [{"name": "@tevm/bundler/ts-plugin"}]
+    "plugins": [{ "name": "@tevm/bundler/ts-plugin" }]
   }
 }
 ```
@@ -134,6 +136,7 @@ If you are using vscode you will need to [configure typescript to use local vers
 ```
 
 2. Then select workspace version
+
 ```
 Use workspace version 5.x.x
 ```
