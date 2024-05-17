@@ -179,6 +179,10 @@ export const callHandler =
        * @type {import('@tevm/actions-types').DebugTraceCallResult | undefined}
        */
       let trace = undefined
+      /**
+       * @type {import('@tevm/actions-types').CallResult['accessList'] | undefined}
+       */
+      let accessList = undefined
       try {
         client.logger.debug({
           to: evmInput.to?.toString(),
@@ -188,6 +192,9 @@ export const callHandler =
           gasLimit: evmInput.gasLimit?.toString(),
           data: evmInput.data
         }, 'callHandler: Executing runCall with params')
+        if (params.createAccessList) {
+          vm.evm.journal.startReportingAccessList()
+        }
         if (params.createTrace) {
           const { trace: _trace, ...res } = await runCallWithTrace(
             vm,
@@ -205,6 +212,10 @@ export const callHandler =
           exceptionError: evmOutput.execResult.exceptionError,
           executionGasUsed: evmOutput.execResult.executionGasUsed,
         }, 'callHandler: runCall result')
+        if (params.createAccessList) {
+          // on next version of ethjs this type will be right
+          accessList = Object.fromEntries(vm.evm.journal.accessList?.entries() ?? [])
+        }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -287,7 +298,7 @@ export const callHandler =
             params.throwOnFail ?? defaultThrowOnFail,
             {
               errors: [{ _tag: 'InsufficientBalance', name: 'InsufficientBalance', message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address` }],
-              ...callHandlerResult(evmOutput, undefined, trace),
+              ...callHandlerResult(evmOutput, undefined, trace, accessList),
             }
           )
         }
@@ -299,7 +310,7 @@ export const callHandler =
               params.throwOnFail ?? defaultThrowOnFail,
               {
                 ...('errors' in txRes ? { errors: txRes.errors } : {}),
-                ...callHandlerResult(evmOutput, undefined, trace),
+                ...callHandlerResult(evmOutput, undefined, trace, accessList),
               }
             )
           )
@@ -313,6 +324,6 @@ export const callHandler =
        * ******************
        */
       return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-        ...callHandlerResult(evmOutput, txHash, trace),
+        ...callHandlerResult(evmOutput, txHash, trace, accessList),
       })
   }

@@ -39,11 +39,19 @@ The block number or block tag to execute the call at. Defaults to `latest`
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
+### createAccessList?
+
+> `optional` **createAccessList**: `boolean`
+
+Whether to return an access list
+Defaults to `false`
+
 ### createTrace?
 
 > `optional` **createTrace**: `boolean`
 
 Whether to return a complete trace with the call
+Defaults to `false`
 
 ### createTransaction?
 
