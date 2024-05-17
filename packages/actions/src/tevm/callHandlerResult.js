@@ -23,7 +23,7 @@ out.trace = trace
 
 if (accessList) {
 // this might break next ethjs release
-out.accessList = new Map([...accessList.entries()].map(([address, storageKeys]) => [`0x${address}`, storageKeys]))
+out.accessList = Object.fromEntries([...Object.entries(accessList)].map(([address, storageKeys]) => [`0x${address}`, storageKeys]))
 }
 
 if (txHash) {

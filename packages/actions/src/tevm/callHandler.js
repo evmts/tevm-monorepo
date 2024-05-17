@@ -214,7 +214,7 @@ export const callHandler =
         }, 'callHandler: runCall result')
         if (params.createAccessList) {
           // on next version of ethjs this type will be right
-          accessList = /** @type any*/(vm.evm.journal.accessList)
+          accessList = Object.fromEntries(vm.evm.journal.accessList?.entries() ?? [])
         }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error executing evm')

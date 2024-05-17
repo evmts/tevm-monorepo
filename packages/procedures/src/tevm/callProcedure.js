@@ -103,13 +103,22 @@ export const callProcedure = (client) => async (request) => {
       ...(request.id === undefined ? {} : { id: request.id }),
     }
   }
+
+  /**
+   * @type {Record<`0x${string}`, Array<string>> | undefined}
+   */
+  const accessList = result.accessList !== undefined ? Object.fromEntries(Object.entries(result.accessList).map(([key, value]) => [key, [...value]])) : undefined
+
   /**
    * @param {bigint} value
    * @returns {import('@tevm/utils').Hex}
    */
   const toHex = (value) =>
 		/**@type {import('@tevm/utils').Hex}*/(numberToHex(value))
-  return {
+  /**
+   * @type {import('@tevm/procedures-types').CallJsonRpcResponse}
+   */
+  const out = ({
     jsonrpc: '2.0',
     result: {
       executionGasUsed: toHex(result.executionGasUsed),
@@ -122,6 +131,20 @@ export const callProcedure = (client) => async (request) => {
       ...(result.logs ? { logs: result.logs } : {}),
       ...(result.txHash ? { txHash: result.txHash } : {}),
       ...(result.blobGasUsed ? { blobGasUsed: toHex(result.blobGasUsed) } : {}),
+      ...(accessList !== undefined ? { accessList } : {}),
+      ...(result.trace ? {
+        trace: {
+          ...result.trace,
+          gas: toHex(result.trace.gas),
+          structLogs: result.trace.structLogs.map(log => ({
+            ...log,
+            gas: toHex(log.gas),
+            gasCost: toHex(log.gasCost),
+            stack: [...log.stack],
+
+          }))
+        }
+      } : {}),
       ...(result.createdAddress
         ? { createdAddress: result.createdAddress }
         : {}),
@@ -131,5 +154,7 @@ export const callProcedure = (client) => async (request) => {
     },
     method: 'tevm_call',
     ...(request.id === undefined ? {} : { id: request.id }),
-  }
+  })
+
+  return out
 }
