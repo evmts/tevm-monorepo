@@ -927,7 +927,7 @@ const client = createPublicClient({transport: 'https://localhost:8080'}).extend(
 client.tevmContract(...)
 ```
 
-- If you prefer ethers the [`@tevm/ethers`]() package provides an ethers provider that uses tevm as it's in memory backend similar to MemoryClient.
+- If you prefer ethers the [`@tevm/ethers`](https://github.com/evmts/tevm-monorepo/tree/main/extensions/ethers) package provides an ethers provider that uses tevm as it's in memory backend similar to MemoryClient.
 - Tevm supports advanced tracing apis. Try passing `createTrace` or `createAccessList` to a tevmCall or tevmContract.
 
 ### Subpackages
