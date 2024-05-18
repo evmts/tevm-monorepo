@@ -242,7 +242,7 @@ We have already used a viem action with `memoryClient.getBlockNumber()`
 Refer to [viem docs](https://viem.sh) for more details about how these actions work.
 
 :::caution[🚧 Under construction]
-Not all viem apis have been tested yet though many should work. (See this issue)[https://github.com/evmts/tevm-monorepo/issues/1075] for updates.
+Not all viem apis have been tested yet though many should work. [See this issue](https://github.com/evmts/tevm-monorepo/issues/1075) for updates.
 :::
 
 ## Tevm account actions
