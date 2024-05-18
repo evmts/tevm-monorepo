@@ -185,7 +185,7 @@ Restart your vite server and now vite has everything it needs to run an Ethereum
 
 ## Create MemoryClient
 
-Now let's create a MemoryClient. A memory client is a [viem client](https://viem.sh/docs/clients/intro.html) using an in-memory [transport](https://viem.sh/docs/clients/intro#transports). This means instead of sending requests to a RPC provider like alchemy it will be processing requests with tevm in memory in a local EVM instance running in JavaScript.
+Now let's create a MemoryClient. A memory client is a [viem client](https://viem.sh/docs/clients/intro.html) using an in-memory [transport](https://viem.sh/docs/clients/intro#transports). This means instead of sending requests to an RPC provider like alchemy it will be processing requests with tevm in memory in a local EVM instance running in JavaScript.
 
 Memory client is similar to `anvil`. It can:
 
