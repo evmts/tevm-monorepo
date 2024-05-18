@@ -715,7 +715,7 @@ const myContract = createContract({
 
 :::
 
-# Advanced feature: Scripting
+## Advanced feature: Scripting
 
 At this point we have covered all the major functionality of tevm and will be diving into more advanced features. Consider trying the following if you are up to it:
 
@@ -723,19 +723,19 @@ At this point we have covered all the major functionality of tevm and will be di
 2. Use `tevm.setAccount` or the viem method `tevm.setStorageAt` to modify the storage of your contract without needing to create a transaction
 3. Try out the `tevmDumpStorage` action. Together with `loadStorage` this method can be used to hydrate and persist the tevm evm state.
 
-## Basic scripting
+### Basic scripting
 
 Like foundry, Tevm offers an extremely powerful solidity scripting environment. Tevms scripts are very tightly integrated into typescript and also include the ability to execute arbitrary typescript within them.
 
 Any solidity contract can be ran as a script. For example, let's run our counter script. Since we already experimented with browser let's try using it in `vitest`
 
-1. Install vitest
+#### 1. Install vitest
 
 `npm install vitest --save-dev`
 
 Vitest will work with the same tevm plugin we already installed.
 
-2. Import your script and execute it
+#### 2. Import your script and execute it
 
 ```typescript
 import { Counter } from "../contract/Counter.s.sol";
