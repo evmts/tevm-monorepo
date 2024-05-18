@@ -10,7 +10,7 @@ description: Tevm introduction
 We will be creating a simple counter app using the following technologies:
 
 - Tevm + [Viem](https://viem.sh) -
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build a ui with no framework
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build an ui with no framework
 - [Vite](https://vitejs.dev/) + Tevm Bundler as a minimal build setup and dev server
 
 This guide intentionally uses a very simple setup focus on the most essential features of Tevm. It also builds up the minimal setup from scratch so every piece is understood.
