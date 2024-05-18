@@ -572,6 +572,7 @@ await tevm.mine();
 
 :::tip[Remember tx can revert]
 Remember it's possible for a call to revert when it gets mined even if it didn't revert when the call was simulated. We can check for this via checking the receipt using `memoryClient.getReceipt` (Note; getReceipt currently has a regression that should be fixed soon. If not fixed yet you can isntead use `memoryClient._tevm.getReceiptsManager()` as a temporary workaround for getting receipts
+:::
 
 ## Compiling contracts with the Tevm bundler
 
@@ -673,6 +674,19 @@ const { data: count } = await memoryClient.tevmContract(
 );
 ```
 
+You will be able to see the TypeScript the contract is compiled to in the .tevm cache folder
+
+Contracts can be created manually using `createScript` or `createContract`
+
+```typescript
+import { createContract } from "tevm/contracts";
+
+const myContract = createContract({
+  name: "MyErc721",
+  humanReadableAbi: ["function balanceOf(address): uint256"],
+});
+```
+
 ### 5. Configure the LSP
 
 You may notice that TypeScript started giving you red underlines even though the application works. This is because though vite is able to compile contracts we haven't told typescript to do the same.
@@ -703,15 +717,6 @@ If the contract you wish to use is external to your code base here are the optio
 1. If contract is on npm or github you can npm install the package and then import it from node_modules. The tevm compiler supports node_resolution to import from other monorepo packages and node_modules
 2. In future versions whatsabi integration will allow you to generate the contracts via pointing at a block explorer
 3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using `createScript` or `createContract` <- TODO link to reference docs. You only need to include the methods you wish to use
-
-```typescript
-import { createContract } from "tevm/contracts";
-
-const myContract = createContract({
-  name: "MyErc721",
-  humanReadableAbi: ["function balanceOf(address): uint256"],
-});
-```
 
 :::
 
