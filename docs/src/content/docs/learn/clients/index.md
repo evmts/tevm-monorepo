@@ -1,21 +1,20 @@
 ---
 title: Tevm clients guide
-description: Introduction to clients and actions
+description: Introduction to clients
 ---
 
 ## Tevm Clients
 
-Note: this guide is out of date and will be updated soon
-
 Tevm clients provide a JavaScript api for interacting with the Tevm API. This api provides a uniform API for interacting with Tevm whether interacting with a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) directly or remotely interacting via an [HttpCLient](/reference/tevm/http-client/type-aliases/httpclient). Tevm clients share the same [actions](/learn/actions) based interface along with a [`request`](/reference/tevm/client-types/type-aliases/tevmclient#request) method for handling JSON-RPC requests.
 
-The following clients are available
+The following in-memory clients are available
 
 - [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) - An in memory instance of the EVM that can run in Node.js, bun or the browser
-- [HttpClient](/reference/tevm/http-client/type-aliases/httpclient) - A client that talks to a remote `MemoryClient` running in an [http server](/reference/tevm/server/api)
-- [Viem extensions](/reference/tevm/viem/api) - Provides a viem based client instance and some experimental optimistic updating apis.
-- 🚧 Under construction [Ethers extensions](/reference/tevm/ethers/api) - An ethers based memory client and http client
-- 🚧 Under construction `WebsocketClient` - A web socket based TevmClient similar to the `HttpClient`
+- [TevmProvider](https://tevm.sh/reference/tevm/ethers/classes/tevmprovider/) - For ethers users
+
+## Viem API
+
+Tevm is built on top of viem and supports an ever-growing list of the viem API. 100% support for viem is release criteria for Tevm `1.0.0` stable.
 
 ## MemoryClient
 
@@ -37,91 +36,72 @@ const client = createMemoryClient({
 });
 ```
 
-## Browser usage
+## Options
 
-The `MemoryClient` runs in the browser but may require [top-level-await](https://github.com/Menci/vite-plugin-top-level-await) support to be added to your JavaScript build tool. It's also possible you need some node-polyfills.
+Notable options include:
 
-If using vite see [the vite example](https://github.com/evmts/tevm-monorepo/blob/main/examples/vite/vite.config.ts) for reference. Examples for other bundlers are coming soon.
+- fork.url to fork a network
+- fork.blockTag to specify a specific block tag to fork
+- loggingLevel defaults to warning. Setting to `debug` will show a significant amount of internal logs and `trace` includes the EVM logs
 
-## Actions
+See [BaseClientOptions](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/) docs for information about all individual options.
 
-The main interface for interacting with any Tevm client is it's `actions api`. See [actions api](/learn/actions) guide or the [TevmClient reference](/reference/tevm/client-types/type-aliases/tevmclient) for more information.
+## Mining modes
 
-## Procedures
+Currently only manual mining using [tevm.mine()](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/#_top) is supported.
 
-Tevm also has an `client.request` method for doing JSON procedure calls. For `MemoryClient` this procedure call happens in memory and for `HttpClient` this procedure call is resolved remotely using JSON-RPC (json remote procedure call). For more information see the [JSON-RPC](/learn/json-rpc) docs and the [`client.request`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) generated reference docs.
+## Using tevm over http
 
-## Modes
-
-The underlying [Tevm MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) can run in three different modes
-
-### Normal mode
-
-In normal mode the Tevm client initializes a new empty EVM instance in memory. It will have a chainId of 420 and start from block 0.
-
-If you want to add any contracts to your normal clients the NormalMode supports the `predeploy` and `precompile` options as do all modes. You can also use `client.setAccount` to manually add bytecode to a contract address.
+A common use case is wanting to use a client over http. This can be done via using [@tevm/server](https://tevm.sh/reference/tevm/server/globals/) to run tevm as an HTTP server.
 
 ```typescript
+import { createServer } from "tevm/server";
 import { createMemoryClient } from "tevm";
 
 const memoryClient = createMemoryClient();
-console.log(memoryClient.mode); // normal
-console.log(await memoryClient.eth.blockNumber()); // 0n
+
+const server = createServer({
+  request: tevm.request,
+});
+
+server.listen(8545, () => console.log("listening on 8545"));
 ```
 
-### Fork mode
-
-Fork mode will fork a chain at a given block number defaulting to the latest block number when given an RPC url and an optional block tag. When you fork the chain all state is cached. No future changes in future blocks will be included in this forked chain. This mode is analogous to what happens with anvil if you use a forkUrl
-
-Fork mode is initialized by setting the `fork` property in `createMemoryClient`
+Once you are running it as a server you can use any ethereum client to communicate with it with no special modifications including a [viem public client](https://viem.sh/docs/clients/public.html)
 
 ```typescript
-import { createMemoryClient } from 'tevm'
+import { createPublicClient, http } from "viem";
+import { mainnet } from "viem/chains";
 
-const memoryClient = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
-})
-console.log(memoryClient.mode) // forked
-console.log(await memoryClient.eth.blockNumber()) // returns optimism block number at time of fork unless future actions simulate mining a new block
-console.log(await memoryClient.eth.getStorageAt(...)) // Storage is always read from cache or fetched from the forked block
+const publicClient = createPublicClient({
+  chain: mainnet,
+  transport: http("https://localhost:8545"),
+});
+
+console.log(await publicClient.getChainId());
 ```
 
-### Proxy mode
+Tevm also supports a growing list of the [anvil/hardhat test api](https://viem.sh/docs/clients/test#test-client).
 
-Proxy mode is similar to ForkMode but always tracks latest block instead of forking. It will temporarily fork the chain for 2 seconds at a time. But if the cache is more than 2 seconds old the state manager will first check to see if the blockNumber has changed. If it does change it invalidates the cache,
-
-Proxy mode is initialized by setting the `proxy` option in `createMemoryClient`
-
-The `expectedBlockTime` property will configure how long the client waits before starting to check if block changed. It can be set arbitrarily large if you simply want to cache state for that period of time.
+For viem users you can also use the custom tevm actions such as `tevmSetAccount` even over http via extending any viem client with [tevmViemExtension](https://tevm.sh/reference/tevm/viem/functions/tevmviemextension/).
 
 ```typescript
-import { createMemoryClient } from 'tevm'
+import { createPublicClient, http } from "viem";
+import { mainnet } from "viem/chains";
+import { tevmViemExtension } from "tevm/viem";
 
-const memoryClient = createMemoryClient({
-  proxy: {
-    url: 'https://mainnet.optimism.io'
-    // optionally configure the expected block time in milliseconds
-    // defaults to 2_000 (2s)
-    expectedBlockTime: 10_000,
-  }
-})
-console.log(memoryClient.mode) // proxy
-console.log(await memoryClient.eth.blockNumber()) // will return latest block number
+const publicClient = createPublicClient({
+  chain: mainnet,
+  transport: http("https://localhost:8545"),
+}).extend(tevmViemExtension());
+
+console.log(await publicClient.setAccount({ address: `0x${"00".repeat(20)}` }));
+console.log(await publicClient.getAccount({ address: `0x${"00".repeat(20)}` }));
 ```
 
-### Differences between forked and proxy mode
+This works because all tevm actions are implemented both in memory and as JSON-RPC handlers. This means whether using tevm in memory with `MemoryProvider` or over http the api is the same.
 
-Fork and proxy mode are very similar with the only difference being how they handle cache invalidation. Fork mode forks the chain at a very specific block height and will never invalidate the cache. Proxy mode attempts to invalidate the cache whenever new blocks come in.
-
-It is always suggested to use forked mode if you can get away with it.
-
-- Forked mode is much more RPC efficient via never invalidating the cache
-- Proxy mode works best if you expect external changes to the chain to potentially change the expected results of your contract calls
-- If you want a bit of both you can use proxy mode with a large expectedBlockTime to invalidate the cache infrequently
-
-### State persistence
+### State persistence (experimental)
 
 It is possible to persist the tevm client to a syncronous source using the `persister` option. This will initialize the state with with the persisted storage if it exists and back up the state to this storage after state updates happen.
 
@@ -141,30 +121,24 @@ const clientWithLocalStoragePersistence = createMemoryClient({
 });
 ```
 
-## BaseClient and decorators
+## Network support
 
-The `BaseClient` is the lowest level client. Additional functionality can be added via `client decorators`. Client decorators follow the same [viem decorator pattern](https://viem.sh/docs/clients/custom) which allows you to add additional functionality to the base client using the `extend` method. You can even write your own extensions.
+Tevm network compatability will grow over time. Check back here for updates. At this moment tevm guarantees support for the following networks:
 
-```typescript
-import { createBaseClient } from "tevm/base-client";
-import {
-  tevmSend,
-  eip1993EventEmitter,
-  requestEip1193,
-  ethActions,
-  tevmActions,
-} from "tevm/decorators";
+- Ethereum mainnet
+- Standard OP Stack chains
 
-const client = createBaseClient({
-  fork: { url: "https://mainnet.optimism.io" },
-})
-  .extend(tevmSend())
-  .extend(eip1993EventEmitter())
-  .extend(requestEip1193())
-  .extend(ethActions())
-  .extend(tevmActions());
-```
+Other EVM chains are likely to work but do not officially carry support.
 
-The above code creates a client that is exactly the same as the `MemoryClient`.
+Note: At this time [Optimism deposit transactions](https://docs.optimism.io/stack/protocol/rollup/deposit-flow) are not supported by At this time [Optimism deposit transactions](https://docs.optimism.io/stack/protocol/rollup/deposit-flow) are not supported by tevm but will be in a future release. Currently Tevm filters out these tx from blocks.
 
-The baseClient by itself contains no functionality beyond just the low level `getVm` property to get the internal vm instance and some other low level properties. If optimizing code splitting it can be a good choice however being used with specific decorators or being used with the low level `actions` implementations from the `tevm/actions` package. For most users however, we recomend using `memoryclient` unless you have a good reason for not doing so.
+## Network and hardfork support and tx support
+
+Tevm experimentally supports enabling and disabling different EIPs but the following EIPs are always turned on.
+
+- 1559
+- 4895,
+- 4844,
+- 4788
+
+Tevm plans on supporting many types of tx in future but at this moment only [EIP-1559 Fee Market tx](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/tx/src/eip1559Transaction.ts) are supported.

@@ -5,17 +5,13 @@ description: JSON Remote Procedure Calls
 
 ## JSON-RPC Requests
 
-Note: this guide is out of date and will be updated soon
-
-All [clients](/learn/clients) implement a [`tevm.request()`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) method for handling JSON-RPC requests.
+All [clients](/learn/clients) implement an EIP-1193 compatable [`tevm.request()`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) method for handling JSON-RPC requests.
 
 ```typescript
-const { result, errors, id, method, jsonrpc } = await client.request({
-  method: "eth_blockNumber",
-  params: [],
-  id: 1,
-  jsonrpc: "2.0",
-});
+const { result, errors, id, method, jsonrpc } = await client.request(
+  "eth_call",
+  [data, blockTag, stateOverrides, blockOverrides],
+);
 ```
 
 Below are all procedures implemented or planned to be implemented. 🚧 means the procedure is still under construction
@@ -43,24 +39,24 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 - [`eth_getBalance'](/reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcprocedure)
 - [`eth_getCode'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
 - [`eth_getStorageAt'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
+- [`eth_getTransactionReceipt'](/reference/tevm/procedures-types/type-aliases/ethgettransactionreceiptjsonrpcprocedure)
 - [`eth_sign'](/reference/tevm/procedures-types/type-aliases/ethsignjsonrpcprocedure)
 - [`eth_signTransaction'](/reference/tevm/procedures-types/type-aliases/ethsigntransactionjsonrpcprocedure)
-- 🚧 [`eth_getLogs'](/reference/tevm/procedures-types/type-aliases/ethgetlogsjsonrpcprocedure)
+- [`eth_getLogs'](/reference/tevm/procedures-types/type-aliases/ethgetlogsjsonrpcprocedure)
 - [`eth_coinbase'](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcprocedure)
 - [`eth_hashrate'](/reference/tevm/procedures-types/type-aliases/ethhashratejsonrpcprocedure)
+- [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
+- [`eth_sendTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendtransactionjsonrpcprocedure)
+- [`eth_sendRawTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure)
+- 🚧 [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
+- 🚧 [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
+- 🚧 [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)
 - 🚧 [`eth_newFilter'](/reference/tevm/procedures-types/type-aliases/ethnewfilterjsonrpcprocedure)
 - 🚧 [`eth_getFilterLogs'](/reference/tevm/procedures-types/type-aliases/ethgetfilterlogsjsonrpcprocedure)
 - 🚧 [`eth_getBlockByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcprocedure)
 - 🚧 [`eth_newBlockFilter'](/reference/tevm/procedures-types/type-aliases/ethnewblockfilterjsonrpcprocedure)
-- [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
-- [`eth_sendTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendtransactionjsonrpcprocedure)
-- 🚧 [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
-- 🚧 [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
-- 🚧 [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)
-- [`eth_sendRawTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure)
 - 🚧 [`eth_getTransactionCount'](/reference/tevm/procedures-types/type-aliases/ethgettransactioncountjsonrpcprocedure)
 - 🚧 [`eth_getTransactionByHash'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyhashjsonrpcprocedure)
-- 🚧 [`eth_getTransactionReceipt'](/reference/tevm/procedures-types/type-aliases/ethgettransactionreceiptjsonrpcprocedure)
 - 🚧 [`eth_newPendingTransactionFilter'](/reference/tevm/procedures-types/type-aliases/ethnewpendingtransactionfilterjsonrpcresponse)
 - 🚧 [`eth_getBlockTransactionCountByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblocktransactioncountbyhashjsonrpcprocedure)
 - 🚧 `eth_getBlockTransactionCountByNumber'
@@ -69,8 +65,8 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 
 ## Debug methods
 
-- 🚧 [`debug_traceTransaction`](/reference/tevm/procedures-types/type-aliases/debugtracetransactionprocedure)
 - [`debug_traceCall`](/reference/tevm/procedures-types/type-aliases/debugtracecallprocedure)
+- 🚧 [`debug_traceTransaction`](/reference/tevm/procedures-types/type-aliases/debugtracetransactionprocedure)
 
 ## Anvil/Hardhat methods
 
@@ -80,12 +76,12 @@ Anvil/hardhat methods are provided for compatability
 - [`anvil_setNonce'](/reference/tevm/procedures-types/type-aliases/anvilsetnonceprocedure)
 - [`anvil_setBalance'](/reference/tevm/procedures-types/type-aliases/anvilsetbalanceprocedure)
 - [`anvil_setChainId'](/reference/tevm/procedures-types/type-aliases/anvilsetchainidprocedure)
-- 🚧 [`anvil_mine'](/reference/tevm/procedures-types/type-aliases/anvilmineprocedure)
+- [`anvil_mine'](/reference/tevm/procedures-types/type-aliases/anvilmineprocedure)
+- [`anvil_getAutomine'](/reference/tevm/procedures-types/type-aliases/anvilgetautomineprocedure) (currently always false)
+- [`anvil_setStorageAt'](/reference/tevm/procedures-types/type-aliases/anvilsetstorageatprocedure)
 - 🚧 [`anvil_reset'](/reference/tevm/procedures-types/type-aliases/anvilresetprocedure)
 - 🚧 [`anvil_dumpState'](/reference/tevm/procedures-types/type-aliases/anvildumpstateprocedure)
 - 🚧 [`anvil_loadState'](/reference/tevm/procedures-types/type-aliases/anvilloadstateprocedure)
-- 🚧 [`anvil_getAutomine'](/reference/tevm/procedures-types/type-aliases/anvilgetautomineprocedure)
-- 🚧 [`anvil_setStorageAt'](/reference/tevm/procedures-types/type-aliases/anvilsetstorageatprocedure)
 - 🚧 [`anvil_dropTransaction'](/reference/tevm/procedures-types/type-aliases/anvildroptransactionprocedure)
-- 🚧 [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure)
+- 🚧 [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure) (tevm_call has a ergonomic impersonation api at this time)
 - 🚧 [`anvil_stopImpersonatingAccount'](/reference/tevm/procedures-types/type-aliases/anvilstopimpersonatingaccountprocedure)
