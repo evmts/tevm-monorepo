@@ -12,4 +12,5 @@ export {
   type MaybeExtractEventArgsFromAbi,
   createContract,
   createScript,
+  SimpleContract,
 } from '@tevm/contract'

@@ -13,6 +13,10 @@
 - [MaybeExtractEventArgsFromAbi](type-aliases/MaybeExtractEventArgsFromAbi.md)
 - [ValueOf](type-aliases/ValueOf.md)
 
+### Variables
+
+- [SimpleContract](variables/SimpleContract.md)
+
 ## References
 
 ### Contract

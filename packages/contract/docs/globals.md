@@ -18,6 +18,10 @@
 - [ValueOf](type-aliases/ValueOf.md)
 - [WriteActionCreator](type-aliases/WriteActionCreator.md)
 
+## Variables
+
+- [SimpleContract](variables/SimpleContract.md)
+
 ## Functions
 
 - [createContract](functions/createContract.md)

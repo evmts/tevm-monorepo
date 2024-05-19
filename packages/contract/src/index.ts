@@ -15,3 +15,4 @@ export type {
 } from './types.js'
 export { createContract } from './createContract.js'
 export { createScript } from './createScript.js'
+export { SimpleContract } from './contract-lib/SimpleContract.js'
