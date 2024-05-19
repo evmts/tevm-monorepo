@@ -260,7 +260,7 @@ Not all viem apis have been tested yet though many should work. [See this issue]
 
 ## Tevm account actions
 
-In addition to the viem api there are also powerful tevm specific actions. Let's start with the account actions [`tevmSetAccount`](/reference/tevm/actions-types/type-aliases/setaccounthandler/) and [`tevmGetAccount`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+In addition to the viem api there are also powerful [tevm specific actions](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/). Let's start with the account actions [`tevmSetAccount`](/reference/tevm/actions-types/type-aliases/setaccounthandler/) and [`tevmGetAccount`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
 
 :::tip[JSON-RPC]
 All Tevm actions are available as [JSON-RPC endpoints](/learn/json-rpc/) and can be called with the EIP-1193 compatable `tevm.request` function. This allows tevm to be composed with any other library that supports EIP-1193 as well as providing an API to use tevm over HTTP
@@ -468,7 +468,7 @@ Well we did successfully create a transaction which we can see by checking the [
 console.log(callResult.txHash);
 ```
 
-If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API `getVm()`
+If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API [`getTxPool()`](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclient/#gettxpool)
 
 ```typescript
 // the _tevm means this api is not guaranteed to remain stable
@@ -487,9 +487,11 @@ While `cheat` methods like `tevmSetAccount` will immediately update the state fo
 
 Currently tevm only supports [`manual` mining](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/#miningconfig) but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call [`tevm.mine()`](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/). It will sort the mempool based on priority fees and nonces and mine all transactions up until the block gas limit.
 
-First delete the mempool code and then replace it with a memoryClient.tevmMine()
+First delete the mempool code and then replace it with a [memoryClient.tevmMine()](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/)
 
 ```typescript
+status.innerHTML = "Sending eth to account...";
+
 const callResult = await memoryClient.tevmCall({
   // this is the default `from` address so this line isn't actually necessary
   from: prefundedAccounts[0],
@@ -497,36 +499,37 @@ const callResult = await memoryClient.tevmCall({
   value: 420n,
   createTransaction: true,
 });
-if (callResult.errors) console.error(callResult.errors);
+if (callResult.errors) throw new AggregateError(callResult.errors);
+
+status.innerHTML = "Mining block";
 
 const mineResult = await memoryClient.tevmMine();
-// AggregateError is a good way to combine an array of errors into a single error
 if (mineResult.errors) throw new AggregateError(mineResult.errors);
 console.log(mineResult.blockHashes);
+
+status.innerHTML = "Updating account...";
+
+await updateAccount();
+
+status.innerHTML = "done";
 ```
 
 Now that we mined a block we should finally see our account balance update.
 
 ## Advanced calls with `tevmContract` and `tevmDeploy`
 
-:::Danger[Not verified]
-The tevm quick start guide thus far has only been verified up to the `Mining blocks` step.
-Any further steps may have bugs and typos. A full documentationr revamp is underway and should be completed by end of May.
-:::
+All `call-like` endpoints for tevm use tevmCall under the hood including [`eth_call`](https://tevm.sh/reference/tevm/actions-types/type-aliases/ethcallhandler/), [`debug_traceCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/debugtracetransactionhandler/), [`eth_sendRawTransaction`](https://tevm.sh/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure/), and some special tevm methods like [`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/), [`tevmDeploy`](https://tevm.sh/reference/tevm/actions-types/type-aliases/deployhandler/) and [`tevmScript`](https://tevm.sh/reference/tevm/actions-types/type-aliases/scripthandler/). We will talk about `tevmScript` later.
 
-All `call-like` endpoints for tevm use tevmCall under the hood including `eth_call`, `debug_traceCall`, `eth_sendRawTransaction`, and some special tevm methods like `tevmContract`, `tevmDeploy` and `tevmScript`. We will talk about `tevmScript` later.
+Note we could use [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler/) and the [`encodeDeployData`](https://tevm.sh/reference/tevm/utils/functions/encodedeploydata/). Using `tevmDeploy` is a lot more ergonomic. `tevmDeploy` has access to all the [special cheat properties](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/) that a normal [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callparams/) has.
 
-Note we could use `tevmCall` and the `encodeDeployData` utility provided by viem but using `tevmDeploy` is a lot more ergonomic. `tevmDeploy` has access to all the special cheat properties (TODO link to BaseCallParams docs) that a normal `tevmCall` has
-
-We also could use `tevmSetAccount` and manually set the `deployedBytecode` and any contract storage we want to set. This is a fine way to do it as well and often the most convenient if you don't need to execute the constructor code. We will use tevmDeploy here.
+We also could use [`tevmSetAccount`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#setaccount) and manually set the [`deployedBytecode`](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#deployedbytecode) and any [contract storage](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#state) we want to set. This is a fine way to do it as well and often the most convenient if you don't need to execute the constructor code. For our simple contract we will use tevmdeploy here.
 
 ### 1. Let's use `tevmDeploy` to deploy a contract.
 
-TODO we need to add simpleContract to `tevm/contracts` still! If you are following along this tutorial you can get it in meantime by installing `@tevm/test-utils` and importing it from there.
-
 ```typescript
-// tevm/contracts has utils for creating `contracts` and `scripts` which we will cover later as well as a small library of commonly used contracts
-import { simpleContract } from "tevm/contracts";
+// tevm/contracts has utils for creating `contracts` and `scripts` which we will cover later
+// it also offers small library of commonly used contracts
+import { SimpleContract } from "tevm/contract";
 
 const initialValue = 420n;
 const deployResult = await memoryClient.deploy({
@@ -541,17 +544,29 @@ if (deployResult.errors) throw new AggregateError(deployResult.errors);
 await memoryClient.mine();
 ```
 
-The biggest gotchya to be aware of here is if you specify an abi without using `as const` or import it from a json it will hurt abitype's ability to infer typescript types which will lose you typesafety and editor autocompletion.
+:::tip[abitype best practices]
+Tevm uses [abitype](https://abitype.dev/) for it's TypeScript types.
+
+- Use `as const` anytime you declare an address, hex string, abi, or human readable abi
+- Avoid using JSON abis as JSON abis hurt abitypes ability to infer types. The Tevm compiler will remove this restriction in a future version.
+- If you prefer your address types to be of type String rather than address, you [can modify the type](https://abitype.dev/config#addresstype)
+
+If you have issues with typescript typings and find yourself fighting the compiler, join the [tevm telegram](https://t.me/+ANThR9bHDLAwMjUx) and ask for help. One of the many Typescript wizards will help.
+:::
 
 ### 2. Use `tevmContract` to call our contract
 
-`tevmContract` is has a similar api to [readContract](https://viem.sh/docs/contract/readContract.html) from viem and has the followign advantages over a normal `tevmCall`.
+:::danger[Not verified]
+The getting starting guide has only been verified for correctness up until this point.
+The rest of the guide could have typos and bugs in it. Please submit a pull request if you find any.
+We also want the rest of this guide to build a UI rather than console.loging so submit any prs if you do make a UI
+:::
 
-TODO add links to all these
+[`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/) is has a similar api to [readContract](https://viem.sh/docs/contract/readContract.html) from viem and has the followign advantages over a normal `tevmCall`.
 
-- automatically encodes the call data without needing to manually use `encodeFunctionData`
-- automatically decodes the return data without needing to manually use `decodeFunctionResult`
-- automatically decodes any revert messages without needing to manually use `decodeErrorResult`
+- automatically encodes the call data without needing to manually use [`encodeFunctionData`](https://tevm.sh/reference/tevm/utils/functions/encodefunctiondata/)
+- automatically decodes the return data without needing to manually use [`decodeFunctionResult`](https://tevm.sh/reference/tevm/utils/functions/decodefunctionresult/)
+- automatically decodes any revert messages without needing to manually use [`decodeErrorResult`](https://tevm.sh/reference/tevm/utils/functions/decodeerrorresult/)
 - throws useful warnings such as no contract bytecode existing at the contract address
 
 Let's use tevm.contract to both read and write to the contract we just deployed. Feel free to add the results of these calls to the dom we will just console log them for now in this tutorial.
@@ -559,7 +574,7 @@ Let's use tevm.contract to both read and write to the contract we just deployed.
 This particular contract has two methods. `get` to get the stored value and `set` to set the stored value.
 
 ```typescript
-const contractResult = await memoryClient.contract({
+const contractResult = await memoryClient.tevmContract({
   abi: simpleContract.abi,
   from: prefundedAccounts[0],
   functionName: "get",
@@ -592,9 +607,9 @@ Remember it's possible for a call to revert when it gets mined even if it didn't
 
 ## Compiling contracts with the Tevm bundler
 
-Tevm not only supplies a runtime EVM but also a buildtime tool for building your contracts within your JavaScript projects. It will compile your contracts for you via simply importing a solidity file.
+Tevm not only supplies a runtime EVM but also a [buildtime tool](https://tevm.sh/learn/solidity-imports/) for building your contracts within your JavaScript projects. It will compile your contracts for you via simply importing a solidity file.
 
-In future versions `whatsabi` integration will also be added to be able to pull contracts that are deployed to live networks.
+In future versions [`whatsabi` integration](https://github.com/shazow/whatsabi) will also be added to be able to pull contracts that are deployed to live networks.
 
 This bundler will give you a lot of great features such as
 
@@ -603,6 +618,8 @@ This bundler will give you a lot of great features such as
 - automatically recompiling when you change the contract code
 - support for most bundlers including webpack, vite, esbuild, rollup, and bun
 - typesafe feedback whenever you change your contract code
+
+![Gif showing lsp features](https://github.com/evmts/evmts-monorepo/assets/35039927/ac46caf3-32cc-4ec5-8b3b-5e1df3f7819a)
 
 Tevm supports all major bundlers including vite, rollup, webpack, rspack, bun and esbuild. If your bundler is not supported open an issue it's likely a light lift to add support.
 
@@ -616,7 +633,7 @@ npm i --save-dev @tevm/bundler
 
 Configuring vite will allow vite to recognize solidity imports. When it sees solidity it will compile it into the abi and bytecode to make a `tevm contract` just like we made manually in `counterContract.ts`
 
-Add the `viteExtensionTevm` to your vite config
+Add the `viteExtensionTevm` to your vite config under `plugins`
 
 ```bash
 import { defineConfig } from 'vite'
@@ -629,7 +646,7 @@ export default defineConfig({
 		global: 'globalThis',
 	},
 	plugins: [
-	    vitePluginTevm(),
+	  vitePluginTevm(),
 		nodePolyfills({
 			include: ['stream'],
 			globals: {
@@ -643,7 +660,7 @@ export default defineConfig({
 
 ```
 
-### 3. Add a simple contract
+### 3. Add a counter contract
 
 Now that vite can compile solidity we can add a contract.
 
@@ -690,7 +707,7 @@ const { data: count } = await memoryClient.tevmContract(
 );
 ```
 
-You will be able to see the TypeScript the contract is compiled to in the .tevm cache folder
+You will be able to see the TypeScript the contract is compiled to in the [`.tevm` cache folder](https://tevm.sh/reference/tevm/config/types/type-aliases/compilerconfig#cachedir)
 
 Contracts can be created manually using `createScript` or `createContract`
 
@@ -702,6 +719,11 @@ const myContract = createContract({
   humanReadableAbi: ["function balanceOf(address): uint256"],
 });
 ```
+
+:::tip[Configuring the compiler]
+The tevm compiler works with no config. But you can also optionally configure it via creating a `tevm.config.json` file to configure things such as remappings.
+See [config options](https://tevm.sh/reference/tevm/config/types/type-aliases/compilerconfig#_top) for more info.
+:::
 
 ### 5. Configure the LSP
 
