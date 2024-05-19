@@ -5,44 +5,7 @@ import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateCallParams } from '@tevm/zod'
 import { createTransaction } from './createTransaction.js'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
-import { createStateManager } from '@tevm/state'
-
-/**
- * Will fork a given block number and save the state roots to state manager
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {import('@tevm/block').Block} block
- * @returns {Promise<void>}
- */
-const forkAndCacheBlock = async (client, block) => {
-  client.logger.warn(`Detected block tag for a call was set to a different block tag than the chain was forked from. 
-Tevm can peform slowly when this happens from needing to process that blocks entire transaction list.
-This will be fixed in future versions.`)
-  client.logger.debug('Forking a new block based on block tag...')
-  // if no state root fork the block with a fresh state manager
-  const vm = await client.getVm()
-  const evm = vm.evm.shallowCopy()
-  // this can't happen making ts happy
-  if (!client.forkUrl) {
-    throw new Error('Cannot fork without a fork url')
-  }
-  const stateManager = createStateManager({
-    ...vm.evm.stateManager._baseState.options,
-    fork: {
-      url: client.forkUrl,
-      blockTag: block.header.number
-    }
-  })
-  // TODO this type is too narrow
-  evm.stateManager = /** @type any*/(stateManager)
-  const transactions = /** @type {import('@tevm/block').Block}*/(block).transactions
-  client.logger.debug({ count: transactions.length }, 'Processing transactions')
-  transactions.map(async (tx, i) => {
-    client.logger.debug({ txNumber: i, tx }, 'Processing transaction')
-    await evm.runCall(tx)
-  })
-  client.logger.debug('Finished processing block transactions and saving state root')
-  vm.stateManager.saveStateRoot(block.header.stateRoot, await stateManager.dumpCanonicalGenesis())
-}
+import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 
 /**
  * The callHandler is the most important function in Tevm.
@@ -137,6 +100,15 @@ export const callHandler =
           forkAndCacheBlock(client, /** @type any*/(block))
         }
         await vm.stateManager.setStateRoot(stateRoot)
+        // if we are forking we need to update the block tag we are forking if the block is in past
+        const forkBlock = vm.blockchain.blocksByTag.get('forked')
+        if (forkBlock !== undefined && block.header.number < forkBlock.header.number) {
+          vm.stateManager._baseState.options.fork = {
+            url: /** @type {string}*/(client.forkUrl),
+            blockTag: block.header.number,
+          }
+          vm.blockchain.blocksByTag.set('forked', /** @type {any} */(block))
+        }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -327,4 +299,4 @@ export const callHandler =
       return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
         ...callHandlerResult(evmOutput, txHash, trace, accessList),
       })
-  }
+    }
