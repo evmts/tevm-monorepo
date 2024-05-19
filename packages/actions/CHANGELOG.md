@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.1.0-next.55
+
+### Patch Changes
+
+- [#1103](https://github.com/evmts/tevm-monorepo/pull/1103) [`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where forkedBlockTag was not getting updated in calls when explicit block tags are passed
+
+- [#1103](https://github.com/evmts/tevm-monorepo/pull/1103) [`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in call actions not properly awaiting in forked mode when fetching a past block tag.
+
+- Updated dependencies [[`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8)]:
+  - @tevm/blockchain@1.1.0-next.55
+  - @tevm/receipt-manager@1.1.0-next.55
+  - @tevm/vm@1.1.0-next.55
+
 ## 1.1.0-next.54
 
 ### Patch Changes
