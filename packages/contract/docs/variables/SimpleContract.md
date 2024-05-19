@@ -16,4 +16,4 @@ the deployedBytecode is not currently correct and contract must be deployed
 
 ## Source
 
-contract-lib/SimpleContract.ts:7
+[contract-lib/SimpleContract.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/contract-lib/SimpleContract.ts#L7)
