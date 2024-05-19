@@ -1511,7 +1511,7 @@ importers:
         specifier: workspace:^
         version: link:../predeploys
       '@tevm/receipt-manager':
-        specifier: workspace:1.1.0-next.52
+        specifier: workspace:1.1.0-next.55
         version: link:../receipt-manager
       '@tevm/state':
         specifier: workspace:^

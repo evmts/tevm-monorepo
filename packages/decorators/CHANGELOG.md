@@ -1,5 +1,14 @@
 # @tevm/client
 
+## 1.1.0-next.55
+
+### Patch Changes
+
+- Updated dependencies [[`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8), [`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8)]:
+  - @tevm/actions@1.1.0-next.55
+  - @tevm/procedures@1.1.0-next.55
+  - @tevm/actions-types@1.1.0-next.54
+
 ## 1.1.0-next.54
 
 ### Patch Changes
