@@ -4,6 +4,10 @@ var contract = require('@tevm/contract');
 
 
 
+Object.defineProperty(exports, "SimpleContract", {
+  enumerable: true,
+  get: function () { return contract.SimpleContract; }
+});
 Object.defineProperty(exports, "createContract", {
   enumerable: true,
   get: function () { return contract.createContract; }
