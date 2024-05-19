@@ -5,8 +5,6 @@ description: A guide to getting solidity imports with the tevm bundler
 
 Solidity imports simplify your tevm code via compiling contracts to ABI and bytecode consumable by JavaScript directly in your JavaScript build pipeline. Solidity imports are purely optional but highly recomended.
 
-Note: this guide is out of date and will be updated soon
-
 ## Requirements
 
 To support solidity imports the following steps must be taken:
@@ -158,3 +156,13 @@ Language server plugins operate in your editor but not when doing command line t
 ## Tevm cache
 
 Tevm caches it's build artifacts to avoid wasted recompilations. The Tevm cache can be found in `.tevm` folder. It is a good resource for debugging when something goes wrong. Please add this folder to your git ignore.
+
+## Best practice
+
+Importing solidity directly is a convenience for when you are developing scripts and contracts within the same codebase as your javascript. It is NOT recomended to copy paste contracts just to use them with the tevm bundler. Instead consider the following options if the contract isn't in your code base.
+
+If the contract you wish to use is external to your code base here are the options:
+
+1. If contract is on npm or github you can npm install the package and then import it from node_modules. The tevm compiler supports node_resolution to import from other monorepo packages and node_modules
+2. In future versions whatsabi integration will allow you to generate the contracts via pointing at a block explorer
+3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using `createScript` or `createContract` <- TODO link to reference docs. You only need to include the methods you wish to use

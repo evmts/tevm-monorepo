@@ -1,12 +1,11 @@
-[**@tevm/contract**](../README.md) • **Docs**
+---
+editUrl: false
+next: false
+prev: false
+title: "SimpleContract"
+---
 
-***
-
-[@tevm/contract](../globals.md) / SimpleContract
-
-# Variable: SimpleContract
-
-> `const` **SimpleContract**: [`Script`](../type-aliases/Script.md)\<`"SimpleContract"`, readonly [`"constructor(uint256 _initialValue)"`, `"function get() view returns (uint256)"`, `"function set(uint256 x)"`]\>
+> `const` **SimpleContract**: [`Script`](/reference/tevm/contract/type-aliases/script/)\<`"SimpleContract"`, readonly [`"constructor(uint256 _initialValue)"`, `"function get() view returns (uint256)"`, `"function set(uint256 x)"`]\>
 
 A simple contract that stores a uint256 that is initialized in constructor and offers a getter and setter method
 

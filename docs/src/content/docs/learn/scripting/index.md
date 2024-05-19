@@ -110,7 +110,7 @@ const client = createMemoryClient({
   customPrecompiles: [fsPrecompile.precompile()],
 });
 
-await client.contract(
+await client.tevmContract(
   fsPrecompile.contract.write.writeFile("./test.txt", "hello world"),
 );
 
@@ -149,12 +149,12 @@ const client = createMemoryClient({
 });
 
 // call our precompile directly
-await client.contract(
+await client.tevmContract(
   fsPrecompile.contract.write.writeFile("./test.txt", "hello world"),
 );
 
 // call our contract that uses our precompile
-const result = client.contract(
+const result = client.tevmContract(
   await ReadHelloWorld.read.readFileFromSolidity("./test.txt"),
 );
 
