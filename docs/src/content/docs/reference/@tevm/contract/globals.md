@@ -19,6 +19,10 @@ title: "@tevm/contract"
 - [ValueOf](/reference/tevm/contract/type-aliases/valueof/)
 - [WriteActionCreator](/reference/tevm/contract/type-aliases/writeactioncreator/)
 
+## Variables
+
+- [SimpleContract](/reference/tevm/contract/variables/simplecontract/)
+
 ## Functions
 
 - [createContract](/reference/tevm/contract/functions/createcontract/)

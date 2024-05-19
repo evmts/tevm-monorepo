@@ -292,7 +292,7 @@ After adding you should see it throw an [`AccountNotFoundError`](https://tevm.sh
 ```typescript
 // addresses and abis must be as const for tevm types
 const address = `0x${"0420".repeat(10)}` as const;
-async function updateAccount() {
+async function updateAccounts() {
   // we are setting throwOnFail to false because we expect this to throw an error from the account not existing
   const account = await memoryClient.tevmGetAccount({
     address,
@@ -311,7 +311,7 @@ async function updateAccount() {
 
 function runApp() {
   ...
-  updateAccount()
+  updateAccounts()
 
   status.innerHTML = "Done";
 }
@@ -342,7 +342,7 @@ async function runApp() {
   if (setAccountResult.errors) console.error(setAccountResult.errors);
 
   status.innerHTML = "Updating account...";
-  await updateAccount();
+  await updateAccounts();
 
   status.innerHTML = "done";
 }
@@ -438,7 +438,7 @@ async function runApp() {
   if (callResult.errors) throw new AggregateError(callResult.errors);
 
 	status.innerHTML = "Updating account...";
-	await updateAccount();
+	await updateAccounts();
 
 	status.innerHTML = "done";
 }
@@ -509,20 +509,24 @@ console.log(mineResult.blockHashes);
 
 status.innerHTML = "Updating account...";
 
-await updateAccount();
+await updateAccounts();
 
 status.innerHTML = "done";
 ```
 
 Now that we mined a block we should finally see our account balance update.
 
-## Advanced calls with `tevmContract` and `tevmDeploy`
+:::tip[Remember tx can revert]
+Remember it's possible for a call to revert when it gets mined even if it didn't revert when the call was simulated. We can check for this via checking the receipt using `memoryClient.getReceipt` (Note; getReceipt currently has a regression that should be fixed soon. If not fixed yet you can isntead use `memoryClient._tevm.getReceiptsManager()` as a temporary workaround for getting receipts
+:::
+
+## Deploy a contract with `tevmDeploy`
 
 All `call-like` endpoints for tevm use tevmCall under the hood including [`eth_call`](https://tevm.sh/reference/tevm/actions-types/type-aliases/ethcallhandler/), [`debug_traceCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/debugtracetransactionhandler/), [`eth_sendRawTransaction`](https://tevm.sh/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure/), and some special tevm methods like [`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/), [`tevmDeploy`](https://tevm.sh/reference/tevm/actions-types/type-aliases/deployhandler/) and [`tevmScript`](https://tevm.sh/reference/tevm/actions-types/type-aliases/scripthandler/). We will talk about `tevmScript` later.
 
 Note we could use [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler/) and the [`encodeDeployData`](https://tevm.sh/reference/tevm/utils/functions/encodedeploydata/). Using `tevmDeploy` is a lot more ergonomic. `tevmDeploy` has access to all the [special cheat properties](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/) that a normal [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callparams/) has.
 
-We also could use [`tevmSetAccount`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#setaccount) and manually set the [`deployedBytecode`](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#deployedbytecode) and any [contract storage](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#state) we want to set. This is a fine way to do it as well and often the most convenient if you don't need to execute the constructor code. For our simple contract we will use tevmdeploy here.
+We also could use [`tevmSetAccount`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#setaccount) and manually set the [`deployedBytecode`](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#deployedbytecode) and any [contract storage](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#state) we want to set. This is a fine way to do it as well and often the most convenient if you don't need to execute the constructor code. For our simple contract we will use tevmDeploy here.
 
 ### 1. Let's use `tevmDeploy` to deploy a contract.
 
@@ -540,8 +544,19 @@ const deployResult = await memoryClient.deploy({
   args: [initialValue],
 });
 if (deployResult.errors) throw new AggregateError(deployResult.errors);
+
+status.innerHTML = `Mining contract deployment tx ${deployResult.txHash} for contract ${deployResult.createdAddress}...`;
+
 // remember to mine!
 await memoryClient.mine();
+
+status.innerHTML = `updating ui to reflect newly mined tx`;
+
+// Pass in the contract address to updateAccounts
+// we will update this function to display contract info in next step
+await updateAccounts(deployResult.createdAddress);
+
+status.innerHTML = "Done";
 ```
 
 :::tip[abitype best practices]
@@ -554,13 +569,86 @@ Tevm uses [abitype](https://abitype.dev/) for it's TypeScript types.
 If you have issues with typescript typings and find yourself fighting the compiler, join the [tevm telegram](https://t.me/+ANThR9bHDLAwMjUx) and ask for help. One of the many Typescript wizards will help.
 :::
 
-### 2. Use `tevmContract` to call our contract
+### 2. Use `tevmGetAccount` to see the contract
 
-:::danger[Not verified]
-The getting starting guide has only been verified for correctness up until this point.
-The rest of the guide could have typos and bugs in it. Please submit a pull request if you find any.
-We also want the rest of this guide to build a UI rather than console.loging so submit any prs if you do make a UI
-:::
+Update the html to display contract information
+
+```typescript
+app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+<div>
+  Address: <span id="address"></span>
+</div>
+<div>
+  Nonce: <span id="nonce"></span>
+</div>
+<div>
+  Balance: <span id="balance"></span>
+</div>
+<h1>Counter contract</h1>
+
+<!-- Contract info -->
+<table border="1" id="contractInfo">
+    <thead>
+        <tr id="contractInfoHeader">
+            <!-- We will fill this in in js -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="contractInfoRow">
+            <!-- We will fill this in in js -->
+        </tr>
+    </tbody>
+</table>
+`;
+```
+
+### 3. Update `updateAccounts` to display the contract in html
+
+Now use `tevmGetAccount` to fill in the table information in `updateAccounts`. This way we can be assured our contract is deployed correct.
+
+Pass in the contract address as a param
+
+```typescript
+async function updateAccounts(contractAddress: Address) {
+  const account = await memoryClient.tevmGetAccount({
+    address,
+    throwOnFail: false,
+  });
+  if (account.errors) throw new AggregateError(account.errors);
+  console.log(account); // console log the account to get familiar with what properties are on it
+  document.querySelector("#address")!.innerHTML = address;
+  document.querySelector("#nonce")!.innerHTML = String(account.nonce);
+  document.querySelector("#balance")!.innerHTML = String(account.balance);
+
+  // Update contract account info
+  const contractAccount = await memoryClient.tevmGetAccount({
+    address: contractAddress,
+    throwOnFail: false,
+    includeStorage: true,
+  });
+  if (contractAccount.errors) throw new AggregateError(contractAccount.errors);
+
+  const header = document.querySelector("#contractInfoHeader")!;
+  const info = document.querySelector("#contractInfoRow")!;
+
+  header.innerHTML = `<tr>Address</tr>
+  <tr>deplyedBytecode</tr>
+  ${Object.keys(contractAccount.storage ?? []).map((storageSlot) => `<tr>${storageSlot}</tr>`)}
+  `;
+
+  info.innerHTML = `<tr>${contractAccount.address}</tr>
+  <tr>${contractAccount.deployedBytecode}</tr>
+  ${Object.values(contractAccount.storage ?? []).map((storageValue) => `<tr>${storageValue}</tr>`)}
+  `;
+}
+```
+
+We should see the contract information show up in our html now.
+
+## Using the `tevmContract` action
+
+### 1. Use `tevmContract` to write to our contract
 
 [`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/) is has a similar api to [readContract](https://viem.sh/docs/contract/readContract.html) from viem and has the followign advantages over a normal `tevmCall`.
 
@@ -573,11 +661,15 @@ Let's use tevm.contract to both read and write to the contract we just deployed.
 
 This particular contract has two methods. `get` to get the stored value and `set` to set the stored value.
 
+For convienience we will also call [`Contract.withAddress`](https://tevm.sh/reference/tevm/contract/type-aliases/contract/#withaddress) to add the deployed address to the contract instance
+
 ```typescript
+const deployedContract = simpleContract.withAddress(deployResult.address);
+
 const contractResult = await memoryClient.tevmContract({
-  abi: simpleContract.abi,
-  from: prefundedAccounts[0],
+  abi: deployedContract.abi,
   functionName: "get",
+  address: deployedContract.address,
 });
 if (contractResult.errors) throw new AggregateError(contractResult.errors);
 console.log(contractResult.rawData); // returns the raw data returned by evm
@@ -587,22 +679,57 @@ console.log(contractResult.executionGasUsed); // returns the execution gas used 
 console.log(contractResult);
 
 // just like tevmCall we can write with `createTransaction: true`
+// remember the default `from` address is `prefundedAccounts[0]` when not specified!
 const writeResult = await memoryClient.contract({
   createTransaction: true,
   abi: simpleContract.abi,
-  from: prefundedAccounts[0],
-  functionName: "get",
+  functionName: "set",
   args: [10_000n],
 });
 
 // remember to mine
 await tevm.mine();
 
-// now if we read again we should see the balance got updated
+// now let's refresh the account information to update
+await updateAccounts(deployResult.created);
 ```
 
-:::tip[Remember tx can revert]
-Remember it's possible for a call to revert when it gets mined even if it didn't revert when the call was simulated. We can check for this via checking the receipt using `memoryClient.getReceipt` (Note; getReceipt currently has a regression that should be fixed soon. If not fixed yet you can isntead use `memoryClient._tevm.getReceiptsManager()` as a temporary workaround for getting receipts
+### 2. Refactor contract code to use contract action creators
+
+Tevm ships with contract action creators which compose with [tevmContract](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/#_top) as well as viem methods such as [readContract](https://viem.sh/docs/contract/readContract.html).
+
+These action creators are even more powerful when combined with the tevm compiler which we will cover later in this guide.
+
+Refactor our contract call to use the contract action creator. Note: the returned value of the action creator matches exactly what we had before.
+
+```typescript
+const deployedContract = simpleContract.withAddress(deployResult.address)
+
+const contractResult = await memoryClient.tevmContract(
+  deployedContract.read.get()
+);
+
+...
+
+const contractResult = await memoryClient.tevmContract(
+  deployedContract.write.set(10_000n)
+);
+```
+
+:::tip[Creating contracts and scripts]
+We can create our own contracts and scripts with the Tevm bundler (covered in the next step) and also with `createContract` and `createScript`. `createContract` is a pure contract with only abi while `createScript` holds also bytecode information.
+
+If the address is known ahead of time use `withAddress` to add the address to the contract.
+
+```typescript
+import { createContract } from "tevm/contracts";
+
+export const myContract = createContract({
+  name: "MyErc721",
+  humanReadableAbi: ["function balanceOf(address): uint256"],
+}).withAddress(contractAddress);
+```
+
 :::
 
 ## Compiling contracts with the Tevm bundler
