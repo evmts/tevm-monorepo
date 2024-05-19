@@ -22,7 +22,7 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 - Basic knowledge of [solidity](https://docs.soliditylang.org/en/v0.8.25/)
 - Familiarity with [viem](https://viem.sh) or a similar library like [ethers.js](https://docs.ethers.org/v6/)
 
-## Creating Your Tevm Project
+## Creating your Tevm project
 
 ### 1. Create a new project directory:
 
@@ -90,7 +90,7 @@ echo '{
 
 ```
 
-### 2. Create an html file
+### 2. Create an HTML file
 
 The HTML file will be the entrypoint to our app. Add it to `index.html`
 
@@ -116,7 +116,7 @@ echo '
 
 ### 3. Add a typescript file
 
-You will see it is importing a `src/main.ts` file in a script tag. Go ahead and add that too
+You will see the HTML file is importing a `src/main.ts` file in a script tag. Go ahead and add that too
 
 ```bash
 mkdir src && echo '
@@ -213,11 +213,11 @@ async function runApp() {
 `;
   const status = app.querySelector("#status")!;
 
-  status.innerHTML = "Fetching block number...";
-
-  const blockNumber = await memoryClient.getBlockNumber();
   document.querySelector("#blocknumber")!.innerHTML =
-    `ForkBlock: ${blockNumber}`;
+    `Fetching block number next step. For now let's check out which methods are on memory client:
+<ul>
+  ${Object.keys(memoryClient).map((key) => `<li>${key}</li>`)}
+</ul>`;
 
   status.innerHTML = "Done";
 }
@@ -237,7 +237,20 @@ Consider using an authenticated RPC url to help speed up performance.
 
 Because the tevm client is a viem client it has access to most of the [public viem actions api](https://viem.sh/docs/actions/public/introduction) as well as [test actions](https://viem.sh/docs/actions/test/introduction) Wallet actions are not yet supported but will receive support in a later version of tevm. Don't worry though, you can still create transactions using the custom tevmActions.
 
-We have already used a viem action with `memoryClient.getBlockNumber()`
+Let's use [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber.html) action from viem to populate the blocknumber div.
+
+```typescript
+async function runApp() {
+  ...
+  status.innerHTML = "Fetching block number...";
+
+  const blockNumber = await memoryClient.getBlockNumber();
+  document.querySelector("#blocknumber")!.innerHTML =
+    `ForkBlock: ${blockNumber}`;
+
+  status.innerHTML = "Done";
+}
+```
 
 Refer to [viem docs](https://viem.sh) for more details about how these actions work.
 
@@ -247,12 +260,12 @@ Not all viem apis have been tested yet though many should work. [See this issue]
 
 ## Tevm account actions
 
-In addition to the viem api there are also powerful tevm specific actions. Let's start with the account actions `tevmSetAccount` and `tevmGetAccount`
+In addition to the viem api there are also powerful tevm specific actions. Let's start with the account actions [`tevmSetAccount`](/reference/tevm/actions-types/type-aliases/setaccounthandler/) and [`tevmGetAccount`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
 
 :::tip[JSON-RPC]
-All Tevm actions are available as JSON-RPC endpoints and can be called with the EIP-1193 compatable `tevm.request` function.
+All Tevm actions are available as [JSON-RPC endpoints](/learn/json-rpc/) and can be called with the EIP-1193 compatable `tevm.request` function. This allows tevm to be composed with any other library that supports EIP-1193 as well as providing an API to use tevm over HTTP
 
-This allows tevm to be composed with any other library that supports EIP-1193 as well as providing an API to use tevm over HTTP
+Tevm also supports much of the [ethereum jsonrpc](https://ethereum.org/en/developers/docs/apis/json-rpc/) and [anvil/hardhat methods](https://hardhat.org/hardhat-network/docs/reference#hardhat-network-methods)
 :::
 
 ### 1. Add a div to add some of our account information
@@ -272,9 +285,9 @@ app.innerHTML = `<div id="status">initializing...</div>
 `;
 ```
 
-### 2. Add function that updates account balance and add it to runApp() {}
+### 2. Add function that displays account balance
 
-After adding you should see it throw an `Account not found` error
+After adding you should see it throw an [`AccountNotFoundError`](https://tevm.sh/reference/tevm/errors/type-aliases/accountnotfounderror/#_top) in the chrome console.
 
 ```typescript
 // addresses and abis must be as const for tevm types
@@ -295,15 +308,21 @@ async function updateAccount() {
   document.querySelector("#nonce")!.innerHTML = String(account.nonce);
   document.querySelector("#balance")!.innerHTML = String(account.balance);
 }
-// remember to call `await updateAccount()` in runApp()
+
+function runApp() {
+  ...
+  updateAccount()
+
+  status.innerHTML = "Done";
+}
 ```
 
-- `tevmGetAccount` will throw if the account is uninitialized (e.g. it has never been touched by the EVM)
+- [`tevmGetAccount`](/reference/tevm/actions-types/type-aliases/getaccounthandler/) will throw if the account is uninitialized (e.g. it has never been touched by the EVM)
 - Tevm has ability to both return errors as typed values as well as throw them using `throwOnFail` prop. It is recomend to return as values and always handle them for production applications.
 - Tevm errors are strongly typed though at this moment not every error is accounted for. They come with a strongly typed `name` property as well as a helpful error message.
 
 :::tip[Contract storage]
-By default `tevmGetAccount` will not return contract storage. To get contract storage you must set the `returnStorage` option to true
+By default `tevmGetAccount` will not return contract storage. To get contract storage you must set the [`returnStorage`](https://tevm.sh/reference/tevm/actions-types/type-aliases/getaccountparams/#returnstorage) option to true
 :::
 
 ### 3. Use `tevmSetAccount` to initialize the account
@@ -312,23 +331,7 @@ Use `tevmSetAccount` to initialize the account with some eth and fix the "Accoun
 
 ```typescript
 async function runApp() {
-  app.innerHTML = `<div id="status">initializing...</div>
-<div id="blocknumber"></div>
-<div>
-  Address: <span id="address"></span>
-</div>
-<div>
-  Nonce: <span id="nonce"></span>
-</div>
-<div>
-  Balance: <span id="balance"></span>
-</div>
-`;
-  const status = app.querySelector("#status")!;
-
-  status.innerHTML = "Fetching block number...";
-  const blockNumber = await memoryClient.getBlockNumber();
-  document.querySelector("#blocknumber")!.innerText = `${blockNumber}`;
+  ...
 
   status.innerHTML = "Setting account...";
   const setAccountResult = await memoryClient.tevmSetAccount({
@@ -381,14 +384,14 @@ Anytime you create a transaction it will default to the first prefunded account 
 
 ## Executing the EVM with tevmCall
 
-Tevm can execute the EVM using viem methods such as `memoryClient.call`, `memoryClient.readContract`, `memoryClient.estimateGas`, etc. It also supports some wallet methods such as `eth_sendRawTransaction`. Refer to viem docs for instructions on using the viem api.
+Tevm can execute the EVM using viem methods such as [`memoryClient.call`](https://viem.sh/docs/actions/public/call#call), [`memoryClient.readContract`](https://viem.sh/docs/contract/readContract#readcontract), [`memoryClient.estimateGas`](https://viem.sh/docs/actions/public/estimateGas#estimategas), etc. It also supports some wallet methods such as [`eth_sendRawTransaction`](https://viem.sh/docs/actions/wallet/sendRawTransaction#sendrawtransaction).
 
-Tevm also has it's own powerful method for executing the evm called `tevmCall`. It's like a normal ethereum call but with extra superpowers to do things such as
+Tevm also has it's own powerful method for executing the evm called [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler/#_top). It's like a normal ethereum call but with extra superpowers to do things such as
 
-- create a transaction if succesful
-- impersonate any account or contract
-- arbitrarily set the call depth
-- skip all balance checks
+- [create a transaction](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#createtransaction)
+- [impersonate](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#from) any account or contract
+- arbitrarily [set the call depth](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#depth)
+- [skip all balance checks](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#skipbalance)
 
 It also happens to be the [shared code](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js) that supports executing all other call-like methods so it can do everything.
 
@@ -397,40 +400,53 @@ It also happens to be the [shared code](https://github.com/evmts/tevm-monorepo/b
 ```typescript
 import { prefundedAccounts } from "tevm";
 
+...
+
 async function runApp() {
-  app.innerHTML = `<div id="status">initializing...</div>
+	app.innerHTML = `<div id="status">initializing...</div>
 <div id="blocknumber"></div>
-<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+<div>
   Address: <span id="address"></span>
 </div>
-<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+<div>
   Nonce: <span id="nonce"></span>
 </div>
-<div style={{display: 'flex', flexDirection: 'horizontal'}}>
+<div>
   Balance: <span id="balance"></span>
 </div>
 `;
 
-  const blockNumber = await memoryClient.getBlockNumber();
-  document.querySelector("#blocknumber").innerText = `${blockNumber}`;
+	const status = app.querySelector("#status")!;
 
-  const callResult = await memoryClient.tevmCall({
+	status.innerHTML = "Fetching block number...";
+
+	const blockNumber = await memoryClient.getBlockNumber();
+	document.querySelector("#blocknumber")!.innerHTML =
+		`ForkBlock: ${blockNumber}`;
+
+	status.innerHTML = "Setting account...";
+	const callResult = await memoryClient.tevmCall({
     // this is the default `from` address so this line isn't actually necessary
     from: prefundedAccounts[0],
     to: address,
     value: 420n,
     throwOnFail: false,
+      // on-success will only create a transaction if the initial run of it doesn't revert
+  createTransaction: "on-success",
   });
   // aggregate error is a good way to throw an array of errors
   if (callResult.errors) throw new AggregateError(callResult.errors);
 
-  await updateAccount();
+	status.innerHTML = "Updating account...";
+	await updateAccount();
+
+	status.innerHTML = "done";
 }
 ```
 
 ### Fix bug using `createTransaction`
 
-After we run this code we should see an error in our console. The balance never updated even though there are no errors. This is because we just did a normal `call` which executes against the EVM but doesn't actually update any state. This is the default and best used for simply reading the evm. Let's fix this using `createTransaction`.
+After we run this code we should see an error in our console. The balance never updated even though there are no errors. This is because we just did a normal `call` which executes against the EVM but doesn't actually update any state. This is the default and best used for simply reading the evm. Let's fix this using [`createTransaction`](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#createtransaction).
 
 ```typescript
 const callResult = await memoryClient.tevmCall({
@@ -446,7 +462,7 @@ if (callResult.errors) console.error(callResult.errors);
 
 We should still see the balance not getting updated. What gives?
 
-Well we did successfully create a transaction which we can see by checking the tx hash
+Well we did successfully create a transaction which we can see by checking the [tx hash](https://tevm.sh/reference/tevm/actions-types/type-aliases/callresult/#txhash)
 
 ```typescript
 console.log(callResult.txHash);
@@ -469,7 +485,7 @@ The actions api is a more streamlined experience and much more stable to breakin
 
 While `cheat` methods like `tevmSetAccount` will immediately update the state for the current block. `call` methods like `tevmCall` will not update the state until a new block is mined.
 
-Currently tevm only supports `manual` mining but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call `tevm.mine()`
+Currently tevm only supports [`manual` mining](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/#miningconfig) but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call [`tevm.mine()`](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/). It will sort the mempool based on priority fees and nonces and mine all transactions up until the block gas limit.
 
 First delete the mempool code and then replace it with a memoryClient.tevmMine()
 
