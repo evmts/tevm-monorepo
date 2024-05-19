@@ -100,6 +100,15 @@ export const callHandler =
           forkAndCacheBlock(client, /** @type any*/(block))
         }
         await vm.stateManager.setStateRoot(stateRoot)
+        // if we are forking we need to update the block tag we are forking if the block is in past
+        const forkBlock = vm.blockchain.blocksByTag.get('forked')
+        if (forkBlock !== undefined && block.header.number < forkBlock.header.number) {
+          vm.stateManager._baseState.options.fork = {
+            url: /** @type {string}*/(client.forkUrl),
+            blockTag: block.header.number,
+          }
+          vm.blockchain.blocksByTag.set('forked', /** @type {any} */(block))
+        }
       } catch (e) {
         client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
@@ -290,4 +299,4 @@ export const callHandler =
       return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
         ...callHandlerResult(evmOutput, txHash, trace, accessList),
       })
-  }
+    }
