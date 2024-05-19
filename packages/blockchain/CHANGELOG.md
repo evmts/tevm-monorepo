@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.55
+
+### Patch Changes
+
+- [#1103](https://github.com/evmts/tevm-monorepo/pull/1103) [`82d7145`](https://github.com/evmts/tevm-monorepo/commit/82d714501f3a895e5de8da1559f229690a6725e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added additional safety checks to double check that blocktags greater than that of the fork block never accidentally get cached
+
 ## 1.1.0-next.52
 
 ### Patch Changes
