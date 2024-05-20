@@ -149,7 +149,6 @@ export class ReceiptsManager {
 	 */
 	async saveReceipts(block: Block, receipts: TxReceipt[]) {
 		const encoded = this.rlp(RlpConvert.Encode, RlpType.Receipts, receipts)
-		console.log('saving receipts', block.hash(), encoded)
 		await this.mapDb.put('Receipts', block.hash(), encoded)
 		void this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
 	}
@@ -200,11 +199,9 @@ export class ReceiptsManager {
 	 */
 	async getReceiptByTxHash(txHash: Uint8Array): Promise<GetReceiptByTxHashReturn | null> {
 		const txHashIndex = await this.getIndex(IndexType.TxHash, txHash)
-		console.log({ txHashIndex, args: [IndexType.TxHash, txHash] })
 		if (!txHashIndex) return null
 		const [blockHash, txIndex] = txHashIndex
 		const receipts = await this.getReceipts(blockHash)
-		console.log({ receipts })
 		if (receipts.length === 0) return null
 		let logIndex = 0
 		receipts.slice(0, txIndex).map((r) => {

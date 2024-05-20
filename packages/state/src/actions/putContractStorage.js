@@ -8,7 +8,7 @@ const stripZeros = (bytes) => {
 	if (!(bytes instanceof Uint8Array)) {
 		throw new Error('Unexpected type')
 	}
-	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
+	return bytes.slice(bytes.findIndex(/** @param {number} entry*/(entry) => entry !== 0))
 }
 /**
  * Adds value to the cache for the `account`
@@ -19,7 +19,7 @@ const stripZeros = (bytes) => {
  */
 export const putContractStorage = (baseState) => async (address, key, value) => {
 	if (key.length !== 32) {
-		throw new Error('Storage key must be 32 bytes long!')
+		throw new Error(`Storage key must be 32 bytes long. Received ${key}`)
 	}
 
 	const account = await getAccount(baseState)(address)

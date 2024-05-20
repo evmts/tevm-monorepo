@@ -121,12 +121,9 @@ export class Block {
 		// parse transactions
 		const transactions = []
 		for (const txData of txsData ?? []) {
-			const tx = TransactionFactory.fromTxData(txData, {
-				...opts,
-				// Use header common in case of setHardfork being activated
-				common: header.common,
-			} as TxOptions)
-			transactions.push(tx)
+			// We should make a new tx using header common in case of setHardfork being activated
+			// We aren't doing that atm because it causes a bug with impersonated transactions
+			transactions.push(txData)
 		}
 
 		// parse uncle headers

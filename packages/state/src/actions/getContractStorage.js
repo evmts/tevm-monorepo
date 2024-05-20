@@ -16,7 +16,7 @@ export const getContractStorage = (baseState) => async (address, key) => {
 	} = baseState
 	// Check storage slot in cache
 	if (key.length !== 32) {
-		throw new Error('Storage key must be 32 bytes long')
+		throw new Error(`Storage key must be 32 bytes long. Received ${key.length}. If using numberToHex make the length 32.`)
 	}
 
 	const cachedValue = storageCache.get(address, key)
