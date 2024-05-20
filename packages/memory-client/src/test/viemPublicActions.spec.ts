@@ -1,13 +1,38 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
-import { simpleContract } from '@tevm/test-utils'
-import type { Address } from '@tevm/utils'
-import { type PublicActions, encodeFunctionData, parseEther } from 'viem'
+import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
+import { hexToBytes, type Address, type Hex } from '@tevm/utils'
+import { type PublicActions, encodeFunctionData, parseEther, numberToHex } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
+const eventAbi = {
+	event: {
+		inputs: [
+			{
+				indexed: true,
+				name: 'from',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				name: 'to',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				name: 'tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'Transfer',
+		type: 'event',
+	},
+} as const
+
 describe('viemPublicActions', () => {
 	let mc: MemoryClient
+	let deployTxHash: Hex
 	let c = {
 		simpleContract: simpleContract.withAddress(`0x${'00'.repeat(20)}`),
 	}
@@ -25,6 +50,10 @@ describe('viemPublicActions', () => {
 		c = {
 			simpleContract: simpleContract.withAddress(deployResult.createdAddress),
 		}
+		if (!deployResult.txHash) {
+			throw new Error('txHash not found')
+		}
+		deployTxHash = deployResult.txHash
 		await mc.tevmMine()
 	})
 
@@ -42,13 +71,44 @@ describe('viemPublicActions', () => {
 			})
 		},
 		createBlockFilter: () => {
-			it.todo('not supported')
+			it('works', () => {
+				expect(mc.createBlockFilter()).toMatchSnapshot()
+			})
 		},
-		createContractEventFilter: () => {
-			it.todo('not supported')
+		createContractEventFilter: async () => {
+			it('works', async () => {
+				const filter = await mc.createContractEventFilter({
+					abi: c.simpleContract.abi,
+				})
+				expect(filter.id).toBeDefined()
+				expect(filter.type).toBe('event')
+				expect(filter.args).toBeUndefined()
+				expect(filter.eventName).toBeUndefined()
+			})
 		},
 		createEventFilter: () => {
-			it.todo('not supported')
+			it('works with no args', async () => {
+				const filter = await mc.createEventFilter()
+				expect(filter.id).toBeDefined()
+				expect(filter.type).toBe('event')
+				expect(filter.args).toBeUndefined()
+				expect(filter.abi).toBeUndefined()
+				expect(filter.eventName).toBeUndefined()
+			})
+
+			it('works with args: address', async () => {
+				await mc.createEventFilter({
+					address: `0x${'69'.repeat(20)}`,
+				})
+			})
+
+			it('works with args: event', async () => {
+				const filter = await mc.createEventFilter(eventAbi)
+				expect(filter.args).toBeUndefined()
+				// @ts-expect-errory TODO this is a viem test copy pasted why is type not working?
+				expect(filter.abi).toEqual([eventAbi])
+				expect(filter.eventName).toEqual('Transfer')
+			})
 		},
 		createPendingTransactionFilter: () => {
 			it.todo('not supported')
@@ -59,39 +119,144 @@ describe('viemPublicActions', () => {
 			})
 		},
 		estimateFeesPerGas: () => {},
-		estimateGas: () => {},
+		estimateGas: async () => {
+			expect(
+				await mc.estimateGas({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+				}),
+			).toBe(16771823n)
+		},
 		estimateMaxPriorityFeePerGas: () => {},
 		getBalance: async () => {
 			expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(parseEther('1000'))
 		},
-		getBlobBaseFee: () => {},
-		getBlock: () => {},
-		getBlockNumber: () => {},
-		getBlockTransactionCount: () => {},
-		getBytecode: () => {},
-		getChainId: () => {},
+		getBlobBaseFee: () => {
+			it('should work', async () => {
+				const TODO = 0n
+				expect(await mc.getBlobBaseFee()).toBe(TODO)
+			})
+		},
+		getBlock: () => {
+			it('should work with latest', async () => {
+				expect(await mc.getBlock({ blockTag: 'latest', includeTransactions: true })).toMatchSnapshot()
+			})
+
+			it('should work with blocknumber', async () => {
+				expect(await mc.getBlock({ blockNumber: 100_000n, includeTransactions: false })).toMatchSnapshot()
+			})
+		},
+		getBlockNumber: () => {
+			it('should work', async () => {
+				const newClient = createMemoryClient()
+				expect(await newClient.getBlockNumber()).toBe(0n)
+			})
+		},
+		getBlockTransactionCount: () => {
+			it('should work', async () => {
+				// TODO
+				expect(await mc.getBlockTransactionCount({ blockTag: 'latest' })).toBe(10)
+			})
+		},
+		getBytecode: () => {
+			it('should work', async () => {
+				// this will fail because bytecode is wrong
+				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(simpleContract.bytecode)
+			})
+		},
+		getChainId: () => {
+			it('should work', async () => {
+				expect(await mc.getChainId()).toBe(10)
+			})
+		},
 		getContractEvents: () => {},
-		getEnsAddress: () => {},
-		getEnsAvatar: () => {},
+		getEnsAddress: () => {
+			const mainnetClient = createMemoryClient({
+				fork: {
+					url: getAlchemyUrl({ chainId: 1 }),
+				},
+			})
+			it('should work', async () => {
+				expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe('0x0')
+			})
+		},
+		getEnsAvatar: () => {
+			const mainnetClient = createMemoryClient({
+				fork: {
+					url: getAlchemyUrl({ chainId: 1 }),
+				},
+			})
+			it('should work', async () => {
+				expect(await mainnetClient.getEnsAvatar({ name: 'vitalik.eth' })).toBe('0x0')
+			})
+		},
 		getEnsName: () => {},
 		getEnsResolver: () => {},
 		getEnsText: () => {},
 		getFeeHistory: () => {},
 		getFilterChanges: () => {},
 		getFilterLogs: () => {},
-		getGasPrice: () => {},
-		getLogs: () => {},
-		getProof: () => {},
-		getStorageAt: () => {},
-		getTransaction: () => {},
-		getTransactionConfirmations: () => {},
-		getTransactionCount: () => {},
-		getTransactionReceipt: () => {},
+		getGasPrice: () => {
+			it('should work', async () => {
+				const mc = createMemoryClient()
+				expect(await mc.getGasPrice()).toBe(1n)
+			})
+		},
+		getLogs: () => {
+			it.todo('should work', async () => {
+				const filter = await mc.createEventFilter(eventAbi)
+				const logs = await mc.getLogs(filter)
+				expect(logs).toHaveLength(0)
+			})
+		},
+		getProof: () => {
+			it('should work', async () => {
+				expect(
+					await mc.getProof({ address: c.simpleContract.address, storageKeys: [numberToHex(0)] }),
+				).toMatchSnapshot()
+			})
+		},
+		getStorageAt: () => {
+			it('should work', async () => {
+				expect(await mc.getStorageAt({ address: c.simpleContract.address, slot: numberToHex(0) })).toBe(
+					numberToHex(420),
+				)
+			})
+		},
+		getTransaction: () => {
+			it('should work', async () => {
+				expect(await mc.getTransaction({ hash: deployTxHash })).toMatchSnapshot()
+			})
+		},
+		getTransactionConfirmations: () => {
+			it('should work', async () => {
+				expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(1n)
+			})
+		},
+		getTransactionCount: () => {
+			it('should work', async () => {
+				// TODO
+				expect(await mc.getTransactionCount({ address: prefundedAccounts[0] as Address })).toBe(0)
+			})
+		},
+		getTransactionReceipt: () => {
+			it('should work', async () => {
+				expect(await mc.getTransactionReceipt({ hash: deployTxHash })).toMatchSnapshot()
+			})
+		},
 		multicall: () => {},
 		prepareTransactionRequest: () => {},
-		readContract: () => {},
+		readContract: () => {
+			it('should work', async () => {
+				expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
+			})
+		},
 		sendRawTransaction: () => {},
-		simulateContract: () => {},
+		simulateContract: () => {
+			it('should work', async () => {
+				expect(await mc.simulateContract(c.simpleContract.write.set(99999n))).toMatchSnapshot()
+			})
+		},
 		uninstallFilter: () => {},
 		verifyMessage: () => {},
 		verifyTypedData: () => {},
