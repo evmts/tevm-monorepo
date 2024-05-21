@@ -26,7 +26,7 @@ export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptio
 	 */
 	readonly chainCommon?: TevmChainCommon<TChain>
 	/**
-	 * Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
+	 * Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
 	 */
 	readonly customCrypto?: CustomCrypto
 	/**
