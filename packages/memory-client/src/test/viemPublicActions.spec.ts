@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
-import { type PublicActions, encodeFunctionData, parseEther, numberToHex, parseGwei } from 'viem'
+import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -163,14 +163,14 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getBytecode: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				// this will fail because bytecode is wrong
 				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(simpleContract.bytecode)
 			})
 		},
 		getChainId: () => {
-			it.todo('should work', async () => {
-				expect(await mc.getChainId()).toBe(10)
+			it('should work', async () => {
+				expect(await mc.getChainId()).toBe(900)
 			})
 		},
 		getContractEvents: () => {},
@@ -201,7 +201,7 @@ describe('viemPublicActions', () => {
 		getFilterChanges: () => {},
 		getFilterLogs: () => {},
 		getGasPrice: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const mc = createMemoryClient()
 				expect(await mc.getGasPrice()).toBe(parseGwei('1'))
 			})

@@ -14,12 +14,12 @@ export const getCodeHandler =
 	async (params) => {
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
-		if (tag === 'pending') {
+		if (tag === 'latest') {
 			return bytesToHex(await vm.stateManager.getContractCode(EthjsAddress.fromString(params.address)))
 		}
 		if (!forkUrl) {
 			throw new NoForkUrlSetError(
-				`Cannot eth_getCode for block tag ${tag} without a fork url set. Try passing in a forkUrl option to getCodeHandler.`,
+				'getCode is not supported for any block tags other than latest atm. This will be fixed in the next few releases',
 			)
 		}
 		const fetcher = createJsonRpcFetcher(forkUrl)
