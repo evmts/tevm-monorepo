@@ -11,13 +11,13 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ## Type declaration
 
-### blobGasPrice
+### blobGasPrice?
 
-> `readonly` **blobGasPrice**: `bigint`
+> `optional` `readonly` **blobGasPrice**: `bigint`
 
-### blobGasUsed
+### blobGasUsed?
 
-> `readonly` **blobGasUsed**: `bigint`
+> `optional` `readonly` **blobGasUsed**: `bigint`
 
 ### blockHash
 

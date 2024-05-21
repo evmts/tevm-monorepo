@@ -2,7 +2,6 @@
 
 exports[`viemPublicActions getTransactionReceipt should work 1`] = `
 {
-  "blockHash": "0x4fe94ae65e85c21241b4f6fd2f3247abf9568f5fb1cb5caeafbb3a622b5d82f1",
   "blockNumber": 1n,
   "contractAddress": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
   "cumulativeGasUsed": 147721n,

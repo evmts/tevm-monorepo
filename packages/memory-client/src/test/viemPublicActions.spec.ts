@@ -246,7 +246,9 @@ describe('viemPublicActions', () => {
 		},
 		getTransactionReceipt: () => {
 			it('should work', async () => {
-				expect(await mc.getTransactionReceipt({ hash: deployTxHash })).toMatchSnapshot()
+				const { blockHash, ...receipt } = await mc.getTransactionReceipt({ hash: deployTxHash })
+				expect(blockHash).toStartWith('0x')
+				expect(receipt).toMatchSnapshot()
 			})
 		},
 		multicall: () => {},
