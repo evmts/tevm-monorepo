@@ -197,10 +197,12 @@ Memory client is similar to `anvil`. It can:
 
 ```typescript
 import { createMemoryClient } from "tevm";
+import { optimism } from "tevm/chains";
 
 const app = document.querySelector("#app") as Element;
 
 const memoryClient = createMemoryClient({
+  chain: optimism,
   fork: {
     // @warning we may face throttling using the public endpoint
     url: "https://mainnet.optimism.io",
@@ -226,6 +228,8 @@ runApp();
 ```
 
 When we fork a network the blocknumber will be pinned to the block number at the time of the fork. As you mine new blocks you will not get updates from the chain unless you refork it.
+
+It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
 
 :::caution[Tevm performance]
 Performance is a known issue. Tevm is pretty slow especially when the fork url is slow. Currently tevm development is focused on feature completeness and correctness. Performance improvements will be prioritized after stable 1.0.0 release.

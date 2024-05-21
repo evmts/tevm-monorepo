@@ -44,6 +44,8 @@ Notable options include:
 - fork.blockTag to specify a specific block tag to fork
 - loggingLevel defaults to warning. Setting to `debug` will show a significant amount of internal logs and `trace` includes the EVM logs
 
+It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
+
 See [BaseClientOptions](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/) docs for information about all individual options.
 
 ## Mining modes
