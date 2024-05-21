@@ -17,6 +17,6 @@ export type TransactionReceiptResult = {
 	readonly to: Hex
 	readonly transactionHash: Hex
 	readonly transactionIndex: bigint
-	readonly blobGasUsed: bigint
-	readonly blobGasPrice: bigint
+	readonly blobGasUsed?: bigint
+	readonly blobGasPrice?: bigint
 }
