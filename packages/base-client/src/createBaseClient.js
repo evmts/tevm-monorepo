@@ -1,4 +1,5 @@
 import { createChain } from '@tevm/blockchain'
+import { mainnet, tevmDevnet } from '@tevm/chains'
 import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
@@ -12,7 +13,6 @@ import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
-import { mainnet, tevmDevnet } from '@tevm/chains'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm

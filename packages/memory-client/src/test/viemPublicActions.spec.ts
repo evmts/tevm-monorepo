@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
+import { mainnet } from '@tevm/chains'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
+import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
-import { mainnet } from '@tevm/chains'
-import { loadKZG } from 'kzg-wasm'
 
 const eventAbi = {
 	event: {
