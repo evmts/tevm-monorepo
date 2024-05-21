@@ -12,7 +12,7 @@ Creates the base instance of a memory client
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)= `{}`
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<`Chain`\>= `{}`
 
 ## Returns
 
@@ -20,7 +20,7 @@ Creates the base instance of a memory client
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -35,7 +35,7 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 ### forkUrl?
 
@@ -52,14 +52,14 @@ console.log(client.forkUrl)
 
 ### getChainCommon()
 
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\>
+> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 #### Returns
 
-`Promise`\<`TevmChainCommon`\>
+`Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 ### getReceiptsManager()
 
@@ -151,4 +151,4 @@ await client.ready()
 
 ## Source
 
-[createBaseClient.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L28)
+[createBaseClient.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L27)

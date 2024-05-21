@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<`Chain`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>\>
 
 ## Returns
 

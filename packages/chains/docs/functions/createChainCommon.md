@@ -6,18 +6,22 @@
 
 # Function: createChainCommon()
 
-> **createChainCommon**(`viemChain`, `commonOptions`): [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
+> **createChainCommon**\<`TChain`\>(`viemChain`, `commonOptions`): [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)\<`TChain`\>
+
+## Type parameters
+
+• **TChain** *extends* [`ViemChain`](../type-aliases/ViemChain.md)
 
 ## Parameters
 
-• **viemChain**: `Chain`
+• **viemChain**: `TChain`
 
 • **commonOptions**: [`CommonOptions`](../type-aliases/CommonOptions.md)
 
 ## Returns
 
-[`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
+[`TevmChainCommon`](../type-aliases/TevmChainCommon.md)\<`TChain`\>
 
 ## Source
 
-[index.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L30)
+[packages/chains/src/index.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L32)

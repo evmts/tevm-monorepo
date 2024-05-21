@@ -25,4 +25,4 @@ In future we will take hardfork by blockNumber so the hardfork eips can change b
 
 ## Source
 
-packages/chains/types/index.d.ts:4
+packages/chains/types/index.d.ts:7

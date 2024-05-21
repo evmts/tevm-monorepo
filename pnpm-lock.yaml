@@ -1180,6 +1180,9 @@ importers:
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../../packages/client-types
+      '@tevm/decorators':
+        specifier: workspace:1.1.0-next.56
+        version: link:../../packages/decorators
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client

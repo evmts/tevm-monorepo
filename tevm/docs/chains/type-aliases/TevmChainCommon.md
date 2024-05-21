@@ -4,10 +4,20 @@
 
 [tevm](../../modules.md) / [chains](../README.md) / TevmChainCommon
 
-# Type alias: TevmChainCommon
+# Type alias: TevmChainCommon\<TChain\>
 
-> **TevmChainCommon**: `Chain` & `Common`
+> **TevmChainCommon**\<`TChain`\>: `TChain` & `object`
+
+## Type declaration
+
+### common
+
+> **common**: `Common`
+
+## Type parameters
+
+• **TChain** *extends* [`ViemChain`](ViemChain.md)
 
 ## Source
 
-packages/chains/types/index.d.ts:3
+packages/chains/types/index.d.ts:4

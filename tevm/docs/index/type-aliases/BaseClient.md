@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / BaseClient
 
-# Type alias: BaseClient\<TMode, TExtended\>
+# Type alias: BaseClient\<TMode, TExtended, TChain\>
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`, `TChain`\>: `object` & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -46,14 +46,14 @@ console.log(client.forkUrl)
 
 ### getChainCommon()
 
-> `readonly` **getChainCommon**: () => `Promise`\<[`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)\>
+> `readonly` **getChainCommon**: () => `Promise`\<[`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)\<`TChain`\>\>
 
 Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 #### Returns
 
-`Promise`\<[`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)\>
+`Promise`\<[`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)\<`TChain`\>\>
 
 ### getReceiptsManager()
 
@@ -143,6 +143,8 @@ await client.ready()
 • **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
 
 • **TExtended** = `object`
+
+• **TChain** *extends* [`ViemChain`](../../chains/type-aliases/ViemChain.md) = [`ViemChain`](../../chains/type-aliases/ViemChain.md)
 
 ## Source
 

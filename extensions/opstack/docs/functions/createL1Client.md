@@ -32,7 +32,7 @@ All constants including vital OP stack addresses and owners are available and tr
 
 ##### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -47,7 +47,7 @@ and extensibility
 
 ###### Returns
 
-`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 ##### forkUrl?
 
@@ -62,16 +62,16 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-##### getChain()
+##### getChainCommon()
 
-> `readonly` **getChain**: () => `Promise`\<`TevmChain`\>
+> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 ###### Returns
 
-`Promise`\<`TevmChain`\>
+`Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 ##### getReceiptsManager()
 

@@ -8,6 +8,7 @@
 
 - [CommonOptions](type-aliases/CommonOptions.md)
 - [TevmChainCommon](type-aliases/TevmChainCommon.md)
+- [ViemChain](type-aliases/ViemChain.md)
 
 ## Variables
 

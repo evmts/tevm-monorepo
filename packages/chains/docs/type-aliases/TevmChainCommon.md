@@ -4,10 +4,20 @@
 
 [@tevm/chains](../globals.md) / TevmChainCommon
 
-# Type alias: TevmChainCommon
+# Type alias: TevmChainCommon\<TChain\>
 
-> **TevmChainCommon**: `Chain` & `Common`
+> **TevmChainCommon**\<`TChain`\>: `TChain` & `object`
+
+## Type declaration
+
+### common
+
+> **common**: `Common`
+
+## Type parameters
+
+• **TChain** *extends* [`ViemChain`](ViemChain.md)
 
 ## Source
 
-[index.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L16)
+[packages/chains/src/index.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L18)

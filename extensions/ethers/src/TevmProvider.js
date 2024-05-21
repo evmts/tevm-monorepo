@@ -1,4 +1,5 @@
-import { createMemoryClient } from '@tevm/memory-client'
+import { createBaseClient } from '@tevm/base-client'
+import { tevmActions, tevmSend } from '@tevm/decorators'
 import { JsonRpcApiProvider } from 'ethers'
 
 /**
@@ -121,13 +122,13 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * ```
 	 */
 	static createMemoryProvider = async (options) => {
-		return new TevmProvider(createMemoryClient(options))
+		return new TevmProvider(createBaseClient(options).extend(tevmActions()).extend(tevmSend()))
 	}
 
 	/**
 	 * An instance of the TevmClient interface.
 	 * @see [Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/)
-	 * @type {import('@tevm/memory-client').MemoryClient['_tevm']}
+	 * @type {import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}
 	 * ## Tevm actions support
 	 *
 	 * The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
@@ -167,16 +168,16 @@ export class TevmProvider extends JsonRpcApiProvider {
 	tevm
 
 	/**
-	 * @param {import('@tevm/memory-client').MemoryClient} memoryClient An instance of a tevm Memory client
+	 * @param {(import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi) | {_tevm: import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}} client An instance of a tevm Memory client or BaseClient with TevmSendApi
 	 */
-	constructor(memoryClient) {
+	constructor(client) {
 		super(undefined, {
 			staticNetwork: true,
 			batchMaxCount: 1,
 			batchStallTime: 0,
 			cacheTimeout: -1,
 		})
-		this.tevm = memoryClient._tevm
+		this.tevm = '_tevm' in client ? client._tevm : client
 	}
 
 	/**
