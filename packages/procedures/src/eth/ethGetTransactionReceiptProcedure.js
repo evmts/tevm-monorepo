@@ -25,7 +25,6 @@ export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) 
 	}
 
 	const res = await ethGetTransactionReceiptHandler(client)({ hash: txHash })
-
 	/**
 	 * @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcResponse}
 	 */
@@ -58,9 +57,8 @@ export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) 
 			),
 			logsBloom: res.logsBloom,
 			status: res.status,
-			// TODO fix the type
-			blobGasUsed: res.blobGasUsed !== undefined ? numberToHex(res.blobGasUsed) : '0x',
-			blobGasPrice: res.blobGasPrice !== undefined ? numberToHex(res.blobGasPrice) : '0x',
+			...(res.blobGasUsed !== undefined ? { blobGasUsed: numberToHex(res.blobGasUsed) } : {}),
+			...(res.blobGasPrice !== undefined ? { blobGasPrice: numberToHex(res.blobGasPrice) } : {}),
 		},
 	}
 	return out
