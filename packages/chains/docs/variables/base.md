@@ -6,7 +6,7 @@
 
 # Variable: base
 
-> `const` **base**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **base**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Source
 

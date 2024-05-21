@@ -18,9 +18,9 @@ Options for creating an Tevm MemoryClient instance
 
 Enable/disable unlimited contract size. Defaults to false.
 
-### chain?
+### chainCommon?
 
-> `optional` `readonly` **chain**: [`TevmChain`](../../chains/type-aliases/TevmChain.md)
+> `optional` `readonly` **chainCommon**: [`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)
 
 The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info

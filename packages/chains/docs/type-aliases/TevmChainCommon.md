@@ -2,11 +2,11 @@
 
 ***
 
-[@tevm/chains](../globals.md) / TevmChain
+[@tevm/chains](../globals.md) / TevmChainCommon
 
-# Type alias: TevmChain
+# Type alias: TevmChainCommon
 
-> **TevmChain**: `Chain` & `Common`
+> **TevmChainCommon**: `Chain` & `Common`
 
 ## Source
 

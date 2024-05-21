@@ -6,7 +6,7 @@
 
 # Variable: tevmDevnet
 
-> `const` **tevmDevnet**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **tevmDevnet**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 The default chain if no fork url is passed
 

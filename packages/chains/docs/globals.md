@@ -7,7 +7,7 @@
 ## Type Aliases
 
 - [CommonOptions](type-aliases/CommonOptions.md)
-- [TevmChain](type-aliases/TevmChain.md)
+- [TevmChainCommon](type-aliases/TevmChainCommon.md)
 
 ## Variables
 
@@ -23,4 +23,4 @@
 
 ## Functions
 
-- [createChain](functions/createChain.md)
+- [createChainCommon](functions/createChainCommon.md)

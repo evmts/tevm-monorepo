@@ -6,10 +6,10 @@
 
 # Variable: mainnet
 
-> `const` **mainnet**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **mainnet**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 TODO update op-stack package to use this
-export const tevmL2Devnet = createChain(
+export const tevmL2Devnet = createChainCommon(
 defineChain({
 id: 900,
 name: 'tevm-devnet',

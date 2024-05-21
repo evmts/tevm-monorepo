@@ -2,11 +2,11 @@
 
 ***
 
-[@tevm/chains](../globals.md) / createChain
+[@tevm/chains](../globals.md) / createChainCommon
 
-# Function: createChain()
+# Function: createChainCommon()
 
-> **createChain**(`viemChain`, `commonOptions`): [`TevmChain`](../type-aliases/TevmChain.md)
+> **createChainCommon**(`viemChain`, `commonOptions`): [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Returns
 
-[`TevmChain`](../type-aliases/TevmChain.md)
+[`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Source
 

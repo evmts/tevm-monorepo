@@ -1,4 +1,4 @@
-import type { TevmChainCommon } from '@tevm/chains'
+import type { TevmChainCommon, ViemChain } from '@tevm/chains'
 import { type CustomCrypto } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
@@ -11,7 +11,7 @@ import type { MiningConfig } from './MiningConfig.js'
 /**
  * Options for creating an Tevm MemoryClient instance
  */
-export type BaseClientOptions = StateOptions & {
+export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptions & {
 	/**
 	 * The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
@@ -24,7 +24,7 @@ export type BaseClientOptions = StateOptions & {
 	 * ````
 	 * `
 	 */
-	readonly chainCommon?: TevmChainCommon
+	readonly chainCommon?: TevmChainCommon<TChain>
 	/**
 	 * Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
 	 */

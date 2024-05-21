@@ -6,7 +6,7 @@
 
 # Variable: zoraSepolia
 
-> `const` **zoraSepolia**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **zoraSepolia**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Source
 

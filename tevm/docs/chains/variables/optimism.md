@@ -6,7 +6,7 @@
 
 # Variable: optimism
 
-> `const` **optimism**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **optimism**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Source
 

@@ -1,7 +1,7 @@
 import { Common, type Hardfork, createCommon } from '@tevm/common'
 import { defineChain } from 'viem'
 import {
-	type Chain,
+	type Chain as ViemChain,
 	base as _base,
 	baseSepolia as _baseSepolia,
 	mainnet as _mainnet,
@@ -13,7 +13,9 @@ import {
 	foundry,
 } from 'viem/chains'
 
-export type TevmChainCommon = Chain & Common
+export type { ViemChain }
+
+export type TevmChainCommon<TChain extends ViemChain> = TChain & { common: Common }
 
 export type CommonOptions = {
 	/**
@@ -27,14 +29,19 @@ export type CommonOptions = {
 	hardfork: Hardfork
 }
 
-export const createChainCommon = (viemChain: Chain, commonOptions: CommonOptions): TevmChainCommon => {
+export const createChainCommon = <TChain extends ViemChain>(
+	viemChain: TChain,
+	commonOptions: CommonOptions,
+): TevmChainCommon<TChain> => {
 	const common = createCommon({
 		eips: commonOptions.eips,
 		chainId: BigInt(viemChain.id),
 		hardfork: commonOptions.hardfork,
 		loggingLevel: 'warn',
 	})
-	return Object.assign(common, viemChain)
+	return Object.assign({}, viemChain, {
+		common,
+	})
 }
 
 // TODO I haven't actually looked into which EIPs and hardforks should be nabled

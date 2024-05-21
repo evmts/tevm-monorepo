@@ -6,7 +6,7 @@
 
 # Variable: zora
 
-> `const` **zora**: [`TevmChain`](../type-aliases/TevmChain.md)
+> `const` **zora**: [`TevmChainCommon`](../type-aliases/TevmChainCommon.md)
 
 ## Source
 

@@ -50,16 +50,16 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
-### getChain()
+### getChainCommon()
 
-> `readonly` **getChain**: () => `Promise`\<`TevmChain`\>
+> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\>
 
 Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 #### Returns
 
-`Promise`\<`TevmChain`\>
+`Promise`\<`TevmChainCommon`\>
 
 ### getReceiptsManager()
 
