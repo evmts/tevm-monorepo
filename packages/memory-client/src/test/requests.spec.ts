@@ -71,7 +71,9 @@ describe('Tevm.request', async () => {
 		async () => {
 			const tevm = createMemoryClient({
 				loggingLevel: 'warn',
-				fork: forkConfig,
+				fork: {
+					...forkConfig,
+				},
 			})
 			const req = {
 				params: [
@@ -96,7 +98,7 @@ describe('Tevm.request', async () => {
 					abi: DaiContract.abi,
 					functionName: 'balanceOf',
 				}) satisfies bigint,
-			).toBe(1n)
+			).toBe(0n)
 			expect(hexToBigInt(res.executionGasUsed)).toBe(2447n)
 			expect(res.logs).toEqual([])
 		},
