@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.1.0-next.57
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/block@1.1.0-next.57
+  - @tevm/blockchain@1.1.0-next.57
+  - @tevm/receipt-manager@1.1.0-next.57
+  - @tevm/vm@1.1.0-next.57
+  - @tevm/procedures-types@1.1.0-next.52
+
 ## 1.1.0-next.56
 
 ### Patch Changes
