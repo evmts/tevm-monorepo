@@ -165,7 +165,7 @@ describe('viemPublicActions', () => {
 		getBytecode: () => {
 			it('should work', async () => {
 				// this will fail because bytecode is wrong
-				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(simpleContract.bytecode)
+				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(c.simpleContract.deployedBytecode)
 			})
 		},
 		getChainId: () => {
