@@ -10,7 +10,6 @@ import {
 	TypeOutput,
 	Withdrawal,
 	hexToBytes,
-	keccak256,
 	parseGwei,
 	toType,
 	zeros,
