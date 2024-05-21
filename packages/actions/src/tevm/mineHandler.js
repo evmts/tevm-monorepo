@@ -107,4 +107,6 @@ export const mineHandler =
             originalVm.blockchain = vm.blockchain
             originalVm.evm.blockchain = vm.evm.blockchain
             await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
+
+            return { blockHashes }
     }

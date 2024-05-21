@@ -126,10 +126,7 @@ export class BlockBuilder {
 	 * Calculates and returns the transactionsTrie for the block.
 	 */
 	public async transactionsTrie() {
-		return Block.genTransactionsTrieRoot(
-			/** @type {Array<TypedTransaction>}*/ (this.transactions),
-			new Trie({ common: this.vm.common }),
-		)
+		return Block.genTransactionsTrieRoot(this.transactions as TypedTransaction[], new Trie({ common: this.vm.common }))
 	}
 
 	/**
