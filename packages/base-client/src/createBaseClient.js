@@ -1,5 +1,5 @@
 import { createChain } from '@tevm/blockchain'
-import { mainnet, tevmDevnet } from '@tevm/chains'
+import { createChainCommon, mainnet, tevmDevnet } from '@tevm/chains'
 import { createCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
@@ -67,10 +67,10 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
-		if (options.chain) {
-			return options.chain.id
+		if (options?.chainCommon) {
+			return options?.chainCommon.id
 		}
-		const url = options.fork?.url
+		const url = options?.fork?.url
 		if (url) {
 			const id = await getChainId(url)
 			return id
@@ -100,11 +100,18 @@ export const createBaseClient = (options = {}) => {
 		// TODO we will eventually want to be setting common hardfork based on chain id and block number
 		// ethereumjs does this for mainnet but we forgo all this functionality
 		const customCrypto = options?.customCrypto ?? {}
-		if (options.chain) {
-			return Object.assign(options.chain, { customCrypto })
+		if (options.chainCommon) {
+			return Object.assign(options.chainCommon, { customCrypto })
 		}
 		if (!options.fork?.url) {
-			return Object.assign(tevmDevnet, { customCrypto })
+			return createChainCommon(
+				{ ...tevmDevnet, id: Number(chainId) },
+				{
+					hardfork: 'cancun',
+					eips: options.eips ?? [],
+					...(options.customCrypto !== undefined ? options.customCrypto : {}),
+				},
+			)
 		}
 		const common = createCommon({
 			chainId,
@@ -114,7 +121,7 @@ export const createBaseClient = (options = {}) => {
 			...(options.customCrypto !== undefined ? options.customCrypto : {}),
 		})
 		/**
-		 * @type {import('@tevm/chains').TevmChain}
+		 * @type {import('@tevm/chains').TevmChainCommon}
 		 */
 		const resolvedChain = Object.assign(common, {
 			...mainnet,
@@ -248,7 +255,7 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		getChain() {
+		getChainCommon() {
 			return commonPromise
 		},
 		logger,

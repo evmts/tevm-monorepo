@@ -28,6 +28,11 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
+• **options.getChain**
+
+Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
+This is the same object on `getVm().common`
+
 • **options.getReceiptsManager**
 
 Interface for querying receipts and historical state

@@ -35,6 +35,12 @@ const client = createMemoryClient({ chain: optimism })
 ````
 `
 
+### customCrypto?
+
+> `optional` `readonly` **customCrypto**: `CustomCrypto`
+
+Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
+
 ### customPrecompiles?
 
 > `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
@@ -163,4 +169,4 @@ Enable profiler. Defaults to false.
 
 ## Source
 
-packages/base-client/types/BaseClientOptions.d.ts:12
+packages/base-client/types/BaseClientOptions.d.ts:13

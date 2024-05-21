@@ -13,7 +13,7 @@ import {
 	foundry,
 } from 'viem/chains'
 
-export type TevmChain = Chain & Common
+export type TevmChainCommon = Chain & Common
 
 export type CommonOptions = {
 	/**
@@ -27,7 +27,7 @@ export type CommonOptions = {
 	hardfork: Hardfork
 }
 
-export const createChain = (viemChain: Chain, commonOptions: CommonOptions): TevmChain => {
+export const createChainCommon = (viemChain: Chain, commonOptions: CommonOptions): TevmChainCommon => {
 	const common = createCommon({
 		eips: commonOptions.eips,
 		chainId: BigInt(viemChain.id),
@@ -43,7 +43,7 @@ export const createChain = (viemChain: Chain, commonOptions: CommonOptions): Tev
 /**
  * The default chain if no fork url is passed
  */
-export const tevmDevnet = createChain(
+export const tevmDevnet = createChainCommon(
 	defineChain({
 		id: 900,
 		name: 'tevm-devnet',
@@ -64,7 +64,7 @@ export const tevmDevnet = createChain(
 )
 /**
 * TODO update op-stack package to use this
-export const tevmL2Devnet = createChain(
+export const tevmL2Devnet = createChainCommon(
 defineChain({
 id: 900,
 name: 'tevm-devnet',
@@ -76,42 +76,42 @@ custom: foundry.custom,
 )
 */
 
-export const mainnet = createChain(_mainnet, {
+export const mainnet = createChainCommon(_mainnet, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const sepolia = createChain(_sepolia, {
+export const sepolia = createChainCommon(_sepolia, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const optimism = createChain(_optimism, {
+export const optimism = createChainCommon(_optimism, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const optimismSepolia = createChain(_optimismSepolia, {
+export const optimismSepolia = createChainCommon(_optimismSepolia, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const base = createChain(_base, {
+export const base = createChainCommon(_base, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const baseSepolia = createChain(_baseSepolia, {
+export const baseSepolia = createChainCommon(_baseSepolia, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const zora = createChain(_zora, {
+export const zora = createChainCommon(_zora, {
 	eips: [],
 	hardfork: 'cancun',
 })
 
-export const zoraSepolia = createChain(_zoraSepolia, {
+export const zoraSepolia = createChainCommon(_zoraSepolia, {
 	eips: [],
 	hardfork: 'cancun',
 })

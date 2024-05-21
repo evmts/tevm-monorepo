@@ -179,7 +179,7 @@ describe('viemPublicActions', () => {
 		getEnsAddress: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chain: mainnet,
+				chainCommon: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},

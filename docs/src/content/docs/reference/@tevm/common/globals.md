@@ -16,6 +16,7 @@ title: "@tevm/common"
 
 ## Interfaces
 
+- [CustomCrypto](/reference/tevm/common/interfaces/customcrypto/)
 - [EvmStateManagerInterface](/reference/tevm/common/interfaces/evmstatemanagerinterface/)
 - [StorageDump](/reference/tevm/common/interfaces/storagedump/)
 - [StorageRange](/reference/tevm/common/interfaces/storagerange/)

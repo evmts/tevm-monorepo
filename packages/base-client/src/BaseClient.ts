@@ -1,4 +1,4 @@
-import type { TevmChain } from '@tevm/chains'
+import type { TevmChainCommon } from '@tevm/chains'
 import type { Logger } from '@tevm/logger'
 import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
@@ -13,7 +13,7 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 	 * This is the same object on `getVm().common`
 	 */
-	readonly getChain: () => Promise<TevmChain>
+	readonly getChainCommon: () => Promise<TevmChainCommon>
 	/**
 	 * The logger instance
 	 */

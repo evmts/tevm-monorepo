@@ -1,4 +1,4 @@
-import type { TevmChain } from '@tevm/chains'
+import type { TevmChainCommon } from '@tevm/chains'
 import { type CustomCrypto } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
@@ -24,7 +24,7 @@ export type BaseClientOptions = StateOptions & {
 	 * ````
 	 * `
 	 */
-	readonly chain?: TevmChain
+	readonly chainCommon?: TevmChainCommon
 	/**
 	 * Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
 	 */

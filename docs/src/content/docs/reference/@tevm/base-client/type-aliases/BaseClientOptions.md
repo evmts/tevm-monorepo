@@ -17,11 +17,28 @@ Options for creating an Tevm MemoryClient instance
 
 Enable/disable unlimited contract size. Defaults to false.
 
-### chainId?
+### chain?
 
-> `optional` `readonly` **chainId**: `number`
+> `optional` `readonly` **chain**: `TevmChain`
 
-Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
+The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
+
+#### Example
+
+```
+import { optimism } from 'tevm/chains'
+import { createMemoryClient } from 'tevm'}
+
+const client = createMemoryClient({ chain: optimism })
+````
+`
+
+### customCrypto?
+
+> `optional` `readonly` **customCrypto**: [`CustomCrypto`](/reference/tevm/common/interfaces/customcrypto/)
+
+Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
 
 ### customPrecompiles?
 
@@ -151,4 +168,4 @@ Enable profiler. Defaults to false.
 
 ## Source
 
-[BaseClientOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L12)
+[BaseClientOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L14)
