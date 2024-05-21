@@ -91,6 +91,8 @@ export const runBlock =
 		// Persist state
 		await vm.evm.journal.commit()
 
+		await state.setStateRoot(block.header.stateRoot)
+
 		const stateRoot = await state.getStateRoot()
 
 		// Given the generate option, either set resulting header

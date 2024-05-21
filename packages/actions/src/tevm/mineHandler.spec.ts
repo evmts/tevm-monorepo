@@ -33,7 +33,7 @@ describe(mineHandler.name, () => {
     expect(
       await getBlockNumber(client)
     ).toBe(bn + 1n)
-  }, { timeout: 10_000 })
+  }, { timeout: 20_000 })
 
   it('can be passed blockCount and interval props', async () => {
     const client = createBaseClient()

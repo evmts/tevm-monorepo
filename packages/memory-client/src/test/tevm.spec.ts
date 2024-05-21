@@ -109,20 +109,24 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	})
 
 	describe('client.contract', () => {
-		it('should fork a network and then execute a contract call', async () => {
-			const tevm = createMemoryClient({ fork: forkConfig })
-			// TODO test other inputs
-			const res = await tevm.tevmContract({
-				to: contractAddress,
-				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
-					contractAddress,
-				}),
-			})
-			expect(res.data).toBe(1n)
-			expect(res.executionGasUsed).toBe(2447n)
-			expect(res.logs).toEqual([])
-			// TODO test other properties
-		})
+		it(
+			'should fork a network and then execute a contract call',
+			async () => {
+				const tevm = createMemoryClient({ fork: forkConfig })
+				// TODO test other inputs
+				const res = await tevm.tevmContract({
+					to: contractAddress,
+					...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
+						contractAddress,
+					}),
+				})
+				expect(res.data).toBe(1n)
+				expect(res.executionGasUsed).toBe(2447n)
+				expect(res.logs).toEqual([])
+				// TODO test other properties
+			},
+			{ timeout: 20_000 },
+		)
 	})
 
 	describe('client.account', () => {

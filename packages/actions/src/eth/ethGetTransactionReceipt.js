@@ -114,6 +114,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			: /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n) + (block.header.baseFeePerGas ?? 0n)
 
 	vm.common.setHardfork(tx.common.hardfork())
+	await vm.stateManager.setStateRoot(parentBlock.header.stateRoot)
 	// Run tx through copied vm to get tx gasUsed and createdAddress
 	const runBlockResult = await vm.runBlock({
 		block,

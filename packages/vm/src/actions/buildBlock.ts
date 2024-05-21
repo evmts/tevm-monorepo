@@ -10,7 +10,6 @@ import {
 	TypeOutput,
 	Withdrawal,
 	hexToBytes,
-	keccak256,
 	parseGwei,
 	toType,
 	zeros,
@@ -27,6 +26,7 @@ import {
 import { Bloom } from '@ethereumjs/vm'
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
+import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import { runTx } from './runTx.js'
@@ -57,7 +57,7 @@ export class BlockBuilder {
 	private readonly vm: BaseVm
 	private blockOpts: BuilderOpts
 	private headerData: HeaderData
-	private transactions: TypedTransaction[] = []
+	private transactions: Array<TypedTransaction | ImpersonatedTx> = []
 	private transactionResults: RunTxResult[] = []
 	private withdrawals?: Withdrawal[] | undefined
 	private checkpointed = false
@@ -125,7 +125,7 @@ export class BlockBuilder {
 	 * Calculates and returns the transactionsTrie for the block.
 	 */
 	public async transactionsTrie() {
-		return Block.genTransactionsTrieRoot(this.transactions, new Trie({ common: this.vm.common }))
+		return Block.genTransactionsTrieRoot(this.transactions as TypedTransaction[], new Trie({ common: this.vm.common }))
 	}
 
 	/**
@@ -199,7 +199,10 @@ export class BlockBuilder {
 	 * Throws if the transaction's gasLimit is greater than
 	 * the remaining gas in the block.
 	 */
-	async addTransaction(tx: TypedTransaction, { skipHardForkValidation }: { skipHardForkValidation?: boolean } = {}) {
+	async addTransaction(
+		tx: TypedTransaction | ImpersonatedTx,
+		{ skipHardForkValidation }: { skipHardForkValidation?: boolean } = {},
+	) {
 		let _tx = tx
 		this.checkStatus()
 
@@ -337,17 +340,6 @@ export class BlockBuilder {
 			withdrawals: this.withdrawals ?? [],
 		}
 		const block = Block.fromBlockData(blockData, blockOpts)
-
-		block.transactions.forEach((tx) => {
-			tx.isSigned = () => true
-			tx.hash = () => {
-				try {
-					return tx.hash()
-				} catch (e) {
-					return keccak256(tx.getHashedMessageToSign(), 'bytes')
-				}
-			}
-		})
 
 		if (this.blockOpts.putBlockIntoBlockchain === true) {
 			await this.vm.blockchain.putBlock(block)

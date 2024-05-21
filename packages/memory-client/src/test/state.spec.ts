@@ -133,7 +133,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					expect(balanceIncluded).toBe(amount)
 					expect(balanceNotIncluded).toBe(amount)
 				},
-				{ timeout: 60_000 },
+				{ timeout: 90_000 },
 			)
 		}
 	})

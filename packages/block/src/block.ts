@@ -19,7 +19,7 @@ import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
 import { BlockHeader } from './header.js'
 
 import type { Common } from '@tevm/common'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TxOptions, TypedTransaction } from '@tevm/tx'
+import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'
 import type {
@@ -119,14 +119,11 @@ export class Block {
 		const header = BlockHeader.fromHeaderData(headerData as HeaderData, opts)
 
 		// parse transactions
-		const transactions = []
+		const transactions: TypedTransaction[] = []
 		for (const txData of txsData ?? []) {
-			const tx = TransactionFactory.fromTxData(txData, {
-				...opts,
-				// Use header common in case of setHardfork being activated
-				common: header.common,
-			} as TxOptions)
-			transactions.push(tx)
+			// We should make a new tx using header common in case of setHardfork being activated
+			// We aren't doing that atm because it causes a bug with impersonated transactions
+			transactions.push(txData as any)
 		}
 
 		// parse uncle headers

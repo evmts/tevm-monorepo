@@ -14,13 +14,18 @@ export const getStorageAtHandler =
 	async (params) => {
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
-		if (tag === 'pending' || tag === 'latest') {
+		if (tag === 'latest') {
 			return bytesToHex(
-				await vm.stateManager.getContractStorage(EthjsAddress.fromString(params.address), hexToBytes(params.position)),
+				await vm.stateManager.getContractStorage(
+					EthjsAddress.fromString(params.address),
+					hexToBytes(params.position, { size: 32 }),
+				),
 			)
 		}
 		if (!forkUrl) {
-			throw new NoForkUrlSetError('Fork URL is required if tag is not "latest" or "pending"')
+			throw new NoForkUrlSetError(
+				'No forkurl set. Block tags other than latest for getStorageAt has not yet been implemented',
+			)
 		}
 		const fetcher = createJsonRpcFetcher(forkUrl)
 		return fetcher

@@ -19,7 +19,7 @@ const stripZeros = (bytes) => {
  */
 export const putContractStorage = (baseState) => async (address, key, value) => {
 	if (key.length !== 32) {
-		throw new Error('Storage key must be 32 bytes long!')
+		throw new Error(`Storage key must be 32 bytes long. Received ${key}`)
 	}
 
 	const account = await getAccount(baseState)(address)
