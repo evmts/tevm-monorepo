@@ -26,7 +26,7 @@ A custom tevm extension of `viem/chains` and `@ethereumjs/common`.
 
 ## Installation
 
-`tevm/chains` is available for import in the main tevm package or it can be installed as a standalone package
+`tevm/chains` is available for import in the main tevm package, or it can be installed as a standalone package
 
 ```bash
 npm install @tevm/chains
