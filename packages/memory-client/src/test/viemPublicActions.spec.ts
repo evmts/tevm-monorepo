@@ -6,6 +6,7 @@ import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseG
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { mainnet } from '@tevm/chains'
+import { loadKZG } from 'kzg-wasm'
 
 const eventAbi = {
 	event: {
@@ -175,16 +176,26 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getContractEvents: () => {},
-		getEnsAddress: () => {
+		getEnsAddress: async () => {
+			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
 				chain: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
+				customCrypto: {
+					kzg,
+				},
 			})
-			it('should work', async () => {
-				expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe('0x0')
-			})
+			it(
+				'should work',
+				async () => {
+					expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe(
+						'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+					)
+				},
+				{ timeout: 30_000 },
+			)
 		},
 		getEnsAvatar: () => {
 			const mainnetClient = createMemoryClient({
