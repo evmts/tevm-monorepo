@@ -12,6 +12,7 @@ import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
+import { mainnet, tevmDevnet } from '@tevm/chains'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -66,8 +67,8 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
-		if (options.chainId) {
-			return options.chainId
+		if (options.chain) {
+			return options.chain.id
 		}
 		const url = options.fork?.url
 		if (url) {
@@ -98,12 +99,26 @@ export const createBaseClient = (options = {}) => {
 	const commonPromise = chainIdPromise.then((chainId) => {
 		// TODO we will eventually want to be setting common hardfork based on chain id and block number
 		// ethereumjs does this for mainnet but we forgo all this functionality
-		return createCommon({
+		if (options.chain) {
+			return options.chain
+		}
+		if (!options.fork?.url) {
+			return tevmDevnet
+		}
+		const common = createCommon({
 			chainId,
 			hardfork: 'cancun',
 			loggingLevel,
 			eips: options.eips ?? [],
 		})
+		/**
+		 * @type {import('@tevm/chains').TevmChain}
+		 */
+		const resolvedChain = Object.assign(common, {
+			...mainnet,
+			id: Number(chainId),
+		})
+		return resolvedChain
 	})
 
 	const blockchainPromise = Promise.all([commonPromise, blockTagPromise]).then(([common, blockTag]) => {
@@ -231,6 +246,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getChain() {
+			return commonPromise
+		},
 		logger,
 		getReceiptsManager: async () => {
 			await ready()

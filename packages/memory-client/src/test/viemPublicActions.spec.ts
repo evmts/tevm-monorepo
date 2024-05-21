@@ -5,6 +5,7 @@ import { type Address, type Hex } from '@tevm/utils'
 import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
+import { mainnet } from '@tevm/chains'
 
 const eventAbi = {
 	event: {
@@ -176,11 +177,12 @@ describe('viemPublicActions', () => {
 		getContractEvents: () => {},
 		getEnsAddress: () => {
 			const mainnetClient = createMemoryClient({
+				chain: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
 			})
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe('0x0')
 			})
 		},

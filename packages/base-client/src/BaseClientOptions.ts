@@ -5,11 +5,25 @@ import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { Hardfork } from './Hardfork.js'
 import type { MiningConfig } from './MiningConfig.js'
+import type { TevmChain } from '@tevm/chains'
 
 /**
  * Options for creating an Tevm MemoryClient instance
  */
 export type BaseClientOptions = StateOptions & {
+	/**
+	 * The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
+	 * @example
+	 * ```
+	 * import { optimism } from 'tevm/chains'
+	 * import { createMemoryClient } from 'tevm'}
+	 *
+	 * const client = createMemoryClient({ chain: optimism })
+	 * ````
+	 * `
+	 */
+	readonly chain?: TevmChain
 	/**
 	 * Configure logging options for the client
 	 */
@@ -21,10 +35,6 @@ export type BaseClientOptions = StateOptions & {
 	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 	 */
 	readonly miningConfig?: MiningConfig
-	/**
-	 * Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
-	 */
-	readonly chainId?: number
 	/**
 	 * Enable profiler. Defaults to false.
 	 */

@@ -1495,6 +1495,9 @@ importers:
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
+      '@tevm/chains':
+        specifier: workspace:1.1.0-next.56
+        version: link:../chains
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
@@ -1835,6 +1838,9 @@ importers:
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../base-client
+      '@tevm/chains':
+        specifier: workspace:1.1.0-next.56
+        version: link:../chains
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract

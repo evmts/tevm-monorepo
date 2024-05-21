@@ -3,11 +3,17 @@ import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
 import type { Vm } from '@tevm/vm'
 import type { MiningConfig } from './MiningConfig.js'
+import type { TevmChain } from '@tevm/chains'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
  */
 export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
+	/**
+	 * Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
+	 * This is the same object on `getVm().common`
+	 */
+	readonly getChain: () => Promise<TevmChain>
 	/**
 	 * The logger instance
 	 */
