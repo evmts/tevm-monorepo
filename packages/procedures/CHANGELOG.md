@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.1.0-next.56
+
+### Patch Changes
+
+- [#1109](https://github.com/evmts/tevm-monorepo/pull/1109) [`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with blobGasUsed being '0x' rather than undefined. This causes issues with viem decoding.
+
+- Updated dependencies [[`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784), [`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784), [`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784), [`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784)]:
+  - @tevm/block@1.1.0-next.56
+  - @tevm/actions@1.1.0-next.56
+
 ## 1.1.0-next.55
 
 ### Patch Changes

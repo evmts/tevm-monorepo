@@ -1,5 +1,14 @@
 # @tevm/test-utils
 
+## 1.1.0-next.56
+
+### Patch Changes
+
+- [#1109](https://github.com/evmts/tevm-monorepo/pull/1109) [`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed copy-pasta bug with copying deployedBytecode into bytecode for simpleContract. The correct bytecode is now set.
+
+- Updated dependencies [[`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784)]:
+  - @tevm/contract@1.1.0-next.56
+
 ## 1.1.0-next.52
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @tevm/client
 
+## 1.1.0-next.56
+
+### Patch Changes
+
+- Updated dependencies [[`9eeba47`](https://github.com/evmts/tevm-monorepo/commit/9eeba478f249b8c1bf654607206b61f95c9c9784)]:
+  - @tevm/receipt-manager@1.1.0-next.56
+  - @tevm/predeploys@1.1.0-next.56
+  - @tevm/state@1.1.0-next.56
+  - @tevm/blockchain@1.1.0-next.56
+  - @tevm/txpool@1.1.0-next.56
+  - @tevm/vm@1.1.0-next.56
+  - @tevm/evm@1.1.0-next.56
+  - @tevm/sync-storage-persister@1.1.0-next.56
+
 ## 1.1.0-next.55
 
 ### Patch Changes
