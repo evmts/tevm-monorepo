@@ -39,7 +39,7 @@ const client = createMemoryClient({ chain: optimism })
 
 > `optional` `readonly` **customCrypto**: `CustomCrypto`
 
-Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
+Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
 
 ### customPrecompiles?
 

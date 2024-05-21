@@ -48,7 +48,7 @@ console.log(client.forkUrl)
 
 > `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`TChain`\>\>
 
-Returns the chain being used by the client. This type extends both viem `Chain` and ethereumjs `Common`
+Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 #### Returns
