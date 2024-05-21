@@ -45,7 +45,7 @@ export const createMemoryClient = (options) => {
 
 	return createClient({
 		type: 'tevm',
-		.../** @type any*/ (options?.chain !== undefined ? { chain: options.chain } : {}),
+		.../** @type any*/ (options?.chainCommon !== undefined ? { chain: options.chainCommon } : {}),
 		transport: () =>
 			createTransport({
 				request: /** @type any*/ (tevm.request),
