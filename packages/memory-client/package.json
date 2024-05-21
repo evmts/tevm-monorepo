@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/memory-client",
-	"version": "1.1.0-next.56",
+	"version": "1.1.0-next.57",
 	"private": false,
 	"description": "Client implementations of Tevm",
 	"keywords": [
@@ -63,7 +63,7 @@
 	},
 	"dependencies": {
 		"@tevm/base-client": "workspace:^",
-		"@tevm/chains": "workspace:1.1.0-next.56",
+		"@tevm/chains": "workspace:1.1.0-next.57",
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
 		"@tevm/evm": "workspace:^",

@@ -1,5 +1,17 @@
 # @tevm/ethers
 
+## 1.1.0-next.57
+
+### Minor Changes
+
+- [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed ethers to take a base client rather than a memoryclient so it is not tightly coupled to viem
+
+### Patch Changes
+
+- Updated dependencies [[`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59)]:
+  - @tevm/decorators@1.1.0-next.57
+  - @tevm/procedures-types@1.1.0-next.52
+
 ## 1.1.0-next.56
 
 ### Patch Changes
