@@ -582,7 +582,7 @@ importers:
   examples/bun:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.1.0-next.52
+        specifier: ^1.1.0-next.56
         version: link:../../packages/contract
       bun-types:
         specifier: ^1.0.7
@@ -1511,7 +1511,7 @@ importers:
         specifier: workspace:^
         version: link:../predeploys
       '@tevm/receipt-manager':
-        specifier: workspace:1.1.0-next.55
+        specifier: workspace:1.1.0-next.56
         version: link:../receipt-manager
       '@tevm/state':
         specifier: workspace:^
@@ -2250,10 +2250,10 @@ importers:
   test/bench:
     dependencies:
       '@tevm/contract':
-        specifier: workspace:1.1.0-next.52
+        specifier: workspace:1.1.0-next.56
         version: link:../../packages/contract
       '@tevm/test-utils':
-        specifier: workspace:1.1.0-next.52
+        specifier: workspace:1.1.0-next.56
         version: link:../test-utils
       '@tevm/viem':
         specifier: workspace:^
@@ -2300,7 +2300,7 @@ importers:
   test/test-utils:
     dependencies:
       '@tevm/contract':
-        specifier: workspace:1.1.0-next.52
+        specifier: workspace:1.1.0-next.56
         version: link:../../packages/contract
     devDependencies:
       '@tevm/tsconfig':

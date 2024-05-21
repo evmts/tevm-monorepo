@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.56
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/predeploys@1.1.0-next.56
+  - @tevm/blockchain@1.1.0-next.56
+
 ## 1.1.0-next.55
 
 ### Patch Changes
