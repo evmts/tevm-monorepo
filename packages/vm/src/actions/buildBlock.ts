@@ -26,7 +26,7 @@ import {
 import { Bloom } from '@ethereumjs/vm'
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
-import type { ImpersonatedTx } from '../../../tx/dist/index.cjs'
+import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import { runTx } from './runTx.js'
