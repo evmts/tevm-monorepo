@@ -35,6 +35,12 @@ const client = createMemoryClient({ chain: optimism })
 ````
 `
 
+### customCrypto?
+
+> `optional` `readonly` **customCrypto**: `CustomCrypto`
+
+Custom crypto functionality provided to the evm. For 4844 support kzt must be passed
+
 ### customPrecompiles?
 
 > `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
@@ -163,4 +169,4 @@ Enable profiler. Defaults to false.
 
 ## Source
 
-[BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)
+[BaseClientOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L14)
