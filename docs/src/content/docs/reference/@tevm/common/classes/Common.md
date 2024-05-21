@@ -114,7 +114,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ### customCrypto
 
-> `readonly` **customCrypto**: `CustomCrypto`
+> `readonly` **customCrypto**: [`CustomCrypto`](/reference/tevm/common/interfaces/customcrypto/)
 
 #### Source
 

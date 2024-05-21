@@ -9,6 +9,12 @@ Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [v
 
 Note: Memory client also is extended with all [viem test and public actions](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L59)
 
+:::tip[Ens actions]
+Ens actions require 4844 to be enabeld. To enable 4844 in current version of tevm you must pass in kzg implementation to `custom-crypto`. This can be installed with `npm install kzg-wasm`.
+Warning, kzg adds over 500kb to bundle size.
+In future version of tevm this will not be required.
+:::
+
 ### Error handling
 
 By default Tevm clients will return a rejected promise when actions fail. Clients can optionally also return errors as values. This is very useful for handling errors in a typesafe way. All actions have a matching error in the `tevm/error` package.

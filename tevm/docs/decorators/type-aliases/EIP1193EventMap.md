@@ -62,4 +62,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:273
+packages/decorators/dist/index.d.ts:272

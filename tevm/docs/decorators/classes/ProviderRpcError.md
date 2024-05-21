@@ -32,7 +32,7 @@
 
 #### Source
 
-packages/decorators/dist/index.d.ts:271
+packages/decorators/dist/index.d.ts:270
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-packages/decorators/dist/index.d.ts:269
+packages/decorators/dist/index.d.ts:268
 
 ***
 
@@ -66,7 +66,7 @@ packages/decorators/dist/index.d.ts:269
 
 #### Source
 
-packages/decorators/dist/index.d.ts:270
+packages/decorators/dist/index.d.ts:269
 
 ***
 

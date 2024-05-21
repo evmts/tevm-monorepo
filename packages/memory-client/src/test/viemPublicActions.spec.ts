@@ -1,7 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
+import { mainnet } from '@tevm/chains'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
+import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -174,15 +176,26 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getContractEvents: () => {},
-		getEnsAddress: () => {
+		getEnsAddress: async () => {
+			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
+				chainCommon: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
+				customCrypto: {
+					kzg,
+				},
 			})
-			it.todo('should work', async () => {
-				expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe('0x0')
-			})
+			it(
+				'should work',
+				async () => {
+					expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe(
+						'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+					)
+				},
+				{ timeout: 30_000 },
+			)
 		},
 		getEnsAvatar: () => {
 			const mainnetClient = createMemoryClient({

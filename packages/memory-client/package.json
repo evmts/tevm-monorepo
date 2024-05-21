@@ -63,6 +63,7 @@
 	},
 	"dependencies": {
 		"@tevm/base-client": "workspace:^",
+		"@tevm/chains": "workspace:1.1.0-next.56",
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
 		"@tevm/evm": "workspace:^",
@@ -74,7 +75,8 @@
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"kzg-wasm": "^0.4.0"
 	},
 	"publishConfig": {
 		"access": "public"

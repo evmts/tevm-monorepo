@@ -1,5 +1,5 @@
 import { createChain } from '@tevm/blockchain'
-import { createCommon } from '@tevm/common'
+import { createChainCommon, tevmDevnet } from '@tevm/chains'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
@@ -66,10 +66,10 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
-		if (options.chainId) {
-			return options.chainId
+		if (options?.chainCommon) {
+			return options?.chainCommon.id
 		}
-		const url = options.fork?.url
+		const url = options?.fork?.url
 		if (url) {
 			const id = await getChainId(url)
 			return id
@@ -95,18 +95,40 @@ export const createBaseClient = (options = {}) => {
 		return options.fork.blockTag
 	})()
 
-	const commonPromise = chainIdPromise.then((chainId) => {
-		// TODO we will eventually want to be setting common hardfork based on chain id and block number
-		// ethereumjs does this for mainnet but we forgo all this functionality
-		return createCommon({
-			chainId,
-			hardfork: 'cancun',
-			loggingLevel,
-			eips: options.eips ?? [],
+	const chainCommonPromise = chainIdPromise
+		.then((chainId) => {
+			// TODO we will eventually want to be setting common hardfork based on chain id and block number
+			// ethereumjs does this for mainnet but we forgo all this functionality
+			const customCrypto = options?.customCrypto ?? {}
+			if (options.chainCommon) {
+				return Object.assign(options.chainCommon, { customCrypto })
+			}
+			if (!options.fork?.url) {
+				return createChainCommon(
+					{ ...tevmDevnet, id: Number(chainId) },
+					{
+						hardfork: 'cancun',
+						eips: options.eips ?? [],
+						...(options.customCrypto !== undefined ? options.customCrypto : {}),
+					},
+				)
+			}
+			return createChainCommon(
+				{ ...tevmDevnet, id: Number(chainId) },
+				{
+					hardfork: 'cancun',
+					eips: options.eips ?? [],
+					...(options.customCrypto !== undefined ? options.customCrypto : {}),
+				},
+			)
 		})
-	})
+		.then((chainCommon) => {
+			// ALWAYS Copy common so we don't modify the global instances since it's stateful!
+			chainCommon.common = chainCommon.common.copy()
+			return chainCommon
+		})
 
-	const blockchainPromise = Promise.all([commonPromise, blockTagPromise]).then(([common, blockTag]) => {
+	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([{ common }, blockTag]) => {
 		return createChain({
 			loggingLevel,
 			common,
@@ -183,8 +205,8 @@ export const createBaseClient = (options = {}) => {
 			})
 		})
 
-	const evmPromise = Promise.all([commonPromise, stateManagerPromise, blockchainPromise]).then(
-		([common, stateManager, blockchain]) => {
+	const evmPromise = Promise.all([chainCommonPromise, stateManagerPromise, blockchainPromise]).then(
+		([{ common }, stateManager, blockchain]) => {
 			return createEvm({
 				common,
 				stateManager,
@@ -231,6 +253,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getChainCommon() {
+			return chainCommonPromise
+		},
 		logger,
 		getReceiptsManager: async () => {
 			await ready()

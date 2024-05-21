@@ -32,4 +32,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:303
+packages/decorators/dist/index.d.ts:302

@@ -63,6 +63,7 @@
 	},
 	"dependencies": {
 		"@tevm/blockchain": "workspace:^",
+		"@tevm/chains": "workspace:1.1.0-next.56",
 		"@tevm/common": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",

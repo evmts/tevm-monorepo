@@ -4,9 +4,9 @@
 
 [@tevm/base-client](../globals.md) / BaseClient
 
-# Type alias: BaseClient\<TMode, TExtended\>
+# Type alias: BaseClient\<TMode, TExtended, TChain\>
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`, `TChain`\>: `object` & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -43,6 +43,17 @@ Fork url if the EVM is forked
 const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
 console.log(client.forkUrl)
 ```
+
+### getChainCommon()
+
+> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`TChain`\>\>
+
+Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
+This is the same object on `getVm().common`
+
+#### Returns
+
+`Promise`\<`TevmChainCommon`\<`TChain`\>\>
 
 ### getReceiptsManager()
 
@@ -133,6 +144,8 @@ await client.ready()
 
 • **TExtended** = `object`
 
+• **TChain** *extends* `ViemChain` = `ViemChain`
+
 ## Source
 
-[BaseClient.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L10)
+[BaseClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L11)

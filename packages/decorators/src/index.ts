@@ -35,6 +35,7 @@ export {
 } from './events/index.js'
 export {
 	type Eip1193RequestProvider,
+	type TevmSendApi,
 	requestEip1193,
 	tevmSend,
 } from './request/index.js'

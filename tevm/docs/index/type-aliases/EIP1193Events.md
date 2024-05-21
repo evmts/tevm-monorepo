@@ -44,4 +44,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:280
+packages/decorators/dist/index.d.ts:279

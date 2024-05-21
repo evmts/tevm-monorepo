@@ -12,6 +12,7 @@
   "include": [
     "actions-types/index.ts",
     "contract/index.ts",
+    "chains/index.ts",
     "memory-client/index.ts",
     "predeploys/index.ts",
     "precompiles/index.ts",

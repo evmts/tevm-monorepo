@@ -33,6 +33,7 @@
 - [RpcSchemaOverride](type-aliases/RpcSchemaOverride.md)
 - [TestRpcSchema](type-aliases/TestRpcSchema.md)
 - [TevmActionsApi](type-aliases/TevmActionsApi.md)
+- [TevmSendApi](type-aliases/TevmSendApi.md)
 - [WalletPermission](type-aliases/WalletPermission.md)
 - [WalletPermissionCaveat](type-aliases/WalletPermissionCaveat.md)
 - [WatchAssetParams](type-aliases/WatchAssetParams.md)

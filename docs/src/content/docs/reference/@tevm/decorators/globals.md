@@ -34,6 +34,7 @@ title: "@tevm/decorators"
 - [RpcSchemaOverride](/reference/tevm/decorators/type-aliases/rpcschemaoverride/)
 - [TestRpcSchema](/reference/tevm/decorators/type-aliases/testrpcschema/)
 - [TevmActionsApi](/reference/tevm/decorators/type-aliases/tevmactionsapi/)
+- [TevmSendApi](/reference/tevm/decorators/type-aliases/tevmsendapi/)
 - [WalletPermission](/reference/tevm/decorators/type-aliases/walletpermission/)
 - [WalletPermissionCaveat](/reference/tevm/decorators/type-aliases/walletpermissioncaveat/)
 - [WatchAssetParams](/reference/tevm/decorators/type-aliases/watchassetparams/)

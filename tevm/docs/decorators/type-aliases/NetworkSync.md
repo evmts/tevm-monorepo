@@ -30,4 +30,4 @@ Block number at which syncing started
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1328
+packages/decorators/dist/index.d.ts:1327

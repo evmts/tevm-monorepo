@@ -15,6 +15,7 @@
 
 ## Interfaces
 
+- [CustomCrypto](interfaces/CustomCrypto.md)
 - [EvmStateManagerInterface](interfaces/EvmStateManagerInterface.md)
 - [StorageDump](interfaces/StorageDump.md)
 - [StorageRange](interfaces/StorageRange.md)

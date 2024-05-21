@@ -1,3 +1,5 @@
+import type { TevmChainCommon, ViemChain } from '@tevm/chains'
+import { type CustomCrypto } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { StateOptions } from '@tevm/state'
@@ -9,7 +11,24 @@ import type { MiningConfig } from './MiningConfig.js'
 /**
  * Options for creating an Tevm MemoryClient instance
  */
-export type BaseClientOptions = StateOptions & {
+export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptions & {
+	/**
+	 * The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
+	 * @example
+	 * ```
+	 * import { optimism } from 'tevm/chains'
+	 * import { createMemoryClient } from 'tevm'}
+	 *
+	 * const client = createMemoryClient({ chain: optimism })
+	 * ````
+	 * `
+	 */
+	readonly chainCommon?: TevmChainCommon<TChain>
+	/**
+	 * Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
+	 */
+	readonly customCrypto?: CustomCrypto
 	/**
 	 * Configure logging options for the client
 	 */
@@ -21,10 +40,6 @@ export type BaseClientOptions = StateOptions & {
 	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 	 */
 	readonly miningConfig?: MiningConfig
-	/**
-	 * Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
-	 */
-	readonly chainId?: number
 	/**
 	 * Enable profiler. Defaults to false.
 	 */

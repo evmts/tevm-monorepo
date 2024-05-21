@@ -1,3 +1,4 @@
+import type { CustomCrypto } from '@ethereumjs/common'
 import type { LogOptions } from '@tevm/logger'
 import type { Hardfork } from './Hardfork.js'
 
@@ -21,4 +22,11 @@ export type CommonOptions = {
 	 * Tevm logger instance
 	 */
 	loggingLevel: LogOptions['level']
+	/**
+	 * Custom crypto implementations
+	 * For EIP-4844 support kzg must be passed
+	 * @warning KZG can add a significant amount of bundle size to an app
+	 * In future a stub will be provided that that automatically returns valid without checking the kzg proof
+	 */
+	customCrypto?: CustomCrypto
 }

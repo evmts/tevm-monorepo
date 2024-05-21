@@ -503,4 +503,4 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1368
+packages/decorators/dist/index.d.ts:1367
