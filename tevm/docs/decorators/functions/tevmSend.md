@@ -6,20 +6,12 @@
 
 # Function: tevmSend()
 
-> **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<`object`\>
+> **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<`TevmSendApi`\>
 
 ## Returns
 
-[`Extension`](../../index/type-aliases/Extension.md)\<`object`\>
-
-### send
-
-> **send**: [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
-
-### sendBulk
-
-> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+[`Extension`](../../index/type-aliases/Extension.md)\<`TevmSendApi`\>
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1625
+packages/decorators/dist/index.d.ts:1629

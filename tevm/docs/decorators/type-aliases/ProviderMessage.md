@@ -20,4 +20,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:264
+packages/decorators/dist/index.d.ts:263

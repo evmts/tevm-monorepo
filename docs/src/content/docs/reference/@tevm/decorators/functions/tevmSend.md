@@ -5,7 +5,7 @@ prev: false
 title: "tevmSend"
 ---
 
-> **tevmSend**(): [`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<`object`\>
+> **tevmSend**(): [`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<[`TevmSendApi`](/reference/tevm/decorators/type-aliases/tevmsendapi/)\>
 
 The low level method for sending and recieving a JSON-RPC request.
 Strictly adheres to the JSON-RPC 2.0 spec.
@@ -13,15 +13,7 @@ See `requestEip1193` for a more user friendly method.
 
 ## Returns
 
-[`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<`object`\>
-
-### send
-
-> **send**: `TevmJsonRpcRequestHandler`
-
-### sendBulk
-
-> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
+[`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<[`TevmSendApi`](/reference/tevm/decorators/type-aliases/tevmsendapi/)\>
 
 ## Source
 

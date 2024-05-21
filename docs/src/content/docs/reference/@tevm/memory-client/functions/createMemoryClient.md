@@ -12,7 +12,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)
+• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)\<`Chain`\>
 
 ## Returns
 
@@ -26,7 +26,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ##### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -41,7 +41,7 @@ and extensibility
 
 ###### Returns
 
-[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
 
 ##### forkUrl?
 
@@ -58,14 +58,14 @@ console.log(client.forkUrl)
 
 ##### getChainCommon()
 
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\>
+> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
 This is the same object on `getVm().common`
 
 ###### Returns
 
-`Promise`\<`TevmChainCommon`\>
+`Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 ##### getReceiptsManager()
 

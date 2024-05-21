@@ -5,7 +5,7 @@ prev: false
 title: "BaseClientOptions"
 ---
 
-> **BaseClientOptions**: `StateOptions` & `object`
+> **BaseClientOptions**\<`TChain`\>: `StateOptions` & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -19,7 +19,7 @@ Enable/disable unlimited contract size. Defaults to false.
 
 ### chainCommon?
 
-> `optional` `readonly` **chainCommon**: `TevmChainCommon`
+> `optional` `readonly` **chainCommon**: `TevmChainCommon`\<`TChain`\>
 
 The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
@@ -165,6 +165,10 @@ const memoryClient = createMemoryClient({ persister })
 > `optional` `readonly` **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
+
+## Type parameters
+
+• **TChain** *extends* `ViemChain` = `ViemChain`
 
 ## Source
 
