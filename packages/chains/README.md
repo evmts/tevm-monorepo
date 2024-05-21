@@ -13,7 +13,7 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/chains" target="\_parent">
+<a href="https://www.npmjs.com/package/@tevm/chains" target="_parent">
 <img alt="" src="https://img.shields.io/npm/dm/@tevm/chains.svg" />
 </a>
 <a href="https://bundlephobia.com/package/@tevm/chains@latest" target="\_parent">
