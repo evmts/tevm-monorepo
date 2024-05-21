@@ -2343,6 +2343,9 @@ importers:
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../packages/base-client
+      '@tevm/chains':
+        specifier: workspace:1.1.0-next.56
+        version: link:../packages/chains
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../packages/client-types

@@ -8,6 +8,7 @@
 
 - [actions-types](actions-types/README.md)
 - [base-client](base-client/README.md)
+- [chains](chains/README.md)
 - [contract](contract/README.md)
 - [decorators](decorators/README.md)
 - [errors](errors/README.md)

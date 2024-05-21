@@ -1,227 +1,239 @@
 {
-	"name": "tevm",
-	"version": "1.1.0-next.56",
-	"private": false,
-	"description": "A typesafe Ethereum Virtual Machine (EVM) toolkit written in TypeScript",
-	"keywords": [
-		"solidity",
-		"tevm",
-		"evm",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "tevm"
-	},
-	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./index.d.ts",
-				"default": "./index.js"
-			},
-			"require": {
-				"types": "./index.d.cts",
-				"default": "./index.cjs"
-			}
-		},
-		"./actions-types": {
-			"import": {
-				"types": "./actions-types/index.d.ts",
-				"default": "./actions-types/index.js"
-			},
-			"require": {
-				"types": "./actions-types/index.d.cts",
-				"default": "./actions-types/index.cjs"
-			}
-		},
-		"./contract": {
-			"import": {
-				"types": "./contract/index.d.ts",
-				"default": "./contract/index.js"
-			},
-			"require": {
-				"types": "./contract/index.d.cts",
-				"default": "./contract/index.cjs"
-			}
-		},
-		"./errors": {
-			"import": {
-				"types": "./errors/index.d.ts",
-				"default": "./errors/index.js"
-			},
-			"require": {
-				"types": "./errors/index.d.cts",
-				"default": "./errors/index.cjs"
-			}
-		},
-		"./memory-client": {
-			"import": {
-				"types": "./memory-client/index.d.ts",
-				"default": "./memory-client/index.js"
-			},
-			"require": {
-				"types": "./memory-client/index.d.cts",
-				"default": "./memory-client/index.cjs"
-			}
-		},
-		"./decorators": {
-			"import": {
-				"types": "./decorators/index.d.ts",
-				"default": "./decorators/index.js"
-			},
-			"require": {
-				"types": "./decorators/index.d.cts",
-				"default": "./decorators/index.cjs"
-			}
-		},
-		"./base-client": {
-			"import": {
-				"types": "./base-client/index.d.ts",
-				"default": "./base-client/index.js"
-			},
-			"require": {
-				"types": "./base-client/index.d.cts",
-				"default": "./base-client/index.cjs"
-			}
-		},
-		"./predeploys": {
-			"import": {
-				"types": "./predeploys/index.d.ts",
-				"default": "./predeploys/index.js"
-			},
-			"require": {
-				"types": "./predeploys/index.d.cts",
-				"default": "./predeploys/index.cjs"
-			}
-		},
-		"./procedures-types": {
-			"import": {
-				"types": "./procedures-types/index.d.ts",
-				"default": "./procedures-types/index.js"
-			},
-			"require": {
-				"types": "./procedures-types/index.d.cts",
-				"default": "./procedures-types/index.cjs"
-			}
-		},
-		"./http-client": {
-			"import": {
-				"types": "./http-client/index.d.ts",
-				"default": "./http-client/index.js"
-			},
-			"require": {
-				"types": "./http-client/index.d.cts",
-				"default": "./http-client/index.cjs"
-			}
-		},
-		"./utils": {
-			"import": {
-				"types": "./utils/index.d.ts",
-				"default": "./utils/index.js"
-			},
-			"require": {
-				"types": "./utils/index.d.cts",
-				"default": "./utils/index.cjs"
-			}
-		},
-		"./server": {
-			"import": {
-				"types": "./server/index.d.ts",
-				"default": "./server/index.js"
-			},
-			"require": {
-				"types": "./server/index.d.cts",
-				"default": "./server/index.cjs"
-			}
-		},
-		"./state": {
-			"import": {
-				"types": "./state/index.d.ts",
-				"default": "./state/index.js"
-			},
-			"require": {
-				"types": "./state/index.d.cts",
-				"default": "./state/index.cjs"
-			}
-		},
-		"./sync-storage-persister": {
-			"import": {
-				"types": "./sync-storage-persister/index.d.ts",
-				"default": "./sync-storage-persister/index.js"
-			},
-			"require": {
-				"types": "./sync-storage-persister/index.d.cts",
-				"default": "./sync-storage-persister/index.cjs"
-			}
-		}
-	},
-	"main": "index.cjs",
-	"module": "index.js",
-	"types": "index.d.ts",
-	"files": [
-		"index*",
-		"actions-types",
-		"base-client",
-		"contract",
-		"decorators",
-		"errors",
-		"memory-client",
-		"predeploys",
-		"procedures-types",
-		"http-client",
-		"server",
-		"utils",
-		"state",
-		"sync-storage-persister"
-	],
-	"scripts": {
-		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=tevm",
-		"build:dist": "bun run generate:dist && git status --porcelain",
-		"build:types": "bun run generate:types && git status --porcelain",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache && rm **/*.js **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map **/*.ts.map **/*.js.map",
-		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
-		"generate:dist": "tsup",
-		"generate:docs": "typedoc",
-		"generate:types": "tsup --dts-only",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@tevm/actions-types": "workspace:^",
-		"@tevm/base-client": "workspace:^",
-		"@tevm/client-types": "workspace:^",
-		"@tevm/contract": "workspace:^",
-		"@tevm/decorators": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/http-client": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/memory-client": "workspace:^",
-		"@tevm/precompiles": "workspace:^",
-		"@tevm/predeploys": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
-		"@tevm/server": "workspace:^",
-		"@tevm/state": "workspace:^",
-		"@tevm/sync-storage-persister": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"@tevm/viem": "workspace:^"
-	},
-	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "tevm",
+  "version": "1.1.0-next.56",
+  "private": false,
+  "description": "A typesafe Ethereum Virtual Machine (EVM) toolkit written in TypeScript",
+  "keywords": [
+    "solidity",
+    "tevm",
+    "evm",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "tevm"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.js"
+      },
+      "require": {
+        "types": "./index.d.cts",
+        "default": "./index.cjs"
+      }
+    },
+    "./actions-types": {
+      "import": {
+        "types": "./actions-types/index.d.ts",
+        "default": "./actions-types/index.js"
+      },
+      "require": {
+        "types": "./actions-types/index.d.cts",
+        "default": "./actions-types/index.cjs"
+      }
+    },
+    "./chains": {
+      "import": {
+        "types": "./chains/index.d.ts",
+        "default": "./chains/index.js"
+      },
+      "require": {
+        "types": "./chains/index.d.cts",
+        "default": "./chains/index.cjs"
+      }
+    },
+    "./contract": {
+      "import": {
+        "types": "./contract/index.d.ts",
+        "default": "./contract/index.js"
+      },
+      "require": {
+        "types": "./contract/index.d.cts",
+        "default": "./contract/index.cjs"
+      }
+    },
+    "./errors": {
+      "import": {
+        "types": "./errors/index.d.ts",
+        "default": "./errors/index.js"
+      },
+      "require": {
+        "types": "./errors/index.d.cts",
+        "default": "./errors/index.cjs"
+      }
+    },
+    "./memory-client": {
+      "import": {
+        "types": "./memory-client/index.d.ts",
+        "default": "./memory-client/index.js"
+      },
+      "require": {
+        "types": "./memory-client/index.d.cts",
+        "default": "./memory-client/index.cjs"
+      }
+    },
+    "./decorators": {
+      "import": {
+        "types": "./decorators/index.d.ts",
+        "default": "./decorators/index.js"
+      },
+      "require": {
+        "types": "./decorators/index.d.cts",
+        "default": "./decorators/index.cjs"
+      }
+    },
+    "./base-client": {
+      "import": {
+        "types": "./base-client/index.d.ts",
+        "default": "./base-client/index.js"
+      },
+      "require": {
+        "types": "./base-client/index.d.cts",
+        "default": "./base-client/index.cjs"
+      }
+    },
+    "./predeploys": {
+      "import": {
+        "types": "./predeploys/index.d.ts",
+        "default": "./predeploys/index.js"
+      },
+      "require": {
+        "types": "./predeploys/index.d.cts",
+        "default": "./predeploys/index.cjs"
+      }
+    },
+    "./procedures-types": {
+      "import": {
+        "types": "./procedures-types/index.d.ts",
+        "default": "./procedures-types/index.js"
+      },
+      "require": {
+        "types": "./procedures-types/index.d.cts",
+        "default": "./procedures-types/index.cjs"
+      }
+    },
+    "./http-client": {
+      "import": {
+        "types": "./http-client/index.d.ts",
+        "default": "./http-client/index.js"
+      },
+      "require": {
+        "types": "./http-client/index.d.cts",
+        "default": "./http-client/index.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./utils/index.d.ts",
+        "default": "./utils/index.js"
+      },
+      "require": {
+        "types": "./utils/index.d.cts",
+        "default": "./utils/index.cjs"
+      }
+    },
+    "./server": {
+      "import": {
+        "types": "./server/index.d.ts",
+        "default": "./server/index.js"
+      },
+      "require": {
+        "types": "./server/index.d.cts",
+        "default": "./server/index.cjs"
+      }
+    },
+    "./state": {
+      "import": {
+        "types": "./state/index.d.ts",
+        "default": "./state/index.js"
+      },
+      "require": {
+        "types": "./state/index.d.cts",
+        "default": "./state/index.cjs"
+      }
+    },
+    "./sync-storage-persister": {
+      "import": {
+        "types": "./sync-storage-persister/index.d.ts",
+        "default": "./sync-storage-persister/index.js"
+      },
+      "require": {
+        "types": "./sync-storage-persister/index.d.cts",
+        "default": "./sync-storage-persister/index.cjs"
+      }
+    }
+  },
+  "main": "index.cjs",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index*",
+    "actions-types",
+    "base-client",
+    "contract",
+    "chains",
+    "decorators",
+    "errors",
+    "memory-client",
+    "predeploys",
+    "procedures-types",
+    "http-client",
+    "server",
+    "utils",
+    "state",
+    "sync-storage-persister"
+  ],
+  "scripts": {
+    "all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
+    "build": "nx run-many --targets=build:dist,build:types --projects=tevm",
+    "build:dist": "bun run generate:dist && git status --porcelain",
+    "build:types": "bun run generate:types && git status --porcelain",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache && rm **/*.js **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map **/*.ts.map **/*.js.map",
+    "generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
+    "generate:dist": "tsup",
+    "generate:docs": "typedoc",
+    "generate:types": "tsup --dts-only",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tevm/actions-types": "workspace:^",
+    "@tevm/base-client": "workspace:^",
+    "@tevm/chains": "workspace:1.1.0-next.56",
+    "@tevm/client-types": "workspace:^",
+    "@tevm/contract": "workspace:^",
+    "@tevm/decorators": "workspace:^",
+    "@tevm/errors": "workspace:^",
+    "@tevm/http-client": "workspace:^",
+    "@tevm/jsonrpc": "workspace:^",
+    "@tevm/memory-client": "workspace:^",
+    "@tevm/precompiles": "workspace:^",
+    "@tevm/predeploys": "workspace:^",
+    "@tevm/procedures-types": "workspace:^",
+    "@tevm/server": "workspace:^",
+    "@tevm/state": "workspace:^",
+    "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/utils": "workspace:^",
+    "@tevm/viem": "workspace:^"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
