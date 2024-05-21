@@ -27,10 +27,10 @@ import {
 import { Bloom } from '@ethereumjs/vm'
 import type { HeaderData } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
+import type { ImpersonatedTx } from '../../../tx/dist/index.cjs'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import { runTx } from './runTx.js'
-import type { ImpersonatedTx } from '../../../tx/dist/index.cjs'
 
 export enum BuildStatus {
 	Reverted = 'reverted',
@@ -126,7 +126,10 @@ export class BlockBuilder {
 	 * Calculates and returns the transactionsTrie for the block.
 	 */
 	public async transactionsTrie() {
-		return Block.genTransactionsTrieRoot(/** @type {Array<TypedTransaction>}*/(this.transactions), new Trie({ common: this.vm.common }))
+		return Block.genTransactionsTrieRoot(
+			/** @type {Array<TypedTransaction>}*/ (this.transactions),
+			new Trie({ common: this.vm.common }),
+		)
 	}
 
 	/**
@@ -200,7 +203,10 @@ export class BlockBuilder {
 	 * Throws if the transaction's gasLimit is greater than
 	 * the remaining gas in the block.
 	 */
-	async addTransaction(tx: TypedTransaction | ImpersonatedTx, { skipHardForkValidation }: { skipHardForkValidation?: boolean } = {}) {
+	async addTransaction(
+		tx: TypedTransaction | ImpersonatedTx,
+		{ skipHardForkValidation }: { skipHardForkValidation?: boolean } = {},
+	) {
 		let _tx = tx
 		this.checkStatus()
 

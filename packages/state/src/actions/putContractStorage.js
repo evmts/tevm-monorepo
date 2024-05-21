@@ -8,7 +8,7 @@ const stripZeros = (bytes) => {
 	if (!(bytes instanceof Uint8Array)) {
 		throw new Error('Unexpected type')
 	}
-	return bytes.slice(bytes.findIndex(/** @param {number} entry*/(entry) => entry !== 0))
+	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
 }
 /**
  * Adds value to the cache for the `account`
