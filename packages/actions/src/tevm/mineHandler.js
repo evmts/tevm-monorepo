@@ -99,7 +99,7 @@ export const mineHandler =
                 const value = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
 
                 if (!value) {
-                    throw new Error('InternalError: State root not found. This indicates a bug in tevm')
+                    throw new Error('InternalError: State root not found in mineHandler. This indicates a potential inconsistency in state management.')
                 }
 
                 originalVm.stateManager.saveStateRoot(block.header.stateRoot, value)
