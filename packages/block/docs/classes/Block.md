@@ -39,7 +39,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 #### Source
 
-[block.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L331)
+[block.ts:328](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L328)
 
 ## Properties
 
@@ -169,7 +169,7 @@ Return a compact error string representation of the object
 
 #### Source
 
-[block.ts:798](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L798)
+[block.ts:795](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L795)
 
 ***
 
@@ -191,7 +191,7 @@ the parent of this `Block`
 
 #### Source
 
-[block.ts:732](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L732)
+[block.ts:729](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L729)
 
 ***
 
@@ -207,7 +207,7 @@ Generates transaction trie for validation.
 
 #### Source
 
-[block.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L452)
+[block.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L449)
 
 ***
 
@@ -225,7 +225,7 @@ an array of error strings
 
 #### Source
 
-[block.ts:498](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L498)
+[block.ts:495](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L495)
 
 ***
 
@@ -241,7 +241,7 @@ Returns the hash of the block.
 
 #### Source
 
-[block.ts:431](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L431)
+[block.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L428)
 
 ***
 
@@ -257,7 +257,7 @@ Determines if this block is the genesis block.
 
 #### Source
 
-[block.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L438)
+[block.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L435)
 
 ***
 
@@ -273,7 +273,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 #### Source
 
-[block.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L409)
+[block.ts:406](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L406)
 
 ***
 
@@ -287,7 +287,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 #### Source
 
-[block.ts:475](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L475)
+[block.ts:472](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L472)
 
 ***
 
@@ -303,7 +303,7 @@ Returns the rlp encoding of the block.
 
 #### Source
 
-[block.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L445)
+[block.ts:442](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L442)
 
 ***
 
@@ -317,7 +317,7 @@ Returns the rlp encoding of the block.
 
 #### Source
 
-[block.ts:764](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L764)
+[block.ts:761](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L761)
 
 ***
 
@@ -333,7 +333,7 @@ Returns the block in JSON format.
 
 #### Source
 
-[block.ts:749](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L749)
+[block.ts:746](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L746)
 
 ***
 
@@ -351,7 +351,7 @@ True if all transactions are valid, false otherwise
 
 #### Source
 
-[block.ts:548](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L548)
+[block.ts:545](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L545)
 
 ***
 
@@ -370,7 +370,7 @@ True if the transaction trie is valid, false otherwise
 
 #### Source
 
-[block.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L461)
+[block.ts:458](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L458)
 
 ***
 
@@ -388,7 +388,7 @@ true if the uncle's hash is valid, false otherwise.
 
 #### Source
 
-[block.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L665)
+[block.ts:662](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L662)
 
 ***
 
@@ -412,7 +412,7 @@ header of parent block
 
 #### Source
 
-[block.ts:619](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L619)
+[block.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L616)
 
 ***
 
@@ -443,7 +443,7 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 #### Source
 
-[block.ts:564](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L564)
+[block.ts:561](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L561)
 
 ***
 
@@ -466,7 +466,7 @@ the parent of this `Block`
 
 #### Source
 
-[block.ts:742](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L742)
+[block.ts:739](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L739)
 
 ***
 
@@ -488,7 +488,7 @@ Header does not count an uncle twice.
 
 #### Source
 
-[block.ts:708](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L708)
+[block.ts:705](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L705)
 
 ***
 
@@ -506,7 +506,7 @@ true if the withdrawals trie root is valid, false otherwise
 
 #### Source
 
-[block.ts:678](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L678)
+[block.ts:675](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L675)
 
 ***
 
@@ -534,7 +534,7 @@ the block constructed block
 
 #### Source
 
-[block.ts:322](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L322)
+[block.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L319)
 
 ***
 
@@ -582,7 +582,7 @@ the block constructed block
 
 #### Source
 
-[block.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L260)
+[block.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L257)
 
 ***
 
@@ -604,7 +604,7 @@ Static constructor to create a block from a RLP-serialized block
 
 #### Source
 
-[block.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L164)
+[block.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L161)
 
 ***
 
@@ -626,7 +626,7 @@ Static constructor to create a block from an array of Bytes values
 
 #### Source
 
-[block.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L180)
+[block.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L177)
 
 ***
 

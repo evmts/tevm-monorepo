@@ -342,17 +342,6 @@ export class BlockBuilder {
 		}
 		const block = Block.fromBlockData(blockData, blockOpts)
 
-		block.transactions.forEach((tx) => {
-			tx.isSigned = () => true
-			tx.hash = () => {
-				try {
-					return tx.hash()
-				} catch (e) {
-					return keccak256(tx.getHashedMessageToSign(), 'bytes')
-				}
-			}
-		})
-
 		if (this.blockOpts.putBlockIntoBlockchain === true) {
 			await this.vm.blockchain.putBlock(block)
 		}
