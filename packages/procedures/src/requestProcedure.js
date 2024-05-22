@@ -503,7 +503,7 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				const [_receipt, blockHash, txIndex, logIndex] = receipt
+				const [_receipt, blockHash, txIndex] = receipt
 				const block = await vm.blockchain.getBlock(blockHash)
 				const tx = block.transactions[txIndex]
 				if (!tx) {
