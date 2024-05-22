@@ -4,7 +4,7 @@ import { mainnet } from '@tevm/chains'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
+import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -133,23 +133,38 @@ describe('viemPublicActions', () => {
 		},
 		estimateMaxPriorityFeePerGas: () => {},
 		getBalance: () => {
-			it.todo('should work', async () => {
-				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(parseEther('1000'))
+			it('should work', async () => {
+				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998965953n)
 			})
 		},
 		getBlobBaseFee: () => {
 			it.todo('should work', async () => {
-				const TODO = 0n
-				expect(await mc.getBlobBaseFee()).toBe(TODO)
+				expect(await mc.getBlobBaseFee()).toBe(1n)
 			})
 		},
 		getBlock: () => {
-			it.todo('should work with latest', async () => {
-				expect(await mc.getBlock({ blockTag: 'latest', includeTransactions: true })).toMatchSnapshot()
+			it('should work with blockHash', async () => {
+				const vm = await mc._tevm.getVm()
+				const latest = await vm.blockchain.getCanonicalHeadBlock()
+				const { hash, timestamp, transactions, ...result } = await mc.getBlock({
+					blockHash: bytesToHex(latest.header.hash()),
+					includeTransactions: true,
+				})
+				expect(hash).toStartWith('0x')
+				expect(timestamp).toBeDefined()
+				expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
+				expect(result).toMatchSnapshot()
 			})
 
-			it.todo('should work with blocknumber', async () => {
-				expect(await mc.getBlock({ blockNumber: 100_000n, includeTransactions: false })).toMatchSnapshot()
+			it('should work with blocknumber', async () => {
+				const { timestamp, hash, transactions, ...result } = await mc.getBlock({
+					blockNumber: 0n,
+					includeTransactions: true,
+				})
+				expect(hash).toStartWith('0x')
+				expect(timestamp).toBeDefined()
+				expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
+				expect(result).toMatchSnapshot()
 			})
 		},
 		getBlockNumber: () => {
@@ -194,22 +209,95 @@ describe('viemPublicActions', () => {
 						'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 					)
 				},
-				{ timeout: 30_000 },
+				{ timeout: 40_000 },
 			)
 		},
-		getEnsAvatar: () => {
+		getEnsAvatar: async () => {
+			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
+				chainCommon: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
+				customCrypto: {
+					kzg,
+				},
+			})
+			it(
+				'should work',
+				async () => {
+					// wait to avoid throttling
+					await new Promise((resolve) => setTimeout(resolve, 1_000))
+					expect(await mainnetClient.getEnsAvatar({ name: 'vitalik.eth' })).toBe(
+						'https://ipfs.io/ipfs/QmSP4nq9fnN9dAiCj42ug9Wa79rqmQerZXZch82VqpiH7U/image.gif',
+					)
+				},
+				{ timeout: 40_000 },
+			)
+		},
+		getEnsName: async () => {
+			const kzg = await loadKZG()
+			const mainnetClient = createMemoryClient({
+				chainCommon: mainnet,
+				fork: {
+					url: getAlchemyUrl('mainnet'),
+				},
+				customCrypto: {
+					kzg,
+				},
+			})
+			it(
+				'should work',
+				async () => {
+					// wait to avoid throttling
+					await new Promise((resolve) => setTimeout(resolve, 1_000))
+					expect(await mainnetClient.getEnsName({ address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' })).toBe(
+						'vitalik.eth',
+					)
+				},
+				{ timeout: 40_000 },
+			)
+		},
+		getEnsResolver: async () => {
+			const kzg = await loadKZG()
+			const mainnetClient = createMemoryClient({
+				chainCommon: mainnet,
+				fork: {
+					url: getAlchemyUrl('mainnet'),
+				},
+				customCrypto: {
+					kzg,
+				},
+			})
+			it(
+				'should work',
+				async () => {
+					// wait to avoid throttling
+					await new Promise((resolve) => setTimeout(resolve, 1_000))
+					expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
+						'0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41',
+					)
+				},
+				{ timeout: 40_000 },
+			)
+		},
+		getEnsText: async () => {
+			const kzg = await loadKZG()
+			const mainnetClient = createMemoryClient({
+				chainCommon: mainnet,
+				fork: {
+					url: getAlchemyUrl('mainnet'),
+				},
+				customCrypto: {
+					kzg,
+				},
 			})
 			it.todo('should work', async () => {
-				expect(await mainnetClient.getEnsAvatar({ name: 'vitalik.eth' })).toBe('0x0')
+				expect(await mainnetClient.getEnsText({ name: 'vitalik.eth', key: 'key' })).toBe(
+					'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+				)
 			})
 		},
-		getEnsName: () => {},
-		getEnsResolver: () => {},
-		getEnsText: () => {},
 		getFeeHistory: () => {},
 		getFilterChanges: () => {},
 		getFilterLogs: () => {},
@@ -242,12 +330,17 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getTransaction: () => {
-			it.todo('should work', async () => {
-				expect(await mc.getTransaction({ hash: deployTxHash })).toMatchSnapshot()
+			it('should work', async () => {
+				const { blockHash, ...tx } = await mc.getTransaction({ hash: deployTxHash })
+				expect(blockHash).toStartWith('0x')
+				const vm = await mc._tevm.getVm()
+				const block = await vm.blockchain.getCanonicalHeadBlock()
+				expect(blockHash).toEqual(bytesToHex(block.header.hash()))
+				expect(tx).toMatchSnapshot()
 			})
 		},
 		getTransactionConfirmations: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(1n)
 			})
 		},

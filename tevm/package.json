@@ -212,7 +212,7 @@
   "dependencies": {
     "@tevm/actions-types": "workspace:^",
     "@tevm/base-client": "workspace:^",
-    "@tevm/chains": "workspace:1.1.0-next.57",
+    "@tevm/chains": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",

@@ -78,8 +78,6 @@
 
 > `readonly` **address**: `"0x4200000000000000000000000000000000000014"`
 
-The default chain if no fork url is passed
-
 ### contracts.l2OutputOracle
 
 > `readonly` **l2OutputOracle**: `object`

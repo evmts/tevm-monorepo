@@ -10,6 +10,12 @@
 
 ## Type declaration
 
+### customCrypto?
+
+> `optional` **customCrypto**: `CustomCrypto`
+
+Custom crypto options
+
 ### eips
 
 > **eips**: `ReadonlyArray`\<`number`\>

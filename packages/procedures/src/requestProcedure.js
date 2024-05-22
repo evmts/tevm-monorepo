@@ -1,7 +1,7 @@
 import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethGetTransactionReceiptJsonRpcProcedure } from './eth/ethGetTransactionReceiptProcedure.js'
@@ -23,8 +23,8 @@ import {
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
-
-// Keep this in sync with TevmProvider.ts
+import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
+import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -374,25 +374,247 @@ export const requestProcedure = (client) => {
 					(request)
 				return ethGetLogsProcedure(client)(ethGetLogsRequest)
 			}
+			case 'eth_getBlockByHash': {
+				const getBlockByHashRequest =
+					/** @type {import('@tevm/procedures-types').EthGetBlockByHashJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
+				const includeTransactions = getBlockByHashRequest.params[1] ?? false
+				const result = blockToJsonRpcBlock(block, includeTransactions)
+				return {
+					method: getBlockByHashRequest.method,
+					result,
+					jsonrpc: '2.0',
+					...(getBlockByHashRequest.id ? { id: getBlockByHashRequest.id } : {}),
+				}
+			}
+			case 'eth_getBlockByNumber': {
+				const getBlockByHashRequest =
+					/** @type {import('@tevm/procedures-types').EthGetBlockByNumberJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const blockTagOrNumber = getBlockByHashRequest.params[0]
+				const block = await (() => {
+					if (blockTagOrNumber.startsWith('0x')) {
+						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTagOrNumber)))
+					}
+					return vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (blockTagOrNumber))
+				})()
+
+				if (!block && client.forkUrl) {
+					const fetcher = createJsonRpcFetcher(client.forkUrl)
+					return fetcher.request({
+						jsonrpc: '2.0',
+						id: request.id ?? 1,
+						method: 'eth_getBlockByNumber',
+						params: [blockTagOrNumber, getBlockByHashRequest.params[1] ?? false],
+					})
+				}
+				if (!block) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${blockTagOrNumber}`,
+						},
+					}
+				}
+				const includeTransactions = getBlockByHashRequest.params[1] ?? false
+				const result = blockToJsonRpcBlock(block, includeTransactions)
+				return {
+					method: getBlockByHashRequest.method,
+					result,
+					jsonrpc: '2.0',
+					...(getBlockByHashRequest.id ? { id: getBlockByHashRequest.id } : {}),
+				}
+			}
+			case 'eth_getBlockTransactionCountByHash': {
+				const getBlockByHashRequest =
+					/** @type {import('@tevm/procedures-types').EthGetBlockTransactionCountByHashJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
+				const result = block.transactions.length
+				return {
+					method: getBlockByHashRequest.method,
+					result: numberToHex(result),
+					jsonrpc: '2.0',
+					...(getBlockByHashRequest.id ? { id: getBlockByHashRequest.id } : {}),
+				}
+			}
+			case 'eth_getBlockTransactionCountByNumber': {
+				const getBlockByHashRequest =
+					/** @type {import('@tevm/procedures-types').EthGetBlockTransactionCountByNumberJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const blockTagOrNumber = getBlockByHashRequest.params[0]
+				const block = await (() => {
+					if (blockTagOrNumber.startsWith('0x')) {
+						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTagOrNumber)))
+					}
+					return vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (blockTagOrNumber))
+				})()
+				if (!block) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${blockTagOrNumber}`,
+						},
+					}
+				}
+				const result = block.transactions.length
+				return {
+					method: getBlockByHashRequest.method,
+					result: numberToHex(result),
+					jsonrpc: '2.0',
+					...(getBlockByHashRequest.id ? { id: getBlockByHashRequest.id } : {}),
+				}
+			}
+			case 'eth_getTransactionByHash': {
+				const getTransactionByHashRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionByHashJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const receiptsManager = await client.getReceiptsManager()
+				const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(request.params[0]))
+				if (!receipt && client.forkUrl) {
+					const fetcher = createJsonRpcFetcher(client.forkUrl)
+					return fetcher.request({
+						jsonrpc: '2.0',
+						id: request.id ?? 1,
+						method: 'eth_getTransactionByHash',
+						params: [request.params[0]],
+					})
+				}
+				if (!receipt) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Transaction not found',
+						},
+					}
+				}
+				const [_receipt, blockHash, txIndex] = receipt
+				const block = await vm.blockchain.getBlock(blockHash)
+				const tx = block.transactions[txIndex]
+				if (!tx) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Transaction not found',
+						},
+					}
+				}
+				return {
+					method: getTransactionByHashRequest.method,
+					result: txToJsonRpcTx(tx, block, txIndex),
+					jsonrpc: '2.0',
+					...(getTransactionByHashRequest.id ? { id: getTransactionByHashRequest.id } : {}),
+				}
+			}
+			case 'eth_getTransactionByBlockHashAndIndex': {
+				const getTransactionByBlockHashAndIndexRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionByBlockHashAndIndexJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
+				const txIndex = hexToNumber(request.params[1])
+				const tx = block.transactions[txIndex]
+				if (!tx) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Transaction not found',
+						},
+					}
+				}
+				return {
+					method: getTransactionByBlockHashAndIndexRequest.method,
+					result: txToJsonRpcTx(tx, block, txIndex),
+					jsonrpc: '2.0',
+					...(getTransactionByBlockHashAndIndexRequest.id ? { id: getTransactionByBlockHashAndIndexRequest.id } : {}),
+				}
+			}
+			case 'eth_getTransactionByBlockNumberAndIndex': {
+				const getTransactionByBlockNumberAndIndexRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionByBlockNumberAndIndexJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const blockTagOrNumber = getTransactionByBlockNumberAndIndexRequest.params[0]
+				const block = await (() => {
+					if (blockTagOrNumber.startsWith('0x')) {
+						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockTagOrNumber)))
+					}
+					return vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (blockTagOrNumber))
+				})()
+				if (!block) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${blockTagOrNumber}`,
+						},
+					}
+				}
+				const txIndex = hexToNumber(getTransactionByBlockNumberAndIndexRequest.params[1])
+				const tx = block.transactions[txIndex]
+				if (!tx) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Transaction not found',
+						},
+					}
+				}
+				return {
+					method: getTransactionByBlockNumberAndIndexRequest.method,
+					result: txToJsonRpcTx(tx, block, txIndex),
+					jsonrpc: '2.0',
+					...(getTransactionByBlockNumberAndIndexRequest.id
+						? { id: getTransactionByBlockNumberAndIndexRequest.id }
+						: {}),
+				}
+			}
+			// TODO add this to typescript type
+			// TODO this doesn't work yet see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3436/files
+			// Getting some error with toBigInt internal to the block failing
+			case /** @type any*/ ('eth_blobBaseFee'): {
+				const vm = await client.getVm()
+				const headBlock = await vm.blockchain.getCanonicalHeadBlock()
+				return numberToHex(headBlock.header.calcNextBlobGasPrice())
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
-			case 'eth_getBlockByHash':
 			case 'eth_newBlockFilter':
 			case 'eth_protocolVersion':
 			case 'eth_uninstallFilter':
-			case 'eth_getBlockByNumber':
 			case 'eth_getFilterChanges':
 			case 'eth_getTransactionCount':
-			case 'eth_getTransactionByHash':
 			case 'eth_getUncleCountByBlockHash':
 			case 'eth_getUncleCountByBlockNumber':
 			case 'eth_getUncleByBlockHashAndIndex':
 			case 'eth_newPendingTransactionFilter':
 			case 'eth_getUncleByBlockNumberAndIndex':
-			case 'eth_getBlockTransactionCountByHash':
-			case 'eth_getBlockTransactionCountByNumber':
-			case 'eth_getTransactionByBlockHashAndIndex':
-			case 'eth_getTransactionByBlockNumberAndIndex':
 			case 'debug_traceTransaction':
 			case 'anvil_reset':
 			case 'anvil_dumpState':

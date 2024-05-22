@@ -1,10 +1,11 @@
 import type { Hex } from './Hex.js'
+import type { TransactionParams } from './TransactionParams.js'
 
 /**
  * The type returned by block related
  * json rpc procedures
  */
-export type BlockResult = {
+export type BlockResult<TIncludeTransactions extends boolean = false> = {
 	/**
 	 * The block number (height) in the blockchain.
 	 */
@@ -33,6 +34,6 @@ export type BlockResult = {
 	readonly gasLimit: Hex
 	readonly gasUsed: Hex
 	readonly timestamp: Hex
-	readonly transactions: Hex[]
+	readonly transactions: TIncludeTransactions extends true ? Array<TransactionParams> : Hex[]
 	readonly uncles: Hex[]
 }

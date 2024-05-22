@@ -1,4 +1,4 @@
-import { Common, type Hardfork, createCommon } from '@tevm/common'
+import { Common, type CustomCrypto, type Hardfork, createCommon } from '@tevm/common'
 import { defineChain } from 'viem'
 import {
 	type Chain as ViemChain,
@@ -27,6 +27,10 @@ export type CommonOptions = {
 	 * In future we will take hardfork by blockNumber so the hardfork eips can change based on the block height.
 	 */
 	hardfork: Hardfork
+	/**
+	 * Custom crypto options
+	 */
+	customCrypto?: CustomCrypto
 }
 
 export const createChainCommon = <TChain extends ViemChain>(
@@ -38,6 +42,7 @@ export const createChainCommon = <TChain extends ViemChain>(
 		chainId: BigInt(viemChain.id),
 		hardfork: commonOptions.hardfork,
 		loggingLevel: 'warn',
+		customCrypto: commonOptions.customCrypto ?? {},
 	})
 	return Object.assign({}, viemChain, {
 		common,

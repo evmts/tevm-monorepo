@@ -464,4 +464,4 @@
 
 ## Source
 
-packages/chains/types/index.d.ts:3336
+packages/chains/types/index.d.ts:3333

@@ -11,7 +11,7 @@ export type TransactionResult = {
 	readonly gas: Hex
 	readonly gasPrice: Hex
 	readonly hash: Hex
-	readonly input: Hex
+	readonly data: Hex
 	readonly nonce: Hex
 	readonly to: Hex
 	readonly transactionIndex: Hex

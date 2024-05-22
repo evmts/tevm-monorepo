@@ -24,4 +24,4 @@
 
 ## Source
 
-[packages/chains/src/index.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L32)
+[packages/chains/src/index.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/chains/src/index.ts#L36)

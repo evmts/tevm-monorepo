@@ -21,6 +21,10 @@ json rpc procedures
 
 > `readonly` **blockNumber**: [`Hex`](Hex.md)
 
+### data
+
+> `readonly` **data**: [`Hex`](Hex.md)
+
 ### from
 
 > `readonly` **from**: [`Hex`](Hex.md)
@@ -36,10 +40,6 @@ json rpc procedures
 ### hash
 
 > `readonly` **hash**: [`Hex`](Hex.md)
-
-### input
-
-> `readonly` **input**: [`Hex`](Hex.md)
 
 ### nonce
 

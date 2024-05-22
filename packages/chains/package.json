@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/common": "workspace:1.1.0-next.57",
+    "@tevm/common": "workspace:^",
     "viem": "^2.11.1"
   },
   "devDependencies": {

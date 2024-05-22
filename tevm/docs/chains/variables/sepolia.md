@@ -74,8 +74,6 @@
 
 > `optional` **fees**: `ChainFees`
 
-The default chain if no fork url is passed
-
 ### formatters?
 
 > `optional` **formatters**: `undefined`
@@ -130,4 +128,4 @@ The default chain if no fork url is passed
 
 ## Source
 
-packages/chains/types/index.d.ts:1128
+packages/chains/types/index.d.ts:1132

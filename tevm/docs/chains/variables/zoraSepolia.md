@@ -122,6 +122,9 @@
 
 > `readonly` **portal**: `object`
 
+The ethereum hardfork running on the chain
+In future we will take hardfork by blockNumber so the hardfork eips can change based on the block height.
+
 ### contracts.portal.11155111
 
 > `readonly` **11155111**: `object`
@@ -464,4 +467,4 @@
 
 ## Source
 
-packages/chains/types/index.d.ts:6579
+packages/chains/types/index.d.ts:6576

@@ -24,4 +24,4 @@
 
 ## Source
 
-packages/chains/types/index.d.ts:18
+packages/chains/types/index.d.ts:22

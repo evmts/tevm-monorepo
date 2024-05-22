@@ -140,4 +140,4 @@ custom: foundry.custom,
 
 ## Source
 
-packages/chains/types/index.d.ts:1088
+packages/chains/types/index.d.ts:1092
