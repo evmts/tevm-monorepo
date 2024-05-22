@@ -1,5 +1,13 @@
 # @tevm/contract
 
+## 1.1.0-next.58
+
+### Patch Changes
+
+- [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in TransactionResult returning input rather than data
+
+- [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed BlockResult type to be correct when `includeTransactions` is true
+
 ## 1.1.0-next.56
 
 ### Patch Changes

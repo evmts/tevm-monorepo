@@ -1,5 +1,14 @@
 # @tevm/client
 
+## 1.1.0-next.58
+
+### Patch Changes
+
+- [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not passing in customCrypto correctly for non forked mode
+
+- Updated dependencies [[`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27)]:
+  - @tevm/chains@1.1.0-next.58
+
 ## 1.1.0-next.57
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @tevm/chains
 
+## 1.1.0-next.58
+
+### Minor Changes
+
+- [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Added customCrypto option
+
 ## 1.1.0-next.57
 
 ### Minor Changes
