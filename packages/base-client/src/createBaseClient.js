@@ -12,6 +12,7 @@ import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
+import { createMockKzg } from './createMockKzg.js'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -101,7 +102,17 @@ export const createBaseClient = (options = {}) => {
 			// ethereumjs does this for mainnet but we forgo all this functionality
 			const customCrypto = options?.customCrypto ?? {}
 			if (options.chainCommon) {
-				return Object.assign(options.chainCommon, { customCrypto })
+				return createChainCommon(
+					{ ...options.chainCommon, id: Number(chainId) },
+					{
+						hardfork: 'cancun',
+						eips: options.eips ?? [],
+						customCrypto: {
+							kzg: createMockKzg(),
+							...customCrypto,
+						},
+					},
+				)
 			}
 			if (!options.fork?.url) {
 				return createChainCommon(
@@ -109,7 +120,10 @@ export const createBaseClient = (options = {}) => {
 					{
 						hardfork: 'cancun',
 						eips: options.eips ?? [],
-						...(options.customCrypto !== undefined ? options.customCrypto : {}),
+						customCrypto: {
+							kzg: createMockKzg(),
+							...customCrypto,
+						},
 					},
 				)
 			}
@@ -118,7 +132,10 @@ export const createBaseClient = (options = {}) => {
 				{
 					hardfork: 'cancun',
 					eips: options.eips ?? [],
-					...(options.customCrypto !== undefined ? options.customCrypto : {}),
+					customCrypto: {
+						kzg: createMockKzg(),
+						...customCrypto,
+					},
 				},
 			)
 		})

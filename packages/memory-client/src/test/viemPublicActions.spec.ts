@@ -146,13 +146,25 @@ describe('viemPublicActions', () => {
 			it('should work with blockHash', async () => {
 				const vm = await mc._tevm.getVm()
 				const latest = await vm.blockchain.getCanonicalHeadBlock()
-				expect(
-					await mc.getBlock({ blockHash: bytesToHex(latest.header.hash()), includeTransactions: true }),
-				).toMatchSnapshot()
+				const { hash, timestamp, transactions, ...result } = await mc.getBlock({
+					blockHash: bytesToHex(latest.header.hash()),
+					includeTransactions: true,
+				})
+				expect(hash).toStartWith('0x')
+				expect(timestamp).toBeDefined()
+				expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
+				expect(result).toMatchSnapshot()
 			})
 
 			it('should work with blocknumber', async () => {
-				expect(await mc.getBlock({ blockNumber: 0n, includeTransactions: false })).toMatchSnapshot()
+				const { timestamp, hash, transactions, ...result } = await mc.getBlock({
+					blockNumber: 0n,
+					includeTransactions: true,
+				})
+				expect(hash).toStartWith('0x')
+				expect(timestamp).toBeDefined()
+				expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
+				expect(result).toMatchSnapshot()
 			})
 		},
 		getBlockNumber: () => {
