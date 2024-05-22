@@ -595,6 +595,14 @@ export const requestProcedure = (client) => {
 						: {}),
 				}
 			}
+			// TODO add this to typescript type
+			// TODO this doesn't work yet see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3436/files
+			// Getting some error with toBigInt internal to the block failing
+			case /** @type any*/ ('eth_blobBaseFee'): {
+				const vm = await client.getVm()
+				const headBlock = await vm.blockchain.getCanonicalHeadBlock()
+				return numberToHex(headBlock.header.calcNextBlobGasPrice())
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
