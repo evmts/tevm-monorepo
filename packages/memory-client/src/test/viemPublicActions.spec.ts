@@ -4,7 +4,7 @@ import { mainnet } from '@tevm/chains'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { type PublicActions, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -143,8 +143,12 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getBlock: () => {
-			it('should work with latest', async () => {
-				expect(await mc.getBlock({ blockTag: 'latest', includeTransactions: true })).toMatchSnapshot()
+			it('should work with blockHash', async () => {
+				const vm = await mc._tevm.getVm()
+				const latest = await vm.blockchain.getCanonicalHeadBlock()
+				expect(
+					await mc.getBlock({ blockHash: bytesToHex(latest.header.hash()), includeTransactions: true }),
+				).toMatchSnapshot()
 			})
 
 			it('should work with blocknumber', async () => {
@@ -315,7 +319,12 @@ describe('viemPublicActions', () => {
 		},
 		getTransaction: () => {
 			it('should work', async () => {
-				expect(await mc.getTransaction({ hash: deployTxHash })).toMatchSnapshot()
+				const { blockHash, ...tx } = await mc.getTransaction({ hash: deployTxHash })
+				expect(blockHash).toStartWith('0x')
+				const vm = await mc._tevm.getVm()
+				const block = await vm.blockchain.getCanonicalHeadBlock()
+				expect(blockHash).toEqual(bytesToHex(block.header.hash()))
+				expect(tx).toMatchSnapshot()
 			})
 		},
 		getTransactionConfirmations: () => {
