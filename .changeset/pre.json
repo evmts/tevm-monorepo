@@ -75,7 +75,8 @@
     "@tevm/scripts": "1.0.0",
     "@tevm/test-utils": "1.0.0-next.39",
     "mdt-repro": "0.0.1",
-    "@tevm/receipt-manager": "1.1.0-next.47"
+    "@tevm/receipt-manager": "1.1.0-next.47",
+    "@tevm/chains": "1.1.0-next.56"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -92,6 +93,7 @@
     "brown-onions-protect",
     "calm-flowers-breathe",
     "calm-kings-unite",
+    "calm-pans-kneel",
     "chatty-jobs-argue",
     "chatty-mayflies-appear",
     "chilled-apples-repeat",
@@ -245,9 +247,11 @@
     "shy-clouds-teach",
     "shy-months-pretend",
     "shy-ways-warn",
+    "silent-panthers-camp",
     "silly-chicken-sin",
     "silver-dodos-clean",
     "silver-queens-juggle",
+    "six-deers-pay",
     "slow-bobcats-build",
     "small-seals-design",
     "small-taxis-camp",
@@ -297,6 +301,7 @@
     "warm-vans-occur",
     "weak-keys-ring",
     "wicked-ravens-bow",
+    "wild-balloons-applaud",
     "wild-bears-look",
     "wild-pugs-cheat",
     "wise-rabbits-visit",

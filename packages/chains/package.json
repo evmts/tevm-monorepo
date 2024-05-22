@@ -1,6 +1,6 @@
 {
   "name": "@tevm/chains",
-  "version": "1.1.0-next.56",
+  "version": "1.1.0-next.57",
   "private": false,
   "description": "Client implementations of Tevm",
   "keywords": [
@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/common": "workspace:1.1.0-next.52",
+    "@tevm/common": "workspace:^",
     "viem": "^2.11.1"
   },
   "devDependencies": {

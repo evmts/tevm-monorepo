@@ -1,5 +1,21 @@
 # @tevm/client
 
+## 1.1.0-next.57
+
+### Minor Changes
+
+- [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Breaking: Removed the chainId property in favor of `TevmChain` from `@tevm/chains`. TevmChain extends ViemChain and ethereumjs Common for a common interface for specifying chain/common info
+
+- [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for the customCrypto option to @tevm/common and @tevm/base-client. This allows kzg to be passed for 4844 supports
+
+### Patch Changes
+
+- Updated dependencies [[`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59), [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59), [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59)]:
+  - @tevm/decorators@1.1.0-next.57
+  - @tevm/base-client@1.1.0-next.57
+  - @tevm/chains@1.1.0-next.57
+  - @tevm/evm@1.1.0-next.57
+
 ## 1.1.0-next.56
 
 ### Patch Changes
