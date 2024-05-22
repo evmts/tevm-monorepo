@@ -151,4 +151,4 @@ await client.ready()
 
 ## Source
 
-[createBaseClient.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L27)
+[createBaseClient.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L28)

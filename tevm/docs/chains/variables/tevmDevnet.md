@@ -350,4 +350,4 @@ The default chain if no fork url is passed
 
 ## Source
 
-packages/chains/types/index.d.ts:22
+packages/chains/types/index.d.ts:26

@@ -468,4 +468,4 @@
 
 ## Source
 
-packages/chains/types/index.d.ts:2253
+packages/chains/types/index.d.ts:2250
