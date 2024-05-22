@@ -65,7 +65,8 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/block": "workspace:^"
+		"@tevm/block": "workspace:^",
+		"@tevm/tx": "workspace:1.1.0-next.52"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",

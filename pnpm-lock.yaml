@@ -1928,6 +1928,9 @@ importers:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
+      '@tevm/tx':
+        specifier: workspace:1.1.0-next.52
+        version: link:../tx
     devDependencies:
       '@tevm/actions-types':
         specifier: workspace:^

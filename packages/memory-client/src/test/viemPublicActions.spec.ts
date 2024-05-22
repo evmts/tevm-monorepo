@@ -148,7 +148,7 @@ describe('viemPublicActions', () => {
 			})
 
 			it('should work with blocknumber', async () => {
-				expect(await mc.getBlock({ blockNumber: 100_000n, includeTransactions: false })).toMatchSnapshot()
+				expect(await mc.getBlock({ blockNumber: 0n, includeTransactions: false })).toMatchSnapshot()
 			})
 		},
 		getBlockNumber: () => {
@@ -294,12 +294,12 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getTransaction: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getTransaction({ hash: deployTxHash })).toMatchSnapshot()
 			})
 		},
 		getTransactionConfirmations: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(1n)
 			})
 		},
