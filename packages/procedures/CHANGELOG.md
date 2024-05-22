@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.1.0-next.58
+
+### Minor Changes
+
+- [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new JSON-RPC endpoints eth_getBlockByHash, eth_getBlockByNumber, eth_getBlockTransactionCountByHash, eth_getBlockTransactionCountByNumber, eth_getTransactionByHash, eth_getTransactionByBlockHashAndIndex, eth_getTransactionByBlockNumberAndIndex, and eth_blobBaseFee
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/actions@1.1.0-next.57
+
 ## 1.1.0-next.57
 
 ### Patch Changes
