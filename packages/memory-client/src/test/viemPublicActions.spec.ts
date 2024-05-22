@@ -4,7 +4,7 @@ import { mainnet } from '@tevm/chains'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { type PublicActions, encodeFunctionData, numberToHex, parseEther, parseGwei } from 'viem'
+import { type PublicActions, encodeFunctionData, numberToHex, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -241,7 +241,7 @@ describe('viemPublicActions', () => {
 			})
 			it('should work', async () => {
 				expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
-					'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+					'0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41',
 				)
 			})
 		},
