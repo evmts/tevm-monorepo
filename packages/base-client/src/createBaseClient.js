@@ -9,10 +9,10 @@ import { KECCAK256_RLP, bytesToHex, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
+import { createMockKzg } from './createMockKzg.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
-import { createMockKzg } from './createMockKzg.js'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
