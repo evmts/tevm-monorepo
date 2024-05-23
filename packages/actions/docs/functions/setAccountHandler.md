@@ -19,21 +19,17 @@ Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-• **client.forkUrl?**: `string`
+• **client.forkTransport?**
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 **Example**
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-• **client.getChainCommon?**
-
-Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
-This is the same object on `getVm().common`
+• **client.forkTransport.request?**: `EIP1193RequestFn`
 
 • **client.getReceiptsManager?**
 

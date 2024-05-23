@@ -7,7 +7,7 @@ const dirs = [
 'contract',
 'memory-client',
 'errors',
-'chains',
+'common',
 'precompiles',
 'predeploys',
 'procedures-types',

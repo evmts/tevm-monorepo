@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
+import { http } from 'viem'
 import { createBaseState } from '../createBaseState.js'
 import { shallowCopy } from './shallowCopy.js'
 
@@ -9,7 +10,7 @@ describe(shallowCopy.name, () => {
 		const options = {
 			loggingLevel: 'warn',
 			fork: {
-				url: getAlchemyUrl(),
+				transport: http(getAlchemyUrl())({}),
 			},
 		} as const
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
-import { Common } from '@tevm/common'
+import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
@@ -50,9 +50,7 @@ const MOCKERC20_ABI = [
 
 describe(buildBlock.name, () => {
 	it('should be able to modify contract state', async () => {
-		const common = new Common({
-			chain: 1,
-		})
+		const common = mainnet
 		const stateManager = createStateManager({
 			loggingLevel: 'warn',
 		})

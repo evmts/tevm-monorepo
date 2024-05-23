@@ -2,6 +2,7 @@ import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandl
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethGetTransactionReceiptJsonRpcProcedure } from './eth/ethGetTransactionReceiptProcedure.js'
@@ -221,12 +222,12 @@ export const requestProcedure = (client) => {
 							.then((block) => block.header.coinbase),
 					}
 				}
-				if (!client.forkUrl) {
+				if (!client.forkTransport) {
 					throw new Error(
 						'Fatal error! Client is in mode fork or proxy but no forkUrl is set! This indicates a bug in the client.',
 					)
 				}
-				const fetcher = createJsonRpcFetcher(client.forkUrl)
+				const fetcher = createJsonRpcFetcher(client.forkTransport)
 				return fetcher.request(/** @type any*/ (request))
 			}
 			// TODO move this to it's own procedure
@@ -402,8 +403,8 @@ export const requestProcedure = (client) => {
 					return vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (blockTagOrNumber))
 				})()
 
-				if (!block && client.forkUrl) {
-					const fetcher = createJsonRpcFetcher(client.forkUrl)
+				if (!block && client.forkTransport) {
+					const fetcher = createJsonRpcFetcher(client.forkTransport)
 					return fetcher.request({
 						jsonrpc: '2.0',
 						id: request.id ?? 1,
@@ -483,8 +484,8 @@ export const requestProcedure = (client) => {
 				const vm = await client.getVm()
 				const receiptsManager = await client.getReceiptsManager()
 				const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(request.params[0]))
-				if (!receipt && client.forkUrl) {
-					const fetcher = createJsonRpcFetcher(client.forkUrl)
+				if (!receipt && client.forkTransport) {
+					const fetcher = createJsonRpcFetcher(client.forkTransport)
 					return fetcher.request({
 						jsonrpc: '2.0',
 						id: request.id ?? 1,
@@ -678,11 +679,18 @@ export const requestProcedure = (client) => {
 					})),
 					method: request.method,
 				}
+			case 'eth_protocolVersion': {
+				return {
+					result: packageJsonVersion,
+					jsonrpc: '2.0',
+					method: 'eth_protocolVersion',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
 			case 'anvil_loadState':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
-			case 'eth_protocolVersion':
 			case 'eth_uninstallFilter':
 			case 'eth_getFilterChanges':
 			case 'eth_getTransactionCount':

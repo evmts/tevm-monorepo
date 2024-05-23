@@ -12,13 +12,13 @@ export const forkAndCacheBlock = async (client, block, executeBlock = false) => 
 	// if no state root fork the block with a fresh state manager
 	const vm = await client.getVm()
 	// this can't happen making ts happy
-	if (!client.forkUrl) {
+	if (!client.forkTransport) {
 		throw new Error('Cannot fork without a fork url')
 	}
 	const stateManager = createStateManager({
 		...vm.evm.stateManager._baseState.options,
 		fork: {
-			url: client.forkUrl,
+			transport: client.forkTransport,
 			blockTag: block.header.number,
 		},
 	})

@@ -32,4 +32,4 @@ fields, then saves the account into state. Account fields can include
 
 ## Source
 
-packages/state/dist/index.d.ts:314
+packages/state/dist/index.d.ts:316

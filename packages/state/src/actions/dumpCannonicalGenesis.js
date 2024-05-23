@@ -32,10 +32,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 		const account = await getAccount(baseState)(EthjsAddress.fromString(hexAddress))
 
 		if (account === undefined) {
-			baseState.logger.warn(
-				{ address: hexAddress },
-				'Account in accountAddresses not found. This may indicate a bug in dumpCannonicalGenesis',
-			)
+			baseState.logger.debug({ address: hexAddress }, 'Warning: Account in accountAddresses not found')
 		}
 		if (account !== undefined) {
 			const storage = await dumpStorage(baseState)(EthjsAddress.fromString(hexAddress))

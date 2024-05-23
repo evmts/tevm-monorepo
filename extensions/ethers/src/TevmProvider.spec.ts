@@ -2,6 +2,7 @@ import { createContract, createScript } from '@tevm/contract'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { http } from '../../../packages/jsonrpc/dist/index.cjs'
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
 
@@ -13,7 +14,7 @@ describe(TevmProvider.name, () => {
 	beforeEach(async () => {
 		provider = await TevmProvider.createMemoryProvider({
 			fork: {
-				url: FORK_URL,
+				transport: http(FORK_URL)({}),
 			},
 		})
 	})

@@ -11,7 +11,7 @@ Creates the base instance of a memory client
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)\<`Chain`\>= `{}`
+• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)= `{}`
 
 ## Returns
 
@@ -19,7 +19,7 @@ Creates the base instance of a memory client
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -34,31 +34,23 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
-### forkUrl?
+### forkTransport?
 
-> `optional` `readonly` **forkUrl**: `string`
+> `optional` `readonly` **forkTransport**: `object`
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 #### Example
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-### getChainCommon()
+### forkTransport.request
 
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
-
-Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
-This is the same object on `getVm().common`
-
-#### Returns
-
-`Promise`\<`TevmChainCommon`\<`Chain`\>\>
+> **request**: `EIP1193RequestFn`
 
 ### getReceiptsManager()
 

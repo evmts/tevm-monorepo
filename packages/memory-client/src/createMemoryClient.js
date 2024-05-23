@@ -45,7 +45,7 @@ export const createMemoryClient = (options) => {
 
 	return createClient({
 		type: 'tevm',
-		.../** @type any*/ (options?.chainCommon !== undefined ? { chain: options.chainCommon } : {}),
+		.../** @type any*/ (options?.common !== undefined ? { chain: options.common } : {}),
 		transport: () =>
 			createTransport({
 				request: /** @type any*/ (tevm.request),
@@ -72,7 +72,7 @@ export const createMemoryClient = (options) => {
 				tevmDumpState: tevm.dumpState,
 				tevmSetAccount: tevm.setAccount,
 				tevmGetAccount: tevm.getAccount,
-				...(tevm.forkUrl !== undefined ? { forkUrl: tevm.forkUrl } : {}),
+				...(tevm.forkTransport !== undefined ? { forkTransport: tevm.forkTransport } : {}),
 			}
 		})
 }

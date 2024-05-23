@@ -6,11 +6,11 @@ import { NoForkUrlSetError } from './getBalanceHandler.js'
 /**
  * @param {object} options
  * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
- * @param {string} [options.forkUrl]
+ * @param {{request: import('viem').EIP1193RequestFn}} [options.forkClient]
  * @returns {import('@tevm/actions-types').EthGetStorageAtHandler}
  */
 export const getStorageAtHandler =
-	({ forkUrl, getVm }) =>
+	({ forkClient, getVm }) =>
 	async (params) => {
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
@@ -22,12 +22,12 @@ export const getStorageAtHandler =
 				),
 			)
 		}
-		if (!forkUrl) {
+		if (!forkClient) {
 			throw new NoForkUrlSetError(
 				'No forkurl set. Block tags other than latest for getStorageAt has not yet been implemented',
 			)
 		}
-		const fetcher = createJsonRpcFetcher(forkUrl)
+		const fetcher = createJsonRpcFetcher(forkClient)
 		return fetcher
 			.request({
 				jsonrpc: '2.0',

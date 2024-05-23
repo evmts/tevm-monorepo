@@ -5,23 +5,19 @@ prev: false
 title: "createJsonRpcFetcher"
 ---
 
-> **createJsonRpcFetcher**(`url`, `headers`, `retries`?): [`JsonRpcClient`](/reference/tevm/jsonrpc/type-aliases/jsonrpcclient/)
+> **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](/reference/tevm/jsonrpc/type-aliases/jsonrpcclient/)
 
+:::caution[Deprecated]
 Makes a JSON-RPC request to a url
+Returns the entire JSON-RPC response rather than throwing and only returning result
+Used currently as an adapter to avoid refactoring existing code
+:::
 
 ## Parameters
 
-• **url**: `string`
+• **client**
 
-to JSON RPC backend
-
-• **headers**: [`HeadersInit`](/reference/tevm/jsonrpc/type-aliases/headersinit/)= `undefined`
-
-to send with the request
-
-• **retries?**: `number`= `3`
-
-defaults to 3
+• **client.request**: `EIP1193RequestFn`\<`undefined`\>
 
 ## Returns
 
@@ -46,4 +42,4 @@ const {result: block} = await fetchJsonRpc(url, params)
 
 ## Source
 
-[fetchJsonRpc.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L20)
+[packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)

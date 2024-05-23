@@ -6,7 +6,7 @@ import { blockNumberHandler } from './blockNumberHandler.js'
  * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthGasPriceHandler}
  */
-export const gasPriceHandler = ({ forkUrl, getVm, ...client }) => {
+export const gasPriceHandler = ({ forkTransport, getVm, ...client }) => {
 	/**
 	 * @type {bigint}
 	 */
@@ -16,11 +16,11 @@ export const gasPriceHandler = ({ forkUrl, getVm, ...client }) => {
 	 */
 	let blockNumber
 	// TODO pass in headers
-	const fetcher = createJsonRpcFetcher(forkUrl ?? 'no url set')
 	return async () => {
-		if (!forkUrl) {
+		if (!forkTransport) {
 			return parseGwei('1')
 		}
+		const fetcher = createJsonRpcFetcher(forkTransport)
 		const newBlockNumber = await blockNumberHandler({ ...client, getVm })({})
 		if (!gasPrice || blockNumber !== newBlockNumber) {
 			blockNumber = newBlockNumber

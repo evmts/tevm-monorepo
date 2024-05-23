@@ -20,6 +20,10 @@ json rpc procedures
 
 > `readonly` **blockNumber**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
+### data
+
+> `readonly` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+
 ### from
 
 > `readonly` **from**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
@@ -35,10 +39,6 @@ json rpc procedures
 ### hash
 
 > `readonly` **hash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
-
-### input
-
-> `readonly` **input**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### nonce
 

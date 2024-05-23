@@ -18,4 +18,4 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:288
+packages/state/dist/index.d.ts:290

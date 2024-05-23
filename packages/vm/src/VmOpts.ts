@@ -1,6 +1,6 @@
 import { VM } from '@ethereumjs/vm'
 import { type Chain } from '@tevm/blockchain'
-import { Common } from '@tevm/common'
+import { type Common } from '@tevm/common'
 import { Evm } from '@tevm/evm'
 import { type StateManager } from '@tevm/state'
 

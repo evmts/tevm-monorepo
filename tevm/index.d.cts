@@ -1,6 +1,6 @@
 export { BlockParam, CallParams, CallResult, ContractParams, ContractResult, GetAccountParams, GetAccountResult, MineHandler, MineParams, MineResult, ScriptParams, ScriptResult, SetAccountParams, SetAccountResult, TraceCall, TraceParams, TraceResult } from '@tevm/actions-types';
 export { JsonRpcRequestTypeFromMethod, JsonRpcReturnTypeFromMethod, TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequest, TevmJsonRpcRequestHandler } from '@tevm/procedures-types';
-export { HeadersInit, JsonRpcClient, JsonRpcProcedure, JsonRpcRequest, JsonRpcResponse, createJsonRpcFetcher } from '@tevm/jsonrpc';
+export { HeadersInit, JsonRpcClient, JsonRpcProcedure, JsonRpcRequest, JsonRpcResponse, createJsonRpcFetcher, http, loadBalance, rateLimit, webSocket } from '@tevm/jsonrpc';
 export { TevmClient } from '@tevm/client-types';
 export { CustomPredeploy, Predeploy, definePredeploy } from '@tevm/predeploys';
 export { Contract, CreateContract, CreateContractParams, CreateScript, CreateScriptParams, EventActionCreator, ReadActionCreator, Script, WriteActionCreator, createContract, createScript } from '@tevm/contract';

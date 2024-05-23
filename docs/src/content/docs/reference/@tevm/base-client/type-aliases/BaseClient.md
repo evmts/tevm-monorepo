@@ -5,7 +5,7 @@ prev: false
 title: "BaseClient"
 ---
 
-> **BaseClient**\<`TMode`, `TExtended`, `TChain`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -30,29 +30,21 @@ and extensibility
 
 [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
-### forkUrl?
+### forkTransport?
 
-> `optional` `readonly` **forkUrl**: `string`
+> `optional` `readonly` **forkTransport**: `object`
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 #### Example
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-### getChainCommon()
+### forkTransport.request
 
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`TChain`\>\>
-
-Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
-This is the same object on `getVm().common`
-
-#### Returns
-
-`Promise`\<`TevmChainCommon`\<`TChain`\>\>
+> **request**: `EIP1193RequestFn`
 
 ### getReceiptsManager()
 
@@ -142,8 +134,6 @@ await client.ready()
 • **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
 
 • **TExtended** = `object`
-
-• **TChain** *extends* `ViemChain` = `ViemChain`
 
 ## Source
 

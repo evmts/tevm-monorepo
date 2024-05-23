@@ -3,13 +3,14 @@ import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedu
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, numberToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'
+import { http } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 const forkConfig = {
-	url: getAlchemyUrl(),
+	transport: http(getAlchemyUrl())({}),
 	blockTag: 111791332n,
 }
 

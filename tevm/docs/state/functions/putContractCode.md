@@ -31,4 +31,4 @@ corresponding to `address` to reference this.
 
 ## Source
 
-packages/state/dist/index.d.ts:327
+packages/state/dist/index.d.ts:329

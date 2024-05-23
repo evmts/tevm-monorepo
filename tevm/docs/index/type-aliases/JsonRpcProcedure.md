@@ -16,7 +16,7 @@
 
 • **TResult**
 
-• **TErrorCode** *extends* `string`
+• **TErrorCode** *extends* `string` \| `number`
 
 ## Parameters
 

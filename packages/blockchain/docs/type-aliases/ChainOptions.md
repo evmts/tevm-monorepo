@@ -31,11 +31,15 @@ Optional fork config for forking a live chain
 Optional block tag to fork
 Defaults to 'latest'
 
-### fork.url
+### fork.transport
 
-> **url**: `string`
+> **transport**: `object`
 
-JSON-RPC url to fork
+EIP-1193 request function to fetch forked blocks with
+
+### fork.transport.request
+
+> **request**: `EIP1193RequestFn`
 
 ### genesisBlock?
 

@@ -63,7 +63,6 @@
 	},
 	"dependencies": {
 		"@tevm/blockchain": "workspace:^",
-		"@tevm/chains": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
@@ -74,7 +73,8 @@
 		"@tevm/sync-storage-persister": "workspace:^",
 		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"@tevm/vm": "workspace:^"
+		"@tevm/vm": "workspace:^",
+		"viem": "^2.12.0"
 	},
 	"devDependencies": {
 		"@tevm/test-utils": "workspace:^",

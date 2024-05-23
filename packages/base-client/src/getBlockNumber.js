@@ -2,10 +2,10 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt } from '@tevm/utils'
 
 /**
- * @param {string} url
+ * @param {{request: import('viem').EIP1193RequestFn}} client
  */
-export const getBlockNumber = async (url) => {
-	const fetcher = createJsonRpcFetcher(url)
+export const getBlockNumber = async (client) => {
+	const fetcher = createJsonRpcFetcher(client)
 	const { result: blockNumber, error } = await fetcher.request({
 		jsonrpc: '2.0',
 		method: 'eth_blockNumber',

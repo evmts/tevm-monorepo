@@ -1,4 +1,5 @@
 import { createMemoryClient, parseEther } from 'tevm'
+import { http } from 'viem'
 import { MOCKERC1155_ABI, MOCKERC1155_BYTECODE } from './constants.js'
 
 const caller = `0x${'1'.repeat(40)}` as const
@@ -8,7 +9,7 @@ const token = '0x171593d3E5Bc8A2E869600F951ed532B9780Cbd2'
  * initialize a brand new tevm client and then execute a call with lots of storage requirements. This is similar to how one might use tevm in a serverless function where tevm is reinitialized often
  */
 export const lotsOfMemoryAccess = async (rpcUrl: string, ids = [1, 10, 20]) => {
-	const tevm = createMemoryClient({ fork: { url: rpcUrl } })
+	const tevm = createMemoryClient({ fork: { transport: http(rpcUrl)({}) } })
 	await tevm.tevmSetAccount({
 		address: token,
 		deployedBytecode: MOCKERC1155_BYTECODE,

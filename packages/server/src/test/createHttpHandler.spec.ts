@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { http } from '@tevm/jsonrpc'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
 import { getAlchemyUrl } from '@tevm/test-utils'
@@ -18,7 +19,7 @@ describe('createHttpHandler', () => {
 		async () => {
 			const tevm = createMemoryClient({
 				fork: {
-					url: getAlchemyUrl(),
+					transport: http(getAlchemyUrl())({}),
 					blockTag: 115325880n,
 				},
 			})

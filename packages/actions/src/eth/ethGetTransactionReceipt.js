@@ -34,8 +34,8 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	 * We currently do not cache it in future we may consider fetching
 	 * entire block here and caching it
 	 */
-	if (!result && client.forkUrl) {
-		const fetcher = createJsonRpcFetcher(client.forkUrl)
+	if (!result && client.forkTransport) {
+		const fetcher = createJsonRpcFetcher(client.forkTransport)
 		const { result } = await fetcher.request({
 			method: 'eth_getTransactionReceipt',
 			params: [params.hash],
@@ -113,7 +113,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			? /** @type any*/ (tx).maxPriorityFeePerGas
 			: /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n) + (block.header.baseFeePerGas ?? 0n)
 
-	vm.common.setHardfork(tx.common.hardfork())
+	vm.common.ethjsCommon.setHardfork(tx.common.hardfork())
 	await vm.stateManager.setStateRoot(parentBlock.header.stateRoot)
 	// Run tx through copied vm to get tx gasUsed and createdAddress
 	const runBlockResult = await vm.runBlock({

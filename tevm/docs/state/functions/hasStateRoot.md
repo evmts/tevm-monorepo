@@ -28,4 +28,4 @@ Returns true if state root exists
 
 ## Source
 
-packages/state/dist/index.d.ts:306
+packages/state/dist/index.d.ts:308

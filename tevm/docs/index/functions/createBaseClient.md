@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<[`ViemChain`](../../chains/type-aliases/ViemChain.md)\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>\>
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)
 
 ## Returns
 

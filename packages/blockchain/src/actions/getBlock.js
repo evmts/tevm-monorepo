@@ -28,7 +28,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 		return block
 	}
 
-	if (!baseChain.options.fork?.url) {
+	if (!baseChain.options.fork?.transport) {
 		throw new Error(
 			blockId instanceof Uint8Array
 				? `Block with hash ${bytesToHex(blockId)} does not exist`
@@ -39,7 +39,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 
 	const fetchedBlock = await getBlockFromRpc(
 		{
-			url: baseChain.options.fork?.url,
+			transport: baseChain.options.fork?.transport,
 			blockTag: blockId instanceof Uint8Array ? bytesToHex(blockId) : BigInt(blockId),
 		},
 		baseChain.common,

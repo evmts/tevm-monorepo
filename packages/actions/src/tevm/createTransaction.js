@@ -30,20 +30,20 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
     const dataFee = (() => {
       let out = 0n
       for (const entry of evmInput.data ?? []) {
-        out += vm.common.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
+        out += vm.common.ethjsCommon.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
       }
       return out
     })()
 
     const baseFee = (() => {
       let out = dataFee
-      const txFee = vm.common.param('gasPrices', 'tx')
+      const txFee = vm.common.ethjsCommon.param('gasPrices', 'tx')
       if (txFee) {
         out += txFee
       }
       const isCreation = (evmInput.to?.bytes.length ?? 0) === 0
-      if (vm.common.gteHardfork('homestead') && isCreation) {
-        const txCreationFee = vm.common.param('gasPrices', 'txCreation')
+      if (vm.common.ethjsCommon.gteHardfork('homestead') && isCreation) {
+        const txCreationFee = vm.common.ethjsCommon.param('gasPrices', 'txCreation')
         if (txCreationFee) {
           out += txCreationFee
         }
@@ -89,7 +89,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
       },
       {
         allowUnlimitedInitCodeSize: false,
-        common: vm.common,
+        common: vm.common.ethjsCommon,
         // we don't want to freeze because there is a hack to set tx.hash when building a block
         freeze: false,
       },

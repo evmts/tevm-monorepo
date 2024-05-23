@@ -1,19 +1,19 @@
-import type { TevmChainCommon, ViemChain } from '@tevm/chains'
-import { type CustomCrypto } from '@tevm/common'
+import { type Common } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { StateOptions } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
+import type { EIP1193RequestFn } from 'viem'
 import type { CustomPrecompile } from './CustomPrecompile.js'
-import type { Hardfork } from './Hardfork.js'
 import type { MiningConfig } from './MiningConfig.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
  */
-export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptions & {
+export type BaseClientOptions = StateOptions & {
 	/**
-	 * The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+	 * The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+	 * If not specified and a fork is provided the common chainId will be fetched from the fork
 	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
 	 * @example
 	 * ```
@@ -24,11 +24,17 @@ export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptio
 	 * ````
 	 * `
 	 */
-	readonly chainCommon?: TevmChainCommon<TChain>
+	readonly common?: Common
 	/**
-	 * Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
+	 * Client to make json rpc requests to a forked node
+	 * @example
+	 * ```ts
+	 * const client = createMemoryClient({ request: eip1193RequestFn })
+	 * ```
 	 */
-	readonly customCrypto?: CustomCrypto
+	readonly forkTransport?: {
+		request: EIP1193RequestFn
+	}
 	/**
 	 * Configure logging options for the client
 	 */
@@ -44,15 +50,6 @@ export type BaseClientOptions<TChain extends ViemChain = ViemChain> = StateOptio
 	 * Enable profiler. Defaults to false.
 	 */
 	readonly profiler?: boolean
-	/**
-	 * Hardfork to use. Defaults to `shanghai`
-	 */
-	readonly hardfork?: Hardfork
-	// TODO type this more strongly
-	/**
-	 * Eips to enable. Defaults to `[1559, 4895]`
-	 */
-	readonly eips?: ReadonlyArray<number>
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive

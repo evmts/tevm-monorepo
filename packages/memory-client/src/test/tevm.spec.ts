@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
+import { http } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 
@@ -38,7 +39,7 @@ const addabi = [
 ] as const
 
 const forkConfig = {
-	url: getAlchemyUrl(),
+	transport: http(getAlchemyUrl())({}),
 	blockTag: 111791332n,
 }
 

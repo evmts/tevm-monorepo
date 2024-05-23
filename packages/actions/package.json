@@ -72,7 +72,8 @@
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",
-		"@tevm/zod": "workspace:^"
+		"@tevm/zod": "workspace:^",
+		"viem": "^2.12.0"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",

@@ -54,18 +54,22 @@ export const runTx =
 
 		if (opts.skipHardForkValidation !== true) {
 			// Find and set preMerge hf for easy access later
-			const hfs = vm.common.hardforks()
+			const hfs = vm.common.ethjsCommon.hardforks()
 			const preMergeIndex = hfs.findIndex((hf) => hf.ttd !== null && hf.ttd !== undefined) - 1
 			// If no pre merge hf found, set it to first hf even if its merge
 			const preMergeHf = (preMergeIndex >= 0 ? hfs[preMergeIndex]?.name : hfs[0]?.name) as string
 
 			// If block and tx don't have a same hardfork, set tx hardfork to block
 			if (
-				execHardfork(opts.tx.common.hardfork(), preMergeHf) !== execHardfork(opts.block.common.hardfork(), preMergeHf)
+				execHardfork(opts.tx.common.hardfork(), preMergeHf) !==
+				execHardfork(opts.block.common.ethjsCommon.hardfork(), preMergeHf)
 			) {
-				opts.tx.common.setHardfork(opts.block.common.hardfork())
+				opts.tx.common.setHardfork(opts.block.common.ethjsCommon.hardfork())
 			}
-			if (execHardfork(opts.block.common.hardfork(), preMergeHf) !== execHardfork(vm.common.hardfork(), preMergeHf)) {
+			if (
+				execHardfork(opts.block.common.ethjsCommon.hardfork(), preMergeHf) !==
+				execHardfork(vm.common.ethjsCommon.hardfork(), preMergeHf)
+			) {
 				// Block and VM's hardfork should match as well
 				const msg = _errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
 				throw new Error(msg)
@@ -90,14 +94,14 @@ export const runTx =
 
 		await vm.evm.journal.checkpoint()
 		// Typed transaction specific setup tasks
-		if (opts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.isActivatedEIP(2718)) {
+		if (opts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
 			// Is it an Access List transaction?
-			if (!vm.common.isActivatedEIP(2930)) {
+			if (!vm.common.ethjsCommon.isActivatedEIP(2930)) {
 				await vm.evm.journal.revert()
 				const msg = _errorMsg('Cannot run transaction: EIP 2930 is not activated.', opts.block, opts.tx)
 				throw new Error(msg)
 			}
-			if (opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.isActivatedEIP(1559)) {
+			if (opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.ethjsCommon.isActivatedEIP(1559)) {
 				await vm.evm.journal.revert()
 				const msg = _errorMsg('Cannot run transaction: EIP 1559 is not activated.', opts.block, opts.tx)
 				throw new Error(msg)
@@ -121,7 +125,7 @@ export const runTx =
 			await vm.evm.journal.revert()
 			throw e
 		} finally {
-			if (vm.common.isActivatedEIP(2929)) {
+			if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
 				vm.evm.journal.cleanJournal()
 			}
 		}
@@ -149,7 +153,7 @@ const _runTx =
 		await vm._emit('beforeTx', tx)
 
 		const caller = tx.getSenderAddress()
-		if (vm.common.isActivatedEIP(2929)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
 			// Add origin and precompiles to warm addresses
 			const activePrecompiles = vm.evm.precompiles
 			for (const [addressStr] of activePrecompiles.entries()) {
@@ -160,7 +164,7 @@ const _runTx =
 				// Note: in case we create a contract, we do vm in EVMs `_executeCreate` (vm is also correct in inner calls, per the EIP)
 				vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(tx.to.bytes))
 			}
-			if (vm.common.isActivatedEIP(3651)) {
+			if (vm.common.ethjsCommon.isActivatedEIP(3651)) {
 				vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(block.header.coinbase.bytes))
 			}
 		}
@@ -178,7 +182,7 @@ const _runTx =
 		}
 		gasLimit -= txBaseFee
 
-		if (vm.common.isActivatedEIP(1559)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(1559)) {
 			// EIP-1559 spec:
 			// Ensure that the user was willing to at least pay the base fee
 			// assert transaction.max_fee_per_gas >= block.base_fee_per_gas
@@ -202,7 +206,7 @@ const _runTx =
 		}
 		const { nonce, balance } = fromAccount
 		// EIP-3607: Reject transactions from senders with deployed code
-		if (vm.common.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
 			const msg = _errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
 			throw new Error(msg)
 		}
@@ -238,7 +242,7 @@ const _runTx =
 		}
 
 		if (tx instanceof BlobEIP4844Transaction) {
-			if (!vm.common.isActivatedEIP(4844)) {
+			if (!vm.common.ethjsCommon.isActivatedEIP(4844)) {
 				const msg = _errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
 				throw new Error(msg)
 			}
@@ -303,7 +307,7 @@ const _runTx =
 		} else {
 			// Have to cast as legacy tx since EIP1559 tx does not have gas price
 			gasPrice = (<LegacyTransaction>tx).gasPrice
-			if (vm.common.isActivatedEIP(1559)) {
+			if (vm.common.ethjsCommon.isActivatedEIP(1559)) {
 				const baseFee = block.header.baseFeePerGas ?? 0n
 				inclusionFeePerGas = (<LegacyTransaction>tx).gasPrice - baseFee
 			}
@@ -358,7 +362,7 @@ const _runTx =
 		// Process any gas refund
 		let gasRefund = results.execResult.gasRefund ?? 0n
 		results.gasRefund = gasRefund
-		const maxRefundQuotient = vm.common.param('gasConfig', 'maxRefundQuotient')
+		const maxRefundQuotient = vm.common.ethjsCommon.param('gasConfig', 'maxRefundQuotient')
 		if (gasRefund !== 0n) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund
@@ -380,7 +384,7 @@ const _runTx =
 
 		// Update miner's balance
 		let miner: EthjsAddress
-		if (vm.common.consensusType() === ConsensusType.ProofOfAuthority) {
+		if (vm.common.ethjsCommon.consensusType() === ConsensusType.ProofOfAuthority) {
 			miner = block.header.cliqueSigner()
 		} else {
 			miner = block.header.coinbase
@@ -391,7 +395,7 @@ const _runTx =
 			minerAccount = new EthjsAccount()
 		}
 		// add the amount spent on gas to the miner's account
-		results.minerValue = vm.common.isActivatedEIP(1559)
+		results.minerValue = vm.common.ethjsCommon.isActivatedEIP(1559)
 			? results.totalGasSpent * (inclusionFeePerGas ?? 0n)
 			: results.amountSpent
 		minerAccount.balance += results.minerValue
@@ -407,7 +411,7 @@ const _runTx =
 		if (results.execResult.selfdestruct !== undefined) {
 			for (const addressToSelfdestructHex of results.execResult.selfdestruct) {
 				const address = new EthjsAddress(hexToBytes(addressToSelfdestructHex as Hex))
-				if (vm.common.isActivatedEIP(6780)) {
+				if (vm.common.ethjsCommon.isActivatedEIP(6780)) {
 					// skip cleanup of addresses not in createdAddresses
 					if (!results.execResult.createdAddresses?.has(address.toString())) {
 						continue
@@ -417,7 +421,7 @@ const _runTx =
 			}
 		}
 
-		if (opts.reportAccessList === true && vm.common.isActivatedEIP(2930)) {
+		if (opts.reportAccessList === true && vm.common.ethjsCommon.isActivatedEIP(2930)) {
 			// Convert the Map to the desired type
 			const accessList: AccessList = []
 			if (!vm.evm.journal.accessList) {
@@ -466,7 +470,7 @@ const _runTx =
  * @private
  */
 function txLogsBloom(logs?: any[], common?: Common): Bloom {
-	const bloom = new Bloom(undefined, common)
+	const bloom = new Bloom(undefined, common?.ethjsCommon)
 	if (logs) {
 		for (let i = 0; i < logs.length; i++) {
 			const log = logs[i]
@@ -510,7 +514,7 @@ export const generateTxReceipt =
 
 		if (!tx.supports(Capability.EIP2718TypedTransaction)) {
 			// Legacy transaction
-			if (vm.common.gteHardfork('byzantium') === true) {
+			if (vm.common.ethjsCommon.gteHardfork('byzantium') === true) {
 				// Post-Byzantium
 				receipt = {
 					status: txResult.execResult.exceptionError !== undefined ? 0 : 1, // Receipts have a 0 as status on error

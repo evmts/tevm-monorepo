@@ -50,7 +50,7 @@ packages/state/dist/index.d.ts:10
 
 ### storage?
 
-> `optional` **storage**: `StorageDump`
+> `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
 #### Source
 

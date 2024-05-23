@@ -26,4 +26,4 @@ Resets all internal caches
 
 ## Source
 
-packages/state/dist/index.d.ts:197
+packages/state/dist/index.d.ts:199

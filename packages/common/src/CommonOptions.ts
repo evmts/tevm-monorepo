@@ -1,15 +1,12 @@
 import type { CustomCrypto } from '@ethereumjs/common'
 import type { LogOptions } from '@tevm/logger'
+import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
  */
 export type CommonOptions = {
-	/**
-	 * The network chain id
-	 */
-	chainId: bigint
 	/**
 	 * Hardfork to use. Defaults to `shanghai`
 	 */
@@ -29,4 +26,4 @@ export type CommonOptions = {
 	 * In future a stub will be provided that that automatically returns valid without checking the kzg proof
 	 */
 	customCrypto?: CustomCrypto
-}
+} & ViemChain

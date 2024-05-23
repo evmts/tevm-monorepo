@@ -35,4 +35,4 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Source
 
-packages/state/dist/index.d.ts:336
+packages/state/dist/index.d.ts:338

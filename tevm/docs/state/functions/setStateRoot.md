@@ -30,4 +30,4 @@ Changes the currently loaded state root
 
 ## Source
 
-packages/state/dist/index.d.ts:349
+packages/state/dist/index.d.ts:351

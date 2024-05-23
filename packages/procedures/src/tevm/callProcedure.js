@@ -1,5 +1,6 @@
 import { callHandler } from '@tevm/actions'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { parseBlockTag } from '../utils/parseBlockTag.js'
 
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
@@ -82,7 +83,7 @@ export const callProcedure = (client) => async (request) => {
       ? { value: hexToBigInt(request.params[0].value) }
       : {}),
     ...(request.params[0].blockTag
-      ? { blockTag: request.params[0].blockTag }
+      ? { blockTag: parseBlockTag(request.params[0].blockTag) }
       : {}),
     ...(request.params[0].createTransaction
       ? { createTransaction: request.params[0].createTransaction }

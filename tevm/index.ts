@@ -142,6 +142,8 @@ export type {
   Eip1193RequestProvider,
 } from "@tevm/decorators";
 
+export { http, rateLimit, webSocket, loadBalance } from '@tevm/jsonrpc'
+
 export {
   GENESIS_STATE,
   prefundedAccounts,

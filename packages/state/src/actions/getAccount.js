@@ -13,7 +13,7 @@ export const getAccount = (baseState) => async (address) => {
 	if (elem !== undefined) {
 		return elem.accountRLP !== undefined ? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP) : undefined
 	}
-	if (!baseState.options.fork?.url && elem === undefined) {
+	if (!baseState.options.fork?.transport && elem === undefined) {
 		return undefined
 	}
 	baseState.logger.debug({ address }, 'fetching account from remote RPC')

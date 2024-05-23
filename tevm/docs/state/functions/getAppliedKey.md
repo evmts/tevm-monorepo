@@ -23,4 +23,4 @@ Used for saving preimages
 
 ## Source
 
-packages/state/dist/index.d.ts:264
+packages/state/dist/index.d.ts:266

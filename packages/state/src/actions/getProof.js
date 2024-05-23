@@ -10,7 +10,7 @@ import { getForkClient } from './getForkClient.js'
 export const getProof =
 	(baseState) =>
 	async (address, storageSlots = []) => {
-		if (!baseState.options.fork?.url) {
+		if (!baseState.options.fork?.transport) {
 			throw new Error('getProof only implemented in fork mode atm')
 		}
 		const client = getForkClient(baseState)

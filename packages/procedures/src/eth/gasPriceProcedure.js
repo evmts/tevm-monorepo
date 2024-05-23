@@ -6,11 +6,11 @@ import { numberToHex } from '@tevm/utils'
  * @returns {import('@tevm/procedures-types').EthGasPriceJsonRpcProcedure}
  */
 export const gasPriceProcedure =
-	({ getVm, forkUrl }) =>
+	({ getVm, forkTransport }) =>
 	async (req) => ({
 		...(req.id ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
 		// TODO pass in a client instead
-		result: await gasPriceHandler(/** @type any*/ ({ getVm, forkUrl }))({}).then(numberToHex),
+		result: await gasPriceHandler(/** @type any*/ ({ getVm, forkTransport }))({}).then(numberToHex),
 	})

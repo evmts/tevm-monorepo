@@ -3,6 +3,7 @@ import { mineHandler } from "./mineHandler.js";
 import { createBaseClient, type BaseClient } from "@tevm/base-client";
 import { hexToBytes, type Hex } from "@tevm/utils";
 import { callHandler } from "./callHandler.js";
+import { http } from 'viem'
 
 const getBlockNumber = (client: BaseClient) => {
   return client
@@ -24,7 +25,7 @@ describe(mineHandler.name, () => {
   })
 
   it('should work in forked mode too', async () => {
-    const client = createBaseClient({ fork: { url: 'https://mainnet.optimism.io' } })
+    const client = createBaseClient({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
     const bn = await getBlockNumber(client)
     expect(
       bn

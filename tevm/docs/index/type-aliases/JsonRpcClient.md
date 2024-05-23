@@ -14,11 +14,7 @@ A client for making JsonRpc requests over http
 
 ### request
 
-> **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string`\>
-
-### url
-
-> **url**: `string`
+> **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
 
 ## Source
 

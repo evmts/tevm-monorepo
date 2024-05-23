@@ -266,7 +266,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### common
 
-> `readonly` **common**: [`Common`](/reference/tevm/common/classes/common/)
+> `readonly` **common**: `Common`
 
 #### Inherited from
 

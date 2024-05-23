@@ -17,7 +17,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Type parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[]
+• **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
 
 • **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\>
 

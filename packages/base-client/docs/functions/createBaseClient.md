@@ -12,7 +12,7 @@ Creates the base instance of a memory client
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<`Chain`\>= `{}`
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)= `{}`
 
 ## Returns
 
@@ -20,7 +20,7 @@ Creates the base instance of a memory client
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -35,31 +35,23 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
-### forkUrl?
+### forkTransport?
 
-> `optional` `readonly` **forkUrl**: `string`
+> `optional` `readonly` **forkTransport**: `object`
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 #### Example
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-### getChainCommon()
+### forkTransport.request
 
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
-
-Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
-This is the same object on `getVm().common`
-
-#### Returns
-
-`Promise`\<`TevmChainCommon`\<`Chain`\>\>
+> **request**: `EIP1193RequestFn`
 
 ### getReceiptsManager()
 
@@ -151,4 +143,4 @@ await client.ready()
 
 ## Source
 
-[createBaseClient.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L28)
+[createBaseClient.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L27)

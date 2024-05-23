@@ -6,7 +6,7 @@
 
 # Function: dumpStorageRange()
 
-> **dumpStorageRange**(`baseState`): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
+> **dumpStorageRange**(`baseState`): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
 ## Parameters
 
@@ -26,8 +26,8 @@
 
 ### Returns
 
-`Promise`\<`StorageRange`\>
+`Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
 ## Source
 
-packages/state/dist/index.d.ts:237
+packages/state/dist/index.d.ts:239

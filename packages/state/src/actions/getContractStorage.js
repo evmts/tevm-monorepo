@@ -26,7 +26,7 @@ export const getContractStorage = (baseState) => async (address, key) => {
 		return cachedValue
 	}
 
-	if (!baseState.options.fork?.url) {
+	if (!baseState.options.fork?.transport) {
 		return hexToBytes('0x0')
 	}
 

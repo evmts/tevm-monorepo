@@ -10,10 +10,6 @@ title: "@tevm/common"
 - [ConsensusAlgorithm](/reference/tevm/common/enumerations/consensusalgorithm/)
 - [ConsensusType](/reference/tevm/common/enumerations/consensustype/)
 
-## Classes
-
-- [Common](/reference/tevm/common/classes/common/)
-
 ## Interfaces
 
 - [CustomCrypto](/reference/tevm/common/interfaces/customcrypto/)
@@ -25,9 +21,24 @@ title: "@tevm/common"
 
 - [AccountFields](/reference/tevm/common/type-aliases/accountfields/)
 - [CliqueConfig](/reference/tevm/common/type-aliases/cliqueconfig/)
+- [Common](/reference/tevm/common/type-aliases/common/)
 - [CommonOptions](/reference/tevm/common/type-aliases/commonoptions/)
 - [Hardfork](/reference/tevm/common/type-aliases/hardfork/)
+- [MockKzg](/reference/tevm/common/type-aliases/mockkzg/)
+
+## Variables
+
+- [base](/reference/tevm/common/variables/base/)
+- [baseSepolia](/reference/tevm/common/variables/basesepolia/)
+- [mainnet](/reference/tevm/common/variables/mainnet/)
+- [optimism](/reference/tevm/common/variables/optimism/)
+- [optimismSepolia](/reference/tevm/common/variables/optimismsepolia/)
+- [sepolia](/reference/tevm/common/variables/sepolia/)
+- [tevmDefault](/reference/tevm/common/variables/tevmdefault/)
+- [zora](/reference/tevm/common/variables/zora/)
+- [zoraSepolia](/reference/tevm/common/variables/zorasepolia/)
 
 ## Functions
 
 - [createCommon](/reference/tevm/common/functions/createcommon/)
+- [createMockKzg](/reference/tevm/common/functions/createmockkzg/)

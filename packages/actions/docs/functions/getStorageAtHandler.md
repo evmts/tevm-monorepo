@@ -12,7 +12,7 @@
 
 • **options**
 
-• **options.forkUrl**: `undefined` \| `string`
+• **options.forkClient**: `undefined` \| `object`
 
 • **options.getVm**
 

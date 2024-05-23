@@ -1,5 +1,5 @@
 import { createChain } from '@tevm/blockchain'
-import { createChainCommon, tevmDevnet } from '@tevm/chains'
+import { createCommon, tevmDefault } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
@@ -9,7 +9,6 @@ import { KECCAK256_RLP, bytesToHex, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
-import { createMockKzg } from './createMockKzg.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
@@ -36,7 +35,7 @@ export const createBaseClient = (options = {}) => {
 	 * @returns {Promise<import('@tevm/state').StateOptions>}
 	 */
 	const getStateManagerOpts = async () => {
-		if (options.fork?.url) {
+		if (options.fork?.transport) {
 			// if the user passed in latest we must use an explicit block tag
 			const blockTag = await blockTagPromise
 			return {
@@ -51,7 +50,7 @@ export const createBaseClient = (options = {}) => {
 		// handle normal mode
 		return {
 			loggingLevel,
-			...(options.fork?.url ? options.fork : {}),
+			...(options.fork?.transport ? options.fork : {}),
 			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
 	}
@@ -67,12 +66,12 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
-		if (options?.chainCommon) {
-			return options?.chainCommon.id
+		if (options?.common) {
+			return options?.common.id
 		}
-		const url = options?.fork?.url
-		if (url) {
-			const id = await getChainId(url)
+		const forkTransport = options?.fork?.transport
+		if (forkTransport) {
+			const id = await getChainId(forkTransport)
 			return id
 		}
 		return DEFAULT_CHAIN_ID
@@ -89,7 +88,7 @@ export const createBaseClient = (options = {}) => {
 		// TODO handle other moving block tags like `safe`
 		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
 		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
-			const latestBlockNumber = await getBlockNumber(options.fork.url)
+			const latestBlockNumber = await getBlockNumber(options.fork.transport)
 			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
 			return latestBlockNumber
 		}
@@ -98,61 +97,37 @@ export const createBaseClient = (options = {}) => {
 
 	const chainCommonPromise = chainIdPromise
 		.then((chainId) => {
-			// TODO we will eventually want to be setting common hardfork based on chain id and block number
-			// ethereumjs does this for mainnet but we forgo all this functionality
-			const customCrypto = options?.customCrypto ?? {}
-			if (options.chainCommon) {
-				return createChainCommon(
-					{ ...options.chainCommon, id: Number(chainId) },
-					{
-						hardfork: 'cancun',
-						eips: options.eips ?? [],
-						customCrypto: {
-							kzg: createMockKzg(),
-							...customCrypto,
-						},
-					},
-				)
+			if (options.common) {
+				return createCommon({
+					...options.common,
+					id: Number(chainId),
+					loggingLevel: options.loggingLevel ?? 'warn',
+					hardfork: /** @type {import('@tevm/common').Hardfork}*/ (options.common.ethjsCommon.hardfork()) ?? 'cancun',
+					eips: options.common.ethjsCommon.eips(),
+					customCrypto: options.common.ethjsCommon.customCrypto,
+				})
 			}
-			if (!options.fork?.url) {
-				return createChainCommon(
-					{ ...tevmDevnet, id: Number(chainId) },
-					{
-						hardfork: 'cancun',
-						eips: options.eips ?? [],
-						customCrypto: {
-							kzg: createMockKzg(),
-							...customCrypto,
-						},
-					},
-				)
-			}
-			return createChainCommon(
-				{ ...tevmDevnet, id: Number(chainId) },
-				{
-					hardfork: 'cancun',
-					eips: options.eips ?? [],
-					customCrypto: {
-						kzg: createMockKzg(),
-						...customCrypto,
-					},
-				},
-			)
+			return createCommon({
+				...tevmDefault,
+				id: Number(chainId),
+				loggingLevel: options.loggingLevel ?? 'warn',
+				hardfork: 'cancun',
+				eips: [],
+			})
 		})
-		.then((chainCommon) => {
+		.then((common) => {
 			// ALWAYS Copy common so we don't modify the global instances since it's stateful!
-			chainCommon.common = chainCommon.common.copy()
-			return chainCommon
+			return common.copy()
 		})
 
-	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([{ common }, blockTag]) => {
+	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([common, blockTag]) => {
 		return createChain({
 			loggingLevel,
 			common,
-			...(options.fork?.url !== undefined
+			...(options.fork?.transport !== undefined
 				? {
 						fork: {
-							url: options.fork.url,
+							transport: options.fork.transport,
 							blockTag,
 						},
 					}
@@ -223,7 +198,7 @@ export const createBaseClient = (options = {}) => {
 		})
 
 	const evmPromise = Promise.all([chainCommonPromise, stateManagerPromise, blockchainPromise]).then(
-		([{ common }, stateManager, blockchain]) => {
+		([common, stateManager, blockchain]) => {
 			return createEvm({
 				common,
 				stateManager,
@@ -236,13 +211,13 @@ export const createBaseClient = (options = {}) => {
 		},
 	)
 
-	const vmPromise = evmPromise.then((evm) => {
+	const vmPromise = Promise.all([evmPromise, chainCommonPromise]).then(([evm, common]) => {
 		const vm = createVm({
 			stateManager: evm.stateManager,
 			evm: evm,
 			// TODO this inherited type is wrong thus we need to cast this
 			blockchain: /** @type {import('@tevm/blockchain').Chain} */ (evm.blockchain),
-			common: evm.common,
+			common,
 		})
 		return vm
 	})
@@ -270,9 +245,6 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		getChainCommon() {
-			return chainCommonPromise
-		},
 		logger,
 		getReceiptsManager: async () => {
 			await ready()
@@ -287,8 +259,8 @@ export const createBaseClient = (options = {}) => {
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'auto' },
-		mode: options.fork?.url ? 'fork' : 'normal',
-		...(options.fork?.url ? { forkUrl: options.fork.url } : {}),
+		mode: options.fork?.transport ? 'fork' : 'normal',
+		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready,
 	}

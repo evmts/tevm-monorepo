@@ -317,7 +317,7 @@ if any check fails
 
 #### Source
 
-[header.ts:399](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L399)
+[header.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L397)
 
 ***
 
@@ -333,7 +333,7 @@ Validates correct buffer lengths, throws if invalid.
 
 #### Source
 
-[header.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L312)
+[header.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L310)
 
 ***
 
@@ -353,7 +353,7 @@ Returns the blob gas price depending upon the `excessBlobGas` value
 
 #### Source
 
-[header.ts:567](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L567)
+[header.ts:565](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L565)
 
 ***
 
@@ -371,7 +371,7 @@ Returns the blob gas price depending upon the `excessBlobGas` value
 
 #### Source
 
-[header.ts:682](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L682)
+[header.ts:680](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L680)
 
 ***
 
@@ -388,7 +388,7 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 #### Source
 
-[header.ts:926](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L926)
+[header.ts:924](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L924)
 
 ***
 
@@ -412,7 +412,7 @@ the total blob gas fee for numBlobs blobs
 
 #### Source
 
-[header.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L581)
+[header.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L579)
 
 ***
 
@@ -428,7 +428,7 @@ Calculates the base fee for a potential next block
 
 #### Source
 
-[header.ts:522](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L522)
+[header.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L520)
 
 ***
 
@@ -446,7 +446,7 @@ The blob gas price
 
 #### Source
 
-[header.ts:607](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L607)
+[header.ts:605](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L605)
 
 ***
 
@@ -462,7 +462,7 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 #### Source
 
-[header.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L592)
+[header.ts:590](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L590)
 
 ***
 
@@ -483,7 +483,7 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliquei
 
 #### Source
 
-[header.ts:825](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L825)
+[header.ts:823](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L823)
 
 ***
 
@@ -500,7 +500,7 @@ Returns extra seal data
 
 #### Source
 
-[header.ts:795](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L795)
+[header.ts:793](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L793)
 
 ***
 
@@ -517,7 +517,7 @@ Returns extra vanity data
 
 #### Source
 
-[header.ts:786](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L786)
+[header.ts:784](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L784)
 
 ***
 
@@ -534,7 +534,7 @@ header (only clique PoA, throws otherwise)
 
 #### Source
 
-[header.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L774)
+[header.ts:772](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L772)
 
 ***
 
@@ -550,7 +550,7 @@ PoA clique signature hash without the seal.
 
 #### Source
 
-[header.ts:763](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L763)
+[header.ts:761](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L761)
 
 ***
 
@@ -566,7 +566,7 @@ Returns the signer address
 
 #### Source
 
-[header.ts:862](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L862)
+[header.ts:860](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L860)
 
 ***
 
@@ -589,7 +589,7 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Source
 
-[header.ts:850](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L850)
+[header.ts:848](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L848)
 
 ***
 
@@ -605,7 +605,7 @@ Return a compact error string representation of the object
 
 #### Source
 
-[header.ts:948](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L948)
+[header.ts:946](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L946)
 
 ***
 
@@ -627,7 +627,7 @@ the header from the parent `Block` of this header
 
 #### Source
 
-[header.ts:694](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L694)
+[header.ts:692](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L692)
 
 ***
 
@@ -645,7 +645,7 @@ the price in gwei per unit of blob gas spent
 
 #### Source
 
-[header.ts:556](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L556)
+[header.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L554)
 
 ***
 
@@ -661,7 +661,7 @@ Returns the hash of the block header.
 
 #### Source
 
-[header.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L665)
+[header.ts:663](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L663)
 
 ***
 
@@ -677,7 +677,7 @@ Checks if the block header is a genesis header.
 
 #### Source
 
-[header.ts:678](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L678)
+[header.ts:676](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L676)
 
 ***
 
@@ -693,7 +693,7 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 #### Source
 
-[header.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L614)
+[header.ts:612](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L612)
 
 ***
 
@@ -709,7 +709,7 @@ Returns the rlp encoding of the block header.
 
 #### Source
 
-[header.ts:879](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L879)
+[header.ts:877](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L877)
 
 ***
 
@@ -725,7 +725,7 @@ Returns the block header in JSON format.
 
 #### Source
 
-[header.ts:886](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L886)
+[header.ts:884](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L884)
 
 ***
 
@@ -748,7 +748,7 @@ the header from the parent `Block` of this header
 
 #### Source
 
-[header.ts:483](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L483)
+[header.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L481)
 
 ***
 

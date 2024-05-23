@@ -6,17 +6,11 @@
 
 # Type alias: CommonOptions
 
-> **CommonOptions**: `object`
+> **CommonOptions**: `object` & `ViemChain`
 
 Options for creating an Tevm MemoryClient instance
 
 ## Type declaration
-
-### chainId
-
-> **chainId**: `bigint`
-
-The network chain id
 
 ### customCrypto?
 
@@ -50,4 +44,4 @@ Tevm logger instance
 
 ## Source
 
-[packages/common/src/CommonOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L8)
+[packages/common/src/CommonOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L9)
