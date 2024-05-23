@@ -196,16 +196,17 @@ Memory client is similar to `anvil`. It can:
 ### 1. In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
 ```typescript
-import { createMemoryClient } from "tevm";
-import { optimism } from "tevm/chains";
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
 
 const app = document.querySelector("#app") as Element;
 
 const memoryClient = createMemoryClient({
-  chain: optimism,
+  common: optimism,
   fork: {
     // @warning we may face throttling using the public endpoint
-    url: "https://mainnet.optimism.io",
+    // In production apps consider using `loadBalance` and `rateLimit` transports
+    transport: http("https://mainnet.optimism.io")({}),
   },
 });
 

@@ -2004,7 +2004,7 @@ const unwatch = await client.watchPendingTransactions({
  *
  * const tevm = createTevm({
  *   fork: {
- *     url: 'https://mainnet.optimism.io'
+ *     transport: http('https://mainnet.optimism.io')({})
  *   }
  * })
  *

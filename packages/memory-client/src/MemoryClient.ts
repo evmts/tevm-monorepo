@@ -17,7 +17,7 @@ import type { TevmActions } from './TevmActions.js'
  *
  * const tevm = createMemoryClient({
  * 	fork: {
- * 	  url: "https://mainnet.optimism.io",
+ * 	  transport: http("https://mainnet.optimism.io")({}),
  * 	},
  * })
  *

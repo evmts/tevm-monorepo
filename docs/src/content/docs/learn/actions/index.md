@@ -60,7 +60,7 @@ import { createBaseClient } from "tevm/base-client";
 import { setAccountHandler } from "tevm/actions";
 
 const baseClient = createBaseClient({
-  fork: { url: "https://mainnet.optimism.io" },
+  fork: { transport: http("https://mainnet.optimism.io")({}) },
 });
 
 const tevmSetAccount = setAccountHandler(baseClient);
