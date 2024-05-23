@@ -4,9 +4,26 @@ import { mainnet } from '@tevm/common'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { http, type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import { rateLimit, loadBalance, http } from '@tevm/jsonrpc'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
+
+const mainnetQuicknodeUrl = process.env['TEVM_TEST_MAINNET_URL']
+
+const mainnetTransport = loadBalance([
+	rateLimit(http(getAlchemyUrl('mainnet')), { requestsPerSecond: 100 }),
+	...(mainnetQuicknodeUrl === undefined ? [] : [rateLimit(http(mainnetQuicknodeUrl), { requestsPerSecond: 100 })]),
+])({
+	retryCount: 3,
+})
+
+const client = createMemoryClient({
+	common: mainnet,
+	fork: {
+		transport: mainnetTransport,
+	},
+})
 
 const eventAbi = {
 	event: {
@@ -196,7 +213,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					transport: http(getAlchemyUrl('mainnet'))({}),
+					transport: mainnetTransport,
 				},
 			})
 			it(
@@ -214,7 +231,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					transport: http(getAlchemyUrl('mainnet'))({}),
+					transport: mainnetTransport,
 				},
 			})
 			it(
@@ -234,7 +251,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					transport: http(getAlchemyUrl('mainnet'))({}),
+					transport: mainnetTransport,
 				},
 			})
 			it(
@@ -254,7 +271,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					transport: http(getAlchemyUrl('mainnet'))({}),
+					transport: mainnetTransport,
 				},
 			})
 			it(
@@ -263,7 +280,7 @@ describe('viemPublicActions', () => {
 					// wait to avoid throttling
 					await new Promise((resolve) => setTimeout(resolve, 1_000))
 					expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
-						'0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41',
+						'0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63',
 					)
 				},
 				{ timeout: 40_000 },
@@ -274,7 +291,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					transport: http(getAlchemyUrl('mainnet'))({}),
+					transport: mainnetTransport,
 				},
 			})
 			it.todo('should work', async () => {
