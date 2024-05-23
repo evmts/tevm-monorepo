@@ -67,7 +67,7 @@ export const createBaseChain = (options) => {
 
 	// Add genesis block and forked block to chain
 	const genesisBlockPromise = (async () => {
-		if (options.fork?.url) {
+		if (options.fork?.client) {
 			const block = await getBlockFromRpc(options.fork, options.common)
 			await putBlock(chain)(block)
 			chain.blocksByTag.set('forked', block)

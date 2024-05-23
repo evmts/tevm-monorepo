@@ -1,7 +1,7 @@
 import type { Block } from '@tevm/block'
 import type { Common } from '@tevm/common'
 import { type LogOptions } from '@tevm/logger'
-import type { BlockTag } from 'viem'
+import type { BlockTag, EIP1193RequestFn } from 'viem'
 
 /**
  * Options passed into `createChain` to initialize a Chain object
@@ -25,9 +25,9 @@ export type ChainOptions = {
 	 */
 	fork?: {
 		/**
-		 * JSON-RPC url to fork
+		 * EIP-1193 request function to fetch forked blocks with
 		 */
-		url: string
+		client: { request: EIP1193RequestFn }
 		/**
 		 * Optional block tag to fork
 		 * Defaults to 'latest'
