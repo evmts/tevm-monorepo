@@ -4,6 +4,7 @@ import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
+import { http } from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -38,7 +39,7 @@ const addabi = [
 ] as const
 
 const forkConfig = {
-	url: getAlchemyUrl(),
+	client: http(getAlchemyUrl())({}),
 	blockTag: 111791332n,
 }
 

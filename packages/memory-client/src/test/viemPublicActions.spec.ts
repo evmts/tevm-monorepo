@@ -4,7 +4,7 @@ import { mainnet } from '@tevm/common'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei, http } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -196,7 +196,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					url: getAlchemyUrl('mainnet'),
+					client: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -214,7 +214,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					url: getAlchemyUrl('mainnet'),
+					client: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -234,7 +234,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					url: getAlchemyUrl('mainnet'),
+					client: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -254,7 +254,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					url: getAlchemyUrl('mainnet'),
+					client: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -274,7 +274,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					url: getAlchemyUrl('mainnet'),
+					client: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it.todo('should work', async () => {
