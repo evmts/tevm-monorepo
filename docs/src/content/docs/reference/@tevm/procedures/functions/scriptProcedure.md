@@ -89,4 +89,4 @@ await client.ready()
 
 ## Source
 
-[procedures/src/tevm/scriptProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/scriptProcedure.js#L9)
+[procedures/src/tevm/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/scriptProcedure.js#L10)

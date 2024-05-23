@@ -188,7 +188,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 		if (Array.isArray(payload)) {
 			return /** @type {Promise<Array<import('ethers').JsonRpcResult | import('ethers').JsonRpcError>>}*/ (
 				this.tevm.sendBulk(
-					/** @type {Array<import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest>}*/(
+					/** @type {Array<import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest>}*/ (
 						payload
 					),
 				)
@@ -196,7 +196,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 		}
 		return /** @type {[import('ethers').JsonRpcResult | import('ethers').JsonRpcError]}*/ ([
 			await this.tevm.send(
-				/** @type {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest}*/(
+				/** @type {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest}*/ (
 					payload
 				),
 			),

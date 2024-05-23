@@ -67,7 +67,6 @@
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/evm": "workspace:^",
-    "@tevm/jsonrpc": "workspace:1.1.0-next.52",
     "@tevm/utils": "workspace:^",
     "viem": "^2.12.0"
   },

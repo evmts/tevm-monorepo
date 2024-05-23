@@ -3,9 +3,9 @@ import { type Server, createServer } from 'node:http'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
-import { getAlchemyUrl } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
-import { http, bytesToHex, keccak256 } from 'viem'
+import { bytesToHex, keccak256 } from 'viem'
 import { createHttpClient } from './createHttpClient.js'
 
 describe.skip(createHttpClient.name, () => {
@@ -15,7 +15,7 @@ describe.skip(createHttpClient.name, () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
-			fork: { transport: http(getAlchemyUrl())({}) },
+			fork: { transport: transports.optimism },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createHttpClient({ url: 'http://localhost:6969' })

@@ -68,6 +68,8 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@tevm/contract": "workspace:1.1.0-next.56"
+		"@ponder/utils": "^0.1.5",
+		"@tevm/contract": "workspace:1.1.0-next.56",
+		"viem": "^2.12.0"
 	}
 }

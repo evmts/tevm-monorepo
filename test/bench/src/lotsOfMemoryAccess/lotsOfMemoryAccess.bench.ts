@@ -1,14 +1,12 @@
-import { getAlchemyUrl } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import { bench, describe, expect } from 'vitest'
 import { lotsOfMemoryAccess } from './lotsOfMemoryAccess.js'
-
-const rpcUrl = getAlchemyUrl()
 
 describe('import("@tevm/memory-client").createMemoryClient().contract - lotsOfMemoryAccess', async () => {
 	bench(
 		'initialize a brand new tevm client and then execute a call with lots of storage requirements. This is similar to how one might use tevm in a serverless function where tevm is reinitialized often',
 		async () => {
-			expect(await lotsOfMemoryAccess(rpcUrl)).toEqual({
+			expect(await lotsOfMemoryAccess(transports.optimism)).toEqual({
 				createdAddresses: new Set(),
 				data: undefined,
 				executionGasUsed: 78590n,
