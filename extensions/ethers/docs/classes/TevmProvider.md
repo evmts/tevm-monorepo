@@ -19,7 +19,7 @@ import {TevmProvider} from '@tevm/ethers'
 
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
-    url: 'https://mainnet.optimism.io',
+    transport: http('https://mainnet.optimism.io')({}),
   },
 })
 ```
@@ -40,7 +40,7 @@ You can use all the normal ethers apis to interact with tevm.
 ```typescript
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
-    url: 'https://mainnet.optimism.io',
+    transport: http('https://mainnet.optimism.io')({}),
   },
 })
 
@@ -59,7 +59,7 @@ import {createScript} from 'tevm'
 
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
-    url: 'https://mainnet.optimism.io',
+    transport: http('https://mainnet.optimism.io')({}),
   },
 })
 
@@ -184,7 +184,7 @@ import {createScript} from 'tevm'
 
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
-    url: 'https://mainnet.optimism.io',
+    transport: http('https://mainnet.optimism.io')({}),
   },
 })
 

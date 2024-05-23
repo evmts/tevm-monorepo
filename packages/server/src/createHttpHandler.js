@@ -18,7 +18,7 @@ import { BadRequestError } from './BadRequestError.js'
  *
  * const tevm = createTevm({
  *   fork: {
- *     url: 'https://mainnet.optimism.io'
+ *     transport: http('https://mainnet.optimism.io')({})
  *   }
  * })
  *
@@ -89,7 +89,7 @@ export const createHttpHandler = (client) => {
 				 */
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
-					requests.map((request) => client._tevm.send(/** @type any*/ (request))),
+					requests.map((request) => client._tevm.send(/** @type any*/(request))),
 				)
 				responses.map((response, i) => {
 					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
@@ -116,7 +116,7 @@ export const createHttpHandler = (client) => {
 				// TODO update this type to accept any jsonrpc request if a fork url pass through exists
 				// We don't officially support it until we explicitly implement all the endpoints instead of
 				// blindly passing through
-				const response = await client._tevm.send(/** @type any*/ (request))
+				const response = await client._tevm.send(/** @type any*/(request))
 				res.writeHead(200, { 'Content-Type': 'application/json' })
 				return res.end(JSON.stringify(response))
 			} catch (e) {

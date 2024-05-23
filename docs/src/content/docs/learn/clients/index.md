@@ -32,7 +32,7 @@ To create a memoryclient simply initialize it with `createMemoryClient`.
 import { createMemoryClient } from "tevm";
 
 const client = createMemoryClient({
-  fork: { url: "https://mainnet.optimism.io" },
+  fork: { transport: http("https://mainnet.optimism.io")({}) },
 });
 ```
 
@@ -40,13 +40,27 @@ const client = createMemoryClient({
 
 Notable options include:
 
-- fork.url to fork a network
+- fork.transport to fork a network with any eip-1193 provider
 - fork.blockTag to specify a specific block tag to fork
 - loggingLevel defaults to warning. Setting to `debug` will show a significant amount of internal logs and `trace` includes the EVM logs
 
 It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
 
 See [BaseClientOptions](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/) docs for information about all individual options.
+
+## Forking a client with another client
+
+`MemoryClient` is itself an `EIP-1193` provider. This means tevm clients can fork other tevm clients.
+
+```typescript
+const originalClient = createMemoryClient()
+
+await doStuff(originalClient)
+
+const forkedClient = createMemoryClient({
+  fork: {transport: originalClient}
+})
+```
 
 ## Mining modes
 

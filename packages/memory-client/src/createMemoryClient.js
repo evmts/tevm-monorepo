@@ -16,7 +16,7 @@ import { createClient, createTransport, publicActions, testActions } from 'viem'
 *
 * const tevm = createMemoryClient({
 * 	fork: {
-* 	  url: "https://mainnet.optimism.io",
+* 	  transport: http("https://mainnet.optimism.io")({}),
 * 	},
 * })
 *
