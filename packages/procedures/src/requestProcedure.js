@@ -603,6 +603,82 @@ export const requestProcedure = (client) => {
 				const headBlock = await vm.blockchain.getCanonicalHeadBlock()
 				return numberToHex(headBlock.header.calcNextBlobGasPrice())
 			}
+			case 'anvil_reset': {
+				const vm = await client.getVm()
+				vm.blockchain.blocksByTag.set(
+					'latest',
+					vm.blockchain.blocksByTag.get('forked') ?? vm.blockchain.blocksByTag.get('latest'),
+				)
+				Array.from(vm.blockchain.blocks.values()).forEach((block) => {
+					if (!block) return
+					vm.blockchain.delBlock(block.hash())
+				})
+				const stateManager = vm.stateManager.shallowCopy()
+				vm.stateManager = /** @type any*/ (stateManager)
+				vm.evm.stateManager = /** @type any*/ (stateManager)
+				return {
+					method: request.method,
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
+			case 'anvil_setStorageAt':
+			case /** @type any*/ ('ganache_setStorageAt'):
+			case /** @type any*/ ('hardhat_setStorageAt'): {
+				const anvilSetStorageAtRequest =
+					/** @type {import('@tevm/procedures-types').AnvilSetStorageAtJsonRpcRequest}*/
+					(request)
+				anvilSetStorageAtRequest.params[0]
+				const position = anvilSetStorageAtRequest.params[0].position
+				const result = await setAccountProcedure(client)({
+					method: 'tevm_setAccount',
+					...(anvilSetStorageAtRequest.id ? { id: anvilSetStorageAtRequest.id } : {}),
+					jsonrpc: '2.0',
+					params: [
+						{
+							address: anvilSetStorageAtRequest.params[0].address,
+							stateDiff: {
+								[/** @type {import('@tevm/utils').Hex}*/ (position)]: /** @type {import('@tevm/utils').Hex}*/ (
+									anvilSetStorageAtRequest.params[0].value
+								),
+							},
+						},
+					],
+				})
+				return {
+					...result,
+					method: anvilSetStorageAtRequest.method,
+				}
+			}
+			case 'anvil_dropTransaction': {
+				const anvilDropTransactionRequest =
+					/** @type {import('@tevm/procedures-types').AnvilDropTransactionJsonRpcRequest}*/
+					(request)
+				const txHash = anvilDropTransactionRequest.params[0].transactionHash
+				const txPool = await client.getTxPool()
+				if (txPool.getByHash([hexToBytes(txHash)]).length > 0) {
+					txPool.removeByHash(txHash)
+				} else {
+					throw new Error(
+						'Only tx in the txpool are allowed to be dropped. Dropping transactions that have already been mined is not yet supported',
+					)
+				}
+				return {
+					method: anvilDropTransactionRequest.method,
+					jsonrpc: '2.0',
+					...(anvilDropTransactionRequest.id ? { id: anvilDropTransactionRequest.id } : {}),
+				}
+			}
+			case 'anvil_dumpState':
+				return {
+					...(await dumpStateProcedure(client)({
+						...(request.id ? { id: request.id } : {}),
+						jsonrpc: '2.0',
+						method: 'tevm_dumpState',
+					})),
+					method: request.method,
+				}
+			case 'anvil_loadState':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
@@ -616,11 +692,6 @@ export const requestProcedure = (client) => {
 			case 'eth_newPendingTransactionFilter':
 			case 'eth_getUncleByBlockNumberAndIndex':
 			case 'debug_traceTransaction':
-			case 'anvil_reset':
-			case 'anvil_dumpState':
-			case 'anvil_loadState':
-			case 'anvil_setStorageAt':
-			case 'anvil_dropTransaction':
 			case 'anvil_impersonateAccount':
 			case 'anvil_stopImpersonatingAccount':
 				throw new Error(`Method ${request.method} is not implemented yet. Currently tevm is always on auto-impersonate`)
