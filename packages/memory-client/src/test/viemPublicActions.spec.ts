@@ -1,24 +1,14 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet } from '@tevm/common'
-import { http, loadBalance, rateLimit } from '@tevm/jsonrpc'
-import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
+import { transports, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
-const mainnetQuicknodeUrl = process.env['TEVM_TEST_MAINNET_URL']
-const mainnetInfuraUrl = process.env['TEVM_TEST_INFURA_URL']
-
-const mainnetTransport = loadBalance([
-	rateLimit(http(getAlchemyUrl('mainnet')), { requestsPerSecond: 25 }),
-	...(mainnetQuicknodeUrl === undefined ? [] : [rateLimit(http(mainnetQuicknodeUrl), { requestsPerSecond: 25 })]),
-	...(mainnetInfuraUrl === undefined ? [] : [rateLimit(http(mainnetInfuraUrl), { requestsPerSecond: 25 })]),
-])({
-	retryCount: 3,
-})
+const mainnetTransport = transports.mainnet
 
 const eventAbi = {
 	event: {

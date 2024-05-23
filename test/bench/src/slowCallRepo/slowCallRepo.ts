@@ -1,12 +1,12 @@
 import { getAlchemyUrl } from '@tevm/test-utils'
-import { createMemoryClient } from 'tevm'
+import { createMemoryClient, http } from 'tevm'
 
 const rpcUrl = getAlchemyUrl('optimism-sepolia')
 
 export const slowCallRepo = async () => {
 	// tevm memory client in fork mode
 	const forkClient = createMemoryClient({
-		fork: { url: rpcUrl },
+		fork: { transport: http(rpcUrl)({}) },
 	})
 
 	await forkClient.tevmReady()

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { getAlchemyUrl } from '@tevm/test-utils'
+import { getAlchemyUrl, transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { http } from 'viem'
@@ -39,7 +39,7 @@ const addabi = [
 ] as const
 
 const forkConfig = {
-	transport: http(getAlchemyUrl())({}),
+	transport: transports.optimism,
 	blockTag: 111791332n,
 }
 
