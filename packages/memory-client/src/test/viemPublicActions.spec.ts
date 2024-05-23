@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet } from '@tevm/common'
+import { http, loadBalance, rateLimit } from '@tevm/jsonrpc'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
-import { rateLimit, loadBalance, http } from '@tevm/jsonrpc'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -16,13 +16,6 @@ const mainnetTransport = loadBalance([
 	...(mainnetQuicknodeUrl === undefined ? [] : [rateLimit(http(mainnetQuicknodeUrl), { requestsPerSecond: 100 })]),
 ])({
 	retryCount: 3,
-})
-
-const client = createMemoryClient({
-	common: mainnet,
-	fork: {
-		transport: mainnetTransport,
-	},
 })
 
 const eventAbi = {
@@ -381,6 +374,7 @@ describe('viemPublicActions', () => {
 		watchBlocks: () => {},
 		watchEvent: () => {},
 		watchPendingTransactions: () => {},
+		verifySiweMessage: () => {},
 	}
 
 	Object.entries(tests).forEach(([actionName, actionTests]) => {
