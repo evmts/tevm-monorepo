@@ -2,9 +2,9 @@ import { describe, expect, it } from 'bun:test'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
+import { http } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
-import { http } from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 

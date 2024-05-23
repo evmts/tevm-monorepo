@@ -222,12 +222,12 @@ export const requestProcedure = (client) => {
 							.then((block) => block.header.coinbase),
 					}
 				}
-				if (!client.forkUrl) {
+				if (!client.forkClient) {
 					throw new Error(
 						'Fatal error! Client is in mode fork or proxy but no forkUrl is set! This indicates a bug in the client.',
 					)
 				}
-				const fetcher = createJsonRpcFetcher(client.forkUrl)
+				const fetcher = createJsonRpcFetcher(client.forkClient)
 				return fetcher.request(/** @type any*/ (request))
 			}
 			// TODO move this to it's own procedure
@@ -403,8 +403,8 @@ export const requestProcedure = (client) => {
 					return vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (blockTagOrNumber))
 				})()
 
-				if (!block && client.forkUrl) {
-					const fetcher = createJsonRpcFetcher(client.forkUrl)
+				if (!block && client.forkClient) {
+					const fetcher = createJsonRpcFetcher(client.forkClient)
 					return fetcher.request({
 						jsonrpc: '2.0',
 						id: request.id ?? 1,
@@ -484,8 +484,8 @@ export const requestProcedure = (client) => {
 				const vm = await client.getVm()
 				const receiptsManager = await client.getReceiptsManager()
 				const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(request.params[0]))
-				if (!receipt && client.forkUrl) {
-					const fetcher = createJsonRpcFetcher(client.forkUrl)
+				if (!receipt && client.forkClient) {
+					const fetcher = createJsonRpcFetcher(client.forkClient)
 					return fetcher.request({
 						jsonrpc: '2.0',
 						id: request.id ?? 1,

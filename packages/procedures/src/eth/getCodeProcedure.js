@@ -5,12 +5,12 @@ import { getCodeHandler } from '@tevm/actions'
  * @returns {import('@tevm/procedures-types').EthGetCodeJsonRpcProcedure}
  */
 export const getCodeProcedure =
-	({ getVm, forkUrl }) =>
+	({ getVm, forkClient }) =>
 	async (req) => ({
 		...(req.id ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
-		result: await getCodeHandler({ getVm, forkUrl })({
+		result: await getCodeHandler({ getVm, forkClient })({
 			address: req.params[0],
 			blockTag: req.params[1],
 		}),

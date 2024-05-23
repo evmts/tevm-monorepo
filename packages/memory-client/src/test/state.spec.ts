@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { type Hex, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
-import { createMemoryClient } from '../createMemoryClient.js'
 import { http } from 'viem'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
 
