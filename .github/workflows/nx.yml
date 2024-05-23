@@ -9,10 +9,12 @@ on:
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
   # give extra memory to speed up a bit
-  NODE_OPTIONS: '--max_old_space_size=4096'
+  NODE_OPTIONS: "--max_old_space_size=4096"
   NX_BRANCH: ${{ github.event.number || github.ref_name }}
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   TEVM_TEST_ALCHEMY_KEY: ${{ secrets.TEVM_TEST_ALCHEMY_KEY }}
+  TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
+  TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
 
 jobs:
   agents:
@@ -67,7 +69,7 @@ jobs:
           cmd4: bunx nx affected --target test:coverage
           cmd5: bunx nx affected --target lint:check && bun sort-package-json:check
           cmd6: bunx nx affected --target lint:deps
-          cmd7: bunx nx run-many --target lint:package 
+          cmd7: bunx nx run-many --target lint:package
           cmd8: bunx nx affected --target dev:run
           cmd9: bunx nx affected --target generate:docs
           cmd10: bunx nx affected --target build:app
@@ -78,4 +80,3 @@ jobs:
       - name: Tag main branch if all jobs succeed
         if: ${{ github.event_name != 'pull_request' }}
         uses: nrwl/nx-tag-successful-ci-run@v1
-
