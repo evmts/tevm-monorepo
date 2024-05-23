@@ -77,12 +77,12 @@ export const ethGetLogsHandler = (client) => async (params) => {
 
 	if (fetchFromRpc) {
 		// if the range includes prefork blocks (including fork since we don't have receipts for the fork block) then we need to fetch the logs from the forked chain
-		if (!client.forkClient) {
+		if (!client.forkTransport) {
 			throw new Error(
 				'InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm',
 			)
 		}
-		const fetcher = createJsonRpcFetcher(client.forkClient)
+		const fetcher = createJsonRpcFetcher(client.forkTransport)
 		const { result: jsonRpcLogs, error } = await fetcher.request({
 			jsonrpc: '2.0',
 			id: 1,

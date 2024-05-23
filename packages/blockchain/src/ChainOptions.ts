@@ -27,7 +27,7 @@ export type ChainOptions = {
 		/**
 		 * EIP-1193 request function to fetch forked blocks with
 		 */
-		client: { request: EIP1193RequestFn }
+		transport: { request: EIP1193RequestFn }
 		/**
 		 * Optional block tag to fork
 		 * Defaults to 'latest'

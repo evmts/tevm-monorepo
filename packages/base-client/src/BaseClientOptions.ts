@@ -32,7 +32,7 @@ export type BaseClientOptions = StateOptions & {
 	 * const client = createMemoryClient({ request: eip1193RequestFn })
 	 * ```
 	 */
-	readonly forkClient?: {
+	readonly forkTransport?: {
 		request: EIP1193RequestFn
 	}
 	/**

@@ -5,7 +5,7 @@ import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
-import { bytesToHex, http, keccak256 } from 'viem'
+import { http, bytesToHex, keccak256 } from 'viem'
 import { createHttpClient } from './createHttpClient.js'
 
 describe.skip(createHttpClient.name, () => {

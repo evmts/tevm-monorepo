@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { createContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { getAlchemyUrl } from '@tevm/test-utils'
-import { createPublicClient, http, numberToHex } from 'viem'
+import { http, createPublicClient, numberToHex } from 'viem'
 import { tevmTransport } from './tevmTransport.js'
 
 const daiContract = createContract({

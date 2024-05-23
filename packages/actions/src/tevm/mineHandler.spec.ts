@@ -25,7 +25,7 @@ describe(mineHandler.name, () => {
   })
 
   it('should work in forked mode too', async () => {
-    const client = createBaseClient({ fork: { client: http('https://mainnet.optimism.io')({}) } })
+    const client = createBaseClient({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
     const bn = await getBlockNumber(client)
     expect(
       bn

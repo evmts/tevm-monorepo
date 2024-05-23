@@ -2,9 +2,9 @@ import { createContract, createScript } from '@tevm/contract'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { http } from '../../../packages/jsonrpc/dist/index.cjs'
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
-import { http } from '../../../packages/jsonrpc/dist/index.cjs'
 
 const FORK_URL = getAlchemyUrl()
 

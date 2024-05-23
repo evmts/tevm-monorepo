@@ -13,7 +13,7 @@ describe(ethGetLogsHandler.name, () => {
 		async () => {
 			const client = createBaseClient({
 				fork: {
-					client: http('https://mainnet.optimism.io')({}),
+					transport: http('https://mainnet.optimism.io')({}),
 				},
 			})
 

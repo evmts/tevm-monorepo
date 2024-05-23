@@ -42,10 +42,10 @@ export const getBalanceHandler =
 			return root?.[address]?.balance ?? 0n
 		}
 		// at this point the block doesn't exist so we must be in forked mode
-		if (!baseClient.forkClient) {
+		if (!baseClient.forkTransport) {
 			throw new NoForkUrlSetError()
 		}
-		const fetcher = createJsonRpcFetcher(baseClient.forkClient)
+		const fetcher = createJsonRpcFetcher(baseClient.forkTransport)
 		const jsonRpcResponse = await fetcher.request({
 			jsonrpc: '2.0',
 			id: 1,

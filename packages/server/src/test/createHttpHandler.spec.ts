@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { http } from '@tevm/jsonrpc'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
 import { getAlchemyUrl } from '@tevm/test-utils'
@@ -6,7 +7,6 @@ import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/uti
 import supertest from 'supertest'
 import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
-import { http } from '@tevm/jsonrpc'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 

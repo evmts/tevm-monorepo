@@ -7,6 +7,6 @@ import { chainIdHandler } from './chainIdHandler.js'
 
 describe(blockNumberHandler.name, () => {
 	it('should return the block number', async () => {
-		expect(await chainIdHandler(createBaseClient({ fork: { client: http(getAlchemyUrl())({}) } }))({})).toBe(10n)
+		expect(await chainIdHandler(createBaseClient({ fork: { transport: http(getAlchemyUrl())({}) } }))({})).toBe(10n)
 	})
 })

@@ -14,12 +14,12 @@ const isBlockTag = (blockTag) => {
 
 /**
  * @param {object} params
- * @param {{request: import('viem').EIP1193RequestFn}} params.client
+ * @param {{request: import('viem').EIP1193RequestFn}} params.transport
  * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
  * @param {import('@tevm/common').Common} common
  */
-export const getBlockFromRpc = async ({ client, blockTag = 'latest' }, common) => {
-	const fetcher = createJsonRpcFetcher(client)
+export const getBlockFromRpc = async ({ transport, blockTag = 'latest' }, common) => {
+	const fetcher = createJsonRpcFetcher(transport)
 	/**
 	 * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
 	 * @returns {Block}

@@ -10,7 +10,7 @@ describe(shallowCopy.name, () => {
 		const options = {
 			loggingLevel: 'warn',
 			fork: {
-				client: http(getAlchemyUrl())({}),
+				transport: http(getAlchemyUrl())({}),
 			},
 		} as const
 

@@ -31,7 +31,7 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * const client = createMemoryClient({ request: eip1193RequestFn })
 	 * ```
 	 */
-	readonly forkClient?: {
+	readonly forkTransport?: {
 		request: EIP1193RequestFn
 	}
 	/**

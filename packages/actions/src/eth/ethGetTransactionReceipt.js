@@ -34,8 +34,8 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	 * We currently do not cache it in future we may consider fetching
 	 * entire block here and caching it
 	 */
-	if (!result && client.forkClient) {
-		const fetcher = createJsonRpcFetcher(client.forkClient)
+	if (!result && client.forkTransport) {
+		const fetcher = createJsonRpcFetcher(client.forkTransport)
 		const { result } = await fetcher.request({
 			method: 'eth_getTransactionReceipt',
 			params: [params.hash],
