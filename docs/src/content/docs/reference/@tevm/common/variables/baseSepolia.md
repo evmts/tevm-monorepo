@@ -1,0 +1,12 @@
+---
+editUrl: false
+next: false
+prev: false
+title: "baseSepolia"
+---
+
+> `const` **baseSepolia**: [`Common`](/reference/tevm/common/type-aliases/common/)
+
+## Source
+
+[packages/common/src/presets/baseSepolia.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/baseSepolia.js#L4)

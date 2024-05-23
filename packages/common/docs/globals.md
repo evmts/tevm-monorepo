@@ -9,10 +9,6 @@
 - [ConsensusAlgorithm](enumerations/ConsensusAlgorithm.md)
 - [ConsensusType](enumerations/ConsensusType.md)
 
-## Classes
-
-- [Common](classes/Common.md)
-
 ## Interfaces
 
 - [CustomCrypto](interfaces/CustomCrypto.md)
@@ -24,8 +20,21 @@
 
 - [AccountFields](type-aliases/AccountFields.md)
 - [CliqueConfig](type-aliases/CliqueConfig.md)
+- [Common](type-aliases/Common.md)
 - [CommonOptions](type-aliases/CommonOptions.md)
 - [Hardfork](type-aliases/Hardfork.md)
+
+## Variables
+
+- [base](variables/base.md)
+- [baseSepolia](variables/baseSepolia.md)
+- [mainnet](variables/mainnet.md)
+- [optimism](variables/optimism.md)
+- [optimismSepolia](variables/optimismSepolia.md)
+- [sepolia](variables/sepolia.md)
+- [tevmDefault](variables/tevmDefault.md)
+- [zora](variables/zora.md)
+- [zoraSepolia](variables/zoraSepolia.md)
 
 ## Functions
 

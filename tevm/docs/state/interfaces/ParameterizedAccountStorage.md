@@ -40,7 +40,7 @@ packages/state/dist/index.d.ts:24
 
 ### storage?
 
-> `optional` **storage**: `StorageDump`
+> `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
 #### Source
 

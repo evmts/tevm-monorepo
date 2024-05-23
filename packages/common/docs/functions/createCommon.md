@@ -6,7 +6,7 @@
 
 # Function: createCommon()
 
-> **createCommon**(`options`): [`Common`](../classes/Common.md)
+> **createCommon**(`options`): [`Common`](../type-aliases/Common.md)
 
 Creates an ethereumjs Common object used by the EVM
 to access chain and hardfork parameters and to provide
@@ -18,7 +18,7 @@ a unified and shared view on the network and hardfork state.
 
 ## Returns
 
-[`Common`](../classes/Common.md)
+[`Common`](../type-aliases/Common.md)
 
 ## Source
 

@@ -9,7 +9,7 @@ title: "getActivePrecompiles"
 
 ## Parameters
 
-• **common**: [`Common`](/reference/tevm/common/classes/common/)
+• **common**: `Common`
 
 • **customPrecompiles?**: `CustomPrecompile`[]
 

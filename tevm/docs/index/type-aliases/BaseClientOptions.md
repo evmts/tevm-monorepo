@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / BaseClientOptions
 
-# Type alias: BaseClientOptions\<TChain\>
+# Type alias: BaseClientOptions
 
-> **BaseClientOptions**\<`TChain`\>: [`StateOptions`](StateOptions.md) & `object`
+> **BaseClientOptions**: [`StateOptions`](StateOptions.md) & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -18,11 +18,12 @@ Options for creating an Tevm MemoryClient instance
 
 Enable/disable unlimited contract size. Defaults to false.
 
-### chainCommon?
+### common?
 
-> `optional` `readonly` **chainCommon**: [`TevmChainCommon`](../../chains/type-aliases/TevmChainCommon.md)\<`TChain`\>
+> `optional` `readonly` **common**: [`Common`](../../common/type-aliases/Common.md)
 
-The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+If not specified and a fork is provided the common chainId will be fetched from the fork
 Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
 
 #### Example
@@ -37,7 +38,7 @@ const client = createMemoryClient({ chain: optimism })
 
 ### customCrypto?
 
-> `optional` `readonly` **customCrypto**: `CustomCrypto`
+> `optional` `readonly` **customCrypto**: [`CustomCrypto`](../../common/interfaces/CustomCrypto.md)
 
 Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
 
@@ -167,10 +168,6 @@ const memoryClient = createMemoryClient({ persister })
 
 Enable profiler. Defaults to false.
 
-## Type parameters
-
-• **TChain** *extends* [`ViemChain`](../../chains/type-aliases/ViemChain.md) = [`ViemChain`](../../chains/type-aliases/ViemChain.md)
-
 ## Source
 
-packages/base-client/types/BaseClientOptions.d.ts:13
+packages/base-client/types/BaseClientOptions.d.ts:12

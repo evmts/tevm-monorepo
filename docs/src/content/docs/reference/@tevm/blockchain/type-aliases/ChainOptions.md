@@ -13,7 +13,7 @@ Options passed into `createChain` to initialize a Chain object
 
 ### common
 
-> **common**: [`Common`](/reference/tevm/common/classes/common/)
+> **common**: [`Common`](/reference/tevm/common/type-aliases/common/)
 
 A Common instance
 

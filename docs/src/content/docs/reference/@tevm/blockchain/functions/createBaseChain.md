@@ -19,4 +19,4 @@ Base chain object
 
 ## Source
 
-[createBaseChain.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L47)
+[createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)

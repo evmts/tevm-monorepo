@@ -12,7 +12,7 @@ Creates the base instance of a memory client
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<`Chain`\>= `{}`
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)= `{}`
 
 ## Returns
 
@@ -20,7 +20,7 @@ Creates the base instance of a memory client
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -35,7 +35,7 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`, `Chain`\>
+[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ### forkUrl?
 
@@ -49,17 +49,6 @@ Fork url if the EVM is forked
 const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
 console.log(client.forkUrl)
 ```
-
-### getChainCommon()
-
-> `readonly` **getChainCommon**: () => `Promise`\<`TevmChainCommon`\<`Chain`\>\>
-
-Returns the chain being used by the client. THis type extends both viem `Chain` and ethereumjs `Common`
-This is the same object on `getVm().common`
-
-#### Returns
-
-`Promise`\<`TevmChainCommon`\<`Chain`\>\>
 
 ### getReceiptsManager()
 

@@ -15,7 +15,7 @@ title: "CreateVmOptions"
 
 ### common
 
-> **common**: [`Common`](/reference/tevm/common/classes/common/)
+> **common**: [`Common`](/reference/tevm/common/type-aliases/common/)
 
 ### evm
 

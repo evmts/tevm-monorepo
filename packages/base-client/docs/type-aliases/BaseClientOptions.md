@@ -4,9 +4,9 @@
 
 [@tevm/base-client](../globals.md) / BaseClientOptions
 
-# Type alias: BaseClientOptions\<TChain\>
+# Type alias: BaseClientOptions
 
-> **BaseClientOptions**\<`TChain`\>: `StateOptions` & `object`
+> **BaseClientOptions**: `StateOptions` & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -18,11 +18,12 @@ Options for creating an Tevm MemoryClient instance
 
 Enable/disable unlimited contract size. Defaults to false.
 
-### chainCommon?
+### common?
 
-> `optional` `readonly` **chainCommon**: `TevmChainCommon`\<`TChain`\>
+> `optional` `readonly` **common**: `Common`
 
-The chain of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
+If not specified and a fork is provided the common chainId will be fetched from the fork
 Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
 
 #### Example
@@ -167,10 +168,6 @@ const memoryClient = createMemoryClient({ persister })
 
 Enable profiler. Defaults to false.
 
-## Type parameters
-
-• **TChain** *extends* `ViemChain` = `ViemChain`
-
 ## Source
 
-[BaseClientOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L14)
+[BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)
