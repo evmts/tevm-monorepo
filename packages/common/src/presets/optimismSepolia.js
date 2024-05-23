@@ -1,7 +1,5 @@
-import { Common, type CustomCrypto, type Hardfork, createCommon } from '@tevm/common'
 import { defineChain } from 'viem'
 import {
-	type Chain as ViemChain,
 	base as _base,
 	baseSepolia as _baseSepolia,
 	mainnet as _mainnet,
@@ -12,51 +10,13 @@ import {
 	zoraSepolia as _zoraSepolia,
 	foundry,
 } from 'viem/chains'
-
-export type { ViemChain }
-
-export type TevmChainCommon<TChain extends ViemChain> = TChain & { common: Common }
-
-export type CommonOptions = {
-	/**
-	 * EIPs enabled. Note some EIPS are always enabled by default such as EIP-1559
-	 */
-	eips: ReadonlyArray<number>
-	/**
-	 * The ethereum hardfork running on the chain
-	 * In future we will take hardfork by blockNumber so the hardfork eips can change based on the block height.
-	 */
-	hardfork: Hardfork
-	/**
-	 * Custom crypto options
-	 */
-	customCrypto?: CustomCrypto
-}
-
-export const createChainCommon = <TChain extends ViemChain>(
-	viemChain: TChain,
-	commonOptions: CommonOptions,
-): TevmChainCommon<TChain> => {
-	const common = createCommon({
-		eips: commonOptions.eips,
-		chainId: BigInt(viemChain.id),
-		hardfork: commonOptions.hardfork,
-		loggingLevel: 'warn',
-		customCrypto: commonOptions.customCrypto ?? {},
-	})
-	return Object.assign({}, viemChain, {
-		common,
-	})
-}
-
-// TODO I haven't actually looked into which EIPs and hardforks should be nabled
-// TODO we want to enable hardfork and eips based on block number in future
+import { createCommon } from '../createCommon.js'
 
 /**
  * The default chain if no fork url is passed
  */
-export const tevmDevnet = createChainCommon(
-	defineChain({
+export const tevmDevnet = createCommon({
+	...defineChain({
 		id: 900,
 		name: 'tevm-devnet',
 		fees: _optimism.fees,
@@ -69,11 +29,10 @@ export const tevmDevnet = createChainCommon(
 		blockExplorers: foundry.blockExplorers,
 		serializers: _optimism.serializers,
 	}),
-	{
-		eips: [],
-		hardfork: 'cancun',
-	},
-)
+	loggingLevel: 'warn',
+	eips: [],
+	hardfork: 'cancun',
+})
 /**
 * TODO update op-stack package to use this
 export const tevmL2Devnet = createChainCommon(

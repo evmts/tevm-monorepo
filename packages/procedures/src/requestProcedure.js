@@ -25,6 +25,7 @@ import {
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
+import { version as packageJsonVersion } from '../package.json'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -678,11 +679,18 @@ export const requestProcedure = (client) => {
 					})),
 					method: request.method,
 				}
+			case 'eth_protocolVersion': {
+				return {
+					result: packageJsonVersion,
+					jsonrpc: '2.0',
+					method: 'eth_protocolVersion',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
 			case 'anvil_loadState':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
-			case 'eth_protocolVersion':
 			case 'eth_uninstallFilter':
 			case 'eth_getFilterChanges':
 			case 'eth_getTransactionCount':

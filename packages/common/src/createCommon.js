@@ -6,16 +6,16 @@ import { createLogger } from '@tevm/logger'
  * to access chain and hardfork parameters and to provide
  * a unified and shared view on the network and hardfork state.
  * @param {import('./CommonOptions.js').CommonOptions} options
- * @returns {Common}
+ * @returns {import('./Common.js').Common}
  */
-export const createCommon = ({ loggingLevel, chainId, hardfork, eips = [] }) => {
+export const createCommon = ({ loggingLevel, hardfork, eips = [], ...chain }) => {
 	const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
 	const common = Common.custom(
 		{
 			name: 'TevmCustom',
-			chainId,
+			chainId: chain.id,
 			// TODO what is diff between chainId and networkId???
-			networkId: chainId,
+			networkId: chain.id,
 		},
 		{
 			hardfork: hardfork ?? 'cancun',
@@ -27,5 +27,5 @@ export const createCommon = ({ loggingLevel, chainId, hardfork, eips = [] }) => 
 		logger.warn('verkle state is currently not supported in tevm')
 	}
 	logger.debug(common.eips(), 'Created common with eips enabled')
-	return common
+	return Object.assign(common, chain)
 }

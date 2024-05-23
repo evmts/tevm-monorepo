@@ -12,3 +12,14 @@ export {
 	type CliqueConfig,
 	ConsensusType,
 } from '@ethereumjs/common'
+export {
+	optimismSepolia,
+	baseSepolia,
+	base,
+	zora,
+	mainnet,
+	sepolia,
+	optimism,
+	tevmDefault,
+	zoraSepolia,
+} from './presets/index.js'
