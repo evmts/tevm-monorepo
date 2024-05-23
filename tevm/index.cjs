@@ -3,6 +3,7 @@
 var predeploys = require('@tevm/predeploys');
 var contract = require('@tevm/contract');
 var utils = require('@tevm/utils');
+var jsonrpc = require('@tevm/jsonrpc');
 var baseClient = require('@tevm/base-client');
 var memoryClient = require('@tevm/memory-client');
 var viem = require('@tevm/viem');
@@ -206,6 +207,22 @@ Object.defineProperty(exports, "toHex", {
 Object.defineProperty(exports, "toRlp", {
   enumerable: true,
   get: function () { return utils.toRlp; }
+});
+Object.defineProperty(exports, "http", {
+  enumerable: true,
+  get: function () { return jsonrpc.http; }
+});
+Object.defineProperty(exports, "loadBalance", {
+  enumerable: true,
+  get: function () { return jsonrpc.loadBalance; }
+});
+Object.defineProperty(exports, "rateLimit", {
+  enumerable: true,
+  get: function () { return jsonrpc.rateLimit; }
+});
+Object.defineProperty(exports, "webSocket", {
+  enumerable: true,
+  get: function () { return jsonrpc.webSocket; }
 });
 Object.defineProperty(exports, "GENESIS_STATE", {
   enumerable: true,
