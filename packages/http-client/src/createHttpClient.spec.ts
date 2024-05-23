@@ -15,7 +15,7 @@ describe.skip(createHttpClient.name, () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
-			fork: { client: http(getAlchemyUrl())({}) },
+			fork: { transport: http(getAlchemyUrl())({}) },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createHttpClient({ url: 'http://localhost:6969' })

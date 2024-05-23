@@ -11,7 +11,9 @@ title: "getCodeProcedure"
 
 • **options**
 
-• **options.forkUrl?**: `string`
+• **options.forkClient?**
+
+• **options.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
 
 • **options.getVm**
 

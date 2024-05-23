@@ -14,7 +14,7 @@ describe(TevmProvider.name, () => {
 	beforeEach(async () => {
 		provider = await TevmProvider.createMemoryProvider({
 			fork: {
-				client: http(FORK_URL)({}),
+				transport: http(FORK_URL)({}),
 			},
 		})
 	})

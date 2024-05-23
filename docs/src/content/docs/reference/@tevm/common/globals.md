@@ -24,6 +24,7 @@ title: "@tevm/common"
 - [Common](/reference/tevm/common/type-aliases/common/)
 - [CommonOptions](/reference/tevm/common/type-aliases/commonoptions/)
 - [Hardfork](/reference/tevm/common/type-aliases/hardfork/)
+- [MockKzg](/reference/tevm/common/type-aliases/mockkzg/)
 
 ## Variables
 
@@ -40,3 +41,4 @@ title: "@tevm/common"
 ## Functions
 
 - [createCommon](/reference/tevm/common/functions/createcommon/)
+- [createMockKzg](/reference/tevm/common/functions/createmockkzg/)

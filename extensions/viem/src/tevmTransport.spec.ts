@@ -13,7 +13,7 @@ const daiContract = createContract({
 describe('memoryTransport', () => {
 	it('creates a new transport instance', async () => {
 		const tevm = createMemoryClient({
-			fork: { client: http(getAlchemyUrl())({}) },
+			fork: { transport: http(getAlchemyUrl())({}) },
 		})
 
 		const client = createPublicClient({
@@ -28,7 +28,7 @@ describe('memoryTransport', () => {
 		'can be used as backend to publicClient',
 		async () => {
 			const tevm = createMemoryClient({
-				fork: { client: http(getAlchemyUrl())({}) },
+				fork: { transport: http(getAlchemyUrl())({}) },
 			})
 
 			const client = createPublicClient({
@@ -54,7 +54,7 @@ describe('memoryTransport', () => {
 
 	it.todo('can do tevm requests', async () => {
 		const tevm = createMemoryClient({
-			fork: { client: http(getAlchemyUrl())({}) },
+			fork: { transport: http(getAlchemyUrl())({}) },
 		})
 
 		const client = createPublicClient({

@@ -19,7 +19,7 @@ describe('createHttpHandler', () => {
 		async () => {
 			const tevm = createMemoryClient({
 				fork: {
-					client: http(getAlchemyUrl())({}),
+					transport: http(getAlchemyUrl())({}),
 					blockTag: 115325880n,
 				},
 			})

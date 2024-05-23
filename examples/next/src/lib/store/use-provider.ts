@@ -1,6 +1,6 @@
 import { MemoryClient } from 'tevm';
 import { Address, getAddress } from 'tevm/utils';
-import { extractChain } from 'viem';
+import { extractChain, http } from 'viem';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -114,9 +114,11 @@ export const useProviderStore = create<ProviderStore>()(
                 key: `TEVM_CLIENT_${chain.id.toString()}`,
               }),
               fork: {
-                url: STANDALONE_RPC_CHAINS.includes(chain.id)
-                  ? forkUrl
-                  : `${forkUrl}${ALCHEMY_API_KEY}`,
+                transport: http(
+                  STANDALONE_RPC_CHAINS.includes(chain.id)
+                    ? forkUrl
+                    : `${forkUrl}${ALCHEMY_API_KEY}`,
+                )({}),
               },
             });
 

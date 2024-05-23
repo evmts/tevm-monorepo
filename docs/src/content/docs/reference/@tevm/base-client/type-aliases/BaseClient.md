@@ -30,18 +30,21 @@ and extensibility
 
 [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
-### forkUrl?
+### forkTransport?
 
-> `optional` `readonly` **forkUrl**: `string`
+> `optional` `readonly` **forkTransport**: `object`
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 #### Example
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
+
+### forkTransport.request
+
+> **request**: `EIP1193RequestFn`
 
 ### getReceiptsManager()
 
@@ -134,4 +137,4 @@ await client.ready()
 
 ## Source
 
-[BaseClient.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L10)
+[BaseClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L11)

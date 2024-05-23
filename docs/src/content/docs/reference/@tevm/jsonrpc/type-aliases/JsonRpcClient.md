@@ -13,12 +13,8 @@ A client for making JsonRpc requests over http
 
 ### request
 
-> **request**: [`JsonRpcProcedure`](/reference/tevm/jsonrpc/type-aliases/jsonrpcprocedure/)\<`string`, `unknown`, `unknown`, `string`\>
-
-### url
-
-> **url**: `string`
+> **request**: [`JsonRpcProcedure`](/reference/tevm/jsonrpc/type-aliases/jsonrpcprocedure/)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
 
 ## Source
 
-[JsonRpcClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L6)
+[packages/jsonrpc/src/JsonRpcClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L6)
