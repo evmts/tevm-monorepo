@@ -6,5 +6,5 @@ exports[`Tevm.request should throw an error if attempting a tevm_contractCall re
 "The method does not exist / is not available.
 
 Details: UnsupportedMethodError: Unknown method tevm_NotARequest
-Version: viem@2.10.5"
+Version: viem@2.12.0"
 `;

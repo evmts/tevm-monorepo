@@ -1,8 +1,6 @@
-import { describe, expect, it, jest } from 'bun:test'
-import { getAlchemyUrl } from '@tevm/test-utils'
+import { describe, expect, it } from 'bun:test'
 import { parseGwei } from '@tevm/utils'
 import { gasPriceHandler } from './gasPriceHandler.js'
-import { http } from 'viem'
 
 describe(gasPriceHandler.name, () => {
 	it('should default to 1 gwei if no forkUrl', async () => {
