@@ -2,6 +2,7 @@ import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandl
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethGetTransactionReceiptJsonRpcProcedure } from './eth/ethGetTransactionReceiptProcedure.js'
@@ -25,7 +26,6 @@ import {
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
-import { version as packageJsonVersion } from '../package.json'
 
 /**
  * Request handler for JSON-RPC requests.

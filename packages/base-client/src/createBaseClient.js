@@ -1,5 +1,5 @@
 import { createChain } from '@tevm/blockchain'
-import { createChainCommon, tevmDevnet } from '@tevm/chains'
+import { createCommon, tevmDefault } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
@@ -67,8 +67,8 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
-		if (options?.chainCommon) {
-			return options?.chainCommon.id
+		if (options?.common) {
+			return options?.common.id
 		}
 		const url = options?.fork?.url
 		if (url) {
@@ -101,51 +101,50 @@ export const createBaseClient = (options = {}) => {
 			// TODO we will eventually want to be setting common hardfork based on chain id and block number
 			// ethereumjs does this for mainnet but we forgo all this functionality
 			const customCrypto = options?.customCrypto ?? {}
-			if (options.chainCommon) {
-				return createChainCommon(
-					{ ...options.chainCommon, id: Number(chainId) },
-					{
-						hardfork: 'cancun',
-						eips: options.eips ?? [],
-						customCrypto: {
-							kzg: createMockKzg(),
-							...customCrypto,
-						},
-					},
-				)
-			}
-			if (!options.fork?.url) {
-				return createChainCommon(
-					{ ...tevmDevnet, id: Number(chainId) },
-					{
-						hardfork: 'cancun',
-						eips: options.eips ?? [],
-						customCrypto: {
-							kzg: createMockKzg(),
-							...customCrypto,
-						},
-					},
-				)
-			}
-			return createChainCommon(
-				{ ...tevmDevnet, id: Number(chainId) },
-				{
+			if (options.common) {
+				return createCommon({
+					...options.common,
+					id: Number(chainId),
+					loggingLevel: options.loggingLevel ?? 'warn',
 					hardfork: 'cancun',
 					eips: options.eips ?? [],
 					customCrypto: {
 						kzg: createMockKzg(),
 						...customCrypto,
 					},
+				})
+			}
+			if (!options.fork?.url) {
+				return createCommon({
+					...tevmDefault,
+					id: Number(chainId),
+					hardfork: 'cancun',
+					eips: options.eips ?? [],
+					loggingLevel: options.loggingLevel ?? 'warn',
+					customCrypto: {
+						kzg: createMockKzg(),
+						...customCrypto,
+					},
+				})
+			}
+			return createCommon({
+				...tevmDefault,
+				id: Number(chainId),
+				loggingLevel: options.loggingLevel ?? 'warn',
+				hardfork: 'cancun',
+				eips: options.eips ?? [],
+				customCrypto: {
+					kzg: createMockKzg(),
+					...customCrypto,
 				},
-			)
+			})
 		})
-		.then((chainCommon) => {
+		.then((common) => {
 			// ALWAYS Copy common so we don't modify the global instances since it's stateful!
-			chainCommon.common = chainCommon.common.copy()
-			return chainCommon
+			return common.copy()
 		})
 
-	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([{ common }, blockTag]) => {
+	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([common, blockTag]) => {
 		return createChain({
 			loggingLevel,
 			common,
@@ -223,7 +222,7 @@ export const createBaseClient = (options = {}) => {
 		})
 
 	const evmPromise = Promise.all([chainCommonPromise, stateManagerPromise, blockchainPromise]).then(
-		([{ common }, stateManager, blockchain]) => {
+		([common, stateManager, blockchain]) => {
 			return createEvm({
 				common,
 				stateManager,
@@ -236,13 +235,13 @@ export const createBaseClient = (options = {}) => {
 		},
 	)
 
-	const vmPromise = evmPromise.then((evm) => {
+	const vmPromise = Promise.all([evmPromise, chainCommonPromise]).then(([evm, common]) => {
 		const vm = createVm({
 			stateManager: evm.stateManager,
 			evm: evm,
 			// TODO this inherited type is wrong thus we need to cast this
 			blockchain: /** @type {import('@tevm/blockchain').Chain} */ (evm.blockchain),
-			common: evm.common,
+			common,
 		})
 		return vm
 	})
@@ -270,9 +269,6 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		getChainCommon() {
-			return chainCommonPromise
-		},
 		logger,
 		getReceiptsManager: async () => {
 			await ready()

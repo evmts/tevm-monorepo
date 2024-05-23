@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
-import { mainnet } from '@tevm/chains'
+import { mainnet } from '@tevm/common'
 import { getAlchemyUrl, simpleContract } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
@@ -194,7 +194,7 @@ describe('viemPublicActions', () => {
 		getEnsAddress: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chainCommon: mainnet,
+				common: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
@@ -215,7 +215,7 @@ describe('viemPublicActions', () => {
 		getEnsAvatar: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chainCommon: mainnet,
+				common: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
@@ -238,7 +238,7 @@ describe('viemPublicActions', () => {
 		getEnsName: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chainCommon: mainnet,
+				common: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
@@ -261,7 +261,7 @@ describe('viemPublicActions', () => {
 		getEnsResolver: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chainCommon: mainnet,
+				common: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},
@@ -284,7 +284,7 @@ describe('viemPublicActions', () => {
 		getEnsText: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				chainCommon: mainnet,
+				common: mainnet,
 				fork: {
 					url: getAlchemyUrl('mainnet'),
 				},

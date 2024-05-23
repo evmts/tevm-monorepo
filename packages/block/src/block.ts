@@ -184,7 +184,10 @@ export class Block {
 		const [headerData, txsData, uhsData, withdrawalBytes, requestBytes, executionWitnessBytes] = values
 		const header = BlockHeader.fromValuesArray(headerData, opts)
 
-		if (header.common.isActivatedEIP(4895) && (withdrawalBytes === undefined || !Array.isArray(withdrawalBytes))) {
+		if (
+			header.common.ethjsCommon.isActivatedEIP(4895) &&
+			(withdrawalBytes === undefined || !Array.isArray(withdrawalBytes))
+		) {
 			throw new Error('Invalid serialized block input: EIP-4895 is active, and no withdrawals were provided as array')
 		}
 
@@ -195,7 +198,7 @@ export class Block {
 				TransactionFactory.fromBlockBodyData(txData, {
 					...opts,
 					// Use header common in case of setHardfork being activated
-					common: header.common,
+					common: header.common.ethjsCommon,
 				}),
 			)
 		}
@@ -227,13 +230,13 @@ export class Block {
 			?.map((w) => Withdrawal.fromWithdrawalData(w))
 
 		let requests: ClRequest[] = []
-		if (header.common.isActivatedEIP(7685)) {
+		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
 			requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
 		}
 		// executionWitness are not part of the EL fetched blocks via eth_ bodies method
 		// they are currently only available via the engine api constructed blocks
 		let executionWitness: VerkleExecutionWitness | null = null
-		if (header.common.isActivatedEIP(6800)) {
+		if (header.common.ethjsCommon.isActivatedEIP(6800)) {
 			if (executionWitnessBytes !== undefined) {
 				executionWitness = JSON.parse(bytesToUtf8(Rlp.decode(executionWitnessBytes) as Uint8Array))
 			} else if (opts?.executionWitness !== undefined) {
@@ -270,7 +273,7 @@ export class Block {
 		for (const [index, serializedTx] of transactions.entries()) {
 			try {
 				const tx = TransactionFactory.fromSerializedData(hexToBytes(serializedTx as Hex), {
-					common: opts?.common,
+					common: opts?.common.ethjsCommon,
 				})
 				txs.push(tx)
 			} catch (error) {
@@ -280,10 +283,10 @@ export class Block {
 		}
 
 		const reqRoot = requestsRoot === null ? undefined : requestsRoot
-		const transactionsTrie = await Block.genTransactionsTrieRoot(txs, new Trie({ common: opts?.common }))
+		const transactionsTrie = await Block.genTransactionsTrieRoot(txs, new Trie({ common: opts?.common.ethjsCommon }))
 		const withdrawals = withdrawalsData?.map((wData) => Withdrawal.fromWithdrawalData(wData))
 		const withdrawalsRoot = withdrawals
-			? await Block.genWithdrawalsTrieRoot(withdrawals, new Trie({ common: opts?.common }))
+			? await Block.genWithdrawalsTrieRoot(withdrawals, new Trie({ common: opts?.common.ethjsCommon }))
 			: undefined
 		const header: HeaderData = {
 			...payload,
@@ -298,7 +301,10 @@ export class Block {
 
 		// we are not setting setHardfork as common is already set to the correct hf
 		const block = Block.fromBlockData({ header, transactions: txs, withdrawals, executionWitness } as BlockData, opts)
-		if (block.common.isActivatedEIP(6800) && (executionWitness === undefined || executionWitness === null)) {
+		if (
+			block.common.ethjsCommon.isActivatedEIP(6800) &&
+			(executionWitness === undefined || executionWitness === null)
+		) {
 			throw Error('Missing executionWitness for EIP-6800 activated executionPayload')
 		}
 		// Verify blockHash matches payload
@@ -336,15 +342,15 @@ export class Block {
 	) {
 		this.header = header ?? BlockHeader.fromHeaderData({}, opts)
 		this.common = this.header.common
-		this.keccakFunction = this.common.customCrypto.keccak256 ?? ((item) => keccak256(item, 'bytes'))
+		this.keccakFunction = this.common.ethjsCommon.customCrypto.keccak256 ?? ((item) => keccak256(item, 'bytes'))
 
 		this.transactions = transactions
-		this.withdrawals = withdrawals ?? (this.common.isActivatedEIP(4895) ? [] : undefined)
+		this.withdrawals = withdrawals ?? (this.common.ethjsCommon.isActivatedEIP(4895) ? [] : undefined)
 		this.executionWitness = executionWitness
-		this.requests = requests ?? (this.common.isActivatedEIP(7685) ? [] : undefined)
+		this.requests = requests ?? (this.common.ethjsCommon.isActivatedEIP(7685) ? [] : undefined)
 		// null indicates an intentional absence of value or unavailability
 		// undefined indicates that the executionWitness should be initialized with the default state
-		if (this.common.isActivatedEIP(6800) && this.executionWitness === undefined) {
+		if (this.common.ethjsCommon.isActivatedEIP(6800) && this.executionWitness === undefined) {
 			this.executionWitness = {
 				stateDiff: [],
 				verkleProof: {
@@ -364,25 +370,25 @@ export class Block {
 		this.uncleHeaders = uncleHeaders
 		if (uncleHeaders.length > 0) {
 			this.validateUncles()
-			if (this.common.consensusType() === ConsensusType.ProofOfAuthority) {
+			if (this.common.ethjsCommon.consensusType() === ConsensusType.ProofOfAuthority) {
 				const msg = this._errorMsg('Block initialization with uncleHeaders on a PoA network is not allowed')
 				throw new Error(msg)
 			}
-			if (this.common.consensusType() === ConsensusType.ProofOfStake) {
+			if (this.common.ethjsCommon.consensusType() === ConsensusType.ProofOfStake) {
 				const msg = this._errorMsg('Block initialization with uncleHeaders on a PoS network is not allowed')
 				throw new Error(msg)
 			}
 		}
 
-		if (!this.common.isActivatedEIP(4895) && withdrawals !== undefined) {
+		if (!this.common.ethjsCommon.isActivatedEIP(4895) && withdrawals !== undefined) {
 			throw new Error('Cannot have a withdrawals field if EIP 4895 is not active')
 		}
 
-		if (!this.common.isActivatedEIP(6800) && executionWitness !== undefined && executionWitness !== null) {
+		if (!this.common.ethjsCommon.isActivatedEIP(6800) && executionWitness !== undefined && executionWitness !== null) {
 			throw new Error('Cannot have executionWitness field if EIP 6800 is not active ')
 		}
 
-		if (!this.common.isActivatedEIP(7685) && requests !== undefined) {
+		if (!this.common.ethjsCommon.isActivatedEIP(7685) && requests !== undefined) {
 			throw new Error('Cannot have requests field if EIP 7685 is not active')
 		}
 
@@ -447,7 +453,7 @@ export class Block {
 	 * Generates transaction trie for validation.
 	 */
 	async genTxTrie(): Promise<Uint8Array> {
-		return Block.genTransactionsTrieRoot(this.transactions, new Trie({ common: this.common }))
+		return Block.genTransactionsTrieRoot(this.transactions, new Trie({ common: this.common.ethjsCommon }))
 	}
 
 	/**
@@ -470,7 +476,7 @@ export class Block {
 	}
 
 	async requestsTrieIsValid(): Promise<boolean> {
-		if (!this.common.isActivatedEIP(7685)) {
+		if (!this.common.ethjsCommon.isActivatedEIP(7685)) {
 			throw new Error('EIP 7685 is not activated')
 		}
 
@@ -495,13 +501,13 @@ export class Block {
 	getTransactionsValidationErrors(): string[] {
 		const errors: string[] = []
 		let blobGasUsed = 0n
-		const blobGasLimit = this.common.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = this.common.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = this.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 
 		// eslint-disable-next-line prefer-const
 		for (let [i, tx] of this.transactions.entries()) {
 			const errs = tx.getValidationErrors()
-			if (this.common.isActivatedEIP(1559)) {
+			if (this.common.ethjsCommon.isActivatedEIP(1559)) {
 				if (tx.supports(Capability.EIP1559FeeMarket)) {
 					tx = tx as FeeMarketEIP1559Transaction
 					if (tx.maxFeePerGas < (this.header.baseFeePerGas as bigint)) {
@@ -514,7 +520,7 @@ export class Block {
 					}
 				}
 			}
-			if (this.common.isActivatedEIP(4844)) {
+			if (this.common.ethjsCommon.isActivatedEIP(4844)) {
 				if (tx instanceof BlobEIP4844Transaction) {
 					blobGasUsed += BigInt(tx.numBlobs()) * blobGasPerBlob
 					if (blobGasUsed > blobGasLimit) {
@@ -529,7 +535,7 @@ export class Block {
 			}
 		}
 
-		if (this.common.isActivatedEIP(4844)) {
+		if (this.common.ethjsCommon.isActivatedEIP(4844)) {
 			if (blobGasUsed !== this.header.blobGasUsed) {
 				errors.push(`invalid blobGasUsed expected=${this.header.blobGasUsed} actual=${blobGasUsed}`)
 			}
@@ -590,14 +596,14 @@ export class Block {
 			throw new Error(msg)
 		}
 
-		if (this.common.isActivatedEIP(4895) && !(await this.withdrawalsTrieIsValid())) {
+		if (this.common.ethjsCommon.isActivatedEIP(4895) && !(await this.withdrawalsTrieIsValid())) {
 			const msg = this._errorMsg('invalid withdrawals trie')
 			throw new Error(msg)
 		}
 
 		// Validation for Verkle blocks
 		// Unnecessary in this implementation since we're providing defaults if those fields are undefined
-		if (this.common.isActivatedEIP(6800)) {
+		if (this.common.ethjsCommon.isActivatedEIP(6800)) {
 			if (this.executionWitness === undefined) {
 				throw new Error('Invalid block: missing executionWitness')
 			}
@@ -614,9 +620,9 @@ export class Block {
 	 * @param parentHeader header of parent block
 	 */
 	validateBlobTransactions(parentHeader: BlockHeader) {
-		if (this.common.isActivatedEIP(4844)) {
-			const blobGasLimit = this.common.param('gasConfig', 'maxblobGasPerBlock')
-			const blobGasPerBlob = this.common.param('gasConfig', 'blobGasPerBlob')
+		if (this.common.ethjsCommon.isActivatedEIP(4844)) {
+			const blobGasLimit = this.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
+			const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 			let blobGasUsed = 0n
 
 			const expectedExcessBlobGas = parentHeader.calcNextExcessBlobGas()
@@ -673,7 +679,7 @@ export class Block {
 	 * @returns true if the withdrawals trie root is valid, false otherwise
 	 */
 	async withdrawalsTrieIsValid(): Promise<boolean> {
-		if (!this.common.isActivatedEIP(4895)) {
+		if (!this.common.ethjsCommon.isActivatedEIP(4895)) {
 			throw new Error('EIP 4895 is not activated')
 		}
 
@@ -686,7 +692,7 @@ export class Block {
 		if (this.cache.withdrawalsTrieRoot === undefined) {
 			this.cache.withdrawalsTrieRoot = await Block.genWithdrawalsTrieRoot(
 				this.withdrawals ?? [],
-				new Trie({ common: this.common }),
+				new Trie({ common: this.common.ethjsCommon }),
 			)
 		}
 		result = equalsBytes(this.cache.withdrawalsTrieRoot, this.header.withdrawalsRoot as Uint8Array)
@@ -801,7 +807,7 @@ export class Block {
 		}
 		let hf = ''
 		try {
-			hf = this.common.hardfork()
+			hf = this.common.ethjsCommon.hardfork()
 		} catch (e: any) {
 			hf = 'error'
 		}

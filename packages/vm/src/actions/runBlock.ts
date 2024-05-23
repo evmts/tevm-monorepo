@@ -68,8 +68,8 @@ export const runBlock =
 
 		// check for DAO support and if we should apply the DAO fork
 		if (
-			vm.common.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
-			block.header.number === vm.common.hardforkBlock('dao')
+			vm.common.ethjsCommon.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
+			block.header.number === vm.common.ethjsCommon.hardforkBlock('dao')
 		) {
 			await vm.evm.journal.checkpoint()
 			await _applyDAOHardfork(vm.evm)
@@ -110,7 +110,7 @@ export const runBlock =
 			}
 			// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
 			block = Block.fromBlockData(blockData as any, { common: vm.common })
-		} else if (vm.common.isActivatedEIP(6800) === false) {
+		} else if (vm.common.ethjsCommon.isActivatedEIP(6800) === false) {
 			// Only validate the following headers if verkle blocks aren't activated
 			if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
 				const msg = _errorMsg('invalid receiptTrie', vm, block)
@@ -184,13 +184,13 @@ const applyBlock =
 			}
 			await block.validateData()
 		}
-		if (vm.common.isActivatedEIP(4788)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(4788)) {
 			await accumulateParentBeaconBlockRoot(vm)(
 				block.header.parentBeaconBlockRoot as Uint8Array,
 				block.header.timestamp,
 			)
 		}
-		if (vm.common.isActivatedEIP(2935)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(2935)) {
 			await accumulateParentBlockHash(vm)(block.header.number, block.header.parentHash)
 		}
 
@@ -216,7 +216,7 @@ const applyBlock =
 			}
 		}
 
-		if (vm.common.isActivatedEIP(4895)) {
+		if (vm.common.ethjsCommon.isActivatedEIP(4895)) {
 			if (opts.reportPreimages === true) vm.evm.journal.startReportingPreimages?.()
 			await assignWithdrawals(vm)(block)
 			if (opts.reportPreimages === true && vm.evm.journal.preimages !== undefined) {
@@ -227,7 +227,7 @@ const applyBlock =
 			await vm.evm.journal.cleanup()
 		}
 		// Pay ommers and miners
-		if (block.common.consensusType() === ConsensusType.ProofOfWork) {
+		if (block.common.ethjsCommon.consensusType() === ConsensusType.ProofOfWork) {
 			await assignBlockRewards(vm)(block)
 		}
 
@@ -244,14 +244,16 @@ const applyBlock =
  * @param block The current block to save the parent block hash of
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
-	if (!vm.common.isActivatedEIP(2935)) {
+	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
 		throw new Error('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
-	const historyAddress = EthjsAddress.fromString(numberToHex(vm.common.param('vm', 'historyStorageAddress')))
-	const historyServeWindow = vm.common.param('vm', 'historyServeWindow')
+	const historyAddress = EthjsAddress.fromString(
+		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
+	)
+	const historyServeWindow = vm.common.ethjsCommon.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?
-	const forkTime = vm.common.eipTimestamp(2935)
+	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
 	if (forkTime === null) {
 		throw new Error('EIP 2935 should be activated by timestamp')
 	}
@@ -285,11 +287,11 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 }
 
 export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint8Array, timestamp: bigint) => {
-	if (!vm.common.isActivatedEIP(4788)) {
+	if (!vm.common.ethjsCommon.isActivatedEIP(4788)) {
 		throw new Error('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
 	}
 	// Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
-	const historicalRootsLength = BigInt(vm.common.param('vm', 'historicalRootsLength'))
+	const historicalRootsLength = BigInt(vm.common.ethjsCommon.param('vm', 'historicalRootsLength'))
 	const timestampIndex = timestamp % historicalRootsLength
 	const timestampExtended = timestampIndex + historicalRootsLength
 
@@ -324,13 +326,13 @@ export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint
  * @param {RunBlockOpts} opts
  */
 const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts) => {
-	const bloom = new Bloom(undefined, vm.common)
+	const bloom = new Bloom(undefined, vm.common.ethjsCommon)
 	// the total amount of gas used processing these transactions
 	let gasUsed = 0n
 
 	let receiptTrie: Trie | undefined = undefined
 	if (block.transactions.length !== 0) {
-		receiptTrie = new Trie({ common: vm.common })
+		receiptTrie = new Trie({ common: vm.common.ethjsCommon })
 	}
 
 	const receipts: TxReceipt[] = []
@@ -343,8 +345,8 @@ const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpt
 		const tx = block.transactions[txIdx] as TypedTransaction
 
 		let maxGasLimit: bigint
-		if (vm.common.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * vm.common.param('gasConfig', 'elasticityMultiplier')
+		if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
+			maxGasLimit = block.header.gasLimit * vm.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
 		} else {
 			maxGasLimit = block.header.gasLimit
 		}
@@ -411,7 +413,7 @@ const assignWithdrawals =
 const assignBlockRewards =
 	(vm: BaseVm) =>
 	async (block: Block): Promise<void> => {
-		const minerReward = vm.common.param('pow', 'minerReward')
+		const minerReward = vm.common.ethjsCommon.param('pow', 'minerReward')
 		const ommers = block.uncleHeaders
 		// Reward ommers
 		for (const ommer of ommers) {
@@ -512,7 +514,7 @@ async function _genTxTrie(block: Block) {
 	if (block.transactions.length === 0) {
 		return KECCAK256_RLP
 	}
-	const trie = new Trie({ common: block.common })
+	const trie = new Trie({ common: block.common.ethjsCommon })
 	for (const [i, tx] of block.transactions.entries()) {
 		await trie.put(Rlp.encode(i), tx.serialize())
 	}
@@ -528,7 +530,7 @@ async function _genTxTrie(block: Block) {
 function _errorMsg(msg: string, vm: BaseVm, block: Block) {
 	const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
 
-	const errorMsg = `${msg} (${vm.common.hardfork.name} -> ${blockErrorStr})`
+	const errorMsg = `${msg} (${vm.common.ethjsCommon.hardfork.name} -> ${blockErrorStr})`
 	return errorMsg
 }
 

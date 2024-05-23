@@ -5,13 +5,7 @@
 		"outDir": "types",
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
-		"types": [
-			"bun-types"
-		]
+		"types": ["bun-types"]
 	},
-	"include": [
-		"package.json",
-		"src",
-		"src/**/*.json"
-	]
+	"include": ["package.json", "src", "src/**/*.json"]
 }

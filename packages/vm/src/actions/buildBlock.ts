@@ -84,23 +84,29 @@ export class BlockBuilder {
 		}
 		this.withdrawals = opts.withdrawals?.map(Withdrawal.fromWithdrawalData)
 
-		if (this.vm.common.isActivatedEIP(1559) === true && typeof this.headerData.baseFeePerGas === 'undefined') {
-			if (this.headerData.number === vm.common.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = vm.common.param('gasConfig', 'initialBaseFee')
+		if (
+			this.vm.common.ethjsCommon.isActivatedEIP(1559) === true &&
+			typeof this.headerData.baseFeePerGas === 'undefined'
+		) {
+			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
+				this.headerData.baseFeePerGas = vm.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
 		}
 
 		if (typeof this.headerData.gasLimit === 'undefined') {
-			if (this.headerData.number === vm.common.hardforkBlock('london')) {
+			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
 				this.headerData.gasLimit = opts.parentBlock.header.gasLimit * 2n
 			} else {
 				this.headerData.gasLimit = opts.parentBlock.header.gasLimit
 			}
 		}
 
-		if (this.vm.common.isActivatedEIP(4844) === true && typeof this.headerData.excessBlobGas === 'undefined') {
+		if (
+			this.vm.common.ethjsCommon.isActivatedEIP(4844) === true &&
+			typeof this.headerData.excessBlobGas === 'undefined'
+		) {
 			this.headerData.excessBlobGas = opts.parentBlock.header.calcNextExcessBlobGas()
 		}
 	}
@@ -125,14 +131,17 @@ export class BlockBuilder {
 	 * Calculates and returns the transactionsTrie for the block.
 	 */
 	public async transactionsTrie() {
-		return Block.genTransactionsTrieRoot(this.transactions as TypedTransaction[], new Trie({ common: this.vm.common }))
+		return Block.genTransactionsTrieRoot(
+			this.transactions as TypedTransaction[],
+			new Trie({ common: this.vm.common.ethjsCommon }),
+		)
 	}
 
 	/**
 	 * Calculates and returns the logs bloom for the block.
 	 */
 	public logsBloom() {
-		const bloom = new Bloom(undefined, this.vm.common)
+		const bloom = new Bloom(undefined, this.vm.common.ethjsCommon)
 		for (const txResult of this.transactionResults) {
 			// Combine blooms via bitwise OR
 			bloom.or(txResult.bloom)
@@ -147,7 +156,7 @@ export class BlockBuilder {
 		if (this.transactionResults.length === 0) {
 			return KECCAK256_RLP
 		}
-		const receiptTrie = new Trie({ common: this.vm.common })
+		const receiptTrie = new Trie({ common: this.vm.common.ethjsCommon })
 		for (const [i, txResult] of this.transactionResults.entries()) {
 			const tx = this.transactions[i]
 			if (!tx) throw new Error('expected tx to exist')
@@ -161,7 +170,7 @@ export class BlockBuilder {
 	 * Adds the block miner reward to the coinbase account.
 	 */
 	private async rewardMiner() {
-		const minerReward = this.vm.common.param('pow', 'minerReward')
+		const minerReward = this.vm.common.ethjsCommon.param('pow', 'minerReward')
 		const reward = calculateMinerReward(minerReward, 0)
 		const coinbase =
 			this.headerData.coinbase !== undefined
@@ -215,8 +224,8 @@ export class BlockBuilder {
 		// cannot be greater than the remaining gas in the block
 		const blockGasLimit = toType(this.headerData.gasLimit, TypeOutput.BigInt)
 
-		const blobGasLimit = this.vm.common.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = this.vm.common.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = this.vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = this.vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
 		if (_tx.gasLimit > blockGasRemaining) {
@@ -224,7 +233,7 @@ export class BlockBuilder {
 		}
 		let blobGasUsed = undefined
 		if (_tx instanceof BlobEIP4844Transaction) {
-			if (this.blockOpts.common?.isActivatedEIP(4844) !== true) {
+			if (this.blockOpts.common?.ethjsCommon.isActivatedEIP(4844) !== true) {
 				throw Error('eip4844 not activated yet for adding a blob transaction')
 			}
 			const blobTx = _tx as BlobEIP4844Transaction
@@ -257,7 +266,7 @@ export class BlockBuilder {
 			const txData = _tx as BlobEIP4844Transaction
 			this.blobGasUsed += BigInt(txData.blobVersionedHashes.length) * blobGasPerBlob
 			_tx = BlobEIP4844Transaction.minimalFromNetworkWrapper(txData, {
-				common: this.blockOpts.common,
+				common: this.blockOpts.common.ethjsCommon,
 			})
 		}
 		this.transactions.push(_tx)
@@ -293,7 +302,7 @@ export class BlockBuilder {
 	async build(sealOpts?: SealBlockOpts) {
 		this.checkStatus()
 		const blockOpts = this.blockOpts
-		const consensusType = this.vm.common.consensusType()
+		const consensusType = this.vm.common.ethjsCommon.consensusType()
 
 		if (consensusType === ConsensusType.ProofOfWork) {
 			await this.rewardMiner()
@@ -303,7 +312,7 @@ export class BlockBuilder {
 		const stateRoot = await this.vm.stateManager.getStateRoot()
 		const transactionsTrie = await this.transactionsTrie()
 		const withdrawalsRoot = this.withdrawals
-			? await Block.genWithdrawalsTrieRoot(this.withdrawals, new Trie({ common: this.vm.common }))
+			? await Block.genWithdrawalsTrieRoot(this.withdrawals, new Trie({ common: this.vm.common.ethjsCommon }))
 			: undefined
 		const receiptTrie = await this.receiptTrie()
 		const logsBloom = this.logsBloom()
@@ -312,7 +321,7 @@ export class BlockBuilder {
 		const timestamp = this.headerData.timestamp ?? 0n
 
 		let blobGasUsed = undefined
-		if (this.vm.common.isActivatedEIP(4844) === true) {
+		if (this.vm.common.ethjsCommon.isActivatedEIP(4844) === true) {
 			blobGasUsed = this.blobGasUsed
 		}
 
@@ -355,7 +364,7 @@ export class BlockBuilder {
 	}
 
 	async initState() {
-		if (this.vm.common.isActivatedEIP(4788)) {
+		if (this.vm.common.ethjsCommon.isActivatedEIP(4788)) {
 			if (!this.checkpointed) {
 				await this.vm.evm.journal.checkpoint()
 				this.checkpointed = true
@@ -368,7 +377,7 @@ export class BlockBuilder {
 
 			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
 		}
-		if (this.vm.common.isActivatedEIP(2935)) {
+		if (this.vm.common.ethjsCommon.isActivatedEIP(2935)) {
 			if (!this.checkpointed) {
 				await this.vm.evm.journal.checkpoint()
 				this.checkpointed = true

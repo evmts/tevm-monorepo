@@ -1,17 +1,16 @@
 import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
-import { Common } from '@tevm/common'
+import { mainnet } from '@tevm/common'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { createEvm } from './createEvm.js'
 
 describe(createEvm.name, () => {
 	it('wraps ethereumjs EVM', async () => {
-		const common = new Common({ chain: 1 })
 		const vm = await createEvm({
-			common,
+			common: mainnet,
 			blockchain: await createChain({
-				common,
+				common: mainnet,
 			}),
 			stateManager: createStateManager({}),
 		})

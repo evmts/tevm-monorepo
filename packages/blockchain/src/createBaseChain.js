@@ -22,23 +22,26 @@ const KECCAK256_RLP = hexToBytes(KECCAK256_RLP_S)
  */
 const createGenesisBlock = (stateRoot, common) => {
 	const newCommon = common.copy()
-	newCommon.setHardforkBy({
+	newCommon.ethjsCommon.setHardforkBy({
 		blockNumber: 0,
-		td: BigInt(newCommon.genesis().difficulty),
-		timestamp: newCommon.genesis().timestamp ?? 0,
+		td: BigInt(newCommon.ethjsCommon.genesis().difficulty),
+		timestamp: newCommon.ethjsCommon.genesis().timestamp ?? 0,
 	})
 
 	/**
 	 * @type {import('@tevm/block').HeaderData}
 	 */
 	const header = {
-		...newCommon.genesis(),
+		...newCommon.ethjsCommon.genesis(),
 		number: 0,
 		stateRoot,
 		gasLimit: 30_000_000n,
-		...(newCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
+		...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
 	}
-	return Block.fromBlockData({ header, ...(newCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
+	return Block.fromBlockData(
+		{ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) },
+		{ common },
+	)
 }
 /**
  * @param {import('./ChainOptions.js').ChainOptions} options

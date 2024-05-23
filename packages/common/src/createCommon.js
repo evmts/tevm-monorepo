@@ -10,7 +10,7 @@ import { createLogger } from '@tevm/logger'
  */
 export const createCommon = ({ loggingLevel, hardfork, eips = [], ...chain }) => {
 	const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-	const common = Common.custom(
+	const ethjsCommon = Common.custom(
 		{
 			name: 'TevmCustom',
 			chainId: chain.id,
@@ -23,9 +23,18 @@ export const createCommon = ({ loggingLevel, hardfork, eips = [], ...chain }) =>
 			eips: [...(eips ?? []), 1559, 4895, 4844, 4788],
 		},
 	)
-	if (common.isActivatedEIP(6800)) {
+	if (ethjsCommon.isActivatedEIP(6800)) {
 		logger.warn('verkle state is currently not supported in tevm')
 	}
-	logger.debug(common.eips(), 'Created common with eips enabled')
-	return Object.assign(common, chain)
+	logger.debug(ethjsCommon.eips(), 'Created common with eips enabled')
+	return {
+		...chain,
+		ethjsCommon,
+		copy: () => {
+			const ethjsCommonCopy = ethjsCommon.copy()
+			const newCommon = createCommon({ loggingLevel, hardfork, eips, ...chain })
+			newCommon.ethjsCommon = ethjsCommonCopy
+			return newCommon
+		},
+	}
 }

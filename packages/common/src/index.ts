@@ -1,9 +1,9 @@
 export { type CommonOptions } from './CommonOptions.js'
 export { type Hardfork } from './Hardfork.js'
 export { createCommon } from './createCommon.js'
+export type { Common } from './Common.js'
 export {
 	type CustomCrypto,
-	Common,
 	type StorageDump,
 	type EVMStateManagerInterface as EvmStateManagerInterface,
 	type AccountFields,

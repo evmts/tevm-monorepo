@@ -5,5 +5,5 @@
  */
 export const chainIdHandler = (client) => async () => {
 	const { common } = await client.getVm()
-	return common.chainId()
+	return BigInt(common.id)
 }
