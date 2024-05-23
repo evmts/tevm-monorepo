@@ -1,5 +1,6 @@
 import { scriptHandler } from '@tevm/actions'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { parseBlockTag } from '../utils/parseBlockTag.js'
 
 /**
 * Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
@@ -56,7 +57,7 @@ args: /** @type any*/ (undefined),
 ? { value: hexToBigInt(request.params[0].value) }
 : {}),
 ...(request.params[0].blockTag
-? { blockTag: request.params[0].blockTag }
+? { blockTag: parseBlockTag(request.params[0].blockTag) }
 : {}),
 ...(request.params[0].createTransaction !== undefined
 ? { createTransaction: request.params[0].createTransaction }
