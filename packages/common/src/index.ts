@@ -23,3 +23,5 @@ export {
 	tevmDefault,
 	zoraSepolia,
 } from './presets/index.js'
+export { type MockKzg } from './MockKzg.js'
+export { createMockKzg } from './createMockKzg.js'

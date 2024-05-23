@@ -194,12 +194,9 @@ describe('viemPublicActions', () => {
 		getEnsAddress: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				common: mainnet,
+				common: Object.assign({ kzg }, mainnet),
 				fork: {
 					url: getAlchemyUrl('mainnet'),
-				},
-				customCrypto: {
-					kzg,
 				},
 			})
 			it(
@@ -215,12 +212,9 @@ describe('viemPublicActions', () => {
 		getEnsAvatar: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				common: mainnet,
+				common: Object.assign({ kzg }, mainnet),
 				fork: {
 					url: getAlchemyUrl('mainnet'),
-				},
-				customCrypto: {
-					kzg,
 				},
 			})
 			it(
@@ -238,12 +232,9 @@ describe('viemPublicActions', () => {
 		getEnsName: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				common: mainnet,
+				common: Object.assign({ kzg }, mainnet),
 				fork: {
 					url: getAlchemyUrl('mainnet'),
-				},
-				customCrypto: {
-					kzg,
 				},
 			})
 			it(
@@ -261,12 +252,9 @@ describe('viemPublicActions', () => {
 		getEnsResolver: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				common: mainnet,
+				common: Object.assign({ kzg }, mainnet),
 				fork: {
 					url: getAlchemyUrl('mainnet'),
-				},
-				customCrypto: {
-					kzg,
 				},
 			})
 			it(
@@ -284,12 +272,9 @@ describe('viemPublicActions', () => {
 		getEnsText: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
-				common: mainnet,
+				common: Object.assign({ kzg }, mainnet),
 				fork: {
 					url: getAlchemyUrl('mainnet'),
-				},
-				customCrypto: {
-					kzg,
 				},
 			})
 			it.todo('should work', async () => {

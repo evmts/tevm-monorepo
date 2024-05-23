@@ -1,10 +1,9 @@
-import { type Common, type CustomCrypto } from '@tevm/common'
+import { type Common } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { StateOptions } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 import type { CustomPrecompile } from './CustomPrecompile.js'
-import type { Hardfork } from './Hardfork.js'
 import type { MiningConfig } from './MiningConfig.js'
 
 /**
@@ -26,10 +25,6 @@ export type BaseClientOptions = StateOptions & {
 	 */
 	readonly common?: Common
 	/**
-	 * Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
-	 */
-	readonly customCrypto?: CustomCrypto
-	/**
 	 * Configure logging options for the client
 	 */
 	readonly loggingLevel?: LogOptions['level']
@@ -44,15 +39,6 @@ export type BaseClientOptions = StateOptions & {
 	 * Enable profiler. Defaults to false.
 	 */
 	readonly profiler?: boolean
-	/**
-	 * Hardfork to use. Defaults to `shanghai`
-	 */
-	readonly hardfork?: Hardfork
-	// TODO type this more strongly
-	/**
-	 * Eips to enable. Defaults to `[1559, 4895]`
-	 */
-	readonly eips?: ReadonlyArray<number>
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive

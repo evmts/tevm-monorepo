@@ -1,5 +1,6 @@
 import { Common } from '@ethereumjs/common'
 import { createLogger } from '@tevm/logger'
+import { createMockKzg } from './createMockKzg.js'
 
 /**
  * Creates an ethereumjs Common object used by the EVM
@@ -8,7 +9,7 @@ import { createLogger } from '@tevm/logger'
  * @param {import('./CommonOptions.js').CommonOptions} options
  * @returns {import('./Common.js').Common}
  */
-export const createCommon = ({ loggingLevel, hardfork, eips = [], ...chain }) => {
+export const createCommon = ({ customCrypto = {}, loggingLevel, hardfork, eips = [], ...chain }) => {
 	const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
 	const ethjsCommon = Common.custom(
 		{
@@ -21,6 +22,10 @@ export const createCommon = ({ loggingLevel, hardfork, eips = [], ...chain }) =>
 			hardfork: hardfork ?? 'cancun',
 			baseChain: 1,
 			eips: [...(eips ?? []), 1559, 4895, 4844, 4788],
+			customCrypto: {
+				kzg: createMockKzg(),
+				...customCrypto,
+			},
 		},
 	)
 	if (ethjsCommon.isActivatedEIP(6800)) {

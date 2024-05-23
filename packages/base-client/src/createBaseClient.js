@@ -9,7 +9,6 @@ import { KECCAK256_RLP, bytesToHex, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
-import { createMockKzg } from './createMockKzg.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
@@ -98,33 +97,14 @@ export const createBaseClient = (options = {}) => {
 
 	const chainCommonPromise = chainIdPromise
 		.then((chainId) => {
-			// TODO we will eventually want to be setting common hardfork based on chain id and block number
-			// ethereumjs does this for mainnet but we forgo all this functionality
-			const customCrypto = options?.customCrypto ?? {}
 			if (options.common) {
 				return createCommon({
 					...options.common,
 					id: Number(chainId),
 					loggingLevel: options.loggingLevel ?? 'warn',
-					hardfork: 'cancun',
-					eips: options.eips ?? [],
-					customCrypto: {
-						kzg: createMockKzg(),
-						...customCrypto,
-					},
-				})
-			}
-			if (!options.fork?.url) {
-				return createCommon({
-					...tevmDefault,
-					id: Number(chainId),
-					hardfork: 'cancun',
-					eips: options.eips ?? [],
-					loggingLevel: options.loggingLevel ?? 'warn',
-					customCrypto: {
-						kzg: createMockKzg(),
-						...customCrypto,
-					},
+					hardfork: /** @type {import('@tevm/common').Hardfork}*/ (options.common.ethjsCommon.hardfork()) ?? 'cancun',
+					eips: options.common.ethjsCommon.eips(),
+					customCrypto: options.common.ethjsCommon.customCrypto,
 				})
 			}
 			return createCommon({
@@ -132,11 +112,7 @@ export const createBaseClient = (options = {}) => {
 				id: Number(chainId),
 				loggingLevel: options.loggingLevel ?? 'warn',
 				hardfork: 'cancun',
-				eips: options.eips ?? [],
-				customCrypto: {
-					kzg: createMockKzg(),
-					...customCrypto,
-				},
+				eips: [],
 			})
 		})
 		.then((common) => {
