@@ -9,17 +9,6 @@ exports[`callHandlerOpts should handle empty params 1`] = `
       "contracts": undefined,
       "copy": [Function],
       "custom": undefined,
-      "customCrypto": {
-        "kzg": {
-          "blobToKzgCommitment": [Function],
-          "computeBlobKzgProof": [Function],
-          "freeTrustedSetup": [Function],
-          "loadTrustedSetup": [Function],
-          "verifyBlobKzgProof": [Function],
-          "verifyBlobKzgProofBatch": [Function],
-          "verifyKzgProof": [Function],
-        },
-      },
       "ethjsCommon": Common {
         "DEFAULT_HARDFORK": "shanghai",
         "HARDFORK_CHANGES": [
@@ -1794,7 +1783,17 @@ exports[`callHandlerOpts should handle empty params 1`] = `
             },
           },
         },
-        "customCrypto": {},
+        "customCrypto": {
+          "kzg": {
+            "blobToKzgCommitment": [Function],
+            "computeBlobKzgProof": [Function],
+            "freeTrustedSetup": [Function],
+            "loadTrustedSetup": [Function],
+            "verifyBlobKzgProof": [Function],
+            "verifyBlobKzgProofBatch": [Function],
+            "verifyKzgProof": [Function],
+          },
+        },
         "events": EventEmitter2 {
           "_events": {},
           "_eventsCount": 0,
@@ -1911,17 +1910,6 @@ exports[`callHandlerOpts should handle empty params 1`] = `
         "contracts": undefined,
         "copy": [Function],
         "custom": undefined,
-        "customCrypto": {
-          "kzg": {
-            "blobToKzgCommitment": [Function],
-            "computeBlobKzgProof": [Function],
-            "freeTrustedSetup": [Function],
-            "loadTrustedSetup": [Function],
-            "verifyBlobKzgProof": [Function],
-            "verifyBlobKzgProofBatch": [Function],
-            "verifyKzgProof": [Function],
-          },
-        },
         "ethjsCommon": Common {
           "DEFAULT_HARDFORK": "shanghai",
           "HARDFORK_CHANGES": [
@@ -3696,7 +3684,17 @@ exports[`callHandlerOpts should handle empty params 1`] = `
               },
             },
           },
-          "customCrypto": {},
+          "customCrypto": {
+            "kzg": {
+              "blobToKzgCommitment": [Function],
+              "computeBlobKzgProof": [Function],
+              "freeTrustedSetup": [Function],
+              "loadTrustedSetup": [Function],
+              "verifyBlobKzgProof": [Function],
+              "verifyBlobKzgProofBatch": [Function],
+              "verifyKzgProof": [Function],
+            },
+          },
           "events": EventEmitter2 {
             "_events": {},
             "_eventsCount": 0,

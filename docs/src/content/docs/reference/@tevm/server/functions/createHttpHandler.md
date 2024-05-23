@@ -1783,7 +1783,25 @@ const uninstalled = await client.uninstallFilter({ filter })
 
 • **client.verifyMessage**
 
+Verify that a message was signed by the provided address.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/actions/public/verifyMessage](https://viem.sh/docs/actions/public/verifyMessage)
+
+• **client.verifySiweMessage**
+
+Verifies [EIP-4361](https://eips.ethereum.org/EIPS/eip-4361) formatted message was signed.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/siwe/actions/verifySiweMessage](https://viem.sh/docs/siwe/actions/verifySiweMessage)
+
 • **client.verifyTypedData**
+
+Verify that typed data was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyTypedData](https://viem.sh/docs/actions/public/verifyTypedData)
 
 • **client.waitForTransactionReceipt**
 
