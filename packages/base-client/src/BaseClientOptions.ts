@@ -5,6 +5,7 @@ import type { StateOptions } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { MiningConfig } from './MiningConfig.js'
+import type { EIP1193RequestFn } from 'viem'
 
 /**
  * Options for creating an Tevm MemoryClient instance
@@ -24,6 +25,16 @@ export type BaseClientOptions = StateOptions & {
 	 * `
 	 */
 	readonly common?: Common
+	/**
+	 * Client to make json rpc requests to a forked node
+	 * @example
+	 * ```ts
+	 * const client = createMemoryClient({ request: eip1193RequestFn })
+	 * ```
+	 */
+	readonly forkClient?: {
+		request: EIP1193RequestFn
+	}
 	/**
 	 * Configure logging options for the client
 	 */

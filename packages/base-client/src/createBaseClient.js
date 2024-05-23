@@ -35,7 +35,7 @@ export const createBaseClient = (options = {}) => {
 	 * @returns {Promise<import('@tevm/state').StateOptions>}
 	 */
 	const getStateManagerOpts = async () => {
-		if (options.fork?.url) {
+		if (options.fork?.client) {
 			// if the user passed in latest we must use an explicit block tag
 			const blockTag = await blockTagPromise
 			return {
@@ -50,7 +50,7 @@ export const createBaseClient = (options = {}) => {
 		// handle normal mode
 		return {
 			loggingLevel,
-			...(options.fork?.url ? options.fork : {}),
+			...(options.fork?.client ? options.fork : {}),
 			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
 	}
@@ -69,9 +69,9 @@ export const createBaseClient = (options = {}) => {
 		if (options?.common) {
 			return options?.common.id
 		}
-		const url = options?.fork?.url
-		if (url) {
-			const id = await getChainId(url)
+		const forkClient = options?.fork?.client
+		if (forkClient) {
+			const id = await getChainId(forkClient)
 			return id
 		}
 		return DEFAULT_CHAIN_ID
@@ -88,7 +88,7 @@ export const createBaseClient = (options = {}) => {
 		// TODO handle other moving block tags like `safe`
 		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
 		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
-			const latestBlockNumber = await getBlockNumber(options.fork.url)
+			const latestBlockNumber = await getBlockNumber(options.fork.client)
 			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
 			return latestBlockNumber
 		}
@@ -124,10 +124,10 @@ export const createBaseClient = (options = {}) => {
 		return createChain({
 			loggingLevel,
 			common,
-			...(options.fork?.url !== undefined
+			...(options.fork?.client !== undefined
 				? {
 						fork: {
-							url: options.fork.url,
+							client: options.fork.client,
 							blockTag,
 						},
 					}
@@ -259,8 +259,8 @@ export const createBaseClient = (options = {}) => {
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'auto' },
-		mode: options.fork?.url ? 'fork' : 'normal',
-		...(options.fork?.url ? { forkUrl: options.fork.url } : {}),
+		mode: options.fork?.client ? 'fork' : 'normal',
+		...(options.fork?.client ? { forkClient: options.fork.client } : {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready,
 	}

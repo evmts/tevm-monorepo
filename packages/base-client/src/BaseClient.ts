@@ -3,6 +3,7 @@ import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
 import type { Vm } from '@tevm/vm'
 import type { MiningConfig } from './MiningConfig.js'
+import type { EIP1193RequestFn } from 'viem'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -24,14 +25,15 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 */
 	readonly miningConfig: MiningConfig
 	/**
-	 * Fork url if the EVM is forked
+	 * Client to make json rpc requests to a forked node
 	 * @example
 	 * ```ts
-	 * const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-	 * console.log(client.forkUrl)
+	 * const client = createMemoryClient({ request: eip1193RequestFn })
 	 * ```
 	 */
-	readonly forkUrl?: string | undefined
+	readonly forkClient?: {
+		request: EIP1193RequestFn
+	}
 	/**
 	 * The mode the current client is running in
 	 * `fork` mode will fetch and cache all state from the block forked from the provided URL
