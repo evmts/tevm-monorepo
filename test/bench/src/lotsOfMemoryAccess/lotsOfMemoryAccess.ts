@@ -1,5 +1,4 @@
 import { createMemoryClient, parseEther } from 'tevm'
-import { http } from 'viem'
 import { MOCKERC1155_ABI, MOCKERC1155_BYTECODE } from './constants.js'
 
 const caller = `0x${'1'.repeat(40)}` as const
