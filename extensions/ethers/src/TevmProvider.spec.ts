@@ -4,6 +4,7 @@ import { toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
+import { http } from '../../../packages/jsonrpc/dist/index.cjs'
 
 const FORK_URL = getAlchemyUrl()
 
@@ -13,7 +14,7 @@ describe(TevmProvider.name, () => {
 	beforeEach(async () => {
 		provider = await TevmProvider.createMemoryProvider({
 			fork: {
-				url: FORK_URL,
+				client: http(FORK_URL)({}),
 			},
 		})
 	})

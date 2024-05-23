@@ -6,6 +6,7 @@ import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/uti
 import supertest from 'supertest'
 import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
+import { http } from '@tevm/jsonrpc'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -18,7 +19,7 @@ describe('createHttpHandler', () => {
 		async () => {
 			const tevm = createMemoryClient({
 				fork: {
-					url: getAlchemyUrl(),
+					client: http(getAlchemyUrl())({}),
 					blockTag: 115325880n,
 				},
 			})
