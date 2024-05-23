@@ -1,5 +1,5 @@
-import { http } from 'viem'
 import { loadBalance, rateLimit } from '@ponder/utils'
+import { http } from 'viem'
 import { mainnet as viemMainnet, optimism as viemOptimism } from 'viem/chains'
 
 const mainnetRpcUrls = process.env['TEVM_RPC_URLS_MAINNET']?.split(',') ?? []

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet } from '@tevm/common'
-import { transports, simpleContract } from '@tevm/test-utils'
+import { simpleContract, transports } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'

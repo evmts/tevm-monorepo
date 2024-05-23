@@ -31,8 +31,8 @@ describe('memoryTransport', () => {
 		async () => {
 			const tevm = createMemoryClient({
 				fork: {
-				transport: transports.optimism,
-					},
+					transport: transports.optimism,
+				},
 			})
 
 			const client = createPublicClient({
