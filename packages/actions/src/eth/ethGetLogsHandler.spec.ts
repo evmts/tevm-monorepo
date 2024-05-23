@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { keccak256, stringToHex } from '@tevm/utils'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
+import { http } from 'viem'
 
 describe(ethGetLogsHandler.name, () => {
 	// we are skipping because alchemy slowness makes this too flaky on ci
@@ -12,7 +13,7 @@ describe(ethGetLogsHandler.name, () => {
 		async () => {
 			const client = createBaseClient({
 				fork: {
-					url: 'https://mainnet.optimism.io',
+					client: http('https://mainnet.optimism.io')({}),
 				},
 			})
 

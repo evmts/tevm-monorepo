@@ -6,23 +6,23 @@ import { NoForkUrlSetError } from './getBalanceHandler.js'
 /**
  * @param {object} options
  * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
- * @param {string}  [options.forkUrl]
+ * @param {{request: import('viem').EIP1193RequestFn}}  [options.forkClient]
  * @returns {import('@tevm/actions-types').EthGetCodeHandler}
  */
 export const getCodeHandler =
-	({ getVm, forkUrl }) =>
+	({ getVm, forkClient }) =>
 	async (params) => {
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'latest') {
 			return bytesToHex(await vm.stateManager.getContractCode(EthjsAddress.fromString(params.address)))
 		}
-		if (!forkUrl) {
+		if (!forkClient) {
 			throw new NoForkUrlSetError(
 				'getCode is not supported for any block tags other than latest atm. This will be fixed in the next few releases',
 			)
 		}
-		const fetcher = createJsonRpcFetcher(forkUrl)
+		const fetcher = createJsonRpcFetcher(forkClient)
 		return fetcher
 			.request({
 				jsonrpc: '2.0',
@@ -45,7 +45,7 @@ export const getCodeHandler =
 			.catch((err) => {
 				// TODO handle this in a strongly typed way
 				if (err.name === 'MethodNotFound') {
-					throw new Error(`Method eth_getCode not supported by fork url ${forkUrl}`)
+					throw new Error(`Method eth_getCode not supported by fork url ${forkClient}`)
 				}
 				throw err
 			})
