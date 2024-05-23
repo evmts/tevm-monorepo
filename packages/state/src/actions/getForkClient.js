@@ -1,4 +1,4 @@
-import { http, createPublicClient } from 'viem'
+import { createPublicClient, createTransport } from 'viem'
 
 export class NoForkError extends Error {
 	/**
@@ -22,7 +22,13 @@ export const getForkClient = ({ options: { fork } }) => {
 		throw new NoForkError('Cannot initialize a client with no fork url set')
 	}
 	return createPublicClient({
-		transport: http(fork.url),
-		name: 'tevm-state-manager-viem-client',
+		name: 'TevmStateManagerForkClient',
+		transport: () =>
+			createTransport({
+				type: 'tevm',
+				key: 'tevm',
+				name: 'TevmStateManagerForkClientTransport',
+				request: /** @type {any}*/ (fork.client.request),
+			}),
 	})
 }

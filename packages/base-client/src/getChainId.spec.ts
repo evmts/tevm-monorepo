@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
+import { http } from '@tevm/jsonrpc'
 import { getAlchemyUrl } from '@tevm/test-utils'
 import { getChainId } from './getChainId.js'
-import { http } from '@tevm/jsonrpc'
 
 describe('getChainId', () => {
 	it('should return the chain id when successful', async () => {

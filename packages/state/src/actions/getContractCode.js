@@ -20,7 +20,7 @@ export const getContractCode = (baseState) => async (address) => {
 		return codeBytes
 	}
 
-	if (!options.fork?.url) {
+	if (!options.fork?.client) {
 		return new Uint8Array()
 	}
 

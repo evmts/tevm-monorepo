@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { keccak256, stringToHex } from '@tevm/utils'
-import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 import { http } from 'viem'
+import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
 describe(ethGetLogsHandler.name, () => {
 	// we are skipping because alchemy slowness makes this too flaky on ci

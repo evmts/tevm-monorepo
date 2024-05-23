@@ -1443,6 +1443,9 @@ importers:
       '@tevm/zod':
         specifier: workspace:^
         version: link:../zod
+      viem:
+        specifier: ^2.12.0
+        version: 2.12.0(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/actions-types':
         specifier: workspace:^
@@ -1528,6 +1531,9 @@ importers:
       '@tevm/vm':
         specifier: workspace:^
         version: link:../vm
+      viem:
+        specifier: ^2.12.0
+        version: 2.12.0(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/test-utils':
         specifier: workspace:^
@@ -1796,6 +1802,9 @@ importers:
 
   packages/jsonrpc:
     dependencies:
+      '@ponder/utils':
+        specifier: ^0.1.5
+        version: 0.1.5(typescript@5.4.5)(viem@2.10.3)
       viem:
         specifier: ^2.10.3
         version: 2.10.3(typescript@5.4.5)(zod@3.23.8)
@@ -7422,6 +7431,19 @@ packages:
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
+
+  /@ponder/utils@0.1.5(typescript@5.4.5)(viem@2.10.3):
+    resolution: {integrity: sha512-bCP2WaKdZOvj0WEVX0QKTl4sm5oUumOPcaqlO0WppvDW8kH9IV4VJZMNIOq31zYd3GCj0Oy2/iMcqRD6XQjTbg==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      viem: '>=1.16'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.4.5
+      viem: 2.10.3(typescript@5.4.5)(zod@3.23.8)
+    dev: false
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
