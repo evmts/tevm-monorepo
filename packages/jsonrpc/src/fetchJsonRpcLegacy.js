@@ -6,7 +6,7 @@ import { withRetry } from 'viem'
  * @param {string} url to JSON RPC backend
  * @param {import("./HeadersInit.js").HeadersInit} headers to send with the request
  * @param {number} [retries] defaults to 3
- * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
+ * @returns {import("./JsonRpcClient.js").JsonRpcClient & {url: string}} the `result` field from the JSON-RPC response
  * @example
  * ```typescript
  * const url = 'https://mainnet.optimism.io'
@@ -17,7 +17,7 @@ import { withRetry } from 'viem'
  * const {result: block} = await fetchJsonRpc(url, params)
  * ```
  */
-export const createJsonRpcFetcher = (
+export const createJsonRpcFetcherLegacy = (
 	url,
 	headers = {
 		Referer: 'https://tevm.sh',
