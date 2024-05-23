@@ -14,7 +14,7 @@
 
 #### Source
 
-packages/state/dist/index.d.ts:25
+packages/state/dist/index.d.ts:27
 
 ***
 
@@ -24,7 +24,7 @@ packages/state/dist/index.d.ts:25
 
 #### Source
 
-packages/state/dist/index.d.ts:27
+packages/state/dist/index.d.ts:29
 
 ***
 
@@ -34,7 +34,7 @@ packages/state/dist/index.d.ts:27
 
 #### Source
 
-packages/state/dist/index.d.ts:24
+packages/state/dist/index.d.ts:26
 
 ***
 
@@ -44,7 +44,7 @@ packages/state/dist/index.d.ts:24
 
 #### Source
 
-packages/state/dist/index.d.ts:28
+packages/state/dist/index.d.ts:30
 
 ***
 
@@ -54,4 +54,4 @@ packages/state/dist/index.d.ts:28
 
 #### Source
 
-packages/state/dist/index.d.ts:26
+packages/state/dist/index.d.ts:28

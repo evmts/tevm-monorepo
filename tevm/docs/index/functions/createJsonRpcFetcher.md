@@ -6,15 +6,13 @@
 
 # Function: createJsonRpcFetcher()
 
-> **createJsonRpcFetcher**(`url`, `headers`?, `retries`?): `JsonRpcClient`
+> **createJsonRpcFetcher**(`client`): `JsonRpcClient`
 
 ## Parameters
 
-• **url**: `string`
+• **client**
 
-• **headers?**: [`HeadersInit`](../type-aliases/HeadersInit.md)
-
-• **retries?**: `number`
+• **client.request**: `EIP1193RequestFn`\<`undefined`\>
 
 ## Returns
 
@@ -22,4 +20,4 @@
 
 ## Source
 
-packages/jsonrpc/types/fetchJsonRpc.d.ts:1
+packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1

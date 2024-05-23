@@ -14,13 +14,17 @@
 
 #### Source
 
-packages/state/dist/index.d.ts:20
+packages/state/dist/index.d.ts:22
 
 ***
 
-### url
+### transport
 
-> **url**: `string`
+> **transport**: `object`
+
+#### request
+
+> **request**: `EIP1193RequestFn`
 
 #### Source
 

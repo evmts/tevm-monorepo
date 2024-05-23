@@ -24,4 +24,4 @@ Gets the current state root
 
 ## Source
 
-packages/state/dist/index.d.ts:300
+packages/state/dist/index.d.ts:302

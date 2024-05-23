@@ -14,14 +14,18 @@
 
 #### Source
 
-[packages/state/src/state-types/ForkOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L5)
+[packages/state/src/state-types/ForkOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L6)
 
 ***
 
-### url
+### transport
 
-> **url**: `string`
+> **transport**: `object`
+
+#### request
+
+> **request**: `EIP1193RequestFn`
 
 #### Source
 
-[packages/state/src/state-types/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L4)
+[packages/state/src/state-types/ForkOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L5)

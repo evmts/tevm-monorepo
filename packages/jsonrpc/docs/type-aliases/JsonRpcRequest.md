@@ -32,4 +32,4 @@ Helper type for creating JSON-RPC request types
 
 ## Source
 
-[JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcRequest.ts#L4)
+[packages/jsonrpc/src/JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcRequest.ts#L4)

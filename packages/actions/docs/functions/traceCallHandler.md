@@ -19,16 +19,17 @@ Returns a trace of an eth_call within the context of the given block execution u
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-• **client.forkUrl?**: `string`
+• **client.forkTransport?**
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 **Example**
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
+
+• **client.forkTransport.request**: `EIP1193RequestFn`
 
 • **client.getReceiptsManager**
 

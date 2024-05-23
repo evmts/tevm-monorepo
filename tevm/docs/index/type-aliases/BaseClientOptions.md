@@ -36,12 +36,6 @@ const client = createMemoryClient({ chain: optimism })
 ````
 `
 
-### customCrypto?
-
-> `optional` `readonly` **customCrypto**: [`CustomCrypto`](../../common/interfaces/CustomCrypto.md)
-
-Custom crypto functionality provided to the EVM. For 4844 support, kzg must be passed.
-
 ### customPrecompiles?
 
 > `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
@@ -113,17 +107,21 @@ const tevm = createMemoryClient({
 })
 ```
 
-### eips?
+### forkTransport?
 
-> `optional` `readonly` **eips**: `ReadonlyArray`\<`number`\>
+> `optional` `readonly` **forkTransport**: `object`
 
-Eips to enable. Defaults to `[1559, 4895]`
+Client to make json rpc requests to a forked node
 
-### hardfork?
+#### Example
 
-> `optional` `readonly` **hardfork**: [`Hardfork`](Hardfork.md)
+```ts
+const client = createMemoryClient({ request: eip1193RequestFn })
+```
 
-Hardfork to use. Defaults to `shanghai`
+### forkTransport.request
+
+> **request**: `EIP1193RequestFn`
 
 ### loggingLevel?
 

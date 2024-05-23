@@ -30,4 +30,4 @@ Saves an account into state under the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:320
+packages/state/dist/index.d.ts:322

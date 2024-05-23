@@ -28,4 +28,4 @@ Deletes an account from state under the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:218
+packages/state/dist/index.d.ts:220

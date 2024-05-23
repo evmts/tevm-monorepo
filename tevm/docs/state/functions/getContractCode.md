@@ -29,4 +29,4 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Source
 
-packages/state/dist/index.d.ts:271
+packages/state/dist/index.d.ts:273

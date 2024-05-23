@@ -30,4 +30,4 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:237
+packages/state/dist/index.d.ts:239

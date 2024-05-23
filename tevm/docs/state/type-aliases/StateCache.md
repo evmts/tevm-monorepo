@@ -28,4 +28,4 @@ The shape of the internal cache
 
 ## Source
 
-packages/state/dist/index.d.ts:92
+packages/state/dist/index.d.ts:94

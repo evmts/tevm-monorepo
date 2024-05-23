@@ -28,4 +28,4 @@ Gets the code corresponding to the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:249
+packages/state/dist/index.d.ts:251

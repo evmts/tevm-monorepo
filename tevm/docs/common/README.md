@@ -27,6 +27,7 @@
 - [Common](type-aliases/Common.md)
 - [CommonOptions](type-aliases/CommonOptions.md)
 - [Hardfork](type-aliases/Hardfork.md)
+- [MockKzg](type-aliases/MockKzg.md)
 
 ### Variables
 
@@ -43,3 +44,4 @@
 ### Functions
 
 - [createCommon](functions/createCommon.md)
+- [createMockKzg](functions/createMockKzg.md)

@@ -15,3 +15,8 @@
 ## Functions
 
 - [createJsonRpcFetcher](functions/createJsonRpcFetcher.md)
+- [createJsonRpcFetcherLegacy](functions/createJsonRpcFetcherLegacy.md)
+- [http](functions/http.md)
+- [loadBalance](functions/loadBalance.md)
+- [rateLimit](functions/rateLimit.md)
+- [webSocket](functions/webSocket.md)

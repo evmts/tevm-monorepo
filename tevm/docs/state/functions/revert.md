@@ -25,4 +25,4 @@ last call to checkpoint.
 
 ## Source
 
-packages/state/dist/index.d.ts:343
+packages/state/dist/index.d.ts:345

@@ -17,16 +17,17 @@
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-• **options.forkUrl?**: `string`
+• **options.forkTransport?**
 
-Fork url if the EVM is forked
+Client to make json rpc requests to a forked node
 
 **Example**
 
 ```ts
-const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.forkUrl)
+const client = createMemoryClient({ request: eip1193RequestFn })
 ```
+
+• **options.forkTransport.request**: `EIP1193RequestFn`
 
 • **options.getReceiptsManager**
 

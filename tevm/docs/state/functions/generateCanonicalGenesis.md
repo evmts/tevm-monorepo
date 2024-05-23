@@ -28,4 +28,4 @@ Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manage
 
 ## Source
 
-packages/state/dist/index.d.ts:243
+packages/state/dist/index.d.ts:245

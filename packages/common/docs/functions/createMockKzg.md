@@ -1,0 +1,17 @@
+[**@tevm/common**](../README.md) • **Docs**
+
+***
+
+[@tevm/common](../globals.md) / createMockKzg
+
+# Function: createMockKzg()
+
+> **createMockKzg**(): [`MockKzg`](../type-aliases/MockKzg.md)
+
+## Returns
+
+[`MockKzg`](../type-aliases/MockKzg.md)
+
+## Source
+
+[packages/common/src/createMockKzg.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L6)

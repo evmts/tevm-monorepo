@@ -33,4 +33,4 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Source
 
-packages/state/dist/index.d.ts:280
+packages/state/dist/index.d.ts:282

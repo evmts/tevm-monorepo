@@ -35,4 +35,4 @@ This api is not stable
 
 ## Source
 
-packages/state/dist/index.d.ts:210
+packages/state/dist/index.d.ts:212

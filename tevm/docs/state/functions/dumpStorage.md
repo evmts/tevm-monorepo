@@ -30,4 +30,4 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Source
 
-packages/state/dist/index.d.ts:232
+packages/state/dist/index.d.ts:234
