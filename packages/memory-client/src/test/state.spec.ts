@@ -43,7 +43,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 		// Create client
 		const forkClient = createMemoryClient({
 			fork: {
-				client: http('https://mainnet.optimism.io')({}),
+				transport: http('https://mainnet.optimism.io')({}),
 			},
 		})
 

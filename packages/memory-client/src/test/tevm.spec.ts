@@ -39,7 +39,7 @@ const addabi = [
 ] as const
 
 const forkConfig = {
-	client: http(getAlchemyUrl())({}),
+	transport: http(getAlchemyUrl())({}),
 	blockTag: 111791332n,
 }
 

@@ -10,7 +10,7 @@ import { DaiContract } from './DaiContract.sol.js'
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 const forkConfig = {
-	client: http(getAlchemyUrl())({}),
+	transport: http(getAlchemyUrl())({}),
 	blockTag: 111791332n,
 }
 

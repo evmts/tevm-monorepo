@@ -72,7 +72,7 @@ export const createMemoryClient = (options) => {
 				tevmDumpState: tevm.dumpState,
 				tevmSetAccount: tevm.setAccount,
 				tevmGetAccount: tevm.getAccount,
-				...(tevm.forkClient !== undefined ? { forkClient: tevm.forkClient } : {}),
+				...(tevm.forkTransport !== undefined ? { forkTransport: tevm.forkTransport } : {}),
 			}
 		})
 }

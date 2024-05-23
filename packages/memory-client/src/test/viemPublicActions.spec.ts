@@ -196,7 +196,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					client: http(getAlchemyUrl('mainnet'))({}),
+					transport: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -214,7 +214,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					client: http(getAlchemyUrl('mainnet'))({}),
+					transport: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -234,7 +234,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					client: http(getAlchemyUrl('mainnet'))({}),
+					transport: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -254,7 +254,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					client: http(getAlchemyUrl('mainnet'))({}),
+					transport: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it(
@@ -274,7 +274,7 @@ describe('viemPublicActions', () => {
 			const mainnetClient = createMemoryClient({
 				common: Object.assign({ kzg }, mainnet),
 				fork: {
-					client: http(getAlchemyUrl('mainnet'))({}),
+					transport: http(getAlchemyUrl('mainnet'))({}),
 				},
 			})
 			it.todo('should work', async () => {
