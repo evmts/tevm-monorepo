@@ -1,5 +1,21 @@
 # @tevm/contract
 
+## 1.1.0-next.59
+
+### Minor Changes
+
+- [#1117](https://github.com/evmts/tevm-monorepo/pull/1117) [`439bb59`](https://github.com/evmts/tevm-monorepo/commit/439bb59e10663abc7dbb06dea3534e398b3a59bd) Thanks [@roninjin10](https://github.com/roninjin10)! - Added anvil_setStorageAt and anvil_reset
+
+### Patch Changes
+
+- [#1118](https://github.com/evmts/tevm-monorepo/pull/1118) [`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with block number block tags not being properly decoded to a bigint
+
+- [#1118](https://github.com/evmts/tevm-monorepo/pull/1118) [`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82) Thanks [@roninjin10](https://github.com/roninjin10)! - [BREAKING] Removed eip hardfork and chain options in favor of common
+
+- Updated dependencies [[`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82)]:
+  - @tevm/actions@1.1.0-next.59
+  - @tevm/block@1.1.0-next.59
+
 ## 1.1.0-next.58
 
 ### Minor Changes

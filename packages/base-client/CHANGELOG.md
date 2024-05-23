@@ -1,5 +1,21 @@
 # @tevm/client
 
+## 1.1.0-next.59
+
+### Patch Changes
+
+- [#1118](https://github.com/evmts/tevm-monorepo/pull/1118) [`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82) Thanks [@roninjin10](https://github.com/roninjin10)! - [BREAKING] Removed eip hardfork and chain options in favor of common
+
+- Updated dependencies [[`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82)]:
+  - @tevm/blockchain@1.1.0-next.59
+  - @tevm/common@1.1.0-next.59
+  - @tevm/evm@1.1.0-next.59
+  - @tevm/vm@1.1.0-next.59
+  - @tevm/receipt-manager@1.1.0-next.59
+  - @tevm/state@1.1.0-next.59
+  - @tevm/txpool@1.1.0-next.59
+  - @tevm/sync-storage-persister@1.1.0-next.59
+
 ## 1.1.0-next.58
 
 ### Patch Changes

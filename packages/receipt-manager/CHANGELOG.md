@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.59
+
+### Patch Changes
+
+- Updated dependencies [[`265fc45`](https://github.com/evmts/tevm-monorepo/commit/265fc4542cf9ceffb133443606c474c8bb5e3c82)]:
+  - @tevm/blockchain@1.1.0-next.59
+  - @tevm/block@1.1.0-next.59
+
 ## 1.1.0-next.57
 
 ### Patch Changes
