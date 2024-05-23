@@ -44,14 +44,14 @@
         "default": "./actions-types/index.cjs"
       }
     },
-    "./chains": {
+    "./common": {
       "import": {
-        "types": "./chains/index.d.ts",
-        "default": "./chains/index.js"
+        "types": "./common/index.d.ts",
+        "default": "./common/index.js"
       },
       "require": {
-        "types": "./chains/index.d.cts",
-        "default": "./chains/index.cjs"
+        "types": "./common/index.d.cts",
+        "default": "./common/index.cjs"
       }
     },
     "./contract": {
@@ -183,7 +183,7 @@
     "actions-types",
     "base-client",
     "contract",
-    "chains",
+    "common",
     "decorators",
     "errors",
     "memory-client",
@@ -212,7 +212,7 @@
   "dependencies": {
     "@tevm/actions-types": "workspace:^",
     "@tevm/base-client": "workspace:^",
-    "@tevm/chains": "workspace:^",
+    "@tevm/common": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",

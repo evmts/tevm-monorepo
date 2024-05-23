@@ -16,7 +16,7 @@
     "./decorators/index.ts",
     "./utils/index.ts",
     "./state/index.ts",
-    "./chains/index.ts",
+    "./common/index.ts",
     "./sync-storage-persister/index.ts"
   ],
   "plugin": ["typedoc-plugin-markdown"],
