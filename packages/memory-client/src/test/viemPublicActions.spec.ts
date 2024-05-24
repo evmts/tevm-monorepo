@@ -1,12 +1,17 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
-import { mainnet } from '@tevm/common'
+import { mainnet, tevmDefault } from '@tevm/common'
 import { simpleContract, transports } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
+
+const privateKey = generatePrivateKey()
+
+const account = privateKeyToAccount(privateKey)
 
 const mainnetTransport = transports.mainnet
 
@@ -347,7 +352,16 @@ describe('viemPublicActions', () => {
 			})
 		},
 		multicall: () => {},
-		prepareTransactionRequest: () => {},
+		prepareTransactionRequest: () => {
+			it('prepareTransactionRequest should work', async () => {
+				const tx = await mc.prepareTransactionRequest({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+					chain: tevmDefault,
+				})
+				expect(tx).toMatchSnapshot()
+			})
+		},
 		readContract: () => {
 			it('should work', async () => {
 				expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
@@ -360,11 +374,109 @@ describe('viemPublicActions', () => {
 			})
 		},
 		uninstallFilter: () => {},
-		verifyMessage: () => {},
-		verifyTypedData: () => {},
+		verifyMessage: () => {
+			it('verifyMessage should work', async () => {
+				const message = 'hello'
+				const wallet = account
+				const signature = await account.signMessage({ message })
+				expect(await mc.verifyMessage({ message, signature, address: wallet.address })).toBe(true)
+			})
+		},
+		verifyTypedData: async () => {
+			it('verifyTypedData should work', async () => {
+				const message = {
+					from: {
+						name: 'Cow',
+						wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+					},
+					to: {
+						name: 'Bob',
+						wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+					},
+					contents: 'Hello, Bob!',
+				} as const
+
+				const signature = await account.signTypedData({
+					types: {
+						Person: [
+							{ name: 'name', type: 'string' },
+							{ name: 'wallet', type: 'address' },
+						],
+						Mail: [
+							{ name: 'from', type: 'Person' },
+							{ name: 'to', type: 'Person' },
+							{ name: 'contents', type: 'string' },
+						],
+					},
+					primaryType: 'Mail',
+					message,
+				})
+				expect(
+					await mc.verifyTypedData({
+						address: account.address,
+						types: {
+							Person: [
+								{ name: 'name', type: 'string' },
+								{ name: 'wallet', type: 'address' },
+							],
+							Mail: [
+								{ name: 'from', type: 'Person' },
+								{ name: 'to', type: 'Person' },
+								{ name: 'contents', type: 'string' },
+							],
+						},
+						primaryType: 'Mail',
+						message,
+						signature,
+					}),
+				).toBe(true)
+			})
+		},
 		watchContractEvent: () => {},
-		waitForTransactionReceipt: () => {},
-		watchBlockNumber: () => {},
+		waitForTransactionReceipt: () => {
+			it('waitForTransactionReceipt hould work', async () => {
+				const { txHash } = await mc.tevmCall({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+					createTransaction: true,
+				})
+				if (!txHash) throw new Error('txHash not found')
+				await mc.mine({ blocks: 1 })
+				const { blockHash, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
+				const vm = await mc._tevm.getVm()
+				const block = await vm.blockchain.getCanonicalHeadBlock()
+				expect(blockHash).toBe(bytesToHex(block.header.hash()))
+				expect(receipt).toMatchSnapshot()
+			})
+		},
+		watchBlockNumber: () => {
+			it('watchBlockNumber should work', async () => {
+				const resultPromises = [
+					Promise.withResolvers<bigint>(),
+					Promise.withResolvers<bigint>(),
+					Promise.withResolvers<bigint>(),
+					Promise.withResolvers<bigint>(),
+					Promise.withResolvers<bigint>(),
+				] as const
+				const errors: Error[] = []
+				const unwatch = mc.watchBlockNumber({
+					poll: true,
+					pollingInterval: 100,
+					emitOnBegin: true,
+					emitMissed: false,
+					onError: (e) => errors.push(e),
+					onBlockNumber: (blockNumber) => {
+						resultPromises[Number(blockNumber)]?.resolve(blockNumber)
+					},
+				})
+				for (let i = 1; i <= 4; i++) {
+					expect(await resultPromises[i]?.promise).toBe(BigInt(i))
+					await mc.tevmMine()
+				}
+				expect(errors).toHaveLength(0)
+				unwatch()
+			})
+		},
 		watchBlocks: () => {},
 		watchEvent: () => {},
 		watchPendingTransactions: () => {},
@@ -372,7 +484,7 @@ describe('viemPublicActions', () => {
 	}
 
 	Object.entries(tests).forEach(([actionName, actionTests]) => {
-		if (actionName !== 'getStorageAt') {
+		if (actionName !== 'waitForTransactionReceipt') {
 			// return
 		}
 		describe(actionName, actionTests)
