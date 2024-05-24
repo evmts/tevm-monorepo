@@ -38,7 +38,7 @@ export class InvalidJsonConfigError extends TypeError {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(options) {
-		super('Invalid tsconfig.json detected', options)
+		super('Invalid json detected', options)
 	}
 }
 
@@ -70,7 +70,7 @@ export const loadJsonConfig = (configFilePath) => {
 		}),
 		flatMap(parseJson),
 		catchTag('ParseJsonError', (cause) => fail(new InvalidJsonConfigError({ cause }))),
-		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/ (cfg))),
+		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/(cfg))),
 		// it can't throw. Could clean this up via making validateUserConfig take a config instead of a factory
 		catchTag('ConfigFnThrowError', (e) => die(e)),
 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),

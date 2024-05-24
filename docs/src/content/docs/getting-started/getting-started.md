@@ -246,21 +246,21 @@ Let's use [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber.ht
 
 ```typescript
 async function runApp() {
-  ...
-  status.innerHTML = "Fetching block number...";
+  app.innerHTML = `<div id="status">initializing...</div>
+<div id="blocknumber"></div>
+`;
+  const status = app.querySelector("#status")!;
 
+  status.innerHTML = "Fetching block number...";
   const blockNumber = await memoryClient.getBlockNumber();
   document.querySelector("#blocknumber")!.innerHTML =
     `ForkBlock: ${blockNumber}`;
-
   status.innerHTML = "Done";
 }
 ```
 
-Refer to [viem docs](https://viem.sh) for more details about how these actions work.
-
 :::caution[🚧 Under construction]
-Not all viem apis have been tested yet though many should work. [See this issue](https://github.com/evmts/tevm-monorepo/issues/1075) for updates.
+Not all viem apis have been tested yet though many should work. [See this test file](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/test/viemPublicActions.spec.ts) to see exactly which apis have been verified.
 :::
 
 ## Tevm account actions
@@ -316,7 +316,8 @@ async function updateAccounts() {
 
 function runApp() {
   ...
-  updateAccounts()
+  status.innerHTML = 'Updating accounts...'
+  await updateAccounts()
 
   status.innerHTML = "Done";
 }
@@ -440,7 +441,7 @@ async function runApp() {
   createTransaction: "on-success",
   });
   // aggregate error is a good way to throw an array of errors
-  if (callResult.errors) throw new AggregateError(callResult.errors);
+  if (callResult.errors) throw callResult.errors;
 
 	status.innerHTML = "Updating account...";
 	await updateAccounts();
@@ -504,12 +505,12 @@ const callResult = await memoryClient.tevmCall({
   value: 420n,
   createTransaction: true,
 });
-if (callResult.errors) throw new AggregateError(callResult.errors);
+if (callResult.errors) throw callResult.errors;
 
 status.innerHTML = "Mining block";
 
 const mineResult = await memoryClient.tevmMine();
-if (mineResult.errors) throw new AggregateError(mineResult.errors);
+if (mineResult.errors) throw mineResult.errors;
 console.log(mineResult.blockHashes);
 
 status.innerHTML = "Updating account...";
@@ -522,7 +523,7 @@ status.innerHTML = "done";
 Now that we mined a block we should finally see our account balance update.
 
 :::tip[Remember tx can revert]
-Remember it's possible for a call to revert when it gets mined even if it didn't revert when the call was simulated. We can check for this via checking the receipt using `memoryClient.getReceipt` (Note; getReceipt currently has a regression that should be fixed soon. If not fixed yet you can isntead use `memoryClient._tevm.getReceiptsManager()` as a temporary workaround for getting receipts
+Remember it's possible for a call to revert when it gets mined even if it didn't revert when the call was simulated. We can check for this via checking the receipt using `memoryClient.getTransactionReceipt`.
 :::
 
 ## Deploy a contract with `tevmDeploy`
@@ -533,35 +534,39 @@ Note we could use [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type
 
 We also could use [`tevmSetAccount`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#setaccount) and manually set the [`deployedBytecode`](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#deployedbytecode) and any [contract storage](https://tevm.sh/reference/tevm/actions-types/type-aliases/setaccountparams/#state) we want to set. This is a fine way to do it as well and often the most convenient if you don't need to execute the constructor code. For our simple contract we will use tevmDeploy here.
 
-### 1. Let's use `tevmDeploy` to deploy a contract.
+### 1. Use `tevmDeploy` to deploy a contract.
 
 ```typescript
 // tevm/contracts has utils for creating `contracts` and `scripts` which we will cover later
 // it also offers small library of commonly used contracts
 import { SimpleContract } from "tevm/contract";
 
-const initialValue = 420n;
-const deployResult = await memoryClient.deploy({
-  from: prefundedAccounts[0],
-  abi: simpleContract.abi,
-  // make sure to use bytecode rather than deployedBytecode since we are deploying
-  bytecode: simpleContract.bytecode,
-  args: [initialValue],
-});
-if (deployResult.errors) throw new AggregateError(deployResult.errors);
+async function runApp() {
+  // go ahead and delete the old code
 
-status.innerHTML = `Mining contract deployment tx ${deployResult.txHash} for contract ${deployResult.createdAddress}...`;
+  const initialValue = 420n;
+  const deployResult = await memoryClient.tevmDeploy({
+    from: prefundedAccounts[0],
+    abi: SimpleContract.abi,
+    // make sure to use bytecode rather than deployedBytecode since we are deploying
+    bytecode: SimpleContract.bytecode,
+    args: [initialValue],
+  });
+  if (deployResult.errors) throw deployResult.errors;
 
-// remember to mine!
-await memoryClient.mine();
+  status.innerHTML = `Mining contract deployment tx ${deployResult.txHash} for contract ${deployResult.createdAddress}...`;
 
-status.innerHTML = `updating ui to reflect newly mined tx`;
+  // remember to mine!
+  await memoryClient.tevmMine();
 
-// Pass in the contract address to updateAccounts
-// we will update this function to display contract info in next step
-await updateAccounts(deployResult.createdAddress);
+  status.innerHTML = `updating ui to reflect newly mined tx ${deployResult.txHash} deploying contract ${deployResult.createdAddress}...`;
 
-status.innerHTML = "Done";
+  // Pass in the contract address to updateAccounts
+  // we will update this function to display contract info in next step
+  await updateAccounts(deployResult.createdAddress as Address);
+
+  status.innerHTML = "Done";
+}
 ```
 
 :::tip[abitype best practices]
@@ -574,38 +579,39 @@ Tevm uses [abitype](https://abitype.dev/) for it's TypeScript types.
 If you have issues with typescript typings and find yourself fighting the compiler, join the [tevm telegram](https://t.me/+ANThR9bHDLAwMjUx) and ask for help. One of the many Typescript wizards will help.
 :::
 
-### 2. Use `tevmGetAccount` to see the contract
-
-Update the html to display contract information
+### 2. Update the html to display contract information
 
 ```typescript
-app.innerHTML = `<div id="status">initializing...</div>
-<div id="blocknumber"></div>
-<div>
-  Address: <span id="address"></span>
-</div>
-<div>
-  Nonce: <span id="nonce"></span>
-</div>
-<div>
-  Balance: <span id="balance"></span>
-</div>
-<h1>Counter contract</h1>
+async function runApp() {
+  app.innerHTML = `<div id="status">initializing...</div>
+  <div id="blocknumber"></div>
+  <div>
+    Address: <span id="address"></span>
+  </div>
+  <div>
+    Nonce: <span id="nonce"></span>
+  </div>
+  <div>
+    Balance: <span id="balance"></span>
+  </div>
+  <h1>Counter contract</h1>
 
-<!-- Contract info -->
-<table border="1" id="contractInfo">
-    <thead>
-        <tr id="contractInfoHeader">
-            <!-- We will fill this in in js -->
-        </tr>
-    </thead>
-    <tbody>
-        <tr id="contractInfoRow">
-            <!-- We will fill this in in js -->
-        </tr>
-    </tbody>
-</table>
-`;
+  <!-- Contract info -->
+  <table border="1" id="contractInfo">
+      <thead>
+          <tr id="contractInfoHeader">
+              <!-- We will fill this in in js -->
+          </tr>
+      </thead>
+      <tbody>
+          <tr id="contractInfoRow">
+              <!-- We will fill this in in js -->
+          </tr>
+      </tbody>
+  </table>
+  `;
+  ...
+}
 ```
 
 ### 3. Update `updateAccounts` to display the contract in html
@@ -615,12 +621,15 @@ Now use `tevmGetAccount` to fill in the table information in `updateAccounts`. T
 Pass in the contract address as a param
 
 ```typescript
-async function updateAccounts(contractAddress: Address) {
+import { createMemoryClient, http, type Address } from "tevm";
+...
+// const address = `0x${"0420".repeat(10)}` as const;
+async function updateAccounts(address: Address) {
   const account = await memoryClient.tevmGetAccount({
     address,
     throwOnFail: false,
   });
-  if (account.errors) throw new AggregateError(account.errors);
+  if (account.errors) throw account.errors
   console.log(account); // console log the account to get familiar with what properties are on it
   document.querySelector("#address")!.innerHTML = address;
   document.querySelector("#nonce")!.innerHTML = String(account.nonce);
@@ -630,9 +639,9 @@ async function updateAccounts(contractAddress: Address) {
   const contractAccount = await memoryClient.tevmGetAccount({
     address: contractAddress,
     throwOnFail: false,
-    includeStorage: true,
+    returnStorage: true,
   });
-  if (contractAccount.errors) throw new AggregateError(contractAccount.errors);
+  if (contractAccount.errors) throw contractAccount.errors;
 
   const header = document.querySelector("#contractInfoHeader")!;
   const info = document.querySelector("#contractInfoRow")!;
@@ -647,6 +656,7 @@ async function updateAccounts(contractAddress: Address) {
   ${Object.values(contractAccount.storage ?? []).map((storageValue) => `<tr>${storageValue}</tr>`)}
   `;
 }
+...
 ```
 
 We should see the contract information show up in our html now.
@@ -669,37 +679,63 @@ This particular contract has two methods. `get` to get the stored value and `set
 For convienience we will also call [`Contract.withAddress`](https://tevm.sh/reference/tevm/contract/type-aliases/contract/#withaddress) to add the deployed address to the contract instance
 
 ```typescript
-const deployedContract = simpleContract.withAddress(deployResult.address);
+async function runApp() {
+  ...
 
-const contractResult = await memoryClient.tevmContract({
-  abi: deployedContract.abi,
-  functionName: "get",
-  address: deployedContract.address,
-});
-if (contractResult.errors) throw new AggregateError(contractResult.errors);
-console.log(contractResult.rawData); // returns the raw data returned by evm
-console.log(contractResult.data); // returns the decoded data. Should be the initial value we set
-console.log(contractResult.executionGasUsed); // returns the execution gas used (won't include the data cost or base fee)
-// console log the entire result to become familiar with what all gets returned
-console.log(contractResult);
+  const deployedContract = SimpleContract.withAddress(deployResult.createdAddress as Address);
 
-// just like tevmCall we can write with `createTransaction: true`
-// remember the default `from` address is `prefundedAccounts[0]` when not specified!
-const writeResult = await memoryClient.contract({
-  createTransaction: true,
-  abi: simpleContract.abi,
-  functionName: "set",
-  args: [10_000n],
-});
+  status.innerHTML = "Querying contract with tevmContract..."
 
-// remember to mine
-await tevm.mine();
+  const contractResult = await memoryClient.tevmContract({
+    abi: deployedContract.abi,
+    functionName: "get",
+    to: deployedContract.address,
+  });
+  if (contractResult.errors) throw contractResult.errors;
+  console.log(contractResult.rawData); // returns the raw data returned by evm
+  console.log(contractResult.data); // returns the decoded data. Should be the initial value we set
+  console.log(contractResult.executionGasUsed); // returns the execution gas used (won't include the data cost or base fee)
+  // console log the entire result to become familiar with what all gets returned
 
-// now let's refresh the account information to update
-await updateAccounts(deployResult.created);
+  const newValue = 10_000n
+  status.innerHTML = `Current value ${contractResult.data}. Changing value to ${newValue}`
+
+  // just like tevmCall we can write with `createTransaction: true`
+  // remember the default `from` address is `prefundedAccounts[0]` when not specified!
+  const writeResult = await memoryClient.tevmContract({
+    createTransaction: true,
+    abi: deployedContract.abi,
+    functionName: "set",
+    to: deployedContract.address,
+    args: [newValue],
+  });
+
+  status.innerHTML =`Current value ${contractResult.data}. Changing value to ${newValue}. Mining tx ${writeResult.txHash}`
+
+  // remember to mine
+  const mineResult = await memoryClient.tevmMine();
+
+  // feel free to double check the value actually changed by calling tevmContract again!
+
+	status.innerHTML = `Value changed in block ${mineResult.blockHashes?.join(',')}. Updating storage in html...`;
+
+  // now let's refresh the account information to update storage
+  await updateAccounts(deployResult.createdAddress as Address);
+}
 ```
 
-### 2. Refactor contract code to use contract action creators
+### 2. Use getTransactionReceipt to get the receipt
+
+Remember after mining new blocks [getTransactionReceipt](https://viem.sh/docs/actions/public/getTransactionReceipt#gettransactionreceipt) will return the receipt
+
+```typescript
+const receipt = await memoryClient.getTransactionReceipt({
+  hash: writeResult.txHash as Hex,
+});
+console.log(receipt);
+```
+
+### 3. Refactor contract code to use contract action creators
 
 Tevm ships with contract action creators which compose with [tevmContract](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/#_top) as well as viem methods such as [readContract](https://viem.sh/docs/contract/readContract.html).
 
@@ -755,10 +791,10 @@ This bundler will give you a lot of great features such as
 
 Tevm supports all major bundlers including vite, rollup, webpack, rspack, bun and esbuild. If your bundler is not supported open an issue it's likely a light lift to add support.
 
-### 1. Install `@tevm/bundler`
+### 1. Install `@tevm/bundler` and `@tevm/ts-plugin`
 
 ```bash
-npm i --save-dev @tevm/bundler
+npm i --save-dev @tevm/bundler @tevm/ts-plugin
 ```
 
 ### 2. Configure vite
@@ -770,7 +806,7 @@ Add the `viteExtensionTevm` to your vite config under `plugins`
 ```bash
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import { vitePluginTevm } from '@tevm/bundler/vite'
+import { vitePluginTevm } from '@tevm/bundler/vite-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -792,7 +828,40 @@ export default defineConfig({
 
 ```
 
-### 3. Add a counter contract
+### 3. Configure the LSP
+
+Configuring a typescript plugin allows any editor such as VSCode or neovim to recognize the correct type of contract imports.
+
+Add the `@tevm/ts-plugin` to the typescript config (note I think you might have to install @tevm/ts-plugin because a bug here but will be testing later)
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [
+       {name: '@tevm/ts-plugin'}
+    ],
+    ...
+}
+```
+
+Now restart your editor/lsp and typescript will now be able to recognize your contract imports.
+
+Note: If using vscode you will need to [set the workspace version](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript) to load ts-plugins
+
+Note: I haven't tested the LSP in many months while focusing on building MemoryClient so it may have regressions. We will be giving the bundler and lsp some more love by end of may.
+
+:::tip[Solidity import best practices]
+Importing solidity directly is a convenience for when you are developing scripts and contracts within the same codebase as your javascript. It is NOT recomended to copy paste contracts just to use them with the tevm bundler. Instead consider the following options if the contract isn't in your code base.
+
+If the contract you wish to use is external to your code base here are the options:
+
+1. If contract is on npm or github you can npm install the package and then import it from node_modules. The tevm compiler supports node_resolution to import from other monorepo packages and node_modules
+2. In future versions whatsabi integration will allow you to generate the contracts via pointing at a block explorer
+3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using `createScript` or `createContract` <- TODO link to reference docs. You only need to include the methods you wish to use
+
+:::
+
+### 4. Add a counter contract
 
 Now that vite can compile solidity we can add a contract.
 
@@ -823,7 +892,7 @@ contract Counter {
 }
 ```
 
-### 4. Import the contract and console.log it
+### 5. Import the contract and console.log it
 
 ```typescript
 import { Counter } from "../contracts/Counter.s.sol";
@@ -857,39 +926,6 @@ The tevm compiler works with no config. But you can also optionally configure it
 See [config options](https://tevm.sh/reference/tevm/config/types/type-aliases/compilerconfig#_top) for more info.
 :::
 
-### 5. Configure the LSP
-
-You may notice that TypeScript started giving you red underlines even though the application works. This is because though vite is able to compile contracts we haven't told typescript to do the same.
-
-Add the `tevm/bundler/ts-plugin` to the typescript config (note I think you might have to install @tevm/ts-plugin because a bug here but will be testing later)
-
-```json
-{
-  "compilerOptions": {
-    "plugins": [
-       {name: '@tevm/bundler/ts-plugin'}
-    ]
-    ...
-}
-```
-
-Now restart your editor/lsp and typescript will now be able to recognize your contract imports.
-
-Note: If using vscode you will need to [set the workspace version](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript) to load ts-plugins
-
-Note: I haven't tested the LSP in many months while focusing on building MemoryClient so it may have regressions. We will be giving the bundler and lsp some more love by end of may.
-
-:::tip[Solidity import best practices]
-Importing solidity directly is a convenience for when you are developing scripts and contracts within the same codebase as your javascript. It is NOT recomended to copy paste contracts just to use them with the tevm bundler. Instead consider the following options if the contract isn't in your code base.
-
-If the contract you wish to use is external to your code base here are the options:
-
-1. If contract is on npm or github you can npm install the package and then import it from node_modules. The tevm compiler supports node_resolution to import from other monorepo packages and node_modules
-2. In future versions whatsabi integration will allow you to generate the contracts via pointing at a block explorer
-3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using `createScript` or `createContract` <- TODO link to reference docs. You only need to include the methods you wish to use
-
-:::
-
 ## Advanced feature: Scripting
 
 At this point we have covered all the major functionality of tevm and will be diving into more advanced features. Consider trying the following if you are up to it:
@@ -912,8 +948,15 @@ Vitest will work with the same tevm plugin we already installed.
 
 #### 2. Import your script and execute it
 
+Create a new test file
+
 ```typescript
-import { Counter } from "../contract/Counter.s.sol";
+touch src/counter.spec.ts
+```
+
+```typescript
+import { createMemoryClient } from "tevm";
+import { Counter } from "../contracts/Counter.s.sol";
 import { test, expect } from "vitest";
 
 test("scripting", () => {
@@ -921,7 +964,15 @@ test("scripting", () => {
   const memoryClient = createMemoryClient();
 
   const scriptResult = memoryClient.tevmScript(Counter.read.count());
+
+  expect(scriptResult).toMatchInlineSnapshot();
 });
+```
+
+Now run the test to snapshot the script result via updating the `test` command in `package.json`
+
+```
+"test": "vitest"
 ```
 
 Notice we never had to deploy our script. Tevm scripts will deploy the script for you and then execute them. Tevm scripts will not execute the constructor though as they use `tevmSetAccount` not `tevmDeploy` to deploy the contract.
@@ -949,9 +1000,13 @@ Precompiles require 3 steps to create.
 
 Let'do create a precompile to read and write to the file system.
 
-### 1. Create a solidity interface in `Fs.sol`
+### 1. Create a solidity interface in `contracts/Fs.sol`
 
 The solidity interface will be used when calling precompiles within solidity and also used to make the JavaScript implementation typesafe.
+
+```bash
+touch contracts/Fs.sol
+```
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -986,10 +1041,16 @@ By importing our precompile interface and passing it to `createPrecompile` types
 
 The return value of a precompile contains both a value but it also can return logs and gasUsed. We will simply return a value and charge 0 gas.
 
+The tevm compiler makes this very easy and typesafe.
+
+```bash
+touch src/fsPrecompile.ts
+```
+
 ```typescript
 import fs from "node:fs/promises";
-import { defineCall, definePrecompile } from "../src/index.js";
-import { Fs } from "./Fs.sol";
+import { defineCall, definePrecompile } from "tevm";
+import { Fs } from "../contracts/Fs.sol";
 
 const contract = Fs.withAddress("0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2");
 
@@ -1011,6 +1072,14 @@ export const fsPrecompile = definePrecompile({
 ```
 
 ### 3. Now call precompiles from your scripts
+
+We can write solidity scripts that execute our JavaScript now.
+
+```bash
+touch contracts/WriteHelloWorld.s.sol
+```
+
+Using the `.s.sol` extension tells the tevm compiler it's a script and thus should compile it's bytecode.
 
 My preference is to dependency inject the precompile as an argument
 
@@ -1034,9 +1103,9 @@ import { expect, test } from "vitest";
 import { createMemoryClient } from "tevm";
 
 import { existsSync, rmSync } from "node:fs";
-import { fsPrecompile } from "./FsPrecompile.js";
+import { fsPrecompile } from "./fsPrecompile.js";
 
-import { WriteHelloWorld } from "./WriteHelloWorld.s.sol";
+import { WriteHelloWorld } from "../contracts/WriteHelloWorld.s.sol";
 
 test("Call precompile from solidity script", async () => {
   const client = createMemoryClient({
@@ -1044,7 +1113,7 @@ test("Call precompile from solidity script", async () => {
     loggingLevel: "trace",
   });
 
-  const result = await client.tevmScript({
+  await client.tevmScript({
     ...WriteHelloWorld.write.write(fsPrecompile.contract.address),
     throwOnFail: false,
   });
