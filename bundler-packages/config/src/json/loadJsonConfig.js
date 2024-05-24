@@ -38,7 +38,7 @@ export class InvalidJsonConfigError extends TypeError {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(options) {
-		super('Invalid tsconfig.json detected', options)
+		super('Invalid json detected', options)
 	}
 }
 

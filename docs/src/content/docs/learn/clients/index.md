@@ -12,6 +12,16 @@ The following in-memory clients are available
 - [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) - An in memory instance of the EVM that can run in Node.js, bun or the browser
 - [TevmProvider](https://tevm.sh/reference/tevm/ethers/classes/tevmprovider/) - For ethers users
 
+## Quick start
+
+A cli scaffolding tool will be available soon
+
+![A rocketship in space](../../../../assets/cli.gif)
+
+:::tip[In a hurry?]
+The final result of this tutorial is available to try in your browser as a [StackBlitz](https://stackblitz.com/~/github.com/evmts/quick-start?file=src/main.ts)
+:::
+
 ## Viem API
 
 Tevm is built on top of viem and supports an ever-growing list of the viem API. 100% support for viem is release criteria for Tevm `1.0.0` stable.
@@ -53,13 +63,13 @@ See [BaseClientOptions](https://tevm.sh/reference/tevm/base-client/type-aliases/
 `MemoryClient` is itself an `EIP-1193` provider. This means tevm clients can fork other tevm clients.
 
 ```typescript
-const originalClient = createMemoryClient()
+const originalClient = createMemoryClient();
 
-await doStuff(originalClient)
+await doStuff(originalClient);
 
 const forkedClient = createMemoryClient({
-  fork: {transport: originalClient}
-})
+  fork: { transport: originalClient },
+});
 ```
 
 ## Mining modes
