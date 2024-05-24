@@ -1,5 +1,26 @@
 # @tevm/bundler
 
+## 1.1.0-next.60
+
+### Patch Changes
+
+- [#1127](https://github.com/evmts/tevm-monorepo/pull/1127) [`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bad release from lack of changeset
+
+- Updated dependencies [[`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6)]:
+  - @tevm/base-bundler@1.1.0-next.60
+  - @tevm/bun-plugin@1.1.0-next.60
+  - @tevm/compiler@1.1.0-next.60
+  - @tevm/config@1.1.0-next.60
+  - @tevm/esbuild-plugin@1.1.0-next.60
+  - @tevm/rollup-plugin@1.1.0-next.60
+  - @tevm/rspack-plugin@1.1.0-next.60
+  - @tevm/solc@1.1.0-next.60
+  - @tevm/vite-plugin@1.1.0-next.60
+  - @tevm/webpack-plugin@1.1.0-next.60
+  - @tevm/tsconfig@1.1.0-next.60
+  - @tevm/tsupconfig@1.1.0-next.60
+  - @tevm/ts-plugin@1.1.0-next.60
+
 ## 1.1.0-next.52
 
 ### Patch Changes

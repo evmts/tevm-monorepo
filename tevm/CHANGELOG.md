@@ -1,5 +1,31 @@
 # @tevm/contract
 
+## 1.1.0-next.60
+
+### Patch Changes
+
+- [#1127](https://github.com/evmts/tevm-monorepo/pull/1127) [`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bad release from lack of changeset
+
+- Updated dependencies [[`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6)]:
+  - @tevm/viem@1.1.0-next.60
+  - @tevm/actions-types@1.1.0-next.60
+  - @tevm/base-client@1.1.0-next.60
+  - @tevm/client-types@1.1.0-next.60
+  - @tevm/common@1.1.0-next.60
+  - @tevm/contract@1.1.0-next.60
+  - @tevm/decorators@1.1.0-next.60
+  - @tevm/errors@1.1.0-next.60
+  - @tevm/http-client@1.1.0-next.60
+  - @tevm/jsonrpc@1.1.0-next.60
+  - @tevm/memory-client@1.1.0-next.60
+  - @tevm/precompiles@1.1.0-next.60
+  - @tevm/predeploys@1.1.0-next.60
+  - @tevm/procedures-types@1.1.0-next.60
+  - @tevm/server@1.1.0-next.60
+  - @tevm/state@1.1.0-next.60
+  - @tevm/sync-storage-persister@1.1.0-next.60
+  - @tevm/utils@1.1.0-next.60
+
 ## 1.1.0-next.59
 
 ### Patch Changes

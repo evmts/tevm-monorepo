@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.1.0-next.60
+
+### Patch Changes
+
+- [#1127](https://github.com/evmts/tevm-monorepo/pull/1127) [`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bad release from lack of changeset
+
+- Updated dependencies [[`1314a07`](https://github.com/evmts/tevm-monorepo/commit/1314a0770007dd3aa8a4762ddbec62ac60c1dfb6)]:
+  - @tevm/block@1.1.0-next.60
+  - @tevm/blockchain@1.1.0-next.60
+  - @tevm/jsonrpc@1.1.0-next.60
+  - @tevm/procedures-types@1.1.0-next.60
+  - @tevm/receipt-manager@1.1.0-next.60
+  - @tevm/tx@1.1.0-next.60
+  - @tevm/utils@1.1.0-next.60
+  - @tevm/vm@1.1.0-next.60
+  - @tevm/zod@1.1.0-next.60
+
 ## 1.1.0-next.59
 
 ### Patch Changes
