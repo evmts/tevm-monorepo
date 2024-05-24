@@ -232,9 +232,9 @@ describe('viemPublicActions', () => {
 				async () => {
 					expect(
 						await mainnetClient.getEnsAvatar({
-							name: 'vitalik.eth',
+							name: 'wevm.eth',
 						}),
-					).toBe('https://ipfs.io/ipfs/QmSP4nq9fnN9dAiCj42ug9Wa79rqmQerZXZch82VqpiH7U/image.gif')
+					).toBe('https://euc.li/wevm.eth')
 				},
 				{ timeout: 40_000 },
 			)
