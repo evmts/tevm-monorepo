@@ -1,11 +1,9 @@
 ---
 title: Tevm docs
-description: Build applications powered by the EVM, simplified
+description: The best way to build TypeScript/EVM applications
 template: splash
 hero:
-  tagline: Build applications powered by the EVM, simplified
-  image:
-    file: ../../assets/logo.webp
+  tagline: Tevm is the best way to build and test TypeScript/EVM
   actions:
     - text: Getting Started
       link: /getting-started/getting-started/
@@ -21,21 +19,24 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ## Try now (coming soon)!
 
-<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/~/github.com/evmts/tevm-vite-wagmi-example"></iframe>
+<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/~/github.com/evmts/quick-start"></iframe>
 
 ## Features
 
 <CardGrid>
 	<Card title="Tevm memory devnet" icon="pencil">
-		[EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
+		Execute JavaScript directly in your TypeScript code without the need for an external RPC. [EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
+	</Card>
+	<Card title="Familiar api" icon="open-book">
+		Tevm is built on top of the Viem api and plugs right into your existing Viem/Wagmi applications. Adapters exist for Ethers.js as well.
 	</Card>
 	<Card title="Solidity scripting" icon="add-document">
-		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
+		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting). Powerful use cases like writing a server/indexer in solidity.
 	</Card>
 	<Card title="Solidity imports" icon="setting">
-		[Importing solidity files](/learn/solidity-imports) directly into TypeScript. Never juggle an ABI again!
+		[Importing solidity files](/learn/solidity-imports) directly into TypeScript. No need to set up complicated build pipelines. Just import the contract from your repo or node_modules. Support for generating from a live deployment coming soon.
 	</Card>
 	<Card title="Runs in all environments" icon="open-book">
-		Tevm runs in the browser, node.js, and bun
+		Tevm runs in the browser, node.js, and bun. Everything you could only previously do in other languages or on the server is now possible everywhere JavaScript runs.
 	</Card>
 </CardGrid>
