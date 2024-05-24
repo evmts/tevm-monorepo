@@ -752,9 +752,10 @@ const contractResult = await memoryClient.tevmContract(
 
 ...
 
-const contractResult = await memoryClient.tevmContract(
-  deployedContract.write.set(10_000n)
-);
+const contractResult = await memoryClient.tevmContract({
+  createTransaction: true,
+  ...deployedContract.write.set(10_000n)
+});
 ```
 
 :::tip[Creating contracts and scripts]
