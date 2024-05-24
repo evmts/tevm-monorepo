@@ -26,7 +26,18 @@ bun update
 git submodule update --init --recursive
 ```
 
-4. Run everything
+4. Set environment variables
+
+In your path must be the following environment variables for the tests
+
+```bash
+export TEVM_RPC_URLS_MAINNET=
+export TEVM_RPC_URLS_OPTIMISM=
+```
+
+These rpc urls are a comma seperated list of at least one RPC provider such `https://mainnet.optimism.io`. The tests will rate limit and load balance across all urls
+
+5. Run everything
 
 `bun allz` will run everything
 
@@ -37,6 +48,7 @@ bun allz
 ```
 
 This includes
+
 - linting package.json
 - linting npm build
 - linting unused deps
@@ -81,7 +93,7 @@ For more information the [reference docs](https://tevm.sh) are a useful resource
 
 - [@tevm/bundler](./bundlers/bundler) is the main bundler used to create all the build tools. It bundles all contract imports using [@tevm/solc](./solc) for it's solidity compiler and [@tevm/runtime](./runtime) to construct runtimes.
 - [@tevm/ts-plugin](./ts-plugin) is the LSP (language service protocol) plugin. It is what allows code editors such as VSCode to correctly infer types of solidity imports.
-- [bundlers/*](./bundlers) Are where all the supported bundlers live. Most are created using [@tevm/unplugin](./bundlers/unplugin) which implements a rollup plugin once to be reused in many packages including [@tevm/webpack](./bundlers/webpack) and [@tevm/vite](./bundlers/vite) and more.
+- [bundlers/\*](./bundlers) Are where all the supported bundlers live. Most are created using [@tevm/unplugin](./bundlers/unplugin) which implements a rollup plugin once to be reused in many packages including [@tevm/webpack](./bundlers/webpack) and [@tevm/vite](./bundlers/vite) and more.
 - [@tevm/config](./config) is the package that loads the Tevm config
 
 #### Runtime packages
@@ -94,7 +106,7 @@ For more information the [reference docs](https://tevm.sh) are a useful resource
 
 #### Example apps
 
-Example apps are in [/examples/*](./examples). [@tevm/example-esbuild](./examples/esbuild) has a vitest test and is the simplist app.
+Example apps are in [/examples/\*](./examples). [@tevm/example-esbuild](./examples/esbuild) has a vitest test and is the simplist app.
 
 ## Code best practices
 
@@ -129,7 +141,6 @@ bun run test
 
 Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting in errors
 
-
 ## Fixtures
 
 Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode.
@@ -151,6 +162,7 @@ bun dev
 ```bash
 bun fixture basic
 ```
+
 Valid names include any of the folder names in [src/fixtures](./fixtures). The default is basic
 
 #### Adding a fixture
