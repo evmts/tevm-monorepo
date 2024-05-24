@@ -226,8 +226,7 @@ describe('viemPublicActions', () => {
 					blockTag: 19804639n,
 				},
 			})
-			// this test flakes sometimes from third party endpoints so disabled
-			it.skip(
+			it(
 				'should work',
 				async () => {
 					expect(
