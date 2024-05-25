@@ -1,4 +1,10 @@
-import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
+import {
+	chainIdHandler,
+	ethSendTransactionHandler,
+	forkAndCacheBlock,
+	testAccounts,
+	traceCallHandler,
+} from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { EthjsAccount, EthjsAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
@@ -26,6 +32,9 @@ import {
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
+import { createBaseClient } from '@tevm/base-client'
+import { runTx } from '@tevm/vm'
+import { TransactionFactory } from '@tevm/tx'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -722,6 +731,111 @@ export const requestProcedure = (client) => {
 						}
 					})
 			}
+			case 'debug_traceTransaction': {
+				const debugTraceTransactionRequest =
+					/** @type {import('@tevm/procedures-types').DebugTraceTransactionJsonRpcRequest}*/
+					(request)
+				const { tracer, timeout, throwOnFail, tracerConfig, transactionHash } = request.params[0]
+				if (timeout !== undefined) {
+					client.logger.warn('Warning: timeout is currently respected param of debug_traceTransaction')
+				}
+				const transactionByHashResponse = await requestProcedure(client)({
+					method: 'eth_getTransactionByHash',
+					params: [transactionHash],
+					jsonrpc: '2.0',
+					id: 1,
+				})
+				if ('error' in transactionByHashResponse) {
+					return {
+						...transactionByHashResponse,
+						method: debugTraceTransactionRequest.method,
+					}
+				}
+				const vm = await client.getVm()
+				const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
+				const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
+				transactionByHashResponse.result.transactionIndex
+				const previousTx = block.transactions.filter(
+					(_, i) => i < hexToNumber(transactionByHashResponse.result.transactionIndex),
+				)
+				const hasStateRoot = vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
+				if (!hasStateRoot && client.forkTransport) {
+					await forkAndCacheBlock(client, parentBlock)
+				} else {
+					return {
+						jsonrpc: '2.0',
+						method: debugTraceTransactionRequest.method,
+						id: debugTraceTransactionRequest.id,
+						error: {
+							code: -32602,
+							message: 'Parent block not found',
+						},
+					}
+				}
+				const vmClone = await vm.deepCopy()
+
+				// execute all transactions before the current one committing to the state
+				for (const tx of previousTx) {
+					runTx(vmClone)({
+						block: parentBlock,
+						skipNonce: true,
+						skipBalance: true,
+						skipHardForkValidation: true,
+						skipBlockGasLimitValidation: true,
+						tx: await TransactionFactory.fromRPC(tx, {
+							freeze: false,
+							common: vmClone.common.ethjsCommon,
+							allowUnlimitedInitCodeSize: true,
+						}),
+					})
+				}
+
+				// now execute an debug_traceCall
+				const traceResult = await traceCallHandler(client)({
+					tracer,
+					...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
+					...(transactionByHashResponse.result.from !== undefined
+						? { from: transactionByHashResponse.result.from }
+						: {}),
+					...(transactionByHashResponse.result.gas !== undefined
+						? { gas: hexToBigInt(transactionByHashResponse.result.gas) }
+						: {}),
+					...(transactionByHashResponse.result.gasPrice !== undefined
+						? { gasPrice: hexToBigInt(transactionByHashResponse.result.gasPrice) }
+						: {}),
+					...(transactionByHashResponse.result.value !== undefined
+						? { value: hexToBigInt(transactionByHashResponse.result.value) }
+						: {}),
+					...(transactionByHashResponse.result.data !== undefined
+						? { data: transactionByHashResponse.result.data }
+						: {}),
+					...(transactionByHashResponse.result.blockHash !== undefined
+						? { blockTag: transactionByHashResponse.result.blockHash }
+						: {}),
+					...(timeout !== undefined ? { timeout } : {}),
+					...(tracerConfig !== undefined ? { tracerConfig } : {}),
+				})
+				return {
+					method: debugTraceTransactionRequest.method,
+					result: {
+						gas: numberToHex(traceResult.gas),
+						failed: traceResult.failed,
+						returnValue: traceResult.returnValue,
+						structLogs: traceResult.structLogs.map((log) => {
+							return {
+								gas: numberToHex(log.gas),
+								gasCost: numberToHex(log.gasCost),
+								op: log.op,
+								pc: log.pc,
+								stack: log.stack,
+								depth: log.depth,
+							}
+						}),
+					},
+					jsonrpc: '2.0',
+					...(debugTraceTransactionRequest.id ? { id: debugTraceTransactionRequest.id } : {}),
+				}
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
@@ -733,7 +847,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getUncleByBlockHashAndIndex':
 			case 'eth_newPendingTransactionFilter':
 			case 'eth_getUncleByBlockNumberAndIndex':
-			case 'debug_traceTransaction':
 			case 'anvil_impersonateAccount':
 			case 'anvil_stopImpersonatingAccount':
 				throw new Error(`Method ${request.method} is not implemented yet. Currently tevm is always on auto-impersonate`)

@@ -18,6 +18,9 @@ export {
 	NoForkUrlSetError,
 	ethGetLogsHandler,
 } from './eth/index.js'
+// exporting from internal because we are moving fast implementing `debug_traceTransaction` in the procedures package
+// If we properly move it here we can remove this export
+export { forkAndCacheBlock } from './internal/forkAndCacheBlock.js'
 export {
 	callHandler,
 	scriptHandler,
