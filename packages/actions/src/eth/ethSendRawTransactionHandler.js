@@ -1,5 +1,5 @@
-import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
-import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
+import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../index.js'
 
 const txType = {
@@ -80,11 +80,17 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to parse data')
 	}
-	if (!tx.isSigned()) {
-		// TODO type this error
-		throw new Error('Invalid transaction. Transaction is not signed')
+	if (!tx.isSigned() && client.impersonatedAccount !== undefined) {
+		/**
+		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 **/
+		const impersonatedTx = /** @type {any}*/ (tx)
+		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(client.impersonatedAccount)
+		tx = createImpersonatedTx(impersonatedTx)
 	}
-
+	if (!tx.isSigned()) {
+		throw new Error('Invalid transaction. Transaction is not signed. Consider calling impersonate endpoint.')
+	}
 	/**
 	 * @type {import('@tevm/actions-types').CallResult}
 	 */
