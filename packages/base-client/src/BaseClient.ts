@@ -4,6 +4,7 @@ import type { TxPool } from '@tevm/txpool'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
 import type { MiningConfig } from './MiningConfig.js'
+import type { Address } from '@tevm/utils'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -68,6 +69,15 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * Gets the pool of pending transactions to be included in next block
 	 */
 	readonly getTxPool: () => Promise<TxPool>
+	/**
+	 * The currently impersonated account. This is only used in `fork` mode
+	 */
+	readonly impersonatedAccount: Address | undefined
+	/**
+	 * Sets the account to impersonate. This will allow the client to act as if it is that account
+	 * On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+	 */
+	readonly setImpersonatedAccount: (address: Address | undefined) => void
 	/**
 	 * Extends the base client with additional functionality. This enables optimal code splitting
 	 * and extensibility
