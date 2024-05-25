@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.61
+
+### Minor Changes
+
+- [#1133](https://github.com/evmts/tevm-monorepo/pull/1133) [`09e9a22`](https://github.com/evmts/tevm-monorepo/commit/09e9a22eecf8ccbdf97f5e80f94857a74bd4f82d) Thanks [@roninjin10](https://github.com/roninjin10)! - Exported the Vms tree shakeable actions
+
 ## 1.1.0-next.60
 
 ### Patch Changes

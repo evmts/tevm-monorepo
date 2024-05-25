@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.1.0-next.61
+
+### Minor Changes
+
+- [#1133](https://github.com/evmts/tevm-monorepo/pull/1133) [`09e9a22`](https://github.com/evmts/tevm-monorepo/commit/09e9a22eecf8ccbdf97f5e80f94857a74bd4f82d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added more json-rpc methods
+
+- [#1132](https://github.com/evmts/tevm-monorepo/pull/1132) [`75e5692`](https://github.com/evmts/tevm-monorepo/commit/75e569296e68f908d480a2bc94a371730b7cfae9) Thanks [@roninjin10](https://github.com/roninjin10)! - Added anvil_loadState
+
+### Patch Changes
+
+- Updated dependencies [[`09e9a22`](https://github.com/evmts/tevm-monorepo/commit/09e9a22eecf8ccbdf97f5e80f94857a74bd4f82d)]:
+  - @tevm/actions@1.1.0-next.61
+
 ## 1.1.0-next.60
 
 ### Patch Changes
