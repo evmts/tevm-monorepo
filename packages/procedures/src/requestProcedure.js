@@ -1,7 +1,15 @@
-import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
+import {
+	chainIdHandler,
+	ethSendTransactionHandler,
+	forkAndCacheBlock,
+	testAccounts,
+	traceCallHandler,
+} from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAccount, EthjsAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { TransactionFactory } from '@tevm/tx'
+import { EthjsAccount, EthjsAddress, getAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { runTx } from '@tevm/vm'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
@@ -722,21 +730,259 @@ export const requestProcedure = (client) => {
 						}
 					})
 			}
-			case 'eth_newFilter':
-			case 'eth_getFilterLogs':
-			case 'eth_newBlockFilter':
-			case 'eth_uninstallFilter':
-			case 'eth_getFilterChanges':
-			case 'eth_getTransactionCount':
-			case 'eth_getUncleCountByBlockHash':
-			case 'eth_getUncleCountByBlockNumber':
-			case 'eth_getUncleByBlockHashAndIndex':
-			case 'eth_newPendingTransactionFilter':
-			case 'eth_getUncleByBlockNumberAndIndex':
-			case 'debug_traceTransaction':
-			case 'anvil_impersonateAccount':
-			case 'anvil_stopImpersonatingAccount':
-				throw new Error(`Method ${request.method} is not implemented yet. Currently tevm is always on auto-impersonate`)
+			case 'debug_traceTransaction': {
+				const debugTraceTransactionRequest =
+					/** @type {import('@tevm/procedures-types').DebugTraceTransactionJsonRpcRequest}*/
+					(request)
+				const { tracer, timeout, tracerConfig, transactionHash } = request.params[0]
+				if (timeout !== undefined) {
+					client.logger.warn('Warning: timeout is currently respected param of debug_traceTransaction')
+				}
+				const transactionByHashResponse = await requestProcedure(client)({
+					method: 'eth_getTransactionByHash',
+					params: [transactionHash],
+					jsonrpc: '2.0',
+					id: 1,
+				})
+				if ('error' in transactionByHashResponse) {
+					return {
+						...transactionByHashResponse,
+						method: debugTraceTransactionRequest.method,
+					}
+				}
+				const vm = await client.getVm()
+				const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
+				const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
+				transactionByHashResponse.result.transactionIndex
+				const previousTx = block.transactions.filter(
+					(_, i) => i < hexToNumber(transactionByHashResponse.result.transactionIndex),
+				)
+				const hasStateRoot = vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
+				if (!hasStateRoot && client.forkTransport) {
+					await forkAndCacheBlock(client, parentBlock)
+				} else {
+					return {
+						jsonrpc: '2.0',
+						method: debugTraceTransactionRequest.method,
+						id: debugTraceTransactionRequest.id,
+						error: {
+							code: -32602,
+							message: 'Parent block not found',
+						},
+					}
+				}
+				const vmClone = await vm.deepCopy()
+
+				// execute all transactions before the current one committing to the state
+				for (const tx of previousTx) {
+					runTx(vmClone)({
+						block: parentBlock,
+						skipNonce: true,
+						skipBalance: true,
+						skipHardForkValidation: true,
+						skipBlockGasLimitValidation: true,
+						tx: await TransactionFactory.fromRPC(tx, {
+							freeze: false,
+							common: vmClone.common.ethjsCommon,
+							allowUnlimitedInitCodeSize: true,
+						}),
+					})
+				}
+
+				// now execute an debug_traceCall
+				const traceResult = await traceCallHandler(client)({
+					tracer,
+					...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
+					...(transactionByHashResponse.result.from !== undefined
+						? { from: transactionByHashResponse.result.from }
+						: {}),
+					...(transactionByHashResponse.result.gas !== undefined
+						? { gas: hexToBigInt(transactionByHashResponse.result.gas) }
+						: {}),
+					...(transactionByHashResponse.result.gasPrice !== undefined
+						? { gasPrice: hexToBigInt(transactionByHashResponse.result.gasPrice) }
+						: {}),
+					...(transactionByHashResponse.result.value !== undefined
+						? { value: hexToBigInt(transactionByHashResponse.result.value) }
+						: {}),
+					...(transactionByHashResponse.result.data !== undefined
+						? { data: transactionByHashResponse.result.data }
+						: {}),
+					...(transactionByHashResponse.result.blockHash !== undefined
+						? { blockTag: transactionByHashResponse.result.blockHash }
+						: {}),
+					...(timeout !== undefined ? { timeout } : {}),
+					...(tracerConfig !== undefined ? { tracerConfig } : {}),
+				})
+				return {
+					method: debugTraceTransactionRequest.method,
+					result: {
+						gas: numberToHex(traceResult.gas),
+						failed: traceResult.failed,
+						returnValue: traceResult.returnValue,
+						structLogs: traceResult.structLogs.map((log) => {
+							return {
+								gas: numberToHex(log.gas),
+								gasCost: numberToHex(log.gasCost),
+								op: log.op,
+								pc: log.pc,
+								stack: log.stack,
+								depth: log.depth,
+							}
+						}),
+					},
+					jsonrpc: '2.0',
+					...(debugTraceTransactionRequest.id ? { id: debugTraceTransactionRequest.id } : {}),
+				}
+			}
+			case 'anvil_impersonateAccount': {
+				const impersonateAccountRequest =
+					/** @type {import('@tevm/procedures-types').AnvilImpersonateAccountJsonRpcRequest}*/
+					(request)
+				try {
+					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0].address))
+					return {
+						jsonrpc: '2.0',
+						method: impersonateAccountRequest.method,
+						id: impersonateAccountRequest.id,
+						result: true,
+					}
+				} catch (e) {
+					return {
+						jsonrpc: '2.0',
+						method: impersonateAccountRequest.method,
+						id: impersonateAccountRequest.id,
+						error: {
+							code: -32602,
+							message: /** @type {Error}*/ (e).message,
+						},
+					}
+				}
+			}
+			case 'anvil_stopImpersonatingAccount': {
+				client.setImpersonatedAccount(undefined)
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					id: request.id,
+					result: true,
+				}
+			}
+			case 'eth_getTransactionCount': {
+				const getTransactionCountRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionCountJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const [address, tag] = request.params
+				if (tag === 'pending') {
+					const txPool = await client.getTxPool()
+					const count = (await txPool.getBySenderAddress(EthjsAddress.fromString(address))).length
+					return {
+						method: getTransactionCountRequest.method,
+						result: numberToHex(count),
+						jsonrpc: '2.0',
+						...(getTransactionCountRequest.id ? { id: getTransactionCountRequest.id } : {}),
+					}
+				}
+				const block = await (async () => {
+					if (tag.startsWith('0x') && tag.length === 66) {
+						return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (tag)))
+					}
+					if (tag.startsWith('0x')) {
+						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (tag)))
+					}
+					if (tag === 'latest' || tag === 'safe' || tag === 'earliest' || tag === 'finalized') {
+						return vm.blockchain.blocksByTag.get(tag)
+					}
+					return undefined
+				})()
+				if (!block) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${tag}`,
+						},
+					}
+				}
+				const count = block.transactions.filter((tx) =>
+					tx.getSenderAddress().equals(EthjsAddress.fromString(address)),
+				).length
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: numberToHex(count),
+				}
+			}
+			case 'eth_newFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_getFilterLogs': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_newBlockFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_uninstallFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_getFilterChanges': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_newPendingTransactionFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not supported',
+					},
+				}
+			}
+
 			default: {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}

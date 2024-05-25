@@ -1,3 +1,6 @@
 export type { Vm } from './Vm.js'
 export { createVm } from './createVm.js'
 export { type CreateVmOptions } from './CreateVmOptions.js'
+export { runTx } from './actions/runTx.js'
+export { runBlock } from './actions/runBlock.js'
+export { buildBlock } from './actions/buildBlock.js'

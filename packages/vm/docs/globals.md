@@ -11,4 +11,5 @@
 
 ## Functions
 
+- [buildBlock](functions/buildBlock.md)
 - [createVm](functions/createVm.md)

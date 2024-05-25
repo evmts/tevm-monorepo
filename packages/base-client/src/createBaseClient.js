@@ -25,6 +25,18 @@ import { statePersister } from './statePersister.js'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+	/**
+	 * @type {import('@tevm/utils').Address | undefined}
+	 */
+	let impersonatedAccount = undefined
+	/**
+	 * @param {import('@tevm/utils').Address | undefined} address
+	 * returns {void}
+	 */
+	const setImpersonatedAccount = (address) => {
+		impersonatedAccount = address
+	}
+
 	const loggingLevel = options.loggingLevel ?? 'warn'
 	const logger = createLogger({
 		name: 'TevmClient',
@@ -263,6 +275,8 @@ export const createBaseClient = (options = {}) => {
 		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready,
+		impersonatedAccount,
+		setImpersonatedAccount,
 	}
 	return baseClient
 }
