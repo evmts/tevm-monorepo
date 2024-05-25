@@ -9,7 +9,7 @@ description: Tevm introduction
 
 We will be creating a simple counter app using the following technologies:
 
-- Tevm + [Viem](https://viem.sh) -
+- Tevm + [Viem](https://viem.sh)
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build an ui with no framework
 - [Vite](https://vitejs.dev/) + Tevm Bundler as a minimal build setup and dev server
 
@@ -964,7 +964,7 @@ test("scripting", () => {
   // let's just throw on fail since we are just playing with scripts not building a production app
   const memoryClient = createMemoryClient();
 
-  const scriptResult = memoryClient.tevmScript(Counter.read.count());
+  const scriptResult = await memoryClient.tevmScript(Counter.read.count());
 
   expect(scriptResult).toMatchInlineSnapshot();
 });
