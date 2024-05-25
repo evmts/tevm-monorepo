@@ -1,15 +1,19 @@
 ---
 title: Tevm docs
-description: The best way to build TypeScript/EVM applications
+description: A complete toolset to build Ethereum applications in JavaScript 
 template: splash
 hero:
-  tagline: Tevm is the best way to build and test TypeScript/EVM
+  tagline: A complete toolset to build Ethereum applications in JavaScript 
   actions:
     - text: Getting Started
       link: /getting-started/getting-started/
       icon: right-arrow
       variant: primary
     - text: Reference
+      link: /learn/reference
+      icon: right-arrow
+      variant: primary
+    - text: https://stackblitz.com/~/github.com/evmts/quick-start?file=README.md
       link: /learn/reference
       icon: right-arrow
       variant: primary
@@ -20,10 +24,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## Features
 
 <CardGrid>
-	<Card title="Tevm memory devnet" icon="pencil">
+	<Card title="Powerful Tevm memory devnet" icon="pencil">
 		Execute JavaScript directly in your TypeScript code without the need for an external RPC. [EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
 	</Card>
-	<Card title="Familiar api" icon="open-book">
+	<Card title="Familiar Viem actions api" icon="open-book">
 		Tevm is built on top of the Viem api and plugs right into your existing Viem/Wagmi applications. Adapters exist for Ethers.js as well.
 	</Card>
 	<Card title="Solidity scripting" icon="add-document">
@@ -37,7 +41,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	</Card>
 </CardGrid>
 
-## [Try now!](https://stackblitz.com/~/github.com/evmts/quick-start?file=src/fsPrecompile.ts:L5)
+## [Try now on Stackblitz!](https://stackblitz.com/~/github.com/evmts/quick-start?file=src/fsPrecompile.ts:L5)
+
+- Select `> Typescript: Select Typescript version: Use Workspace Version` in the editor to enable the Tevm compiler upon opening the stackblitz.
+= Tevm compiler with solidity compilation only works in the [stackblitz beta environment](https://stackblitz.com/github/evmts/quick-start/tree/main?embed=1&file=src/main.ts&hideNavigation=1&hideDevTools=true&terminalHeight=0&ctl=1)
 
 <div height="500">
 <iframe style="frameborder: 0; width:100%; height: 500px;" src="https://stackblitz.com/github/evmts/quick-start/tree/main?embed=1&file=src/main.ts&hideNavigation=1&hideDevTools=true&terminalHeight=0&ctl=1"></iframe>
