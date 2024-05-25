@@ -1,7 +1,7 @@
 import { chainIdHandler, ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
@@ -687,7 +687,41 @@ export const requestProcedure = (client) => {
 					...(request.id ? { id: request.id } : {}),
 				}
 			}
-			case 'anvil_loadState':
+			case 'anvil_loadState': {
+				const loadStateRequest = /** @type {import('@tevm/procedures-types').AnvilLoadStateJsonRpcRequest}*/ (request)
+
+				const vm = await client.getVm()
+
+				return Promise.all(
+					Object.entries(loadStateRequest.params[0].state).map(([address, rlpEncodedAccount]) => {
+						return vm.stateManager.putAccount(
+							EthjsAddress.fromString(address),
+							EthjsAccount.fromRlpSerializedAccount(hexToBytes(rlpEncodedAccount)),
+						)
+					}),
+				)
+					.then(() => {
+						/**
+						 * @type {import('@tevm/procedures-types').AnvilLoadStateJsonRpcResponse}
+						 */
+						return {
+							jsonrpc: '2.0',
+							method: loadStateRequest.method,
+							...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+						}
+					})
+					.catch((e) => {
+						return {
+							jsonrpc: '2.0',
+							method: loadStateRequest.method,
+							...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+							error: {
+								code: -32602,
+								message: e.message,
+							},
+						}
+					})
+			}
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_newBlockFilter':
