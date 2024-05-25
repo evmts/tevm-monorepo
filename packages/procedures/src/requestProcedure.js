@@ -7,7 +7,7 @@ import {
 } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAccount, EthjsAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, getAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
@@ -836,20 +836,154 @@ export const requestProcedure = (client) => {
 					...(debugTraceTransactionRequest.id ? { id: debugTraceTransactionRequest.id } : {}),
 				}
 			}
-			case 'eth_newFilter':
-			case 'eth_getFilterLogs':
-			case 'eth_newBlockFilter':
-			case 'eth_uninstallFilter':
-			case 'eth_getFilterChanges':
-			case 'eth_getTransactionCount':
-			case 'eth_getUncleCountByBlockHash':
-			case 'eth_getUncleCountByBlockNumber':
-			case 'eth_getUncleByBlockHashAndIndex':
-			case 'eth_newPendingTransactionFilter':
-			case 'eth_getUncleByBlockNumberAndIndex':
-			case 'anvil_impersonateAccount':
-			case 'anvil_stopImpersonatingAccount':
-				throw new Error(`Method ${request.method} is not implemented yet. Currently tevm is always on auto-impersonate`)
+			case 'anvil_impersonateAccount': {
+				const impersonateAccountRequest =
+					/** @type {import('@tevm/procedures-types').AnvilImpersonateAccountJsonRpcRequest}*/
+					(request)
+				try {
+					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0].address))
+					return {
+						jsonrpc: '2.0',
+						method: impersonateAccountRequest.method,
+						id: impersonateAccountRequest.id,
+						result: true,
+					}
+				} catch (e) {
+					return {
+						jsonrpc: '2.0',
+						method: impersonateAccountRequest.method,
+						id: impersonateAccountRequest.id,
+						error: {
+							code: -32602,
+							message: /** @type {Error}*/ (e).message,
+						},
+					}
+				}
+			}
+			case 'anvil_stopImpersonatingAccount': {
+				client.setImpersonatedAccount(undefined)
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					id: request.id,
+					result: true,
+				}
+			}
+			case 'eth_getTransactionCount': {
+				const getTransactionCountRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionCountJsonRpcRequest}*/
+					(request)
+				const vm = await client.getVm()
+				const [address, tag] = request.params
+				if (tag === 'pending') {
+					const txPool = await client.getTxPool()
+					const count = (await txPool.getBySenderAddress(EthjsAddress.fromString(address))).length
+					return {
+						method: getTransactionCountRequest.method,
+						result: numberToHex(count),
+						jsonrpc: '2.0',
+						...(getTransactionCountRequest.id ? { id: getTransactionCountRequest.id } : {}),
+					}
+				}
+				const block = await (async () => {
+					if (tag.startsWith('0x') && tag.length === 66) {
+						return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (tag)))
+					}
+					if (tag.startsWith('0x')) {
+						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (tag)))
+					}
+					if (tag === 'latest' || tag === 'safe' || tag === 'earliest' || tag === 'finalized') {
+						return vm.blockchain.blocksByTag.get(tag)
+					}
+					return undefined
+				})()
+				if (!block) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${tag}`,
+						},
+					}
+				}
+				const count = block.transactions.filter((tx) =>
+					tx.getSenderAddress().equals(EthjsAddress.fromString(address)),
+				).length
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: numberToHex(count),
+				}
+			}
+			case 'eth_newFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_getFilterLogs': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_newBlockFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_uninstallFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_getFilterChanges': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not implemented yet',
+					},
+				}
+			}
+			case 'eth_newPendingTransactionFilter': {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: {
+						code: -32601,
+						message: 'Method not supported',
+					},
+				}
+			}
+
 			default: {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}
