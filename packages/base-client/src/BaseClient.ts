@@ -1,10 +1,10 @@
 import type { Logger } from '@tevm/logger'
 import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
+import type { Address } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
 import type { MiningConfig } from './MiningConfig.js'
-import type { Address } from '@tevm/utils'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality

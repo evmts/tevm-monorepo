@@ -43,6 +43,10 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+• **baseClient.impersonatedAccount**: `undefined` \| \`0x$\{string\}\`
+
+The currently impersonated account. This is only used in `fork` mode
+
 • **baseClient.logger**: `Logger`
 
 The logger instance
@@ -81,6 +85,11 @@ have extra latency on the first call from initialization
 const client = createMemoryClient()
 await client.ready()
 ```
+
+• **baseClient.setImpersonatedAccount**
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Returns
 

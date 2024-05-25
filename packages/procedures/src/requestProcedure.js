@@ -7,7 +7,9 @@ import {
 } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { TransactionFactory } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, getAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { runTx } from '@tevm/vm'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
@@ -32,9 +34,6 @@ import {
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
-import { createBaseClient } from '@tevm/base-client'
-import { runTx } from '@tevm/vm'
-import { TransactionFactory } from '@tevm/tx'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -735,7 +734,7 @@ export const requestProcedure = (client) => {
 				const debugTraceTransactionRequest =
 					/** @type {import('@tevm/procedures-types').DebugTraceTransactionJsonRpcRequest}*/
 					(request)
-				const { tracer, timeout, throwOnFail, tracerConfig, transactionHash } = request.params[0]
+				const { tracer, timeout, tracerConfig, transactionHash } = request.params[0]
 				if (timeout !== undefined) {
 					client.logger.warn('Warning: timeout is currently respected param of debug_traceTransaction')
 				}

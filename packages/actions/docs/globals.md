@@ -30,6 +30,7 @@
 - [ethSendTransactionHandler](functions/ethSendTransactionHandler.md)
 - [ethSignHandler](functions/ethSignHandler.md)
 - [ethSignTransactionHandler](functions/ethSignTransactionHandler.md)
+- [forkAndCacheBlock](functions/forkAndCacheBlock.md)
 - [gasPriceHandler](functions/gasPriceHandler.md)
 - [getAccountHandler](functions/getAccountHandler.md)
 - [getBalanceHandler](functions/getBalanceHandler.md)

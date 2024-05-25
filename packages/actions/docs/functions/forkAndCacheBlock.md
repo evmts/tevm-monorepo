@@ -2,13 +2,13 @@
 
 ***
 
-[@tevm/actions](../globals.md) / blockNumberHandler
+[@tevm/actions](../globals.md) / forkAndCacheBlock
 
-# Function: blockNumberHandler()
+# Function: forkAndCacheBlock()
 
-> **blockNumberHandler**(`client`): `EthBlockNumberHandler`
+> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`void`\>
 
-Handler for the `eth_blockNumber` RPC call
+Will fork a given block number and save the state roots to state manager
 
 ## Parameters
 
@@ -29,38 +29,38 @@ Client to make json rpc requests to a forked node
 const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-• **client.forkTransport.request**: `EIP1193RequestFn`
+• **client.forkTransport.request?**: `EIP1193RequestFn`
 
-• **client.getReceiptsManager**
+• **client.getReceiptsManager?**
 
 Interface for querying receipts and historical state
 
-• **client.getTxPool**
+• **client.getTxPool?**
 
 Gets the pool of pending transactions to be included in next block
 
-• **client.getVm**
+• **client.getVm?**
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
-• **client.impersonatedAccount**: `undefined` \| \`0x$\{string\}\`
+• **client.impersonatedAccount?**: `undefined` \| \`0x$\{string\}\`
 
 The currently impersonated account. This is only used in `fork` mode
 
-• **client.logger**: `Logger`
+• **client.logger?**: `Logger`
 
 The logger instance
 
-• **client.miningConfig**: `MiningConfig`
+• **client.miningConfig?**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
 - 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
-• **client.mode**: `"fork"` \| `"normal"`
+• **client.mode?**: `"fork"` \| `"normal"`
 
 The mode the current client is running in
 `fork` mode will fetch and cache all state from the block forked from the provided URL
@@ -75,7 +75,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-• **client.ready**
+• **client.ready?**
 
 Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
@@ -88,15 +88,19 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-• **client.setImpersonatedAccount**
+• **client.setImpersonatedAccount?**
 
 Sets the account to impersonate. This will allow the client to act as if it is that account
 On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
+• **block?**: `Block`
+
+• **executeBlock?**: `boolean`= `false`
+
 ## Returns
 
-`EthBlockNumberHandler`
+`Promise`\<`void`\>
 
 ## Source
 
-[packages/actions/src/eth/blockNumberHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/blockNumberHandler.js#L6)
+[packages/actions/src/internal/forkAndCacheBlock.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L10)

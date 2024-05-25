@@ -85,6 +85,12 @@ on top of Tevm.
 
 `Promise`\<`Vm`\>
 
+### impersonatedAccount
+
+> `readonly` **impersonatedAccount**: `undefined` \| \`0x$\{string\}\`
+
+The currently impersonated account. This is only used in `fork` mode
+
 ### logger
 
 > `readonly` **logger**: `Logger`
@@ -135,6 +141,21 @@ await client.ready()
 #### Returns
 
 `Promise`\<`true`\>
+
+### setImpersonatedAccount()
+
+> `readonly` **setImpersonatedAccount**: (`address`) => `void`
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+
+#### Parameters
+
+• **address**: `undefined` \| \`0x$\{string\}\`
+
+#### Returns
+
+`void`
 
 ## Example
 
