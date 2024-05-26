@@ -114,7 +114,7 @@ Configuring the LSP is easy just simply `tevm/bundler/ts-plugin` to your tsconfi
 ```json
 {
   "compilerOptions": {
-    "plugins": [{ "name": "@tevm/bundler/ts-plugin" }]
+    "plugins": [{ "name": "@tevm/ts-plugin" }]
   }
 }
 ```
