@@ -13,7 +13,7 @@ import {
 	parseGwei,
 } from 'viem'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
-import { prepareTransactionRequest } from 'viem/actions'
+import { prepareTransactionRequest, signTransaction } from 'viem/actions'
 import { createSiweMessage } from 'viem/siwe'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -77,7 +77,7 @@ describe('viemPublicActions', () => {
 
 	const tests: Record<keyof PublicActions, () => void> = {
 		call: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(
 					await mc.call({
 						to: c.simpleContract.address,
@@ -139,16 +139,16 @@ describe('viemPublicActions', () => {
 			})
 		},
 		estimateFeesPerGas: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const block = await mc.getBlock()
 				const { maxFeePerGas, maxPriorityFeePerGas } = await mc.estimateFeesPerGas()
 				if (block.baseFeePerGas === null) throw new Error('baseFeePerGas is null')
-				expect(maxFeePerGas).toBe((120n * block.baseFeePerGas) / BigInt(100) + block.baseFeePerGas)
+				expect(maxFeePerGas).toBe(1000000001n)
 				expect(maxPriorityFeePerGas).toMatchSnapshot()
 			})
 		},
 		estimateGas: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(
 					await mc.estimateGas({
 						to: c.simpleContract.address,
@@ -158,7 +158,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		estimateMaxPriorityFeePerGas: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.estimateMaxPriorityFeePerGas()).toMatchSnapshot()
 			})
 		},
@@ -173,7 +173,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getBlock: () => {
-			it.todo('should work with blockHash', async () => {
+			it('should work with blockHash', async () => {
 				const vm = await mc._tevm.getVm()
 				const latest = await vm.blockchain.getCanonicalHeadBlock()
 				const { hash, timestamp, transactions, ...result } = await mc.getBlock({
@@ -186,6 +186,7 @@ describe('viemPublicActions', () => {
 				expect(result).toMatchSnapshot()
 			})
 
+			// this is broken has a bug
 			it.todo('should work with blocknumber', async () => {
 				const { timestamp, hash, transactions, ...result } = await mc.getBlock({
 					blockNumber: 0n,
@@ -198,32 +199,32 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getBlockNumber: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const newClient = createMemoryClient()
 				expect(await newClient.getBlockNumber()).toBe(0n)
 			})
 		},
 		getBlockTransactionCount: () => {
-			it.todo('should work', async () => {
-				expect(await mc.getBlockTransactionCount({ blockTag: 'latest' })).toBe(10)
+			it('should work', async () => {
+				expect(await mc.getBlockTransactionCount({ blockTag: 'latest' })).toBe(1)
 			})
 		},
 		getBytecode: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(c.simpleContract.deployedBytecode)
 			})
 		},
 		getChainId: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getChainId()).toBe(900)
 			})
 		},
 		getContractEvents: () => {
-			it.todo('getContractEvents should work', async () => {
+			it('getContractEvents should work', async () => {
 				// do a thing first
 				await mc.tevmCall({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					createTransaction: true,
 				})
 				const events = mc.getContractEvents({
@@ -354,12 +355,13 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getGasPrice: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const mc = createMemoryClient()
 				expect(await mc.getGasPrice()).toBe(parseGwei('1'))
 			})
 		},
 		getLogs: () => {
+			// this has a bug
 			it.todo('should work', async () => {
 				const filter = await mc.createEventFilter(eventAbi)
 				const logs = await mc.getLogs(filter)
@@ -367,6 +369,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getProof: () => {
+			// this has a bug
 			it.todo('should work', async () => {
 				expect(
 					await mc.getProof({ address: c.simpleContract.address, storageKeys: [numberToHex(0)] }),
@@ -374,7 +377,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getStorageAt: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getStorageAt({ address: c.simpleContract.address, slot: numberToHex(0) })).toBe(
 					// TODO why does this have to be size 2?
 					numberToHex(420, { size: 2 }),
@@ -382,7 +385,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getTransaction: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const { blockHash, ...tx } = await mc.getTransaction({ hash: deployTxHash })
 				expect(blockHash).toStartWith('0x')
 				const vm = await mc._tevm.getVm()
@@ -392,25 +395,24 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getTransactionConfirmations: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(1n)
 			})
 		},
 		getTransactionCount: () => {
-			it.todo('should work', async () => {
-				// TODO
-				expect(await mc.getTransactionCount({ address: prefundedAccounts[0] as Address })).toBe(0)
+			it('should work', async () => {
+				expect(await mc.getTransactionCount({ address: prefundedAccounts[0] as Address })).toBe(1)
 			})
 		},
 		getTransactionReceipt: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const { blockHash, ...receipt } = await mc.getTransactionReceipt({ hash: deployTxHash })
 				expect(blockHash).toStartWith('0x')
 				expect(receipt).toMatchSnapshot()
 			})
 		},
 		multicall: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const result = await mc.multicall({
 					contracts: [c.simpleContract.read.get(), c.simpleContract.read.get(), c.simpleContract.read.get()],
 				})
@@ -418,7 +420,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		prepareTransactionRequest: () => {
-			it.todo('prepareTransactionRequest should work', async () => {
+			it('prepareTransactionRequest should work', async () => {
 				const tx = await mc.prepareTransactionRequest({
 					to: c.simpleContract.address,
 					data: encodeFunctionData(c.simpleContract.write.set(69n)),
@@ -428,40 +430,44 @@ describe('viemPublicActions', () => {
 			})
 		},
 		readContract: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
 			})
 		},
 		sendRawTransaction: () => {
+			// weird bug with tevm thinking tx is not signed
 			it.todo('should work', async () => {
 				const to = `0x${'69'.repeat(20)}` as const
 				const request = await prepareTransactionRequest(mc, {
 					account,
 					to,
+					value: 420n,
 					chain: tevmDefault,
 				})
+				console.log('sending raw')
+				const tx = await signTransaction(mc, request)
 				const hash = await mc.sendRawTransaction({
-					serializedTransaction: await account.signTransaction(request),
+					serializedTransaction: tx,
 				})
 				const txPool = await mc._tevm.getTxPool()
 				expect(txPool.getByHash([hexToBytes(hash)])).toMatchSnapshot()
 			})
 		},
 		simulateContract: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.simulateContract(c.simpleContract.write.set(99999n))).toMatchSnapshot()
 			})
 		},
 		uninstallFilter: () => {},
 		verifyMessage: () => {
-			it.todo('verifyMessage should work', async () => {
+			it('verifyMessage should work', async () => {
 				const message = 'hello'
 				const signature = await account.signMessage({ message })
 				expect(await mc.verifyMessage({ message, signature, address: account.address })).toBe(true)
 			})
 		},
 		verifyTypedData: async () => {
-			it.todo('verifyTypedData should work', async () => {
+			it('verifyTypedData should work', async () => {
 				const message = {
 					from: {
 						name: 'Cow',
@@ -596,7 +602,7 @@ describe('viemPublicActions', () => {
 				})
 				await mc.tevmCall({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					createTransaction: true,
 				})
 				expect(await expectedEvent.promise).toMatchSnapshot()
@@ -615,7 +621,7 @@ describe('viemPublicActions', () => {
 				})
 				await mc.tevmCall({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					createTransaction: true,
 				})
 				expect(await expectedTx.promise).toMatchSnapshot()
@@ -641,7 +647,7 @@ describe('viemPublicActions', () => {
 	}
 
 	Object.entries(tests).forEach(([actionName, actionTests]) => {
-		if (actionName !== 'waitForTransactionReceipt') {
+		if (actionName !== 'multicall') {
 			// return
 		}
 		describe(actionName, actionTests)

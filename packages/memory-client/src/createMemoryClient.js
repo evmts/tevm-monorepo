@@ -1,4 +1,5 @@
 import { createBaseClient } from '@tevm/base-client'
+import { tevmDefault } from '@tevm/common'
 import { eip1993EventEmitter, requestEip1193, tevmActions, tevmSend } from '@tevm/decorators'
 import { createClient, createTransport, publicActions, testActions } from 'viem'
 
@@ -45,7 +46,7 @@ export const createMemoryClient = (options) => {
 
 	return createClient({
 		type: 'tevm',
-		.../** @type any*/ (options?.common !== undefined ? { chain: options.common } : {}),
+		.../** @type any*/ (options?.common !== undefined ? { chain: options.common } : { chain: tevmDefault }),
 		transport: () =>
 			createTransport({
 				request: /** @type any*/ (tevm.request),
