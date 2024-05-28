@@ -235,17 +235,17 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getEnsAddress: async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: mainnetTransport,
-					blockTag: 19804639n,
-				},
-			})
 			it.todo(
 				'should work',
 				async () => {
+					const kzg = await loadKZG()
+					const mainnetClient = createMemoryClient({
+						common: Object.assign({ kzg }, mainnet),
+						fork: {
+							transport: mainnetTransport,
+							blockTag: 19804639n,
+						},
+					})
 					expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe(
 						'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 					)
@@ -254,17 +254,17 @@ describe('viemPublicActions', () => {
 			)
 		},
 		getEnsAvatar: async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: mainnetTransport,
-					blockTag: 19804639n,
-				},
-			})
 			it.todo(
 				'should work',
 				async () => {
+					const kzg = await loadKZG()
+					const mainnetClient = createMemoryClient({
+						common: Object.assign({ kzg }, mainnet),
+						fork: {
+							transport: mainnetTransport,
+							blockTag: 19804639n,
+						},
+					})
 					expect(
 						await mainnetClient.getEnsAvatar({
 							name: 'wevm.eth',
@@ -275,17 +275,17 @@ describe('viemPublicActions', () => {
 			)
 		},
 		getEnsName: async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: mainnetTransport,
-					blockTag: 19804639n,
-				},
-			})
 			it.todo(
 				'should work',
 				async () => {
+					const kzg = await loadKZG()
+					const mainnetClient = createMemoryClient({
+						common: Object.assign({ kzg }, mainnet),
+						fork: {
+							transport: mainnetTransport,
+							blockTag: 19804639n,
+						},
+					})
 					expect(await mainnetClient.getEnsName({ address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' })).toBe(
 						'vitalik.eth',
 					)
@@ -294,17 +294,17 @@ describe('viemPublicActions', () => {
 			)
 		},
 		getEnsResolver: async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: mainnetTransport,
-					blockTag: 19804639n,
-				},
-			})
 			it.todo(
 				'should work',
 				async () => {
+					const kzg = await loadKZG()
+					const mainnetClient = createMemoryClient({
+						common: Object.assign({ kzg }, mainnet),
+						fork: {
+							transport: mainnetTransport,
+							blockTag: 19804639n,
+						},
+					})
 					expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
 						'0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41',
 					)
@@ -313,15 +313,15 @@ describe('viemPublicActions', () => {
 			)
 		},
 		getEnsText: async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: mainnetTransport,
-					blockTag: 19804639n,
-				},
-			})
 			it.todo('should work', async () => {
+				const kzg = await loadKZG()
+				const mainnetClient = createMemoryClient({
+					common: Object.assign({ kzg }, mainnet),
+					fork: {
+						transport: mainnetTransport,
+						blockTag: 19804639n,
+					},
+				})
 				expect(await mainnetClient.getEnsText({ name: 'vitalik.eth', key: 'key' })).toBe(
 					'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 				)
