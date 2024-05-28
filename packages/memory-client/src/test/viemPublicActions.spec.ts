@@ -441,11 +441,12 @@ describe('viemPublicActions', () => {
 				})
 				if (!txHash) throw new Error('txHash not found')
 				await mc.mine({ blocks: 1 })
-				const { blockHash, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
+				const { blockHash, logs, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
 				const vm = await mc._tevm.getVm()
 				const block = await vm.blockchain.getCanonicalHeadBlock()
 				expect(blockHash).toBe(bytesToHex(block.header.hash()))
 				expect(receipt).toMatchSnapshot()
+				expect(logs.map((log) => ({ ...log, blockHash: 'redacted' }))).toMatchSnapshot()
 			})
 		},
 		watchBlockNumber: () => {
