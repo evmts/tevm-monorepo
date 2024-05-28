@@ -72,7 +72,7 @@ describe('viemPublicActions', () => {
 				expect(
 					await mc.call({
 						to: c.simpleContract.address,
-						data: encodeFunctionData(simpleContract.read.get()),
+						data: encodeFunctionData(c.simpleContract.read.get()),
 					}),
 				).toEqual({
 					data: '0x00000000000000000000000000000000000000000000000000000000000001a4',
@@ -124,7 +124,7 @@ describe('viemPublicActions', () => {
 		},
 		estimateContractGas: () => {
 			it('should work', async () => {
-				expect(await mc.estimateContractGas(c.simpleContract.write.set(69n))).toBe(16771823n)
+				expect(await mc.estimateContractGas(c.simpleContract.write.set(69n))).toBe(16770635n)
 			})
 		},
 		estimateFeesPerGas: () => {},
@@ -133,15 +133,15 @@ describe('viemPublicActions', () => {
 				expect(
 					await mc.estimateGas({
 						to: c.simpleContract.address,
-						data: encodeFunctionData(simpleContract.write.set(69n)),
+						data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					}),
-				).toBe(16771823n)
+				).toBe(16770635n)
 			})
 		},
 		estimateMaxPriorityFeePerGas: () => {},
 		getBalance: () => {
 			it('should work', async () => {
-				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998965953n)
+				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998882303n)
 			})
 		},
 		getBlobBaseFee: () => {
@@ -355,7 +355,7 @@ describe('viemPublicActions', () => {
 			it('prepareTransactionRequest should work', async () => {
 				const tx = await mc.prepareTransactionRequest({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					chain: tevmDefault,
 				})
 				expect(tx).toMatchSnapshot()
@@ -436,7 +436,7 @@ describe('viemPublicActions', () => {
 			it('waitForTransactionReceipt hould work', async () => {
 				const { txHash } = await mc.tevmCall({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					createTransaction: true,
 				})
 				if (!txHash) throw new Error('txHash not found')
