@@ -1,5 +1,24 @@
 # @tevm/client
 
+## 1.1.0-next.62
+
+### Minor Changes
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Added multicall3 on genesis to tevm devnet
+
+### Patch Changes
+
+- Updated dependencies [[`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2)]:
+  - @tevm/common@1.1.0-next.62
+  - @tevm/blockchain@1.1.0-next.62
+  - @tevm/evm@1.1.0-next.62
+  - @tevm/receipt-manager@1.1.0-next.62
+  - @tevm/state@1.1.0-next.62
+  - @tevm/vm@1.1.0-next.62
+  - @tevm/predeploys@1.1.0-next.62
+  - @tevm/txpool@1.1.0-next.62
+  - @tevm/sync-storage-persister@1.1.0-next.62
+
 ## 1.1.0-next.61
 
 ### Minor Changes

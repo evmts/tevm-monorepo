@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.1.0-next.62
+
+### Patch Changes
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not handling an error in estimateGas"
+
+- Updated dependencies []:
+  - @tevm/actions@1.1.0-next.62
+  - @tevm/block@1.1.0-next.62
+
 ## 1.1.0-next.61
 
 ### Minor Changes

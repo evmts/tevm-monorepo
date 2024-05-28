@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.62
+
+### Minor Changes
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Added multicall3 on genesis to tevm devnet
+
 ## 1.1.0-next.60
 
 ### Patch Changes
