@@ -6,7 +6,12 @@ exports[`callHandlerOpts should handle empty params 1`] = `
     "cache": {},
     "common": {
       "blockExplorers": undefined,
-      "contracts": undefined,
+      "contracts": {
+        "multicall3": {
+          "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+          "blockCreated": 0,
+        },
+      },
       "copy": [Function],
       "custom": undefined,
       "ethjsCommon": Common {
@@ -1907,7 +1912,12 @@ exports[`callHandlerOpts should handle empty params 1`] = `
       },
       "common": {
         "blockExplorers": undefined,
-        "contracts": undefined,
+        "contracts": {
+          "multicall3": {
+            "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+            "blockCreated": 0,
+          },
+        },
         "copy": [Function],
         "custom": undefined,
         "ethjsCommon": Common {
