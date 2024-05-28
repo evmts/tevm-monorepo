@@ -52,7 +52,7 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const solcCache = createCache(config.cacheDir, fao, cwd)
 		const plugin = bundler(config, console, fao, solc, solcCache)
 		plugin
-			.resolveTsModule(`./${file}`, cwd, false, false)
+			.resolveTsModule(`./${file}`, cwd, false, true)
 			.then((tsContent) => writeFile(path.join(fileDir, `${fileName}.ts`), tsContent.code))
 	})
 }
