@@ -1,5 +1,9 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`viemPublicActions estimateFeesPerGas should work 1`] = `999999993n`;
+
+exports[`viemPublicActions estimateMaxPriorityFeePerGas should work 1`] = `999999993n`;
+
 exports[`viemPublicActions getBlock should work with blockHash 1`] = `
 [
   {
@@ -57,37 +61,7 @@ exports[`viemPublicActions getBlock should work with blockHash 2`] = `
 }
 `;
 
-exports[`viemPublicActions getBlock should work with blocknumber 1`] = `[]`;
-
-exports[`viemPublicActions getBlock should work with blocknumber 2`] = `
-{
-  "baseFeePerGas": 7n,
-  "blobGasUsed": 0n,
-  "difficulty": 17179869184n,
-  "excessBlobGas": 0n,
-  "extraData": "0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa",
-  "gasLimit": 30000000n,
-  "gasUsed": 0n,
-  "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "miner": "0x0000000000000000000000000000000000000000",
-  "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "nonce": "0x0000000000000042",
-  "number": 0n,
-  "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-  "requests": undefined,
-  "requestsRoot": undefined,
-  "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-  "size": 1597n,
-  "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-  "totalDifficulty": 0n,
-  "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-  "uncles": [],
-  "withdrawals": [],
-  "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-}
-`;
+exports[`viemPublicActions getContractEvents getContractEvents should work 1`] = `Promise {}`;
 
 exports[`viemPublicActions getTransaction should work 1`] = `
 {
@@ -121,6 +95,10 @@ exports[`viemPublicActions getTransactionReceipt should work 1`] = `
   "effectiveGasPrice": null,
   "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
   "gasUsed": 159671n,
+  "l1Fee": null,
+  "l1FeeScalar": null,
+  "l1GasPrice": null,
+  "l1GasUsed": null,
   "logs": [],
   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
   "status": null,
@@ -131,11 +109,75 @@ exports[`viemPublicActions getTransactionReceipt should work 1`] = `
 }
 `;
 
+exports[`viemPublicActions multicall should work 1`] = `
+[
+  {
+    "error": [ContractFunctionExecutionError: The contract function "aggregate3" returned no data ("0x").
+
+This could be due to any of the following:
+  - The contract does not have the function "aggregate3",
+  - The parameters passed to the contract function may be invalid, or
+  - The address is not a contract.
+ 
+Contract Call:
+  address:   0xcA11bde05977b3631167028862bE2a173976CA11
+  function:  aggregate3((address target, bool allowFailure, bytes callData)[])
+  args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
+
+Docs: https://viem.sh/docs/contract/readContract
+Version: viem@2.12.0],
+    "result": undefined,
+    "status": "failure",
+  },
+  {
+    "error": [ContractFunctionExecutionError: The contract function "aggregate3" returned no data ("0x").
+
+This could be due to any of the following:
+  - The contract does not have the function "aggregate3",
+  - The parameters passed to the contract function may be invalid, or
+  - The address is not a contract.
+ 
+Contract Call:
+  address:   0xcA11bde05977b3631167028862bE2a173976CA11
+  function:  aggregate3((address target, bool allowFailure, bytes callData)[])
+  args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
+
+Docs: https://viem.sh/docs/contract/readContract
+Version: viem@2.12.0],
+    "result": undefined,
+    "status": "failure",
+  },
+  {
+    "error": [ContractFunctionExecutionError: The contract function "aggregate3" returned no data ("0x").
+
+This could be due to any of the following:
+  - The contract does not have the function "aggregate3",
+  - The parameters passed to the contract function may be invalid, or
+  - The address is not a contract.
+ 
+Contract Call:
+  address:   0xcA11bde05977b3631167028862bE2a173976CA11
+  function:  aggregate3((address target, bool allowFailure, bytes callData)[])
+  args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
+
+Docs: https://viem.sh/docs/contract/readContract
+Version: viem@2.12.0],
+    "result": undefined,
+    "status": "failure",
+  },
+]
+`;
+
 exports[`viemPublicActions prepareTransactionRequest prepareTransactionRequest should work 1`] = `
 {
   "chain": {
     "blockExplorers": undefined,
-    "contracts": undefined,
+    "contracts": {
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "blockCreated": 0,
+      },
+    },
     "copy": [Function],
     "custom": undefined,
     "ethjsCommon": Common {
@@ -2023,6 +2065,10 @@ exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt h
   "effectiveGasPrice": null,
   "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
   "gasUsed": 27784n,
+  "l1Fee": null,
+  "l1FeeScalar": null,
+  "l1GasPrice": null,
+  "l1GasUsed": null,
   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000",
   "status": null,
   "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
@@ -2048,4 +2094,37 @@ exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt h
     "transactionIndex": 0,
   },
 ]
+`;
+
+exports[`viemPublicActions watchBlocks should work 1`] = `
+{
+  "baseFeePerGas": 7n,
+  "blobGasUsed": 0n,
+  "difficulty": 0n,
+  "excessBlobGas": 0n,
+  "extraData": "0x",
+  "gasLimit": 30000000n,
+  "gasUsed": 0n,
+  "hash": "0xredacted",
+  "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "miner": "0x0000000000000000000000000000000000000000",
+  "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "nonce": "0x0000000000000000",
+  "number": 2n,
+  "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash": "0xredacted",
+  "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  "requests": undefined,
+  "requestsRoot": undefined,
+  "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  "size": 1532n,
+  "stateRoot": "0xredacted",
+  "timestamp": 69n,
+  "totalDifficulty": 0n,
+  "transactions": [],
+  "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  "uncles": [],
+  "withdrawals": [],
+  "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+}
 `;

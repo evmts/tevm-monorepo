@@ -9,4 +9,4 @@ title: "GENESIS_STATE"
 
 ## Source
 
-[GENESIS\_STATE.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/GENESIS_STATE.js#L28)
+[GENESIS\_STATE.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/GENESIS_STATE.js#L36)

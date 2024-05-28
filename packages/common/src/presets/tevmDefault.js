@@ -13,7 +13,11 @@ export const tevmDefault = createCommon({
 		rpcUrls: foundry.rpcUrls,
 		testnet: true,
 		custom: foundry.custom,
-		contracts: foundry.contracts,
+		contracts: {
+			...foundry.contracts,
+			// we add this in createBaseClient
+			multicall3: { address: '0xcA11bde05977b3631167028862bE2a173976CA11', blockCreated: 0 },
+		},
 		formatters: _optimism.formatters,
 		nativeCurrency: _optimism.nativeCurrency,
 		blockExplorers: foundry.blockExplorers,
