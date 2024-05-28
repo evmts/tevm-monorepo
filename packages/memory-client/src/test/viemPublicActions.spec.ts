@@ -523,11 +523,12 @@ describe('viemPublicActions', () => {
 					abi: c.simpleContract.abi,
 					address: c.simpleContract.address,
 					poll: true,
-					onLogs: (log) => {
+					onLogs: (/**log*/) => {
 						// todo need to add events to simpleContract
 						logs.push()
 					},
 				})
+				unwatch()
 			})
 		},
 		waitForTransactionReceipt: () => {
