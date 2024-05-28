@@ -12,4 +12,5 @@ title: "@tevm/vm"
 
 ## Functions
 
+- [buildBlock](/reference/tevm/vm/functions/buildblock/)
 - [createVm](/reference/tevm/vm/functions/createvm/)
