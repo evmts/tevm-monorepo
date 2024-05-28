@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.62
+
+### Patch Changes
+
+- Updated dependencies [[`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2), [`efc5998`](https://github.com/evmts/tevm-monorepo/commit/efc5998db8b0f90cd68e6d7fc906826a4b55951c)]:
+  - @tevm/common@1.1.0-next.62
+  - @tevm/test-utils@1.1.0-next.62
+
 ## 1.1.0-next.60
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.62
+
+### Minor Changes
+
+- [#1137](https://github.com/evmts/tevm-monorepo/pull/1137) [`efc5998`](https://github.com/evmts/tevm-monorepo/commit/efc5998db8b0f90cd68e6d7fc906826a4b55951c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added event emit on `set` method for SimpleContract
+
 ## 1.1.0-next.60
 
 ### Patch Changes

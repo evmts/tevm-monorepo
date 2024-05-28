@@ -1,5 +1,24 @@
 # @tevm/client
 
+## 1.1.0-next.62
+
+### Minor Changes
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Added multicall3 on genesis to tevm devnet
+
+### Patch Changes
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where the chain was not getting passed into memory client if defaulting to tevmDefault
+
+- [#1136](https://github.com/evmts/tevm-monorepo/pull/1136) [`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not handling an error in estimateGas"
+
+- Updated dependencies [[`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2), [`efc5998`](https://github.com/evmts/tevm-monorepo/commit/efc5998db8b0f90cd68e6d7fc906826a4b55951c)]:
+  - @tevm/base-client@1.1.0-next.62
+  - @tevm/common@1.1.0-next.62
+  - @tevm/contract@1.1.0-next.62
+  - @tevm/decorators@1.1.0-next.62
+  - @tevm/evm@1.1.0-next.62
+
 ## 1.1.0-next.61
 
 ### Patch Changes

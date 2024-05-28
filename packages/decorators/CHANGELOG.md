@@ -1,5 +1,15 @@
 # @tevm/client
 
+## 1.1.0-next.62
+
+### Patch Changes
+
+- Updated dependencies [[`1676394`](https://github.com/evmts/tevm-monorepo/commit/1676394b6f2883220dfbe4aa3dd52cf5de3222b2)]:
+  - @tevm/procedures@1.1.0-next.62
+  - @tevm/actions@1.1.0-next.62
+  - @tevm/actions-types@1.1.0-next.60
+  - @tevm/procedures-types@1.1.0-next.60
+
 ## 1.1.0-next.61
 
 ### Patch Changes
