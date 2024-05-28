@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`viemPublicActions getBlock should work with blockHash 1`] = `
@@ -28,6 +29,31 @@ exports[`viemPublicActions getBlock should work with blockHash 1`] = `
 `;
 
 exports[`viemPublicActions getBlock should work with blockHash 2`] = `
+=======
+<<<<<<< HEAD
+=======
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt hould work 1`] = `
+{
+  "blockNumber": 2n,
+  "contractAddress": null,
+  "cumulativeGasUsed": 26596n,
+  "effectiveGasPrice": null,
+  "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "gasUsed": 26596n,
+  "logs": [],
+  "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "status": null,
+  "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "transactionHash": "0xc74ff42ef7dc940248b08dad2125988b96f82d6a804a1847e0f899f2bb86979b",
+  "transactionIndex": 0,
+  "type": null,
+}
+`;
+
+exports[`viemPublicActions watchBlocks should work 1`] = `
+>>>>>>> 96a11909c (:construction: Wip)
 {
   "baseFeePerGas": 7n,
   "blobGasUsed": 0n,
@@ -35,11 +61,17 @@ exports[`viemPublicActions getBlock should work with blockHash 2`] = `
   "excessBlobGas": 0n,
   "extraData": "0x",
   "gasLimit": 30000000n,
+<<<<<<< HEAD
   "gasUsed": 159671n,
+=======
+  "gasUsed": 0n,
+  "hash": "0x073c60a6d9a34385437e1ba2aaa3322684755c150dc50868bc1ddb36246e1198",
+>>>>>>> 96a11909c (:construction: Wip)
   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
   "miner": "0x0000000000000000000000000000000000000000",
   "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "nonce": "0x0000000000000000",
+<<<<<<< HEAD
   "number": 1n,
   "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "parentHash": "0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454",
@@ -75,19 +107,33 @@ exports[`viemPublicActions getBlock should work with blocknumber 2`] = `
   "number": 0n,
   "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+=======
+  "number": 2n,
+  "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash": "0x60700b7467815142c44746378e0960478fa39b7b6c7e4e1f37de748e7d1bc7cc",
+>>>>>>> 96a11909c (:construction: Wip)
   "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "requests": undefined,
   "requestsRoot": undefined,
   "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+<<<<<<< HEAD
   "size": 1597n,
   "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "totalDifficulty": 0n,
+=======
+  "size": 1532n,
+  "stateRoot": "0x0bbfd815b4349444cac088e50e7304c6af6235e8f83a02a8d1fd26a86dfda85e",
+  "timestamp": 1716910187n,
+  "totalDifficulty": 0n,
+  "transactions": [],
+>>>>>>> 96a11909c (:construction: Wip)
   "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "uncles": [],
   "withdrawals": [],
   "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
 }
 `;
+<<<<<<< HEAD
 
 exports[`viemPublicActions getTransaction should work 1`] = `
 {
@@ -2014,6 +2060,7 @@ exports[`viemPublicActions simulateContract should work 1`] = `
   "result": undefined,
 }
 `;
+<<<<<<< HEAD
 
 exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt hould work 1`] = `
 {
@@ -2031,6 +2078,7 @@ exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt h
   "type": null,
 }
 `;
+<<<<<<< HEAD
 
 exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt hould work 2`] = `
 [
@@ -2049,3 +2097,10 @@ exports[`viemPublicActions waitForTransactionReceipt waitForTransactionReceipt h
   },
 ]
 `;
+=======
+=======
+=======
+>>>>>>> 6b3e54373 (:construction: Wip)
+>>>>>>> 96a11909c (:construction: Wip)
+>>>>>>> 36f32a7a1 (:construction: Wip)
+>>>>>>> 3bb495972 (:construction: Wip)
