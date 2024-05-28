@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet, tevmDefault } from '@tevm/common'
-import { simpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract, transports } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
@@ -43,21 +43,21 @@ describe('viemPublicActions', () => {
 	let mc: MemoryClient
 	let deployTxHash: Hex
 	let c = {
-		simpleContract: simpleContract.withAddress(`0x${'00'.repeat(20)}`),
+		simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 	}
 
 	beforeEach(async () => {
 		mc = createMemoryClient()
 		const deployResult = await mc.tevmDeploy({
-			bytecode: simpleContract.bytecode,
-			abi: simpleContract.abi,
+			bytecode: SimpleContract.bytecode,
+			abi: SimpleContract.abi,
 			args: [420n],
 		})
 		if (!deployResult.createdAddress) {
 			throw new Error('contract never deployed')
 		}
 		c = {
-			simpleContract: simpleContract.withAddress(deployResult.createdAddress),
+			simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
 		}
 		if (!deployResult.txHash) {
 			throw new Error('txHash not found')
