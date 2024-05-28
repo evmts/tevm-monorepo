@@ -1,5 +1,5 @@
 <p align="center">
-  Build powerful TypeScript applications powered by the EVM, simplified
+  A complete toolset to build Ethereum applications in JavaScript
 <p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
@@ -10,19 +10,18 @@
 
 # tevm-monorepo
 
-Tevm is a JavaScript EVM client and a Solidity-to-TypeScript compiler.
+Tevm brings first class JavaScript support to ethereum to enable devx and use cases previously not imagined.
 
 ## Features
 
-✅ &nbsp;EVM simulations<br/>
+✅ &nbsp;EVM simulations directly in a JavaScript evm. Run any ethereum tx locally in the browser and node.js<br/>
 ✅ &nbsp;forking akin to [anvil --fork-url](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)<br/>
-✅ &nbsp;Solidity scripting akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)<br/>
-✅ &nbsp;Compiles contracts in JavaScript via importing solidity files<br/>
+✅ &nbsp;Solidity scripting inspired by [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting). Run solidity in JS and run JS in solidity. You can even do wild things like [write an http server in solidity](https://x.com/FUCORY/status/1794839755693453457)<br/>
+✅ &nbsp;Compiles contracts in JavaScript via importing solidity files. No more copy pasting abis or complicated build steps<br/>
 ✅ &nbsp;Extensions for usage with Viem, Ethers.js, Next.js, and Express.<br/>
-✅ &nbsp;Compiles contracts in JavaScript via importing solidity files<br/>
-🏗️ &nbsp;EVM Tracing (coming in upcoming release)<br/>
-🏗️ &nbsp;React hook library<br/>
-🏗️ &nbsp;First class vue and svelte support<br/>
+✅ &nbsp;EVM Tracing (coming in upcoming release)<br/>
+✅ &nbsp;Http handlers for running as a server in tests or backends<br/>
+✅ &nbsp;Full support for the ethereum JSON-RPC api and anvil_ api<br/>
 
 Tevm runs in all environments
 
