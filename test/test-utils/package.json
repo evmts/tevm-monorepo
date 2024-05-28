@@ -46,10 +46,10 @@
 	],
 	"scripts": {
 		"all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
-		"prebuild": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
+		"generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
-		"build:dist": "bun run prebuild && tsup",
-		"build:types": "bun run prebuild && tsup --dts-only",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
