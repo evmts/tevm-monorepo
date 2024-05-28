@@ -583,6 +583,10 @@ describe('viemPublicActions', () => {
 					poll: true,
 					pollingInterval: 100,
 					onBlock: (block) => {
+						block.hash = '0xredacted'
+						block.stateRoot = '0xredacted'
+						block.parentHash = '0xredacted'
+						block.timestamp = 69n
 						expectedBlock.resolve(block)
 					},
 				})
