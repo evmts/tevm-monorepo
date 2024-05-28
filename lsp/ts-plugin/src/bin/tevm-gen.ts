@@ -29,7 +29,16 @@ const fao: FileAccessObject = {
 	},
 }
 
+const showHelp = () => {
+	console.log(`
+Usage: node script.js [cwd] [include]
+Options:
+  -h, --help    Show this help message and exit
+`)
+}
+
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
+	console.log('Generating types from contracts...', { dir: cwd, include })
 	const files = glob.sync(include, {
 		cwd,
 	})
@@ -43,8 +52,20 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const solcCache = createCache(config.cacheDir, fao, cwd)
 		const plugin = bundler(config, console, fao, solc, solcCache)
 		plugin
-			.resolveTsModule(file, cwd, false, false)
-			.then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts.code))
+			.resolveTsModule(`./${file}`, cwd, false, false)
+			.then((tsContent) => writeFile(path.join(fileDir, `${fileName}.ts`), tsContent.code))
 	})
 }
-generate()
+
+const args = process.argv.slice(2)
+
+if (args.includes('-h') || args.includes('--help')) {
+	showHelp()
+	process.exit(0)
+}
+
+const [userCwd, userInclude] = args
+const cwd = userCwd || process.cwd()
+const include = userInclude ? userInclude.split(',') : ['src/**/*.sol']
+
+generate(cwd, include)

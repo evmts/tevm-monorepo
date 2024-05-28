@@ -12,6 +12,6 @@
 		"moduleResolution": "NodeNext",
 		"module": "NodeNext"
 	},
-	"include": ["src", "src/**/*.json", "**/*.sol"],
+	"include": ["src", "src/**/*.json"],
 	"exclude": ["src/common/**/*"]
 }
