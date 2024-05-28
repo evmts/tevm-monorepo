@@ -52,6 +52,10 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+• **client.impersonatedAccount**: `undefined` \| \`0x$\{string\}\`
+
+The currently impersonated account. This is only used in `fork` mode
+
 • **client.logger**: `Logger`
 
 The logger instance
@@ -91,6 +95,11 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
+• **client.setImpersonatedAccount**
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+
 ## Returns
 
 `TevmJsonRpcRequestHandler`
@@ -114,4 +123,4 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/requestProcedure.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L58)
+[procedures/src/requestProcedure.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L66)

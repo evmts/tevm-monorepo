@@ -2,10 +2,12 @@
 editUrl: false
 next: false
 prev: false
-title: "mineHandler"
+title: "forkAndCacheBlock"
 ---
 
-> **mineHandler**(`client`, `options`?): [`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`void`\>
+
+Will fork a given block number and save the state roots to state manager
 
 ## Parameters
 
@@ -90,16 +92,14 @@ await client.ready()
 Sets the account to impersonate. This will allow the client to act as if it is that account
 On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
-• **options?**= `{}`
+• **block?**: `Block`
 
-• **options.throwOnFail?**: `undefined` \| `boolean`
-
-whether to default to throwing or not when errors occur
+• **executeBlock?**: `boolean`= `false`
 
 ## Returns
 
-[`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+`Promise`\<`void`\>
 
 ## Source
 
-[packages/actions/src/tevm/mineHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/mineHandler.js#L14)
+[packages/actions/src/internal/forkAndCacheBlock.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L10)

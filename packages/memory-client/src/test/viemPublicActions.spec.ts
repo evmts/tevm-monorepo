@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet, tevmDefault } from '@tevm/common'
-import { simpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract, transports } from '@tevm/test-utils'
 import { type Address, type Hex } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
 import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
@@ -43,21 +43,21 @@ describe('viemPublicActions', () => {
 	let mc: MemoryClient
 	let deployTxHash: Hex
 	let c = {
-		simpleContract: simpleContract.withAddress(`0x${'00'.repeat(20)}`),
+		simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 	}
 
 	beforeEach(async () => {
 		mc = createMemoryClient()
 		const deployResult = await mc.tevmDeploy({
-			bytecode: simpleContract.bytecode,
-			abi: simpleContract.abi,
+			bytecode: SimpleContract.bytecode,
+			abi: SimpleContract.abi,
 			args: [420n],
 		})
 		if (!deployResult.createdAddress) {
 			throw new Error('contract never deployed')
 		}
 		c = {
-			simpleContract: simpleContract.withAddress(deployResult.createdAddress),
+			simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
 		}
 		if (!deployResult.txHash) {
 			throw new Error('txHash not found')
@@ -72,7 +72,7 @@ describe('viemPublicActions', () => {
 				expect(
 					await mc.call({
 						to: c.simpleContract.address,
-						data: encodeFunctionData(simpleContract.read.get()),
+						data: encodeFunctionData(c.simpleContract.read.get()),
 					}),
 				).toEqual({
 					data: '0x00000000000000000000000000000000000000000000000000000000000001a4',
@@ -124,7 +124,7 @@ describe('viemPublicActions', () => {
 		},
 		estimateContractGas: () => {
 			it('should work', async () => {
-				expect(await mc.estimateContractGas(c.simpleContract.write.set(69n))).toBe(16771823n)
+				expect(await mc.estimateContractGas(c.simpleContract.write.set(69n))).toBe(16770635n)
 			})
 		},
 		estimateFeesPerGas: () => {},
@@ -133,15 +133,15 @@ describe('viemPublicActions', () => {
 				expect(
 					await mc.estimateGas({
 						to: c.simpleContract.address,
-						data: encodeFunctionData(simpleContract.write.set(69n)),
+						data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					}),
-				).toBe(16771823n)
+				).toBe(16770635n)
 			})
 		},
 		estimateMaxPriorityFeePerGas: () => {},
 		getBalance: () => {
 			it('should work', async () => {
-				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998965953n)
+				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998882303n)
 			})
 		},
 		getBlobBaseFee: () => {
@@ -355,7 +355,7 @@ describe('viemPublicActions', () => {
 			it('prepareTransactionRequest should work', async () => {
 				const tx = await mc.prepareTransactionRequest({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					chain: tevmDefault,
 				})
 				expect(tx).toMatchSnapshot()
@@ -436,16 +436,17 @@ describe('viemPublicActions', () => {
 			it('waitForTransactionReceipt hould work', async () => {
 				const { txHash } = await mc.tevmCall({
 					to: c.simpleContract.address,
-					data: encodeFunctionData(simpleContract.write.set(69n)),
+					data: encodeFunctionData(c.simpleContract.write.set(69n)),
 					createTransaction: true,
 				})
 				if (!txHash) throw new Error('txHash not found')
 				await mc.mine({ blocks: 1 })
-				const { blockHash, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
+				const { blockHash, logs, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
 				const vm = await mc._tevm.getVm()
 				const block = await vm.blockchain.getCanonicalHeadBlock()
 				expect(blockHash).toBe(bytesToHex(block.header.hash()))
 				expect(receipt).toMatchSnapshot()
+				expect(logs.map((log) => ({ ...log, blockHash: 'redacted' }))).toMatchSnapshot()
 			})
 		},
 		watchBlockNumber: () => {

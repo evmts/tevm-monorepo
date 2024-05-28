@@ -123,6 +123,12 @@ Tevm respects the `baseUrl` and `paths` property in the tsconfig.
 
 If you configure your LSP and are still seeing issues importing solidity files you may need to configure your editor. Vim and Neovim should work out the box but VSCode users specifically will need to follow the below instructions.
 
+## Codegen
+
+Tevm has the ability to codegen typescript files next to the solidity file. This can be helpful if you prefer to commit the TypeScript, wish to run the typechecker with tsc, or your build tool does not support plugins. To use install `@tevm/ts-plugin` and run the `npx tevm-codegen` or `node node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js` command.
+
+By default the command will look for solidity files in `src/**/*.sol` relative to `cwd`.
+
 ## VSCode
 
 If you are using vscode you will need to [configure typescript to use local version](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)

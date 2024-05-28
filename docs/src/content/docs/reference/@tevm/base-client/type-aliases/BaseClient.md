@@ -78,6 +78,12 @@ on top of Tevm.
 
 `Promise`\<[`Vm`](/reference/tevm/vm/type-aliases/vm/)\>
 
+### impersonatedAccount
+
+> `readonly` **impersonatedAccount**: [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
+The currently impersonated account. This is only used in `fork` mode
+
 ### logger
 
 > `readonly` **logger**: `Logger`
@@ -129,6 +135,21 @@ await client.ready()
 
 `Promise`\<`true`\>
 
+### setImpersonatedAccount()
+
+> `readonly` **setImpersonatedAccount**: (`address`) => `void`
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+
+#### Parameters
+
+• **address**: [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
+#### Returns
+
+`void`
+
 ## Type parameters
 
 • **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
@@ -137,4 +158,4 @@ await client.ready()
 
 ## Source
 
-[BaseClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L11)
+[BaseClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L12)

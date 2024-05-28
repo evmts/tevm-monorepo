@@ -31,6 +31,7 @@ title: "@tevm/actions"
 - [ethSendTransactionHandler](/reference/tevm/actions/functions/ethsendtransactionhandler/)
 - [ethSignHandler](/reference/tevm/actions/functions/ethsignhandler/)
 - [ethSignTransactionHandler](/reference/tevm/actions/functions/ethsigntransactionhandler/)
+- [forkAndCacheBlock](/reference/tevm/actions/functions/forkandcacheblock/)
 - [gasPriceHandler](/reference/tevm/actions/functions/gaspricehandler/)
 - [getAccountHandler](/reference/tevm/actions/functions/getaccounthandler/)
 - [getBalanceHandler](/reference/tevm/actions/functions/getbalancehandler/)
