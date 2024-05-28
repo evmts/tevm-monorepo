@@ -2,10 +2,19 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import { prefundedAccounts } from '@tevm/base-client'
 import { mainnet, tevmDefault } from '@tevm/common'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { type Address, type Hex } from '@tevm/utils'
+import { type Address, type Hex, hexToBytes } from '@tevm/utils'
 import { loadKZG } from 'kzg-wasm'
-import { type PublicActions, bytesToHex, encodeFunctionData, numberToHex, parseGwei } from 'viem'
+import {
+	type PublicActions,
+	type WatchContractEventOnLogsParameter,
+	bytesToHex,
+	encodeFunctionData,
+	numberToHex,
+	parseGwei,
+} from 'viem'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
+import { prepareTransactionRequest } from 'viem/actions'
+import { createSiweMessage } from 'viem/siwe'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -80,12 +89,12 @@ describe('viemPublicActions', () => {
 			})
 		},
 		createBlockFilter: () => {
-			it.todo('works', async () => {
+			it('works', async () => {
 				expect(await mc.createBlockFilter()).toMatchSnapshot()
 			})
 		},
 		createContractEventFilter: async () => {
-			it.todo('works', async () => {
+			it('works', async () => {
 				const filter = await mc.createContractEventFilter({
 					abi: c.simpleContract.abi,
 				})
@@ -96,7 +105,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		createEventFilter: () => {
-			it.todo('works with no args', async () => {
+			it('works with no args', async () => {
 				const filter = await mc.createEventFilter()
 				expect(filter.id).toBeDefined()
 				expect(filter.type).toBe('event')
@@ -105,13 +114,13 @@ describe('viemPublicActions', () => {
 				expect(filter.eventName).toBeUndefined()
 			})
 
-			it.todo('works with args: address', async () => {
+			it('works with args: address', async () => {
 				await mc.createEventFilter({
 					address: `0x${'69'.repeat(20)}`,
 				})
 			})
 
-			it.todo('works with args: event', async () => {
+			it('works with args: event', async () => {
 				const filter = await mc.createEventFilter(eventAbi)
 				expect(filter.args).toBeUndefined()
 				// @ts-expect-errory TODO this is a viem test copy pasted why is type not working?
@@ -120,14 +129,24 @@ describe('viemPublicActions', () => {
 			})
 		},
 		createPendingTransactionFilter: () => {
-			it.todo('should work')
+			it('createPendingTransactionFilter work', async () => {
+				expect(await mc.createPendingTransactionFilter()).toMatchSnapshot()
+			})
 		},
 		estimateContractGas: () => {
 			it('should work', async () => {
 				expect(await mc.estimateContractGas(c.simpleContract.write.set(69n))).toBe(16770635n)
 			})
 		},
-		estimateFeesPerGas: () => {},
+		estimateFeesPerGas: () => {
+			it('should work', async () => {
+				const block = await mc.getBlock()
+				const { maxFeePerGas, maxPriorityFeePerGas } = await mc.estimateFeesPerGas()
+				if (block.baseFeePerGas === null) throw new Error('baseFeePerGas is null')
+				expect(maxFeePerGas).toBe((120n * block.baseFeePerGas) / BigInt(100) + block.baseFeePerGas)
+				expect(maxPriorityFeePerGas).toMatchSnapshot()
+			})
+		},
 		estimateGas: () => {
 			it('should work', async () => {
 				expect(
@@ -138,14 +157,18 @@ describe('viemPublicActions', () => {
 				).toBe(16770635n)
 			})
 		},
-		estimateMaxPriorityFeePerGas: () => {},
+		estimateMaxPriorityFeePerGas: () => {
+			it('should work', async () => {
+				expect(await mc.estimateMaxPriorityFeePerGas()).toMatchSnapshot()
+			})
+		},
 		getBalance: () => {
 			it('should work', async () => {
 				expect(await mc.getBalance({ address: prefundedAccounts[0] as Address })).toBe(999999999999998882303n)
 			})
 		},
 		getBlobBaseFee: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mc.getBlobBaseFee()).toBe(1n)
 			})
 		},
@@ -175,20 +198,18 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getBlockNumber: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const newClient = createMemoryClient()
 				expect(await newClient.getBlockNumber()).toBe(0n)
 			})
 		},
 		getBlockTransactionCount: () => {
-			it.todo('should work', async () => {
-				// TODO
+			it('should work', async () => {
 				expect(await mc.getBlockTransactionCount({ blockTag: 'latest' })).toBe(10)
 			})
 		},
 		getBytecode: () => {
 			it('should work', async () => {
-				// this will fail because bytecode is wrong
 				expect(await mc.getBytecode({ address: c.simpleContract.address })).toBe(c.simpleContract.deployedBytecode)
 			})
 		},
@@ -197,7 +218,21 @@ describe('viemPublicActions', () => {
 				expect(await mc.getChainId()).toBe(900)
 			})
 		},
-		getContractEvents: () => {},
+		getContractEvents: () => {
+			it('getContractEvents should work', async () => {
+				// do a thing first
+				await mc.tevmCall({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+					createTransaction: true,
+				})
+				const events = mc.getContractEvents({
+					address: c.simpleContract.address,
+					abi: c.simpleContract.abi,
+				})
+				expect(events).toMatchSnapshot()
+			})
+		},
 		getEnsAddress: async () => {
 			const kzg = await loadKZG()
 			const mainnetClient = createMemoryClient({
@@ -285,15 +320,39 @@ describe('viemPublicActions', () => {
 					blockTag: 19804639n,
 				},
 			})
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(await mainnetClient.getEnsText({ name: 'vitalik.eth', key: 'key' })).toBe(
 					'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 				)
 			})
 		},
-		getFeeHistory: () => {},
-		getFilterChanges: () => {},
-		getFilterLogs: () => {},
+		getFeeHistory: () => {
+			it('should work', async () => {
+				const blockTag = 19804639n
+				const mainnetClient = createMemoryClient({
+					common: mainnet,
+					fork: {
+						transport: mainnetTransport,
+						blockTag,
+					},
+				})
+				expect(
+					await mainnetClient.getFeeHistory({ blockCount: 3, blockNumber: blockTag, rewardPercentiles: [0, 50, 100] }),
+				).toMatchSnapshot()
+			})
+		},
+		getFilterChanges: () => {
+			it('should work', async () => {
+				const filter = await mc.createPendingTransactionFilter()
+				expect(await mc.getFilterChanges({ filter })).toMatchSnapshot()
+			})
+		},
+		getFilterLogs: () => {
+			it('should work', async () => {
+				const filter = await mc.createEventFilter()
+				expect(await mc.getFilterLogs({ filter })).toMatchSnapshot()
+			})
+		},
 		getGasPrice: () => {
 			it('should work', async () => {
 				const mc = createMemoryClient()
@@ -301,14 +360,14 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getLogs: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				const filter = await mc.createEventFilter(eventAbi)
 				const logs = await mc.getLogs(filter)
 				expect(logs).toHaveLength(0)
 			})
 		},
 		getProof: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				expect(
 					await mc.getProof({ address: c.simpleContract.address, storageKeys: [numberToHex(0)] }),
 				).toMatchSnapshot()
@@ -338,7 +397,7 @@ describe('viemPublicActions', () => {
 			})
 		},
 		getTransactionCount: () => {
-			it.todo('should work', async () => {
+			it('should work', async () => {
 				// TODO
 				expect(await mc.getTransactionCount({ address: prefundedAccounts[0] as Address })).toBe(0)
 			})
@@ -350,7 +409,14 @@ describe('viemPublicActions', () => {
 				expect(receipt).toMatchSnapshot()
 			})
 		},
-		multicall: () => {},
+		multicall: () => {
+			it('should work', async () => {
+				const result = await mc.multicall({
+					contracts: [c.simpleContract.read.get(), c.simpleContract.read.get(), c.simpleContract.read.get()],
+				})
+				expect(result).toMatchSnapshot()
+			})
+		},
 		prepareTransactionRequest: () => {
 			it('prepareTransactionRequest should work', async () => {
 				const tx = await mc.prepareTransactionRequest({
@@ -366,7 +432,21 @@ describe('viemPublicActions', () => {
 				expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
 			})
 		},
-		sendRawTransaction: () => {},
+		sendRawTransaction: () => {
+			it('should work', async () => {
+				const to = `0x${'69'.repeat(20)}` as const
+				const request = await prepareTransactionRequest(mc, {
+					account,
+					to,
+					chain: tevmDefault,
+				})
+				const hash = await mc.sendRawTransaction({
+					serializedTransaction: await account.signTransaction(request),
+				})
+				const txPool = await mc._tevm.getTxPool()
+				expect(txPool.getByHash([hexToBytes(hash)])).toMatchSnapshot()
+			})
+		},
 		simulateContract: () => {
 			it('should work', async () => {
 				expect(await mc.simulateContract(c.simpleContract.write.set(99999n))).toMatchSnapshot()
@@ -376,9 +456,8 @@ describe('viemPublicActions', () => {
 		verifyMessage: () => {
 			it('verifyMessage should work', async () => {
 				const message = 'hello'
-				const wallet = account
 				const signature = await account.signMessage({ message })
-				expect(await mc.verifyMessage({ message, signature, address: wallet.address })).toBe(true)
+				expect(await mc.verifyMessage({ message, signature, address: account.address })).toBe(true)
 			})
 		},
 		verifyTypedData: async () => {
@@ -431,7 +510,20 @@ describe('viemPublicActions', () => {
 				).toBe(true)
 			})
 		},
-		watchContractEvent: () => {},
+		watchContractEvent: () => {
+			it('watchContract should work', async () => {
+				const logs: WatchContractEventOnLogsParameter<typeof c.simpleContract.abi> = []
+				const unwatch = mc.watchContractEvent({
+					abi: c.simpleContract.abi,
+					address: c.simpleContract.address,
+					poll: true,
+					onLogs: (log) => {
+						// todo need to add events to simpleContract
+						logs.push(log)
+					},
+				})
+			})
+		},
 		waitForTransactionReceipt: () => {
 			it('waitForTransactionReceipt hould work', async () => {
 				const { txHash } = await mc.tevmCall({
@@ -477,10 +569,75 @@ describe('viemPublicActions', () => {
 				unwatch()
 			})
 		},
-		watchBlocks: () => {},
-		watchEvent: () => {},
-		watchPendingTransactions: () => {},
-		verifySiweMessage: () => {},
+		watchBlocks: () => {
+			it('should work', async () => {
+				const expectedBlock = Promise.withResolvers()
+				const unwatch = mc.watchBlocks({
+					poll: true,
+					pollingInterval: 100,
+					onBlock: (block) => {
+						expectedBlock.resolve(block)
+					},
+				})
+				await mc.tevmMine()
+				expect(await expectedBlock.promise).toMatchSnapshot()
+				unwatch()
+			})
+		},
+		watchEvent: () => {
+			it('should work', async () => {
+				const expectedEvent = Promise.withResolvers()
+				const unwatch = mc.watchEvent({
+					poll: true,
+					pollingInterval: 100,
+					onLogs: (event) => {
+						expectedEvent.resolve(event)
+					},
+				})
+				await mc.tevmCall({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+					createTransaction: true,
+				})
+				expect(await expectedEvent.promise).toMatchSnapshot()
+				unwatch()
+			})
+		},
+		watchPendingTransactions: () => {
+			it('should work', async () => {
+				const expectedTx = Promise.withResolvers()
+				const unwatch = mc.watchPendingTransactions({
+					poll: true,
+					pollingInterval: 100,
+					onTransactions: (tx) => {
+						expectedTx.resolve(tx)
+					},
+				})
+				await mc.tevmCall({
+					to: c.simpleContract.address,
+					data: encodeFunctionData(simpleContract.write.set(69n)),
+					createTransaction: true,
+				})
+				expect(await expectedTx.promise).toMatchSnapshot()
+				unwatch()
+			})
+		},
+		verifySiweMessage: () => {
+			it('should work', async () => {
+				const message = createSiweMessage({
+					address: account.address,
+					chainId: tevmDefault.id,
+					domain: 'tevm.sh',
+					nonce: '420',
+					uri: 'https://tevm.sh',
+					version: '1',
+				})
+
+				const signature = await account.signMessage({ message })
+
+				expect(await mc.verifySiweMessage({ message, signature })).toBe(true)
+			})
+		},
 	}
 
 	Object.entries(tests).forEach(([actionName, actionTests]) => {
