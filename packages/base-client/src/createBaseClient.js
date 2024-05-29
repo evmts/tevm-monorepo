@@ -25,6 +25,7 @@ import { statePersister } from './statePersister.js'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+	console.time('baseClient-ready')
 	/**
 	 * @type {import('@tevm/utils').Address | undefined}
 	 */
@@ -77,6 +78,7 @@ export const createBaseClient = (options = {}) => {
 		return /** @type {any}*/ (client)
 	}
 
+	console.time('chainIdPromise-ready')
 	const chainIdPromise = (async () => {
 		if (options?.common) {
 			return options?.common.id
@@ -89,9 +91,11 @@ export const createBaseClient = (options = {}) => {
 		return DEFAULT_CHAIN_ID
 	})().then((chainId) => {
 		logger.debug({ chainId }, 'Creating client with chainId')
+		console.timeEnd('chainIdPromise-ready')
 		return BigInt(chainId)
 	})
 
+	console.time('blockTagPromise-ready')
 	const blockTagPromise = (async () => {
 		if (options.fork === undefined) {
 			// this is ultimately unused
@@ -105,8 +109,13 @@ export const createBaseClient = (options = {}) => {
 			return latestBlockNumber
 		}
 		return options.fork.blockTag
-	})()
+	})().then((blockTag) => {
+		console.timeEnd('blockTagPromise-ready')
+		console.time('blockchain-ready')
+		return blockTag
+	})
 
+	console.time('chainCommonPromise-ready')
 	const chainCommonPromise = chainIdPromise
 		.then((chainId) => {
 			if (options.common) {
@@ -129,7 +138,9 @@ export const createBaseClient = (options = {}) => {
 		})
 		.then((common) => {
 			// ALWAYS Copy common so we don't modify the global instances since it's stateful!
-			return common.copy()
+			const copy = common.copy()
+			console.timeEnd('chainCommonPromise-ready')
+			return copy
 		})
 
 	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([common, blockTag]) => {
@@ -155,6 +166,7 @@ export const createBaseClient = (options = {}) => {
 		})
 		.then((chain) => chain.getCanonicalHeadBlock())
 		.then(async (headBlock) => {
+			console.time('stateManager-genesis')
 			const stateRootHex = bytesToHex(headBlock.header.stateRoot)
 			const restoredState = options.persister?.restoreState()
 			if (restoredState) {
@@ -178,12 +190,14 @@ export const createBaseClient = (options = {}) => {
 				}
 				// We might want to double check we aren't forking and overwriting this somehow
 				// TODO we should be storing blockchain state too
-				return createStateManager({
+				const manager = createStateManager({
 					genesisState: parsedState,
 					currentStateRoot: bytesToHex(headBlock.header.stateRoot),
 					stateRoots: new Map([[stateRootHex, parsedState]]),
 					...(await getStateManagerOpts()),
 				})
+				await manager.ready()
+				return manager
 			}
 			const genesisState = {
 				...GENESIS_STATE,
@@ -201,8 +215,11 @@ export const createBaseClient = (options = {}) => {
 					]),
 				),
 			}
+			console.timeEnd('stateManager-genesis')
+			const opts = await getStateManagerOpts()
+			console.time('stateManager-ready')
 			return createStateManager({
-				...(await getStateManagerOpts()),
+				...opts,
 				currentStateRoot: stateRootHex,
 				stateRoots: new Map([[bytesToHex(headBlock.header.stateRoot), genesisState]]),
 				genesisState,
@@ -240,15 +257,31 @@ export const createBaseClient = (options = {}) => {
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 
-	/**
-	 * @returns {Promise<true>}
-	 */
-	const ready = async () => {
+	const readyPromise = (async () => {
+		console.log('calling ready...')
 		await blockchainPromise.then((b) => b.ready())
+		console.log('blockchain...')
 		await stateManagerPromise.then((b) => b.ready())
+		console.log('stateManager...')
 		await vmPromise.then((vm) => vm.ready())
-		return true
-	}
+		console.log('vm...')
+		return /** @type {true}*/ (true)
+	})()
+	blockchainPromise.then(() => {
+		console.timeEnd('blockchain-ready')
+	})
+	stateManagerPromise.then(() => {
+		console.timeEnd('stateManager-ready')
+		console.time('vm-ready')
+	})
+	vmPromise.then(() => {
+		console.timeEnd('vm-ready')
+		console.time('vm-ready-lag')
+	})
+	readyPromise.then(() => {
+		console.timeEnd('vm-ready-lag')
+		console.timeEnd('baseClient-ready')
+	})
 
 	/**
 	 * Create and return the baseClient
@@ -259,22 +292,22 @@ export const createBaseClient = (options = {}) => {
 	const baseClient = {
 		logger,
 		getReceiptsManager: async () => {
-			await ready()
+			await readyPromise
 			return receiptManagerPromise
 		},
 		getTxPool: async () => {
-			await ready()
+			await readyPromise
 			return txPoolPromise
 		},
 		getVm: async () => {
-			await ready()
+			await readyPromise
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: options.fork?.transport ? 'fork' : 'normal',
 		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
 		extend: (extension) => extend(baseClient)(extension),
-		ready,
+		ready: () => readyPromise,
 		impersonatedAccount,
 		setImpersonatedAccount,
 	}

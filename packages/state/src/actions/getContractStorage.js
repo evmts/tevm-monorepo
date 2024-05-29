@@ -1,4 +1,5 @@
 import { bytesToHex, hexToBytes } from 'viem'
+import { getAccount } from './getAccount.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
 import { putContractStorage } from './putContractStorage.js'
@@ -24,6 +25,12 @@ export const getContractStorage = (baseState) => async (address, key) => {
 	const cachedValue = storageCache.get(address, key)
 	if (cachedValue !== undefined) {
 		return cachedValue
+	}
+
+	const isContractAtAddress = (await getAccount(baseState)(address))?.isContract()
+	if (!isContractAtAddress) {
+		baseState.logger.debug(`No contract found at address ${address}. Cannot getContractStorage if there is no contract`)
+		return hexToBytes('0x0')
 	}
 
 	if (!baseState.options.fork?.transport) {
