@@ -1,5 +1,23 @@
 # @tevm/state
 
+## 1.1.0-next.63
+
+### Patch Changes
+
+- [#1143](https://github.com/evmts/tevm-monorepo/pull/1143) [`b3d1468`](https://github.com/evmts/tevm-monorepo/commit/b3d1468c06d254b6ccad2df2d7f51231489c6000) Thanks [@roninjin10](https://github.com/roninjin10)! - Made major improvements to tevm performance
+
+  before: 2.38s
+  after: 0.83s
+
+  before: 6.69s
+  after: 0.683s
+
+  before: 8.42s
+  after: 0.219s
+
+  before: 4.07s
+  after: 0.01s
+
 ## 1.1.0-next.62
 
 ### Patch Changes
