@@ -6,7 +6,7 @@
 
 # Type alias: StateAction()\<T\>
 
-> **StateAction**\<`T`\>: (`baseState`) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
+> **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
 ## Type parameters
 
@@ -15,6 +15,8 @@
 ## Parameters
 
 • **baseState**: [`BaseState`](BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

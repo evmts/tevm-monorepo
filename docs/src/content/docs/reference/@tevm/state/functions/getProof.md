@@ -5,13 +5,15 @@ prev: false
 title: "getProof"
 ---
 
-> **getProof**(`baseState`): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
+> **getProof**(`baseState`, `skipFetchingFromFork`?): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
 
 Get an EIP-1186 proof from the provider
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

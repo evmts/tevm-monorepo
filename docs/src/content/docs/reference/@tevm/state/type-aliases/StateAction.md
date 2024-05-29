@@ -5,7 +5,7 @@ prev: false
 title: "StateAction"
 ---
 
-> **StateAction**\<`T`\>: (`baseState`) => [`StateManager`](/reference/tevm/state/interfaces/statemanager/)\[`T`\]
+> **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](/reference/tevm/state/interfaces/statemanager/)\[`T`\]
 
 ## Type parameters
 
@@ -14,6 +14,8 @@ title: "StateAction"
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

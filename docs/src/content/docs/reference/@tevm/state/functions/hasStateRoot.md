@@ -5,13 +5,15 @@ prev: false
 title: "hasStateRoot"
 ---
 
-> **hasStateRoot**(`baseState`): (`root`) => `Promise`\<`boolean`\>
+> **hasStateRoot**(`baseState`, `skipFetchingFromFork`?): (`root`) => `Promise`\<`boolean`\>
 
 Returns true if state root exists
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

@@ -1,4 +1,5 @@
 import { CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { bytesToUnprefixedHex } from '@tevm/utils'
 
 const oneBytes = Uint8Array.from([1])
 
@@ -60,6 +61,15 @@ export class ContractCache {
 	 */
 	checkpoint() {
 		this.storageCache.checkpoint()
+	}
+
+	/**
+	 * @param {import('@tevm/utils').EthjsAddress} address
+	 * @returns {boolean} if the cache has the key
+	 */
+	has(address) {
+		const storageMap = this.storageCache._orderedMapCache?.getElementByKey(bytesToUnprefixedHex(address.bytes))
+		return storageMap?.has(bytesToUnprefixedHex(oneBytes)) ?? false
 	}
 
 	get _checkpoints() {

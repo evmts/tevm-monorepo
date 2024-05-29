@@ -5,13 +5,15 @@ prev: false
 title: "getAccount"
 ---
 
-> **getAccount**(`baseState`): (`address`) => `Promise`\<`undefined` \| [`EthjsAccount`](/reference/tevm/utils/classes/ethjsaccount/)\>
+> **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| [`EthjsAccount`](/reference/tevm/utils/classes/ethjsaccount/)\>
 
 Gets the code corresponding to the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

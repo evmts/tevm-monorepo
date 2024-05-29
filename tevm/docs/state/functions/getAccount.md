@@ -6,13 +6,15 @@
 
 # Function: getAccount()
 
-> **getAccount**(`baseState`): (`address`) => `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
+> **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 Gets the code corresponding to the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -28,4 +30,4 @@ Gets the code corresponding to the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:251
+packages/state/dist/index.d.ts:256

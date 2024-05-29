@@ -6,13 +6,15 @@
 
 # Function: clearCaches()
 
-> **clearCaches**(`baseState`): () => `void`
+> **clearCaches**(`baseState`, `skipFetchingFromFork`?): () => `void`
 
 Resets all internal caches
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

@@ -6,7 +6,7 @@
 
 # Function: originalStorageCache()
 
-> **originalStorageCache**(`baseState`): `object`
+> **originalStorageCache**(`baseState`, `skipFetchingFromFork`?): `object`
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
@@ -14,6 +14,8 @@ last call to checkpoint.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

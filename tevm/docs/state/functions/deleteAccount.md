@@ -6,13 +6,15 @@
 
 # Function: deleteAccount()
 
-> **deleteAccount**(`baseState`): (`address`) => `Promise`\<`void`\>
+> **deleteAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
 Deletes an account from state under the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -28,4 +30,4 @@ Deletes an account from state under the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:220
+packages/state/dist/index.d.ts:225

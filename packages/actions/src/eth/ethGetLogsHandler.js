@@ -25,7 +25,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 		}
 		throw new Error('safe not currently supported as block tag')
 	}
-	if (blockParam === 'latest') {
+	if (blockParam === 'latest' || blockParam === undefined) {
 		const safeBlock = blockchain.blocksByTag.get('latest')
 		// let's handle it here in case we forget to update it later
 		if (safeBlock) {
@@ -47,7 +47,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 		throw new Error('finalized noet yet supported for this feature')
 	}
 	blockchain.logger.error({ blockParam }, 'Unknown block param pased to blockNumberHandler')
-	throw new Error('Unknown block param pased to blockNumberHandler')
+	throw new Error(`Unknown block param ${blockParam} pased to blockNumberHandler`)
 }
 
 // TODO support EIP-234

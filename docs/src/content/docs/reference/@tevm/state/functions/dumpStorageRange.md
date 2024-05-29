@@ -5,11 +5,13 @@ prev: false
 title: "dumpStorageRange"
 ---
 
-> **dumpStorageRange**(`baseState`): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](/reference/tevm/common/interfaces/storagerange/)\>
+> **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](/reference/tevm/common/interfaces/storagerange/)\>
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

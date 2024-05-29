@@ -5,13 +5,15 @@ prev: false
 title: "getStateRoot"
 ---
 
-> **getStateRoot**(`baseState`): () => `Promise`\<`Uint8Array`\>
+> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\>
 
 Gets the current state root
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

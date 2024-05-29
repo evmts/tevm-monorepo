@@ -6,13 +6,15 @@
 
 # Function: hasStateRoot()
 
-> **hasStateRoot**(`baseState`): (`root`) => `Promise`\<`boolean`\>
+> **hasStateRoot**(`baseState`, `skipFetchingFromFork`?): (`root`) => `Promise`\<`boolean`\>
 
 Returns true if state root exists
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -28,4 +30,4 @@ Returns true if state root exists
 
 ## Source
 
-packages/state/dist/index.d.ts:308
+packages/state/dist/index.d.ts:313

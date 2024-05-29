@@ -6,11 +6,13 @@
 
 # Function: dumpStorageRange()
 
-> **dumpStorageRange**(`baseState`): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
+> **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

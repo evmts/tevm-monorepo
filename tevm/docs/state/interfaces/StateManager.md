@@ -20,7 +20,7 @@ The internal state representation
 
 #### Source
 
-packages/state/dist/index.d.ts:121
+packages/state/dist/index.d.ts:126
 
 ***
 
@@ -36,7 +36,7 @@ Returns contract addresses
 
 #### Source
 
-packages/state/dist/index.d.ts:126
+packages/state/dist/index.d.ts:131
 
 ***
 
@@ -82,7 +82,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 #### Source
 
-packages/state/dist/index.d.ts:122
+packages/state/dist/index.d.ts:127
 
 ## Methods
 
@@ -116,7 +116,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/dist/index.d.ts:138
+packages/state/dist/index.d.ts:143
 
 ***
 
@@ -166,7 +166,7 @@ This api is not stable
 
 #### Source
 
-packages/state/dist/index.d.ts:148
+packages/state/dist/index.d.ts:153
 
 ***
 
@@ -182,7 +182,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/dist/index.d.ts:130
+packages/state/dist/index.d.ts:135
 
 ***
 
@@ -220,7 +220,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 #### Source
 
-packages/state/dist/index.d.ts:134
+packages/state/dist/index.d.ts:139
 
 ***
 
@@ -585,7 +585,7 @@ THis API is considered unstable
 
 #### Source
 
-packages/state/dist/index.d.ts:144
+packages/state/dist/index.d.ts:149
 
 ***
 

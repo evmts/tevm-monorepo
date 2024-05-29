@@ -5,13 +5,15 @@ prev: false
 title: "clearContractStorage"
 ---
 
-> **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
+> **clearContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
 Clears all storage entries for the account corresponding to `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

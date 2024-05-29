@@ -29,15 +29,16 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 
 	for (const address of accountAddresses) {
 		const hexAddress = getAddress(`0x${address}`)
-		const account = await getAccount(baseState)(EthjsAddress.fromString(hexAddress))
+		const ethAddress = EthjsAddress.fromString(hexAddress)
+		const account = await getAccount(baseState, true)(ethAddress)
 
 		if (account === undefined) {
 			baseState.logger.debug({ address: hexAddress }, 'Warning: Account in accountAddresses not found')
 		}
 		if (account !== undefined) {
-			const storage = await dumpStorage(baseState)(EthjsAddress.fromString(hexAddress))
+			const storage = await dumpStorage(baseState, true)(ethAddress)
 
-			const deployedBytecode = await getContractCode(baseState)(EthjsAddress.fromString(hexAddress))
+			const deployedBytecode = await getContractCode(baseState, true)(ethAddress)
 
 			const dump = {
 				nonce: account.nonce,
@@ -45,11 +46,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 				storageRoot: bytesToHex(account.storageRoot),
 				codeHash: bytesToHex(account.codeHash),
 				storage,
-				...(deployedBytecode.length > 0
-					? {
-							deployedBytecode: toHex(deployedBytecode),
-						}
-					: {}),
+				...(baseState.caches.contracts.has(ethAddress) ? { deployedBytecode: toHex(deployedBytecode) } : {}),
 			}
 
 			baseState.logger.debug({ address: hexAddress, ...dump }, 'dumping address')

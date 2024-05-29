@@ -49,7 +49,7 @@ packages/state/dist/index.d.ts:53
 
 #### Source
 
-packages/state/dist/index.d.ts:82
+packages/state/dist/index.d.ts:87
 
 ## Methods
 
@@ -131,6 +131,26 @@ packages/state/dist/index.d.ts:66
 
 ***
 
+### has()
+
+> **has**(`address`): `boolean`
+
+#### Parameters
+
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+#### Returns
+
+`boolean`
+
+if the cache has the key
+
+#### Source
+
+packages/state/dist/index.d.ts:86
+
+***
+
 ### put()
 
 > **put**(`address`, `bytecode`): `void`
@@ -161,7 +181,7 @@ packages/state/dist/index.d.ts:72
 
 #### Source
 
-packages/state/dist/index.d.ts:87
+packages/state/dist/index.d.ts:92
 
 ***
 
@@ -175,4 +195,4 @@ packages/state/dist/index.d.ts:87
 
 #### Source
 
-packages/state/dist/index.d.ts:83
+packages/state/dist/index.d.ts:88

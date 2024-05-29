@@ -6,11 +6,13 @@
 
 # Function: getAccountAddresses()
 
-> **getAccountAddresses**(`baseState`): () => \`0x$\{string\}\`[]
+> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => \`0x$\{string\}\`[]
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -22,4 +24,4 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:256
+packages/state/dist/index.d.ts:261

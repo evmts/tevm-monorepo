@@ -5,13 +5,15 @@ prev: false
 title: "putAccount"
 ---
 
-> **putAccount**(`baseState`): (`address`, `account`?) => `Promise`\<`void`\>
+> **putAccount**(`baseState`, `skipFetchingFromFork`?): (`address`, `account`?) => `Promise`\<`void`\>
 
 Saves an account into state under the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

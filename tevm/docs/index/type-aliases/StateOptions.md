@@ -48,4 +48,4 @@ Called when state manager commits state
 
 ## Source
 
-packages/state/dist/index.d.ts:169
+packages/state/dist/index.d.ts:174

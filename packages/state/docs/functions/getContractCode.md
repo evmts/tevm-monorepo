@@ -6,7 +6,7 @@
 
 # Function: getContractCode()
 
-> **getContractCode**(`baseState`): (`address`) => `Promise`\<`Uint8Array`\>
+> **getContractCode**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`Uint8Array`\>
 
 Gets the code corresponding to the provided `address`.
 Returns an empty `Uint8Array` if the account has no associated code.
@@ -14,6 +14,8 @@ Returns an empty `Uint8Array` if the account has no associated code.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -29,4 +31,4 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Source
 
-[packages/state/src/actions/getContractCode.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L11)
+[packages/state/src/actions/getContractCode.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L13)

@@ -6,13 +6,15 @@
 
 # Function: dumpCanonicalGenesis()
 
-> **dumpCanonicalGenesis**(`baseState`): () => `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
+> **dumpCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -26,4 +28,4 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 ## Source
 
-packages/state/dist/index.d.ts:226
+packages/state/dist/index.d.ts:231
