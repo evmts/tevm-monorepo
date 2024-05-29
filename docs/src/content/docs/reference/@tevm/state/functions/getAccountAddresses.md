@@ -5,11 +5,13 @@ prev: false
 title: "getAccountAddresses"
 ---
 
-> **getAccountAddresses**(`baseState`): () => \`0x$\{string\}\`[]
+> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => \`0x$\{string\}\`[]
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

@@ -5,7 +5,7 @@ prev: false
 title: "revert"
 ---
 
-> **revert**(`baseState`): () => `Promise`\<`void`\>
+> **revert**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`void`\>
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
@@ -13,6 +13,8 @@ last call to checkpoint.
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

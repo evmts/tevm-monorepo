@@ -5,13 +5,15 @@ prev: false
 title: "setStateRoot"
 ---
 
-> **setStateRoot**(`baseState`): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
+> **setStateRoot**(`baseState`, `skipFetchingFromFork`?): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
 
 Changes the currently loaded state root
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

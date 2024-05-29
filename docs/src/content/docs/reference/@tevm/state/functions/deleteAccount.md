@@ -5,13 +5,15 @@ prev: false
 title: "deleteAccount"
 ---
 
-> **deleteAccount**(`baseState`): (`address`) => `Promise`\<`void`\>
+> **deleteAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
 Deletes an account from state under the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

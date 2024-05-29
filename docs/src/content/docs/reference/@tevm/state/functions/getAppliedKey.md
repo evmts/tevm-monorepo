@@ -5,7 +5,7 @@ prev: false
 title: "getAppliedKey"
 ---
 
-> **getAppliedKey**(`baseState`): `undefined` \| (`address`) => `Uint8Array`
+> **getAppliedKey**(`baseState`, `skipFetchingFromFork`?): `undefined` \| (`address`) => `Uint8Array`
 
 :::caution[Deprecated]
 Returns the applied key for a given address
@@ -15,6 +15,8 @@ Used for saving preimages
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

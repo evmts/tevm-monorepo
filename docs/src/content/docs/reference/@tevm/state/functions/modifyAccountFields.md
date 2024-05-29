@@ -5,7 +5,7 @@ prev: false
 title: "modifyAccountFields"
 ---
 
-> **modifyAccountFields**(`baseState`): (`address`, `accountFields`) => `Promise`\<`void`\>
+> **modifyAccountFields**(`baseState`, `skipFetchingFromFork`?): (`address`, `accountFields`) => `Promise`\<`void`\>
 
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include
@@ -14,6 +14,8 @@ fields, then saves the account into state. Account fields can include
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

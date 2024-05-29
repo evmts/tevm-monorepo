@@ -5,13 +5,15 @@ prev: false
 title: "clearCaches"
 ---
 
-> **clearCaches**(`baseState`): () => `void`
+> **clearCaches**(`baseState`, `skipFetchingFromFork`?): () => `void`
 
 Resets all internal caches
 
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
