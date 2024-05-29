@@ -226,6 +226,13 @@ export class ReceiptsManager {
 	): Promise<GetLogsReturn> {
 		const returnedLogs: GetLogsReturn = []
 		let returnedLogsSize = 0
+		// debugging wierd issue
+		try {
+			from.header.number
+		} catch (e) {
+			console.error(e)
+			console.log(from, to, addresses)
+		}
 		for (let i = from.header.number; i <= to.header.number; i++) {
 			const block = await getBlock(this.chain)(i)
 			const receipts = await this.getReceipts(block.hash())
