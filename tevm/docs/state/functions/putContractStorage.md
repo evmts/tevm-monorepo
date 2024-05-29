@@ -6,7 +6,7 @@
 
 # Function: putContractStorage()
 
-> **putContractStorage**(`baseState`): (`address`, `key`, `value`) => `Promise`\<`void`\>
+> **putContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
 Adds value to the cache for the `account`
 corresponding to `address` at the provided `key`.
@@ -16,6 +16,8 @@ If it is empty or filled with zeros, deletes the value.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -35,4 +37,4 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Source
 
-packages/state/dist/index.d.ts:338
+packages/state/dist/index.d.ts:343

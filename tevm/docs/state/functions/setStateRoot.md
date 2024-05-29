@@ -6,13 +6,15 @@
 
 # Function: setStateRoot()
 
-> **setStateRoot**(`baseState`): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
+> **setStateRoot**(`baseState`, `skipFetchingFromFork`?): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
 
 Changes the currently loaded state root
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -30,4 +32,4 @@ Changes the currently loaded state root
 
 ## Source
 
-packages/state/dist/index.d.ts:351
+packages/state/dist/index.d.ts:356

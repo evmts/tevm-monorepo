@@ -6,11 +6,13 @@
 
 # Function: ~~getAppliedKey()~~
 
-> **getAppliedKey**(`baseState`): `undefined` \| (`address`) => `Uint8Array`
+> **getAppliedKey**(`baseState`, `skipFetchingFromFork`?): `undefined` \| (`address`) => `Uint8Array`
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -23,4 +25,4 @@ Used for saving preimages
 
 ## Source
 
-packages/state/dist/index.d.ts:266
+packages/state/dist/index.d.ts:271

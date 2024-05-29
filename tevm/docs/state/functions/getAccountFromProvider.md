@@ -26,4 +26,4 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:258
+packages/state/dist/index.d.ts:263

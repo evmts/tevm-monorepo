@@ -6,7 +6,7 @@
 
 # Function: dumpStorage()
 
-> **dumpStorage**(`baseState`): (`address`) => `Promise`\<`StorageDump`\>
+> **dumpStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`StorageDump`\>
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 Keys are the storage keys, values are the storage values as strings.
@@ -15,6 +15,8 @@ Both are represented as `0x` prefixed hex strings.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

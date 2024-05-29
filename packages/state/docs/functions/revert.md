@@ -6,7 +6,7 @@
 
 # Function: revert()
 
-> **revert**(`baseState`): () => `Promise`\<`void`\>
+> **revert**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`void`\>
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
@@ -14,6 +14,8 @@ last call to checkpoint.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

@@ -6,13 +6,15 @@
 
 # Function: getStateRoot()
 
-> **getStateRoot**(`baseState`): () => `Promise`\<`Uint8Array`\>
+> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\>
 
 Gets the current state root
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -24,4 +26,4 @@ Gets the current state root
 
 ## Source
 
-packages/state/dist/index.d.ts:302
+packages/state/dist/index.d.ts:307

@@ -6,11 +6,13 @@
 
 # Function: ~~getAppliedKey()~~
 
-> **getAppliedKey**(`baseState`): `undefined` \| (`address`) => `Uint8Array`
+> **getAppliedKey**(`baseState`, `skipFetchingFromFork`?): `undefined` \| (`address`) => `Uint8Array`
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

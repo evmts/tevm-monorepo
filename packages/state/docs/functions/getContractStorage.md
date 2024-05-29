@@ -6,7 +6,7 @@
 
 # Function: getContractStorage()
 
-> **getContractStorage**(`baseState`): (`address`, `key`) => `Promise`\<`Uint8Array`\>
+> **getContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`) => `Promise`\<`Uint8Array`\>
 
 Gets the storage value associated with the provided `address` and `key`. This method returns
 the shortest representation of the stored value.
@@ -16,6 +16,8 @@ If this does not exist an empty `Uint8Array` is returned.
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -33,4 +35,4 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Source
 
-[packages/state/src/actions/getContractStorage.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L13)
+[packages/state/src/actions/getContractStorage.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L14)

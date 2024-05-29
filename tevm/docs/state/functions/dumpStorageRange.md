@@ -6,11 +6,13 @@
 
 # Function: dumpStorageRange()
 
-> **dumpStorageRange**(`baseState`): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
+> **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -30,4 +32,4 @@
 
 ## Source
 
-packages/state/dist/index.d.ts:239
+packages/state/dist/index.d.ts:244

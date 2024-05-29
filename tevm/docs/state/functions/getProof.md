@@ -6,13 +6,15 @@
 
 # Function: getProof()
 
-> **getProof**(`baseState`): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
+> **getProof**(`baseState`, `skipFetchingFromFork`?): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
 
 Get an EIP-1186 proof from the provider
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -30,4 +32,4 @@ Get an EIP-1186 proof from the provider
 
 ## Source
 
-packages/state/dist/index.d.ts:296
+packages/state/dist/index.d.ts:301

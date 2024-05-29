@@ -25,7 +25,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L10)
+[packages/state/src/ContractCache.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L11)
 
 ## Properties
 
@@ -35,7 +35,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L16)
+[packages/state/src/ContractCache.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L17)
 
 ## Accessors
 
@@ -49,7 +49,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L65)
+[packages/state/src/ContractCache.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L75)
 
 ## Methods
 
@@ -63,7 +63,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L61)
+[packages/state/src/ContractCache.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L62)
 
 ***
 
@@ -77,7 +77,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L29)
+[packages/state/src/ContractCache.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L30)
 
 ***
 
@@ -91,7 +91,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L22)
+[packages/state/src/ContractCache.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L23)
 
 ***
 
@@ -109,7 +109,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L54)
+[packages/state/src/ContractCache.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L55)
 
 ***
 
@@ -127,7 +127,27 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L37)
+[packages/state/src/ContractCache.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L38)
+
+***
+
+### has()
+
+> **has**(`address`): `boolean`
+
+#### Parameters
+
+• **address**: `Address`
+
+#### Returns
+
+`boolean`
+
+if the cache has the key
+
+#### Source
+
+[packages/state/src/ContractCache.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L70)
 
 ***
 
@@ -147,7 +167,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L46)
+[packages/state/src/ContractCache.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L47)
 
 ***
 
@@ -161,7 +181,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L76)
+[packages/state/src/ContractCache.js:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L86)
 
 ***
 
@@ -175,4 +195,4 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Source
 
-[packages/state/src/ContractCache.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L69)
+[packages/state/src/ContractCache.js:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L79)

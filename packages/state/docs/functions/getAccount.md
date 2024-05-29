@@ -6,13 +6,15 @@
 
 # Function: getAccount()
 
-> **getAccount**(`baseState`): (`address`) => `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| `Account`\>
 
 Gets the code corresponding to the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 

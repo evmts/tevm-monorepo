@@ -6,13 +6,15 @@
 
 # Function: putAccount()
 
-> **putAccount**(`baseState`): (`address`, `account`?) => `Promise`\<`void`\>
+> **putAccount**(`baseState`, `skipFetchingFromFork`?): (`address`, `account`?) => `Promise`\<`void`\>
 
 Saves an account into state under the provided `address`.
 
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+
+• **skipFetchingFromFork?**: `boolean`
 
 ## Returns
 
@@ -30,4 +32,4 @@ Saves an account into state under the provided `address`.
 
 ## Source
 
-packages/state/dist/index.d.ts:322
+packages/state/dist/index.d.ts:327
