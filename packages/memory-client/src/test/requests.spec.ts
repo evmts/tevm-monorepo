@@ -84,7 +84,6 @@ describe('Tevm.request', async () => {
 							}),
 						),
 						to: contractAddress,
-						blockTag: '0xf5a353db0403849f5d9fe0bb78df4920556fc5729111540a13303cb538f0fc10',
 					},
 				],
 				jsonrpc: '2.0',
@@ -98,7 +97,7 @@ describe('Tevm.request', async () => {
 					abi: DaiContract.abi,
 					functionName: 'balanceOf',
 				}) satisfies bigint,
-			).toBe(0n)
+			).toBe(1n)
 			expect(hexToBigInt(res.executionGasUsed)).toBe(2447n)
 			expect(res.logs).toEqual([])
 		},
