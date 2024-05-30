@@ -28,7 +28,7 @@ beforeEach(async () => {
 })
 
 describe('createContractEventFilter', async () => {
-	it.todo('works', async () => {
+	it('works', async () => {
 		const filter = await mc.createContractEventFilter({
 			abi: c.simpleContract.abi,
 		})

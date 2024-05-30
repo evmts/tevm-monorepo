@@ -46,7 +46,7 @@ beforeEach(async () => {
 })
 
 describe('createEventFilter', () => {
-	it.todo('works with no args', async () => {
+	it('works with no args', async () => {
 		const filter = await mc.createEventFilter()
 		expect(filter.id).toBeDefined()
 		expect(filter.type).toBe('event')
@@ -55,17 +55,16 @@ describe('createEventFilter', () => {
 		expect(filter.eventName).toBeUndefined()
 	})
 
-	it.todo('works with args: address', async () => {
+	it('works with args: address', async () => {
 		await mc.createEventFilter({
 			address: `0x${'69'.repeat(20)}`,
 		})
 	})
 
-	it.todo('works with args: event', async () => {
+	it('works with args: event', async () => {
 		const filter = await mc.createEventFilter(eventAbi)
 		expect(filter.args).toBeUndefined()
-		// @ts-expect-errory TODO this is a viem test copy pasted why is type not working?
-		expect(filter.abi).toEqual([eventAbi])
+		expect(filter.abi).toEqual([eventAbi.event])
 		expect(filter.eventName).toEqual('Transfer')
 	})
 })

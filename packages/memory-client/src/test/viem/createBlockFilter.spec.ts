@@ -22,7 +22,11 @@ beforeEach(async () => {
 })
 
 describe('createBlockFilter', () => {
-	it.todo('works', async () => {
-		expect(await mc.createBlockFilter()).toMatchSnapshot()
+	it('works', async () => {
+		const id = await mc.createBlockFilter()
+		expect(id.type).toBe('block')
+		expect(id.request).toBeFunction()
+		expect(id.id).toBeDefined()
+		expect(id.id.startsWith('0x')).toBeTrue()
 	})
 })

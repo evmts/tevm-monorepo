@@ -1,0 +1,9 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createBlockFilter works 1`] = `
+{
+  "id": "0xce871f2e44aaa4ed70dacc69b209454f",
+  "request": [Function: AsyncFunction],
+  "type": "block",
+}
+`;
