@@ -277,7 +277,7 @@ export const createBaseClient = (options = {}) => {
 			await readyPromise
 			return vmPromise
 		},
-		miningConfig: options.miningConfig ?? { type: 'auto' },
+		miningConfig: options.miningConfig ?? { type: 'manual' },
 		mode: options.fork?.transport ? 'fork' : 'normal',
 		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
 		extend: (extension) => extend(baseClient)(extension),

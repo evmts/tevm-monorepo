@@ -12,7 +12,7 @@ describe('createBaseClient', () => {
 		expect(logger.warn).toBeFunction()
 		expect(forkTransport).toBeUndefined()
 		expect(await getTxPool().then((pool) => pool.pool)).toEqual(new Map())
-		expect(miningConfig).toEqual({ type: 'auto' })
+		expect(miningConfig).toEqual({ type: 'manual' })
 		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeFunction()
 	})
 
