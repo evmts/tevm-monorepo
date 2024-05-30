@@ -76,6 +76,16 @@ const forkedClient = createMemoryClient({
 
 Currently only manual mining using [tevm.mine()](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/#_top) is supported.
 
+:::tip[Tevm state does not update until blocks are mined]
+By default calls are executed against the cannonical head. This means if you have unmined tx, the call will initially not be aware of them. This can cause issues if creating addresses with CREATE2 from the nonce not changing or unexpected issue of expecting state to be updated.
+
+For example, if you send a mint tx, balanceOf will not reflect this tx unless 1 of the following is true:
+
+- the `balanceOf` sets block tag to `pending`. This tells tevm to run the tx on top of the pending block
+- the tx is explicitly mined with `tevm.mine()`
+- tevm client is set to `auto` mining mode such that every tx is mined.
+  :::
+
 ## Using tevm over http
 
 A common use case is wanting to use a client over http. This can be done via using [@tevm/server](https://tevm.sh/reference/tevm/server/globals/) to run tevm as an HTTP server.
