@@ -11,3 +11,4 @@ export type {
 	IntervalMining,
 } from './MiningConfig.js'
 export { prefundedAccounts, GENESIS_STATE } from './GENESIS_STATE.js'
+export type { Filter, FilterType } from './Filter.js'

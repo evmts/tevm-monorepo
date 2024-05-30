@@ -49,13 +49,13 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### getFilters()
 
-> `readonly` **getFilters**: () => `Map`\<`Hex`, `Filter`\>
+> `readonly` **getFilters**: () => `Map`\<`Hex`, [`Filter`](Filter.md)\>
 
 Gets all registered filters mapped by id
 
 #### Returns
 
-`Map`\<`Hex`, `Filter`\>
+`Map`\<`Hex`, [`Filter`](Filter.md)\>
 
 ### getReceiptsManager()
 
@@ -168,7 +168,7 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-• **filter**: `Filter`
+• **filter**: [`Filter`](Filter.md)
 
 #### Returns
 
