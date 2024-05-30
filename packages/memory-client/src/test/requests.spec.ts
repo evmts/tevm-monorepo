@@ -10,7 +10,7 @@ const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 const forkConfig = {
 	transport: transports.optimism,
-	blockTag: 111791332n,
+	blockTag: 120748268n,
 }
 
 describe('Tevm.request', async () => {
