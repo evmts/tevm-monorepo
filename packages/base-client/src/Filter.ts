@@ -4,6 +4,8 @@ import { type EthjsLog, type Hex } from '@tevm/utils'
 
 export type FilterType = 'PendingTransaction' | 'Block' | 'Log'
 
+type TODO = any
+
 // Adapted from go-ethereum/blob/master/eth/filters/filter_system.go#L359
 /**
 * Internal representation of a registered filter
@@ -21,6 +23,11 @@ type: FilterType
 * Creation timestamp
 */
 created: number
+/**
+* Criteria of the logs
+* https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go#L329
+*/
+logsCriteria?: TODO
 /**
 * Stores logs
 */
