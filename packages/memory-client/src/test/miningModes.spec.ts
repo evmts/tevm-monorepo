@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { createMemoryClient } from '../createMemoryClient.js'
-import { toHex } from 'viem'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { toHex } from 'viem'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 describe('Mining modes', () => {
 	it('should mine tx right away', async () => {
