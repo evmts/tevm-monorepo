@@ -1,5 +1,33 @@
 # @tevm/contract
 
+## 1.1.0-next.64
+
+### Minor Changes
+
+- [#1145](https://github.com/evmts/tevm-monorepo/pull/1145) [`4d287aa`](https://github.com/evmts/tevm-monorepo/commit/4d287aacfbd969ec7e8243135bafc1214ef46352) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for automining.
+
+  ```typescript
+  const tevm = createMemoryClient({
+    miningConfig: {
+      type: "auto",
+    },
+  });
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`6197cba`](https://github.com/evmts/tevm-monorepo/commit/6197cba905cf0445013ce8c20a67a0b04321e8bd), [`4d287aa`](https://github.com/evmts/tevm-monorepo/commit/4d287aacfbd969ec7e8243135bafc1214ef46352), [`6197cba`](https://github.com/evmts/tevm-monorepo/commit/6197cba905cf0445013ce8c20a67a0b04321e8bd)]:
+  - @tevm/base-client@1.1.0-next.64
+  - @tevm/memory-client@1.1.0-next.64
+  - @tevm/procedures-types@1.1.0-next.64
+  - @tevm/actions-types@1.1.0-next.60
+  - @tevm/decorators@1.1.0-next.64
+  - @tevm/viem@1.1.0-next.60
+  - @tevm/http-client@1.1.0-next.62
+  - @tevm/precompiles@1.1.0-next.62
+  - @tevm/server@1.1.0-next.60
+  - @tevm/client-types@1.1.0-next.60
+
 ## 1.1.0-next.63
 
 ### Patch Changes

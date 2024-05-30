@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.64
+
+### Patch Changes
+
+- [#1140](https://github.com/evmts/tevm-monorepo/pull/1140) [`6197cba`](https://github.com/evmts/tevm-monorepo/commit/6197cba905cf0445013ce8c20a67a0b04321e8bd) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with eth_newFilter param type being wrong. It was incorrectly an object rather than an tuple with the object as the first entry
+
 ## 1.1.0-next.60
 
 ### Patch Changes
