@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
 import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, toHex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { call } from 'viem/actions'
@@ -13,11 +12,7 @@ let c = {
 }
 
 beforeEach(async () => {
-	mc = createMemoryClient({
-		fork: {
-			transport: transports.mainnet,
-		},
-	})
+	mc = createMemoryClient()
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
