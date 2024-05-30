@@ -265,7 +265,7 @@ export type EthSyncingJsonRpcRequest = JsonRpcRequest<'eth_syncing', readonly []
 /**
  * JSON-RPC request for `eth_newFilter` procedure
  */
-export type EthNewFilterJsonRpcRequest = JsonRpcRequest<'eth_newFilter', SerializeToJson<FilterParams>>
+export type EthNewFilterJsonRpcRequest = JsonRpcRequest<'eth_newFilter', [SerializeToJson<FilterParams>]>
 // eth_newBlockFilter
 /**
  * JSON-RPC request for `eth_newBlockFilter` procedure

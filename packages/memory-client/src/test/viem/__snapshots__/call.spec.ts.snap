@@ -1,0 +1,31 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call errors fee cap too high 1`] = `Promise {}`;
+
+exports[`call errors gas too low 1`] = `
+{
+  "data": undefined,
+}
+`;
+
+exports[`call errors gas too low 2`] = `[Function]`;
+
+exports[`call errors gas too high 1`] = `
+{
+  "data": undefined,
+}
+`;
+
+exports[`call errors gas fee is less than block base fee 1`] = `
+{
+  "data": undefined,
+}
+`;
+
+exports[`call errors gas fee is less than block base fee 2`] = `
+{
+  "data": undefined,
+}
+`;
+
+exports[`call args: override 1`] = `undefined`;

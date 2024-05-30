@@ -253,6 +253,11 @@ export const createBaseClient = (options = {}) => {
 	})()
 
 	/**
+	 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
+	 */
+	const filters = new Map()
+
+	/**
 	 * Create and return the baseClient
 	 * It will be syncronously created but some functionality
 	 * will be asyncronously blocked by initialization of vm and chainId
@@ -279,6 +284,13 @@ export const createBaseClient = (options = {}) => {
 		ready: () => readyPromise,
 		impersonatedAccount,
 		setImpersonatedAccount,
+		getFilters: () => filters,
+		setFilter: (filter) => {
+			filters.set(filter.id, filter)
+		},
+		removeFilter: (filterId) => {
+			filters.delete(filterId)
+		},
 	}
 	return baseClient
 }

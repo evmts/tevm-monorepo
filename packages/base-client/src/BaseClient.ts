@@ -1,9 +1,10 @@
 import type { Logger } from '@tevm/logger'
 import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TxPool } from '@tevm/txpool'
-import type { Address } from '@tevm/utils'
+import type { Address, Hex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
+import type { Filter } from './Filter.js'
 import type { MiningConfig } from './MiningConfig.js'
 
 /**
@@ -85,4 +86,16 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	readonly extend: <TExtension extends Record<string, any>>(
 		decorator: (client: BaseClient<TMode, TExtended>) => TExtension,
 	) => BaseClient<TMode, TExtended & TExtension>
+	/**
+	 * Creates a new filter to watch for logs events and blocks
+	 */
+	readonly setFilter: (filter: Filter) => void
+	/**
+	 * Gets all registered filters mapped by id
+	 */
+	readonly getFilters: () => Map<Hex, Filter>
+	/**
+	 * Removes a filter by id
+	 */
+	readonly removeFilter: (id: Hex) => void
 } & TExtended

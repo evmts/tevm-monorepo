@@ -5,7 +5,7 @@ prev: false
 title: "EthNewFilterJsonRpcRequest"
 ---
 
-> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_newFilter"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`FilterParams`](/reference/tevm/actions-types/type-aliases/filterparams/)\>\>
+> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_newFilter"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`FilterParams`](/reference/tevm/actions-types/type-aliases/filterparams/)\>]\>
 
 JSON-RPC request for `eth_newFilter` procedure
 

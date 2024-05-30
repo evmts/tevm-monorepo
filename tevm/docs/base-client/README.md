@@ -6,6 +6,13 @@
 
 # base-client
 
+## Index
+
+### Type Aliases
+
+- [Filter](type-aliases/Filter.md)
+- [FilterType](type-aliases/FilterType.md)
+
 ## References
 
 ### AutoMining

@@ -59,6 +59,16 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 > **request**: `EIP1193RequestFn`
 
+##### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<\`0x$\{string\}\`, `Filter`\>
+
+Gets all registered filters mapped by id
+
+###### Returns
+
+`Map`\<\`0x$\{string\}\`, `Filter`\>
+
 ##### getReceiptsManager()
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -147,6 +157,34 @@ await client.ready()
 ###### Returns
 
 `Promise`\<`true`\>
+
+##### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+###### Parameters
+
+• **id**: \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+##### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+###### Parameters
+
+• **filter**: `Filter`
+
+###### Returns
+
+`void`
 
 ##### setImpersonatedAccount()
 

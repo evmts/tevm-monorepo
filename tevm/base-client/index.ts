@@ -11,4 +11,6 @@ export {
   type ManualMining,
   type MiningConfig,
   type IntervalMining,
+  type Filter,
+  type FilterType,
 } from "@tevm/base-client";

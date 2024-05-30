@@ -33,6 +33,8 @@ import {
 	setAccountProcedure,
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
+import { generateRandomId } from './utils/generateRandomId.js'
+import { parseBlockTag } from './utils/parseBlockTag.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
 
 /**
@@ -927,14 +929,76 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_newFilter': {
+				const newFilterRequest = /** @type {import('@tevm/procedures-types').EthNewFilterJsonRpcRequest}*/ (request)
+
+				const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = newFilterRequest.params[0]
+				const id = generateRandomId()
+				const vm = await client.getVm()
+				/**
+				 * @param {typeof toBlock} tag
+				 */
+				const getBlock = async (tag) => {
+					const parsedTag = parseBlockTag(tag)
+					if (
+						parsedTag === 'safe' ||
+						parsedTag === 'latest' ||
+						parsedTag === 'finalized' ||
+						parsedTag === 'earliest' ||
+						parsedTag === 'pending' ||
+						parsedTag === /** @type any*/ ('forked')
+					) {
+						return vm.blockchain.blocksByTag.get(parsedTag)
+					}
+					if (typeof parsedTag === 'string') {
+						return vm.blockchain.getBlock(hexToBytes(parsedTag))
+					}
+					return vm.blockchain.getBlock(parsedTag)
+				}
+				const _toBlock = await getBlock(toBlock)
+				if (!_toBlock) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${toBlock}`,
+						},
+					}
+				}
+				const _fromBlock = await getBlock(fromBlock)
+				if (!_fromBlock) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid block tag ${fromBlock}`,
+						},
+					}
+				}
+				client.setFilter({
+					id,
+					type: 'Log',
+					created: Date.now(),
+					logs: [],
+					tx: [],
+					blocks: [],
+					logsCriteria: {
+						topics,
+						address,
+						toBlock: _toBlock,
+						fromBlock: _fromBlock,
+					},
+					installed: {},
+					err: undefined,
+				})
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+					result: id,
 				}
 			}
 			case 'eth_getFilterLogs': {
@@ -949,14 +1013,25 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_newBlockFilter': {
+				const newBlockFilterRequest =
+					/** @type {import('@tevm/procedures-types').EthNewBlockFilterJsonRpcRequest}*/
+					(request)
+				const id = generateRandomId()
+				client.setFilter({
+					id,
+					type: 'Block',
+					created: Date.now(),
+					logs: [],
+					tx: [],
+					blocks: [],
+					installed: {},
+					err: undefined,
+				})
 				return {
-					...(request.id ? { id: request.id } : {}),
-					method: request.method,
-					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+					...(newBlockFilterRequest.id ? { id: newBlockFilterRequest.id } : {}),
+					method: newBlockFilterRequest.method,
+					jsonrpc: newBlockFilterRequest.jsonrpc,
+					result: id,
 				}
 			}
 			case 'eth_uninstallFilter': {
@@ -982,14 +1057,25 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_newPendingTransactionFilter': {
+				const newPendingTransactionFilterRequest =
+					/** @type {import('@tevm/procedures-types').EthNewPendingTransactionFilterJsonRpcRequest}*/
+					(request)
+				const id = generateRandomId()
+				client.setFilter({
+					id,
+					type: 'PendingTransaction',
+					created: Date.now(),
+					logs: [],
+					tx: [],
+					blocks: [],
+					installed: {},
+					err: undefined,
+				})
 				return {
-					...(request.id ? { id: request.id } : {}),
-					method: request.method,
-					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not supported',
-					},
+					...(newPendingTransactionFilterRequest.id ? { id: newPendingTransactionFilterRequest.id } : {}),
+					method: newPendingTransactionFilterRequest.method,
+					jsonrpc: newPendingTransactionFilterRequest.jsonrpc,
+					result: id,
 				}
 			}
 

@@ -32,6 +32,10 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 • **client.forkTransport.request**: `EIP1193RequestFn`
 
+• **client.getFilters**
+
+Gets all registered filters mapped by id
+
 • **client.getReceiptsManager**
 
 Interface for querying receipts and historical state
@@ -88,6 +92,14 @@ have extra latency on the first call from initialization
 const client = createMemoryClient()
 await client.ready()
 ```
+
+• **client.removeFilter**
+
+Removes a filter by id
+
+• **client.setFilter**
+
+Creates a new filter to watch for logs events and blocks
 
 • **client.setImpersonatedAccount**
 

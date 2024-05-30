@@ -47,6 +47,16 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 > **request**: `EIP1193RequestFn`
 
+### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<[`Hex`](Hex.md), [`Filter`](../../base-client/type-aliases/Filter.md)\>
+
+Gets all registered filters mapped by id
+
+#### Returns
+
+`Map`\<[`Hex`](Hex.md), [`Filter`](../../base-client/type-aliases/Filter.md)\>
+
 ### getReceiptsManager()
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -136,6 +146,34 @@ await client.ready()
 
 `Promise`\<`true`\>
 
+### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+#### Parameters
+
+• **id**: [`Hex`](Hex.md)
+
+#### Returns
+
+`void`
+
+### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+#### Parameters
+
+• **filter**: [`Filter`](../../base-client/type-aliases/Filter.md)
+
+#### Returns
+
+`void`
+
 ### setImpersonatedAccount()
 
 > `readonly` **setImpersonatedAccount**: (`address`) => `void`
@@ -159,4 +197,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-packages/base-client/types/BaseClient.d.ts:11
+packages/base-client/types/BaseClient.d.ts:12

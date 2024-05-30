@@ -11,6 +11,8 @@
 - [BaseClientOptions](type-aliases/BaseClientOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [Extension](type-aliases/Extension.md)
+- [Filter](type-aliases/Filter.md)
+- [FilterType](type-aliases/FilterType.md)
 - [Hardfork](type-aliases/Hardfork.md)
 - [IntervalMining](type-aliases/IntervalMining.md)
 - [ManualMining](type-aliases/ManualMining.md)
