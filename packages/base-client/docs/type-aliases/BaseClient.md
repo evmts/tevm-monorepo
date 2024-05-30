@@ -47,6 +47,16 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 > **request**: `EIP1193RequestFn`
 
+### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<`Hex`, `Filter`\>
+
+Gets all registered filters mapped by id
+
+#### Returns
+
+`Map`\<`Hex`, `Filter`\>
+
 ### getReceiptsManager()
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -136,6 +146,34 @@ await client.ready()
 
 `Promise`\<`true`\>
 
+### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+#### Parameters
+
+• **id**: `Hex`
+
+#### Returns
+
+`void`
+
+### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+#### Parameters
+
+• **filter**: `Filter`
+
+#### Returns
+
+`void`
+
 ### setImpersonatedAccount()
 
 > `readonly` **setImpersonatedAccount**: (`address`) => `void`
@@ -159,4 +197,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-[BaseClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L12)
+[BaseClient.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L13)

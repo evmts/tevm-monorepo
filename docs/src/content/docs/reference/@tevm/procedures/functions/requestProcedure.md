@@ -37,6 +37,10 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 • **client.forkTransport.request**: `EIP1193RequestFn`
 
+• **client.getFilters**
+
+Gets all registered filters mapped by id
+
 • **client.getReceiptsManager**
 
 Interface for querying receipts and historical state
@@ -94,6 +98,14 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
+• **client.removeFilter**
+
+Removes a filter by id
+
+• **client.setFilter**
+
+Creates a new filter to watch for logs events and blocks
+
 • **client.setImpersonatedAccount**
 
 Sets the account to impersonate. This will allow the client to act as if it is that account
@@ -122,4 +134,4 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/requestProcedure.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L66)
+[procedures/src/requestProcedure.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L68)

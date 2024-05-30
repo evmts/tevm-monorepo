@@ -33,9 +33,9 @@ import {
 	setAccountProcedure,
 } from './index.js'
 import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
-import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
 import { generateRandomId } from './utils/generateRandomId.js'
 import { parseBlockTag } from './utils/parseBlockTag.js'
+import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
 
 /**
  * Request handler for JSON-RPC requests.

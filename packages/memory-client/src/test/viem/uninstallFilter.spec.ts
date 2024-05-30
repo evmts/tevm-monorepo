@@ -1,4 +1,4 @@
-import { expect, beforeEach, describe } from 'bun:test'
+import { beforeEach, describe, expect } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
