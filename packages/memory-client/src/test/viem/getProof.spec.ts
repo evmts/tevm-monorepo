@@ -1,11 +1,10 @@
-import { SimpleContract } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
+import { SimpleContract } from '@tevm/test-utils'
+import { numberToHex } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
-import { numberToHex, type Hex } from 'viem'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
-let deployTxHash: Hex
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
@@ -26,7 +25,6 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	deployTxHash = deployResult.txHash
 	await mc.tevmMine()
 })
 

@@ -1,7 +1,7 @@
-import { SimpleContract } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
-import type { MemoryClient } from '../../MemoryClient.js'
+import { SimpleContract } from '@tevm/test-utils'
 import type { Hex } from 'viem'
+import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
@@ -9,6 +9,7 @@ let deployTxHash: Hex
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
+console.log(c.simpleContract.name)
 
 beforeEach(async () => {
 	mc = createMemoryClient()

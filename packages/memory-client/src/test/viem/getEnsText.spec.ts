@@ -1,8 +1,8 @@
-import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'bun:test'
-import { createMemoryClient } from '../../createMemoryClient.js'
 import { mainnet } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
 import { loadKZG } from 'kzg-wasm'
+import { createMemoryClient } from '../../createMemoryClient.js'
 
 describe('getEnsText', async () => {
 	it.todo('should work', async () => {
