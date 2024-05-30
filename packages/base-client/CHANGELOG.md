@@ -1,5 +1,21 @@
 # @tevm/client
 
+## 1.1.0-next.64
+
+### Minor Changes
+
+- [#1140](https://github.com/evmts/tevm-monorepo/pull/1140) [`6197cba`](https://github.com/evmts/tevm-monorepo/commit/6197cba905cf0445013ce8c20a67a0b04321e8bd) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new filter registration methods to base client
+
+- [#1145](https://github.com/evmts/tevm-monorepo/pull/1145) [`4d287aa`](https://github.com/evmts/tevm-monorepo/commit/4d287aacfbd969ec7e8243135bafc1214ef46352) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for automining.
+
+  ```typescript
+  const tevm = createMemoryClient({
+    miningConfig: {
+      type: "auto",
+    },
+  });
+  ```
+
 ## 1.1.0-next.63
 
 ### Patch Changes
