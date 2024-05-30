@@ -6,6 +6,7 @@ import { validateCallParams } from '@tevm/zod'
 import { createTransaction } from './createTransaction.js'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
+import { mineHandler } from './mineHandler.js'
 
 /**
 * The callHandler is the most important function in Tevm.
@@ -289,6 +290,19 @@ export const callHandler =
                     )
                 }
                 client.logger.debug(txHash, 'Transaction successfully added')
+
+                // handle automining
+                if (client.miningConfig.type === 'auto') {
+                    client.logger.debug(`Automining transaction ${txHash}...`)
+                    const mineRes = await mineHandler(client)({ throwOnFail: false })
+                    if (mineRes.errors?.length) {
+                        return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+                            ...('errors' in mineRes ? { errors: mineRes.errors } : {}),
+                            ...callHandlerResult(evmOutput, txHash, trace, accessList),
+                        })
+                    }
+                    client.logger.debug(mineRes, 'Transaction successfully mined')
+                }
             }
 
             /**
