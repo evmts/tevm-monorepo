@@ -61,13 +61,13 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:1.1.0-next.62",
-		"@tevm/test-utils": "workspace:1.1.0-next.65",
+		"@tevm/test-utils": "workspace:1.1.0-next.66",
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
 		"viem": "^2.9.9"
 	},
 	"devDependencies": {
-		"@tevm/bundler": "workspace:1.1.0-next.65",
+		"@tevm/bundler": "workspace:1.1.0-next.66",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.11.19"
