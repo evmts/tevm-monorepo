@@ -1,5 +1,12 @@
 # @tevm/viem
 
+## 1.1.0-next.65
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/memory-client@1.1.0-next.65
+
 ## 1.1.0-next.64
 
 ### Patch Changes

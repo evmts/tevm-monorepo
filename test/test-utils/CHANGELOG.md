@@ -1,5 +1,12 @@
 # @tevm/test-utils
 
+## 1.1.0-next.65
+
+### Patch Changes
+
+- Updated dependencies [[`b929d0f`](https://github.com/evmts/tevm-monorepo/commit/b929d0f7933e8b5dfb3a4c0a191aaa699ae5ba8e)]:
+  - @tevm/ts-plugin@1.1.0-next.65
+
 ## 1.1.0-next.62
 
 ### Minor Changes
