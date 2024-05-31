@@ -1,4 +1,4 @@
-#!/bin/env node
+#!/usr/bin/env node
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
