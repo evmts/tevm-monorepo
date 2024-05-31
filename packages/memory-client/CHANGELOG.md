@@ -1,5 +1,14 @@
 # @tevm/client
 
+## 1.1.0-next.65
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-client@1.1.0-next.65
+  - @tevm/evm@1.1.0-next.62
+  - @tevm/decorators@1.1.0-next.64
+
 ## 1.1.0-next.64
 
 ### Minor Changes

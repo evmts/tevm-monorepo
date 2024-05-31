@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.1.0-next.65
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/precompiles@1.1.0-next.62
+  - @tevm/viem@1.1.0-next.60
+  - @tevm/base-client@1.1.0-next.65
+  - @tevm/http-client@1.1.0-next.62
+  - @tevm/memory-client@1.1.0-next.65
+  - @tevm/server@1.1.0-next.60
+  - @tevm/state@1.1.0-next.65
+  - @tevm/actions-types@1.1.0-next.60
+  - @tevm/procedures-types@1.1.0-next.64
+  - @tevm/sync-storage-persister@1.1.0-next.65
+  - @tevm/decorators@1.1.0-next.64
+
 ## 1.1.0-next.64
 
 ### Minor Changes

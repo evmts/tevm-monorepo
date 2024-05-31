@@ -1,5 +1,11 @@
 # @tevm/ts-plugin
 
+## 1.1.0-next.65
+
+### Patch Changes
+
+- [#1147](https://github.com/evmts/tevm-monorepo/pull/1147) [`b929d0f`](https://github.com/evmts/tevm-monorepo/commit/b929d0f7933e8b5dfb3a4c0a191aaa699ae5ba8e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not properly shebanging the cli script
+
 ## 1.1.0-next.62
 
 ### Patch Changes
