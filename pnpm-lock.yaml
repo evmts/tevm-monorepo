@@ -2286,7 +2286,7 @@ importers:
         specifier: workspace:1.1.0-next.62
         version: link:../../packages/contract
       '@tevm/test-utils':
-        specifier: workspace:1.1.0-next.65
+        specifier: workspace:1.1.0-next.66
         version: link:../test-utils
       '@tevm/viem':
         specifier: workspace:^
@@ -2299,7 +2299,7 @@ importers:
         version: 2.9.9(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@tevm/bundler':
-        specifier: workspace:1.1.0-next.65
+        specifier: workspace:1.1.0-next.66
         version: link:../../bundler
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2342,7 +2342,7 @@ importers:
         specifier: workspace:1.1.0-next.60
         version: link:../../bundler-packages/esbuild
       '@tevm/ts-plugin':
-        specifier: workspace:1.1.0-next.65
+        specifier: workspace:1.1.0-next.66
         version: link:../../lsp/ts-plugin
       viem:
         specifier: ^2.12.0

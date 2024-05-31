@@ -1,5 +1,11 @@
 # @tevm/ts-plugin
 
+## 1.1.0-next.66
+
+### Patch Changes
+
+- [#1149](https://github.com/evmts/tevm-monorepo/pull/1149) [`e94b6c9`](https://github.com/evmts/tevm-monorepo/commit/e94b6c9d8d1c886dc83e6fc4804a4dd170d58c65) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed shebang in cli script
+
 ## 1.1.0-next.65
 
 ### Patch Changes

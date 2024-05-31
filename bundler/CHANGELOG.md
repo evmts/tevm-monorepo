@@ -1,5 +1,12 @@
 # @tevm/bundler
 
+## 1.1.0-next.66
+
+### Patch Changes
+
+- Updated dependencies [[`e94b6c9`](https://github.com/evmts/tevm-monorepo/commit/e94b6c9d8d1c886dc83e6fc4804a4dd170d58c65)]:
+  - @tevm/ts-plugin@1.1.0-next.66
+
 ## 1.1.0-next.65
 
 ### Patch Changes
