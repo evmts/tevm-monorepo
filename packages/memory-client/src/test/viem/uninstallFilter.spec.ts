@@ -1,32 +1,28 @@
-import { beforeEach, describe, expect } from 'bun:test'
-import { SimpleContract } from '@tevm/test-utils'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
-let c = {
-	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
-}
 
 beforeEach(async () => {
 	mc = createMemoryClient()
-	const deployResult = await mc.tevmDeploy({
-		bytecode: SimpleContract.bytecode,
-		abi: SimpleContract.abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	c = {
-		simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
-	}
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	await mc.tevmMine()
 })
 
-describe('uninstallFilter', () => {
-	expect(c.simpleContract.name).toBe('SimpleContract')
+describe('uninstallFilter', async () => {
+	it('should uninstall a filter', async () => {
+		const filter = await mc.createBlockFilter()
+		expect(mc._tevm.getFilters().get(filter.id)).toEqual({
+			id: filter.id,
+			tx: [],
+			installed: {},
+			type: 'Block',
+			logs: [],
+			created: expect.any(Number),
+			blocks: [],
+			err: undefined,
+		})
+		const result = await mc.uninstallFilter({ filter })
+		expect(result).toEqual(true)
+		expect(mc._tevm.getFilters().get(filter.id)).toBeUndefined()
+	})
 })

@@ -1,8 +1,8 @@
-[**tevm**](../../README.md) • **Docs**
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[tevm](../../modules.md) / [decorators](../README.md) / ProviderMessage
+[@tevm/base-client](../globals.md) / ProviderMessage
 
 # Type alias: ProviderMessage
 
@@ -20,4 +20,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:263
+packages/base-client/src/EIP1193EventEmitterTypes.ts:14

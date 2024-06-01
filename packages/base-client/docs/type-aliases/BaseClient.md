@@ -6,7 +6,7 @@
 
 # Type alias: BaseClient\<TMode, TExtended\>
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -197,4 +197,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-[BaseClient.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L13)
+[packages/base-client/src/BaseClient.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L14)

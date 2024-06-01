@@ -1,8 +1,8 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[@tevm/decorators](../globals.md) / EIP1193EventEmitter
+[tevm](../../modules.md) / [index](../README.md) / EIP1193EventEmitter
 
 # Type alias: EIP1193EventEmitter
 
@@ -34,4 +34,4 @@ True if the event was emitted, false otherwise.
 
 ## Source
 
-[packages/decorators/src/events/EIP1193EventEmitter.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/events/EIP1193EventEmitter.ts#L6)
+packages/base-client/dist/index.d.ts:46

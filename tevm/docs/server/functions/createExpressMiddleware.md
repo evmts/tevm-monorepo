@@ -14,7 +14,7 @@ Creates express middleware for a Tevm JSON-RPC server
 
 • **client**
 
-• **client.\_tevm**: `object` & [`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md) & [`TevmActionsApi`](../../index/type-aliases/TevmActionsApi.md) & `object`
+• **client.\_tevm**: `object` & [`EIP1193Events`](../../index/type-aliases/EIP1193Events.md) & `object` & [`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md) & [`TevmActionsApi`](../../index/type-aliases/TevmActionsApi.md) & `object`
 
 • **client.account**: `undefined`
 

@@ -18,4 +18,4 @@ See `requestEip1193` for a more user friendly method.
 
 ## Source
 
-[packages/decorators/src/request/tevmSend.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/tevmSend.js#L8)
+[request/tevmSend.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/tevmSend.js#L8)

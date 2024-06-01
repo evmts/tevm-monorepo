@@ -1,8 +1,8 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[@tevm/decorators](../globals.md) / EIP1193Events
+[@tevm/base-client](../globals.md) / EIP1193Events
 
 # Type alias: EIP1193Events
 
@@ -44,4 +44,4 @@
 
 ## Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L36)
+packages/base-client/src/EIP1193EventEmitterTypes.ts:43

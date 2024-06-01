@@ -6,7 +6,7 @@
 
 # Type alias: BaseClient\<TMode, TExtended\>
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -49,13 +49,13 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### getFilters()
 
-> `readonly` **getFilters**: () => `Map`\<[`Hex`](Hex.md), [`Filter`](../../base-client/type-aliases/Filter.md)\>
+> `readonly` **getFilters**: () => `Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>
 
 Gets all registered filters mapped by id
 
 #### Returns
 
-`Map`\<[`Hex`](Hex.md), [`Filter`](../../base-client/type-aliases/Filter.md)\>
+`Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>
 
 ### getReceiptsManager()
 
@@ -168,7 +168,7 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-• **filter**: [`Filter`](../../base-client/type-aliases/Filter.md)
+• **filter**: [`Filter`](Filter.md)
 
 #### Returns
 
@@ -197,4 +197,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-packages/base-client/types/BaseClient.d.ts:12
+packages/base-client/dist/index.d.ts:120

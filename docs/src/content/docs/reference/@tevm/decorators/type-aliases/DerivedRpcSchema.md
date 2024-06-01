@@ -15,4 +15,4 @@ title: "DerivedRpcSchema"
 
 ## Source
 
-[packages/decorators/src/eip1193/DerivedRpcSchema.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/DerivedRpcSchema.ts#L11)
+[eip1193/DerivedRpcSchema.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/DerivedRpcSchema.ts#L11)

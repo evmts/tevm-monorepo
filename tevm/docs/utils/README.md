@@ -191,7 +191,7 @@ Re-exports [ExtractAbiFunctionNames](../index/type-aliases/ExtractAbiFunctionNam
 
 ### Filter
 
-Re-exports [Filter](../index/type-aliases/Filter.md)
+Renames and re-exports [EthjsFilter](../index/type-aliases/EthjsFilter.md)
 
 ***
 

@@ -1,8 +1,8 @@
-[**tevm**](../../README.md) • **Docs**
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[tevm](../../modules.md) / [decorators](../README.md) / EIP1193EventMap
+[@tevm/base-client](../globals.md) / EIP1193EventMap
 
 # Type alias: EIP1193EventMap
 
@@ -60,6 +60,36 @@
 
 `void`
 
+### newBlock()
+
+#### Parameters
+
+• **block**: `Block`
+
+#### Returns
+
+`void`
+
+### newLog()
+
+#### Parameters
+
+• **log**: `Log`
+
+#### Returns
+
+`void`
+
+### newPendingTransaction()
+
+#### Parameters
+
+• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+
+#### Returns
+
+`void`
+
 ## Source
 
-packages/decorators/dist/index.d.ts:272
+packages/base-client/src/EIP1193EventEmitterTypes.ts:30

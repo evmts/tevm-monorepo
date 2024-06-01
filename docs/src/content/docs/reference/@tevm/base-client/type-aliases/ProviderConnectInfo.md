@@ -15,4 +15,4 @@ title: "ProviderConnectInfo"
 
 ## Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L8)
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L10)

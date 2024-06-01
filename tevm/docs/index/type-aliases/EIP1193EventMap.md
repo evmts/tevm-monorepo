@@ -1,8 +1,8 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[@tevm/decorators](../globals.md) / EIP1193EventMap
+[tevm](../../modules.md) / [index](../README.md) / EIP1193EventMap
 
 # Type alias: EIP1193EventMap
 
@@ -60,6 +60,36 @@
 
 `void`
 
+### newBlock()
+
+#### Parameters
+
+• **block**: `Block`
+
+#### Returns
+
+`void`
+
+### newLog()
+
+#### Parameters
+
+• **log**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)
+
+#### Returns
+
+`void`
+
+### newPendingTransaction()
+
+#### Parameters
+
+• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+
+#### Returns
+
+`void`
+
 ## Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L28)
+packages/base-client/dist/index.d.ts:29

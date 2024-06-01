@@ -196,4 +196,4 @@ r
 
 ## Source
 
-packages/decorators/dist/index.d.ts:306
+packages/decorators/dist/index.d.ts:282

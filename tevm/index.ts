@@ -121,7 +121,7 @@ export {
   toRlp,
   mnemonicToAccount,
   type ExtractAbiEvents,
-  type Filter,
+  type Filter as EthjsFilter,
   type Account,
   type HDAccount,
   type ContractFunctionName,
@@ -135,7 +135,6 @@ export type {
 } from "@tevm/state";
 
 export type {
-  EIP1193Events,
   EthActionsApi,
   TevmActionsApi,
   EIP1193RequestFn,
@@ -156,7 +155,15 @@ export {
   type AutoMining,
   type ManualMining,
   type MiningConfig,
-  type IntervalMining
+  type IntervalMining,
+  type EIP1193Events,
+  type Filter,
+  type FilterType,
+  type EIP1193EventMap,
+  type ProviderMessage,
+  ProviderRpcError,
+  type EIP1193EventEmitter,
+  type ProviderConnectInfo
 } from "@tevm/base-client";
 
 export { type MemoryClient, createMemoryClient, type TevmActions } from "@tevm/memory-client";

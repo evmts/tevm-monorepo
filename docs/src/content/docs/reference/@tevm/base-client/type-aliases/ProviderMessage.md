@@ -19,4 +19,4 @@ title: "ProviderMessage"
 
 ## Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L12)
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L14)

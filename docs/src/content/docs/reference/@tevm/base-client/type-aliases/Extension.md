@@ -21,4 +21,4 @@ title: "Extension"
 
 ## Source
 
-[Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Extension.ts#L3)
+[packages/base-client/src/Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Extension.ts#L3)

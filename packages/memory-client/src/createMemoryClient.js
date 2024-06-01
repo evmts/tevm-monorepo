@@ -1,6 +1,6 @@
 import { createBaseClient } from '@tevm/base-client'
 import { tevmDefault } from '@tevm/common'
-import { eip1993EventEmitter, requestEip1193, tevmActions, tevmSend } from '@tevm/decorators'
+import { requestEip1193, tevmActions, tevmSend } from '@tevm/decorators'
 import { createClient, createTransport, publicActions, testActions } from 'viem'
 
 // TODO strongly type this! Currently it's return type is inferred
@@ -38,11 +38,7 @@ import { createClient, createTransport, publicActions, testActions } from 'viem'
 *  ```
 */
 export const createMemoryClient = (options) => {
-	const tevm = createBaseClient(options)
-		.extend(tevmSend())
-		.extend(eip1993EventEmitter())
-		.extend(requestEip1193())
-		.extend(tevmActions())
+	const tevm = createBaseClient(options).extend(tevmSend()).extend(requestEip1193()).extend(tevmActions())
 
 	return createClient({
 		type: 'tevm',

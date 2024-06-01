@@ -15,4 +15,4 @@ title: "AutoMining"
 
 ## Source
 
-[MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)
+[packages/base-client/src/MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)

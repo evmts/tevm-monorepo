@@ -4,6 +4,7 @@ import type { TxPool } from '@tevm/txpool'
 import type { Address, Hex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
+import type { EIP1193EventEmitter } from './EIP1193EventEmitterTypes.js'
 import type { Filter } from './Filter.js'
 import type { MiningConfig } from './MiningConfig.js'
 
@@ -98,4 +99,5 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * Removes a filter by id
 	 */
 	readonly removeFilter: (id: Hex) => void
-} & TExtended
+} & EIP1193EventEmitter &
+	TExtended

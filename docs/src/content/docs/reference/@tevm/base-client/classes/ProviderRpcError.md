@@ -1,10 +1,9 @@
-[**tevm**](../../README.md) • **Docs**
-
-***
-
-[tevm](../../modules.md) / [decorators](../README.md) / ProviderRpcError
-
-# Class: ProviderRpcError
+---
+editUrl: false
+next: false
+prev: false
+title: "ProviderRpcError"
+---
 
 ## Extends
 
@@ -14,7 +13,7 @@
 
 ### new ProviderRpcError()
 
-> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](ProviderRpcError.md)
+> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](/reference/tevm/base-client/classes/providerrpcerror/)
 
 #### Parameters
 
@@ -24,7 +23,7 @@
 
 #### Returns
 
-[`ProviderRpcError`](ProviderRpcError.md)
+[`ProviderRpcError`](/reference/tevm/base-client/classes/providerrpcerror/)
 
 #### Overrides
 
@@ -32,7 +31,7 @@
 
 #### Source
 
-packages/decorators/dist/index.d.ts:270
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L23)
 
 ## Properties
 
@@ -56,7 +55,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-packages/decorators/dist/index.d.ts:268
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L20)
 
 ***
 
@@ -66,7 +65,7 @@ packages/decorators/dist/index.d.ts:268
 
 #### Source
 
-packages/decorators/dist/index.d.ts:269
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L21)
 
 ***
 
@@ -204,4 +203,4 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/bun-types@1.1.8/node\_modules/bun-types/globals.d.ts:1613

@@ -19,4 +19,4 @@ title: "IntervalMining"
 
 ## Source
 
-[MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L1)
+[packages/base-client/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L1)

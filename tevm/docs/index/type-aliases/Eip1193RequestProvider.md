@@ -18,4 +18,4 @@ The default EIP1193 compatable provider request method with enabled tevm methods
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1602
+packages/decorators/dist/index.d.ts:1563

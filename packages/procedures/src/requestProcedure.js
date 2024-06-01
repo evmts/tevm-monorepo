@@ -1035,14 +1035,25 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_uninstallFilter': {
+				const uninstallFilterRequest =
+					/** @type {import('@tevm/procedures-types').EthUninstallFilterJsonRpcRequest}*/
+					(request)
+				const [filterId] = uninstallFilterRequest.params
+				const filterExists = Boolean(client.getFilters().get(filterId))
+				if (!filterExists) {
+					return {
+						...(uninstallFilterRequest.id ? { id: uninstallFilterRequest.id } : {}),
+						method: uninstallFilterRequest.method,
+						jsonrpc: uninstallFilterRequest.jsonrpc,
+						result: false,
+					}
+				}
+				client.removeFilter(filterId)
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+					result: true,
 				}
 			}
 			case 'eth_getFilterChanges': {
