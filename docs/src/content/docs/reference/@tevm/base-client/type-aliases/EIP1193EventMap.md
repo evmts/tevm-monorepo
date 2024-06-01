@@ -91,4 +91,4 @@ title: "EIP1193EventMap"
 
 ## Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:30
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L30)
