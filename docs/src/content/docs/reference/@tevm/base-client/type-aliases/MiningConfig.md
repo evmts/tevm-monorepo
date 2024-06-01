@@ -9,4 +9,4 @@ title: "MiningConfig"
 
 ## Source
 
-[MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L15)
+[packages/base-client/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L15)

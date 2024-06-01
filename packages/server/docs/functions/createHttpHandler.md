@@ -20,7 +20,7 @@
 
 *
 
-• **client.\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+• **client.\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
 • **client.account**: `undefined`
 

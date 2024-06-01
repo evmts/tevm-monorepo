@@ -11,7 +11,7 @@ title: "TevmActions"
 
 ### \_tevm
 
-> **\_tevm**: [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/) & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+> **\_tevm**: `BaseClient` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
 #### Type declaration
 

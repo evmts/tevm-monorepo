@@ -260,7 +260,7 @@ export const createBaseClient = (options = {}) => {
 	/** @type {Map<string | symbol, Array<Function>>} */
 	const events = new Map()
 	/**
-	 * @type {import('./EIP1193EventEmitter.js').EIP1193EventEmitter}
+	 * @type {import('./EIP1193EventEmitterTypes.js').EIP1193EventEmitter}
 	 */
 	const eventEmitter = {
 		on(eventName, listener) {

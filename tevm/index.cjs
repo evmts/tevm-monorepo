@@ -228,6 +228,10 @@ Object.defineProperty(exports, "GENESIS_STATE", {
   enumerable: true,
   get: function () { return baseClient.GENESIS_STATE; }
 });
+Object.defineProperty(exports, "ProviderRpcError", {
+  enumerable: true,
+  get: function () { return baseClient.ProviderRpcError; }
+});
 Object.defineProperty(exports, "createBaseClient", {
   enumerable: true,
   get: function () { return baseClient.createBaseClient; }

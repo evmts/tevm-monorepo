@@ -2,7 +2,7 @@
 
 ***
 
-[tevm](../../modules.md) / [decorators](../README.md) / ProviderConnectInfo
+[tevm](../../modules.md) / [index](../README.md) / ProviderConnectInfo
 
 # Type alias: ProviderConnectInfo
 
@@ -16,4 +16,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:260
+packages/base-client/dist/index.d.ts:17

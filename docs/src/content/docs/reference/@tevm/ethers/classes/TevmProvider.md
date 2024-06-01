@@ -1888,7 +1888,7 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-• **options**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)
+• **options**: `BaseClientOptions`
 
 Options to create a new TevmProvider.
 

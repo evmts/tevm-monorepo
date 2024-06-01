@@ -2,7 +2,7 @@
 
 ***
 
-[tevm](../../modules.md) / [base-client](../README.md) / FilterType
+[tevm](../../modules.md) / [index](../README.md) / FilterType
 
 # Type alias: FilterType
 
@@ -10,4 +10,4 @@
 
 ## Source
 
-packages/base-client/types/Filter.d.ts:4
+packages/base-client/dist/index.d.ts:56

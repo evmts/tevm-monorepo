@@ -167,4 +167,4 @@ Enable profiler. Defaults to false.
 
 ## Source
 
-[BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)
+[packages/base-client/src/BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)

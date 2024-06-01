@@ -11,6 +11,7 @@
 ### Classes
 
 - [Predeploy](classes/Predeploy.md)
+- [ProviderRpcError](classes/ProviderRpcError.md)
 
 ### Interfaces
 
@@ -49,11 +50,14 @@
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [DecodeFunctionResultReturnType](type-aliases/DecodeFunctionResultReturnType.md)
+- [EIP1193EventEmitter](type-aliases/EIP1193EventEmitter.md)
+- [EIP1193EventMap](type-aliases/EIP1193EventMap.md)
 - [EIP1193Events](type-aliases/EIP1193Events.md)
 - [EIP1193RequestFn](type-aliases/EIP1193RequestFn.md)
 - [Eip1193RequestProvider](type-aliases/Eip1193RequestProvider.md)
 - [EncodeFunctionDataParameters](type-aliases/EncodeFunctionDataParameters.md)
 - [EthActionsApi](type-aliases/EthActionsApi.md)
+- [EthjsFilter](type-aliases/EthjsFilter.md)
 - [EventActionCreator](type-aliases/EventActionCreator.md)
 - [Extension](type-aliases/Extension.md)
 - [ExtractAbiEvent](type-aliases/ExtractAbiEvent.md)
@@ -62,6 +66,7 @@
 - [ExtractAbiFunction](type-aliases/ExtractAbiFunction.md)
 - [ExtractAbiFunctionNames](type-aliases/ExtractAbiFunctionNames.md)
 - [Filter](type-aliases/Filter.md)
+- [FilterType](type-aliases/FilterType.md)
 - [FormatAbi](type-aliases/FormatAbi.md)
 - [GetAccountParams](type-aliases/GetAccountParams.md)
 - [GetAccountResult](type-aliases/GetAccountResult.md)
@@ -85,6 +90,8 @@
 - [MineResult](type-aliases/MineResult.md)
 - [MiningConfig](type-aliases/MiningConfig.md)
 - [ParseAbi](type-aliases/ParseAbi.md)
+- [ProviderConnectInfo](type-aliases/ProviderConnectInfo.md)
+- [ProviderMessage](type-aliases/ProviderMessage.md)
 - [ReadActionCreator](type-aliases/ReadActionCreator.md)
 - [Script](type-aliases/Script.md)
 - [ScriptParams](type-aliases/ScriptParams.md)

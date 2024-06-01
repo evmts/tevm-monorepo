@@ -21,7 +21,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ### \_tevm
 
-> **\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+> **\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
 #### Type declaration
 
@@ -201,6 +201,28 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 ###### Returns
 
 `void`
+
+#### Type declaration
+
+##### emit()
+
+Emit an event.
+
+###### Parameters
+
+• **eventName**: keyof `EIP1193EventMap`
+
+The event name.
+
+• ...**args**: `any`[]
+
+Arguments to pass to the event listeners.
+
+###### Returns
+
+`boolean`
+
+True if the event was emitted, false otherwise.
 
 #### Type declaration
 

@@ -6,8 +6,8 @@
 
 # Variable: GENESIS\_STATE
 
-> `const` **GENESIS\_STATE**: `TevmState`
+> `const` **GENESIS\_STATE**: [`TevmState`](../type-aliases/TevmState.md)
 
 ## Source
 
-packages/base-client/types/GENESIS\_STATE.d.ts:10
+packages/base-client/dist/index.d.ts:366

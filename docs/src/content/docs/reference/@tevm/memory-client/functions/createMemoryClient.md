@@ -12,7 +12,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)
+• **options?**: `BaseClientOptions`
 
 ## Returns
 
@@ -20,13 +20,13 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ### \_tevm
 
-> **\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+> **\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
 #### Type declaration
 
 ##### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -41,7 +41,7 @@ and extensibility
 
 ###### Returns
 
-[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ##### forkTransport?
 
@@ -115,7 +115,7 @@ The logger instance
 
 ##### miningConfig
 
-> `readonly` **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+> `readonly` **miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -200,6 +200,28 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 ###### Returns
 
 `void`
+
+#### Type declaration
+
+##### emit()
+
+Emit an event.
+
+###### Parameters
+
+• **eventName**: keyof `EIP1193EventMap`
+
+The event name.
+
+• ...**args**: `any`[]
+
+Arguments to pass to the event listeners.
+
+###### Returns
+
+`boolean`
+
+True if the event was emitted, false otherwise.
 
 #### Type declaration
 

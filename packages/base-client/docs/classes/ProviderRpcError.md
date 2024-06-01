@@ -1,8 +1,8 @@
-[**tevm**](../../README.md) • **Docs**
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[tevm](../../modules.md) / [decorators](../README.md) / ProviderRpcError
+[@tevm/base-client](../globals.md) / ProviderRpcError
 
 # Class: ProviderRpcError
 
@@ -32,7 +32,7 @@
 
 #### Source
 
-packages/decorators/dist/index.d.ts:270
+packages/base-client/src/EIP1193EventEmitterTypes.ts:23
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-packages/decorators/dist/index.d.ts:268
+packages/base-client/src/EIP1193EventEmitterTypes.ts:20
 
 ***
 
@@ -66,7 +66,7 @@ packages/decorators/dist/index.d.ts:268
 
 #### Source
 
-packages/decorators/dist/index.d.ts:269
+packages/base-client/src/EIP1193EventEmitterTypes.ts:21
 
 ***
 
@@ -204,4 +204,4 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/bun-types@1.1.8/node\_modules/bun-types/globals.d.ts:1613

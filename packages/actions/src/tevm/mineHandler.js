@@ -108,5 +108,23 @@ export const mineHandler =
             originalVm.evm.blockchain = vm.evm.blockchain
             await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
+            // handle updating filters
+            for (const [_, filter] of client.getFilters().entries()) {
+                switch (filter.type) {
+                    case 'Log':
+                        filter
+                        break
+                    case 'Block':
+                        filter
+                        break
+                    case 'PendingTransaction':
+                        filter
+                        break
+                    default:
+                        // TODO fix this type
+                        return /** @type any*/({ errors: ['Invalid filter type. The tx has already been mined but any registered filters may have not been updated'], blockHashes })
+                }
+            }
+
             return { blockHashes }
     }

@@ -6,7 +6,7 @@
 
 # Function: createBaseClient()
 
-> **createBaseClient**(`options`?): `BaseClient`
+> **createBaseClient**(`options`?): [`BaseClient`](../type-aliases/BaseClient.md)
 
 ## Parameters
 
@@ -14,8 +14,8 @@
 
 ## Returns
 
-`BaseClient`
+[`BaseClient`](../type-aliases/BaseClient.md)
 
 ## Source
 
-packages/base-client/types/createBaseClient.d.ts:1
+packages/base-client/dist/index.d.ts:348

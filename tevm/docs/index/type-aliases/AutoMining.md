@@ -16,4 +16,4 @@
 
 ## Source
 
-packages/base-client/types/MiningConfig.d.ts:8
+packages/base-client/dist/index.d.ts:108

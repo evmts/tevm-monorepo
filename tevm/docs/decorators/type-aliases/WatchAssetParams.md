@@ -48,4 +48,4 @@ Token type.
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1352
+packages/decorators/dist/index.d.ts:1328

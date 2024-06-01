@@ -14,13 +14,13 @@
 
 #### Type parameters
 
-• **TEvent** *extends* keyof [`EIP1193EventMap`](../../decorators/type-aliases/EIP1193EventMap.md)
+• **TEvent** *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
 #### Parameters
 
 • **event**: `TEvent`
 
-• **listener**: [`EIP1193EventMap`](../../decorators/type-aliases/EIP1193EventMap.md)\[`TEvent`\]
+• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
@@ -30,13 +30,13 @@
 
 #### Type parameters
 
-• **TEvent** *extends* keyof [`EIP1193EventMap`](../../decorators/type-aliases/EIP1193EventMap.md)
+• **TEvent** *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
 #### Parameters
 
 • **event**: `TEvent`
 
-• **listener**: [`EIP1193EventMap`](../../decorators/type-aliases/EIP1193EventMap.md)\[`TEvent`\]
+• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
@@ -44,4 +44,4 @@
 
 ## Source
 
-packages/decorators/dist/index.d.ts:279
+packages/base-client/dist/index.d.ts:39

@@ -26,7 +26,7 @@ All constants including vital OP stack addresses and owners are available and tr
 
 ### \_tevm
 
-> **\_tevm**: `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+> **\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
 #### Type declaration
 
@@ -64,6 +64,16 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 ##### forkTransport.request
 
 > **request**: `EIP1193RequestFn`
+
+##### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<\`0x$\{string\}\`, `Filter`\>
+
+Gets all registered filters mapped by id
+
+###### Returns
+
+`Map`\<\`0x$\{string\}\`, `Filter`\>
 
 ##### getReceiptsManager()
 
@@ -154,6 +164,34 @@ await client.ready()
 
 `Promise`\<`true`\>
 
+##### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+###### Parameters
+
+• **id**: \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+##### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+###### Parameters
+
+• **filter**: `Filter`
+
+###### Returns
+
+`void`
+
 ##### setImpersonatedAccount()
 
 > `readonly` **setImpersonatedAccount**: (`address`) => `void`
@@ -168,6 +206,28 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 ###### Returns
 
 `void`
+
+#### Type declaration
+
+##### emit()
+
+Emit an event.
+
+###### Parameters
+
+• **eventName**: keyof `EIP1193EventMap`
+
+The event name.
+
+• ...**args**: `any`[]
+
+Arguments to pass to the event listeners.
+
+###### Returns
+
+`boolean`
+
+True if the event was emitted, false otherwise.
 
 #### Type declaration
 

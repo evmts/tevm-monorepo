@@ -13,7 +13,7 @@ title: "ProviderRpcError"
 
 ### new ProviderRpcError()
 
-> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](/reference/tevm/decorators/classes/providerrpcerror/)
+> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](/reference/tevm/base-client/classes/providerrpcerror/)
 
 #### Parameters
 
@@ -23,7 +23,7 @@ title: "ProviderRpcError"
 
 #### Returns
 
-[`ProviderRpcError`](/reference/tevm/decorators/classes/providerrpcerror/)
+[`ProviderRpcError`](/reference/tevm/base-client/classes/providerrpcerror/)
 
 #### Overrides
 
@@ -31,7 +31,7 @@ title: "ProviderRpcError"
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L21)
+packages/base-client/src/EIP1193EventEmitterTypes.ts:23
 
 ## Properties
 
@@ -55,7 +55,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L18)
+packages/base-client/src/EIP1193EventEmitterTypes.ts:20
 
 ***
 
@@ -65,7 +65,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L19)
+packages/base-client/src/EIP1193EventEmitterTypes.ts:21
 
 ***
 

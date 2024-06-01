@@ -1,12 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**@tevm/base-client**](../README.md) • **Docs**
 
 ***
 
-[tevm](../../modules.md) / [decorators](../README.md) / EIP1193EventEmitter
+[@tevm/base-client](../globals.md) / EIP1193EventEmitter
 
 # Type alias: EIP1193EventEmitter
 
-> **EIP1193EventEmitter**: [`EIP1193Events`](../../index/type-aliases/EIP1193Events.md) & `object`
+> **EIP1193EventEmitter**: [`EIP1193Events`](EIP1193Events.md) & `object`
 
 A very minimal EventEmitter interface
 
@@ -34,4 +34,4 @@ True if the event was emitted, false otherwise.
 
 ## Source
 
-packages/decorators/dist/index.d.ts:1586
+packages/base-client/src/EIP1193EventEmitterTypes.ts:50

@@ -4,40 +4,69 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Filter
 
-# Type alias: Filter\<TFilterType, TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock\>
+# Type alias: Filter
 
-> **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: `object` & `TFilterType` *extends* `"event"` ? `object` & `TAbi` *extends* `Abi` ? `undefined` *extends* `TEventName` ? `object` : `TArgs` *extends* `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? `object` : `object` : `object` : `object`
+> **Filter**: `object`
+
+Internal representation of a registered filter
 
 ## Type declaration
+
+### blocks
+
+> **blocks**: `Block`[]
+
+Stores the blocks
+
+### created
+
+> **created**: `number`
+
+Creation timestamp
+
+### err
+
+> **err**: `Error` \| `undefined`
+
+Error if any
 
 ### id
 
 > **id**: [`Hex`](Hex.md)
 
-### request
+Id of the filter
 
-> **request**: `EIP1193RequestFn`\<`FilterRpcSchema`\>
+### installed
+
+> **installed**: `object`
+
+Not sure what this is yet
+
+### logs
+
+> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
+
+Stores logs
+
+### logsCriteria?
+
+> `optional` **logsCriteria**: `TODO`
+
+Criteria of the logs
+https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go#L329
+
+### tx
+
+> **tx**: `TypedTransaction`[]
+
+stores tx
 
 ### type
 
-> **type**: `TFilterType`
+> **type**: [`FilterType`](FilterType.md)
 
-## Type parameters
-
-• **TFilterType** *extends* `FilterType` = `"event"`
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] \| `undefined` = `undefined`
-
-• **TEventName** *extends* `string` \| `undefined` = `undefined`
-
-• **TArgs** *extends* `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\>
-
-• **TStrict** *extends* `boolean` \| `undefined` = `undefined`
-
-• **TFromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
-
-• **TToBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+The type of the filter
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/types/filter.d.ts:11
+packages/base-client/dist/index.d.ts:61

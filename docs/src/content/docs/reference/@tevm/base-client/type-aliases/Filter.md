@@ -1,10 +1,9 @@
-[**tevm**](../../README.md) • **Docs**
-
-***
-
-[tevm](../../modules.md) / [base-client](../README.md) / Filter
-
-# Type alias: Filter
+---
+editUrl: false
+next: false
+prev: false
+title: "Filter"
+---
 
 > **Filter**: `object`
 
@@ -32,7 +31,7 @@ Error if any
 
 ### id
 
-> **id**: [`Hex`](../../index/type-aliases/Hex.md)
+> **id**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 Id of the filter
 
@@ -44,7 +43,7 @@ Not sure what this is yet
 
 ### logs
 
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
+> **logs**: [`EthjsLog`](/reference/tevm/utils/type-aliases/ethjslog/)[]
 
 Stores logs
 
@@ -63,10 +62,10 @@ stores tx
 
 ### type
 
-> **type**: [`FilterType`](FilterType.md)
+> **type**: [`FilterType`](/reference/tevm/base-client/type-aliases/filtertype/)
 
 The type of the filter
 
 ## Source
 
-packages/base-client/types/Filter.d.ts:9
+[packages/base-client/src/Filter.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Filter.ts#L13)

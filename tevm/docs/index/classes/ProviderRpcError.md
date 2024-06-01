@@ -1,8 +1,8 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**tevm**](../../README.md) • **Docs**
 
 ***
 
-[@tevm/decorators](../globals.md) / ProviderRpcError
+[tevm](../../modules.md) / [index](../README.md) / ProviderRpcError
 
 # Class: ProviderRpcError
 
@@ -32,7 +32,7 @@
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L21)
+packages/base-client/dist/index.d.ts:27
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L18)
+packages/base-client/dist/index.d.ts:25
 
 ***
 
@@ -66,7 +66,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L19)
+packages/base-client/dist/index.d.ts:26
 
 ***
 
@@ -204,4 +204,4 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/bun-types@1.1.8/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/@types+node@20.12.11/node\_modules/@types/node/globals.d.ts:21

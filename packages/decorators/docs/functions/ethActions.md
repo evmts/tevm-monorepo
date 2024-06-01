@@ -14,4 +14,4 @@
 
 ## Source
 
-[packages/decorators/src/actions/ethActions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/ethActions.js#L14)
+[actions/ethActions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/ethActions.js#L14)

@@ -12,4 +12,4 @@ Also including zero address
 
 ## Source
 
-[GENESIS\_STATE.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/GENESIS_STATE.js#L8)
+[packages/base-client/src/GENESIS\_STATE.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/GENESIS_STATE.js#L8)

@@ -503,4 +503,4 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 ## Source
 
-[packages/decorators/src/eip1193/JsonRpcSchemaWallet.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaWallet.ts#L14)
+[eip1193/JsonRpcSchemaWallet.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaWallet.ts#L14)

@@ -5,7 +5,7 @@ prev: false
 title: "BaseClient"
 ---
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & `TExtended`
+> **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](/reference/tevm/base-client/type-aliases/eip1193eventemitter/) & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -48,13 +48,13 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### getFilters()
 
-> `readonly` **getFilters**: () => `Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), `Filter`\>
+> `readonly` **getFilters**: () => `Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/base-client/type-aliases/filter/)\>
 
 Gets all registered filters mapped by id
 
 #### Returns
 
-`Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), `Filter`\>
+`Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/base-client/type-aliases/filter/)\>
 
 ### getReceiptsManager()
 
@@ -167,7 +167,7 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-• **filter**: `Filter`
+• **filter**: [`Filter`](/reference/tevm/base-client/type-aliases/filter/)
 
 #### Returns
 
@@ -196,4 +196,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-[BaseClient.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L13)
+[packages/base-client/src/BaseClient.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L14)
