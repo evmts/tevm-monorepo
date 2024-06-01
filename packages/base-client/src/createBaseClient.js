@@ -257,6 +257,39 @@ export const createBaseClient = (options = {}) => {
 	 */
 	const filters = new Map()
 
+	/** @type {Map<string | symbol, Array<Function>>} */
+	const events = new Map()
+	/**
+	 * @type {import('./EIP1193EventEmitter.js').EIP1193EventEmitter}
+	 */
+	const eventEmitter = {
+		on(eventName, listener) {
+			const listeners = events.get(eventName) || []
+			listeners.push(listener)
+			events.set(eventName, listeners)
+		},
+		removeListener(eventName, listener) {
+			const listeners = events.get(eventName)
+			if (listeners) {
+				const index = listeners.findIndex((l) => l === listener)
+				if (index !== -1) {
+					listeners.splice(index, 1)
+					if (listeners.length === 0) {
+						events.delete(eventName)
+					}
+				}
+			}
+		},
+		emit(eventName, ...args) {
+			const listeners = events.get(eventName)
+			if (listeners?.length) {
+				listeners.forEach((listener) => listener(...args))
+				return true // Event was successfully emitted
+			}
+			return false // No listeners for the event
+		},
+	}
+
 	/**
 	 * Create and return the baseClient
 	 * It will be syncronously created but some functionality
@@ -264,6 +297,7 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		...eventEmitter,
 		logger,
 		getReceiptsManager: async () => {
 			await readyPromise

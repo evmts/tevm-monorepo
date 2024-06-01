@@ -1,6 +1,5 @@
 export * from './AddEthereumChainParameter.js'
 export * from './DerivedRpcSchema.js'
-export * from './EIP1193Events.js'
 export * from './EIP1193Parameters.js'
 export * from './EIP1993RequestFn.js'
 export * from './EIP1993RequestOptions.js'

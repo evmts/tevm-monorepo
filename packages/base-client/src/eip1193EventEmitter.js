@@ -2,7 +2,7 @@
  * Factory function to create an event emitter.
  * @returns {import('@tevm/base-client').Extension<import('./EIP1193EventEmitter.js').EIP1193EventEmitter>}
  */
-export const eip1993EventEmitter = () => () => {
+export const eip1193EventEmitter = () => () => {
 	/** @type {Map<string | symbol, Array<Function>>} */
 	const events = new Map()
 
