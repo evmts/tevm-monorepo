@@ -978,6 +978,18 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
+
+				/**
+				 * @param {import('@tevm/utils').EthjsLog} log
+				 */
+				const listener = (log) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.logs.push(log)
+				}
+				client.on('newLog', listener)
 				client.setFilter({
 					id,
 					type: 'Log',
@@ -993,6 +1005,7 @@ export const requestProcedure = (client) => {
 					},
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(request.id ? { id: request.id } : {}),
@@ -1017,6 +1030,16 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthNewBlockFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
+				/**
+				 * @param {import('@tevm/block').Block} block
+				 */
+				const listener = (block) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.blocks.push(block)
+				}
 				client.setFilter({
 					id,
 					type: 'Block',
@@ -1026,6 +1049,7 @@ export const requestProcedure = (client) => {
 					blocks: [],
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(newBlockFilterRequest.id ? { id: newBlockFilterRequest.id } : {}),
@@ -1039,14 +1063,23 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthUninstallFilterJsonRpcRequest}*/
 					(request)
 				const [filterId] = uninstallFilterRequest.params
-				const filterExists = Boolean(client.getFilters().get(filterId))
-				if (!filterExists) {
+				const filter = client.getFilters().get(filterId)
+				if (!filter) {
 					return {
 						...(uninstallFilterRequest.id ? { id: uninstallFilterRequest.id } : {}),
 						method: uninstallFilterRequest.method,
 						jsonrpc: uninstallFilterRequest.jsonrpc,
 						result: false,
 					}
+				}
+
+				const [listener] = filter.registeredListeners
+				if (filter.type === 'Log' && listener) {
+					client.removeListener('newLog', listener)
+				} else if (filter.type === 'Block' && listener) {
+					client.removeListener('newBlock', listener)
+				} else if (filter.type === 'PendingTransaction' && listener) {
+					client.removeListener('newPendingTransaction', listener)
 				}
 				client.removeFilter(filterId)
 				return {
@@ -1072,6 +1105,17 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthNewPendingTransactionFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
+				/**
+				 * @param {import('@tevm/tx').TypedTransaction} tx
+				 */
+				const listener = (tx) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.tx.push(tx)
+				}
+				client.on('newPendingTransaction', listener)
 				client.setFilter({
 					id,
 					type: 'PendingTransaction',
@@ -1081,6 +1125,7 @@ export const requestProcedure = (client) => {
 					blocks: [],
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(newPendingTransactionFilterRequest.id ? { id: newPendingTransactionFilterRequest.id } : {}),
