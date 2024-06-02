@@ -121,6 +121,7 @@ export const mineHandler =
                     throw new Error('InternalError: Receipts not found in mineHandler. This indicates a bug in tevm.')
                 }
                 receipts.forEach(receipt => {
+                    client.emit('newReceipt', receipt)
                     receipt.logs.forEach(log => {
                         client.emit('newLog', log)
                     })

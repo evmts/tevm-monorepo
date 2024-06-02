@@ -4,6 +4,7 @@
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 import type { Block } from '@tevm/block'
+import type { TxReceipt } from '@tevm/receipt-manager'
 import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
 import type { Address, EthjsLog } from '@tevm/utils'
 
@@ -36,6 +37,7 @@ export type EIP1193EventMap = {
 	// These aren't standardized I'm adding the below ones for internal use
 	// If standardized versions of these exist already we should consider switching to them in future
 	newPendingTransaction(tx: TypedTransaction | ImpersonatedTx): void
+	newReceipt(receipt: TxReceipt): void
 	newBlock(block: Block): void
 	newLog(log: EthjsLog): void
 }
