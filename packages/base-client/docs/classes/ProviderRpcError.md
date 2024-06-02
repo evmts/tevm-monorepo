@@ -32,7 +32,7 @@
 
 #### Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:23
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L24)
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:20
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L21)
 
 ***
 
@@ -66,7 +66,7 @@ packages/base-client/src/EIP1193EventEmitterTypes.ts:20
 
 #### Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:21
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L22)
 
 ***
 

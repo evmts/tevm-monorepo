@@ -90,6 +90,16 @@
 
 `void`
 
+### newReceipt()
+
+#### Parameters
+
+• **receipt**: `TxReceipt`
+
+#### Returns
+
+`void`
+
 ## Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:30
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L31)

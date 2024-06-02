@@ -90,6 +90,16 @@
 
 `void`
 
+### newReceipt()
+
+#### Parameters
+
+• **receipt**: `TxReceipt`
+
+#### Returns
+
+`void`
+
 ## Source
 
 packages/base-client/dist/index.d.ts:29

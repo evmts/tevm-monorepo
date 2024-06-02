@@ -69,4 +69,4 @@ The type of the filter
 
 ## Source
 
-packages/base-client/dist/index.d.ts:61
+packages/base-client/dist/index.d.ts:62
