@@ -1,5 +1,18 @@
 # @tevm/client
 
+## 1.1.0-next.67
+
+### Minor Changes
+
+- [#1151](https://github.com/evmts/tevm-monorepo/pull/1151) [`551e000`](https://github.com/evmts/tevm-monorepo/commit/551e0002a9b6112fb409faa6fd5e37ec76a429fd) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed eip event emitter from decorators. Now it is just on the base client
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/actions@1.1.0-next.64
+  - @tevm/actions-types@1.1.0-next.60
+  - @tevm/procedures@1.1.0-next.64
+
 ## 1.1.0-next.64
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/client
 
+## 1.1.0-next.67
+
+### Minor Changes
+
+- [#1151](https://github.com/evmts/tevm-monorepo/pull/1151) [`551e000`](https://github.com/evmts/tevm-monorepo/commit/551e0002a9b6112fb409faa6fd5e37ec76a429fd) Thanks [@roninjin10](https://github.com/roninjin10)! - Added event emitter support to BaseClient
+
 ## 1.1.0-next.66
 
 ### Patch Changes
