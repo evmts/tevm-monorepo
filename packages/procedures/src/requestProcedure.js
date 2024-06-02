@@ -1,5 +1,6 @@
 import {
 	chainIdHandler,
+	ethGetLogsHandler,
 	ethSendTransactionHandler,
 	forkAndCacheBlock,
 	testAccounts,
@@ -8,7 +9,16 @@ import {
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { TransactionFactory } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, getAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import {
+	EthjsAccount,
+	EthjsAddress,
+	bytesToHex,
+	getAddress,
+	hexToBigInt,
+	hexToBytes,
+	hexToNumber,
+	numberToHex,
+} from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
@@ -990,18 +1000,28 @@ export const requestProcedure = (client) => {
 					filter.logs.push(log)
 				}
 				client.on('newLog', listener)
+				// populate with past blocks
+				const receiptsManager = await client.getReceiptsManager()
+				const pastLogs = (
+					await receiptsManager.getLogs(
+						_fromBlock,
+						_toBlock,
+						[EthjsAddress.fromString(address).bytes],
+						topics.map((topic) => hexToBytes(topic)),
+					)
+				).map((res) => res.log)
 				client.setFilter({
 					id,
 					type: 'Log',
 					created: Date.now(),
-					logs: [],
+					logs: pastLogs,
 					tx: [],
 					blocks: [],
 					logsCriteria: {
 						topics,
 						address,
-						toBlock: _toBlock,
-						fromBlock: _fromBlock,
+						toBlock: toBlock,
+						fromBlock: fromBlock,
 					},
 					installed: {},
 					err: undefined,
@@ -1015,14 +1035,58 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_getFilterLogs': {
-				return {
-					...(request.id ? { id: request.id } : {}),
-					method: request.method,
-					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+				const ethGetFilterLogsRequest =
+					/** @type {import('@tevm/procedures-types').EthGetFilterLogsJsonRpcRequest}*/
+					(request)
+				const filter = client.getFilters().get(ethGetFilterLogsRequest.params[0])
+				if (!filter) {
+					return {
+						...(ethGetFilterLogsRequest.id ? { id: ethGetFilterLogsRequest.id } : {}),
+						method: ethGetFilterLogsRequest.method,
+						jsonrpc: ethGetFilterLogsRequest.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Filter not found',
+						},
+					}
+				}
+				try {
+					const ethGetLogsResult = await ethGetLogsHandler(client)({
+						filterParams: {
+							fromBlock: filter.logsCriteria.fromBlock,
+							toBlock: filter.logsCriteria.toBlock,
+							address: filter.logsCriteria.address,
+							topics: filter.logsCriteria.topics,
+						},
+					})
+					// TODO move this to a shared util method since it's copy pasted from the eth_getLogs procedure
+					const jsonRpcResult = ethGetLogsResult.map((log) => ({
+						address: log.address,
+						topics: log.topics,
+						data: log.data,
+						blockNumber: numberToHex(log.blockNumber),
+						transactionHash: log.transactionHash,
+						transactionIndex: numberToHex(log.transactionIndex),
+						blockHash: log.blockHash,
+						logIndex: numberToHex(log.logIndex),
+						removed: log.removed,
+					}))
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						result: jsonRpcResult,
+					}
+				} catch (e) {
+					return {
+						...(ethGetFilterLogsRequest.id ? { id: ethGetFilterLogsRequest.id } : {}),
+						method: ethGetFilterLogsRequest.method,
+						jsonrpc: ethGetFilterLogsRequest.jsonrpc,
+						error: {
+							code: -32601,
+							message: /** @type {Error}*/ (e).message,
+						},
+					}
 				}
 			}
 			case 'eth_newBlockFilter': {
