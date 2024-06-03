@@ -10,7 +10,27 @@
 
 # tevm-monorepo
 
-Tevm is modular, easy to pick up, and built on top of [viem](https://viem.sh).
+Tevm consists mainly of an Ethereum devnet that can run in the Browser and Node.js along with a solidity bundler that allows you to import solidity directly into TypeScript files.
+
+```typescript
+// import solidity directly into typescript
+import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
+import { createMemoryClient, http } from 'tevm'
+import { optimism } from 'tevm/common'
+
+// create a anvil-like devnet directly in TypeScript
+const client = createMemoryClient({
+  common: optimism,
+  fork: {transport: http('https://mainnet.optimism.io')()}
+})
+
+// execute the EVM locally in the browser, node.js, deno and Bun
+const balance = client.readContract(
+  ERC20
+    .withAddress('0x4200000000000000000000000000000000000042')
+    .balanceOf('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')
+)
+```
 
 ## Table of Contents
 - [Overview](#overview)
@@ -28,6 +48,8 @@ Tevm is modular, easy to pick up, and built on top of [viem](https://viem.sh).
 - [License](#license)
 
 ## Overview
+
+Tevm is modular, easy to pick up, and built on top of [viem](https://viem.sh).
 
 Tevm consists of the following modular tools:
 
