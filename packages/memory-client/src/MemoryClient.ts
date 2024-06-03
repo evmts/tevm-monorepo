@@ -1,5 +1,5 @@
 import { type JsonRpcSchemaTevm } from '@tevm/decorators'
-import type { Client, PublicActions, PublicRpcSchema, TestActions, TestRpcSchema, Transport } from 'viem'
+import type { Client, PublicActions, PublicRpcSchema, TestRpcSchema, Transport } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 
@@ -52,6 +52,6 @@ export type MemoryClient = Prettify<
 			JsonRpcSchemaTevm['tevm_getAccount'],
 			JsonRpcSchemaTevm['tevm_setAccount'],
 		],
-		PublicActions & TestActions & TevmActions
+		PublicActions & TevmActions
 	>
 >

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
+import { testActions } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 
@@ -72,7 +73,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('client.tevmCall', () => {
 		it('should execute a call on the vm', async () => {
-			const tevm = createMemoryClient()
+			const tevm = createMemoryClient().extend(testActions({ mode: 'anvil' }))
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
