@@ -1,5 +1,6 @@
 import { type Hex, numberToHex } from '@tevm/utils'
-import type { ExecutionPayload, VerkleExecutionWitness } from './types.js'
+import type { VerkleExecutionWitness } from './VerkleExecutionWitness.js'
+import type { ExecutionPayload } from './ExecutionPayload.js'
 
 type BeaconWithdrawal = {
 	index: Hex

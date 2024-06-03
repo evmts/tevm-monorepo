@@ -7,8 +7,10 @@ import { Block } from './index.js'
 
 import { InternalError, MisconfiguredClientError } from '@tevm/errors'
 import type { TypedTransaction } from '@tevm/tx'
-import { ClRequest } from './ClRequest.js'
-import type { BlockData, BlockOptions, JsonRpcBlock } from './index.js'
+import { createClRequest } from './createClRequest.js'
+import type { JsonRpcBlock } from './JsonRpcBlock.js'
+import type { BlockOptions } from './BlockOptions.js'
+import type { BlockData } from './BlockData.js'
 
 function normalizeTxParams(_txParams: any) {
 	const txParams = Object.assign({}, _txParams)
@@ -63,7 +65,7 @@ export function blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, u
 
 	const requests = blockParams.requests?.map((req) => {
 		const bytes = hexToBytes(req as Hex)
-		return new ClRequest(bytes[0] as number, bytes.slice(1))
+		return createClRequest(bytes[0] as number, bytes.slice(1))
 	})
 	return Block.fromBlockData(
 		{

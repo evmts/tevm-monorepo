@@ -1,3 +1,4 @@
+// This code was originally adapted from ethereumjs and carries the same license
 import { ConsensusType } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
@@ -20,18 +21,17 @@ import { BlockHeader } from './header.js'
 
 import type { Common } from '@tevm/common'
 import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
-import { ClRequest } from './ClRequest.js'
+import { type ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'
-import type {
-	BlockBytes,
-	BlockData,
-	BlockOptions,
-	ExecutionPayload,
-	HeaderData,
-	JsonBlock,
-	JsonHeader,
-	VerkleExecutionWitness,
-} from './types.js'
+import { createClRequest } from './createClRequest.js'
+import type { VerkleExecutionWitness } from './VerkleExecutionWitness.js'
+import type { BlockData } from './BlockData.js'
+import type { BlockOptions } from './BlockOptions.js'
+import type { HeaderData } from './HeaderData.js'
+import type { BlockBytes } from './BlockBytes.js'
+import type { ExecutionPayload } from './ExecutionPayload.js'
+import type { JsonBlock } from './JsonBlock.js'
+import type { JsonHeader } from './JsonHeader.js'
 
 /**
  * An object that represents the block.
@@ -231,7 +231,7 @@ export class Block {
 
 		let requests: ClRequest[] = []
 		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
-			requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
+			requests = (requestBytes as Uint8Array[]).map((bytes) => createClRequest(bytes[0] as number, bytes.slice(1)))
 		}
 		// executionWitness are not part of the EL fetched blocks via eth_ bodies method
 		// they are currently only available via the engine api constructed blocks

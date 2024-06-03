@@ -20,12 +20,17 @@ import {
 	zeros,
 } from '@tevm/utils'
 
-import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
-import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
+import { CLIQUE_EXTRA_SEAL } from './CLIQUE_EXTRA_SEAL.js'
 
 import type { CliqueConfig } from '@tevm/common'
 import type { BigIntLike } from '@tevm/utils'
-import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
+import type { HeaderData } from './HeaderData.js'
+import type { BlockOptions } from './BlockOptions.js'
+import type { BlockHeaderBytes } from './BlockHeaderBytes.js'
+import { valuesArrayToHeaderData } from './valuesArrayToHeaderData.js'
+import type { JsonHeader } from './JsonHeader.js'
+import { CLIQUE_EXTRA_VANITY } from './CLIQUE_EXTRA_VANITY.js'
+import { approximateExponential } from './approximateExponential.js'
 
 interface HeaderCache {
 	hash: Uint8Array | undefined
@@ -563,7 +568,7 @@ export class BlockHeader {
 	 * @param excessBlobGas
 	 */
 	private _getBlobGasPrice(excessBlobGas: bigint) {
-		return fakeExponential(
+		return approximateExponential(
 			this.common.ethjsCommon.param('gasPrices', 'minBlobGasPrice'),
 			excessBlobGas,
 			this.common.ethjsCommon.param('gasConfig', 'blobGasPriceUpdateFraction'),

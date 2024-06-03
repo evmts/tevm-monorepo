@@ -1,8 +1,8 @@
 import type { Hex } from '@tevm/utils'
 import { BlockHeader } from './header.js'
-import { numberToHex } from './helpers.js'
-
-import type { BlockOptions, JsonRpcBlock } from './types.js'
+import { strNumberToHex } from './strNumberToHex.js'
+import type { JsonRpcBlock } from './JsonRpcBlock.js'
+import type { BlockOptions } from './BlockOptions.js'
 
 /**
  * Creates a new block header object from Ethereum JSON RPC.
@@ -44,7 +44,7 @@ export function blockHeaderFromRpc(blockParams: JsonRpcBlock, options: BlockOpti
 			transactionsTrie: transactionsRoot,
 			receiptTrie: receiptsRoot,
 			logsBloom,
-			difficulty: numberToHex(difficulty) as Hex,
+			difficulty: strNumberToHex(difficulty) as Hex,
 			number,
 			gasLimit,
 			gasUsed,

@@ -1,25 +1,5 @@
-import { BlobEIP4844Transaction } from '@tevm/tx'
-import { type Hex, TypeOutput, isHex, toType } from '@tevm/utils'
-
-import type { TypedTransaction } from '@tevm/tx'
-import type { BlockHeaderBytes, HeaderData } from './types.js'
-
-/**
- * Returns a 0x-prefixed hex number string from a hex string or string integer.
- * @param {string} input string to check, convert, and return
- */
-export const numberToHex = (input?: string): Hex | undefined => {
-	if (input === undefined) return undefined
-	if (!isHex(input)) {
-		const regex = new RegExp(/^\d+$/) // test to make sure input contains only digits
-		if (!regex.test(input)) {
-			const msg = `Cannot convert string to hex string. numberToHex only supports 0x-prefixed hex or integer strings but the given string was: ${input}`
-			throw new Error(msg)
-		}
-		return `0x${Number.parseInt(input, 10).toString(16)}`
-	}
-	return input
-}
+import type { HeaderData } from './HeaderData.js'
+import type { BlockHeaderBytes } from './BlockHeaderBytes.js'
 
 export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 	const [
@@ -76,38 +56,4 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 		...(parentBeaconBlockRoot !== undefined ? { parentBeaconBlockRoot } : {}),
 		...(requestsRoot !== undefined ? { requestsRoot } : {}),
 	}
-}
-
-export function getDifficulty(headerData: HeaderData): bigint | null {
-	const { difficulty } = headerData
-	if (difficulty !== undefined) {
-		return toType(difficulty, TypeOutput.BigInt)
-	}
-	return null
-}
-
-export const getNumBlobs = (transactions: TypedTransaction[]) => {
-	let numBlobs = 0
-	for (const tx of transactions) {
-		if (tx instanceof BlobEIP4844Transaction) {
-			numBlobs += tx.blobVersionedHashes.length
-		}
-	}
-	return numBlobs
-}
-
-/**
- * Approximates `factor * e ** (numerator / denominator)` using Taylor expansion
- */
-export const fakeExponential = (factor: bigint, numerator: bigint, denominator: bigint) => {
-	let i = BigInt(1)
-	let output = BigInt(0)
-	let numerator_accum = factor * denominator
-	while (numerator_accum > BigInt(0)) {
-		output += numerator_accum
-		numerator_accum = (numerator_accum * numerator) / (denominator * i)
-		i++
-	}
-
-	return output / denominator
 }
