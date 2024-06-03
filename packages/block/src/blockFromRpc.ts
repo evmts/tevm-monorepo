@@ -27,6 +27,9 @@ export function blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, u
 	const transactions: TypedTransaction[] = []
 	const opts = { common: header.common.ethjsCommon }
 	for (const _txParams of blockParams.transactions ?? []) {
+		if (typeof _txParams === 'string') {
+			continue
+		}
 		const txParams = normalizeTxParams(_txParams)
 		try {
 			const tx = TransactionFactory.fromTxData(txParams, opts)

@@ -1,15 +1,17 @@
 import { numberToHex } from '@tevm/utils'
-import type { ExecutionPayload } from './ExecutionPayload.js'
-import type { BeaconPayloadJson } from './BeaconPayloadJson.js'
-import type { VerkleExecutionWitnessSnakeJson } from './VerkleExecutionWitnessSnakeJson.js'
 import { parseExecutionWitnessFromSnakeJson } from './parseExecutionWitnessFromSnakeJson.js'
 
 /**
  * Converts a beacon block execution payload JSON object {@link BeaconPayloadJson} to the {@link ExecutionPayload} data needed to construct a {@link Block}.
  * The JSON data can be retrieved from a consensus layer (CL) client on this Beacon API `/eth/v2/beacon/blocks/[block number]`
+ * @param {import('./BeaconPayloadJson.js').BeaconPayloadJson}
+ * @returns {import('./ExecutionPayload.js').ExecutionPayload}
  */
-export function executionPayloadFromBeaconPayload(payload: BeaconPayloadJson): ExecutionPayload {
-	const executionPayload: ExecutionPayload = {
+export const executionPayloadFromBeaconPayload = (payload) => {
+	/**
+	 * @type {import('./ExecutionPayload.js').ExecutionPayload}
+	 */
+	const executionPayload = {
 		parentHash: payload.parent_hash,
 		feeRecipient: payload.fee_recipient,
 		stateRoot: payload.state_root,
@@ -49,7 +51,7 @@ export function executionPayloadFromBeaconPayload(payload: BeaconPayloadJson): E
 		executionPayload.executionWitness =
 			payload.execution_witness.verkleProof !== undefined
 				? payload.execution_witness
-				: parseExecutionWitnessFromSnakeJson(payload.execution_witness as unknown as VerkleExecutionWitnessSnakeJson)
+				: parseExecutionWitnessFromSnakeJson(payload.execution_witness)
 	}
 
 	return executionPayload

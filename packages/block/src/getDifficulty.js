@@ -1,7 +1,10 @@
 import { TypeOutput, toType } from '@tevm/utils'
-import type { HeaderData } from './HeaderData.js'
 
-export function getDifficulty(headerData: HeaderData): bigint | null {
+/**
+ * @param {import('./HeaderData.js').HeaderData} headerData
+ * @returns {bigint | null}
+ */
+export function getDifficulty(headerData) {
 	const { difficulty } = headerData
 	if (difficulty !== undefined) {
 		return toType(difficulty, TypeOutput.BigInt)

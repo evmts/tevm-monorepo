@@ -1,8 +1,9 @@
 import { BlobEIP4844Transaction } from '@tevm/tx'
 
-import type { TypedTransaction } from '@tevm/tx'
-
-export const getNumBlobs = (transactions: TypedTransaction[]) => {
+/**
+ * @param {ReadonlyArray<import('@tevm/tx').TypedTransaction>} transactions
+ */
+export const getNumBlobs = (transactions) => {
 	let numBlobs = 0
 	for (const tx of transactions) {
 		if (tx instanceof BlobEIP4844Transaction) {

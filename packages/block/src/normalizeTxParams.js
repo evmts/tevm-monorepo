@@ -1,7 +1,18 @@
+// This is adapted from ethereumjs and thus carries the same license:
 import { TypeOutput, setLengthLeft, toBytes, toType } from '@tevm/utils'
 
-export function normalizeTxParams(_txParams: any) {
-	const txParams = Object.assign({}, _txParams)
+/**
+ * @param {import('@tevm/tx').JsonRpcTx} _txParams - The transaction parameters to normalize
+ * @returns {import('@tevm/tx').TypedTxData}
+ */
+export function normalizeTxParams(_txParams) {
+	// TODO the types here are in shambles because the return type and param type used to be `any`
+	// We didn't want to change this too much since this is from ethereumjs and hardened code
+
+	/**
+	 * @type {any}
+	 */
+	const txParams = /** @type {any} */ (Object.assign({}, _txParams))
 
 	txParams.gasLimit = toType(txParams.gasLimit ?? txParams.gas, TypeOutput.BigInt)
 	txParams.data = txParams.data === undefined ? txParams.input : txParams.data

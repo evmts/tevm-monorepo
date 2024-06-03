@@ -1,7 +1,8 @@
-import type { HeaderData } from './HeaderData.js'
-import type { BlockHeaderBytes } from './BlockHeaderBytes.js'
-
-export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
+/**
+ * @param {import("./BlockHeaderBytes.js").BlockHeaderBytes} values
+ * @returns {import("./HeaderData.js").HeaderData}
+ */
+export function valuesArrayToHeaderData(values) {
 	const [
 		parentHash,
 		uncleHash,
@@ -25,14 +26,12 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 		parentBeaconBlockRoot,
 		requestsRoot,
 	] = values
-
 	if (values.length > 21) {
 		throw new Error(`invalid header. More values than expected were received. Max: 20, got: ${values.length}`)
 	}
 	if (values.length < 15) {
 		throw new Error(`invalid header. Less values than expected were received. Min: 15, got: ${values.length}`)
 	}
-
 	return {
 		...(parentHash !== undefined ? { parentHash } : {}),
 		...(uncleHash !== undefined ? { uncleHash } : {}),

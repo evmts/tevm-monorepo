@@ -1,10 +1,8 @@
-import type { VerkleExecutionWitness } from './VerkleExecutionWitness.js'
-import type { VerkleExecutionWitnessSnakeJson } from './VerkleExecutionWitnessSnakeJson.js'
-
-export function parseExecutionWitnessFromSnakeJson({
-	state_diff,
-	verkle_proof,
-}: VerkleExecutionWitnessSnakeJson): VerkleExecutionWitness {
+/**
+ * @param {import("./VerkleExecutionWitnessSnakeJson.js").VerkleExecutionWitnessSnakeJson} params
+ * @returns {import("./VerkleExecutionWitness.js").VerkleExecutionWitness}
+ */
+export function parseExecutionWitnessFromSnakeJson({ state_diff, verkle_proof }) {
 	return {
 		stateDiff: state_diff.map(({ stem, suffix_diffs }) => ({
 			stem,

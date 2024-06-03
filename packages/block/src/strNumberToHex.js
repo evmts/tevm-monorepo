@@ -1,10 +1,11 @@
-import { type Hex, isHex } from '@tevm/utils'
+import { isHex } from '@tevm/utils'
 
 /**
  * Returns a 0x-prefixed hex number string from a hex string or string integer.
- * @param {string} input string to check, convert, and return
+ * @param {string} [input] string to check, convert, and return
+ * @returns {import('@tevm/utils').Hex | undefined} 0x-prefixed hex string or undefined
  */
-export const strNumberToHex = (input?: string): Hex | undefined => {
+export const strNumberToHex = (input) => {
 	if (input === undefined) return undefined
 	if (!isHex(input)) {
 		const regex = new RegExp(/^\d+$/) // test to make sure input contains only digits
