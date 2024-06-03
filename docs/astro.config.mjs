@@ -99,7 +99,6 @@ items: [
 { label: 'Contracts', link: '/learn/contracts/' },
 { label: 'Bundler', link: '/learn/solidity-imports/' },
 { label: 'Advanced Scripting', link: '/learn/scripting/' },
-{ label: 'CLI', link: '/learn/cli/' },
 { label: 'Reference', link: '/learn/reference/' },
 ],
 },

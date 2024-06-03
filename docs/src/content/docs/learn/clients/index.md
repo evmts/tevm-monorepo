@@ -178,3 +178,7 @@ Tevm experimentally supports enabling and disabling different EIPs but the follo
 - 4788
 
 Tevm plans on supporting many types of tx in future but at this moment only [EIP-1559 Fee Market tx](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/tx/src/eip1559Transaction.ts) are supported.
+
+## Tree shakeable actions
+
+Like viem, Tevm supports tree-shakeable action. With `createBaseClient()` and the `tevm/actions` package. These are described in detail in the [actions api guide](../actions/index.md)
