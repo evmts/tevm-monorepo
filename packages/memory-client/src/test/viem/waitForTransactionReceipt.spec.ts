@@ -1,16 +1,16 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
-import { bytesToHex, encodeFunctionData } from 'viem'
+import { type TestActions, bytesToHex, encodeFunctionData, testActions } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc: MemoryClient & TestActions
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
 
 beforeEach(async () => {
-	mc = createMemoryClient()
+	mc = createMemoryClient().extend(testActions({ mode: 'anvil' }))
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
