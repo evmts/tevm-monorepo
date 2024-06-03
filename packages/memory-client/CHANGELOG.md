@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.1.0-next.68
+
+### Minor Changes
+
+- [#1158](https://github.com/evmts/tevm-monorepo/pull/1158) [`7b4b13e`](https://github.com/evmts/tevm-monorepo/commit/7b4b13e3b56b43956ee1635f0517720aa70fa05c) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed all test actions from MemoryClient
+
+### Patch Changes
+
+- Updated dependencies [[`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d), [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d)]:
+  - @tevm/base-client@1.1.0-next.68
+  - @tevm/decorators@1.1.0-next.68
+
 ## 1.1.0-next.67
 
 ### Patch Changes

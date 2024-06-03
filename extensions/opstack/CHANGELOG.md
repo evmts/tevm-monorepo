@@ -1,5 +1,12 @@
 # @tevm/viem
 
+## 1.1.0-next.68
+
+### Patch Changes
+
+- Updated dependencies [[`7b4b13e`](https://github.com/evmts/tevm-monorepo/commit/7b4b13e3b56b43956ee1635f0517720aa70fa05c)]:
+  - @tevm/memory-client@1.1.0-next.68
+
 ## 1.1.0-next.67
 
 ### Patch Changes
