@@ -168,4 +168,4 @@ Enable profiler. Defaults to false.
 
 ## Source
 
-packages/base-client/dist/index.d.ts:223
+packages/base-client/dist/index.d.ts:227

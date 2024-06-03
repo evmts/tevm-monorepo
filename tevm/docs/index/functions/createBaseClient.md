@@ -18,4 +18,4 @@
 
 ## Source
 
-packages/base-client/dist/index.d.ts:349
+packages/base-client/dist/index.d.ts:353

@@ -942,6 +942,7 @@ export const requestProcedure = (client) => {
 				const newFilterRequest = /** @type {import('@tevm/procedures-types').EthNewFilterJsonRpcRequest}*/ (request)
 
 				const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = newFilterRequest.params[0]
+				console.log('params', newFilterRequest.params)
 				const id = generateRandomId()
 				const vm = await client.getVm()
 				/**
@@ -1005,8 +1006,8 @@ export const requestProcedure = (client) => {
 				const pastLogs = await receiptsManager.getLogs(
 					_fromBlock,
 					_toBlock,
-					[EthjsAddress.fromString(address).bytes],
-					topics.map((topic) => hexToBytes(topic)),
+					address !== undefined ? [EthjsAddress.fromString(address).bytes] : [],
+					topics?.map((topic) => hexToBytes(topic)),
 				)
 				client.setFilter({
 					id,

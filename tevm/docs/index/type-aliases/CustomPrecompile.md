@@ -12,4 +12,4 @@ Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-packages/base-client/dist/index.d.ts:218
+packages/base-client/dist/index.d.ts:222

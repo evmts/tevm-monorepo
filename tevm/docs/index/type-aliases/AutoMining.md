@@ -16,4 +16,4 @@
 
 ## Source
 
-packages/base-client/dist/index.d.ts:109
+packages/base-client/dist/index.d.ts:113

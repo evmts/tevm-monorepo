@@ -10,52 +10,52 @@ import type { Address } from '@tevm/utils'
 import type { GetFilterLogsReturnType } from 'viem'
 
 export type ProviderConnectInfo = {
-chainId: string
+	chainId: string
 }
 
 export type ProviderMessage = {
-type: string
-data: unknown
+	type: string
+	data: unknown
 }
 
 export class ProviderRpcError extends Error {
-code: number
-details: string
+	code: number
+	details: string
 
-constructor(code: number, message: string) {
-super(message)
-this.code = code
-this.details = message
-}
+	constructor(code: number, message: string) {
+		super(message)
+		this.code = code
+		this.details = message
+	}
 }
 
 export type EIP1193EventMap = {
-accountsChanged(accounts: Address[]): void
-chainChanged(chainId: string): void
-connect(connectInfo: ProviderConnectInfo): void
-disconnect(error: ProviderRpcError): void
-message(message: ProviderMessage): void
-// These aren't standardized I'm adding the below ones for internal use
-// If standardized versions of these exist already we should consider switching to them in future
-newPendingTransaction(tx: TypedTransaction | ImpersonatedTx): void
-newReceipt(receipt: TxReceipt): void
-newBlock(block: Block): void
-newLog(log: GetFilterLogsReturnType[number]): void
+	accountsChanged(accounts: Address[]): void
+	chainChanged(chainId: string): void
+	connect(connectInfo: ProviderConnectInfo): void
+	disconnect(error: ProviderRpcError): void
+	message(message: ProviderMessage): void
+	// These aren't standardized I'm adding the below ones for internal use
+	// If standardized versions of these exist already we should consider switching to them in future
+	newPendingTransaction(tx: TypedTransaction | ImpersonatedTx): void
+	newReceipt(receipt: TxReceipt): void
+	newBlock(block: Block): void
+	newLog(log: GetFilterLogsReturnType[number]): void
 }
 
 export type EIP1193Events = {
-on<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
-removeListener<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
+	on<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
+	removeListener<TEvent extends keyof EIP1193EventMap>(event: TEvent, listener: EIP1193EventMap[TEvent]): void
 }
 /**
-* A very minimal EventEmitter interface
-*/
+ * A very minimal EventEmitter interface
+ */
 export type EIP1193EventEmitter = EIP1193Events & {
-/**
-* Emit an event.
-* @param {string | symbol} eventName - The event name.
-* @param  {...any} args - Arguments to pass to the event listeners.
-* @returns {boolean} True if the event was emitted, false otherwise.
-*/
-emit(eventName: keyof EIP1193EventMap, ...args: any[]): boolean
+	/**
+	 * Emit an event.
+	 * @param {string | symbol} eventName - The event name.
+	 * @param  {...any} args - Arguments to pass to the event listeners.
+	 * @returns {boolean} True if the event was emitted, false otherwise.
+	 */
+	emit(eventName: keyof EIP1193EventMap, ...args: any[]): boolean
 }

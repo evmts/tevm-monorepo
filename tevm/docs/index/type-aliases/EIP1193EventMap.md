@@ -74,7 +74,7 @@
 
 #### Parameters
 
-• **log**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)
+• **log**: `Log`\<`bigint`, `number`, `false`, `undefined`, `undefined`, `undefined`, `undefined`\>
 
 #### Returns
 
