@@ -122,14 +122,6 @@ The TEVM LSP is a ts-plugin that allows your code editor to pick up Types from y
 
 ![image](https://github.com/evmts/tevm-monorepo/assets/35039927/dc196aa2-d446-4518-aceb-5529f81fbd89)
 
-Tevm runs in all environments
-
-[foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting). Run solidity in JS and run JS in solidity. You can even do wild things like [write an http server in solidity](https://x.com/FUCORY/status/1794839755693453457)<br/>
-
-- [All modern browsers](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility)
-- [Node.js >=18](https://nodejs.org/en)
-- [Bun](https://bun.sh)
-
 ## Tevm Contracts
 
 Tevm contracts are an extremely lightweight modular abstraction for interacting with `viem`, `wagmi`, and `tevm`. They are created automatically if using the Tevm bundler via importing Solidity but also can be created manually.
