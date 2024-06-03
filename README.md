@@ -10,7 +10,7 @@
 
 # tevm-monorepo
 
-Tevm consists mainly of an Ethereum devnet that can run in the Browser and Node.js along with a solidity bundler that allows you to import solidity directly into TypeScript files.
+Tevm tools include an Ethereum devnet that can run in the Browser and Node.js along with a solidity bundler that allows you to import solidity directly into TypeScript files. All built on top of the viem API.
 
 ```typescript
 // import solidity directly into typescript
