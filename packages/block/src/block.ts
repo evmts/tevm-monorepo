@@ -16,13 +16,12 @@ import {
 	keccak256,
 } from '@tevm/utils'
 
-import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
-import { BlockHeader } from './header.js'
+import { executionPayloadFromBeaconPayload } from './executionPayloadFromBeaconPayload.js'
+import { BlockHeader } from './Header.js'
 
 import type { Common } from '@tevm/common'
 import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { type ClRequest } from './ClRequest.js'
-import type { BeaconPayloadJson } from './from-beacon-payload.js'
 import { createClRequest } from './createClRequest.js'
 import type { VerkleExecutionWitness } from './VerkleExecutionWitness.js'
 import type { BlockData } from './BlockData.js'
@@ -32,6 +31,7 @@ import type { BlockBytes } from './BlockBytes.js'
 import type { ExecutionPayload } from './ExecutionPayload.js'
 import type { JsonBlock } from './JsonBlock.js'
 import type { JsonHeader } from './JsonHeader.js'
+import type { BeaconPayloadJson } from './BeaconPayloadJson.js'
 
 /**
  * An object that represents the block.

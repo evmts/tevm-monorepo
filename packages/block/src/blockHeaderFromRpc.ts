@@ -1,5 +1,5 @@
 import type { Hex } from '@tevm/utils'
-import { BlockHeader } from './header.js'
+import { BlockHeader } from './Header.js'
 import { strNumberToHex } from './strNumberToHex.js'
 import type { JsonRpcBlock } from './JsonRpcBlock.js'
 import type { BlockOptions } from './BlockOptions.js'

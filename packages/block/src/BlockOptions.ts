@@ -1,7 +1,7 @@
 // This file is adapted from ethereumjs and thus carries the same license
 import type { Common } from '@tevm/common'
 import type { BigIntLike } from '@tevm/utils'
-import type { BlockHeader } from './header.js'
+import type { BlockHeader } from './Header.js'
 import type { VerkleExecutionWitness } from './VerkleExecutionWitness.js'
 
 /**

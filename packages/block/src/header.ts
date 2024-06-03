@@ -969,7 +969,8 @@ export class BlockHeader {
 	/**
 	 * Helper function to create an annotated error message
 	 *
-	 * @param msg Base error message
+	 * @param {string} msg Base error message
+	 * @returns {string} Annotated error message
 	 * @hidden
 	 */
 	protected _errorMsg(msg: string) {
