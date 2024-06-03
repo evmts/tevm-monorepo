@@ -197,4 +197,4 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ## Source
 
-packages/base-client/dist/index.d.ts:120
+packages/base-client/dist/index.d.ts:125

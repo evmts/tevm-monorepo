@@ -13,4 +13,4 @@ Also including zero address
 
 ## Source
 
-packages/base-client/dist/index.d.ts:362
+packages/base-client/dist/index.d.ts:367

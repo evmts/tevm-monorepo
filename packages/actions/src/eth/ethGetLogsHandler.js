@@ -64,8 +64,12 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
 
 	// TODO make this more parallized
-	const fromBlock = await vm.blockchain.getBlock(await parseBlockParam(vm.blockchain, params.filterParams.fromBlock))
-	const toBlock = await vm.blockchain.getBlock(await parseBlockParam(vm.blockchain, params.filterParams.toBlock))
+	const fromBlock = await vm.blockchain.getBlock(
+		await parseBlockParam(vm.blockchain, params.filterParams.fromBlock ?? 0n),
+	)
+	const toBlock = await vm.blockchain.getBlock(
+		await parseBlockParam(vm.blockchain, params.filterParams.toBlock ?? 'latest'),
+	)
 	const forkedBlock = vm.blockchain.blocksByTag.get('forked')
 
 	/**
@@ -133,8 +137,8 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const cachedLogs = await receiptsManager.getLogs(
 		fetchFromRpc ? fromBlock : /** @type {import('@tevm/block').Block}*/ (forkedBlock),
 		toBlock,
-		[EthjsAddress.fromString(params.filterParams.address).bytes],
-		params.filterParams.topics.map((topic) => hexToBytes(topic)),
+		params.filterParams.address !== undefined ? [EthjsAddress.fromString(params.filterParams.address).bytes] : [],
+		params.filterParams.topics?.map((topic) => hexToBytes(topic)),
 	)
 	logs.push(
 		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({

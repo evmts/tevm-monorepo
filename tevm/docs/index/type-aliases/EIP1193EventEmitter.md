@@ -34,4 +34,4 @@ True if the event was emitted, false otherwise.
 
 ## Source
 
-packages/base-client/dist/index.d.ts:46
+packages/base-client/dist/index.d.ts:47

@@ -12,21 +12,21 @@ An event filter optionsobject
 
 ## Type declaration
 
-### address
+### address?
 
-> `readonly` **address**: [`Address`](Address.md)
+> `optional` `readonly` **address**: [`Address`](Address.md)
 
-### fromBlock
+### fromBlock?
 
-> `readonly` **fromBlock**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **fromBlock**: [`BlockParam`](BlockParam.md)
 
-### toBlock
+### toBlock?
 
-> `readonly` **toBlock**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **toBlock**: [`BlockParam`](BlockParam.md)
 
-### topics
+### topics?
 
-> `readonly` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `optional` `readonly` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 ## Source
 

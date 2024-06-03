@@ -245,13 +245,6 @@ export const createBaseClient = (options = {}) => {
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 
-	const readyPromise = (async () => {
-		await blockchainPromise.then((b) => b.ready())
-		await stateManagerPromise.then((b) => b.ready())
-		await vmPromise.then((vm) => vm.ready())
-		return /** @type {true}*/ (true)
-	})()
-
 	/**
 	 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
 	 */
@@ -289,6 +282,14 @@ export const createBaseClient = (options = {}) => {
 			return false // No listeners for the event
 		},
 	}
+
+	const readyPromise = (async () => {
+		await blockchainPromise.then((b) => b.ready())
+		await stateManagerPromise.then((b) => b.ready())
+		await vmPromise.then((vm) => vm.ready())
+		eventEmitter.emit('connect')
+		return /** @type {true}*/ (true)
+	})()
 
 	/**
 	 * Create and return the baseClient

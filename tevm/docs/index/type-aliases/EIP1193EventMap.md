@@ -74,7 +74,7 @@
 
 #### Parameters
 
-• **log**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)
+• **log**: `Log`\<`bigint`, `number`, `false`, `undefined`, `undefined`, `undefined`, `undefined`\>
 
 #### Returns
 
@@ -85,6 +85,16 @@
 #### Parameters
 
 • **tx**: `TypedTransaction` \| `ImpersonatedTx`
+
+#### Returns
+
+`void`
+
+### newReceipt()
+
+#### Parameters
+
+• **receipt**: `TxReceipt`
 
 #### Returns
 

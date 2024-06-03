@@ -1,5 +1,6 @@
 import {
 	chainIdHandler,
+	ethGetLogsHandler,
 	ethSendTransactionHandler,
 	forkAndCacheBlock,
 	testAccounts,
@@ -8,7 +9,16 @@ import {
 import { Block, BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { TransactionFactory } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, getAddress, hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import {
+	EthjsAccount,
+	EthjsAddress,
+	bytesToHex,
+	getAddress,
+	hexToBigInt,
+	hexToBytes,
+	hexToNumber,
+	numberToHex,
+} from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
@@ -288,7 +298,6 @@ export const requestProcedure = (client) => {
 						method: estimateGasRequest.method,
 					}
 				}
-				console.log('callResult', callResult)
 				return {
 					method: estimateGasRequest.method,
 					// TODO this is wrong we need to update it in a future pr
@@ -978,21 +987,57 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
+
+				/**
+				 * @param {import('@tevm/base-client').Filter['logs'][number]} log
+				 */
+				const listener = (log) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.logs.push(log)
+				}
+				client.on('newLog', listener)
+				// populate with past blocks
+				const receiptsManager = await client.getReceiptsManager()
+				const pastLogs = await receiptsManager.getLogs(
+					_fromBlock,
+					_toBlock,
+					address !== undefined ? [EthjsAddress.fromString(address).bytes] : [],
+					topics?.map((topic) => hexToBytes(topic)),
+				)
 				client.setFilter({
 					id,
 					type: 'Log',
 					created: Date.now(),
-					logs: [],
+					logs: pastLogs.map((log) => {
+						const [address, topics, data] = log.log
+						return {
+							topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
+								topics.map((topic) => bytesToHex(topic))
+							),
+							address: bytesToHex(address),
+							data: bytesToHex(data),
+							blockNumber: log.block.header.number,
+							transactionHash: bytesToHex(log.tx.hash()),
+							removed: false,
+							logIndex: log.logIndex,
+							blockHash: bytesToHex(log.block.hash()),
+							transactionIndex: log.txIndex,
+						}
+					}),
 					tx: [],
 					blocks: [],
 					logsCriteria: {
 						topics,
 						address,
-						toBlock: _toBlock,
-						fromBlock: _fromBlock,
+						toBlock: toBlock,
+						fromBlock: fromBlock,
 					},
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(request.id ? { id: request.id } : {}),
@@ -1002,14 +1047,58 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_getFilterLogs': {
-				return {
-					...(request.id ? { id: request.id } : {}),
-					method: request.method,
-					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+				const ethGetFilterLogsRequest =
+					/** @type {import('@tevm/procedures-types').EthGetFilterLogsJsonRpcRequest}*/
+					(request)
+				const filter = client.getFilters().get(ethGetFilterLogsRequest.params[0])
+				if (!filter) {
+					return {
+						...(ethGetFilterLogsRequest.id ? { id: ethGetFilterLogsRequest.id } : {}),
+						method: ethGetFilterLogsRequest.method,
+						jsonrpc: ethGetFilterLogsRequest.jsonrpc,
+						error: {
+							code: -32602,
+							message: 'Filter not found',
+						},
+					}
+				}
+				try {
+					const ethGetLogsResult = await ethGetLogsHandler(client)({
+						filterParams: {
+							fromBlock: filter.logsCriteria.fromBlock,
+							toBlock: filter.logsCriteria.toBlock,
+							address: filter.logsCriteria.address,
+							topics: filter.logsCriteria.topics,
+						},
+					})
+					// TODO move this to a shared util method since it's copy pasted from the eth_getLogs procedure
+					const jsonRpcResult = ethGetLogsResult.map((log) => ({
+						address: log.address,
+						topics: log.topics,
+						data: log.data,
+						blockNumber: numberToHex(log.blockNumber),
+						transactionHash: log.transactionHash,
+						transactionIndex: numberToHex(log.transactionIndex),
+						blockHash: log.blockHash,
+						logIndex: numberToHex(log.logIndex),
+						removed: log.removed,
+					}))
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						result: jsonRpcResult,
+					}
+				} catch (e) {
+					return {
+						...(ethGetFilterLogsRequest.id ? { id: ethGetFilterLogsRequest.id } : {}),
+						method: ethGetFilterLogsRequest.method,
+						jsonrpc: ethGetFilterLogsRequest.jsonrpc,
+						error: {
+							code: -32601,
+							message: /** @type {Error}*/ (e).message,
+						},
+					}
 				}
 			}
 			case 'eth_newBlockFilter': {
@@ -1017,6 +1106,16 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthNewBlockFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
+				/**
+				 * @param {import('@tevm/block').Block} block
+				 */
+				const listener = (block) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.blocks.push(block)
+				}
 				client.setFilter({
 					id,
 					type: 'Block',
@@ -1026,6 +1125,7 @@ export const requestProcedure = (client) => {
 					blocks: [],
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(newBlockFilterRequest.id ? { id: newBlockFilterRequest.id } : {}),
@@ -1039,14 +1139,23 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthUninstallFilterJsonRpcRequest}*/
 					(request)
 				const [filterId] = uninstallFilterRequest.params
-				const filterExists = Boolean(client.getFilters().get(filterId))
-				if (!filterExists) {
+				const filter = client.getFilters().get(filterId)
+				if (!filter) {
 					return {
 						...(uninstallFilterRequest.id ? { id: uninstallFilterRequest.id } : {}),
 						method: uninstallFilterRequest.method,
 						jsonrpc: uninstallFilterRequest.jsonrpc,
 						result: false,
 					}
+				}
+
+				const [listener] = filter.registeredListeners
+				if (filter.type === 'Log' && listener) {
+					client.removeListener('newLog', listener)
+				} else if (filter.type === 'Block' && listener) {
+					client.removeListener('newBlock', listener)
+				} else if (filter.type === 'PendingTransaction' && listener) {
+					client.removeListener('newPendingTransaction', listener)
 				}
 				client.removeFilter(filterId)
 				return {
@@ -1057,14 +1166,82 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_getFilterChanges': {
-				return {
-					...(request.id ? { id: request.id } : {}),
-					method: request.method,
-					jsonrpc: request.jsonrpc,
-					error: {
-						code: -32601,
-						message: 'Method not implemented yet',
-					},
+				const getFilterChangesRequest =
+					/** @type {import('@tevm/procedures-types').EthGetFilterChangesJsonRpcRequest}*/
+					(request)
+				const [id] = getFilterChangesRequest.params
+				const filter = client.getFilters().get(id)
+				if (!filter) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32601,
+							message: 'Method not implemented yet',
+						},
+					}
+				}
+				switch (filter.type) {
+					case 'Log': {
+						const { logs } = filter
+						/**
+						 * @type {import('@tevm/procedures-types').EthGetFilterChangesJsonRpcResponse}
+						 */
+						const response = {
+							...(request.id ? { id: request.id } : {}),
+							method: request.method,
+							jsonrpc: request.jsonrpc,
+							result: logs.map((log) => ({
+								address: log.address,
+								topics: log.topics,
+								data: log.data,
+								blockNumber: numberToHex(log.blockNumber),
+								transactionHash: log.transactionHash,
+								transactionIndex: numberToHex(log.transactionIndex),
+								blockHash: log.blockHash,
+								logIndex: numberToHex(log.logIndex),
+								removed: log.removed,
+							})),
+						}
+						filter.logs = []
+						return response
+					}
+					case 'Block': {
+						const { blocks } = filter
+						/**
+						 * @type {import('@tevm/procedures-types').EthGetFilterChangesJsonRpcResponse}
+						 */
+						const response = {
+							...(request.id ? { id: request.id } : {}),
+							// TODO fix this type
+							result: /** @type {any} */ (blocks.map((block) => numberToHex(block.header.number))),
+							method: request.method,
+							jsonrpc: request.jsonrpc,
+						}
+						filter.blocks = []
+						return response
+					}
+					case 'PendingTransaction': {
+						const { tx } = filter
+						/**
+						 * @type {import('@tevm/procedures-types').EthGetFilterChangesJsonRpcResponse}
+						 */
+						const response = {
+							...(request.id ? { id: request.id } : {}),
+							// TODO fix this type
+							result: /** @type {any} */ (tx.map((tx) => bytesToHex(tx.hash()))),
+							method: request.method,
+							jsonrpc: request.jsonrpc,
+						}
+						filter.tx = []
+						return response
+					}
+					default: {
+						throw new Error(
+							'InternalError: Unknown filter type. This indicates a bug in tevm or potentially a typo in filter type if manually added',
+						)
+					}
 				}
 			}
 			case 'eth_newPendingTransactionFilter': {
@@ -1072,6 +1249,17 @@ export const requestProcedure = (client) => {
 					/** @type {import('@tevm/procedures-types').EthNewPendingTransactionFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
+				/**
+				 * @param {import('@tevm/tx').TypedTransaction} tx
+				 */
+				const listener = (tx) => {
+					const filter = client.getFilters().get(id)
+					if (!filter) {
+						return
+					}
+					filter.tx.push(tx)
+				}
+				client.on('newPendingTransaction', listener)
 				client.setFilter({
 					id,
 					type: 'PendingTransaction',
@@ -1081,6 +1269,7 @@ export const requestProcedure = (client) => {
 					blocks: [],
 					installed: {},
 					err: undefined,
+					registeredListeners: [listener],
 				})
 				return {
 					...(newPendingTransactionFilterRequest.id ? { id: newPendingTransactionFilterRequest.id } : {}),

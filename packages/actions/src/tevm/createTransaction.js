@@ -10,16 +10,16 @@ import { getAccountHandler } from './getAccountHandler.js'
 const requireSig = false
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {boolean} [defaultThrowOnFail]
- */
+* @param {import('@tevm/base-client').BaseClient} client
+* @param {boolean} [defaultThrowOnFail]
+*/
 export const createTransaction = (client, defaultThrowOnFail = true) => {
   /**
-   * @param {object} params
-   * @param {import('@tevm/evm').EvmRunCallOpts} params.evmInput
-   * @param {import('@tevm/evm').EvmResult} params.evmOutput
-   * @param {boolean} [params.throwOnFail]
-   */
+  * @param {object} params
+  * @param {import('@tevm/evm').EvmRunCallOpts} params.evmInput
+  * @param {import('@tevm/evm').EvmResult} params.evmOutput
+  * @param {boolean} [params.throwOnFail]
+  */
   return async ({ evmInput, evmOutput, throwOnFail }) => {
     const vm = await client.getVm()
     const pool = await client.getTxPool()
@@ -98,12 +98,16 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
       tx,
       'callHandler: Created a new transaction from transaction data',
     )
+    /**
+    * @type {Promise<void>}
+    */
+    let poolPromise = Promise.resolve()
     try {
       client.logger.debug(
         { requireSig, skipBalance: evmInput.skipBalance },
         'callHandler: Adding tx to mempool',
       )
-      const poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
+      poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
       const txHash = bytesToHex(tx.hash())
       client.logger.debug(
         txHash,
@@ -121,10 +125,12 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         })
       }
       await poolPromise
+      client.emit('newPendingTransaction', tx)
       return {
         txHash
       }
     } catch (e) {
+      await poolPromise.catch(() => { })
       if (typeof e === 'object' && e !== null && '_tag' in e && e._tag === 'AccountNotFoundError') {
         return maybeThrowOnFail(throwOnFail ?? defaultThrowOnFail, {
           errors: [
@@ -136,8 +142,8 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
           ],
           executionGasUsed: 0n,
           /**
-           * @type {`0x${string}`}
-           */
+          * @type {`0x${string}`}
+          */
           rawData: '0x',
         })
 
@@ -166,8 +172,8 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         ],
         executionGasUsed: 0n,
         /**
-         * @type {`0x${string}`}
-         */
+        * @type {`0x${string}`}
+        */
         rawData: '0x',
       })
     }

@@ -20,4 +20,4 @@
 
 ## Source
 
-packages/base-client/src/EIP1193EventEmitterTypes.ts:14
+[packages/base-client/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L16)

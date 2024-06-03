@@ -44,7 +44,7 @@ Not sure what this is yet
 
 ### logs
 
-> **logs**: `EthjsLog`[]
+> **logs**: `GetFilterLogsReturnType`\[`number`\][]
 
 Stores logs
 
@@ -54,6 +54,12 @@ Stores logs
 
 Criteria of the logs
 https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go#L329
+
+### registeredListeners
+
+> **registeredListeners**: (...`args`) => `any`[]
+
+Listeners registered for the filter
 
 ### tx
 
@@ -69,4 +75,4 @@ The type of the filter
 
 ## Source
 
-[packages/base-client/src/Filter.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Filter.ts#L13)
+[packages/base-client/src/Filter.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Filter.ts#L14)

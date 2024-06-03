@@ -21,9 +21,13 @@ export const mineHandler =
             const { interval = 1, blockCount = 1 } = params
 
             /**
-            * @type {Array<import('@tevm/utils').Hex>}
+            * @type {Array<import('@tevm/block').Block>}
             */
-            const blockHashes = []
+            const newBlocks = []
+            /**
+             * @type {Map<import('@tevm/utils').Hex,Array<import('@tevm/receipt-manager').TxReceipt>>}
+             */
+            const newReceipts = new Map()
 
             client.logger.debug({ blockCount }, 'processing txs')
             const pool = await client.getTxPool()
@@ -94,7 +98,8 @@ export const mineHandler =
                 ])
                 pool.removeNewBlockTxs([block])
 
-                blockHashes.push(bytesToHex(block.hash()))
+                newBlocks.push(block)
+                newReceipts.set(bytesToHex(block.hash()), receipts)
 
                 const value = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
 
@@ -108,23 +113,20 @@ export const mineHandler =
             originalVm.evm.blockchain = vm.evm.blockchain
             await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
-            // handle updating filters
-            for (const [_, filter] of client.getFilters().entries()) {
-                switch (filter.type) {
-                    case 'Log':
-                        filter
-                        break
-                    case 'Block':
-                        filter
-                        break
-                    case 'PendingTransaction':
-                        filter
-                        break
-                    default:
-                        // TODO fix this type
-                        return /** @type any*/({ errors: ['Invalid filter type. The tx has already been mined but any registered filters may have not been updated'], blockHashes })
+            // emit newBlock events
+            newBlocks.forEach(block => {
+                client.emit('newBlock', block)
+                const receipts = newReceipts.get(bytesToHex(block.hash()))
+                if (!receipts) {
+                    throw new Error('InternalError: Receipts not found in mineHandler. This indicates a bug in tevm.')
                 }
-            }
+                receipts.forEach(receipt => {
+                    client.emit('newReceipt', receipt)
+                    receipt.logs.forEach(log => {
+                        client.emit('newLog', log)
+                    })
+                })
+            })
 
-            return { blockHashes }
+            return { blockHashes: newBlocks.map(b => bytesToHex(b.hash())) }
     }

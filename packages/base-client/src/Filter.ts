@@ -1,6 +1,7 @@
 import type { Block } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
-import { type EthjsLog, type Hex } from '@tevm/utils'
+import { type Hex } from '@tevm/utils'
+import type { GetFilterLogsReturnType } from 'viem'
 
 export type FilterType = 'PendingTransaction' | 'Block' | 'Log'
 
@@ -31,7 +32,7 @@ export type Filter = {
 	/**
 	 * Stores logs
 	 */
-	logs: Array<EthjsLog>
+	logs: Array<GetFilterLogsReturnType[number]>
 	/**
 	 * stores tx
 	 */
@@ -48,4 +49,8 @@ export type Filter = {
 	 * Error if any
 	 */
 	err: Error | undefined
+	/**
+	 * Listeners registered for the filter
+	 */
+	registeredListeners: Array<(...args: Array<any>) => any>
 }
