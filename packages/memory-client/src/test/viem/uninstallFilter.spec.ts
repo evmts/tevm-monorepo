@@ -20,7 +20,7 @@ describe('uninstallFilter', async () => {
 			created: expect.any(Number),
 			blocks: [],
 			err: undefined,
-			registeredListeners: expect.any(Function),
+			registeredListeners: [expect.any(Function)],
 		})
 		const result = await mc.uninstallFilter({ filter })
 		expect(result).toEqual(true)

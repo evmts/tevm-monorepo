@@ -298,7 +298,6 @@ export const requestProcedure = (client) => {
 						method: estimateGasRequest.method,
 					}
 				}
-				console.log('callResult', callResult)
 				return {
 					method: estimateGasRequest.method,
 					// TODO this is wrong we need to update it in a future pr
@@ -942,7 +941,6 @@ export const requestProcedure = (client) => {
 				const newFilterRequest = /** @type {import('@tevm/procedures-types').EthNewFilterJsonRpcRequest}*/ (request)
 
 				const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = newFilterRequest.params[0]
-				console.log('params', newFilterRequest.params)
 				const id = generateRandomId()
 				const vm = await client.getVm()
 				/**
