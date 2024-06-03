@@ -232,6 +232,8 @@ When we fork a network the blocknumber will be pinned to the block number at the
 
 It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
 
+One can use a [viem wallet client](https://viem.sh/docs/clients/wallet.html) or [add the wallet actions to the client](k)
+
 :::caution[Tevm performance]
 Performance is a known issue. Tevm is pretty slow especially when the fork url is slow. Currently tevm development is focused on feature completeness and correctness. Performance improvements will be prioritized after stable 1.0.0 release.
 
@@ -240,7 +242,7 @@ Consider using an authenticated RPC url to help speed up performance.
 
 ## Viem client API
 
-Because the tevm client is a viem client it has access to most of the [public viem actions api](https://viem.sh/docs/actions/public/introduction) as well as [test actions](https://viem.sh/docs/actions/test/introduction) Wallet actions are not yet supported but will receive support in a later version of tevm. Don't worry though, you can still create transactions using the custom tevmActions.
+The core apis for tevm are the [public viem actions api](https://viem.sh/docs/actions/public/introduction). All public actions are supported.
 
 Let's use [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber.html) action from viem to populate the blocknumber div.
 
@@ -259,8 +261,8 @@ async function runApp() {
 }
 ```
 
-:::caution[🚧 Under construction]
-Not all viem apis have been tested yet though many should work. [See this test file](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/test/viemPublicActions.spec.ts) to see exactly which apis have been verified.
+:::tip[Wallet and test actions]
+[Wallet](https://viem.sh/docs/actions/wallet/introduction) and [test](https://viem.sh/docs/actions/test/introduction) actions can also be used with tevm. For more information see [the tevm actions guide](../learn/actions/index.md)
 :::
 
 ## Tevm account actions

@@ -11,21 +11,21 @@ An event filter optionsobject
 
 ## Type declaration
 
-### address
+### address?
 
-> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `optional` `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
-### fromBlock
+### fromBlock?
 
-> `readonly` **fromBlock**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> `optional` `readonly` **fromBlock**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
-### toBlock
+### toBlock?
 
-> `readonly` **toBlock**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> `optional` `readonly` **toBlock**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
-### topics
+### topics?
 
-> `readonly` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
+> `optional` `readonly` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
 
 ## Source
 

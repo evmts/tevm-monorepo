@@ -48,25 +48,25 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 - [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
 - [`eth_sendTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendtransactionjsonrpcprocedure)
 - [`eth_sendRawTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure)
-- 🚧 [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
-- 🚧 [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
-- 🚧 [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)
-- 🚧 [`eth_newFilter'](/reference/tevm/procedures-types/type-aliases/ethnewfilterjsonrpcprocedure)
-- 🚧 [`eth_getFilterLogs'](/reference/tevm/procedures-types/type-aliases/ethgetfilterlogsjsonrpcprocedure)
-- 🚧 [`eth_getBlockByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcprocedure)
-- 🚧 [`eth_newBlockFilter'](/reference/tevm/procedures-types/type-aliases/ethnewblockfilterjsonrpcprocedure)
-- 🚧 [`eth_getTransactionCount'](/reference/tevm/procedures-types/type-aliases/ethgettransactioncountjsonrpcprocedure)
-- 🚧 [`eth_getTransactionByHash'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyhashjsonrpcprocedure)
-- 🚧 [`eth_newPendingTransactionFilter'](/reference/tevm/procedures-types/type-aliases/ethnewpendingtransactionfilterjsonrpcresponse)
-- 🚧 [`eth_getBlockTransactionCountByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblocktransactioncountbyhashjsonrpcprocedure)
-- 🚧 `eth_getBlockTransactionCountByNumber'
-- 🚧 [`eth_getTransactionByBlockHashAndIndex'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyblockhashandindexjsonrpcprocedure)
-- 🚧 `eth_getTransactionByBlockNumberAndIndex'
+- [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
+- [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
+- [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)
+- [`eth_newFilter'](/reference/tevm/procedures-types/type-aliases/ethnewfilterjsonrpcprocedure)
+- [`eth_getFilterLogs'](/reference/tevm/procedures-types/type-aliases/ethgetfilterlogsjsonrpcprocedure)
+- [`eth_getBlockByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblockbyhashjsonrpcprocedure)
+- [`eth_newBlockFilter'](/reference/tevm/procedures-types/type-aliases/ethnewblockfilterjsonrpcprocedure)
+- [`eth_getTransactionCount'](/reference/tevm/procedures-types/type-aliases/ethgettransactioncountjsonrpcprocedure)
+- [`eth_getTransactionByHash'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyhashjsonrpcprocedure)
+- [`eth_newPendingTransactionFilter'](/reference/tevm/procedures-types/type-aliases/ethnewpendingtransactionfilterjsonrpcresponse)
+- [`eth_getBlockTransactionCountByHash'](/reference/tevm/procedures-types/type-aliases/ethgetblocktransactioncountbyhashjsonrpcprocedure)
+- `eth_getBlockTransactionCountByNumber'
+- [`eth_getTransactionByBlockHashAndIndex'](/reference/tevm/procedures-types/type-aliases/ethgettransactionbyblockhashandindexjsonrpcprocedure)
+- `eth_getTransactionByBlockNumberAndIndex'
 
 ## Debug methods
 
 - [`debug_traceCall`](/reference/tevm/procedures-types/type-aliases/debugtracecallprocedure)
-- 🚧 [`debug_traceTransaction`](/reference/tevm/procedures-types/type-aliases/debugtracetransactionprocedure)
+- [`debug_traceTransaction`](/reference/tevm/procedures-types/type-aliases/debugtracetransactionprocedure)
 
 ## Anvil/Hardhat methods
 
@@ -79,9 +79,13 @@ Anvil/hardhat methods are provided for compatability
 - [`anvil_mine'](/reference/tevm/procedures-types/type-aliases/anvilmineprocedure)
 - [`anvil_getAutomine'](/reference/tevm/procedures-types/type-aliases/anvilgetautomineprocedure) (currently always false)
 - [`anvil_setStorageAt'](/reference/tevm/procedures-types/type-aliases/anvilsetstorageatprocedure)
-- 🚧 [`anvil_reset'](/reference/tevm/procedures-types/type-aliases/anvilresetprocedure)
-- 🚧 [`anvil_dumpState'](/reference/tevm/procedures-types/type-aliases/anvildumpstateprocedure)
-- 🚧 [`anvil_loadState'](/reference/tevm/procedures-types/type-aliases/anvilloadstateprocedure)
-- 🚧 [`anvil_dropTransaction'](/reference/tevm/procedures-types/type-aliases/anvildroptransactionprocedure)
-- 🚧 [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure) (tevm_call has a ergonomic impersonation api at this time)
-- 🚧 [`anvil_stopImpersonatingAccount'](/reference/tevm/procedures-types/type-aliases/anvilstopimpersonatingaccountprocedure)
+- [`anvil_reset'](/reference/tevm/procedures-types/type-aliases/anvilresetprocedure)
+- [`anvil_dumpState'](/reference/tevm/procedures-types/type-aliases/anvildumpstateprocedure)
+- [`anvil_loadState'](/reference/tevm/procedures-types/type-aliases/anvilloadstateprocedure)
+- [`anvil_dropTransaction'](/reference/tevm/procedures-types/type-aliases/anvildroptransactionprocedure) (only supports dropping unmined tx atm)
+- [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure)
+- [`anvil_stopImpersonatingAccount'](/reference/tevm/procedures-types/type-aliases/anvilstopimpersonatingaccountprocedure)
+
+## Wallet methods
+
+Tevm does not support any [wallet apis](https://docs.metamask.io/wallet/concepts/wallet-api/) at this time as it operates more like an RPC provider than a wallet node.
