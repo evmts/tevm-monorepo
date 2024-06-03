@@ -1,5 +1,21 @@
 # @tevm/contract
 
+## 1.1.0-next.68
+
+### Minor Changes
+
+- [#1154](https://github.com/evmts/tevm-monorepo/pull/1154) [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated tevmMine to events for newBlock, newReceipt, and newLog
+
+### Patch Changes
+
+- [#1154](https://github.com/evmts/tevm-monorepo/pull/1154) [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed race condition where a tx can fail validation but still be added to tx pool
+
+- [#1154](https://github.com/evmts/tevm-monorepo/pull/1154) [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with eth_getLogs not properly handling optional properties when undefined
+
+- Updated dependencies []:
+  - @tevm/procedures-types@1.1.0-next.64
+  - @tevm/zod@1.1.0-next.60
+
 ## 1.1.0-next.64
 
 ### Minor Changes

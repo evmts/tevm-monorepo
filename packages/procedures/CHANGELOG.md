@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.1.0-next.68
+
+### Minor Changes
+
+- [#1154](https://github.com/evmts/tevm-monorepo/pull/1154) [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new JSON-RPC support eth_getFilterLogs and eth_getFilterChanges
+
+### Patch Changes
+
+- Updated dependencies [[`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d), [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d), [`693653e`](https://github.com/evmts/tevm-monorepo/commit/693653e747f4cf6853fe2255b1e4b7cf658b834d)]:
+  - @tevm/actions@1.1.0-next.68
+
 ## 1.1.0-next.64
 
 ### Patch Changes

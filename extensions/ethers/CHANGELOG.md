@@ -1,5 +1,14 @@
 # @tevm/ethers
 
+## 1.1.0-next.68
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/decorators@1.1.0-next.68
+  - @tevm/client-types@1.1.0-next.60
+  - @tevm/procedures-types@1.1.0-next.64
+
 ## 1.1.0-next.67
 
 ### Patch Changes
