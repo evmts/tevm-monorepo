@@ -2,14 +2,12 @@ import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
-	AnvilImpersonateAccountParams,
 	AnvilLoadStateParams,
 	AnvilMineParams,
 	AnvilResetParams,
 	AnvilSetChainIdParams,
 	AnvilSetCodeParams,
 	AnvilSetStorageAtParams,
-	AnvilStopImpersonatingAccountParams,
 } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
@@ -19,18 +17,12 @@ import type { SerializeToJson } from '../utils/index.js'
 /**
  * JSON-RPC request for `anvil_impersonateAccount` method
  */
-export type AnvilImpersonateAccountJsonRpcRequest = JsonRpcRequest<
-	'anvil_impersonateAccount',
-	[SerializeToJson<AnvilImpersonateAccountParams>]
->
+export type AnvilImpersonateAccountJsonRpcRequest = JsonRpcRequest<'anvil_impersonateAccount', [Address]>
 // anvil_stopImpersonatingAccount
 /**
  * JSON-RPC request for `anvil_stopImpersonatingAccount` method
  */
-export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<
-	'anvil_stopImpersonatingAccount',
-	[SerializeToJson<AnvilStopImpersonatingAccountParams>]
->
+export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<'anvil_stopImpersonatingAccount', [Address]>
 // anvil_autoImpersonateAccount
 /**
  * JSON-RPC request for `anvil_autoImpersonateAccount` method

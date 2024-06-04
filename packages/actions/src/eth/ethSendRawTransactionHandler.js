@@ -43,9 +43,10 @@ const getTx = (vm, txBuf) => {
 		case txType.EIP1559:
 			return TransactionFactory.fromSerializedData(txBuf, {
 				common: vm.common.ethjsCommon,
+				freeze:false,
 			})
 		case txType.BLOB: {
-			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon })
+			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon, freeze: false })
 			const blobGasLimit = vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
 			const blobGasPerBlob = vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 
@@ -80,16 +81,16 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to parse data')
 	}
-	if (!tx.isSigned() && client.impersonatedAccount !== undefined) {
+	const impersonatedAccount = client.getImpersonatedAccount()
+	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
 		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
-		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(client.impersonatedAccount)
+		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(impersonatedAccount)
 		tx = createImpersonatedTx(impersonatedTx)
-	}
-	if (!tx.isSigned()) {
-		throw new Error('Invalid transaction. Transaction is not signed. Consider calling impersonate endpoint.')
+	} else if (!tx.isSigned()) {
+		throw new Error('Invalid transaction. Raw Transaction is not signed. Consider calling impersonate endpoint.')
 	}
 	/**
 	 * @type {import('@tevm/actions-types').CallResult}
