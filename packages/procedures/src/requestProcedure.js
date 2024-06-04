@@ -860,8 +860,9 @@ export const requestProcedure = (client) => {
 				const impersonateAccountRequest =
 					/** @type {import('@tevm/procedures-types').AnvilImpersonateAccountJsonRpcRequest}*/
 					(request)
+					console.log(request)
 				try {
-					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0].address))
+					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0]))
 					return {
 						jsonrpc: '2.0',
 						method: impersonateAccountRequest.method,
