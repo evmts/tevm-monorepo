@@ -7,12 +7,6 @@ description: Tevm actions api
 
 Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [viem's actions api](https://viem.sh/docs/actions/public/getbalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](/learn/json-rpc).
 
-:::tip[Ens actions]
-Ens actions require 4844 to be enabeld. To enable 4844 in current version of tevm you must pass in kzg implementation to `custom-crypto`. This can be installed with `npm install kzg-wasm`.
-Warning, kzg adds over 500kb to bundle size.
-In future version of tevm this will not be required.
-:::
-
 ### Public actions
 
 [MemoryClient](../clients/index.md) comes with all [viem public actions](https://viem.sh/docs/actions/public/introduction) built in.
