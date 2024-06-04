@@ -71,7 +71,6 @@
 	},
 	"devDependencies": {
 		"@tevm/base-client": "workspace:^",
-		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

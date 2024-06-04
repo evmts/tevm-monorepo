@@ -5,7 +5,6 @@ import { http, createPublicClient } from 'viem'
  * @deprecated a new version of HttpClient will be built in a future version
  * For now we suggest you use viem
  * @param {import('./HttpClientOptions.js').HttpClientOptions} params
- * @returns {import('./HttpClient.js').HttpClient}
  * @example
  */
 export const createHttpClient = ({ url, name = `TevmClient:${url}` }) => {

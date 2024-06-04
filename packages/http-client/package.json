@@ -67,7 +67,6 @@
 		"viem": "^2.12.0"
 	},
 	"devDependencies": {
-		"@tevm/client-types": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/test-utils": "workspace:^",

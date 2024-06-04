@@ -3,9 +3,6 @@
 	"version": "1.1.0-next.69",
 	"private": false,
 	"description": "The language server for Tevm",
-	"type": "module",
-	"main": "dist/index.js",
-	"license": "MIT",
 	"keywords": [
 		"typescript",
 		"plugin",
@@ -18,13 +15,16 @@
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "lsp/lsp"
 	},
+	"license": "MIT",
+	"type": "module",
+	"main": "dist/index.js",
+	"bin": {
+		"tevm-lsp": "./bin/tevm-lsp.cjs"
+	},
 	"files": [
 		"dist/**/*.js",
 		"types/**/*.d.ts"
 	],
-	"bin": {
-		"tevm-lsp": "./bin/tevm-lsp.cjs"
-	},
 	"dependencies": {
 		"@tevm/config": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
