@@ -4,3 +4,6 @@ extensions/*/docs/**/* linguist-generated=true
 tevm/docs/**/* linguist-generated=true
 bundler/docs/**/* linguist-generated=true
 docs/src/content/docs/reference/**/* linguist-generated=true
+
+biome.json linguist-language=JSON-with-Comments
+.vscode/*.json linguist-language=JSON-with-Comments
