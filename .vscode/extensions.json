@@ -11,5 +11,10 @@
     // but this is useful for running nx commands in vscode
     "nrwl.angular-console",
     "antfu.vite"
+  ],
+  "unwantedRecommendations": [
+    // we use biome for linting and formatting
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
   ]
 }
