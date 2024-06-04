@@ -11,6 +11,7 @@ export {
 	BlobEIP4844Transaction,
 	TransactionFactory,
 	Capability,
+	type TypedTxData,
 	isAccessListEIP2930Tx,
 	isBlobEIP4844Tx,
 	isFeeMarketEIP1559Tx,
