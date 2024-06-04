@@ -1,5 +1,17 @@
 # @tevm/state
 
+## 1.1.0-next.69
+
+### Patch Changes
+
+- [#1163](https://github.com/evmts/tevm-monorepo/pull/1163) [`eb80103`](https://github.com/evmts/tevm-monorepo/commit/eb80103442991a0bbe8342f1e237cb52b1a8cc9e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bad publish
+
+- Updated dependencies [[`eb80103`](https://github.com/evmts/tevm-monorepo/commit/eb80103442991a0bbe8342f1e237cb52b1a8cc9e)]:
+  - @tevm/common@1.1.0-next.69
+  - @tevm/logger@1.1.0-next.69
+  - @tevm/utils@1.1.0-next.69
+  - @tevm/test-utils@1.1.0-next.69
+
 ## 1.1.0-next.66
 
 ### Patch Changes

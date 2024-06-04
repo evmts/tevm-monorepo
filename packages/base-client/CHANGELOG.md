@@ -1,5 +1,27 @@
 # @tevm/client
 
+## 1.1.0-next.69
+
+### Patch Changes
+
+- [#1163](https://github.com/evmts/tevm-monorepo/pull/1163) [`eb80103`](https://github.com/evmts/tevm-monorepo/commit/eb80103442991a0bbe8342f1e237cb52b1a8cc9e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bad publish
+
+- Updated dependencies [[`eb80103`](https://github.com/evmts/tevm-monorepo/commit/eb80103442991a0bbe8342f1e237cb52b1a8cc9e)]:
+  - @tevm/block@1.1.0-next.69
+  - @tevm/blockchain@1.1.0-next.69
+  - @tevm/common@1.1.0-next.69
+  - @tevm/evm@1.1.0-next.69
+  - @tevm/jsonrpc@1.1.0-next.69
+  - @tevm/logger@1.1.0-next.69
+  - @tevm/predeploys@1.1.0-next.69
+  - @tevm/receipt-manager@1.1.0-next.69
+  - @tevm/state@1.1.0-next.69
+  - @tevm/sync-storage-persister@1.1.0-next.69
+  - @tevm/tx@1.1.0-next.69
+  - @tevm/txpool@1.1.0-next.69
+  - @tevm/utils@1.1.0-next.69
+  - @tevm/vm@1.1.0-next.69
+
 ## 1.1.0-next.68
 
 ### Minor Changes

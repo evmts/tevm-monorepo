@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/test-utils",
-	"version": "1.1.0-next.66",
+	"version": "1.1.0-next.69",
 	"private": false,
 	"description": "Testing utils and fixtures for tevm",
 	"keywords": [
@@ -70,9 +70,9 @@
 	},
 	"dependencies": {
 		"@ponder/utils": "^0.1.5",
-		"@tevm/contract": "workspace:1.1.0-next.62",
-		"@tevm/esbuild-plugin": "workspace:1.1.0-next.60",
-		"@tevm/ts-plugin": "workspace:1.1.0-next.66",
+		"@tevm/contract": "workspace:1.1.0-next.69",
+		"@tevm/esbuild-plugin": "workspace:1.1.0-next.69",
+		"@tevm/ts-plugin": "workspace:1.1.0-next.69",
 		"viem": "^2.12.0"
 	}
 }

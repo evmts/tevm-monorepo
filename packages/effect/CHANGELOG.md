@@ -1,5 +1,11 @@
 # @tevm/effect
 
+## 1.1.0-next.69
+
+### Patch Changes
+
+- [#1163](https://github.com/evmts/tevm-monorepo/pull/1163) [`eb80103`](https://github.com/evmts/tevm-monorepo/commit/eb80103442991a0bbe8342f1e237cb52b1a8cc9e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bad publish
+
 ## 1.1.0-next.60
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/vm",
-	"version": "1.1.0-next.62",
+	"version": "1.1.0-next.69",
 	"private": false,
 	"description": "A custom implementation of ethereumjs vm",
 	"keywords": [
