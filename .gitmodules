@@ -4,15 +4,3 @@
 [submodule "lib/revm"]
 	path = lib/revm
 	url = https://github.com/evmts/revm
-[submodule "lib/ethereumjs"]
-	path = lib/ethereumjs
-	url = https://github.com/ethereumjs/ethereumjs-monorepo.git
-[submodule "lib/skystrife"]
-	path = lib/skystrife
-	url = https://github.com/evmts/skystrife-tevm.git
-[submodule "lib/mud"]
-	path = lib/mud
-	url = https://github.com/latticexyz/mud.git
-[submodule "lib/viem"]
-	path = lib/viem
-	url = git@github.com:wevm/viem.git
