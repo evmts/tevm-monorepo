@@ -64,7 +64,8 @@
 		"@tevm/test-utils": "workspace:1.1.0-next.69",
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
-		"viem": "^2.9.9"
+		"viem": "^2.9.9",
+		"wagmi": "^2.9.8"
 	},
 	"devDependencies": {
 		"@tevm/bundler": "workspace:1.1.0-next.69",
