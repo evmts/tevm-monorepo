@@ -67,8 +67,8 @@
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/evm": "workspace:^",
-    "@tevm/utils": "workspace:^",
     "@tevm/predeploys": "workspace:^",
+    "@tevm/utils": "workspace:^",
     "kzg-wasm": "^0.4.0"
   },
   "devDependencies": {
@@ -77,9 +77,9 @@
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
-	"peerDependencies": {
-		"viem": "^2.13.6"
-	},
+  "peerDependencies": {
+    "viem": "^2.13.6"
+  },
   "publishConfig": {
     "access": "public"
   }

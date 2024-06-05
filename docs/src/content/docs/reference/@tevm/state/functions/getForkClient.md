@@ -159,9 +159,9 @@ const filter = await client.createContractEventFilter({
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 #### Parameters
 
@@ -205,9 +205,9 @@ const filter = await client.createEventFilter({
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 • **_EventName** *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
 
@@ -215,9 +215,9 @@ const filter = await client.createEventFilter({
 
 #### Parameters
 
-• **args?**: `CreateEventFilterParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
+• **args?**: [`CreateEventFilterParameters`](/reference/tevm/utils/type-aliases/createeventfilterparameters/)\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
 
-CreateEventFilterParameters
+[CreateEventFilterParameters](../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
 
 #### Returns
 
@@ -542,7 +542,7 @@ const block = await client.getBlock()
 
 • **TIncludeTransactions** *extends* `boolean` = `false`
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **TBlockTag** *extends* [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `"latest"`
 
 #### Parameters
 
@@ -870,9 +870,9 @@ const logs = await client.getContractEvents(client, {
 
 • **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 #### Parameters
 
@@ -924,7 +924,7 @@ GetEnsAddressParameters
 
 The balance of the account at a block number.
 
-• **args.blockTag?**: `BlockTag`
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
 The balance of the account at a block tag.
 
@@ -1004,7 +1004,7 @@ Gateway urls to resolve IPFS and/or Arweave assets.
 
 The balance of the account at a block number.
 
-• **args.blockTag?**: `BlockTag`
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
 The balance of the account at a block tag.
 
@@ -1077,7 +1077,7 @@ Address to get ENS name for.
 
 The balance of the account at a block number.
 
-• **args.blockTag?**: `BlockTag`
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
 The balance of the account at a block tag.
 
@@ -1145,7 +1145,7 @@ GetEnsResolverParameters
 
 The balance of the account at a block number.
 
-• **args.blockTag?**: `BlockTag`
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
 The balance of the account at a block tag.
 
@@ -1197,7 +1197,7 @@ const twitterRecord = await client.getEnsText({
   name: normalize('wevm.eth'),
   key: 'com.twitter',
 })
-// 'wagmi_sh'
+// 'wevm_dev'
 ```
 
 #### Parameters
@@ -1210,7 +1210,7 @@ GetEnsTextParameters
 
 The balance of the account at a block number.
 
-• **args.blockTag?**: `BlockTag`
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
 The balance of the account at a block tag.
 
@@ -1374,9 +1374,9 @@ const hashes = await client.getFilterChanges({ filter })
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 #### Parameters
 
@@ -1426,9 +1426,9 @@ const logs = await client.getFilterLogs({ filter })
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 #### Parameters
 
@@ -1497,9 +1497,9 @@ const logs = await client.getLogs()
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TFromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **TToBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `undefined`
 
 #### Parameters
 
@@ -1608,7 +1608,7 @@ const transaction = await client.getTransaction({
 
 #### Type parameters
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **TBlockTag** *extends* [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `"latest"`
 
 #### Parameters
 
@@ -1846,11 +1846,11 @@ const request = await client.prepareTransactionRequest({
 
 • **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
 
-• **TAccountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
+• **TAccountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| [`Account`](/reference/tevm/utils/type-aliases/account/) = `undefined`
 
 #### Parameters
 
-• **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TRequest`\>
+• **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `TChainOverride`, `TAccountOverride`, `TRequest`\>
 
 PrepareTransactionRequestParameters
 
@@ -1953,7 +1953,7 @@ const hash = await client.sendRawTransaction({
 
 ### simulateContract()
 
-> **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
+> **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `chainOverride`, `accountOverride`\>\>
 
 Simulates/validates a contract interaction. This is useful for retrieving **return data** and **revert reasons** of contract write functions.
 
@@ -1995,7 +1995,7 @@ const result = await client.simulateContract({
 
 • **chainOverride** *extends* `undefined` \| `Chain`
 
-• **accountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
+• **accountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| [`Account`](/reference/tevm/utils/type-aliases/account/) = `undefined`
 
 #### Parameters
 
@@ -2005,7 +2005,7 @@ SimulateContractParameters
 
 #### Returns
 
-`Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
+`Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `chainOverride`, `accountOverride`\>\>
 
 ### transport
 
@@ -2064,9 +2064,107 @@ UninstallFilterParameters
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
 
+Verify that a message was signed by the provided address.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/actions/public/verifyMessage](https://viem.sh/docs/actions/public/verifyMessage)
+
 #### Parameters
 
-• **args**: `VerifyMessageParameters`
+• **args**
+
+• **args.address**: \`0x$\{string\}\`
+
+The address that signed the original message.
+
+• **args.blockNumber?**: `bigint`
+
+The balance of the account at a block number.
+
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
+
+The balance of the account at a block tag.
+
+**Default**
+
+```ts
+'latest'
+```
+
+• **args.message**: `SignableMessage`
+
+The message to be verified.
+
+• **args.signature**: \`0x$\{string\}\` \| `Uint8Array` \| `Signature`
+
+The signature that was generated by signing the message with the address's private key.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+### verifySiweMessage()
+
+> **verifySiweMessage**: (`args`) => `Promise`\<`boolean`\>
+
+Verifies [EIP-4361](https://eips.ethereum.org/EIPS/eip-4361) formatted message was signed.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/siwe/actions/verifySiweMessage](https://viem.sh/docs/siwe/actions/verifySiweMessage)
+
+#### Parameters
+
+• **args**
+
+• **args.address?**: \`0x$\{string\}\`
+
+Ethereum address to check against.
+
+• **args.blockNumber?**: `bigint`
+
+The balance of the account at a block number.
+
+• **args.blockTag?**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
+
+The balance of the account at a block tag.
+
+**Default**
+
+```ts
+'latest'
+```
+
+• **args.domain?**: `string`
+
+[RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) authority to check against.
+
+• **args.message**: `string`
+
+EIP-4361 formatted message.
+
+• **args.nonce?**: `string`
+
+Random string to check against.
+
+• **args.scheme?**: `string`
+
+[RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-3.1) URI scheme to check against.
+
+• **args.signature**: \`0x$\{string\}\`
+
+Signature to check against.
+
+• **args.time?**: `Date`
+
+Current time to check optional `expirationTime` and `notBefore` fields.
+
+**Default**
+
+```ts
+new Date()
+```
 
 #### Returns
 
@@ -2075,6 +2173,10 @@ UninstallFilterParameters
 ### verifyTypedData()
 
 > **verifyTypedData**: (`args`) => `Promise`\<`boolean`\>
+
+Verify that typed data was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyTypedData](https://viem.sh/docs/actions/public/verifyTypedData)
 
 #### Parameters
 
@@ -2204,7 +2306,7 @@ const unwatch = await client.watchBlocks({
 
 • **TIncludeTransactions** *extends* `boolean` = `false`
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **TBlockTag** *extends* [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) = `"latest"`
 
 #### Parameters
 

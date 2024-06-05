@@ -64,18 +64,18 @@
 	"dependencies": {
 		"@ethereumjs/blockchain": "^7.2.0",
 		"@tevm/block": "workspace:^",
+		"@tevm/common": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/trie": "workspace:^",
-		"@tevm/common": "workspace:^",
 		"@tevm/utils": "workspace:^"
-	},
-	"peerDependencies": {
-		"viem": "^2.13.6"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

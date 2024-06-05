@@ -69,13 +69,13 @@
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
-	"peerDependencies": {
-		"viem": "^2.13.6"
-	},
 	"devDependencies": {
 		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

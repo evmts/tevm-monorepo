@@ -64,19 +64,19 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/base-client": "workspace:^",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
+		"@tevm/errors": "workspace:^",
+		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/procedures-types": "workspace:1.1.0-next.69",
 		"@tevm/receipt-manager": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",
-		"@tevm/zod": "workspace:^",
-		"@tevm/base-client": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/evm": "workspace:^",
-		"@tevm/state": "workspace:^"
+		"@tevm/zod": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",

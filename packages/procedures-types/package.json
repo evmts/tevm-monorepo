@@ -62,10 +62,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/utils": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/state": "workspace:^"
+		"@tevm/state": "workspace:^",
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",

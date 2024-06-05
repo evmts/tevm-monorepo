@@ -66,13 +66,13 @@
 		"@tevm/compiler": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/runtime": "workspace:^",
-		"effect": "2.0.0-next.54",
-		"solidity-ast": "^0.4.52",
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.8.9",
-		"solc": "0.8.22"
+		"effect": "2.0.0-next.54",
+		"solc": "0.8.22",
+		"solidity-ast": "^0.4.52"
 	},
 	"publishConfig": {
 		"access": "public"

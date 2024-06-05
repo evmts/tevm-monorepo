@@ -25,7 +25,7 @@ Optional fork config for forking a live chain
 
 ### fork.blockTag?
 
-> `optional` **blockTag**: `BlockTag` \| `bigint` \| \`0x$\{string\}\`
+> `optional` **blockTag**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `bigint` \| \`0x$\{string\}\`
 
 Optional block tag to fork
 Defaults to 'latest'

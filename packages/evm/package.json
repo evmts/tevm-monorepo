@@ -67,8 +67,8 @@
 		"@tevm/common": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"@tevm/state": "workspace:^"
+		"@tevm/state": "workspace:^",
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

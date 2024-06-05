@@ -11,7 +11,7 @@ title: "StateOptions"
 
 ### currentStateRoot?
 
-> `optional` **currentStateRoot**: `Hex`
+> `optional` **currentStateRoot**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### fork?
 

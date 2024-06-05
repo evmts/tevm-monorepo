@@ -65,8 +65,8 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/block": "workspace:^",
 		"@tevm/base-client": "workspace:^",
+		"@tevm/block": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",

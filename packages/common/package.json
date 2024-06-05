@@ -66,12 +66,12 @@
 		"@tevm/logger": "workspace:^",
 		"@tevm/utils": "workspace:1.1.0-next.69"
 	},
-	"peerDependencies": {
-		"viem": "^2.13.6"
-	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

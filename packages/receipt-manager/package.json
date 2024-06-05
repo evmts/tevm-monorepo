@@ -66,8 +66,8 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/rlp": "workspace:^",
-    "@tevm/utils": "workspace:^",
-    "@tevm/tx": "workspace:^"
+    "@tevm/tx": "workspace:^",
+    "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

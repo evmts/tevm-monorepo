@@ -63,9 +63,9 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
-		"@tevm/viem": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/utils": "workspace:^",
+		"@tevm/viem": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/client-types": "workspace:^",

@@ -35,4 +35,4 @@ const data = bytesToBool(new Uint8Array([1]))
 
 ## Source
 
-node\_modules/.pnpm/viem@2.8.18\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:79
+node\_modules/.pnpm/viem@2.13.6\_typescript@5.4.5\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:79
