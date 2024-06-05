@@ -20,4 +20,4 @@ Procedure for handling script JSON-RPC requests
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:840
+packages/procedures-types/dist/index.d.ts:836

@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_dropTransaction` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L68)
+[requests/AnvilJsonRpcRequest.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L60)

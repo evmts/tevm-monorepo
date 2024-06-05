@@ -1,5 +1,4 @@
 ignores: [
-  "@types/node",
-  "@tevm/contract"
+  "@tevm/ts-plugin"
 ]
 skip-missing: true

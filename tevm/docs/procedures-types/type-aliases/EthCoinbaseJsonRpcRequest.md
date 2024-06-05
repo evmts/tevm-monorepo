@@ -12,4 +12,4 @@ JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:183
+packages/procedures-types/dist/index.d.ts:179

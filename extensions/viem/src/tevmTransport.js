@@ -1,7 +1,7 @@
 import { createTransport } from 'viem'
 
 /**
- * @param {Pick<import('@tevm/memory-client').MemoryClient, 'request'>} tevm The Tevm instance
+ * @param {Pick<import('@tevm/decorators').Eip1193RequestProvider, 'request'>|Pick<import('@tevm/memory-client').MemoryClient, 'request'>} tevm The Tevm instance
  * @param {Pick<import('viem').TransportConfig, 'name' | 'key' | 'timeout' | 'retryCount' | 'retryDelay'>} [options]
  * @returns {import('viem').Transport} The transport function
  */

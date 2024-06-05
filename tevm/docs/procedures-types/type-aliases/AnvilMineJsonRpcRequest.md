@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_mine` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:49
+packages/procedures-types/dist/index.d.ts:45

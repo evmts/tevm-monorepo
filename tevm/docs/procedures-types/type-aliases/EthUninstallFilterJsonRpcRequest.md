@@ -12,4 +12,4 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:326
+packages/procedures-types/dist/index.d.ts:322

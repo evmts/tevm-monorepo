@@ -74,7 +74,7 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	/**
 	 * The currently impersonated account. This is only used in `fork` mode
 	 */
-	readonly impersonatedAccount: Address | undefined
+	readonly getImpersonatedAccount: () => Address | undefined
 	/**
 	 * Sets the account to impersonate. This will allow the client to act as if it is that account
 	 * On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating

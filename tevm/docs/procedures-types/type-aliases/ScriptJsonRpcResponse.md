@@ -28,4 +28,4 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:669
+packages/procedures-types/dist/index.d.ts:665

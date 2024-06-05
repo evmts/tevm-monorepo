@@ -5,10 +5,10 @@ prev: false
 title: "AnvilStopImpersonatingAccountJsonRpcRequest"
 ---
 
-> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_stopImpersonatingAccount"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilStopImpersonatingAccountParams`](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccountparams/)\>]\>
+> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_stopImpersonatingAccount"`, [[`Address`](/reference/tevm/utils/type-aliases/address/)]\>
 
 JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L30)
+[requests/AnvilJsonRpcRequest.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L25)

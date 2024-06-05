@@ -13,4 +13,4 @@ A Tevm JSON-RPC request
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:384
+packages/procedures-types/dist/index.d.ts:380

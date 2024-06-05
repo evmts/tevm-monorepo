@@ -56,6 +56,16 @@ Gets all registered filters mapped by id
 
 `Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/base-client/type-aliases/filter/)\>
 
+### getImpersonatedAccount()
+
+> `readonly` **getImpersonatedAccount**: () => [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
+The currently impersonated account. This is only used in `fork` mode
+
+#### Returns
+
+[`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
 ### getReceiptsManager()
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -87,12 +97,6 @@ on top of Tevm.
 #### Returns
 
 `Promise`\<[`Vm`](/reference/tevm/vm/type-aliases/vm/)\>
-
-### impersonatedAccount
-
-> `readonly` **impersonatedAccount**: [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
-
-The currently impersonated account. This is only used in `fork` mode
 
 ### logger
 

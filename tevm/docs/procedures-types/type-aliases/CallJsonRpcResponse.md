@@ -12,4 +12,4 @@ JSON-RPC response for `tevm_call` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:451
+packages/procedures-types/dist/index.d.ts:447

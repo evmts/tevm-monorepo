@@ -317,7 +317,9 @@ export const createBaseClient = (options = {}) => {
 		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: () => readyPromise,
-		impersonatedAccount,
+		getImpersonatedAccount() {
+			return impersonatedAccount
+		},
 		setImpersonatedAccount,
 		getFilters: () => filters,
 		setFilter: (filter) => {

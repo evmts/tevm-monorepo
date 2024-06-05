@@ -12,4 +12,4 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:287
+packages/procedures-types/dist/index.d.ts:283

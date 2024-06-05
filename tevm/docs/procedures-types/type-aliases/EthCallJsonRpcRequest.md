@@ -12,4 +12,4 @@ JSON-RPC request for `eth_call` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:170
+packages/procedures-types/dist/index.d.ts:166

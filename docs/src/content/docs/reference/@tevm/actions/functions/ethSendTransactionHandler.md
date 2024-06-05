@@ -17,4 +17,4 @@ title: "ethSendTransactionHandler"
 
 ## Source
 
-[packages/actions/src/eth/ethSendTransactionHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendTransactionHandler.js#L9)
+[packages/actions/src/eth/ethSendTransactionHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendTransactionHandler.js#L12)

@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setBalance` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L76)
+[requests/AnvilJsonRpcRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L68)

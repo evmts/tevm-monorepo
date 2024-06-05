@@ -12,4 +12,4 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:322
+packages/procedures-types/dist/index.d.ts:318

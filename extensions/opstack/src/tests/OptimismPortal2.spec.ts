@@ -29,7 +29,7 @@ describe('OptimismPortal2', () => {
 				...client.op.OptimismPortal2.write.donateETH(),
 			}),
 		).toEqual({
-			txHash: '0x4cd05cfb83cbce6976adb8069883f5cca780110e2a37e230ca1d91de89440dea',
+			txHash: '0x79d5d8ea9dc6a16d71a9c2ca3dffcfa1e52cf4b15f7fc9c77c9f2045cc97b06d',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 164n,
