@@ -12,7 +12,7 @@
 
 ### currentStateRoot?
 
-> `optional` **currentStateRoot**: `Hex`
+> `optional` **currentStateRoot**: [`Hex`](Hex.md)
 
 ### fork?
 

@@ -64,16 +64,18 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/actions-types": "workspace:^",
+		"@tevm/base-client": "workspace:^",
 		"@tevm/procedures": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"viem": "^2.7.16"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/base-client": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

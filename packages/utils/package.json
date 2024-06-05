@@ -64,12 +64,14 @@
 	"dependencies": {
 		"@ethereumjs/evm": "^3.0.0",
 		"@ethereumjs/util": "^9.0.3",
-		"abitype": "^1.0.2",
-		"viem": "^2.8.18"
+		"abitype": "^1.0.2"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

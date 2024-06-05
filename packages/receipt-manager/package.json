@@ -64,14 +64,14 @@
   "dependencies": {
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
+    "@tevm/common": "workspace:^",
     "@tevm/rlp": "workspace:^",
-    "@tevm/tx": "workspace:^"
+    "@tevm/tx": "workspace:^",
+    "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@tevm/common": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "@tevm/utils": "workspace:^"
+    "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

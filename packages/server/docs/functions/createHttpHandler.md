@@ -588,7 +588,7 @@ const twitterRecord = await client.getEnsText({
   name: normalize('wevm.eth'),
   key: 'com.twitter',
 })
-// 'wagmi_sh'
+// 'wevm_dev'
 ```
 
 • **client.getFeeHistory**

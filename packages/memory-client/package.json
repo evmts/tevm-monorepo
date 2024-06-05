@@ -67,16 +67,18 @@
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/evm": "workspace:^",
+    "@tevm/predeploys": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "viem": "^2.12.0"
+    "kzg-wasm": "^0.4.0"
   },
   "devDependencies": {
-    "@tevm/predeploys": "workspace:^",
     "@tevm/procedures-types": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "kzg-wasm": "^0.4.0"
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.13.6"
   },
   "publishConfig": {
     "access": "public"

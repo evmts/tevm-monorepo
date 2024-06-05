@@ -28,4 +28,4 @@ Creates a rate limited transport that throttles request throughput.
 
 ## Source
 
-node\_modules/.pnpm/@ponder+utils@0.1.5\_typescript@5.4.5\_viem@2.10.3/node\_modules/@ponder/utils/dist/index.d.ts:49
+node\_modules/.pnpm/@ponder+utils@0.1.5\_typescript@5.4.5\_viem@2.13.6/node\_modules/@ponder/utils/dist/index.d.ts:49

@@ -65,21 +65,21 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/block": "workspace:^",
-		"@tevm/tx": "workspace:1.1.0-next.69"
-	},
-	"devDependencies": {
-		"@tevm/actions-types": "workspace:^",
 		"@tevm/base-client": "workspace:^",
+		"@tevm/block": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/tx": "workspace:1.1.0-next.69",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/actions-types": "workspace:^",
+		"@tevm/procedures-types": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

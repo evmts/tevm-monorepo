@@ -67,12 +67,14 @@
 		"@tevm/logger": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"ethereum-cryptography": "^2.1.3",
-		"viem": "^2.9.28"
+		"ethereum-cryptography": "^2.1.3"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

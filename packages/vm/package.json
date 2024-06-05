@@ -68,12 +68,12 @@
 		"@tevm/common": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/rlp": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/trie": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
