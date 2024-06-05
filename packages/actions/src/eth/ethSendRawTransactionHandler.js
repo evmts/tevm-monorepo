@@ -1,6 +1,7 @@
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../index.js'
+import { prefundedAccounts } from '@tevm/base-client'
 
 const txType = {
 	LEGACY: 0x00,
@@ -9,6 +10,8 @@ const txType = {
 	BLOB: 0x03,
 	OPTIMISM_DEPOSIT: 0x7e,
 }
+
+// TODO we should be properly checking signatures
 
 // TODO move this to @tevm/errors
 /**
@@ -93,7 +96,17 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(impersonatedAccount)
 		tx = createImpersonatedTx(impersonatedTx)
 	} else if (!tx.isSigned()) {
-		throw new Error('Invalid transaction. Raw Transaction is not signed. Consider calling impersonate endpoint.')
+		client.logger.debug(
+			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',
+		)
+		/**
+		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 **/
+		const impersonatedTx = /** @type {any}*/ (tx)
+		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(
+			impersonatedAccount ?? /** @type {import('@tevm/utils').Address} */ (prefundedAccounts[0]),
+		)
+		tx = createImpersonatedTx(impersonatedTx)
 	}
 	/**
 	 * @type {import('@tevm/actions-types').CallResult}
