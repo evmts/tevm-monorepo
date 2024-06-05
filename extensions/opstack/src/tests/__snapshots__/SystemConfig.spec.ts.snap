@@ -3,11 +3,11 @@
 exports[`SystemConfig should initialize contract correctly 1`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+  "data": "0x0000000000000000000000000000000000000000",
   "executionGasUsed": 2418n,
   "gas": 16774797n,
   "logs": [],
-  "rawData": "0x0000000000000000000000009ba6e03d8b90de867373db8cf1a58d2f7f006b3a",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -15,11 +15,11 @@ exports[`SystemConfig should initialize contract correctly 1`] = `
 exports[`SystemConfig should initialize contract correctly 2`] = `
 {
   "createdAddresses":   Set {},
-  "data": 684000n,
+  "data": 0n,
   "executionGasUsed": 2351n,
   "gas": 16774864n,
   "logs": [],
-  "rawData": "0x00000000000000000000000000000000000000000000000000000000000a6fe0",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -39,11 +39,11 @@ exports[`SystemConfig should initialize contract correctly 3`] = `
 exports[`SystemConfig should initialize contract correctly 4`] = `
 {
   "createdAddresses":   Set {},
-  "data": 188n,
+  "data": 0n,
   "executionGasUsed": 2330n,
   "gas": 16774885n,
   "logs": [],
-  "rawData": "0x00000000000000000000000000000000000000000000000000000000000000bc",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -51,11 +51,11 @@ exports[`SystemConfig should initialize contract correctly 4`] = `
 exports[`SystemConfig should initialize contract correctly 5`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0x75505a97BD334E7BD3C476893285569C4136Fa0F",
+  "data": "0x0000000000000000000000000000000000000000",
   "executionGasUsed": 2471n,
   "gas": 16774744n,
   "logs": [],
-  "rawData": "0x00000000000000000000000075505a97bd334e7bd3c476893285569c4136fa0f",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -63,11 +63,11 @@ exports[`SystemConfig should initialize contract correctly 5`] = `
 exports[`SystemConfig should initialize contract correctly 6`] = `
 {
   "createdAddresses":   Set {},
-  "data": 21000000n,
+  "data": 0n,
   "executionGasUsed": 2521n,
   "gas": 16774694n,
   "logs": [],
-  "rawData": "0x0000000000000000000000000000000000000000000000000000000001406f40",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -75,11 +75,11 @@ exports[`SystemConfig should initialize contract correctly 6`] = `
 exports[`SystemConfig should initialize contract correctly 7`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1",
+  "data": "0x0000000000000000000000000000000000000000",
   "executionGasUsed": 2472n,
   "gas": 16774743n,
   "logs": [],
-  "rawData": "0x00000000000000000000000099c9fc46f92e8a1c0dec1b1747d010903e884be1",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -87,11 +87,11 @@ exports[`SystemConfig should initialize contract correctly 7`] = `
 exports[`SystemConfig should initialize contract correctly 8`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0xff00000000000000000000000000000011155420",
+  "data": "0x0000000000000000000000000000000000000000",
   "executionGasUsed": 2448n,
   "gas": 16774767n,
   "logs": [],
-  "rawData": "0x000000000000000000000000ff00000000000000000000000000000011155420",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -111,11 +111,11 @@ exports[`SystemConfig should initialize contract correctly 9`] = `
 exports[`SystemConfig should initialize contract correctly 10`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985",
+  "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "executionGasUsed": 2373n,
   "gas": 16774842n,
   "logs": [],
-  "rawData": "0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
@@ -123,11 +123,11 @@ exports[`SystemConfig should initialize contract correctly 10`] = `
 exports[`SystemConfig should initialize contract correctly 11`] = `
 {
   "createdAddresses":   Set {},
-  "data": "0xbEb5Fc579115071764c7423A4f12eDde41f106Ed",
+  "data": "0x0000000000000000000000000000000000000000",
   "executionGasUsed": 2494n,
   "gas": 16774721n,
   "logs": [],
-  "rawData": "0x000000000000000000000000beb5fc579115071764c7423a4f12edde41f106ed",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;
