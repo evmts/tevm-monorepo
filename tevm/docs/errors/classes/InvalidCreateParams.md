@@ -216,4 +216,4 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.14.1/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:21

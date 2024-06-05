@@ -219,7 +219,7 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/events.d.ts:11
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.14.1/node\_modules/@types/node/events.d.ts:565
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/events.d.ts:570
 
 ***
 
@@ -499,7 +499,7 @@ v10.0.0
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.14.1/node\_modules/@types/node/events.d.ts:720
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/events.d.ts:725
 
 ***
 
@@ -723,7 +723,7 @@ v9.4.0
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.14.1/node\_modules/@types/node/events.d.ts:791
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/events.d.ts:796
 
 ***
 
