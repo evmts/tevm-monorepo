@@ -860,7 +860,6 @@ export const requestProcedure = (client) => {
 				const impersonateAccountRequest =
 					/** @type {import('@tevm/procedures-types').AnvilImpersonateAccountJsonRpcRequest}*/
 					(request)
-				console.log(request)
 				try {
 					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0]))
 					return {
