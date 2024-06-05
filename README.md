@@ -28,6 +28,7 @@ const client = createMemoryClient({
 const balance = client.readContract(
   ERC20
     .withAddress('0x4200000000000000000000000000000000000042')
+.read
     .balanceOf('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')
 )
 ```
