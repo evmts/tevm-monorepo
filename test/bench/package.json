@@ -62,16 +62,18 @@
 	"dependencies": {
 		"@tevm/contract": "workspace:1.1.0-next.69",
 		"@tevm/test-utils": "workspace:1.1.0-next.69",
+		"@tevm/ts-plugin": "workspace:1.1.0-next.69",
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
-		"viem": "^2.9.9",
+		"typescript": "^5.4.5",
+		"viem": "^2.13.6",
 		"wagmi": "^2.9.8"
 	},
 	"devDependencies": {
 		"@tevm/bundler": "workspace:1.1.0-next.69",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.11.19"
+		"@types/node": "^20.14.1"
 	},
 	"publishConfig": {
 		"access": "public"
