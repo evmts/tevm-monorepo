@@ -64,6 +64,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/base-client": "workspace:1.1.0-next.69",
+		"@tevm/decorators": "workspace:1.1.0-next.69",
 		"@tevm/jsonrpc": "workspace:^"
 	},
 	"devDependencies": {

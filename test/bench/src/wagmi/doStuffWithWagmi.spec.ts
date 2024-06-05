@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { memoryClient, wagmiConfig } from './wagmiConfig.js'
+import { type Address } from 'tevm'
+import type { Hex } from 'tevm/actions-types'
+import { encodeDeployData } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { describe, expect, it } from 'vitest'
 import {
 	call,
 	getBlock,
@@ -9,11 +12,8 @@ import {
 	readContract,
 	sendTransaction,
 } from 'wagmi/actions'
-import { privateKeyToAccount } from 'viem/accounts'
-import { encodeDeployData } from 'viem'
-import type { Hex } from 'tevm/actions-types'
 import { Fibonacci } from './fib.s.sol.js'
-import { type Address } from 'tevm'
+import { memoryClient, wagmiConfig } from './wagmiConfig.js'
 
 // anvil[0] test account
 const account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')

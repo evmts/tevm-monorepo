@@ -43,10 +43,13 @@ const getTx = (vm, txBuf) => {
 		case txType.EIP1559:
 			return TransactionFactory.fromSerializedData(txBuf, {
 				common: vm.common.ethjsCommon,
-				freeze:false,
+				freeze: false,
 			})
 		case txType.BLOB: {
-			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon, freeze: false })
+			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, {
+				common: vm.common.ethjsCommon,
+				freeze: false,
+			})
 			const blobGasLimit = vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
 			const blobGasPerBlob = vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 

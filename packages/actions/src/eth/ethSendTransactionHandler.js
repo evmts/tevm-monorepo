@@ -7,7 +7,7 @@ import { callHandler } from '../index.js'
  * @returns {import('@tevm/actions-types').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
-	let tx = TransactionFactory.fromTxData(params, {freeze: false})
+	let tx = TransactionFactory.fromTxData(params, { freeze: false })
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
@@ -17,7 +17,9 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(impersonatedAccount)
 		tx = createImpersonatedTx(impersonatedTx)
 	} else if (!tx.isSigned()) {
-		throw new Error('Invalid transaction in sendTransaction. Transaction is not signed. Consider calling anvil impersonate endpoint')
+		throw new Error(
+			'Invalid transaction in sendTransaction. Transaction is not signed. Consider calling anvil impersonate endpoint',
+		)
 	}
 	const { errors } = await callHandler(client)({
 		...params,

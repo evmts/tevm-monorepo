@@ -1,8 +1,9 @@
-import { createMemoryClient, encodeDeployData, tevmTransport, type Address } from 'tevm'
+import { type Address, createBaseClient, encodeDeployData, tevmTransport } from 'tevm'
 import { optimism } from 'tevm/common'
+import { requestEip1193 } from 'tevm/decorators'
 import { createConfig } from 'wagmi'
 
-export const memoryClient = createMemoryClient({ common: optimism })
+export const client = createBaseClient({ common: optimism }).extend(requestEip1193())
 
 export const wagmiConfig = createConfig({
 	chains: [optimism],
@@ -10,13 +11,13 @@ export const wagmiConfig = createConfig({
 	ssr: true,
 	cacheTime: 0,
 	transports: {
-		[optimism.id]: tevmTransport(memoryClient),
+		[optimism.id]: tevmTransport(client),
 	},
 })
 
-import { Fibonacci } from './fib.s.sol.js'
 import { privateKeyToAccount } from 'viem/accounts'
-import { getTransactionReceipt, sendTransaction, readContract } from 'wagmi/actions'
+import { getTransactionReceipt, readContract, sendTransaction } from 'wagmi/actions'
+import { Fibonacci } from './fib.s.sol.js'
 
 // anvil[0] test account
 const account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
@@ -27,8 +28,6 @@ const hash = await sendTransaction(wagmiConfig, {
 	// https://github.com/wevm/wagmi/pull/4009
 	to: undefined as any,
 })
-
-const { blockHashes } = await memoryClient.tevmMine()
 
 const receipt = await getTransactionReceipt(wagmiConfig, { hash })
 
