@@ -60,9 +60,9 @@
 		"bench:ui": "vitest bench --ui"
 	},
 	"dependencies": {
-		"@tevm/contract": "workspace:1.1.0-next.69",
-		"@tevm/test-utils": "workspace:1.1.0-next.69",
-		"@tevm/ts-plugin": "workspace:1.1.0-next.69",
+		"@tevm/contract": "workspace:1.1.0-next.70",
+		"@tevm/test-utils": "workspace:1.1.0-next.70",
+		"@tevm/ts-plugin": "workspace:1.1.0-next.70",
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
 		"typescript": "^5.4.5",
@@ -70,7 +70,7 @@
 		"wagmi": "^2.9.8"
 	},
 	"devDependencies": {
-		"@tevm/bundler": "workspace:1.1.0-next.69",
+		"@tevm/bundler": "workspace:1.1.0-next.70",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.14.1"

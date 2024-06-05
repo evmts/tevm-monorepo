@@ -10,7 +10,7 @@
 		"test": "bun run test"
 	},
 	"dependencies": {
-		"@tevm/contract": "^1.1.0-next.69",
+		"@tevm/contract": "^1.1.0-next.70",
 		"bun-types": "^1.0.7",
 		"viem": "^2.13.6"
 	},
