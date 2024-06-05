@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_reset` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:414
+packages/procedures-types/dist/index.d.ts:410

@@ -12,4 +12,4 @@ The response to the `tevm_dumpState` JSON-RPC request.
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:472
+packages/procedures-types/dist/index.d.ts:468

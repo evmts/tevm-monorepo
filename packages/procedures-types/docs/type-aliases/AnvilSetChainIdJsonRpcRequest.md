@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setChainId` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L99)
+[requests/AnvilJsonRpcRequest.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L91)

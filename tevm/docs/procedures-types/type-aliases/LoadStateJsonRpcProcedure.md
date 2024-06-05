@@ -33,4 +33,4 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:830
+packages/procedures-types/dist/index.d.ts:826

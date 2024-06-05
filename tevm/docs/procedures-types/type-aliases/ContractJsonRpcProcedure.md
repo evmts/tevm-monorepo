@@ -14,4 +14,4 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:748
+packages/procedures-types/dist/index.d.ts:744

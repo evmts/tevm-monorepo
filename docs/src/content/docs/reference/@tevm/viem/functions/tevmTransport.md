@@ -9,7 +9,7 @@ title: "tevmTransport"
 
 ## Parameters
 
-• **tevm**: `Pick`\<`object`, `"request"`\>
+• **tevm**: `Pick`\<`Eip1193RequestProvider`, `"request"`\> \| `Pick`\<`object`, `"request"`\>
 
 The Tevm instance
 

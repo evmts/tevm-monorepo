@@ -12,4 +12,4 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:607
+packages/procedures-types/dist/index.d.ts:603

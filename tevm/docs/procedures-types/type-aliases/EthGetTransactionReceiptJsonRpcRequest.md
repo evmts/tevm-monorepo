@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:263
+packages/procedures-types/dist/index.d.ts:259

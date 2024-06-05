@@ -57,6 +57,16 @@ Gets all registered filters mapped by id
 
 `Map`\<`Hex`, [`Filter`](Filter.md)\>
 
+### getImpersonatedAccount()
+
+> `readonly` **getImpersonatedAccount**: () => `Address` \| `undefined`
+
+The currently impersonated account. This is only used in `fork` mode
+
+#### Returns
+
+`Address` \| `undefined`
+
 ### getReceiptsManager()
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
@@ -88,12 +98,6 @@ on top of Tevm.
 #### Returns
 
 `Promise`\<`Vm`\>
-
-### impersonatedAccount
-
-> `readonly` **impersonatedAccount**: `Address` \| `undefined`
-
-The currently impersonated account. This is only used in `fork` mode
 
 ### logger
 

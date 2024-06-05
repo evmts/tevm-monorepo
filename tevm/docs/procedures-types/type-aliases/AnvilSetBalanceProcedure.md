@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_setBalance`
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:712
+packages/procedures-types/dist/index.d.ts:708
