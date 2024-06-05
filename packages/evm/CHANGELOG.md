@@ -1,5 +1,18 @@
 # @tevm/state
 
+## 1.1.0-next.70
+
+### Patch Changes
+
+- [#1170](https://github.com/evmts/tevm-monorepo/pull/1170) [`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved viem to a peer dependency
+
+- Updated dependencies [[`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113)]:
+  - @tevm/blockchain@1.1.0-next.70
+  - @tevm/common@1.1.0-next.70
+  - @tevm/state@1.1.0-next.70
+  - @tevm/utils@1.1.0-next.70
+  - @tevm/predeploys@1.1.0-next.70
+
 ## 1.1.0-next.69
 
 ### Patch Changes

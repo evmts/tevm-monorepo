@@ -1,5 +1,11 @@
 # @tevm/schemas
 
+## 1.1.0-next.70
+
+### Patch Changes
+
+- [#1166](https://github.com/evmts/tevm-monorepo/pull/1166) [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated viem to latest
+
 ## 1.1.0-next.69
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @tevm/client-types
 
+## 1.1.0-next.70
+
+### Patch Changes
+
+- Updated dependencies [[`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113)]:
+  - @tevm/utils@1.1.0-next.70
+
 ## 1.1.0-next.69
 
 ### Patch Changes

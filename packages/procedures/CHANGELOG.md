@@ -1,5 +1,26 @@
 # @tevm/contract
 
+## 1.1.0-next.70
+
+### Patch Changes
+
+- [#1166](https://github.com/evmts/tevm-monorepo/pull/1166) [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated viem to latest
+
+- [#1166](https://github.com/evmts/tevm-monorepo/pull/1166) [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with anvil_impersonateAccount taking wrong params
+
+- [#1170](https://github.com/evmts/tevm-monorepo/pull/1170) [`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved viem to a peer dependency
+
+- Updated dependencies [[`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`60f3276`](https://github.com/evmts/tevm-monorepo/commit/60f3276a241935b4756f4adf2531d5fabce520a8), [`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113)]:
+  - @tevm/base-client@1.1.0-next.70
+  - @tevm/actions@1.1.0-next.70
+  - @tevm/jsonrpc@1.1.0-next.70
+  - @tevm/state@1.1.0-next.70
+  - @tevm/utils@1.1.0-next.70
+  - @tevm/evm@1.1.0-next.70
+  - @tevm/vm@1.1.0-next.70
+  - @tevm/block@1.1.0-next.70
+  - @tevm/tx@1.1.0-next.70
+
 ## 1.1.0-next.69
 
 ### Patch Changes

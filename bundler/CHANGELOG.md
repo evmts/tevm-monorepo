@@ -1,5 +1,19 @@
 # @tevm/bundler
 
+## 1.1.0-next.70
+
+### Patch Changes
+
+- Updated dependencies [[`ee1a52d`](https://github.com/evmts/tevm-monorepo/commit/ee1a52d0be3e91b1b9667226cc32d54d87221113)]:
+  - @tevm/base-bundler@1.1.0-next.70
+  - @tevm/bun-plugin@1.1.0-next.70
+  - @tevm/ts-plugin@1.1.0-next.70
+  - @tevm/esbuild-plugin@1.1.0-next.70
+  - @tevm/rollup-plugin@1.1.0-next.70
+  - @tevm/rspack-plugin@1.1.0-next.70
+  - @tevm/vite-plugin@1.1.0-next.70
+  - @tevm/webpack-plugin@1.1.0-next.70
+
 ## 1.1.0-next.69
 
 ### Patch Changes
