@@ -64,12 +64,14 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ponder/utils": "^0.1.5",
-		"viem": "^2.10.3"
+		"@ponder/utils": "^0.1.5"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

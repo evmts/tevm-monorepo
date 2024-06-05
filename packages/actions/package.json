@@ -73,18 +73,19 @@
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",
 		"@tevm/zod": "workspace:^",
-		"viem": "^2.12.0"
-	},
-	"devDependencies": {
-		"@tevm/actions-types": "workspace:^",
 		"@tevm/base-client": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
-		"@tevm/state": "workspace:^",
+		"@tevm/state": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/actions-types": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/vm": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.12.0"
 	},
 	"publishConfig": {
 		"access": "public"

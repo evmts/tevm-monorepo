@@ -65,12 +65,12 @@
 		"@tevm/block": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
+		"@tevm/vm": "workspace:^",
 		"qheap": "^1.4.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/vm": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

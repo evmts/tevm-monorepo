@@ -75,13 +75,15 @@
 		"@tevm/tx": "workspace:1.1.0-next.69",
 		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"@tevm/vm": "workspace:^",
-		"viem": "^2.12.0"
+		"@tevm/vm": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -64,16 +64,18 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/errors": "workspace:^",
 		"abitype": "^1.0.0",
-		"viem": "^2.7.16",
+		"@tevm/utils": "workspace:^",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",
-		"@tevm/errors": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

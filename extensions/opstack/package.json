@@ -75,7 +75,7 @@
 		"@types/node": "^20.11.20"
 	},
 	"peerDependencies": {
-		"viem": "2.x.x"
+		"viem": "^2.13.6"
 	},
 	"publishConfig": {
 		"access": "public"

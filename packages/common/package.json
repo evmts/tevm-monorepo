@@ -64,8 +64,10 @@
 	"dependencies": {
 		"@ethereumjs/common": "^4.3.0",
 		"@tevm/logger": "workspace:^",
-		"@tevm/utils": "workspace:1.1.0-next.69",
-		"viem": "^2.12.0"
+		"@tevm/utils": "workspace:1.1.0-next.69"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

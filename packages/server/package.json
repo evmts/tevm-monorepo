@@ -66,12 +66,12 @@
 	"dependencies": {
 		"@tevm/errors": "workspace:^",
 		"@tevm/utils": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@tevm/zod": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/memory-client": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",

@@ -67,9 +67,7 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/runtime": "workspace:^",
 		"effect": "2.0.0-next.54",
-		"solidity-ast": "^0.4.52"
-	},
-	"devDependencies": {
+		"solidity-ast": "^0.4.52",
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

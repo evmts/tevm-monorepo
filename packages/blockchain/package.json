@@ -67,13 +67,15 @@
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/trie": "workspace:^",
-		"viem": "^2.9.28"
+		"@tevm/common": "workspace:^",
+		"@tevm/utils": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.13.6"
 	},
 	"devDependencies": {
-		"@tevm/common": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"
