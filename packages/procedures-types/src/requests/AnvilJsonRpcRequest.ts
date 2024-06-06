@@ -69,7 +69,7 @@ export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [
 /**
  * JSON-RPC request for `anvil_setCode` method
  */
-export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<'anvil_setCode', [SerializeToJson<AnvilSetCodeParams>]>
+export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<'anvil_setCode', [account: Address, deployedBytecode: Hex]>
 // anvil_setNonce
 /**
  * JSON-RPC request for `anvil_setNonce` method

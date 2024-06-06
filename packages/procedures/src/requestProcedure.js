@@ -151,7 +151,7 @@ export const requestProcedure = (client) => {
 				const result = setAccountProcedure(client)({
 					jsonrpc: codeRequest.jsonrpc,
 					method: 'tevm_setAccount',
-					params: codeRequest.params,
+					params: [{ address: codeRequest.params[0], deployedBytecode: codeRequest.params[1] }],
 					...(codeRequest.id ? { id: codeRequest.id } : {}),
 				})
 				return {
