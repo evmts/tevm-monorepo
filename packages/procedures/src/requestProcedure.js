@@ -356,7 +356,11 @@ export const requestProcedure = (client) => {
 			}
 			case 'anvil_mine':
 			case 'tevm_mine': {
-				return /** @type any */ (mineProcedure)(client)(request)
+				const res = await /** @type any */ (mineProcedure)(client)(request)
+				return {
+					...res,
+					method: request.method,
+				}
 			}
 			case 'debug_traceCall': {
 				const debugTraceCallRequest =

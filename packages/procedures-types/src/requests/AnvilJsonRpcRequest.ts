@@ -65,7 +65,7 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `anvil_setBalance` method
  */
-export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [{ address: Address; balance: Hex }]>
+export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [blockCount: Hex, interval: Hex]>
 // anvil_setCode
 /**
  * JSON-RPC request for `anvil_setCode` method
