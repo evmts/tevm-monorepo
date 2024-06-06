@@ -6,10 +6,10 @@
 
 # Type alias: MineJsonRpcRequest
 
-> **MineJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_mine"`, [[`SerializeToJson`](SerializeToJson.md)\<`MineParams`\>]\>
+> **MineJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_mine"`, [`Hex`, `Hex`]\>
 
 JSON-RPC request for `tevm_mine` method
 
 ## Source
 
-[requests/MineJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/MineJsonRpcRequest.ts#L8)
+[requests/MineJsonRpcRequest.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/MineJsonRpcRequest.ts#L7)

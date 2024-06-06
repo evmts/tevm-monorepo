@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetBalanceJsonRpcRequest
 
-> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [`object`]\>
+> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [`Hex`, `Hex`]\>
 
 JSON-RPC request for `anvil_setBalance` method
 
