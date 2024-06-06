@@ -1,10 +1,21 @@
 {
-	"extends": "@tevm/tsconfig/base.json",
-	"compilerOptions": {
-		"rootDir": "src",
-		"outDir": "types",
-		"skipLibCheck": true,
-		"types": ["bun-types"]
-	},
-	"include": ["src", "src/**/*.json"]
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin"
+      }
+    ],
+    "rootDir": "src",
+    "outDir": "types",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "types": [
+      "bun-types"
+    ]
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ]
 }

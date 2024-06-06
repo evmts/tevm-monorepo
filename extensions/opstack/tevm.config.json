@@ -1,0 +1,5 @@
+{
+  "remappings": {
+    "src/": "node_modules/@eth-optimism/contracts-bedrock/src/"
+  }
+}
