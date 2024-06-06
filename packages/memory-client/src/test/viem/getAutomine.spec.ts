@@ -1,38 +1,22 @@
-import { describe, it, expect, beforeEach } from 'bun:test';
-import type { MemoryClient } from '../../MemoryClient.js'
-import { SimpleContract } from '@tevm/contract'
+import { describe, it, expect } from 'bun:test'
 import { createMemoryClient } from '../../createMemoryClient.js'
-import { type Hex } from '@tevm/utils'
-
-let mc: MemoryClient
-let deployTxHash: Hex
-let c = {
-	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
-}
-
-beforeEach(async () => {
-	mc = createMemoryClient()
-	const deployResult = await mc.tevmDeploy({
-		bytecode: SimpleContract.bytecode,
-		abi: SimpleContract.abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	c = {
-		simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
-	}
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	deployTxHash = deployResult.txHash
-	await mc.tevmMine()
-})
-
+import { testActions } from 'viem'
 
 describe('getAutomine', () => {
-  it.todo('should work as expected', () => {
-    expect(true).toBe(true);
-  });
-});
+	it('should return false if mining config is manual', async () => {
+		const mc = createMemoryClient({
+			miningConfig: {
+				type: 'manual',
+			},
+		}).extend(testActions({ mode: 'anvil' }))
+		expect(await mc.getAutomine()).toBe(false)
+	})
+	it('should return true if mining config is auto', async () => {
+		const mc = createMemoryClient({
+			miningConfig: {
+				type: 'auto',
+			},
+		}).extend(testActions({ mode: 'anvil' }))
+		expect(await mc.getAutomine()).toBe(true)
+	})
+})

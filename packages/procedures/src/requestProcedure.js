@@ -311,7 +311,12 @@ export const requestProcedure = (client) => {
 			case 'anvil_getAutomine':
 			case /** @type {'anvil_getAutomine'}*/ ('hardhat_getAutomine'):
 			case /** @type {'anvil_getAutomine'}*/ ('ganache_getAutomine'):
-				return client.miningConfig.type === 'auto'
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					result: client.miningConfig.type === 'auto',
+					...(request.id ? { id: request.id } : {}),
+				}
 			case 'anvil_setCoinbase':
 			case /** @type {'anvil_setCoinbase'}*/ ('hardhat_setCoinbase'):
 			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'): {
