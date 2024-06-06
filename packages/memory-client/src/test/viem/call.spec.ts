@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, toHex, testActions } from 'viem'
+import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, testActions, toHex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { call } from 'viem/actions'
 import type { MemoryClient } from '../../MemoryClient.js'

@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach } from 'bun:test'
-import type { MemoryClient } from '../../MemoryClient.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { createMemoryClient } from '../../createMemoryClient.js'
 import { type Hex } from '@tevm/utils'
+import type { MemoryClient } from '../../MemoryClient.js'
+import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
 let deployTxHash: Hex

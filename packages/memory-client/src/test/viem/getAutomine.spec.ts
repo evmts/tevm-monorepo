@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'bun:test'
-import { createMemoryClient } from '../../createMemoryClient.js'
+import { describe, expect, it } from 'bun:test'
 import { testActions } from 'viem'
+import { createMemoryClient } from '../../createMemoryClient.js'
 
 describe('getAutomine', () => {
 	it('should return false if mining config is manual', async () => {
