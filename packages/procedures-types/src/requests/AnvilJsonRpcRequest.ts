@@ -3,7 +3,6 @@ import type {
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
 	AnvilLoadStateParams,
-	AnvilMineParams,
 	AnvilResetParams,
 	AnvilSetChainIdParams,
 	AnvilSetCodeParams,
@@ -47,7 +46,7 @@ export type AnvilSetCoinbaseJsonRpcRequest = JsonRpcRequest<'anvil_setCoinbase',
 /**
  * JSON-RPC request for `anvil_mine` method
  */
-export type AnvilMineJsonRpcRequest = JsonRpcRequest<'anvil_mine', [SerializeToJson<AnvilMineParams>]>
+export type AnvilMineJsonRpcRequest = JsonRpcRequest<'anvil_mine', [blockCount: Hex, interval: Hex]>
 // anvil_reset
 /**
  * JSON-RPC request for `anvil_reset` method
@@ -65,7 +64,7 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `anvil_setBalance` method
  */
-export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [blockCount: Hex, interval: Hex]>
+export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [{ address: Address; balance: Hex }]>
 // anvil_setCode
 /**
  * JSON-RPC request for `anvil_setCode` method
