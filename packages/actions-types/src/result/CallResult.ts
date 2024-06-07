@@ -1,5 +1,5 @@
 import type { CallError } from '@tevm/errors'
-import type { Address, Hex, Log, TransactionReceiptResult } from '../common/index.js'
+import type { Address, Hex, Log } from '../common/index.js'
 import type { DebugTraceCallResult } from './DebugResult.js'
 
 /**
@@ -18,7 +18,7 @@ export type CallResult<ErrorType = CallError> = {
 	/**
 	 * Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
 	 */
-	preimages?: Map<Hex, Uint8Array>
+	preimages?: Record<Hex, Hex>
 	/**
 	 * The returned tx hash if the call was included in the chain
 	 * Will not be defined if the call was not included in the chain

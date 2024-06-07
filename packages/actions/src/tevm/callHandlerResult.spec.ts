@@ -1,10 +1,22 @@
+import { createBaseClient } from '@tevm/base-client'
 import { callHandlerResult } from './callHandlerResult.js'
 import type { EvmResult } from '@tevm/evm'
 import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
+import { transports } from '@tevm/test-utils'
+import type { RunTxResult, Vm } from '@tevm/vm'
 
-describe('callHandlerResult', () => {
+const evmInput = {} as any
+const client = createBaseClient({
+fork: {
+transport: transports.optimism
+}
+})
+let vm: Vm
+
+describe('callHandlerResult', async () => {
+vm = await client.getVm()
 const dummyAddress = `0x${'1'.repeat(40)}` as const
 const mockLog: EthjsLog = [
 new Uint8Array(20), // Address
@@ -24,8 +36,23 @@ createdAddresses: new Set([dummyAddress]),
 },
 } as const satisfies EvmResult
 
-it('should handle EVMResult correctly', () => {
-const result = callHandlerResult(dummyEVMResult, undefined, undefined, undefined)
+const dummyRuntxResult = {
+minerValue: 20n,
+bloom: {} as any,
+createdAddress: dummyEVMResult.execResult.createdAddresses.values().next().value,
+accessList: {} as any,
+totalGasSpent: 100n,
+preimages: new Map(),
+gasRefund: dummyEVMResult.execResult.gasRefund,
+execResult: dummyEVMResult.execResult,
+receipt: {} as any,
+amountSpent: 10n,
+blobGasUsed: dummyEVMResult.execResult.blobGasUsed,
+
+} as const satisfies RunTxResult
+
+it('should handle EVMResult correctly', async () => {
+const result = await callHandlerResult(evmInput, dummyRuntxResult, undefined, undefined, undefined, vm)
 expect(result.rawData).toEqual(toHex(Buffer.from('test')))
 expect(result.executionGasUsed).toEqual(21000n)
 expect(result.gasRefund).toEqual(1000n)
@@ -44,7 +71,7 @@ expect(result.createdAddresses).toEqual(new Set([getAddress(dummyAddress)]))
 
 it('should handle missing optional fields', () => {
 const modifiedResult = {
-...dummyEVMResult,
+...dummyRuntxResult,
 execResult: {
 ...dummyEVMResult.execResult,
 gasRefund: undefined,
@@ -55,7 +82,7 @@ createdAddresses: undefined,
 },
 } as any
 
-const result = callHandlerResult(modifiedResult, undefined, undefined, undefined)
+const result = callHandlerResult(evmInput, modifiedResult, undefined, undefined, undefined, vm)
 expect(result).not.toHaveProperty('gasRefund')
 expect(result).not.toHaveProperty('selfdestruct')
 expect(result).not.toHaveProperty('blobGasUsed')

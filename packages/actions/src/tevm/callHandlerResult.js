@@ -37,7 +37,7 @@ if (evmResult.amountSpent) {
 out.amountSpent = evmResult.amountSpent
 }
 if (accessList && evmResult.preimages) {
-out.preimages = evmResult.preimages
+out.preimages = Object.fromEntries([...evmResult.preimages.entries()].map(([key, value]) => [key, bytesToHex(value)]))
 }
 const isOpstack = vm.common.sourceId !== undefined
 if (isOpstack) {
