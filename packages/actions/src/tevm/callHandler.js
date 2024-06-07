@@ -7,6 +7,8 @@ import { createTransaction } from './createTransaction.js'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { mineHandler } from './mineHandler.js'
+import { runTx } from '@tevm/vm'
+import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 
 /**
 * The callHandler is the most important function in Tevm.
@@ -36,281 +38,291 @@ import { mineHandler } from './mineHandler.js'
 * @returns {import('@tevm/actions-types').CallHandler}
 */
 export const callHandler =
-    (client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-        async (params) => {
-            /**
-            * ***************
-            * 0 VALIDATE PARAMS
-            * ***************
-            */
-            client.logger.debug(params, 'callHandler: Executing call with params')
-            const validationErrors = validateCallParams(params)
-            if (validationErrors.length > 0) {
-                client.logger.debug(validationErrors, 'Params do not pass validation')
-                return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                    errors: validationErrors,
-                    executionGasUsed: 0n,
-                    /**
-                    * @type {`0x${string}`}
-                    */
-                    rawData: '0x',
-                })
-            }
-            const { errors, data: evmInput } = await callHandlerOpts(client, params)
-            if (errors ?? !evmInput) {
-                client.logger.error(
-                    errors ?? evmInput,
-                    'callHandler: Unexpected error converting params to ethereumjs params',
-                )
-                return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                    errors: /** @type {import('@tevm/errors').CallError[]}*/ (errors),
-                    executionGasUsed: 0n,
-                    rawData: /** @type {`0x${string}`}*/('0x'),
-                })
-            }
+(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
+async (params) => {
+/**
+* ***************
+* 0 VALIDATE PARAMS
+* ***************
+*/
+client.logger.debug(params, 'callHandler: Executing call with params')
+const validationErrors = validateCallParams(params)
+if (validationErrors.length > 0) {
+client.logger.debug(validationErrors, 'Params do not pass validation')
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+errors: validationErrors,
+executionGasUsed: 0n,
+/**
+* @type {`0x${string}`}
+*/
+rawData: '0x',
+})
+}
+const { errors, data: evmInput } = await callHandlerOpts(client, params)
+if (errors ?? !evmInput) {
+client.logger.error(
+errors ?? evmInput,
+'callHandler: Unexpected error converting params to ethereumjs params',
+)
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+errors: /** @type {import('@tevm/errors').CallError[]}*/ (errors),
+executionGasUsed: 0n,
+rawData: /** @type {`0x${string}`}*/('0x'),
+})
+}
 
-            /**
-            * ************
-            * 1 CLONE THE VM WITH BLOCK TAG
-            * ************
-            */
-            client.logger.debug(
-                'Cloning vm to execute a call...',
-            )
-            /**
-            * @type {import('@tevm/vm').Vm}
-            */
-            let vm
-            try {
-                vm = await client.getVm().then(vm => vm.deepCopy())
-                const block = evmInput?.block
-                // this will never happen the type is wrong internally
-                if (!block) {
-                    throw new Error('UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm')
-                }
-                if (params.createTransaction && block !== await vm.blockchain.getCanonicalHeadBlock()) {
-                    throw new Error('Creating transactions on past blocks is not currently supported')
-                }
-                // TODO why doesn't this type have stateRoot prop? It is always there.
-                // Haven't looked into it so it might be a simple fix.
-                /**
-                * @type {Uint8Array}
-                */
-                const stateRoot = /** @type any*/(block.header).stateRoot
-                if (client.forkTransport && !(await vm.stateManager.hasStateRoot(stateRoot))) {
-                    forkAndCacheBlock(client, /** @type any*/(block))
-                }
-                await vm.stateManager.setStateRoot(stateRoot)
-                // if we are forking we need to update the block tag we are forking if the block is in past
-                const forkBlock = vm.blockchain.blocksByTag.get('forked')
-                if (client.forkTransport && forkBlock !== undefined && block.header.number < forkBlock.header.number) {
-                    vm.stateManager._baseState.options.fork = {
-                        transport: client.forkTransport,
-                        blockTag: block.header.number,
-                    }
-                    vm.blockchain.blocksByTag.set('forked', /** @type {any} */(block))
-                }
-            } catch (e) {
-                client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
-                return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                    errors: [
-                        {
-                            name: 'UnexpectedError',
-                            _tag: 'UnexpectedError',
-                            message:
-                                typeof e === 'string'
-                                    ? e
-                                    : e instanceof Error
-                                        ? e.message
-                                        : typeof e === 'object' && e !== null && 'message' in e
-                                            ? e.message
-                                            : 'unknown error',
-                        },
-                    ],
-                    executionGasUsed: 0n,
-                    rawData: '0x',
-                })
-            }
+/**
+* ************
+* 1 CLONE THE VM WITH BLOCK TAG
+* ************
+*/
+client.logger.debug(
+'Cloning vm to execute a call...',
+)
+/**
+* @type {import('@tevm/vm').Vm}
+*/
+let vm
+try {
+vm = await client.getVm().then(vm => vm.deepCopy())
+const block = evmInput?.block
+// this will never happen the type is wrong internally
+if (!block) {
+throw new Error('UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm')
+}
+if (params.createTransaction && block !== await vm.blockchain.getCanonicalHeadBlock()) {
+throw new Error('Creating transactions on past blocks is not currently supported')
+}
+// TODO why doesn't this type have stateRoot prop? It is always there.
+// Haven't looked into it so it might be a simple fix.
+/**
+* @type {Uint8Array}
+*/
+const stateRoot = /** @type any*/(block.header).stateRoot
+if (client.forkTransport && !(await vm.stateManager.hasStateRoot(stateRoot))) {
+forkAndCacheBlock(client, /** @type any*/(block))
+}
+await vm.stateManager.setStateRoot(stateRoot)
+// if we are forking we need to update the block tag we are forking if the block is in past
+const forkBlock = vm.blockchain.blocksByTag.get('forked')
+if (client.forkTransport && forkBlock !== undefined && block.header.number < forkBlock.header.number) {
+vm.stateManager._baseState.options.fork = {
+transport: client.forkTransport,
+blockTag: block.header.number,
+}
+vm.blockchain.blocksByTag.set('forked', /** @type {any} */(block))
+}
+} catch (e) {
+client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+errors: [
+{
+name: 'UnexpectedError',
+_tag: 'UnexpectedError',
+message:
+typeof e === 'string'
+? e
+: e instanceof Error
+? e.message
+: typeof e === 'object' && e !== null && 'message' in e
+? e.message
+: 'unknown error',
+},
+],
+executionGasUsed: 0n,
+rawData: '0x',
+})
+}
 
-            // Do a quick defensive check
-            const shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
-            const isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
-            if (shouldHaveContract && !isContract) {
-                client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
-            }
+// Do a quick defensive check
+const shouldHaveContract = evmInput.to && evmInput.data && bytesToBigint(evmInput.data) !== 0n
+const isContract = evmInput.to && (await vm.stateManager.getContractCode(evmInput.to)).length > 0
+if (shouldHaveContract && !isContract) {
+client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to?.toString()} with no contract bytecode!`)
+}
 
-            /**
-            * ************
-            * 2 RUN THE EVM
-            * ************
-            */
-            /**
-            * @type {import('@tevm/evm').EvmResult | undefined}
-            */
-            let evmOutput = undefined
-            /**
-            * @type {import('@tevm/actions-types').DebugTraceCallResult | undefined}
-            */
-            let trace = undefined
-            /**
-            * evm returns an access list without the 0x prefix
-            * @type {Map<string, Set<string>> | undefined}
-            */
-            let accessList = undefined
-            try {
-                client.logger.debug({
-                    to: evmInput.to?.toString(),
-                    origin: evmInput.origin?.toString(),
-                    caller: evmInput.caller?.toString(),
-                    value: evmInput.value?.toString(),
-                    gasLimit: evmInput.gasLimit?.toString(),
-                    data: evmInput.data
-                }, 'callHandler: Executing runCall with params')
-                if (params.createAccessList) {
-                    vm.evm.journal.startReportingAccessList()
-                }
-                if (params.createTrace) {
-                    const { trace: _trace, ...res } = await runCallWithTrace(
-                        vm,
-                        client.logger,
-                        evmInput,
-                    )
-                    evmOutput = res
-                    trace = _trace
-                } else {
-                    evmOutput = await vm.evm.runCall(evmInput)
-                    trace = undefined
-                }
-                client.logger.debug({
-                    returnValue: bytesToHex(evmOutput.execResult.returnValue),
-                    exceptionError: evmOutput.execResult.exceptionError,
-                    executionGasUsed: evmOutput.execResult.executionGasUsed,
-                }, 'callHandler: runCall result')
-                if (params.createAccessList) {
-                    // on next version of ethjs this type will be right
-                    accessList = vm.evm.journal.accessList
-                }
-            } catch (e) {
-                client.logger.error(e, 'callHandler: Unexpected error executing evm')
-                return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                    errors: [
-                        {
-                            name: 'UnexpectedError',
-                            _tag: 'UnexpectedError',
-                            message:
-                                typeof e === 'string'
-                                    ? e
-                                    : e instanceof Error
-                                        ? e.message
-                                        : typeof e === 'object' && e !== null && 'message' in e
-                                            ? e.message
-                                            : 'unknown error',
-                        },
-                    ],
-                    executionGasUsed: 0n,
-                    /**
-                    * @type {`0x${string}`}
-                    */
-                    rawData: '0x',
-                })
-            }
+/**
+* ************
+* 2 RUN THE EVM
+* ************
+*/
+/**
+* @type {import('@tevm/vm').RunTxResult | undefined}
+*/
+let evmOutput = undefined
+/**
+* @type {import('@tevm/actions-types').DebugTraceCallResult | undefined}
+*/
+let trace = undefined
+/**
+* evm returns an access list without the 0x prefix
+* @type {Map<string, Set<string>> | undefined}
+*/
+let accessList = undefined
+try {
+client.logger.debug({
+to: evmInput.to?.toString(),
+origin: evmInput.origin?.toString(),
+caller: evmInput.caller?.toString(),
+value: evmInput.value?.toString(),
+gasLimit: evmInput.gasLimit?.toString(),
+data: evmInput.data
+}, 'callHandler: Executing runCall with params')
+if (params.createAccessList) {
+vm.evm.journal.startReportingAccessList()
+}
+if (params.createTrace) {
+// this trace will be filled in when the tx runs
+trace = await runCallWithTrace(
+vm,
+client.logger,
+evmInput,
+true,
+).then(({ trace }) => trace)
+}
+evmOutput = await runTx(vm)({
+skipHardForkValidation: true,
+skipBlockGasLimitValidation: true,
+// we currently set the nonce ourselves user can't set it
+skipNonce: true,
+skipBalance: evmInput.skipBalance ?? false,
+...(evmInput.block !== undefined ? { block: /** @type any*/(evmInput.block) } : {}),
+tx: await evmInputToImpersonatedTx({
+...client,
+getVm: () => Promise.resolve(vm)
+})(evmInput)
+})
+trace = undefined
+client.logger.debug({
+returnValue: bytesToHex(evmOutput.execResult.returnValue),
+exceptionError: evmOutput.execResult.exceptionError,
+executionGasUsed: evmOutput.execResult.executionGasUsed,
+}, 'callHandler: runCall result')
+if (params.createAccessList) {
+// on next version of ethjs this type will be right
+accessList = vm.evm.journal.accessList
+}
+} catch (e) {
+client.logger.error(e, 'callHandler: Unexpected error executing evm')
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+errors: [
+{
+name: 'UnexpectedError',
+_tag: 'UnexpectedError',
+message:
+typeof e === 'string'
+? e
+: e instanceof Error
+? e.message
+: typeof e === 'object' && e !== null && 'message' in e
+? e.message
+: 'unknown error',
+},
+],
+executionGasUsed: 0n,
+/**
+* @type {`0x${string}`}
+*/
+rawData: '0x',
+})
+}
 
-            /**
-            * ****************************
-            * 3 CREATE TRANSACTION WITH CALL (if neessary)
-            * ****************************
-            */
-            /**
-            * @type {import('@tevm/utils').Hex | undefined}
-            */
-            let txHash = undefined
-            const shouldCreateTransaction = (() => {
-                if (params.createTransaction === undefined) {
-                    client.logger.debug(
-                        'callHandler: Defaulting to false for creating a transaction',
-                    )
-                    return false
-                }
-                if (
-                    params.createTransaction === true ||
-                    params.createTransaction === 'always'
-                ) {
-                    client.logger.debug(
-                        "callHandler: Creating transaction because config set to 'always'",
-                    )
-                    return true
-                }
-                if (
-                    params.createTransaction === false ||
-                    params.createTransaction === 'never'
-                ) {
-                    client.logger.debug(
-                        "callHandler: Creating transaction because config set to 'never'",
-                    )
-                    return false
-                }
-                if (params.createTransaction === 'on-success') {
-                    client.logger.debug(
-                        "callHandler: Creating transaction because config set to 'on-success'",
-                    )
-                    return evmOutput.execResult.exceptionError === undefined
-                }
-                /**
-                * @type {never} this typechecks that we've exhausted all cases
-                */
-                const invalidOption = params.createTransaction
-                throw new Error(`Invalid createTransaction value: ${invalidOption}`)
-            })()
-            if (shouldCreateTransaction) {
-                client.logger.debug('creating a transaction in the mempool...')
-                // quickly do a sanity check that eth exists at origin
-                const accountAddress = evmInput.origin ?? EthjsAddress.zero()
-                const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
-                const hasEth = evmInput.skipBalance || ((account)?.balance ?? 0n) > 0n
-                if (!hasEth) {
-                    return maybeThrowOnFail(
-                        params.throwOnFail ?? defaultThrowOnFail,
-                        {
-                            errors: [{ _tag: 'InsufficientBalance', name: 'InsufficientBalance', message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address` }],
-                            ...callHandlerResult(evmOutput, undefined, trace, accessList),
-                        }
-                    )
-                }
-                const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
-                txHash = 'txHash' in txRes ? txRes.txHash : undefined
-                if ('errors' in txRes && txRes.errors.length) {
-                    return /** @type {any}*/ (
-                        maybeThrowOnFail(
-                            params.throwOnFail ?? defaultThrowOnFail,
-                            {
-                                ...('errors' in txRes ? { errors: txRes.errors } : {}),
-                                ...callHandlerResult(evmOutput, undefined, trace, accessList),
-                            }
-                        )
-                    )
-                }
-                client.logger.debug(txHash, 'Transaction successfully added')
+/**
+* ****************************
+* 3 CREATE TRANSACTION WITH CALL (if neessary)
+* ****************************
+*/
+/**
+* @type {import('@tevm/utils').Hex | undefined}
+*/
+let txHash = undefined
+const shouldCreateTransaction = (() => {
+if (params.createTransaction === undefined) {
+client.logger.debug(
+'callHandler: Defaulting to false for creating a transaction',
+)
+return false
+}
+if (
+params.createTransaction === true ||
+params.createTransaction === 'always'
+) {
+client.logger.debug(
+"callHandler: Creating transaction because config set to 'always'",
+)
+return true
+}
+if (
+params.createTransaction === false ||
+params.createTransaction === 'never'
+) {
+client.logger.debug(
+"callHandler: Creating transaction because config set to 'never'",
+)
+return false
+}
+if (params.createTransaction === 'on-success') {
+client.logger.debug(
+"callHandler: Creating transaction because config set to 'on-success'",
+)
+return evmOutput.execResult.exceptionError === undefined
+}
+/**
+* @type {never} this typechecks that we've exhausted all cases
+*/
+const invalidOption = params.createTransaction
+throw new Error(`Invalid createTransaction value: ${invalidOption}`)
+})()
+if (shouldCreateTransaction) {
+client.logger.debug('creating a transaction in the mempool...')
+// quickly do a sanity check that eth exists at origin
+const accountAddress = evmInput.origin ?? EthjsAddress.zero()
+const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
+const hasEth = evmInput.skipBalance || ((account)?.balance ?? 0n) > 0n
+if (!hasEth) {
+return maybeThrowOnFail(
+params.throwOnFail ?? defaultThrowOnFail,
+{
+errors: [{ _tag: 'InsufficientBalance', name: 'InsufficientBalance', message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address` }],
+...callHandlerResult(evmOutput, undefined, trace, accessList, vm),
+}
+)
+}
+const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
+txHash = 'txHash' in txRes ? txRes.txHash : undefined
+if ('errors' in txRes && txRes.errors.length) {
+return /** @type {any}*/ (
+maybeThrowOnFail(
+params.throwOnFail ?? defaultThrowOnFail,
+{
+...('errors' in txRes ? { errors: txRes.errors } : {}),
+...callHandlerResult(evmOutput, undefined, trace, accessList, vm),
+}
+)
+)
+}
+client.logger.debug(txHash, 'Transaction successfully added')
 
-                // handle automining
-                if (client.miningConfig.type === 'auto') {
-                    client.logger.debug(`Automining transaction ${txHash}...`)
-                    const mineRes = await mineHandler(client)({ throwOnFail: false })
-                    if (mineRes.errors?.length) {
-                        return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                            ...('errors' in mineRes ? { errors: mineRes.errors } : {}),
-                            ...callHandlerResult(evmOutput, txHash, trace, accessList),
-                        })
-                    }
-                    client.logger.debug(mineRes, 'Transaction successfully mined')
-                }
-            }
+// handle automining
+if (client.miningConfig.type === 'auto') {
+client.logger.debug(`Automining transaction ${txHash}...`)
+const mineRes = await mineHandler(client)({ throwOnFail: false })
+if (mineRes.errors?.length) {
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+...('errors' in mineRes ? { errors: mineRes.errors } : {}),
+...callHandlerResult(evmOutput, txHash, trace, accessList, vm),
+})
+}
+client.logger.debug(mineRes, 'Transaction successfully mined')
+}
+}
 
-            /**
-            * ******************
-            * 4 RETURN CALL RESULT
-            * ******************
-            */
-            return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                ...callHandlerResult(evmOutput, txHash, trace, accessList),
-            })
+/**
+* ******************
+* 4 RETURN CALL RESULT
+* ******************
+*/
+return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+...callHandlerResult(evmOutput, txHash, trace, accessList, vm),
+})
     }

@@ -32,6 +32,7 @@ export type {
 	ContractConstructorArgs,
 } from './abitype.js'
 export {
+	serializeTransaction,
 	mnemonicToAccount,
 	formatAbi,
 	parseAbi,
