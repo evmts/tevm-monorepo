@@ -13,13 +13,13 @@ Params for `anvil_setCode` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to set the code for
 
 ### code
 
-> **code**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **code**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The code to set
 

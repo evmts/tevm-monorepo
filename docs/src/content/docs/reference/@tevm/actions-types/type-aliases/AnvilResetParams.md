@@ -13,17 +13,17 @@ Params for `anvil_reset` handler
 
 ### fork
 
-> **fork**: `object`
+> `readonly` **fork**: `object`
 
 ### fork.block?
 
-> `optional` **block**: [`BlockTag`](/reference/tevm/actions-types/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
+> `optional` `readonly` **block**: [`BlockTag`](/reference/tevm/actions-types/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
 
 The block number
 
 ### fork.url?
 
-> `optional` **url**: `string`
+> `optional` `readonly` **url**: `string`
 
 The url to fork if forking
 

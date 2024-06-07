@@ -13,11 +13,11 @@ Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 ### blockHash
 
-> **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### uncleIndex
 
-> **uncleIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **uncleIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

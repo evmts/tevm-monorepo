@@ -13,7 +13,7 @@ Params fro `anvil_impersonateAccount` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to impersonate
 

@@ -13,7 +13,7 @@ Params for `anvil_setChainId` handler
 
 ### chainId
 
-> **chainId**: `number`
+> `readonly` **chainId**: `number`
 
 The chain id to set
 

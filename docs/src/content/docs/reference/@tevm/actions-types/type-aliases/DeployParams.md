@@ -14,7 +14,7 @@ Unlike most call actions `createTransaction` defaults to true
 
 ### salt?
 
-> `optional` **salt**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `optional` `readonly` **salt**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 An optional CREATE2 salt.
 

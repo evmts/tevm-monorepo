@@ -13,13 +13,13 @@ Params for `anvil_setNonce` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to set the nonce for
 
 ### nonce
 
-> **nonce**: `BigInt`
+> `readonly` **nonce**: `BigInt`
 
 The nonce to set
 

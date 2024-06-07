@@ -13,7 +13,7 @@ Tevm params for deploying and running a script
 
 ### deployedBytecode
 
-> **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> `readonly` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 The EVM code to run.
 

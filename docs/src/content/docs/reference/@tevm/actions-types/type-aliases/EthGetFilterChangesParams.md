@@ -13,7 +13,7 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ### filterId
 
-> **filterId**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **filterId**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

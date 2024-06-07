@@ -13,7 +13,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ## Source
 

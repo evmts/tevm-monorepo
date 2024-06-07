@@ -13,7 +13,7 @@ Params taken by `debug_traceTransaction` handler
 
 ### transactionHash
 
-> **transactionHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **transactionHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The transaction hash
 

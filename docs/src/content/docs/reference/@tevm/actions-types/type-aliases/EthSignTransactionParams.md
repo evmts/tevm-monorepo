@@ -19,47 +19,47 @@ This API should not be used in production and may be trimmed from a public relea
 
 ### data?
 
-> `optional` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `optional` `readonly` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
 
 ### from
 
-> **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address from which the transaction is sent from
 
 ### gas?
 
-> `optional` **gas**: `bigint`
+> `optional` `readonly` **gas**: `bigint`
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `bigint`
+> `optional` `readonly` **gasPrice**: `bigint`
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
 
 ### nonce?
 
-> `optional` **nonce**: `bigint`
+> `optional` `readonly` **nonce**: `bigint`
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
 ### to?
 
-> `optional` **to**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `optional` `readonly` **to**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address the transaction is directed to. Optional if
 creating a contract
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` `readonly` **value**: `bigint`
 
 Integer of the value sent with this transaction, in Wei.
 

@@ -13,13 +13,13 @@ Params for `anvil_setBalance` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to set the balance for
 
 ### balance
 
-> **balance**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
+> `readonly` **balance**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
 
 The balance to set
 

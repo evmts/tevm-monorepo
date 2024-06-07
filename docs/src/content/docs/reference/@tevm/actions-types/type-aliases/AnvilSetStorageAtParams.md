@@ -13,19 +13,19 @@ Params for `anvil_setStorageAt` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to set the storage for
 
 ### position
 
-> **position**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
+> `readonly` **position**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
 
 The position in storage to set
 
 ### value
 
-> **value**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
+> `readonly` **value**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
 
 The value to set
 

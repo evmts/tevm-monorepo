@@ -13,7 +13,7 @@ Params for `anvil_loadState` handler
 
 ### state
 
-> **state**: `Record`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/), [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
+> `readonly` **state**: `Record`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/), [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
 
 The state to load
 

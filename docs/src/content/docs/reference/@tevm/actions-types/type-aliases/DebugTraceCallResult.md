@@ -11,19 +11,19 @@ title: "DebugTraceCallResult"
 
 ### failed
 
-> `readonly` **failed**: `boolean`
+> **failed**: `boolean`
 
 ### gas
 
-> `readonly` **gas**: `bigint`
+> **gas**: `bigint`
 
 ### returnValue
 
-> `readonly` **returnValue**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **returnValue**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### structLogs
 
-> `readonly` **structLogs**: `ReadonlyArray`\<[`StructLog`](/reference/tevm/actions-types/type-aliases/structlog/)\>
+> **structLogs**: [`StructLog`](/reference/tevm/actions-types/type-aliases/structlog/)[]
 
 ## Source
 
