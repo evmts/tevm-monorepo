@@ -19,4 +19,4 @@ Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereum
 
 ## Source
 
-[procedures/src/tevm/mineProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/mineProcedure.js#L8)
+[procedures/src/tevm/mineProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/mineProcedure.js#L9)

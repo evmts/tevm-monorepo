@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_dumpState` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L97)
+[requests/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L93)

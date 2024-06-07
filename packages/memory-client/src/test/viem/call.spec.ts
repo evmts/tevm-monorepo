@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, toHex } from 'viem'
+import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, testActions, toHex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { call } from 'viem/actions'
 import type { MemoryClient } from '../../MemoryClient.js'
@@ -27,7 +27,8 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
+	await mc.extend(testActions({ mode: 'anvil' })).mine({ blocks: 1 })
+	expect(await mc.getBlockNumber()).toBe(1n)
 })
 
 // anvil account 0

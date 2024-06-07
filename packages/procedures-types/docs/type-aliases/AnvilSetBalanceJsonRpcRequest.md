@@ -6,10 +6,10 @@
 
 # Type alias: AnvilSetBalanceJsonRpcRequest
 
-> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [`object`]\>
+> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [`Address`, `Hex`]\>
 
 JSON-RPC request for `anvil_setBalance` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L68)
+[requests/AnvilJsonRpcRequest.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L64)

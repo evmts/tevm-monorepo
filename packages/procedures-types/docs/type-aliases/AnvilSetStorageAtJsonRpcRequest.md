@@ -6,10 +6,10 @@
 
 # Type alias: AnvilSetStorageAtJsonRpcRequest
 
-> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilSetStorageAtParams`\>]\>
+> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, [`Address`, `Hex`, `Hex`]\>
 
 JSON-RPC request for `anvil_setStorageAt` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L83)
+[requests/AnvilJsonRpcRequest.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L79)

@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_getAutomine` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L36)
+[requests/AnvilJsonRpcRequest.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L32)

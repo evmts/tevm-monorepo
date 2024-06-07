@@ -12,4 +12,4 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:479
+packages/procedures-types/dist/index.d.ts:475

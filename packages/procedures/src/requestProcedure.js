@@ -151,7 +151,7 @@ export const requestProcedure = (client) => {
 				const result = setAccountProcedure(client)({
 					jsonrpc: codeRequest.jsonrpc,
 					method: 'tevm_setAccount',
-					params: codeRequest.params,
+					params: [{ address: codeRequest.params[0], deployedBytecode: codeRequest.params[1] }],
 					...(codeRequest.id ? { id: codeRequest.id } : {}),
 				})
 				return {
@@ -171,8 +171,8 @@ export const requestProcedure = (client) => {
 					method: 'tevm_setAccount',
 					params: [
 						{
-							address: balanceRequest.params[0].address,
-							balance: balanceRequest.params[0].balance,
+							address: balanceRequest.params[0],
+							balance: balanceRequest.params[1],
 						},
 					],
 					...(balanceRequest.id ? { id: balanceRequest.id } : {}),
@@ -194,8 +194,8 @@ export const requestProcedure = (client) => {
 					method: 'tevm_setAccount',
 					params: [
 						{
-							address: nonceRequest.params[0].address,
-							nonce: nonceRequest.params[0].nonce,
+							address: nonceRequest.params[0],
+							nonce: nonceRequest.params[1],
 						},
 					],
 					...(nonceRequest.id ? { id: nonceRequest.id } : {}),
@@ -209,8 +209,7 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setChainId'}*/ ('hardhat_setChainId'):
 			case /** @type {'anvil_setChainId'}*/ ('ganache_setChainId'): {
 				const chainId = /** @type {import('@tevm/procedures-types').AnvilSetChainIdJsonRpcRequest}*/ (request).params[0]
-					.chainId
-				if (!Number.isInteger(chainId) || chainId <= 0) {
+				if (!Number.isInteger(chainId) || hexToNumber(chainId) <= 0) {
 					return {
 						...(request.id ? { id: request.id } : {}),
 						method: request.method,
@@ -311,7 +310,12 @@ export const requestProcedure = (client) => {
 			case 'anvil_getAutomine':
 			case /** @type {'anvil_getAutomine'}*/ ('hardhat_getAutomine'):
 			case /** @type {'anvil_getAutomine'}*/ ('ganache_getAutomine'):
-				return client.miningConfig.type === 'auto'
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					result: client.miningConfig.type === 'auto',
+					...(request.id ? { id: request.id } : {}),
+				}
 			case 'anvil_setCoinbase':
 			case /** @type {'anvil_setCoinbase'}*/ ('hardhat_setCoinbase'):
 			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'): {
@@ -351,7 +355,11 @@ export const requestProcedure = (client) => {
 			}
 			case 'anvil_mine':
 			case 'tevm_mine': {
-				return /** @type any */ (mineProcedure)(client)(request)
+				const res = await /** @type any */ (mineProcedure)(client)(request)
+				return {
+					...res,
+					method: request.method,
+				}
 			}
 			case 'debug_traceCall': {
 				const debugTraceCallRequest =
@@ -658,19 +666,15 @@ export const requestProcedure = (client) => {
 				const anvilSetStorageAtRequest =
 					/** @type {import('@tevm/procedures-types').AnvilSetStorageAtJsonRpcRequest}*/
 					(request)
-				anvilSetStorageAtRequest.params[0]
-				const position = anvilSetStorageAtRequest.params[0].position
 				const result = await setAccountProcedure(client)({
 					method: 'tevm_setAccount',
 					...(anvilSetStorageAtRequest.id ? { id: anvilSetStorageAtRequest.id } : {}),
 					jsonrpc: '2.0',
 					params: [
 						{
-							address: anvilSetStorageAtRequest.params[0].address,
+							address: anvilSetStorageAtRequest.params[0],
 							stateDiff: {
-								[/** @type {import('@tevm/utils').Hex}*/ (position)]: /** @type {import('@tevm/utils').Hex}*/ (
-									anvilSetStorageAtRequest.params[0].value
-								),
+								[anvilSetStorageAtRequest.params[1]]: anvilSetStorageAtRequest.params[2],
 							},
 						},
 					],

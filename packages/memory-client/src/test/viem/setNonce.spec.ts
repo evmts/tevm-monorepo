@@ -1,0 +1,19 @@
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { type TestActions, testActions } from 'viem'
+import type { MemoryClient } from '../../MemoryClient.js'
+import { createMemoryClient } from '../../createMemoryClient.js'
+
+let mc: MemoryClient & TestActions
+
+beforeEach(async () => {
+	mc = createMemoryClient().extend(testActions({ mode: 'anvil' }))
+})
+
+describe('setNonce', () => {
+	it('should work as expected', async () => {
+		const address = `0x${'01'.repeat(20)}` as const
+		const nonce = 420
+		await mc.setNonce({ address, nonce })
+		expect(await mc.tevmGetAccount({ address })).toMatchObject({ nonce: BigInt(nonce) })
+	})
+})

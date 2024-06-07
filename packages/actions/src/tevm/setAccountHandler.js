@@ -65,7 +65,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
         promises.push(
           vm.stateManager.putContractStorage(
             address,
-            hexToBytes(/** @type {import('@tevm/utils').Hex}*/(key)),
+            hexToBytes(/** @type {import('@tevm/utils').Hex}*/(key), { size: 32 }),
             hexToBytes(value),
           ),
         )
@@ -102,7 +102,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
       const state = vm.stateManager._baseState.stateRoots.get(vm.stateManager._baseState.getCurrentStateRoot())
       if (state?.[getAddress(params.address)]?.deployedBytecode === undefined) {
         throw new Error('InternalERror: statemanager cache Contract bytecode never added in setAccountHandler after checkpointing')
-      } 
+      }
     }
     return {}
   } catch (e) {

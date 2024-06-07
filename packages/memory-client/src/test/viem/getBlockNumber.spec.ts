@@ -9,6 +9,8 @@ beforeEach(async () => {
 
 describe('getBlockNumber', () => {
 	it('should work', async () => {
-		expect(await mc.getBlockNumber()).toBe(0n)
+		expect(await mc.getBlockNumber({ cacheTime: 0 })).toBe(0n)
+		await mc.tevmMine()
+		expect(await mc.getBlockNumber({ cacheTime: 0 })).toBe(1n)
 	})
 })

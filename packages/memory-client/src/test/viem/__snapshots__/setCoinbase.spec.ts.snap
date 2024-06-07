@@ -1,0 +1,28 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setCoinbase should work as expected 1`] = `
+Address {
+  "bytes": Uint8Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+}
+`;
