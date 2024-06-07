@@ -4,9 +4,6 @@ import type {
 	AnvilGetAutomineParams,
 	AnvilLoadStateParams,
 	AnvilResetParams,
-	AnvilSetChainIdParams,
-	AnvilSetCodeParams,
-	AnvilSetStorageAtParams,
 } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
@@ -64,7 +61,7 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `anvil_setBalance` method
  */
-export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [{ address: Address; balance: Hex }]>
+export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<'anvil_setBalance', [address: Address, balance: Hex]>
 // anvil_setCode
 /**
  * JSON-RPC request for `anvil_setCode` method
@@ -74,20 +71,20 @@ export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<'anvil_setCode', [accoun
 /**
  * JSON-RPC request for `anvil_setNonce` method
  */
-export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<'anvil_setNonce', [{ address: Address; nonce: Hex }]>
+export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<'anvil_setNonce', [address: Address, nonce: Hex]>
 // anvil_setStorageAt
 /**
  * JSON-RPC request for `anvil_setStorageAt` method
  */
 export type AnvilSetStorageAtJsonRpcRequest = JsonRpcRequest<
 	'anvil_setStorageAt',
-	[SerializeToJson<AnvilSetStorageAtParams>]
+	[address: Address, slot: Hex, value: Hex]
 >
 // anvil_setChainId
 /**
  * JSON-RPC request for `anvil_setChainId` method
  */
-export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<'anvil_setChainId', [SerializeToJson<AnvilSetChainIdParams>]>
+export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<'anvil_setChainId', [Hex]>
 // TODO make this the same as our dump state
 // anvil_dumpState
 /**

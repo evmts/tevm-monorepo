@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
+import { type TestActions, testActions } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
-import { testActions, type TestActions } from 'viem'
 
 let mc: MemoryClient & TestActions
 const c = {
