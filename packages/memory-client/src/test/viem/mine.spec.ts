@@ -1,12 +1,10 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
 import { type TestActions, testActions } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient & TestActions
-let deployTxHash: Hex
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
@@ -31,7 +29,6 @@ describe('mine', () => {
 		if (!deployResult.txHash) {
 			throw new Error('txHash not found')
 		}
-		deployTxHash = deployResult.txHash
 		await mc.mine({ blocks: 1 })
 		const vm = await mc._tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
