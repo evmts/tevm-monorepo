@@ -6,10 +6,10 @@
 
 # Type alias: AnvilSetChainIdJsonRpcRequest
 
-> **AnvilSetChainIdJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setChainId"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilSetChainIdParams`\>]\>
+> **AnvilSetChainIdJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setChainId"`, [`Hex`]\>
 
 JSON-RPC request for `anvil_setChainId` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L91)
+[requests/AnvilJsonRpcRequest.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L87)

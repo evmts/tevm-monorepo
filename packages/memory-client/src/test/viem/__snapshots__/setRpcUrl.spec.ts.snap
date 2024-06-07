@@ -1,0 +1,6 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setRpcUrl should throw an error 1`] = `[MethodNotFoundRpcError: The method does not exist / is not available.
+
+Details: UnsupportedMethodError: Unknown method anvil_setRpcUrl
+Version: viem@2.13.6]`;

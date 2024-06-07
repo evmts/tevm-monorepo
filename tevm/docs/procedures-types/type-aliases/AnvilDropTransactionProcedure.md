@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:704
+packages/procedures-types/dist/index.d.ts:700

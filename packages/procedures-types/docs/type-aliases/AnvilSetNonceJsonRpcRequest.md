@@ -6,10 +6,10 @@
 
 # Type alias: AnvilSetNonceJsonRpcRequest
 
-> **AnvilSetNonceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setNonce"`, [`object`]\>
+> **AnvilSetNonceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setNonce"`, [`Address`, `Hex`]\>
 
 JSON-RPC request for `anvil_setNonce` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L78)
+[requests/AnvilJsonRpcRequest.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L74)

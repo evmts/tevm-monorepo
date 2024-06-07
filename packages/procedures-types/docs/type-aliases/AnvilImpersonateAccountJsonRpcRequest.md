@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L20)
+[requests/AnvilJsonRpcRequest.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L16)

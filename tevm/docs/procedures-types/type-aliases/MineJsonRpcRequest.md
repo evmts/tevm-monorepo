@@ -6,10 +6,10 @@
 
 # Type alias: MineJsonRpcRequest
 
-> **MineJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_mine"`, [[`SerializeToJson`](SerializeToJson.md)\<[`MineParams`](../../index/type-aliases/MineParams.md)\>]\>
+> **MineJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_mine"`, [[`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)]\>
 
 JSON-RPC request for `tevm_mine` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:374
+packages/procedures-types/dist/index.d.ts:370

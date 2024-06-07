@@ -12,4 +12,4 @@ JSON-RPC request for `debug_traceCall` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:118
+packages/procedures-types/dist/index.d.ts:114

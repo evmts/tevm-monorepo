@@ -20,4 +20,4 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:737
+packages/procedures-types/dist/index.d.ts:733

@@ -12,4 +12,4 @@ JSON-RPC request for `eth_hashrate` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:187
+packages/procedures-types/dist/index.d.ts:183
