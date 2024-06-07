@@ -15,7 +15,7 @@ runs:
     - uses: pnpm/action-setup@v2
       name: Install pnpm
       with:
-        version: 8.15.3
+        version: 9.2.0
         run_install: false
 
     - name: Install Foundry
@@ -49,4 +49,3 @@ runs:
         echo "BASE: ${{ env.NX_BASE }}"
         echo "HEAD: ${{ env.NX_HEAD }}"
       shell: bash
-

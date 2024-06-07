@@ -2,10 +2,10 @@
 
 ## Quick start
 
-1. Install pnpm for installing node_modules
+1. Install pnpm 9.x.x for installing node_modules
 
 ```bash
-npm i pnpm --global && pnpm --version
+npm i pnpm@9 --global && pnpm --version
 ```
 
 2. Install bun
