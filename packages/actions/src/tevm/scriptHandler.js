@@ -126,27 +126,6 @@ to: scriptAddress,
 skipBalance: params.skipBalance === undefined ? true : params.skipBalance,
 data: functionData,
 throwOnFail: false,
-createTransaction: (() => {
-if (params.createTransaction !== undefined) {
-return params.createTransaction
-}
-/**
-* @type {import('abitype').AbiFunction}
-*/
-const abi = /** @type any*/(params.abi.find(
-/**
-* @param {any} item
-*/
-(item) => item.type === 'function' && item.name === params.functionName
-))
-if (!abi) {
-return false
-}
-if (abi.stateMutability === 'payable' || abi.stateMutability === 'nonpayable') {
-return true
-}
-return false
-})(),
 }
 delete callParams.deployedBytecode
 
