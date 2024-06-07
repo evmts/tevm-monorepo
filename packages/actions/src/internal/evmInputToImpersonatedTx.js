@@ -31,6 +31,8 @@ export const evmInputToImpersonatedTx = (client) => {
 			{
 				impersonatedAddress: sender,
 				nonce,
+				// just set to block max for now
+				gasLimit: parentBlock.header.gasLimit,
 				maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
 				maxPriorityFeePerGas: 0n,
 				...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
