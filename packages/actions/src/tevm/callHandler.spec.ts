@@ -356,9 +356,9 @@ describe('callHandler', () => {
     ).toEqual({
       rawData:
         '0x0000000000000000000000000000000000000000000000000000000000000000',
+      gas: 29976121n,
       executionGasUsed: 2447n,
       selfdestruct: new Set(),
-      gas: 16782353n,
       logs: [],
       createdAddresses: new Set(),
       accessList: Object.fromEntries([
@@ -384,6 +384,8 @@ describe('callHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
       txHash: "0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80",
+      amountSpent: 147000n,
+      totalGasSpent: 21000n,
     })
     await mineHandler(client)()
     expect(
@@ -416,6 +418,7 @@ describe('callHandler', () => {
           functionName: 'transferFrom',
           args: [caller, caller, 1n],
         }),
+        skipBalance: true,
         from: caller,
         to: ERC20_ADDRESS,
         throwOnFail: false,
@@ -432,7 +435,7 @@ describe('callHandler', () => {
         },
       ],
       executionGasUsed: 2754n,
-      gas: 16774461n,
+      gas: 29975306n,
       rawData:
         '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
       selfdestruct: new Set(),
@@ -462,6 +465,8 @@ describe('callHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
       txHash: "0xa5be8692fbb39d79a9d2aa2e87333d6620ceeec3cf52da8bef4d3dec3743145e",
+      amountSpent: 147000n,
+      totalGasSpent: 21000n,
     })
     expect(
       await callHandler(client)({
@@ -475,6 +480,8 @@ describe('callHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
       txHash: "0xc4b3576c1bbdda23cf40aa5b6efe08d4c881d569820b6d996cfd611e323af6a9",
+      amountSpent: 147000n,
+      totalGasSpent: 21000n,
     })
     expect(
       await callHandler(client)({
@@ -488,6 +495,8 @@ describe('callHandler', () => {
       executionGasUsed: 0n,
       rawData: '0x',
       txHash: "0x27a596c1e6c26b8fc84f4dc07337b75300e29ab0ba5918fe7509414e62ff9fe9",
+      amountSpent: 147000n,
+      totalGasSpent: 21000n,
     })
     const txPool = await client.getTxPool()
     // ts hashes are in pool

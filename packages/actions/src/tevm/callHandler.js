@@ -168,9 +168,6 @@ value: evmInput.value?.toString(),
 gasLimit: evmInput.gasLimit?.toString(),
 data: evmInput.data
 }, 'callHandler: Executing runCall with params')
-if (params.createAccessList) {
-vm.evm.journal.startReportingAccessList()
-}
 if (params.createTrace) {
 // this trace will be filled in when the tx runs
 trace = await runCallWithTrace(
@@ -181,6 +178,8 @@ true,
 ).then(({ trace }) => trace)
 }
 evmOutput = await runTx(vm)({
+reportAccessList: params.createAccessList ?? false,
+reportPreimages: params.createAccessList ?? false,
 skipHardForkValidation: true,
 skipBlockGasLimitValidation: true,
 // we currently set the nonce ourselves user can't set it
@@ -198,9 +197,9 @@ returnValue: bytesToHex(evmOutput.execResult.returnValue),
 exceptionError: evmOutput.execResult.exceptionError,
 executionGasUsed: evmOutput.execResult.executionGasUsed,
 }, 'callHandler: runCall result')
-if (params.createAccessList) {
-// on next version of ethjs this type will be right
-accessList = vm.evm.journal.accessList
+console.log('acess', evmOutput.accessList)
+if (params.createAccessList && evmOutput.accessList !== undefined) {
+accessList = new Map(evmOutput.accessList.map(item => [item.address, new Set(item.storageKeys)]))
 }
 } catch (e) {
 client.logger.error(e, 'callHandler: Unexpected error executing evm')
@@ -325,4 +324,4 @@ client.logger.debug(mineRes, 'Transaction successfully mined')
 return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
 ...(await callHandlerResult(evmInput, evmOutput, txHash, trace, accessList, vm)),
 })
-    }
+        }
