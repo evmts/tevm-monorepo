@@ -1479,6 +1479,9 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^1.0.2
+        version: 1.0.2(typescript@5.4.5)(zod@3.23.8)
       viem:
         specifier: ^2.13.7
         version: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)

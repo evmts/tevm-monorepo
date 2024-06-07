@@ -17,4 +17,4 @@ title: "buildBlock"
 
 ## Source
 
-[actions/buildBlock.ts:399](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L399)
+[packages/vm/src/actions/buildBlock.ts:399](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L399)

@@ -127,6 +127,7 @@
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
+- [serializeTransaction](functions/serializeTransaction.md)
 - [setLengthLeft](functions/setLengthLeft.md)
 - [stringToHex](functions/stringToHex.md)
 - [toBytes](functions/toBytes.md)

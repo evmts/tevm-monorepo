@@ -197,7 +197,6 @@ returnValue: bytesToHex(evmOutput.execResult.returnValue),
 exceptionError: evmOutput.execResult.exceptionError,
 executionGasUsed: evmOutput.execResult.executionGasUsed,
 }, 'callHandler: runCall result')
-console.log('acess', evmOutput.accessList)
 if (params.createAccessList && evmOutput.accessList !== undefined) {
 accessList = new Map(evmOutput.accessList.map(item => [item.address, new Set(item.storageKeys)]))
 }
