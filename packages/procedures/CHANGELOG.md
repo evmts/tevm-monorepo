@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.1.0-next.71
+
+### Patch Changes
+
+- [#1141](https://github.com/evmts/tevm-monorepo/pull/1141) [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed and tested type error bug with anvil_mine. Also failed to await a promise.
+
+- [#1141](https://github.com/evmts/tevm-monorepo/pull/1141) [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed more anvil\_ methods that accepted wrong params shape
+
+- [#1141](https://github.com/evmts/tevm-monorepo/pull/1141) [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in tevm_setAccount sometimes not padding storage key bytes to 32
+
+- [#1141](https://github.com/evmts/tevm-monorepo/pull/1141) [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with param type for anvil_setCode not matching anvil
+
+- [#1141](https://github.com/evmts/tevm-monorepo/pull/1141) [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with anvil_getAutomine returning wrong value
+
+- Updated dependencies [[`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480), [`18fc9b5`](https://github.com/evmts/tevm-monorepo/commit/18fc9b574b85eb648d3fb8619c05db4bc83b4480)]:
+  - @tevm/actions@1.1.0-next.71
+
 ## 1.1.0-next.70
 
 ### Patch Changes
