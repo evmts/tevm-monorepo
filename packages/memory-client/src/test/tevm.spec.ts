@@ -5,6 +5,7 @@ import { hexToBytes } from '@tevm/utils'
 import { testActions } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
+import { optimism } from '@tevm/common'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -113,7 +114,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		it(
 			'should fork a network and then execute a contract call',
 			async () => {
-				const tevm = createMemoryClient({ fork: forkConfig })
+				const tevm = createMemoryClient({ fork: forkConfig, common: optimism })
 				// TODO test other inputs
 				const res = await tevm.tevmContract({
 					to: contractAddress,

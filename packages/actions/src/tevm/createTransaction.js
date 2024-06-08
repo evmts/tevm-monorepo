@@ -71,6 +71,12 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
     client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
+    let maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
+    const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n
+    if (maxFeePerGas < baseFeePerGas) {
+      maxFeePerGas = baseFeePerGas
+    }
+
     // TODO we should be allowing actual real signed tx too here
     // TODO known bug here we should be allowing unlimited code size here based on user providing option
     // Just lazily not looking up how to get it from client.getVm().evm yet
@@ -80,7 +86,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
         impersonatedAddress: sender,
         nonce,
         gasLimit: gasLimitWithExecutionBuffer,
-        maxFeePerGas: parentBlock.header.calcNextBaseFee() + priorityFee,
+        maxFeePerGas,
         maxPriorityFeePerGas: 0n,
         ...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
         ...(evmInput.data !== undefined ? { data: evmInput.data } : {}),
