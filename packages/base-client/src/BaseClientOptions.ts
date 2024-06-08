@@ -114,6 +114,7 @@ export type BaseClientOptions = StateOptions & {
 	readonly customPredeploys?: ReadonlyArray<CustomPredeploy<any, any>>
 	/**
 	 * Enable/disable unlimited contract size. Defaults to false.
+	 * If set to true you may still run up against block limits
 	 */
 	readonly allowUnlimitedContractSize?: boolean
 	/**

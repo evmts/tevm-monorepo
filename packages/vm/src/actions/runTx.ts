@@ -343,6 +343,7 @@ const _runTx =
 			...(blobVersionedHashes !== undefined ? { blobVersionedHashes } : {}),
 			value,
 			data,
+			skipBalance: opts.skipBalance ?? false,
 		})) as RunTxResult
 
 		/*
