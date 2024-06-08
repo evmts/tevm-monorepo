@@ -1,11 +1,11 @@
-import { runCallWithTrace } from './runCallWithTrace.js'
-import { createBaseClient } from '@tevm/base-client'
-import { hexToBytes, encodeFunctionData } from '@tevm/utils'
-import { EthjsAddress } from '@tevm/utils'
-import { TestERC20 } from '@tevm/test-utils'
 import { describe, expect, it } from 'bun:test'
-import { setAccountHandler } from '../tevm/setAccountHandler.js'
+import { createBaseClient } from '@tevm/base-client'
+import { TestERC20 } from '@tevm/test-utils'
+import { encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { EthjsAddress } from '@tevm/utils'
 import { getAccountHandler } from '../tevm/getAccountHandler.js'
+import { setAccountHandler } from '../tevm/setAccountHandler.js'
+import { runCallWithTrace } from './runCallWithTrace.js'
 
 const ERC20_ADDRESS = `0x${'1'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode

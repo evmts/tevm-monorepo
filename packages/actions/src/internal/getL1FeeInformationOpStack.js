@@ -1,91 +1,91 @@
-import { serializeTransaction, EthjsAddress, bytesToHex, hexToBytes, parseAbi } from '@tevm/utils'
+import { EthjsAddress, bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData } from 'viem'
 
 const abi = parseAbi([
-'function getL1GasUsed(bytes memory _data) public view returns (uint256)',
-'function getL1Fee(bytes memory _data) external view returns (uint256)',
-'function l1BaseFee() public view returns (uint256)',
-'function l1BlobFee() public view returns (uint256)',
+	'function getL1GasUsed(bytes memory _data) public view returns (uint256)',
+	'function getL1Fee(bytes memory _data) external view returns (uint256)',
+	'function l1BaseFee() public view returns (uint256)',
+	'function l1BlobFee() public view returns (uint256)',
 ])
 /**
-* Gets the fee information for op stack chains for the l1 data fee
-* @param {import('@tevm/evm').EvmRunCallOpts} evmInput
-* @param {import('@tevm/vm').Vm} vm
-* @returns {Promise<{l1BlobFee: bigint, l1GasUsed: bigint, l1Fee: bigint, l1BaseFee: bigint}>}
-*/
+ * Gets the fee information for op stack chains for the l1 data fee
+ * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
+ * @param {import('@tevm/vm').Vm} vm
+ * @returns {Promise<{l1BlobFee: bigint, l1GasUsed: bigint, l1Fee: bigint, l1BaseFee: bigint}>}
+ */
 export const getL1FeeInformationOpStack = async (evmInput, vm) => {
-/**
-* @type {typeof import('viem/chains').optimism}
-*/
-const opstackChain = /** @type {any}*/ (vm.common)
-const serializedTx = serializeTransaction({
-chainId: opstackChain.id,
-data: bytesToHex(evmInput.data ?? new Uint8Array()),
-type: 'eip1559',
-})
-const to = EthjsAddress.fromString(opstackChain.contracts.gasPriceOracle.address)
-const [l1GasUsed, l1Fee, l1BlobFee, l1BaseFee] = await Promise.all([
-vm.evm.runCall({
-to,
-data: hexToBytes(
-encodeFunctionData({
-functionName: 'getL1GasUsed',
-args: [serializedTx],
-abi,
-}),
-),
-}),
-vm.evm.runCall({
-to,
-data: hexToBytes(
-encodeFunctionData({
-functionName: 'getL1Fee',
-args: [serializedTx],
-abi,
-}),
-),
-}),
-vm.evm.runCall({
-to,
-data: hexToBytes(
-encodeFunctionData({
-functionName: 'l1BlobFee',
-args: [],
-abi,
-}),
-),
-}),
-vm.evm.runCall({
-to,
-data: hexToBytes(
-encodeFunctionData({
-functionName: 'l1BaseFee',
-args: [],
-abi,
-}),
-),
-}),
-])
-return {
-l1GasUsed: decodeFunctionResult({
-abi,
-functionName: 'getL1GasUsed',
-data: bytesToHex(l1GasUsed.execResult.returnValue),
-}),
-l1Fee: decodeFunctionResult({
-abi,
-functionName: 'getL1Fee',
-data: bytesToHex(l1Fee.execResult.returnValue),
-}),
-l1BlobFee: decodeFunctionResult({
-abi,
-functionName: 'l1BlobFee',
-data: bytesToHex(l1BlobFee.execResult.returnValue),
-}),
-l1BaseFee: decodeFunctionResult({
-abi,
-functionName: 'l1BaseFee',
-data: bytesToHex(l1BaseFee.execResult.returnValue),
-}),
-}
+	/**
+	 * @type {typeof import('viem/chains').optimism}
+	 */
+	const opstackChain = /** @type {any}*/ (vm.common)
+	const serializedTx = serializeTransaction({
+		chainId: opstackChain.id,
+		data: bytesToHex(evmInput.data ?? new Uint8Array()),
+		type: 'eip1559',
+	})
+	const to = EthjsAddress.fromString(opstackChain.contracts.gasPriceOracle.address)
+	const [l1GasUsed, l1Fee, l1BlobFee, l1BaseFee] = await Promise.all([
+		vm.evm.runCall({
+			to,
+			data: hexToBytes(
+				encodeFunctionData({
+					functionName: 'getL1GasUsed',
+					args: [serializedTx],
+					abi,
+				}),
+			),
+		}),
+		vm.evm.runCall({
+			to,
+			data: hexToBytes(
+				encodeFunctionData({
+					functionName: 'getL1Fee',
+					args: [serializedTx],
+					abi,
+				}),
+			),
+		}),
+		vm.evm.runCall({
+			to,
+			data: hexToBytes(
+				encodeFunctionData({
+					functionName: 'l1BlobFee',
+					args: [],
+					abi,
+				}),
+			),
+		}),
+		vm.evm.runCall({
+			to,
+			data: hexToBytes(
+				encodeFunctionData({
+					functionName: 'l1BaseFee',
+					args: [],
+					abi,
+				}),
+			),
+		}),
+	])
+	return {
+		l1GasUsed: decodeFunctionResult({
+			abi,
+			functionName: 'getL1GasUsed',
+			data: bytesToHex(l1GasUsed.execResult.returnValue),
+		}),
+		l1Fee: decodeFunctionResult({
+			abi,
+			functionName: 'getL1Fee',
+			data: bytesToHex(l1Fee.execResult.returnValue),
+		}),
+		l1BlobFee: decodeFunctionResult({
+			abi,
+			functionName: 'l1BlobFee',
+			data: bytesToHex(l1BlobFee.execResult.returnValue),
+		}),
+		l1BaseFee: decodeFunctionResult({
+			abi,
+			functionName: 'l1BaseFee',
+			data: bytesToHex(l1BaseFee.execResult.returnValue),
+		}),
+	}
 }

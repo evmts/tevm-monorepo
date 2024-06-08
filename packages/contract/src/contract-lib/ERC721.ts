@@ -1,4 +1,4 @@
-import { createScript } from '@tevm/contract'
+import { createScript } from '../createScript.js'
 const _TestERC721 = {
 	name: 'TestERC721',
 	humanReadableAbi: [
