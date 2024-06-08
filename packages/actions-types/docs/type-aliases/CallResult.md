@@ -27,7 +27,7 @@ Mapping of addresses to storage slots
 
 > `optional` **amountSpent**: `bigint`
 
-The amount of ether used by this transaction
+The amount of ether used by this transaction. Does not include l1 fees
 
 ### baseFee?
 
@@ -78,11 +78,44 @@ Amount of gas left
 
 The gas refund counter as a uint256
 
+### l1BaseFee?
+
+> `optional` **l1BaseFee**: `bigint`
+
+Latest known L1 base fee known by the l2 chain.
+Only included when an op-stack common is provided
+
+#### See
+
+[OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+
+### l1BlobFee?
+
+> `optional` **l1BlobFee**: `bigint`
+
+Current blob base fee known by the l2 chain.
+
+#### See
+
+[OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+
 ### l1DataFee?
 
 > `optional` **l1DataFee**: `bigint`
 
-The data fee charged for calldata on an Rollup transaction
+L1 fee that should be paid for the tx
+Only included when an op-stack common is provided
+
+#### See
+
+[OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+
+### l1GasUsed?
+
+> `optional` **l1GasUsed**: `bigint`
+
+Amount of L1 gas used to publish the transaction.
+Only included when an op-stack common is provided
 
 #### See
 
@@ -131,6 +164,7 @@ A set of accounts to selfdestruct
 The amount of gas used in this transaction, which is paid for
 This contains the gas units that have been used on execution, plus the upfront cost,
 which consists of calldata cost, intrinsic cost and optionally the access list costs
+Does not include l1 fees
 
 ### trace?
 

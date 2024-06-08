@@ -16,6 +16,7 @@ Options for creating an Tevm MemoryClient instance
 > `optional` `readonly` **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
+If set to true you may still run up against block limits
 
 ### common?
 

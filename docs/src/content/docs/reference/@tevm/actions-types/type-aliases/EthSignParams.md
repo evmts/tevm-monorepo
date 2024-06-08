@@ -19,11 +19,11 @@ This API should not be used in production and may be trimmed from a public relea
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### data
 
-> **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

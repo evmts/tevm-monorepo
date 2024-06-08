@@ -13,7 +13,7 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ### data
 
-> **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

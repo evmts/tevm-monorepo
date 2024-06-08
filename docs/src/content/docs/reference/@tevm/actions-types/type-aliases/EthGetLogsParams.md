@@ -13,7 +13,7 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 ### filterParams
 
-> **filterParams**: [`FilterParams`](/reference/tevm/actions-types/type-aliases/filterparams/)
+> `readonly` **filterParams**: [`FilterParams`](/reference/tevm/actions-types/type-aliases/filterparams/)
 
 ## Source
 

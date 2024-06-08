@@ -13,11 +13,11 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ### index
 
-> **index**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **index**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

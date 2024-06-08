@@ -14,7 +14,7 @@ This type is a placeholder
 
 ### data
 
-> **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

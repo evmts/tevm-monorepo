@@ -76,18 +76,37 @@ export type CallResult<ErrorType = CallError> = {
 	 */
 	baseFee?: bigint
 	/**
-	 * The data fee charged for calldata on an Rollup transaction
+	 * L1 fee that should be paid for the tx
+	 * Only included when an op-stack common is provided
 	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
 	 */
-	l1DataFee?: bigint
+	l1Fee?: bigint
+	/**
+	 * Amount of L1 gas used to publish the transaction.
+	 * Only included when an op-stack common is provided
+	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+	 */
+	l1GasUsed?: bigint
+	/**
+	 * Current blob base fee known by the l2 chain.
+	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+	 */
+	l1BlobFee?: bigint
+	/**
+	 * Latest known L1 base fee known by the l2 chain.
+	 * Only included when an op-stack common is provided
+	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+	 */
+	l1BaseFee?: bigint
 	/**
 	 * The amount of gas used in this transaction, which is paid for
 	 * This contains the gas units that have been used on execution, plus the upfront cost,
 	 * which consists of calldata cost, intrinsic cost and optionally the access list costs
+	 * Does not include l1 fees
 	 */
 	totalGasSpent?: bigint
 	/**
-	 * The amount of ether used by this transaction
+	 * The amount of ether used by this transaction. Does not include l1 fees
 	 */
 	amountSpent?: bigint
 	/**

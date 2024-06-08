@@ -13,7 +13,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to stop impersonating
 

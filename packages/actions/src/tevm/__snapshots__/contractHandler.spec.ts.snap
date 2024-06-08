@@ -1,25 +1,5 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contractHandler should handle errors returned during contract call 1`] = `
-{
-  "amountSpent": 172858n,
-  "createdAddresses":   Set {},
-  "errors": [
-    {
-      "_tag": "revert",
-      "message": "Revert: Error {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}",
-      "name": "revert",
-    },
-  ],
-  "executionGasUsed": 2754n,
-  "gas": 29975306n,
-  "logs": [],
-  "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
-  "selfdestruct":   Set {},
-  "totalGasSpent": 24694n,
-}
-`;
-
 exports[`contractHandler Handls function data not being encodable 1`] = `
 {
   "errors": [
@@ -1847,4 +1827,24 @@ exports[`contractHandler should be able to debug a reverting call with a trace 1
     ],
   },
 ]
+`;
+
+exports[`contractHandler should handle errors returned during contract call 1`] = `
+{
+  "amountSpent": 180082n,
+  "createdAddresses":   Set {},
+  "errors": [
+    {
+      "_tag": "revert",
+      "message": "Revert: ERC20InsufficientAllowance",
+      "name": "revert",
+    },
+  ],
+  "executionGasUsed": 3786n,
+  "gas": 29974274n,
+  "logs": [],
+  "rawData": "0xfb8f41b2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+  "selfdestruct":   Set {},
+  "totalGasSpent": 25726n,
+}
 `;

@@ -13,11 +13,11 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 ### address
 
-> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+> `readonly` **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
+> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ## Source
 

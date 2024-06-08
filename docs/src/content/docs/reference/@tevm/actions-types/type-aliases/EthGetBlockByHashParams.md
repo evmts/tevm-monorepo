@@ -13,11 +13,11 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ### blockHash
 
-> **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> `readonly` **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### fullTransactionObjects
 
-> **fullTransactionObjects**: `boolean`
+> `readonly` **fullTransactionObjects**: `boolean`
 
 ## Source
 
