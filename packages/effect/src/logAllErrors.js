@@ -3,7 +3,7 @@ import { all, logError } from 'effect/Effect'
 /**
  * Logs all errors and causes from effect
  * @param {unknown} e
- * @returns {import("effect/Effect").Effect<never, never, void>}
+ * @returns {import("effect/Effect").Effect<void, never, never>}
  * @internal
  * @example
  * ```typescript
