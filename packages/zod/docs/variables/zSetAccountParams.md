@@ -6,7 +6,7 @@
 
 # Variable: zSetAccountParams
 
-> `const` **zSetAccountParams**: `ZodEffects`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
+> `const` **zSetAccountParams**: `ZodEffects`\<`ZodObject`\<`extendShape`\<`object`, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
 
 Zod validator for a valid setAccount action
 

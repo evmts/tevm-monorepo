@@ -23,4 +23,4 @@ title: "createUnplugin"
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:120
+node\_modules/.pnpm/unplugin@1.10.1/node\_modules/unplugin/dist/index.d.mts:172

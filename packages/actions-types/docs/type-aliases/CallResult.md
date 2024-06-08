@@ -99,9 +99,9 @@ Current blob base fee known by the l2 chain.
 
 [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
 
-### l1DataFee?
+### l1Fee?
 
-> `optional` **l1DataFee**: `bigint`
+> `optional` **l1Fee**: `bigint`
 
 L1 fee that should be paid for the tx
 Only included when an op-stack common is provided

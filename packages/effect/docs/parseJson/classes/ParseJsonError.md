@@ -130,7 +130,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -144,7 +144,7 @@ node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -170,4 +170,4 @@ Create .stack property on a target object
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:21
