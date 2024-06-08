@@ -14,5 +14,5 @@ export type ContractParams<
 		/**
 		 * The address to call.
 		 */
-		to: Address
+		readonly to: Address
 	}

@@ -18,29 +18,29 @@ export type SetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	/**
 	 * Address of account
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * Nonce to set account to
 	 */
-	nonce?: bigint
+	readonly nonce?: bigint
 	/**
 	 * Balance to set account to
 	 */
-	balance?: bigint
+	readonly balance?: bigint
 	/**
 	 * Contract bytecode to set account to
 	 */
-	deployedBytecode?: Hex
+	readonly deployedBytecode?: Hex
 	/**
 	 * Storage root to set account to
 	 */
-	storageRoot?: Hex
+	readonly storageRoot?: Hex
 	/**
 	 * key-value mapping to override all slots in the account storage before executing the calls
 	 */
-	state?: Record<Hex, Hex>
+	readonly state?: Record<Hex, Hex>
 	/**
 	 * key-value mapping to override individual slots in the account storage before executing the calls
 	 */
-	stateDiff?: Record<Hex, Hex>
+	readonly stateDiff?: Record<Hex, Hex>
 }

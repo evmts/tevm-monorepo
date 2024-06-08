@@ -11,9 +11,9 @@ export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThr
 	/**
 	 * Number of blocks to mine. Defaults to 1
 	 */
-	blockCount?: number
+	readonly blockCount?: number
 	/**
 	 * Interval between block timestamps. Defaults to 1
 	 */
-	interval?: number
+	readonly interval?: number
 }

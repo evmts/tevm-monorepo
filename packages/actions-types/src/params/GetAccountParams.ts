@@ -12,7 +12,7 @@ export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	/**
 	 * Address of account
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * If true the handler will return the contract storage
 	 * It only returns storage that happens to be cached in the vm
@@ -20,5 +20,5 @@ export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	 * This defaults to false
 	 * Be aware that this can be very expensive if a contract has a lot of storage
 	 */
-	returnStorage?: boolean
+	readonly returnStorage?: boolean
 }

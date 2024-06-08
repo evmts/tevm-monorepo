@@ -17,13 +17,13 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	/**
 	 * An optional CREATE2 salt.
 	 */
-	salt?: Hex
+	readonly salt?: Hex
 	/**
 	 * The input data.
 	 */
-	data?: Hex
+	readonly data?: Hex
 	/**
 	 * The EVM code to run.
 	 */
-	deployedBytecode?: Hex
+	readonly deployedBytecode?: Hex
 }

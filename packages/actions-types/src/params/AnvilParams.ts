@@ -11,7 +11,7 @@ export type AnvilImpersonateAccountParams = {
 	/**
 	 * The address to impersonate
 	 */
-	address: Address
+	readonly address: Address
 }
 
 // anvil_stopImpersonatingAccount
@@ -22,7 +22,7 @@ export type AnvilStopImpersonatingAccountParams = {
 	/**
 	 * The address to stop impersonating
 	 */
-	address: Address
+	readonly address: Address
 }
 
 // anvil_autoImpersonateAccount
@@ -46,11 +46,11 @@ export type AnvilMineParams = {
 	/**
 	 * Number of blocks to mine. Defaults to 1
 	 */
-	blockCount?: number
+	readonly blockCount?: number
 	/**
 	 * mineing interval
 	 */
-	interval?: number
+	readonly interval?: number
 }
 
 // anvil_reset
@@ -58,15 +58,15 @@ export type AnvilMineParams = {
  * Params for `anvil_reset` handler
  */
 export type AnvilResetParams = {
-	fork: {
+	readonly fork: {
 		/**
 		 * The url to fork if forking
 		 */
-		url?: string
+		readonly url?: string
 		/**
 		 * The block number
 		 */
-		block?: BlockTag | Hex | BigInt
+		readonly block?: BlockTag | Hex | BigInt
 	}
 }
 
@@ -78,7 +78,7 @@ export type AnvilDropTransactionParams = {
 	/**
 	 * The transaction hash
 	 */
-	transactionHash: Hex
+	readonly transactionHash: Hex
 }
 
 // anvil_setBalance
@@ -89,11 +89,11 @@ export type AnvilSetBalanceParams = {
 	/**
 	 * The address to set the balance for
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * The balance to set
 	 */
-	balance: Hex | BigInt
+	readonly balance: Hex | BigInt
 }
 
 // anvil_setCode
@@ -104,11 +104,11 @@ export type AnvilSetCodeParams = {
 	/**
 	 * The address to set the code for
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * The code to set
 	 */
-	code: Hex
+	readonly code: Hex
 }
 
 // anvil_setNonce
@@ -119,11 +119,11 @@ export type AnvilSetNonceParams = {
 	/**
 	 * The address to set the nonce for
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * The nonce to set
 	 */
-	nonce: BigInt
+	readonly nonce: BigInt
 }
 
 // anvil_setStorageAt
@@ -134,15 +134,15 @@ export type AnvilSetStorageAtParams = {
 	/**
 	 * The address to set the storage for
 	 */
-	address: Address
+	readonly address: Address
 	/**
 	 * The position in storage to set
 	 */
-	position: Hex | BigInt
+	readonly position: Hex | BigInt
 	/**
 	 * The value to set
 	 */
-	value: Hex | BigInt
+	readonly value: Hex | BigInt
 }
 
 // anvil_setChainId
@@ -153,7 +153,7 @@ export type AnvilSetChainIdParams = {
 	/**
 	 * The chain id to set
 	 */
-	chainId: number
+	readonly chainId: number
 }
 
 // TODO make this the same as our dump state
@@ -172,5 +172,5 @@ export type AnvilLoadStateParams = {
 	/**
 	 * The state to load
 	 */
-	state: Record<Hex, Hex>
+	readonly state: Record<Hex, Hex>
 }
