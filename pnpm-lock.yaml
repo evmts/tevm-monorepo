@@ -581,8 +581,8 @@ importers:
   examples/bun:
     dependencies:
       '@tevm/contract':
-        specifier: 1.1.0-next.70
-        version: 1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+        specifier: workspace:^
+        version: link:../../packages/contract
       bun-types:
         specifier: ^1.1.12
         version: 1.1.12
@@ -5900,9 +5900,6 @@ packages:
     resolution: {integrity: sha512-tddZUi+UdhJT7Grqlurt2hZfLe804iWORvZbPhgv9msVwFsTQ57CapICCgC+LnXB9eKB0+KWsCn8Y2cSYYcBTA==}
     peerDependencies:
       viem: ^2.13.6
-
-  '@tevm/contract@1.1.0-next.70':
-    resolution: {integrity: sha512-AAPJpG4Kbe/ijYBnY6WByaLQ9yMxXBl3OkVity57cI5u7avwd59raQzrdxHIwRjxEjmZMOgPbYOeekc6IB8h9g==}
 
   '@tevm/logger@1.1.0-next.69':
     resolution: {integrity: sha512-K86a146cMWSHAu6IYglI9Mit0D8T8MuiR8bIODUImiu4kO3Mhfy+a4A48CZ/xzDJ19jaEDvB3VuDh/r+W7E7Lw==}
@@ -18676,15 +18673,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
-      - zod
-
-  '@tevm/contract@1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
-    dependencies:
-      '@tevm/utils': 1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-      - viem
       - zod
 
   '@tevm/logger@1.1.0-next.69':
