@@ -75,7 +75,6 @@ export const tevmUnplugin = (options = {}) => {
 			const versionedSolc =
 				parsedSolcVersion.data === defaultVersion ? defaultSolc : await createSolc(parsedSolcVersion.data)
 			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache, contractPackage)
-			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {
 			return id.endsWith('.sol') && !fao.existsSync(`${id}.ts`) && !fao.existsSync(`${id}.d.ts`)
@@ -93,6 +92,7 @@ export const tevmUnplugin = (options = {}) => {
 			return null
 		},
 		async load(id) {
+			this.addWatchFile('./tsconfig.json')
 			const resolveBytecode = id.endsWith('.s.sol')
 
 			const { code, modules } = await moduleResolver.resolveEsmModule(id, process.cwd(), false, resolveBytecode)

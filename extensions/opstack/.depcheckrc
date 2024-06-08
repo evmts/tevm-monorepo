@@ -1,4 +1,0 @@
-ignores: [
-  "@eth-optimism/contracts-bedrock"
-]
-skip-missing: true

@@ -66,8 +66,8 @@
 	"dependencies": {
 		"@tevm/errors": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.0.0",
-		"zod": "^3.22.4"
+		"abitype": "^1.0.2",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",

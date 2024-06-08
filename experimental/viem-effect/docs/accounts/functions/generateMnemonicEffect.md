@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-• **TParams** *extends* [`string`[]]
+• **TParams** *extends* [`string`[], `number`]
 
 ## Parameters
 

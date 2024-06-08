@@ -12,4 +12,4 @@ The headers interface of the Fetch API
 
 ## Source
 
-packages/jsonrpc/types/HeadersInit.d.ts:4
+packages/jsonrpc/types/HeadersInit.d.ts:6

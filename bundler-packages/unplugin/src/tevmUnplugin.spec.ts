@@ -160,9 +160,6 @@ describe('unpluginFn', () => {
 
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)
-
-		// check if the addWatchFile function has been called with './tsconfig.json'
-		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
 	})
 
 	it('should add module id to watch files if it is a .sol file', async () => {
@@ -178,7 +175,6 @@ describe('unpluginFn', () => {
 		})
 
 		await plugin?.buildStart?.call(mockPlugin)
-		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
 		await plugin.load?.call(mockPlugin, 'test.sol')
 		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
 	})
@@ -196,7 +192,6 @@ describe('unpluginFn', () => {
 		})
 
 		await plugin?.buildStart?.call(mockPlugin)
-		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
 		await plugin.load?.call(mockPlugin, 'test.sol')
 		expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
 	})

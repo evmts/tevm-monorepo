@@ -29,14 +29,14 @@
 		"release": "npm run build && vsce publish --pre-release"
 	},
 	"devDependencies": {
+		"@tevm/lsp": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/lsp": "workspace:^",
-		"@types/vscode": "^1.82.0",
-		"@volar/language-server": "~1.10.5",
-		"@volar/vscode": "~1.10.5",
-		"esbuild": "latest",
-		"vsce": "latest",
+		"@types/vscode": "^1.90.0",
+		"@volar/language-server": "~2.2.5",
+		"@volar/vscode": "~2.2.5",
+		"esbuild": "^0.21.4",
+		"vsce": "^2.15.0",
 		"vscode-languageclient": "^9.0.1"
 	}
 }

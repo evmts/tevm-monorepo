@@ -1,28 +1,28 @@
 {
-	"name": "@tevm/example-bun",
-	"version": "0.0.1",
-	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"scripts": {
-		"dev": "bun --watch readContract.ts",
-		"test": "bun run test"
-	},
-	"dependencies": {
-		"@tevm/contract": "^1.1.0-next.70",
-		"bun-types": "^1.0.7",
-		"viem": "^2.13.6"
-	},
-	"devDependencies": {
-		"@openzeppelin/contracts": "^5.0.0",
-		"@tevm/bun-plugin": "workspace:^",
-		"@tevm/esbuild-plugin": "workspace:^",
-		"@tevm/ts-plugin": "workspace:^",
-		"@types/live-server": "^1.2.2",
-		"@types/node": "^20.8.9",
-		"solc": "0.8.22",
-		"typescript": "^5.2.2",
-		"vitest": "^0.34.6"
-	}
+  "name": "@tevm/example-bun",
+  "version": "0.0.1",
+  "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "scripts": {
+    "dev": "bun --watch readContract.ts",
+    "test": "bun run test"
+  },
+  "dependencies": {
+    "@tevm/contract": "workspace:^",
+    "bun-types": "^1.1.12",
+    "viem": "^2.13.7"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@tevm/bun-plugin": "workspace:^",
+    "@tevm/esbuild-plugin": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
+    "@types/live-server": "^1.2.3",
+    "@types/node": "^20.14.2",
+    "solc": "0.8.26",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
 }

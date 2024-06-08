@@ -137,7 +137,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -151,56 +151,30 @@ node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:2
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 `TypeError.captureStackTrace`
 
-##### Source
-
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`TypeError.captureStackTrace`
-
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:21

@@ -6,23 +6,9 @@
 
 # Variable: zMineParams
 
-> `const` **zMineParams**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
+> `const` **zMineParams**: `ZodObject`\<`extendShape`\<`object`, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>
 
 Zod validator for a valid mine action invocation
-
-## Type declaration
-
-### blockCount
-
-> **blockCount**: `ZodOptional`\<`ZodNumber`\>
-
-### interval
-
-> **interval**: `ZodOptional`\<`ZodNumber`\>
-
-### throwOnFail
-
-> **throwOnFail**: `ZodOptional`\<`ZodBoolean`\>
 
 ## Source
 

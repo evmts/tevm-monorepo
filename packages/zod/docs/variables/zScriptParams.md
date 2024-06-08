@@ -6,7 +6,7 @@
 
 # Variable: zScriptParams
 
-> `const` **zScriptParams**: `ZodEffects`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
+> `const` **zScriptParams**: `ZodEffects`\<`ZodObject`\<`extendShape`\<`extendShape`\<`object`, `object`\>, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
 
 Zod validator for a valid script action
 

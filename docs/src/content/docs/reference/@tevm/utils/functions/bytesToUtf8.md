@@ -17,4 +17,4 @@ title: "bytesToUtf8"
 
 ## Source
 
-node\_modules/.pnpm/ethereum-cryptography@2.1.3/node\_modules/ethereum-cryptography/utils.d.ts:5
+node\_modules/.pnpm/ethereum-cryptography@2.2.0/node\_modules/ethereum-cryptography/utils.d.ts:5
