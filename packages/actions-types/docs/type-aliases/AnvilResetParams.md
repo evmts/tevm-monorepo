@@ -14,17 +14,17 @@ Params for `anvil_reset` handler
 
 ### fork
 
-> **fork**: `object`
+> `readonly` **fork**: `object`
 
 ### fork.block?
 
-> `optional` **block**: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
+> `optional` `readonly` **block**: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
 
 The block number
 
 ### fork.url?
 
-> `optional` **url**: `string`
+> `optional` `readonly` **url**: `string`
 
 The url to fork if forking
 

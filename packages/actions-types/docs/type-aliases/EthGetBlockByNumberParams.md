@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
 
 ### fullTransactionObjects
 
-> **fullTransactionObjects**: `boolean`
+> `readonly` **fullTransactionObjects**: `boolean`
 
 ## Source
 

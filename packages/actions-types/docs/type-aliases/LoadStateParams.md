@@ -14,7 +14,7 @@ params for `tevm_loadState` method. Takes a TevmState to load into state.
 
 ### state
 
-> **state**: `TevmState`
+> `readonly` **state**: `TevmState`
 
 ## Type parameters
 

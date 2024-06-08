@@ -12,6 +12,7 @@ describe(TevmProvider.name, () => {
 		provider = await TevmProvider.createMemoryProvider({
 			fork: {
 				transport: transports.optimism,
+				blockTag: 121111705n,
 			},
 		})
 	})
@@ -68,10 +69,12 @@ describe(TevmProvider.name, () => {
 
 				const result = await provider.tevm.script(addContract.read.add(390n, 30n))
 				expect(result).toEqual({
+					amountSpent: 1334954943243n,
+					gas: 29977717n,
+					totalGasSpent: 22283n,
 					createdAddresses: new Set(),
 					data: 420n,
 					executionGasUsed: 927n,
-					gas: 16776288n,
 					logs: [],
 					rawData: '0x00000000000000000000000000000000000000000000000000000000000001a4',
 					selfdestruct: new Set(),
@@ -110,9 +113,11 @@ describe(TevmProvider.name, () => {
 					caller: `0x${'69'.repeat(20)}`,
 				})
 				expect(result).toEqual({
+					amountSpent: 1430569900359n,
+					gas: 29976121n,
+					totalGasSpent: 23879n,
 					createdAddresses: new Set(),
 					executionGasUsed: 2447n,
-					gas: 16774768n,
 					logs: [],
 					rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
 					selfdestruct: new Set(),
@@ -132,10 +137,12 @@ describe(TevmProvider.name, () => {
 					daiContract.withAddress('0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1').read.balanceOf(`0x${'69'.repeat(20)}`),
 				)
 				expect(result).toEqual({
+					amountSpent: 1430569900359n,
+					gas: 29976121n,
+					totalGasSpent: 23879n,
 					createdAddresses: new Set(),
 					data: 0n,
 					executionGasUsed: 2447n,
-					gas: 16774768n,
 					logs: [],
 					rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
 					selfdestruct: new Set(),

@@ -14,15 +14,15 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### position
 
-> **position**: [`Hex`](Hex.md)
+> `readonly` **position**: [`Hex`](Hex.md)
 
 ## Source
 

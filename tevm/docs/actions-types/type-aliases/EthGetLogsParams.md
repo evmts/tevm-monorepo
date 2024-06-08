@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 ### filterParams
 
-> **filterParams**: [`FilterParams`](FilterParams.md)
+> `readonly` **filterParams**: [`FilterParams`](FilterParams.md)
 
 ## Source
 

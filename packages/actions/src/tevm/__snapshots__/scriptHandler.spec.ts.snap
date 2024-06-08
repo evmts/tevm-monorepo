@@ -23,18 +23,21 @@ Version: viem@2.13.6"
 
 exports[`scriptHandler should handle unlikely event decoding data fails 1`] = `
 {
+  "amountSpent": 167153n,
   "createdAddresses":   Set {},
   "data": 0n,
   "executionGasUsed": 2447n,
-  "gas": 16774768n,
+  "gas": 29976121n,
   "logs": [],
   "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
+  "totalGasSpent": 23879n,
 }
 `;
 
 exports[`scriptHandler should handle a call that reverts 1`] = `
 {
+  "amountSpent": 172858n,
   "createdAddresses":   Set {},
   "errors": [
     {
@@ -44,9 +47,10 @@ exports[`scriptHandler should handle a call that reverts 1`] = `
     },
   ],
   "executionGasUsed": 2754n,
-  "gas": 16774461n,
+  "gas": 29975306n,
   "logs": [],
   "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
   "selfdestruct":   Set {},
+  "totalGasSpent": 24694n,
 }
 `;

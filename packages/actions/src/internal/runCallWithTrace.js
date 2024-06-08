@@ -5,9 +5,10 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/base-client').BaseClient['logger']} logger
  * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {boolean} [lazilyRun]
  * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('@tevm/actions-types').DebugTraceCallResult}>}
  */
-export const runCallWithTrace = async (vm, logger, params) => {
+export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) => {
 	/**
 	 * As the evm runs we will be updating this trace object
 	 * and then returning it
@@ -59,6 +60,11 @@ export const runCallWithTrace = async (vm, logger, params) => {
 		}
 		next?.()
 	})
+
+	if (lazilyRun) {
+		// TODO internally used function is not typesafe here
+		return /** @type any*/ ({ trace })
+	}
 
 	const runCallResult = await vm.evm.runCall(params)
 

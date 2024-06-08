@@ -14,5 +14,5 @@ export type ScriptParams<
 		/**
 		 * The EVM code to run.
 		 */
-		deployedBytecode: Hex
+		readonly deployedBytecode: Hex
 	}

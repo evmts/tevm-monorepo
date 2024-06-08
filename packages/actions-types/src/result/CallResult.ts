@@ -16,6 +16,10 @@ export type CallResult<ErrorType = CallError> = {
 	 */
 	accessList?: Record<Address, Set<Hex>>
 	/**
+	 * Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
+	 */
+	preimages?: Record<Hex, Hex>
+	/**
 	 * The returned tx hash if the call was included in the chain
 	 * Will not be defined if the call was not included in the chain
 	 * Whether a call is included in the chain depends on if the
@@ -52,6 +56,7 @@ export type CallResult<ErrorType = CallError> = {
 	selfdestruct?: Set<Address>
 	/**
 	 * Map of addresses which were created (used in EIP 6780)
+	 * Note the addresses are not actually created til the tx is mined
 	 */
 	createdAddresses?: Set<Address>
 	/**
@@ -62,4 +67,31 @@ export type CallResult<ErrorType = CallError> = {
 	 * Description of the exception, if any occurred
 	 */
 	errors?: ErrorType[]
+	/**
+	 * Priority fee set by the transaction.
+	 */
+	priorityFee?: bigint
+	/**
+	 * The base fee of the transaction
+	 */
+	baseFee?: bigint
+	/**
+	 * The data fee charged for calldata on an Rollup transaction
+	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+	 */
+	l1DataFee?: bigint
+	/**
+	 * The amount of gas used in this transaction, which is paid for
+	 * This contains the gas units that have been used on execution, plus the upfront cost,
+	 * which consists of calldata cost, intrinsic cost and optionally the access list costs
+	 */
+	totalGasSpent?: bigint
+	/**
+	 * The amount of ether used by this transaction
+	 */
+	amountSpent?: bigint
+	/**
+	 * The value that accrues to the miner by this transaction
+	 */
+	minerValue?: bigint
 }

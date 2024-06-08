@@ -22,6 +22,20 @@ Result of a Tevm VM Call method
 The access list if enabled on call
 Mapping of addresses to storage slots
 
+### amountSpent?
+
+> `optional` **amountSpent**: `bigint`
+
+The amount of ether used by this transaction
+Only included if `createTransaction` is set to `true`
+
+### baseFee?
+
+> `optional` **baseFee**: `bigint`
+
+The base fee of the transaction
+Only included if `createTransaction` is set to `true`
+
 ### blobGasUsed?
 
 > `optional` **blobGasUsed**: `bigint`
@@ -39,6 +53,7 @@ Address of created account during transaction, if any
 > `optional` **createdAddresses**: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
 
 Map of addresses which were created (used in EIP 6780)
+Note the addresses are not actually created til the tx is mined
 
 ### errors?
 
@@ -64,11 +79,42 @@ Amount of gas left
 
 The gas refund counter as a uint256
 
+### l1DataFee?
+
+> `optional` **l1DataFee**: `bigint`
+
+The data fee charged for calldata on an Rollup transaction
+Only included if `createTransaction` is set to `true`
+
+#### See
+
+[OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
+
 ### logs?
 
 > `optional` **logs**: [`Log`](/reference/tevm/actions-types/type-aliases/log/)[]
 
 Array of logs that the contract emitted
+
+### minerValue?
+
+> `optional` **minerValue**: `bigint`
+
+The value that accrues to the miner by this transaction
+Only included if `createTransaction` is set to `true`
+
+### preimages?
+
+> `optional` **preimages**: `Record`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/), [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
+
+Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
+
+### priorityFee?
+
+> `optional` **priorityFee**: `bigint`
+
+Priority fee set by the transaction.
+Only included if `createTransaction` is set to `true`
 
 ### rawData
 
@@ -81,6 +127,15 @@ Encoded return value from the contract as hex string
 > `optional` **selfdestruct**: `Set`\<[`Address`](/reference/tevm/actions-types/type-aliases/address/)\>
 
 A set of accounts to selfdestruct
+
+### totalGasSpent?
+
+> `optional` **totalGasSpent**: `bigint`
+
+The amount of gas used in this transaction, which is paid for
+This contains the gas units that have been used on execution, plus the upfront cost,
+which consists of calldata cost, intrinsic cost and optionally the access list costs
+Only included if `createTransaction` is set to `true`
 
 ### trace?
 

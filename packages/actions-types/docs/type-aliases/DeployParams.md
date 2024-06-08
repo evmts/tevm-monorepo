@@ -15,7 +15,7 @@ Unlike most call actions `createTransaction` defaults to true
 
 ### salt?
 
-> `optional` **salt**: [`Hex`](Hex.md)
+> `optional` `readonly` **salt**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt.
 

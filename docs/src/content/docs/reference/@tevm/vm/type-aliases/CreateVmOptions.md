@@ -27,4 +27,4 @@ title: "CreateVmOptions"
 
 ## Source
 
-[CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)
+[packages/vm/src/CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)

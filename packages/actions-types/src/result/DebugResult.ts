@@ -7,7 +7,7 @@ export type StructLog = {
 	readonly gasCost: bigint
 	readonly op: string
 	readonly pc: number
-	readonly stack: ReadonlyArray<Hex>
+	readonly stack: Array<Hex>
 	readonly error?: {
 		error: string
 		errorType: string
@@ -18,8 +18,8 @@ export type StructLog = {
 export type DebugTraceTransactionResult = TraceResult
 // debug_traceCall
 export type DebugTraceCallResult = {
-	readonly failed: boolean
-	readonly gas: bigint
-	readonly returnValue: Hex
-	readonly structLogs: ReadonlyArray<StructLog>
+	failed: boolean
+	gas: bigint
+	returnValue: Hex
+	structLogs: Array<StructLog>
 }

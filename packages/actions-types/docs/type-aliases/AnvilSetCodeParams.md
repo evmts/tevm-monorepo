@@ -14,13 +14,13 @@ Params for `anvil_setCode` handler
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 The address to set the code for
 
 ### code
 
-> **code**: [`Hex`](Hex.md)
+> `readonly` **code**: [`Hex`](Hex.md)
 
 The code to set
 

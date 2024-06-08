@@ -299,10 +299,7 @@ export const requestProcedure = (client) => {
 				}
 				return {
 					method: estimateGasRequest.method,
-					// TODO this is wrong we need to update it in a future pr
-					// We need to use `executionGasUsed` and dig deeper into if things like the baseFee are included (pretty sure they are).
-					// Gas estimation is happening correctly only in the vm package atm so that is likely the best place to extract this code from.
-					result: callResult.result.gas,
+					result: callResult.result.totalGasSpent ?? callResult.result.executionGasUsed,
 					jsonrpc: '2.0',
 					...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
 				}

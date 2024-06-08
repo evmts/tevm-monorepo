@@ -48,7 +48,7 @@ export type DebugTraceTransactionParams<TThrowOnError extends boolean = boolean>
 		/**
 		 * The transaction hash
 		 */
-		transactionHash: Hex
+		readonly transactionHash: Hex
 	}
 
 // debug_traceCall

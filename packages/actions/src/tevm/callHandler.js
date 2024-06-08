@@ -7,6 +7,8 @@ import { createTransaction } from './createTransaction.js'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { mineHandler } from './mineHandler.js'
+import { runTx } from '@tevm/vm'
+import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 
 /**
 * The callHandler is the most important function in Tevm.
@@ -145,7 +147,7 @@ export const callHandler =
             * ************
             */
             /**
-            * @type {import('@tevm/evm').EvmResult | undefined}
+            * @type {import('@tevm/vm').RunTxResult | undefined}
             */
             let evmOutput = undefined
             /**
@@ -166,31 +168,175 @@ export const callHandler =
                     gasLimit: evmInput.gasLimit?.toString(),
                     data: evmInput.data
                 }, 'callHandler: Executing runCall with params')
-                if (params.createAccessList) {
-                    vm.evm.journal.startReportingAccessList()
-                }
                 if (params.createTrace) {
-                    const { trace: _trace, ...res } = await runCallWithTrace(
+                    // this trace will be filled in when the tx runs
+                    trace = await runCallWithTrace(
                         vm,
                         client.logger,
                         evmInput,
-                    )
-                    evmOutput = res
-                    trace = _trace
-                } else {
-                    evmOutput = await vm.evm.runCall(evmInput)
-                    trace = undefined
+                        true,
+                    ).then(({ trace }) => trace)
+                }
+                try {
+                    evmOutput = await runTx(vm)({
+                        reportAccessList: params.createAccessList ?? false,
+                        reportPreimages: params.createAccessList ?? false,
+                        skipHardForkValidation: true,
+                        skipBlockGasLimitValidation: true,
+                        // we currently set the nonce ourselves user can't set it
+                        skipNonce: true,
+                        skipBalance: evmInput.skipBalance ?? false,
+                        ...(evmInput.block !== undefined ? { block: /** @type any*/(evmInput.block) } : {}),
+                        tx: await evmInputToImpersonatedTx({
+                            ...client,
+                            getVm: () => Promise.resolve(vm)
+                        })(evmInput)
+                    })
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        throw e
+                    }
+                    if (e.message.includes('is less than the block\'s baseFeePerGas')) {
+                        return maybeThrowOnFail(
+                            params.throwOnFail ?? defaultThrowOnFail,
+                            {
+                                errors: [
+                                    {
+                                        name: 'GasPriceTooLow',
+                                        _tag: 'GasPriceTooLow',
+                                        message: e.message
+                                    }
+                                ],
+                                executionGasUsed: 0n,
+                                rawData: '0x',
+                                ...(evmOutput && await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm))
+                            }
+                        )
+                    }
+                    if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
+                        return maybeThrowOnFail(
+                            params.throwOnFail ?? defaultThrowOnFail,
+                            {
+                                errors: [
+                                    {
+                                        name: 'InvalidSender',
+                                        _tag: 'InvalidSender',
+                                        message: e.message
+                                    }
+                                ],
+                                executionGasUsed: 0n,
+                                rawData: '0x',
+                                ...(evmOutput && await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm))
+                            }
+                        )
+                    }
+                    if (e.message.includes('is lower than the minimum gas limit')) {
+                        return maybeThrowOnFail(
+                            params.throwOnFail ?? defaultThrowOnFail,
+                            {
+                                errors: [
+                                    {
+                                        name: 'GasLimitTooLowForBaseFee',
+                                        _tag: 'GasLimitTooLowForBaseFee',
+                                        message: e.message
+                                    }
+                                ],
+                                executionGasUsed: 0n,
+                                rawData: '0x',
+                                ...(evmOutput && await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm))
+                            }
+                        )
+                    }
+                    if (e.message.includes('tx has a higher gas limit than the block')) {
+                        return maybeThrowOnFail(
+                            params.throwOnFail ?? defaultThrowOnFail,
+                            {
+                                errors: [
+                                    {
+                                        name: 'GasLimitExceeded',
+                                        _tag: 'GasLimitExceeded',
+                                        message: e.message
+                                    }
+                                ],
+                                executionGasUsed: 0n,
+                                rawData: '0x',
+                                ...(evmOutput && await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm))
+                            }
+                        )
+                    }
+                    // When these happen we still want to run the tx 
+                    if (
+                        e.message.includes('block has a different hardfork than the vm') ||
+                        e.message.includes('the tx doesn\'t have the correct nonce.') ||
+                        e.message.includes('sender doesn\'t have enough funds to send tx.') ||
+                        e.message.includes('sender doesn\'t have enough funds to send tx. The upfront cost is')
+                    ) {
+                        const errors = e.message.includes('block has a different hardfork than the vm') ? [{
+                            name: 'HardForkMismatch',
+                            _tag: 'HardForkMismatch',
+                            message: e.message
+                        }] :
+                            e.message.includes('the tx doesn\'t have the correct nonce.') ? [
+                                {
+                                    name: 'InvalidNonce',
+                                    _tag: 'InvalidNonce',
+                                    message: e.message
+                                }
+
+                            ] : [
+                                {
+                                    name: 'InsufficientBalance',
+                                    _tag: 'InsufficientBalance',
+                                    message: e.message
+                                }
+                            ]
+                        try {
+                            // user might have tracing turned on hoping to trace why it's using too much gas
+                            /// calculate skipping all validation but still return errors too
+                            evmOutput = await runTx(vm)({
+                                reportAccessList: params.createAccessList ?? false,
+                                reportPreimages: params.createAccessList ?? false,
+                                skipHardForkValidation: true,
+                                skipBlockGasLimitValidation: true,
+                                // we currently set the nonce ourselves user can't set it
+                                skipNonce: true,
+                                skipBalance: true,
+                                ...(evmInput.block !== undefined ? { block: /** @type any*/(evmInput.block) } : {}),
+                                tx: await evmInputToImpersonatedTx({
+                                    ...client,
+                                    getVm: () => Promise.resolve(vm)
+                                })(evmInput)
+                            })
+                            if (trace) {
+                                trace.gas = evmOutput.execResult.executionGasUsed
+                                trace.failed = true
+                                trace.returnValue = bytesToHex(evmOutput.execResult.returnValue)
+                            }
+                        } catch (e) {
+                            const message = e instanceof Error ? e.message : typeof e === 'string' ? e : 'unknown error'
+                            errors.push({ name: 'UnexpectedError', _tag: 'UnexpectedError', message })
+                        }
+                        return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+                            errors,
+                            executionGasUsed: 0n,
+                            rawData: '0x',
+                            ...(evmOutput && await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm))
+                        })
+                    }
+                    throw e
                 }
                 client.logger.debug({
                     returnValue: bytesToHex(evmOutput.execResult.returnValue),
                     exceptionError: evmOutput.execResult.exceptionError,
                     executionGasUsed: evmOutput.execResult.executionGasUsed,
                 }, 'callHandler: runCall result')
-                if (params.createAccessList) {
-                    // on next version of ethjs this type will be right
-                    accessList = vm.evm.journal.accessList
+                if (params.createAccessList && evmOutput.accessList !== undefined) {
+                    accessList = new Map(evmOutput.accessList.map(item => [item.address, new Set(item.storageKeys)]))
                 }
             } catch (e) {
+                if (typeof e === 'object' && e !== null && '_tag' in e && (params.throwOnFail ?? defaultThrowOnFail)) {
+                    throw e
+                }
                 client.logger.error(e, 'callHandler: Unexpected error executing evm')
                 return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
                     errors: [
@@ -213,6 +359,12 @@ export const callHandler =
                     */
                     rawData: '0x',
                 })
+            }
+
+            if (trace) {
+                trace.gas = evmOutput.execResult.executionGasUsed
+                trace.failed = false
+                trace.returnValue = bytesToHex(evmOutput.execResult.returnValue)
             }
 
             /**
@@ -272,7 +424,7 @@ export const callHandler =
                         params.throwOnFail ?? defaultThrowOnFail,
                         {
                             errors: [{ _tag: 'InsufficientBalance', name: 'InsufficientBalance', message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address` }],
-                            ...callHandlerResult(evmOutput, undefined, trace, accessList),
+                            ...(await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm)),
                         }
                     )
                 }
@@ -284,7 +436,7 @@ export const callHandler =
                             params.throwOnFail ?? defaultThrowOnFail,
                             {
                                 ...('errors' in txRes ? { errors: txRes.errors } : {}),
-                                ...callHandlerResult(evmOutput, undefined, trace, accessList),
+                                ...(await callHandlerResult(evmInput, evmOutput, undefined, trace, accessList, vm)),
                             }
                         )
                     )
@@ -298,7 +450,7 @@ export const callHandler =
                     if (mineRes.errors?.length) {
                         return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
                             ...('errors' in mineRes ? { errors: mineRes.errors } : {}),
-                            ...callHandlerResult(evmOutput, txHash, trace, accessList),
+                            ...(await callHandlerResult(evmInput, evmOutput, txHash, trace, accessList, vm)),
                         })
                     }
                     client.logger.debug(mineRes, 'Transaction successfully mined')
@@ -311,6 +463,6 @@ export const callHandler =
             * ******************
             */
             return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-                ...callHandlerResult(evmOutput, txHash, trace, accessList),
+                ...(await callHandlerResult(evmInput, evmOutput, txHash, trace, accessList, vm)),
             })
-    }
+        }

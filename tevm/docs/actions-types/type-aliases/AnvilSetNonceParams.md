@@ -14,13 +14,13 @@ Params for `anvil_setNonce` handler
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 The address to set the nonce for
 
 ### nonce
 
-> **nonce**: `BigInt`
+> `readonly` **nonce**: `BigInt`
 
 The nonce to set
 

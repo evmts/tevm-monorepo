@@ -2,6 +2,7 @@
 export { formatAbi, parseAbi } from 'abitype'
 export { mnemonicToAccount } from 'viem/accounts'
 export {
+	serializeTransaction,
 	toRlp,
 	parseGwei,
 	parseEther,

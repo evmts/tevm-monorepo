@@ -7,6 +7,8 @@ title: "EvmResult"
 
 Result of executing a message via the EVM.
 
+## Extended by
+
 ## Properties
 
 ### createdAddress?

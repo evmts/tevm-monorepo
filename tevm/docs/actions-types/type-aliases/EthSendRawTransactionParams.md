@@ -15,7 +15,7 @@ This type is a placeholder
 
 ### data
 
-> **data**: [`Hex`](Hex.md)
+> `readonly` **data**: [`Hex`](Hex.md)
 
 ## Source
 

@@ -16,11 +16,11 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### data
 
-> **data**: [`Hex`](Hex.md)
+> `readonly` **data**: [`Hex`](Hex.md)
 
 ## Source
 

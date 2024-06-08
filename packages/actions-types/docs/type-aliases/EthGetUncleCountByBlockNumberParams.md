@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
 
 ## Source
 

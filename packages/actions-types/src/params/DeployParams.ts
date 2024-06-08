@@ -21,5 +21,5 @@ export type DeployParams<
 	/**
 	 * An optional CREATE2 salt.
 	 */
-	salt?: Hex
+	readonly salt?: Hex
 } & EncodeDeployDataParameters<TAbi, THasConstructor, TAllArgs>

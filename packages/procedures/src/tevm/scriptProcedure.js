@@ -92,6 +92,11 @@ method: 'tevm_script',
 ...(request.id === undefined ? {} : { id: request.id }),
 }
 }
+
+/**
+* @type {Record<`0x${string}`, Array<import('@tevm/utils').Hex>> | undefined}
+*/
+const accessList = result.accessList !== undefined ? Object.fromEntries(Object.entries(result.accessList).map(([key, value]) => [key, [...value]])) : undefined
 /**
 * @param {bigint} value
 */
@@ -109,6 +114,27 @@ rawData: result.rawData,
 ...(result.gas ? { gas: toHex(result.gas) } : {}),
 ...(result.logs ? { logs: result.logs } : {}),
 ...(result.blobGasUsed ? { blobGasUsed: toHex(result.blobGasUsed) } : {}),
+...(result.txHash ? { txHash: result.txHash } : {}),
+...(result.blobGasUsed ? { blobGasUsed: toHex(result.blobGasUsed) } : {}),
+...(accessList !== undefined ? { accessList } : {}),
+...(result.preimages ? { preimages: result.preimages } : {}),
+...(result.l1DataFee ? { l1DataFee: numberToHex(result.l1DataFee) } : {}),
+...(result.amountSpent ? { amountSpent: numberToHex(result.amountSpent) } : {}),
+...(result.baseFee ? { baseFee: numberToHex(result.baseFee) } : {}),
+...(result.totalGasSpent ? { totalGasSpent: numberToHex(result.totalGasSpent) } : {}),
+...(result.trace ? {
+trace: {
+...result.trace,
+gas: toHex(result.trace.gas),
+structLogs: result.trace.structLogs.map(log => ({
+...log,
+gas: toHex(log.gas),
+gasCost: toHex(log.gasCost),
+stack: [...log.stack],
+
+}))
+}
+} : {}),
 ...(result.createdAddress
 ? { createdAddress: result.createdAddress }
 : {}),

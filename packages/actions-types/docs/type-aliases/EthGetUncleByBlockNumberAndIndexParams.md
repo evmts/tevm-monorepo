@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
 
 ### uncleIndex
 
-> **uncleIndex**: [`Hex`](Hex.md)
+> `readonly` **uncleIndex**: [`Hex`](Hex.md)
 
 ## Source
 

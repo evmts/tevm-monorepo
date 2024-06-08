@@ -133,6 +133,11 @@ export const callProcedure = (client) => async (request) => {
       ...(result.txHash ? { txHash: result.txHash } : {}),
       ...(result.blobGasUsed ? { blobGasUsed: toHex(result.blobGasUsed) } : {}),
       ...(accessList !== undefined ? { accessList } : {}),
+      ...(result.preimages ? { preimages: result.preimages } : {}),
+      ...(result.l1DataFee ? { l1DataFee: numberToHex(result.l1DataFee) } : {}),
+      ...(result.amountSpent ? { amountSpent: numberToHex(result.amountSpent) } : {}),
+      ...(result.baseFee ? { baseFee: numberToHex(result.baseFee) } : {}),
+      ...(result.totalGasSpent ? { totalGasSpent: numberToHex(result.totalGasSpent) } : {}),
       ...(result.trace ? {
         trace: {
           ...result.trace,

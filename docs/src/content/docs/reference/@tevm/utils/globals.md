@@ -128,6 +128,7 @@ title: "@tevm/utils"
 - [parseAbi](/reference/tevm/utils/functions/parseabi/)
 - [parseEther](/reference/tevm/utils/functions/parseether/)
 - [parseGwei](/reference/tevm/utils/functions/parsegwei/)
+- [serializeTransaction](/reference/tevm/utils/functions/serializetransaction/)
 - [setLengthLeft](/reference/tevm/utils/functions/setlengthleft/)
 - [stringToHex](/reference/tevm/utils/functions/stringtohex/)
 - [toBytes](/reference/tevm/utils/functions/tobytes/)

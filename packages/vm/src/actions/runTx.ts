@@ -343,6 +343,7 @@ const _runTx =
 			...(blobVersionedHashes !== undefined ? { blobVersionedHashes } : {}),
 			value,
 			data,
+			skipBalance: opts.skipBalance ?? false,
 		})) as RunTxResult
 
 		/*
@@ -429,11 +430,11 @@ const _runTx =
 			}
 			for (const [address, set] of vm.evm.journal.accessList) {
 				const item: AccessListItem = {
-					address: `0x${address}`,
+					address,
 					storageKeys: [],
 				}
 				for (const slot of set) {
-					item.storageKeys.push(`0x${slot}`)
+					item.storageKeys.push(slot)
 				}
 				accessList.push(item)
 			}

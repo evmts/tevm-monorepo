@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
@@ -113,7 +114,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		it(
 			'should fork a network and then execute a contract call',
 			async () => {
-				const tevm = createMemoryClient({ fork: forkConfig })
+				const tevm = createMemoryClient({ fork: forkConfig, common: optimism })
 				// TODO test other inputs
 				const res = await tevm.tevmContract({
 					to: contractAddress,

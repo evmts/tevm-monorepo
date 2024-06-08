@@ -27,41 +27,41 @@ export type EthCallParams = {
 	/**
 	 * The address from which the transaction is sent. Defaults to zero address
 	 */
-	from?: Address
+	readonly from?: Address
 	/**
 	 * The address to which the transaction is addressed. Defaults to zero address
 	 */
-	to?: Address
+	readonly to?: Address
 	/**
 	 * The integer of gas provided for the transaction execution
 	 */
-	gas?: bigint
+	readonly gas?: bigint
 	/**
 	 * The integer of gasPrice used for each paid gas
 	 */
-	gasPrice?: bigint
+	readonly gasPrice?: bigint
 	/**
 	 * The integer of value sent with this transaction
 	 */
-	value?: bigint
+	readonly value?: bigint
 	/**
 	 * The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 	 * Defaults to zero data
 	 */
-	data?: Hex
+	readonly data?: Hex
 
 	/**
 	 * The block number hash or block tag
 	 */
-	blockTag?: BlockParam
+	readonly blockTag?: BlockParam
 	/**
 	 * The state override set to provide different state values while executing the call
 	 */
-	stateOverrideSet?: StateOverrideSet
+	readonly stateOverrideSet?: StateOverrideSet
 	/**
 	 * The block override set to provide different block values while executing the call
 	 */
-	blockOverride?: BlockOverrideSet
+	readonly blockOverride?: BlockOverrideSet
 }
 
 // eth_chainId
@@ -100,16 +100,16 @@ export type EthGetBalanceParams = { address: Address; blockTag?: BlockParam }
  * Based on the JSON-RPC request for `eth_getBlockByHash` procedure
  */
 export type EthGetBlockByHashParams = {
-	blockHash: Hex
-	fullTransactionObjects: boolean
+	readonly blockHash: Hex
+	readonly fullTransactionObjects: boolean
 }
 // eth_getBlockByNumber
 /**
  * Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
  */
 export type EthGetBlockByNumberParams = {
-	blockTag?: BlockParam
-	fullTransactionObjects: boolean
+	readonly blockTag?: BlockParam
+	readonly fullTransactionObjects: boolean
 }
 // eth_getBlockTransactionCountByHash
 /**
@@ -121,96 +121,96 @@ export type EthGetBlockTransactionCountByHashParams = { hash: Hex }
  * Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
  */
 export type EthGetBlockTransactionCountByNumberParams = {
-	blockTag?: BlockParam
+	readonly blockTag?: BlockParam
 }
 // eth_getCode
 /**
  * Based on the JSON-RPC request for `eth_getCode` procedure
  */
-export type EthGetCodeParams = { address: Address; blockTag?: BlockParam }
+export type EthGetCodeParams = { readonly address: Address; readonly blockTag?: BlockParam }
 // eth_getFilterChanges
 /**
  * Based on the JSON-RPC request for `eth_getFilterChanges` procedure
  */
-export type EthGetFilterChangesParams = { filterId: Hex }
+export type EthGetFilterChangesParams = { readonly filterId: Hex }
 // eth_getFilterLogs
 /**
  * Based on the JSON-RPC request for `eth_getFilterLogs` procedure
  */
-export type EthGetFilterLogsParams = { filterId: Hex }
+export type EthGetFilterLogsParams = { readonly filterId: Hex }
 // eth_getLogs
 /**
  * Based on the JSON-RPC request for `eth_getLogs` procedure
  */
-export type EthGetLogsParams = { filterParams: FilterParams }
+export type EthGetLogsParams = { readonly filterParams: FilterParams }
 // eth_getStorageAt
 /**
  * Based on the JSON-RPC request for `eth_getStorageAt` procedure
  */
 export type EthGetStorageAtParams = {
-	address: Address
-	position: Hex
-	blockTag?: BlockParam
+	readonly address: Address
+	readonly position: Hex
+	readonly blockTag?: BlockParam
 }
 // eth_getTransactionCount
 /**
  * Based on the JSON-RPC request for `eth_getTransactionCount` procedure
  */
 export type EthGetTransactionCountParams = {
-	address: Address
-	blockTag?: BlockParam
+	readonly address: Address
+	readonly blockTag?: BlockParam
 }
 // eth_getUncleCountByBlockHash
 /**
  * Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
  */
-export type EthGetUncleCountByBlockHashParams = { hash: Hex }
+export type EthGetUncleCountByBlockHashParams = { readonly hash: Hex }
 // eth_getUncleCountByBlockNumber
 /**
  * Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
  */
-export type EthGetUncleCountByBlockNumberParams = { blockTag?: BlockParam }
+export type EthGetUncleCountByBlockNumberParams = { readonly blockTag?: BlockParam }
 // eth_getTransactionByHash
 /**
  * Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
  */
-export type EthGetTransactionByHashParams = { data: Hex }
+export type EthGetTransactionByHashParams = { readonly data: Hex }
 // eth_getTransactionByBlockHashAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
  */
 export type EthGetTransactionByBlockHashAndIndexParams = {
-	blockTag?: Hex
-	index: Hex
+	readonly blockTag?: Hex
+	readonly index: Hex
 }
 // eth_getTransactionByBlockNumberAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
  */
 export type EthGetTransactionByBlockNumberAndIndexParams = {
-	blockTag?: BlockParam
-	index: Hex
+	readonly blockTag?: BlockParam
+	readonly index: Hex
 }
 // eth_getTransactionReceipt
 /**
  * Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
-export type EthGetTransactionReceiptParams = { hash: Hex }
+export type EthGetTransactionReceiptParams = { readonly hash: Hex }
 // eth_getUncleByBlockHashAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
  */
 export type EthGetUncleByBlockHashAndIndexParams = {
-	blockHash: Hex
-	uncleIndex: Hex
+	readonly blockHash: Hex
+	readonly uncleIndex: Hex
 }
 // eth_getUncleByBlockNumberAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
  */
 export type EthGetUncleByBlockNumberAndIndexParams = {
-	blockTag?: BlockParam
-	uncleIndex: Hex
+	readonly blockTag?: BlockParam
+	readonly uncleIndex: Hex
 }
 // eth_mining
 /**
@@ -227,7 +227,7 @@ export type EthProtocolVersionParams = EmptyParams
  * Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
  * This type is a placeholder
  */
-export type EthSendRawTransactionParams = { data: Hex }
+export type EthSendRawTransactionParams = { readonly data: Hex }
 // eth_sendTransaction
 /**
  * Based on the JSON-RPC request for `eth_sendTransaction` procedure
@@ -240,7 +240,7 @@ export type EthSendTransactionParams = CallParams
  * Based on the JSON-RPC request for `eth_sign` procedure
  * @experimental
  */
-export type EthSignParams = { address: Address; data: Hex }
+export type EthSignParams = { readonly address: Address; readonly data: Hex }
 // eth_signTransaction
 /**
  * Based on the JSON-RPC request for `eth_signTransaction` procedure
@@ -250,35 +250,35 @@ export type EthSignTransactionParams = {
 	/**
 	 * The address from which the transaction is sent from
 	 */
-	from: Address
+	readonly from: Address
 	/**
 	 * The address the transaction is directed to. Optional if
 	 * creating a contract
 	 */
-	to?: Address
+	readonly to?: Address
 	/**
 	 * The gas provded for transaction execution. It will return unused gas.
 	 * Default value is 90000
 	 */
-	gas?: bigint
+	readonly gas?: bigint
 	/**
 	 * Integer of the gasPrice used for each paid gas, in Wei.
 	 * If not provided tevm will default to the eth_gasPrice value
 	 */
-	gasPrice?: bigint
+	readonly gasPrice?: bigint
 	/**
 	 * Integer of the value sent with this transaction, in Wei.
 	 */
-	value?: bigint
+	readonly value?: bigint
 	/**
 	 * The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 	 * Optional if creating a contract.
 	 */
-	data?: Hex
+	readonly data?: Hex
 	/**
 	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 	 */
-	nonce?: bigint
+	readonly nonce?: bigint
 }
 
 // eth_syncing
@@ -305,7 +305,7 @@ export type EthNewPendingTransactionFilterParams = EmptyParams
 /**
  * Based on the JSON-RPC request for `eth_uninstallFilter` procedure
  */
-export type EthUninstallFilterParams = { filterId: Hex }
+export type EthUninstallFilterParams = { readonly filterId: Hex }
 
 export type EthParams =
 	| EthAccountsParams
