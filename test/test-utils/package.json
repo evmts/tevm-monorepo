@@ -69,6 +69,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@openzeppelin/contracts": "^5.0.2",
 		"@ponder/utils": "^0.1.5",
 		"@tevm/contract": "workspace:1.1.0-next.70",
 		"@tevm/esbuild-plugin": "workspace:1.1.0-next.70",

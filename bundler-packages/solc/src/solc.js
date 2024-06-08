@@ -1,5 +1,5 @@
 // @ts-expect-error
-import solc from 'solc'
+import _solc from 'solc'
 
 /**
  * @type {''}
@@ -125,7 +125,12 @@ export const releases = {
  * @returns {import("./solcTypes.js").SolcOutput}
  */
 export const solcCompile = (solc, input) => {
-	return JSON.parse(solc.compile(JSON.stringify(input)))
+	try {
+		return JSON.parse(solc.compile(JSON.stringify(input)))
+	} catch (e) {
+		// temporary hack to fix a bug in ts-plugin
+		return JSON.parse(_solc.compile(JSON.stringify(input)))
+	}
 }
 
 /**
@@ -134,7 +139,7 @@ export const solcCompile = (solc, input) => {
  */
 export const createSolc = async (release) => {
 	const s = await new Promise((resolve, reject) =>
-		solc.loadRemoteVersion(releases[release], (/** @type {any}*/ e, /** @type {any}*/ s) => {
+		_solc.loadRemoteVersion(releases[release], (/** @type {any}*/ e, /** @type {any}*/ s) => {
 			if (e) {
 				reject(e)
 			} else {
