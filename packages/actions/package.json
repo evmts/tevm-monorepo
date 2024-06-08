@@ -71,7 +71,7 @@
     "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
-    "@tevm/procedures-types": "workspace:1.1.0-next.71",
+    "@tevm/procedures-types": "workspace:^",
     "@tevm/receipt-manager": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/tx": "workspace:^",

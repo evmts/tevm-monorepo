@@ -71,7 +71,7 @@
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@tevm/tx": "workspace:1.1.0-next.70",
+		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^"
 	},
