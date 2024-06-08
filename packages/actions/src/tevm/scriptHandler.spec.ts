@@ -302,6 +302,8 @@ args: [ERC20_ADDRESS],
 }),
 ).toEqual({
 ...({} as { errors: never }),
+totalGasSpent: 23879n,
+amountSpent: 167153n,
 rawData:
 '0x0000000000000000000000000000000000000000000000000000000000000000',
 gas: 29976121n,
@@ -358,6 +360,8 @@ args: [ERC20_ADDRESS],
 },
 } as any),
 ).toEqual({
+amountSpent: 167153n,
+totalGasSpent: 23879n,
 ...({} as { errors: never }),
 rawData:
 '0x0000000000000000000000000000000000000000000000000000000000000000',

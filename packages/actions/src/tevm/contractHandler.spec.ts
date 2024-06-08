@@ -313,6 +313,8 @@ describe('contractHandler', () => {
         gas: 16784800n,
       }),
     ).toEqual({
+      amountSpent: 167153n,
+      totalGasSpent: 23879n,
       data: 0n,
       gas: 29976121n,
       rawData:

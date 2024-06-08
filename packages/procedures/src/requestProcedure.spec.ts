@@ -477,6 +477,7 @@ describe('requestProcedure', () => {
 				jsonrpc: '2.0',
 				id: 1,
 				result: {
+					amountSpent: '0x5d47',
 					rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
 					executionGasUsed: numberToHex(2447n),
 					selfdestruct: [],
