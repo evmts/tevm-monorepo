@@ -5,7 +5,7 @@ import { flatMap, logDebug, promise, tap } from 'effect/Effect'
 /**
  * Checks if a file exists at the given path
  * @param {string} path - path to check
- * @returns {import("effect/Effect").Effect<boolean, never, never>} true if the file exists, false otherwise
+ * @returns {import("effect/Effect").Effect<never, never, boolean>} true if the file exists, false otherwise
  * @example
  * ```typescript
  * import { fileExists } from '@eth-optimism/config'

@@ -65,12 +65,12 @@
 		"@tevm/compiler": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.14.2"
+		"@types/node": "^20.8.9"
 	},
 	"devDependencies": {
-		"@vitest/coverage-v8": "^1.6.0",
-		"@vitest/ui": "^1.6.0",
-		"typescript": "^5.4.5"
+		"@vitest/coverage-v8": "^0.34.6",
+		"@vitest/ui": "^0.34.6",
+		"typescript": "^5.2.2"
 	},
 	"publishConfig": {
 		"access": "public"
