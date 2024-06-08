@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
-import { getL1FeeInformationOpStack } from './getL1FeeInformationOpStack.js'
 import { createBaseClient } from '@tevm/base-client'
-import { numberToBytes } from 'viem'
-import { transports } from '@tevm/test-utils'
 import { optimism } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
+import { numberToBytes } from 'viem'
+import { getL1FeeInformationOpStack } from './getL1FeeInformationOpStack.js'
 
 describe(getL1FeeInformationOpStack.name, () => {
 	it('should work', async () => {
