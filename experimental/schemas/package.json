@@ -64,13 +64,13 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@effect/schema": "0.47.7",
-		"effect": "2.0.0-next.54"
+		"@effect/schema": "0.67.21",
+		"effect": "3.3.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"viem": "^2.13.6"
+		"viem": "^2.13.7"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -63,17 +63,17 @@
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^20.12.7"
+    "@types/node": "^20.14.2"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "@ponder/utils": "^0.1.5",
+    "@ponder/utils": "^0.1.6",
     "@tevm/contract": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.13.6"
+    "viem": "^2.13.7"
   }
 }

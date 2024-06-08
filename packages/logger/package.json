@@ -62,7 +62,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"pino": "^8.20.0"
+		"pino": "^9.1.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
