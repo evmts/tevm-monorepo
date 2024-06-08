@@ -265,7 +265,12 @@ export const callHandler =
                         )
                     }
                     // When these happen we still want to run the tx 
-                    if (e.message.includes('block has a different hardfork than the vm') || e.message.includes('the tx doesn\'t have the correct nonce.' || e.message.includes('sender doesn\'t have enough funds to send tx.') || e.message.includes('sender doesn\'t have enough funds to send tx. The upfront cost is')) {
+                    if (
+                        e.message.includes('block has a different hardfork than the vm') ||
+                        e.message.includes('the tx doesn\'t have the correct nonce.') ||
+                        e.message.includes('sender doesn\'t have enough funds to send tx.') ||
+                        e.message.includes('sender doesn\'t have enough funds to send tx. The upfront cost is')
+                    ) {
                         const errors = e.message.includes('block has a different hardfork than the vm') ? [{
                             name: 'HardForkMismatch',
                             _tag: 'HardForkMismatch',
@@ -302,6 +307,11 @@ export const callHandler =
                                     getVm: () => Promise.resolve(vm)
                                 })(evmInput)
                             })
+                            if (trace) {
+                                trace.gas = evmOutput.execResult.executionGasUsed
+                                trace.failed = true
+                                trace.returnValue = bytesToHex(evmOutput.execResult.returnValue)
+                            }
                         } catch (e) {
                             const message = e instanceof Error ? e.message : typeof e === 'string' ? e : 'unknown error'
                             errors.push({ name: 'UnexpectedError', _tag: 'UnexpectedError', message })
@@ -324,6 +334,9 @@ export const callHandler =
                     accessList = new Map(evmOutput.accessList.map(item => [item.address, new Set(item.storageKeys)]))
                 }
             } catch (e) {
+                if (typeof e === 'object' && e !== null && '_tag' in e && (params.throwOnFail ?? defaultThrowOnFail)) {
+                    throw e
+                }
                 client.logger.error(e, 'callHandler: Unexpected error executing evm')
                 return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
                     errors: [
@@ -346,6 +359,12 @@ export const callHandler =
                     */
                     rawData: '0x',
                 })
+            }
+
+            if (trace) {
+                trace.gas = evmOutput.execResult.executionGasUsed
+                trace.failed = false
+                trace.returnValue = bytesToHex(evmOutput.execResult.returnValue)
             }
 
             /**
