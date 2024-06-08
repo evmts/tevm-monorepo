@@ -127,6 +127,7 @@ skipBalance: params.skipBalance === undefined ? true : params.skipBalance,
 data: functionData,
 throwOnFail: false,
 }
+// @ts-expect-error deleting a readonly property but we made it
 delete callParams.deployedBytecode
 
 if ((accountRes.errors ?? []).length > 0) {
