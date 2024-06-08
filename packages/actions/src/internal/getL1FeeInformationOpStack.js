@@ -5,7 +5,7 @@ const abi = parseAbi([
 	'function getL1GasUsed(bytes memory _data) public view returns (uint256)',
 	'function getL1Fee(bytes memory _data) external view returns (uint256)',
 	'function l1BaseFee() public view returns (uint256)',
-	'function l1BlobFee() public view returns (uint256)',
+	'function blobBaseFee() public view returns (uint256)',
 ])
 /**
  * Gets the fee information for op stack chains for the l1 data fee
@@ -49,7 +49,7 @@ export const getL1FeeInformationOpStack = async (evmInput, vm) => {
 			to,
 			data: hexToBytes(
 				encodeFunctionData({
-					functionName: 'l1BlobFee',
+					functionName: 'blobBaseFee',
 					args: [],
 					abi,
 				}),
@@ -79,7 +79,7 @@ export const getL1FeeInformationOpStack = async (evmInput, vm) => {
 		}),
 		l1BlobFee: decodeFunctionResult({
 			abi,
-			functionName: 'l1BlobFee',
+			functionName: 'blobBaseFee',
 			data: bytesToHex(l1BlobFee.execResult.returnValue),
 		}),
 		l1BaseFee: decodeFunctionResult({
