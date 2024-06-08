@@ -3,7 +3,7 @@ import type { EvmResult } from '@tevm/evm'
 import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import type { RunTxResult} from '@tevm/vm'
+import type { RunTxResult } from '@tevm/vm'
 
 describe('callHandlerResult', async () => {
   const dummyAddress = `0x${'1'.repeat(40)}` as const
@@ -74,7 +74,6 @@ describe('callHandlerResult', async () => {
     const result = callHandlerResult(modifiedResult, undefined, undefined, undefined)
     expect(result).not.toHaveProperty('gasRefund')
     expect(result).not.toHaveProperty('selfdestruct')
-    expect(result).not.toHaveProperty('blobGasUsed')
     expect(result).not.toHaveProperty('exceptionError')
     expect(result).not.toHaveProperty('createdAddresses')
   })

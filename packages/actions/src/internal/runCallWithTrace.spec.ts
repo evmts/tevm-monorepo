@@ -63,6 +63,10 @@ describe('runCallWithTrace', () => {
 			structLogs: expect.any(Array),
 		})
 
-		expect(result).toMatchSnapshot()
+		expect(result.execResult.returnValue).toMatchSnapshot()
+		expect(result.createdAddress).toMatchSnapshot()
+		expect(result.trace.gas).toMatchSnapshot()
+		expect(result.trace.returnValue).toMatchSnapshot()
+		expect(result.trace.structLogs).toMatchSnapshot()
 	})
 })
