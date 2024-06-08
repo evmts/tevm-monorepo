@@ -35,6 +35,6 @@ describe('estimateGas', () => {
 				to: c.simpleContract.address,
 				data: encodeFunctionData(c.simpleContract.write.set(69n)),
 			}),
-		).toBe(29_972_216n)
+		).toBe(27_784n)
 	})
 })
