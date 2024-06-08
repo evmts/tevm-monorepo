@@ -9,18 +9,18 @@ const abi = parseAbi([
 ])
 /**
  * Gets the fee information for op stack chains for the l1 data fee
- * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
+ * @param {Uint8Array} data
  * @param {import('@tevm/vm').Vm} vm
  * @returns {Promise<{l1BlobFee: bigint, l1GasUsed: bigint, l1Fee: bigint, l1BaseFee: bigint}>}
  */
-export const getL1FeeInformationOpStack = async (evmInput, vm) => {
+export const getL1FeeInformationOpStack = async (data, vm) => {
 	/**
 	 * @type {typeof import('viem/chains').optimism}
 	 */
 	const opstackChain = /** @type {any}*/ (vm.common)
 	const serializedTx = serializeTransaction({
 		chainId: opstackChain.id,
-		data: bytesToHex(evmInput.data ?? new Uint8Array()),
+		data: bytesToHex(data ?? new Uint8Array()),
 		type: 'eip1559',
 	})
 	const to = EthjsAddress.fromString(opstackChain.contracts.gasPriceOracle.address)

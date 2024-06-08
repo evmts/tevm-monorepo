@@ -1433,6 +1433,9 @@ importers:
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
+      '@tevm/common':
+        specifier: 1.1.0-next.70
+        version: 1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -6866,8 +6869,16 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
+  '@tevm/common@1.1.0-next.70':
+    resolution: {integrity: sha512-tddZUi+UdhJT7Grqlurt2hZfLe804iWORvZbPhgv9msVwFsTQ57CapICCgC+LnXB9eKB0+KWsCn8Y2cSYYcBTA==}
+    peerDependencies:
+      viem: ^2.13.6
+
   '@tevm/contract@1.1.0-next.70':
     resolution: {integrity: sha512-AAPJpG4Kbe/ijYBnY6WByaLQ9yMxXBl3OkVity57cI5u7avwd59raQzrdxHIwRjxEjmZMOgPbYOeekc6IB8h9g==}
+
+  '@tevm/logger@1.1.0-next.69':
+    resolution: {integrity: sha512-K86a146cMWSHAu6IYglI9Mit0D8T8MuiR8bIODUImiu4kO3Mhfy+a4A48CZ/xzDJ19jaEDvB3VuDh/r+W7E7Lw==}
 
   '@tevm/utils@1.1.0-next.70':
     resolution: {integrity: sha512-aRzvD5dMcMQFw86HEcNmlT2PpIToIXHc4jl+PunuDWqL1U0nGFb5NqGcBzPFdPaxIm5FD8/1NuObML/PA2yLcQ==}
@@ -21623,6 +21634,17 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  '@tevm/common@1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+    dependencies:
+      '@ethereumjs/common': 4.3.0
+      '@tevm/logger': 1.1.0-next.69
+      '@tevm/utils': 1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      viem: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
   '@tevm/contract@1.1.0-next.70(typescript@5.2.2)(viem@2.13.6(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@tevm/utils': 1.1.0-next.70(typescript@5.2.2)(viem@2.13.6(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
@@ -21632,12 +21654,27 @@ snapshots:
       - viem
       - zod
 
+  '@tevm/logger@1.1.0-next.69':
+    dependencies:
+      pino: 8.20.0
+
   '@tevm/utils@1.1.0-next.70(typescript@5.2.2)(viem@2.13.6(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/evm': 3.0.0
       '@ethereumjs/util': 9.0.3
       abitype: 1.0.2(typescript@5.2.2)(zod@3.23.8)
       viem: 2.13.6(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@6.0.4)(zod@3.23.8)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/utils@1.1.0-next.70(typescript@5.4.5)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+    dependencies:
+      '@ethereumjs/evm': 3.0.0
+      '@ethereumjs/util': 9.0.3
+      abitype: 1.0.2(typescript@5.4.5)(zod@3.23.8)
+      viem: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript

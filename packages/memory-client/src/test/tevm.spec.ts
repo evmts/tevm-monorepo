@@ -41,7 +41,7 @@ const addabi = [
 
 const forkConfig = {
 	transport: transports.optimism,
-	blockTag: 111791332n,
+	blockTag: 121138454n,
 }
 
 describe('Tevm should create a local vm in JavaScript', () => {
@@ -121,12 +121,15 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				}),
 			})
 			expect(res).toEqual({
-				amountSpent: 230464515013n,
+				amountSpent: 1442108352554n,
+				l1BaseFee: 9147423326n,
+				l1BlobFee: 1n,
+				l1Fee: 21223193072n,
+				l1GasUsed: 1696n,
 				createdAddresses: new Set(),
 				data: 1n,
 				executionGasUsed: 2447n,
 				gas: 29976121n,
-				l1DataFee: 22986786982627n,
 				logs: [],
 				rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
 				selfdestruct: new Set(),

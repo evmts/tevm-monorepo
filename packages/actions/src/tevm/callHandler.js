@@ -10,6 +10,7 @@ import { mineHandler } from './mineHandler.js'
 import { runTx } from '@tevm/vm'
 import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
+import { numberToBytes } from 'viem'
 
 /**
 * The callHandler is the most important function in Tevm.
@@ -144,7 +145,7 @@ client.logger.warn(`Data is being passed in a call to a to address ${evmInput.to
 }
 
 // start getting opstack information right away in parallel
-const l1FeeInfoPromise = vm.common.sourceId !== undefined ? getL1FeeInformationOpStack(evmInput, vm).catch((e) => {
+const l1FeeInfoPromise = vm.common.sourceId !== undefined ? getL1FeeInformationOpStack(evmInput.data ?? numberToBytes(0), vm).catch((e) => {
 client.logger.warn(e, 'Unable to get l1 fee estimation')
 return {}
 }) : Promise.resolve({})
