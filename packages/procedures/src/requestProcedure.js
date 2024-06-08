@@ -299,7 +299,7 @@ export const requestProcedure = (client) => {
 				}
 				return {
 					method: estimateGasRequest.method,
-					result: callResult.result.executionGasUsed,
+					result: callResult.result.totalGasSpent ?? callResult.result.executionGasUsed,
 					jsonrpc: '2.0',
 					...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
 				}

@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ### blockHash
 
-> **blockHash**: [`Hex`](Hex.md)
+> `readonly` **blockHash**: [`Hex`](Hex.md)
 
 ### fullTransactionObjects
 
-> **fullTransactionObjects**: `boolean`
+> `readonly` **fullTransactionObjects**: `boolean`
 
 ## Source
 

@@ -14,13 +14,13 @@ Params for `anvil_mine` handler
 
 ### blockCount?
 
-> `optional` **blockCount**: `number`
+> `optional` `readonly` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
 ### interval?
 
-> `optional` **interval**: `number`
+> `optional` `readonly` **interval**: `number`
 
 mineing interval
 

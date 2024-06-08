@@ -14,7 +14,7 @@ params for `tevm_loadState` method. Takes a [TevmState](../../index/type-aliases
 
 ### state
 
-> **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
+> `readonly` **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
 
 ## Type parameters
 

@@ -22,13 +22,13 @@ const mineParams: import('@tevm/actions-types').MineParams = {
 
 ### blockCount?
 
-> `optional` **blockCount**: `number`
+> `optional` `readonly` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
 ### interval?
 
-> `optional` **interval**: `number`
+> `optional` `readonly` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1
 

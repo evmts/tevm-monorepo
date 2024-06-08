@@ -136,8 +136,8 @@ export const callProcedure = (client) => async (request) => {
       ...(result.preimages ? { preimages: result.preimages } : {}),
       ...(result.l1DataFee ? { l1DataFee: numberToHex(result.l1DataFee) } : {}),
       ...(result.amountSpent ? { amountSpent: numberToHex(result.amountSpent) } : {}),
-      ...(result.baseFee ? { amountSpent: numberToHex(result.baseFee) } : {}),
-      ...(result.totalGasSpent ? { amountSpent: numberToHex(result.totalGasSpent) } : {}),
+      ...(result.baseFee ? { baseFee: numberToHex(result.baseFee) } : {}),
+      ...(result.totalGasSpent ? { totalGasSpent: numberToHex(result.totalGasSpent) } : {}),
       ...(result.trace ? {
         trace: {
           ...result.trace,

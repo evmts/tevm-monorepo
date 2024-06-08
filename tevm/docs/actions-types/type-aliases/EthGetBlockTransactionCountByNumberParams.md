@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 

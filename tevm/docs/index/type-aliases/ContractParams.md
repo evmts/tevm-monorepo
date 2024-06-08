@@ -14,7 +14,7 @@ Tevm params to execute a call on a contract
 
 ### to
 
-> **to**: [`Address`](../../actions-types/type-aliases/Address.md)
+> `readonly` **to**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 The address to call.
 

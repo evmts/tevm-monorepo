@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
 
 ### index
 
-> **index**: [`Hex`](Hex.md)
+> `readonly` **index**: [`Hex`](Hex.md)
 
 ## Source
 

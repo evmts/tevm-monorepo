@@ -24,11 +24,10 @@ export const evmInputToImpersonatedTx = (client) => {
 		client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
 		let maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
-			const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n
-    if (maxFeePerGas < baseFeePerGas) {
-      maxFeePerGas = baseFeePerGas
-    }
-
+		const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n
+		if (maxFeePerGas < baseFeePerGas) {
+			maxFeePerGas = baseFeePerGas
+		}
 
 		// TODO we should be allowing actual real signed tx too here
 		// TODO known bug here we should be allowing unlimited code size here based on user providing option

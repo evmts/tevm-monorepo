@@ -4,6 +4,7 @@ ignores: [
   "@tevm/procedures-types",
   "@tevm/receipt-manager",
   "@tevm/block",
+  "abitype",
   "@tevm/errors"
 ]
 skip-missing: true

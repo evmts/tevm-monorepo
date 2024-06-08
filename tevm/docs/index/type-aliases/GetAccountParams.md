@@ -22,13 +22,13 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 ### address
 
-> **address**: [`Address`](../../actions-types/type-aliases/Address.md)
+> `readonly` **address**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 Address of account
 
 ### returnStorage?
 
-> `optional` **returnStorage**: `boolean`
+> `optional` `readonly` **returnStorage**: `boolean`
 
 If true the handler will return the contract storage
 It only returns storage that happens to be cached in the vm

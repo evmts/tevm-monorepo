@@ -16,47 +16,47 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ### data?
 
-> `optional` **data**: [`Hex`](Hex.md)
+> `optional` `readonly` **data**: [`Hex`](Hex.md)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
 
 ### from
 
-> **from**: [`Address`](Address.md)
+> `readonly` **from**: [`Address`](Address.md)
 
 The address from which the transaction is sent from
 
 ### gas?
 
-> `optional` **gas**: `bigint`
+> `optional` `readonly` **gas**: `bigint`
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `bigint`
+> `optional` `readonly` **gasPrice**: `bigint`
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
 
 ### nonce?
 
-> `optional` **nonce**: `bigint`
+> `optional` `readonly` **nonce**: `bigint`
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
 ### to?
 
-> `optional` **to**: [`Address`](Address.md)
+> `optional` `readonly` **to**: [`Address`](Address.md)
 
 The address the transaction is directed to. Optional if
 creating a contract
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` `readonly` **value**: `bigint`
 
 Integer of the value sent with this transaction, in Wei.
 

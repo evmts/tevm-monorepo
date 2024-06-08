@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `optional` `readonly` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 

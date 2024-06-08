@@ -44,7 +44,7 @@
 
 ### stack
 
-> `readonly` **stack**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `readonly` **stack**: [`Hex`](Hex.md)[]
 
 ## Source
 

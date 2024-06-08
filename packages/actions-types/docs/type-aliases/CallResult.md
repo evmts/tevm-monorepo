@@ -28,14 +28,12 @@ Mapping of addresses to storage slots
 > `optional` **amountSpent**: `bigint`
 
 The amount of ether used by this transaction
-Only included if `createTransaction` is set to `true`
 
 ### baseFee?
 
 > `optional` **baseFee**: `bigint`
 
 The base fee of the transaction
-Only included if `createTransaction` is set to `true`
 
 ### blobGasUsed?
 
@@ -85,7 +83,6 @@ The gas refund counter as a uint256
 > `optional` **l1DataFee**: `bigint`
 
 The data fee charged for calldata on an Rollup transaction
-Only included if `createTransaction` is set to `true`
 
 #### See
 
@@ -102,7 +99,6 @@ Array of logs that the contract emitted
 > `optional` **minerValue**: `bigint`
 
 The value that accrues to the miner by this transaction
-Only included if `createTransaction` is set to `true`
 
 ### preimages?
 
@@ -115,7 +111,6 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 > `optional` **priorityFee**: `bigint`
 
 Priority fee set by the transaction.
-Only included if `createTransaction` is set to `true`
 
 ### rawData
 
@@ -136,7 +131,6 @@ A set of accounts to selfdestruct
 The amount of gas used in this transaction, which is paid for
 This contains the gas units that have been used on execution, plus the upfront cost,
 which consists of calldata cost, intrinsic cost and optionally the access list costs
-Only included if `createTransaction` is set to `true`
 
 ### trace?
 

@@ -14,7 +14,7 @@ Params taken by `debug_traceTransaction` handler
 
 ### transactionHash
 
-> **transactionHash**: [`Hex`](Hex.md)
+> `readonly` **transactionHash**: [`Hex`](Hex.md)
 
 The transaction hash
 

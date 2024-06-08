@@ -12,19 +12,19 @@
 
 ### failed
 
-> `readonly` **failed**: `boolean`
+> **failed**: `boolean`
 
 ### gas
 
-> `readonly` **gas**: `bigint`
+> **gas**: `bigint`
 
 ### returnValue
 
-> `readonly` **returnValue**: [`Hex`](Hex.md)
+> **returnValue**: [`Hex`](Hex.md)
 
 ### structLogs
 
-> `readonly` **structLogs**: `ReadonlyArray`\<[`StructLog`](StructLog.md)\>
+> **structLogs**: [`StructLog`](StructLog.md)[]
 
 ## Source
 

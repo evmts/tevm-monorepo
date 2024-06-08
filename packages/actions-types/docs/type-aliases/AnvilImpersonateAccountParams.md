@@ -14,7 +14,7 @@ Params fro `anvil_impersonateAccount` handler
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> `readonly` **address**: [`Address`](Address.md)
 
 The address to impersonate
 
