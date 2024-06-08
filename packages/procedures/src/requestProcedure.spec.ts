@@ -420,6 +420,7 @@ describe('requestProcedure', () => {
 				method: 'tevm_call',
 				jsonrpc: '2.0',
 				result: {
+					amountSpent: '0x5208',
 					executionGasUsed: numberToHex(0n),
 					rawData: '0x',
 					txHash: '0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80',
@@ -479,7 +480,7 @@ describe('requestProcedure', () => {
 					rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
 					executionGasUsed: numberToHex(2447n),
 					selfdestruct: [],
-					gas: numberToHex(16774768n),
+					gas: '0x1c96639',
 					logs: [],
 					createdAddresses: [],
 				},
