@@ -23,7 +23,6 @@ executionGasUsed: evmResult.execResult.executionGasUsed,
 if (trace) {
 out.trace = trace
 }
-if (txHash) {
 if (evmResult.totalGasSpent) {
 out.totalGasSpent = evmResult.totalGasSpent
 }
@@ -76,7 +75,6 @@ abi,
 functionName: 'getL1Fee',
 data: bytesToHex(estimateL1FeeResult.execResult.returnValue)
 })
-}
 }
 
 if (accessList) {

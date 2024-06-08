@@ -69,17 +69,14 @@ export type CallResult<ErrorType = CallError> = {
 	errors?: ErrorType[]
 	/**
 	 * Priority fee set by the transaction.
-	 * Only included if `createTransaction` is set to `true`
 	 */
 	priorityFee?: bigint
 	/**
 	 * The base fee of the transaction
-	 * Only included if `createTransaction` is set to `true`
 	 */
 	baseFee?: bigint
 	/**
 	 * The data fee charged for calldata on an Rollup transaction
-	 * Only included if `createTransaction` is set to `true`
 	 * @see [OP-Stack docs](https://docs.optimism.io/stack/transactions/fees)
 	 */
 	l1DataFee?: bigint
@@ -87,17 +84,14 @@ export type CallResult<ErrorType = CallError> = {
 	 * The amount of gas used in this transaction, which is paid for
 	 * This contains the gas units that have been used on execution, plus the upfront cost,
 	 * which consists of calldata cost, intrinsic cost and optionally the access list costs
-	 * Only included if `createTransaction` is set to `true`
 	 */
 	totalGasSpent?: bigint
 	/**
 	 * The amount of ether used by this transaction
-	 * Only included if `createTransaction` is set to `true`
 	 */
 	amountSpent?: bigint
 	/**
 	 * The value that accrues to the miner by this transaction
-	 * Only included if `createTransaction` is set to `true`
 	 */
 	minerValue?: bigint
 }
