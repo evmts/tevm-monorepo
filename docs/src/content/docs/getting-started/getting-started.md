@@ -1187,7 +1187,6 @@ The [Tevm monorepo](https://github.com/evmts/tevm-monorepo) believes in making a
 - `@tevm/revm` compiles revm to wasm as an experiment to try to implement the Evm in wasm.
 - `@tevm/actions` has the tevm actions api as well as eth json-rpc handlers available as tree-shakable actions.
 - `@tevm/state`, `@tevmtx`, `@tevm/blockchain` have custom tevm implementations of [ethereumjs components](https://www.google.com/search?q=ethereumjs+github&oq=ethereumj&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg5MgYIAhBFGEAyBggDEEUYPDIGCAQQRRg8MgYIBRBFGDwyBggGEEUYPDIGCAcQRRhBqAIAsAIA&sourceid=chrome&ie=UTF-8)
-- `@tevm/opstack` has an experimental opstack devnet that comes predeployed with all optimism protocol contracts and utilities
 
 Also every subpackage in `tevm-bundler` and `tevm` packages is available as a standalone package if you want to minimize how much code gets installed. E.g. `tevm/contracts` can be installed standalone as `@tevm/contracts`
 

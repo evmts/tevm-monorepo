@@ -64,7 +64,6 @@
     "@tevm/utils": "1.0.0-next.37",
     "@tevm/sync-storage-persister": "1.0.0-next.39",
     "@tevm/bench": "1.0.0-next.39",
-    "@tevm/opstack": "1.0.0-next.41",
     "@tevm/example-next": "0.0.1",
     "@tevm/block": "1.0.0-next.42",
     "@tevm/logger": "1.0.0-next.42",

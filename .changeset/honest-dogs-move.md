@@ -14,7 +14,6 @@
 "@tevm/base-client": patch
 "@tevm/procedures": patch
 "@tevm/tsupconfig": patch
-"@tevm/opstack": patch
 "@tevm/revm": patch
 "@tevm/experimental-solc": patch
 "@tevm/ethers": patch

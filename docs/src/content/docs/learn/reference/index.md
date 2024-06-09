@@ -63,7 +63,6 @@ Note: many of these packages hold a [MLP-2.0](https://www.tldrlegal.com/license/
 The following packages extend tevm functionality for compatability with other popular libraries and technologies.
 
 - [@tevm/ethers](https://github.com/evmts/tevm-monorepo/tree/main/extensions/ethers) Contains an ethers provider similar to `MemoryClient` as well as typesafe ethers contracts
-- [@tevm/opstack](https://github.com/evmts/tevm-monorepo/tree/main/extensions/opstack) Experimental package for running an opstack devnet
 - [@tevm/viem](https://github.com/evmts/tevm-monorepo/tree/main/extensions/viem) Contains useful utils for extending viem with tevm functionality.
 
 ## Buildtime packages
