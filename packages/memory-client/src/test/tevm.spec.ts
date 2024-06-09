@@ -113,7 +113,6 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
 			const tevm = createMemoryClient({ fork: forkConfig, common: optimism })
-			// TODO test other inputs
 			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
@@ -121,18 +120,38 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				}),
 			})
 			expect(res).toEqual({
+				// The amount of ether used by this transaction. Does not include l1 fees.
 				amountSpent: 1442108352554n,
-				l1BaseFee: 9147423326n,
-				l1BlobFee: 1n,
-				l1Fee: 21223193072n,
-				l1GasUsed: 1696n,
-				createdAddresses: new Set(),
-				data: 1n,
+				// The amount of gas used by the transaction execution
 				executionGasUsed: 2447n,
+				// Latest known L1 base fee known by the l2 chain.
+				// Only included when an op-stack common is passed to `createMemoryClient`
+				l1BaseFee: 9147423326n,
+				// Current blob base fee known by the l2 chain
+				l1BlobFee: 1n,
+				// L1 fee that should be paid for the tx Only included when an op-stack
+				// // common is provided
+				l1Fee: 21223193072n,
+				// Amount of L1 gas used to publish the transaction. Only included when an
+				// // op-stack common is provided
+				l1GasUsed: 1696n,
+				// Map of addresses which were created (used in EIP 6780) Note the addresses
+				// are not actually created til the tx is mined
+				createdAddresses: new Set(),
+				// The decoded data based on the contract ABI
+				data: 1n,
+				// amount of gas left
 				gas: 29976121n,
+				// Logs emitted by the contract call
 				logs: [],
+				// The return value of the contract call
 				rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
+				// A set of accounts to selfdestruct
 				selfdestruct: new Set(),
+				// The amount of gas used in this transaction, which is paid for.
+				// This contains the gas units that have been used on execution,
+				// plus the upfront cost, which consists of calldata cost, intrinsic
+				// cost and optionally the access list costs Does not include l1 fees
 				totalGasSpent: 23879n,
 			})
 		})
