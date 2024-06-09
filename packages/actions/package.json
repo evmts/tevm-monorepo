@@ -67,7 +67,7 @@
     "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
-    "@tevm/common": "1.1.0-next.70",
+    "@tevm/common": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
