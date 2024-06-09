@@ -74,8 +74,7 @@
     "@tevm/scripts": "1.0.0",
     "@tevm/test-utils": "1.0.0-next.39",
     "mdt-repro": "0.0.1",
-    "@tevm/receipt-manager": "1.1.0-next.47",
-    "@tevm/chains": "1.1.0-next.56"
+    "@tevm/receipt-manager": "1.1.0-next.47"
   },
   "changesets": [
     "afraid-crabs-exist",

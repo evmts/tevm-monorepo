@@ -1,5 +1,5 @@
 ---
-"@tevm/chains": minor
+"@tevm/common": minor
 ---
 
 Added customCrypto option
