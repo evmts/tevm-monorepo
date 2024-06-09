@@ -1,5 +1,16 @@
 # @tevm/bundler
 
+## 1.1.0-next.73
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/esbuild-plugin@1.1.0-next.73
+  - @tevm/rollup-plugin@1.1.0-next.73
+  - @tevm/rspack-plugin@1.1.0-next.73
+  - @tevm/vite-plugin@1.1.0-next.73
+  - @tevm/webpack-plugin@1.1.0-next.73
+
 ## 1.1.0-next.72
 
 ### Minor Changes

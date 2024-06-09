@@ -1,5 +1,11 @@
 # @tevm/unplugin
 
+## 1.1.0-next.73
+
+### Patch Changes
+
+- [#1184](https://github.com/evmts/tevm-monorepo/pull/1184) [`2c013d3`](https://github.com/evmts/tevm-monorepo/commit/2c013d3ec0c37ded033f6139c979578fb4a71568) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix: bug loading tsconfig.json"
+
 ## 1.1.0-next.72
 
 ### Minor Changes

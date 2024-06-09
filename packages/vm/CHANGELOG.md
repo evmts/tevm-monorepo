@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.73
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/state@1.1.0-next.73
+  - @tevm/evm@1.1.0-next.73
+
 ## 1.1.0-next.72
 
 ### Minor Changes
