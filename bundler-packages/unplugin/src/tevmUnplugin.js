@@ -92,7 +92,6 @@ export const tevmUnplugin = (options = {}) => {
 			return null
 		},
 		async load(id) {
-			this.addWatchFile('./tsconfig.json')
 			const resolveBytecode = id.endsWith('.s.sol')
 
 			const { code, modules } = await moduleResolver.resolveEsmModule(id, process.cwd(), false, resolveBytecode)
