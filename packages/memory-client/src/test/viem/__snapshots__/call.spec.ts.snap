@@ -1,31 +1,111 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call errors fee cap too high 1`] = `Promise {}`;
+exports[`call args: override 1`] = `"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000084e6f745761676d69000000000000000000000000000000000000000000000000"`;
 
-exports[`call errors gas too low 1`] = `
+exports[`call fee cap too high 1`] = `Promise {}`;
+
+exports[`call gas too low 1`] = `[CallExecutionError: An unknown RPC error occurred.
+
+Raw Call Arguments:
+  from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:  0xa0712d6800000000000000000000000000000000000000000000000000000000000001a4
+  gas:   100
+
+Details: 0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011546f6b656e2049442069732074616b656e000000000000000000000000000000
+Version: viem@2.13.6]`;
+
+exports[`call gas too low 2`] = `[Function]`;
+
+exports[`call gas too high 1`] = `
 {
   "data": undefined,
 }
 `;
 
-exports[`call errors gas too low 2`] = `[Function]`;
-
-exports[`call errors gas too high 1`] = `
+exports[`call gas fee is less than block base fee 1`] = `
 {
   "data": undefined,
 }
 `;
 
-exports[`call errors gas fee is less than block base fee 1`] = `
+exports[`call gas fee is less than block base fee 2`] = `
 {
   "data": undefined,
 }
 `;
 
-exports[`call errors gas fee is less than block base fee 2`] = `
+exports[`call nonce too low 1`] = `
 {
   "data": undefined,
 }
 `;
 
-exports[`call args: override 1`] = `undefined`;
+exports[`call insufficient funds 1`] = `
+"An unknown RPC error occurred.
+
+Raw Call Arguments:
+  from:   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  to:     0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  value:  100000 ETH
+
+Details: sender doesn't have enough funds to send tx. The upfront cost is: 100000271740472800000000 and the sender's account (0x0000000000000000000000000000000000000000) only has: 1000000000000000000000 -> block number=20055381 hash=0xa82595e6d13bafde5a5fa469b2af4e3713e654b66c6f8df3ec4e63fa5bc8de4a hf=cancun baseFeePerGas=9058015760 txs=1 uncles=0 -> tx type=2 hash=0xe649f3d8f1ef757697217666076030b89f5c88043c39abc031e491f6759d74d1 nonce=0 value=100000000000000000000000 signed=true hf=cancun maxFeePerGas=9058015760 maxPriorityFeePerGas=0)
+Version: viem@2.13.6"
+`;
+
+exports[`call contract revert (contract error) 1`] = `
+"An unknown RPC error occurred.
+
+Raw Call Arguments:
+  from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:  0xa0712d6800000000000000000000000000000000000000000000000000000000000001a4
+
+Details: 0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011546f6b656e2049442069732074616b656e000000000000000000000000000000
+Version: viem@2.13.6"
+`;
+
+exports[`call contract revert (insufficient params) 1`] = `
+"An unknown RPC error occurred.
+
+Raw Call Arguments:
+  from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:  0xa0712d68
+
+Details: 0x
+Version: viem@2.13.6"
+`;
+
+exports[`call duplicate address 1`] = `
+"State for account "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2" is set multiple times.
+
+Raw Call Arguments:
+  to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:  0x06fdde03
+  State Override:
+    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2:
+      stateDiff:
+        0x00000000000000000000000000000000000000000000000000000000000001a4: 0x00000000000000000000000000000000000000000000000000000000000001a4
+    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2:
+      stateDiff:
+        0x00000000000000000000000000000000000000000000000000000000000001a4: 0x00000000000000000000000000000000000000000000000000000000000001a4
+
+Version: viem@2.13.6"
+`;
+
+exports[`call pass state and stateDiff 1`] = `
+"state and stateDiff are set on the same account.
+
+Raw Call Arguments:
+  to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:  0x06fdde03
+  State Override:
+    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2:
+      state:
+        0x00000000000000000000000000000000000000000000000000000000000001a4: 0x00000000000000000000000000000000000000000000000000000000000001a4
+      stateDiff:
+        0x00000000000000000000000000000000000000000000000000000000000001a4: 0x00000000000000000000000000000000000000000000000000000000000001a4
+
+Version: viem@2.13.6"
+`;

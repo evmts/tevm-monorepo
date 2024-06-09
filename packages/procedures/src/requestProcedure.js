@@ -1294,7 +1294,7 @@ export const requestProcedure = (client) => {
 					method: /** @type any*/ (request).method,
 					jsonrpc: '2.0',
 					error: {
-						code: -32601,
+						code: 4200,
 						message: err.message,
 					},
 				})

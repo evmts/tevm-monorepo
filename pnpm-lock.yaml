@@ -1719,6 +1719,10 @@ importers:
         version: 1.20.6
 
   packages/errors:
+    dependencies:
+      viem:
+        specifier: ^2.13.6
+        version: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
