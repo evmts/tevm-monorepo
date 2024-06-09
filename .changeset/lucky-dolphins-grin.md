@@ -1,5 +1,4 @@
 ---
-"@tevm/blockexplorer": patch
 "@tevm/resolutions": patch
 "@tevm/ts-plugin": patch
 "@tevm/unplugin": patch
@@ -9,7 +8,6 @@
 "@tevm/effect": patch
 "@tevm/config": patch
 "@tevm/contract": patch
-"@tevm/base": patch
 "@tevm/solc": patch
 "@tevm/bun-plugin": patch
 ---

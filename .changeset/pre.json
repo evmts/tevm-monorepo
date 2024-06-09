@@ -4,7 +4,6 @@
   "initialVersions": {
     "@tevm/docs": "0.0.1",
     "@tevm/bundler": "0.11.2",
-    "@tevm/base": "0.11.2",
     "@tevm/bun-plugin": "0.11.2",
     "@tevm/config": "0.10.0",
     "@tevm/esbuild-plugin": "0.11.2",
@@ -25,7 +24,6 @@
     "@tevm/experimental-solc": "0.11.2",
     "@tevm/ethers": "0.11.1",
     "@tevm/viem": "0.11.2",
-    "@tevm/blockexplorer": "0.11.2",
     "@tevm/contract": "0.11.2",
     "@tevm/effect": "0.10.0",
     "@tevm/revm": "0.11.2",
@@ -74,8 +72,7 @@
     "@tevm/scripts": "1.0.0",
     "@tevm/test-utils": "1.0.0-next.39",
     "mdt-repro": "0.0.1",
-    "@tevm/receipt-manager": "1.1.0-next.47",
-    "@tevm/chains": "1.1.0-next.56"
+    "@tevm/receipt-manager": "1.1.0-next.47"
   },
   "changesets": [
     "afraid-crabs-exist",

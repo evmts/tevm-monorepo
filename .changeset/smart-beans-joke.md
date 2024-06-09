@@ -22,7 +22,6 @@
 "@tevm/experimental-solc": patch
 "@tevm/viem-effect": patch
 "@tevm/ethers": patch
-"@tevm/opstack": patch
 "@tevm/viem": patch
 "@tevm/lsp": patch
 "@tevm/ts-plugin": patch

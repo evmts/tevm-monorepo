@@ -3,7 +3,6 @@
 "@tevm/unplugin": minor
 "@tevm/runtime": minor
 "@tevm/contract": minor
-"@tevm/base": minor
 "@tevm/solc": minor
 "@tevm/bun-plugin": minor
 "@tevm/bundler": minor

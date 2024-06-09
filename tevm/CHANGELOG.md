@@ -271,7 +271,7 @@
 - [#1114](https://github.com/evmts/tevm-monorepo/pull/1114) [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed BlockResult type to be correct when `includeTransactions` is true
 
 - Updated dependencies [[`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27), [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27), [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27), [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27), [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27), [`7ba5242`](https://github.com/evmts/tevm-monorepo/commit/7ba5242876211af2ded7d81cb046ae247aa17a27)]:
-  - @tevm/chains@1.1.0-next.58
+  - @tevm/common@1.1.0-next.58
   - @tevm/base-client@1.1.0-next.58
   - @tevm/memory-client@1.1.0-next.58
   - @tevm/actions-types@1.1.0-next.58
@@ -289,7 +289,7 @@
 
 - [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Added TevmSendApi type to decorators package for reuse in ethers package
 
-- [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Breaking: Removed the chainId property in favor of `TevmChain` from `@tevm/chains`. TevmChain extends ViemChain and ethereumjs Common for a common interface for specifying chain/common info
+- [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Breaking: Removed the chainId property in favor of `TevmChain` from `@tevm/common`. TevmChain extends ViemChain and ethereumjs Common for a common interface for specifying chain/common info
 
 - [#1112](https://github.com/evmts/tevm-monorepo/pull/1112) [`72ba692`](https://github.com/evmts/tevm-monorepo/commit/72ba6927ed30c54caeede41e9ea7096c9551ae59) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for the customCrypto option to @tevm/common and @tevm/base-client. This allows kzg to be passed for 4844 supports
 
@@ -299,7 +299,7 @@
   - @tevm/decorators@1.1.0-next.57
   - @tevm/memory-client@1.1.0-next.57
   - @tevm/base-client@1.1.0-next.57
-  - @tevm/chains@1.1.0-next.57
+  - @tevm/common@1.1.0-next.57
   - @tevm/viem@1.1.0-next.52
   - @tevm/http-client@1.1.0-next.56
   - @tevm/precompiles@1.1.0-next.56

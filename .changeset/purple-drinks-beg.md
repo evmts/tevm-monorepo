@@ -1,6 +1,5 @@
 ---
 "@tevm/bundler": patch
-"@tevm/base": patch
 "@tevm/bun-plugin": patch
 "@tevm/config": patch
 "@tevm/esbuild-plugin": patch
@@ -17,7 +16,6 @@
 "@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
-"@tevm/blockexplorer": patch
 "@tevm/contract": patch
 "@tevm/effect": patch
 "@tevm/revm": patch
