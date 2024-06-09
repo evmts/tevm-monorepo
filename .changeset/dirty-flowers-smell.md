@@ -1,5 +1,4 @@
 ---
-"@tevm/opstack": patch
 "@tevm/test-utils": patch
 "@tevm/bundler": patch
 "@tevm/base-bundler": patch
