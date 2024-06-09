@@ -1,7 +1,6 @@
 ---
 "@tevm/memory-client": minor
 "@tevm/base-client": minor
-"@tevm/common": minor
 "tevm": minor
 ---
 
