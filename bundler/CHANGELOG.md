@@ -1,5 +1,28 @@
 # @tevm/bundler
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- Updated dependencies [[`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9), [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5)]:
+  - @tevm/solc@1.1.0-next.72
+  - @tevm/base-bundler@1.1.0-next.72
+  - @tevm/compiler@1.1.0-next.72
+  - @tevm/config@1.1.0-next.72
+  - @tevm/bun-plugin@1.1.0-next.72
+  - @tevm/tsupconfig@1.1.0-next.72
+  - @tevm/ts-plugin@1.1.0-next.72
+  - @tevm/esbuild-plugin@1.1.0-next.72
+  - @tevm/rollup-plugin@1.1.0-next.72
+  - @tevm/rspack-plugin@1.1.0-next.72
+  - @tevm/vite-plugin@1.1.0-next.72
+  - @tevm/webpack-plugin@1.1.0-next.72
+  - @tevm/tsconfig@1.1.0-next.72
+
 ## 1.1.0-next.70
 
 ### Patch Changes

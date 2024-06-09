@@ -1,5 +1,21 @@
 # @tevm/ts-plugin
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- [#1177](https://github.com/evmts/tevm-monorepo/pull/1177) [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies to latest
+
+- [#1175](https://github.com/evmts/tevm-monorepo/pull/1175) [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5) Thanks [@roninjin10](https://github.com/roninjin10)! - Did temporary workaround for solc bug that causes tevm-gen to sometimes fail from solc.compile not being a function
+
+- Updated dependencies [[`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9)]:
+  - @tevm/bundler-cache@1.1.0-next.72
+  - @tevm/base-bundler@1.1.0-next.72
+
 ## 1.1.0-next.70
 
 ### Patch Changes

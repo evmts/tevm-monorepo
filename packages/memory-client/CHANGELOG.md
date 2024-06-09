@@ -1,5 +1,28 @@
 # @tevm/client
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [#1174](https://github.com/evmts/tevm-monorepo/pull/1174) [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa) Thanks [@roninjin10](https://github.com/roninjin10)! - Breaking change. default to createTransaction: true if state mutability is payable or nonpayable and continue defaulting to false otherwise. Before all calls do not create a transaction unless createTransaction: true is set.
+
+- [#1175](https://github.com/evmts/tevm-monorepo/pull/1175) [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5) Thanks [@roninjin10](https://github.com/roninjin10)! - Added more opstack gas information
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- [#1175](https://github.com/evmts/tevm-monorepo/pull/1175) [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5) Thanks [@roninjin10](https://github.com/roninjin10)! - New opstack related types
+
+- Updated dependencies [[`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa)]:
+  - @tevm/utils@1.1.0-next.72
+  - @tevm/base-client@1.1.0-next.72
+  - @tevm/common@1.1.0-next.72
+  - @tevm/contract@1.1.0-next.72
+  - @tevm/decorators@1.1.0-next.72
+  - @tevm/evm@1.1.0-next.72
+  - @tevm/predeploys@1.1.0-next.72
+
 ## 1.1.0-next.71
 
 ### Patch Changes
