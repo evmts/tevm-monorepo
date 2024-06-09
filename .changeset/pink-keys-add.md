@@ -6,7 +6,6 @@
 "@tevm/webpack-plugin": patch
 "@tevm/rollup-plugin": patch
 "@tevm/rspack-plugin": patch
-"@tevm/blockexplorer": patch
 "@tevm/vite-plugin": patch
 "@tevm/bun-plugin": patch
 "@tevm/resolutions": patch

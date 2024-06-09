@@ -16,7 +16,6 @@
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
 "@tevm/tsupconfig": patch
-"@tevm/blockexplorer": patch
 "@tevm/revm": patch
 "@tevm/schemas": patch
 "@tevm/experimental-solc": patch

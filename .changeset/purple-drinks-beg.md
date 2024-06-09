@@ -17,7 +17,6 @@
 "@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
-"@tevm/blockexplorer": patch
 "@tevm/contract": patch
 "@tevm/effect": patch
 "@tevm/revm": patch

@@ -1,5 +1,4 @@
 ---
-"@tevm/blockexplorer": patch
 "@tevm/resolutions": patch
 "@tevm/ts-plugin": patch
 "@tevm/unplugin": patch

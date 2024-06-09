@@ -9,7 +9,6 @@
 "@tevm/blockchain": patch
 "@tevm/decorators": patch
 "@tevm/procedures": patch
-"@tevm/opstack": patch
 "@tevm/ethers": patch
 "@tevm/actions": patch
 "@tevm/jsonrpc": patch
