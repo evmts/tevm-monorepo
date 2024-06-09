@@ -1,5 +1,12 @@
 # @tevm/test-utils
 
+## 1.1.0-next.73
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/esbuild-plugin@1.1.0-next.73
+
 ## 1.1.0-next.72
 
 ### Minor Changes
