@@ -1,5 +1,33 @@
 # @tevm/client
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [#1175](https://github.com/evmts/tevm-monorepo/pull/1175) [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5) Thanks [@roninjin10](https://github.com/roninjin10)! - Added more opstack gas information
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- [#1177](https://github.com/evmts/tevm-monorepo/pull/1177) [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies to latest
+
+- Updated dependencies [[`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`719e083`](https://github.com/evmts/tevm-monorepo/commit/719e0837fe56e61cb7c9b19152a943e664a4ebf5), [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa), [`17a3ea3`](https://github.com/evmts/tevm-monorepo/commit/17a3ea3715fbce4767aee444ec6b5d995d37c6aa)]:
+  - @tevm/utils@1.1.0-next.72
+  - @tevm/vm@1.1.0-next.72
+  - @tevm/jsonrpc@1.1.0-next.72
+  - @tevm/state@1.1.0-next.72
+  - @tevm/common@1.1.0-next.72
+  - @tevm/logger@1.1.0-next.72
+  - @tevm/tx@1.1.0-next.72
+  - @tevm/block@1.1.0-next.72
+  - @tevm/blockchain@1.1.0-next.72
+  - @tevm/evm@1.1.0-next.72
+  - @tevm/predeploys@1.1.0-next.72
+  - @tevm/receipt-manager@1.1.0-next.72
+  - @tevm/sync-storage-persister@1.1.0-next.72
+  - @tevm/txpool@1.1.0-next.72
+
 ## 1.1.0-next.70
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/tsconfig
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
 ## 1.1.0-next.69
 
 ### Patch Changes

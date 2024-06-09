@@ -1,5 +1,15 @@
 # @tevm/cli
 
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- [#1177](https://github.com/evmts/tevm-monorepo/pull/1177) [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies to latest
+
 ## 1.1.0-next.69
 
 ### Patch Changes
