@@ -11,8 +11,8 @@ import { hexToBytes } from '@tevm/utils'
 * Parses user provided params into ethereumjs options to pass into the EVM
 * @param {import('@tevm/base-client').BaseClient} client
 * @param {import('./CallParams.js').CallParams} params
-* @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
-* @throws { CallHandlerOptsError }
+* @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<CallHandlerOptsError>}>}
+* @throws { never } Returns all errors as values
 */
 export const callHandlerOpts = async (client, params) => {
   /**
@@ -36,11 +36,14 @@ export const callHandlerOpts = async (client, params) => {
     if (params.blockTag === 'latest' || params.blockTag === 'safe' || params.blockTag === 'pending' || params.blockTag === 'earliest' || params.blockTag === 'finalized') {
       return vm.blockchain.blocksByTag.get(/** */(params.blockTag))
     }
-    throw new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
+    return new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
   })()
-  if (!block) {
+  if (block === undefined) {
     // TODO need better error handling here
-    throw new UnknownBlockError('No block found')
+    return {errors: [new UnknownBlockError('No block found')]}
+  }
+  if (block instanceof Error) {
+    return {errors: [block]}
   }
 
   client.logger.debug({ block: block.header }, 'Using block')
@@ -113,7 +116,7 @@ export const callHandlerOpts = async (client, params) => {
         throwOnFail: false,
       })
       if (res.errors?.length) {
-        throw new InvalidParamsError('Invalid state override', { cause: res.errors.length === 1 ? res.errors[0] : new AggregateError(res.errors) })
+        return {errors: [new InvalidParamsError('Invalid state override', { cause: /** @type {Error} */(res.errors.length === 1 ? res.errors[0] : new AggregateError(res.errors)) })]}
       }
     }
   }
