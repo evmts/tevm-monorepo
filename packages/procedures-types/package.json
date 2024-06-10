@@ -68,7 +68,7 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"actions": "workspace:^",
+		"@tevm/actions": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

@@ -1,6 +1,5 @@
 ignores: [
   "@tevm/blockchain",
-  "@tevm/procedures-types",
   "@tevm/receipt-manager",
   "@tevm/block",
   "abitype",

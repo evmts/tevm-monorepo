@@ -70,7 +70,7 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.3",
-		"actions": "workspace:^",
+		"@tevm/actions": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",

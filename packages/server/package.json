@@ -70,7 +70,7 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"actions": "workspace:^",
+		"@tevm/actions": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
