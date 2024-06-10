@@ -1,14 +1,18 @@
-import { createError } from '../common/index.js'
+import { InvalidAbiError, InvalidAddressError, InvalidArgsError, InvalidFunctionNameError } from '@tevm/errors'
 import { zContractParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
 /**
+ * @typedef {InvalidAbiError| InvalidAddressError| InvalidArgsError| InvalidFunctionNameError | import('./validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateContractParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').ContractParams} action
- * @returns {Array<import('@tevm/errors').ContractError>}
+ * @returns {Array<ValidateContractParamsError>}
  */
 export const validateContractParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').ContractError>}
+	 * @type {Array<ValidateContractParamsError>}
 	 */
 	const errors = validateBaseCallParams(action)
 
@@ -19,22 +23,22 @@ export const validateContractParams = (action) => {
 
 		if (formattedErrors.abi) {
 			formattedErrors.abi._errors.forEach((error) => {
-				errors.push(createError('InvalidAbiError', error, JSON.stringify(action.abi)))
+				errors.push(new InvalidAbiError(error))
 			})
 		}
 		if (formattedErrors.args) {
 			formattedErrors.args._errors.forEach((error) => {
-				errors.push(createError('InvalidArgsError', error))
+				errors.push(new InvalidArgsError(error))
 			})
 		}
 		if (formattedErrors.functionName) {
 			formattedErrors.functionName._errors.forEach((error) => {
-				errors.push(createError('InvalidFunctionNameError', error, String(action.functionName)))
+				errors.push(new InvalidFunctionNameError(error))
 			})
 		}
 		if (formattedErrors.to) {
 			formattedErrors.to._errors.forEach((error) => {
-				errors.push(createError('InvalidAddressError', error, action.to))
+				errors.push(new InvalidAddressError(error))
 			})
 		}
 	}

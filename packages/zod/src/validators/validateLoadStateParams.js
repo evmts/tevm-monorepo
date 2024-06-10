@@ -1,12 +1,17 @@
-import { createError } from '../common/index.js'
+import { InvalidRequestError } from '@tevm/errors'
 import { zLoadStateParams } from '../params/zLoadStateParams.js'
 
 /**
+ * @typedef {InvalidRequestError} ValidateLoadStateParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').LoadStateParams} action
+ * @returns {Array<ValidateLoadStateParamsError>}
  */
 export const validateLoadStateParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').LoadStateError>}
+	 * @type {Array<ValidateLoadStateParamsError>}
 	 */
 	const errors = []
 
@@ -17,7 +22,7 @@ export const validateLoadStateParams = (action) => {
 
 		if (formattedErrors._errors) {
 			formattedErrors._errors.forEach((error) => {
-				errors.push(createError('InvalidRequestError', error, JSON.stringify(action)))
+				errors.push(new InvalidRequestError(error))
 			})
 		}
 	}

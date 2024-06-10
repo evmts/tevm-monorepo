@@ -1,13 +1,17 @@
-import { createError } from '../common/index.js'
+import { InvalidAddressError, InvalidBalanceError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
 import { zMineParams } from '../params/index.js'
 
 /**
+ * @typedef {InvalidAddressError| InvalidBalanceError| InvalidNonceError | InvalidRequestError} ValidateMineParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').MineParams} action
- * @returns {Array<import('@tevm/errors').MineError>}
+ * @returns {Array<ValidateMineParamsError>}
  */
 export const validateMineParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').MineError>}
+	 * @type {Array<ValidateMineParamsError>}
 	 */
 	const errors = []
 
@@ -16,21 +20,21 @@ export const validateMineParams = (action) => {
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
 		formattedErrors._errors.forEach((error) => {
-			errors.push(createError('InvalidRequestError', error, String(action)))
+			errors.push(new InvalidRequestError(error))
 		})
 		if (formattedErrors.blockCount) {
 			formattedErrors.blockCount._errors.forEach((error) => {
-				errors.push(createError('InvalidAddressError', error, String(action.blockCount)))
+				errors.push(new InvalidAddressError(error))
 			})
 		}
 		if (formattedErrors.interval) {
 			formattedErrors.interval._errors.forEach((error) => {
-				errors.push(createError('InvalidNonceError', error, String(action.interval)))
+				errors.push(new InvalidNonceError(error))
 			})
 		}
 		if (formattedErrors.throwOnFail) {
 			formattedErrors.throwOnFail._errors.forEach((error) => {
-				errors.push(createError('InvalidBalanceError', error, String(action.throwOnFail)))
+				errors.push(new InvalidBalanceError(error))
 			})
 		}
 	}

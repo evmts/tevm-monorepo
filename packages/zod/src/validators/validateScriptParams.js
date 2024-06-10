@@ -1,13 +1,18 @@
-import { createError } from '../common/index.js'
+import { InvalidAbiError, InvalidArgsError, InvalidDeployedBytecodeError, InvalidFunctionNameError } from '@tevm/errors'
 import { zScriptParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
 /**
+ * @typedef {InvalidAbiError| InvalidArgsError| InvalidDeployedBytecodeError| InvalidFunctionNameError | import('./validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateScriptParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').ScriptParams} action
+ * @returns {Array<ValidateScriptParamsError>}
  */
 export const validateScriptParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').ScriptError>}
+	 * @type {Array<ValidateScriptParamsError>}
 	 */
 	const errors = validateBaseCallParams(action)
 
@@ -18,22 +23,22 @@ export const validateScriptParams = (action) => {
 
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(createError('InvalidDeployedBytecodeError', error, String(action.deployedBytecode)))
+				errors.push(new InvalidDeployedBytecodeError(error))
 			})
 		}
 		if (formattedErrors.abi) {
 			formattedErrors.abi._errors.forEach((error) => {
-				errors.push(createError('InvalidAbiError', error, JSON.stringify(action.abi)))
+				errors.push(new InvalidAbiError(error))
 			})
 		}
 		if (formattedErrors.args) {
 			formattedErrors.args._errors.forEach((error) => {
-				errors.push(createError('InvalidArgsError', error))
+				errors.push(new InvalidArgsError(error))
 			})
 		}
 		if (formattedErrors.functionName) {
 			formattedErrors.functionName._errors.forEach((error) => {
-				errors.push(createError('InvalidFunctionNameError', error, String(action.functionName)))
+				errors.push(new InvalidFunctionNameError(error))
 			})
 		}
 	}

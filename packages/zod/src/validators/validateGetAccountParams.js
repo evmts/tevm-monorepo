@@ -1,13 +1,17 @@
-import { createError } from '../common/index.js'
+import { InvalidRequestError } from '@tevm/errors'
 import { zGetAccountParams } from '../params/index.js'
 
 /**
+ * @typedef {InvalidRequestError} ValidateGetAccountParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').GetAccountParams} action
- * @returns {Array<import('@tevm/errors').GetAccountError>}
+ * @returns {Array<ValidateGetAccountParamsError>}
  */
 export const validateGetAccountParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').GetAccountError>}
+	 * @type {Array<ValidateGetAccountParamsError>}
 	 */
 	const errors = []
 
@@ -16,7 +20,7 @@ export const validateGetAccountParams = (action) => {
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
 		formattedErrors._errors.forEach((error) => {
-			errors.push(createError('InvalidRequestError', error, String(action)))
+			errors.push(new InvalidRequestError(error))
 		})
 	}
 

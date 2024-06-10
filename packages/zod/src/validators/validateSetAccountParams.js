@@ -1,13 +1,24 @@
-import { createError } from '../common/index.js'
+import {
+	InvalidAddressError,
+	InvalidBalanceError,
+	InvalidDeployedBytecodeError,
+	InvalidNonceError,
+	InvalidRequestError,
+	InvalidStorageRootError,
+} from '@tevm/errors'
 import { zSetAccountParams } from '../params/index.js'
 
 /**
+ * @typedef {InvalidAddressError| InvalidBalanceError| InvalidDeployedBytecodeError| InvalidNonceError| InvalidRequestError| InvalidStorageRootError} ValidateSetAccountParamsError
+ */
+
+/**
  * @param {import('@tevm/actions-types').SetAccountParams} action
- * @returns {Array<import('@tevm/errors').SetAccountError>}
+ * @returns {Array<ValidateSetAccountParamsError>}
  */
 export const validateSetAccountParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').SetAccountError>}
+	 * @type {Array<ValidateSetAccountParamsError>}
 	 */
 	const errors = []
 
@@ -16,31 +27,31 @@ export const validateSetAccountParams = (action) => {
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
 		formattedErrors._errors.forEach((error) => {
-			errors.push(createError('InvalidRequestError', error, String(action)))
+			errors.push(new InvalidRequestError(error))
 		})
 		if (formattedErrors.address) {
 			formattedErrors.address._errors.forEach((error) => {
-				errors.push(createError('InvalidAddressError', error, String(action.address)))
+				errors.push(new InvalidAddressError(error))
 			})
 		}
 		if (formattedErrors.nonce) {
 			formattedErrors.nonce._errors.forEach((error) => {
-				errors.push(createError('InvalidNonceError', error, String(action.nonce)))
+				errors.push(new InvalidNonceError(error))
 			})
 		}
 		if (formattedErrors.balance) {
 			formattedErrors.balance._errors.forEach((error) => {
-				errors.push(createError('InvalidBalanceError', error, String(action.balance)))
+				errors.push(new InvalidBalanceError(error))
 			})
 		}
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(createError('InvalidBytecodeError', error, String(action.deployedBytecode)))
+				errors.push(new InvalidDeployedBytecodeError(error))
 			})
 		}
 		if (formattedErrors.storageRoot) {
 			formattedErrors.storageRoot._errors.forEach((error) => {
-				errors.push(createError('InvalidStorageRootError', error, String(action.storageRoot)))
+				errors.push(new InvalidStorageRootError(error))
 			})
 		}
 	}

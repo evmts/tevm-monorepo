@@ -1,12 +1,27 @@
-import { createError } from '../common/index.js'
+import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '../../../errors/dist/index.cjs'
 import { zBaseCallParams } from '../params/index.js'
+import {
+	InvalidParamsError,
+	InvalidSkipBalanceError,
+	InvalidGasRefundError,
+	InvalidBlockError,
+	InvalidGasPriceError,
+	InvalidOriginError,
+	InvalidCallerError,
+	InvalidDepthError,
+	InvalidBlobVersionedHashesError,
+} from '@tevm/errors'
+
+/**
+ * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError} ValidateBaseCallParamsError
+ */
 
 /**
  * @param {import('@tevm/actions-types').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').BaseCallError>}
+	 * @type {Array<ValidateBaseCallParamsError>}
 	 */
 	const errors = []
 
@@ -17,79 +32,79 @@ export const validateBaseCallParams = (action) => {
 
 		// Iterate over the general errors
 		formattedErrors._errors.forEach((error) => {
-			errors.push(createError('InvalidRequestError', error, JSON.stringify(action)))
+			errors.push(new InvalidParamsError(error))
 		})
 
 		// Error handling for specific fields
 		if (formattedErrors.skipBalance) {
 			formattedErrors.skipBalance._errors.forEach((error) => {
-				errors.push(createError('InvalidSkipBalanceError', error, String(action.skipBalance)))
+				errors.push(new InvalidSkipBalanceError(error))
 			})
 		}
 
 		if (formattedErrors.gasRefund) {
 			formattedErrors.gasRefund._errors.forEach((error) => {
-				errors.push(createError('InvalidGasRefundError', error, String(action.gasRefund)))
+				errors.push(new InvalidGasRefundError(error))
 			})
 		}
 
 		if (formattedErrors.blockTag) {
 			formattedErrors.blockTag._errors.forEach((error) => {
-				errors.push(createError('InvalidBlockError', error, action.blockTag?.toString() ?? 'undefined'))
+				errors.push(new InvalidBlockError(error))
 			})
 		}
 
 		if (formattedErrors.gas) {
 			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(createError('InvalidGasPriceError', error, String(action.gas)))
+				errors.push(new InvalidGasPriceError(error))
 			})
 		}
 
 		if (formattedErrors.origin) {
 			formattedErrors.origin._errors.forEach((error) => {
-				errors.push(createError('InvalidOriginError', error, String(action.origin)))
+				errors.push(new InvalidOriginError(error))
 			})
 		}
 
 		if (formattedErrors.caller) {
 			formattedErrors.caller._errors.forEach((error) => {
-				errors.push(createError('InvalidCallerError', error, String(action.caller)))
+				errors.push(new InvalidCallerError(error))
 			})
 		}
 
 		if (formattedErrors.gas) {
 			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(createError('InvalidGasLimitError', error, String(action.gas)))
+				errors.push(new InvalidGasPriceError(error))
 			})
 		}
 
 		if (formattedErrors.value) {
 			formattedErrors.value._errors.forEach((error) => {
-				errors.push(createError('InvalidValueError', error, String(action.value)))
+				errors.push(new InvalidValueError(error))
 			})
 		}
 
 		if (formattedErrors.depth) {
 			formattedErrors.depth._errors.forEach((error) => {
-				errors.push(createError('InvalidDepthError', error, String(action.depth)))
+				errors.push(new InvalidDepthError(error))
 			})
 		}
 
 		if (formattedErrors.selfdestruct) {
 			formattedErrors.selfdestruct._errors.forEach((error) => {
-				errors.push(createError('InvalidSelfdestructError', error, JSON.stringify(action.selfdestruct)))
+				errors.push(new InvalidSelfdestructError(error))
 			})
 		}
 
 		if (formattedErrors.to) {
 			formattedErrors.to._errors.forEach((error) => {
-				errors.push(createError('InvalidToError', error, String(action.to)))
+				errors.push(new InvalidToError(error))
 			})
 		}
 
 		if (formattedErrors.blobVersionedHashes) {
 			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
-				errors.push(createError('InvalidBlobVersionedHashesError', error, JSON.stringify(action.blobVersionedHashes)))
+				errors.push(new InvalidBlobVersionedHashesError(error))
 			})
 		}
 	}

@@ -1,13 +1,18 @@
-import { createError } from '../common/index.js'
+import { InvalidSaltError } from '@tevm/errors'
 import { zCallParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
+import { InvalidDataError, InvalidDeployedBytecodeError } from '../../../errors/dist/index.cjs'
+
+/**
+ * @typedef {InvalidSaltError| InvalidDataError| InvalidDeployedBytecodeError | import('./validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateCallParamsError
+ */
 
 /**
  * @param {import('@tevm/actions-types').CallParams} action
  */
 export const validateCallParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/errors').CallError>}
+	 * @type {Array<ValidateCallParamsError>}
 	 */
 	const errors = validateBaseCallParams(action)
 
@@ -18,17 +23,17 @@ export const validateCallParams = (action) => {
 
 		if (formattedErrors.salt) {
 			formattedErrors.salt._errors.forEach((error) => {
-				errors.push(createError('InvalidSaltError', error, String(action.salt)))
+				errors.push(new InvalidSaltError(error))
 			})
 		}
 		if (formattedErrors.data) {
 			formattedErrors.data._errors.forEach((error) => {
-				errors.push(createError('InvalidDataError', error, String(action.data)))
+				errors.push(new InvalidDataError(error))
 			})
 		}
 		if (formattedErrors.deployedBytecode) {
 			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(createError('InvalidDeployedBytecodeError', error, String(action.deployedBytecode)))
+				errors.push(new InvalidDeployedBytecodeError(error))
 			})
 		}
 	}
