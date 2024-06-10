@@ -50,8 +50,8 @@ export class GasLimitExceededError extends BaseError {
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/gaslimitexceedederror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/gaslimitexceedederror/',
 			},
 			'GasLimitExceeded',
 			-32000,

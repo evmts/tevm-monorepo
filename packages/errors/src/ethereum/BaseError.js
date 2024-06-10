@@ -55,20 +55,6 @@ export class BaseError extends Error {
 		/**
 		 * @type {string}
 		 */
-		this.message = [
-			shortMessage || 'An error occurred.',
-			'',
-			...(args.metaMessages ? [...args.metaMessages, ''] : []),
-			...(docsPath
-				? [`Docs: ${args.docsBaseUrl ?? 'https://tevm.sh'}${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ''}`]
-				: []),
-			...(details ? [`Details: ${details}`] : []),
-			`Version: ${this.version}`,
-		].join('\n')
-
-		/**
-		 * @type {string}
-		 */
 		this._tag = _tag
 		/**
 		 * @type {string}
@@ -101,6 +87,20 @@ export class BaseError extends Error {
 		 */
 		this.code = code
 		if (args.cause) this.cause = args.cause
+
+		/**
+		 * @type {string}
+		 */
+		this.message = [
+			shortMessage || 'An error occurred.',
+			'',
+			...(args.metaMessages ? [...args.metaMessages, ''] : []),
+			...(docsPath
+				? [`Docs: ${args.docsBaseUrl ?? 'https://tevm.sh'}${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ''}`]
+				: []),
+			...(details ? [`Details: ${details}`] : []),
+			`Version: ${this.version}`,
+		].join('\n')
 	}
 
 	/**
