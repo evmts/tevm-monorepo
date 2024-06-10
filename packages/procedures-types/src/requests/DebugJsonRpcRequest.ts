@@ -1,4 +1,4 @@
-import type { DebugTraceCallParams, DebugTraceTransactionParams } from '@tevm/actions-types'
+import type { DebugTraceCallParams, DebugTraceTransactionParams } from '@tevm/actions'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 

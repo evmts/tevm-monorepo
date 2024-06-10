@@ -34,16 +34,6 @@
         "default": "./index.cjs"
       }
     },
-    "./actions-types": {
-      "import": {
-        "types": "./actions-types/index.d.ts",
-        "default": "./actions-types/index.js"
-      },
-      "require": {
-        "types": "./actions-types/index.d.cts",
-        "default": "./actions-types/index.cjs"
-      }
-    },
     "./common": {
       "import": {
         "types": "./common/index.d.ts",
@@ -180,7 +170,6 @@
   "types": "index.d.ts",
   "files": [
     "index*",
-    "actions-types",
     "base-client",
     "contract",
     "common",
@@ -210,7 +199,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/actions-types": "workspace:^",
+    "actions": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",

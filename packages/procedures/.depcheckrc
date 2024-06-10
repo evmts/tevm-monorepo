@@ -6,7 +6,6 @@ ignores: [
   "@tevm/errors",
   "@tevm/state",
   "@tevm/tx",
-  "@tevm/actions-types",
   "@tevm/procedures-types"
 ]
 skip-missing: true

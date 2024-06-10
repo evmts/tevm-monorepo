@@ -1,5 +1,5 @@
 ---
-"@tevm/actions-types": minor
+"@tevm/actions": minor
 "@tevm/actions": minor
 "@tevm/utils": minor
 "@tevm/vm": minor

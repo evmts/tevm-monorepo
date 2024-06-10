@@ -1,4 +1,4 @@
-import type { BaseCallParams } from '@tevm/actions-types'
+import type { BaseCallParams } from '@tevm/actions'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Hex } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'

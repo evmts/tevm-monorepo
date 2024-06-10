@@ -5,7 +5,7 @@ import { hexToBytes } from '@tevm/utils'
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
  * @param {import('@tevm/base-client').BaseClient} client
- * @param {import('@tevm/actions-types').CallParams} params
+ * @param {import('@tevm/actions').CallParams} params
  * @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
  */
 export const callHandlerOpts = async (client, params) => {
@@ -38,7 +38,7 @@ export const callHandlerOpts = async (client, params) => {
   }
 
   client.logger.debug({block: block.header}, 'Using block')
-  
+
   opts.block = block
 
   // handle block overrides

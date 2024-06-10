@@ -14,7 +14,7 @@ import { validateContractParams } from '@tevm/zod'
 * @param {import('@tevm/base-client').BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
-* @returns {import("@tevm/actions-types").ContractHandler}
+* @returns {import("@tevm/actions").ContractHandler}
 */
 export const contractHandler =
     (client, { throwOnFail: throwOnFailDefault = true } = {}) =>

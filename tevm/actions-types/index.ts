@@ -208,4 +208,4 @@ export type {
   LoadStateParams,
   LoadStateResult,
   NetworkConfig,
-} from '@tevm/actions-types'
+} from '@tevm/actions'

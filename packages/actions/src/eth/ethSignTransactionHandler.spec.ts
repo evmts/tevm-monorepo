@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import type { EthSignTransactionParams } from '@tevm/actions-types'
+import type { EthSignTransactionParams } from '@tevm/actions'
 import { parseGwei } from '@tevm/utils'
 import { ethSignTransactionHandler } from './ethSignTransactionHandler.js'
 import { testAccounts } from './utils/testAccounts.js'

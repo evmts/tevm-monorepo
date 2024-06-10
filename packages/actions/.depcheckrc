@@ -1,5 +1,4 @@
 ignores: [
-  "@tevm/actions-types",
   "@tevm/blockchain",
   "@tevm/procedures-types",
   "@tevm/receipt-manager",

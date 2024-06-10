@@ -21,7 +21,7 @@ const uintEquals = (a, b) => {
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthGetTransactionReceiptHandler}
+ * @returns {import('@tevm/actions').EthGetTransactionReceiptHandler}
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
@@ -45,7 +45,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		// TODO type this
 		const r = /** @type {any}*/ (result)
 		/**
-		 * @type {import('@tevm/actions-types').EthGetTransactionReceiptResult }
+		 * @type {import('@tevm/actions').EthGetTransactionReceiptResult }
 		 */
 		return (
 			r && {
@@ -129,7 +129,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const { totalGasSpent, createdAddress } = res
 	const { blobGasPrice, blobGasUsed } = /** @type {any}*/ (runBlockResult.receipts[txIndex])
 	/**
-	 * @type {import('@tevm/actions-types').EthGetTransactionReceiptResult }
+	 * @type {import('@tevm/actions').EthGetTransactionReceiptResult }
 	 */
 	return {
 		blockHash: bytesToHex(block.hash()),

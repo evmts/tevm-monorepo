@@ -1,5 +1,5 @@
 ---
-"@tevm/actions-types": patch
+"@tevm/actions": patch
 ---
 
 Fixed all params to be readonly and all return values to be mutable

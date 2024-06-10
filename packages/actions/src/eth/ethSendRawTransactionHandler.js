@@ -72,7 +72,7 @@ const getTx = (vm, txBuf) => {
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthSendRawTransactionHandler}
+ * @returns {import('@tevm/actions').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()
@@ -109,7 +109,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		tx = createImpersonatedTx(impersonatedTx)
 	}
 	/**
-	 * @type {import('@tevm/actions-types').CallResult}
+	 * @type {import('@tevm/actions').CallResult}
 	 */
 	let res
 	try {

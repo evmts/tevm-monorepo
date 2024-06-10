@@ -3,7 +3,6 @@
   "out": "./docs",
   "entryPoints": [
     "./index.ts",
-    "./actions-types/index.ts",
     "./contract/index.ts",
     "./errors/index.ts",
     "./memory-client/index.ts",

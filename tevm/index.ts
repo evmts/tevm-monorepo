@@ -16,7 +16,7 @@ export type {
   MineParams,
   MineResult,
   MineHandler,
-} from "@tevm/actions-types";
+} from "@tevm/actions";
 export type {
   TevmJsonRpcRequest,
   TevmJsonRpcRequestHandler,

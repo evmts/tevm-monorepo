@@ -14,7 +14,7 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
-} from '@tevm/actions-types'
+} from '@tevm/actions'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { Address } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'

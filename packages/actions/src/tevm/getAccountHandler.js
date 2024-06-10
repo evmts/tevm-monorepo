@@ -9,7 +9,7 @@ import { validateGetAccountParams } from '@tevm/zod'
  * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('@tevm/actions-types').GetAccountHandler}
+ * @returns {import('@tevm/actions').GetAccountHandler}
  */
 export const getAccountHandler =
   (client, options = {}) =>
@@ -78,7 +78,7 @@ export const getAccountHandler =
             : '0x'
 
         return {
-          // TODO some of these fields are not in the api and should be added to @tevm/actions-types
+          // TODO some of these fields are not in the api and should be added to @tevm/actions
           address: params.address,
           balance: res.balance,
           codeHash: bytesToHex(res.codeHash),

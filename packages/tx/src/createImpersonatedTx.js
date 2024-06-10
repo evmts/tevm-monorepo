@@ -7,7 +7,6 @@ import { EthjsAddress, keccak256 } from '@tevm/utils'
  */
 
 /**
- * @internal
  * Creates an impersonated tx that wraps {@link FeeMarketEIP1559Transaction}.
  * Wraps following methods
  * - 'isImpersonated'

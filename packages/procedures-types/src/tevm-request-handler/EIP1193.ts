@@ -1,4 +1,4 @@
-import type { GetAccountResult, TransactionParams } from '@tevm/actions-types'
+import type { GetAccountResult, TransactionParams } from '@tevm/actions'
 import type { Filter } from '@tevm/utils'
 import type {
 	AnvilJsonRpcRequest,

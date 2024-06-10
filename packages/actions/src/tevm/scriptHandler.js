@@ -15,7 +15,7 @@ import { validateScriptParams } from '@tevm/zod'
 * @param {import("@tevm/base-client").BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
-* @returns {import("@tevm/actions-types").ScriptHandler}
+* @returns {import("@tevm/actions").ScriptHandler}
 */
 export const scriptHandler = (client, options = {}) => async (params) => {
 client.logger.debug({ functionName: params.functionName, abi: params.abi, args: params.args, deployedBytecode: params.deployedBytecode }, 'Processing script...')
@@ -118,7 +118,7 @@ throw new Error("NoContractCode: Script contract code was not successfully added
 }
 
 /**
-* @type {import('@tevm/actions-types').CallParams}
+* @type {import('@tevm/actions').CallParams}
 */
 const callParams = {
 ...params,

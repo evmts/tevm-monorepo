@@ -26,7 +26,7 @@
 "@tevm/ts-plugin": patch
 "@tevm/vscode": patch
 "@tevm/actions": patch
-"@tevm/actions-types": patch
+"@tevm/actions": patch
 "@tevm/client-types": patch
 "@tevm/contract": patch
 "@tevm/effect": patch
@@ -45,7 +45,7 @@
 
 - Renamed MemoryTevm MemoryClient
 - Renamed TevmClient HttpClient
-- Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
+- Replaced @tevm/actions package with @tevm/actions, @tevm/client-types, and @tevm/procedures-types packages
 - Moved errors to @tevm/errors
 - Moved bundler packages out of tevm and to @tevm/bundler package
 - Minimized packages exposed in tevm package

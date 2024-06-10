@@ -1,5 +1,5 @@
 ---
-"@tevm/actions-types": minor
+"@tevm/actions": minor
 "@tevm/memory-client": minor
 "@tevm/actions": minor
 "tevm": minor

@@ -37,7 +37,7 @@ import { numberToBytes } from 'viem'
 * @param {import('@tevm/base-client').BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail]
-* @returns {import('@tevm/actions-types').CallHandler}
+* @returns {import('@tevm/actions').CallHandler}
 */
 export const callHandler =
 (client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
@@ -160,7 +160,7 @@ return {}
 */
 let evmOutput = undefined
 /**
-* @type {import('@tevm/actions-types').DebugTraceCallResult | undefined}
+* @type {import('@tevm/actions').DebugTraceCallResult | undefined}
 */
 let trace = undefined
 /**

@@ -1,4 +1,4 @@
-import type { SetAccountResult } from '@tevm/actions-types'
+import type { SetAccountResult } from '@tevm/actions'
 import type { SetAccountError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'

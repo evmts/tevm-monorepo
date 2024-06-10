@@ -8,7 +8,7 @@ import { validateMineParams } from '@tevm/zod'
 * @param {import("@tevm/base-client").BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
-* @returns {import('@tevm/actions-types').MineHandler}
+* @returns {import('@tevm/actions').MineHandler}
 */
 export const mineHandler =
     (client, options = {}) =>

@@ -1,4 +1,0 @@
-ignores: [
-  "@tevm/base-client"
-]
-skip-missing: true

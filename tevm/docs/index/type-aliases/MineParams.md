@@ -13,7 +13,7 @@ Tevm params to mine 1 or more blocks
 ## Example
 
 ```ts
-const mineParams: import('@tevm/actions-types').MineParams = {
+const mineParams: import('@tevm/actions').MineParams = {
   blockCount: 5,
 }
 ```

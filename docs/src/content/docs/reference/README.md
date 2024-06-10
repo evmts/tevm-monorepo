@@ -11,8 +11,6 @@ title: "Documentation"
 - [@tevm/base-client](/reference/tevm/base-client/readme/)
 - [@tevm/blockchain](/reference/tevm/blockchain/readme/)
 - [@tevm/evm](/reference/tevm/evm/readme/)
-- [@tevm/actions-types](/reference/tevm/actions-types/readme/)
-- [@tevm/client-types](/reference/tevm/client-types/readme/)
 - [@tevm/contract](/reference/tevm/contract/readme/)
 - [@tevm/common](/reference/tevm/common/readme/)
 - [@tevm/errors](/reference/tevm/errors/readme/)

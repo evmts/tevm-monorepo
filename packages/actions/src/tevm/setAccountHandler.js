@@ -10,7 +10,7 @@ import { getAccountHandler } from './getAccountHandler.js'
  * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('@tevm/actions-types').SetAccountHandler}
+ * @returns {import('@tevm/actions').SetAccountHandler}
  */
 export const setAccountHandler = (client, options = {}) => async (params) => {
   const { throwOnFail = options.throwOnFail ?? true } = params

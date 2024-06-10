@@ -1,5 +1,5 @@
-import type { CallResult, GetAccountResult, SetAccountResult } from '@tevm/actions-types'
-import type { DumpStateResult, LoadStateResult } from '@tevm/actions-types'
+import type { CallResult, GetAccountResult, SetAccountResult } from '@tevm/actions'
+import type { DumpStateResult, LoadStateResult } from '@tevm/actions'
 import type {
 	CallJsonRpcRequest,
 	DumpStateJsonRpcRequest,

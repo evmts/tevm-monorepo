@@ -9,7 +9,7 @@ import { parseBlockTag } from '../utils/parseBlockTag.js'
 */
 export const scriptProcedure = (client) => async (request) => {
 /**
-* @type {import('@tevm/actions-types').ScriptResult}
+* @type {import('@tevm/actions').ScriptResult}
 */
 let res
 try {

@@ -76,11 +76,9 @@
     "@tevm/state": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^",
-    "@tevm/zod": "workspace:^"
+    "@tevm/vm": "workspace:^"
   },
   "devDependencies": {
-    "@tevm/actions-types": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",

@@ -3,7 +3,6 @@ import { defineConfig } from 'tsup'
 
 const dirs = [
 '.',
-'actions-types',
 'contract',
 'memory-client',
 'errors',

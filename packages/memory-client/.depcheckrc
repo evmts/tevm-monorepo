@@ -1,5 +1,4 @@
 ignores: [
-  "@tevm/actions-types",
   "@tevm/errors"
 ]
 skip-missing: true

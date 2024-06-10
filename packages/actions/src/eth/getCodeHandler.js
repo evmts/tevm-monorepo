@@ -7,7 +7,7 @@ import { NoForkUrlSetError } from './getBalanceHandler.js'
  * @param {object} options
  * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
  * @param {{request: import('viem').EIP1193RequestFn}}  [options.forkClient]
- * @returns {import('@tevm/actions-types').EthGetCodeHandler}
+ * @returns {import('@tevm/actions').EthGetCodeHandler}
  */
 export const getCodeHandler =
 	({ getVm, forkClient }) =>

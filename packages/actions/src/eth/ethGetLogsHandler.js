@@ -5,7 +5,7 @@ import { InternalRpcError } from 'viem'
 
 /**
  * @param {import('@tevm/blockchain').Chain} blockchain
- * @param {import('@tevm/actions-types').BlockParam} blockParam
+ * @param {import('@tevm/actions').BlockParam} blockParam
  * @returns {Promise<bigint >}
  */
 const parseBlockParam = async (blockchain, blockParam) => {
@@ -55,7 +55,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 // TODO support EIP-234
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthGetLogsHandler}
+ * @returns {import('@tevm/actions').EthGetLogsHandler}
  */
 export const ethGetLogsHandler = (client) => async (params) => {
 	params.filterParams.topics
@@ -75,7 +75,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const forkedBlock = vm.blockchain.blocksByTag.get('forked')
 
 	/**
-	 * @type {import('@tevm/actions-types').EthGetLogsResult}
+	 * @type {import('@tevm/actions').EthGetLogsResult}
 	 */
 	const logs = []
 

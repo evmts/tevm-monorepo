@@ -27,7 +27,7 @@
 "@tevm/ts-plugin": patch
 "@tevm/vscode": patch
 "@tevm/actions": patch
-"@tevm/actions-types": patch
+"@tevm/actions": patch
 "@tevm/client-types": patch
 "@tevm/contract": patch
 "@tevm/effect": patch

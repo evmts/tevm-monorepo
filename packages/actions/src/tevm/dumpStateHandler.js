@@ -5,7 +5,7 @@ import { maybeThrowOnFail } from './maybeThrowOnFail.js'
  * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('@tevm/actions-types').DumpStateHandler}
+ * @returns {import('@tevm/actions').DumpStateHandler}
  */
 export const dumpStateHandler =
   (client, options = {}) =>

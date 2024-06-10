@@ -1,4 +1,4 @@
-import type { BaseCallParams, FilterParams } from '@tevm/actions-types'
+import type { BaseCallParams, FilterParams } from '@tevm/actions'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'

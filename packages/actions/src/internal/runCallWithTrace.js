@@ -6,7 +6,7 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
  * @param {import('@tevm/base-client').BaseClient['logger']} logger
  * @param {import('@tevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('@tevm/actions-types').DebugTraceCallResult}>}
+ * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('@tevm/actions').DebugTraceCallResult}>}
  */
 export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) => {
 	/**
@@ -21,7 +21,7 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 		returnValue: '0x0',
 		failed: false,
 		/**
-		 * @type {Array<import('@tevm/actions-types').DebugTraceCallResult['structLogs'][number]>}
+		 * @type {Array<import('@tevm/actions').DebugTraceCallResult['structLogs'][number]>}
 		 */
 		structLogs: [],
 	}
