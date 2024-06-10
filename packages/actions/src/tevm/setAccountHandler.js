@@ -1,22 +1,23 @@
 import { createError } from './createError.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
-import { EthjsAccount, EthjsAddress} from '@tevm/utils'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
-import { validateSetAccountParams } from '@tevm/zod'
 import { getAccountHandler } from './getAccountHandler.js'
+import { validateSetAccountParams } from '../zod/index.js'
+import { AccountNotFoundError, InternalError } from '@tevm/errors'
 
 /**
- * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
- * @param {import("@tevm/base-client").BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('@tevm/actions').SetAccountHandler}
- */
+* Creates an SetAccountHandler for handling account params with Ethereumjs EVM
+* @param {import("@tevm/base-client").BaseClient} client
+* @param {object} [options]
+* @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
+* @returns {import('./SetAccountHandlerTypes.js').SetAccountHandler}
+*/
 export const setAccountHandler = (client, options = {}) => async (params) => {
   const { throwOnFail = options.throwOnFail ?? true } = params
   /**
-   * @type {Array<import('@tevm/errors').SetAccountError>}
-   */
+  * @type {Array<import('./TevmSetAccountError.js').TevmSetAccountError>}
+  */
   const errors = validateSetAccountParams(params)
   if (errors.length > 0) {
     return maybeThrowOnFail(throwOnFail, { errors })
@@ -25,13 +26,13 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
   const address = new EthjsAddress(hexToBytes(params.address))
 
   /**
-   * @type {Array<Promise<any>>}
-   */
+  * @type {Array<Promise<any>>}
+  */
   const promises = []
   try {
     const vm = await client.getVm()
     const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
-    if (account.errors?.length && account.errors[0]?._tag !== 'AccountNotFoundError') {
+    if (account.errors?.length && account.errors[0] instanceof AccountNotFoundError) {
       client.logger.error('there was an unexpected error getting account', account.errors)
       throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[1]
     }
@@ -74,7 +75,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
     const results = await Promise.allSettled(promises)
     for (const result of results) {
       if (result.status === 'rejected') {
-        errors.push(result.reason)
+        errors.push(new InternalError('Unable to put storage', { cause: result.reason }))
       }
     }
 
@@ -87,14 +88,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
     return {}
   } catch (e) {
     errors.push(
-      createError(
-        'UnexpectedError',
-        typeof e === 'string'
-          ? e
-          : e instanceof Error
-            ? e.message
-            : 'unknown error',
-      ),
+      new InternalError('Unexpected error setting account', { cause: e })
     )
     return maybeThrowOnFail(throwOnFail, { errors })
   }

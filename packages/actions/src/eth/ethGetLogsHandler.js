@@ -5,7 +5,7 @@ import { InternalRpcError } from 'viem'
 
 /**
  * @param {import('@tevm/blockchain').Chain} blockchain
- * @param {import('@tevm/actions').BlockParam} blockParam
+ * @param {import('../common/BlockParam.js').BlockParam} blockParam
  * @returns {Promise<bigint >}
  */
 const parseBlockParam = async (blockchain, blockParam) => {
@@ -85,7 +85,9 @@ export const ethGetLogsHandler = (client) => async (params) => {
 		// if the range includes prefork blocks (including fork since we don't have receipts for the fork block) then we need to fetch the logs from the forked chain
 		if (!client.forkTransport) {
 			throw new InternalRpcError(
-				new Error('InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm'),
+				new Error(
+					'InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm',
+				),
 			)
 		}
 		const fetcher = createJsonRpcFetcher(client.forkTransport)
@@ -106,10 +108,12 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			],
 		})
 		if (error) {
-			throw new ForkError('Error fetching logs from forked chain', {cause: error})
+			throw new ForkError('Error fetching logs from forked chain', { cause: error })
 		}
 		if (!jsonRpcLogs) {
-			throw new ForkError('Error fetching logs from forked chain no logs returned', {cause: new Error('Unexpected no logs')})
+			throw new ForkError('Error fetching logs from forked chain no logs returned', {
+				cause: new Error('Unexpected no logs'),
+			})
 		}
 		// fix this to not be procedures-types
 		const typedLogs = /** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcResponse['result']}*/ (jsonRpcLogs)

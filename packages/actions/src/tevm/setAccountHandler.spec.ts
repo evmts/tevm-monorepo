@@ -40,14 +40,7 @@ describe('setAccountHandler', () => {
       nonce: 69n,
       throwOnFail: false,
     })
-    expect(res.errors).toEqual([
-      {
-        _tag: 'InvalidAddressError',
-        name: 'InvalidAddressError',
-        message: 'InvalidAddressError: Required',
-        ...{ input: 'undefined' },
-      },
-    ])
+    expect(res.errors).toMatchSnapshot()
   })
 
   it('should handle putAccount throwing', async () => {
@@ -71,12 +64,6 @@ describe('setAccountHandler', () => {
       nonce: 69n,
       throwOnFail: false,
     })
-    expect(res.errors).toEqual([
-      {
-        _tag: 'UnexpectedError',
-        name: 'UnexpectedError',
-        message: 'UnexpectedError: test',
-      },
-    ])
+    expect(res.errors).toMatchSnapshot()
   })
 })

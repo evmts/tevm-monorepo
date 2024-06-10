@@ -13,7 +13,7 @@ isHex,
 * @param {import('@tevm/base-client').BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
-* @returns {import("@tevm/actions").DeployHandler}
+* @returns {import("./DeployHandlerType.js").DeployHandler}
 */
 export const deployHandler =
 (client, { throwOnFail: throwOnFailDefault = true } = {}) =>

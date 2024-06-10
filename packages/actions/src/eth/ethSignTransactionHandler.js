@@ -4,7 +4,7 @@ import { MissingAccountError } from './ethSignHandler.js'
  * @param {object} options
  * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} options.accounts
  * @param {() => Promise<number>} options.getChainId
- * @returns {import('@tevm/actions').EthSignTransactionHandler}
+ * @returns {import('./EthHandler.js').EthSignTransactionHandler}
  */
 export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
 	const accountsByAddress = Object.fromEntries(accounts.map((account) => [account.address, account]))

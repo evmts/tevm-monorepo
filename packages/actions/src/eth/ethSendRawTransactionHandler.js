@@ -109,7 +109,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		tx = createImpersonatedTx(impersonatedTx)
 	}
 	/**
-	 * @type {import('@tevm/actions').CallResult}
+	 * @type {import('../tevm/CallResult.js').CallResult}
 	 */
 	let res
 	try {

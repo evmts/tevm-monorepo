@@ -1,11 +1,11 @@
-import type { LoadStateError } from '@tevm/errors'
+import { type TevmLoadStateError } from "./TevmLoadStateError.js"
 
 /**
- * Result of LoadState Method
- */
-export type LoadStateResult<ErrorType = LoadStateError> = {
-	/**
-	 * Description of the exception, if any occurred
-	 */
-	errors?: ErrorType[]
+* Result of LoadState Method
+*/
+export type LoadStateResult<ErrorType = TevmLoadStateError> = {
+/**
+* Description of the exception, if any occurred
+*/
+errors?: ErrorType[]
 }

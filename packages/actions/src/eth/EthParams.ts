@@ -7,7 +7,7 @@ import type {
 	Hex,
 	StateOverrideSet,
 } from '../common/index.js'
-import type { CallParams } from './CallParams.js'
+import type { CallParams } from '../tevm/CallParams.js'
 
 // eth_accounts
 /**
