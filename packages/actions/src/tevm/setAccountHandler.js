@@ -1,4 +1,3 @@
-import { createError } from './createError.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'

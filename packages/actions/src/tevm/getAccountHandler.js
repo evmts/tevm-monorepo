@@ -1,6 +1,5 @@
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
 import { validateGetAccountParams } from '../zod/index.js'
-import { createError } from './createError.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
@@ -17,7 +16,7 @@ export const getAccountHandler =
     async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
       const vm = await client.getVm()
       /**
-       * @type {TevmGetAccountError}
+       * @type {Array<import('./TevmGetAccountError.js').TevmGetAccountError>}
        */
       const errors = validateGetAccountParams(params)
       if (errors.length > 0) {

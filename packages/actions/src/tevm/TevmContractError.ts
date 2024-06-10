@@ -1,1 +1,3 @@
-export type TevmContractError = Error
+import type { TevmCallError } from "./TevmCallError.js";
+
+export type TevmContractError = TevmCallError

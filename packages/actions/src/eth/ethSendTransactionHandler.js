@@ -7,7 +7,7 @@ import { callHandler } from '../index.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions').EthSendTransactionHandler}
+ * @returns {import('./EthHandler.js').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
 	let tx = TransactionFactory.fromTxData(params, { freeze: false })

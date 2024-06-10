@@ -72,7 +72,7 @@ const getTx = (vm, txBuf) => {
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions').EthSendRawTransactionHandler}
+ * @returns {import('./EthHandler.js').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()

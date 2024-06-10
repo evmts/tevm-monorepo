@@ -39,7 +39,7 @@ import { InternalError } from '@tevm/errors'
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail]
 * @returns {import('./CallHandlerType.js').CallHandler}
-* @throws {import('./TevmCallError.js').TevmCallError}
+* @throws {import('./TevmCallError.js').TevmCallError} if throwOnFail is true returns TevmCallError as value
 * @example
 * ```typescript
 * import { createBaseClient } from 'tevm/base-client'

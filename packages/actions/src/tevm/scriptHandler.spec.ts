@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import type { ScriptParams, ScriptResult } from '../index.js'
-import type { ScriptHandler } from './ScriptHandler.js'
+import type { ScriptResult } from './ScriptResult.js'
+import type { ScriptParams} from './ScriptParams.js'
+import type { ScriptHandler } from './ScriptHandlerType.js'
 
 describe('ScriptHandler', () => {
 	it('Is a generic type that infers the abi function name arg and return type and requires deployedBytecode', async () => {

@@ -55,7 +55,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 // TODO support EIP-234
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions').EthGetLogsHandler}
+ * @returns {import('./EthHandler.js').EthGetLogsHandler}
  */
 export const ethGetLogsHandler = (client) => async (params) => {
 	params.filterParams.topics
@@ -75,7 +75,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const forkedBlock = vm.blockchain.blocksByTag.get('forked')
 
 	/**
-	 * @type {import('@tevm/actions').EthGetLogsResult}
+	 * @type {import('./EthResult.js').EthGetLogsResult}
 	 */
 	const logs = []
 

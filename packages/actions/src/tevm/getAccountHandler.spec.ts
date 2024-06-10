@@ -32,13 +32,6 @@ describe('getAccount', () => {
       address: 'not an address',
       throwOnFail: false,
     })
-    expect(res.errors).toEqual([
-      {
-        _tag: 'InvalidAddressError',
-        name: 'InvalidAddressError',
-        ...{ input: 'not an address' },
-        message: 'InvalidAddressError: Invalid Address not an address',
-      },
-    ])
+    expect(res.errors).toMatchSnapshot()
   })
 })

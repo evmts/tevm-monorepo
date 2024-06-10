@@ -1,3 +1,4 @@
+import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
 import { callHandler } from './callHandler.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { EthjsAddress } from '@tevm/utils'
@@ -7,14 +8,14 @@ import {
     encodeFunctionData,
     isHex,
 } from '@tevm/utils'
-import { validateContractParams } from '@tevm/zod'
+import { validateContractParams } from '../zod/index.js'
 
 /**
 * Creates an ContractHandler for handling contract params with Ethereumjs EVM
 * @param {import('@tevm/base-client').BaseClient} client
 * @param {object} [options]
 * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
-* @returns {import("@tevm/actions").ContractHandler}
+* @returns {import("./ContractHandlerType.js").ContractHandler}
 */
 export const contractHandler =
     (client, { throwOnFail: throwOnFailDefault = true } = {}) =>
@@ -81,14 +82,8 @@ export const contractHandler =
                     e,
                     'contractHandler: Unable to encode the abi, functionName, and args into hex data',
                 )
-                /**
-                * @type {import('@tevm/errors').InvalidRequestError}
-                */
-                const err = {
-                    name: 'InvalidRequestError',
-                    _tag: 'InvalidRequestError',
-                    message: /** @type {Error}*/ (e).message,
-                }
+                const cause =/** @type {Error}*/ (e)
+                const err = new InvalidRequestError(cause.message, {cause})
                 return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
                     rawData: '0x',
                     executionGasUsed: 0n,
@@ -111,7 +106,7 @@ export const contractHandler =
 
             if (result.errors && result.errors.length > 0) {
                 result.errors = result.errors.map((err) => {
-                    if (isHex(err.message) && err._tag === 'revert') {
+                    if (isHex(err.message) && err instanceof RevertError) {
                         client.logger.debug(
                             err,
                             'contractHandler: Contract revert error. Decoding the error',
@@ -128,14 +123,12 @@ export const contractHandler =
                                     functionName: params.functionName,
                                 }),
                             )
-                        } catch (e) {
-                            client.logger.debug(e, 'There was an error decoding error result')
-                        }
                         const message = `Revert: ${decodedError?.errorName ?? `There was a revert with no revert message ${err.message}`}`
                         client.logger.debug(err, message)
-                        return {
-                            ...err,
-                            message,
+                        return new RevertError(message, {cause: err})
+                        } catch (e) {
+                            client.logger.debug(e, 'There was an error decoding error result')
+                            return err
                         }
                     }
                     return err
@@ -161,14 +154,8 @@ export const contractHandler =
                     e,
                     'contractHandler: Error decoding returned call data with provided abi and functionName',
                 )
-                /**
-                * @type {import('@tevm/errors').ContractError}
-                */
-                const err = {
-                    name: 'DecodeFunctionDataError',
-                    _tag: 'DecodeFunctionDataError',
-                    message: /** @type {Error}*/ (e).message,
-                }
+                const cause = /** @type {Error}*/ (e)
+            const err = new DecodeFunctionDataError(cause.message, {cause})
                 return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
                     debugContext: {
                         abi: params.abi,
