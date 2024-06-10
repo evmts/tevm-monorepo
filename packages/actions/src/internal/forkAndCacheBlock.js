@@ -1,5 +1,5 @@
+import {ForkError, InternalError, InvalidAbiError} from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
-import {InvalidAbiError} from '@tevm/errors'
 
 /**
  * Will fork a given block number and save the state roots to state manager
@@ -14,7 +14,7 @@ export const forkAndCacheBlock = async (client, block, executeBlock = false) => 
 	const vm = await client.getVm()
 	// this can't happen making ts happy
 	if (!client.forkTransport) {
-		throw new Internal(new Error('Cannot fork without a fork url')
+		throw new InternalError('Cannot forkAndCacheBlock without a fork url')
 	}
 	const stateManager = createStateManager({
 		...vm.evm.stateManager._baseState.options,

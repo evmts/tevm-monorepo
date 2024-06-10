@@ -1,6 +1,6 @@
 import { createError } from './createError.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
-import { EthjsAccount, EthjsAddress, getAddress } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress} from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { validateSetAccountParams } from '@tevm/zod'
 import { getAccountHandler } from './getAccountHandler.js'
@@ -81,29 +81,9 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
     if (errors.length > 0) {
       return maybeThrowOnFail(throwOnFail, { errors })
     }
-
-    if (params.deployedBytecode) {
-      const account = await getAccountHandler(client)({ ...params, throwOnFail: true })
-      if (account.deployedBytecode !== params.deployedBytecode) {
-        client.logger.debug(account, 'no bytecode in account')
-        throw new Error('InternalError: Deployed bytecoded never added')
-      }
-    }
-
     await vm.stateManager.checkpoint()
     await vm.stateManager.commit(false)
 
-    if (params.deployedBytecode) {
-      const account = await getAccountHandler(client)({ ...params, throwOnFail: true })
-      if (account.deployedBytecode !== params.deployedBytecode) {
-        client.logger.debug(account, 'no bytecode in account')
-        throw new Error('InternalError: getAccountHandler Deployed bytecoded never added after checkpointing')
-      }
-      const state = vm.stateManager._baseState.stateRoots.get(vm.stateManager._baseState.getCurrentStateRoot())
-      if (state?.[getAddress(params.address)]?.deployedBytecode === undefined) {
-        throw new Error('InternalERror: statemanager cache Contract bytecode never added in setAccountHandler after checkpointing')
-      }
-    }
     return {}
   } catch (e) {
     errors.push(
