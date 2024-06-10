@@ -6,7 +6,7 @@ import { zLoadStateParams } from '../params/zLoadStateParams.js'
  */
 
 /**
- * @param {import('@tevm/actions').LoadStateParams} action
+ * @param {import('../../tevm/LoadStateParams.js').LoadStateParams} action
  * @returns {Array<ValidateLoadStateParamsError>}
  */
 export const validateLoadStateParams = (action) => {

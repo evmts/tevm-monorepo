@@ -6,7 +6,7 @@ import { zMineParams } from '../params/index.js'
  */
 
 /**
- * @param {import('@tevm/actions').MineParams} action
+ * @param {import('../../tevm/MineParams.js').MineParams} action
  * @returns {Array<ValidateMineParamsError>}
  */
 export const validateMineParams = (action) => {

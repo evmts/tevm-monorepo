@@ -1,8 +1,8 @@
 import { expect, test } from 'bun:test'
-import type { LoadStateParams } from '@tevm/actions'
 import { stringToHex } from 'viem'
 import type { z } from 'zod'
 import { zLoadStateParams } from './zLoadStateParams.js'
+import type { LoadStateParams } from '../../tevm/LoadStateParams.js'
 
 test('zLoadStateParams', () => {
 	const AccountStorage = {

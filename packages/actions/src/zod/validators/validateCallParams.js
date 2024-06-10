@@ -1,5 +1,5 @@
 import { InvalidSaltError } from '@tevm/errors'
-import { InvalidDataError, InvalidDeployedBytecodeError } from '../../../errors/dist/index.cjs'
+import { InvalidDataError, InvalidDeployedBytecodeError } from '@tevm/errors'
 import { zCallParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
@@ -8,7 +8,7 @@ import { validateBaseCallParams } from './validateBaseCallParams.js'
  */
 
 /**
- * @param {import('@tevm/actions').CallParams} action
+ * @param {import('../../tevm/CallParams.js').CallParams} action
  */
 export const validateCallParams = (action) => {
 	/**

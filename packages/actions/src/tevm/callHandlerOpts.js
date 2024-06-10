@@ -1,17 +1,23 @@
+import { UnknownBlockError, InvalidBlockError, InvalidParamsError } from '@tevm/errors'
 import { setAccountHandler } from '../index.js'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 
 /**
- * Parses user provided params into ethereumjs options to pass into the EVM
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {import('@tevm/actions').CallParams} params
- * @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
- */
+* @typedef {UnknownBlockError | UnknownBlockError | InvalidParamsError} CallHandlerOptsError
+*/
+
+/**
+* Parses user provided params into ethereumjs options to pass into the EVM
+* @param {import('@tevm/base-client').BaseClient} client
+* @param {import('./CallParams.js').CallParams} params
+* @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
+* @throws { CallHandlerOptsError }
+*/
 export const callHandlerOpts = async (client, params) => {
   /**
-   * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
-   */
+  * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
+  */
   const opts = {}
   const vm = await client.getVm()
 
@@ -30,14 +36,14 @@ export const callHandlerOpts = async (client, params) => {
     if (params.blockTag === 'latest' || params.blockTag === 'safe' || params.blockTag === 'pending' || params.blockTag === 'earliest' || params.blockTag === 'finalized') {
       return vm.blockchain.blocksByTag.get(/** */(params.blockTag))
     }
-    throw new Error(`Unknown blocktag ${params.blockTag}`)
+    throw new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
   })()
   if (!block) {
     // TODO need better error handling here
-    throw new Error('No block found')
+    throw new UnknownBlockError('No block found')
   }
 
-  client.logger.debug({block: block.header}, 'Using block')
+  client.logger.debug({ block: block.header }, 'Using block')
 
   opts.block = block
 
@@ -88,11 +94,6 @@ export const callHandlerOpts = async (client, params) => {
     }
   }
 
-  /**
-   * @type {Array<Error>}
-   */
-  const errors = []
-
   // handle state overrides
   if (params.stateOverrideSet) {
     client.logger.debug(
@@ -112,7 +113,7 @@ export const callHandlerOpts = async (client, params) => {
         throwOnFail: false,
       })
       if (res.errors?.length) {
-        errors.push(...res.errors)
+        throw new InvalidParamsError('Invalid state override', { cause: res.errors.length === 1 ? res.errors[0] : new AggregateError(res.errors) })
       }
     }
   }
@@ -162,5 +163,5 @@ export const callHandlerOpts = async (client, params) => {
   }
 
 
-  return errors.length > 0 ? { data: opts, errors } : { data: opts }
+  return { data: opts }
 }

@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
-import type { SetAccountParams } from '@tevm/actions'
 import type { z } from 'zod'
 import { zSetAccountParams } from './zSetAccountParams.js'
+import type { SetAccountParams } from '../../tevm/SetAccountParams.js'
 
 test('zSetAccountParams', () => {
 	const accountParams = {

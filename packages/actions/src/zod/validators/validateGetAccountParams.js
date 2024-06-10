@@ -6,7 +6,7 @@ import { zGetAccountParams } from '../params/index.js'
  */
 
 /**
- * @param {import('@tevm/actions').GetAccountParams} action
+ * @param {import('../../tevm/GetAccountParams.js').GetAccountParams} action
  * @returns {Array<ValidateGetAccountParamsError>}
  */
 export const validateGetAccountParams = (action) => {

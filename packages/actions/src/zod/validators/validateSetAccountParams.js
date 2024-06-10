@@ -13,7 +13,7 @@ import { zSetAccountParams } from '../params/index.js'
  */
 
 /**
- * @param {import('@tevm/actions').SetAccountParams} action
+ * @param {import('../../tevm/SetAccountParams.js').SetAccountParams} action
  * @returns {Array<ValidateSetAccountParamsError>}
  */
 export const validateSetAccountParams = (action) => {

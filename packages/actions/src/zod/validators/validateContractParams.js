@@ -7,7 +7,7 @@ import { validateBaseCallParams } from './validateBaseCallParams.js'
  */
 
 /**
- * @param {import('@tevm/actions').ContractParams} action
+ * @param {import('../../tevm/ContractParams.js').ContractParams} action
  * @returns {Array<ValidateContractParamsError>}
  */
 export const validateContractParams = (action) => {

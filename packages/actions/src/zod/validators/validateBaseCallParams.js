@@ -9,7 +9,7 @@ import {
 	InvalidParamsError,
 	InvalidSkipBalanceError,
 } from '@tevm/errors'
-import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '../../../errors/dist/index.cjs'
+import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '@tevm/errors'
 import { zBaseCallParams } from '../params/index.js'
 
 /**
@@ -17,7 +17,7 @@ import { zBaseCallParams } from '../params/index.js'
  */
 
 /**
- * @param {import('@tevm/actions').BaseCallParams} action
+ * @param {import('../../tevm/BaseCallParams.js').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
 	/**

@@ -111,6 +111,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 		if (!jsonRpcLogs) {
 			throw new ForkError('Error fetching logs from forked chain no logs returned', {cause: new Error('Unexpected no logs')})
 		}
+		// fix this to not be procedures-types
 		const typedLogs = /** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcResponse['result']}*/ (jsonRpcLogs)
 		if (typedLogs !== undefined) {
 			logs.push(
