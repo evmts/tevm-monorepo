@@ -48,7 +48,12 @@ export {
 	DecodeFunctionDataError,
 	EncodeFunctionReturnDataError,
 } from './utils/index.js'
-export * from './fork/ForkError.js'
+export {
+	type NoForkTransportSetErrorParameters,
+	NoForkTransportSetError,
+	type ForkErrorParameters,
+	ForkError,
+} from './fork/index.js'
 export {
 	BaseError,
 	ParseError,
