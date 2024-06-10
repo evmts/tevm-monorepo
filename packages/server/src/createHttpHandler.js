@@ -75,7 +75,7 @@ export const createHttpHandler = (client) => {
             method: 'unknown',
             jsonrpc: '2.0',
             error: {
-              code: err._tag,
+              code: -32700,
               message: err.message,
             },
           }),

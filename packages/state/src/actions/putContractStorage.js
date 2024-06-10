@@ -1,3 +1,4 @@
+import {UnexpectedInternalServerError} from '@tevm/errors'
 import { getAccount } from './getAccount.js'
 
 /**
@@ -6,7 +7,7 @@ import { getAccount } from './getAccount.js'
  */
 const stripZeros = (bytes) => {
 	if (!(bytes instanceof Uint8Array)) {
-		throw new Error('Unexpected type')
+		throw new UnexpectedInternalServerError('Unexpected type')
 	}
 	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
 }
@@ -19,12 +20,12 @@ const stripZeros = (bytes) => {
  */
 export const putContractStorage = (baseState) => async (address, key, value) => {
 	if (key.length !== 32) {
-		throw new Error(`Storage key must be 32 bytes long. Received ${key}`)
+		throw new UnexpectedInternalServerError(`Storage key must be 32 bytes long. Received ${key}`)
 	}
 
 	const account = await getAccount(baseState)(address)
 	if (!account) {
-		throw new Error('cannot putContractStorage on non existing acccount!')
+		throw new UnexpectedInternalServerError('cannot putContractStorage on non existing acccount! Consider checking if account exists first')
 	}
 	baseState.caches.storage.put(address, key, stripZeros(value))
 }

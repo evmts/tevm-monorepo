@@ -1,6 +1,6 @@
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import type { QueryClient } from '@tanstack/react-query'
-import { configureChains, createConfig } from 'wagmi'
+import { createConfig } from 'wagmi'
 import { mainnet, optimismGoerli } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
