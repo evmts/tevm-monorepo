@@ -25,7 +25,7 @@ const client = createMemoryClient({
 })
 
 // execute the EVM locally in the browser, node.js, deno and Bun
-const balance = client.readContract(
+const balance = await client.readContract(
   ERC20
     .withAddress('0x4200000000000000000000000000000000000042')
     .read
