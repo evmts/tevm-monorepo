@@ -1,3 +1,4 @@
+// This code is originally from viem
 /**
  * Utility function to get the version.
  * @returns {string} The version string.
@@ -10,7 +11,7 @@ const getVersion = () => '1.1.0.next-73'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|Error} [cause] - The cause of the error.
+ * @property {BaseError|Error|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  */
 
@@ -42,7 +43,13 @@ export class BaseError extends Error {
 		super()
 
 		const details =
-			args.cause instanceof BaseError ? args.cause.details : args.cause?.message ? args.cause.message : args.details
+			args.cause instanceof BaseError
+				? args.cause.details
+				: args.cause !== undefined && 'errorType' in args.cause
+					? args.cause.errorType
+					: args.cause?.message
+						? args.cause.message
+						: args.details
 		const docsPath = args.cause instanceof BaseError ? args.cause.docsPath || args.docsPath : args.docsPath
 
 		/**

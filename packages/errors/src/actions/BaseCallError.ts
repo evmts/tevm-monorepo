@@ -1,7 +1,7 @@
+import type { ExecutionRevertedError } from 'viem'
 import type { UnexpectedError } from '../UnexpectedError.js'
-import type { EvmError } from '../ethereumjs/index.js'
+import type { ExecutionErrorParameters } from '../ethereum/ExecutionErrorError.js'
 import type {
-	InvalidAddressError,
 	InvalidBalanceError,
 	InvalidBlobVersionedHashesError,
 	InvalidBlockError,
@@ -19,12 +19,14 @@ import type {
 	InvalidToError,
 	InvalidValueError,
 } from '../input/index.js'
+import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 
 /**
  * Errors returned by all call based tevm procedures including call, contract, and script
  */
 export type BaseCallError =
-	| EvmError
+	| ExecutionErrorParameters
+	| ExecutionRevertedError
 	| InvalidRequestError
 	| InvalidAddressError
 	| InvalidBalanceError

@@ -70,5 +70,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@ethereumjs/evm": "^3.0.0"
   }
 }

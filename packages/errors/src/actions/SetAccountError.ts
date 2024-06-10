@@ -1,6 +1,6 @@
 import type { UnexpectedError } from '../UnexpectedError.js'
+import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 import type {
-	InvalidAddressError,
 	InvalidBalanceError,
 	InvalidBytecodeError,
 	InvalidNonceError,

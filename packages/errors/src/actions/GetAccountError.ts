@@ -1,6 +1,7 @@
 import type { UnexpectedError } from '../UnexpectedError.js'
-import type { AccountNotFoundError } from '../ethereumjs/index.js'
-import type { InvalidAddressError, InvalidRequestError } from '../input/index.js'
+import type { AccountNotFoundError } from '../ethereum/AccountNotFoundError.js'
+import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
+import type { InvalidRequestError } from '../input/index.js'
 
 /**
  * Errors returned by tevm_getAccount procedure

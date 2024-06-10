@@ -1,8 +1,9 @@
+import type { ExecutionRevertedError } from 'viem'
 import type { UnexpectedError } from '../UnexpectedError.js'
-import type { EvmError } from '../ethereumjs/index.js'
+import type { ExecutionError } from '../ethereum/ExecutionErrorError.js'
+import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 import type {
 	InvalidAbiError,
-	InvalidAddressError,
 	InvalidArgsError,
 	InvalidDataError,
 	InvalidFunctionNameError,
@@ -22,13 +23,13 @@ import type { BaseCallError } from './BaseCallError.js'
 export type ContractError =
 	| BaseCallError
 	| InvalidAddressError
-	| EvmError
+	| ExecutionError
+	| ExecutionRevertedError
 	| InvalidRequestError
 	| UnexpectedError
 	| InvalidAbiError
 	| InvalidDataError
 	| InvalidFunctionNameError
 	| InvalidArgsError
-	// viem errors TODO catch all these
 	| DecodeFunctionDataError
 	| EncodeFunctionReturnDataError

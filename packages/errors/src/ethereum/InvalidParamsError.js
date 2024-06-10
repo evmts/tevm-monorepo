@@ -50,8 +50,8 @@ export class InvalidParamsError extends BaseError {
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidparamserror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidparamserror/',
 			},
 			'InvalidParams',
 			-32602,
