@@ -1,5 +1,4 @@
 import type { ExecutionRevertedError } from 'viem'
-import type { UnexpectedError } from '../UnexpectedError.js'
 import type { ExecutionErrorParameters } from '../ethereum/ExecutionErrorError.js'
 import type {
 	InvalidBalanceError,
@@ -44,4 +43,3 @@ export type BaseCallError =
 	| InvalidStorageRootError
 	| InvalidToError
 	| InvalidValueError
-	| UnexpectedError

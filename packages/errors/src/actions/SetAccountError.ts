@@ -1,4 +1,3 @@
-import type { UnexpectedError } from '../UnexpectedError.js'
 import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 import type {
 	InvalidBalanceError,
@@ -25,4 +24,3 @@ export type SetAccountError =
 	| InvalidStorageRootError
 	| InvalidBytecodeError
 	| InvalidRequestError
-	| UnexpectedError

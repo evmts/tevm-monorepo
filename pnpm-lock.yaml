@@ -2210,6 +2210,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/errors':
+        specifier: 1.1.0-next.72
+        version: 1.1.0-next.72
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
@@ -5902,6 +5905,9 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+
+  '@tevm/errors@1.1.0-next.72':
+    resolution: {integrity: sha512-BczzgzaH2ev+fyiagksSGeGgqZYm4JLRR0q8TBPk1NPzqUa8q1UtG8/h7H7agW+tFtyqILIfCPdQMdaP1I8kDA==}
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18642,6 +18648,8 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
+
+  '@tevm/errors@1.1.0-next.72': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 

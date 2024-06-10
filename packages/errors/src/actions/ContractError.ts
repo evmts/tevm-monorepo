@@ -1,5 +1,4 @@
 import type { ExecutionRevertedError } from 'viem'
-import type { UnexpectedError } from '../UnexpectedError.js'
 import type { ExecutionError } from '../ethereum/ExecutionErrorError.js'
 import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 import type {
@@ -26,7 +25,6 @@ export type ContractError =
 	| ExecutionError
 	| ExecutionRevertedError
 	| InvalidRequestError
-	| UnexpectedError
 	| InvalidAbiError
 	| InvalidDataError
 	| InvalidFunctionNameError

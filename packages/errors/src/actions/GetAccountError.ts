@@ -1,4 +1,3 @@
-import type { UnexpectedError } from '../UnexpectedError.js'
 import type { AccountNotFoundError } from '../ethereum/AccountNotFoundError.js'
 import type { InvalidAddressError } from '../ethereum/InvalidAddressError.js'
 import type { InvalidRequestError } from '../input/index.js'
@@ -13,4 +12,4 @@ import type { InvalidRequestError } from '../input/index.js'
  *   console.log(errors[0].message) // Invalid address: 0x1234
  * }
  */
-export type GetAccountError = AccountNotFoundError | InvalidAddressError | InvalidRequestError | UnexpectedError
+export type GetAccountError = AccountNotFoundError | InvalidAddressError | InvalidRequestError

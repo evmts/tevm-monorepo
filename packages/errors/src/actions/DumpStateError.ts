@@ -1,4 +1,3 @@
-import type { UnexpectedError } from '../UnexpectedError.js'
 import type { InvalidRequestError } from '../input/index.js'
 
 /**
@@ -11,4 +10,4 @@ import type { InvalidRequestError } from '../input/index.js'
  *   console.log(errors[0].message) // Invalid address: 0x1234
  * }
  */
-export type DumpStateError = InvalidRequestError | UnexpectedError
+export type DumpStateError = InvalidRequestError

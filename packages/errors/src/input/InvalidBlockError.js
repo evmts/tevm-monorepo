@@ -17,6 +17,8 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  *
  * This error is typically encountered when a transaction or operation references a block, blockTag, or blockNumber parameter that is invalid or does not conform to the expected structure.
  *
+ * Currently most named block tags are not supported on all endpoints except for `latest` and 'earliest'. This will be expanded in near future.
+ *
  * @example
  * try {
  *   // Some operation that can throw an InvalidBlockError
