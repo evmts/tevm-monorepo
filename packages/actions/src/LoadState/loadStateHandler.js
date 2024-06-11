@@ -1,6 +1,6 @@
-import { validateLoadStateParams } from '../zod/index.js'
-import { createError } from '../tevm/createError.js'
+import { InternalError } from '@tevm/errors'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { validateLoadStateParams } from './validateLoadStateParams.js'
 
 /**
  * @param {import("@tevm/base-client").BaseClient} client
@@ -27,9 +27,7 @@ export const loadStateHandler =
 			return {}
 		} catch (e) {
 			return maybeThrowOnFail(throwOnFail, {
-				errors: [
-					createError('UnexpectedError', typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error'),
-				],
+				errors: [new InternalError('UnexpectedError', { cause: e })],
 			})
 		}
 	}

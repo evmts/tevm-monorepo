@@ -1,7 +1,7 @@
 import { prefundedAccounts } from '@tevm/base-client'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
-import { callHandler } from '../index.js'
+import { callHandler } from '../Call/callHandler.js'
 
 const txType = {
 	LEGACY: 0x00,

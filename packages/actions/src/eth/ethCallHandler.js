@@ -1,4 +1,4 @@
-import { callHandler } from '../index.js'
+import { callHandler } from '../Call/callHandler.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { blockNumberHandler } from '../index.js'
+import { blockNumberHandler } from './blockNumberHandler.js'
 
 describe(blockNumberHandler.name, () => {
 	it('should return the block number', async () => {

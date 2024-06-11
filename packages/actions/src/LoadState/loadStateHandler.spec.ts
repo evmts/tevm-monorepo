@@ -3,7 +3,7 @@ import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { expect, test } from 'bun:test'
-import { dumpStateHandler } from '../tevm/dumpStateHandler.js'
+import { dumpStateHandler } from '../DumpState/dumpStateHandler.js'
 
 test('should load state into the state manager', async () => {
 	const stateManager = createStateManager({})

@@ -1,28 +1,28 @@
 import { InvalidRequestError } from '@tevm/errors'
-import { zGetAccountParams } from '../zod/params/index.js'
+import { zGetAccountParams } from './zGetAccountParams.js'
 
 /**
-* @typedef {InvalidRequestError} ValidateGetAccountParamsError
-*/
+ * @typedef {InvalidRequestError} ValidateGetAccountParamsError
+ */
 
 /**
-* @param {import('./GetAccountParams.js').GetAccountParams} action
-* @returns {Array<ValidateGetAccountParamsError>}
-*/
+ * @param {import('./GetAccountParams.js').GetAccountParams} action
+ * @returns {Array<ValidateGetAccountParamsError>}
+ */
 export const validateGetAccountParams = (action) => {
-/**
-* @type {Array<ValidateGetAccountParamsError>}
-*/
-const errors = []
+	/**
+	 * @type {Array<ValidateGetAccountParamsError>}
+	 */
+	const errors = []
 
-const parsedParams = zGetAccountParams.safeParse(action)
+	const parsedParams = zGetAccountParams.safeParse(action)
 
-if (parsedParams.success === false) {
-const formattedErrors = parsedParams.error.format()
-formattedErrors._errors.forEach((error) => {
-errors.push(new InvalidRequestError(error))
-})
-}
+	if (parsedParams.success === false) {
+		const formattedErrors = parsedParams.error.format()
+		formattedErrors._errors.forEach((error) => {
+			errors.push(new InvalidRequestError(error))
+		})
+	}
 
-return errors
+	return errors
 }

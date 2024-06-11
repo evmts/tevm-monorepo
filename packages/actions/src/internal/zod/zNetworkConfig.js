@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { zBlockParam } from '../params/zBlockParam.js'
+import { zBlockParam } from './zBlockParam.js'
 
 export const zNetworkConfig = z
 	.object({
