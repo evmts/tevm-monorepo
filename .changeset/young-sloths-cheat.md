@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures-types": minor
+"@tevm/procedures": minor
 ---
 
 Added jsonrpc support for eth_getLogs to @tevm/procedures

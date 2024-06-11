@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/memory-client": patch
 "@tevm/schemas": patch
 "@tevm/base-client": patch

@@ -227,7 +227,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/procedures-types').CallJsonRpcResponse | import('@tevm/procedures-types').ScriptJsonRpcResponse} response
+		 * @param {import('@tevm/procedures').CallJsonRpcResponse | import('@tevm/procedures').ScriptJsonRpcResponse} response
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {

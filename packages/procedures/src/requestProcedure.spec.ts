@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
-import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
+import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures'
 import { type EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'

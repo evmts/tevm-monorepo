@@ -67,7 +67,7 @@
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
+		"@tevm/procedures": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {

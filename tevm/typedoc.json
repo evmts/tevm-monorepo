@@ -8,7 +8,7 @@
     "./memory-client/index.ts",
     "./precompiles/index.ts",
     "./predeploys/index.ts",
-    "./procedures-types/index.ts",
+    "./procedures/index.ts",
     "./http-client/index.ts",
     "./server/index.ts",
     "./base-client/index.ts",

@@ -5,7 +5,7 @@ import { parseBlockTag } from '../utils/parseBlockTag.js'
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures-types').CallJsonRpcProcedure}
+ * @returns {import('@tevm/procedures').CallJsonRpcProcedure}
  */
 export const callProcedure = (client) => async (request) => {
   const { errors = [], ...result } = await callHandler(client)({
@@ -117,7 +117,7 @@ export const callProcedure = (client) => async (request) => {
   const toHex = (value) =>
 		/**@type {import('@tevm/utils').Hex}*/(numberToHex(value))
   /**
-   * @type {import('@tevm/procedures-types').CallJsonRpcResponse}
+   * @type {import('@tevm/procedures').CallJsonRpcResponse}
    */
   const out = ({
     jsonrpc: '2.0',

@@ -4,7 +4,7 @@ import { numberToHex } from '@tevm/utils'
 /**
  * Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures-types').GetAccountJsonRpcProcedure}
+ * @returns {import('@tevm/procedures').GetAccountJsonRpcProcedure}
  */
 export const getAccountProcedure = (client) => async (request) => {
 	request.params

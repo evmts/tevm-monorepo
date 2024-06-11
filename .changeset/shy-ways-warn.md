@@ -47,7 +47,7 @@
 "@tevm/memory-client": patch
 "@tevm/precompiles": patch
 "@tevm/predeploys": patch
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/server": patch
 "@tevm/vm": patch
 "@tevm/zod": patch

@@ -7,7 +7,7 @@ import type {
 	LoadStateJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
-} from '@tevm/procedures-types'
+} from '@tevm/procedures'
 import type { SerializeToJson } from '@tevm/utils'
 
 export type JsonRpcSchemaTevm = {

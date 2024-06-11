@@ -5,7 +5,7 @@ import { parseBlockTag } from '../utils/parseBlockTag.js'
 /**
 * Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
 * @param {import('@tevm/base-client').BaseClient} client
-* @returns {import('@tevm/procedures-types').ScriptJsonRpcProcedure}
+* @returns {import('@tevm/procedures').ScriptJsonRpcProcedure}
 */
 export const scriptProcedure = (client) => async (request) => {
 	/**

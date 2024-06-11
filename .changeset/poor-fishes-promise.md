@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures-types": minor
+"@tevm/procedures": minor
 "@tevm/client-types": minor
 "tevm": minor
 ---

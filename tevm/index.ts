@@ -23,7 +23,7 @@ export type {
   JsonRpcReturnTypeFromMethod,
   JsonRpcRequestTypeFromMethod,
   TevmJsonRpcBulkRequestHandler,
-} from "@tevm/procedures-types";
+} from "@tevm/procedures";
 export type {
   JsonRpcRequest,
   JsonRpcResponse,

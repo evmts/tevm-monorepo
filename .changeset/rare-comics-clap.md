@@ -36,7 +36,7 @@
 "@tevm/memory-client": patch
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/server": patch
 "@tevm/state": patch
 "@tevm/zod": patch
@@ -45,7 +45,7 @@
 
 - Renamed MemoryTevm MemoryClient
 - Renamed TevmClient HttpClient
-- Replaced @tevm/actions package with @tevm/actions, @tevm/client-types, and @tevm/procedures-types packages
+- Replaced @tevm/actions package with @tevm/actions, @tevm/client-types, and @tevm/procedures packages
 - Moved errors to @tevm/errors
 - Moved bundler packages out of tevm and to @tevm/bundler package
 - Minimized packages exposed in tevm package

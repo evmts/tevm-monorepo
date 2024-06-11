@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
+import type { ContractJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'

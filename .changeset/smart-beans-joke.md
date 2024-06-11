@@ -45,7 +45,7 @@
 "@tevm/precompiles": patch
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/receipt-manager": patch
 "@tevm/rlp": patch
 "@tevm/server": patch

@@ -45,7 +45,7 @@
 "@tevm/precompiles": minor
 "@tevm/predeploys": minor
 "@tevm/procedures": minor
-"@tevm/procedures-types": minor
+"@tevm/procedures": minor
 "@tevm/receipt-manager": minor
 "@tevm/rlp": minor
 "@tevm/server": minor

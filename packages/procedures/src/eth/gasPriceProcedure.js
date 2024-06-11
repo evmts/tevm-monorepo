@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof gasPriceHandler>[0]} options
- * @returns {import('@tevm/procedures-types').EthGasPriceJsonRpcProcedure}
+ * @returns {import('@tevm/procedures').EthGasPriceJsonRpcProcedure}
  */
 export const gasPriceProcedure =
 	({ getVm, forkTransport }) =>

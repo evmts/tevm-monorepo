@@ -4,7 +4,7 @@ import { hexToBigInt } from '@tevm/utils'
 /**
 * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs VM
 * @param {import('@tevm/base-client').BaseClient} client
-* @returns {import('@tevm/procedures-types').SetAccountJsonRpcProcedure}
+* @returns {import('@tevm/procedures').SetAccountJsonRpcProcedure}
 */
 export const setAccountProcedure = (client) => async (request) => {
     const { errors = [], ...result } = await setAccountHandler(client)({

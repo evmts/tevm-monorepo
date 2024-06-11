@@ -71,7 +71,7 @@
 	},
 	"devDependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
+		"@tevm/procedures": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

@@ -3,7 +3,7 @@ import { hexToBigInt } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof ethSignTransactionHandler>[0]} options
- * @returns {import('@tevm/procedures-types').EthSignTransactionJsonRpcProcedure}
+ * @returns {import('@tevm/procedures').EthSignTransactionJsonRpcProcedure}
  */
 export const ethSignTransactionProcedure = (options) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

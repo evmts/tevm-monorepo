@@ -34,6 +34,16 @@
         "default": "./index.cjs"
       }
     },
+    "./actions": {
+      "import": {
+        "types": "./actions/index.d.ts",
+        "default": "./actions/index.js"
+      },
+      "require": {
+        "types": "./actions/index.d.cts",
+        "default": "./actions/index.cjs"
+      }
+    },
     "./common": {
       "import": {
         "types": "./common/index.d.ts",
@@ -104,14 +114,14 @@
         "default": "./predeploys/index.cjs"
       }
     },
-    "./procedures-types": {
+    "./procedures": {
       "import": {
-        "types": "./procedures-types/index.d.ts",
-        "default": "./procedures-types/index.js"
+        "types": "./procedures/index.d.ts",
+        "default": "./procedures/index.js"
       },
       "require": {
-        "types": "./procedures-types/index.d.cts",
-        "default": "./procedures-types/index.cjs"
+        "types": "./procedures/index.d.cts",
+        "default": "./procedures/index.cjs"
       }
     },
     "./http-client": {
@@ -170,6 +180,7 @@
   "types": "index.d.ts",
   "files": [
     "index*",
+    "actions",
     "base-client",
     "contract",
     "common",
@@ -177,7 +188,7 @@
     "errors",
     "memory-client",
     "predeploys",
-    "procedures-types",
+    "procedures",
     "http-client",
     "server",
     "utils",
@@ -211,7 +222,7 @@
     "@tevm/memory-client": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
-    "@tevm/procedures-types": "workspace:^",
+    "@tevm/procedures": "workspace:^",
     "@tevm/server": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",

@@ -46,7 +46,7 @@
 "@tevm/precompiles": patch
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/rlp": patch
 "@tevm/server": patch
 "@tevm/state": patch

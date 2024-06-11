@@ -4,7 +4,7 @@ import { numberToHex } from '@tevm/utils'
 /**
  * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures-types').DumpStateJsonRpcProcedure}
+ * @returns {import('@tevm/procedures').DumpStateJsonRpcProcedure}
  */
 export const dumpStateProcedure = (client) => async (request) => {
   const { errors = [], ...result } = await dumpStateHandler(client)({

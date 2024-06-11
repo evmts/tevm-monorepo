@@ -5,7 +5,6 @@ ignores: [
   "@tevm/jsonrpc",
   "@tevm/errors",
   "@tevm/state",
-  "@tevm/tx",
-  "@tevm/procedures-types"
+  "@tevm/tx"
 ]
 skip-missing: true

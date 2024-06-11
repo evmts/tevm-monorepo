@@ -209,4 +209,4 @@ export type {
   TevmJsonRpcBulkRequestHandler,
   AnvilSetCoinbaseJsonRpcRequest,
   AnvilSetCoinbaseJsonRpcResponse,
-} from "@tevm/procedures-types";
+} from "@tevm/procedures";
