@@ -2,7 +2,7 @@ import { ethAccountsHandler } from '@tevm/actions'
 
 /**
  * @param {ReadonlyArray<import('@tevm/utils').Account>} accounts
- * @returns {import('@tevm/procedures').EthAccountsJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthAccountsJsonRpcProcedure}
  */
 export const ethAccountsProcedure = (accounts) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

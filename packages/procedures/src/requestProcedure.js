@@ -46,6 +46,8 @@ import { blockToJsonRpcBlock } from './utils/blockToJsonRpcBlock.js'
 import { generateRandomId } from './utils/generateRandomId.js'
 import { parseBlockTag } from './utils/parseBlockTag.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
+import { MethodNotSupportedError } from '@tevm/errors'
+import { MethodNotFoundError } from '../../errors/dist/index.cjs'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -83,15 +85,9 @@ export const requestProcedure = (client) => {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure(client)(request))
 			case /** @type {any} */ ('tevm_contract'): {
-				/**
-				 * @type {import('@tevm/errors').UnsupportedMethodError}
-				 */
-				const err = {
-					_tag: 'UnsupportedMethodError',
-					name: 'UnsupportedMethodError',
-					message:
-						'UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
-				}
+				const err = new MethodNotSupportedError(
+					'UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
+				)
 				return /**@type any*/ ({
 					id: /** @type any*/ (request).id,
 					jsonrpc: '2.0',
@@ -271,8 +267,9 @@ export const requestProcedure = (client) => {
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendRawTransaction': {
-				const sendTransactionRequest =
-					/** @type {import('@tevm/procedures').EthSendRawTransactionJsonRpcRequest}*/ (request)
+				const sendTransactionRequest = /** @type {import('@tevm/procedures').EthSendRawTransactionJsonRpcRequest}*/ (
+					request
+				)
 				const txHash = await ethSendTransactionHandler(client)({
 					data: request.params[0],
 				})
@@ -1281,14 +1278,7 @@ export const requestProcedure = (client) => {
 			}
 
 			default: {
-				/**
-				 * @type {import('@tevm/errors').UnsupportedMethodError}
-				 */
-				const err = {
-					_tag: 'UnsupportedMethodError',
-					name: 'UnsupportedMethodError',
-					message: `UnsupportedMethodError: Unknown method ${/**@type any*/ (request).method}`,
-				}
+				const err = new MethodNotFoundError(`UnsupportedMethodError: Unknown method ${/**@type any*/ (request).method}`)
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
 					method: /** @type any*/ (request).method,

@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof getBalanceHandler>[0]} baseClient
- * @returns {import('@tevm/procedures').EthGetBalanceJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthGetBalanceJsonRpcProcedure}
  */
 export const getBalanceProcedure = (baseClient) => async (req) => {
 	if (!req.params[1]) {

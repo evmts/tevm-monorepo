@@ -1,3 +1,4 @@
+// TODO this is duplicated in tevm/utils
 import type { Hex } from '@tevm/utils'
 
 export type JsonSerializable =
@@ -9,6 +10,7 @@ export type JsonSerializable =
 	| JsonSerializableArray
 	| JsonSerializableObject
 	| JsonSerializableSet
+	| (Error & { code: number | string })
 export type JsonSerializableArray = ReadonlyArray<JsonSerializable>
 export type JsonSerializableObject = { [key: string]: JsonSerializable }
 export type JsonSerializableSet<T extends bigint | string | number | boolean = bigint | string | number | boolean> =
@@ -17,10 +19,12 @@ export type JsonSerializableSet<T extends bigint | string | number | boolean = b
 export type BigIntToHex<T> = T extends bigint ? Hex : T
 export type SetToHex<T> = T extends Set<any> ? Hex : T
 
-export type SerializeToJson<T> = T extends JsonSerializableSet<infer S>
-	? ReadonlyArray<S>
-	: T extends JsonSerializableObject
-		? { [P in keyof T]: SerializeToJson<T[P]> }
-		: T extends JsonSerializableArray
-			? SerializeToJson<T[number]>[]
-			: BigIntToHex<SetToHex<T>>
+export type SerializeToJson<T> = T extends Error & { code: infer TCode }
+	? { code: TCode; message: T['message'] }
+	: T extends JsonSerializableSet<infer S>
+		? ReadonlyArray<S>
+		: T extends JsonSerializableObject
+			? { [P in keyof T]: SerializeToJson<T[P]> }
+			: T extends JsonSerializableArray
+				? SerializeToJson<T[number]>[]
+				: BigIntToHex<SetToHex<T>>

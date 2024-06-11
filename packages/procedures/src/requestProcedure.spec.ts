@@ -381,20 +381,7 @@ describe('requestProcedure', () => {
 					},
 				],
 			})
-			expect(res).toEqual({
-				error: {
-					message: 'UnexpectedError: unexpected error',
-					code: 'UnexpectedError',
-					...{
-						data: {
-							errors: ['UnexpectedError: unexpected error'],
-						},
-					},
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_setAccount',
-			})
+			expect(res).toMatchSnapshot()
 		})
 	})
 
@@ -509,23 +496,7 @@ describe('requestProcedure', () => {
 						},
 					],
 				}),
-			).toEqual({
-				error: {
-					code: 'revert',
-					...{
-						data: {
-							errors: [
-								'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
-							],
-						},
-					},
-					message:
-						'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_script',
-			})
+			).toMatchSnapshot()
 		})
 	})
 

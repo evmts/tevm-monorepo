@@ -1,34 +1,16 @@
 import type {
-	CallJsonRpcResponse,
-	DebugTraceCallJsonRpcResponse,
 	EthBlockNumberJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
 	EthGetCodeJsonRpcResponse,
 	EthGetStorageAtJsonRpcResponse,
-	GetAccountJsonRpcResponse,
-	ScriptJsonRpcResponse,
-	SetAccountJsonRpcResponse,
-	TevmJsonRpcRequest,
-} from '../index.js'
-import type {
-	AnvilJsonRpcRequest,
-	CallJsonRpcRequest,
-	DebugJsonRpcRequest,
-	DebugTraceCallJsonRpcRequest,
-	EthBlockNumberJsonRpcRequest,
-	EthChainIdJsonRpcRequest,
-	EthGasPriceJsonRpcRequest,
-	EthGetBalanceJsonRpcRequest,
-	EthGetCodeJsonRpcRequest,
-	EthGetStorageAtJsonRpcRequest,
 	EthJsonRpcRequest,
-	GetAccountJsonRpcRequest,
-	ScriptJsonRpcRequest,
-	SetAccountJsonRpcRequest,
-} from '../requests/index.js'
+} from '../eth/index.js'
+import type { AnvilJsonRpcRequest } from '../anvil/index.js'
 import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.js'
+import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
+import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
 
 /**
  * @experimental

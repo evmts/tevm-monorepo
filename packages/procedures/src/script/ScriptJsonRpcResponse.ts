@@ -1,5 +1,4 @@
-import type { CallResult } from '@tevm/actions'
-import type { ScriptError } from '@tevm/errors'
+import type { CallResult, TevmScriptError } from '@tevm/actions'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
@@ -18,4 +17,4 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
  *     args: [...]
  * })
  */
-export type ScriptJsonRpcResponse = JsonRpcResponse<'tevm_script', SerializeToJson<CallResult>, ScriptError['_tag']>
+export type ScriptJsonRpcResponse = JsonRpcResponse<'tevm_script', SerializeToJson<CallResult>, TevmScriptError['code']>

@@ -1,4 +1,5 @@
-import type { CallJsonRpcRequest, CallJsonRpcResponse } from '../index.js'
+import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
+import type { CallJsonRpcResponse } from './CallJsonRpcResponse.js'
 
 /**
  * Call JSON-RPC procedure executes a call against the tevm EVM

@@ -1,5 +1,4 @@
-import type { LoadStateResult } from '@tevm/actions'
-import type { LoadStateError } from '@tevm/errors'
+import type { LoadStateResult, TevmLoadStateError } from '@tevm/actions'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
@@ -9,5 +8,5 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 export type LoadStateJsonRpcResponse = JsonRpcResponse<
 	'tevm_loadState',
 	SerializeToJson<LoadStateResult>,
-	LoadStateError['_tag']
+	TevmLoadStateError['code']
 >

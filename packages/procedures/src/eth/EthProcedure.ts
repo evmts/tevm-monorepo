@@ -37,7 +37,7 @@ import type {
 	EthSignTransactionJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
-} from '../requests/index.js'
+} from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
 	EthBlockNumberJsonRpcResponse,
@@ -77,7 +77,7 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-} from '../responses/index.js'
+} from './EthJsonRpcResponse.js'
 
 // eth_accounts
 export type EthAccountsJsonRpcProcedure = (request: EthAccountsJsonRpcRequest) => Promise<EthAccountsJsonRpcResponse>

@@ -1,5 +1,5 @@
-import type { LoadStateJsonRpcRequest } from '../requests/LoadStateJsonRpcRequest.js'
-import type { LoadStateJsonRpcResponse } from '../responses/LoadStateJsonRpcResponse.js'
+import type { LoadStateJsonRpcRequest } from './LoadStateJsonRpcRequest.js'
+import type { LoadStateJsonRpcResponse } from './LoadStateJsonRpcResponse.js'
 
 /**
  * Procedure for handling script JSON-RPC requests

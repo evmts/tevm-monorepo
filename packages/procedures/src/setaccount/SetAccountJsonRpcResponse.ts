@@ -1,5 +1,4 @@
-import type { SetAccountResult } from '@tevm/actions'
-import type { SetAccountError } from '@tevm/errors'
+import type { SetAccountResult, TevmSetAccountError } from '@tevm/actions'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
@@ -9,5 +8,5 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 export type SetAccountJsonRpcResponse = JsonRpcResponse<
 	'tevm_setAccount',
 	SerializeToJson<SetAccountResult>,
-	SetAccountError['_tag']
+	TevmSetAccountError['code']
 >

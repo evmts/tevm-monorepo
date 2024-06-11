@@ -1,4 +1,5 @@
-import type { MineJsonRpcRequest, MineJsonRpcResponse } from '../index.js'
+import type { MineJsonRpcRequest } from './MineJsonRpcRequest.js'
+import type { MineJsonRpcResponse } from './MineJsonRpcResponse.js'
 
 /**
  * Mine JSON-RPC tevm procedure mines 1 or more blocks

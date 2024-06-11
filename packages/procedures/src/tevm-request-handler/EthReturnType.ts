@@ -37,7 +37,7 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-} from '../index.js'
+} from '../eth/index.js'
 
 /**
  * A mapping of `eth_*` method names to their return type

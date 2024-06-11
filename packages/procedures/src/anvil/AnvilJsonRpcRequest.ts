@@ -7,7 +7,7 @@ import type {
 } from '@tevm/actions'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
-import type { SerializeToJson } from '../utils/index.js'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // anvil_impersonateAccount
 /**

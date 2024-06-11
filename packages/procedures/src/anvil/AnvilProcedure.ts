@@ -12,7 +12,7 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
-} from '../requests/AnvilJsonRpcRequest.js'
+} from './AnvilJsonRpcRequest.js'
 import type {
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
@@ -27,7 +27,7 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
-} from '../responses/AnvilJsonRpcResponse.js'
+} from './AnvilJsonRpcResponse.js'
 
 // anvil_impersonateAccount
 /**

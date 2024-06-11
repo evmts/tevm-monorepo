@@ -13,7 +13,7 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
-} from '../index.js'
+} from '../anvil/index.js'
 
 /**
  * A mapping of `anvil_*` method names to their return type

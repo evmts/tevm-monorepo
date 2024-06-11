@@ -1,5 +1,5 @@
-import type { DebugTraceCallJsonRpcRequest, DebugTraceTransactionJsonRpcRequest } from '../requests/index.js'
-import type { DebugTraceCallJsonRpcResponse, DebugTraceTransactionJsonRpcResponse } from '../responses/index.js'
+import type { DebugTraceCallJsonRpcRequest, DebugTraceTransactionJsonRpcRequest } from './DebugJsonRpcRequest.js'
+import type { DebugTraceCallJsonRpcResponse, DebugTraceTransactionJsonRpcResponse } from './DebugJsonRpcResponse.js'
 
 /**
  * JSON-RPC procedure for `debug_traceTransaction`

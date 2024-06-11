@@ -1,5 +1,5 @@
-import type { DumpStateJsonRpcRequest } from '../requests/DumpStateJsonRpcRequest.js'
-import type { DumpStateJsonRpcResponse } from '../responses/DumpStateJsonRpcResponse.js'
+import type { DumpStateJsonRpcRequest } from './DumpStateJsonRpcRequest.js'
+import type { DumpStateJsonRpcResponse } from './DumpStateJsonRpcResponse.js'
 
 /**
  * Procedure for handling tevm_dumpState JSON-RPC requests

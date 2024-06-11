@@ -1,4 +1,5 @@
-import type { SetAccountJsonRpcRequest, SetAccountJsonRpcResponse } from '../index.js'
+import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
+import type { SetAccountJsonRpcResponse } from './SetAccountJsonRpcResponse.js'
 
 /**
  * SetAccount JSON-RPC tevm procedure sets an account into the tevm state

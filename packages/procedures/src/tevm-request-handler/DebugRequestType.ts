@@ -1,4 +1,4 @@
-import type { DebugTraceCallJsonRpcRequest, DebugTraceTransactionJsonRpcRequest } from '../requests/index.js'
+import type { DebugTraceCallJsonRpcRequest, DebugTraceTransactionJsonRpcRequest } from '../debug/index.js'
 
 /**
  * A mapping of `debug_*` method names to their request type

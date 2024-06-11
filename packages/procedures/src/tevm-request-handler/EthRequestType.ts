@@ -37,7 +37,7 @@ import type {
 	EthSignTransactionJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
-} from '../requests/index.js'
+} from '../eth/index.js'
 
 /**
  * A mapping of `eth_*` method names to their request type

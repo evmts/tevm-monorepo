@@ -1,12 +1,10 @@
 import type { GetAccountResult, TransactionParams } from '@tevm/actions'
 import type { Filter } from '@tevm/utils'
-import type {
-	AnvilJsonRpcRequest,
-	DebugJsonRpcRequest,
-	EthJsonRpcRequest,
-	TevmJsonRpcBulkRequestHandler,
-	TevmJsonRpcRequest,
-} from '../index.js'
+import type { AnvilJsonRpcRequest } from '../anvil/index.js'
+import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
+import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
+import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
+import type { TevmJsonRpcBulkRequestHandler } from './TevmJsonRpcBulkRequestHandler.js'
 
 /**
  * Options for the EIP1193 request handler

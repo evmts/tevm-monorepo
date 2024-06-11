@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures').EthBlockNumberJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthBlockNumberJsonRpcProcedure}
  */
 export const blockNumberProcedure = (client) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),
