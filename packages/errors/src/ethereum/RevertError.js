@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**
@@ -8,7 +7,7 @@ import { BaseError } from './BaseError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|Error} [cause] - The cause of the error.
+ * @property {import('@ethereumjs/evm').EvmError|BaseError|Error} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -28,10 +27,11 @@ import { BaseError } from './BaseError.js'
  *   }
  * }
  *
+ * @abstract
  * @param {string} message - A human-readable error message.
  * @param {RevertErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'Revert'} _tag - Same as name, used internally.
- * @property {'Revert'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -64,13 +64,15 @@ export class RevertError extends BaseError {
 	}
 
 	/**
-	 * @type {'Revert'}
+	 * @abstract
+	 * @type {string}
 	 * @override
 	 */
 	_tag = 'Revert'
 
 	/**
-	 * @type {'Revert'}
+	 * @abstract
+	 * @type {string}
 	 * @override
 	 */
 	name = 'Revert'

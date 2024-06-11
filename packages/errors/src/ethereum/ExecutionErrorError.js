@@ -30,7 +30,7 @@ import { BaseError } from './BaseError.js'
  *
  * @param {import('@ethereumjs/evm').EVMErrorMessage} message - A human-readable error message.
  * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'ExecutionError'} _tag - Same as name, used internally.
+ * @property {string} _tag - More discriminated version of name. Can be used to discriminate between errors with the same name.
  * @property {'ExecutionError'} name - The name of the error, used to discriminate errors.
  * @property {import('@ethereumjs/evm').EVMErrorMessage} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
@@ -70,7 +70,7 @@ export class ExecutionError extends BaseError {
 	}
 
 	/**
-	 * @type {'ExecutionError'}
+	 * @type {string}
 	 * @override
 	 */
 	_tag = 'ExecutionError'

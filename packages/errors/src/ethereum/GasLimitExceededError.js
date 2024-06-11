@@ -8,13 +8,14 @@ import { BaseError } from './BaseError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|Error} [cause] - The cause of the error.
+ * @property {BaseError|Error|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
 
 /**
  * Represents an error that occurs when the gas limit is exceeded.
+ * This class is abstract and should be extended by other error classes.
  *
  * This error is typically encountered when a transaction or set of transactions exceed the specified gas limit.
  *
@@ -28,10 +29,11 @@ import { BaseError } from './BaseError.js'
  *   }
  * }
  *
+ * @abstract
  * @param {string} message - A human-readable error message.
  * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'GasLimitExceeded'} _tag - Same as name, used internally.
- * @property {'GasLimitExceeded'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -46,6 +48,9 @@ export class GasLimitExceededError extends BaseError {
 	 * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 */
 	constructor(message, args = {}) {
+		if (new.target === GasLimitExceededError) {
+			throw new TypeError('Cannot construct GasLimitExceededError instances directly')
+		}
 		super(
 			message,
 			{
@@ -64,13 +69,15 @@ export class GasLimitExceededError extends BaseError {
 	}
 
 	/**
-	 * @type {'GasLimitExceeded'}
+	 * @type {string}
+	 * @abstract
 	 * @override
 	 */
 	_tag = 'GasLimitExceeded'
 
 	/**
-	 * @type {'GasLimitExceeded'}
+	 * @type {string}
+	 * @abstract
 	 * @override
 	 */
 	name = 'GasLimitExceeded'
