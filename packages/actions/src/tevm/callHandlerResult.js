@@ -1,4 +1,5 @@
-import { bytesToHex, getAddress, isBytes, toHex } from '@tevm/utils'
+import { bytesToHex, getAddress, toHex } from '@tevm/utils'
+import { createEvmError } from '../internal/createEvmError.js'
 
 /**
 * Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -82,15 +83,12 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
     out.blobGasUsed = evmResult.execResult.blobGasUsed
   }
   if (evmResult.execResult.exceptionError) {
-    out.errors = [
-      {
-        name: evmResult.execResult.exceptionError.error,
-        _tag: evmResult.execResult.exceptionError.error,
-        message: isBytes(evmResult.execResult.returnValue)
-          ? bytesToHex(evmResult.execResult.returnValue)
-          : 'There was an error executing call',
-      },
-    ]
+    if (out.errors === undefined) {
+      out.errors = []
+    }
+    out.errors.push(
+      createEvmError(evmResult.execResult.exceptionError)
+    )
   }
 
   if (evmResult.execResult.createdAddresses) {

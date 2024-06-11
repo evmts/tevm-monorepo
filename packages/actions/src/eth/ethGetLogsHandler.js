@@ -115,8 +115,25 @@ export const ethGetLogsHandler = (client) => async (params) => {
 				cause: new Error('Unexpected no logs'),
 			})
 		}
-		// fix this to not be procedures-types
-		const typedLogs = /** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcResponse['result']}*/ (jsonRpcLogs)
+		/**
+		 * @typedef {Object} Log
+		 * @property {import('@tevm/utils').Hex} address
+		 * @property {Array.<import('@tevm/utils').Hex>} topics
+		 * @property {import('@tevm/utils').Hex} data
+		 * @property {import('@tevm/utils').Hex} blockNumber
+		 * @property {import('@tevm/utils').Hex} transactionHash
+		 * @property {import('@tevm/utils').Hex} transactionIndex
+		 * @property {import('@tevm/utils').Hex} blockHash
+		 * @property {import('@tevm/utils').Hex} logIndex
+		 * @property {boolean} removed
+		 */
+
+		const typedLogs =
+			/**
+			 * @type {Array<Log> | undefined}
+			 */
+			(jsonRpcLogs)
+
 		if (typedLogs !== undefined) {
 			logs.push(
 				...typedLogs.map((log) => {
