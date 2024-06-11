@@ -31,9 +31,13 @@ import {
 	StaticStateChangeError,
 	InvalidEofFormatError,
 	InvalidKzgInputsError,
+	ValueOverflowError,
 } from '@tevm/errors'
 import { EvmErrorMessage } from '@tevm/evm'
-import { ValueOverflowError } from '../../../errors/types/ethereum/ethereumjs/ValueOverflowError.js'
+
+/**
+ * @type {ReturnType<typeof createEvmError>} EvmError
+ */
 
 /**
  * @param {import('@ethereumjs/evm').EvmError} error

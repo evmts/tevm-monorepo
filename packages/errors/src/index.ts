@@ -186,4 +186,6 @@ export {
 	type AuthCallNonZeroValueExtErrorParameters,
 	type BLS12381PointNotOnCurveErrorParameters,
 	type BLS12381InvalidInputLengthErrorParameters,
+	ValueOverflowError,
+	type ValueOverflowErrorParameters,
 } from './ethereum/index.js'

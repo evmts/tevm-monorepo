@@ -109,4 +109,6 @@ export {
 	type StaticStateChangeErrorParameters,
 	StopError,
 	type StopErrorParameters,
+	ValueOverflowError,
+	type ValueOverflowErrorParameters,
 } from './ethereumjs/index.js'
