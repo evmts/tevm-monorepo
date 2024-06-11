@@ -30,13 +30,13 @@ export const setAccountProcedure = (client) => async (request) => {
             : {}),
     })
     if (errors.length > 0) {
-        const error = /** @type {import('@tevm/errors').SetAccountError}*/ (
+        const error = /** @type {import('@tevm/actions').TevmSetAccountError}*/ (
             errors[0]
         )
         return {
             jsonrpc: '2.0',
             error: {
-                code: error._tag,
+                code: error.code,
                 message: error.message,
                 data: {
                     errors: errors.map(({ message }) => message),
