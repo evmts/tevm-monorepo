@@ -192,3 +192,4 @@ export {
 export * from './common/index.js'
 export * from './client/index.js'
 export * from './defensive/index.js'
+export * from './data/index.js'
