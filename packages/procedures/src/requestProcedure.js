@@ -7,7 +7,7 @@ import {
 	traceCallHandler,
 } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
-import { MethodNotSupportedError } from '@tevm/errors'
+import { MethodNotFoundError, MethodNotSupportedError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { TransactionFactory } from '@tevm/tx'
 import {
@@ -21,7 +21,6 @@ import {
 	numberToHex,
 } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
-import { MethodNotFoundError } from '../../errors/dist/index.cjs'
 import { version as packageJsonVersion } from '../package.json'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'

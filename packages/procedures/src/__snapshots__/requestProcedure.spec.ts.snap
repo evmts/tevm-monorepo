@@ -1,14 +1,5 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`requestProcedure ethSignTransactionHandler should sign a message 1`] = `
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "method": "eth_signTransaction",
-  "result": "0x01f8650a01843b9aca00179469696969696969696969696969696969696969698201a400c001a0ec3b403f47a52d7a911b124236bd8400d771f91bcbb7dbeca60492454d18d196a0243610f3f5b1e5a479e8553ad097b05cb53819fa0925a78ecacc243619222ca8",
-}
-`;
-
 exports[`requestProcedure tevm_setAccount should handle account throwing an unexpected error 1`] = `
 {
   "error": {
@@ -19,7 +10,7 @@ exports[`requestProcedure tevm_setAccount should handle account throwing an unex
 "Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: [object Object]
+Details: unexpected error
 Version: 1.1.0.next-73"
 ,
       ],
@@ -28,7 +19,7 @@ Version: 1.1.0.next-73"
 "Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: [object Object]
+Details: unexpected error
 Version: 1.1.0.next-73"
 ,
   },
@@ -41,28 +32,37 @@ Version: 1.1.0.next-73"
 exports[`requestProcedure tevm_script should handle the evm throwing an error 1`] = `
 {
   "error": {
-    "code": -32603,
+    "code": -32000,
     "data": {
       "errors": [
         
-"Unexpected error setting account
+"revert
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: [object Object]
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
 Version: 1.1.0.next-73"
 ,
       ],
     },
     "message": 
-"Unexpected error setting account
+"revert
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: [object Object]
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
 Version: 1.1.0.next-73"
 ,
   },
   "id": 1,
   "jsonrpc": "2.0",
   "method": "tevm_script",
+}
+`;
+
+exports[`requestProcedure ethSignTransactionHandler should sign a message 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_signTransaction",
+  "result": "0x01f8650a01843b9aca00179469696969696969696969696969696969696969698201a400c001a0ec3b403f47a52d7a911b124236bd8400d771f91bcbb7dbeca60492454d18d196a0243610f3f5b1e5a479e8553ad097b05cb53819fa0925a78ecacc243619222ca8",
 }
 `;
