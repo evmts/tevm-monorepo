@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:402
+packages/procedures/dist/index.d.ts:401

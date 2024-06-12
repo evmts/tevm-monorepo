@@ -12,4 +12,4 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:619
+packages/procedures/dist/index.d.ts:618

@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:150
+packages/procedures/dist/index.d.ts:149

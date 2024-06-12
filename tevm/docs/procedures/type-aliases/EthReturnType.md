@@ -166,4 +166,4 @@ A mapping of `eth_*` method names to their return type
 
 ## Source
 
-packages/procedures/dist/index.d.ts:1009
+packages/procedures/dist/index.d.ts:1008

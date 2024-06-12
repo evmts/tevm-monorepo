@@ -12,4 +12,4 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:527
+packages/procedures/dist/index.d.ts:526
