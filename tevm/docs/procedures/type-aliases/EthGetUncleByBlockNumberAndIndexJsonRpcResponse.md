@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:612
+packages/procedures/dist/index.d.ts:611

@@ -1396,9 +1396,6 @@ importers:
 
   packages/actions:
     dependencies:
-      '@ethereumjs/evm':
-        specifier: ^3.0.0
-        version: 3.0.0
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../base-client

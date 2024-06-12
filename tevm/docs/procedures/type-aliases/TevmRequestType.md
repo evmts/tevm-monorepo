@@ -42,4 +42,4 @@ A mapping of `tevm_*` method names to their request type
 
 ## Source
 
-packages/procedures/dist/index.d.ts:1058
+packages/procedures/dist/index.d.ts:1057
