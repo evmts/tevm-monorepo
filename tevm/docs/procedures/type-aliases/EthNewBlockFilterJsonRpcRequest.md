@@ -12,4 +12,4 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:493
+packages/procedures/dist/index.d.ts:494

@@ -12,4 +12,4 @@ JSON-RPC request for `eth_syncing` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:485
+packages/procedures/dist/index.d.ts:486

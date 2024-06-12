@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 ## Source
 
-packages/procedures/dist/index.d.ts:183
+packages/procedures/dist/index.d.ts:184

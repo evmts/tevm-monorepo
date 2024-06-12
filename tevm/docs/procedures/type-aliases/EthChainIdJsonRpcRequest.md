@@ -12,4 +12,4 @@ JSON-RPC request for `eth_chainId` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:354
+packages/procedures/dist/index.d.ts:355

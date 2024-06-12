@@ -12,4 +12,4 @@ JSON-RPC request for `tevm_setAccount` method
 
 ## Source
 
-packages/procedures/dist/index.d.ts:897
+packages/procedures/dist/index.d.ts:898
