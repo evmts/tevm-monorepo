@@ -5,19 +5,14 @@ prev: false
 title: "InternalEvmError"
 ---
 
-Represents an internal error within the EVM.
+Represents an internal error within the EVM. This error should not typically happen
 This error is typically encountered when there is an unexpected issue within the EVM execution or client.
 
 Internal errors can occur due to:
 - Bugs in the EVM implementation.
-- Issues with the client or environment running the EVM.
-- Unexpected conditions that the EVM cannot handle.
+- Bugs in Tevm
 
-To debug an internal error:
-1. **Review Client Logs**: Check the client logs for any additional information about the internal error.
-2. **Check Environment**: Ensure that the environment running the EVM is properly configured and not causing issues.
-3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the execution and identify where the internal error occurs.
-4. **Inspect EVM Code**: Manually inspect the EVM implementation code to understand and address the issue causing the internal error.
+If you encounter this error please open an issue on the Tevm GitHub repository.
 
 ## Example
 
@@ -52,6 +47,14 @@ Additional parameters for the BaseError.
 > **new InternalEvmError**(`message`?, `args`?): [`InternalEvmError`](/reference/tevm/errors/classes/internalevmerror/)
 
 Constructs an InternalEvmError.
+Represents an internal error within the EVM. This error should not typically happen
+This error is typically encountered when there is an unexpected issue within the EVM execution or client.
+
+Internal errors can occur due to:
+- Bugs in the EVM implementation.
+- Bugs in Tevm
+
+If you encounter this error please open an issue on the Tevm GitHub repository.
 
 #### Parameters
 
@@ -73,7 +76,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L62)
+[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L65)
 
 ## Properties
 
@@ -177,7 +180,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L78)
+[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L81)
 
 ***
 
@@ -261,7 +264,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L55)
+[packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L50)
 
 ***
 

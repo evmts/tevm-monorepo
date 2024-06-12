@@ -16,4 +16,4 @@ It replaces bigint with hex strings and sets with arrays.
 
 ## Source
 
-[packages/utils/src/SerializeToJson.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L43)
+[packages/utils/src/SerializeToJson.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L44)

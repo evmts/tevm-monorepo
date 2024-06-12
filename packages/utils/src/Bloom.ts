@@ -16,6 +16,7 @@ export class Bloom {
 
 	/**
 	 * Represents a Bloom filter.
+	 * @throws {InvalidBytesSizeError} If the byte size of the bitvector is not 256.
 	 */
 	constructor(bitvector?: Uint8Array) {
 		if (!bitvector) {
@@ -29,6 +30,7 @@ export class Bloom {
 	/**
 	 * Adds an element to a bit vector of a 64 byte bloom filter.
 	 * @param e - The element to add
+	 * @throws {never}
 	 */
 	add(e: Uint8Array) {
 		const eBytes = hexToBytes(keccak256(e))
@@ -46,6 +48,7 @@ export class Bloom {
 	/**
 	 * Checks if an element is in the bloom.
 	 * @param e - The element to check
+	 * @throws {never}
 	 */
 	check(e: Uint8Array): boolean {
 		const eBytes = hexToBytes(keccak256(e))
@@ -58,7 +61,9 @@ export class Bloom {
 			const byteLoc = loc >> 3
 			const bitLoc = 1 << (loc % 8)
 			const item = this.bitvector[BYTE_SIZE - byteLoc - 1]
-			if (!item) throw new DefensiveNullCheckError('item is not defined. There is a bug in the implementation')
+			if (item === undefined) {
+				throw new DefensiveNullCheckError('item is not defined. There is a bug in the implementation')
+			}
 			match = (item & bitLoc) !== 0
 		}
 
@@ -68,6 +73,7 @@ export class Bloom {
 	/**
 	 * Checks if multiple topics are in a bloom.
 	 * @returns `true` if every topic is in the bloom
+	 * @throws {never}
 	 */
 	multiCheck(topics: Uint8Array[]): boolean {
 		return topics.every((t: Uint8Array) => this.check(t))
@@ -75,13 +81,18 @@ export class Bloom {
 
 	/**
 	 * Bitwise or blooms together.
+	 * @throws {never}
 	 */
 	or(bloom: Bloom) {
 		for (let i = 0; i <= BYTE_SIZE; i++) {
 			const a = this.bitvector[i]
 			const b = bloom.bitvector[i]
-			if (!a) throw new DefensiveNullCheckError('a is not defined')
-			if (!b) throw new DefensiveNullCheckError('b is not defined')
+			if (a === undefined) {
+				throw new DefensiveNullCheckError('a is not defined. Please open an issue in the tevm github repo')
+			}
+			if (b === undefined) {
+				throw new DefensiveNullCheckError('b is not defined. Please open an issue in the tevm github repo')
+			}
 			this.bitvector[i] = a | b
 		}
 	}

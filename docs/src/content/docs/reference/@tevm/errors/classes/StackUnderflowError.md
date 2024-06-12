@@ -5,7 +5,7 @@ prev: false
 title: "StackUnderflowError"
 ---
 
-Represents an error that occurs when there is a stack underflow during execution.
+Represents a contract/bytecode error that occurs when there is a stack underflow during execution.
 This error is typically encountered when an operation requires more stack items than are present.
 
 Stack underflow errors can occur due to:
@@ -51,6 +51,18 @@ Additional parameters for the BaseError.
 > **new StackUnderflowError**(`message`?, `args`?): [`StackUnderflowError`](/reference/tevm/errors/classes/stackunderflowerror/)
 
 Constructs a StackUnderflowError.
+This error is typically encountered when an operation requires more stack items than are present.
+
+Stack underflow errors can occur due to:
+- Incorrect management of stack operations (e.g., popping more items than available).
+- Bugs in smart contract logic leading to unexpected stack behavior.
+- Issues with function calls that manipulate the stack incorrectly.
+
+To debug a stack underflow error:
+1. **Review Contract Logic**: Ensure that your smart contract logic correctly handles stack operations, especially in loops and conditional branches.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
+3. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
+- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 #### Parameters
 
@@ -72,7 +84,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js#L59)
+[packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js#L71)
 
 ## Properties
 
@@ -88,7 +100,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js#L76)
+[packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js#L88)
 
 ***
 

@@ -17,6 +17,7 @@ const encodeKey = (bytes) => {
  * A simple ethereumjs DB instance that uses an in memory Map as it's backend
  * Pass in an initial DB optionally to prepoulate the DB.
  * @type {import('./CreateMemoryDbFn.js').CreateMemoryDbFn}
+ * @throws {never}
  */
 export const createMemoryDb = (initialDb) => {
 	const db = initialDb ?? new Map()

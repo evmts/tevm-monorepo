@@ -5,7 +5,7 @@ prev: false
 title: "InitcodeSizeViolationError"
 ---
 
-Represents an error that occurs when initcode exceeds the maximum allowable size during EVM execution.
+Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
 
 Initcode size violation errors can occur due to:
 - Bugs in the smart contract code causing the initcode to exceed the maximum size.
@@ -48,6 +48,15 @@ Additional parameters for the BaseError.
 > **new InitcodeSizeViolationError**(`message`?, `args`?): [`InitcodeSizeViolationError`](/reference/tevm/errors/classes/initcodesizeviolationerror/)
 
 Constructs an InitcodeSizeViolationError.
+Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
+
+Initcode size violation errors can occur due to:
+- Bugs in the smart contract code causing the initcode to exceed the maximum size.
+- Issues during the deployment process resulting in oversized initcode.
+
+To debug an initcode size violation error:
+1. **Review Deployment Process**: Ensure that the initcode being deployed is within the allowable size limits.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the initcode size violation occurs.
 
 #### Parameters
 
@@ -69,7 +78,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L67)
 
 ## Properties
 

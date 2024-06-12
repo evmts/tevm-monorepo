@@ -5,7 +5,7 @@ prev: false
 title: "StaticStateChangeError"
 ---
 
-Represents an error that occurs when a state-changing operation is attempted in a static context.
+Represents an invalid bytecode/contract error that occurs when a state-changing operation is attempted in a static context.
 This error is typically encountered when a contract attempts to modify the state during a static call.
 
 Static state change errors can occur due to:
@@ -52,6 +52,19 @@ Additional parameters for the BaseError.
 > **new StaticStateChangeError**(`message`?, `args`?): [`StaticStateChangeError`](/reference/tevm/errors/classes/staticstatechangeerror/)
 
 Constructs a StaticStateChangeError.
+Represents an invalid bytecode/contract error that occurs when a state-changing operation is attempted in a static context.
+This error is typically encountered when a contract attempts to modify the state during a static call.
+
+Static state change errors can occur due to:
+- Attempting to modify the state in a static call.
+- Executing state-changing operations in a read-only context.
+- Bugs in the smart contract code leading to unintended state changes.
+
+To debug a static state change error:
+1. **Review Contract Logic**: Ensure that state-changing operations are not executed in static calls or read-only contexts.
+2. **Check Function Modifiers**: Verify that the function modifiers and visibility settings are correctly applied to prevent state changes in static contexts.
+3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the state change is attempted in a static context.
+4. **Inspect Contract Code**: Manually inspect the contract code to ensure that state changes are correctly controlled and executed only in appropriate contexts.
 
 #### Parameters
 
@@ -73,7 +86,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StaticStateChangeError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StaticStateChangeError.js#L62)
+[packages/errors/src/ethereum/ethereumjs/StaticStateChangeError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StaticStateChangeError.js#L75)
 
 ## Properties
 

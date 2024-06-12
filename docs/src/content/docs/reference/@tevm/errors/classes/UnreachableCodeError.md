@@ -2,25 +2,37 @@
 editUrl: false
 next: false
 prev: false
-title: "InternalError"
+title: "UnreachableCodeError"
 ---
 
-Represents an internal JSON-RPC error.
+Represents an error that occurs when unreachable code is executed. This error always indicates a bug in the Tevm VM.
 
-This error is typically encountered when there is an internal error on the server.
+Unreachable code errors can occur due to:
+- Defensive programming checks to ensure all cases in a switch or if statement are covered.
+
+To handle this error take the following steps:
+- ensure you did not modify the tevm VM in any unsupported way.
+- Open an issue with a minimal reproducable example
 
 ## Example
 
-```ts
-try {
-  // Some operation that can throw an InternalError
-} catch (error) {
-  if (error instanceof InternalError) {
-    console.error(error.message);
-    // Handle the internal error
-  }
+```typescript
+import { UnreachableCodeError } from '@tevm/errors'
+
+const x: 'a' | 'b'  = 'a'
+
+if (x === 'a') {
+  console.log('A')
+} else if (x === 'b') {
+  console.log('B')
+} else {
+  throw new UnreachableCodeError(x, 'Unreachable code executed.')
 }
 ```
+
+## Param
+
+The value that should be of type never.
 
 ## Param
 
@@ -32,44 +44,41 @@ Additional parameters for the BaseError.
 
 ## Extends
 
-- [`BaseError`](/reference/tevm/errors/classes/baseerror/)
-
-## Extended by
-
-- [`MisconfiguredClientError`](/reference/tevm/errors/classes/misconfiguredclienterror/)
-- [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/)
-- [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
-- [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
+- [`InternalError`](/reference/tevm/errors/classes/internalerror/)
 
 ## Constructors
 
-### new InternalError()
+### new UnreachableCodeError()
 
-> **new InternalError**(`message`, `args`?): [`InternalError`](/reference/tevm/errors/classes/internalerror/)
+> **new UnreachableCodeError**(`value`, `message`?, `args`?): [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
 
-Constructs an InternalError.
+Constructs an UnreachableCodeError.
 
 #### Parameters
 
-• **message**: `string`
+• **value**: `never`
+
+The value that should be of type never.
+
+• **message?**: `string`= `'Unreachable code executed.'`
 
 Human-readable error message.
 
-• **args?**: [`InternalErrorParameters`](/reference/tevm/errors/interfaces/internalerrorparameters/)= `{}`
+• **args?**: [`UnreachableCodeErrorParameters`](/reference/tevm/errors/interfaces/unreachablecodeerrorparameters/)= `{}`
 
 Additional parameters for the BaseError.
 
 #### Returns
 
-[`InternalError`](/reference/tevm/errors/classes/internalerror/)
+[`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
 
 #### Overrides
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`constructor`](/reference/tevm/errors/classes/baseerror/#constructors)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`constructor`](/reference/tevm/errors/classes/internalerror/#constructors)
 
 #### Source
 
-[packages/errors/src/ethereum/InternalErrorError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L48)
+[packages/errors/src/defensive/UnreachableCodeError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L59)
 
 ## Properties
 
@@ -79,9 +88,9 @@ Additional parameters for the BaseError.
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`_tag`](/reference/tevm/errors/classes/baseerror/#_tag)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`_tag`](/reference/tevm/errors/classes/internalerror/#_tag)
 
 #### Source
 
@@ -95,7 +104,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`cause`](/reference/tevm/errors/classes/baseerror/#cause)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`cause`](/reference/tevm/errors/classes/internalerror/#cause)
 
 #### Source
 
@@ -111,7 +120,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`code`](/reference/tevm/errors/classes/baseerror/#code)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`code`](/reference/tevm/errors/classes/internalerror/#code)
 
 #### Source
 
@@ -125,7 +134,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`details`](/reference/tevm/errors/classes/baseerror/#details)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`details`](/reference/tevm/errors/classes/internalerror/#details)
 
 #### Source
 
@@ -141,7 +150,7 @@ Path to the documentation for this error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`docsPath`](/reference/tevm/errors/classes/baseerror/#docspath)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`docsPath`](/reference/tevm/errors/classes/internalerror/#docspath)
 
 #### Source
 
@@ -157,7 +166,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`message`](/reference/tevm/errors/classes/baseerror/#message)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`message`](/reference/tevm/errors/classes/internalerror/#message)
 
 #### Source
 
@@ -170,6 +179,10 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 > **meta**: `undefined` \| `object`
 
 Optional object containing additional information about the error.
+
+#### Inherited from
+
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`meta`](/reference/tevm/errors/classes/internalerror/#meta)
 
 #### Source
 
@@ -185,7 +198,7 @@ Additional meta messages for more context.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`metaMessages`](/reference/tevm/errors/classes/baseerror/#metamessages)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`metaMessages`](/reference/tevm/errors/classes/internalerror/#metamessages)
 
 #### Source
 
@@ -199,9 +212,9 @@ Additional meta messages for more context.
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`name`](/reference/tevm/errors/classes/baseerror/#name)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`name`](/reference/tevm/errors/classes/internalerror/#name)
 
 #### Source
 
@@ -215,7 +228,7 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`shortMessage`](/reference/tevm/errors/classes/baseerror/#shortmessage)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`shortMessage`](/reference/tevm/errors/classes/internalerror/#shortmessage)
 
 #### Source
 
@@ -229,7 +242,7 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`stack`](/reference/tevm/errors/classes/baseerror/#stack)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`stack`](/reference/tevm/errors/classes/internalerror/#stack)
 
 #### Source
 
@@ -243,7 +256,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`version`](/reference/tevm/errors/classes/baseerror/#version)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`version`](/reference/tevm/errors/classes/internalerror/#version)
 
 #### Source
 
@@ -273,7 +286,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`prepareStackTrace`](/reference/tevm/errors/classes/baseerror/#preparestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`prepareStackTrace`](/reference/tevm/errors/classes/internalerror/#preparestacktrace)
 
 #### Source
 
@@ -287,7 +300,7 @@ node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`stackTraceLimit`](/reference/tevm/errors/classes/baseerror/#stacktracelimit)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`stackTraceLimit`](/reference/tevm/errors/classes/internalerror/#stacktracelimit)
 
 #### Source
 
@@ -315,7 +328,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`walk`](/reference/tevm/errors/classes/baseerror/#walk)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`walk`](/reference/tevm/errors/classes/internalerror/#walk)
 
 #### Source
 
@@ -343,7 +356,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`captureStackTrace`](/reference/tevm/errors/classes/internalerror/#capturestacktrace)
 
 ##### Source
 
@@ -367,7 +380,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`captureStackTrace`](/reference/tevm/errors/classes/internalerror/#capturestacktrace)
 
 ##### Source
 

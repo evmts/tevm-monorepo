@@ -2,25 +2,32 @@
 editUrl: false
 next: false
 prev: false
-title: "InternalError"
+title: "InvalidBytesSizeError"
 ---
 
-Represents an internal JSON-RPC error.
-
-This error is typically encountered when there is an internal error on the server.
+Represents an error that occurs when the size of the bytes does not match the expected size.
 
 ## Example
 
-```ts
+```typescript
+import { InvalidBytesSizeError } from '@tevm/errors'
 try {
-  // Some operation that can throw an InternalError
+  // Some operation that can throw an InvalidBytesSizeError
 } catch (error) {
-  if (error instanceof InternalError) {
+  if (error instanceof InvalidBytesSizeError) {
     console.error(error.message);
-    // Handle the internal error
+    // Handle the invalid bytes size error
   }
 }
 ```
+
+## Param
+
+The actual size of the bytes.
+
+## Param
+
+The expected size of the bytes.
 
 ## Param
 
@@ -32,44 +39,45 @@ Additional parameters for the BaseError.
 
 ## Extends
 
-- [`BaseError`](/reference/tevm/errors/classes/baseerror/)
-
-## Extended by
-
-- [`MisconfiguredClientError`](/reference/tevm/errors/classes/misconfiguredclienterror/)
-- [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/)
-- [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
-- [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
+- [`InternalError`](/reference/tevm/errors/classes/internalerror/)
 
 ## Constructors
 
-### new InternalError()
+### new InvalidBytesSizeError()
 
-> **new InternalError**(`message`, `args`?): [`InternalError`](/reference/tevm/errors/classes/internalerror/)
+> **new InvalidBytesSizeError**(`size`, `expectedSize`, `message`?, `args`?): [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
 
-Constructs an InternalError.
+Constructs an InvalidBytesSizeError.
 
 #### Parameters
 
-• **message**: `string`
+• **size**: `number`
+
+The actual size of the bytes.
+
+• **expectedSize**: `number`
+
+The expected size of the bytes.
+
+• **message?**: `string`= `undefined`
 
 Human-readable error message.
 
-• **args?**: [`InternalErrorParameters`](/reference/tevm/errors/interfaces/internalerrorparameters/)= `{}`
+• **args?**: [`InvalidBytesSizeErrorParameters`](/reference/tevm/errors/interfaces/invalidbytessizeerrorparameters/)= `{}`
 
 Additional parameters for the BaseError.
 
 #### Returns
 
-[`InternalError`](/reference/tevm/errors/classes/internalerror/)
+[`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
 
 #### Overrides
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`constructor`](/reference/tevm/errors/classes/baseerror/#constructors)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`constructor`](/reference/tevm/errors/classes/internalerror/#constructors)
 
 #### Source
 
-[packages/errors/src/ethereum/InternalErrorError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L48)
+[packages/errors/src/data/InvalidByteSizeError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L54)
 
 ## Properties
 
@@ -79,9 +87,9 @@ Additional parameters for the BaseError.
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`_tag`](/reference/tevm/errors/classes/baseerror/#_tag)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`_tag`](/reference/tevm/errors/classes/internalerror/#_tag)
 
 #### Source
 
@@ -95,7 +103,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`cause`](/reference/tevm/errors/classes/baseerror/#cause)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`cause`](/reference/tevm/errors/classes/internalerror/#cause)
 
 #### Source
 
@@ -111,7 +119,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`code`](/reference/tevm/errors/classes/baseerror/#code)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`code`](/reference/tevm/errors/classes/internalerror/#code)
 
 #### Source
 
@@ -125,7 +133,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`details`](/reference/tevm/errors/classes/baseerror/#details)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`details`](/reference/tevm/errors/classes/internalerror/#details)
 
 #### Source
 
@@ -141,11 +149,23 @@ Path to the documentation for this error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`docsPath`](/reference/tevm/errors/classes/baseerror/#docspath)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`docsPath`](/reference/tevm/errors/classes/internalerror/#docspath)
 
 #### Source
 
 [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+
+***
+
+### expectedSize
+
+> **expectedSize**: `number`
+
+The expected size of the bytes.
+
+#### Source
+
+[packages/errors/src/data/InvalidByteSizeError.js:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L80)
 
 ***
 
@@ -157,7 +177,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`message`](/reference/tevm/errors/classes/baseerror/#message)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`message`](/reference/tevm/errors/classes/internalerror/#message)
 
 #### Source
 
@@ -170,6 +190,10 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 > **meta**: `undefined` \| `object`
 
 Optional object containing additional information about the error.
+
+#### Inherited from
+
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`meta`](/reference/tevm/errors/classes/internalerror/#meta)
 
 #### Source
 
@@ -185,7 +209,7 @@ Additional meta messages for more context.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`metaMessages`](/reference/tevm/errors/classes/baseerror/#metamessages)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`metaMessages`](/reference/tevm/errors/classes/internalerror/#metamessages)
 
 #### Source
 
@@ -199,9 +223,9 @@ Additional meta messages for more context.
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`name`](/reference/tevm/errors/classes/baseerror/#name)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`name`](/reference/tevm/errors/classes/internalerror/#name)
 
 #### Source
 
@@ -215,11 +239,23 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`shortMessage`](/reference/tevm/errors/classes/baseerror/#shortmessage)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`shortMessage`](/reference/tevm/errors/classes/internalerror/#shortmessage)
 
 #### Source
 
 [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+
+***
+
+### size
+
+> **size**: `number`
+
+The actual size of the bytes.
+
+#### Source
+
+[packages/errors/src/data/InvalidByteSizeError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L75)
 
 ***
 
@@ -229,7 +265,7 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`stack`](/reference/tevm/errors/classes/baseerror/#stack)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`stack`](/reference/tevm/errors/classes/internalerror/#stack)
 
 #### Source
 
@@ -243,7 +279,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`version`](/reference/tevm/errors/classes/baseerror/#version)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`version`](/reference/tevm/errors/classes/internalerror/#version)
 
 #### Source
 
@@ -273,7 +309,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`prepareStackTrace`](/reference/tevm/errors/classes/baseerror/#preparestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`prepareStackTrace`](/reference/tevm/errors/classes/internalerror/#preparestacktrace)
 
 #### Source
 
@@ -287,7 +323,7 @@ node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`stackTraceLimit`](/reference/tevm/errors/classes/baseerror/#stacktracelimit)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`stackTraceLimit`](/reference/tevm/errors/classes/internalerror/#stacktracelimit)
 
 #### Source
 
@@ -315,7 +351,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`walk`](/reference/tevm/errors/classes/baseerror/#walk)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`walk`](/reference/tevm/errors/classes/internalerror/#walk)
 
 #### Source
 
@@ -343,7 +379,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`captureStackTrace`](/reference/tevm/errors/classes/internalerror/#capturestacktrace)
 
 ##### Source
 
@@ -367,7 +403,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+[`InternalError`](/reference/tevm/errors/classes/internalerror/).[`captureStackTrace`](/reference/tevm/errors/classes/internalerror/#capturestacktrace)
 
 ##### Source
 

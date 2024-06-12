@@ -5,7 +5,7 @@ prev: false
 title: "InvalidOpcodeError"
 ---
 
-Represents an error that occurs when an invalid opcode is encountered during EVM execution.
+Represents an invalid bytecode/contract error that occurs when an invalid opcode is encountered during EVM execution.
 This error is typically encountered when the bytecode contains an opcode that is not recognized by the EVM.
 
 Invalid opcode errors can occur due to:
@@ -51,6 +51,18 @@ Additional parameters for the BaseError.
 > **new InvalidOpcodeError**(`message`?, `args`?): [`InvalidOpcodeError`](/reference/tevm/errors/classes/invalidopcodeerror/)
 
 Constructs an InvalidOpcodeError.
+Represents an invalid bytecode/contract error that occurs when an invalid opcode is encountered during EVM execution.
+This error is typically encountered when the bytecode contains an opcode that is not recognized by the EVM.
+
+Invalid opcode errors can occur due to:
+- Typographical errors in the bytecode.
+- Using opcodes that are not supported by the selected EVM version or hardfork.
+
+To debug an invalid opcode error:
+1. **Review Bytecode**: Ensure that the bytecode provided is correct and does not contain any invalid opcodes.
+2. **Verify Common Configuration**: Ensure you are using a `common` with the correct hardfork and EIPs that support the opcodes used by your contract.
+3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the bytecode execution and identify where the invalid opcode is encountered.
+4. **Inspect Contract Code**: Manually inspect the contract code to ensure it compiles correctly and does not include any invalid opcodes.
 
 #### Parameters
 
@@ -72,7 +84,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidOpcodeError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidOpcodeError.js#L61)
+[packages/errors/src/ethereum/ethereumjs/InvalidOpcodeError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidOpcodeError.js#L73)
 
 ## Properties
 

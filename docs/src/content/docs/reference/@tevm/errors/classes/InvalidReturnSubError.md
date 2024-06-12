@@ -5,7 +5,7 @@ prev: false
 title: "InvalidReturnSubError"
 ---
 
-Represents an error that occurs when an invalid RETURNSUB operation is executed within the EVM.
+Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.
 
 Invalid RETURNSUB errors can occur due to:
 - Incorrect use of the RETURNSUB opcode.
@@ -48,6 +48,15 @@ Additional parameters for the BaseError.
 > **new InvalidReturnSubError**(`message`?, `args`?): [`InvalidReturnSubError`](/reference/tevm/errors/classes/invalidreturnsuberror/)
 
 Constructs an InvalidReturnSubError.
+Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.
+
+Invalid RETURNSUB errors can occur due to:
+- Incorrect use of the RETURNSUB opcode.
+- Bugs in the smart contract code causing invalid subroutine returns.
+
+To debug an invalid RETURNSUB error:
+1. **Review Subroutine Logic**: Ensure that the RETURNSUB opcode is used correctly within subroutine definitions.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid RETURNSUB occurs.
 
 #### Parameters
 
@@ -69,7 +78,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidReturnSubError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidReturnSubError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InvalidReturnSubError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidReturnSubError.js#L67)
 
 ## Properties
 
