@@ -2,6 +2,7 @@ ignores: [
   "@tevm/state",
   "@tevm/base-client",
   "@tevm/decorators",
+  "@tevm/procedures",
   "@tevm/jsonrpc"
 ]
 skip-missing: true

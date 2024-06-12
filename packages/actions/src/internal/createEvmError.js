@@ -40,7 +40,7 @@ import { EvmErrorMessage } from '@tevm/evm'
  */
 
 /**
- * @param {import('@ethereumjs/evm').EvmError} error
+ * @param {import('@tevm/evm').EvmError} error
  */
 export const createEvmError = (error) => {
 	// make it so we can always override it for now
