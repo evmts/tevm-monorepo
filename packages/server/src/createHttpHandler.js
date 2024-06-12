@@ -9,6 +9,7 @@ import { BadRequestError } from './BadRequestError.js'
 * This handler works for any server that supports the Node.js http module
 * @param {import('@tevm/memory-client').MemoryClient} client
 * @returns {import('http').RequestListener}
+* @throws {never}
 * @example
 * import { createHttpHandler } from 'tevm/server'
 * import { createTevm } from 'tevm'

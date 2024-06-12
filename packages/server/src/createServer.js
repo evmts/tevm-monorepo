@@ -1,5 +1,11 @@
 import { createServer as httpCreateServer } from 'node:http'
+import { BaseError } from '@tevm/errors'
 import { createHttpHandler } from './createHttpHandler.js'
+
+/**
+ * Error thrown when using createServer from tevm
+ */
+class CreateServerError extends BaseError {}
 
 /**
  * Creates a lightweight http server for handling requests
@@ -7,6 +13,7 @@ import { createHttpHandler } from './createHttpHandler.js'
  * @param {import('http').ServerOptions} [serverOptions] - Optional options to pass to the http server
  *
  * To use pass in the Tevm['request'] request handler
+ * @throws {CreateServerError}
  * @example
  * ```typescript
  * import { createMemoryClient } from 'tevm'
@@ -29,8 +36,15 @@ import { createHttpHandler } from './createHttpHandler.js'
  * ```
  */
 export const createServer = async (client, serverOptions) => {
-	if (serverOptions === undefined) {
-		return httpCreateServer(createHttpHandler(client))
+	try {
+		if (serverOptions === undefined) {
+			return httpCreateServer(createHttpHandler(client))
+		}
+		return httpCreateServer(serverOptions, createHttpHandler(client))
+	} catch (e) {
+		if (e instanceof Error) {
+			throw new CreateServerError(e.message, { cause: e })
+		}
+		throw e
 	}
-	return httpCreateServer(serverOptions, createHttpHandler(client))
 }
