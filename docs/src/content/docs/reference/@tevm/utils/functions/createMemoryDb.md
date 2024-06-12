@@ -22,4 +22,4 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Source
 
-[packages/utils/src/createMemoryDb.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L28)
+[packages/utils/src/createMemoryDb.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L21)

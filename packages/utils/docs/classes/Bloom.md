@@ -6,6 +6,8 @@
 
 # Class: Bloom
 
+A simple Bloom filter implementation originally from ethereumjs
+
 ## Constructors
 
 ### new Bloom()
@@ -22,9 +24,13 @@ Represents a Bloom filter.
 
 [`Bloom`](Bloom.md)
 
+#### Throws
+
+If the byte size of the bitvector is not 256.
+
 #### Source
 
-[packages/utils/src/Bloom.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L16)
+[packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
 
 ## Properties
 
@@ -34,7 +40,7 @@ Represents a Bloom filter.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L11)
+[packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
 
 ## Methods
 
@@ -54,9 +60,11 @@ The element to add
 
 `void`
 
+#### Throws
+
 #### Source
 
-[packages/utils/src/Bloom.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L29)
+[packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
 
 ***
 
@@ -76,9 +84,11 @@ The element to check
 
 `boolean`
 
+#### Throws
+
 #### Source
 
-[packages/utils/src/Bloom.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L46)
+[packages/utils/src/Bloom.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L53)
 
 ***
 
@@ -98,9 +108,11 @@ Checks if multiple topics are in a bloom.
 
 `true` if every topic is in the bloom
 
+#### Throws
+
 #### Source
 
-[packages/utils/src/Bloom.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L68)
+[packages/utils/src/Bloom.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L78)
 
 ***
 
@@ -118,6 +130,8 @@ Bitwise or blooms together.
 
 `void`
 
+#### Throws
+
 #### Source
 
-[packages/utils/src/Bloom.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L75)
+[packages/utils/src/Bloom.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L86)

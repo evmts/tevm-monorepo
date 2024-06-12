@@ -6,14 +6,14 @@
 
 # Class: CreateCollisionError
 
-Represents an error that occurs when a contract creation results in a collision.
+Represents an execution error that occurs when a contract creation results in a collision.
 
 Create collision errors can occur due to:
 - Attempting to deploy a contract to an address that is already in use.
 
 To debug a create collision error:
 1. **Review Deployment Logic**: Ensure that the contract address is not already in use.
-2. **Nonces** Check that the nonce of the account used had been incremented
+2. **Nonces** Check that the nonce of the account used had been incremented. Remember nonces do not update until a block is mined.
 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and identify the collision.
 
 ## Example
@@ -49,6 +49,15 @@ Additional parameters for the BaseError.
 > **new CreateCollisionError**(`message`?, `args`?): [`CreateCollisionError`](CreateCollisionError.md)
 
 Constructs a CreateCollisionError.
+Represents an execution error that occurs when a contract creation results in a collision.
+
+Create collision errors can occur due to:
+- Attempting to deploy a contract to an address that is already in use.
+
+To debug a create collision error:
+1. **Review Deployment Logic**: Ensure that the contract address is not already in use.
+2. **Nonces** Check that the nonce of the account used had been incremented. Remember nonces do not update until a block is mined.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and identify the collision.
 
 #### Parameters
 
@@ -70,7 +79,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:63
 
 ## Properties
 

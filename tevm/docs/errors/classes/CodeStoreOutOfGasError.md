@@ -8,6 +8,7 @@
 
 Represents an error that occurs when a transaction runs out of gas during code storage.
 This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+EVM transaction execution metadata level error
 
 Code store out of gas errors can occur due to:
 - Insufficient gas provided for storing large contracts.
@@ -56,6 +57,16 @@ Additional parameters for the BaseError.
 > **new CodeStoreOutOfGasError**(`message`?, `args`?): [`CodeStoreOutOfGasError`](CodeStoreOutOfGasError.md)
 
 Constructs a CodeStoreOutOfGasError.
+Represents an error that occurs when a transaction runs out of gas during code storage.
+This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+EVM transaction execution metadata level error
+
+Code store out of gas errors can occur due to:
+- Insufficient gas provided for storing large contracts.
+- Incorrect estimation of gas required for storing code.
+- Contracts with high gas consumption during the deployment phase.
+- Non-deterministic gas usage during code storage.
+- If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
 
 #### Parameters
 
@@ -77,7 +88,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:61
+packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:72
 
 ## Properties
 
@@ -269,7 +280,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:55
 
 ***
 

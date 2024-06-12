@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidProofError](../classes/InvalidProofError.m
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:58

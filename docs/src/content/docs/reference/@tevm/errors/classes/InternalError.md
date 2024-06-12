@@ -37,6 +37,9 @@ Additional parameters for the BaseError.
 ## Extended by
 
 - [`MisconfiguredClientError`](/reference/tevm/errors/classes/misconfiguredclienterror/)
+- [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/)
+- [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
+- [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
 
 ## Constructors
 

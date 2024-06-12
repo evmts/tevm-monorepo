@@ -6,7 +6,7 @@
 
 # Class: InvalidBeginSubError
 
-Represents an error that occurs when an invalid BEGINSUB operation is executed within the EVM.
+Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.
 
 Invalid BEGINSUB errors can occur due to:
 - Incorrect use of the BEGINSUB opcode.
@@ -49,6 +49,15 @@ Additional parameters for the BaseError.
 > **new InvalidBeginSubError**(`message`?, `args`?): [`InvalidBeginSubError`](InvalidBeginSubError.md)
 
 Constructs an InvalidBeginSubError.
+Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.
+
+Invalid BEGINSUB errors can occur due to:
+- Incorrect use of the BEGINSUB opcode.
+- Bugs in the smart contract code causing invalid subroutine execution.
+
+To debug an invalid BEGINSUB error:
+1. **Review Subroutine Logic**: Ensure that the BEGINSUB opcode is used correctly within subroutine definitions.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid BEGINSUB occurs.
 
 #### Parameters
 
@@ -70,7 +79,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidBeginSubError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidBeginSubError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InvalidBeginSubError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidBeginSubError.js#L67)
 
 ## Properties
 

@@ -6,6 +6,8 @@
 
 # Class: Bloom
 
+A simple Bloom filter implementation originally from ethereumjs
+
 ## Constructors
 
 ### new Bloom()
@@ -22,9 +24,13 @@ Represents a Bloom filter.
 
 [`Bloom`](Bloom.md)
 
+#### Throws
+
+If the byte size of the bitvector is not 256.
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:6
+packages/utils/types/Bloom.d.ts:10
 
 ## Properties
 
@@ -34,7 +40,7 @@ packages/utils/types/Bloom.d.ts:6
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:2
+packages/utils/types/Bloom.d.ts:5
 
 ## Methods
 
@@ -54,9 +60,11 @@ The element to add
 
 `void`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:11
+packages/utils/types/Bloom.d.ts:16
 
 ***
 
@@ -76,9 +84,11 @@ The element to check
 
 `boolean`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:16
+packages/utils/types/Bloom.d.ts:22
 
 ***
 
@@ -98,9 +108,11 @@ Checks if multiple topics are in a bloom.
 
 `true` if every topic is in the bloom
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:21
+packages/utils/types/Bloom.d.ts:28
 
 ***
 
@@ -118,6 +130,8 @@ Bitwise or blooms together.
 
 `void`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:25
+packages/utils/types/Bloom.d.ts:33

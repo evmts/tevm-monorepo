@@ -6,7 +6,7 @@
 
 # Class: BLS12381PointNotOnCurveError
 
-Represents an error that occurs when a point is not on the curve during BLS12-381 operations.
+Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
 
 Point not on curve errors can occur due to:
 - Providing a point that does not lie on the expected curve for BLS12-381 operations.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new BLS12381PointNotOnCurveError**(`message`?, `args`?): [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
 
 Constructs a BLS12381PointNotOnCurveError.
+Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
+
+Point not on curve errors can occur due to:
+- Providing a point that does not lie on the expected curve for BLS12-381 operations.
 
 #### Parameters
 
@@ -65,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:49
+packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:53
 
 ## Properties
 

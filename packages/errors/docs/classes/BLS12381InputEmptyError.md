@@ -6,7 +6,7 @@
 
 # Class: BLS12381InputEmptyError
 
-Represents an error that occurs when an input is empty during BLS12-381 operations.
+Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
 
 Input empty errors can occur due to:
 - Providing empty input data for BLS12-381 operations.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new BLS12381InputEmptyError**(`message`?, `args`?): [`BLS12381InputEmptyError`](BLS12381InputEmptyError.md)
 
 Constructs a BLS12381InputEmptyError.
+Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
+
+Input empty errors can occur due to:
+- Providing empty input data for BLS12-381 operations.
 
 #### Parameters
 
@@ -65,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/BLS12381InputEmptyError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381InputEmptyError.js#L53)
+[packages/errors/src/ethereum/ethereumjs/BLS12381InputEmptyError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381InputEmptyError.js#L58)
 
 ## Properties
 

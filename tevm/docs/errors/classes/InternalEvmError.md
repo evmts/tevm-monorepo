@@ -6,19 +6,14 @@
 
 # Class: InternalEvmError
 
-Represents an internal error within the EVM.
+Represents an internal error within the EVM. This error should not typically happen
 This error is typically encountered when there is an unexpected issue within the EVM execution or client.
 
 Internal errors can occur due to:
 - Bugs in the EVM implementation.
-- Issues with the client or environment running the EVM.
-- Unexpected conditions that the EVM cannot handle.
+- Bugs in Tevm
 
-To debug an internal error:
-1. **Review Client Logs**: Check the client logs for any additional information about the internal error.
-2. **Check Environment**: Ensure that the environment running the EVM is properly configured and not causing issues.
-3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the execution and identify where the internal error occurs.
-4. **Inspect EVM Code**: Manually inspect the EVM implementation code to understand and address the issue causing the internal error.
+If you encounter this error please open an issue on the Tevm GitHub repository.
 
 ## Example
 
@@ -53,6 +48,14 @@ Additional parameters for the BaseError.
 > **new InternalEvmError**(`message`?, `args`?): [`InternalEvmError`](InternalEvmError.md)
 
 Constructs an InternalEvmError.
+Represents an internal error within the EVM. This error should not typically happen
+This error is typically encountered when there is an unexpected issue within the EVM execution or client.
+
+Internal errors can occur due to:
+- Bugs in the EVM implementation.
+- Bugs in Tevm
+
+If you encounter this error please open an issue on the Tevm GitHub repository.
 
 #### Parameters
 
@@ -74,7 +77,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:58
+packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:61
 
 ## Properties
 
@@ -178,7 +181,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:62
+packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:65
 
 ***
 
@@ -262,7 +265,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:51
+packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:46
 
 ***
 

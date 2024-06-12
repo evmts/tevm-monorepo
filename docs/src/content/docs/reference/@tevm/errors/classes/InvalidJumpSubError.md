@@ -5,7 +5,7 @@ prev: false
 title: "InvalidJumpSubError"
 ---
 
-Represents an error that occurs when an invalid JUMPSUB operation is executed within the EVM.
+Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
 
 Invalid JUMPSUB errors can occur due to:
 - Incorrect use of the JUMPSUB opcode.
@@ -48,6 +48,15 @@ Additional parameters for the BaseError.
 > **new InvalidJumpSubError**(`message`?, `args`?): [`InvalidJumpSubError`](/reference/tevm/errors/classes/invalidjumpsuberror/)
 
 Constructs an InvalidJumpSubError.
+Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
+
+Invalid JUMPSUB errors can occur due to:
+- Incorrect use of the JUMPSUB opcode.
+- Bugs in the smart contract code causing invalid subroutine jumps.
+
+To debug an invalid JUMPSUB error:
+1. **Review Subroutine Logic**: Ensure that the JUMPSUB opcode is used correctly within subroutine definitions.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid JUMPSUB occurs.
 
 #### Parameters
 
@@ -67,9 +76,23 @@ Additional parameters for the BaseError.
 
 [`ExecutionError`](/reference/tevm/errors/classes/executionerror/).[`constructor`](/reference/tevm/errors/classes/executionerror/#constructors)
 
+#### Example
+
+```typescript
+import { InvalidJumpSubError } from '@tevm/errors'
+try {
+  // Some operation that can throw an InvalidJumpSubError
+} catch (error) {
+  if (error instanceof InvalidJumpSubError) {
+    console.error(error.message);
+    // Handle the invalid JUMPSUB error
+  }
+}
+```
+
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js#L80)
 
 ## Properties
 

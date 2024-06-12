@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidCommitmentError](../classes/InvalidCommitm
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:71

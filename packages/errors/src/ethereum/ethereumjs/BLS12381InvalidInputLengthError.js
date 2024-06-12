@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an invalid input length is encountered during BLS12-381 operations.
+ * Represents an EIP-2537 specific error that occurs when an invalid input length is encountered during BLS12-381 operations.
  *
  * Invalid input length errors can occur due to:
  * - Providing input data of incorrect length for BLS12-381 operations.
@@ -46,6 +46,11 @@ export class BLS12381InvalidInputLengthError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.BLS_12_381_INVALID_INPUT_LENGTH
 	/**
 	 * Constructs a BLS12381InvalidInputLengthError.
+	 * Represents an EIP-2537 specific error that occurs when an invalid input length is encountered during BLS12-381 operations.
+	 *
+	 * Invalid input length errors can occur due to:
+	 * - Providing input data of incorrect length for BLS12-381 operations.
+	 *
 	 *
 	 * @param {string} [message='BLS12-381 invalid input length error occurred.'] - Human-readable error message.
 	 * @param {BLS12381InvalidInputLengthErrorParameters} [args={}] - Additional parameters for the BaseError.

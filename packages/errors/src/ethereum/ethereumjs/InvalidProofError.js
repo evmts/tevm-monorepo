@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when a KZG proof is invalid.
+ * Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
  *
  * Invalid proof errors can occur due to:
  * - Providing a KZG proof that does not meet the expected criteria.
@@ -46,6 +46,10 @@ export class InvalidProofError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_PROOF
 	/**
 	 * Constructs an InvalidProofError.
+	 * Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
+	 *
+	 * Invalid proof errors can occur due to:
+	 * - Providing a KZG proof that does not meet the expected criteria.
 	 *
 	 * @param {string} [message='Invalid proof error occurred.'] - Human-readable error message.
 	 * @param {InvalidProofErrorParameters} [args={}] - Additional parameters for the BaseError.

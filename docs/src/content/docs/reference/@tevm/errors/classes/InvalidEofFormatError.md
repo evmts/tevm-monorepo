@@ -7,6 +7,8 @@ title: "InvalidEofFormatError"
 
 Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
 
+This error is specific to EOF
+
 Invalid EOF format errors can occur due to:
 - Bugs in the smart contract code causing invalid EOF format.
 - Issues during the deployment process resulting in invalid EOF format.
@@ -48,6 +50,17 @@ Additional parameters for the BaseError.
 > **new InvalidEofFormatError**(`message`?, `args`?): [`InvalidEofFormatError`](/reference/tevm/errors/classes/invalideofformaterror/)
 
 Constructs an InvalidEofFormatError.
+Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
+
+This error is specific to EOF
+
+Invalid EOF format errors can occur due to:
+- Bugs in the smart contract code causing invalid EOF format.
+- Issues during the deployment process resulting in invalid EOF format.
+
+To debug an invalid EOF format error:
+1. **Review Deployment Process**: Ensure that the EOF format being used is valid and correctly generated.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the invalid EOF format is generated or deployed.
 
 #### Parameters
 
@@ -69,7 +82,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js#L71)
 
 ## Properties
 
@@ -261,7 +274,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js#L51)
+[packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidEofFormatError.js#L53)
 
 ***
 

@@ -5,7 +5,7 @@ prev: false
 title: "InvalidProofError"
 ---
 
-Represents an error that occurs when a KZG proof is invalid.
+Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
 
 Invalid proof errors can occur due to:
 - Providing a KZG proof that does not meet the expected criteria.
@@ -43,6 +43,10 @@ Additional parameters for the BaseError.
 > **new InvalidProofError**(`message`?, `args`?): [`InvalidProofError`](/reference/tevm/errors/classes/invalidprooferror/)
 
 Constructs an InvalidProofError.
+Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
+
+Invalid proof errors can occur due to:
+- Providing a KZG proof that does not meet the expected criteria.
 
 #### Parameters
 
@@ -64,7 +68,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidProofError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidProofError.js#L53)
+[packages/errors/src/ethereum/ethereumjs/InvalidProofError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidProofError.js#L57)
 
 ## Properties
 

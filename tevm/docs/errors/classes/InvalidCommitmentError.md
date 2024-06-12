@@ -6,7 +6,7 @@
 
 # Class: InvalidCommitmentError
 
-Represents an error that occurs when a KZG commitment does not match the versioned hash.
+Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
 
 Invalid commitment errors can occur due to:
 - Providing a KZG commitment that does not match the expected versioned hash.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new InvalidCommitmentError**(`message`?, `args`?): [`InvalidCommitmentError`](InvalidCommitmentError.md)
 
 Constructs an InvalidCommitmentError.
+Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
+
+Invalid commitment errors can occur due to:
+- Providing a KZG commitment that does not match the expected versioned hash.
 
 #### Parameters
 
@@ -63,9 +67,23 @@ Additional parameters for the BaseError.
 
 [`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
 
+#### Example
+
+```typescript
+import { InvalidCommitmentError } from '@tevm/errors'
+try {
+  // Some operation that can throw an InvalidCommitmentError
+} catch (error) {
+  if (error instanceof InvalidCommitmentError) {
+    console.error(error.message);
+    // Handle the invalid commitment error
+  }
+}
+```
+
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:49
+packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:66
 
 ## Properties
 

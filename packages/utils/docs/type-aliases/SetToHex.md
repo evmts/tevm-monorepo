@@ -16,4 +16,4 @@ A helper type that converts a set to a hex string.
 
 ## Source
 
-[packages/utils/src/SerializeToJson.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L37)
+[packages/utils/src/SerializeToJson.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L38)

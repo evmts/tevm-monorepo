@@ -6,7 +6,7 @@
 
 # Class: AuthInvalidSError
 
-Represents an error that occurs when an invalid signature with s-values greater than secp256k1n/2 is encountered.
+Represents an EIP-3074 specific error that occurs when an invalid signature with s-values greater than secp256k1n/2 is encountered.
 
 AuthInvalidS errors can occur due to:
 - Providing a signature with an s-value greater than secp256k1n/2, which is considered invalid.
@@ -48,6 +48,14 @@ Additional parameters for the BaseError.
 > **new AuthInvalidSError**(`message`?, `args`?): [`AuthInvalidSError`](AuthInvalidSError.md)
 
 Constructs an AuthInvalidSError.
+Represents an EIP-3074 specific error that occurs when an invalid signature with s-values greater than secp256k1n/2 is encountered.
+
+AuthInvalidS errors can occur due to:
+- Providing a signature with an s-value greater than secp256k1n/2, which is considered invalid.
+
+To debug an AuthInvalidS error:
+1. **Review Signature Logic**: Ensure that the signature provided adheres to the secp256k1 standards.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid signature is encountered.
 
 #### Parameters
 
@@ -69,7 +77,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/AuthInvalidSError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/AuthInvalidSError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/AuthInvalidSError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/AuthInvalidSError.js#L65)
 
 ## Properties
 

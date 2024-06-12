@@ -56,4 +56,4 @@ Parameters for constructing a [BLS12381FpNotInFieldError](../classes/BLS12381FpN
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:59

@@ -56,4 +56,4 @@ Parameters for constructing a [InsufficientBalanceError](../classes/Insufficient
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:59
+packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:70

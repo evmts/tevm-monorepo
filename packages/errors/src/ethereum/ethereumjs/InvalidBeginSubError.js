@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an invalid BEGINSUB operation is executed within the EVM.
+ * Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.
  *
  * Invalid BEGINSUB errors can occur due to:
  * - Incorrect use of the BEGINSUB opcode.
@@ -51,6 +51,15 @@ export class InvalidBeginSubError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_BEGINSUB
 	/**
 	 * Constructs an InvalidBeginSubError.
+	 * Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.
+	 *
+	 * Invalid BEGINSUB errors can occur due to:
+	 * - Incorrect use of the BEGINSUB opcode.
+	 * - Bugs in the smart contract code causing invalid subroutine execution.
+	 *
+	 * To debug an invalid BEGINSUB error:
+	 * 1. **Review Subroutine Logic**: Ensure that the BEGINSUB opcode is used correctly within subroutine definitions.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid BEGINSUB occurs.
 	 *
 	 * @param {string} [message='Invalid BEGINSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidBeginSubErrorParameters} [args={}] - Additional parameters for the BaseError.

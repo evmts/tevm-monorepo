@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when a STOP operation is executed.
+ * Represents a contract/bytecode error that occurs when a STOP operation is executed.
  *
  * Stop errors can occur due to:
  * - The contract execution reaching a STOP opcode.
@@ -50,6 +50,14 @@ export class StopError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.STOP
 	/**
 	 * Constructs a StopError.
+	 * Represents a contract/bytecode error that occurs when a STOP operation is executed.
+	 *
+	 * Stop errors can occur due to:
+	 * - The contract execution reaching a STOP opcode.
+	 *
+	 * To debug a stop error:
+	 * 1. **Review Contract Logic**: Ensure that the STOP opcode is used intentionally and correctly.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify the STOP operation.
 	 *
 	 * @param {string} [message='Stop error occurred.'] - Human-readable error message.
 	 * @param {StopErrorParameters} [args={}] - Additional parameters for the BaseError.

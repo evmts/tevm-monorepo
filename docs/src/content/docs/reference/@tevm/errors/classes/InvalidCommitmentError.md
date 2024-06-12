@@ -5,7 +5,7 @@ prev: false
 title: "InvalidCommitmentError"
 ---
 
-Represents an error that occurs when a KZG commitment does not match the versioned hash.
+Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
 
 Invalid commitment errors can occur due to:
 - Providing a KZG commitment that does not match the expected versioned hash.
@@ -43,6 +43,10 @@ Additional parameters for the BaseError.
 > **new InvalidCommitmentError**(`message`?, `args`?): [`InvalidCommitmentError`](/reference/tevm/errors/classes/invalidcommitmenterror/)
 
 Constructs an InvalidCommitmentError.
+Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
+
+Invalid commitment errors can occur due to:
+- Providing a KZG commitment that does not match the expected versioned hash.
 
 #### Parameters
 
@@ -62,9 +66,23 @@ Additional parameters for the BaseError.
 
 [`ExecutionError`](/reference/tevm/errors/classes/executionerror/).[`constructor`](/reference/tevm/errors/classes/executionerror/#constructors)
 
+#### Example
+
+```typescript
+import { InvalidCommitmentError } from '@tevm/errors'
+try {
+  // Some operation that can throw an InvalidCommitmentError
+} catch (error) {
+  if (error instanceof InvalidCommitmentError) {
+    console.error(error.message);
+    // Handle the invalid commitment error
+  }
+}
+```
+
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L53)
+[packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L70)
 
 ## Properties
 

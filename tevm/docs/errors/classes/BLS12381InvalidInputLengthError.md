@@ -6,7 +6,7 @@
 
 # Class: BLS12381InvalidInputLengthError
 
-Represents an error that occurs when an invalid input length is encountered during BLS12-381 operations.
+Represents an EIP-2537 specific error that occurs when an invalid input length is encountered during BLS12-381 operations.
 
 Invalid input length errors can occur due to:
 - Providing input data of incorrect length for BLS12-381 operations.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new BLS12381InvalidInputLengthError**(`message`?, `args`?): [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
 
 Constructs a BLS12381InvalidInputLengthError.
+Represents an EIP-2537 specific error that occurs when an invalid input length is encountered during BLS12-381 operations.
+
+Invalid input length errors can occur due to:
+- Providing input data of incorrect length for BLS12-381 operations.
 
 #### Parameters
 
@@ -65,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:49
+packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:54
 
 ## Properties
 

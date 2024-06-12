@@ -15,6 +15,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**
  * Represents an error that occurs when an account has insufficient balance to perform a transaction.
+ * EVM transaction execution metadata level error
  *
  * Insufficient balance errors can occur due to:
  * - Attempting to transfer or spend more funds than available in the account.
@@ -51,6 +52,16 @@ export class InsufficientBalanceError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INSUFFICIENT_BALANCE
 	/**
 	 * Constructs an InsufficientBalanceError.
+	 * Represents an error that occurs when an account has insufficient balance to perform a transaction.
+	 * EVM transaction execution metadata level error
+	 *
+	 * Insufficient balance errors can occur due to:
+	 * - Attempting to transfer or spend more funds than available in the account.
+	 *
+	 * To debug an insufficient balance error:
+	 * 1. **Review Account Balance**: Ensure that the account has sufficient funds to cover the transaction.
+	 * 2. **Check Transaction Details**: Verify the transaction amount and ensure it does not exceed the account balance.
+	 * 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction execution and identify where the insufficient balance occurs.
 	 *
 	 * @param {string} [message='Insufficient balance error occurred.'] - Human-readable error message.
 	 * @param {InsufficientBalanceErrorParameters} [args={}] - Additional parameters for the BaseError.

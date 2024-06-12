@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an invalid RETURNSUB operation is executed within the EVM.
+ * Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.
  *
  * Invalid RETURNSUB errors can occur due to:
  * - Incorrect use of the RETURNSUB opcode.
@@ -51,6 +51,15 @@ export class InvalidReturnSubError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_RETURNSUB
 	/**
 	 * Constructs an InvalidReturnSubError.
+	 * Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.
+	 *
+	 * Invalid RETURNSUB errors can occur due to:
+	 * - Incorrect use of the RETURNSUB opcode.
+	 * - Bugs in the smart contract code causing invalid subroutine returns.
+	 *
+	 * To debug an invalid RETURNSUB error:
+	 * 1. **Review Subroutine Logic**: Ensure that the RETURNSUB opcode is used correctly within subroutine definitions.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid RETURNSUB occurs.
 	 *
 	 * @param {string} [message='Invalid RETURNSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidReturnSubErrorParameters} [args={}] - Additional parameters for the BaseError.

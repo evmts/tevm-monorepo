@@ -5,7 +5,7 @@ prev: false
 title: "ValueOverflowError"
 ---
 
-Represents an error that occurs when a value overflow happens during EVM execution.
+Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
 
 Value overflow errors can occur due to:
 - Arithmetic operations that exceed the maximum value limit.
@@ -47,6 +47,14 @@ Additional parameters for the BaseError.
 > **new ValueOverflowError**(`message`?, `args`?): [`ValueOverflowError`](/reference/tevm/errors/classes/valueoverflowerror/)
 
 Constructs a ValueOverflowError.
+Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
+
+Value overflow errors can occur due to:
+- Arithmetic operations that exceed the maximum value limit.
+
+To debug a value overflow error:
+1. **Review Arithmetic Operations**: Ensure that arithmetic operations are correctly handling large numbers and preventing overflow.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the overflow occurs.
 
 #### Parameters
 
@@ -68,7 +76,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/ValueOverflowError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/ValueOverflowError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/ValueOverflowError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/ValueOverflowError.js#L65)
 
 ## Properties
 

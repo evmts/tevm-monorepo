@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when invalid bytecode is deployed during EVM execution.
+ * Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
  *
  * Invalid bytecode result errors can occur due to:
  * - Bugs in the smart contract code causing invalid bytecode to be generated.
@@ -51,6 +51,15 @@ export class InvalidBytecodeResultError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_BYTECODE_RESULT
 	/**
 	 * Constructs an InvalidBytecodeResultError.
+	 * Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
+	 *
+	 * Invalid bytecode result errors can occur due to:
+	 * - Bugs in the smart contract code causing invalid bytecode to be generated.
+	 * - Issues during the deployment process resulting in invalid bytecode.
+	 *
+	 * To debug an invalid bytecode result error:
+	 * 1. **Review Deployment Process**: Ensure that the bytecode being deployed is valid and correctly generated.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the invalid bytecode is generated or deployed.
 	 *
 	 * @param {string} [message='Invalid bytecode result error occurred.'] - Human-readable error message.
 	 * @param {InvalidBytecodeResultErrorParameters} [args={}] - Additional parameters for the BaseError.

@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when a point is not on the curve during BLS12-381 operations.
+ * Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
  *
  * Point not on curve errors can occur due to:
  * - Providing a point that does not lie on the expected curve for BLS12-381 operations.
@@ -46,6 +46,10 @@ export class BLS12381PointNotOnCurveError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.BLS_12_381_POINT_NOT_ON_CURVE
 	/**
 	 * Constructs a BLS12381PointNotOnCurveError.
+	 * Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
+	 *
+	 * Point not on curve errors can occur due to:
+	 * - Providing a point that does not lie on the expected curve for BLS12-381 operations.
 	 *
 	 * @param {string} [message='BLS12-381 point not on curve error occurred.'] - Human-readable error message.
 	 * @param {BLS12381PointNotOnCurveErrorParameters} [args={}] - Additional parameters for the BaseError.

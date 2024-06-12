@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidBytecodeResultError](../classes/InvalidByt
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:59
+packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:68

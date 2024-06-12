@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when initcode exceeds the maximum allowable size during EVM execution.
+ * Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
  *
  * Initcode size violation errors can occur due to:
  * - Bugs in the smart contract code causing the initcode to exceed the maximum size.
@@ -51,6 +51,15 @@ export class InitcodeSizeViolationError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INITCODE_SIZE_VIOLATION
 	/**
 	 * Constructs an InitcodeSizeViolationError.
+	 * Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
+	 *
+	 * Initcode size violation errors can occur due to:
+	 * - Bugs in the smart contract code causing the initcode to exceed the maximum size.
+	 * - Issues during the deployment process resulting in oversized initcode.
+	 *
+	 * To debug an initcode size violation error:
+	 * 1. **Review Deployment Process**: Ensure that the initcode being deployed is within the allowable size limits.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the initcode size violation occurs.
 	 *
 	 * @param {string} [message='Initcode size violation error occurred.'] - Human-readable error message.
 	 * @param {InitcodeSizeViolationErrorParameters} [args={}] - Additional parameters for the BaseError.

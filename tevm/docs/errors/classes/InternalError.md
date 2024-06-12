@@ -38,6 +38,9 @@ Additional parameters for the BaseError.
 ## Extended by
 
 - [`MisconfiguredClientError`](MisconfiguredClientError.md)
+- [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
+- [`UnreachableCodeError`](UnreachableCodeError.md)
+- [`InvalidBytesSizeError`](InvalidBytesSizeError.md)
 
 ## Constructors
 

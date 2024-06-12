@@ -5,7 +5,7 @@ prev: false
 title: "InvalidInputLengthError"
 ---
 
-Represents an error that occurs when an invalid input length is encountered during EVM execution.
+Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
 
 Invalid input length errors can occur due to:
 - Providing input data of incorrect length.
@@ -47,6 +47,14 @@ Additional parameters for the BaseError.
 > **new InvalidInputLengthError**(`message`?, `args`?): [`InvalidInputLengthError`](/reference/tevm/errors/classes/invalidinputlengtherror/)
 
 Constructs an InvalidInputLengthError.
+Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
+
+Invalid input length errors can occur due to:
+- Providing input data of incorrect length.
+
+To debug an invalid input length error:
+1. **Review Input Data**: Ensure that the input data provided matches the expected length.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid input length is encountered.
 
 #### Parameters
 
@@ -68,7 +76,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidInputLengthError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidInputLengthError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/InvalidInputLengthError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidInputLengthError.js#L65)
 
 ## Properties
 

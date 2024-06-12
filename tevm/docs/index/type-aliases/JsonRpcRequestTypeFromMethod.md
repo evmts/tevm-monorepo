@@ -22,4 +22,4 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 ## Source
 
-packages/procedures/dist/index.d.ts:1069
+packages/procedures/dist/index.d.ts:1070

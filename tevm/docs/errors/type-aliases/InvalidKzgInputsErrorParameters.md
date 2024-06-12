@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidKzgInputsError](../classes/InvalidKzgInput
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:59
