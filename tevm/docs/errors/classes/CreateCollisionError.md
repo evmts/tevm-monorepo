@@ -13,6 +13,7 @@ Create collision errors can occur due to:
 
 To debug a create collision error:
 1. **Review Deployment Logic**: Ensure that the contract address is not already in use.
+2. **Nonces** Check that the nonce of the account used had been incremented
 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and identify the collision.
 
 ## Example
@@ -69,7 +70,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:53
+packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:54
 
 ## Properties
 
@@ -261,7 +262,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:46
+packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:47
 
 ***
 
