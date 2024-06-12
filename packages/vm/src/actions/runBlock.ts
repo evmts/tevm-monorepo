@@ -20,6 +20,7 @@ import {
 } from '@tevm/utils'
 
 import { Bloom } from '@ethereumjs/vm'
+import { EipNotEnabledError, GasLimitExceededError, InternalError, MisconfiguredClientError } from '@tevm/errors'
 import type { Evm } from '@tevm/evm'
 import type { BaseVm } from '../BaseVm.js'
 import type {
@@ -33,7 +34,6 @@ import type {
 	TxReceipt,
 } from '../utils/types.js'
 import { runTx } from './runTx.js'
-import { EipNotEnabledError, GasLimitExceededError, InternalError, MisconfiguredClientError } from '@tevm/errors'
 
 const parentBeaconBlockRootAddress = EthjsAddress.fromString('0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02')
 

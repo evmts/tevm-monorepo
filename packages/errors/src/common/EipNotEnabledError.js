@@ -17,7 +17,7 @@ import { ExecutionError } from '../ethereum/ExecutionErrorError.js'
  *
  * EIP not enabled errors can occur due to:
  * - Attempting to use features or operations that require a specific EIP which is not enabled in the VM.
- * 
+ *
  * EIPs can be set on common and passed into createMemoryClient
  *
  * @example

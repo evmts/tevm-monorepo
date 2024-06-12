@@ -41,7 +41,7 @@ import { InternalError } from '../ethereum/InternalErrorError.js'
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
-export class MisconfiguredClientError extends InternalError{
+export class MisconfiguredClientError extends InternalError {
 	/**
 	 * Constructs a MisconfiguredClientError.
 	 *
