@@ -22,4 +22,4 @@ The result of an optimistic write
 
 ## Source
 
-[extensions/viem/src/OptimisticResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L18)
+[extensions/viem/src/OptimisticResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L17)

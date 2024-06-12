@@ -1,5 +1,5 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
-import { UnexpectedInternalServerError } from '@tevm/errors'
+import { InternalError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { ContractCache } from './ContractCache.js'
 import { checkpoint } from './actions/checkpoint.js'
@@ -40,7 +40,7 @@ export const createBaseState = (options) => {
 		getCurrentStateRoot: () => currentStateRoot,
 		setCurrentStateRoot: (root) => {
 			if (!state.stateRoots.has(root)) {
-				throw new UnexpectedInternalServerError('Cannot set state root to non existing state root')
+				throw new InternalError('Cannot set state root to non existing state root')
 			}
 			currentStateRoot = root
 		},

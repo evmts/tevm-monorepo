@@ -12,6 +12,7 @@ Create collision errors can occur due to:
 
 To debug a create collision error:
 1. **Review Deployment Logic**: Ensure that the contract address is not already in use.
+2. **Nonces** Check that the nonce of the account used had been incremented
 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and identify the collision.
 
 ## Example
@@ -68,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js#L58)
 
 ## Properties
 
@@ -260,7 +261,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js#L50)
+[packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CreateCollisionError.js#L51)
 
 ***
 

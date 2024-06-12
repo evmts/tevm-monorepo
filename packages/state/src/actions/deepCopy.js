@@ -1,4 +1,4 @@
-import { UnexpectedInternalServerError } from '@tevm/errors'
+import { InternalError } from '@tevm/errors'
 import { createBaseState } from '../createBaseState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 
@@ -14,7 +14,7 @@ export const deepCopy = (baseState) => async () => {
 		baseState.caches.storage._checkpoints > 0 ||
 		baseState.caches.contracts._checkpoints > 0
 	) {
-		throw new UnexpectedInternalServerError('Attempted to deepCopy state with uncommitted checkpoints')
+		throw new InternalError('Attempted to deepCopy state with uncommitted checkpoints')
 	}
 	const newState = createBaseState({
 		...baseState.options,
