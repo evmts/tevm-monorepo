@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "@tevm/vscode",
-	"version": "1.1.0-next.72",
+	"version": "1.1.0-next.74",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",

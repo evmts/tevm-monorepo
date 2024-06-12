@@ -1,5 +1,20 @@
 # @tevm/base
 
+## 1.1.0-next.74
+
+### Patch Changes
+
+- [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
+
+  - Tevm/Zod is now part of Tevm/actions
+  - Tevm/actions-types moved to Tevm/actions
+  - Tevm/procedures-types moved to Tevm/procedures
+
+- Updated dependencies [[`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a)]:
+  - @tevm/compiler@1.1.0-next.74
+  - @tevm/tsupconfig@1.1.0-next.74
+  - @tevm/tsconfig@1.1.0-next.74
+
 ## 1.1.0-next.72
 
 ### Minor Changes
