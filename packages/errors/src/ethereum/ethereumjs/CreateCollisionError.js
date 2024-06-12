@@ -21,8 +21,9 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  *
  * To debug a create collision error:
  * 1. **Review Deployment Logic**: Ensure that the contract address is not already in use.
+ * 2. **Nonces** Check that the nonce of the account used had been incremented
  * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and identify the collision.
- *
+ * 
  * @example
  * ```typescript
  * import { CreateCollisionError } from '@tevm/errors'
