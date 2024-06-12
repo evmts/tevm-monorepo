@@ -20,4 +20,4 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Source
 
-packages/procedures/dist/index.d.ts:787
+packages/procedures/dist/index.d.ts:786

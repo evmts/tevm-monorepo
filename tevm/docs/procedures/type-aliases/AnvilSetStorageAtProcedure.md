@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 ## Source
 
-packages/procedures/dist/index.d.ts:211
+packages/procedures/dist/index.d.ts:210
