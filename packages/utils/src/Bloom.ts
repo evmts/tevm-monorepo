@@ -1,5 +1,5 @@
 // This is adapted from @ethereumjs/vm package not the @ethereumjs/util package
-import { InternalError } from '@tevm/errors'
+import { DefensiveNullCheckError, InvalidBytesSizeError } from '@tevm/errors'
 import { hexToBytes, keccak256 } from './viem.js'
 
 const zeros = (bytes: number): Uint8Array => {
@@ -8,6 +8,9 @@ const zeros = (bytes: number): Uint8Array => {
 
 const BYTE_SIZE = 256
 
+/**
+ * A simple Bloom filter implementation originally from ethereumjs
+ */
 export class Bloom {
 	bitvector: Uint8Array
 
@@ -18,7 +21,7 @@ export class Bloom {
 		if (!bitvector) {
 			this.bitvector = zeros(BYTE_SIZE)
 		} else {
-			if (bitvector.length !== BYTE_SIZE) throw new Error('bitvectors must be 2048 bits long')
+			if (bitvector.length !== BYTE_SIZE) throw new InvalidBytesSizeError(BYTE_SIZE, bitvector.length)
 			this.bitvector = bitvector
 		}
 	}
@@ -55,7 +58,7 @@ export class Bloom {
 			const byteLoc = loc >> 3
 			const bitLoc = 1 << (loc % 8)
 			const item = this.bitvector[BYTE_SIZE - byteLoc - 1]
-			if (!item) throw new InternalError('item is not defined')
+			if (!item) throw new DefensiveNullCheckError('item is not defined. There is a bug in the implementation')
 			match = (item & bitLoc) !== 0
 		}
 
@@ -77,8 +80,8 @@ export class Bloom {
 		for (let i = 0; i <= BYTE_SIZE; i++) {
 			const a = this.bitvector[i]
 			const b = bloom.bitvector[i]
-			if (!a) throw new Error('a is not defined')
-			if (!b) throw new Error('b is not defined')
+			if (!a) throw new DefensiveNullCheckError('a is not defined')
+			if (!b) throw new DefensiveNullCheckError('b is not defined')
 			this.bitvector[i] = a | b
 		}
 	}

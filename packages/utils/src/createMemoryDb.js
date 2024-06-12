@@ -1,5 +1,6 @@
-import { InternalError } from '@tevm/errors'
+import { UnreachableCodeError } from '@tevm/errors'
 import { bytesToHex } from './viem.js'
+
 /**
  * Converts key to type that maps can use as keys
  * @param {unknown} bytes
@@ -9,14 +10,6 @@ const encodeKey = (bytes) => {
 		return bytesToHex(bytes)
 	}
 	return bytes
-}
-
-/**
- * Throws an error for an unexpected case in a typesafe way
- * @param {never} item
- */
-const unexpectedTypeError = (item) => {
-	throw new InternalError(`Unexpected item type ${/** @type {any}*/ (item).type}`)
 }
 
 /**
@@ -52,7 +45,7 @@ export const createMemoryDb = (initialDb) => {
 				} else if (item.type === 'put') {
 					db.set(encodeKey(item.key), item.value)
 				} else {
-					unexpectedTypeError(item)
+					throw new UnreachableCodeError(item)
 				}
 			}
 			return Promise.resolve()
