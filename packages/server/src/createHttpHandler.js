@@ -1,6 +1,5 @@
 import { zJsonRpcRequest } from '@tevm/actions'
-import { InternalError } from '@tevm/errors'
-import { BadRequestError } from './BadRequestError.js'
+import { InternalError, InvalidRequestError } from '@tevm/errors'
 
 /**
 /**
@@ -50,8 +49,8 @@ export const createHttpHandler = (client) => {
 			try {
 				raw = JSON.parse(body)
 			} catch (e) {
-				console.error(e)
-				const err = new BadRequestError('Request body is not valid json')
+				client._tevm.logger.error(e)
+				const err = new InvalidRequestError('Request body is not valid json')
 				res.writeHead(400, { 'Content-Type': 'application/json' })
 				res.end(
 					JSON.stringify({
@@ -68,7 +67,7 @@ export const createHttpHandler = (client) => {
 			}
 			const parsedRequest = zJsonRpcRequest.safeParse(raw)
 			if (!parsedRequest.success) {
-				const err = new BadRequestError(JSON.stringify(parsedRequest.error.format()))
+				const err = new InvalidRequestError(JSON.stringify(parsedRequest.error.format()))
 				res.writeHead(400, { 'Content-Type': 'application/json' })
 				res.end(
 					JSON.stringify({
@@ -95,7 +94,7 @@ export const createHttpHandler = (client) => {
 				responses.map((response, i) => {
 					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 					if (response.status === 'rejected') {
-						console.error(response.reason)
+						client._tevm.logger.error(response.reason)
 						// it should never reject since we return errors as value unless something went very wrong
 						const err = new InternalError(request.method, { cause: response.reason })
 						return {
@@ -122,9 +121,9 @@ export const createHttpHandler = (client) => {
 				res.writeHead(200, { 'Content-Type': 'application/json' })
 				return res.end(JSON.stringify(response))
 			} catch (e) {
-				console.error(e)
+				client._tevm.logger.error(e)
 				const err = new InternalError(request.method, { cause: e })
-				console.error(err)
+				client._tevm.logger.error(err)
 				const response = {
 					id: request.id,
 					method: request.method,
