@@ -65,6 +65,8 @@ Additional parameters for the BaseError.
 - [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
 - [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
 - [`ValueOverflowError`](ValueOverflowError.md)
+- [`CommonMismatchError`](CommonMismatchError.md)
+- [`EipNotEnabledError`](EipNotEnabledError.md)
 
 ## Constructors
 

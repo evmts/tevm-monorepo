@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:159
+packages/procedures/dist/index.d.ts:158

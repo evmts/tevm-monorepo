@@ -12,4 +12,4 @@ JSON-RPC request for `eth_mining` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:451
+packages/procedures/dist/index.d.ts:450

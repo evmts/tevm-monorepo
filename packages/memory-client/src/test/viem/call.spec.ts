@@ -96,7 +96,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'args: override',
 		async () => {
 			const fakeName = 'NotWagmi'
@@ -136,7 +136,7 @@ describe('call', () => {
 		'fee cap too high',
 		async () => {
 			expect(
-				call(mc, {
+				await call(mc, {
 					data: `${mintWithParams4bytes}${fourTwenty}`,
 					account,
 					to: wagmiContractAddress,

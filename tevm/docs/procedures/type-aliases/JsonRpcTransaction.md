@@ -50,4 +50,4 @@ The integer of value sent with this transaction encoded as hexadecimal
 
 ## Source
 
-packages/procedures/dist/index.d.ts:309
+packages/procedures/dist/index.d.ts:308

@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setNonce` method
 
 ## Source
 
-packages/procedures/dist/index.d.ts:84
+packages/procedures/dist/index.d.ts:83

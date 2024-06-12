@@ -35,6 +35,10 @@ Additional parameters for the BaseError.
 
 - [`BaseError`](BaseError.md)
 
+## Extended by
+
+- [`MisconfiguredClientError`](MisconfiguredClientError.md)
+
 ## Constructors
 
 ### new InternalError()
@@ -69,17 +73,17 @@ packages/errors/types/ethereum/InternalErrorError.d.ts:44
 
 ### \_tag
 
-> **\_tag**: `"InternalError"`
+> **\_tag**: `string`
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:53
+packages/errors/types/ethereum/BaseError.d.ts:39
 
 ***
 
@@ -189,17 +193,17 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 ### name
 
-> **name**: `"InternalError"`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:58
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
