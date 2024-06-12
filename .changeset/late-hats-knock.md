@@ -54,7 +54,6 @@
 "@tevm/txpool": minor
 "@tevm/utils": minor
 "@tevm/vm": minor
-"@tevm/actions": minor
 "@tevm/test-utils": minor
 "tevm": minor
 ---

@@ -14,7 +14,6 @@
 "@tevm/test-utils": patch
 "@tevm/state": patch
 "@tevm/utils": patch
-"@tevm/actions": patch
 ---
 
 Updated viem to latest

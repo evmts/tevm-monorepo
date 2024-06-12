@@ -48,7 +48,6 @@
 "@tevm/predeploys": patch
 "@tevm/server": patch
 "@tevm/vm": patch
-"@tevm/actions": patch
 ---
 
 Added docs for all packages to https://tevm.sh

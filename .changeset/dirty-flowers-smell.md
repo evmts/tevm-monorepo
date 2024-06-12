@@ -54,7 +54,6 @@
 "@tevm/txpool": patch
 "@tevm/utils": patch
 "@tevm/vm": patch
-"@tevm/actions": patch
 "tevm": patch
 ---
 

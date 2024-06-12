@@ -6,7 +6,6 @@
 "@tevm/procedures": minor
 "@tevm/viem": minor
 "@tevm/state": minor
-"@tevm/actions": minor
 "tevm": minor
 ---
 

@@ -37,7 +37,6 @@
 "@tevm/procedures": patch
 "@tevm/server": patch
 "@tevm/state": patch
-"@tevm/actions": patch
 "tevm": patch
 ---
 

@@ -17,7 +17,6 @@
 "@tevm/state": minor
 "@tevm/utils": minor
 "@tevm/evm": minor
-"@tevm/actions": minor
 "@tevm/vm": minor
 "@tevm/bundler": minor
 "tevm": minor

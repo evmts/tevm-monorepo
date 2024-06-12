@@ -3,7 +3,6 @@
 "@tevm/actions": minor
 "@tevm/decorators": minor
 "@tevm/errors": minor
-"@tevm/actions": minor
 "tevm": minor
 ---
 

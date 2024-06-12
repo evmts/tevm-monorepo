@@ -27,7 +27,6 @@
 "@tevm/test-utils": patch
 "@tevm/state": patch
 "@tevm/ts-plugin": patch
-"@tevm/actions": patch
 "@tevm/tx": patch
 "@tevm/vscode": patch
 "@tevm/lsp": patch
