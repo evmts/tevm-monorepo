@@ -33,7 +33,6 @@
 "@tevm/lsp": patch
 "@tevm/ts-plugin": patch
 "@tevm/vscode": patch
-"@tevm/actions": patch
 "@tevm/blockchain": patch
 "@tevm/client-types": patch
 "@tevm/common": patch
@@ -47,10 +46,8 @@
 "@tevm/memory-client": patch
 "@tevm/precompiles": patch
 "@tevm/predeploys": patch
-"@tevm/procedures": patch
 "@tevm/server": patch
 "@tevm/vm": patch
-"@tevm/zod": patch
 ---
 
 Added docs for all packages to https://tevm.sh

@@ -10,7 +10,6 @@ import type {
 import type { GenError } from './GenError.js'
 import type { GenResult } from './GenResult.js'
 
-// TODO move this to actions-types if it becomes a real action
 /**
  * @experimental
  * The result of an optimistic write

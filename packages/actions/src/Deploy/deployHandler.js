@@ -17,7 +17,7 @@ export const deployHandler =
 	(client, { throwOnFail: throwOnFailDefault = true } = {}) =>
 	async (params) => {
 		client.logger.debug(params, 'deployHandler called with params')
-		// TODO Moving fast atm we should ideally add validators to @tevm/zod
+		// TODO Moving fast atm we should ideally add validators to zod
 		let deployData
 		try {
 			deployData = encodeDeployData(

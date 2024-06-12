@@ -15,7 +15,7 @@
 "@tevm/state": patch
 "@tevm/utils": patch
 "@tevm/evm": patch
-"@tevm/zod": patch
+"@tevm/actions": patch
 "@tevm/vm": patch
 ---
 

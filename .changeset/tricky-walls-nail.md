@@ -1,5 +1,5 @@
 ---
-"@tevm/zod": patch
+"@tevm/actions": patch
 ---
 
-Added @tevm/zod package. This package provides common zod validation for the Tevm JSON-RPC api
+Added @tevm/actions package. This package provides common zod validation for the Tevm JSON-RPC api

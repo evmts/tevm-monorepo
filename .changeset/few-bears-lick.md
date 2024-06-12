@@ -2,7 +2,6 @@
 "@tevm/procedures": patch
 "@tevm/memory-client": patch
 "@tevm/client-types": patch
-"@tevm/procedures": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
 "@tevm/server": patch

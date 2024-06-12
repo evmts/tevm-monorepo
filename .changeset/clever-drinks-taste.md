@@ -2,10 +2,7 @@
 "@tevm/procedures": minor
 "@tevm/actions": minor
 "@tevm/decorators": minor
-"@tevm/procedures": minor
-"@tevm/actions": minor
 "@tevm/errors": minor
-"@tevm/zod": minor
 "tevm": minor
 ---
 

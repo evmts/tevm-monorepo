@@ -1,10 +1,9 @@
 import { type Address } from 'tevm'
-import type { Hex } from 'tevm/actions-types'
+import type { Hex } from 'tevm/actions'
 import { encodeDeployData } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { describe, expect, it } from 'vitest'
 import {
-	call,
 	getBlock,
 	getBlockNumber,
 	getChainId,

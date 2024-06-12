@@ -4,7 +4,6 @@
 "@tevm/client-types": minor
 "@tevm/http-client": minor
 "@tevm/procedures": minor
-"@tevm/actions": minor
 "@tevm/viem": minor
 ---
 

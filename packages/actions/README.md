@@ -9,8 +9,6 @@
 
 # @tevm/actions
 
-Ethereumjs implementation of the [@tevm/actions-types](../actions-types)
-
 Actions add functionality to the [base client](https://github.com/evmts/tevm-monorepo/tree/main/packages/base-client)
 
 ## Installation
@@ -21,7 +19,7 @@ Action handlers can be imported from `tevm/actions` or `@tevm/actions`
 npm install tevm
 ```
 
-or 
+or
 
 ```bash
 npm install @tevm/actions
@@ -42,12 +40,12 @@ const client = createBaseClient()
 
 /**
  * To use the action first instanciate it with the base client
- * @type {import('tevm/actions-types').CallHandler}
+ * @type {import('tevm/actions').CallHandler}
  */
 const call = callHandler(client)
 
 /**
- * @type{import('tevm/actions-types').CallHandlerResult}
+ * @type{import('tevm/actions').CallHandlerResult}
  */
 const callResult = await call({
   to: `0x${'01'.repeat(20)}`,

@@ -10,7 +10,7 @@ export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
 	const accountsByAddress = Object.fromEntries(accounts.map((account) => [account.address, account]))
 
 	return async ({ nonce, ...params }) => {
-		// TODO validate params with @tevm/zod
+		// TODO validate params with zod
 		const account = accountsByAddress[params.from]
 		if (!account) {
 			throw new MissingAccountError(`Account ${params.from} not found`)
