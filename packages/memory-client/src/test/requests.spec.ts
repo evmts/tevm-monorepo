@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedures'
+import type { CallJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, numberToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'
@@ -60,7 +60,7 @@ describe('Tevm.request', async () => {
 			jsonrpc: '2.0',
 			method: 'tevm_NotARequest' as any,
 			id: 1,
-		} as const satisfies ContractJsonRpcRequest
+		} as const satisfies CallJsonRpcRequest
 		const error = await tevm.request(req).catch((e) => e)
 		expect(error.code).toMatchSnapshot()
 		expect(error.message).toMatchSnapshot()
@@ -89,7 +89,7 @@ describe('Tevm.request', async () => {
 				jsonrpc: '2.0',
 				method: 'tevm_call',
 				id: 1,
-			} as const satisfies ContractJsonRpcRequest
+			} as const satisfies CallJsonRpcRequest
 			const res = await tevm._tevm.request(req)
 			expect(
 				decodeFunctionResult({
