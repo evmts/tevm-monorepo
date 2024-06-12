@@ -1,10 +1,10 @@
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
-import { callHandler } from '../Call/callHandler.js'
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
 import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
-import { validateScriptParams } from './validateScriptParams.js'
+import { callHandler } from '../Call/callHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { validateScriptParams } from './validateScriptParams.js'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM

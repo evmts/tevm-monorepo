@@ -6,7 +6,7 @@
 
 # Function: mineHandler()
 
-> **mineHandler**(`client`, `options`?): `MineHandler`
+> **mineHandler**(`client`, `options`?): [`MineHandler`](../type-aliases/MineHandler.md)
 
 ## Parameters
 
@@ -20,8 +20,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-`MineHandler`
+[`MineHandler`](../type-aliases/MineHandler.md)
 
 ## Source
 
-[packages/actions/src/tevm/mineHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/mineHandler.js#L14)
+[packages/actions/src/Mine/mineHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineHandler.js#L15)

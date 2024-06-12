@@ -67,7 +67,7 @@ using Tevm.
 
 ### ~~call~~
 
-> **call**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **call**: [`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -89,7 +89,7 @@ const res = tevm.call({
 
 ### ~~contract~~
 
-> **contract**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contract**: [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -116,7 +116,7 @@ console.log(res.data) // "hello"
 
 ### ~~dumpState~~
 
-> **dumpState**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpState**: [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -148,7 +148,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **blockNumber**: [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+> **blockNumber**: [`EthBlockNumberHandler`](/reference/tevm/actions/type-aliases/ethblocknumberhandler/)
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -167,7 +167,7 @@ console.log(blockNumber) // 0n
 
 ### eth.call
 
-> **call**: [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+> **call**: [`EthCallHandler`](/reference/tevm/actions/type-aliases/ethcallhandler/)
 
 Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -186,7 +186,7 @@ console.log(res) // "0x..."
 
 ### eth.chainId
 
-> **chainId**: [`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
+> **chainId**: [`EthChainIdHandler`](/reference/tevm/actions/type-aliases/ethchainidhandler/)
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -205,7 +205,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **gasPrice**: [`EthGasPriceHandler`](/reference/tevm/actions-types/type-aliases/ethgaspricehandler/)
+> **gasPrice**: [`EthGasPriceHandler`](/reference/tevm/actions/type-aliases/ethgaspricehandler/)
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -224,7 +224,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **getBalance**: [`EthGetBalanceHandler`](/reference/tevm/actions-types/type-aliases/ethgetbalancehandler/)
+> **getBalance**: [`EthGetBalanceHandler`](/reference/tevm/actions/type-aliases/ethgetbalancehandler/)
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -243,7 +243,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **getCode**: [`EthGetCodeHandler`](/reference/tevm/actions-types/type-aliases/ethgetcodehandler/)
+> **getCode**: [`EthGetCodeHandler`](/reference/tevm/actions/type-aliases/ethgetcodehandler/)
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -261,7 +261,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **getStorageAt**: [`EthGetStorageAtHandler`](/reference/tevm/actions-types/type-aliases/ethgetstorageathandler/)
+> **getStorageAt**: [`EthGetStorageAtHandler`](/reference/tevm/actions/type-aliases/ethgetstorageathandler/)
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -279,7 +279,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 ### ~~getAccount~~
 
-> **getAccount**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+> **getAccount**: [`GetAccountHandler`](/reference/tevm/actions/type-aliases/getaccounthandler/)
 
 Gets the state of a specific ethereum address
 
@@ -294,7 +294,7 @@ console.log(res.balance)
 
 ### ~~loadState~~
 
-> **loadState**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **loadState**: [`LoadStateHandler`](/reference/tevm/actions/type-aliases/loadstatehandler/)
 
 Loads a previously dumped state into the VM
 
@@ -439,7 +439,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ### ~~script~~
 
-> **script**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+> **script**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
@@ -467,7 +467,7 @@ const res = tevm.script(
 
 ### ~~setAccount~~
 
-> **setAccount**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+> **setAccount**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
 
 Sets the state of a specific ethereum address
 

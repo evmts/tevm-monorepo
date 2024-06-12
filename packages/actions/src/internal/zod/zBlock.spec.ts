@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
-import { zBlock } from './zBlock.js'
 import type { Block } from '../../common/Block.js'
+import { zBlock } from './zBlock.js'
 
 test('zBlock', () => {
 	const block = {

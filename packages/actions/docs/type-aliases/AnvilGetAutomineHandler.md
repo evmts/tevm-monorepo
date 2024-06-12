@@ -1,0 +1,21 @@
+[**@tevm/actions**](../README.md) • **Docs**
+
+***
+
+[@tevm/actions](../globals.md) / AnvilGetAutomineHandler
+
+# Type alias: AnvilGetAutomineHandler()
+
+> **AnvilGetAutomineHandler**: (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
+
+## Parameters
+
+• **params**: [`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)
+
+## Returns
+
+`Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
+
+## Source
+
+[packages/actions/src/anvil/AnvilHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L44)

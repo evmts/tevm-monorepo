@@ -6,7 +6,7 @@
 
 # Function: dumpStateProcedure()
 
-> **dumpStateProcedure**(`client`): `DumpStateJsonRpcProcedure`
+> **dumpStateProcedure**(`client`): [`DumpStateJsonRpcProcedure`](../type-aliases/DumpStateJsonRpcProcedure.md)
 
 Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
 
@@ -16,8 +16,8 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 ## Returns
 
-`DumpStateJsonRpcProcedure`
+[`DumpStateJsonRpcProcedure`](../type-aliases/DumpStateJsonRpcProcedure.md)
 
 ## Source
 
-[procedures/src/tevm/dumpStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/dumpStateProcedure.js#L9)
+[procedures/src/dumpstate/dumpStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/dumpStateProcedure.js#L9)

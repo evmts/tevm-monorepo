@@ -1,6 +1,6 @@
+import {} from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createBaseVm } from '../createBaseVm.js'
-import {} from '@tevm/errors'
 
 /**
  * @typedef {() => Promise<import('../BaseVm.js').BaseVm>} DeepCopy

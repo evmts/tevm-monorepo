@@ -1,3 +1,4 @@
+import type { CallParams } from '../Call/CallParams.js'
 import type {
 	Address,
 	BlockOverrideSet,
@@ -7,7 +8,6 @@ import type {
 	Hex,
 	StateOverrideSet,
 } from '../common/index.js'
-import type { CallParams } from '../Call/CallParams.js'
 
 // eth_accounts
 /**

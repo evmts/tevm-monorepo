@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import type { ContractHandler } from '../Contract/ContractHandlerType.js'
-import type { ContractResult } from '../Contract/ContractResult.js'
 import type { ContractParams } from '../Contract/ContractParams.js'
+import type { ContractResult } from '../Contract/ContractResult.js'
 
 describe('ContractHandler', () => {
 	it('Is a generic type that infers the abi function name arg and return type', async () => {

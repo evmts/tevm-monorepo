@@ -5,7 +5,7 @@ prev: false
 title: "contractHandler"
 ---
 
-> **contractHandler**(`client`, `options`?): [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contractHandler**(`client`, `options`?): [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
 Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
@@ -21,8 +21,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-[`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+[`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
 ## Source
 
-[packages/actions/src/tevm/contractHandler.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/contractHandler.js#L20)
+[packages/actions/src/Contract/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L16)

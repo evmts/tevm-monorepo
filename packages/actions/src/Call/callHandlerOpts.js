@@ -1,4 +1,4 @@
-import { UnknownBlockError, InvalidBlockError, InvalidParamsError } from '@tevm/errors'
+import { InvalidBlockError, InvalidParamsError, UnknownBlockError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'

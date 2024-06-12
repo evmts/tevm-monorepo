@@ -6,7 +6,7 @@
 
 # Function: blockNumberHandler()
 
-> **blockNumberHandler**(`client`): `EthBlockNumberHandler`
+> **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
 
 Handler for the `eth_blockNumber` RPC call
 
@@ -16,7 +16,7 @@ Handler for the `eth_blockNumber` RPC call
 
 ## Returns
 
-`EthBlockNumberHandler`
+[`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
 
 ## Source
 

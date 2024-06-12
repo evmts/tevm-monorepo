@@ -1,4 +1,4 @@
-import type { InternalError, ExecutionError, RevertError } from '@tevm/errors'
+import type { ExecutionError, InternalError, RevertError } from '@tevm/errors'
 import type { CallHandlerOptsError } from './callHandlerOpts.js'
 import type { ValidateCallParamsError } from './validateCallParams.js'
 

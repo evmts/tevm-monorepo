@@ -1,6 +1,6 @@
 import type { ContractFunctionName, DecodeFunctionResultReturnType } from '@tevm/utils'
-import type { Abi } from '../common/index.js'
 import type { CallResult } from '../Call/CallResult.js'
+import type { Abi } from '../common/index.js'
 import type { TevmContractError } from './TevmContractError.js'
 
 export type ContractResult<

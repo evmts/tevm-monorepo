@@ -5,7 +5,7 @@ prev: false
 title: "getStorageAtProcedure"
 ---
 
-> **getStorageAtProcedure**(`options`): `EthGetStorageAtJsonRpcProcedure`
+> **getStorageAtProcedure**(`options`): [`EthGetStorageAtJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetstorageatjsonrpcprocedure/)
 
 ## Parameters
 
@@ -19,7 +19,7 @@ title: "getStorageAtProcedure"
 
 ## Returns
 
-`EthGetStorageAtJsonRpcProcedure`
+[`EthGetStorageAtJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetstorageatjsonrpcprocedure/)
 
 ## Source
 

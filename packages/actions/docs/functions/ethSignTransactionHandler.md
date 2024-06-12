@@ -6,7 +6,7 @@
 
 # Function: ethSignTransactionHandler()
 
-> **ethSignTransactionHandler**(`options`): `EthSignTransactionHandler`
+> **ethSignTransactionHandler**(`options`): [`EthSignTransactionHandler`](../type-aliases/EthSignTransactionHandler.md)
 
 ## Parameters
 
@@ -18,7 +18,7 @@
 
 ## Returns
 
-`EthSignTransactionHandler`
+[`EthSignTransactionHandler`](../type-aliases/EthSignTransactionHandler.md)
 
 ## Source
 

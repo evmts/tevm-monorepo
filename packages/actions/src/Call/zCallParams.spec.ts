@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
-import { zCallParams } from './zCallParams.js'
 import type { CallParams } from './CallParams.js'
+import { zCallParams } from './zCallParams.js'
 
 test('zCallParams', () => {
 	const callParams: CallParams = {

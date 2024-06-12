@@ -98,6 +98,7 @@
 - [TransactionUnderpricedError](classes/TransactionUnderpricedError.md)
 - [UnknownBlockError](classes/UnknownBlockError.md)
 - [UnsupportedChainError](classes/UnsupportedChainError.md)
+- [ValueOverflowError](classes/ValueOverflowError.md)
 
 ## Interfaces
 
@@ -190,3 +191,4 @@
 - [TransactionUnderpricedErrorParameters](interfaces/TransactionUnderpricedErrorParameters.md)
 - [UnknownBlockErrorParameters](interfaces/UnknownBlockErrorParameters.md)
 - [UnsupportedChainErrorParameters](interfaces/UnsupportedChainErrorParameters.md)
+- [ValueOverflowErrorParameters](interfaces/ValueOverflowErrorParameters.md)

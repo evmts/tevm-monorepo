@@ -1,6 +1,6 @@
+import type { BaseParams } from '../common/BaseParams.js'
 import type { Hex } from '../common/index.js'
 import type { EthCallParams } from '../eth/EthParams.js'
-import type { BaseParams } from '../common/BaseParams.js'
 
 /**
  * Config params for trace calls

@@ -1,4 +1,4 @@
-import {UnexpectedInternalServerError} from '@tevm/errors'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { bytesToHex } from './viem.js'
 /**
  * Converts key to type that maps can use as keys

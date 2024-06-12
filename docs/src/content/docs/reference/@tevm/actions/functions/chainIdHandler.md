@@ -5,7 +5,7 @@ prev: false
 title: "chainIdHandler"
 ---
 
-> **chainIdHandler**(`client`): [`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
+> **chainIdHandler**(`client`): [`EthChainIdHandler`](/reference/tevm/actions/type-aliases/ethchainidhandler/)
 
 Handler for the `eth_chainId` RPC call.
 
@@ -15,7 +15,7 @@ Handler for the `eth_chainId` RPC call.
 
 ## Returns
 
-[`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
+[`EthChainIdHandler`](/reference/tevm/actions/type-aliases/ethchainidhandler/)
 
 ## Source
 

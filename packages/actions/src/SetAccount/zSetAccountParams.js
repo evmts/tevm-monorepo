@@ -2,8 +2,8 @@ import { z } from 'zod'
 import { zBaseParams } from '../BaseCall/zBaseParams.js'
 import { zAddress } from '../internal/zod/zAddress.js'
 import { zBytecode } from '../internal/zod/zBytecode.js'
-import { zStorageRoot } from '../internal/zod/zStorageRoot.js'
 import { zHex } from '../internal/zod/zHex.js'
+import { zStorageRoot } from '../internal/zod/zStorageRoot.js'
 
 /**
  * Zod validator for a valid setAccount action

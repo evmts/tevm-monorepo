@@ -1,4 +1,4 @@
-import {UnexpectedInternalServerError} from '@tevm/errors'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { createBaseState } from '../createBaseState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 

@@ -5,7 +5,7 @@ prev: false
 title: "ethGetTransactionReceiptHandler"
 ---
 
-> **ethGetTransactionReceiptHandler**(`client`): [`EthGetTransactionReceiptHandler`](/reference/tevm/actions-types/type-aliases/ethgettransactionreceipthandler/)
+> **ethGetTransactionReceiptHandler**(`client`): [`EthGetTransactionReceiptHandler`](/reference/tevm/actions/type-aliases/ethgettransactionreceipthandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "ethGetTransactionReceiptHandler"
 
 ## Returns
 
-[`EthGetTransactionReceiptHandler`](/reference/tevm/actions-types/type-aliases/ethgettransactionreceipthandler/)
+[`EthGetTransactionReceiptHandler`](/reference/tevm/actions/type-aliases/ethgettransactionreceipthandler/)
 
 ## Source
 

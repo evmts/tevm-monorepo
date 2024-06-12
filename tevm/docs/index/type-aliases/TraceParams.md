@@ -39,4 +39,4 @@ object to specify configurations for the tracer
 
 ## Source
 
-packages/actions-types/types/params/DebugParams.d.ts:7
+packages/actions/types/debug/DebugParams.d.ts:7

@@ -1,5 +1,5 @@
-import { BaseError } from '../BaseError.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
+import { BaseError } from '../BaseError.js'
 
 /**
  * Parameters for constructing a {@link InternalEvmError}.

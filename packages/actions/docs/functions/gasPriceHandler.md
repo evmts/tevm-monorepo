@@ -6,7 +6,7 @@
 
 # Function: gasPriceHandler()
 
-> **gasPriceHandler**(`client`): `EthGasPriceHandler`
+> **gasPriceHandler**(`client`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthGasPriceHandler`
+[`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
 ## Source
 

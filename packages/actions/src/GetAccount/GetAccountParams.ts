@@ -1,5 +1,5 @@
-import type { Address } from '../common/index.js'
 import type { BaseParams } from '../common/BaseParams.js'
+import type { Address } from '../common/index.js'
 
 /**
  * Tevm params to get an account

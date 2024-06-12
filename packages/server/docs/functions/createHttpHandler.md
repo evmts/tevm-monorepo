@@ -9,10 +9,10 @@
 > **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 /**
- * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
- * Any unimplemented methods will be proxied to the given proxyUrl
- * This handler works for any server that supports the Node.js http module
- *
+* Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+* Any unimplemented methods will be proxied to the given proxyUrl
+* This handler works for any server that supports the Node.js http module
+*
 
 ## Parameters
 
@@ -1361,22 +1361,22 @@ const unwatch = await client.watchPendingTransactions({
 
 ```ts
 * import { createHttpHandler } from 'tevm/server'
- * import { createTevm } from 'tevm'
- * import { createServer } from 'http'
- *
- * const PORT = 8080
- *
- * const tevm = createTevm({
- *   fork: {
- *     transport: http('https://mainnet.optimism.io')({})
- *   }
- * })
- *
- * const server = createServer(
- *   createHttpHandler(tevm)
- * )
- * server.listen(PORT, () => console.log({ listening: PORT }))
- *
+* import { createTevm } from 'tevm'
+* import { createServer } from 'http'
+*
+* const PORT = 8080
+*
+* const tevm = createTevm({
+*   fork: {
+*     transport: http('https://mainnet.optimism.io')({})
+*   }
+* })
+*
+* const server = createServer(
+*   createHttpHandler(tevm)
+* )
+* server.listen(PORT, () => console.log({ listening: PORT }))
+*
 ```
 
 ## Source

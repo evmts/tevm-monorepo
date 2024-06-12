@@ -38,7 +38,7 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 ### tevm\_call.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`CallResult`](/reference/tevm/actions-types/type-aliases/callresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\<`never`\>\>
 
 ### tevm\_dumpState
 
@@ -68,7 +68,7 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`DumpStateResult`](/reference/tevm/actions-types/type-aliases/dumpstateresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`DumpStateResult`](/reference/tevm/actions/type-aliases/dumpstateresult/)\<`never`\>\>
 
 ### tevm\_getAccount
 
@@ -98,7 +98,7 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 ### tevm\_getAccount.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`GetAccountResult`](/reference/tevm/actions-types/type-aliases/getaccountresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`GetAccountResult`](/reference/tevm/actions/type-aliases/getaccountresult/)\<`never`\>\>
 
 ### tevm\_loadState
 
@@ -129,7 +129,7 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`LoadStateResult`](/reference/tevm/actions-types/type-aliases/loadstateresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`LoadStateResult`](/reference/tevm/actions/type-aliases/loadstateresult/)\<`never`\>\>
 
 ### tevm\_script
 
@@ -160,7 +160,7 @@ provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', 
 
 ### tevm\_script.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`CallResult`](/reference/tevm/actions-types/type-aliases/callresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\<`never`\>\>
 
 ### tevm\_setAccount
 
@@ -191,7 +191,7 @@ r
 
 ### tevm\_setAccount.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`SetAccountResult`](/reference/tevm/actions-types/type-aliases/setaccountresult/)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](/reference/tevm/utils/type-aliases/serializetojson/)\<[`SetAccountResult`](/reference/tevm/actions/type-aliases/setaccountresult/)\<`never`\>\>
 
 ## Source
 

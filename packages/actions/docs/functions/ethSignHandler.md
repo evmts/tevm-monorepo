@@ -6,7 +6,7 @@
 
 # Function: ethSignHandler()
 
-> **ethSignHandler**(`params`): `EthSignHandler`
+> **ethSignHandler**(`params`): [`EthSignHandler`](../type-aliases/EthSignHandler.md)
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Returns
 
-`EthSignHandler`
+[`EthSignHandler`](../type-aliases/EthSignHandler.md)
 
 ## Source
 

@@ -1,10 +1,10 @@
-import { callHandler } from './callHandler.js'
-import { createBaseClient } from '@tevm/base-client'
-import { EthjsAddress, encodeFunctionData, hexToBytes, parseEther, type Address } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import { mineHandler } from '../Mine/mineHandler.js'
+import { createBaseClient } from '@tevm/base-client'
+import { type Address, EthjsAddress, encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { callHandler } from './callHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =

@@ -6,7 +6,7 @@
 
 # Type alias: GetAccountParams\<TThrowOnFail\>
 
-> **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
+> **GetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Tevm params to get an account
 
@@ -22,7 +22,7 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 ### address
 
-> `readonly` **address**: [`Address`](../../actions-types/type-aliases/Address.md)
+> `readonly` **address**: `Address`
 
 Address of account
 
@@ -42,4 +42,4 @@ Be aware that this can be very expensive if a contract has a lot of storage
 
 ## Source
 
-packages/actions-types/types/params/GetAccountParams.d.ts:10
+packages/actions/types/GetAccount/GetAccountParams.d.ts:10

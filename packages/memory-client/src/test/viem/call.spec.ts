@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
+import { mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
+import { transports } from '@tevm/test-utils'
 import { type Hex, encodeFunctionData, pad, parseEther, parseGwei, testActions, toHex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { call } from 'viem/actions'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
-import { transports } from '@tevm/test-utils'
-import { mainnet } from '@tevm/common'
 
 let mc: MemoryClient
 let c = {

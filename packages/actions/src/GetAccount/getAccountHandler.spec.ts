@@ -1,7 +1,7 @@
-import { createBaseClient } from '@tevm/base-client'
-import { getAccountHandler } from './getAccountHandler.js'
 import { describe, expect, it } from 'bun:test'
+import { createBaseClient } from '@tevm/base-client'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { getAccountHandler } from './getAccountHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =

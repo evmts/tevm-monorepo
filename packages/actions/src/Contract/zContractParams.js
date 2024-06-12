@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
-import { zAddress } from '../internal/zod/zAddress.js'
 import { zAbi } from '../internal/zod/zAbi.js'
+import { zAddress } from '../internal/zod/zAddress.js'
 
 /**
  * Zod validator for a valid contract action

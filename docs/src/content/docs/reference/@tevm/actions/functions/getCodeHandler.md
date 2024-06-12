@@ -5,7 +5,7 @@ prev: false
 title: "getCodeHandler"
 ---
 
-> **getCodeHandler**(`options`): [`EthGetCodeHandler`](/reference/tevm/actions-types/type-aliases/ethgetcodehandler/)
+> **getCodeHandler**(`options`): [`EthGetCodeHandler`](/reference/tevm/actions/type-aliases/ethgetcodehandler/)
 
 ## Parameters
 
@@ -17,7 +17,7 @@ title: "getCodeHandler"
 
 ## Returns
 
-[`EthGetCodeHandler`](/reference/tevm/actions-types/type-aliases/ethgetcodehandler/)
+[`EthGetCodeHandler`](/reference/tevm/actions/type-aliases/ethgetcodehandler/)
 
 ## Source
 

@@ -12,13 +12,13 @@ Result of a Tevm VM Call method
 
 ## Type parameters
 
-• **ErrorType** = [`CallError`](../../errors/type-aliases/CallError.md)
+• **ErrorType** = [`TevmCallError`](TevmCallError.md)
 
 ## Type declaration
 
 ### accessList?
 
-> `optional` **accessList**: `Record`\<[`Address`](../../actions-types/type-aliases/Address.md), `Set`\<[`Hex`](../../actions-types/type-aliases/Hex.md)\>\>
+> `optional` **accessList**: `Record`\<`Address`, `Set`\<`Hex`\>\>
 
 The access list if enabled on call
 Mapping of addresses to storage slots
@@ -43,13 +43,13 @@ Amount of blob gas consumed by the transaction
 
 ### createdAddress?
 
-> `optional` **createdAddress**: [`Address`](../../actions-types/type-aliases/Address.md)
+> `optional` **createdAddress**: `Address`
 
 Address of created account during transaction, if any
 
 ### createdAddresses?
 
-> `optional` **createdAddresses**: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
+> `optional` **createdAddresses**: `Set`\<`Address`\>
 
 Map of addresses which were created (used in EIP 6780)
 Note the addresses are not actually created til the tx is mined
@@ -123,7 +123,7 @@ Only included when an op-stack common is provided
 
 ### logs?
 
-> `optional` **logs**: [`Log`](../../actions-types/type-aliases/Log.md)[]
+> `optional` **logs**: `Log`[]
 
 Array of logs that the contract emitted
 
@@ -135,7 +135,7 @@ The value that accrues to the miner by this transaction
 
 ### preimages?
 
-> `optional` **preimages**: `Record`\<[`Hex`](../../actions-types/type-aliases/Hex.md), [`Hex`](../../actions-types/type-aliases/Hex.md)\>
+> `optional` **preimages**: `Record`\<`Hex`, `Hex`\>
 
 Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
 
@@ -147,13 +147,13 @@ Priority fee set by the transaction.
 
 ### rawData
 
-> **rawData**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **rawData**: `Hex`
 
 Encoded return value from the contract as hex string
 
 ### selfdestruct?
 
-> `optional` **selfdestruct**: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
+> `optional` **selfdestruct**: `Set`\<`Address`\>
 
 A set of accounts to selfdestruct
 
@@ -168,13 +168,13 @@ Does not include l1 fees
 
 ### trace?
 
-> `optional` **trace**: [`DebugTraceCallResult`](../../actions-types/type-aliases/DebugTraceCallResult.md)
+> `optional` **trace**: `DebugTraceCallResult`
 
 The call trace if tracing is enabled on call
 
 ### txHash?
 
-> `optional` **txHash**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> `optional` **txHash**: `Hex`
 
 The returned tx hash if the call was included in the chain
 Will not be defined if the call was not included in the chain
@@ -183,4 +183,4 @@ Whether a call is included in the chain depends on if the
 
 ## Source
 
-packages/actions-types/types/result/CallResult.d.ts:7
+packages/actions/types/Call/CallResult.d.ts:7

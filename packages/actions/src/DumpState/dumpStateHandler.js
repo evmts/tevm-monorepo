@@ -1,5 +1,5 @@
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { InternalError } from '@tevm/errors'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 /**
  * @param {import("@tevm/base-client").BaseClient} client

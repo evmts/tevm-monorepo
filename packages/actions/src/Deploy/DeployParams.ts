@@ -1,6 +1,6 @@
 import type { Abi, ContractConstructorArgs, EncodeDeployDataParameters } from '@tevm/utils'
-import type { Hex } from '../common/index.js'
 import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
+import type { Hex } from '../common/index.js'
 
 /**
  * Wraps tevm_call to deploy a contract

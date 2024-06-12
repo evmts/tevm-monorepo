@@ -1,5 +1,5 @@
-import { ExecutionError } from '../ExecutionErrorError.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
+import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**
  * Parameters for constructing a {@link BLS12381PointNotOnCurveError}.

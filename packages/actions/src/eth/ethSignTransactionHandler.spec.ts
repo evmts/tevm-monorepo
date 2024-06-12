@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { parseGwei } from '@tevm/utils'
+import type { EthSignTransactionParams } from './EthParams.js'
 import { ethSignTransactionHandler } from './ethSignTransactionHandler.js'
 import { testAccounts } from './utils/testAccounts.js'
-import type { EthSignTransactionParams } from './EthParams.js'
 
 const transaction: EthSignTransactionParams = {
 	data: '0x0',

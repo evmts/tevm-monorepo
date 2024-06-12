@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { encodeFunctionData, parseEther } from '@tevm/utils'
-import { traceCallHandler } from './traceCallHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { traceCallHandler } from './traceCallHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =

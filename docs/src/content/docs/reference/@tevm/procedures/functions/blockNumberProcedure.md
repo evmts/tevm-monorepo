@@ -5,7 +5,7 @@ prev: false
 title: "blockNumberProcedure"
 ---
 
-> **blockNumberProcedure**(`client`): `EthBlockNumberJsonRpcProcedure`
+> **blockNumberProcedure**(`client`): [`EthBlockNumberJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethblocknumberjsonrpcprocedure/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "blockNumberProcedure"
 
 ## Returns
 
-`EthBlockNumberJsonRpcProcedure`
+[`EthBlockNumberJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethblocknumberjsonrpcprocedure/)
 
 ## Source
 

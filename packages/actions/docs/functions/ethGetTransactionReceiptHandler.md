@@ -6,7 +6,7 @@
 
 # Function: ethGetTransactionReceiptHandler()
 
-> **ethGetTransactionReceiptHandler**(`client`): `EthGetTransactionReceiptHandler`
+> **ethGetTransactionReceiptHandler**(`client`): [`EthGetTransactionReceiptHandler`](../type-aliases/EthGetTransactionReceiptHandler.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthGetTransactionReceiptHandler`
+[`EthGetTransactionReceiptHandler`](../type-aliases/EthGetTransactionReceiptHandler.md)
 
 ## Source
 

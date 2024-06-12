@@ -1,5 +1,5 @@
-import type { Address, BlockOverrideSet, BlockParam, Hex, StateOverrideSet } from '../common/index.js'
 import type { BaseParams } from '../common/BaseParams.js'
+import type { Address, BlockOverrideSet, BlockParam, Hex, StateOverrideSet } from '../common/index.js'
 
 /**
  * Properties shared across call-like params

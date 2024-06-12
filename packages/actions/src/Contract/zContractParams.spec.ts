@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
-import { zContractParams } from './zContractParams.js'
 import type { ContractParams } from './ContractParams.js'
+import { zContractParams } from './zContractParams.js'
 
 test('zContractParams', () => {
 	const contractParams = {

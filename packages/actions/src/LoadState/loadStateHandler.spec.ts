@@ -1,9 +1,9 @@
-import { loadStateHandler } from './loadStateHandler.js'
+import { expect, test } from 'bun:test'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
-import { expect, test } from 'bun:test'
 import { dumpStateHandler } from '../DumpState/dumpStateHandler.js'
+import { loadStateHandler } from './loadStateHandler.js'
 
 test('should load state into the state manager', async () => {
 	const stateManager = createStateManager({})

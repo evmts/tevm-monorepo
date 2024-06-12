@@ -1,7 +1,7 @@
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateGetAccountParams } from './validateGetAccountParams.js'
 
 /**

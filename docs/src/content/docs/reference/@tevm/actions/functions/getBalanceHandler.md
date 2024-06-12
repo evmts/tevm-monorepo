@@ -5,7 +5,7 @@ prev: false
 title: "getBalanceHandler"
 ---
 
-> **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](/reference/tevm/actions-types/type-aliases/ethgetbalancehandler/)
+> **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](/reference/tevm/actions/type-aliases/ethgetbalancehandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "getBalanceHandler"
 
 ## Returns
 
-[`EthGetBalanceHandler`](/reference/tevm/actions-types/type-aliases/ethgetbalancehandler/)
+[`EthGetBalanceHandler`](/reference/tevm/actions/type-aliases/ethgetbalancehandler/)
 
 ## Source
 

@@ -6,7 +6,7 @@
 
 # Function: scriptHandler()
 
-> **scriptHandler**(`client`, `options`?): `ScriptHandler`
+> **scriptHandler**(`client`, `options`?): [`ScriptHandler`](../type-aliases/ScriptHandler.md)
 
 Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
@@ -22,8 +22,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-`ScriptHandler`
+[`ScriptHandler`](../type-aliases/ScriptHandler.md)
 
 ## Source
 
-[packages/actions/src/tevm/scriptHandler.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/scriptHandler.js#L20)
+[packages/actions/src/Script/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/scriptHandler.js#L17)

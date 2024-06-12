@@ -1,5 +1,5 @@
-import { GasLimitExceededError } from '../GasLimitExceededError.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
+import { GasLimitExceededError } from '../GasLimitExceededError.js'
 
 /**
  * Parameters for constructing a {@link CodeSizeExceedsMaximumError}.

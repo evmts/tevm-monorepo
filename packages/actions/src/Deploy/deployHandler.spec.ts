@@ -1,9 +1,9 @@
-import { createBaseClient } from '@tevm/base-client'
 import { describe, expect, it } from 'bun:test'
-import { deployHandler } from './deployHandler.js'
-import { EthjsAddress, bytesToHex, parseAbi, type Hex } from '@tevm/utils'
-import { mineHandler } from '../Mine/mineHandler.js'
+import { createBaseClient } from '@tevm/base-client'
+import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
 import { contractHandler } from '../Contract/contractHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
+import { deployHandler } from './deployHandler.js'
 
 // This contract exists as SimpleConstructor in bench package. Consider moving it to test utils
 const simpleConstructorBytecode =

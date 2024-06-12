@@ -8,10 +8,10 @@ title: "createHttpHandler"
 > **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 /**
- * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
- * Any unimplemented methods will be proxied to the given proxyUrl
- * This handler works for any server that supports the Node.js http module
- *
+* Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+* Any unimplemented methods will be proxied to the given proxyUrl
+* This handler works for any server that supports the Node.js http module
+*
 
 ## Parameters
 
@@ -1087,27 +1087,27 @@ const result = await client.simulateContract({
 })
 ```
 
-• **client.tevmCall**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+• **client.tevmCall**: [`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
 
-• **client.tevmContract**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+• **client.tevmContract**: [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
-• **client.tevmDeploy**: [`DeployHandler`](/reference/tevm/actions-types/type-aliases/deployhandler/)
+• **client.tevmDeploy**: [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
-• **client.tevmDumpState**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+• **client.tevmDumpState**: [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 • **client.tevmForkUrl?**: `string`
 
-• **client.tevmGetAccount**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+• **client.tevmGetAccount**: [`GetAccountHandler`](/reference/tevm/actions/type-aliases/getaccounthandler/)
 
-• **client.tevmLoadState**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+• **client.tevmLoadState**: [`LoadStateHandler`](/reference/tevm/actions/type-aliases/loadstatehandler/)
 
-• **client.tevmMine**: [`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+• **client.tevmMine**: [`MineHandler`](/reference/tevm/actions/type-aliases/minehandler/)
 
 • **client.tevmReady**
 
-• **client.tevmScript**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+• **client.tevmScript**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
-• **client.tevmSetAccount**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+• **client.tevmSetAccount**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
 
 • **client.transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
 
@@ -1360,22 +1360,22 @@ const unwatch = await client.watchPendingTransactions({
 
 ```ts
 * import { createHttpHandler } from 'tevm/server'
- * import { createTevm } from 'tevm'
- * import { createServer } from 'http'
- *
- * const PORT = 8080
- *
- * const tevm = createTevm({
- *   fork: {
- *     transport: http('https://mainnet.optimism.io')({})
- *   }
- * })
- *
- * const server = createServer(
- *   createHttpHandler(tevm)
- * )
- * server.listen(PORT, () => console.log({ listening: PORT }))
- *
+* import { createTevm } from 'tevm'
+* import { createServer } from 'http'
+*
+* const PORT = 8080
+*
+* const tevm = createTevm({
+*   fork: {
+*     transport: http('https://mainnet.optimism.io')({})
+*   }
+* })
+*
+* const server = createServer(
+*   createHttpHandler(tevm)
+* )
+* server.listen(PORT, () => console.log({ listening: PORT }))
+*
 ```
 
 ## Source

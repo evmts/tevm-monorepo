@@ -61,6 +61,9 @@
     "test:run": "bun test",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@ethereumjs/evm": "^3.0.0"
+  },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
@@ -70,8 +73,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@ethereumjs/evm": "^3.0.0"
   }
 }

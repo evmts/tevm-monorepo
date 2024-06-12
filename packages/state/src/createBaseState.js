@@ -1,5 +1,5 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
-import {UnexpectedInternalServerError} from '@tevm/errors'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { ContractCache } from './ContractCache.js'
 import { checkpoint } from './actions/checkpoint.js'

@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { zBaseParams } from './zBaseParams.js'
-import { zBlockParam } from '../internal/zod/zBlockParam.js'
 import { zAddress } from '../internal/zod/zAddress.js'
-import { zStateOverrideSet } from '../internal/zod/zStateOverrideSet.js'
 import { zBlockOverrideSet } from '../internal/zod/zBlockOverrideSet.js'
+import { zBlockParam } from '../internal/zod/zBlockParam.js'
 import { zHex } from '../internal/zod/zHex.js'
+import { zStateOverrideSet } from '../internal/zod/zStateOverrideSet.js'
+import { zBaseParams } from './zBaseParams.js'
 
 export const zBaseCallParams = zBaseParams
 	.extend({

@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'bun:test'
-import { ClRequest } from './ClRequest.js'
+import { describe, expect, it } from 'bun:test'
 import { InternalError } from '@tevm/errors'
+import { ClRequest } from './ClRequest.js'
 
 describe(ClRequest.name, () => {
 	it('should serialize', () => {

@@ -1,9 +1,9 @@
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { AccountNotFoundError, InternalError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
-import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { validateSetAccountParams } from './validateSetAccountParams.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { validateSetAccountParams } from './validateSetAccountParams.js'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM

@@ -1,8 +1,8 @@
-import { callHandlerOpts } from './callHandlerOpts.js'
+import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
+import { callHandlerOpts } from './callHandlerOpts.js'
 
 describe('callHandlerOpts', () => {
 	const client = createBaseClient()

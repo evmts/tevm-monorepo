@@ -27,4 +27,4 @@ console.log(res.errors) // undefined
 
 ## Source
 
-packages/actions-types/types/handlers/MineHandler.d.ts:8
+packages/actions/types/Mine/MineHandlerType.d.ts:9

@@ -1,9 +1,9 @@
 import type { GetAccountResult, TransactionParams } from '@tevm/actions'
 import type { Filter } from '@tevm/utils'
-import type { AnvilJsonRpcRequest } from '../anvil/index.js'
 import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
-import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
+import type { AnvilJsonRpcRequest } from '../anvil/index.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
+import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
 import type { TevmJsonRpcBulkRequestHandler } from './TevmJsonRpcBulkRequestHandler.js'
 
 /**

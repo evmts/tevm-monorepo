@@ -1,7 +1,7 @@
-import { bytesToHex, hexToBytes } from '@tevm/utils'
-import { validateMineParams } from './validateMineParams.js'
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { InternalError } from '@tevm/errors'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { validateMineParams } from './validateMineParams.js'
 
 // TODO Errors can leave us in bad states
 
@@ -70,7 +70,7 @@ export const mineHandler =
 
 			let index = 0
 			// TODO we need to actually handle this
-			let blockFull = false
+			const blockFull = false
 			/**
 			 * @type {Array<import('@tevm/receipt-manager').TxReceipt>}
 			 */

@@ -1,8 +1,8 @@
 import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 // TODO tevm_call should optionally take a signature too
 // When it takes a real signature (like in case of eth.sendRawTransaction) we should

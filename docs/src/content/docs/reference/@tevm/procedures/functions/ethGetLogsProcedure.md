@@ -5,7 +5,7 @@ prev: false
 title: "ethGetLogsProcedure"
 ---
 
-> **ethGetLogsProcedure**(`client`): `EthGetLogsJsonRpcProcedure`
+> **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetlogsjsonrpcprocedure/)
 
 Executes a message call without creating a transaction on the block chain.
 
@@ -15,7 +15,7 @@ Executes a message call without creating a transaction on the block chain.
 
 ## Returns
 
-`EthGetLogsJsonRpcProcedure`
+[`EthGetLogsJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetlogsjsonrpcprocedure/)
 
 ## Source
 

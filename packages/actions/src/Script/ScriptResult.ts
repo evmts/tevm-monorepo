@@ -1,7 +1,7 @@
-import type { TevmScriptError } from './TevmScriptError.js'
 import type { ContractFunctionName } from '@tevm/utils'
-import type { Abi } from '../common/index.js'
 import type { ContractResult } from '../Contract/ContractResult.js'
+import type { Abi } from '../common/index.js'
+import type { TevmScriptError } from './TevmScriptError.js'
 
 export type ScriptResult<
 	TAbi extends Abi | readonly unknown[] = Abi,

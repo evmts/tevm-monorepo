@@ -64,6 +64,7 @@ Additional parameters for the BaseError.
 - [`AuthCallNonZeroValueExtError`](AuthCallNonZeroValueExtError.md)
 - [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
 - [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
+- [`ValueOverflowError`](ValueOverflowError.md)
 
 ## Constructors
 

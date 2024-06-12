@@ -5,7 +5,7 @@ prev: false
 title: "getStorageAtHandler"
 ---
 
-> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](/reference/tevm/actions-types/type-aliases/ethgetstorageathandler/)
+> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](/reference/tevm/actions/type-aliases/ethgetstorageathandler/)
 
 ## Parameters
 
@@ -17,7 +17,7 @@ title: "getStorageAtHandler"
 
 ## Returns
 
-[`EthGetStorageAtHandler`](/reference/tevm/actions-types/type-aliases/ethgetstorageathandler/)
+[`EthGetStorageAtHandler`](/reference/tevm/actions/type-aliases/ethgetstorageathandler/)
 
 ## Source
 

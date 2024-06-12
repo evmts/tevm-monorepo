@@ -6,7 +6,7 @@
 
 # Function: getStorageAtHandler()
 
-> **getStorageAtHandler**(`options`): `EthGetStorageAtHandler`
+> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
 
 ## Parameters
 
@@ -18,7 +18,7 @@
 
 ## Returns
 
-`EthGetStorageAtHandler`
+[`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
 
 ## Source
 

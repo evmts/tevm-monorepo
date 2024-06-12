@@ -1,4 +1,4 @@
-import {UnexpectedInternalServerError} from '@tevm/errors'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { getAccount } from './getAccount.js'
 
 /**
@@ -25,7 +25,9 @@ export const putContractStorage = (baseState) => async (address, key, value) => 
 
 	const account = await getAccount(baseState)(address)
 	if (!account) {
-		throw new UnexpectedInternalServerError('cannot putContractStorage on non existing acccount! Consider checking if account exists first')
+		throw new UnexpectedInternalServerError(
+			'cannot putContractStorage on non existing acccount! Consider checking if account exists first',
+		)
 	}
 	baseState.caches.storage.put(address, key, stripZeros(value))
 }

@@ -12,13 +12,13 @@ Result of GetAccount Action
 
 ## Type parameters
 
-• **ErrorType** = [`GetAccountError`](../../errors/type-aliases/GetAccountError.md)
+• **ErrorType** = [`TevmGetAccountError`](TevmGetAccountError.md)
 
 ## Type declaration
 
 ### address
 
-> **address**: [`Address`](../../actions-types/type-aliases/Address.md)
+> **address**: `Address`
 
 Address of account
 
@@ -30,13 +30,13 @@ Balance to set account to
 
 ### codeHash
 
-> **codeHash**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **codeHash**: `Hex`
 
 Code hash to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **deployedBytecode**: `Hex`
 
 Contract bytecode to set account to
 
@@ -73,14 +73,14 @@ only included if `returnStorage` is set to true in the request
 
 #### Index signature
 
- \[`key`: [`Hex`](../../actions-types/type-aliases/Hex.md)\]: [`Hex`](../../actions-types/type-aliases/Hex.md)
+ \[`key`: `Hex`\]: `Hex`
 
 ### storageRoot
 
-> **storageRoot**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **storageRoot**: `Hex`
 
 Storage root to set account to
 
 ## Source
 
-packages/actions-types/types/result/GetAccountResult.d.ts:6
+packages/actions/types/GetAccount/GetAccountResult.d.ts:6

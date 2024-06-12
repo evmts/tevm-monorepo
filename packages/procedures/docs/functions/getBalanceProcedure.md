@@ -6,7 +6,7 @@
 
 # Function: getBalanceProcedure()
 
-> **getBalanceProcedure**(`baseClient`): `EthGetBalanceJsonRpcProcedure`
+> **getBalanceProcedure**(`baseClient`): [`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthGetBalanceJsonRpcProcedure`
+[`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
 
 ## Source
 

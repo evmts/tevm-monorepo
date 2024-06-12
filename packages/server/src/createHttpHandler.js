@@ -1,6 +1,6 @@
 import { zJsonRpcRequest } from '@tevm/actions'
-import { BadRequestError } from './BadRequestError.js'
 import { InternalError } from '@tevm/errors'
+import { BadRequestError } from './BadRequestError.js'
 
 /**
 /**

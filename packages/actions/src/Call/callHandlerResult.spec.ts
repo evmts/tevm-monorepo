@@ -1,9 +1,9 @@
-import { callHandlerResult } from './callHandlerResult.js'
+import { describe, expect, it } from 'bun:test'
 import type { EvmResult } from '@tevm/evm'
 import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
-import { describe, expect, it } from 'bun:test'
 import type { RunTxResult } from '@tevm/vm'
+import { callHandlerResult } from './callHandlerResult.js'
 
 describe('callHandlerResult', async () => {
 	const dummyAddress = `0x${'1'.repeat(40)}` as const

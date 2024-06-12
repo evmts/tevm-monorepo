@@ -5,7 +5,7 @@ prev: false
 title: "getBalanceProcedure"
 ---
 
-> **getBalanceProcedure**(`baseClient`): `EthGetBalanceJsonRpcProcedure`
+> **getBalanceProcedure**(`baseClient`): [`EthGetBalanceJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcprocedure/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "getBalanceProcedure"
 
 ## Returns
 
-`EthGetBalanceJsonRpcProcedure`
+[`EthGetBalanceJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcprocedure/)
 
 ## Source
 

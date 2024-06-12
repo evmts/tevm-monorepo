@@ -2233,19 +2233,19 @@ SimulateContractParameters
 
 ### tevmCall
 
-> **tevmCall**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **tevmCall**: [`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
 
 ### tevmContract
 
-> **tevmContract**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **tevmContract**: [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
 ### tevmDeploy
 
-> **tevmDeploy**: [`DeployHandler`](/reference/tevm/actions-types/type-aliases/deployhandler/)
+> **tevmDeploy**: [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
 ### tevmDumpState
 
-> **tevmDumpState**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **tevmDumpState**: [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 ### tevmForkUrl?
 
@@ -2253,15 +2253,15 @@ SimulateContractParameters
 
 ### tevmGetAccount
 
-> **tevmGetAccount**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+> **tevmGetAccount**: [`GetAccountHandler`](/reference/tevm/actions/type-aliases/getaccounthandler/)
 
 ### tevmLoadState
 
-> **tevmLoadState**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **tevmLoadState**: [`LoadStateHandler`](/reference/tevm/actions/type-aliases/loadstatehandler/)
 
 ### tevmMine
 
-> **tevmMine**: [`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+> **tevmMine**: [`MineHandler`](/reference/tevm/actions/type-aliases/minehandler/)
 
 ### tevmReady()
 
@@ -2273,11 +2273,11 @@ SimulateContractParameters
 
 ### tevmScript
 
-> **tevmScript**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+> **tevmScript**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
 ### tevmSetAccount
 
-> **tevmSetAccount**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+> **tevmSetAccount**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
 
 ### transport
 
