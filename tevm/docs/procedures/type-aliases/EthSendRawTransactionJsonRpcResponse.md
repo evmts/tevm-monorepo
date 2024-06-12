@@ -12,4 +12,4 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:622
+packages/procedures/dist/index.d.ts:623

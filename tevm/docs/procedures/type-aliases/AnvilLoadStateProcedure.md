@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_loadState`
 
 ## Source
 
-packages/procedures/dist/index.d.ts:222
+packages/procedures/dist/index.d.ts:223
