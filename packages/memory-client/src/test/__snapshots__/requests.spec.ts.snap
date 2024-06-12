@@ -1,10 +1,13 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tevm.request should throw an error if attempting a tevm_contractCall request 1`] = `-32601`;
+exports[`Tevm.request should throw an error if attempting a tevm_contractCall request 1`] = `4200`;
 
 exports[`Tevm.request should throw an error if attempting a tevm_contractCall request 2`] = `
-"The method does not exist / is not available.
+"The Provider does not support the requested method.
 
 Details: UnsupportedMethodError: Unknown method tevm_NotARequest
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73
 Version: viem@2.13.6"
 `;

@@ -4,7 +4,8 @@ exports[`call args: override 1`] = `"0x00000000000000000000000000000000000000000
 
 exports[`call fee cap too high 1`] = `Promise {}`;
 
-exports[`call gas too low 1`] = `[CallExecutionError: An unknown RPC error occurred.
+exports[`call gas too high 1`] = `[CallExecutionError: Missing or invalid parameters.
+Double check you have provided the correct parameters.
 
 Raw Call Arguments:
   from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
@@ -12,12 +13,16 @@ Raw Call Arguments:
   data:  0xa0712d6800000000000000000000000000000000000000000000000000000000000001a4
   gas:   100
 
-Details: 0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011546f6b656e2049442069732074616b656e000000000000000000000000000000
+Details: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73
 Version: viem@2.13.6]`;
 
-exports[`call gas too low 2`] = `[Function]`;
+exports[`call gas too high 2`] = `[Function]`;
 
-exports[`call gas too high 1`] = `
+exports[`call gas too high 3`] = `
 {
   "data": undefined,
 }
@@ -49,31 +54,54 @@ Raw Call Arguments:
   to:     0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
   value:  100000 ETH
 
-Details: sender doesn't have enough funds to send tx. The upfront cost is: 100000271740472800000000 and the sender's account (0x0000000000000000000000000000000000000000) only has: 1000000000000000000000 -> block number=20055381 hash=0xa82595e6d13bafde5a5fa469b2af4e3713e654b66c6f8df3ec4e63fa5bc8de4a hf=cancun baseFeePerGas=9058015760 txs=1 uncles=0 -> tx type=2 hash=0xe649f3d8f1ef757697217666076030b89f5c88043c39abc031e491f6759d74d1 nonce=0 value=100000000000000000000000 signed=true hf=cancun maxFeePerGas=9058015760 maxPriorityFeePerGas=0)
+Details: sender doesn't have enough funds to send tx. The upfront cost is: 100000271740472800000000 and the sender's account (0x0000000000000000000000000000000000000000) only has: 1000000000000000000000 -> block number=20055381 hash=0xd4cca3c8e650546dc56f9c6c99486765604dc0c2ed6c726ca6f9cf22dcb42a71 hf=cancun baseFeePerGas=9058015760 txs=1 uncles=0 -> tx type=2 hash=0xe649f3d8f1ef757697217666076030b89f5c88043c39abc031e491f6759d74d1 nonce=0 value=100000000000000000000000 signed=true hf=cancun maxFeePerGas=9058015760 maxPriorityFeePerGas=0)
+Version: viem@2.13.6"
+`;
+
+exports[`call maxFeePerGas less than maxPriorityFeePerGas 1`] = `
+"The provided tip (\`maxPriorityFeePerGas\` = 22 gwei) cannot be higher than the fee cap (\`maxFeePerGas\` = 20 gwei).
+
+Raw Call Arguments:
+  from:                  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  to:                    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
+  data:                  0xa0712d6800000000000000000000000000000000000000000000000000000000000001a4
+  maxFeePerGas:          20 gwei
+  maxPriorityFeePerGas:  22 gwei
+
 Version: viem@2.13.6"
 `;
 
 exports[`call contract revert (contract error) 1`] = `
-"An unknown RPC error occurred.
+"Missing or invalid parameters.
+Double check you have provided the correct parameters.
 
 Raw Call Arguments:
   from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
   to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
   data:  0xa0712d6800000000000000000000000000000000000000000000000000000000000001a4
 
-Details: 0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011546f6b656e2049442069732074616b656e000000000000000000000000000000
+Details: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73
 Version: viem@2.13.6"
 `;
 
 exports[`call contract revert (insufficient params) 1`] = `
-"An unknown RPC error occurred.
+"Missing or invalid parameters.
+Double check you have provided the correct parameters.
 
 Raw Call Arguments:
   from:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
   to:    0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2
   data:  0xa0712d68
 
-Details: 0x
+Details: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73
 Version: viem@2.13.6"
 `;
 
