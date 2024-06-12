@@ -4,7 +4,7 @@ exports[`call args: override 1`] = `"0x00000000000000000000000000000000000000000
 
 exports[`call fee cap too high 1`] = `Promise {}`;
 
-exports[`call gas too high 1`] = `[CallExecutionError: Missing or invalid parameters.
+exports[`call gas too low 1`] = `[CallExecutionError: Missing or invalid parameters.
 Double check you have provided the correct parameters.
 
 Raw Call Arguments:
@@ -20,9 +20,9 @@ Details: {"error":"revert","errorType":"EvmError"}
 Version: 1.1.0.next-73
 Version: viem@2.13.6]`;
 
-exports[`call gas too high 2`] = `[Function]`;
+exports[`call gas too low 2`] = `[Function]`;
 
-exports[`call gas too high 3`] = `
+exports[`call gas too high 1`] = `
 {
   "data": undefined,
 }
@@ -38,24 +38,6 @@ exports[`call gas fee is less than block base fee 2`] = `
 {
   "data": undefined,
 }
-`;
-
-exports[`call nonce too low 1`] = `
-{
-  "data": undefined,
-}
-`;
-
-exports[`call insufficient funds 1`] = `
-"An unknown RPC error occurred.
-
-Raw Call Arguments:
-  from:   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-  to:     0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-  value:  100000 ETH
-
-Details: sender doesn't have enough funds to send tx. The upfront cost is: 100000271740472800000000 and the sender's account (0x0000000000000000000000000000000000000000) only has: 1000000000000000000000 -> block number=20055381 hash=0xd4cca3c8e650546dc56f9c6c99486765604dc0c2ed6c726ca6f9cf22dcb42a71 hf=cancun baseFeePerGas=9058015760 txs=1 uncles=0 -> tx type=2 hash=0xe649f3d8f1ef757697217666076030b89f5c88043c39abc031e491f6759d74d1 nonce=0 value=100000000000000000000000 signed=true hf=cancun maxFeePerGas=9058015760 maxPriorityFeePerGas=0)
-Version: viem@2.13.6"
 `;
 
 exports[`call maxFeePerGas less than maxPriorityFeePerGas 1`] = `

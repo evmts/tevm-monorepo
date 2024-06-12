@@ -1,6 +1,5 @@
-import type { GetAccountResult } from '@tevm/actions'
+import type { GetAccountResult, TevmGetAccountError } from '@tevm/actions'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
-import type { TevmGetAccountError } from '../../../actions/dist/index.cjs'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**

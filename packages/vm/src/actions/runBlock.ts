@@ -33,6 +33,7 @@ import type {
 	TxReceipt,
 } from '../utils/types.js'
 import { runTx } from './runTx.js'
+import { EipNotEnabledError, GasLimitExceededError, InternalError, MisconfiguredClientError } from '@tevm/errors'
 
 const parentBeaconBlockRootAddress = EthjsAddress.fromString('0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02')
 
@@ -114,15 +115,15 @@ export const runBlock =
 			// Only validate the following headers if verkle blocks aren't activated
 			if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
 				const msg = _errorMsg('invalid receiptTrie', vm, block)
-				throw new Error(msg)
+				throw new InternalError(msg)
 			}
 			if (!(equalsBytes(result.bloom.bitvector, block.header.logsBloom) === true)) {
 				const msg = _errorMsg('invalid bloom', vm, block)
-				throw new Error(msg)
+				throw new InternalError(msg)
 			}
 			if (result.gasUsed !== block.header.gasUsed) {
 				const msg = _errorMsg('invalid gasUsed', vm, block)
-				throw new Error(msg)
+				throw new InternalError(msg)
 			}
 			if (!(equalsBytes(stateRoot, block.header.stateRoot) === true)) {
 				const msg = _errorMsg(
@@ -130,7 +131,7 @@ export const runBlock =
 					vm,
 					block,
 				)
-				throw new Error(msg)
+				throw new InternalError(msg)
 			}
 		}
 
@@ -172,14 +173,15 @@ const applyBlock =
 		if (opts.skipBlockValidation !== true) {
 			if (block.header.gasLimit >= BigInt('0x8000000000000000')) {
 				const msg = _errorMsg('Invalid block with gas limit greater than (2^63 - 1)', vm, block)
-				throw new Error(msg)
+				// todo make InvalidBlockError
+				throw new InternalError(msg)
 			}
 			// TODO: decide what block validation method is appropriate here
 			if (opts.skipHeaderValidation !== true) {
 				if (typeof (<any>vm.blockchain).validateHeader === 'function') {
 					await (<any>vm.blockchain).validateHeader(block.header)
 				} else {
-					throw new Error('cannot validate header: blockchain has no `validateHeader` method')
+					throw new InternalError('cannot validate header: blockchain has no `validateHeader` method')
 				}
 			}
 			await block.validateData()
@@ -201,7 +203,9 @@ const applyBlock =
 
 		if (opts.reportPreimages === true) {
 			if (vm.evm.stateManager.getAppliedKey === undefined) {
-				throw new Error('applyBlock: evm.stateManager.getAppliedKey can not be undefined if reportPreimages is true')
+				throw new MisconfiguredClientError(
+					'applyBlock: evm.stateManager.getAppliedKey can not be undefined if reportPreimages is true',
+				)
 			}
 			blockResults.preimages.set(
 				bytesToHex(vm.evm.stateManager.getAppliedKey(block.header.coinbase.toBytes())),
@@ -245,7 +249,7 @@ const applyBlock =
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
 	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
-		throw new Error('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
+		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
 	const historyAddress = EthjsAddress.fromString(
 		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
@@ -255,7 +259,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	// Is this the fork block?
 	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
 	if (forkTime === null) {
-		throw new Error('EIP 2935 should be activated by timestamp')
+		throw new EipNotEnabledError('EIP 2935 should be activated by timestamp')
 	}
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
@@ -288,7 +292,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 
 export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint8Array, timestamp: bigint) => {
 	if (!vm.common.ethjsCommon.isActivatedEIP(4788)) {
-		throw new Error('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
+		throw new EipNotEnabledError('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
 	}
 	// Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
 	const historicalRootsLength = BigInt(vm.common.ethjsCommon.param('vm', 'historicalRootsLength'))
@@ -322,8 +326,6 @@ export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint
  * Applies the transactions in a block, computing the receipts
  * as well as gas usage and some relevant data. This method is
  * side-effect free (it doesn't modify the block nor the state).
- * @param {Block} block
- * @param {RunBlockOpts} opts
  */
 const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts) => {
 	const bloom = new Bloom(undefined, vm.common.ethjsCommon)
@@ -353,7 +355,7 @@ const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpt
 		const gasLimitIsHigherThanBlock = maxGasLimit < tx.gasLimit + gasUsed
 		if (gasLimitIsHigherThanBlock) {
 			const msg = _errorMsg('tx has a higher gas limit than the block', vm, block)
-			throw new Error(msg)
+			throw new GasLimitExceededError(msg)
 		}
 
 		// Run the tx through the VM

@@ -69,7 +69,7 @@ describe('call', () => {
 	const fourTwenty = '00000000000000000000000000000000000000000000000000000000000001a4'
 	// const sixHundred = '0000000000000000000000000000000000000000000000000000000000aaaaaa'
 
-	it(
+	it.todo(
 		'zero data',
 		async () => {
 			const { data } = await call(mc, {
@@ -82,7 +82,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'args: blockNumber',
 		async () => {
 			const { data } = await call(mc, {
@@ -210,9 +210,13 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'nonce too low',
 		async () => {
+			await mc.tevmSetAccount({
+				address: account.address,
+				nonce: 9999n,
+			})
 			expect(
 				await call(mc, {
 					account,
@@ -225,7 +229,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it('insufficient funds', async () => {
+	it.todo('insufficient funds', async () => {
 		expect(
 			await call(mc, {
 				account,

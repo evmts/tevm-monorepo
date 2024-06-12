@@ -30,6 +30,13 @@ import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/types.js'
 import { runTx } from './runTx.js'
+import {
+	InternalError,
+	InvalidGasLimitError,
+	EipNotEnabledError,
+	InvalidBlobVersionedHashesError,
+	BlockGasLimitExceededError,
+} from '@tevm/errors'
 
 export enum BuildStatus {
 	Reverted = 'reverted',
@@ -116,10 +123,10 @@ export class BlockBuilder {
 	 */
 	private checkStatus() {
 		if (this.blockStatus.status === BuildStatus.Build) {
-			throw new Error('Block has already been built')
+			throw new InternalError('Block has already been built')
 		}
 		if (this.blockStatus.status === BuildStatus.Reverted) {
-			throw new Error('State has already been reverted')
+			throw new InternalError('State has already been reverted')
 		}
 	}
 
@@ -159,7 +166,10 @@ export class BlockBuilder {
 		const receiptTrie = new Trie({ common: this.vm.common.ethjsCommon })
 		for (const [i, txResult] of this.transactionResults.entries()) {
 			const tx = this.transactions[i]
-			if (!tx) throw new Error('expected tx to exist')
+			if (!tx)
+				throw new InternalError(
+					'expected tx to exist. This error should have been impossible and indicates a bug in tevm. Please open an issue',
+				)
 			const encodedReceipt = encodeReceipt(txResult.receipt, tx.type)
 			await receiptTrie.put(Rlp.encode(i), encodedReceipt)
 		}
@@ -229,22 +239,22 @@ export class BlockBuilder {
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
 		if (_tx.gasLimit > blockGasRemaining) {
-			throw new Error('tx has a higher gas limit than the remaining gas in the block')
+			throw new InvalidGasLimitError('tx has a higher gas limit than the remaining gas in the block')
 		}
 		let blobGasUsed = undefined
 		if (_tx instanceof BlobEIP4844Transaction) {
 			if (this.blockOpts.common?.ethjsCommon.isActivatedEIP(4844) !== true) {
-				throw Error('eip4844 not activated yet for adding a blob transaction')
+				throw new EipNotEnabledError('eip4844 not activated yet for adding a blob transaction')
 			}
 			const blobTx = _tx as BlobEIP4844Transaction
 
 			// Guard against the case if a tx came into the pool without blobs i.e. network wrapper payload
 			if (blobTx.blobs === undefined) {
-				throw new Error('blobs missing for 4844 transaction')
+				throw new InvalidBlobVersionedHashesError('blobs missing for 4844 transaction')
 			}
 
 			if (this.blobGasUsed + BigInt(blobTx.numBlobs()) * blobGasPerBlob > blobGasLimit) {
-				throw new Error('block blob gas limit reached')
+				throw new BlockGasLimitExceededError('block blob gas limit reached')
 			}
 
 			blobGasUsed = this.blobGasUsed
