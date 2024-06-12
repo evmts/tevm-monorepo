@@ -48,17 +48,18 @@ export class BaseError extends Error {
 		super()
 
 		const details = (() => {
+			console.log('what is the details?', shortMessage, args.cause)
+			if (args.cause === null || args.cause === undefined) {
+				return ''
+			}
 			if (args.cause instanceof BaseError) {
 				return args.cause.docsPath
-			}
-			if (typeof args.cause !== 'object') {
-				return args
 			}
 			if (typeof args.cause === 'string') {
 				return args.cause
 			}
-			if (args.cause === null) {
-				return 'null'
+			if (typeof args.cause !== 'object') {
+				return args
 			}
 			if ('message' in args.cause) {
 				return /** @type {string}*/ (args.cause.message)
@@ -68,7 +69,11 @@ export class BaseError extends Error {
 					return args.cause.errorType
 				}
 			}
-			return args.cause
+			try {
+				return JSON.stringify(args.cause)
+			} catch (e) {
+				return 'Unable to parse error details'
+			}
 		})()
 		const docsPath = args.cause instanceof BaseError ? args.cause.docsPath || args.docsPath : args.docsPath
 
