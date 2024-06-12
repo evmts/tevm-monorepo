@@ -1,9 +1,9 @@
 import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
-import { GasLimitExceededError, InternalError, InvalidGasLimitError } from '@tevm/errors'
+import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress, keccak256 } from '@tevm/utils'
 
 /**
- * @typedef {InternalError | InvalidGasLimitError | GasLimitExceededError} CreateImpersonatedTxError
+ * @typedef {InternalError | InvalidGasLimitError} CreateImpersonatedTxError
  */
 
 /**
@@ -39,7 +39,7 @@ export const createImpersonatedTx = (txData, opts) => {
 			e.message.includes('gasLimit cannot exceed MAX_UINT64 (2^64-1)') ||
 			e.message.includes('gasLimit * maxFeePerGas cannot exceed MAX_INTEGER (2^256-1)')
 		) {
-			throw new GasLimitExceededError(e.message, { cause: e })
+			throw new InvalidGasLimitError(e.message, { cause: e })
 		}
 		if (
 			e.message.includes(

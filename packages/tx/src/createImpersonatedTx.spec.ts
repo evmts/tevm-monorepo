@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 import { Common } from '@ethereumjs/common'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
-import { GasLimitExceededError } from '../../errors/dist/index.cjs'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
 
 afterEach(() => {
@@ -51,14 +50,14 @@ describe(createImpersonatedTx.name, () => {
 		)
 	})
 
-	it('should throw GasLimitExceededError if bigger than MAX_INTEGER', () => {
+	it('should throw InvalidGasLimitError if bigger than MAX_INTEGER', () => {
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
 		const ethjsError = new Error(
 			'gasLimit cannot exceed MAX_UINT64 (2^64-1), given 374144419156711147060143317175368453031918731001855 (tx type=2 hash=not available (unsigned) nonce=0 value=0 signed=false hf=error maxFeePerGas=undefined maxPriorityFeePerGas=undefined)',
 		)
 		expect(() => createImpersonatedTx({ impersonatedAddress, data, gasLimit: `0x${'ff'.repeat(21)}` })).toThrow(
-			new GasLimitExceededError(ethjsError.message, { cause: ethjsError }),
+			new InvalidGasLimitError(ethjsError.message, { cause: ethjsError }),
 		)
 	})
 
@@ -118,6 +117,8 @@ describe(createImpersonatedTx.name, () => {
 
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
-		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(new InternalError('Unknown Error'))
+		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(
+			new InternalError('Unknown Error', { cause: notError }),
+		)
 	})
 })
