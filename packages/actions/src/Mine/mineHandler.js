@@ -1,6 +1,7 @@
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { validateMineParams } from './validateMineParams.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { InternalError } from '@tevm/errors'
 
 // TODO Errors can leave us in bad states
 
@@ -68,6 +69,7 @@ export const mineHandler =
 			const orderedTx = await pool.txsByPriceAndNonce({ baseFee: parentBlock.header.calcNextBaseFee() })
 
 			let index = 0
+			// TODO we need to actually handle this
 			let blockFull = false
 			/**
 			 * @type {Array<import('@tevm/receipt-manager').TxReceipt>}
@@ -104,7 +106,7 @@ export const mineHandler =
 			const value = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
 
 			if (!value) {
-				throw new Error(
+				throw new InternalError(
 					'InternalError: State root not found in mineHandler. This indicates a potential inconsistency in state management.',
 				)
 			}

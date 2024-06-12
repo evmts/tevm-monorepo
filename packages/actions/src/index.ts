@@ -12,3 +12,5 @@ export * from './anvil/index.js'
 export * from './common/index.js'
 export * from './debug/index.js'
 export * from './eth/index.js'
+// need this in procedures types atm and avoiding wasting time refactoring to ship faster
+export * from './internal/forkAndCacheBlock.js'

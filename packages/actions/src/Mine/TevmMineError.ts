@@ -1,1 +1,3 @@
-export type TevmMineError = Error
+import type { InternalError, InvalidAddressError, InvalidParamsError, InvalidRequestError } from '@tevm/errors'
+
+export type TevmMineError = InternalError | InvalidAddressError | InvalidParamsError | InvalidRequestError
