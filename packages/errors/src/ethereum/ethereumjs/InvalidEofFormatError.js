@@ -16,6 +16,8 @@ import { ExecutionError } from '../ExecutionErrorError.js'
 /**
  * Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
  *
+ * This error is specific to EOF
+ *
  * Invalid EOF format errors can occur due to:
  * - Bugs in the smart contract code causing invalid EOF format.
  * - Issues during the deployment process resulting in invalid EOF format.
@@ -51,6 +53,17 @@ export class InvalidEofFormatError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_EOF_FORMAT
 	/**
 	 * Constructs an InvalidEofFormatError.
+	 * Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
+	 *
+	 * This error is specific to EOF
+	 *
+	 * Invalid EOF format errors can occur due to:
+	 * - Bugs in the smart contract code causing invalid EOF format.
+	 * - Issues during the deployment process resulting in invalid EOF format.
+	 *
+	 * To debug an invalid EOF format error:
+	 * 1. **Review Deployment Process**: Ensure that the EOF format being used is valid and correctly generated.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the invalid EOF format is generated or deployed.
 	 *
 	 * @param {string} [message='Invalid EOF format error occurred.'] - Human-readable error message.
 	 * @param {InvalidEofFormatErrorParameters} [args={}] - Additional parameters for the BaseError.

@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when attempting to execute AUTHCALL with nonzero external value.
+ * Represents an EIP-3074 specific error that occurs when attempting to execute AUTHCALL with nonzero external value.
  *
  * AuthCallNonZeroValueExt errors can occur due to:
  * - Attempting to execute an AUTHCALL with a nonzero external value, which is not allowed.
@@ -50,6 +50,14 @@ export class AuthCallNonZeroValueExtError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.AUTHCALL_NONZERO_VALUEEXT
 	/**
 	 * Constructs an AuthCallNonZeroValueExtError.
+	 * Represents an EIP-3074 specific error that occurs when attempting to execute AUTHCALL with nonzero external value.
+	 *
+	 * AuthCallNonZeroValueExt errors can occur due to:
+	 * - Attempting to execute an AUTHCALL with a nonzero external value, which is not allowed.
+	 *
+	 * To debug an AuthCallNonZeroValueExt error:
+	 * 1. **Review Authorization Logic**: Ensure that AUTHCALL is not executed with a nonzero external value.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the AUTHCALL is attempted with nonzero external value.
 	 *
 	 * @param {string} [message='AuthCallNonZeroValueExt error occurred.'] - Human-readable error message.
 	 * @param {AuthCallNonZeroValueExtErrorParameters} [args={}] - Additional parameters for the BaseError.

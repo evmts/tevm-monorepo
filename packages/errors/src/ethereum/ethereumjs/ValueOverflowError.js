@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when a value overflow happens during EVM execution.
+ * Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
  *
  * Value overflow errors can occur due to:
  * - Arithmetic operations that exceed the maximum value limit.
@@ -50,6 +50,14 @@ export class ValueOverflowError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.VALUE_OVERFLOW
 	/**
 	 * Constructs a ValueOverflowError.
+	 * Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
+	 *
+	 * Value overflow errors can occur due to:
+	 * - Arithmetic operations that exceed the maximum value limit.
+	 *
+	 * To debug a value overflow error:
+	 * 1. **Review Arithmetic Operations**: Ensure that arithmetic operations are correctly handling large numbers and preventing overflow.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the overflow occurs.
 	 *
 	 * @param {string} [message='Value overflow error occurred.'] - Human-readable error message.
 	 * @param {ValueOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.

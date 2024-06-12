@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an fp point is not in the field during BLS12-381 operations.
+ * Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
  *
  * Fp point not in field errors can occur due to:
  * - Providing an fp point that does not lie within the expected field for BLS12-381 operations.
@@ -46,6 +46,11 @@ export class BLS12381FpNotInFieldError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.BLS_12_381_FP_NOT_IN_FIELD
 	/**
 	 * Constructs a BLS12381FpNotInFieldError.
+	 * Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
+	 *
+	 * Fp point not in field errors can occur due to:
+	 * - Providing an fp point that does not lie within the expected field for BLS12-381 operations.
+	 *
 	 *
 	 * @param {string} [message='BLS12-381 fp point not in field error occurred.'] - Human-readable error message.
 	 * @param {BLS12381FpNotInFieldErrorParameters} [args={}] - Additional parameters for the BaseError.

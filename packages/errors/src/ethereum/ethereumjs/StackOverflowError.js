@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when there is a stack overflow during execution.
+ * Represents an invalid bytecode error that occurs when there is a stack overflow during execution.
  * This error is typically encountered when an operation causes the stack to exceed its limit.
  *
  * Stack overflow errors can occur due to:
@@ -54,6 +54,20 @@ import { ExecutionError } from '../ExecutionErrorError.js'
 export class StackOverflowError extends ExecutionError {
 	/**
 	 * Constructs a StackOverflowError.
+	 * Represents an invalid bytecode error that occurs when there is a stack overflow during execution.
+	 * This error is typically encountered when an operation causes the stack to exceed its limit.
+	 *
+	 * Stack overflow errors can occur due to:
+	 * - Excessive recursion leading to too many function calls.
+	 * - Bugs in smart contract logic that cause infinite loops or excessive stack usage.
+	 * - Incorrect management of stack operations (e.g., pushing too many items onto the stack).
+	 *
+	 * To debug a stack overflow error:
+	 * 1. **Review Contract Logic**: Ensure that your smart contract logic correctly handles recursion and stack operations.
+	 * 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
+	 * 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
+	 * 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
+	 * - **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 	 *
 	 * @param {string} [message='Stack overflow error occurred.'] - Human-readable error message.
 	 * @param {StackOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.

@@ -14,7 +14,8 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when the gas refund limit is exhausted.
+ * Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
+ * EVM transaction execution metadata level error
  *
  * Refund exhausted errors can occur due to:
  * - The transaction exceeding the gas refund limit.
@@ -50,6 +51,16 @@ export class RefundExhaustedError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.REFUND_EXHAUSTED
 	/**
 	 * Constructs a RefundExhaustedError.
+	 * Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
+	 * EVM transaction execution metadata level error
+	 *
+	 * Refund exhausted errors can occur due to:
+	 * - The transaction exceeding the gas refund limit.
+	 *
+	 * To debug a refund exhausted error:
+	 * 1. **Review Gas Usage**: Ensure that the gas usage in the contract is within the refund limits.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify excessive gas usage.
+	 *
 	 *
 	 * @param {string} [message='Refund exhausted error occurred.'] - Human-readable error message.
 	 * @param {RefundExhaustedErrorParameters} [args={}] - Additional parameters for the BaseError.

@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an invalid JUMPSUB operation is executed within the EVM.
+ * Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
  *
  * Invalid JUMPSUB errors can occur due to:
  * - Incorrect use of the JUMPSUB opcode.
@@ -51,9 +51,31 @@ export class InvalidJumpSubError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_JUMPSUB
 	/**
 	 * Constructs an InvalidJumpSubError.
+	 * Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
+	 *
+	 * Invalid JUMPSUB errors can occur due to:
+	 * - Incorrect use of the JUMPSUB opcode.
+	 * - Bugs in the smart contract code causing invalid subroutine jumps.
+	 *
+	 * To debug an invalid JUMPSUB error:
+	 * 1. **Review Subroutine Logic**: Ensure that the JUMPSUB opcode is used correctly within subroutine definitions.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid JUMPSUB occurs.
 	 *
 	 * @param {string} [message='Invalid JUMPSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidJumpSubErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 *
+	 * @example
+	 * ```typescript
+	 * import { InvalidJumpSubError } from '@tevm/errors'
+	 * try {
+	 *   // Some operation that can throw an InvalidJumpSubError
+	 * } catch (error) {
+	 *   if (error instanceof InvalidJumpSubError) {
+	 *     console.error(error.message);
+	 *     // Handle the invalid JUMPSUB error
+	 *   }
+	 * }
+	 * ```
 	 */
 	constructor(message = 'Invalid JUMPSUB error occurred.', args = {}) {
 		super(message, {

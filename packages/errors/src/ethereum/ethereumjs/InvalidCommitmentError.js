@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when a KZG commitment does not match the versioned hash.
+ * Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
  *
  * Invalid commitment errors can occur due to:
  * - Providing a KZG commitment that does not match the expected versioned hash.
@@ -46,6 +46,23 @@ export class InvalidCommitmentError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_COMMITMENT
 	/**
 	 * Constructs an InvalidCommitmentError.
+	 * Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
+	 *
+	 * Invalid commitment errors can occur due to:
+	 * - Providing a KZG commitment that does not match the expected versioned hash.
+	 *
+	 * @example
+	 * ```typescript
+	 * import { InvalidCommitmentError } from '@tevm/errors'
+	 * try {
+	 *   // Some operation that can throw an InvalidCommitmentError
+	 * } catch (error) {
+	 *   if (error instanceof InvalidCommitmentError) {
+	 *     console.error(error.message);
+	 *     // Handle the invalid commitment error
+	 *   }
+	 * }
+	 * ```
 	 *
 	 * @param {string} [message='Invalid commitment error occurred.'] - Human-readable error message.
 	 * @param {InvalidCommitmentErrorParameters} [args={}] - Additional parameters for the BaseError.

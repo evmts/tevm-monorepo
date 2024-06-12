@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an input is empty during BLS12-381 operations.
+ * Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
  *
  * Input empty errors can occur due to:
  * - Providing empty input data for BLS12-381 operations.
@@ -46,6 +46,11 @@ export class BLS12381InputEmptyError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.BLS_12_381_INPUT_EMPTY
 	/**
 	 * Constructs a BLS12381InputEmptyError.
+	 * Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
+	 *
+	 * Input empty errors can occur due to:
+	 * - Providing empty input data for BLS12-381 operations.
+	 *
 	 *
 	 * @param {string} [message='BLS12-381 input empty error occurred.'] - Human-readable error message.
 	 * @param {BLS12381InputEmptyErrorParameters} [args={}] - Additional parameters for the BaseError.

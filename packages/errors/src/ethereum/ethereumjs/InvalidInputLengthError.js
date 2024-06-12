@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when an invalid input length is encountered during EVM execution.
+ * Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
  *
  * Invalid input length errors can occur due to:
  * - Providing input data of incorrect length.
@@ -50,6 +50,14 @@ export class InvalidInputLengthError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_INPUT_LENGTH
 	/**
 	 * Constructs an InvalidInputLengthError.
+	 * Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
+	 *
+	 * Invalid input length errors can occur due to:
+	 * - Providing input data of incorrect length.
+	 *
+	 * To debug an invalid input length error:
+	 * 1. **Review Input Data**: Ensure that the input data provided matches the expected length.
+	 * 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the invalid input length is encountered.
 	 *
 	 * @param {string} [message='Invalid input length error occurred.'] - Human-readable error message.
 	 * @param {InvalidInputLengthErrorParameters} [args={}] - Additional parameters for the BaseError.

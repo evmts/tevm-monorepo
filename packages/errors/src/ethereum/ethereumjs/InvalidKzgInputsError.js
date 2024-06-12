@@ -14,7 +14,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 
 /**
- * Represents an error that occurs when KZG inputs are invalid.
+ * Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
  *
  * Invalid inputs errors can occur due to:
  * - Providing invalid KZG inputs that do not meet the expected criteria.
@@ -46,6 +46,11 @@ export class InvalidKzgInputsError extends ExecutionError {
 	static EVMErrorMessage = EVMErrorMessage.INVALID_INPUTS
 	/**
 	 * Constructs an InvalidKzgInputsError.
+	 * Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
+	 *
+	 * Invalid inputs errors can occur due to:
+	 * - Providing invalid KZG inputs that do not meet the expected criteria.
+	 *
 	 *
 	 * @param {string} [message='Invalid inputs error occurred.'] - Human-readable error message.
 	 * @param {InvalidKzgInputsErrorParameters} [args={}] - Additional parameters for the BaseError.

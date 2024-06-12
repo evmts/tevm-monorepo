@@ -16,6 +16,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
 /**
  * Represents an error that occurs when a transaction runs out of gas during code storage.
  * This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+ * EVM transaction execution metadata level error
  *
  * Code store out of gas errors can occur due to:
  * - Insufficient gas provided for storing large contracts.
@@ -58,6 +59,16 @@ export class CodeStoreOutOfGasError extends GasLimitExceededError {
 	static EVMErrorMessage = EVMErrorMessage.CODESTORE_OUT_OF_GAS
 	/**
 	 * Constructs a CodeStoreOutOfGasError.
+	 * Represents an error that occurs when a transaction runs out of gas during code storage.
+	 * This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+	 * EVM transaction execution metadata level error
+	 *
+	 * Code store out of gas errors can occur due to:
+	 * - Insufficient gas provided for storing large contracts.
+	 * - Incorrect estimation of gas required for storing code.
+	 * - Contracts with high gas consumption during the deployment phase.
+	 * - Non-deterministic gas usage during code storage.
+	 * - If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
 	 *
 	 * @param {string} [message='Code store out of gas error occurred.'] - Human-readable error message.
 	 * @param {CodeStoreOutOfGasErrorParameters} [args={}] - Additional parameters for the BaseError.
