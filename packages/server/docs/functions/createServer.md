@@ -1355,6 +1355,8 @@ To use pass in the Tevm['request'] request handler
 
 `Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
 
+## Throws
+
 ## Examples
 
 ```typescript
@@ -1379,4 +1381,4 @@ const client = createTevmClient()
 
 ## Source
 
-[packages/server/src/createServer.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L31)
+[packages/server/src/createServer.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L38)

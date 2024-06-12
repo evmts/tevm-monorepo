@@ -5,10 +5,6 @@ prev: false
 title: "@tevm/server"
 ---
 
-## Classes
-
-- [BadRequestError](/reference/tevm/server/classes/badrequesterror/)
-
 ## Functions
 
 - [createExpressMiddleware](/reference/tevm/server/functions/createexpressmiddleware/)

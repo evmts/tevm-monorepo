@@ -1357,6 +1357,10 @@ const unwatch = await client.watchPendingTransactions({
 
 *
 
+## Throws
+
+*
+
 ## Example
 
 ```ts

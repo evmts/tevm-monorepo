@@ -4,10 +4,6 @@
 
 # @tevm/server
 
-## Classes
-
-- [BadRequestError](classes/BadRequestError.md)
-
 ## Functions
 
 - [createExpressMiddleware](functions/createExpressMiddleware.md)
