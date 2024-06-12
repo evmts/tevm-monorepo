@@ -24,9 +24,13 @@ Represents a Bloom filter.
 
 [`Bloom`](Bloom.md)
 
+#### Throws
+
+If the byte size of the bitvector is not 256.
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:9
+packages/utils/types/Bloom.d.ts:10
 
 ## Properties
 
@@ -56,9 +60,11 @@ The element to add
 
 `void`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:14
+packages/utils/types/Bloom.d.ts:16
 
 ***
 
@@ -78,9 +84,11 @@ The element to check
 
 `boolean`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:19
+packages/utils/types/Bloom.d.ts:22
 
 ***
 
@@ -100,9 +108,11 @@ Checks if multiple topics are in a bloom.
 
 `true` if every topic is in the bloom
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:24
+packages/utils/types/Bloom.d.ts:28
 
 ***
 
@@ -120,6 +130,8 @@ Bitwise or blooms together.
 
 `void`
 
+#### Throws
+
 #### Source
 
-packages/utils/types/Bloom.d.ts:28
+packages/utils/types/Bloom.d.ts:33

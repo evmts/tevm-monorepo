@@ -21,6 +21,8 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`, `Uint8Array`\>
 
+## Throws
+
 ## Source
 
-packages/utils/types/createMemoryDb.d.ts:7
+packages/utils/types/createMemoryDb.d.ts:8
