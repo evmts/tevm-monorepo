@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/decorators",
-	"version": "1.1.0-next.71",
+	"version": "1.1.0-next.73",
 	"private": false,
 	"description": "Client implementations of Tevm",
 	"keywords": [

@@ -1,5 +1,23 @@
 # @tevm/plugin
 
+## 1.1.0-next.73
+
+### Patch Changes
+
+- Updated dependencies [[`2c013d3`](https://github.com/evmts/tevm-monorepo/commit/2c013d3ec0c37ded033f6139c979578fb4a71568)]:
+  - @tevm/unplugin@1.1.0-next.73
+
+## 1.1.0-next.72
+
+### Minor Changes
+
+- [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9) - Fix changesets
+
+### Patch Changes
+
+- Updated dependencies [[`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32), [`4094ead`](https://github.com/evmts/tevm-monorepo/commit/4094eadc105790d4e4046187772a8cdbf28c0ef9), [`3a06dbd`](https://github.com/evmts/tevm-monorepo/commit/3a06dbd3892dff10436741a03364d37b763f3c32)]:
+  - @tevm/unplugin@1.1.0-next.72
+
 ## 1.1.0-next.70
 
 ### Patch Changes
