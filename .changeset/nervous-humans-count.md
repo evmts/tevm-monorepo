@@ -4,10 +4,9 @@
 "@tevm/http-client": minor
 "@tevm/predeploys": minor
 "@tevm/procedures": minor
-"@tevm/actions": minor
 "@tevm/viem": minor
 "@tevm/state": minor
-"@tevm/zod": minor
+"@tevm/actions": minor
 "tevm": minor
 ---
 

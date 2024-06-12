@@ -27,7 +27,6 @@
 "@tevm/ts-plugin": minor
 "@tevm/vscode": minor
 "@tevm/actions": minor
-"@tevm/actions": minor
 "@tevm/base-client": minor
 "@tevm/block": minor
 "@tevm/blockchain": minor
@@ -45,7 +44,6 @@
 "@tevm/precompiles": minor
 "@tevm/predeploys": minor
 "@tevm/procedures": minor
-"@tevm/procedures": minor
 "@tevm/receipt-manager": minor
 "@tevm/rlp": minor
 "@tevm/server": minor
@@ -56,7 +54,7 @@
 "@tevm/txpool": minor
 "@tevm/utils": minor
 "@tevm/vm": minor
-"@tevm/zod": minor
+"@tevm/actions": minor
 "@tevm/test-utils": minor
 "tevm": minor
 ---

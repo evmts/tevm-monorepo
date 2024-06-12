@@ -28,7 +28,6 @@
 "@tevm/ts-plugin": patch
 "@tevm/vscode": patch
 "@tevm/actions": patch
-"@tevm/actions": patch
 "@tevm/base-client": patch
 "@tevm/block": patch
 "@tevm/blockchain": patch
@@ -46,7 +45,6 @@
 "@tevm/precompiles": patch
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
-"@tevm/procedures": patch
 "@tevm/rlp": patch
 "@tevm/server": patch
 "@tevm/state": patch
@@ -56,7 +54,7 @@
 "@tevm/txpool": patch
 "@tevm/utils": patch
 "@tevm/vm": patch
-"@tevm/zod": patch
+"@tevm/actions": patch
 "tevm": patch
 ---
 

@@ -4,7 +4,6 @@
 "@tevm/solc": patch
 "@tevm/procedures": patch
 "@tevm/contract": patch
-"@tevm/actions": patch
 "@tevm/test-utils": patch
 "tevm": patch
 ---

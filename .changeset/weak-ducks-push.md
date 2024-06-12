@@ -8,7 +8,6 @@
 "@tevm/precompiles": patch
 "@tevm/blockchain": patch
 "@tevm/decorators": patch
-"@tevm/procedures": patch
 "@tevm/ethers": patch
 "@tevm/actions": patch
 "@tevm/jsonrpc": patch
@@ -19,7 +18,7 @@
 "@tevm/state": patch
 "@tevm/utils": patch
 "@tevm/evm": patch
-"@tevm/zod": patch
+"@tevm/actions": patch
 "@tevm/vm": patch
 "tevm": patch
 ---

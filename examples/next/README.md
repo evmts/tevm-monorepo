@@ -20,7 +20,7 @@
 
 Basically, it's a way to interact with contracts and externally owned accounts (EOAs) **in a simulated environment, from a forked chain**, with [a comprehensive set of actions](https://tevm.sh/learn/actions/) exposed by [a Tevm memory client](https://tevm.sh/learn/clients/).
 
-As you interact with accounts, all [transactions are processed](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler) and recorded by the client, which always considers the latest state of the chain; i.e. the initial state at the time of the fork, plus all the local transactions.
+As you interact with accounts, all [transactions are processed](https://tevm.sh/reference/tevm/actions/type-aliases/callhandler) and recorded by the client, which always considers the latest state of the chain; i.e. the initial state at the time of the fork, plus all the local transactions.
 
 When you search for a contract, it will attempt to retrieve its
 ABI with [WhatsABI](https://github.com/shazow/whatsabi). You can then interact with it using the interface, or perform any arbitrary call with encoded data.
@@ -36,7 +36,7 @@ The clients for each chain are synced with the local storage, as well as the tra
   - Click `Fork chain` to fork the chain again at the latest block.
 - **Caller**
   - Enter an address to impersonate during calls; you can click `owner` to impersonate the owner of the contract if it found an appropriate method.
-  - Toggle `skip balance` to [ignore or not the native tokens balance](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#skipbalance) during calls.
+  - Toggle `skip balance` to [ignore or not the native tokens balance](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams/#skipbalance) during calls.
 - **Low-level call**
   - Call the current account with an arbitrary amount of native tokens and/or arbitrary encoded data.
 - **Contract interface**

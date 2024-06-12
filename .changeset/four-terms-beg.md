@@ -1,5 +1,5 @@
 ---
-"@tevm/zod": patch
+"@tevm/actions": patch
 "tevm": patch
 ---
 
