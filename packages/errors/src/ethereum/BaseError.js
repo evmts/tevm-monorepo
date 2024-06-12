@@ -48,7 +48,7 @@ export class BaseError extends Error {
 		super()
 
 		const details = (() => {
-			console.log('what is the details?', shortMessage, args.cause)
+			console.log('what is the details?', shortMessage, args)
 			if (args.cause === null || args.cause === undefined) {
 				return ''
 			}

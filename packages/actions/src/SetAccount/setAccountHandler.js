@@ -32,11 +32,13 @@ export const setAccountHandler =
 		const promises = []
 		try {
 			const vm = await client.getVm()
+
+			// check if account exists
 			const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
-			if (account.errors?.length && account.errors[0] instanceof AccountNotFoundError) {
-				client.logger.error('there was an unexpected error getting account', account.errors)
-				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[1]
+			if (account.errors?.length && !(account.errors[0] instanceof AccountNotFoundError)) {
+				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[0]
 			}
+
 			promises.push(
 				vm.stateManager.putAccount(
 					address,
@@ -86,6 +88,7 @@ export const setAccountHandler =
 
 			return {}
 		} catch (e) {
+			console.log('it threw oh no', e)
 			errors.push(new InternalError('Unexpected error setting account', { cause: e }))
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}

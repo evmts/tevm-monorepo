@@ -14,7 +14,7 @@ exports[`setAccountHandler should handle putAccount throwing 1`] = `
   [InternalError: Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: undefined is not an object (evaluating 'client.logger.error')
+Details: I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program
 Version: 1.1.0.next-73],
 ]
 `;

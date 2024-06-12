@@ -47,7 +47,9 @@ describe('setAccountHandler', () => {
 				return undefined
 			},
 			putAccount: () => {
-				throw new Error('test')
+				throw new Error(
+					'I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program',
+				)
 			},
 		}
 		const evm = await Evm.create({
@@ -55,7 +57,8 @@ describe('setAccountHandler', () => {
 		})
 		const { common, blockchain } = await createBaseClient().getVm()
 		const vm = createVm({ evm, stateManager: stateManager as any, common, blockchain })
-		const res = await setAccountHandler({ getVm: async () => vm } as any)({
+		const client = createBaseClient()
+		const res = await setAccountHandler({ ...client, getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
