@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidInputLengthError](../classes/InvalidInputL
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:58
+packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:66

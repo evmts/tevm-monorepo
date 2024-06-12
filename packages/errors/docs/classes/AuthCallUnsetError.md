@@ -6,7 +6,7 @@
 
 # Class: AuthCallUnsetError
 
-Represents an error that occurs when attempting to AUTHCALL without AUTH set.
+Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.
 
 AuthCallUnset errors can occur due to:
 - Attempting to execute an AUTHCALL without setting the necessary authorization.
@@ -48,6 +48,14 @@ Additional parameters for the BaseError.
 > **new AuthCallUnsetError**(`message`?, `args`?): [`AuthCallUnsetError`](AuthCallUnsetError.md)
 
 Constructs an AuthCallUnsetError.
+Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.
+
+AuthCallUnset errors can occur due to:
+- Attempting to execute an AUTHCALL without setting the necessary authorization.
+
+To debug an AuthCallUnset error:
+1. **Review Authorization Logic**: Ensure that the necessary authorization is set before executing an AUTHCALL.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify where the AUTHCALL is attempted without AUTH set.
 
 #### Parameters
 
@@ -69,7 +77,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/AuthCallUnsetError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/AuthCallUnsetError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/AuthCallUnsetError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/AuthCallUnsetError.js#L65)
 
 ## Properties
 

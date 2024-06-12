@@ -6,7 +6,7 @@
 
 # Class: InvalidJumpError
 
-Represents an error that occurs when an invalid JUMP operation is executed within the EVM.
+Represents an invalid bytecode/contract error that occurs when an invalid JUMP operation is executed within the EVM.
 This error is typically encountered when the jump destination in the bytecode is invalid or does not exist.
 
 Invalid JUMP errors can occur due to:
@@ -52,6 +52,18 @@ Additional parameters for the BaseError.
 > **new InvalidJumpError**(`message`?, `args`?): [`InvalidJumpError`](InvalidJumpError.md)
 
 Constructs an InvalidJumpError.
+Represents an invalid bytecode/contract error that occurs when an invalid JUMP operation is executed within the EVM.
+This error is typically encountered when the jump destination in the bytecode is invalid or does not exist.
+
+Invalid JUMP errors can occur due to:
+- Incorrect jump destinations in the bytecode.
+- Bugs in the smart contract code causing jumps to non-existent locations.
+- Conditional logic errors leading to unexpected jump destinations.
+
+To debug an invalid JUMP error:
+1. **Double Check Bytecode**: Ensure that the bytecode provided is valid.
+2. **Verify Common Configuration**: Ensure you are using a `common` with the correct hardfork and EIPs that support the EVM version you are targeting.
+3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the bytecode execution and identify where the invalid JUMP occurs.
 
 #### Parameters
 
@@ -73,7 +85,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:57
+packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:69
 
 ## Properties
 

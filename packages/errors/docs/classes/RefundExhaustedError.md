@@ -6,7 +6,8 @@
 
 # Class: RefundExhaustedError
 
-Represents an error that occurs when the gas refund limit is exhausted.
+Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
+EVM transaction execution metadata level error
 
 Refund exhausted errors can occur due to:
 - The transaction exceeding the gas refund limit.
@@ -48,6 +49,15 @@ Additional parameters for the BaseError.
 > **new RefundExhaustedError**(`message`?, `args`?): [`RefundExhaustedError`](RefundExhaustedError.md)
 
 Constructs a RefundExhaustedError.
+Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
+EVM transaction execution metadata level error
+
+Refund exhausted errors can occur due to:
+- The transaction exceeding the gas refund limit.
+
+To debug a refund exhausted error:
+1. **Review Gas Usage**: Ensure that the gas usage in the contract is within the refund limits.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify excessive gas usage.
 
 #### Parameters
 
@@ -69,7 +79,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/RefundExhausted.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/RefundExhausted.js#L57)
+[packages/errors/src/ethereum/ethereumjs/RefundExhausted.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/RefundExhausted.js#L68)
 
 ## Properties
 
@@ -261,7 +271,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/RefundExhausted.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/RefundExhausted.js#L50)
+[packages/errors/src/ethereum/ethereumjs/RefundExhausted.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/RefundExhausted.js#L51)
 
 ***
 

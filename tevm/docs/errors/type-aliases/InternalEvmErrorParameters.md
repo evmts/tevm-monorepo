@@ -56,4 +56,4 @@ Parameters for constructing a [InternalEvmError](../classes/InternalEvmError.md)
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:67
+packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:70

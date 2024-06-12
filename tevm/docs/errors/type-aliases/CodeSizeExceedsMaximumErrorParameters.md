@@ -56,4 +56,4 @@ Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeE
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:69
+packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:89

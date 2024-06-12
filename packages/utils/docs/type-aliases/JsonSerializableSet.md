@@ -16,4 +16,4 @@ A type that represents a JSON-serializable set.
 
 ## Source
 
-[packages/utils/src/SerializeToJson.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L27)
+[packages/utils/src/SerializeToJson.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L28)

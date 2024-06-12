@@ -6,7 +6,7 @@
 
 # Class: InvalidKzgInputsError
 
-Represents an error that occurs when KZG inputs are invalid.
+Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
 
 Invalid inputs errors can occur due to:
 - Providing invalid KZG inputs that do not meet the expected criteria.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new InvalidKzgInputsError**(`message`?, `args`?): [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
 
 Constructs an InvalidKzgInputsError.
+Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
+
+Invalid inputs errors can occur due to:
+- Providing invalid KZG inputs that do not meet the expected criteria.
 
 #### Parameters
 
@@ -65,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L53)
+[packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L58)
 
 ## Properties
 

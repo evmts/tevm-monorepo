@@ -103,4 +103,4 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBa
 
 ## Source
 
-packages/procedures/dist/index.d.ts:1179
+packages/procedures/dist/index.d.ts:1180

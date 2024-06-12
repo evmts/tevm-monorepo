@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidBeginSubError](../classes/InvalidBeginSubE
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:59
+packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:68

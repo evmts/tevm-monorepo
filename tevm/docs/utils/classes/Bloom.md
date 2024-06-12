@@ -6,6 +6,8 @@
 
 # Class: Bloom
 
+A simple Bloom filter implementation originally from ethereumjs
+
 ## Constructors
 
 ### new Bloom()
@@ -24,7 +26,7 @@ Represents a Bloom filter.
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:6
+packages/utils/types/Bloom.d.ts:9
 
 ## Properties
 
@@ -34,7 +36,7 @@ packages/utils/types/Bloom.d.ts:6
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:2
+packages/utils/types/Bloom.d.ts:5
 
 ## Methods
 
@@ -56,7 +58,7 @@ The element to add
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:11
+packages/utils/types/Bloom.d.ts:14
 
 ***
 
@@ -78,7 +80,7 @@ The element to check
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:16
+packages/utils/types/Bloom.d.ts:19
 
 ***
 
@@ -100,7 +102,7 @@ Checks if multiple topics are in a bloom.
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:21
+packages/utils/types/Bloom.d.ts:24
 
 ***
 
@@ -120,4 +122,4 @@ Bitwise or blooms together.
 
 #### Source
 
-packages/utils/types/Bloom.d.ts:25
+packages/utils/types/Bloom.d.ts:28

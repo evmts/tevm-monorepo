@@ -56,4 +56,4 @@ Parameters for constructing a [AuthCallNonZeroValueExtError](../classes/AuthCall
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/AuthCallNonZeroValueExtError.d.ts:58
+packages/errors/types/ethereum/ethereumjs/AuthCallNonZeroValueExtError.d.ts:66

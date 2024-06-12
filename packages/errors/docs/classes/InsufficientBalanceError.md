@@ -7,6 +7,7 @@
 # Class: InsufficientBalanceError
 
 Represents an error that occurs when an account has insufficient balance to perform a transaction.
+EVM transaction execution metadata level error
 
 Insufficient balance errors can occur due to:
 - Attempting to transfer or spend more funds than available in the account.
@@ -49,6 +50,16 @@ Additional parameters for the BaseError.
 > **new InsufficientBalanceError**(`message`?, `args`?): [`InsufficientBalanceError`](InsufficientBalanceError.md)
 
 Constructs an InsufficientBalanceError.
+Represents an error that occurs when an account has insufficient balance to perform a transaction.
+EVM transaction execution metadata level error
+
+Insufficient balance errors can occur due to:
+- Attempting to transfer or spend more funds than available in the account.
+
+To debug an insufficient balance error:
+1. **Review Account Balance**: Ensure that the account has sufficient funds to cover the transaction.
+2. **Check Transaction Details**: Verify the transaction amount and ensure it does not exceed the account balance.
+3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction execution and identify where the insufficient balance occurs.
 
 #### Parameters
 
@@ -70,7 +81,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js#L69)
 
 ## Properties
 
@@ -262,7 +273,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js#L51)
+[packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js#L52)
 
 ***
 

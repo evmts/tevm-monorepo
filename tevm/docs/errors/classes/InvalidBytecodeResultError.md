@@ -6,7 +6,7 @@
 
 # Class: InvalidBytecodeResultError
 
-Represents an error that occurs when invalid bytecode is deployed during EVM execution.
+Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
 
 Invalid bytecode result errors can occur due to:
 - Bugs in the smart contract code causing invalid bytecode to be generated.
@@ -49,6 +49,15 @@ Additional parameters for the BaseError.
 > **new InvalidBytecodeResultError**(`message`?, `args`?): [`InvalidBytecodeResultError`](InvalidBytecodeResultError.md)
 
 Constructs an InvalidBytecodeResultError.
+Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
+
+Invalid bytecode result errors can occur due to:
+- Bugs in the smart contract code causing invalid bytecode to be generated.
+- Issues during the deployment process resulting in invalid bytecode.
+
+To debug an invalid bytecode result error:
+1. **Review Deployment Process**: Ensure that the bytecode being deployed is valid and correctly generated.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the invalid bytecode is generated or deployed.
 
 #### Parameters
 
@@ -70,7 +79,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:63
 
 ## Properties
 

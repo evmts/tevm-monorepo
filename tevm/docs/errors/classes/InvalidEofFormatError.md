@@ -8,6 +8,8 @@
 
 Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
 
+This error is specific to EOF
+
 Invalid EOF format errors can occur due to:
 - Bugs in the smart contract code causing invalid EOF format.
 - Issues during the deployment process resulting in invalid EOF format.
@@ -49,6 +51,17 @@ Additional parameters for the BaseError.
 > **new InvalidEofFormatError**(`message`?, `args`?): [`InvalidEofFormatError`](InvalidEofFormatError.md)
 
 Constructs an InvalidEofFormatError.
+Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
+
+This error is specific to EOF
+
+Invalid EOF format errors can occur due to:
+- Bugs in the smart contract code causing invalid EOF format.
+- Issues during the deployment process resulting in invalid EOF format.
+
+To debug an invalid EOF format error:
+1. **Review Deployment Process**: Ensure that the EOF format being used is valid and correctly generated.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment and identify where the invalid EOF format is generated or deployed.
 
 #### Parameters
 
@@ -70,7 +83,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:54
+packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:67
 
 ## Properties
 
@@ -262,7 +275,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:47
+packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:49
 
 ***
 

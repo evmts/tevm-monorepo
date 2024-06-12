@@ -8,6 +8,7 @@
 
 Represents an error that occurs when a transaction runs out of gas during code storage.
 This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+EVM transaction execution metadata level error
 
 Code store out of gas errors can occur due to:
 - Insufficient gas provided for storing large contracts.
@@ -56,6 +57,16 @@ Additional parameters for the BaseError.
 > **new CodeStoreOutOfGasError**(`message`?, `args`?): [`CodeStoreOutOfGasError`](CodeStoreOutOfGasError.md)
 
 Constructs a CodeStoreOutOfGasError.
+Represents an error that occurs when a transaction runs out of gas during code storage.
+This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
+EVM transaction execution metadata level error
+
+Code store out of gas errors can occur due to:
+- Insufficient gas provided for storing large contracts.
+- Incorrect estimation of gas required for storing code.
+- Contracts with high gas consumption during the deployment phase.
+- Non-deterministic gas usage during code storage.
+- If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
 
 #### Parameters
 
@@ -77,7 +88,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L65)
+[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L76)
 
 ## Properties
 
@@ -269,7 +280,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L59)
 
 ***
 

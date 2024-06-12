@@ -6,6 +6,8 @@
 
 # Class: Bloom
 
+A simple Bloom filter implementation originally from ethereumjs
+
 ## Constructors
 
 ### new Bloom()
@@ -24,7 +26,7 @@ Represents a Bloom filter.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L16)
+[packages/utils/src/Bloom.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L20)
 
 ## Properties
 
@@ -34,7 +36,7 @@ Represents a Bloom filter.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L11)
+[packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
 
 ## Methods
 
@@ -56,7 +58,7 @@ The element to add
 
 #### Source
 
-[packages/utils/src/Bloom.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L29)
+[packages/utils/src/Bloom.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L33)
 
 ***
 
@@ -78,7 +80,7 @@ The element to check
 
 #### Source
 
-[packages/utils/src/Bloom.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L46)
+[packages/utils/src/Bloom.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L50)
 
 ***
 
@@ -100,7 +102,7 @@ Checks if multiple topics are in a bloom.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L68)
+[packages/utils/src/Bloom.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L72)
 
 ***
 
@@ -120,4 +122,4 @@ Bitwise or blooms together.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L75)
+[packages/utils/src/Bloom.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L79)

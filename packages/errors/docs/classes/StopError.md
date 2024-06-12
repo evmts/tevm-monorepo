@@ -6,7 +6,7 @@
 
 # Class: StopError
 
-Represents an error that occurs when a STOP operation is executed.
+Represents a contract/bytecode error that occurs when a STOP operation is executed.
 
 Stop errors can occur due to:
 - The contract execution reaching a STOP opcode.
@@ -48,6 +48,14 @@ Additional parameters for the BaseError.
 > **new StopError**(`message`?, `args`?): [`StopError`](StopError.md)
 
 Constructs a StopError.
+Represents a contract/bytecode error that occurs when a STOP operation is executed.
+
+Stop errors can occur due to:
+- The contract execution reaching a STOP opcode.
+
+To debug a stop error:
+1. **Review Contract Logic**: Ensure that the STOP opcode is used intentionally and correctly.
+2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract execution and identify the STOP operation.
 
 #### Parameters
 
@@ -69,7 +77,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StopErrorError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L57)
+[packages/errors/src/ethereum/ethereumjs/StopErrorError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L65)
 
 ## Properties
 

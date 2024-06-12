@@ -56,4 +56,4 @@ Parameters for constructing a [RefundExhaustedError](../classes/RefundExhaustedE
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:58
+packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:69

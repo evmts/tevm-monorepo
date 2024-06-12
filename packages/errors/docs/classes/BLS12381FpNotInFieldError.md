@@ -6,7 +6,7 @@
 
 # Class: BLS12381FpNotInFieldError
 
-Represents an error that occurs when an fp point is not in the field during BLS12-381 operations.
+Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
 
 Fp point not in field errors can occur due to:
 - Providing an fp point that does not lie within the expected field for BLS12-381 operations.
@@ -44,6 +44,10 @@ Additional parameters for the BaseError.
 > **new BLS12381FpNotInFieldError**(`message`?, `args`?): [`BLS12381FpNotInFieldError`](BLS12381FpNotInFieldError.md)
 
 Constructs a BLS12381FpNotInFieldError.
+Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
+
+Fp point not in field errors can occur due to:
+- Providing an fp point that does not lie within the expected field for BLS12-381 operations.
 
 #### Parameters
 
@@ -65,7 +69,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js#L53)
+[packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js#L58)
 
 ## Properties
 
