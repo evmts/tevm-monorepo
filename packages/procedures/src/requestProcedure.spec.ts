@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
-import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
+import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures'
 import { type EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
@@ -381,20 +381,7 @@ describe('requestProcedure', () => {
 					},
 				],
 			})
-			expect(res).toEqual({
-				error: {
-					message: 'UnexpectedError: unexpected error',
-					code: 'UnexpectedError',
-					...{
-						data: {
-							errors: ['UnexpectedError: unexpected error'],
-						},
-					},
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_setAccount',
-			})
+			expect(res).toMatchSnapshot()
 		})
 	})
 
@@ -509,23 +496,7 @@ describe('requestProcedure', () => {
 						},
 					],
 				}),
-			).toEqual({
-				error: {
-					code: 'revert',
-					...{
-						data: {
-							errors: [
-								'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
-							],
-						},
-					},
-					message:
-						'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
-				},
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'tevm_script',
-			})
+			).toMatchSnapshot()
 		})
 	})
 

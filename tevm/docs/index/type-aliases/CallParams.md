@@ -6,7 +6,7 @@
 
 # Type alias: CallParams\<TThrowOnFail\>
 
-> **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object`
+> **CallParams**\<`TThrowOnFail`\>: `BaseCallParams`\<`TThrowOnFail`\> & `object`
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -27,19 +27,19 @@ const callParams: import('@tevm/api').CallParams = {
 
 ### data?
 
-> `optional` `readonly` **data**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> `optional` `readonly` **data**: `Hex`
 
 The input data.
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> `optional` `readonly` **deployedBytecode**: `Hex`
 
 The EVM code to run.
 
 ### salt?
 
-> `optional` `readonly` **salt**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> `optional` `readonly` **salt**: `Hex`
 
 An optional CREATE2 salt.
 
@@ -49,4 +49,4 @@ An optional CREATE2 salt.
 
 ## Source
 
-packages/actions-types/types/params/CallParams.d.ts:15
+packages/actions/types/Call/CallParams.d.ts:15

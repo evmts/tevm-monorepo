@@ -1,3 +1,4 @@
+import { InternalError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 
 /**
@@ -13,7 +14,7 @@ export const forkAndCacheBlock = async (client, block, executeBlock = false) => 
 	const vm = await client.getVm()
 	// this can't happen making ts happy
 	if (!client.forkTransport) {
-		throw new Error('Cannot fork without a fork url')
+		throw new InternalError('Cannot forkAndCacheBlock without a fork url')
 	}
 	const stateManager = createStateManager({
 		...vm.evm.stateManager._baseState.options,

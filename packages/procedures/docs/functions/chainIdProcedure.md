@@ -6,7 +6,7 @@
 
 # Function: chainIdProcedure()
 
-> **chainIdProcedure**(`baseClient`): `EthChainIdJsonRpcProcedure`
+> **chainIdProcedure**(`baseClient`): [`EthChainIdJsonRpcProcedure`](../type-aliases/EthChainIdJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthChainIdJsonRpcProcedure`
+[`EthChainIdJsonRpcProcedure`](../type-aliases/EthChainIdJsonRpcProcedure.md)
 
 ## Source
 

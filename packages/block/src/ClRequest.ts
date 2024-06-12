@@ -1,3 +1,4 @@
+import { InternalError } from '@tevm/errors'
 // Unreleased as of this commit https://github.com/ethereumjs/ethereumjs-monorepo/blob/36cd6069815015f4c0202a3335f755b06a5608e8/packages/util/src/requests.ts#L16
 import { concatBytes } from '@tevm/utils'
 
@@ -18,7 +19,7 @@ export class ClRequest implements CLRequestType {
 	type: number
 	bytes: Uint8Array
 	constructor(type: number, bytes: Uint8Array) {
-		if (type === undefined) throw new Error('request type is required')
+		if (type === undefined) throw new InternalError('request type is required')
 		this.type = type
 		this.bytes = bytes
 	}

@@ -4,7 +4,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
+ * @returns {import('./DebugHandler.js').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =

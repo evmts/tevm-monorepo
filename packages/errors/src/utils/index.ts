@@ -1,2 +1,2 @@
-export type { DecodeFunctionDataError } from './DecodeFunctionDataError.js'
-export type { EncodeFunctionReturnDataError } from './EncodeFunctionReturnDataError.js'
+export { DecodeFunctionDataError } from './DecodeFunctionDataError.js'
+export { EncodeFunctionReturnDataError } from './EncodeFunctionReturnDataError.js'

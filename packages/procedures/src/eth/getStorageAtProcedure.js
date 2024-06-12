@@ -2,7 +2,7 @@ import { getStorageAtHandler } from '@tevm/actions'
 
 /**
  * @param {Parameters<typeof getStorageAtHandler>[0]} options
- * @returns {import('@tevm/procedures-types').EthGetStorageAtJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthGetStorageAtJsonRpcProcedure}
  */
 export const getStorageAtProcedure =
 	({ getVm, forkClient }) =>

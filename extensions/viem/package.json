@@ -70,11 +70,11 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.3",
-		"@tevm/actions-types": "workspace:^",
+		"@tevm/actions": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
+		"@tevm/procedures": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/test-utils": "workspace:^",

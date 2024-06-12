@@ -5,6 +5,19 @@ import { EthjsAccount, EthjsAddress, type Hex, bytesToUnprefixedHex, equalsBytes
 
 import { Bloom } from '@ethereumjs/vm'
 import type { Common } from '@tevm/common'
+import {
+	BlockGasLimitExceededError,
+	EipNotEnabledError,
+	InsufficientFundsError,
+	InternalError,
+	InvalidGasLimitError,
+	InvalidGasPriceError,
+	InvalidParamsError,
+	InvalidTransactionError,
+	MisconfiguredClientError,
+	NonceTooHighError,
+	NonceTooLowError,
+} from '@tevm/errors'
 import type {
 	AccessList,
 	AccessListEIP2930Transaction,
@@ -72,13 +85,13 @@ export const runTx =
 			) {
 				// Block and VM's hardfork should match as well
 				const msg = _errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
-				throw new Error(msg)
+				throw new MisconfiguredClientError(msg)
 			}
 		}
 
 		if (opts.skipBlockGasLimitValidation !== true && opts.block.header.gasLimit < opts.tx.gasLimit) {
 			const msg = _errorMsg('tx has a higher gas limit than the block', opts.block, opts.tx)
-			throw new Error(msg)
+			throw new BlockGasLimitExceededError(msg)
 		}
 
 		// Ensure we start with a clear warmed accounts Map
@@ -140,7 +153,7 @@ const _runTx =
 		const { tx, block } = opts
 
 		if (!block) {
-			throw new Error('block required')
+			throw new InvalidParamsError('block required')
 		}
 
 		/**
@@ -178,7 +191,7 @@ const _runTx =
 				block,
 				tx,
 			)
-			throw new Error(msg)
+			throw new InvalidGasLimitError(msg)
 		}
 		gasLimit -= txBaseFee
 
@@ -196,7 +209,7 @@ const _runTx =
 					block,
 					tx,
 				)
-				throw new Error(msg)
+				throw new InvalidParamsError(msg)
 			}
 		}
 		// Check from account's balance and nonce
@@ -207,8 +220,12 @@ const _runTx =
 		const { nonce, balance } = fromAccount
 		// EIP-3607: Reject transactions from senders with deployed code
 		if (vm.common.ethjsCommon.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
-			const msg = _errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
-			throw new Error(msg)
+			const msg = _errorMsg(
+				'invalid sender address, address is not EOA (EIP-3607). When EIP-3607 is disabled this check is skipped',
+				block,
+				tx,
+			)
+			throw new InvalidTransactionError(msg)
 		}
 
 		// Check balance against upfront tx cost
@@ -226,7 +243,7 @@ const _runTx =
 					block,
 					tx,
 				)
-				throw new Error(msg)
+				throw new InsufficientFundsError(msg)
 			}
 		}
 
@@ -244,7 +261,7 @@ const _runTx =
 		if (tx instanceof BlobEIP4844Transaction) {
 			if (!vm.common.ethjsCommon.isActivatedEIP(4844)) {
 				const msg = _errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
-				throw new Error(msg)
+				throw new EipNotEnabledError(msg)
 			}
 			// EIP-4844 spec
 			// the signer must be able to afford the transaction
@@ -256,7 +273,7 @@ const _runTx =
 			// 4844 minimum blobGas price check
 			if (opts.block === undefined) {
 				const msg = _errorMsg('Block option must be supplied to compute blob gas price', block, tx)
-				throw new Error(msg)
+				throw new InvalidParamsError(msg)
 			}
 			blobGasPrice = opts.block.header.getBlobGasPrice()
 			if (castTx.maxFeePerBlobGas < blobGasPrice) {
@@ -265,7 +282,7 @@ const _runTx =
 					block,
 					tx,
 				)
-				throw new Error(msg)
+				throw new InvalidGasPriceError(msg)
 			}
 		}
 
@@ -280,7 +297,7 @@ const _runTx =
 					block,
 					tx,
 				)
-				throw new Error(msg)
+				throw new InsufficientFundsError(msg)
 			}
 		}
 
@@ -291,7 +308,7 @@ const _runTx =
 					block,
 					tx,
 				)
-				throw new Error(msg)
+				throw nonce > tx.nonce ? new NonceTooLowError(msg) : new NonceTooHighError(msg)
 			}
 		}
 
@@ -426,7 +443,7 @@ const _runTx =
 			// Convert the Map to the desired type
 			const accessList: AccessList = []
 			if (!vm.evm.journal.accessList) {
-				throw new Error('expected journal accesslist to be defined')
+				throw new InternalError('expected journal accesslist to be defined')
 			}
 			for (const [address, set] of vm.evm.journal.accessList) {
 				const item: AccessListItem = {

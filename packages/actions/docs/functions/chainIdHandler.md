@@ -6,7 +6,7 @@
 
 # Function: chainIdHandler()
 
-> **chainIdHandler**(`client`): `EthChainIdHandler`
+> **chainIdHandler**(`client`): [`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)
 
 Handler for the `eth_chainId` RPC call.
 
@@ -16,7 +16,7 @@ Handler for the `eth_chainId` RPC call.
 
 ## Returns
 
-`EthChainIdHandler`
+[`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)
 
 ## Source
 

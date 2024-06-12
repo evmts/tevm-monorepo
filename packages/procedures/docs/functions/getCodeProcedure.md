@@ -6,7 +6,7 @@
 
 # Function: getCodeProcedure()
 
-> **getCodeProcedure**(`options`): `EthGetCodeJsonRpcProcedure`
+> **getCodeProcedure**(`options`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-`EthGetCodeJsonRpcProcedure`
+[`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
 
 ## Source
 

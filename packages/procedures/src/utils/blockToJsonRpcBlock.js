@@ -4,7 +4,7 @@ import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 /**
  * @param {import('@tevm/block').Block} block
  * @param {boolean} includeTransactions
- * @returns {Promise<import('@tevm/procedures-types').EthGetBlockByHashJsonRpcResponse['result']>}
+ * @returns {Promise<import('../eth/index.js').EthGetBlockByHashJsonRpcResponse['result']>}
  */
 export const blockToJsonRpcBlock = async (block, includeTransactions) => {
 	const json = block.toJSON()
@@ -14,7 +14,7 @@ export const blockToJsonRpcBlock = async (block, includeTransactions) => {
 	)
 
 	/**
-	 * @type {import('@tevm/procedures-types').EthGetBlockByHashJsonRpcResponse['result']}
+	 * @type {import('../eth/index.js').EthGetBlockByHashJsonRpcResponse['result']}
 	 */
 	const out = {
 		number: /** @type {import('@tevm/utils').Hex}*/ (header.number),

@@ -7,7 +7,7 @@ title: "OptimisticResult"
 
 `Experimental`
 
-> **OptimisticResult**\<`TAbi`, `TFunctionName`, `TChain`\>: [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<[`ContractResult`](/reference/tevm/actions-types/type-aliases/contractresult/)\<`TAbi`, `TFunctionName`\>, `"OPTIMISTIC_RESULT"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`Error`, `"OPTIMISTIC_RESULT"`\> \| [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<`WriteContractReturnType`, `"HASH"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`WriteContractErrorType`, `"HASH"`\> \| [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<`WaitForTransactionReceiptReturnType`\<`TChain`\>, `"RECEIPT"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`WriteContractErrorType`, `"RECEIPT"`\>
+> **OptimisticResult**\<`TAbi`, `TFunctionName`, `TChain`\>: [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<[`ContractResult`](/reference/tevm/actions/type-aliases/contractresult/)\<`TAbi`, `TFunctionName`\>, `"OPTIMISTIC_RESULT"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`Error`, `"OPTIMISTIC_RESULT"`\> \| [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<`WriteContractReturnType`, `"HASH"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`WriteContractErrorType`, `"HASH"`\> \| [`GenResult`](/reference/tevm/viem/type-aliases/genresult/)\<`WaitForTransactionReceiptReturnType`\<`TChain`\>, `"RECEIPT"`\> \| [`GenError`](/reference/tevm/viem/type-aliases/generror/)\<`WriteContractErrorType`, `"RECEIPT"`\>
 
 The result of an optimistic write
 

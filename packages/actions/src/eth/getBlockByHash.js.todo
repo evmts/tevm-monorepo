@@ -2,7 +2,7 @@ import { hexToBytes } from '@tevm/utils'
 
 /**
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
- * @returns {import('@tevm/actions-types').EthGetBlockByHashHandler}
+ * @returns {import('@tevm/actions').EthGetBlockByHashHandler}
  */
 export const getBlockByHashHandler = (blockchain) => async (params) => {
 	const block = await blockchain.getBlock(hexToBytes(params.blockHash))

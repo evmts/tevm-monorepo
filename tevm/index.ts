@@ -16,14 +16,33 @@ export type {
   MineParams,
   MineResult,
   MineHandler,
-} from "@tevm/actions-types";
+  BaseParams,
+  TransactionParams,
+  EmptyParams,
+  FilterParams,
+  DeployParams,
+  BlockResult,
+  TransactionResult,
+  DeployResult,
+  DumpStateResult,
+  LoadStateResult,
+  TevmCallError,
+  TevmMineError,
+  TevmDeployError,
+  TevmScriptError,
+  TevmContractError,
+  TevmDumpStateError,
+  TevmLoadStateError,
+  TevmGetAccountError,
+  TevmSetAccountError,
+} from "@tevm/actions";
 export type {
   TevmJsonRpcRequest,
   TevmJsonRpcRequestHandler,
   JsonRpcReturnTypeFromMethod,
   JsonRpcRequestTypeFromMethod,
   TevmJsonRpcBulkRequestHandler,
-} from "@tevm/procedures-types";
+} from "@tevm/procedures";
 export type {
   JsonRpcRequest,
   JsonRpcResponse,

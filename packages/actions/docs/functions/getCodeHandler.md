@@ -6,7 +6,7 @@
 
 # Function: getCodeHandler()
 
-> **getCodeHandler**(`options`): `EthGetCodeHandler`
+> **getCodeHandler**(`options`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
 ## Parameters
 
@@ -18,7 +18,7 @@
 
 ## Returns
 
-`EthGetCodeHandler`
+[`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
 ## Source
 

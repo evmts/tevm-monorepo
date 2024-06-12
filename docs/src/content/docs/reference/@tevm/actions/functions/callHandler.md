@@ -5,9 +5,9 @@ prev: false
 title: "callHandler"
 ---
 
-> **callHandler**(`client`, `options`?): [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **callHandler**(`client`, `options`?): [`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
 
-Creates an CallHandler for handling call params with Ethereumjs EVM
+Creates a code splitable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
 
 ## Parameters
 
@@ -19,8 +19,30 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Returns
 
-[`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+[`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
+
+## Throws
+
+if throwOnFail is true returns TevmCallError as value
+
+## Example
+
+```typescript
+import { createBaseClient } from 'tevm/base-client'
+import { callHandler } from 'tevm/actions'
+
+const client = createBaseClient()
+
+const call = callHandler(client)
+
+const res = await call({
+  createTransaction: true,
+  to: `0x${'69'.repeat(20)}`,
+  value: 420n,
+  skipBalance: true,
+})
+```
 
 ## Source
 
-[packages/actions/src/tevm/callHandler.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L43)
+[packages/actions/src/Call/callHandler.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L61)

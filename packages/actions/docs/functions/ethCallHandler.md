@@ -6,7 +6,7 @@
 
 # Function: ethCallHandler()
 
-> **ethCallHandler**(`client`): `EthCallHandler`
+> **ethCallHandler**(`client`): [`EthCallHandler`](../type-aliases/EthCallHandler.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthCallHandler`
+[`EthCallHandler`](../type-aliases/EthCallHandler.md)
 
 ## Source
 

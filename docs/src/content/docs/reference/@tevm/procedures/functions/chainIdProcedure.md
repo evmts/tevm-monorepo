@@ -5,7 +5,7 @@ prev: false
 title: "chainIdProcedure"
 ---
 
-> **chainIdProcedure**(`baseClient`): `EthChainIdJsonRpcProcedure`
+> **chainIdProcedure**(`baseClient`): [`EthChainIdJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethchainidjsonrpcprocedure/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "chainIdProcedure"
 
 ## Returns
 
-`EthChainIdJsonRpcProcedure`
+[`EthChainIdJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethchainidjsonrpcprocedure/)
 
 ## Source
 

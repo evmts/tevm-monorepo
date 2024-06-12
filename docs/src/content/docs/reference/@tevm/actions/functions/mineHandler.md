@@ -5,7 +5,7 @@ prev: false
 title: "mineHandler"
 ---
 
-> **mineHandler**(`client`, `options`?): [`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+> **mineHandler**(`client`, `options`?): [`MineHandler`](/reference/tevm/actions/type-aliases/minehandler/)
 
 ## Parameters
 
@@ -19,8 +19,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-[`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+[`MineHandler`](/reference/tevm/actions/type-aliases/minehandler/)
 
 ## Source
 
-[packages/actions/src/tevm/mineHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/mineHandler.js#L14)
+[packages/actions/src/Mine/mineHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineHandler.js#L15)

@@ -1,4 +1,5 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, hexToBytes, isHex } from '@tevm/utils'
 import { ContractCache } from '../ContractCache.js'
 import { putContractStorage } from './putContractStorage.js'
@@ -13,7 +14,7 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 		baseState.caches.storage._checkpoints > 0 ||
 		baseState.caches.contracts._checkpoints > 0
 	) {
-		throw new Error('Attempted to generateCanonicalGenesis state with uncommitted checkpoints')
+		throw new UnexpectedInternalServerError('Attempted to generateCanonicalGenesis state with uncommitted checkpoints')
 	}
 	const { caches: oldCaches } = baseState
 	baseState.caches = {

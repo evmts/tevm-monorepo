@@ -1,6 +1,6 @@
 /**
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
- * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
+ * @returns {import('@tevm/actions').EthBlockNumberHandler}
  */
 export const blockNumberHandler = (blockchain) => async () => {
 	return blockchain.getCanonicalHeadBlock().then((block) => block.header.number)

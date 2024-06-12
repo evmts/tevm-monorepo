@@ -5,7 +5,7 @@ prev: false
 title: "ethCallHandler"
 ---
 
-> **ethCallHandler**(`client`): [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+> **ethCallHandler**(`client`): [`EthCallHandler`](/reference/tevm/actions/type-aliases/ethcallhandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "ethCallHandler"
 
 ## Returns
 
-[`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+[`EthCallHandler`](/reference/tevm/actions/type-aliases/ethcallhandler/)
 
 ## Source
 

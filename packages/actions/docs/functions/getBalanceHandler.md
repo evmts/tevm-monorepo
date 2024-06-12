@@ -6,7 +6,7 @@
 
 # Function: getBalanceHandler()
 
-> **getBalanceHandler**(`baseClient`): `EthGetBalanceHandler`
+> **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthGetBalanceHandler`
+[`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
 
 ## Source
 

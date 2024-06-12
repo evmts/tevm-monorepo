@@ -8,7 +8,7 @@ import type {
 	MineHandler,
 	ScriptHandler,
 	SetAccountHandler,
-} from '@tevm/actions-types'
+} from '@tevm/actions'
 
 /**
  * The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)

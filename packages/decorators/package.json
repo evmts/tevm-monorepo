@@ -63,10 +63,8 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/actions-types": "workspace:^",
 		"@tevm/base-client": "workspace:^",
 		"@tevm/procedures": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {

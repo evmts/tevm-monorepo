@@ -4,7 +4,7 @@ import { blockNumberHandler } from './blockNumberHandler.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthGasPriceHandler}
+ * @returns {import('./EthHandler.js').EthGasPriceHandler}
  */
 export const gasPriceHandler = ({ forkTransport, getVm, ...client }) => {
 	/**

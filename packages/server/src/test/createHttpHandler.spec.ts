@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
+import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
@@ -43,7 +43,7 @@ describe('createHttpHandler', () => {
 				jsonrpc: '2.0',
 				method: 'tevm_call',
 				id: 1,
-			} as const satisfies ContractJsonRpcRequest
+			} as const satisfies CallJsonRpcRequest
 
 			const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
 

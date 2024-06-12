@@ -1081,27 +1081,27 @@ const result = await client.simulateContract({
 })
 ```
 
-• **client.tevmCall?**: [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+• **client.tevmCall?**: [`CallHandler`](/reference/tevm/actions/type-aliases/callhandler/)
 
-• **client.tevmContract?**: [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+• **client.tevmContract?**: [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
 
-• **client.tevmDeploy?**: [`DeployHandler`](/reference/tevm/actions-types/type-aliases/deployhandler/)
+• **client.tevmDeploy?**: [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
-• **client.tevmDumpState?**: [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+• **client.tevmDumpState?**: [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 • **client.tevmForkUrl?**: `string`
 
-• **client.tevmGetAccount?**: [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+• **client.tevmGetAccount?**: [`GetAccountHandler`](/reference/tevm/actions/type-aliases/getaccounthandler/)
 
-• **client.tevmLoadState?**: [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+• **client.tevmLoadState?**: [`LoadStateHandler`](/reference/tevm/actions/type-aliases/loadstatehandler/)
 
-• **client.tevmMine?**: [`MineHandler`](/reference/tevm/actions-types/type-aliases/minehandler/)
+• **client.tevmMine?**: [`MineHandler`](/reference/tevm/actions/type-aliases/minehandler/)
 
 • **client.tevmReady?**
 
-• **client.tevmScript?**: [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+• **client.tevmScript?**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
-• **client.tevmSetAccount?**: [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+• **client.tevmSetAccount?**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
 
 • **client.transport?**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
 

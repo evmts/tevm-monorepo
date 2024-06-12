@@ -5,7 +5,7 @@ prev: false
 title: "gasPriceHandler"
 ---
 
-> **gasPriceHandler**(`client`): [`EthGasPriceHandler`](/reference/tevm/actions-types/type-aliases/ethgaspricehandler/)
+> **gasPriceHandler**(`client`): [`EthGasPriceHandler`](/reference/tevm/actions/type-aliases/ethgaspricehandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "gasPriceHandler"
 
 ## Returns
 
-[`EthGasPriceHandler`](/reference/tevm/actions-types/type-aliases/ethgaspricehandler/)
+[`EthGasPriceHandler`](/reference/tevm/actions/type-aliases/ethgaspricehandler/)
 
 ## Source
 

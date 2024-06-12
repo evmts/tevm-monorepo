@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} baseClient
- * @returns {import('@tevm/procedures-types').EthChainIdJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthChainIdJsonRpcProcedure}
  */
 export const chainIdProcedure = (baseClient) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

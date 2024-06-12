@@ -1,6 +1,9 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setRpcUrl should throw an error 1`] = `[MethodNotFoundRpcError: The method does not exist / is not available.
+exports[`setRpcUrl should throw an error 1`] = `[UnsupportedProviderMethodError: The Provider does not support the requested method.
 
 Details: UnsupportedMethodError: Unknown method anvil_setRpcUrl
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73
 Version: viem@2.13.6]`;

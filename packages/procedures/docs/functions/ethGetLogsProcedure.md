@@ -6,7 +6,7 @@
 
 # Function: ethGetLogsProcedure()
 
-> **ethGetLogsProcedure**(`client`): `EthGetLogsJsonRpcProcedure`
+> **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
 
 Executes a message call without creating a transaction on the block chain.
 
@@ -16,7 +16,7 @@ Executes a message call without creating a transaction on the block chain.
 
 ## Returns
 
-`EthGetLogsJsonRpcProcedure`
+[`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
 
 ## Source
 

@@ -5,7 +5,7 @@ prev: false
 title: "ethGetLogsHandler"
 ---
 
-> **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](/reference/tevm/actions-types/type-aliases/ethgetlogshandler/)
+> **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](/reference/tevm/actions/type-aliases/ethgetlogshandler/)
 
 ## Parameters
 
@@ -13,8 +13,8 @@ title: "ethGetLogsHandler"
 
 ## Returns
 
-[`EthGetLogsHandler`](/reference/tevm/actions-types/type-aliases/ethgetlogshandler/)
+[`EthGetLogsHandler`](/reference/tevm/actions/type-aliases/ethgetlogshandler/)
 
 ## Source
 
-[packages/actions/src/eth/ethGetLogsHandler.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L58)
+[packages/actions/src/eth/ethGetLogsHandler.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L60)

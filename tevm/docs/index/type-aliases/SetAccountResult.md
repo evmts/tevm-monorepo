@@ -12,7 +12,7 @@ Result of SetAccount Action
 
 ## Type parameters
 
-• **ErrorType** = [`SetAccountError`](../../errors/type-aliases/SetAccountError.md)
+• **ErrorType** = [`TevmSetAccountError`](TevmSetAccountError.md)
 
 ## Type declaration
 
@@ -24,4 +24,4 @@ Description of the exception, if any occurred
 
 ## Source
 
-packages/actions-types/types/result/SetAccountResult.d.ts:5
+packages/actions/types/SetAccount/SetAccountResult.d.ts:5

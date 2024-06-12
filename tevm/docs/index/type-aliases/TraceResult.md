@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: [`Address`](../../actions-types/type-aliases/Address.md)
+> **from**: `Address`
 
 ### gas
 
@@ -28,19 +28,19 @@
 
 ### input
 
-> **input**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **input**: `Hex`
 
 ### output
 
-> **output**: [`Hex`](../../actions-types/type-aliases/Hex.md)
+> **output**: `Hex`
 
 ### to
 
-> **to**: [`Address`](../../actions-types/type-aliases/Address.md)
+> **to**: `Address`
 
 ### type
 
-> **type**: [`TraceType`](../../actions-types/type-aliases/TraceType.md)
+> **type**: `TraceType`
 
 ### value
 
@@ -48,4 +48,4 @@
 
 ## Source
 
-packages/actions-types/types/common/TraceResult.d.ts:5
+packages/actions/types/common/TraceResult.d.ts:5

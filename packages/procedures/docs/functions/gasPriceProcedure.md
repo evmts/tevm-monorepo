@@ -6,7 +6,7 @@
 
 # Function: gasPriceProcedure()
 
-> **gasPriceProcedure**(`options`): `EthGasPriceJsonRpcProcedure`
+> **gasPriceProcedure**(`options`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthGasPriceJsonRpcProcedure`
+[`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
 
 ## Source
 

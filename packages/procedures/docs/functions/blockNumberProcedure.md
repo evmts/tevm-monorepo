@@ -6,7 +6,7 @@
 
 # Function: blockNumberProcedure()
 
-> **blockNumberProcedure**(`client`): `EthBlockNumberJsonRpcProcedure`
+> **blockNumberProcedure**(`client`): [`EthBlockNumberJsonRpcProcedure`](../type-aliases/EthBlockNumberJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthBlockNumberJsonRpcProcedure`
+[`EthBlockNumberJsonRpcProcedure`](../type-aliases/EthBlockNumberJsonRpcProcedure.md)
 
 ## Source
 

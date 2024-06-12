@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
-import { setAccountHandler } from '../tevm/setAccountHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getBalanceHandler } from './getBalanceHandler.js'
 
 describe(getBalanceHandler.name, () => {

@@ -4,29 +4,11 @@ var errors = require('@tevm/errors');
 
 
 
-Object.defineProperty(exports, "InvalidCreateParams", {
-  enumerable: true,
-  get: function () { return errors.InvalidCreateParams; }
-});
-Object.defineProperty(exports, "NoProxyConfiguredError", {
-  enumerable: true,
-  get: function () { return errors.NoProxyConfiguredError; }
-});
-Object.defineProperty(exports, "ProxyFetchError", {
-  enumerable: true,
-  get: function () { return errors.ProxyFetchError; }
-});
-Object.defineProperty(exports, "UnexpectedInternalServerError", {
-  enumerable: true,
-  get: function () { return errors.UnexpectedInternalServerError; }
-});
-Object.defineProperty(exports, "UnknownMethodError", {
-  enumerable: true,
-  get: function () { return errors.UnknownMethodError; }
-});
-Object.defineProperty(exports, "UnsupportedMethodError", {
-  enumerable: true,
-  get: function () { return errors.UnsupportedMethodError; }
+Object.keys(errors).forEach(function (k) {
+	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function () { return errors[k]; }
+	});
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

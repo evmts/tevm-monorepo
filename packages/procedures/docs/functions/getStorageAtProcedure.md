@@ -6,7 +6,7 @@
 
 # Function: getStorageAtProcedure()
 
-> **getStorageAtProcedure**(`options`): `EthGetStorageAtJsonRpcProcedure`
+> **getStorageAtProcedure**(`options`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
 ## Parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-`EthGetStorageAtJsonRpcProcedure`
+[`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
 ## Source
 

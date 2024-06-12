@@ -1,5 +1,5 @@
 ---
-"@tevm/actions-types": patch
+"@tevm/actions": patch
 ---
 
 Fixed bug with typescript type including Viem accounts

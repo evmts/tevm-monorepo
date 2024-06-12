@@ -10,12 +10,12 @@
 
 ## Type parameters
 
-• **TAbi** *extends* [`Abi`](../../actions-types/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../actions-types/type-aliases/Abi.md)
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
 • **TFunctionName** *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
 
-• **ErrorType** = [`ContractError`](../../errors/type-aliases/ContractError.md)
+• **ErrorType** = [`TevmContractError`](TevmContractError.md)
 
 ## Source
 
-packages/actions-types/types/result/ContractResult.d.ts:5
+packages/actions/types/Contract/ContractResult.d.ts:5

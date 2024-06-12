@@ -1,6 +1,6 @@
 import type { BaseClient } from '@tevm/base-client'
 import { type EIP1193RequestFn, type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorators'
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures'
 
 export type TevmActions = {
 	_tevm: BaseClient &

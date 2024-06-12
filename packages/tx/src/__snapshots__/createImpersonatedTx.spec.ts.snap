@@ -1,0 +1,62 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createImpersonatedTx should create an EIP-1559 tx impersonating the address 1`] = `
+Uint8Array [
+  157,
+  170,
+  99,
+  19,
+  41,
+  61,
+  59,
+  28,
+  44,
+  237,
+  138,
+  45,
+  178,
+  77,
+  231,
+  121,
+  60,
+  7,
+  132,
+  194,
+  115,
+  97,
+  230,
+  210,
+  22,
+  119,
+  226,
+  186,
+  190,
+  131,
+  101,
+  221,
+]
+`;
+
+exports[`createImpersonatedTx should support Object.keys 1`] = `
+[
+  "cache",
+  "activeCapabilities",
+  "DEFAULT_CHAIN",
+  "_type",
+  "txOptions",
+  "nonce",
+  "gasLimit",
+  "to",
+  "value",
+  "data",
+  "v",
+  "r",
+  "s",
+  "common",
+  "chainId",
+  "accessList",
+  "AccessListJSON",
+  "maxFeePerGas",
+  "maxPriorityFeePerGas",
+]
+`;

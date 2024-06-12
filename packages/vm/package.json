@@ -66,6 +66,7 @@
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/rlp": "workspace:^",
 		"@tevm/state": "workspace:^",

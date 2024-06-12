@@ -1,0 +1,10 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClRequest should serialize 1`] = `
+Uint8Array [
+  164,
+  1,
+  2,
+  3,
+]
+`;

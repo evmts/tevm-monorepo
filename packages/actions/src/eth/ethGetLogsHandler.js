@@ -1,9 +1,11 @@
+import { ForkError, InvalidBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { EthjsAddress, bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { InternalRpcError } from 'viem'
 
 /**
  * @param {import('@tevm/blockchain').Chain} blockchain
- * @param {import('@tevm/actions-types').BlockParam} blockParam
+ * @param {import('../common/BlockParam.js').BlockParam} blockParam
  * @returns {Promise<bigint >}
  */
 const parseBlockParam = async (blockchain, blockParam) => {
@@ -23,7 +25,7 @@ const parseBlockParam = async (blockchain, blockParam) => {
 		if (safeBlock) {
 			return safeBlock.header.number
 		}
-		throw new Error('safe not currently supported as block tag')
+		throw new InvalidBlockError('safe not currently supported as block tag')
 	}
 	if (blockParam === 'latest' || blockParam === undefined) {
 		const safeBlock = blockchain.blocksByTag.get('latest')
@@ -31,12 +33,12 @@ const parseBlockParam = async (blockchain, blockParam) => {
 		if (safeBlock) {
 			return safeBlock.header.number
 		}
-		throw new Error('latest block does not exist on chain')
+		throw new InvalidBlockError('latest block does not exist on chain')
 	}
 	if (blockParam === 'pending') {
 		// for pending we need to mine a new block and then handle it
 		// let's skip this functionality for now
-		throw new Error(
+		throw new InvalidBlockError(
 			'Pending not yet supported but will be in future. Consider opening an issue or reaching out on telegram if you need this feature to expediate its release',
 		)
 	}
@@ -44,16 +46,16 @@ const parseBlockParam = async (blockchain, blockParam) => {
 		return BigInt(1)
 	}
 	if (blockParam === 'finalized') {
-		throw new Error('finalized noet yet supported for this feature')
+		throw new InvalidBlockError('finalized noet yet supported for this feature')
 	}
 	blockchain.logger.error({ blockParam }, 'Unknown block param pased to blockNumberHandler')
-	throw new Error(`Unknown block param ${blockParam} pased to blockNumberHandler`)
+	throw new InvalidBlockError(`Unknown block param ${blockParam} pased to blockNumberHandler`)
 }
 
 // TODO support EIP-234
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthGetLogsHandler}
+ * @returns {import('./EthHandler.js').EthGetLogsHandler}
  */
 export const ethGetLogsHandler = (client) => async (params) => {
 	params.filterParams.topics
@@ -73,7 +75,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const forkedBlock = vm.blockchain.blocksByTag.get('forked')
 
 	/**
-	 * @type {import('@tevm/actions-types').EthGetLogsResult}
+	 * @type {import('./EthResult.js').EthGetLogsResult}
 	 */
 	const logs = []
 
@@ -82,8 +84,10 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	if (fetchFromRpc) {
 		// if the range includes prefork blocks (including fork since we don't have receipts for the fork block) then we need to fetch the logs from the forked chain
 		if (!client.forkTransport) {
-			throw new Error(
-				'InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm',
+			throw new InternalRpcError(
+				new Error(
+					'InternalError: no forkUrl set on client despite a forkBlock. This should be an impossible state and indicates a bug in tevm',
+				),
 			)
 		}
 		const fetcher = createJsonRpcFetcher(client.forkTransport)
@@ -104,12 +108,32 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			],
 		})
 		if (error) {
-			throw new Error(`Error fetching logs from forked chain: ${error.message}`)
+			throw new ForkError('Error fetching logs from forked chain', { cause: error })
 		}
 		if (!jsonRpcLogs) {
-			throw new Error('Error fetching logs from forked chain: no logs returned')
+			throw new ForkError('Error fetching logs from forked chain no logs returned', {
+				cause: new Error('Unexpected no logs'),
+			})
 		}
-		const typedLogs = /** @type {import('@tevm/procedures-types').EthGetLogsJsonRpcResponse['result']}*/ (jsonRpcLogs)
+		/**
+		 * @typedef {Object} Log
+		 * @property {import('@tevm/utils').Hex} address
+		 * @property {Array.<import('@tevm/utils').Hex>} topics
+		 * @property {import('@tevm/utils').Hex} data
+		 * @property {import('@tevm/utils').Hex} blockNumber
+		 * @property {import('@tevm/utils').Hex} transactionHash
+		 * @property {import('@tevm/utils').Hex} transactionIndex
+		 * @property {import('@tevm/utils').Hex} blockHash
+		 * @property {import('@tevm/utils').Hex} logIndex
+		 * @property {boolean} removed
+		 */
+
+		const typedLogs =
+			/**
+			 * @type {Array<Log> | undefined}
+			 */
+			(jsonRpcLogs)
+
 		if (typedLogs !== undefined) {
 			logs.push(
 				...typedLogs.map((log) => {

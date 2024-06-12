@@ -6,7 +6,7 @@
 
 # Type alias: SetAccountParams\<TThrowOnFail\>
 
-> **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
+> **SetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -73,4 +73,4 @@ Storage root to set account to
 
 ## Source
 
-packages/actions-types/types/params/SetAccountParams.d.ts:16
+packages/actions/types/SetAccount/SetAccountParams.d.ts:16

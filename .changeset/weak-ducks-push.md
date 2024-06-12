@@ -1,6 +1,6 @@
 ---
 "@tevm/base-bundler": patch
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/receipt-manager": patch
 "@tevm/memory-client": patch
 "@tevm/base-client": patch

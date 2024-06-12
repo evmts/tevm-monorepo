@@ -5,7 +5,7 @@ prev: false
 title: "deployHandler"
 ---
 
-> **deployHandler**(`client`, `options`?): [`DeployHandler`](/reference/tevm/actions-types/type-aliases/deployhandler/)
+> **deployHandler**(`client`, `options`?): [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
 Creates an DeployHandler for handling deploying a contract to tevm
 
@@ -21,8 +21,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-[`DeployHandler`](/reference/tevm/actions-types/type-aliases/deployhandler/)
+[`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
 ## Source
 
-[packages/actions/src/tevm/deployHandler.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/deployHandler.js#L19)
+[packages/actions/src/Deploy/deployHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L17)

@@ -2,7 +2,7 @@ import { getCodeHandler } from '@tevm/actions'
 
 /**
  * @param {Parameters<typeof getCodeHandler>[0]} options
- * @returns {import('@tevm/procedures-types').EthGetCodeJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthGetCodeJsonRpcProcedure}
  */
 export const getCodeProcedure =
 	({ getVm, forkClient }) =>

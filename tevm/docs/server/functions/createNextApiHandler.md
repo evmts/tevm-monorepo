@@ -1080,27 +1080,27 @@ const result = await client.simulateContract({
 })
 ```
 
-• **client.tevmCall**: [`CallHandler`](../../actions-types/type-aliases/CallHandler.md)
+• **client.tevmCall**: `CallHandler`
 
-• **client.tevmContract**: [`ContractHandler`](../../actions-types/type-aliases/ContractHandler.md)
+• **client.tevmContract**: `ContractHandler`
 
-• **client.tevmDeploy**: [`DeployHandler`](../../actions-types/type-aliases/DeployHandler.md)
+• **client.tevmDeploy**: `DeployHandler`
 
-• **client.tevmDumpState**: [`DumpStateHandler`](../../actions-types/type-aliases/DumpStateHandler.md)
+• **client.tevmDumpState**: `DumpStateHandler`
 
 • **client.tevmForkUrl?**: `string`
 
-• **client.tevmGetAccount**: [`GetAccountHandler`](../../actions-types/type-aliases/GetAccountHandler.md)
+• **client.tevmGetAccount**: `GetAccountHandler`
 
-• **client.tevmLoadState**: [`LoadStateHandler`](../../actions-types/type-aliases/LoadStateHandler.md)
+• **client.tevmLoadState**: `LoadStateHandler`
 
 • **client.tevmMine**: [`MineHandler`](../../index/type-aliases/MineHandler.md)
 
 • **client.tevmReady**
 
-• **client.tevmScript**: [`ScriptHandler`](../../actions-types/type-aliases/ScriptHandler.md)
+• **client.tevmScript**: `ScriptHandler`
 
-• **client.tevmSetAccount**: [`SetAccountHandler`](../../actions-types/type-aliases/SetAccountHandler.md)
+• **client.tevmSetAccount**: `SetAccountHandler`
 
 • **client.transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
 

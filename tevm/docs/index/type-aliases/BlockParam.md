@@ -6,8 +6,8 @@
 
 # Type alias: BlockParam
 
-> **BlockParam**: [`BlockTag`](../../actions-types/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
+> **BlockParam**: `BlockTag` \| [`Hex`](Hex.md) \| `bigint`
 
 ## Source
 
-packages/actions-types/types/common/BlockParam.d.ts:3
+packages/actions/types/common/BlockParam.d.ts:3

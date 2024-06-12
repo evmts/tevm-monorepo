@@ -6,7 +6,6 @@
 
 ## Modules
 
-- [actions-types](actions-types/README.md)
 - [base-client](base-client/README.md)
 - [common](common/README.md)
 - [contract](contract/README.md)
@@ -17,7 +16,7 @@
 - [memory-client](memory-client/README.md)
 - [precompiles](precompiles/README.md)
 - [predeploys](predeploys/README.md)
-- [procedures-types](procedures-types/README.md)
+- [procedures](procedures/README.md)
 - [server](server/README.md)
 - [state](state/README.md)
 - [utils](utils/README.md)

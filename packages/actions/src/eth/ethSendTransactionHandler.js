@@ -1,13 +1,13 @@
 import { prefundedAccounts } from '@tevm/base-client'
 import { TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
-import { callHandler } from '../index.js'
+import { callHandler } from '../Call/callHandler.js'
 
 // TODO we should be properly checking signatures
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthSendTransactionHandler}
+ * @returns {import('./EthHandler.js').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
 	let tx = TransactionFactory.fromTxData(params, { freeze: false })

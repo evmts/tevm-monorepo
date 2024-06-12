@@ -35,7 +35,7 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 ### tevm\_call.Parameters
 
-> **Parameters**: [`CallJsonRpcRequest`](../../procedures-types/type-aliases/CallJsonRpcRequest.md)\[`"params"`\]
+> **Parameters**: [`CallJsonRpcRequest`](../../procedures/type-aliases/CallJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_call.ReturnType
 
@@ -65,11 +65,11 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.Parameters?
 
-> `optional` **Parameters**: [`DumpStateJsonRpcRequest`](../../procedures-types/type-aliases/DumpStateJsonRpcRequest.md)\[`"params"`\]
+> `optional` **Parameters**: [`DumpStateJsonRpcRequest`](../../procedures/type-aliases/DumpStateJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_dumpState.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`DumpStateResult`](../../actions-types/type-aliases/DumpStateResult.md)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`DumpStateResult`](../../index/type-aliases/DumpStateResult.md)\<`never`\>\>
 
 ### tevm\_getAccount
 
@@ -95,7 +95,7 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 ### tevm\_getAccount.Parameters
 
-> **Parameters**: [`GetAccountJsonRpcRequest`](../../procedures-types/type-aliases/GetAccountJsonRpcRequest.md)\[`"params"`\]
+> **Parameters**: [`GetAccountJsonRpcRequest`](../../procedures/type-aliases/GetAccountJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_getAccount.ReturnType
 
@@ -126,11 +126,11 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.Parameters
 
-> **Parameters**: [`LoadStateJsonRpcRequest`](../../procedures-types/type-aliases/LoadStateJsonRpcRequest.md)\[`"params"`\]
+> **Parameters**: [`LoadStateJsonRpcRequest`](../../procedures/type-aliases/LoadStateJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_loadState.ReturnType
 
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`LoadStateResult`](../../actions-types/type-aliases/LoadStateResult.md)\<`never`\>\>
+> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\<`never`\>\>
 
 ### tevm\_script
 
@@ -157,7 +157,7 @@ provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', 
 
 ### tevm\_script.Parameters
 
-> **Parameters**: [`ScriptJsonRpcRequest`](../../procedures-types/type-aliases/ScriptJsonRpcRequest.md)\[`"params"`\]
+> **Parameters**: [`ScriptJsonRpcRequest`](../../procedures/type-aliases/ScriptJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_script.ReturnType
 
@@ -188,7 +188,7 @@ r
 
 ### tevm\_setAccount.Parameters
 
-> **Parameters**: [`SetAccountJsonRpcRequest`](../../procedures-types/type-aliases/SetAccountJsonRpcRequest.md)\[`"params"`\]
+> **Parameters**: [`SetAccountJsonRpcRequest`](../../procedures/type-aliases/SetAccountJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_setAccount.ReturnType
 

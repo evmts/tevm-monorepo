@@ -1,4 +1,4 @@
-import type { ContractResult } from '@tevm/actions-types'
+import type { ContractResult } from '@tevm/actions'
 import type { Abi } from 'abitype'
 import type {
 	Chain,

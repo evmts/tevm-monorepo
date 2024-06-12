@@ -6,7 +6,7 @@
 
 # Function: ethAccountsHandler()
 
-> **ethAccountsHandler**(`params`): `EthAccountsHandler`
+> **ethAccountsHandler**(`params`): [`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Returns
 
-`EthAccountsHandler`
+[`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
 
 ## Source
 

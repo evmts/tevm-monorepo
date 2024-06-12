@@ -6,7 +6,7 @@
 
 # Type alias: ScriptParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object`
+> **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & `BaseCallParams`\<`TThrowOnFail`\> & `object`
 
 Tevm params for deploying and running a script
 
@@ -28,4 +28,4 @@ The EVM code to run.
 
 ## Source
 
-packages/actions-types/types/params/ScriptParams.d.ts:7
+packages/actions/types/Script/ScriptParams.d.ts:7

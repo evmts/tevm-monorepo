@@ -5,7 +5,7 @@ prev: false
 title: "blockNumberHandler"
 ---
 
-> **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+> **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](/reference/tevm/actions/type-aliases/ethblocknumberhandler/)
 
 Handler for the `eth_blockNumber` RPC call
 
@@ -15,7 +15,7 @@ Handler for the `eth_blockNumber` RPC call
 
 ## Returns
 
-[`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+[`EthBlockNumberHandler`](/reference/tevm/actions/type-aliases/ethblocknumberhandler/)
 
 ## Source
 

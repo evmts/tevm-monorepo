@@ -1,33 +1,33 @@
-import { UnexpectedInternalServerError } from '@tevm/errors'
-import { zJsonRpcRequest } from '@tevm/zod'
+import { zJsonRpcRequest } from '@tevm/actions'
+import { InternalError } from '@tevm/errors'
 import { BadRequestError } from './BadRequestError.js'
 
 /**
 /**
- * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
- * Any unimplemented methods will be proxied to the given proxyUrl
- * This handler works for any server that supports the Node.js http module
- * @param {import('@tevm/memory-client').MemoryClient} client
- * @returns {import('http').RequestListener}
- * @example
- * import { createHttpHandler } from 'tevm/server'
- * import { createTevm } from 'tevm'
- * import { createServer } from 'http'
- *
- * const PORT = 8080
- *
- * const tevm = createTevm({
- *   fork: {
- *     transport: http('https://mainnet.optimism.io')({})
- *   }
- * })
- *
- * const server = createServer(
- *   createHttpHandler(tevm)
- * )
- * server.listen(PORT, () => console.log({ listening: PORT }))
- *
- */
+* Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+* Any unimplemented methods will be proxied to the given proxyUrl
+* This handler works for any server that supports the Node.js http module
+* @param {import('@tevm/memory-client').MemoryClient} client
+* @returns {import('http').RequestListener}
+* @example
+* import { createHttpHandler } from 'tevm/server'
+* import { createTevm } from 'tevm'
+* import { createServer } from 'http'
+*
+* const PORT = 8080
+*
+* const tevm = createTevm({
+*   fork: {
+*     transport: http('https://mainnet.optimism.io')({})
+*   }
+* })
+*
+* const server = createServer(
+*   createHttpHandler(tevm)
+* )
+* server.listen(PORT, () => console.log({ listening: PORT }))
+*
+*/
 export const createHttpHandler = (client) => {
 	/**
 	 * @param {import('http').IncomingMessage} req
@@ -58,7 +58,7 @@ export const createHttpHandler = (client) => {
 						method: 'unknown',
 						jsonrpc: '2.0',
 						error: {
-							code: err._tag,
+							code: -32700,
 							message: err.message,
 						},
 					}),
@@ -75,7 +75,7 @@ export const createHttpHandler = (client) => {
 						method: 'unknown',
 						jsonrpc: '2.0',
 						error: {
-							code: err._tag,
+							code: -32700,
 							message: err.message,
 						},
 					}),
@@ -95,7 +95,8 @@ export const createHttpHandler = (client) => {
 					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 					if (response.status === 'rejected') {
 						console.error(response.reason)
-						const err = new UnexpectedInternalServerError(request.method)
+						// it should never reject since we return errors as value unless something went very wrong
+						const err = new InternalError(request.method, { cause: response.reason })
 						return {
 							id: request.id,
 							method: request.method,
@@ -121,7 +122,7 @@ export const createHttpHandler = (client) => {
 				return res.end(JSON.stringify(response))
 			} catch (e) {
 				console.error(e)
-				const err = new UnexpectedInternalServerError(request.method)
+				const err = new InternalError(request.method, { cause: e })
 				console.error(err)
 				const response = {
 					id: request.id,

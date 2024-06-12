@@ -6,7 +6,7 @@
 
 # Function: loadStateHandler()
 
-> **loadStateHandler**(`client`, `options`?): `LoadStateHandler`
+> **loadStateHandler**(`client`, `options`?): [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
 ## Parameters
 
@@ -20,8 +20,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-`LoadStateHandler`
+[`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
 ## Source
 
-[packages/actions/src/tevm/loadStateHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/loadStateHandler.js#L12)
+[packages/actions/src/LoadState/loadStateHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L12)

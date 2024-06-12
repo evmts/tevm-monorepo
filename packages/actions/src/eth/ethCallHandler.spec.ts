@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
-import { setAccountHandler } from '../tevm/index.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethCallHandler } from './ethCallHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const

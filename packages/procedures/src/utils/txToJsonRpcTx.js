@@ -4,7 +4,7 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
  * @param {import('@tevm/tx').TypedTransaction | import('@tevm/tx').ImpersonatedTx} tx
  * @param {import('@tevm/block').Block} block
  * @param {number} [txIndex]
- * @returns {import('@tevm/actions-types').TransactionResult}
+ * @returns {import('@tevm/actions').TransactionResult}
  */
 export const txToJsonRpcTx = (tx, block, txIndex) => {
 	const txJSON = tx.toJSON()

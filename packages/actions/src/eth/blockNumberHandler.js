@@ -1,7 +1,7 @@
 /**
  * Handler for the `eth_blockNumber` RPC call
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
+ * @returns {import('./EthHandler.js').EthBlockNumberHandler}
  */
 export const blockNumberHandler = (client) => async () => {
 	const vm = await client.getVm()

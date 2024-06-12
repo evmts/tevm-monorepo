@@ -1,5 +1,5 @@
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { bytesToHex } from './viem.js'
-
 /**
  * Converts key to type that maps can use as keys
  * @param {unknown} bytes
@@ -16,7 +16,7 @@ const encodeKey = (bytes) => {
  * @param {never} item
  */
 const unexpectedTypeError = (item) => {
-	throw new Error(`Unexpected item type ${/** @type {any}*/ (item).type}`)
+	throw new UnexpectedInternalServerError(`Unexpected item type ${/** @type {any}*/ (item).type}`)
 }
 
 /**

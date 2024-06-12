@@ -5,7 +5,7 @@ prev: false
 title: "ethSignHandler"
 ---
 
-> **ethSignHandler**(`params`): [`EthSignHandler`](/reference/tevm/actions-types/type-aliases/ethsignhandler/)
+> **ethSignHandler**(`params`): [`EthSignHandler`](/reference/tevm/actions/type-aliases/ethsignhandler/)
 
 ## Parameters
 
@@ -15,7 +15,7 @@ title: "ethSignHandler"
 
 ## Returns
 
-[`EthSignHandler`](/reference/tevm/actions-types/type-aliases/ethsignhandler/)
+[`EthSignHandler`](/reference/tevm/actions/type-aliases/ethsignhandler/)
 
 ## Source
 

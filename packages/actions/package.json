@@ -71,16 +71,14 @@
     "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
-    "@tevm/procedures-types": "workspace:^",
     "@tevm/receipt-manager": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
-    "@tevm/zod": "workspace:^"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@tevm/actions-types": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",

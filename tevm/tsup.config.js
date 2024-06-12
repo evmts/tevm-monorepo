@@ -3,14 +3,14 @@ import { defineConfig } from 'tsup'
 
 const dirs = [
 '.',
-'actions-types',
+'actions',
 'contract',
 'memory-client',
 'errors',
 'common',
 'precompiles',
 'predeploys',
-'procedures-types',
+'procedures',
 'http-client',
 'server',
 'base-client',

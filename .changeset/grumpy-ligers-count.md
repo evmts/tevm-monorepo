@@ -1,5 +1,5 @@
 ---
-"@tevm/actions-types": patch
+"@tevm/actions": patch
 ---
 
 Added following types:

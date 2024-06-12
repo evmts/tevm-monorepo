@@ -8,6 +8,13 @@
 
 > **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
+Creates an impersonated tx that wraps [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md).
+Wraps following methods
+- 'isImpersonated'
+- 'hash'
+- 'isSigned'
+- 'getSenderAddress'
+
 ## Parameters
 
 • **txData**: `FeeMarketEIP1559TxData` & `object`
@@ -18,6 +25,10 @@
 
 [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
+## Throws
+
+Error if the constructor for [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md) throws
+
 ## Source
 
-[packages/tx/src/createImpersonatedTx.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L9)
+[packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)

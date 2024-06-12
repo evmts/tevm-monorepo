@@ -18,7 +18,7 @@ The actions api is the high level API for interacting with a Tevm client similar
 
 ### call
 
-> **call**: [`CallHandler`](../../actions-types/type-aliases/CallHandler.md)
+> **call**: `CallHandler`
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -40,7 +40,7 @@ const res = tevm.call({
 
 ### contract
 
-> **contract**: [`ContractHandler`](../../actions-types/type-aliases/ContractHandler.md)
+> **contract**: `ContractHandler`
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -67,13 +67,13 @@ console.log(res.data) // "hello"
 
 ### deploy
 
-> **deploy**: [`DeployHandler`](../../actions-types/type-aliases/DeployHandler.md)
+> **deploy**: `DeployHandler`
 
 Creates a transaction to deploys a contract to tevm
 
 ### dumpState
 
-> **dumpState**: [`DumpStateHandler`](../../actions-types/type-aliases/DumpStateHandler.md)
+> **dumpState**: `DumpStateHandler`
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -95,7 +95,7 @@ await tevm.loadState({state})
 
 ### getAccount
 
-> **getAccount**: [`GetAccountHandler`](../../actions-types/type-aliases/GetAccountHandler.md)
+> **getAccount**: `GetAccountHandler`
 
 Gets the state of a specific ethereum address
 
@@ -110,7 +110,7 @@ console.log(res.balance)
 
 ### loadState
 
-> **loadState**: [`LoadStateHandler`](../../actions-types/type-aliases/LoadStateHandler.md)
+> **loadState**: `LoadStateHandler`
 
 Loads a previously dumped state into the VM
 
@@ -138,7 +138,7 @@ Mines 1 or more blocks
 
 ### script
 
-> **script**: [`ScriptHandler`](../../actions-types/type-aliases/ScriptHandler.md)
+> **script**: `ScriptHandler`
 
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
@@ -166,7 +166,7 @@ const res = tevm.script(
 
 ### setAccount
 
-> **setAccount**: [`SetAccountHandler`](../../actions-types/type-aliases/SetAccountHandler.md)
+> **setAccount**: `SetAccountHandler`
 
 Sets the state of a specific ethereum address
 

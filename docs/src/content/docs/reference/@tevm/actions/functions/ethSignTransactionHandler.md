@@ -5,7 +5,7 @@ prev: false
 title: "ethSignTransactionHandler"
 ---
 
-> **ethSignTransactionHandler**(`options`): [`EthSignTransactionHandler`](/reference/tevm/actions-types/type-aliases/ethsigntransactionhandler/)
+> **ethSignTransactionHandler**(`options`): [`EthSignTransactionHandler`](/reference/tevm/actions/type-aliases/ethsigntransactionhandler/)
 
 ## Parameters
 
@@ -17,7 +17,7 @@ title: "ethSignTransactionHandler"
 
 ## Returns
 
-[`EthSignTransactionHandler`](/reference/tevm/actions-types/type-aliases/ethsigntransactionhandler/)
+[`EthSignTransactionHandler`](/reference/tevm/actions/type-aliases/ethsigntransactionhandler/)
 
 ## Source
 

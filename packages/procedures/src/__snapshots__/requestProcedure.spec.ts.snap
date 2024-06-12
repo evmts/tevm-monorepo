@@ -1,5 +1,63 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`requestProcedure tevm_setAccount should handle account throwing an unexpected error 1`] = `
+{
+  "error": {
+    "code": -32603,
+    "data": {
+      "errors": [
+        
+"Unexpected error setting account
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: unexpected error
+Version: 1.1.0.next-73"
+,
+      ],
+    },
+    "message": 
+"Unexpected error setting account
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: unexpected error
+Version: 1.1.0.next-73"
+,
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "tevm_setAccount",
+}
+`;
+
+exports[`requestProcedure tevm_script should handle the evm throwing an error 1`] = `
+{
+  "error": {
+    "code": -32000,
+    "data": {
+      "errors": [
+        
+"revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73"
+,
+      ],
+    },
+    "message": 
+"revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73"
+,
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "tevm_script",
+}
+`;
+
 exports[`requestProcedure ethSignTransactionHandler should sign a message 1`] = `
 {
   "id": 1,

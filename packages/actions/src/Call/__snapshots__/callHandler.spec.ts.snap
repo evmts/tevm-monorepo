@@ -1,0 +1,21 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callHandler should handle errors returned during contract call 1`] = `
+{
+  "amountSpent": 172858n,
+  "createdAddresses":   Set {},
+  "errors": [
+    [RevertError: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+  ],
+  "executionGasUsed": 2754n,
+  "gas": 29975306n,
+  "logs": [],
+  "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
+  "selfdestruct":   Set {},
+  "totalGasSpent": 24694n,
+}
+`;

@@ -3,14 +3,14 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthGetTransactionReceiptJsonRpcProcedure}
  */
 export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) => {
 	const [txHash] = req.params
 
 	if (!txHash) {
 		/**
-		 * @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcResponse}
+		 * @type {import('./EthJsonRpcResponse.js').EthGetTransactionReceiptJsonRpcResponse}
 		 */
 		const out = {
 			jsonrpc: '2.0',
@@ -26,7 +26,7 @@ export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) 
 
 	const res = await ethGetTransactionReceiptHandler(client)({ hash: txHash })
 	/**
-	 * @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcResponse}
+	 * @type {import('./EthJsonRpcResponse.js').EthGetTransactionReceiptJsonRpcResponse}
 	 */
 	const out = {
 		jsonrpc: '2.0',

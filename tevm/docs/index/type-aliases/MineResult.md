@@ -12,4 +12,4 @@ Result of Mine Method
 
 ## Source
 
-packages/actions-types/types/result/MineResult.d.ts:5
+packages/actions/types/Mine/MineResult.d.ts:6

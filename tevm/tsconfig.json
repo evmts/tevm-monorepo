@@ -10,7 +10,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "actions-types/index.ts",
+    "actions/index.ts",
     "contract/index.ts",
     "common/index.ts",
     "memory-client/index.ts",
@@ -19,7 +19,7 @@
     "decorators/index.ts",
     "base-client/index.ts",
     "utils/index.ts",
-    "procedures-types/index.ts",
+    "procedures/index.ts",
     "http-client/index.ts",
     "errors/index.ts",
     "server/index.ts",

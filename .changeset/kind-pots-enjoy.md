@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures-types": patch
+"@tevm/procedures": patch
 "@tevm/procedures": patch
 ---
 

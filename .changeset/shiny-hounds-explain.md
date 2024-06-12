@@ -1,6 +1,6 @@
 ---
-"@tevm/procedures-types": minor
-"@tevm/actions-types": minor
+"@tevm/procedures": minor
+"@tevm/actions": minor
 "@tevm/procedures": minor
 "@tevm/actions": minor
 "@tevm/zod": minor

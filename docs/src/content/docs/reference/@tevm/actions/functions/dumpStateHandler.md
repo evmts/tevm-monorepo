@@ -5,7 +5,7 @@ prev: false
 title: "dumpStateHandler"
 ---
 
-> **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 ## Parameters
 
@@ -19,8 +19,8 @@ whether to default to throwing or not when errors occur
 
 ## Returns
 
-[`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+[`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 ## Source
 
-[packages/actions/src/tevm/dumpStateHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/dumpStateHandler.js#L11)
+[packages/actions/src/DumpState/dumpStateHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L11)

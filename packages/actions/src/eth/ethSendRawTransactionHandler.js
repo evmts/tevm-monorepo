@@ -1,7 +1,7 @@
 import { prefundedAccounts } from '@tevm/base-client'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
-import { callHandler } from '../index.js'
+import { callHandler } from '../Call/callHandler.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -72,7 +72,7 @@ const getTx = (vm, txBuf) => {
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/actions-types').EthSendRawTransactionHandler}
+ * @returns {import('./EthHandler.js').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()
@@ -109,7 +109,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		tx = createImpersonatedTx(impersonatedTx)
 	}
 	/**
-	 * @type {import('@tevm/actions-types').CallResult}
+	 * @type {import('../Call/CallResult.js').CallResult}
 	 */
 	let res
 	try {

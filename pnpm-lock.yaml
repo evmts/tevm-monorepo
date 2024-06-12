@@ -1191,9 +1191,9 @@ importers:
       '@tevm/decorators':
         specifier: workspace:^
         version: link:../../packages/decorators
-      '@tevm/procedures-types':
+      '@tevm/procedures':
         specifier: workspace:^
-        version: link:../../packages/procedures-types
+        version: link:../../packages/procedures
       '@tevm/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -1229,9 +1229,9 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.3
         version: 9.0.3
-      '@tevm/actions-types':
+      '@tevm/actions':
         specifier: workspace:^
-        version: link:../../packages/actions-types
+        version: link:../../packages/actions
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../../packages/client-types
@@ -1241,9 +1241,9 @@ importers:
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
-      '@tevm/procedures-types':
+      '@tevm/procedures':
         specifier: workspace:^
-        version: link:../../packages/procedures-types
+        version: link:../../packages/procedures
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -1417,9 +1417,6 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
-      '@tevm/procedures-types':
-        specifier: workspace:^
-        version: link:../procedures-types
       '@tevm/receipt-manager':
         specifier: workspace:^
         version: link:../receipt-manager
@@ -1435,13 +1432,10 @@ importers:
       '@tevm/vm':
         specifier: workspace:^
         version: link:../vm
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
-      '@tevm/actions-types':
-        specifier: workspace:^
-        version: link:../actions-types
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1457,27 +1451,6 @@ importers:
       viem:
         specifier: ^2.13.7
         version: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
-
-  packages/actions-types:
-    devDependencies:
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../base-client
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
 
   packages/base-client:
     dependencies:
@@ -1542,6 +1515,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/rlp':
         specifier: workspace:^
         version: link:../rlp
@@ -1602,12 +1578,12 @@ importers:
         specifier: workspace:^
         version: link:../utils
     devDependencies:
-      '@tevm/actions-types':
+      '@tevm/actions':
         specifier: workspace:^
-        version: link:../actions-types
-      '@tevm/procedures-types':
+        version: link:../actions
+      '@tevm/procedures':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1664,18 +1640,12 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
-      '@tevm/actions-types':
-        specifier: workspace:^
-        version: link:../actions-types
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../base-client
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
-      '@tevm/procedures-types':
-        specifier: workspace:^
-        version: link:../procedures-types
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1719,6 +1689,13 @@ importers:
         version: 1.20.6
 
   packages/errors:
+    dependencies:
+      '@ethereumjs/evm':
+        specifier: ^3.0.0
+        version: 3.0.0
+      viem:
+        specifier: ^2.13.6
+        version: 2.13.7(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1841,6 +1818,9 @@ importers:
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../predeploys
+      '@tevm/procedures':
+        specifier: workspace:^
+        version: link:../procedures
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1851,9 +1831,6 @@ importers:
         specifier: ^2.13.6
         version: 2.13.6(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
-      '@tevm/procedures-types':
-        specifier: workspace:^
-        version: link:../procedures-types
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1941,37 +1918,6 @@ importers:
         specifier: workspace:^
         version: link:../vm
     devDependencies:
-      '@tevm/actions-types':
-        specifier: workspace:^
-        version: link:../actions-types
-      '@tevm/procedures-types':
-        specifier: workspace:^
-        version: link:../procedures-types
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  packages/procedures-types:
-    dependencies:
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
-    devDependencies:
-      '@tevm/actions-types':
-        specifier: workspace:^
-        version: link:../actions-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2034,16 +1980,13 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
     devDependencies:
-      '@tevm/actions-types':
+      '@tevm/actions':
         specifier: workspace:^
-        version: link:../actions-types
-      '@tevm/procedures-types':
+        version: link:../actions
+      '@tevm/procedures':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -2077,6 +2020,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/errors':
+        specifier: 1.1.0-next.72
+        version: 1.1.0-next.72
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
@@ -2131,10 +2077,16 @@ importers:
       '@ethereumjs/tx':
         specifier: ^5.3.0
         version: 5.3.0
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
     devDependencies:
+      '@ethereumjs/common':
+        specifier: ^4.3.0
+        version: 4.3.0
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2175,6 +2127,9 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.3
         version: 9.0.3
+      '@tevm/errors':
+        specifier: 1.1.0-next.72
+        version: 1.1.0-next.72
       abitype:
         specifier: ^1.0.2
         version: 1.0.2(typescript@5.4.5)(zod@3.23.8)
@@ -2203,6 +2158,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
@@ -2222,34 +2180,6 @@ importers:
         specifier: workspace:^
         version: link:../utils
     devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  packages/zod:
-    dependencies:
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
-      abitype:
-        specifier: ^1.0.2
-        version: 1.0.2(typescript@5.4.5)(zod@3.23.8)
-      viem:
-        specifier: ^2.13.6
-        version: 2.13.6(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@tevm/actions-types':
-        specifier: workspace:^
-        version: link:../actions-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2355,9 +2285,9 @@ importers:
 
   tevm:
     dependencies:
-      '@tevm/actions-types':
+      '@tevm/actions':
         specifier: workspace:^
-        version: link:../packages/actions-types
+        version: link:../packages/actions
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../packages/base-client
@@ -2391,9 +2321,9 @@ importers:
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../packages/predeploys
-      '@tevm/procedures-types':
+      '@tevm/procedures':
         specifier: workspace:^
-        version: link:../packages/procedures-types
+        version: link:../packages/procedures
       '@tevm/server':
         specifier: workspace:^
         version: link:../packages/server
@@ -5895,6 +5825,9 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+
+  '@tevm/errors@1.1.0-next.72':
+    resolution: {integrity: sha512-BczzgzaH2ev+fyiagksSGeGgqZYm4JLRR0q8TBPk1NPzqUa8q1UtG8/h7H7agW+tFtyqILIfCPdQMdaP1I8kDA==}
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18638,6 +18571,8 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
 
+  '@tevm/errors@1.1.0-next.72': {}
+
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
   '@types/acorn@4.0.6':
@@ -24080,7 +24015,7 @@ snapshots:
     dependencies:
       ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
-  isows@1.0.4(ws@8.13.0(bufferutil@4.0.8)):
+  isows@1.0.4(ws@8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)):
     dependencies:
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
@@ -29125,7 +29060,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.0(typescript@5.4.5)(zod@3.23.8)
-      isows: 1.0.4(ws@8.13.0(bufferutil@4.0.8))
+      isows: 1.0.4(ws@8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.4.5
@@ -29142,7 +29077,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.0(typescript@5.4.5)(zod@3.23.8)
-      isows: 1.0.4(ws@8.13.0(bufferutil@4.0.8))
+      isows: 1.0.4(ws@8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4))
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.4.5

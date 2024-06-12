@@ -63,6 +63,7 @@
 	},
 	"dependencies": {
 		"@tevm/common": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/rlp": "workspace:^",
 		"@tevm/trie": "workspace:^",
 		"@tevm/tx": "workspace:^",

@@ -5,7 +5,7 @@ prev: false
 title: "ethSendRawTransactionHandler"
 ---
 
-> **ethSendRawTransactionHandler**(`client`): [`EthSendRawTransactionHandler`](/reference/tevm/actions-types/type-aliases/ethsendrawtransactionhandler/)
+> **ethSendRawTransactionHandler**(`client`): [`EthSendRawTransactionHandler`](/reference/tevm/actions/type-aliases/ethsendrawtransactionhandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "ethSendRawTransactionHandler"
 
 ## Returns
 
-[`EthSendRawTransactionHandler`](/reference/tevm/actions-types/type-aliases/ethsendrawtransactionhandler/)
+[`EthSendRawTransactionHandler`](/reference/tevm/actions/type-aliases/ethsendrawtransactionhandler/)
 
 ## Source
 

@@ -6,14 +6,14 @@
 
 # Type alias: MineParams\<TThrowOnFail\>
 
-> **MineParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
+> **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Tevm params to mine 1 or more blocks
 
 ## Example
 
 ```ts
-const mineParams: import('@tevm/actions-types').MineParams = {
+const mineParams: import('@tevm/actions').MineParams = {
   blockCount: 5,
 }
 ```
@@ -38,4 +38,4 @@ Interval between block timestamps. Defaults to 1
 
 ## Source
 
-packages/actions-types/types/params/MineParams.d.ts:9
+packages/actions/types/Mine/MineParams.d.ts:9

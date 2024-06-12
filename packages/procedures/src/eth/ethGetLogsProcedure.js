@@ -4,7 +4,7 @@ import { numberToHex } from '@tevm/utils'
 /**
  * Executes a message call without creating a transaction on the block chain.
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures-types').EthGetLogsJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthGetLogsJsonRpcProcedure}
  */
 export const ethGetLogsProcedure = (client) => async (req) => {
 	const result = await ethGetLogsHandler(client)({

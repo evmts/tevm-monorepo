@@ -5,7 +5,7 @@ prev: false
 title: "ethAccountsHandler"
 ---
 
-> **ethAccountsHandler**(`params`): [`EthAccountsHandler`](/reference/tevm/actions-types/type-aliases/ethaccountshandler/)
+> **ethAccountsHandler**(`params`): [`EthAccountsHandler`](/reference/tevm/actions/type-aliases/ethaccountshandler/)
 
 ## Parameters
 
@@ -15,7 +15,7 @@ title: "ethAccountsHandler"
 
 ## Returns
 
-[`EthAccountsHandler`](/reference/tevm/actions-types/type-aliases/ethaccountshandler/)
+[`EthAccountsHandler`](/reference/tevm/actions/type-aliases/ethaccountshandler/)
 
 ## Source
 

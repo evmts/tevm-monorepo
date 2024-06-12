@@ -6,7 +6,7 @@
 
 # Function: ethSendTransactionHandler()
 
-> **ethSendTransactionHandler**(`client`): `EthSendTransactionHandler`
+> **ethSendTransactionHandler**(`client`): [`EthSendTransactionHandler`](../type-aliases/EthSendTransactionHandler.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`EthSendTransactionHandler`
+[`EthSendTransactionHandler`](../type-aliases/EthSendTransactionHandler.md)
 
 ## Source
 

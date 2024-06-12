@@ -1,5 +1,5 @@
 import { CallResult, ContractResult, GetAccountResult } from 'tevm';
-import { Log } from 'tevm/actions-types';
+import { Log } from 'tevm/actions';
 import { Address } from 'tevm/utils';
 
 /* ---------------------------------- UTILS --------------------------------- */
