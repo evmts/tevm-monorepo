@@ -6,7 +6,7 @@
 
 # Function: requestProcedure()
 
-> **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
+> **requestProcedure**(`client`): `any`
 
 ## Parameters
 
@@ -14,8 +14,8 @@
 
 ## Returns
 
-[`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
+`any`
 
 ## Source
 
-packages/procedures/dist/index.d.ts:12
+packages/procedures/dist/index.d.ts:11

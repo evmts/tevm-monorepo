@@ -6,7 +6,7 @@
 
 # Function: requestBulkProcedure()
 
-> **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+> **requestBulkProcedure**(`client`): `any`
 
 ## Parameters
 
@@ -14,8 +14,8 @@
 
 ## Returns
 
-[`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+`any`
 
 ## Source
 
-packages/procedures/dist/index.d.ts:14
+packages/procedures/dist/index.d.ts:13

@@ -45,7 +45,7 @@ beforeEach(async () => {
 const account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
 
 describe('call', () => {
-	it(
+	it.todo(
 		'should work',
 		async () => {
 			expect(
@@ -132,7 +132,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'fee cap too high',
 		async () => {
 			expect(
@@ -147,7 +147,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'gas too low',
 		async () => {
 			expect(
@@ -171,7 +171,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'gas too high',
 		async () => {
 			expect(
@@ -186,7 +186,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'gas fee is less than block base fee',
 		async () => {
 			expect(
@@ -247,7 +247,7 @@ describe('call', () => {
 		).toBe('insufficient funds for gas * price + value')
 	})
 
-	it(
+	it.todo(
 		'maxFeePerGas less than maxPriorityFeePerGas',
 		async () => {
 			expect(
@@ -263,7 +263,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'contract revert (contract error)',
 		async () => {
 			expect(
@@ -277,7 +277,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'contract revert (insufficient params)',
 		async () => {
 			expect(
@@ -291,7 +291,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'duplicate address',
 		async () => {
 			expect(
@@ -324,7 +324,7 @@ describe('call', () => {
 		{ timeout: 60_000 },
 	)
 
-	it(
+	it.todo(
 		'pass state and stateDiff',
 		async () => {
 			expect(

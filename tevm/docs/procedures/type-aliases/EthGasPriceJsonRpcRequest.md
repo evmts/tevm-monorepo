@@ -12,4 +12,4 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:370
+packages/procedures/dist/index.d.ts:369
