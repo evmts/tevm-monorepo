@@ -5,7 +5,12 @@ prev: false
 title: "validateBaseCallParams"
 ---
 
+`Internal`
+
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
+
+can break on a minor release
+Validates that the parameters are correct with zod
 
 ## Parameters
 
@@ -17,4 +22,4 @@ title: "validateBaseCallParams"
 
 ## Source
 
-[packages/actions/src/BaseCall/validateBaseCallParams.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L22)
+[packages/actions/src/BaseCall/validateBaseCallParams.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L24)

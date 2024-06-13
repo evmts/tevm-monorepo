@@ -20,7 +20,7 @@ export const zBaseCallParams = zBaseParams
 			z.literal('never'),
 		]),
 		skipBalance: z.boolean().optional().describe('Set caller to msg.value of less than msg.value Defaults to false.'),
-		gasRefund: z.bigint().positive().optional().describe('Refund counter. Defaults to 0'),
+		gasRefund: z.bigint().nonnegative().optional().describe('Refund counter. Defaults to 0'),
 		blockTag: zBlockParam
 			.optional()
 			.describe('The block tag as a block number, block hash or one of "latest", "earliest", "pending" or "safe"'),
@@ -29,13 +29,17 @@ export const zBaseCallParams = zBaseParams
 		caller: zAddress
 			.optional()
 			.describe('The address that ran this code (`msg.sender`). Defaults to the zero address.'),
-		gas: z.bigint().positive().optional().describe('The gas limit for the call. Defaults to `16777215` (`0xffffff`)'),
+		gas: z
+			.bigint()
+			.nonnegative()
+			.optional()
+			.describe('The gas limit for the call. Defaults to `16777215` (`0xffffff`)'),
 		value: z
 			.bigint()
-			.positive()
+			.nonnegative()
 			.optional()
 			.describe('The value in ether that is being sent to `opts.address`. Defaults to `0`'),
-		depth: z.number().positive().optional().describe('The call depth. Defaults to `0`'),
+		depth: z.number().nonnegative().optional().describe('The call depth. Defaults to `0`'),
 		selfdestruct: z.set(zAddress).optional().describe('Addresses to selfdestruct. Defaults to the empty set.'),
 		to: zAddress
 			.optional()

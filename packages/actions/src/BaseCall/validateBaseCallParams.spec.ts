@@ -140,7 +140,7 @@ const validParamsCases: Array<BaseCallParams> = [
 test('should return no errors for valid parameters', () => {
 	validParamsCases.forEach((params) => {
 		const errors = validateBaseCallParams(params)
-		expect(errors.length).toBe(0)
+		expect(errors).toEqual([])
 	})
 })
 
@@ -158,21 +158,39 @@ const mockInvalidParams = {
 	blobVersionedHashes: ['invalid hash'], // should be a valid hash
 }
 
+test('should work for invalid blobVersionedHashes', () => {
+	expect(
+		validateBaseCallParams({
+			blobVersionedHashes: { not: 'an array' } as any,
+		}),
+	).toEqual([new InvalidBlobVersionedHashesError('Expected array, received object')])
+	expect(
+		validateBaseCallParams({
+			blobVersionedHashes: [5] as any,
+		}),
+	).toEqual([new InvalidBlobVersionedHashesError('Expected string, received number')])
+	expect(
+		validateBaseCallParams({
+			blobVersionedHashes: ['invalid hash'] as any,
+		}),
+	).toEqual([new InvalidBlobVersionedHashesError('value must be a hex string')])
+})
+
 test('should return errors for invalid parameters', () => {
 	const errors = validateBaseCallParams(mockInvalidParams as any)
-	expect(errors).toContainEqual(expect.any(InvalidSkipBalanceError))
-	expect(errors).toContainEqual(expect.any(InvalidGasRefundError))
-	expect(errors).toContainEqual(expect.any(InvalidBlockError))
-	expect(errors).toContainEqual(expect.any(InvalidGasPriceError))
-	expect(errors).toContainEqual(expect.any(InvalidOriginError))
-	expect(errors).toContainEqual(expect.any(InvalidCallerError))
-	expect(errors).toContainEqual(expect.any(InvalidGasPriceError))
-	expect(errors).toContainEqual(expect.any(InvalidValueError))
-	expect(errors).toContainEqual(expect.any(InvalidDepthError))
-	expect(errors).toContainEqual(expect.any(InvalidSelfdestructError))
-	expect(errors).toContainEqual(expect.any(InvalidToError))
-	expect(errors).toContainEqual(expect.any(InvalidBlobVersionedHashesError))
-	expect(errors).toContainEqual(expect.any(InvalidDepthError))
+	expect(errors.find((e) => e instanceof InvalidSkipBalanceError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidGasRefundError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidBlockError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidGasPriceError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidOriginError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidCallerError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidGasPriceError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidValueError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidDepthError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidSelfdestructError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidToError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidDepthError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidBlobVersionedHashesError)).toBeDefined()
 })
 
 test('should validate if top level is wrong', () => {

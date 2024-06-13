@@ -1,5 +1,14 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should validate if top level is wrong 1`] = `
+[
+  [InvalidParamsError: Expected object, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
+]
+`;
+
 exports[`should match snapshot for invalid parameters 1`] = `
 [
   [InvalidSkipBalanceError: Expected boolean, received string
@@ -58,6 +67,10 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
 Version: 1.1.0.next-73],
+  [InvalidDepthError: Number must be greater than or equal to 0
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeptherror/
+Version: 1.1.0.next-73],
   [InvalidSelfdestructError: Expected set, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidselfdestructerror/
@@ -66,14 +79,9 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73],
-]
-`;
+  [InvalidBlobVersionedHashesError: value must be a hex string
 
-exports[`should validate if top level is wrong 1`] = `
-[
-  [InvalidParamsError: Expected object, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblobversionedhasheserror/
 Version: 1.1.0.next-73],
 ]
 `;
