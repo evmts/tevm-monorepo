@@ -1,0 +1,79 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot for invalid parameters 1`] = `
+[
+  [InvalidSkipBalanceError: Expected boolean, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidskipbalanceerror/
+Version: 1.1.0.next-73],
+  [InvalidGasRefundError: Expected bigint, received number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgasrefunderror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid literal value, expected "latest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid literal value, expected "earliest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid literal value, expected "pending"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid literal value, expected "safe"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid literal value, expected "finalized"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Expected bigint, received number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Expected string, received number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidGasPriceError: Expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+  [InvalidOriginError: Invalid Address invalid address
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
+Version: 1.1.0.next-73],
+  [InvalidCallerError: Expected string, received number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
+Version: 1.1.0.next-73],
+  [InvalidGasPriceError: Expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+  [InvalidValueError: Expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
+Version: 1.1.0.next-73],
+  [InvalidSelfdestructError: Expected set, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidselfdestructerror/
+Version: 1.1.0.next-73],
+  [InvalidToError: Expected string, received number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`should validate if top level is wrong 1`] = `
+[
+  [InvalidParamsError: Expected object, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
+]
+`;

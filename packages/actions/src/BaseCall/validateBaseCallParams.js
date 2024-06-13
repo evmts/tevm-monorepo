@@ -17,6 +17,8 @@ import { zBaseCallParams } from './zBaseCallParams.js'
  */
 
 /**
+ * @internal can break on a minor release
+ * Validates that the parameters are correct with zod
  * @param {import('../BaseCall/BaseCallParams.js').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
