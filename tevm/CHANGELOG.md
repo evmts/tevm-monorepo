@@ -1,5 +1,30 @@
 # @tevm/contract
 
+## 1.1.0-next.75
+
+### Patch Changes
+
+- [#1193](https://github.com/evmts/tevm-monorepo/pull/1193) [`db7bfc7`](https://github.com/evmts/tevm-monorepo/commit/db7bfc7bac341e29e2df20569347eb019e2d37a7) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated server, utils and trie packages. Update readmes. Update jsdoc. Update error handling. Fix corner case bugs found. Add test coverage
+
+- Updated dependencies [[`db7bfc7`](https://github.com/evmts/tevm-monorepo/commit/db7bfc7bac341e29e2df20569347eb019e2d37a7)]:
+  - @tevm/errors@1.1.0-next.75
+  - @tevm/server@1.1.0-next.75
+  - @tevm/utils@1.1.0-next.75
+  - @tevm/actions@1.1.0-next.75
+  - @tevm/procedures@1.1.0-next.75
+  - @tevm/state@1.1.0-next.75
+  - @tevm/viem@1.1.0-next.75
+  - @tevm/http-client@1.1.0-next.75
+  - @tevm/base-client@1.1.0-next.75
+  - @tevm/client-types@1.1.0-next.75
+  - @tevm/common@1.1.0-next.75
+  - @tevm/contract@1.1.0-next.75
+  - @tevm/decorators@1.1.0-next.75
+  - @tevm/memory-client@1.1.0-next.75
+  - @tevm/precompiles@1.1.0-next.75
+  - @tevm/predeploys@1.1.0-next.75
+  - @tevm/sync-storage-persister@1.1.0-next.75
+
 ## 1.1.0-next.74
 
 ### Minor Changes
