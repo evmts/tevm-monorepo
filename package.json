@@ -24,7 +24,7 @@
 		"e2e": "nx e2e e2e",
 		"format:check": "biome format .",
 		"generate:docs": "nx run-many --target=generate:docs",
-		"lint": "biome check . --apply-unsafe && biome format . --write",
+		"lint": "biome check . --write --unsafe && biome format . --write",
 		"lint:check": "biome check .",
 		"lint:deps": "bunx depcheck && nx run-many --target=lint:deps",
 		"lint:package": "nx run-many --target=lint:package",

@@ -34,7 +34,7 @@
 		"dev": "tsup --watch --onSuccess='bun run start'",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"lint": "rome check . --apply-unsafe",
+		"lint": "rome check . --write --unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",

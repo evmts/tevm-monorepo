@@ -55,7 +55,7 @@
 		"lint:deps": "bunx depcheck",
 		"// lint:package": "bunx publint --strict && attw --pack",
 		"generate:docs": "typedoc",
-		"lint": "biome check . --apply-unsafe",
+		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest --coverage",

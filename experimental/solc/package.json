@@ -37,7 +37,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
-		"lint": "biome check . --apply-unsafe",
+		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"test": "NODE_OPTIONS='--experimental-loader=./scripts/http-loader.mjs --experimental-network-imports --no-warnings --loader=tsx' node --test ./src/compiler/loadSolidityCompiler.spec.ts ./src/compiler/loadSolidityCompilerSync.spec.ts"
 	},
