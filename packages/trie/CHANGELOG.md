@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.75
+
+### Patch Changes
+
+- [#1193](https://github.com/evmts/tevm-monorepo/pull/1193) [`db7bfc7`](https://github.com/evmts/tevm-monorepo/commit/db7bfc7bac341e29e2df20569347eb019e2d37a7) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated server, utils and trie packages. Update readmes. Update jsdoc. Update error handling. Fix corner case bugs found. Add test coverage
+
 ## 1.1.0-next.74
 
 ### Minor Changes
