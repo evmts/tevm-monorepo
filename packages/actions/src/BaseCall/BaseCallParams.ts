@@ -68,8 +68,20 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<
 	readonly gas?: bigint
 	/**
 	 * The gas price for the call.
+	 * Note atm because only EIP-1559 tx transactions are created using the `maxFeePerGas` and `maxPriorityFeePerGas` options
+	 * this option will be ignored when creating transactions. This will be fixed in a future release
 	 */
 	readonly gasPrice?: bigint
+	/**
+	 * The maximum fee per gas for the EIP-1559 tx. This is the maximum amount of ether that can be spent on gas
+	 * for the call. This is the maximum amount of ether that can be spent on gas for the call.
+	 * This is the maximum amount of ether that can be spent on gas for the call.
+	 */
+	readonly maxFeePerGas?: bigint
+	/**
+	 * The maximum priority fee per gas for the EIP-1559 tx.
+	 */
+	readonly maxPriorityFeePerGas?: bigint
 	/**
 	 * Low level control
 	 * Refund counter. Defaults to `0`

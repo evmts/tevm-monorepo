@@ -2,23 +2,23 @@
 
 ***
 
-[tevm](../../modules.md) / [errors](../README.md) / InvalidParamsError
+[tevm](../../modules.md) / [errors](../README.md) / InvalidMaxPriorityFeePerGasError
 
-# Class: InvalidParamsError
+# Class: InvalidMaxPriorityFeePerGasError
 
-Represents an error that occurs when invalid method parameters are provided.
+Represents an error that occurs when the max priority fee per gas is invalid.
 
-This error is typically encountered when a JSON-RPC request is made with parameters that are not valid or do not match the expected types.
+This error is typically encountered when a transaction or operation references a max priority fee per gas that is invalid or does not conform to the expected structure.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw an InvalidParamsError
+  // Some operation that can throw an InvalidMaxPriorityFeePerGasError
 } catch (error) {
-  if (error instanceof InvalidParamsError) {
+  if (error instanceof InvalidMaxPriorityFeePerGasError) {
     console.error(error.message);
-    // Handle the invalid params error
+    // Handle the invalid max priority fee per gas error
   }
 }
 ```
@@ -29,46 +29,17 @@ A human-readable error message.
 
 ## Param
 
-Additional parameters for the BaseError.
+Additional parameters for the InvalidMaxPriorityFeePerGasError.
 
 ## Extends
 
-- [`BaseError`](BaseError.md)
-
-## Extended by
-
-- [`InvalidToError`](InvalidToError.md)
-- [`InvalidAbiError`](InvalidAbiError.md)
-- [`InvalidUrlError`](InvalidUrlError.md)
-- [`InvalidArgsError`](InvalidArgsError.md)
-- [`InvalidDataError`](InvalidDataError.md)
-- [`InvalidSaltError`](InvalidSaltError.md)
-- [`InvalidBlockError`](InvalidBlockError.md)
-- [`InvalidDepthError`](InvalidDepthError.md)
-- [`InvalidNonceError`](InvalidNonceError.md)
-- [`InvalidValueError`](InvalidValueError.md)
-- [`InvalidCallerError`](InvalidCallerError.md)
-- [`InvalidOriginError`](InvalidOriginError.md)
-- [`InvalidBalanceError`](InvalidBalanceError.md)
-- [`InvalidBytecodeError`](InvalidBytecodeError.md)
-- [`InvalidGasLimitError`](InvalidGasLimitError.md)
-- [`InvalidGasRefundError`](InvalidGasRefundError.md)
-- [`InvalidSkipBalanceError`](InvalidSkipBalanceError.md)
-- [`InvalidStorageRootError`](InvalidStorageRootError.md)
-- [`InvalidFunctionNameError`](InvalidFunctionNameError.md)
-- [`InvalidSelfdestructError`](InvalidSelfdestructError.md)
-- [`InvalidDeployedBytecodeError`](InvalidDeployedBytecodeError.md)
-- [`InvalidBlobVersionedHashesError`](InvalidBlobVersionedHashesError.md)
-- [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
-- [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
-- [`DecodeFunctionDataError`](DecodeFunctionDataError.md)
-- [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
+- [`InvalidParamsError`](InvalidParamsError.md)
 
 ## Constructors
 
-### new InvalidParamsError()
+### new InvalidMaxPriorityFeePerGasError()
 
-> **new InvalidParamsError**(`message`, `args`?): [`InvalidParamsError`](InvalidParamsError.md)
+> **new InvalidMaxPriorityFeePerGasError**(`message`, `args`?): [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
 
 Constructs an InvalidParamsError.
 
@@ -84,11 +55,11 @@ Additional parameters for the BaseError.
 
 #### Returns
 
-[`InvalidParamsError`](InvalidParamsError.md)
+[`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
 
 #### Source
 
@@ -102,9 +73,9 @@ packages/errors/types/ethereum/InvalidParamsError.d.ts:44
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
+[`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
 
 #### Source
 
@@ -118,7 +89,7 @@ packages/errors/types/ethereum/InvalidParamsError.d.ts:53
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
+[`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
 
 #### Source
 
@@ -134,7 +105,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
+[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
 
 #### Source
 
@@ -148,7 +119,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
+[`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
 
 #### Source
 
@@ -164,7 +135,7 @@ Path to the documentation for this error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
+[`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
 
 #### Source
 
@@ -180,7 +151,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
+[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message)
 
 #### Source
 
@@ -193,6 +164,10 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 > **meta**: `undefined` \| `object`
 
 Optional object containing additional information about the error.
+
+#### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`meta`](InvalidParamsError.md#meta)
 
 #### Source
 
@@ -208,7 +183,7 @@ Additional meta messages for more context.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
+[`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
 
 #### Source
 
@@ -222,9 +197,9 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
+[`InvalidParamsError`](InvalidParamsError.md).[`name`](InvalidParamsError.md#name)
 
 #### Source
 
@@ -238,7 +213,7 @@ packages/errors/types/ethereum/InvalidParamsError.d.ts:58
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
+[`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
 
 #### Source
 
@@ -252,7 +227,7 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
+[`InvalidParamsError`](InvalidParamsError.md).[`stack`](InvalidParamsError.md#stack)
 
 #### Source
 
@@ -266,7 +241,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
+[`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
 
 #### Source
 
@@ -296,7 +271,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`prepareStackTrace`](InvalidParamsError.md#preparestacktrace)
 
 #### Source
 
@@ -310,7 +285,7 @@ node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
+[`InvalidParamsError`](InvalidParamsError.md).[`stackTraceLimit`](InvalidParamsError.md#stacktracelimit)
 
 #### Source
 
@@ -338,7 +313,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
+[`InvalidParamsError`](InvalidParamsError.md).[`walk`](InvalidParamsError.md#walk)
 
 #### Source
 
@@ -366,7 +341,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
 
 ##### Source
 
@@ -390,7 +365,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
 
 ##### Source
 

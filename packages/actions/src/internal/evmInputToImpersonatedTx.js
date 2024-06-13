@@ -7,8 +7,10 @@ import { EthjsAddress } from '@tevm/utils'
 export const evmInputToImpersonatedTx = (client) => {
 	/**
 	 * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
+	 * @param {bigint } [maxFeePerGas]
+	 * @param {bigint } [maxPriorityFeePerGas]
 	 */
-	return async (evmInput) => {
+	return async (evmInput, maxFeePerGas, maxPriorityFeePerGas) => {
 		const vm = await client.getVm()
 
 		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
@@ -23,10 +25,10 @@ export const evmInputToImpersonatedTx = (client) => {
 
 		client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
-		let maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
+		let _maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
 		const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n
-		if (maxFeePerGas < baseFeePerGas) {
-			maxFeePerGas = baseFeePerGas
+		if (_maxFeePerGas < baseFeePerGas) {
+			_maxFeePerGas = baseFeePerGas
 		}
 
 		// TODO we should be allowing actual real signed tx too here
@@ -39,8 +41,8 @@ export const evmInputToImpersonatedTx = (client) => {
 				nonce,
 				// just set to block max for now
 				gasLimit: parentBlock.header.gasLimit,
-				maxFeePerGas,
-				maxPriorityFeePerGas: 0n,
+				maxFeePerGas: maxFeePerGas ?? _maxFeePerGas,
+				maxPriorityFeePerGas: maxPriorityFeePerGas ?? 0n,
 				...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
 				...(evmInput.data !== undefined ? { data: evmInput.data } : {}),
 				...(evmInput.value !== undefined ? { value: evmInput.value } : {}),

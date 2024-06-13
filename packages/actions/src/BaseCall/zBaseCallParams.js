@@ -49,5 +49,15 @@ export const zBaseCallParams = zBaseParams
 		blobVersionedHashes: z.array(zHex).optional().describe('Versioned hashes for each blob in a blob transaction'),
 		stateOverrideSet: zStateOverrideSet.optional().describe('State override set for the call'),
 		blockOverrideSet: zBlockOverrideSet.optional().describe('Block override set for the call'),
+		maxFeePerGas: z
+			.bigint()
+			.optional()
+			.describe(
+				'The maximum fee per gas for the call for an EIP-1559 tx. If not set it will be calculated based on the parent block.',
+			),
+		maxPriorityFeePerGas: z
+			.bigint()
+			.optional()
+			.describe('The maximum priority fee per gas for the call for an EIP-1559 tx.'),
 	})
 	.describe('Properties shared across call-like actions')

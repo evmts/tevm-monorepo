@@ -89,7 +89,6 @@ export const setAccountHandler =
 
 			return {}
 		} catch (e) {
-			console.log('it threw oh no', e)
 			errors.push(new InternalError('Unexpected error setting account', { cause: e }))
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}

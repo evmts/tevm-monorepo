@@ -83,5 +83,13 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblobversionedhasheserror/
 Version: 1.1.0.next-73],
+  [InvalidMaxFeePerGasError: Expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxfeepergaserror/
+Version: 1.1.0.next-73],
+  [InvalidMaxPriorityFeePerGasError: Expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/
+Version: 1.1.0.next-73],
 ]
 `;
