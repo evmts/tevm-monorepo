@@ -102,7 +102,7 @@
   "scripts": {
     "//format": "biome format . --write",
     "//format:check": "biome format .",
-    "//lint": "biome check . --apply-unsafe",
+    "//lint": "biome check . --write --unsafe",
     "//lint:check": "biome check . --verbose",
     "//test": "vitest --coverage",
     "//test:coverage": "vitest run --coverage",

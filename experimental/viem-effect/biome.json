@@ -70,7 +70,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "all",
+      "trailingCommas": "all",
       "semicolons": "asNeeded"
     }
   }

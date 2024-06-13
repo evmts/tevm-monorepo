@@ -17,7 +17,7 @@
 		"format": "biome format . --write",
 		"format:check": "biome format .",
 		"generate": "tevm generate",
-		"lint": "biome check . --apply-unsafe",
+		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"preview": "vite preview",
 		"serve": "serve -s -l tcp://0.0.0.0:5173 dist",

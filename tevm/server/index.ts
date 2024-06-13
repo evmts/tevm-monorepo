@@ -1,6 +1,5 @@
 export {
   createServer,
-  BadRequestError,
   createHttpHandler,
   createExpressMiddleware,
   createNextApiHandler,

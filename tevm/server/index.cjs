@@ -4,10 +4,6 @@ var server = require('@tevm/server');
 
 
 
-Object.defineProperty(exports, "BadRequestError", {
-  enumerable: true,
-  get: function () { return server.BadRequestError; }
-});
 Object.defineProperty(exports, "createExpressMiddleware", {
   enumerable: true,
   get: function () { return server.createExpressMiddleware; }
