@@ -1,5 +1,23 @@
 # @tevm/contract
 
+## 1.1.0-next.76
+
+### Patch Changes
+
+- [#1195](https://github.com/evmts/tevm-monorepo/pull/1195) [`c58a6e5`](https://github.com/evmts/tevm-monorepo/commit/c58a6e50d2711811335f457bab47178a51c213a4) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with bad export"
+
+- Updated dependencies [[`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081), [`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081), [`fbf5192`](https://github.com/evmts/tevm-monorepo/commit/fbf51925ad6b7b367a41d5e7dd667f589f8c21e4), [`fbf5192`](https://github.com/evmts/tevm-monorepo/commit/fbf51925ad6b7b367a41d5e7dd667f589f8c21e4)]:
+  - @tevm/actions@1.1.0-next.76
+  - @tevm/viem@1.1.0-next.76
+  - @tevm/client-types@1.1.0-next.75
+  - @tevm/decorators@1.1.0-next.76
+  - @tevm/procedures@1.1.0-next.76
+  - @tevm/server@1.1.0-next.76
+  - @tevm/base-client@1.1.0-next.76
+  - @tevm/memory-client@1.1.0-next.76
+  - @tevm/http-client@1.1.0-next.76
+  - @tevm/precompiles@1.1.0-next.76
+
 ## 1.1.0-next.75
 
 ### Patch Changes

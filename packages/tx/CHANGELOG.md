@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.76
+
+### Minor Changes
+
+- [#1198](https://github.com/evmts/tevm-monorepo/pull/1198) [`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for setting maxFeePerGas and maxPriorityFeePerGas
+
 ## 1.1.0-next.75
 
 ### Patch Changes

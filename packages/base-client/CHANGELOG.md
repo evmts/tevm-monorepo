@@ -1,5 +1,18 @@
 # @tevm/client
 
+## 1.1.0-next.76
+
+### Patch Changes
+
+- Updated dependencies [[`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081)]:
+  - @tevm/tx@1.1.0-next.76
+  - @tevm/vm@1.1.0-next.76
+  - @tevm/block@1.1.0-next.76
+  - @tevm/receipt-manager@1.1.0-next.76
+  - @tevm/txpool@1.1.0-next.76
+  - @tevm/blockchain@1.1.0-next.76
+  - @tevm/evm@1.1.0-next.76
+
 ## 1.1.0-next.75
 
 ### Patch Changes

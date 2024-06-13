@@ -1,5 +1,13 @@
 # @tevm/precompiles
 
+## 1.1.0-next.76
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/memory-client@1.1.0-next.76
+  - @tevm/evm@1.1.0-next.76
+
 ## 1.1.0-next.75
 
 ### Patch Changes
