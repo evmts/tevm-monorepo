@@ -1,5 +1,12 @@
 # @tevm/state
 
+## 1.1.0-next.76
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/block@1.1.0-next.76
+
 ## 1.1.0-next.75
 
 ### Patch Changes

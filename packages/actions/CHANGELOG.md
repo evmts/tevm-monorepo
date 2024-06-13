@@ -1,5 +1,28 @@
 # @tevm/contract
 
+## 1.1.0-next.76
+
+### Minor Changes
+
+- [#1198](https://github.com/evmts/tevm-monorepo/pull/1198) [`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for setting maxFeePerGas and maxPriorityFeePerGas
+
+- [#1198](https://github.com/evmts/tevm-monorepo/pull/1198) [`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for passing in maxFeePerGas and maxPriorityFeePerGas to tevmCall tevmContract tevmDeploy and tevmScript
+
+### Patch Changes
+
+- [#1197](https://github.com/evmts/tevm-monorepo/pull/1197) [`fbf5192`](https://github.com/evmts/tevm-monorepo/commit/fbf51925ad6b7b367a41d5e7dd667f589f8c21e4) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where tevmCall and related methods would improperly validate params such as depth and value. Previously it would not throw a validation error if these numbers are negative
+
+- [#1197](https://github.com/evmts/tevm-monorepo/pull/1197) [`fbf5192`](https://github.com/evmts/tevm-monorepo/commit/fbf51925ad6b7b367a41d5e7dd667f589f8c21e4) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where validation errors of nested structures like arrays would sometimes get swallowed by tevmCall and related methods
+
+- Updated dependencies [[`4650d32`](https://github.com/evmts/tevm-monorepo/commit/4650d32e2ee03f6ffc3cecbedec0b079b44f2081)]:
+  - @tevm/tx@1.1.0-next.76
+  - @tevm/vm@1.1.0-next.76
+  - @tevm/base-client@1.1.0-next.76
+  - @tevm/block@1.1.0-next.76
+  - @tevm/receipt-manager@1.1.0-next.76
+  - @tevm/blockchain@1.1.0-next.76
+  - @tevm/evm@1.1.0-next.76
+
 ## 1.1.0-next.75
 
 ### Patch Changes
