@@ -8,10 +8,10 @@ title: "BaseCallParams"
 > **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](/reference/tevm/actions/type-aliases/baseparams-1/)\<`TThrowOnFail`\> & `object`
 
 Properties shared across call-like params
-- [tevmCallParams]
-- [tevmContractParams]
-- [tevmDeployParams]
-- [tevmScriptParams]
+- [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams-1/)
+- [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams-1/)
+- [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams-1/)
+- [ScriptParams](https://tevm.sh/reference/tevm/actions/type-aliases/scriptparams-1/)
 
 ## Type declaration
 
@@ -19,7 +19,7 @@ Properties shared across call-like params
 
 > `optional` `readonly` **blobVersionedHashes**: [`Hex`](/reference/tevm/actions/type-aliases/hex-1/)[]
 
-Versioned hashes for each blob in a blob transaction
+Versioned hashes for each blob in a blob transaction for 4844 transactions
 
 ### blockOverrideSet?
 
@@ -29,11 +29,24 @@ The fields of this optional object customize the block as part of which the call
 This option cannot be used when `createTransaction` is set to `true`
 Setting the block number to past block will not run in the context of that blocks state. To do that fork that block number first.
 
+#### Example
+
+```ts
+const blockOverride = {
+ "number": "0x1b4",
+ "hash": "0x
+ "parentHash": "0x",
+ "nonce": "0x0000000000000042",
+}
+const res = await client.call({address: '0x1234', data: '0x1234', blockOverrideSet: blockOverride})
+
 ### blockTag?
 
 > `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam-1/)
 
-The block number or block tag to execute the call at. Defaults to `latest`
+The block number or block tag to execute the call at. Defaults to `latest`.
+Setting to `pending` will run the tx against a block built with the pending tx in the txpool
+that have not yet been mined.
 
 ### caller?
 
@@ -49,12 +62,26 @@ This defaults to `from` address if set otherwise it defaults to the zero address
 Whether to return an access list
 Defaults to `false`
 
+#### Example
+
+```ts
+const {accessList} = await tevm.call({address: '0x1234', data: '0x1234', createAccessList: true})
+console.log(accessList) // { "0x...": Set(["0x..."])}
+```
+
 ### createTrace?
 
 > `optional` `readonly` **createTrace**: `boolean`
 
 Whether to return a complete trace with the call
 Defaults to `false`
+
+#### Example
+
+```ts
+const {trace} = await tevm.call({address: '0x1234', data: '0x1234', createTrace: true})
+trace.structLogs.forEach(console.log)
+```
 
 ### createTransaction?
 
@@ -68,18 +95,29 @@ Whether or not to update the state or run call in a dry-run. Defaults to `never`
 - `false`: alias for `never`
 Always will still not include the transaction if it's not valid to be included in
 the chain such as the gas limit being too low.
+If set to true and a tx is submitted the `txHash` will be returned in the response.
+The tx will not be included in the chain until it is mined though
+
+#### Example
+
+```typescript
+const {txHash} = await client.call({address: '0x1234', data: '0x1234', createTransaction: 'on-success'})
+await client.mine()
+const receipt = await client.getTransactionReceipt({hash: txHash})
+```
 
 ### depth?
 
 > `optional` `readonly` **depth**: `number`
 
-The call depth. Defaults to `0`
+Low level control over the EVM call depth. Useful if you want to simulate an internal call.
+Defaults to `0`
 
 ### from?
 
 > `optional` `readonly` **from**: [`Address`](/reference/tevm/actions/type-aliases/address-1/)
 
-The from address for the call. Defaults to the zero address.
+The from address for the call. Defaults to the zero address on reads and account[0] on writes.
 It is also possible to set the `origin` and `caller` addresses seperately using
 those options. Otherwise both are set to the `from` address
 
@@ -88,7 +126,7 @@ those options. Otherwise both are set to the `from` address
 > `optional` `readonly` **gas**: `bigint`
 
 The gas limit for the call.
-Defaults to 0xffffff (16_777_215n)
+Defaults to the block gas limit as specified by common or the fork url
 
 ### gasPrice?
 
@@ -100,6 +138,7 @@ The gas price for the call.
 
 > `optional` `readonly` **gasRefund**: `bigint`
 
+Low level control
 Refund counter. Defaults to `0`
 
 ### origin?
@@ -139,7 +178,7 @@ It can be used to debug smart contracts in an already deployed large suite of co
 #### Example
 
 ```ts
-{
+const stateOverride = {
   "0xd9c9cd5f6779558b6e0ed4e6acf6b1947e7fa1f3": {
     "balance": "0xde0b6b3a7640000"
   },
@@ -150,6 +189,7 @@ It can be used to debug smart contracts in an already deployed large suite of co
     }
   }
 }
+const res = await client.call({address: '0x1234', data: '0x1234', stateOverrideSet: stateOverride})
 ```
 
 ### to?
@@ -157,6 +197,7 @@ It can be used to debug smart contracts in an already deployed large suite of co
 > `optional` `readonly` **to**: [`Address`](/reference/tevm/actions/type-aliases/address-1/)
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
+To is not set for create transactions but required for most transactions
 
 ### value?
 

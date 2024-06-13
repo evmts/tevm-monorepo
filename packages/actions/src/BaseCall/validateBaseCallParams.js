@@ -12,11 +12,15 @@ import {
 import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '@tevm/errors'
 import { zBaseCallParams } from './zBaseCallParams.js'
 
+// TODO we are missing some validation including stateOverrides
+
 /**
  * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError} ValidateBaseCallParamsError
  */
 
 /**
+ * @internal can break on a minor release
+ * Validates that the parameters are correct with zod
  * @param {import('../BaseCall/BaseCallParams.js').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
@@ -106,6 +110,19 @@ export const validateBaseCallParams = (action) => {
 			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
 				errors.push(new InvalidBlobVersionedHashesError(error))
 			})
+			for (const [key, value] of Object.entries(formattedErrors.blobVersionedHashes)) {
+				if (key === '_errors') continue
+				if ('_errors' in value) {
+					value._errors.forEach((error) => {
+						errors.push(new InvalidBlobVersionedHashesError(error))
+					})
+				}
+			}
+		}
+		// if we missed an error let's make sure we handle it here
+		// THis is purely defensive
+		if (errors.length === 0 && parsedParams.success === false) {
+			errors.push(new InvalidParamsError(parsedParams.error.message))
 		}
 	}
 
