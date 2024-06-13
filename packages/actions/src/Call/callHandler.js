@@ -1,4 +1,4 @@
-import { InternalError } from '@tevm/errors'
+import { InternalError, InvalidGasPriceError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { numberToBytes } from 'viem'
@@ -206,6 +206,10 @@ export const callHandler =
 				trace = await runCallWithTrace(vm, client.logger, evmInput, true).then(({ trace }) => trace)
 			}
 			try {
+				const tx = await evmInputToImpersonatedTx({
+					...client,
+					getVm: () => Promise.resolve(vm),
+				})(evmInput, params.maxFeePerGas, params.maxPriorityFeePerGas)
 				evmOutput = await runTx(vm)({
 					reportAccessList: params.createAccessList ?? false,
 					reportPreimages: params.createAccessList ?? false,
@@ -215,10 +219,7 @@ export const callHandler =
 					skipNonce: true,
 					skipBalance: evmInput.skipBalance ?? false,
 					...(evmInput.block !== undefined ? { block: /** @type any*/ (evmInput.block) } : {}),
-					tx: await evmInputToImpersonatedTx({
-						...client,
-						getVm: () => Promise.resolve(vm),
-					})(evmInput),
+					tx,
 				})
 			} catch (e) {
 				if (!(e instanceof Error)) {
@@ -226,13 +227,7 @@ export const callHandler =
 				}
 				if (e.message.includes("is less than the block's baseFeePerGas")) {
 					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-						errors: [
-							{
-								name: 'GasPriceTooLow',
-								_tag: 'GasPriceTooLow',
-								message: e.message,
-							},
-						],
+						errors: [new InvalidGasPriceError('Tx aborted because gasPrice or maxFeePerGas is too low', { cause: e })],
 						executionGasUsed: 0n,
 						rawData: '0x',
 						...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
@@ -315,6 +310,11 @@ export const callHandler =
 									},
 								]
 					try {
+						// TODO we should handle not impersonating real tx with real nonces
+						const tx = await evmInputToImpersonatedTx({
+							...client,
+							getVm: () => Promise.resolve(vm),
+						})(evmInput, params.maxFeePerGas, params.maxPriorityFeePerGas)
 						// user might have tracing turned on hoping to trace why it's using too much gas
 						/// calculate skipping all validation but still return errors too
 						evmOutput = await runTx(vm)({
@@ -326,10 +326,7 @@ export const callHandler =
 							skipNonce: true,
 							skipBalance: true,
 							...(evmInput.block !== undefined ? { block: /** @type any*/ (evmInput.block) } : {}),
-							tx: await evmInputToImpersonatedTx({
-								...client,
-								getVm: () => Promise.resolve(vm),
-							})(evmInput),
+							tx,
 						})
 						if (trace) {
 							trace.gas = evmOutput.execResult.executionGasUsed
@@ -446,7 +443,13 @@ export const callHandler =
 					...callHandlerResult(evmOutput, undefined, trace, accessList),
 				})
 			}
-			const txRes = await createTransaction(client)({ throwOnFail: false, evmOutput, evmInput })
+			const txRes = await createTransaction(client)({
+				throwOnFail: false,
+				evmOutput,
+				evmInput,
+				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+				maxFeePerGas: params.maxFeePerGas,
+			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 			if ('errors' in txRes && txRes.errors.length) {
 				return /** @type {any}*/ (

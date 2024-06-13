@@ -13,6 +13,8 @@ import {
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
+import { InvalidMaxFeePerGasError } from '../../../errors/types/input/InvalidMaxFeePerGaserror.js'
+import { InvalidMaxPriorityFeePerGasError } from '../../../errors/types/input/InvalidMaxPriorityFeePerGas.js'
 import type { BaseCallParams } from './BaseCallParams.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
@@ -98,6 +100,7 @@ const validParamsCases: Array<BaseCallParams> = [
 		selfdestruct: new Set(['0x1111111111111111111111111111111111111111']),
 		to: '0x1111111111111111111111111111111111111111',
 		blobVersionedHashes: ['0x1111111111111111111111111111111111111111'],
+		maxFeePerGas: 5000000000n,
 	},
 	{
 		createTrace: true,
@@ -134,6 +137,7 @@ const validParamsCases: Array<BaseCallParams> = [
 		selfdestruct: new Set(['0x3333333333333333333333333333333333333333']),
 		to: '0x3333333333333333333333333333333333333333',
 		blobVersionedHashes: ['0x3333333333333333333333333333333333333333'],
+		maxPriorityFeePerGas: 7000000000n,
 	},
 ] as const
 
@@ -156,6 +160,8 @@ const mockInvalidParams = {
 	selfdestruct: 'invalid', // should be a boolean
 	to: 12345, // should be a string
 	blobVersionedHashes: ['invalid hash'], // should be a valid hash
+	maxFeePerGas: 'not a number', // should be a number
+	maxPriorityFeePerGas: 'not a number', // should be a number
 }
 
 test('should work for invalid blobVersionedHashes', () => {
@@ -191,6 +197,8 @@ test('should return errors for invalid parameters', () => {
 	expect(errors.find((e) => e instanceof InvalidToError)).toBeDefined()
 	expect(errors.find((e) => e instanceof InvalidDepthError)).toBeDefined()
 	expect(errors.find((e) => e instanceof InvalidBlobVersionedHashesError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidMaxFeePerGasError)).toBeDefined()
+	expect(errors.find((e) => e instanceof InvalidMaxPriorityFeePerGasError)).toBeDefined()
 })
 
 test('should validate if top level is wrong', () => {

@@ -62,6 +62,7 @@ function execHardfork(hardfork: Hardfork | string, preMergeHf: Hardfork | string
 export const runTx =
 	(vm: BaseVm) =>
 	async (opts: RunTxOpts): Promise<RunTxResult> => {
+		console.log('huh what is tx doing', (opts.tx as any).maxFeePerGas)
 		// create a reasonable default if no block is given
 		opts.block = opts.block ?? Block.fromBlockData({}, { common: vm.common })
 
@@ -201,6 +202,7 @@ const _runTx =
 			// assert transaction.max_fee_per_gas >= block.base_fee_per_gas
 			const maxFeePerGas = 'maxFeePerGas' in tx ? tx.maxFeePerGas : tx.gasPrice
 			const baseFeePerGas = block.header.baseFeePerGas ?? 0n
+			console.log({ maxFeePerGas, baseFeePerGas, tx: (tx as any).maxFeePergas })
 			if (maxFeePerGas < baseFeePerGas) {
 				const msg = _errorMsg(
 					`Transaction's ${

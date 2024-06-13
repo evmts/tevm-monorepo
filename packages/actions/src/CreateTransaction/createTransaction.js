@@ -18,9 +18,11 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 	 * @param {object} params
 	 * @param {import('@tevm/evm').EvmRunCallOpts} params.evmInput
 	 * @param {import('@tevm/evm').EvmResult} params.evmOutput
+	 * @param {bigint | undefined} [params.maxFeePerGas]
+	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
 	 * @param {boolean} [params.throwOnFail]
 	 */
-	return async ({ evmInput, evmOutput, throwOnFail }) => {
+	return async ({ evmInput, evmOutput, throwOnFail, ...priorityFeeOpts }) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
 
@@ -82,11 +84,12 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 				impersonatedAddress: sender,
 				nonce,
 				gasLimit: gasLimitWithExecutionBuffer,
-				maxFeePerGas,
-				maxPriorityFeePerGas: 0n,
+				maxFeePerGas: priorityFeeOpts.maxFeePerGas ?? maxFeePerGas,
+				maxPriorityFeePerGas: priorityFeeOpts.maxPriorityFeePerGas ?? 0n,
 				...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
 				...(evmInput.data !== undefined ? { data: evmInput.data } : {}),
 				...(evmInput.value !== undefined ? { value: evmInput.value } : {}),
+				// TODO we should handle non EIP-1559 txs here too
 				gasPrice: null,
 			},
 			{

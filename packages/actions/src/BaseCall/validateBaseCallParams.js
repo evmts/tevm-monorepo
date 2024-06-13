@@ -10,6 +10,8 @@ import {
 	InvalidSkipBalanceError,
 } from '@tevm/errors'
 import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '@tevm/errors'
+import { InvalidMaxFeePerGasError } from '../../../errors/types/input/InvalidMaxFeePerGaserror.js'
+import { InvalidMaxPriorityFeePerGasError } from '../../../errors/types/input/InvalidMaxPriorityFeePerGas.js'
 import { zBaseCallParams } from './zBaseCallParams.js'
 
 // TODO we are missing some validation including stateOverrides
@@ -123,6 +125,18 @@ export const validateBaseCallParams = (action) => {
 		// THis is purely defensive
 		if (errors.length === 0 && parsedParams.success === false) {
 			errors.push(new InvalidParamsError(parsedParams.error.message))
+		}
+
+		if (formattedErrors.maxFeePerGas) {
+			formattedErrors.maxFeePerGas._errors.forEach((error) => {
+				errors.push(new InvalidMaxFeePerGasError(error))
+			})
+		}
+
+		if (formattedErrors.maxPriorityFeePerGas) {
+			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
+				errors.push(new InvalidMaxPriorityFeePerGasError(error))
+			})
 		}
 	}
 
