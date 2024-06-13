@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.75
+
+### Patch Changes
+
+- Updated dependencies [[`db7bfc7`](https://github.com/evmts/tevm-monorepo/commit/db7bfc7bac341e29e2df20569347eb019e2d37a7)]:
+  - @tevm/errors@1.1.0-next.75
+  - @tevm/utils@1.1.0-next.75
+
 ## 1.1.0-next.74
 
 ### Minor Changes

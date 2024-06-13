@@ -1,5 +1,15 @@
 # @tevm/precompiles
 
+## 1.1.0-next.75
+
+### Patch Changes
+
+- Updated dependencies [[`db7bfc7`](https://github.com/evmts/tevm-monorepo/commit/db7bfc7bac341e29e2df20569347eb019e2d37a7)]:
+  - @tevm/utils@1.1.0-next.75
+  - @tevm/contract@1.1.0-next.75
+  - @tevm/evm@1.1.0-next.75
+  - @tevm/memory-client@1.1.0-next.75
+
 ## 1.1.0-next.74
 
 ### Minor Changes
