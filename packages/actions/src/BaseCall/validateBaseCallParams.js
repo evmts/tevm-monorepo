@@ -9,9 +9,13 @@ import {
 	InvalidParamsError,
 	InvalidSkipBalanceError,
 } from '@tevm/errors'
-import { InvalidSelfdestructError, InvalidToError, InvalidValueError } from '@tevm/errors'
-import { InvalidMaxFeePerGasError } from '../../../errors/types/input/InvalidMaxFeePerGaserror.js'
-import { InvalidMaxPriorityFeePerGasError } from '../../../errors/types/input/InvalidMaxPriorityFeePerGas.js'
+import {
+	InvalidSelfdestructError,
+	InvalidToError,
+	InvalidValueError,
+	InvalidMaxPriorityFeePerGasError,
+	InvalidMaxFeePerGasError,
+} from '@tevm/errors'
 import { zBaseCallParams } from './zBaseCallParams.js'
 
 // TODO we are missing some validation including stateOverrides

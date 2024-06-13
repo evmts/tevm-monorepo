@@ -12,9 +12,9 @@ import {
 	InvalidSkipBalanceError,
 	InvalidToError,
 	InvalidValueError,
+	InvalidMaxFeePerGasError,
+	InvalidMaxPriorityFeePerGasError,
 } from '@tevm/errors'
-import { InvalidMaxFeePerGasError } from '../../../errors/types/input/InvalidMaxFeePerGaserror.js'
-import { InvalidMaxPriorityFeePerGasError } from '../../../errors/types/input/InvalidMaxPriorityFeePerGas.js'
 import type { BaseCallParams } from './BaseCallParams.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 

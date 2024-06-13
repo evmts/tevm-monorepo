@@ -23,4 +23,4 @@ Validates that the parameters are correct with zod
 
 ## Source
 
-[packages/actions/src/BaseCall/validateBaseCallParams.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L24)
+[packages/actions/src/BaseCall/validateBaseCallParams.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L28)

@@ -21,6 +21,8 @@ export {
 	InvalidSelfdestructError,
 	InvalidDeployedBytecodeError,
 	InvalidBlobVersionedHashesError,
+	InvalidMaxFeePerGasError,
+	InvalidMaxPriorityFeePerGasError,
 	type InvalidToErrorParameters,
 	type InvalidAbiErrorParameters,
 	type InvalidUrlErrorParameters,
@@ -43,6 +45,8 @@ export {
 	type InvalidSelfdestructErrorParameters,
 	type InvalidDeployedBytecodeErrorParameters,
 	type InvalidBlobVersionedHashesErrorParameters,
+	type InvalidMaxFeePerGasErrorParameters,
+	type InvalidMaxPriorityFeePerGasErrorParameters,
 } from './input/index.js'
 export {
 	DecodeFunctionDataError,
