@@ -9,7 +9,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
-const ERC20_BYTECODE = TestERC20.bytecode
+const ERC20_BYTECODE = TestERC20.deployedBytecode
 const ERC20_ABI = TestERC20.abi
 
 describe('callHandler', () => {
@@ -65,8 +65,9 @@ describe('callHandler', () => {
 						return res.execResult.executionGasUsed
 					}),
 			)
-		expect(gasUsed).toBe(2447n)
+		expect(gasUsed).toBe(2851n)
 
+		console.log('running test')
 		expect(
 			await callHandler(client)({
 				createAccessList: true,
@@ -79,24 +80,24 @@ describe('callHandler', () => {
 				gas: 16784800n,
 			}),
 		).toEqual({
-			amountSpent: 167153n,
+			amountSpent: 169981n,
 			preimages: {
 				'0x37d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1ab':
 					'0x3333333333333333333333333333333333333333',
 				'0x5380c7b7ae81a58eb98d9c78de4a1fd7fd9535fc953ed2be602daaa41767312a':
 					'0x0000000000000000000000000000000000000000',
 			},
-			totalGasSpent: 23879n,
+			totalGasSpent: 24283n,
 			rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
-			gas: 29976121n,
-			executionGasUsed: 2447n,
+			executionGasUsed: 2851n,
+			gas: 29975717n,
 			selfdestruct: new Set(),
 			logs: [],
 			createdAddresses: new Set(),
 			accessList: Object.fromEntries([
 				[
 					'0x3333333333333333333333333333333333333333',
-					new Set(['0xc042e0f5eb0064bf1d9722ec18e39f827a2cf491b49d2d4c34a5ecf7a61b44b7']),
+					new Set(['0x0ae1369e98a926a2595ace665f90c7976b6a86afbcadb3c1ceee24998c087435']),
 				],
 			]),
 		})
