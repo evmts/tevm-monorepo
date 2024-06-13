@@ -6,14 +6,14 @@ import {
 	InvalidDepthError,
 	InvalidGasPriceError,
 	InvalidGasRefundError,
+	InvalidMaxFeePerGasError,
+	InvalidMaxPriorityFeePerGasError,
 	InvalidOriginError,
 	InvalidParamsError,
 	InvalidSelfdestructError,
 	InvalidSkipBalanceError,
 	InvalidToError,
 	InvalidValueError,
-	InvalidMaxFeePerGasError,
-	InvalidMaxPriorityFeePerGasError,
 } from '@tevm/errors'
 import type { BaseCallParams } from './BaseCallParams.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'

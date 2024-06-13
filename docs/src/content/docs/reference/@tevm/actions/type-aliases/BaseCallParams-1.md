@@ -133,6 +133,8 @@ Defaults to the block gas limit as specified by common or the fork url
 > `optional` `readonly` **gasPrice**: `bigint`
 
 The gas price for the call.
+Note atm because only EIP-1559 tx transactions are created using the `maxFeePerGas` and `maxPriorityFeePerGas` options
+this option will be ignored when creating transactions. This will be fixed in a future release
 
 ### gasRefund?
 
@@ -140,6 +142,20 @@ The gas price for the call.
 
 Low level control
 Refund counter. Defaults to `0`
+
+### maxFeePerGas?
+
+> `optional` `readonly` **maxFeePerGas**: `bigint`
+
+The maximum fee per gas for the EIP-1559 tx. This is the maximum amount of ether that can be spent on gas
+for the call. This is the maximum amount of ether that can be spent on gas for the call.
+This is the maximum amount of ether that can be spent on gas for the call.
+
+### maxPriorityFeePerGas?
+
+> `optional` `readonly` **maxPriorityFeePerGas**: `bigint`
+
+The maximum priority fee per gas for the EIP-1559 tx.
 
 ### origin?
 

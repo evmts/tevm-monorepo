@@ -10,11 +10,11 @@ import {
 	InvalidSkipBalanceError,
 } from '@tevm/errors'
 import {
+	InvalidMaxFeePerGasError,
+	InvalidMaxPriorityFeePerGasError,
 	InvalidSelfdestructError,
 	InvalidToError,
 	InvalidValueError,
-	InvalidMaxPriorityFeePerGasError,
-	InvalidMaxFeePerGasError,
 } from '@tevm/errors'
 import { zBaseCallParams } from './zBaseCallParams.js'
 
@@ -125,11 +125,6 @@ export const validateBaseCallParams = (action) => {
 				}
 			}
 		}
-		// if we missed an error let's make sure we handle it here
-		// THis is purely defensive
-		if (errors.length === 0 && parsedParams.success === false) {
-			errors.push(new InvalidParamsError(parsedParams.error.message))
-		}
 
 		if (formattedErrors.maxFeePerGas) {
 			formattedErrors.maxFeePerGas._errors.forEach((error) => {
@@ -141,6 +136,12 @@ export const validateBaseCallParams = (action) => {
 			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
 				errors.push(new InvalidMaxPriorityFeePerGasError(error))
 			})
+		}
+
+		// if we missed an error let's make sure we handle it here
+		// THis is purely defensive
+		if (errors.length === 0 && parsedParams.success === false) {
+			errors.push(new InvalidParamsError(parsedParams.error.message))
 		}
 	}
 

@@ -58,6 +58,8 @@ Additional parameters for the BaseError.
 - [`InvalidSelfdestructError`](/reference/tevm/errors/classes/invalidselfdestructerror/)
 - [`InvalidDeployedBytecodeError`](/reference/tevm/errors/classes/invaliddeployedbytecodeerror/)
 - [`InvalidBlobVersionedHashesError`](/reference/tevm/errors/classes/invalidblobversionedhasheserror/)
+- [`InvalidMaxFeePerGasError`](/reference/tevm/errors/classes/invalidmaxfeepergaserror/)
+- [`InvalidMaxPriorityFeePerGasError`](/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/)
 - [`DecodeFunctionDataError`](/reference/tevm/errors/classes/decodefunctiondataerror/)
 - [`EncodeFunctionReturnDataError`](/reference/tevm/errors/classes/encodefunctionreturndataerror/)
 

@@ -1,24 +1,23 @@
-[**@tevm/errors**](../README.md) • **Docs**
+---
+editUrl: false
+next: false
+prev: false
+title: "InvalidMaxFeePerGasError"
+---
 
-***
+Represents an error that occurs when the max fee per gas is invalid.
 
-[@tevm/errors](../globals.md) / InvalidParamsError
-
-# Class: InvalidParamsError
-
-Represents an error that occurs when invalid method parameters are provided.
-
-This error is typically encountered when a JSON-RPC request is made with parameters that are not valid or do not match the expected types.
+This error is typically encountered when a transaction or operation references a max fee per gas that is invalid or does not conform to the expected structure.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw an InvalidParamsError
+  // Some operation that can throw an InvalidMaxFeePerGasError
 } catch (error) {
-  if (error instanceof InvalidParamsError) {
+  if (error instanceof InvalidMaxFeePerGasError) {
     console.error(error.message);
-    // Handle the invalid params error
+    // Handle the invalid max fee per gas error
   }
 }
 ```
@@ -29,48 +28,19 @@ A human-readable error message.
 
 ## Param
 
-Additional parameters for the BaseError.
+Additional parameters for the InvalidMaxFeePerGasError.
 
 ## Extends
 
-- [`BaseError`](BaseError.md)
-
-## Extended by
-
-- [`InvalidToError`](InvalidToError.md)
-- [`InvalidAbiError`](InvalidAbiError.md)
-- [`InvalidUrlError`](InvalidUrlError.md)
-- [`InvalidArgsError`](InvalidArgsError.md)
-- [`InvalidDataError`](InvalidDataError.md)
-- [`InvalidSaltError`](InvalidSaltError.md)
-- [`InvalidBlockError`](InvalidBlockError.md)
-- [`InvalidDepthError`](InvalidDepthError.md)
-- [`InvalidNonceError`](InvalidNonceError.md)
-- [`InvalidValueError`](InvalidValueError.md)
-- [`InvalidCallerError`](InvalidCallerError.md)
-- [`InvalidOriginError`](InvalidOriginError.md)
-- [`InvalidBalanceError`](InvalidBalanceError.md)
-- [`InvalidBytecodeError`](InvalidBytecodeError.md)
-- [`InvalidGasLimitError`](InvalidGasLimitError.md)
-- [`InvalidGasRefundError`](InvalidGasRefundError.md)
-- [`InvalidSkipBalanceError`](InvalidSkipBalanceError.md)
-- [`InvalidStorageRootError`](InvalidStorageRootError.md)
-- [`InvalidFunctionNameError`](InvalidFunctionNameError.md)
-- [`InvalidSelfdestructError`](InvalidSelfdestructError.md)
-- [`InvalidDeployedBytecodeError`](InvalidDeployedBytecodeError.md)
-- [`InvalidBlobVersionedHashesError`](InvalidBlobVersionedHashesError.md)
-- [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
-- [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
-- [`DecodeFunctionDataError`](DecodeFunctionDataError.md)
-- [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
+- [`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/)
 
 ## Constructors
 
-### new InvalidParamsError()
+### new InvalidMaxFeePerGasError()
 
-> **new InvalidParamsError**(`message`, `args`?): [`InvalidParamsError`](InvalidParamsError.md)
+> **new InvalidMaxFeePerGasError**(`message`, `args`?): [`InvalidMaxFeePerGasError`](/reference/tevm/errors/classes/invalidmaxfeepergaserror/)
 
-Constructs an InvalidParamsError.
+Constructs an InvalidMaxFeePerGasError.
 
 #### Parameters
 
@@ -78,21 +48,21 @@ Constructs an InvalidParamsError.
 
 Human-readable error message.
 
-• **args?**: [`InvalidParamsErrorParameters`](../interfaces/InvalidParamsErrorParameters.md)= `{}`
+• **args?**: [`InvalidMaxFeePerGasErrorParameters`](/reference/tevm/errors/interfaces/invalidmaxfeepergaserrorparameters/)= `{}`
 
-Additional parameters for the BaseError.
+Additional parameters for the InvalidMaxFeePerGasError.
 
 #### Returns
 
-[`InvalidParamsError`](InvalidParamsError.md)
+[`InvalidMaxFeePerGasError`](/reference/tevm/errors/classes/invalidmaxfeepergaserror/)
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`constructor`](/reference/tevm/errors/classes/invalidparamserror/#constructors)
 
 #### Source
 
-[packages/errors/src/ethereum/InvalidParamsError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L48)
+[packages/errors/src/input/InvalidMaxFeePerGaserror.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L47)
 
 ## Properties
 
@@ -102,9 +72,9 @@ Additional parameters for the BaseError.
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`_tag`](/reference/tevm/errors/classes/invalidparamserror/#_tag)
 
 #### Source
 
@@ -118,7 +88,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`cause`](/reference/tevm/errors/classes/invalidparamserror/#cause)
 
 #### Source
 
@@ -134,7 +104,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`code`](/reference/tevm/errors/classes/invalidparamserror/#code)
 
 #### Source
 
@@ -148,7 +118,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`details`](/reference/tevm/errors/classes/invalidparamserror/#details)
 
 #### Source
 
@@ -164,7 +134,7 @@ Path to the documentation for this error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`docsPath`](/reference/tevm/errors/classes/invalidparamserror/#docspath)
 
 #### Source
 
@@ -180,7 +150,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`message`](/reference/tevm/errors/classes/invalidparamserror/#message)
 
 #### Source
 
@@ -193,6 +163,10 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 > **meta**: `undefined` \| `object`
 
 Optional object containing additional information about the error.
+
+#### Inherited from
+
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`meta`](/reference/tevm/errors/classes/invalidparamserror/#meta)
 
 #### Source
 
@@ -208,7 +182,7 @@ Additional meta messages for more context.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`metaMessages`](/reference/tevm/errors/classes/invalidparamserror/#metamessages)
 
 #### Source
 
@@ -222,9 +196,9 @@ Additional meta messages for more context.
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
-[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`name`](/reference/tevm/errors/classes/invalidparamserror/#name)
 
 #### Source
 
@@ -238,7 +212,7 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`shortMessage`](/reference/tevm/errors/classes/invalidparamserror/#shortmessage)
 
 #### Source
 
@@ -252,7 +226,7 @@ The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`stack`](/reference/tevm/errors/classes/invalidparamserror/#stack)
 
 #### Source
 
@@ -266,7 +240,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`version`](/reference/tevm/errors/classes/invalidparamserror/#version)
 
 #### Source
 
@@ -296,7 +270,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`prepareStackTrace`](/reference/tevm/errors/classes/invalidparamserror/#preparestacktrace)
 
 #### Source
 
@@ -310,7 +284,7 @@ node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:2
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`stackTraceLimit`](/reference/tevm/errors/classes/invalidparamserror/#stacktracelimit)
 
 #### Source
 
@@ -338,7 +312,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`walk`](/reference/tevm/errors/classes/invalidparamserror/#walk)
 
 #### Source
 
@@ -366,7 +340,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`captureStackTrace`](/reference/tevm/errors/classes/invalidparamserror/#capturestacktrace)
 
 ##### Source
 
@@ -390,7 +364,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/).[`captureStackTrace`](/reference/tevm/errors/classes/invalidparamserror/#capturestacktrace)
 
 ##### Source
 
