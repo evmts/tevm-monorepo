@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setCoinbase` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:118
+packages/procedures/dist/index.d.ts:665

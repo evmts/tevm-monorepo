@@ -12,4 +12,4 @@ JSON-RPC response for `debug_traceTransaction` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:262
+packages/procedures/dist/index.d.ts:796
