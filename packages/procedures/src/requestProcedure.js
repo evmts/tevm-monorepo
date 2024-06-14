@@ -59,7 +59,7 @@ import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
  * bundle size.
  *
  * @param {import('@tevm/base-client').BaseClient} client
- * @returns {import('@tevm/procedures').TevmJsonRpcRequestHandler}
+ * @returns {import('./tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
  * const blockNumberResponse = await tevm.request({
@@ -140,7 +140,7 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setCode'}*/ ('ganache_setCode'):
 			case /** @type {'anvil_setCode'}*/ ('hardhat_setCode'): {
 				/**
-				 * @type {import('@tevm/procedures').AnvilSetCodeJsonRpcRequest}
+				 * @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilSetCodeJsonRpcRequest}
 				 */
 				const codeRequest = request
 				const result = setAccountProcedure(client)({
@@ -158,7 +158,7 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setBalance'}*/ ('ganache_setBalance'):
 			case /** @type {'anvil_setBalance'}*/ ('hardhat_setBalance'): {
 				/**
-				 * @type {import('@tevm/procedures').AnvilSetBalanceJsonRpcRequest}
+				 * @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilSetBalanceJsonRpcRequest}
 				 */
 				const balanceRequest = request
 				const balanceResult = setAccountProcedure(client)({
@@ -181,7 +181,7 @@ export const requestProcedure = (client) => {
 			case /** @type {'anvil_setNonce'}*/ ('ganache_setNonce'):
 			case /** @type {'anvil_setNonce'}*/ ('hardhat_setNonce'): {
 				/**
-				 * @type {import('@tevm/procedures').AnvilSetNonceJsonRpcRequest}
+				 * @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilSetNonceJsonRpcRequest}
 				 **/
 				const nonceRequest = request
 				const nonceResult = setAccountProcedure(client)({
@@ -203,7 +203,7 @@ export const requestProcedure = (client) => {
 			case 'anvil_setChainId':
 			case /** @type {'anvil_setChainId'}*/ ('hardhat_setChainId'):
 			case /** @type {'anvil_setChainId'}*/ ('ganache_setChainId'): {
-				const chainId = /** @type {import('@tevm/procedures').AnvilSetChainIdJsonRpcRequest}*/ (request).params[0]
+				const chainId = /** @type {import('./anvil/index.ts').AnvilSetChainIdJsonRpcRequest} */ (request).params[0]
 				if (!Number.isInteger(chainId) || hexToNumber(chainId) <= 0) {
 					return {
 						...(request.id ? { id: request.id } : {}),
@@ -246,9 +246,7 @@ export const requestProcedure = (client) => {
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendTransaction': {
-				const sendTransactionRequest = /** @type {import('@tevm/procedures').EthSendTransactionJsonRpcRequest}*/ (
-					request
-				)
+				const sendTransactionRequest = /** @type {import('./eth/index.js').EthSendTransactionJsonRpcRequest}*/ (request)
 				const txHash = await ethSendTransactionHandler(client)({
 					from: request.params[0].from,
 					...(request.params[0].data ? { data: request.params[0].data } : {}),
@@ -266,7 +264,7 @@ export const requestProcedure = (client) => {
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendRawTransaction': {
-				const sendTransactionRequest = /** @type {import('@tevm/procedures').EthSendRawTransactionJsonRpcRequest}*/ (
+				const sendTransactionRequest = /** @type {import('./eth/index.js').EthSendRawTransactionJsonRpcRequest}*/ (
 					request
 				)
 				const txHash = await ethSendTransactionHandler(client)({
@@ -281,7 +279,9 @@ export const requestProcedure = (client) => {
 			}
 			// TODO move this to it's own procedure
 			case 'eth_estimateGas': {
-				const estimateGasRequest = /** @type {import('@tevm/procedures').EthEstimateGasJsonRpcRequest}*/ (request)
+				const estimateGasRequest = /** @type {import('./eth/EthJsonRpcRequest.js').EthEstimateGasJsonRpcRequest}*/ (
+					request
+				)
 				const callResult = await callProcedure(client)({
 					...estimateGasRequest,
 					params: [...estimateGasRequest.params],
@@ -356,7 +356,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'debug_traceCall': {
 				const debugTraceCallRequest =
-					/** @type {import('@tevm/procedures').DebugTraceCallJsonRpcRequest}*/
+					/** @type {import('./debug/index.js').DebugTraceCallJsonRpcRequest}*/
 					(request)
 				const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } =
 					debugTraceCallRequest.params[0]
@@ -395,19 +395,19 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getTransactionReceipt': {
 				const getTransactionReceiptRequest =
-					/** @type {import('@tevm/procedures').EthGetTransactionReceiptJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionReceiptJsonRpcRequest}*/
 					(request)
 				return ethGetTransactionReceiptJsonRpcProcedure(client)(getTransactionReceiptRequest)
 			}
 			case 'eth_getLogs': {
 				const ethGetLogsRequest =
-					/** @type {import('@tevm/procedures').EthGetLogsJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetLogsJsonRpcRequest}*/
 					(request)
 				return ethGetLogsProcedure(client)(ethGetLogsRequest)
 			}
 			case 'eth_getBlockByHash': {
 				const getBlockByHashRequest =
-					/** @type {import('@tevm/procedures').EthGetBlockByHashJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetBlockByHashJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
@@ -422,7 +422,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getBlockByNumber': {
 				const getBlockByHashRequest =
-					/** @type {import('@tevm/procedures').EthGetBlockByNumberJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetBlockByNumberJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const blockTagOrNumber = getBlockByHashRequest.params[0]
@@ -464,7 +464,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getBlockTransactionCountByHash': {
 				const getBlockByHashRequest =
-					/** @type {import('@tevm/procedures').EthGetBlockTransactionCountByHashJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetBlockTransactionCountByHashJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
@@ -478,7 +478,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getBlockTransactionCountByNumber': {
 				const getBlockByHashRequest =
-					/** @type {import('@tevm/procedures').EthGetBlockTransactionCountByNumberJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetBlockTransactionCountByNumberJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const blockTagOrNumber = getBlockByHashRequest.params[0]
@@ -509,7 +509,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getTransactionByHash': {
 				const getTransactionByHashRequest =
-					/** @type {import('@tevm/procedures').EthGetTransactionByHashJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionByHashJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const receiptsManager = await client.getReceiptsManager()
@@ -557,7 +557,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getTransactionByBlockHashAndIndex': {
 				const getTransactionByBlockHashAndIndexRequest =
-					/** @type {import('@tevm/procedures').EthGetTransactionByBlockHashAndIndexJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionByBlockHashAndIndexJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
@@ -583,7 +583,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getTransactionByBlockNumberAndIndex': {
 				const getTransactionByBlockNumberAndIndexRequest =
-					/** @type {import('@tevm/procedures').EthGetTransactionByBlockNumberAndIndexJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionByBlockNumberAndIndexJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const blockTagOrNumber = getTransactionByBlockNumberAndIndexRequest.params[0]
@@ -657,7 +657,7 @@ export const requestProcedure = (client) => {
 			case /** @type any*/ ('ganache_setStorageAt'):
 			case /** @type any*/ ('hardhat_setStorageAt'): {
 				const anvilSetStorageAtRequest =
-					/** @type {import('@tevm/procedures').AnvilSetStorageAtJsonRpcRequest}*/
+					/** @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilSetStorageAtJsonRpcRequest}*/
 					(request)
 				const result = await setAccountProcedure(client)({
 					method: 'tevm_setAccount',
@@ -679,7 +679,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'anvil_dropTransaction': {
 				const anvilDropTransactionRequest =
-					/** @type {import('@tevm/procedures').AnvilDropTransactionJsonRpcRequest}*/
+					/** @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilDropTransactionJsonRpcRequest}*/
 					(request)
 				const txHash = anvilDropTransactionRequest.params[0].transactionHash
 				const txPool = await client.getTxPool()
@@ -714,7 +714,9 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'anvil_loadState': {
-				const loadStateRequest = /** @type {import('@tevm/procedures').AnvilLoadStateJsonRpcRequest}*/ (request)
+				const loadStateRequest = /** @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilLoadStateJsonRpcRequest}*/ (
+					request
+				)
 
 				const vm = await client.getVm()
 
@@ -728,7 +730,7 @@ export const requestProcedure = (client) => {
 				)
 					.then(() => {
 						/**
-						 * @type {import('@tevm/procedures').AnvilLoadStateJsonRpcResponse}
+						 * @type {import('./anvil/AnvilJsonRpcResponse.js').AnvilLoadStateJsonRpcResponse}
 						 */
 						return {
 							jsonrpc: '2.0',
@@ -750,7 +752,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'debug_traceTransaction': {
 				const debugTraceTransactionRequest =
-					/** @type {import('@tevm/procedures').DebugTraceTransactionJsonRpcRequest}*/
+					/** @type {import('./debug/DebugJsonRpcRequest.js').DebugTraceTransactionJsonRpcRequest}*/
 					(request)
 				const { tracer, timeout, tracerConfig, transactionHash } = request.params[0]
 				if (timeout !== undefined) {
@@ -855,7 +857,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'anvil_impersonateAccount': {
 				const impersonateAccountRequest =
-					/** @type {import('@tevm/procedures').AnvilImpersonateAccountJsonRpcRequest}*/
+					/** @type {import('./anvil/AnvilJsonRpcRequest.js').AnvilImpersonateAccountJsonRpcRequest}*/
 					(request)
 				try {
 					client.setImpersonatedAccount(getAddress(impersonateAccountRequest.params[0]))
@@ -888,7 +890,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getTransactionCount': {
 				const getTransactionCountRequest =
-					/** @type {import('@tevm/procedures').EthGetTransactionCountJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionCountJsonRpcRequest}*/
 					(request)
 				const vm = await client.getVm()
 				const [address, tag] = request.params
@@ -935,7 +937,7 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_newFilter': {
-				const newFilterRequest = /** @type {import('@tevm/procedures').EthNewFilterJsonRpcRequest}*/ (request)
+				const newFilterRequest = /** @type {import('./eth/EthJsonRpcRequest.js').EthNewFilterJsonRpcRequest}*/ (request)
 
 				const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = newFilterRequest.params[0]
 				const id = generateRandomId()
@@ -1045,7 +1047,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getFilterLogs': {
 				const ethGetFilterLogsRequest =
-					/** @type {import('@tevm/procedures').EthGetFilterLogsJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetFilterLogsJsonRpcRequest}*/
 					(request)
 				const filter = client.getFilters().get(ethGetFilterLogsRequest.params[0])
 				if (!filter) {
@@ -1100,7 +1102,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_newBlockFilter': {
 				const newBlockFilterRequest =
-					/** @type {import('@tevm/procedures').EthNewBlockFilterJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthNewBlockFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
 				/**
@@ -1133,7 +1135,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_uninstallFilter': {
 				const uninstallFilterRequest =
-					/** @type {import('@tevm/procedures').EthUninstallFilterJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthUninstallFilterJsonRpcRequest}*/
 					(request)
 				const [filterId] = uninstallFilterRequest.params
 				const filter = client.getFilters().get(filterId)
@@ -1164,7 +1166,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_getFilterChanges': {
 				const getFilterChangesRequest =
-					/** @type {import('@tevm/procedures').EthGetFilterChangesJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetFilterChangesJsonRpcRequest}*/
 					(request)
 				const [id] = getFilterChangesRequest.params
 				const filter = client.getFilters().get(id)
@@ -1183,7 +1185,7 @@ export const requestProcedure = (client) => {
 					case 'Log': {
 						const { logs } = filter
 						/**
-						 * @type {import('@tevm/procedures').EthGetFilterChangesJsonRpcResponse}
+						 * @type {import('./eth/EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 						 */
 						const response = {
 							...(request.id ? { id: request.id } : {}),
@@ -1207,7 +1209,7 @@ export const requestProcedure = (client) => {
 					case 'Block': {
 						const { blocks } = filter
 						/**
-						 * @type {import('@tevm/procedures').EthGetFilterChangesJsonRpcResponse}
+						 * @type {import('./eth/EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 						 */
 						const response = {
 							...(request.id ? { id: request.id } : {}),
@@ -1222,7 +1224,7 @@ export const requestProcedure = (client) => {
 					case 'PendingTransaction': {
 						const { tx } = filter
 						/**
-						 * @type {import('@tevm/procedures').EthGetFilterChangesJsonRpcResponse}
+						 * @type {import('./eth/EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 						 */
 						const response = {
 							...(request.id ? { id: request.id } : {}),
@@ -1243,7 +1245,7 @@ export const requestProcedure = (client) => {
 			}
 			case 'eth_newPendingTransactionFilter': {
 				const newPendingTransactionFilterRequest =
-					/** @type {import('@tevm/procedures').EthNewPendingTransactionFilterJsonRpcRequest}*/
+					/** @type {import('./eth/EthJsonRpcRequest.js').EthNewPendingTransactionFilterJsonRpcRequest}*/
 					(request)
 				const id = generateRandomId()
 				/**

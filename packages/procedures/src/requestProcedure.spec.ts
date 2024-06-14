@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
-import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures'
 import { type EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
-import { blockNumberProcedure, callProcedure, scriptProcedure } from './index.js'
+import { blockNumberProcedure, callProcedure, scriptProcedure, type EthSignTransactionJsonRpcRequest } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
