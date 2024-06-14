@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:555
+packages/procedures/dist/index.d.ts:473

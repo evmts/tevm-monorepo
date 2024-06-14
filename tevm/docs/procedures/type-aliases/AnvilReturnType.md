@@ -70,4 +70,4 @@ A mapping of `anvil_*` method names to their return type
 
 ## Source
 
-packages/procedures/dist/index.d.ts:929
+packages/procedures/dist/index.d.ts:775
