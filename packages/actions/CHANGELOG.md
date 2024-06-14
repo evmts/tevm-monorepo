@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.1.0-next.78
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-client@1.1.0-next.78
+  - @tevm/state@1.1.0-next.78
+  - @tevm/evm@1.1.0-next.78
+  - @tevm/vm@1.1.0-next.78
+
 ## 1.1.0-next.77
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/test-utils
 
+## 1.1.0-next.78
+
+### Patch Changes
+
+- [#1203](https://github.com/evmts/tevm-monorepo/pull/1203) [`cae3703`](https://github.com/evmts/tevm-monorepo/commit/cae370392e9633a06503957fbc96e6508dbcb0c5) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bad package.json type
+
 ## 1.1.0-next.77
 
 ### Patch Changes
