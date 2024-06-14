@@ -1,5 +1,17 @@
 # @tevm/state
 
+## 1.1.0-next.77
+
+### Patch Changes
+
+- [#1200](https://github.com/evmts/tevm-monorepo/pull/1200) [`398daa0`](https://github.com/evmts/tevm-monorepo/commit/398daa059ed1c4373200da1a114ef07d156b207d) Thanks [@roninjin10](https://github.com/roninjin10)! - Rerelease tevm packages
+
+- Updated dependencies [[`398daa0`](https://github.com/evmts/tevm-monorepo/commit/398daa059ed1c4373200da1a114ef07d156b207d)]:
+  - @tevm/block@1.1.0-next.77
+  - @tevm/tx@1.1.0-next.77
+  - @tevm/utils@1.1.0-next.77
+  - @tevm/vm@1.1.0-next.77
+
 ## 1.1.0-next.76
 
 ### Patch Changes
