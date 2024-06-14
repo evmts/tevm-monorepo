@@ -1,5 +1,12 @@
 # @tevm/state
 
+## 1.1.0-next.78
+
+### Patch Changes
+
+- Updated dependencies [[`cae3703`](https://github.com/evmts/tevm-monorepo/commit/cae370392e9633a06503957fbc96e6508dbcb0c5)]:
+  - @tevm/test-utils@1.1.0-next.78
+
 ## 1.1.0-next.77
 
 ### Patch Changes

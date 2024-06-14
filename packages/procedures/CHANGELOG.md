@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.1.0-next.78
+
+### Patch Changes
+
+- [#1202](https://github.com/evmts/tevm-monorepo/pull/1202) [`4b5b546`](https://github.com/evmts/tevm-monorepo/commit/4b5b546914362f48e30c088f2eee15d1eba8256d) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with imports not being updated in procedures package
+
+- Updated dependencies []:
+  - @tevm/actions@1.1.0-next.78
+  - @tevm/base-client@1.1.0-next.78
+  - @tevm/state@1.1.0-next.78
+  - @tevm/evm@1.1.0-next.78
+  - @tevm/vm@1.1.0-next.78
+
 ## 1.1.0-next.77
 
 ### Patch Changes
