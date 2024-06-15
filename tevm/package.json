@@ -234,16 +234,6 @@
         "default": "./bundler/rspack-plugin/index.cjs"
       }
     },
-    "./bundler/ts-plugin": {
-      "import": {
-        "types": "./bundler/ts-plugin/index.d.ts",
-        "default": "./bundler/ts-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/ts-plugin/index.d.cts",
-        "default": "./bundler/ts-plugin/index.cjs"
-      }
-    },
     "./bundler/vite-plugin": {
       "import": {
         "types": "./bundler/vite-plugin/index.d.ts",
@@ -323,7 +313,6 @@
     "bundler/esbuild-plugin",
     "bundler/rollup-plugin",
     "bundler/rspack-plugin",
-    "bundler/ts-plugin",
     "bundler/vite-plugin",
     "bundler/webpack-plugin"
   ],
@@ -368,7 +357,6 @@
     "@tevm/rollup-plugin": "workspace:^",
     "@tevm/rspack-plugin": "workspace:^",
     "@tevm/solc": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^"
   },
@@ -380,6 +368,7 @@
     "access": "public"
   },
   "peerDependencies": {
+    "@tevm/ts-plugin": "^1.0.0",
     "viem": "^2.12.0"
   }
 }

@@ -26,7 +26,6 @@ const dirs = [
 'bundler/esbuild-plugin',
 'bundler/rollup-plugin',
 'bundler/rspack-plugin',
-'bundler/ts-plugin',
 'bundler/solc',
 'bundler/vite-plugin',
 'bundler/webpack-plugin',

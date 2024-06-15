@@ -23,7 +23,6 @@
     "./bundler/esbuild-plugin/index.ts",
     "./bundler/rollup-plugin/index.ts",
     "./bundler/rspack-plugin/index.ts",
-    "./bundler/ts-plugin/index.ts",
     "./bundler/vite-plugin/index.ts",
     "./bundler/webpack-plugin/index.ts",
     "./bundler/solc/index.ts",
