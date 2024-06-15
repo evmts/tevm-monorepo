@@ -794,13 +794,7 @@ This bundler will give you a lot of great features such as
 
 Tevm supports all major bundlers including vite, rollup, webpack, rspack, bun and esbuild. If your bundler is not supported open an issue it's likely a light lift to add support.
 
-### 1. Install `@tevm/bundler` and `@tevm/ts-plugin`
-
-```bash
-npm i --save-dev @tevm/bundler @tevm/ts-plugin
-```
-
-### 2. Configure vite
+### 1. Configure vite
 
 Configuring vite will allow vite to recognize solidity imports. When it sees solidity it will compile it into the abi and bytecode to make a `tevm contract` just like we made manually in `counterContract.ts`
 
@@ -809,7 +803,7 @@ Add the `viteExtensionTevm` to your vite config under `plugins`
 ```bash
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import { vitePluginTevm } from '@tevm/bundler/vite-plugin'
+import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -833,9 +827,9 @@ export default defineConfig({
 
 ### 3. Configure the LSP
 
-Configuring a typescript plugin allows any editor such as VSCode or neovim to recognize the correct type of contract imports.
+Configuring a typescript plugin allows any editor such as VSCode or neovim to recognize the correct type of contract imports. This should be added to your tsconfig automatically via restarting your vite serve.
 
-Add the `@tevm/ts-plugin` to the typescript config (note I think you might have to install @tevm/ts-plugin because a bug here but will be testing later)
+To add it manually, add the `@tevm/ts-plugin` to the typescript config. It will be automatically added if it doesn't already exist.
 
 ```json
 {
@@ -850,8 +844,6 @@ Add the `@tevm/ts-plugin` to the typescript config (note I think you might have 
 Now restart your editor/lsp and typescript will now be able to recognize your contract imports.
 
 Note: If using vscode you will need to [set the workspace version](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript) to load ts-plugins
-
-Note: I haven't tested the LSP in many months while focusing on building MemoryClient so it may have regressions. We will be giving the bundler and lsp some more love by end of may.
 
 :::tip[Solidity import best practices]
 Importing solidity directly is a convenience for when you are developing scripts and contracts within the same codebase as your javascript. It is NOT recomended to copy paste contracts just to use them with the tevm bundler. Instead consider the following options if the contract isn't in your code base.

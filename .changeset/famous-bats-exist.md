@@ -16,7 +16,6 @@
 "@tevm/solc": patch
 "@tevm/vite-plugin": patch
 "@tevm/bun-plugin": patch
-"@tevm/bundler": patch
 "@tevm/memory-client": patch
 ---
 

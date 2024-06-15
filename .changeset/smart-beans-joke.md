@@ -1,5 +1,4 @@
 ---
-"@tevm/bundler": patch
 "@tevm/base-bundler": patch
 "@tevm/bun-plugin": patch
 "@tevm/bundler-cache": patch

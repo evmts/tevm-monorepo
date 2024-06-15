@@ -1,5 +1,4 @@
 ---
-"@tevm/bundler": minor
 "tevm": minor
 ---
 

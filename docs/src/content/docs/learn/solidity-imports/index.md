@@ -16,16 +16,16 @@ To support solidity imports the following steps must be taken:
 
 ## Installation
 
-All tevm build tool can be installed via the `@tevm/bundler` package.
+All tevm build tool can be installed via the `tevm` package.
 
 ```bash
-npm install @tevm/bundler
+npm install tevm
 ```
 
-After installing you can use any tevm build tool package via a deep import to it's subpackage.
+After installing you can use any tevm build tool package via a deep import to it's subpackage in `tevm/bundler`.
 
 ```typescript
-import { rollupPluginTevm } from "@tevm/bundler/rollup-plugin";
+import { rollupPluginTevm } from "tevm/bundler/rollup-plugin";
 ```
 
 It is also possible to install these subpackages as standalone packages if you prefer.

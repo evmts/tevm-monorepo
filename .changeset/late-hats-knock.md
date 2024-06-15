@@ -1,5 +1,4 @@
 ---
-"@tevm/bundler": minor
 "@tevm/base-bundler": minor
 "@tevm/bun-plugin": minor
 "@tevm/bundler-cache": minor
