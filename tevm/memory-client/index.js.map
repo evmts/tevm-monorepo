@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EAEE;AAAA,OAEK","sourcesContent":["export {\n  type MemoryClient,\n  createMemoryClient,\n  type TevmActions,\n} from '@tevm/memory-client'\n"]}

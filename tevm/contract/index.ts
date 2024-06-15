@@ -1,16 +1,1 @@
-export {
-  type Contract,
-  type Script,
-  type CreateScriptParams,
-  type CreateContractParams,
-  type CreateScript,
-  type CreateContract,
-  type EventActionCreator,
-  type ReadActionCreator,
-  type WriteActionCreator,
-  type ValueOf,
-  type MaybeExtractEventArgsFromAbi,
-  createContract,
-  createScript,
-  SimpleContract,
-} from '@tevm/contract'
+export * from '@tevm/contract'

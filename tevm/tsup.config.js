@@ -18,6 +18,18 @@ const dirs = [
 'state',
 'sync-storage-persister',
 'utils',
+'bundler/',
+'bundler/base-bundler',
+'bundler/bun-plugin',
+'bundler/compiler',
+'bundler/config',
+'bundler/esbuild-plugin',
+'bundler/rollup-plugin',
+'bundler/rspack-plugin',
+'bundler/ts-plugin',
+'bundler/solc',
+'bundler/vite-plugin',
+'bundler/webpack-plugin',
 ]
 
 export default defineConfig(

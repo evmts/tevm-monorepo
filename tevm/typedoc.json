@@ -16,7 +16,19 @@
     "./utils/index.ts",
     "./state/index.ts",
     "./common/index.ts",
-    "./sync-storage-persister/index.ts"
+    "./sync-storage-persister/index.ts",
+    "./bundler/index.ts",
+    "./bundler/base-bundler/index.ts",
+    "./bundler/bun-plugin/index.d.ts",
+    "./bundler/esbuild-plugin/index.ts",
+    "./bundler/rollup-plugin/index.ts",
+    "./bundler/rspack-plugin/index.ts",
+    "./bundler/ts-plugin/index.ts",
+    "./bundler/vite-plugin/index.ts",
+    "./bundler/webpack-plugin/index.ts",
+    "./bundler/solc/index.ts",
+    "./bundler/config/index.ts",
+    "./bundler/compiler/index.ts"
   ],
   "plugin": ["typedoc-plugin-markdown"],
   "gitRevision": "main"
