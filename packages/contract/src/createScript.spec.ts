@@ -94,6 +94,7 @@ describe(createScript.name, () => {
 			  ],
 			  "bytecode": "0x420",
 			  "deployedBytecode": "0x69",
+			  "code": "0x69",
 			  "functionName": "exampleWrite",
 			  "humanReadableAbi": [
 			    "function exampleWrite(string str, uint256 num) payable returns (string)",
@@ -132,6 +133,7 @@ describe(createScript.name, () => {
 			  ],
 			  "bytecode": "0x420",
 			  "deployedBytecode": "0x69",
+			  "code": "0x69",
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
@@ -156,6 +158,7 @@ describe(createScript.name, () => {
 			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "bytecode": "0x420",
 			  "deployedBytecode": "0x69",
+			  "code": "0x69",
 			  "eventName": "exampleEvent",
 			  "humanReadableAbi": [
 			    "event exampleEvent(string data)",

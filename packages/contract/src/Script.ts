@@ -96,6 +96,10 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 	 */
 	deployedBytecode: Hex
 	/**
+	 * Alias for `deployedBytecode`. Included for viem compatability
+	 */
+	code: Hex
+	/**
 	 * The name of the contract. If imported this will match the name of the contract import
 	 */
 	name: TName
