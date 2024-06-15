@@ -31,7 +31,7 @@
       },
       "require": {
         "types": "./index.d.cts",
-        "default": "./index.cjs"
+        "default": "./tevm.cjs"
       }
     },
     "./actions": {
@@ -285,7 +285,7 @@
       }
     }
   },
-  "main": "index.cjs",
+  "main": "tevm.cjs",
   "module": "index.js",
   "types": "index.d.ts",
   "files": [
@@ -332,31 +332,32 @@
   },
   "dependencies": {
     "@tevm/actions": "workspace:^",
+    "@tevm/base-bundler": "workspace:^",
     "@tevm/base-client": "workspace:^",
+    "@tevm/bun-plugin": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
+    "@tevm/compiler": "workspace:^",
+    "@tevm/config": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
+    "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/http-client": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
     "@tevm/procedures": "workspace:^",
-    "@tevm/server": "workspace:^",
-    "@tevm/state": "workspace:^",
-    "@tevm/sync-storage-persister": "workspace:^",
-    "@tevm/utils": "workspace:^",
-    "@tevm/viem": "workspace:^",
-    "@tevm/base-bundler": "workspace:^",
-    "@tevm/bun-plugin": "workspace:^",
-    "@tevm/compiler": "workspace:^",
-    "@tevm/config": "workspace:^",
-    "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/rollup-plugin": "workspace:^",
     "@tevm/rspack-plugin": "workspace:^",
+    "@tevm/server": "workspace:^",
     "@tevm/solc": "workspace:^",
+    "@tevm/state": "workspace:^",
+    "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
+    "@tevm/utils": "workspace:^",
+    "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^"
   },
@@ -368,7 +369,6 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@tevm/ts-plugin": "^1.0.0",
     "viem": "^2.12.0"
   }
 }
