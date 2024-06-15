@@ -3,7 +3,6 @@
   "tag": "next",
   "initialVersions": {
     "@tevm/docs": "0.0.1",
-    "@tevm/bundler": "0.11.2",
     "@tevm/bun-plugin": "0.11.2",
     "@tevm/config": "0.10.0",
     "@tevm/esbuild-plugin": "0.11.2",

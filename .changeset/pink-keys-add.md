@@ -1,7 +1,6 @@
 ---
 "@tevm/unplugin": patch
 "@tevm/experimental-solc": patch
-"@tevm/bundler": patch
 "@tevm/esbuild-plugin": patch
 "@tevm/webpack-plugin": patch
 "@tevm/rollup-plugin": patch

@@ -1,5 +1,4 @@
 ---
-"@tevm/bundler": patch
 "@tevm/bun-plugin": patch
 "@tevm/ts-plugin": patch
 "@tevm/esbuild-plugin": patch

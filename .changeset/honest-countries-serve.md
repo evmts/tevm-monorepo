@@ -53,7 +53,6 @@
 "@tevm/tx": patch
 "@tevm/vm": patch
 "@tevm/vscode": patch
-"@tevm/bundler": patch
 "@tevm/lsp": patch
 "tevm": patch
 ---
