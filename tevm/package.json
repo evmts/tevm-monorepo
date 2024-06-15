@@ -31,7 +31,7 @@
       },
       "require": {
         "types": "./index.d.cts",
-        "default": "./tevm.cjs"
+        "default": "./index.cjs"
       }
     },
     "./actions": {
@@ -285,7 +285,7 @@
       }
     }
   },
-  "main": "tevm.cjs",
+  "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
   "files": [
@@ -355,7 +355,6 @@
     "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^",
     "@tevm/utils": "workspace:^",
     "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
@@ -366,7 +365,8 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.12.0"
+    "viem": "^2.12.0",
+    "@tevm/ts-plugin": "*"
   },
   "publishConfig": {
     "access": "public"
