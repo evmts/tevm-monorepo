@@ -1,4 +1,4 @@
-import { vitePluginTevm } from '@tevm/bundler/vite-plugin'
+import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
 import { defineConfig } from 'vitest/config'
 
 // https://vitest.dev/config/ - for docs

@@ -365,10 +365,10 @@
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "peerDependencies": {
     "viem": "^2.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

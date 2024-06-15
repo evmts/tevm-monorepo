@@ -70,7 +70,6 @@
 		"wagmi": "^2.9.10"
 	},
 	"devDependencies": {
-		"@tevm/bundler": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/node": "^20.14.2"

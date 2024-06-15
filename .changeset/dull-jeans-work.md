@@ -18,7 +18,6 @@
 "@tevm/utils": minor
 "@tevm/evm": minor
 "@tevm/vm": minor
-"@tevm/bundler": minor
 "tevm": minor
 ---
 

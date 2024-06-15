@@ -91,7 +91,6 @@ For more information the [reference docs](https://tevm.sh) are a useful resource
 
 #### Build packages
 
-- [@tevm/bundler](./bundlers/bundler) is the main bundler used to create all the build tools. It bundles all contract imports using [@tevm/solc](./solc) for it's solidity compiler and [@tevm/runtime](./runtime) to construct runtimes.
 - [@tevm/ts-plugin](./ts-plugin) is the LSP (language service protocol) plugin. It is what allows code editors such as VSCode to correctly infer types of solidity imports.
 - [bundlers/\*](./bundlers) Are where all the supported bundlers live. Most are created using [@tevm/unplugin](./bundlers/unplugin) which implements a rollup plugin once to be reused in many packages including [@tevm/webpack](./bundlers/webpack) and [@tevm/vite](./bundlers/vite) and more.
 - [@tevm/config](./config) is the package that loads the Tevm config
