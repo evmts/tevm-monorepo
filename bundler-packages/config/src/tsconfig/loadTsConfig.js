@@ -1,8 +1,8 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import * as path from 'node:path'
 import { array, optional, parseEither, record, string, struct } from '@effect/schema/Schema'
 import { parseJson } from '@tevm/effect'
-import { catchTag, fail, flatMap, logDebug, tap, try as tryEffect } from 'effect/Effect'
+import { catchTag, fail, flatMap, logDebug, succeed, tap, tapBoth, try as tryEffect } from 'effect/Effect'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
@@ -44,16 +44,33 @@ export class InvalidTsConfigError extends TypeError {
 }
 
 /**
- * schema for tsconfig shape
+ * schema for tsconfig shape with plugin
  * @internal
  */
-const STsConfig = struct({
+const STsConfigWithPlugin = struct({
 	compilerOptions: struct({
 		baseUrl: optional(string),
 		plugins: array(
 			struct({
 				name: string,
 			}),
+		),
+		paths: optional(record(string, array(string))),
+	}),
+})
+/**
+ * schema for tsconfig shape
+ * @internal
+ */
+const STsConfig = struct({
+	compilerOptions: struct({
+		baseUrl: optional(string),
+		plugins: optional(
+			array(
+				struct({
+					name: string,
+				}),
+			),
 		),
 		paths: optional(record(string, array(string))),
 	}),
@@ -78,9 +95,70 @@ export const loadTsConfig = (configFilePath) => {
 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
 	}).pipe(
+		// parse the json
 		flatMap(parseJson),
+		// parse the tsconfig without plugins
 		flatMap((unvalidatedConfig) =>
 			parseEither(STsConfig)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			}),
+		),
+		// add ts-plugin if it's missing
+		tap((unvalidatedConfig) =>
+			// if it doesn't have the plugin automatically install
+			parseEither(STsConfigWithPlugin)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			}).pipe(
+				tapBoth({
+					onFailure: () => {
+						const newConfig = {
+							...unvalidatedConfig,
+							compilerOptions: {
+								...unvalidatedConfig.compilerOptions,
+								plugins: [{ name: '@tevm/ts-plugin' }],
+							},
+						}
+						try {
+							const path = existsSync(jsConfigPath) ? jsConfigPath : tsConfigPath
+							writeFileSync(path, JSON.stringify(newConfig, null, 2))
+						} catch (e) {
+							console.error(e)
+							console.error(
+								'Missing @tevm/ts-plugin in tsconfig.json and unable to add it automatically. Please add it manually.',
+							)
+						}
+						return succeed(newConfig)
+					},
+					onSuccess: (config) => {
+						const hasPlugin = config.compilerOptions.plugins.some((plugin) => plugin.name === '@tevm/ts-plugin')
+						if (!hasPlugin) {
+							const newConfig = {
+								...config,
+								compilerOptions: {
+									...config.compilerOptions,
+									plugins: [{ name: '@tevm/ts-plugin' }, ...config.compilerOptions.plugins],
+								},
+							}
+							try {
+								const path = existsSync(jsConfigPath) ? jsConfigPath : tsConfigPath
+								writeFileSync(path, JSON.stringify(newConfig, null, 2))
+							} catch (e) {
+								console.error(e)
+								console.error(
+									'Missing @tevm/ts-plugin in tsconfig.json and unable to add it automatically. Please add it manually.',
+								)
+							}
+							return succeed(newConfig)
+						}
+						return succeed(config)
+					},
+				}),
+			),
+		),
+		flatMap((unvalidatedConfig) =>
+			parseEither(STsConfigWithPlugin)(unvalidatedConfig, {
 				errors: 'all',
 				onExcessProperty: 'ignore',
 			}),
