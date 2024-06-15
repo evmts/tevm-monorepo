@@ -4,13 +4,11 @@ var syncStoragePersister = require('@tevm/sync-storage-persister');
 
 
 
-Object.defineProperty(exports, "createSyncStoragePersister", {
-  enumerable: true,
-  get: function () { return syncStoragePersister.createSyncStoragePersister; }
-});
-Object.defineProperty(exports, "noopPersister", {
-  enumerable: true,
-  get: function () { return syncStoragePersister.noopPersister; }
+Object.keys(syncStoragePersister).forEach(function (k) {
+	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function () { return syncStoragePersister[k]; }
+	});
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

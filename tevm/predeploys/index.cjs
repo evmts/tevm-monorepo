@@ -4,9 +4,11 @@ var predeploys = require('@tevm/predeploys');
 
 
 
-Object.defineProperty(exports, "definePredeploy", {
-  enumerable: true,
-  get: function () { return predeploys.definePredeploy; }
+Object.keys(predeploys).forEach(function (k) {
+	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function () { return predeploys[k]; }
+	});
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

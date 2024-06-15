@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EACE;AAAA,EACA;AAAA,OAKK","sourcesContent":["export {\n  definePrecompile,\n  defineCall,\n  type ConstructorArgument,\n  type CustomPrecompile,\n  type CallResult,\n  type TypedError,\n} from \"@tevm/precompiles\";\n"]}
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA,cAAc","sourcesContent":["export * from \"@tevm/precompiles\";\n"]}

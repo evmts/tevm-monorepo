@@ -1,6 +1,5 @@
 ---
 "@tevm/config": minor
-"@tevm/bundler": minor
 "@tevm/bun-plugin": minor
 "@tevm/esbuild-plugin": minor
 "@tevm/rollup-plugin": minor

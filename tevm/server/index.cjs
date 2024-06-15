@@ -4,21 +4,11 @@ var server = require('@tevm/server');
 
 
 
-Object.defineProperty(exports, "createExpressMiddleware", {
-  enumerable: true,
-  get: function () { return server.createExpressMiddleware; }
-});
-Object.defineProperty(exports, "createHttpHandler", {
-  enumerable: true,
-  get: function () { return server.createHttpHandler; }
-});
-Object.defineProperty(exports, "createNextApiHandler", {
-  enumerable: true,
-  get: function () { return server.createNextApiHandler; }
-});
-Object.defineProperty(exports, "createServer", {
-  enumerable: true,
-  get: function () { return server.createServer; }
+Object.keys(server).forEach(function (k) {
+	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function () { return server[k]; }
+	});
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

@@ -1,11 +1,6 @@
 {
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "@evmts/ts-plugin"
-      }
-    ],
     "module": "NodeNext",
     "skipLibCheck": true
   },
@@ -24,6 +19,17 @@
     "errors/index.ts",
     "server/index.ts",
     "state/index.ts",
-    "index.ts"
+    "index.ts",
+    "bundler/base-bundler/index.ts",
+    "bundler/bun-plugin/**/index.ts",
+    "bundler/compiler/index.ts",
+    "bundler/config/index.ts",
+    "bundler/esbuild-plugin/index.ts",
+    "bundler/rollup-plugin/index.ts",
+    "bundler/rspack-plugin/index.ts",
+    "bundler/solc/index.ts",
+    "bundler/vite-plugin/index.ts",
+    "bundler/webpack-plugin/index.ts",
+    "bundler/index.ts"
   ]
 }

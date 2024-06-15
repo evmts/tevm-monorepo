@@ -1,1 +1,1 @@
-export { CustomPredeploy, Predeploy, definePredeploy } from '@tevm/predeploys';
+export * from '@tevm/predeploys';

@@ -1,1 +1,1 @@
-export { CreateSyncStoragePersisterOptions, Storage, SyncStoragePersister, createSyncStoragePersister, noopPersister } from '@tevm/sync-storage-persister';
+export * from '@tevm/sync-storage-persister';

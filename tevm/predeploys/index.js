@@ -1,3 +1,3 @@
-export { definePredeploy } from '@tevm/predeploys';
+export * from '@tevm/predeploys';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

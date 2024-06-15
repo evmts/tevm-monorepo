@@ -5,7 +5,7 @@ prev: false
 title: "requestProcedure"
 ---
 
-> **requestProcedure**(`client`): `TevmJsonRpcRequestHandler`
+> **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequesthandler/)
 
 Request handler for JSON-RPC requests.
 
@@ -22,7 +22,7 @@ bundle size.
 
 ## Returns
 
-`TevmJsonRpcRequestHandler`
+[`TevmJsonRpcRequestHandler`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequesthandler/)
 
 ## Example
 

@@ -57,26 +57,23 @@ contract HelloWorld {
 2. Import the solidity file into a JavaScript or TypeScript file. No need to compile it.
 
 ```typescript
-import { HelloWorld } from './HelloWorld.sol'
+import { HelloWorld } from "./HelloWorld.sol";
 
-console.log(HelloWorld.abi)
-console.log(HelloWorld.bytecode)
+console.log(HelloWorld.abi);
+console.log(HelloWorld.bytecode);
 ```
 
 3. Initialize a [Tevm memory client](./packages/memory-client/docs/functions/createMemoryClient.md) and execute your Script using the [`tevm.script`](./packages/actions/docs/type-aliases/ScriptHandler.md) action
 
 ```typescript
-import { HelloWorld } from './HelloWorld.sol'
-import { createMemoryClient } from 'tevm'
+import { HelloWorld } from "./HelloWorld.sol";
+import { createMemoryClient } from "tevm";
 
-const client = createMemoryClient()
+const client = createMemoryClient();
 
-const result = await tevm.script(
-  HelloWorld.read.greate('World')
-)
+const result = await tevm.script(HelloWorld.read.greate("World"));
 
-console.log(result.data) // Hello world!
-
+console.log(result.data); // Hello world!
 ```
 
 This is just a small subset of what Tevm offers. See [docs](https://tevm.sh/) for more information.

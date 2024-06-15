@@ -63,6 +63,7 @@
 - [equalsBytes](functions/equalsBytes.md)
 - [fetchFromProvider](functions/fetchFromProvider.md)
 - [getProvider](functions/getProvider.md)
+- [serializeTransaction](functions/serializeTransaction.md)
 - [setLengthLeft](functions/setLengthLeft.md)
 - [toType](functions/toType.md)
 - [zeros](functions/zeros.md)

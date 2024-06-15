@@ -1,5 +1,1 @@
-export {
-  type Predeploy,
-  type CustomPredeploy,
-  definePredeploy,
-} from '@tevm/predeploys'
+export * from '@tevm/predeploys'

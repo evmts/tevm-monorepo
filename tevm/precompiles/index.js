@@ -1,3 +1,3 @@
-export { defineCall, definePrecompile } from '@tevm/precompiles';
+export * from '@tevm/precompiles';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

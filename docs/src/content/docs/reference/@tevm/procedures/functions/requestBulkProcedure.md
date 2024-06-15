@@ -5,7 +5,7 @@ prev: false
 title: "requestBulkProcedure"
 ---
 
-> **requestBulkProcedure**(`client`): `TevmJsonRpcBulkRequestHandler`
+> **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](/reference/tevm/procedures/type-aliases/tevmjsonrpcbulkrequesthandler/)
 
 ## Parameters
 
@@ -13,7 +13,7 @@ title: "requestBulkProcedure"
 
 ## Returns
 
-`TevmJsonRpcBulkRequestHandler`
+[`TevmJsonRpcBulkRequestHandler`](/reference/tevm/procedures/type-aliases/tevmjsonrpcbulkrequesthandler/)
 
 ## Source
 

@@ -6,11 +6,11 @@
 
 # Function: tevmSend()
 
-> **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<`TevmSendApi`\>
+> **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
 
 ## Returns
 
-[`Extension`](../../index/type-aliases/Extension.md)\<`TevmSendApi`\>
+[`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
 
 ## Source
 

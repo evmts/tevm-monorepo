@@ -4,13 +4,11 @@ var precompiles = require('@tevm/precompiles');
 
 
 
-Object.defineProperty(exports, "defineCall", {
-  enumerable: true,
-  get: function () { return precompiles.defineCall; }
-});
-Object.defineProperty(exports, "definePrecompile", {
-  enumerable: true,
-  get: function () { return precompiles.definePrecompile; }
+Object.keys(precompiles).forEach(function (k) {
+	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+		enumerable: true,
+		get: function () { return precompiles[k]; }
+	});
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

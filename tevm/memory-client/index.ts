@@ -1,5 +1,1 @@
-export {
-  type MemoryClient,
-  createMemoryClient,
-  type TevmActions,
-} from '@tevm/memory-client'
+export * from '@tevm/memory-client'

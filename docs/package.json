@@ -19,7 +19,6 @@
 		"starlight-links-validator": "^0.9.0"
 	},
 	"devDependencies": {
-		"@tevm/bundler": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^"
