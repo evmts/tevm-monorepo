@@ -3,6 +3,7 @@ import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
+ * @deprecated Use CallJsonRpcProcedure instead
  * JSON-RPC response for `tevm_script` method
  * @example
  * import { createMemoryClient } from 'tevm'

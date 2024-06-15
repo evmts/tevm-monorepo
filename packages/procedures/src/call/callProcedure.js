@@ -54,6 +54,7 @@ export const callProcedure = (client) => async (request) => {
 		...(request.params[0].value ? { value: hexToBigInt(request.params[0].value) } : {}),
 		...(request.params[0].blockTag ? { blockTag: parseBlockTag(request.params[0].blockTag) } : {}),
 		...(request.params[0].createTransaction ? { createTransaction: request.params[0].createTransaction } : {}),
+		...(request.params[0].deployedBytecode ? { deployedBytecode: request.params[0].deployedBytecode } : {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/actions').TevmCallError}*/ (errors[0])

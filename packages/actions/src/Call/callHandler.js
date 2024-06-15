@@ -12,6 +12,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { validateCallParams } from './validateCallParams.js'
+import { createScript } from '../Contract/createScript.js'
 
 /**
  * The callHandler is the most important function in Tevm.
@@ -59,7 +60,7 @@ import { validateCallParams } from './validateCallParams.js'
  */
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-	async (params) => {
+	async ({ deployedBytecode, ...params }) => {
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -78,10 +79,26 @@ export const callHandler =
 				rawData: '0x',
 			})
 		}
-		const { errors, data: evmInput } = await callHandlerOpts(client, params)
+		const scriptResult = deployedBytecode
+			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, deployedBytecode, params.to)
+			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
+		if (scriptResult.errors && scriptResult.errors.length > 0) {
+			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
+			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+				errors: scriptResult.errors,
+				executionGasUsed: 0n,
+				rawData: '0x',
+			})
+		}
+		const _params = {
+			...params,
+			to: scriptResult.scriptAddress,
+		}
+
+		const { errors, data: evmInput } = await callHandlerOpts(client, _params)
 		if (errors) {
 			client.logger.error(errors ?? evmInput, 'callHandler: Unexpected error converting params to ethereumjs params')
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors,
 				executionGasUsed: 0n,
 				rawData: /** utype {`0x${string}`}*/ '0x',
@@ -108,7 +125,7 @@ export const callHandler =
 					'UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm',
 				)
 			}
-			if (params.createTransaction && block !== (await vm.blockchain.getCanonicalHeadBlock())) {
+			if (_params.createTransaction && block !== (await vm.blockchain.getCanonicalHeadBlock())) {
 				throw new Error('Creating transactions on past blocks is not currently supported')
 			}
 			// TODO why doesn't this type have stateRoot prop? It is always there.
@@ -132,7 +149,7 @@ export const callHandler =
 			}
 		} catch (e) {
 			client.logger.error(e, 'callHandler: Unexpected error failed to clone vm')
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [
 					new InternalError(
 						typeof e === 'string'
@@ -201,7 +218,7 @@ export const callHandler =
 				},
 				'callHandler: Executing runCall with params',
 			)
-			if (params.createTrace) {
+			if (_params.createTrace) {
 				// this trace will be filled in when the tx runs
 				trace = await runCallWithTrace(vm, client.logger, evmInput, true).then(({ trace }) => trace)
 			}
@@ -209,10 +226,10 @@ export const callHandler =
 				const tx = await evmInputToImpersonatedTx({
 					...client,
 					getVm: () => Promise.resolve(vm),
-				})(evmInput, params.maxFeePerGas, params.maxPriorityFeePerGas)
+				})(evmInput, _params.maxFeePerGas, _params.maxPriorityFeePerGas)
 				evmOutput = await runTx(vm)({
-					reportAccessList: params.createAccessList ?? false,
-					reportPreimages: params.createAccessList ?? false,
+					reportAccessList: _params.createAccessList ?? false,
+					reportPreimages: _params.createAccessList ?? false,
 					skipHardForkValidation: true,
 					skipBlockGasLimitValidation: true,
 					// we currently set the nonce ourselves user can't set it
@@ -226,7 +243,7 @@ export const callHandler =
 					throw e
 				}
 				if (e.message.includes("is less than the block's baseFeePerGas")) {
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						errors: [new InvalidGasPriceError('Tx aborted because gasPrice or maxFeePerGas is too low', { cause: e })],
 						executionGasUsed: 0n,
 						rawData: '0x',
@@ -235,7 +252,7 @@ export const callHandler =
 					})
 				}
 				if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						errors: [
 							{
 								name: 'InvalidSender',
@@ -250,7 +267,7 @@ export const callHandler =
 					})
 				}
 				if (e.message.includes('is lower than the minimum gas limit')) {
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						errors: [
 							{
 								name: 'GasLimitTooLowForBaseFee',
@@ -265,7 +282,7 @@ export const callHandler =
 					})
 				}
 				if (e.message.includes('tx has a higher gas limit than the block')) {
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						errors: [
 							{
 								name: 'GasLimitExceeded',
@@ -314,12 +331,12 @@ export const callHandler =
 						const tx = await evmInputToImpersonatedTx({
 							...client,
 							getVm: () => Promise.resolve(vm),
-						})(evmInput, params.maxFeePerGas, params.maxPriorityFeePerGas)
+						})(evmInput, _params.maxFeePerGas, _params.maxPriorityFeePerGas)
 						// user might have tracing turned on hoping to trace why it's using too much gas
 						/// calculate skipping all validation but still return errors too
 						evmOutput = await runTx(vm)({
-							reportAccessList: params.createAccessList ?? false,
-							reportPreimages: params.createAccessList ?? false,
+							reportAccessList: _params.createAccessList ?? false,
+							reportPreimages: _params.createAccessList ?? false,
 							skipHardForkValidation: true,
 							skipBlockGasLimitValidation: true,
 							// we currently set the nonce ourselves user can't set it
@@ -337,7 +354,7 @@ export const callHandler =
 						const message = e instanceof Error ? e.message : typeof e === 'string' ? e : 'unknown error'
 						errors.push({ name: 'UnexpectedError', _tag: 'UnexpectedError', message })
 					}
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						errors,
 						executionGasUsed: 0n,
 						rawData: '0x',
@@ -355,15 +372,15 @@ export const callHandler =
 				},
 				'callHandler: runCall result',
 			)
-			if (params.createAccessList && evmOutput.accessList !== undefined) {
+			if (_params.createAccessList && evmOutput.accessList !== undefined) {
 				accessList = new Map(evmOutput.accessList.map((item) => [item.address, new Set(item.storageKeys)]))
 			}
 		} catch (e) {
-			if (typeof e === 'object' && e !== null && '_tag' in e && (params.throwOnFail ?? defaultThrowOnFail)) {
+			if (typeof e === 'object' && e !== null && '_tag' in e && (_params.throwOnFail ?? defaultThrowOnFail)) {
 				throw e
 			}
 			client.logger.error(e, 'callHandler: Unexpected error executing evm')
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [
 					{
 						name: 'UnexpectedError',
@@ -402,26 +419,26 @@ export const callHandler =
 		 */
 		let txHash = undefined
 		const shouldCreateTransaction = (() => {
-			if (params.createTransaction === undefined) {
+			if (_params.createTransaction === undefined) {
 				client.logger.debug('callHandler: Defaulting to false for creating a transaction')
 				return false
 			}
-			if (params.createTransaction === true || params.createTransaction === 'always') {
+			if (_params.createTransaction === true || _params.createTransaction === 'always') {
 				client.logger.debug("callHandler: Creating transaction because config set to 'always'")
 				return true
 			}
-			if (params.createTransaction === false || params.createTransaction === 'never') {
+			if (_params.createTransaction === false || _params.createTransaction === 'never') {
 				client.logger.debug("callHandler: Creating transaction because config set to 'never'")
 				return false
 			}
-			if (params.createTransaction === 'on-success') {
+			if (_params.createTransaction === 'on-success') {
 				client.logger.debug("callHandler: Creating transaction because config set to 'on-success'")
 				return evmOutput.execResult.exceptionError === undefined
 			}
 			/**
 			 * @type {never} this typechecks that we've exhausted all cases
 			 */
-			const invalidOption = params.createTransaction
+			const invalidOption = _params.createTransaction
 			throw new Error(`Invalid createTransaction value: ${invalidOption}`)
 		})()
 		if (shouldCreateTransaction) {
@@ -431,7 +448,7 @@ export const callHandler =
 			const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
 			const hasEth = evmInput.skipBalance || (account?.balance ?? 0n) > 0n
 			if (!hasEth) {
-				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 					errors: [
 						{
 							_tag: 'InsufficientBalance',
@@ -447,13 +464,13 @@ export const callHandler =
 				throwOnFail: false,
 				evmOutput,
 				evmInput,
-				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
-				maxFeePerGas: params.maxFeePerGas,
+				maxPriorityFeePerGas: _params.maxPriorityFeePerGas,
+				maxFeePerGas: _params.maxFeePerGas,
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 			if ('errors' in txRes && txRes.errors.length) {
 				return /** @type {any}*/ (
-					maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						...('errors' in txRes ? { errors: txRes.errors } : {}),
 						...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
 						...callHandlerResult(evmOutput, undefined, trace, accessList),
@@ -467,7 +484,7 @@ export const callHandler =
 				client.logger.debug(`Automining transaction ${txHash}...`)
 				const mineRes = await mineHandler(client)({ throwOnFail: false })
 				if (mineRes.errors?.length) {
-					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 						...('errors' in mineRes ? { errors: mineRes.errors } : {}),
 						...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
 						...callHandlerResult(evmOutput, txHash, trace, accessList),
@@ -482,7 +499,7 @@ export const callHandler =
 		 * 4 RETURN CALL RESULT
 		 * ******************
 		 */
-		return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+		return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 			...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
 			...callHandlerResult(evmOutput, txHash, trace, accessList),
 		})

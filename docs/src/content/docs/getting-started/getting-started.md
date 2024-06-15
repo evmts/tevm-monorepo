@@ -530,7 +530,7 @@ Remember it's possible for a call to revert when it gets mined even if it didn't
 
 ## Deploy a contract with `tevmDeploy`
 
-All `call-like` endpoints for tevm use tevmCall under the hood including [`eth_call`](https://tevm.sh/reference/tevm/actions-types/type-aliases/ethcallhandler/), [`debug_traceCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/debugtracetransactionhandler/), [`eth_sendRawTransaction`](https://tevm.sh/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure/), and some special tevm methods like [`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/), [`tevmDeploy`](https://tevm.sh/reference/tevm/actions-types/type-aliases/deployhandler/) and [`tevmScript`](https://tevm.sh/reference/tevm/actions-types/type-aliases/scripthandler/). We will talk about `tevmScript` later.
+All `call-like` endpoints for tevm use tevmCall under the hood including [`eth_call`](https://tevm.sh/reference/tevm/actions-types/type-aliases/ethcallhandler/), [`debug_traceCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/debugtracetransactionhandler/), [`eth_sendRawTransaction`](https://tevm.sh/reference/tevm/procedures-types/type-aliases/ethsendrawtransactionjsonrpcprocedure/), and some special tevm methods like [`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/), and [`tevmDeploy`](https://tevm.sh/reference/tevm/actions-types/type-aliases/deployhandler/).
 
 Note we could use [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler/) and the [`encodeDeployData`](https://tevm.sh/reference/tevm/utils/functions/encodedeploydata/). Using `tevmDeploy` is a lot more ergonomic. `tevmDeploy` has access to all the [special cheat properties](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/) that a normal [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callparams/) has.
 
@@ -958,7 +958,7 @@ test("scripting", () => {
   // let's just throw on fail since we are just playing with scripts not building a production app
   const memoryClient = createMemoryClient();
 
-  const scriptResult = await memoryClient.tevmScript(Counter.read.count());
+  const scriptResult = await memoryClient.tevmContract(Counter.read.count());
 
   expect(scriptResult).toMatchInlineSnapshot();
 });
@@ -1108,7 +1108,7 @@ test("Call precompile from solidity script", async () => {
     loggingLevel: "trace",
   });
 
-  await client.tevmScript({
+  await client.tevmContract({
     ...WriteHelloWorld.write.write(fsPrecompile.contract.address),
     throwOnFail: false,
   });

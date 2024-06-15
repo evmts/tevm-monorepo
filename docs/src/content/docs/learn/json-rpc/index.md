@@ -23,7 +23,6 @@ Tevm methods are feature-rich methods that provide a high level of control over 
 - [`tevm_call`](/reference/tevm/procedures-types/type-aliases/calljsonrpcprocedure) - Similar to eth call but with additional properties to control the VM execution
 - [`tevm_getAccount`](/reference/tevm/procedures-types/type-aliases/getaccountjsonrpcprocedure) - gets account information such as balances contract information nonces and state roots.
 - [`tevm_setAccount`](/reference/tevm/procedures-types/type-aliases/setaccountjsonrpcprocedure) - directly modifies the state of an account
-- [`tevm_script`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure) - Runs the provided bytecode against the EVM state
 - [`tevm_dumpState`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcprocedure) - Returns the state of the VM
 - [`tevm_loadState`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcprocedure) - Initializes the state of the VM
 

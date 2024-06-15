@@ -12,13 +12,13 @@ The [`@tevm/contracts`](/reference/tevm/contract/api) package is an optional mod
 In the following diff the added code shows how to dispatch a [`script`](/reference/tevm/actions-types/type-aliases/scripthandler) action with a contract action creator. The removed code is both how you would do it without an action creator and also the returned value of the action creator.
 
 ```typescript
-- const scriptResult = await tevm.script({
+- const scriptResult = await tevm.tevmContract({
 -   abi: HelloWorld.abi,
 -   functionName: 'greet',
 -   args: ['Vitalik'],
 -   deployedBytecode: HelloWorld.deployedBytecode
 - });
-+ const scriptResult = await tevm.script(
++ const scriptResult = await tevm.tevmContract(
 +   HelloWorld.read.greet('Vitalik')
 + );
 ```
