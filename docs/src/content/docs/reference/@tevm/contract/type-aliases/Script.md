@@ -96,6 +96,12 @@ bytecode is different from deployedBytecode in that the bytecode
 includes the code to deploy the contract whereas the deployed
 bytecode is the code that is deployed
 
+### code
+
+> **code**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+
+Alias for `deployedBytecode`. Included for viem compatability
+
 ### deployedBytecode
 
 > **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
