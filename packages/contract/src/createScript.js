@@ -84,17 +84,31 @@ export const createScript = ({ name, humanReadableAbi, bytecode, deployedBytecod
 					address: formattedAddress,
 				}),
 				// TODO make this more internally typesafe
-				write: writeFactory({
+				deploylessWrite: writeFactory({
 					methods,
 					bytecode,
 					deployedBytecode,
 					address: formattedAddress,
 				}),
 				// TODO make this more internally typesafe
-				read: readFactory({
+				deploylessRead: readFactory({
 					methods,
 					bytecode,
 					deployedBytecode,
+					address: formattedAddress,
+				}),
+				// TODO make this more internally typesafe
+				write: writeFactory({
+					methods,
+					bytecode: undefined,
+					deployedBytecode: undefined,
+					address: formattedAddress,
+				}),
+				// TODO make this more internally typesafe
+				read: readFactory({
+					methods,
+					bytecode: undefined,
+					deployedBytecode: undefined,
 					address: formattedAddress,
 				}),
 			}

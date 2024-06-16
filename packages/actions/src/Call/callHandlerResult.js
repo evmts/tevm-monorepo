@@ -18,6 +18,10 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 		executionGasUsed: evmResult.execResult.executionGasUsed,
 	}
 
+	if (out.rawData === '0x') {
+		out.rawData = toHex(evmResult.execResult.returnValue, { size: 32 })
+	}
+
 	if (trace) {
 		out.trace = trace
 	}

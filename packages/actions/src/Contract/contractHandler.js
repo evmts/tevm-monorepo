@@ -25,7 +25,8 @@ export const contractHandler =
 				rawData: '0x',
 			})
 		}
-		const vm = await client.getVm()
+		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		console.log('getting code...')
 		const code = params.deployedBytecode ?? params.code
 		const scriptResult = code
 			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.to)
@@ -49,6 +50,7 @@ export const contractHandler =
 		// @ts-expect-error
 		delete _params.code
 
+		console.log('getting contract code...')
 		const contract = await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(_params.to))
 		const precompile = _params.to && vm.evm.getPrecompile(EthjsAddress.fromString(_params.to))
 		if (contract.length === 0 && !precompile) {
@@ -76,6 +78,7 @@ export const contractHandler =
 			client.logger.debug(contract, 'contractHandler: Found javascript precompile at specified `to` address')
 		}
 
+		console.log('encoding function data...')
 		let functionData
 		try {
 			functionData = encodeFunctionData(
@@ -101,9 +104,13 @@ export const contractHandler =
 			'contractHandler: Encoded data, functionName, and args into hex data to execute call',
 		)
 
-		const result = await callHandler(client, {
-			throwOnFail: throwOnFailDefault,
-		})({
+		console.log('calling callhandler...')
+		const result = await callHandler(
+			{ ...client, getVm: async () => vm },
+			{
+				throwOnFail: throwOnFailDefault,
+			},
+		)({
 			..._params,
 			throwOnFail: false,
 			data: functionData,
@@ -138,6 +145,7 @@ export const contractHandler =
 			client.logger.debug(result.errors, 'contractHandler: Execution errors')
 			return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, result)
 		}
+		console.log('decoding callhandler...')
 
 		let decodedResult
 		try {
@@ -170,6 +178,8 @@ export const contractHandler =
 		}
 
 		client.logger.debug(decodedResult, 'contractHandler: decoded data into a final result')
+
+		console.log({ decodedResult })
 
 		return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, {
 			.../** @type any */ (result),

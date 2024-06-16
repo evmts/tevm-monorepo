@@ -40,6 +40,10 @@ describe(createScript.name, () => {
 		`)
 	})
 
+	it('should contain deploylessRead', () => {
+		expect(contract.deploylessRead).toMatchInlineSnapshot(`undefined`)
+	})
+
 	it('should contain write', () => {
 		// see ./write for more tests
 		expect(contract.write).toMatchInlineSnapshot(`
@@ -51,6 +55,10 @@ describe(createScript.name, () => {
 			  "overloadedWrite": [Function],
 			}
 		`)
+	})
+
+	it('should contain deploylessWrite', () => {
+		expect(contract.deploylessWrite).toMatchInlineSnapshot(`undefined`)
 	})
 
 	it('should contain events', () => {
@@ -92,8 +100,8 @@ describe(createScript.name, () => {
 			    "hello",
 			    2n,
 			  ],
-			  "bytecode": "0x420",
-			  "deployedBytecode": "0x69",
+			  "bytecode": undefined,
+			  "deployedBytecode": undefined,
 			  "functionName": "exampleWrite",
 			  "humanReadableAbi": [
 			    "function exampleWrite(string str, uint256 num) payable returns (string)",
@@ -129,6 +137,9 @@ describe(createScript.name, () => {
 			    "hello",
 			    2n,
 			  ],
+			  "bytecode": undefined,
+			  "code": undefined,
+			  "deployedBytecode": undefined,
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",

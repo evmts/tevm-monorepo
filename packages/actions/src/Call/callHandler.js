@@ -59,6 +59,7 @@ import { validateCallParams } from './validateCallParams.js'
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
+		console.log('callHandler', { code, deployedBytecode, ...params })
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -158,11 +159,11 @@ export const callHandler =
 
 		const _code = deployedBytecode ?? code
 		const scriptResult = _code
-			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, _code, params.to)
-			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
+			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, _code, _params.to)
+			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (_params.to), errors: undefined }
 		if (scriptResult.errors && scriptResult.errors.length > 0) {
-			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+			client.logger.error(scriptResult.errors, 'contractHandler: Errors creating script')
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: scriptResult.errors,
 				executionGasUsed: 0n,
 				rawData: '0x',
@@ -498,6 +499,13 @@ export const callHandler =
 				client.logger.debug(mineRes, 'Transaction successfully mined')
 			}
 		}
+
+		console.log(
+			'returning no errors',
+			evmOutput.execResult.exceptionError,
+			evmOutput.execResult.returnValue,
+			callHandlerResult(evmOutput, txHash, trace, accessList).rawData,
+		)
 
 		/**
 		 * ******************

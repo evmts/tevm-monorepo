@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
 import { readFactory } from './readFactory.js'
+import { createScript } from '../createScript.js'
 
 const contract = createContract({
 	humanReadableAbi: formatAbi(dummyAbi),
@@ -148,5 +149,50 @@ describe(readFactory.name, () => {
 	it('should return an empty object when methods is an empty array', () => {
 		const read = readFactory({ methods: [] })
 		expect(Object.keys(read)).toHaveLength(0)
+	})
+
+	it('should work with a script', () => {
+		const script = createScript({
+			name: 'DummyScript',
+			bytecode: '0x420',
+			humanReadableAbi: formatAbi(dummyAbi),
+			deployedBytecode: '0x69',
+		})
+		expect(script.read.exampleRead('data', BigInt(420))).toMatchInlineSnapshot(`
+			{
+			  "abi": [
+			    {
+			      "inputs": [
+			        {
+			          "name": "str",
+			          "type": "string",
+			        },
+			        {
+			          "name": "num",
+			          "type": "uint256",
+			        },
+			      ],
+			      "name": "exampleRead",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "pure",
+			      "type": "function",
+			    },
+			  ],
+			  "address": undefined,
+			  "args": [
+			    "data",
+			    420n,
+			  ],
+			  "functionName": "exampleRead",
+			  "humanReadableAbi": [
+			    "function exampleRead(string str, uint256 num) pure returns (string)",
+			  ],
+			  "to": undefined,
+			}
+		`)
 	})
 })

@@ -28,7 +28,10 @@ beforeEach(async () => {
 })
 
 describe('readContract', () => {
-	it('should work', async () => {
+	it('should work as script', async () => {
+		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
+	})
+	it('should work as call', async () => {
 		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
 	})
 })
