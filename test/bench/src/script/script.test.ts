@@ -1,9 +1,9 @@
-import { test, describe, expect, beforeEach, afterEach } from 'vitest'
+import type { Server } from 'node:http'
 import { SimpleContract } from '@tevm/test-utils'
-import { createPublicClient, http } from 'viem'
 import { createMemoryClient } from 'tevm'
 import { createServer } from 'tevm/server'
-import type { Server } from 'http'
+import { http, createPublicClient } from 'viem'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 
 const PORT = 6969
 

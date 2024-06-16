@@ -1,4 +1,5 @@
 import { EvmRevertError, InternalError, InvalidGasPriceError } from '@tevm/errors'
+import { EvmError } from '@tevm/evm'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { numberToBytes } from 'viem'
@@ -13,7 +14,6 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { validateCallParams } from './validateCallParams.js'
-import { EvmError } from '@tevm/evm'
 
 /**
  * The callHandler is the most important function in Tevm.

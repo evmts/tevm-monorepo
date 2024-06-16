@@ -6,7 +6,7 @@ import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } fro
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
-import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure, scriptProcedure } from './index.js'
+import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const

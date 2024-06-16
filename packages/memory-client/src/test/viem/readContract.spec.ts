@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
+import { encodeDeployData, encodeFunctionData, numberToHex } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
-import { encodeDeployData, encodeFunctionData, numberToHex } from 'viem'
 
 let mc: MemoryClient
 let c = {
