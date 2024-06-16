@@ -40,8 +40,8 @@ describe(createScript.name, () => {
 		`)
 	})
 
-	it('should contain deploylessRead', () => {
-		expect(contract.deploylessRead).toMatchInlineSnapshot(`undefined`)
+	it('should contain readDeployless', () => {
+		expect(contract.readDeployless).toMatchInlineSnapshot(`undefined`)
 	})
 
 	it('should contain write', () => {
@@ -57,8 +57,8 @@ describe(createScript.name, () => {
 		`)
 	})
 
-	it('should contain deploylessWrite', () => {
-		expect(contract.deploylessWrite).toMatchInlineSnapshot(`undefined`)
+	it('should contain writeDeployless', () => {
+		expect(contract.writeDeployless).toMatchInlineSnapshot(`undefined`)
 	})
 
 	it('should contain events', () => {

@@ -1,4 +1,4 @@
-import { InternalError, InvalidGasPriceError } from '@tevm/errors'
+import { EvmRevertError, InternalError, InvalidGasPriceError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { numberToBytes } from 'viem'
@@ -13,6 +13,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { validateCallParams } from './validateCallParams.js'
+import { EvmError } from '@tevm/evm'
 
 /**
  * The callHandler is the most important function in Tevm.
@@ -59,7 +60,6 @@ import { validateCallParams } from './validateCallParams.js'
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
-		console.log('callHandler', { code, deployedBytecode, ...params })
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -229,6 +229,15 @@ export const callHandler =
 				trace = await runCallWithTrace(vm, client.logger, evmInput, true).then(({ trace }) => trace)
 			}
 			try {
+				console.log(
+					'evmInput',
+					'to',
+					evmInput.to,
+					'data',
+					bytesToHex(evmInput.data ?? new Uint8Array()),
+					'code',
+					evmInput.code,
+				)
 				const tx = await evmInputToImpersonatedTx({
 					...client,
 					getVm: () => Promise.resolve(vm),
@@ -244,9 +253,27 @@ export const callHandler =
 					...(evmInput.block !== undefined ? { block: /** @type any*/ (evmInput.block) } : {}),
 					tx,
 				})
+				if (evmOutput.execResult.exceptionError) {
+					console.error('evmOutput error', evmOutput.execResult.exceptionError)
+				}
 			} catch (e) {
 				if (!(e instanceof Error)) {
 					throw e
+				}
+				if (e instanceof EvmError) {
+					if (e.message === EvmRevertError.EVMErrorMessage) {
+						return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+							errors: [
+								new EvmRevertError(e.message, {
+									cause: e,
+								}),
+							],
+							executionGasUsed: 0n,
+							rawData: '0x',
+							...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
+							...(evmOutput && callHandlerResult(evmOutput, undefined, trace, accessList)),
+						})
+					}
 				}
 				if (e.message.includes("is less than the block's baseFeePerGas")) {
 					return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
@@ -499,13 +526,6 @@ export const callHandler =
 				client.logger.debug(mineRes, 'Transaction successfully mined')
 			}
 		}
-
-		console.log(
-			'returning no errors',
-			evmOutput.execResult.exceptionError,
-			evmOutput.execResult.returnValue,
-			callHandlerResult(evmOutput, txHash, trace, accessList).rawData,
-		)
 
 		/**
 		 * ******************

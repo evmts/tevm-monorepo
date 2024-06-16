@@ -31,9 +31,9 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
 						functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
-						...(bytecode === undefined ? { bytecode } : {}),
-						...(deployedBytecode === undefined ? { deployedBytecode, code: deployedBytecode } : {}),
-						...(address === undefined ? { address, to: address } : {}),
+						...(bytecode !== undefined ? { bytecode } : {}),
+						...(deployedBytecode !== undefined ? { deployedBytecode, code: deployedBytecode } : {}),
+						...(address !== undefined ? { address, to: address } : {}),
 						...maybeArgs,
 					}
 				}

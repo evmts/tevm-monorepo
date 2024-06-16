@@ -122,7 +122,7 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 	 *)
 	 * ```
 	 */
-	deploylessRead: ReadActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	readDeployless: ReadActionCreator<THumanReadableAbi, Hex, Hex, undefined>
 	/**
 	 * Action creators for contract view and pure functions
 	 * @example
@@ -132,7 +132,7 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 	 *)
 	 * ```
 	 */
-	deploylessWrite: ReadActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	writeDeployless: WriteActionCreator<THumanReadableAbi, Hex, Hex, undefined>
 	/**
 	 * Action creators for contract view and pure functions
 	 * @example

@@ -14,13 +14,14 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	 * @type {import('./CallResult.js').CallResult}
 	 */
 	const out = {
-		rawData: toHex(evmResult.execResult.returnValue),
+		rawData: bytesToHex(evmResult.execResult.returnValue),
 		executionGasUsed: evmResult.execResult.executionGasUsed,
 	}
 
 	if (out.rawData === '0x') {
 		out.rawData = toHex(evmResult.execResult.returnValue, { size: 32 })
 	}
+	console.log('out here', out.rawData, evmResult.execResult.returnValue)
 
 	if (trace) {
 		out.trace = trace
