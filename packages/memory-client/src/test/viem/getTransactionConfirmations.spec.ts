@@ -6,9 +6,6 @@ import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
 let deployTxHash: Hex
-let c = {
-	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
-}
 
 beforeEach(async () => {
 	mc = createMemoryClient()
@@ -19,9 +16,6 @@ beforeEach(async () => {
 	})
 	if (!deployResult.createdAddress) {
 		throw new Error('contract never deployed')
-	}
-	c = {
-		simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
 	}
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')

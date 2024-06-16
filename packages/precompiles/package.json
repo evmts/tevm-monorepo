@@ -62,15 +62,13 @@
   "dependencies": {
     "@tevm/contract": "workspace:^",
     "@tevm/evm": "workspace:^",
-    "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "tevm": "1.1.0-next.77"
+    "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
