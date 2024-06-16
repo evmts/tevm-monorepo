@@ -182,7 +182,6 @@ describe(readFactory.name, () => {
 			      "type": "function",
 			    },
 			  ],
-			  "address": undefined,
 			  "args": [
 			    "data",
 			    420n,
@@ -191,7 +190,6 @@ describe(readFactory.name, () => {
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
 			  ],
-			  "to": undefined,
 			}
 		`)
 	})

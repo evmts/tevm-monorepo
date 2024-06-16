@@ -41,7 +41,15 @@ describe(createScript.name, () => {
 	})
 
 	it('should contain readDeployless', () => {
-		expect(contract.readDeployless).toMatchInlineSnapshot('undefined')
+		expect(contract.readDeployless).toMatchInlineSnapshot(`
+			{
+			  "exampleRead": [Function],
+			  "exampleReadNoArgs": [Function],
+			  "exampleWrite": [Function],
+			  "overloadedRead": [Function],
+			  "overloadedWrite": [Function],
+			}
+		`)
 	})
 
 	it('should contain write', () => {
@@ -58,7 +66,15 @@ describe(createScript.name, () => {
 	})
 
 	it('should contain writeDeployless', () => {
-		expect(contract.writeDeployless).toMatchInlineSnapshot('undefined')
+		expect(contract.writeDeployless).toMatchInlineSnapshot(`
+			{
+			  "exampleRead": [Function],
+			  "exampleReadNoArgs": [Function],
+			  "exampleWrite": [Function],
+			  "overloadedRead": [Function],
+			  "overloadedWrite": [Function],
+			}
+		`)
 	})
 
 	it('should contain events', () => {
@@ -100,8 +116,6 @@ describe(createScript.name, () => {
 			    "hello",
 			    2n,
 			  ],
-			  "bytecode": undefined,
-			  "deployedBytecode": undefined,
 			  "functionName": "exampleWrite",
 			  "humanReadableAbi": [
 			    "function exampleWrite(string str, uint256 num) payable returns (string)",
@@ -133,17 +147,16 @@ describe(createScript.name, () => {
 			      "type": "function",
 			    },
 			  ],
+			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "args": [
 			    "hello",
 			    2n,
 			  ],
-			  "bytecode": undefined,
-			  "code": undefined,
-			  "deployedBytecode": undefined,
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
 			  ],
+			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(contract.withAddress(`0x${'a'.repeat(40)}`).events.exampleEvent({})).toMatchInlineSnapshot(`

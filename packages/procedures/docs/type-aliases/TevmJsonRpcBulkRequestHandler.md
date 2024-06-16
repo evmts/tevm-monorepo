@@ -40,11 +40,6 @@ const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
 request - [CallJsonRpcRequest](CallJsonRpcRequest.md)
 response - [CallJsonRpcResponse](CallJsonRpcResponse.md)
 
-#### tevm_script
-
-request - [ScriptJsonRpcRequest](ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcResponse](ScriptJsonRpcResponse.md)
-
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](GetAccountJsonRpcRequest.md)
@@ -104,4 +99,4 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L99)
+[procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L94)

@@ -55,6 +55,8 @@ describe('viemPublicActions', () => {
 			watchEvent: true,
 			watchPendingTransactions: true,
 			verifySiweMessage: true,
+			getCode: true,
+			getEip712Domain: true,
 		}
 		expect(Object.values(isSupported).every(Boolean)).toBe(true)
 	})
