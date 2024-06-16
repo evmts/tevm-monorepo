@@ -47,6 +47,7 @@ export type ReadActionCreator<
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode
+		code: TDeployedBytecode
 	} & (TArgs['length'] extends 0
 		? {}
 		: {
@@ -58,5 +59,6 @@ export type ReadActionCreator<
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode
+		code: TDeployedBytecode
 	} & TAddressArgs
 }

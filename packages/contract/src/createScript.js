@@ -58,6 +58,7 @@ export const createScript = ({ name, humanReadableAbi, bytecode, deployedBytecod
 		humanReadableAbi,
 		bytecode,
 		deployedBytecode,
+		code: deployedBytecode,
 		// TODO make this more internally typesafe
 		events: eventsFactory({ abi, bytecode, deployedBytecode }),
 		// TODO make this more internally typesafe

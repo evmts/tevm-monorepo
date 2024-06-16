@@ -125,18 +125,14 @@ describe(createScript.name, () => {
 			      "type": "function",
 			    },
 			  ],
-			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "args": [
 			    "hello",
 			    2n,
 			  ],
-			  "bytecode": "0x420",
-			  "deployedBytecode": "0x69",
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
 			  ],
-			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(contract.withAddress(`0x${'a'.repeat(40)}`).events.exampleEvent({})).toMatchInlineSnapshot(`
