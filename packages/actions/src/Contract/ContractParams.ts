@@ -17,13 +17,32 @@ export type ContractParams<
 				 * The address to call.
 				 */
 				readonly to: Address
-				deployedBytecode?: never
+				readonly deployedBytecode?: never
+				/**
+				 * Alias for deployedBytecode
+				 */
+				readonly code?: never
 		  }
 		| {
 				/**
 				 * The address to call.
 				 */
 				readonly to?: never
-				deployedBytecode: Hex
+				readonly deployedBytecode: Hex
+				/**
+				 * Alias for deployedBytecode
+				 */
+				readonly code?: Hex
+		  }
+		| {
+				/**
+				 * The address to call.
+				 */
+				readonly to?: never
+				readonly deployedBytecode?: Hex
+				/**
+				 * Alias for deployedBytecode
+				 */
+				readonly code: Hex
 		  }
 	)

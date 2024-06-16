@@ -14,6 +14,9 @@ export type TevmActions = {
 	tevmReady: () => Promise<true>
 	tevmCall: TevmActionsApi['call']
 	tevmContract: TevmActionsApi['contract']
+	/**
+	 * @deprecated in favor of tevmContract
+	 */
 	tevmScript: TevmActionsApi['script']
 	tevmDeploy: TevmActionsApi['deploy']
 	tevmMine: TevmActionsApi['mine']

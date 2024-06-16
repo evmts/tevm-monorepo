@@ -3,8 +3,8 @@ import { EthjsAddress } from '@tevm/utils'
 import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
-import { validateContractParams } from './validateContractParams.js'
 import { createScript } from './createScript.js'
+import { validateContractParams } from './validateContractParams.js'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
@@ -26,8 +26,9 @@ export const contractHandler =
 			})
 		}
 		const vm = await client.getVm()
-		const scriptResult = params.deployedBytecode
-			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, params.deployedBytecode, params.to)
+		const code = params.deployedBytecode ?? params.code
+		const scriptResult = code
+			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.to)
 			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
 		if (scriptResult.errors && scriptResult.errors.length > 0) {
 			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
@@ -40,8 +41,13 @@ export const contractHandler =
 		const _params = /** @type {typeof params & {to: string}}*/ ({
 			...params,
 			to: scriptResult.scriptAddress,
+			deployedBytecode: undefined,
+			code: undefined,
 		})
+		// @ts-expect-error
 		delete _params.deployedBytecode
+		// @ts-expect-error
+		delete _params.code
 
 		const contract = await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(_params.to))
 		const precompile = _params.to && vm.evm.getPrecompile(EthjsAddress.fromString(_params.to))

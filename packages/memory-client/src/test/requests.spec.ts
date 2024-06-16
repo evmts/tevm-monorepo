@@ -29,9 +29,9 @@ describe('Tevm.request', async () => {
 				},
 			],
 			jsonrpc: '2.0',
-			method: 'tevm_script',
+			method: 'tevm_call',
 			id: 1,
-		} as const satisfies ScriptJsonRpcRequest
+		} as const satisfies CallJsonRpcRequest
 		const res = await tevm._tevm.request(req)
 		expect(
 			decodeFunctionResult({

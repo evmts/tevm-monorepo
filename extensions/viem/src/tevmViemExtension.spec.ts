@@ -46,7 +46,7 @@ describe('tevmViemExtension', () => {
 			const params = {
 				...ERC20.read.balanceOf(`0x${'4'.repeat(40)}`),
 			} as const
-			const response = await decorated.tevm.script(params)
+			const response = await decorated.tevm.contract(params)
 			expect(response.executionGasUsed).toEqual(2447n)
 			expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
 			expect(response.data).toBe(0n)

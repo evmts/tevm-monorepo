@@ -2,6 +2,7 @@ import { InternalError, InvalidGasPriceError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, bytesToBigint, bytesToHex } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { numberToBytes } from 'viem'
+import { createScript } from '../Contract/createScript.js'
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
@@ -12,14 +13,11 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { validateCallParams } from './validateCallParams.js'
-import { createScript } from '../Contract/createScript.js'
 
 /**
  * The callHandler is the most important function in Tevm.
  * It is the direct implementation of `tevm_call`.
  * It is also wrapped by all call-like actions including
- * - `tevm_contract`
- * - `tevm_script`
  * - `eth_call`
  * - `debug_traceCall`
  * - etc.
@@ -60,7 +58,7 @@ import { createScript } from '../Contract/createScript.js'
  */
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-	async ({ deployedBytecode, ...params }) => {
+	async ({ code, deployedBytecode, ...params }) => {
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -79,8 +77,9 @@ export const callHandler =
 				rawData: '0x',
 			})
 		}
+		const _code = deployedBytecode ?? code
 		const scriptResult = deployedBytecode
-			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, deployedBytecode, params.to)
+			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, _code, params.to)
 			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
 		if (scriptResult.errors && scriptResult.errors.length > 0) {
 			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
