@@ -78,7 +78,7 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.13.6"
+    "viem": "^2.14.2"
   },
   "publishConfig": {
     "access": "public"
