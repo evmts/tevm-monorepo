@@ -2272,9 +2272,13 @@ SimulateContractParameters
 
 `Promise`\<`true`\>
 
-### tevmScript
+### ~~tevmScript~~
 
 > **tevmScript**: `ScriptHandler`
+
+#### Deprecated
+
+in favor of tevmContract
 
 ### tevmSetAccount
 

@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getBalance` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:292
+packages/procedures/dist/index.d.ts:293

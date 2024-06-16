@@ -32,9 +32,11 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_mine**: [`MineJsonRpcRequest`](MineJsonRpcRequest.md)
 
-### tevm\_script
+### ~~tevm\_script~~
 
 > **tevm\_script**: [`ScriptJsonRpcRequest`](ScriptJsonRpcRequest.md)
+
+#### Deprecated
 
 ### tevm\_setAccount
 
@@ -42,4 +44,4 @@ A mapping of `tevm_*` method names to their request type
 
 ## Source
 
-packages/procedures/dist/index.d.ts:1248
+packages/procedures/dist/index.d.ts:1244

@@ -10,7 +10,13 @@ import { callHandler } from '../Call/callHandler.js'
  * @returns {import('./EthHandler.js').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
-	let tx = TransactionFactory.fromTxData(params, { freeze: false })
+	let tx = TransactionFactory.fromTxData(
+		{
+			...params,
+			data: params.data ?? new Uint8Array(),
+		},
+		{ freeze: false },
+	)
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**

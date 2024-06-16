@@ -25,6 +25,12 @@ const callParams: import('@tevm/api').CallParams = {
 
 ## Type declaration
 
+### code?
+
+> `optional` `readonly` **code**: `Hex`
+
+alias for deployedBytecode
+
 ### data?
 
 > `optional` `readonly` **data**: `Hex`

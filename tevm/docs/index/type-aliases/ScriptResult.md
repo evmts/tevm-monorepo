@@ -4,9 +4,13 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ScriptResult
 
-# Type alias: ScriptResult\<TAbi, TFunctionName, TErrorType\>
+# Type alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`, `TErrorType`\>
+
+## Deprecated
+
+Can use `ContractResult` instead
 
 ## Type parameters
 
@@ -18,4 +22,4 @@
 
 ## Source
 
-packages/actions/types/Script/ScriptResult.d.ts:5
+packages/actions/types/Script/ScriptResult.d.ts:8

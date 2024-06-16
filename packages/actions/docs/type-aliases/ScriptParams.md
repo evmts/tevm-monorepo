@@ -4,15 +4,18 @@
 
 [@tevm/actions](../globals.md) / ScriptParams
 
-# Type alias: ScriptParams\<TAbi, TFunctionName, TThrowOnFail\>
+# Type alias: ~~ScriptParams\<TAbi, TFunctionName, TThrowOnFail\>~~
 
 > **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
+## Deprecated
+
+Can use `ContraactParams` instead
 Tevm params for deploying and running a script
 
 ## Type declaration
 
-### deployedBytecode
+### ~~deployedBytecode~~
 
 > `readonly` **deployedBytecode**: `Hex`
 
@@ -28,4 +31,4 @@ The EVM code to run.
 
 ## Source
 
-[packages/actions/src/Script/ScriptParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptParams.ts#L8)
+[packages/actions/src/Script/ScriptParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptParams.ts#L9)

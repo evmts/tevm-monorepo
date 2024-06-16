@@ -11,14 +11,16 @@ describe('Mining modes', () => {
 			},
 		})
 		const balance = 0x11111111n
-		const address1 = '0x1f420000000000000000000000000000000000ff'
-		const address2 = '0x2f420000000000000000000000000000000000ff'
+		const address1 = '0x1f420000000000000000000000000000000000ff' as const
+		const address2 = '0x2f420000000000000000000000000000000000ff' as const
 		await tevm.tevmSetAccount({
 			address: address1,
 			balance,
 		})
 		const transferAmount = 0x420n
 		const res = await tevm._tevm.request({
+			jsonrpc: '2.0',
+			method: 'tevm_call',
 			params: [
 				{
 					caller: address1,
@@ -29,8 +31,6 @@ describe('Mining modes', () => {
 					createTransaction: true,
 				},
 			],
-			jsonrpc: '2.0',
-			method: 'tevm_call',
 			id: 1,
 		})
 		expect(res.rawData).toEqual('0x')

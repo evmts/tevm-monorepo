@@ -4,12 +4,15 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / ScriptJsonRpcRequest
 
-# Type alias: ScriptJsonRpcRequest
+# Type alias: ~~ScriptJsonRpcRequest~~
 
 > **ScriptJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_script"`, [[`SerializeToJson`](SerializeToJson.md)\<`Omit`\<`BaseCallParams`, `"stateOverrideSet"` \| `"blockOverrideSet"`\>\> & `object`, [`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\[`"stateOverrideSet"`\]\>, [`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\[`"blockOverrideSet"`\]\>]\>
 
+## Deprecated
+
+Use CallJsonRpcProcedure instead
 The JSON-RPC request for the `tevm_script` method
 
 ## Source
 
-packages/procedures/dist/index.d.ts:107
+packages/procedures/dist/index.d.ts:108

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
+import type { ContractHandler } from '../Contract/ContractHandlerType.js'
 import type { ContractParams } from '../Contract/ContractParams.js'
 import type { ContractResult } from '../Contract/ContractResult.js'
-import type { ContractHandler } from '../Contract/ContractHandlerType.js'
 
 describe('ScriptHandler', () => {
 	it('Is a generic type that infers the abi function name arg and return type and requires deployedBytecode', async () => {
@@ -49,7 +49,6 @@ describe('ScriptHandler', () => {
 			args: [5],
 		})
 		const { deployedBytecode: _, ...badAction } = goodAction
-		// @ts-expect-error
 		contractHandler(badAction)
 	})
 })

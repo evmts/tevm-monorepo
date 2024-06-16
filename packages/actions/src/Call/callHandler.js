@@ -78,7 +78,7 @@ export const callHandler =
 			})
 		}
 		const _code = deployedBytecode ?? code
-		const scriptResult = deployedBytecode
+		const scriptResult = _code
 			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, _code, params.to)
 			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
 		if (scriptResult.errors && scriptResult.errors.length > 0) {

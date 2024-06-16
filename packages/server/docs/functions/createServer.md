@@ -1102,6 +1102,10 @@ const result = await client.simulateContract({
 
 • **client.tevmScript?**: `ScriptHandler`
 
+**Deprecated**
+
+in favor of tevmContract
+
 • **client.tevmSetAccount?**: `SetAccountHandler`
 
 • **client.transport?**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>

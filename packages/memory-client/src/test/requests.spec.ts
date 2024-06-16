@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import type { CallJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedures'
+import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, numberToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'

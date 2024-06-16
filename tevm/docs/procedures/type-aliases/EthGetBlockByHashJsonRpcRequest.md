@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:296
+packages/procedures/dist/index.d.ts:297
