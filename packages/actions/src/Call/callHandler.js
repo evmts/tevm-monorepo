@@ -77,21 +77,8 @@ export const callHandler =
 				rawData: '0x',
 			})
 		}
-		const _code = deployedBytecode ?? code
-		const scriptResult = _code
-			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, _code, params.to)
-			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
-		if (scriptResult.errors && scriptResult.errors.length > 0) {
-			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: scriptResult.errors,
-				executionGasUsed: 0n,
-				rawData: '0x',
-			})
-		}
 		const _params = {
 			...params,
-			to: scriptResult.scriptAddress,
 		}
 
 		const { errors, data: evmInput } = await callHandlerOpts(client, _params)
@@ -167,6 +154,25 @@ export const callHandler =
 				executionGasUsed: 0n,
 				rawData: '0x',
 			})
+		}
+
+		const _code = deployedBytecode ?? code
+		const scriptResult = _code
+			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, _code, params.to)
+			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
+		if (scriptResult.errors && scriptResult.errors.length > 0) {
+			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
+			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+				errors: scriptResult.errors,
+				executionGasUsed: 0n,
+				rawData: '0x',
+			})
+		}
+
+		// TODO this isn't clean that we are mutating here
+		if (_code) {
+			evmInput.to = EthjsAddress.fromString(scriptResult.scriptAddress)
+			_params.to = scriptResult.scriptAddress
 		}
 
 		// Do a quick defensive check
