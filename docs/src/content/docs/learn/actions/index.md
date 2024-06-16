@@ -42,12 +42,11 @@ TevmClient methods are the main recomended way to interact with Tevm. 🚧 means
 - [`TevmClient.tevmGetAccount`](/reference/tevm/actions-types/type-aliases/getaccounthandler) - gets account information such as balances contract information nonces and state roots.
 - [`TevmClient.tevmSetAccount`](/reference/tevm/actions-types/type-aliases/setaccounthandler) - directly modifies the state of an account
 - [`TevmClient.tevmContract`](/reference/tevm/actions-types/type-aliases/callhandler) - Similar to eth call but with additional properties to control the VM execution
-- [`TevmClient.tevmScript`](/reference/tevm/actions-types/type-aliases/scripthandler) - Runs the provided bytecode against the EVM state
 - [`TevmClient.tevmDumpState`](/reference/tevm/actions-types/type-aliases/dumpstatehandler) - Returns the state of the VM
 - [`TevmClient.tevmLoadState`](/reference/tevm/actions-types/type-aliases/loadstatehandler) - Initializes the state of the VM
 - [`TevmClient.tevmDeploy`](/reference/tevm/actions-types/type-aliases/deploy) - Creates a transaction to deploy a contract
 
-Note the `call` family of actions including `TevmClient.call`, `TevmClient.contract`, and `TevmClient.script` will execute in a sandbox and not modify the state. This behavior can be disabled via passing in a `enableTransaction: true` parameter.
+Note the `call` family of actions including `MemoryClient.tevmCall`, `MemoryClient.tevmContract`, and `MemoryClient.tevmDeploy` will execute in a sandbox and not modify the state. This behavior can be disabled via passing in a `enableTransaction: true` parameter.
 
 ## Wallet Actions
 

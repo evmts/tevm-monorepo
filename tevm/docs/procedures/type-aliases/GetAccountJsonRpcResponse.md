@@ -12,4 +12,4 @@ JSON-RPC response for `tevm_getAccount` method
 
 ## Source
 
-packages/procedures/dist/index.d.ts:869
+packages/procedures/dist/index.d.ts:870

@@ -369,25 +369,9 @@ const count = await client.getBlockTransactionCount()
 
 • **client.getBytecode?**
 
-Retrieves the bytecode at an address.
+**Deprecated**
 
-- Docs: https://viem.sh/docs/contract/getBytecode
-- JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
-
-**Example**
-
-```ts
-import { createPublicClient, http } from 'viem'
-import { mainnet } from 'viem/chains'
-
-const client = createPublicClient({
-  chain: mainnet,
-  transport: http(),
-})
-const code = await client.getBytecode({
-  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-})
-```
+Use `getCode` instead.
 
 • **client.getChainId?**
 
@@ -408,6 +392,28 @@ const client = createPublicClient({
 })
 const chainId = await client.getChainId()
 // 1
+```
+
+• **client.getCode?**
+
+Retrieves the bytecode at an address.
+
+- Docs: https://viem.sh/docs/contract/getCode
+- JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
+
+**Example**
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const code = await client.getCode({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+})
 ```
 
 • **client.getContractEvents?**
@@ -433,6 +439,36 @@ const logs = await client.getContractEvents(client, {
  abi: wagmiAbi,
  eventName: 'Transfer'
 })
+```
+
+• **client.getEip712Domain?**
+
+Reads the EIP-712 domain from a contract, based on the ERC-5267 specification.
+
+**Example**
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const domain = await client.getEip712Domain({
+  address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+})
+// {
+//   domain: {
+//     name: 'ExampleContract',
+//     version: '1',
+//     chainId: 1,
+//     verifyingContract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+//   },
+//   fields: '0x0f',
+//   extensions: [],
+// }
 ```
 
 • **client.getEnsAddress?**
@@ -1099,6 +1135,10 @@ const result = await client.simulateContract({
 • **client.tevmReady?**
 
 • **client.tevmScript?**: `ScriptHandler`
+
+**Deprecated**
+
+in favor of tevmContract
 
 • **client.tevmSetAccount?**: `SetAccountHandler`
 

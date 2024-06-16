@@ -67,9 +67,13 @@ title: "TevmActions"
 
 `Promise`\<`true`\>
 
-### tevmScript
+### ~~tevmScript~~
 
 > **tevmScript**: `TevmActionsApi`\[`"script"`\]
+
+:::caution[Deprecated]
+in favor of tevmContract
+:::
 
 ### tevmSetAccount
 

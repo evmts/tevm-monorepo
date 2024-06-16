@@ -48,7 +48,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.tevmScript(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
+			const res = await tevm.tevmContract(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
 			expect(res.data).toBe(0n)
 			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
@@ -60,7 +60,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 		it('should work for add contract', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.tevmScript({
+			const res = await tevm.tevmContract({
 				deployedBytecode: addbytecode,
 				abi: addabi,
 				functionName: 'add',

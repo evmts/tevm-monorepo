@@ -31,9 +31,13 @@ A mapping of `tevm_*` method names to their return type
 
 > **tevm\_mine**: [`MineJsonRpcResponse`](/reference/tevm/procedures/type-aliases/minejsonrpcresponse/)
 
-### tevm\_script
+### ~~tevm\_script~~
 
 > **tevm\_script**: [`ScriptJsonRpcResponse`](/reference/tevm/procedures/type-aliases/scriptjsonrpcresponse/)
+
+:::caution[Deprecated]
+This API is no longer supported and may be removed in a future release.
+:::
 
 ### tevm\_setAccount
 

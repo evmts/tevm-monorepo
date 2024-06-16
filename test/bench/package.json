@@ -66,8 +66,8 @@
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
 		"typescript": "^5.4.5",
-		"viem": "^2.13.7",
-		"wagmi": "^2.9.10"
+		"viem": "^2.14.2",
+		"wagmi": "^2.10.2"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

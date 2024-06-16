@@ -160,11 +160,6 @@ export type TevmClient = {
 	 * request - {@link CallJsonRpcRequest}
 	 * response - {@link CallJsonRpcResponse}
 	 *
-	 * #### tevm_script
-	 *
-	 * request - {@link ScriptJsonRpcRequest}
-	 * response - {@link ScriptJsonRpcResponse}
-	 *
 	 * #### tevm_getAccount
 	 *
 	 * request - {@link GetAccountJsonRpcRequest}

@@ -35,11 +35,6 @@ const accountResponse = await tevm.request({
 request - [CallJsonRpcRequest](CallJsonRpcRequest.md)
 response - [CallJsonRpcResponse](CallJsonRpcResponse.md)
 
-#### tevm_script
-
-request - [ScriptJsonRpcRequest](ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcResponse](ScriptJsonRpcResponse.md)
-
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](GetAccountJsonRpcRequest.md)
@@ -103,4 +98,4 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L95)
+[procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L90)

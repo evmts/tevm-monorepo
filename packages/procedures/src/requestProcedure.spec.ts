@@ -6,7 +6,7 @@ import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } fro
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
-import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure, scriptProcedure } from './index.js'
+import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -440,12 +440,12 @@ describe('requestProcedure', () => {
 		})
 	})
 
-	describe('tevm_script', async () => {
+	describe('tevm_script(deprecated)', async () => {
 		it('should work', async () => {
 			expect(
-				await scriptProcedure(client)({
+				await callProcedure(client)({
 					jsonrpc: '2.0',
-					method: 'tevm_script',
+					method: 'tevm_call',
 					id: 1,
 					params: [
 						{
@@ -460,7 +460,7 @@ describe('requestProcedure', () => {
 					],
 				}),
 			).toEqual({
-				method: 'tevm_script',
+				method: 'tevm_call',
 				jsonrpc: '2.0',
 				id: 1,
 				result: {
@@ -479,9 +479,9 @@ describe('requestProcedure', () => {
 		it('should handle the evm throwing an error', async () => {
 			const caller = `0x${'69'.repeat(20)}` as const
 			expect(
-				await scriptProcedure(client)({
+				await callProcedure(client)({
 					jsonrpc: '2.0',
-					method: 'tevm_script',
+					method: 'tevm_call',
 					id: 1,
 					params: [
 						{

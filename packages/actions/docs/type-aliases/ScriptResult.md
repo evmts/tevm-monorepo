@@ -4,9 +4,13 @@
 
 [@tevm/actions](../globals.md) / ScriptResult
 
-# Type alias: ScriptResult\<TAbi, TFunctionName, TErrorType\>
+# Type alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`, `TErrorType`\>
+
+## Deprecated
+
+Can use `ContractResult` instead
 
 ## Type parameters
 
@@ -18,4 +22,4 @@
 
 ## Source
 
-[packages/actions/src/Script/ScriptResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L6)
+[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

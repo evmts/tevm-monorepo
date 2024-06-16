@@ -3,6 +3,7 @@ import { EthjsAddress } from '@tevm/utils'
 import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+import { createScript } from './createScript.js'
 import { validateContractParams } from './validateContractParams.js'
 
 /**
@@ -24,24 +25,45 @@ export const contractHandler =
 				rawData: '0x',
 			})
 		}
+		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const code = params.deployedBytecode ?? params.code
+		const scriptResult = code
+			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.to)
+			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
+		if (scriptResult.errors && scriptResult.errors.length > 0) {
+			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
+			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+				errors: scriptResult.errors,
+				executionGasUsed: 0n,
+				rawData: '0x',
+			})
+		}
+		const _params = /** @type {typeof params & {to: string}}*/ ({
+			...params,
+			to: scriptResult.scriptAddress,
+			deployedBytecode: undefined,
+			code: undefined,
+		})
+		// @ts-expect-error
+		delete _params.deployedBytecode
+		// @ts-expect-error
+		delete _params.code
 
-		const vm = await client.getVm()
-
-		const contract = await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
-		const precompile = params.to && vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
+		const contract = await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(_params.to))
+		const precompile = _params.to && vm.evm.getPrecompile(EthjsAddress.fromString(_params.to))
 		if (contract.length === 0 && !precompile) {
 			client.logger.debug(
-				{ contract, precompile, to: params.to },
+				{ contract, precompile, to: _params.to },
 				'contractHandler: No contract bytecode nor precompile was found at specified `to` address. Unable to execute contract call.',
 			)
-			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+			return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, {
 				rawData: '0x',
 				executionGasUsed: 0n,
 				errors: [
 					{
 						_tag: 'InvalidRequestError',
 						name: 'InvalidRequestError',
-						message: `Contract at address ${params.to} does not exist`,
+						message: `Contract at address ${_params.to} does not exist`,
 					},
 				],
 			})
@@ -58,16 +80,16 @@ export const contractHandler =
 		try {
 			functionData = encodeFunctionData(
 				/** @type {any} */ ({
-					abi: params.abi,
-					functionName: params.functionName,
-					args: params.args,
+					abi: _params.abi,
+					functionName: _params.functionName,
+					args: _params.args,
 				}),
 			)
 		} catch (e) {
 			client.logger.debug(e, 'contractHandler: Unable to encode the abi, functionName, and args into hex data')
 			const cause = /** @type {Error}*/ (e)
 			const err = new InvalidRequestError(cause.message, { cause })
-			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+			return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, {
 				rawData: '0x',
 				executionGasUsed: 0n,
 				errors: [err],
@@ -79,10 +101,13 @@ export const contractHandler =
 			'contractHandler: Encoded data, functionName, and args into hex data to execute call',
 		)
 
-		const result = await callHandler(client, {
-			throwOnFail: throwOnFailDefault,
-		})({
-			...params,
+		const result = await callHandler(
+			{ ...client, getVm: async () => vm },
+			{
+				throwOnFail: throwOnFailDefault,
+			},
+		)({
+			..._params,
 			throwOnFail: false,
 			data: functionData,
 		})
@@ -98,9 +123,9 @@ export const contractHandler =
 					try {
 						decodedError = decodeErrorResult(
 							/** @type {any} */ ({
-								abi: params.abi,
+								abi: _params.abi,
 								data: err.message,
-								functionName: params.functionName,
+								functionName: _params.functionName,
 							}),
 						)
 						const message = `Revert: ${decodedError?.errorName ?? `There was a revert with no revert message ${err.message}`}`
@@ -114,16 +139,16 @@ export const contractHandler =
 				return err
 			})
 			client.logger.debug(result.errors, 'contractHandler: Execution errors')
-			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, result)
+			return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, result)
 		}
 
 		let decodedResult
 		try {
 			decodedResult = decodeFunctionResult(
 				/** @type {any} */ ({
-					abi: params.abi,
+					abi: _params.abi,
 					data: result.rawData,
-					functionName: params.functionName,
+					functionName: _params.functionName,
 				}),
 			)
 		} catch (e) {
@@ -135,11 +160,11 @@ export const contractHandler =
 			client.logger.debug(e, 'contractHandler: Error decoding returned call data with provided abi and functionName')
 			const cause = /** @type {Error}*/ (e)
 			const err = new DecodeFunctionDataError(cause.message, { cause })
-			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+			return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, {
 				debugContext: {
-					abi: params.abi,
+					abi: _params.abi,
 					rawData: result.rawData,
-					functionName: params.functionName,
+					functionName: _params.functionName,
 				},
 				rawData: '0x',
 				executionGasUsed: 0n,
@@ -149,7 +174,7 @@ export const contractHandler =
 
 		client.logger.debug(decodedResult, 'contractHandler: decoded data into a final result')
 
-		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+		return maybeThrowOnFail(_params.throwOnFail ?? throwOnFailDefault, {
 			.../** @type any */ (result),
 			data: decodedResult,
 		})

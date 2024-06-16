@@ -4,6 +4,7 @@ import type { Hex } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
+ * @deprecated Use CallJsonRpcProcedure instead
  * The JSON-RPC request for the `tevm_script` method
  */
 export type ScriptJsonRpcRequest = JsonRpcRequest<

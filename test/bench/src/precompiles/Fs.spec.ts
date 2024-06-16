@@ -33,7 +33,7 @@ test('Call precompile from solidity script', async () => {
 		loggingLevel: 'trace',
 	})
 
-	const result = await client.tevmScript({
+	const result = await client.tevmContract({
 		...WriteHelloWorld.write.write(fsPrecompile.contract.address),
 		throwOnFail: false,
 	})

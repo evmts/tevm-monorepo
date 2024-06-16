@@ -14,7 +14,7 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	 * @type {import('./CallResult.js').CallResult}
 	 */
 	const out = {
-		rawData: toHex(evmResult.execResult.returnValue),
+		rawData: bytesToHex(evmResult.execResult.returnValue),
 		executionGasUsed: evmResult.execResult.executionGasUsed,
 	}
 

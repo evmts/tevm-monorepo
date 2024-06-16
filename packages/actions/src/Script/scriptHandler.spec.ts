@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test'
-import type { ScriptHandler } from '../Script/ScriptHandlerType.js'
-import type { ScriptParams } from '../Script/ScriptParams.js'
-import type { ScriptResult } from '../Script/ScriptResult.js'
+import type { ContractHandler } from '../Contract/ContractHandlerType.js'
+import type { ContractParams } from '../Contract/ContractParams.js'
+import type { ContractResult } from '../Contract/ContractResult.js'
 
 describe('ScriptHandler', () => {
 	it('Is a generic type that infers the abi function name arg and return type and requires deployedBytecode', async () => {
 		const mockReturn = {} as any
-		const contractHandler: ScriptHandler = async () => {
+		const contractHandler: ContractHandler = async () => {
 			return mockReturn
 		}
 
@@ -39,8 +39,8 @@ describe('ScriptHandler', () => {
 
 		expect(
 			contractHandler(
-				goodAction satisfies ScriptParams<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>,
-			) satisfies Promise<ScriptResult<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>>,
+				goodAction satisfies ContractParams<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>,
+			) satisfies Promise<ContractResult<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>>,
 		).resolves.toBe(mockReturn)
 
 		contractHandler({
@@ -49,7 +49,6 @@ describe('ScriptHandler', () => {
 			args: [5],
 		})
 		const { deployedBytecode: _, ...badAction } = goodAction
-		// @ts-expect-error
 		contractHandler(badAction)
 	})
 })

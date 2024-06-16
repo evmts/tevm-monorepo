@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / validateScriptParams
 
-# Function: validateScriptParams()
+# Function: ~~validateScriptParams()~~
 
 > **validateScriptParams**(`action`): [`ValidateScriptParamsError`](../type-aliases/ValidateScriptParamsError.md)[]
 
@@ -16,6 +16,8 @@
 
 [`ValidateScriptParamsError`](../type-aliases/ValidateScriptParamsError.md)[]
 
+## Deprecated
+
 ## Source
 
-[packages/actions/src/Script/validateScriptParams.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L13)
+[packages/actions/src/Script/validateScriptParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L14)

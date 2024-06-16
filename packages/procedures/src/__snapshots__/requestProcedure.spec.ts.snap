@@ -29,7 +29,7 @@ Version: 1.1.0.next-73"
 }
 `;
 
-exports[`requestProcedure tevm_script should handle the evm throwing an error 1`] = `
+exports[`requestProcedure tevm_script(deprecated) should handle the evm throwing an error 1`] = `
 {
   "error": {
     "code": -32000,
@@ -54,7 +54,7 @@ Version: 1.1.0.next-73"
   },
   "id": 1,
   "jsonrpc": "2.0",
-  "method": "tevm_script",
+  "method": "tevm_call",
 }
 `;
 

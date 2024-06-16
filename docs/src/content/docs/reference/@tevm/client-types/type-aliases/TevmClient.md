@@ -374,11 +374,6 @@ const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
 request - CallJsonRpcRequest
 response - CallJsonRpcResponse
 
-#### tevm_script
-
-request - ScriptJsonRpcRequest
-response - ScriptJsonRpcResponse
-
 #### tevm_getAccount
 
 request - GetAccountJsonRpcRequest

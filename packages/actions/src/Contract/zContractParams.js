@@ -2,17 +2,30 @@ import { z } from 'zod'
 import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
 import { zAbi } from '../internal/zod/zAbi.js'
 import { zAddress } from '../internal/zod/zAddress.js'
+import { zHex } from '../internal/zod/zHex.js'
 
 /**
  * Zod validator for a valid contract action
  */
 export const zContractParams = zBaseCallParams
 	.extend({
-		to: zAddress.describe('The required address of the contract to call'),
+		to: zAddress.optional().describe('The required address of the contract to call'),
 		abi: zAbi.describe('The abi of the contract'),
 		args: z.array(z.any()).optional().describe('The arguments to pass to the function'),
 		functionName: z.string().describe('The name of the function to call'),
+		deployedBytecode: zHex.optional().describe('the deployed bytecode to use for the call'),
 	})
+	.refine(
+		(params) => {
+			if (!params.deployedBytecode && !params.to) {
+				return false
+			}
+			return true
+		},
+		{
+			message: 'Must have either deployedBytecode or to',
+		},
+	)
 	.refine(
 		(params) => {
 			if (params.createTransaction && params.stateOverrideSet) {

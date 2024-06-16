@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 ## Source
 
-packages/procedures/dist/index.d.ts:661
+packages/procedures/dist/index.d.ts:662

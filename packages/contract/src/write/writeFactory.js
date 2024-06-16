@@ -25,16 +25,13 @@ export const writeFactory = ({ methods, bytecode, deployedBytecode, address }) =
 				)
 				// viem and wagmi barf if we padd in undefined or [] for args so do this to accomidate viem and wagmi
 				const maybeArgs = args.length > 0 ? { args } : {}
-				const maybeTo = address ? { to: address } : {}
-				const maybeAddress = address ? { address } : {}
 				return {
 					abi: methodAbi,
 					humanReadableAbi: formatAbi([method]),
 					functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
-					bytecode,
-					deployedBytecode,
-					...maybeAddress,
-					...maybeTo,
+					...(bytecode !== undefined ? { bytecode } : {}),
+					...(deployedBytecode !== undefined ? { deployedBytecode, code: deployedBytecode } : {}),
+					...(address !== undefined ? { address, to: address } : {}),
 					...maybeArgs,
 				}
 			}

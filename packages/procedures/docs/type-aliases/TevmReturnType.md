@@ -32,9 +32,11 @@ A mapping of `tevm_*` method names to their return type
 
 > **tevm\_mine**: [`MineJsonRpcResponse`](MineJsonRpcResponse.md)
 
-### tevm\_script
+### ~~tevm\_script~~
 
 > **tevm\_script**: [`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)
+
+#### Deprecated
 
 ### tevm\_setAccount
 

@@ -4,10 +4,13 @@
 
 [@tevm/actions](../globals.md) / ScriptHandler
 
-# Type alias: ScriptHandler()
+# Type alias: ~~ScriptHandler()~~
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
+## Deprecated
+
+Can use `ContractHandler` instead
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
 to true.
@@ -48,4 +51,4 @@ const res = tevm.script(
 
 ## Source
 
-[packages/actions/src/Script/ScriptHandlerType.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L31)
+[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

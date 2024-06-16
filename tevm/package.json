@@ -366,7 +366,7 @@
   },
   "peerDependencies": {
     "@tevm/ts-plugin": "*",
-    "viem": "^2.12.0"
+    "viem": "^2.14.2"
   },
   "publishConfig": {
     "access": "public"

@@ -774,39 +774,21 @@ GetBlockTransactionCountParameters
 
 `Promise`\<`number`\>
 
-### getBytecode()
+### ~~getBytecode()~~
 
-> **getBytecode**: (`args`) => `Promise`\<`GetBytecodeReturnType`\>
+> **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
-Retrieves the bytecode at an address.
-
-- Docs: https://viem.sh/docs/contract/getBytecode
-- JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
-
-#### Example
-
-```ts
-import { createPublicClient, http } from 'viem'
-import { mainnet } from 'viem/chains'
-
-const client = createPublicClient({
-  chain: mainnet,
-  transport: http(),
-})
-const code = await client.getBytecode({
-  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-})
-```
+:::caution[Deprecated]
+Use `getCode` instead.
+:::
 
 #### Parameters
 
-• **args**: `GetBytecodeParameters`
-
-GetBytecodeParameters
+• **args**: `GetCodeParameters`
 
 #### Returns
 
-`Promise`\<`GetBytecodeReturnType`\>
+`Promise`\<`GetCodeReturnType`\>
 
 ### getChainId()
 
@@ -834,6 +816,40 @@ const chainId = await client.getChainId()
 #### Returns
 
 `Promise`\<`number`\>
+
+### getCode()
+
+> **getCode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
+
+Retrieves the bytecode at an address.
+
+- Docs: https://viem.sh/docs/contract/getCode
+- JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const code = await client.getCode({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+})
+```
+
+#### Parameters
+
+• **args**: `GetCodeParameters`
+
+GetBytecodeParameters
+
+#### Returns
+
+`Promise`\<`GetCodeReturnType`\>
 
 ### getContractEvents()
 
@@ -881,6 +897,46 @@ const logs = await client.getContractEvents(client, {
 #### Returns
 
 `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+
+### getEip712Domain()
+
+> **getEip712Domain**: (`args`) => `Promise`\<`GetEip712DomainReturnType`\>
+
+Reads the EIP-712 domain from a contract, based on the ERC-5267 specification.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const domain = await client.getEip712Domain({
+  address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+})
+// {
+//   domain: {
+//     name: 'ExampleContract',
+//     version: '1',
+//     chainId: 1,
+//     verifyingContract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+//   },
+//   fields: '0x0f',
+//   extensions: [],
+// }
+```
+
+#### Parameters
+
+• **args**: `GetEip712DomainParameters`
+
+#### Returns
+
+`Promise`\<`GetEip712DomainReturnType`\>
 
 ### getEnsAddress()
 
@@ -1800,7 +1856,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ### prepareTransactionRequest()
 
-> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "chainId" \| "fees"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
 
 Prepares a transaction request for signing.
 
@@ -1856,7 +1912,7 @@ PrepareTransactionRequestParameters
 
 #### Returns
 
-`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "chainId" \| "fees"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
 
 ### readContract()
 

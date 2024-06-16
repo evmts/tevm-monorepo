@@ -4,6 +4,7 @@ import { zAbi } from '../internal/zod/zAbi.js'
 import { zHex } from '../internal/zod/zHex.js'
 
 /**
+ * @deprecated
  * Zod validator for a valid script action
  */
 export const zScriptParams = zBaseCallParams

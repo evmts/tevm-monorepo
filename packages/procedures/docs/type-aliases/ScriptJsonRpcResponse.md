@@ -4,10 +4,13 @@
 
 [@tevm/procedures](../globals.md) / ScriptJsonRpcResponse
 
-# Type alias: ScriptJsonRpcResponse
+# Type alias: ~~ScriptJsonRpcResponse~~
 
 > **ScriptJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<`CallResult`\>, `TevmScriptError`\[`"code"`\]\>
 
+## Deprecated
+
+Use CallJsonRpcProcedure instead
 JSON-RPC response for `tevm_script` method
 
 ## Example
@@ -28,4 +31,4 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/script/ScriptJsonRpcResponse.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcResponse.ts#L20)
+[procedures/src/script/ScriptJsonRpcResponse.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcResponse.ts#L21)

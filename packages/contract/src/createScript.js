@@ -62,9 +62,13 @@ export const createScript = ({ name, humanReadableAbi, bytecode, deployedBytecod
 		// TODO make this more internally typesafe
 		events: eventsFactory({ abi, bytecode, deployedBytecode }),
 		// TODO make this more internally typesafe
-		write: writeFactory({ methods, bytecode, deployedBytecode }),
+		write: writeFactory({ methods, bytecode: undefined, deployedBytecode: undefined }),
 		// TODO make this more internally typesafe
-		read: readFactory({ methods, bytecode, deployedBytecode }),
+		read: readFactory({ methods, bytecode: undefined, deployedBytecode: undefined }),
+		// TODO make this more internally typesafe
+		writeDeployless: writeFactory({ methods, bytecode, deployedBytecode }),
+		// TODO make this more internally typesafe
+		readDeployless: readFactory({ methods, bytecode, deployedBytecode }),
 	}
 	return /**@type any*/ ({
 		...baseScript,
@@ -84,17 +88,31 @@ export const createScript = ({ name, humanReadableAbi, bytecode, deployedBytecod
 					address: formattedAddress,
 				}),
 				// TODO make this more internally typesafe
-				write: writeFactory({
+				deploylessWrite: writeFactory({
 					methods,
 					bytecode,
 					deployedBytecode,
 					address: formattedAddress,
 				}),
 				// TODO make this more internally typesafe
-				read: readFactory({
+				deploylessRead: readFactory({
 					methods,
 					bytecode,
 					deployedBytecode,
+					address: formattedAddress,
+				}),
+				// TODO make this more internally typesafe
+				write: writeFactory({
+					methods,
+					bytecode: undefined,
+					deployedBytecode: undefined,
+					address: formattedAddress,
+				}),
+				// TODO make this more internally typesafe
+				read: readFactory({
+					methods,
+					bytecode: undefined,
+					deployedBytecode: undefined,
 					address: formattedAddress,
 				}),
 			}

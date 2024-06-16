@@ -12,9 +12,22 @@ Tevm params to execute a call on a contract
 
 ## Type declaration
 
-### to
+### code?
 
-> `readonly` **to**: `Address`
+> `optional` `readonly` **code**: [`Hex`](Hex.md)
+
+Alias for deployedBytecode
+
+### deployedBytecode?
+
+> `optional` `readonly` **deployedBytecode**: [`Hex`](Hex.md)
+
+Code to execute at the contract address.
+If not provideded the code will be fetched from state
+
+### to?
+
+> `optional` `readonly` **to**: `Address`
 
 The address to call.
 

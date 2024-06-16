@@ -3,6 +3,7 @@ import type { ContractFunctionName, EncodeFunctionDataParameters, Hex } from '@t
 import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
 
 /**
+ * @deprecated Can use `ContraactParams` instead
  * Tevm params for deploying and running a script
  */
 export type ScriptParams<

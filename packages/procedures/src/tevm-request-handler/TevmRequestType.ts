@@ -11,6 +11,9 @@ import type { SetAccountJsonRpcRequest } from '../setaccount/SetAccountJsonRpcRe
  */
 export type TevmRequestType = {
 	tevm_call: CallJsonRpcRequest
+	/**
+	 * @deprecated
+	 */
 	tevm_script: ScriptJsonRpcRequest
 	tevm_loadState: LoadStateJsonRpcRequest
 	tevm_dumpState: DumpStateJsonRpcRequest

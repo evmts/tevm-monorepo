@@ -7,7 +7,10 @@ title: "scriptProcedure"
 
 > **scriptProcedure**(`client`): [`ScriptJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/scriptjsonrpcprocedure/)
 
+:::caution[Deprecated]
+Use CallJsonRpcProcedure instead
 Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
+:::
 
 ## Parameters
 
@@ -19,4 +22,4 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 ## Source
 
-[procedures/src/script/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/scriptProcedure.js#L10)
+[procedures/src/script/scriptProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/scriptProcedure.js#L11)

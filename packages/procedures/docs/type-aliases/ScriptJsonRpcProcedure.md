@@ -4,10 +4,13 @@
 
 [@tevm/procedures](../globals.md) / ScriptJsonRpcProcedure
 
-# Type alias: ScriptJsonRpcProcedure()
+# Type alias: ~~ScriptJsonRpcProcedure()~~
 
 > **ScriptJsonRpcProcedure**: (`request`) => `Promise`\<[`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)\>
 
+## Deprecated
+
+Use CallJsonRpcProcedure instead
 Procedure for handling script JSON-RPC requests
 
 ## Parameters
@@ -20,4 +23,4 @@ Procedure for handling script JSON-RPC requests
 
 ## Source
 
-[procedures/src/script/ScriptJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcProcedure.ts#L7)
+[procedures/src/script/ScriptJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcProcedure.ts#L8)

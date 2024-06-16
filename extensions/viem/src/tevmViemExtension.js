@@ -101,7 +101,7 @@ export const tevmViemExtension = () => {
 			const out = /** @type {any} */ (
 				parseCallResponse(
 					await request({
-						method: 'tevm_script',
+						method: 'tevm_call',
 						jsonrpc: '2.0',
 						params: [
 							{

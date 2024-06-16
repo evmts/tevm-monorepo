@@ -122,7 +122,27 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 	 *)
 	 * ```
 	 */
-	read: ReadActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	readDeployless: ReadActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	/**
+	 * Action creators for contract view and pure functions
+	 * @example
+	 * ```typescript
+	 * tevm.contract(
+	 *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+	 *)
+	 * ```
+	 */
+	writeDeployless: WriteActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	/**
+	 * Action creators for contract view and pure functions
+	 * @example
+	 * ```typescript
+	 * tevm.contract(
+	 *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+	 *)
+	 * ```
+	 */
+	read: ReadActionCreator<THumanReadableAbi, undefined, undefined, undefined>
 	/**
 	 * Action creators for contract payable and nonpayable functions
 	 * @example
@@ -132,7 +152,7 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 	 * )
 	 * ```
 	 */
-	write: WriteActionCreator<THumanReadableAbi, Hex, Hex, undefined>
+	write: WriteActionCreator<THumanReadableAbi, undefined, undefined, undefined>
 	/**
 	 * Adds an address to the contract. All action creators will return
 	 * the address property if added.
@@ -170,7 +190,17 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 		 *)
 		 * ```
 		 */
-		read: ReadActionCreator<THumanReadableAbi, Hex, Hex, TAddress>
+		read: ReadActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
+		/**
+		 * Action creators for contract view and pure functions
+		 * @example
+		 * ```typescript
+		 * tevm.contract(
+		 *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+		 *)
+		 * ```
+		 */
+		readDeployless: ReadActionCreator<THumanReadableAbi, Hex, Hex, TAddress>
 		/**
 		 * Action creators for contract payable and nonpayable functions
 		 * @example
@@ -180,6 +210,16 @@ export type Script<TName extends string, THumanReadableAbi extends ReadonlyArray
 		 * )
 		 * ```
 		 */
-		write: WriteActionCreator<THumanReadableAbi, Hex, Hex, TAddress>
+		write: WriteActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
+		/**
+		 * Action creators for contract payable and nonpayable functions
+		 * @example
+		 * ```typescript
+		 * tevm.contract(
+		 *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+		 * )
+		 * ```
+		 */
+		writeDeployless: WriteActionCreator<THumanReadableAbi, Hex, Hex, TAddress>
 	}
 }

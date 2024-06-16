@@ -39,11 +39,6 @@ const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
 request - [CallJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/calljsonrpcrequest)
 response - [CallJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/calljsonrpcresponse)
 
-#### tevm_script
-
-request - [ScriptJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/scriptjsonrpcrequest)
-response - [ScriptJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/scriptjsonrpcresponse)
-
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/getaccountjsonrpcrequest)
@@ -107,4 +102,4 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Source
 
-[procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L99)
+[procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L94)

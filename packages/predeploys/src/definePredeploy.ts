@@ -34,7 +34,7 @@ export const definePredeploy = <TName extends string, THumanReadableAbi extends 
 		contract = {
 			...contract.withAddress(address),
 			withAddress: contract.withAddress,
-		}
+		} as any
 		address = getAddress(address)
 	}
 	return new PredeployImplementation()

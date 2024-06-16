@@ -31,9 +31,13 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_mine**: [`MineJsonRpcRequest`](/reference/tevm/procedures/type-aliases/minejsonrpcrequest/)
 
-### tevm\_script
+### ~~tevm\_script~~
 
 > **tevm\_script**: [`ScriptJsonRpcRequest`](/reference/tevm/procedures/type-aliases/scriptjsonrpcrequest/)
+
+:::caution[Deprecated]
+This API is no longer supported and may be removed in a future release.
+:::
 
 ### tevm\_setAccount
 

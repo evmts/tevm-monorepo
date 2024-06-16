@@ -6,6 +6,7 @@ import type { ScriptResult } from './ScriptResult.js'
 // this handler is adapted from viem and purposefully matches the viem api (not exactly but close enough)
 
 /**
+ * @deprecated Can use `ContractHandler` instead
  * Executes scripts against the Tevm EVM. By default the script is sandboxed
  * and the state is reset after each execution unless the `persist` option is set
  * to true.

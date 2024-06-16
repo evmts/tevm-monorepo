@@ -7,6 +7,7 @@ import { zScriptParams } from './zScriptParams.js'
  */
 
 /**
+ * @deprecated
  * @param {import('./ScriptParams.js').ScriptParams} action
  * @returns {Array<ValidateScriptParamsError>}
  */
@@ -21,11 +22,6 @@ export const validateScriptParams = (action) => {
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
 
-		if (formattedErrors.deployedBytecode) {
-			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(new InvalidDeployedBytecodeError(error))
-			})
-		}
 		if (formattedErrors.abi) {
 			formattedErrors.abi._errors.forEach((error) => {
 				errors.push(new InvalidAbiError(error))

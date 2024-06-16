@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import type { CallJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/procedures'
+import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, numberToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'
@@ -29,9 +29,9 @@ describe('Tevm.request', async () => {
 				},
 			],
 			jsonrpc: '2.0',
-			method: 'tevm_script',
+			method: 'tevm_call',
 			id: 1,
-		} as const satisfies ScriptJsonRpcRequest
+		} as const satisfies CallJsonRpcRequest
 		const res = await tevm._tevm.request(req)
 		expect(
 			decodeFunctionResult({

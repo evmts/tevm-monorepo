@@ -11,6 +11,9 @@ import type { SetAccountJsonRpcResponse } from '../setaccount/SetAccountJsonRpcR
  */
 export type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
+	/**
+	 * @deprecated
+	 */
 	tevm_script: ScriptJsonRpcResponse
 	tevm_loadState: LoadStateJsonRpcResponse
 	tevm_dumpState: DumpStateJsonRpcResponse

@@ -9,4 +9,4 @@ title: "ValidateContractParamsError"
 
 ## Source
 
-[packages/actions/src/Contract/validateContractParams.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L6)
+[packages/actions/src/Contract/validateContractParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L12)

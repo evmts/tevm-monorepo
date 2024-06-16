@@ -47,7 +47,7 @@
 		"tailwindcss-animate": "^1.0.7",
 		"tevm": "workspace:^",
 		"vaul": "^0.9.1",
-		"viem": "^2.13.7",
+		"viem": "^2.14.2",
 		"web-streams-polyfill": "^4.0.0",
 		"zustand": "^4.5.2"
 	},

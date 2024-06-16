@@ -35,11 +35,6 @@ const accountResponse = await tevm.request({
 request - [CallJsonRpcRequest](../../procedures/type-aliases/CallJsonRpcRequest.md)
 response - [CallJsonRpcResponse](../../procedures/type-aliases/CallJsonRpcResponse.md)
 
-#### tevm_script
-
-request - [ScriptJsonRpcRequest](../../procedures/type-aliases/ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcResponse](../../procedures/type-aliases/ScriptJsonRpcResponse.md)
-
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](../../procedures/type-aliases/GetAccountJsonRpcRequest.md)
