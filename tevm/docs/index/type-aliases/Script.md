@@ -148,7 +148,21 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+
+Action creators for contract view and pure functions
+
+#### Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
+
+### readDeployless
+
+> **readDeployless**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -190,9 +204,23 @@ a contract address to execute
 
 ### write
 
-> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
 
 Action creators for contract payable and nonpayable functions
+
+#### Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
+
+### writeDeployless
+
+> **writeDeployless**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+
+Action creators for contract view and pure functions
 
 #### Example
 

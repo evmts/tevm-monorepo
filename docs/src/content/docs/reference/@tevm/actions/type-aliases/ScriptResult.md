@@ -7,6 +7,10 @@ title: "ScriptResult"
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](/reference/tevm/actions/type-aliases/contractresult/)\<`TAbi`, `TFunctionName`, `TErrorType`\>
 
+:::caution[Deprecated]
+Can use `ContractResult` instead
+:::
+
 ## Type parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
@@ -17,4 +21,4 @@ title: "ScriptResult"
 
 ## Source
 
-[packages/actions/src/Script/ScriptResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L6)
+[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

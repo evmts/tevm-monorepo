@@ -61,7 +61,6 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					// Set the token contract
 					const from = `0x${'69'.repeat(20)}` as const
 					const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'
-					console.log('setting accounts...')
 					expect(
 						await client.tevmSetAccount({
 							address: token,
@@ -76,7 +75,6 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					).toEqual({})
 
 					const amount = BigInt(1e18)
-					console.log('minting tokens...')
 					// Mint tokens
 					const {
 						errors: mintErrors,
@@ -94,7 +92,6 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					expect(txHash?.startsWith('0x')).toBe(true)
 					expect(executionGasUsed).toBe(46495n)
 
-					console.log('mining block...')
 					const { blockHashes, errors } = await client.tevmMine()
 
 					expect(errors).toBeUndefined()
@@ -109,7 +106,6 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toBe(txHash as Hex)
 					expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
 
-					console.log('checking balanceOf...')
 					const { data: balanceNotIncluded, errors: contractErrors2 } = await client.tevmContract({
 						to: token,
 						abi: MOCKERC20_ABI,
@@ -118,7 +114,6 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 						// createTransaction: true,
 					})
 
-					console.log('checking balanceOf createTransaction=true...')
 					// Check balance of caller
 					const { data: balanceIncluded, errors: contractErrors } = await client.tevmContract({
 						from,

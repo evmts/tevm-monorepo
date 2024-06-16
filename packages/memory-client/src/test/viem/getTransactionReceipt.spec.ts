@@ -9,7 +9,6 @@ let deployTxHash: Hex
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
-console.log(c.simpleContract.name)
 
 beforeEach(async () => {
 	mc = createMemoryClient()

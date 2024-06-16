@@ -25,7 +25,6 @@ describe('sendRawTransaction', () => {
 			value: 420n,
 			chain: tevmDefault,
 		})
-		console.log('sending raw')
 		const tx = await signTransaction(mc, request)
 		const hash = await mc.sendRawTransaction({
 			serializedTransaction: tx,

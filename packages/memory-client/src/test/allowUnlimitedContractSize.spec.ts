@@ -44,7 +44,6 @@ https://github.com/ethereumjs/ethereumjs-monorepo/blob/a0ef459e26f6a843d67bb2142
 			skipBalance: true,
 			throwOnFail: false,
 		})
-		console.log(res)
 		expect(res).not.toHaveProperty('errors')
 	})
 })

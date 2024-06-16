@@ -7,8 +7,6 @@ title: "ScriptJsonRpcResponse"
 
 > **ScriptJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"tevm_script"`, [`SerializeToJson`](/reference/tevm/procedures/type-aliases/serializetojson/)\<[`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\>, [`TevmScriptError`](/reference/tevm/actions/type-aliases/tevmscripterror/)\[`"code"`\]\>
 
-JSON-RPC response for `tevm_script` method
-
 ## Example
 
 ```ts
@@ -25,6 +23,11 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 })
 ```
 
+:::caution[Deprecated]
+Use CallJsonRpcProcedure instead
+JSON-RPC response for `tevm_script` method
+:::
+
 ## Source
 
-[procedures/src/script/ScriptJsonRpcResponse.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcResponse.ts#L20)
+[procedures/src/script/ScriptJsonRpcResponse.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcResponse.ts#L21)

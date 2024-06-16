@@ -7,7 +7,10 @@ title: "scriptHandler"
 
 > **scriptHandler**(`client`, `options`?): [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
+:::caution[Deprecated]
+can use `contractHandler` instead
 Creates an ScriptHandler for handling script params with Ethereumjs EVM
+:::
 
 ## Parameters
 
@@ -25,4 +28,4 @@ whether to default to throwing or not when errors occur
 
 ## Source
 
-[packages/actions/src/Script/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/scriptHandler.js#L17)
+[packages/actions/src/Script/scriptHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/scriptHandler.js#L12)

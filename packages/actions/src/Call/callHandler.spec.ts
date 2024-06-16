@@ -67,7 +67,6 @@ describe('callHandler', () => {
 			)
 		expect(gasUsed).toBe(2851n)
 
-		console.log('running test')
 		expect(
 			await callHandler(client)({
 				createAccessList: true,

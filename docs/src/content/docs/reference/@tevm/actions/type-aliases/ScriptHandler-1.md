@@ -7,10 +7,6 @@ title: "ScriptHandler"
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](/reference/tevm/actions/type-aliases/scriptresult-1/)\<`TAbi`, `TFunctionName`\>\>
 
-Executes scripts against the Tevm EVM. By default the script is sandboxed
-and the state is reset after each execution unless the `persist` option is set
-to true.
-
 ## Examples
 
 ```typescript
@@ -31,6 +27,13 @@ const res = tevm.script(
 )
 ```
 
+:::caution[Deprecated]
+Can use `ContractHandler` instead
+Executes scripts against the Tevm EVM. By default the script is sandboxed
+and the state is reset after each execution unless the `persist` option is set
+to true.
+:::
+
 ## Type parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
@@ -47,4 +50,4 @@ const res = tevm.script(
 
 ## Source
 
-[packages/actions/src/Script/ScriptHandlerType.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L31)
+[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

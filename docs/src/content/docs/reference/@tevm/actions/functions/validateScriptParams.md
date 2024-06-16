@@ -7,6 +7,10 @@ title: "validateScriptParams"
 
 > **validateScriptParams**(`action`): [`ValidateScriptParamsError`](/reference/tevm/actions/type-aliases/validatescriptparamserror/)[]
 
+:::caution[Deprecated]
+This API is no longer supported and may be removed in a future release.
+:::
+
 ## Parameters
 
 • **action**: [`ScriptParams`](/reference/tevm/actions/type-aliases/scriptparams/)\<[`Abi`](/reference/tevm/utils/type-aliases/abi/), `string`, `boolean`\>
@@ -17,4 +21,4 @@ title: "validateScriptParams"
 
 ## Source
 
-[packages/actions/src/Script/validateScriptParams.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L13)
+[packages/actions/src/Script/validateScriptParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L14)

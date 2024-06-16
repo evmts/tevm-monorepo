@@ -34,11 +34,6 @@ const accountResponse = await tevm.request({
 request - [CallJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/calljsonrpcrequest)
 response - [CallJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/calljsonrpcresponse)
 
-#### tevm_script
-
-request - [ScriptJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/scriptjsonrpcrequest)
-response - [ScriptJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/scriptjsonrpcresponse)
-
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/getaccountjsonrpcrequest)
@@ -102,4 +97,4 @@ response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/pr
 
 ## Source
 
-[procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L95)
+[procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L90)

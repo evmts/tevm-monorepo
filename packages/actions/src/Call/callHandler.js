@@ -229,15 +229,6 @@ export const callHandler =
 				trace = await runCallWithTrace(vm, client.logger, evmInput, true).then(({ trace }) => trace)
 			}
 			try {
-				console.log(
-					'evmInput',
-					'to',
-					evmInput.to,
-					'data',
-					bytesToHex(evmInput.data ?? new Uint8Array()),
-					'code',
-					evmInput.code,
-				)
 				const tx = await evmInputToImpersonatedTx({
 					...client,
 					getVm: () => Promise.resolve(vm),

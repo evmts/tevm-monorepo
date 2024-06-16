@@ -45,18 +45,18 @@ export type WriteActionCreator<
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		bytecode: TBytecode
-		deployedBytecode: TDeployedBytecode
-	} & (TArgs['length'] extends 0
-		? {}
-		: {
-				args: TArgs
-			}) &
+	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
+		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
+		(TArgs['length'] extends 0
+			? {}
+			: {
+					args: TArgs
+				}) &
 		TAddressArgs) & {
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		bytecode: TBytecode
-		deployedBytecode: TDeployedBytecode
-	} & TAddressArgs
+	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
+		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
+		TAddressArgs
 }

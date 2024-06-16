@@ -17,7 +17,6 @@ describe(ethGetLogsHandler.name, () => {
 				},
 			})
 
-			console.log('this test sometimes will time out because we are forking an ancient block number')
 			expect(
 				await ethGetLogsHandler(client)({
 					filterParams: {

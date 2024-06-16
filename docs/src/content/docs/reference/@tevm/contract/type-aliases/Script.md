@@ -147,7 +147,21 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+
+Action creators for contract view and pure functions
+
+#### Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
+
+### readDeployless
+
+> **readDeployless**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -189,9 +203,23 @@ a contract address to execute
 
 ### write
 
-> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
 
 Action creators for contract payable and nonpayable functions
+
+#### Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
+
+### writeDeployless
+
+> **writeDeployless**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
+
+Action creators for contract view and pure functions
 
 #### Example
 
