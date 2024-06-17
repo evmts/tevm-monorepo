@@ -1,10 +1,10 @@
-import { createScript } from '../createScript.js'
+import { createContract } from '../createContract.js'
 
 /**
  * A simple contract that stores a uint256 that is initialized in constructor and offers a getter and setter method
  * @warning the deployedBytecode is not currently correct and contract must be deployed
  */
-export const SimpleContract = createScript({
+export const SimpleContract = createContract({
 	name: 'SimpleContract',
 	humanReadableAbi: [
 		'constructor(uint256 initialValue)',

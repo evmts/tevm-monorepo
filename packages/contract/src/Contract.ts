@@ -1,4 +1,5 @@
-import type { Address, ParseAbi } from '@tevm/utils'
+import type { Address, EncodeDeployDataParameters, Hex, ParseAbi } from '@tevm/utils'
+import type { CreateScript } from './CreateScript.js'
 import type { EventActionCreator } from './event/EventActionCreator.js'
 import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
@@ -13,7 +14,7 @@ import type { WriteActionCreator } from './write/WriteActionCreator.js'
  * ```typescript
  * tevm.contract(
  * -  { abi: [...], args: ['0x1234...'], functionName: 'balanceOf' },
- * +  MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
+ * +  MyContract.atAddress('0x420...').read.balanceOf('0x1234...'),
  * )
  * ```
  *
@@ -58,7 +59,22 @@ import type { WriteActionCreator } from './write/WriteActionCreator.js'
  *   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
  * )
  */
-export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArray<string>> = {
+export type Contract<
+	TName extends string,
+	THumanReadableAbi extends ReadonlyArray<string>,
+	TAddress extends undefined | Address = undefined,
+	// Bytecode is the contract bytecode with constructor
+	TBytecode extends undefined | Hex = undefined,
+	// DeployedBytecode is the raw bytecode without constructor
+	TDeployedBytecode extends undefined | Hex = undefined,
+	// Code is Bytecode encoded with constructor arguments
+	TCode extends undefined | Hex = undefined,
+> = {
+	/**
+	 * Configured address of the contract. If not set it will be undefined
+	 * To set use the `withAddress` method
+	 */
+	address: TAddress
 	/**
 	 * The json abi of the contract
 	 * @example
@@ -69,19 +85,23 @@ export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArr
 	 */
 	abi: ParseAbi<THumanReadableAbi>
 	/**
+	 * Code i
+	 */
+	code: TCode
+	/**
 	 * The contract bytecode is not defined on Contract objects are expected
 	 * to be deployed to the chain. See `Script` type which is a contract with bytecode
 	 * It's provided here to allow easier access of the property when using a
 	 * `Contract | Script` union type
 	 */
-	bytecode?: undefined
+	bytecode: TBytecode
 	/**
 	 * The contract deployedBytecode is not defined on Contract objects are expected
 	 * to be deployed to the chain. See `Script` type which is a contract with deployedBytecode
 	 * It's provided here to allow easier access of the property when using a
 	 * `Contract | Script` union type
 	 */
-	deployedBytecode?: undefined
+	deployedBytecode: TDeployedBytecode
 	/**
 	 * The human readable abi of the contract
 	 * @example
@@ -95,7 +115,7 @@ export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArr
 	/**
 	 * The name of the contract. If imported this will match the name of the contract import
 	 */
-	name: TName
+	name?: TName
 	/**
 	 * Action creators for events. Can be used to create event filters in a typesafe way
 	 * @example
@@ -105,7 +125,7 @@ export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArr
 	 * )
 	 * ===
 	 */
-	events: EventActionCreator<THumanReadableAbi, undefined, undefined, undefined>
+	events: EventActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress>
 	/**
 	 * Action creators for contract view and pure functions
 	 * @example
@@ -115,7 +135,7 @@ export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArr
 	 *)
 	 * ```
 	 */
-	read: ReadActionCreator<THumanReadableAbi, undefined, undefined, undefined>
+	read: ReadActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TCode>
 	/**
 	 * Action creators for contract payable and nonpayable functions
 	 * @example
@@ -125,22 +145,25 @@ export type Contract<TName extends string, THumanReadableAbi extends ReadonlyArr
 	 * )
 	 * ```
 	 */
-	write: WriteActionCreator<THumanReadableAbi, undefined, undefined, undefined>
+	write: WriteActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TCode>
+	/**
+	 * Action creator for deploying the contract
+	 */
+	deploy: () => EncodeDeployDataParameters<ParseAbi<THumanReadableAbi>>
 	/**
 	 * Adds an address to the contract. All action creators will return
-	 * the address property if added.
+	 * the address property if added. THis method returns a new contract
+	 * it does not modify the existing contract.
 	 * @example
 	 * ```typescript
 	 * import { MyContract } from './MyContract.sol'
 	 * const MyContractOptimism = MyContract.withAddress('0x420...')
 	 * ```
 	 */
-	withAddress: <TAddress extends Address>(
-		address: TAddress,
-	) => Omit<Contract<TName, THumanReadableAbi>, 'read' | 'write' | 'events' | 'address'> & {
-		address: TAddress
-		events: EventActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
-		read: ReadActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
-		write: WriteActionCreator<THumanReadableAbi, undefined, undefined, TAddress>
-	}
+	withAddress: <TAddress extends Address>(address: TAddress) => Contract<TName, THumanReadableAbi, TAddress>
+	/**
+	 * Creates a deployless instance of the contract that can be used with
+	 * tevm and viem as [deployless contracts](https://viem.sh/docs/contract/readContract#deployless-reads)
+	 */
+	script: CreateScript<TName, THumanReadableAbi, TAddress, TBytecode>
 }
