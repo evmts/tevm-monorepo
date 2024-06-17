@@ -48,6 +48,7 @@ export type ReadActionCreator<
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
 		(TDeployedBytecode extends undefined ? {} : { deployedBytecode: TDeployedBytecode }) &
+		(TCode extends undefined ? {} : { code: TCode }) &
 		(TArgs['length'] extends 0
 			? {}
 			: {

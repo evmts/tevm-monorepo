@@ -45,8 +45,12 @@ export type WriteActionCreator<
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+		address: TAddress
+		to: TAddress
+		code: TCode
 	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
 		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
+		(TCode extends undefined ? {} : { code: TCode }) &
 		(TArgs['length'] extends 0
 			? {}
 			: {

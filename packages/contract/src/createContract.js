@@ -64,7 +64,7 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 		)
 	}
 	/**
-	 * @type {import('./CreateScript.js').CreateScript<any, any, any, any, any, any>}
+	 * @type {import('./CreateScript.js').CreateScript<any, any, any, any>}
 	 */
 	const script = (...args) => {
 		const params = args[0]

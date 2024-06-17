@@ -31,7 +31,7 @@ beforeEach(async () => {
 describe('readContract', () => {
 	it('should work as script', async () => {
 		expect(SimpleContract.bytecode).not.toBe(SimpleContract.deployedBytecode)
-		const call = SimpleContract.readDeployless.get()
+		const call = SimpleContract.script(42n).read.get()
 		expect(call.code).toBe(SimpleContract.deployedBytecode)
 		expect(
 			await mc.call({
@@ -40,7 +40,7 @@ describe('readContract', () => {
 					bytecode: SimpleContract.bytecode,
 					abi: SimpleContract.abi,
 				}),
-				data: encodeFunctionData(SimpleContract.readDeployless.get()),
+				data: encodeFunctionData(SimpleContract.read.get()),
 			}),
 		).toEqual({ data: numberToHex(420n, { size: 32 }) })
 		// expect(await mc.readContract(SimpleContract.readDeployless.get())).toBe(0n)
