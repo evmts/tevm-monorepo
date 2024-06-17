@@ -761,9 +761,9 @@ const contractResult = await memoryClient.tevmContract({
 ```
 
 :::tip[Creating contracts and scripts]
-We can create our own contracts and scripts with the Tevm bundler (covered in the next step) and also with `createContract` and `createScript`. `createContract` is a pure contract with only abi while `createScript` holds also bytecode information.
+We can create our own contracts and scripts with the Tevm bundler (covered in the next step) and also with `createContract`. `createContract` is a pure contract with only abi while calling `contract.script()` holds also bytecode information for deployless calls.
 
-If the address is known ahead of time use `withAddress` to add the address to the contract.
+If the address is known ahead of time use `withAddress` to add the address to the contract or it can be passed into constructor.
 
 ```typescript
 import { createContract } from "tevm/contracts";

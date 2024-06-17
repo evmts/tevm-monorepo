@@ -63,10 +63,10 @@ export type BaseClientOptions = StateOptions & {
 	 * @example
 	 * ```ts
 	 * import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
-	 * import { createScript } from '@tevm/contract'
+	 * import { createContract } from '@tevm/contract'
 	 * import fs from 'fs/promises'
 	 *
-	 * const Fs = createScript({
+	 * const Fs = createContract({
 	 *   name: 'Fs',
 	 *   humanReadableAbi: [
 	 *     'function readFile(string path) returns (string)',

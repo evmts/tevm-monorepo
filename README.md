@@ -60,7 +60,7 @@ Tevm consists of the following modular tools:
 - [Contracts](https://tevm.sh/learn/contracts/): A lightweight interface for interacting with contracts using Tevm, Viem, and Wagmi.
 - [Scripting](https://tevm.sh/learn/scripting/): Similar to [Foundry scripting](https://book.getfoundry.sh/tutorials/solidity-scripting), allowing you to execute arbitrary Solidity and JavaScript in an easy and type-safe manner.
 
-These tools are modular and can be used by themselves but they also compose very well together with each other and with viem/wagmi. 
+These tools are modular and can be used by themselves but they also compose very well together with each other and with viem/wagmi.
 
 ## Examples
 
@@ -171,14 +171,15 @@ Tevm contracts are an extremely lightweight modular abstraction for interacting 
 They can also be used with ethers to create type-safe contracts.
 
 ```typescript
-import { createScript } from 'tevm/contract'
+import { createContract } from 'tevm/contract'
 
-const script = createScript({
+const script = createContract({
   name: 'MyScript',
   humanReadableAbi: ['function exampleRead() returns (uint256)', ...],
   bytecode: '0x123...',
   deployedBytecode: '0x123...',
-}).withAddress('0x123...')
+  address: '0x123...'
+})
 
 // Use with Wagmi
 useReadContract(script.read.exampleRead())

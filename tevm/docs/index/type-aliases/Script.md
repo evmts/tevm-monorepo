@@ -26,12 +26,12 @@ tevm.script(
 )
 ```
 
-A script can be made via the `createScript` function
+A script can be made via the `createContract` function
 
 ```typescript
-import { type Contract, createScript} from 'tevm/contract'
+import { type Contract, createContract} from 'tevm/contract'
 
-const contract: Contract = createScript({
+const contract: Contract = createContract({
   name: 'MyScript',
  	abi: [
  		...

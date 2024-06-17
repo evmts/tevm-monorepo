@@ -46,7 +46,7 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 		write: writeFactory({ methods }),
 		// TODO make this more internally typesafe
 		read: readFactory({ methods }),
-		...(address !== undefined ? { address } : {}),
+		...(address !== undefined ? { address: getAddress(address) } : {}),
 		...(code !== undefined ? { code } : {}),
 		...(bytecode !== undefined ? { bytecode } : {}),
 		...(deployedBytecode !== undefined ? { deployedBytecode } : {}),

@@ -1,6 +1,6 @@
-import { createScript } from '@tevm/contract'
+import { createContract } from '@tevm/contract'
 
-export const simpleContract = createScript({
+export const simpleContract = createContract({
 	name: 'SimpleContract',
 	humanReadableAbi: [
 		'constructor(uint256 _initialValue)',

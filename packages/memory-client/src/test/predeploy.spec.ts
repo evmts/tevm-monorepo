@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { createScript } from '@tevm/contract'
+import { createContract } from '@tevm/contract'
 import { definePredeploy } from '@tevm/predeploys'
 import { EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
@@ -9,7 +9,7 @@ import { DaiContract } from '../test/DaiContract.sol.js'
 test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
 	const formatted = formatAbi(abi)
-	const contract = createScript({
+	const contract = createContract({
 		bytecode: '0x420',
 		humanReadableAbi: formatted,
 		name: 'ExamplePredeploy',
