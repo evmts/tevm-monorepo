@@ -1,6 +1,6 @@
+import type { Contract } from '@tevm/contract'
 import { type Address, type Hex } from '@tevm/utils'
 import { Predeploy } from './Predeploy.js'
-import type { Contract } from '@tevm/contract'
 
 /**
  * Defines a predeploy contract to use in the tevm vm

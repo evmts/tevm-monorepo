@@ -1,6 +1,6 @@
 import type { Contract } from '@tevm/contract'
 import type { ExecResult } from '@tevm/evm'
-import { EthjsAddress, type Hex, toHex, type Address } from '@tevm/utils'
+import { type Address, EthjsAddress, type Hex, toHex } from '@tevm/utils'
 
 /**
  * A precompile is a contract that is deployed at a specific address but runs JavaScript code instead of EVM code.

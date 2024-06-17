@@ -4,7 +4,7 @@
 
 [@tevm/predeploys](../globals.md) / Predeploy
 
-# Class: `abstract` Predeploy\<TName, THumanReadableAbi\>
+# Class: Predeploy\<TName, THumanReadableAbi\>
 
 Type of predeploy contract for tevm
 
@@ -18,27 +18,25 @@ Type of predeploy contract for tevm
 
 ### new Predeploy()
 
-> **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+> **new Predeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+#### Parameters
+
+• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 #### Returns
 
 [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-## Properties
-
-### address
-
-> `readonly` `abstract` **address**: \`0x$\{string\}\`
-
 #### Source
 
-[Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
+[Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
-***
+## Properties
 
 ### contract
 
-> `readonly` `abstract` **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
+> `readonly` **contract**: `Contract`\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 #### Source
 
@@ -56,7 +54,7 @@ Type of predeploy contract for tevm
 
 #### Source
 
-[Predeploy.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L10)
+[Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
 
 ***
 
@@ -74,4 +72,4 @@ Type of predeploy contract for tevm
 
 #### Source
 
-[Predeploy.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L11)
+[Predeploy.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L10)

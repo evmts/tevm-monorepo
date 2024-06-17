@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { defineCall } from './defineCall.js'
 import { encodeFunctionData, toBytes } from '@tevm/utils'
+import { defineCall } from './defineCall.js'
 
 describe(defineCall.name, () => {
 	it('should define a precompile', async () => {

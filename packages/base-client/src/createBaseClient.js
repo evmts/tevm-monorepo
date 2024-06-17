@@ -194,7 +194,7 @@ export const createBaseClient = (options = {}) => {
 				// add predeploys to genesis state
 				...Object.fromEntries(
 					(options.customPredeploys ?? []).map((predeploy) => [
-						predeploy.address,
+						predeploy.contract.address,
 						{
 							nonce: 0n,
 							deployedBytecode: predeploy.contract.deployedBytecode,
