@@ -185,6 +185,7 @@ describe(readFactory.name, () => {
 			    "data",
 			    420n,
 			  ],
+			  "code": "0x420",
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",

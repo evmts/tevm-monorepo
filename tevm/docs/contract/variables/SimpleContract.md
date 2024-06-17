@@ -6,14 +6,8 @@
 
 # Variable: SimpleContract
 
-> `const` **SimpleContract**: `Script`
-
-A simple contract that stores a uint256 that is initialized in constructor and offers a getter and setter method
-
-## Warning
-
-the deployedBytecode is not currently correct and contract must be deployed
+> `const` **SimpleContract**: `Contract`
 
 ## Source
 
-packages/contract/types/contract-lib/SimpleContract.d.ts:5
+packages/contract/types/contract-lib/SimpleContract.s.sol.d.ts:1

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Predeploy
 
-# Class: `abstract` Predeploy\<TName, THumanReadableAbi\>
+# Class: Predeploy\<TName, THumanReadableAbi\>
 
 Type of predeploy contract for tevm
 
@@ -18,27 +18,25 @@ Type of predeploy contract for tevm
 
 ### new Predeploy()
 
-> **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+> **new Predeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+#### Parameters
+
+• **contract**: [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 #### Returns
 
 [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-## Properties
-
-### address
-
-> `readonly` `abstract` **address**: \`0x$\{string\}\`
-
 #### Source
 
 packages/predeploys/types/Predeploy.d.ts:8
 
-***
+## Properties
 
 ### contract
 
-> `readonly` `abstract` **contract**: [`Script`](../type-aliases/Script.md)\<`TName`, `THumanReadableAbi`\>
+> `readonly` **contract**: [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 #### Source
 

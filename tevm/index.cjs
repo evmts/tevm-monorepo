@@ -20,10 +20,6 @@ Object.defineProperty(exports, "createContract", {
   enumerable: true,
   get: function () { return contract.createContract; }
 });
-Object.defineProperty(exports, "createScript", {
-  enumerable: true,
-  get: function () { return contract.createScript; }
-});
 Object.defineProperty(exports, "boolToBytes", {
   enumerable: true,
   get: function () { return utils.boolToBytes; }

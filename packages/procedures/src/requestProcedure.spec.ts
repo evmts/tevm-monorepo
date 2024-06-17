@@ -449,7 +449,7 @@ describe('requestProcedure', () => {
 					id: 1,
 					params: [
 						{
-							deployedBytecode: ERC20_BYTECODE,
+							code: ERC20_BYTECODE,
 							data: encodeFunctionData({
 								abi: ERC20_ABI,
 								functionName: 'balanceOf',
@@ -485,7 +485,7 @@ describe('requestProcedure', () => {
 					id: 1,
 					params: [
 						{
-							deployedBytecode: ERC20_BYTECODE,
+							code: ERC20_BYTECODE,
 							data: encodeFunctionData({
 								abi: ERC20_ABI,
 								functionName: 'transferFrom',

@@ -6,22 +6,24 @@
 
 # Function: definePrecompile()
 
-> **definePrecompile**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): `Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](../type-aliases/Script.md)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
+> **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
 ## Type parameters
 
-• **TName** *extends* `string`
-
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 ## Parameters
 
-• **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](../type-aliases/Script.md)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>, `"contract"` \| `"call"`\>
+• **\_\_namedParameters**
+
+• **\_\_namedParameters.call**
+
+• **\_\_namedParameters.contract**: `TContract`
 
 ## Returns
 
-`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](../type-aliases/Script.md)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
+`Precompile`\<`TContract`\>
 
 ## Source
 
-packages/precompiles/dist/index.d.ts:95
+packages/precompiles/dist/index.d.ts:103

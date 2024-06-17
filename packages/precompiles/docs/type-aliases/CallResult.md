@@ -57,4 +57,4 @@ A set of accounts to selfdestruct
 
 ## Source
 
-[precompiles/src/CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L7)
+[CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L7)

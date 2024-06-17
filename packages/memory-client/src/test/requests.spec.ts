@@ -25,7 +25,7 @@ describe('Tevm.request', async () => {
 							contractAddress,
 						}),
 					),
-					deployedBytecode: DaiContract.deployedBytecode,
+					code: DaiContract.deployedBytecode,
 				},
 			],
 			jsonrpc: '2.0',
@@ -148,7 +148,7 @@ describe('Tevm.request', async () => {
 				{
 					address: '0xff420000000000000000000000000000000000ff',
 					balance: toHex(balance),
-					deployedBytecode: DaiContract.deployedBytecode,
+					code: DaiContract.deployedBytecode,
 				},
 			],
 		})

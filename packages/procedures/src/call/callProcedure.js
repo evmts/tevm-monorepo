@@ -38,7 +38,6 @@ export const callProcedure = (client) => async (request) => {
 					},
 				}
 			: {}),
-		...(request.params[0].deployedBytecode ? { deployedBytecode: request.params[0].deployedBytecode } : {}),
 		...(request.params[0].code ? { code: request.params[0].code } : {}),
 		...(request.params[0].blobVersionedHashes ? { blobVersionedHashes: request.params[0].blobVersionedHashes } : {}),
 		...(request.params[0].caller ? { caller: request.params[0].caller } : {}),

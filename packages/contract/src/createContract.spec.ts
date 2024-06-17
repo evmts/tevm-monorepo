@@ -81,6 +81,7 @@ describe(createContract.name, () => {
 			      "type": "function",
 			    },
 			  ],
+			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "args": [
 			    "hello",
 			    2n,
@@ -89,6 +90,7 @@ describe(createContract.name, () => {
 			  "humanReadableAbi": [
 			    "function exampleWrite(string str, uint256 num) payable returns (string)",
 			  ],
+			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(contract.withAddress(`0x${'a'.repeat(40)}`).read.exampleRead('hello', 2n)).toMatchInlineSnapshot(`
@@ -115,6 +117,7 @@ describe(createContract.name, () => {
 			      "type": "function",
 			    },
 			  ],
+			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "args": [
 			    "hello",
 			    2n,
@@ -123,6 +126,7 @@ describe(createContract.name, () => {
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
 			  ],
+			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(contract.withAddress(`0x${'a'.repeat(40)}`).events.exampleEvent({})).toMatchInlineSnapshot(`
@@ -139,7 +143,7 @@ describe(createContract.name, () => {
 			      "type": "event",
 			    },
 			  ],
-			  "address": undefined,
+			  "address": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			  "bytecode": undefined,
 			  "deployedBytecode": undefined,
 			  "eventName": "exampleEvent",

@@ -43,6 +43,7 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 		...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
 	}
 	const baseContract = {
+		...optionalArgs,
 		name,
 		abi: abi,
 		humanReadableAbi,

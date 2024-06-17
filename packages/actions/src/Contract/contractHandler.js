@@ -29,8 +29,8 @@ export const contractHandler =
 		const code = params.deployedBytecode ?? params.code
 		const scriptResult = code
 			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.to)
-			: { scriptAddress: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
-		if (scriptResult.errors && scriptResult.errors.length > 0) {
+			: { address: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
+		if (scriptResult.errors) {
 			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
 			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 				errors: scriptResult.errors,
@@ -40,7 +40,7 @@ export const contractHandler =
 		}
 		const _params = /** @type {typeof params & {to: string}}*/ ({
 			...params,
-			to: scriptResult.scriptAddress,
+			to: scriptResult.address,
 			deployedBytecode: undefined,
 			code: undefined,
 		})

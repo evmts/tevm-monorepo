@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / WriteActionCreator
 
-# Type alias: WriteActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
+# Type alias: WriteActionCreator\<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode, TAddressArgs\>
 
-> **WriteActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "payable" \| "nonpayable"\>\]: Function & Object & (TBytecode extends undefined ? Object : Object) & (TDeployedBytecode extends undefined ? Object : Object) & TAddressArgs \}
+> **WriteActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "payable" \| "nonpayable"\>\]: Function & Object & (TBytecode extends undefined ? Object : Object) & (TDeployedBytecode extends undefined ? Object : Object) & (TCode extends undefined ? Object : Object) & TAddressArgs \}
 
 A mapping of payable and nonpayable contract methods to action creators
 
@@ -22,11 +22,13 @@ tevm.contract(
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
+• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+
 • **TBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
 
 • **TDeployedBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
 
-• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+• **TCode** *extends* [`Hex`](Hex.md) \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 

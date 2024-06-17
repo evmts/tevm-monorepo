@@ -1,4 +1,4 @@
-import { InvalidDataError, InvalidBytecodeError, InvalidSaltError } from '@tevm/errors'
+import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zCallParams } from './zCallParams.js'
 

@@ -10,11 +10,14 @@
 
 ### Type Aliases
 
+- [CreateContractFn](type-aliases/CreateContractFn.md)
 - [MaybeExtractEventArgsFromAbi](type-aliases/MaybeExtractEventArgsFromAbi.md)
 - [ValueOf](type-aliases/ValueOf.md)
 
 ### Variables
 
+- [ERC20](variables/ERC20.md)
+- [ERC721](variables/ERC721.md)
 - [SimpleContract](variables/SimpleContract.md)
 
 ## References
@@ -22,12 +25,6 @@
 ### Contract
 
 Re-exports [Contract](../index/type-aliases/Contract.md)
-
-***
-
-### CreateContract
-
-Re-exports [CreateContract](../index/type-aliases/CreateContract.md)
 
 ***
 
@@ -43,9 +40,9 @@ Re-exports [CreateScript](../index/type-aliases/CreateScript.md)
 
 ***
 
-### CreateScriptParams
+### DeployArgs
 
-Re-exports [CreateScriptParams](../index/type-aliases/CreateScriptParams.md)
+Re-exports [DeployArgs](../index/type-aliases/DeployArgs.md)
 
 ***
 
@@ -61,12 +58,6 @@ Re-exports [ReadActionCreator](../index/type-aliases/ReadActionCreator.md)
 
 ***
 
-### Script
-
-Re-exports [Script](../index/type-aliases/Script.md)
-
-***
-
 ### WriteActionCreator
 
 Re-exports [WriteActionCreator](../index/type-aliases/WriteActionCreator.md)
@@ -76,9 +67,3 @@ Re-exports [WriteActionCreator](../index/type-aliases/WriteActionCreator.md)
 ### createContract
 
 Re-exports [createContract](../index/functions/createContract.md)
-
-***
-
-### createScript
-
-Re-exports [createScript](../index/functions/createScript.md)

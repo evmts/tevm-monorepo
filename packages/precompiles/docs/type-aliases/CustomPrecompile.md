@@ -12,4 +12,4 @@ Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-[precompiles/src/CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)
+[CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)

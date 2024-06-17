@@ -29,19 +29,13 @@ const callParams: import('@tevm/api').CallParams = {
 
 > `optional` `readonly` **code**: `Hex`
 
-alias for deployedBytecode
+The code to deploy with for a deployless call
 
 ### data?
 
 > `optional` `readonly` **data**: `Hex`
 
 The input data.
-
-### deployedBytecode?
-
-> `optional` `readonly` **deployedBytecode**: `Hex`
-
-The EVM code to run.
 
 ### salt?
 

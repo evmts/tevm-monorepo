@@ -180,11 +180,11 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/actions').CallParams | import('@tevm/actions').ScriptParams} params
+		 * @param {import('@tevm/actions').CallParams} params
 		 */
 		const getCallArgs = (params) => {
 			return {
-				...(params.deployedBytecode ? { deployedBytecode: params.deployedBytecode } : {}),
+				...(params.code ? { code: params.code } : {}),
 				...(params.blobVersionedHashes ? { blobVersionedHashes: params.blobVersionedHashes } : {}),
 				...(params.caller ? { caller: params.caller } : {}),
 				...('data' in params && params.data ? { data: params.data } : {}),
