@@ -15,16 +15,20 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 	return succeed(
 		Object.entries(artifacts)
 			.flatMap(([contractName, { abi, userdoc = {}, evm }]) => {
-				const contract = JSON.stringify({
-					name: contractName,
-					humanReadableAbi: formatAbi(abi),
-					...(includeBytecode
-						? {
-								bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
-								deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
-							}
-						: {}),
-				})
+				const contract = JSON.stringify(
+					{
+						name: contractName,
+						humanReadableAbi: formatAbi(abi),
+						...(includeBytecode
+							? {
+									bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
+									deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
+								}
+							: {}),
+					},
+					null,
+					2,
+				)
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,
 				)
