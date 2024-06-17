@@ -36,20 +36,22 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
+	const optionalArgs = {
+		...(address !== undefined ? { address: getAddress(address) } : {}),
+		...(code !== undefined ? { code } : {}),
+		...(bytecode !== undefined ? { bytecode } : {}),
+		...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
+	}
 	const baseContract = {
 		name,
 		abi: abi,
 		humanReadableAbi,
 		// TODO make this more internally typesafe
-		events: eventsFactory({ abi }),
+		events: eventsFactory({ abi, ...optionalArgs }),
 		// TODO make this more internally typesafe
-		write: writeFactory({ methods }),
+		write: writeFactory({ methods, ...optionalArgs }),
 		// TODO make this more internally typesafe
-		read: readFactory({ methods }),
-		...(address !== undefined ? { address: getAddress(address) } : {}),
-		...(code !== undefined ? { code } : {}),
-		...(bytecode !== undefined ? { bytecode } : {}),
-		...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
+		read: readFactory({ methods, address, ...optionalArgs }),
 	}
 	/**
 	 * @param {import('@tevm/utils').Address} address
