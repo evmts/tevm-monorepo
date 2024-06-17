@@ -1,17 +1,25 @@
-import type { Script } from '@tevm/contract'
+import type { Contract } from '@tevm/contract'
 import { Precompile } from './Precompile.js'
+import type { Address, Hex } from '@tevm/utils'
+import type { ExecResult } from '@tevm/evm'
 
-export const definePrecompile = <TName extends string, THumanReadableAbi extends readonly string[]>({
+export const definePrecompile = <
+	TContract extends Contract<string, ReadonlyArray<string>, Address, Hex, Hex> = Contract<
+		string,
+		ReadonlyArray<string>,
+		Address,
+		Hex,
+		Hex
+	>,
+>({
 	contract,
 	call,
-}: Pick<
-	Precompile<TName, THumanReadableAbi, ReturnType<Script<TName, THumanReadableAbi>['withAddress']>>,
-	'contract' | 'call'
->): Precompile<TName, THumanReadableAbi, ReturnType<Script<TName, THumanReadableAbi>['withAddress']>> => {
-	const wrappedCall = call
-	class PrecompileImplementation extends Precompile<TName, THumanReadableAbi> {
-		contract = contract
-		call = wrappedCall
-	}
-	return new PrecompileImplementation()
+}: {
+	contract: TContract
+	call: (context: {
+		data: Hex
+		gasLimit: bigint
+	}) => Promise<ExecResult>
+}): Precompile<TContract> => {
+	return new Precompile(contract, call)
 }
