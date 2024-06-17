@@ -44,7 +44,7 @@ describe('tevmViemExtension', () => {
 		async () => {
 			const decorated = tevmViemExtension()(client)
 			const params = {
-				...ERC20.readDeployless.balanceOf(`0x${'4'.repeat(40)}`),
+				...ERC20.script({ args: [2000n, 'Name', 18n, 'SYMBOL'] }).read.balanceOf(`0x${'4'.repeat(40)}`),
 			} as const
 			const response = await decorated.tevm.contract(params)
 			expect(response.executionGasUsed).toEqual(2447n)

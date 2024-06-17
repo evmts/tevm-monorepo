@@ -136,7 +136,7 @@ It's provided here to allow easier access of the property when using a
 
 ### events
 
-> **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`\>
+> **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -170,7 +170,7 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TCode`\>
+> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Action creators for contract view and pure functions
 
@@ -191,7 +191,7 @@ tevm and viem as [deployless contracts](https://viem.sh/docs/contract/readContra
 
 ### withAddress()
 
-> **withAddress**: \<`TAddress`\>(`address`) => [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`\>
+> **withAddress**: \<`TAddress`\>(`address`) => [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Adds an address to the contract. All action creators will return
 the address property if added. THis method returns a new contract
@@ -214,11 +214,11 @@ const MyContractOptimism = MyContract.withAddress('0x420...')
 
 #### Returns
 
-[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`\>
+[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ### write
 
-> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TCode`\>
+> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Action creators for contract payable and nonpayable functions
 

@@ -17,12 +17,8 @@ export type DeployArgs<
 > = THasConstructor extends false
 	? TBytecode extends Hex
 		? // allow no args to be passed in if no args
-			[] | [{}] | [Omit<EncodeDeployDataParameters<TAbi>, 'bytecode' | 'abi'> & { bytecode?: Hex }]
+			[] | [{ bytecode?: Hex }]
 		: // if only bytecode is needed require only that
-			[{ bytecode: Hex } | Omit<EncodeDeployDataParameters<TAbi>, 'abi'>]
+			[{ bytecode: Hex }]
 	: // otherwise require encoding args and bytecode if necessary
-		[
-			({ data: Hex } | Omit<EncodeDeployDataParameters<TAbi>, 'bytecode' | 'abi'>) & TBytecode extends Hex
-				? {}
-				: { bytecode: Hex },
-		]
+		[{ args: EncodeDeployDataParameters<TAbi>['args'] } & TBytecode extends Hex ? {} : { bytecode: Hex }]

@@ -4,9 +4,9 @@
 
 [@tevm/contract](../globals.md) / EventActionCreator
 
-# Type alias: EventActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
+# Type alias: EventActionCreator\<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TAddressArgs\>
 
-> **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
+> **EventActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
 
@@ -22,11 +22,11 @@ tevm.eth.getLog(
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
+• **TAddress** *extends* `Address` \| `undefined`
+
 • **TBytecode** *extends* `Hex` \| `undefined`
 
 • **TDeployedBytecode** *extends* `Hex` \| `undefined`
-
-• **TAddress** *extends* `Address` \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 

@@ -10,6 +10,7 @@
 - [CreateContractFn](type-aliases/CreateContractFn.md)
 - [CreateContractParams](type-aliases/CreateContractParams.md)
 - [CreateScript](type-aliases/CreateScript.md)
+- [DeployArgs](type-aliases/DeployArgs.md)
 - [EventActionCreator](type-aliases/EventActionCreator.md)
 - [MaybeExtractEventArgsFromAbi](type-aliases/MaybeExtractEventArgsFromAbi.md)
 - [ReadActionCreator](type-aliases/ReadActionCreator.md)
