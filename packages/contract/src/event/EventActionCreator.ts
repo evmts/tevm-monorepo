@@ -37,9 +37,9 @@ export type ValueOf<T> = T[keyof T]
  */
 export type EventActionCreator<
 	THumanReadableAbi extends readonly string[],
+	TAddress extends Address | undefined,
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
-	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
 	// for every event in the abi, create an action creator

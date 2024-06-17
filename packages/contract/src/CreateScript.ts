@@ -1,5 +1,6 @@
-import type { Abi, Address, EncodeDeployDataParameters, Hex, ParseAbi } from '@tevm/utils'
+import type { Address, Hex } from '@tevm/utils'
 import type { Contract } from './Contract.js'
+import type { DeployArgs } from './DeployArgs.js'
 
 /**
  * Creates a deployless instance of a contract
@@ -11,25 +12,4 @@ export type CreateScript<
 	THumanReadableAbi extends string[] | readonly string[],
 	TAddress extends Address | undefined = undefined,
 	TBytecode extends Hex | undefined = undefined,
-	TAbi extends ParseAbi<THumanReadableAbi> = ParseAbi<THumanReadableAbi>,
-	THasConstructor = TAbi extends Abi
-		? Abi extends TAbi
-			? true
-			: [Extract<TAbi[number], { type: 'constructor' }>] extends [never]
-				? false
-				: true
-		: true,
-> = (
-	...args: THasConstructor extends false
-		? TBytecode extends Hex
-			? // allow no args to be passed in if no args
-				[] | [{}] | [Omit<EncodeDeployDataParameters<TAbi>, 'bytecode' | 'abi'> & { bytecode?: Hex }]
-			: // if only bytecode is needed require only that
-				[{ bytecode: Hex } | Omit<EncodeDeployDataParameters<TAbi>, 'abi'>]
-		: // otherwise require encoding args and bytecode if necessary
-			[
-				({ data: Hex } | Omit<EncodeDeployDataParameters<TAbi>, 'bytecode' | 'abi'>) & TBytecode extends Hex
-					? {}
-					: { bytecode: Hex },
-			]
-) => Contract<TName, THumanReadableAbi, TAddress, Hex, Hex, Hex>
+> = (...args: DeployArgs<THumanReadableAbi, TBytecode>) => Contract<TName, THumanReadableAbi, TAddress, Hex, Hex, Hex>

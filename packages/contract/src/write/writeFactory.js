@@ -2,7 +2,6 @@ import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates write action creators from parameters
- * @internal
  * @param {object} params
  * @param {import('@tevm/utils').Abi} params.methods
  * @param {import('@tevm/utils').Hex} [params.code]

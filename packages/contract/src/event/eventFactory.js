@@ -2,7 +2,6 @@ import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates the event action creators from parameters
- * @internal
  * @param {object} params
  * @param {import('@tevm/utils').Abi} params.abi
  * @param {import('@tevm/utils').Hex} [params.bytecode]

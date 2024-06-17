@@ -125,7 +125,7 @@ export type Contract<
 	 * )
 	 * ===
 	 */
-	events: EventActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress>
+	events: EventActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode>
 	/**
 	 * Action creators for contract view and pure functions
 	 * @example
@@ -135,7 +135,7 @@ export type Contract<
 	 *)
 	 * ```
 	 */
-	read: ReadActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TCode>
+	read: ReadActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
 	/**
 	 * Action creators for contract payable and nonpayable functions
 	 * @example
@@ -145,7 +145,7 @@ export type Contract<
 	 * )
 	 * ```
 	 */
-	write: WriteActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TCode>
+	write: WriteActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
 	/**
 	 * Action creator for deploying the contract
 	 */
@@ -160,7 +160,9 @@ export type Contract<
 	 * const MyContractOptimism = MyContract.withAddress('0x420...')
 	 * ```
 	 */
-	withAddress: <TAddress extends Address>(address: TAddress) => Contract<TName, THumanReadableAbi, TAddress>
+	withAddress: <TAddress extends Address>(
+		address: TAddress,
+	) => Contract<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
 	/**
 	 * Creates a deployless instance of the contract that can be used with
 	 * tevm and viem as [deployless contracts](https://viem.sh/docs/contract/readContract#deployless-reads)
