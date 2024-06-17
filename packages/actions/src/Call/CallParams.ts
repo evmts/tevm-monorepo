@@ -23,11 +23,7 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 */
 	readonly data?: Hex
 	/**
-	 * The EVM code to run.
-	 */
-	readonly deployedBytecode?: Hex
-	/**
-	 * alias for deployedBytecode
+	 * The code to deploy with for a deployless call
 	 */
 	readonly code?: Hex
 }

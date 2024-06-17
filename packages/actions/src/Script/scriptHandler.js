@@ -21,5 +21,5 @@ export const scriptHandler =
 			'Processing script...',
 		)
 		client.logger.warn('tevmScript is deprecated, use tevmContract instead')
-		return contractHandler(client, options)(/** @type {any}*/ (params))
+		return contractHandler(client, options)(/** @type {any}*/ ({ ...params, code: params.deployedBytecode }))
 	}

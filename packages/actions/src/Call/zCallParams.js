@@ -8,7 +8,7 @@ export const zCallParams = zBaseCallParams
 	.extend({
 		data: zHex.optional().describe('the data to send'),
 		salt: zHex.optional().describe('the salt to use for the call'),
-		deployedBytecode: zHex.optional().describe('the deployed bytecode to use for the call'),
+		code: zHex.optional().describe('the deployed bytecode to use for the call'),
 	})
 	.refine(
 		(params) => {
