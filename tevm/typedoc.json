@@ -8,6 +8,13 @@
     "./memory-client/index.ts",
     "./precompiles/index.ts",
     "./predeploys/index.ts",
+    "./block/index.ts",
+    "./blockchain/index.ts",
+    "./evm/index.ts",
+    "./receipt-manager/index.ts",
+    "./tx/index.ts",
+    "./txpool/index.ts",
+    "./vm/index.ts",
     "./procedures/index.ts",
     "./http-client/index.ts",
     "./server/index.ts",
@@ -29,6 +36,8 @@
     "./bundler/config/index.ts",
     "./bundler/compiler/index.ts"
   ],
-  "plugin": ["typedoc-plugin-markdown"],
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
   "gitRevision": "main"
 }

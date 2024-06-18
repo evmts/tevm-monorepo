@@ -144,6 +144,76 @@
         "default": "./utils/index.cjs"
       }
     },
+    "./block": {
+      "import": {
+        "types": "./block/index.d.ts",
+        "default": "./block/index.js"
+      },
+      "require": {
+        "types": "./block/index.d.cts",
+        "default": "./block/index.cjs"
+      }
+    },
+    "./blockchain": {
+      "import": {
+        "types": "./blockchain/index.d.ts",
+        "default": "./blockchain/index.js"
+      },
+      "require": {
+        "types": "./blockchain/index.d.cts",
+        "default": "./blockchain/index.cjs"
+      }
+    },
+    "./evm": {
+      "import": {
+        "types": "./evm/index.d.ts",
+        "default": "./evm/index.js"
+      },
+      "require": {
+        "types": "./evm/index.d.cts",
+        "default": "./evm/index.cjs"
+      }
+    },
+    "./receipt-manager": {
+      "import": {
+        "types": "./receipt-manager/index.d.ts",
+        "default": "./receipt-manager/index.js"
+      },
+      "require": {
+        "types": "./receipt-manager/index.d.cts",
+        "default": "./receipt-manager/index.cjs"
+      }
+    },
+    "./tx": {
+      "import": {
+        "types": "./tx/index.d.ts",
+        "default": "./tx/index.js"
+      },
+      "require": {
+        "types": "./tx/index.d.cts",
+        "default": "./tx/index.cjs"
+      }
+    },
+    "./txpool": {
+      "import": {
+        "types": "./txpool/index.d.ts",
+        "default": "./txpool/index.js"
+      },
+      "require": {
+        "types": "./txpool/index.d.cts",
+        "default": "./txpool/index.cjs"
+      }
+    },
+    "./vm": {
+      "import": {
+        "types": "./vm/index.d.ts",
+        "default": "./vm/index.js"
+      },
+      "require": {
+        "types": "./vm/index.d.cts",
+        "default": "./vm/index.cjs"
+      }
+    },
     "./server": {
       "import": {
         "types": "./server/index.d.ts",
@@ -334,6 +404,8 @@
     "@tevm/actions": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
     "@tevm/base-client": "workspace:^",
+    "@tevm/block": "1.1.0-next.77",
+    "@tevm/blockchain": "1.1.0-next.77",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
@@ -343,21 +415,26 @@
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",
+    "@tevm/evm": "1.1.0-next.78",
     "@tevm/http-client": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
     "@tevm/procedures": "workspace:^",
+    "@tevm/receipt-manager": "1.1.0-next.77",
     "@tevm/rollup-plugin": "workspace:^",
     "@tevm/rspack-plugin": "workspace:^",
     "@tevm/server": "workspace:^",
     "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/tx": "1.1.0-next.77",
+    "@tevm/txpool": "1.1.0-next.78",
     "@tevm/utils": "workspace:^",
     "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
+    "@tevm/vm": "1.1.0-next.78",
     "@tevm/webpack-plugin": "workspace:^"
   },
   "devDependencies": {
