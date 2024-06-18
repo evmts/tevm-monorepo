@@ -6,7 +6,7 @@
 
 # Type alias: DeployArgs\<THumanReadableAbi, TBytecode, TAbi, THasConstructor\>
 
-> **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* [`Hex`](Hex.md) ? [] \| [`object`] : [`object`] : [`object` & `TBytecode` *extends* [`Hex`](Hex.md) ? `object` : `object`]
+> **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* [`Hex`](Hex.md) ? [] \| [`object`] : [`object`] : `TBytecode` *extends* [`Hex`](Hex.md) ? [`object`] : [`object`]
 
 Inferred arguments for a contract deployment
 
