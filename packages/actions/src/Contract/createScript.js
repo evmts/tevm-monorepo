@@ -10,11 +10,12 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
  * @internal
  * Creates a script with a randomly generated address
  * @param {import('@tevm/base-client').BaseClient} client
- * @param {import('@tevm/utils').Hex} code
+ * @param {import('@tevm/utils').Hex} [code]
+ * @param {import('@tevm/utils').Hex} [deployedBytecode]
  * @param {import('@tevm/utils').Address} [to]
  * @returns {Promise<{errors?: never, address: import('@tevm/utils').Address} | {address?: never, errors: Array<Error>}>}
  */
-export const createScript = async (client, code, to) => {
+export const createScript = async (client, code, deployedBytecode, to) => {
 	const scriptAddress =
 		to ??
 		(() => {
@@ -24,6 +25,28 @@ export const createScript = async (client, code, to) => {
 			)
 		})()
 	const vm = await client.getVm()
+
+	if (deployedBytecode) {
+		const setAccountRes = await setAccountHandler(client)({
+			address: scriptAddress,
+			deployedBytecode,
+			throwOnFail: false,
+		})
+		if (setAccountRes.errors) {
+			return {
+				errors: setAccountRes.errors,
+			}
+		}
+		return {
+			address: scriptAddress,
+		}
+	}
+
+	if (!code) {
+		return {
+			errors: [new InternalError('Cannot create script without code or deployedBytecode')],
+		}
+	}
 
 	const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 	const priorityFee = 0n

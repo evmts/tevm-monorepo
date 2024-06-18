@@ -59,7 +59,7 @@ import { validateCallParams } from './validateCallParams.js'
  */
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-	async ({ code, ...params }) => {
+	async ({ code, deployedBytecode, ...params }) => {
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -158,7 +158,7 @@ export const callHandler =
 		}
 
 		const scriptResult = code
-			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, code, _params.to)
+			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, code, deployedBytecode, _params.to)
 			: { address: /** @type {import('@tevm/utils').Address}*/ (_params.to), errors: undefined }
 		if (scriptResult.errors) {
 			client.logger.error(scriptResult.errors, 'contractHandler: Errors creating script')

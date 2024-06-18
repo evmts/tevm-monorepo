@@ -8,8 +8,20 @@ export const zCallParams = zBaseCallParams
 	.extend({
 		data: zHex.optional().describe('the data to send'),
 		salt: zHex.optional().describe('the salt to use for the call'),
-		code: zHex.optional().describe('the deployed bytecode to use for the call'),
+		code: zHex.optional().describe('the encoded deployment code to use for the call'),
+		deployedBytecode: zHex
+			.optional()
+			.describe('the deployed bytecode to put into state. Use code if you want to encode the deployment code'),
 	})
+	.refine(
+		(params) => {
+			if (params.code && params.deployedBytecode) {
+				return false
+			}
+			return true
+		},
+		{ message: 'Cannot have both code and deployedBytecode set' },
+	)
 	.refine(
 		(params) => {
 			if (params.createTransaction && params.stateOverrideSet) {

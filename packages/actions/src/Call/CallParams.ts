@@ -23,7 +23,12 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 */
 	readonly data?: Hex
 	/**
-	 * The code to deploy with for a deployless call
+	 * The encoded code to deploy with for a deployless call
 	 */
 	readonly code?: Hex
+	/**
+	 * THe code to put into the state before executing call. If you wish to call the constructor
+	 * use `code` instead.
+	 */
+	readonly deployedBytecode?: Hex
 }

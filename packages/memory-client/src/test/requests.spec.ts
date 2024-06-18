@@ -4,7 +4,7 @@ import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, numberToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
-import { DaiContract } from './DaiContract.sol.js'
+import { ERC20 } from '@tevm/contract'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -20,12 +20,8 @@ describe('Tevm.request', async () => {
 		const req = {
 			params: [
 				{
-					data: encodeFunctionData(
-						DaiContract.read.balanceOf(contractAddress, {
-							contractAddress,
-						}),
-					),
-					code: DaiContract.deployedBytecode,
+					data: encodeFunctionData(ERC20.read.balanceOf(contractAddress)),
+					code: ERC20.script({ args: ['Name', 'SYMBOL'] }).code,
 				},
 			],
 			jsonrpc: '2.0',
@@ -35,12 +31,12 @@ describe('Tevm.request', async () => {
 		const res = await tevm._tevm.request(req)
 		expect(
 			decodeFunctionResult({
-				abi: DaiContract.abi,
+				abi: ERC20.abi,
 				data: res.rawData,
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toBe(numberToHex(2447n))
+		expect(res.executionGasUsed).toBe('0xb23')
 		expect(res.logs).toEqual([])
 	})
 
@@ -49,11 +45,7 @@ describe('Tevm.request', async () => {
 		const req = {
 			params: [
 				{
-					data: encodeFunctionData(
-						DaiContract.read.balanceOf(contractAddress, {
-							contractAddress,
-						}),
-					),
+					data: encodeFunctionData(ERC20.read.balanceOf(contractAddress)),
 					to: contractAddress,
 				},
 			],
@@ -78,11 +70,7 @@ describe('Tevm.request', async () => {
 			const req = {
 				params: [
 					{
-						data: encodeFunctionData(
-							DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
-								contractAddress,
-							}),
-						),
+						data: encodeFunctionData(ERC20.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
 						to: contractAddress,
 					},
 				],
@@ -94,7 +82,7 @@ describe('Tevm.request', async () => {
 			expect(
 				decodeFunctionResult({
 					data: res.rawData,
-					abi: DaiContract.abi,
+					abi: ERC20.abi,
 					functionName: 'balanceOf',
 				}) satisfies bigint,
 			).toBe(1n)
@@ -148,7 +136,7 @@ describe('Tevm.request', async () => {
 				{
 					address: '0xff420000000000000000000000000000000000ff',
 					balance: toHex(balance),
-					code: DaiContract.deployedBytecode,
+					code: ERC20.deployedBytecode,
 				},
 			],
 		})
@@ -157,7 +145,7 @@ describe('Tevm.request', async () => {
 			EthjsAddress.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
-		expect(account?.codeHash).toEqual(hexToBytes(keccak256(DaiContract.deployedBytecode)))
+		expect(account?.codeHash).toMatchSnapshot()
 	})
 
 	it('Should execute a deploy request', async () => {

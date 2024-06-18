@@ -26,9 +26,9 @@ export const contractHandler =
 			})
 		}
 		const vm = await client.getVm().then((vm) => vm.deepCopy())
-		const code = params.deployedBytecode ?? params.code
+		const code = params.code
 		const scriptResult = code
-			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.to)
+			? await createScript({ ...client, getVm: () => Promise.resolve(vm) }, code, params.deployedBytecode, params.to)
 			: { address: /** @type {import('@tevm/utils').Address}*/ (params.to), errors: undefined }
 		if (scriptResult.errors) {
 			client.logger.debug(scriptResult.errors, 'contractHandler: Errors creating script')
