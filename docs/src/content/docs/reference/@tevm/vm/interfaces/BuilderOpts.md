@@ -9,15 +9,15 @@ Options for the block builder.
 
 ## Extends
 
-- `BlockOptions`
+- [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/)
 
 ## Properties
 
 ### calcDifficultyFromHeader?
 
-> `optional` **calcDifficultyFromHeader**: `BlockHeader`
+> `optional` **calcDifficultyFromHeader**: [`BlockHeader`](/reference/tevm/block/classes/blockheader/)
 
-If a preceding BlockHeader (usually the parent header) is given the preceding
+If a preceding [BlockHeader](../../../../../../../reference/tevm/block/classes/blockheader) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
 difficulty takes precedence over a provided static `difficulty` value.
 
@@ -26,7 +26,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 #### Inherited from
 
-`BlockOptions.calcDifficultyFromHeader`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`calcDifficultyFromHeader`](/reference/tevm/block/interfaces/blockoptions/#calcdifficultyfromheader)
 
 #### Source
 
@@ -43,7 +43,7 @@ Will throw if provided on a non-PoA chain.
 
 #### Inherited from
 
-`BlockOptions.cliqueSigner`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`cliqueSigner`](/reference/tevm/block/interfaces/blockoptions/#cliquesigner)
 
 #### Source
 
@@ -67,7 +67,7 @@ Current default hardfork: `merge`
 
 #### Inherited from
 
-`BlockOptions.common`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`common`](/reference/tevm/block/interfaces/blockoptions/#common)
 
 #### Source
 
@@ -77,11 +77,11 @@ packages/block/types/types.d.ts:23
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `VerkleExecutionWitness`
+> `optional` **executionWitness**: [`VerkleExecutionWitness`](/reference/tevm/block/interfaces/verkleexecutionwitness/)
 
 #### Inherited from
 
-`BlockOptions.executionWitness`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`executionWitness`](/reference/tevm/block/interfaces/blockoptions/#executionwitness)
 
 #### Source
 
@@ -105,7 +105,7 @@ Default: true
 
 #### Inherited from
 
-`BlockOptions.freeze`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`freeze`](/reference/tevm/block/interfaces/blockoptions/#freeze)
 
 #### Source
 
@@ -145,7 +145,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 #### Inherited from
 
-`BlockOptions.setHardfork`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`setHardfork`](/reference/tevm/block/interfaces/blockoptions/#sethardfork)
 
 #### Source
 
@@ -161,7 +161,7 @@ Skip consensus format validation checks on header if set. Defaults to false.
 
 #### Inherited from
 
-`BlockOptions.skipConsensusFormatValidation`
+[`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`skipConsensusFormatValidation`](/reference/tevm/block/interfaces/blockoptions/#skipconsensusformatvalidation)
 
 #### Source
 

@@ -19,7 +19,7 @@ Adds a block to the blockchain.
 
 ### Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 The block to be added to the blockchain.
 

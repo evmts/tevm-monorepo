@@ -95,7 +95,7 @@ The receipt root after executing the block
 
 ### requests?
 
-> `optional` **requests**: `ClRequest`[]
+> `optional` **requests**: [`ClRequest`](/reference/tevm/block/classes/clrequest/)[]
 
 Any CL requests that were processed in the course of this block
 

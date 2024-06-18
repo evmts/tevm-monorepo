@@ -13,7 +13,7 @@ Will fork a given block number and save the state roots to state manager
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 • **executeBlock?**: `boolean`= `false`
 

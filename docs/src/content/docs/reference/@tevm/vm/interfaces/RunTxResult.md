@@ -19,7 +19,7 @@ Execution result of a transaction
 
 ### accessList?
 
-> `optional` **accessList**: `AccessList`
+> `optional` **accessList**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
 
 EIP-2930 access list generated for the tx (see `reportAccessList` option)
 

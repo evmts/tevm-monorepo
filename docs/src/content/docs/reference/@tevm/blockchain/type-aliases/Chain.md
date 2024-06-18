@@ -64,7 +64,7 @@ Returns a block by its hash or number.
 
 #### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ### getCanonicalHeadBlock()
 
@@ -72,7 +72,7 @@ Returns the latest full block in the canonical chain.
 
 #### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ### getIteratorHead()
 
@@ -86,7 +86,7 @@ Optional name of the iterator head (default: 'vm')
 
 #### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ### getTotalDifficulty()?
 
@@ -134,7 +134,7 @@ Adds a block to the blockchain.
 
 #### Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 The block to be added to the blockchain.
 
@@ -167,7 +167,7 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 #### Parameters
 
-• **header**: `BlockHeader`
+• **header**: [`BlockHeader`](/reference/tevm/block/classes/blockheader/)
 
 header to be validated
 

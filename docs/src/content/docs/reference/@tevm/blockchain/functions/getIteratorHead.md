@@ -5,7 +5,7 @@ prev: false
 title: "getIteratorHead"
 ---
 
-> **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<`Block`\>
+> **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Optional name of the iterator head (default: 'vm')
 
 ### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Source
 

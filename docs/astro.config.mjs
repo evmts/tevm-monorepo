@@ -45,7 +45,6 @@ entryPoints: [
 '../packages/predeploys',
 '../packages/procedures',
 '../packages/receipt-manager',
-'../experimental/revm',
 '../packages/rlp',
 '../packages/server',
 '../packages/state',

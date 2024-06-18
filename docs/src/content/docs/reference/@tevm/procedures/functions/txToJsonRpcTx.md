@@ -9,9 +9,9 @@ title: "txToJsonRpcTx"
 
 ## Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+• **tx**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/) \| [`ImpersonatedTx`](/reference/tevm/tx/interfaces/impersonatedtx/)
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 • **txIndex?**: `number`
 
