@@ -405,6 +405,18 @@ title: "Releases"
 
 > **23**: `"v0.8.23+commit.f704f362"`
 
+### 0.8.24
+
+> **24**: `"v0.8.24+commit.e11b9ed9.js"`
+
+### 0.8.25
+
+> **25**: `"v0.8.25+commit.b61c2a91.js"`
+
+### 0.8.26
+
+> **26**: `"v0.8.26+commit.8a97fa7a.js"`
+
 ### 0.8.3
 
 > **3**: `"v0.8.3+commit.8d00100c"`
@@ -435,4 +447,4 @@ title: "Releases"
 
 ## Source
 
-[solcTypes.ts:633](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L633)
+[solcTypes.ts:636](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L636)

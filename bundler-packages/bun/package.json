@@ -65,13 +65,13 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"effect": "2.0.0-next.54",
-		"solc": "0.8.23-fixed"
+		"solc": "0.8.26"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"bun-types": "^1.0.24"
+		"bun-types": "^1.1.13"
 	},
 	"publishConfig": {
 		"access": "public"

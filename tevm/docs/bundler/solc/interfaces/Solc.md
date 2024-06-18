@@ -22,7 +22,7 @@
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:326
+bundler-packages/solc/types/src/solcTypes.d.ts:329
 
 ***
 
@@ -32,7 +32,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:326
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:325
+bundler-packages/solc/types/src/solcTypes.d.ts:328
 
 ***
 
@@ -42,7 +42,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:325
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:323
+bundler-packages/solc/types/src/solcTypes.d.ts:326
 
 ***
 
@@ -62,7 +62,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:323
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:327
+bundler-packages/solc/types/src/solcTypes.d.ts:330
 
 ***
 
@@ -72,7 +72,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:324
+bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 ***
 
@@ -82,7 +82,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:324
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:322
+bundler-packages/solc/types/src/solcTypes.d.ts:325
 
 ***
 
@@ -100,7 +100,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:322
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:328
+bundler-packages/solc/types/src/solcTypes.d.ts:331
 
 ***
 
@@ -110,4 +110,4 @@ bundler-packages/solc/types/src/solcTypes.d.ts:328
 
 #### Source
 
-bundler-packages/solc/types/src/solcTypes.d.ts:321
+bundler-packages/solc/types/src/solcTypes.d.ts:324

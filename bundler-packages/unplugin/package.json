@@ -65,15 +65,15 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"effect": "2.0.0-next.54",
-		"solc": "0.8.22",
-		"unplugin": "^1.5.0",
-		"zod": "^3.22.4"
+		"solc": "0.8.26",
+		"unplugin": "^1.10.1",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.8.9"
+		"@types/node": "^20.14.5"
 	},
 	"publishConfig": {
 		"access": "public"

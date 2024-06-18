@@ -68,7 +68,7 @@
 	},
 	"devDependencies": {
 		"@tevm/compiler": "workspace:^",
-		"abitype": "^0.10.2"
+		"abitype": "^1.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
