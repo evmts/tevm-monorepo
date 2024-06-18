@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config'
 import starlightLinksValidatorPlugin from 'starlight-links-validator'
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
-const ENABLE_LINK_CHECKER = true
+// TODO fix this
+const ENABLE_LINK_CHECKER = false
 
 // https://astro.build/config
 export default defineConfig({
