@@ -6,7 +6,7 @@
 
 # Type alias: ValidateScriptParamsError
 
-> **ValidateScriptParamsError**\<\>: `InvalidAbiError` \| `InvalidArgsError` \| `InvalidDeployedBytecodeError` \| `InvalidFunctionNameError` \| `ValidateBaseCallParamsError`
+> **ValidateScriptParamsError**\<\>: `InvalidAbiError` \| `InvalidArgsError` \| `InvalidFunctionNameError` \| `ValidateBaseCallParamsError`
 
 ## Type parameters
 

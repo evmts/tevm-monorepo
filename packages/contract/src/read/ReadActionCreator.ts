@@ -23,8 +23,6 @@ export type ValueOf<T> = T[keyof T]
 export type ReadActionCreator<
 	THumanReadableAbi extends readonly string[],
 	TAddress extends Address | undefined,
-	TBytecode extends Hex | undefined,
-	TDeployedBytecode extends Hex | undefined,
 	TCode extends Hex | undefined,
 	// we have address and to so we support both tevm and viem with natively
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress; to: TAddress },

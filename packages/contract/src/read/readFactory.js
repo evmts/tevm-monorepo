@@ -6,7 +6,7 @@ import { formatAbi } from '@tevm/utils'
  * @param {import('@tevm/utils').Abi} params.methods
  * @param {import('@tevm/utils').Hex} [params.code]
  * @param {import('@tevm/utils').Address} [params.address]
- * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any, any, any>} A mapping of method names to action creators
+ * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any>} A mapping of method names to action creators
  */
 export const readFactory = ({ methods, address, code }) =>
 	Object.fromEntries(

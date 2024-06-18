@@ -5,7 +5,7 @@ prev: false
 title: "Contract"
 ---
 
-> **Contract**\<`TName`, `THumanReadableAbi`\>: `object`
+> **Contract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
 
 An action creator for `Tevm.contract`, `Tevm.eth.getEvents` and more
 It also is the type solidity contract imports are turned into.
@@ -18,7 +18,7 @@ such as `contract` `traceContract` and `eth.events`
 ```typescript
 tevm.contract(
 -  { abi: [...], args: ['0x1234...'], functionName: 'balanceOf' },
-+  MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
++  MyContract.atAddress('0x420...').read.balanceOf('0x1234...'),
 )
 ```
 
@@ -69,6 +69,14 @@ const result = await client.readContract(
 
 • **THumanReadableAbi** *extends* `ReadonlyArray`\<`string`\>
 
+• **TAddress** *extends* `undefined` \| [`Address`](/reference/tevm/utils/type-aliases/address/) = `undefined`
+
+• **TBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) = `undefined`
+
+• **TDeployedBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) = `undefined`
+
+• **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) = `undefined`
+
 ## Type declaration
 
 ### abi
@@ -84,18 +92,41 @@ import { MyContract } from './MyContract.sol'
 console.log(MyContract.abi) // [{name: 'balanceOf', inputs: [...], outputs: [...], ...}]
 ```
 
-### bytecode?
+### address
 
-> `optional` **bytecode**: `undefined`
+> **address**: `TAddress`
+
+Configured address of the contract. If not set it will be undefined
+To set use the `withAddress` method
+
+### bytecode
+
+> **bytecode**: `TBytecode`
 
 The contract bytecode is not defined on Contract objects are expected
 to be deployed to the chain. See `Script` type which is a contract with bytecode
 It's provided here to allow easier access of the property when using a
 `Contract | Script` union type
 
-### deployedBytecode?
+### code
 
-> `optional` **deployedBytecode**: `undefined`
+> **code**: `TCode`
+
+Code i
+
+### deploy()
+
+> **deploy**: () => [`EncodeDeployDataParameters`](/reference/tevm/utils/type-aliases/encodedeploydataparameters/)\<[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>\>
+
+Action creator for deploying the contract
+
+#### Returns
+
+[`EncodeDeployDataParameters`](/reference/tevm/utils/type-aliases/encodedeploydataparameters/)\<[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>\>
+
+### deployedBytecode
+
+> **deployedBytecode**: `TDeployedBytecode`
 
 The contract deployedBytecode is not defined on Contract objects are expected
 to be deployed to the chain. See `Script` type which is a contract with deployedBytecode
@@ -104,7 +135,7 @@ It's provided here to allow easier access of the property when using a
 
 ### events
 
-> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -130,15 +161,15 @@ console.log(MyContract.humanReadableAbi)
 // ['function balanceOf(address): uint256', ...]
 ```
 
-### name
+### name?
 
-> **name**: `TName`
+> `optional` **name**: `TName`
 
 The name of the contract. If imported this will match the name of the contract import
 
 ### read
 
-> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, `TAddress`, `TCode`\>
 
 Action creators for contract view and pure functions
 
@@ -150,12 +181,20 @@ tevm.contract(
 )
 ```
 
+### script
+
+> **script**: [`CreateScript`](/reference/tevm/contract/type-aliases/createscript/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`\>
+
+Creates a deployless instance of the contract that can be used with
+tevm and viem as [deployless contracts](https://viem.sh/docs/contract/readContract#deployless-reads)
+
 ### withAddress()
 
-> **withAddress**: \<`TAddress`\>(`address`) => `Omit`\<[`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`\>, `"read"` \| `"write"` \| `"events"` \| `"address"`\> & `object`
+> **withAddress**: \<`TAddress`\>(`address`) => [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Adds an address to the contract. All action creators will return
-the address property if added.
+the address property if added. THis method returns a new contract
+it does not modify the existing contract.
 
 #### Example
 
@@ -174,11 +213,11 @@ const MyContractOptimism = MyContract.withAddress('0x420...')
 
 #### Returns
 
-`Omit`\<[`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`\>, `"read"` \| `"write"` \| `"events"` \| `"address"`\> & `object`
+[`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ### write
 
-> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, `TAddress`, `TCode`\>
 
 Action creators for contract payable and nonpayable functions
 
@@ -192,4 +231,4 @@ tevm.contract(
 
 ## Source
 
-[Contract.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L61)
+[Contract.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L62)

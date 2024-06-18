@@ -1848,6 +1848,9 @@ importers:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../contract
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors

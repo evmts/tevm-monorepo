@@ -5,22 +5,24 @@ prev: false
 title: "definePrecompile"
 ---
 
-> **definePrecompile**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): `Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
+> **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
 ## Type parameters
 
-• **TName** *extends* `string`
-
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TContract** *extends* [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`any`, `any`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\> = [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`string`, readonly `string`[], \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 ## Parameters
 
-• **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>, `"contract"` \| `"call"`\>
+• **\_\_namedParameters**
+
+• **\_\_namedParameters.call**
+
+• **\_\_namedParameters.contract**: `TContract`
 
 ## Returns
 
-`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
+`Precompile`\<`TContract`\>
 
 ## Source
 
-[precompiles/src/definePrecompile.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L4)
+[definePrecompile.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)

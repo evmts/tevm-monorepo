@@ -18,7 +18,7 @@ describe(defineCall.name, () => {
 				gasLimit: 1n,
 				data: encodeFunctionData(SimpleContract.read.get()),
 			}),
-		).toEqual({ returnValue: toBytes(value), executionGasUsed: 0n })
+		).toEqual({ returnValue: toBytes(value, { size: 32 }), executionGasUsed: 0n })
 		expect(
 			await call({
 				gasLimit: 1n,
@@ -30,6 +30,6 @@ describe(defineCall.name, () => {
 				gasLimit: 1n,
 				data: encodeFunctionData(SimpleContract.read.get()),
 			}),
-		).toEqual({ returnValue: toBytes(10n), executionGasUsed: 0n })
+		).toEqual({ returnValue: toBytes(10n, { size: 32 }), executionGasUsed: 0n })
 	})
 })

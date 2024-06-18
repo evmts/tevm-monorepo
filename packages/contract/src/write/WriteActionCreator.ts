@@ -23,8 +23,6 @@ export type ValueOf<T> = T[keyof T]
 export type WriteActionCreator<
 	THumanReadableAbi extends readonly string[],
 	TAddress extends Address | undefined,
-	TBytecode extends Hex | undefined,
-	TDeployedBytecode extends Hex | undefined,
 	TCode extends Hex | undefined,
 	// we have address and to so we support both tevm and viem with natively
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress; to: TAddress },
@@ -48,9 +46,7 @@ export type WriteActionCreator<
 		address: TAddress
 		to: TAddress
 		code: TCode
-	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
-		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
-		(TCode extends undefined ? {} : { code: TCode }) &
+	} & (TCode extends undefined ? {} : { code: TCode }) &
 		(TArgs['length'] extends 0
 			? {}
 			: {
@@ -60,8 +56,6 @@ export type WriteActionCreator<
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
-		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
-		(TCode extends undefined ? {} : { code: TCode }) &
+	} & (TCode extends undefined ? {} : { code: TCode }) &
 		TAddressArgs
 }

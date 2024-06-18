@@ -135,7 +135,7 @@ export type Contract<
 	 *)
 	 * ```
 	 */
-	read: ReadActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
+	read: ReadActionCreator<THumanReadableAbi, TAddress, TCode>
 	/**
 	 * Action creators for contract payable and nonpayable functions
 	 * @example
@@ -145,7 +145,7 @@ export type Contract<
 	 * )
 	 * ```
 	 */
-	write: WriteActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
+	write: WriteActionCreator<THumanReadableAbi, TAddress, TCode>
 	/**
 	 * Action creator for deploying the contract
 	 */

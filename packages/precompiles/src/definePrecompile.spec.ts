@@ -25,7 +25,7 @@ describe(definePrecompile.name, () => {
 			await precompile
 				.precompile()
 				.function({ gasLimit: 1n, data: hexToBytes(encodeFunctionData(contract.read.get())) }),
-		).toEqual({ returnValue: toBytes(value), executionGasUsed: 0n })
+		).toEqual({ returnValue: toBytes(value, { size: 32 }), executionGasUsed: 0n })
 		await precompile.precompile().function({
 			gasLimit: 1n,
 			data: hexToBytes(encodeFunctionData(contract.write.set(10n))),
@@ -34,6 +34,6 @@ describe(definePrecompile.name, () => {
 			await precompile
 				.precompile()
 				.function({ gasLimit: 1n, data: hexToBytes(encodeFunctionData(contract.read.get())) }),
-		).toEqual({ returnValue: toBytes(10n), executionGasUsed: 0n })
+		).toEqual({ returnValue: toBytes(10n, { size: 32 }), executionGasUsed: 0n })
 	})
 })

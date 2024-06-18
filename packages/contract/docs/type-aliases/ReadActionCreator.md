@@ -4,9 +4,9 @@
 
 [@tevm/contract](../globals.md) / ReadActionCreator
 
-# Type alias: ReadActionCreator\<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode, TAddressArgs\>
+# Type alias: ReadActionCreator\<THumanReadableAbi, TAddress, TCode, TAddressArgs\>
 
-> **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: Function & Object & (TBytecode extends undefined ? Object : Object) & (TDeployedBytecode extends undefined ? Object : Object) & (TCode extends undefined ? Object : Object) & TAddressArgs \}
+> **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: Function & Object & (TCode extends undefined ? Object : Object) & TAddressArgs \}
 
 A mapping of view and pure contract methods to action creators
 
@@ -23,10 +23,6 @@ tevm.contract(
 • **THumanReadableAbi** *extends* readonly `string`[]
 
 • **TAddress** *extends* `Address` \| `undefined`
-
-• **TBytecode** *extends* `Hex` \| `undefined`
-
-• **TDeployedBytecode** *extends* `Hex` \| `undefined`
 
 • **TCode** *extends* `Hex` \| `undefined`
 
