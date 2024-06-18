@@ -3,11 +3,14 @@ title: Contract action creators
 description: Guide on using contract action creators
 ---
 
-## Contract action creators
+## Contracts
 
-Note: this guide is out of date and will be updated soon
+The [`@tevm/contracts`](/reference/tevm/contract/api) package is an optional api in `tevm` that makes interacting with tevm, viem, and wagmi simple. Contracts can be created in two ways:
 
-The [`@tevm/contracts`](/reference/tevm/contract/api) package is an optional module in `tevm` for cleaning up your contract code. It represents a contract or script and provides a typesafe api for creating [actions](/learn/actions)
+- Manually via [`createContract`](/reference/tevm/contract/functions/createcontract/)
+- Automatically via [the Tevm bundler](../bundler/)
+
+## Example
 
 In the following diff the added code shows how to dispatch a [`script`](/reference/tevm/actions-types/type-aliases/scripthandler) action with a contract action creator. The removed code is both how you would do it without an action creator and also the returned value of the action creator.
 
@@ -25,28 +28,20 @@ In the following diff the added code shows how to dispatch a [`script`](/referen
 
 ## Creating a contract with createContract
 
-There are two ways to create a contract.
-
-1. Using the [createContract](/reference/tevm/contract/functions/createcontract) utils.
-2. Automatically [generating scripts with the tevm bundler](/learn/solidity-imports)
-
-To create a contract instance pass in it's human readable ABI and name into `createContract`. If creating a script you will also need to pass `bytecode` and `deployedBytecode`
+To create a contract instance pass in it's human readable ABI and name into `createContract`. If creating a script you will also need to pass `bytecode` and `deployedBytecode`.
 
 ```typescript
-import { createContract} from 'tevm/contract'
+import { createContract} from 'tevm'
 
-const script = createContract({
-  name: 'MyScript',
+const contract = createContract({
   humanReadableAbi: ['function exampleRead() returns (uint256)', ...],
-  bytecode: '0x123...',
-  deployedBytecode: '0x123...',
 })
 ```
 
-Contracts and scripts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi).
+Contracts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi).
 
 ```typescript
-import { createContract, formatAbi } from 'tevm/contract'
+import { createContract, formatAbi } from 'tevm'
 
 const abi = [
   ...
@@ -64,64 +59,85 @@ const script = createContract({
 Because of how TypeScript processes JSON files you will lose typesafety if you import your ABI from a json file or don't use `as const`. A solution to the JSON import problem will exist in a future version.
 :::
 
-See the [contract reference docs](/reference/tevm/contract/api) for more information on creating contracts.
+See the [contract reference docs](/reference/tevm/contract/api) for more generated type information contracts.
 
-## Contracts vs scripts
+## Creating a contract with a solidity import
 
-There are two types of contracts.
-
-1. [Contracts](/reference/tevm/contract/type-aliases/contract) which are created with [createContract](/reference/tevm/contract/functions/createcontract)
-2. Scripts which are created via calling `contract.script()`
-
-The only difference between the two is `Scripts` have bytecode and can run without being deployed first. Contracts can only run with the bytecode already deployed to the chain. Contract actions require a `to` address that is used by the EVM to fetch the bytecode from storage.
-
-## Addresses
-
-Contracts by default don't have any address thus you need to add an address when using a contract action.
+Tevm supports creating contracts via importing directly from the solidity file. This makes for very nice dx.
 
 ```typescript
-await client.contract({
-  ...MyContract.read.balanceOf(address),
-  to: contractAddress,
-});
-```
+import { HelloWorld } from "../contracts/HelloWorld.sol";
 
-Tevm contracts have a `withAddress` method that cleans this up.
-
-```typescript
-await client.contract(
-  MyContract.withAddress(contractAddress).read.balanceOf(address),
+const scriptResult = await tevm.tevmContract(
+  HelloWorld.script().read.greet("Vitalik"),
 );
 ```
 
-If you want to consistently associate this address with this contract you can export the addressed contract from a typescript file.
+## Addresses
+
+Addresses are optional on contracts. If you want your action creators to return addresses you must add the address to the contract in one of two ways
+
+1. Add address when calling `createContract`
 
 ```typescript
-export {
-  MyContract: MyContract.withAddress(contractAddress)
-}
+const script = createContract({
+  humanReadableAbi: formatAbi(abi),
+  address: "0x...",
+});
 ```
 
-## Usage with other libraries
+2. Create a new contract from `withAddress`
 
-Contracts and their action creators are intentionally designed to compose well with other libraries outside of Tevm including `ethers` `viem` and `wagmi`.
-
-Because the `tevm` api tries to stay maximally consistent with the `viem` api the integration with wagmi and viem is first-class. For example, the below example shows how a read action creator can compose with [viem readContract action](https://viem.sh/docs/contract/readContract.html).
+If you already have a non addressed contract you can create an addressed one via `withAddress` utility. This is especially useful since contract imports do not come addressed.
 
 ```typescript
-import {createClient, http} from 'viem'
-import { createContract } from 'tevm/contract'
+import { HelloWorld } from "../contracts/HelloWorld.sol";
 
-const client = createClient({transport: http('https://mainnet.optimism.io')})
-
-const contract = createContract({
-  name: 'MyScript',
-  humanReadableAbi: ['function balanceOf(address owner) returns (uint256)', ...],
-  bytecode: '0x123...',
-  deployedBytecode: '0x123...',
-})
-
-const balance = client.readContract(
-  contract.read.balanceOf('0x122...')
-)
+const contract = HelloWorld.withAddress(`0x...`);
 ```
+
+- `withAddress` will create a new contract and not modify the existing one.
+
+## Standard library
+
+A standard library of contracts is exported from `tevm/contract`. All contracts include bytecode.
+
+- SimpleContract - A simple contract with only a getter and a setter
+- ERC20 - Open zeppelin ERC20 compiled with tevm
+- ERC721 - Open zeppelin ERC20 compiled with tevm
+
+## Deployless Scripts
+
+A deployless script is a contract that doesn't need to be deployed first. It self-deploys itself. Deployless scripts are supported by tevm actions like `MemoryClient.call` and `MemoryClient.contract`. They are also supported by [viem](https://viem.sh/docs/actions/public/call#deployless-calls) methods like `readContract`.
+
+Tevm contracts can be turned into deployless scripts via the `script` method. Unlike normal contracts `scripts` have a `code` property.
+
+```typescript
+import { ERC20 } from "tevm/contracts";
+
+const script = ERC20.script({
+  bytecode: "0x6....",
+  args: ["TokenName", "SYMBOL"],
+});
+```
+
+Scripts will have a special `code` property that is the encoded `bytecode` to self deploy the contract. Now when using action creators you can supply the code. Viem and tevm will self deploy.
+
+```typescript
+import { ERC20 } from "tevm/contracts";
+
+const script = ERC20.script({
+  bytecode: "0x6....",
+  args: ["TokenName", "SYMBOL"],
+});
+
+// can be used with memory client
+memoryClient.contract(script.read.name()); // TokenName
+
+// can also be used with viem
+publicClient.readContract(script.read.name()); // TokenName
+```
+
+## Warning about scripts and addresses.
+
+You can also add an address to scripts. Tevm will respect the address property and self deploy to the specified address. This may cause wierd behavior with viem however as not all RPCs support this.

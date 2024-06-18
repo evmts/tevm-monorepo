@@ -5,11 +5,27 @@ description: Tevm actions api
 
 ## Overview
 
-Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [viem's actions api](https://viem.sh/docs/actions/public/getbalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](/learn/json-rpc).
+The core api for interacting with Tevm is called the [`Actions API`](/reference/tevm/actions-types/api).
+
+- Tevm inherits [viem's public actions](https://viem.sh/docs/actions/public/introduction) api
+- Tevm adds a few useful tevm specific actions
 
 ### Public actions
 
 [MemoryClient](../clients/index.md) comes with all [viem public actions](https://viem.sh/docs/actions/public/introduction) built in.
+
+Notable apis include the following
+
+- [MemoryClient.call](https://viem.sh/docs/actions/public/call)
+- [MemoryClient.readContract](https://viem.sh/docs/contract/readContract#readcontract)
+- [MemoryClient.getChainId](https://viem.sh/docs/actions/public/getChainId)
+- [MemoryClient.estimateGas](https://viem.sh/docs/actions/public/estimateGas)
+- [MemoryClient.getLogs](https://viem.sh/docs/actions/public/getLogs)
+- [MemoryClient.getTransactionReceipt](https://viem.sh/docs/actions/public/waitForTransactionReceipt)
+
+Most Test actions and wallet actions are not included in MemoryClient but can be added with extend. See [client guide](../clients/).
+
+See [JSON-RPC guide](../json-rpc/) for a complete list of all supported JSON-RPC methods. Viem docs list which json-rpc methods they use.
 
 ```typescript
 await memoryClient.getChainId();
