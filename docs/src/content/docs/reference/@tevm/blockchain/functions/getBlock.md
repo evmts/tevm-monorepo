@@ -5,7 +5,7 @@ prev: false
 title: "getBlock"
 ---
 
-> **getBlock**(`baseChain`): (`blockId`) => `Promise`\<`Block`\>
+> **getBlock**(`baseChain`): (`blockId`) => `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Parameters
 
@@ -23,7 +23,7 @@ Returns a block by its hash or number.
 
 ### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Source
 

@@ -43,7 +43,7 @@ title: "VMEvents"
 
 #### Parameters
 
-• **data**: `Block`
+• **data**: [`Block`](/reference/tevm/block/classes/block/)
 
 • **resolve?**
 
@@ -57,7 +57,7 @@ title: "VMEvents"
 
 #### Parameters
 
-• **data**: `TypedTransaction`
+• **data**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/)
 
 • **resolve?**
 

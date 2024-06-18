@@ -81,23 +81,23 @@ The currently impersonated account. This is only used in `fork` mode
 
 ##### getReceiptsManager()
 
-> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+> `readonly` **getReceiptsManager**: () => `Promise`\<[`ReceiptsManager`](/reference/tevm/receipt-manager/classes/receiptsmanager/)\>
 
 Interface for querying receipts and historical state
 
 ###### Returns
 
-`Promise`\<`ReceiptsManager`\>
+`Promise`\<[`ReceiptsManager`](/reference/tevm/receipt-manager/classes/receiptsmanager/)\>
 
 ##### getTxPool()
 
-> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
+> `readonly` **getTxPool**: () => `Promise`\<[`TxPool`](/reference/tevm/txpool/classes/txpool/)\>
 
 Gets the pool of pending transactions to be included in next block
 
 ###### Returns
 
-`Promise`\<`TxPool`\>
+`Promise`\<[`TxPool`](/reference/tevm/txpool/classes/txpool/)\>
 
 ##### getVm()
 

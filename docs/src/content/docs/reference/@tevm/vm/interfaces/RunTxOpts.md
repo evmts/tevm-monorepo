@@ -11,7 +11,7 @@ Options for the `runTx` method.
 
 ### block?
 
-> `optional` **block**: `Block`
+> `optional` **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 The `@ethereumjs/block` the `tx` belongs to.
 If omitted, a default blank block will be used.
@@ -118,7 +118,7 @@ If true, skips the nonce check
 
 ### tx
 
-> **tx**: `TypedTransaction`
+> **tx**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/)
 
 An `@ethereumjs/tx` to run
 

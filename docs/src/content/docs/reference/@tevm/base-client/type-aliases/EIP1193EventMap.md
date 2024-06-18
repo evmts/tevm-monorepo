@@ -63,7 +63,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 #### Returns
 
@@ -83,7 +83,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+• **tx**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/) \| [`ImpersonatedTx`](/reference/tevm/tx/interfaces/impersonatedtx/)
 
 #### Returns
 
@@ -93,7 +93,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **receipt**: `TxReceipt`
+• **receipt**: [`TxReceipt`](/reference/tevm/receipt-manager/type-aliases/txreceipt/)
 
 #### Returns
 

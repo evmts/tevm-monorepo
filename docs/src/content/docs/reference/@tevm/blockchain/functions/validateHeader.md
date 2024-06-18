@@ -19,7 +19,7 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 ### Parameters
 
-• **header**: `BlockHeader`
+• **header**: [`BlockHeader`](/reference/tevm/block/classes/blockheader/)
 
 header to be validated
 

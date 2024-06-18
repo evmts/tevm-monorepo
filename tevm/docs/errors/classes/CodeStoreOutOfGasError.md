@@ -276,7 +276,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 ### EVMErrorMessage
 
-> `static` **EVMErrorMessage**: `ERROR`
+> `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
 #### Source
 

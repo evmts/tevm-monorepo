@@ -13,7 +13,7 @@ Internal representation of a registered filter
 
 ### blocks
 
-> **blocks**: `Block`[]
+> **blocks**: [`Block`](/reference/tevm/block/classes/block/)[]
 
 Stores the blocks
 
@@ -62,7 +62,7 @@ Listeners registered for the filter
 
 ### tx
 
-> **tx**: `TypedTransaction`[]
+> **tx**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/)[]
 
 stores tx
 

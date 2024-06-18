@@ -23,7 +23,7 @@ The block and builder options to use.
 
 ### headerData?
 
-> `optional` **headerData**: `HeaderData`
+> `optional` **headerData**: [`HeaderData`](/reference/tevm/block/interfaces/headerdata/)
 
 The block header data to use.
 Defaults used for any values not provided.
@@ -36,7 +36,7 @@ Defaults used for any values not provided.
 
 ### parentBlock
 
-> **parentBlock**: `Block`
+> **parentBlock**: [`Block`](/reference/tevm/block/classes/block/)
 
 The parent block
 

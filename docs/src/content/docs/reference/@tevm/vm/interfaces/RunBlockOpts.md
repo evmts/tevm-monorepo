@@ -11,7 +11,7 @@ Options for running a block.
 
 ### block
 
-> **block**: `Block`
+> **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 The @ethereumjs/block to process
 

@@ -9,7 +9,7 @@ title: "blockToJsonRpcBlock"
 
 ## Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 • **includeTransactions**: `boolean`
 

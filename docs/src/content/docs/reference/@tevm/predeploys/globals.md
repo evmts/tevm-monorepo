@@ -7,8 +7,8 @@ title: "@tevm/predeploys"
 
 ## Classes
 
-- [Predeploy](/reference/tevm/predeploys/classes/predeploy-1/)
+- [Predeploy](/reference/tevm/predeploys/classes/predeploy/)
 
 ## Functions
 
-- [definePredeploy](/reference/tevm/predeploys/functions/definepredeploy-1/)
+- [definePredeploy](/reference/tevm/predeploys/functions/definepredeploy/)

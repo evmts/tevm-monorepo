@@ -10,9 +10,9 @@
 
 ## Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+• **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
 
-• **block**: `Block`
+• **block**: [`Block`](../../block/classes/Block.md)
 
 • **txIndex?**: `number`
 

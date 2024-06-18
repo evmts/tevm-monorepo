@@ -5,7 +5,7 @@ prev: false
 title: "getCanonicalHeadBlock"
 ---
 
-> **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<`Block`\>
+> **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Parameters
 
@@ -19,7 +19,7 @@ Returns the latest full block in the canonical chain.
 
 ### Returns
 
-`Promise`\<`Block`\>
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
 ## Source
 

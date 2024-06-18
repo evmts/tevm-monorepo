@@ -6,7 +6,7 @@
 
 # Function: defineCall()
 
-> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<`ExecResult`\>
+> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
 ## Type parameters
 
@@ -32,7 +32,7 @@
 
 ### Returns
 
-`Promise`\<`ExecResult`\>
+`Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
 ## Source
 

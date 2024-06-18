@@ -5,7 +5,7 @@ prev: false
 title: "ModuleInfo"
 ---
 
-> **ModuleInfo**: `ModuleInfo`
+> **ModuleInfo**: [`types`](/reference/tevm/resolutions/types/readme/)
 
 ./moduleFactory.js
 

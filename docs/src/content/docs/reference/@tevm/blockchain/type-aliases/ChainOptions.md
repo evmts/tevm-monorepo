@@ -42,7 +42,7 @@ EIP-1193 request function to fetch forked blocks with
 
 ### genesisBlock?
 
-> `optional` **genesisBlock**: `Block`
+> `optional` **genesisBlock**: [`Block`](/reference/tevm/block/classes/block/)
 
 Override the genesis block. If fork is provided it will be fetched from fork. Otherwise a default genesis is provided.
 

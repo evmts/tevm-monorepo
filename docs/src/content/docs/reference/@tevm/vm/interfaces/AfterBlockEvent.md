@@ -15,7 +15,7 @@ Result of runBlock
 
 ### block
 
-> **block**: `Block`
+> **block**: [`Block`](/reference/tevm/block/classes/block/)
 
 #### Source
 
@@ -105,7 +105,7 @@ The receipt root after executing the block
 
 ### requests?
 
-> `optional` **requests**: `ClRequest`[]
+> `optional` **requests**: [`ClRequest`](/reference/tevm/block/classes/clrequest/)[]
 
 Any CL requests that were processed in the course of this block
 

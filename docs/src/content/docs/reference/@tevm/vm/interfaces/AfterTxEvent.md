@@ -15,7 +15,7 @@ Execution result of a transaction
 
 ### accessList?
 
-> `optional` **accessList**: `AccessList`
+> `optional` **accessList**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
 
 EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
@@ -193,7 +193,7 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 ### transaction
 
-> **transaction**: `TypedTransaction`
+> **transaction**: [`TypedTransaction`](/reference/tevm/tx/type-aliases/typedtransaction/)
 
 The transaction which just got finished
 

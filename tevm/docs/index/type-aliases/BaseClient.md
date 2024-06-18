@@ -69,27 +69,27 @@ The currently impersonated account. This is only used in `fork` mode
 
 ### getReceiptsManager()
 
-> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+> `readonly` **getReceiptsManager**: () => `Promise`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\>
 
 Interface for querying receipts and historical state
 
 #### Returns
 
-`Promise`\<`ReceiptsManager`\>
+`Promise`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\>
 
 ### getTxPool()
 
-> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
+> `readonly` **getTxPool**: () => `Promise`\<[`TxPool`](../../txpool/classes/TxPool.md)\>
 
 Gets the pool of pending transactions to be included in next block
 
 #### Returns
 
-`Promise`\<`TxPool`\>
+`Promise`\<[`TxPool`](../../txpool/classes/TxPool.md)\>
 
 ### getVm()
 
-> `readonly` **getVm**: () => `Promise`\<`Vm`\>
+> `readonly` **getVm**: () => `Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
@@ -97,7 +97,7 @@ on top of Tevm.
 
 #### Returns
 
-`Promise`\<`Vm`\>
+`Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>
 
 ### logger
 
