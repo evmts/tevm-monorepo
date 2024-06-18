@@ -14,7 +14,7 @@ Internal representation of a registered filter
 
 ### blocks
 
-> **blocks**: `Block`[]
+> **blocks**: [`Block`](../../block/classes/Block.md)[]
 
 Stores the blocks
 
@@ -63,7 +63,7 @@ Listeners registered for the filter
 
 ### tx
 
-> **tx**: `TypedTransaction`[]
+> **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
 stores tx
 

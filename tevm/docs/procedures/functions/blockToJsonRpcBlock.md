@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](../../block/classes/Block.md)
 
 • **includeTransactions**: `boolean`
 

@@ -64,7 +64,7 @@
 
 #### Parameters
 
-• **block**: `Block`
+• **block**: [`Block`](../../block/classes/Block.md)
 
 #### Returns
 
@@ -84,7 +84,7 @@
 
 #### Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+• **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
 
 #### Returns
 
@@ -94,7 +94,7 @@
 
 #### Parameters
 
-• **receipt**: `TxReceipt`
+• **receipt**: [`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
 
 #### Returns
 
