@@ -5,11 +5,11 @@ import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
 
 /**
- * Represents a specific contract abi and optional bytecode. 
+ * Represents a specific contract abi and optional bytecode.
  * @example
  * ```typescript
  * import {createContract} from 'tevm/contract'
- * 
+ *
  * const contract = createContract({
  *   address,
  *   bytecode,
