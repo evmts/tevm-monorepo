@@ -5,7 +5,7 @@ prev: false
 title: "zCallParams"
 ---
 
-> `const` **zCallParams**: `ZodEffects`\<`ZodObject`\<`extendShape`\<`extendShape`\<`object`, `object`\>, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
+> `const` **zCallParams**: `ZodEffects`\<`ZodEffects`\<`ZodObject`\<`extendShape`\<`extendShape`\<`object`, `object`\>, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>, `object`, `object`\>
 
 Zod validator for a valid call action
 

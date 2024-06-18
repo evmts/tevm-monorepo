@@ -5,7 +5,7 @@ prev: false
 title: "DeployArgs"
 ---
 
-> **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) ? [] \| [`object`] : [`object`] : [`object` & `TBytecode` *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) ? `object` : `object`]
+> **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) ? [] \| [`object`] : [`object`] : `TBytecode` *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) ? [`object`] : [`object`]
 
 Inferred arguments for a contract deployment
 

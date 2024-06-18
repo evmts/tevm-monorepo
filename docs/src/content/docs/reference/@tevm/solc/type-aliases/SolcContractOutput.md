@@ -11,7 +11,7 @@ title: "SolcContractOutput"
 
 ### abi
 
-> **abi**: `Abi`
+> **abi**: [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 ### devdoc
 

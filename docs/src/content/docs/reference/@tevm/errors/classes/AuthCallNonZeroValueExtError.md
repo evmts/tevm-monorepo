@@ -298,7 +298,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -312,7 +312,7 @@ node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:2
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -368,7 +368,7 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.14.2/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -392,4 +392,4 @@ Create .stack property on a target object
 
 ##### Source
 
-node\_modules/.pnpm/bun-types@1.1.12/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
