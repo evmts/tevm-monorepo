@@ -54,22 +54,18 @@ export type {
 export type { TevmClient } from "@tevm/client-types";
 export {
   type Predeploy,
-  type CustomPredeploy,
   definePredeploy,
 } from "@tevm/predeploys";
 
 export {
   type Contract,
-  type Script,
   type CreateScript,
-  type CreateContract,
   type ReadActionCreator,
-  type CreateScriptParams,
   type EventActionCreator,
   type WriteActionCreator,
   type CreateContractParams,
+  type DeployArgs,
   createContract,
-  createScript,
 } from "@tevm/contract";
 
 export {

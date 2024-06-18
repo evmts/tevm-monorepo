@@ -1,2 +1,5 @@
-export { createContract } from './createContract.js'
-export { createScript } from './createScript.js'
+export { createContract } from './CreateContractFn.js'
+// export { eventsFactory } from './event/eventFactory.js'
+// export { readFactory } from './read/readFactory.js'
+// export { writeFactory } from './write/writeFactory.js'
+export { SimpleContract, ERC20, ERC721 } from './contract-lib/index.js'

@@ -5,76 +5,30 @@ prev: false
 title: "CreateScript"
 ---
 
-> **CreateScript**: \<`TName`, `THumanReadableAbi`\>(`{
-	name,
-	humanReadableAbi,
-	bytecode,
-	deployedBytecode,
-}`) => [`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
+> **CreateScript**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`\>: (...`args`) => [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
 
-Type of `createScript` factory function
-Creates a tevm Script instance from human readable abi
-
-## Examples
-
-```typescript
-import { type Script, createScript} from 'tevm/contract'
-
-const script: Script = createScript({
-  name: 'MyScript',
-  humanReadableAbi: ['function exampleRead(): uint256', ...],
-  bytecode: '0x123...',
-  deployedBytecode: '0x123...',
-})
-```
-
-To use a json abi first pass it into `formatAbi` to turn it into human readable
-
-```typescript
-import { type Script, createScript, formatAbi} from 'tevm/contract'
-import { formatAbi } from 'tevm/abi'
-
-const script = createScript({
- name: 'MyScript',
- bytecode: '0x123...',
- deployedBytecode: '0x123...',
- humanReadableAbi: formatAbi([
-  {
-    name: 'balanceOf',
-    inputs: [
-    {
-    name: 'owner',
-    type: 'address',
-    },
-    ],
-    outputs: [
-    {
-    name: 'balance',
-    type: 'uint256',
-    },
-  }
-  ]),
- })
+Creates a deployless instance of a contract
+Can be used to execute code that isn't deployed in tevm
+or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
 ## Type parameters
 
 • **TName** *extends* `string`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **THumanReadableAbi** *extends* `string`[] \| readonly `string`[]
+
+• **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `undefined`
+
+• **TBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined` = `undefined`
 
 ## Parameters
 
-• **\{
-	name,
-	humanReadableAbi,
-	bytecode,
-	deployedBytecode,
-\}**: [`CreateScriptParams`](/reference/tevm/contract/type-aliases/createscriptparams/)\<`TName`, `THumanReadableAbi`\>
+• ...**args**: [`DeployArgs`](/reference/tevm/contract/type-aliases/deployargs/)\<`THumanReadableAbi`, `TBytecode`\>
 
 ## Returns
 
-[`Script`](/reference/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
+[`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
 
 ## Source
 
-[types.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L98)
+[CreateScript.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateScript.ts#L10)

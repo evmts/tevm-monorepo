@@ -22,13 +22,24 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 				}
 				if (includeBytecode) {
 					return [
-						`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi)} as const;`,
-						`const _name${contractName} = ${JSON.stringify(contractName)} as const;`,
+						`const _name${contractName} = ${JSON.stringify(contractName, null, 2)} as const;`,
+						`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi, null, 2)} as const;`,
+						'// type _Address = undefined',
+						'// type _Bytecode = `0x${string}`',
+						'// type _DeployedBytecode = `0x${string}`',
+						'// type _Code = undefined',
 						'/**',
-						` * ${contractName} Script`,
+						` * ${contractName} Contract+Script`,
 						...natspec,
 						' */',
-						`export const ${contractName}: Script<typeof _name${contractName}, typeof _abi${contractName}>;`,
+						`export const ${contractName}: Contract<`,
+						`  typeof _name${contractName},`,
+						'  typeof _abi${contractName},',
+						'  undefined,',
+						'  `0x${string}`,',
+						'  `0x${string}`,',
+						'  undefined,',
+						'>;',
 					].filter(Boolean)
 				}
 				return [
@@ -38,7 +49,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					` * ${contractName} Contract`,
 					...natspec,
 					' */',
-					`export const ${contractName}: Contract<typeof _name${contractName}, typeof _abi${contractName}>;`,
+					`export const ${contractName}: Contract<typeof _name${contractName}, typeof _abi${contractName}, undefined, undefined, undefined, undefined>;`,
 				].filter(Boolean)
 			})
 			.join('\n'),

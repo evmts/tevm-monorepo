@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
+import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
@@ -48,9 +49,18 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
-			const res = await tevm.tevmContract(DaiContract.script.balanceOf('0x00000000000000000000000000000000000000ff'))
+			console.log(
+				ERC20.script({ constructorArgs: ['name', 'symbol'] }).read.balanceOf(
+					'0x00000000000000000000000000000000000000ff',
+				),
+			)
+			const res = await tevm.tevmContract(
+				ERC20.script({ constructorArgs: ['name', 'symbol'] }).read.balanceOf(
+					'0x00000000000000000000000000000000000000ff',
+				),
+			)
 			expect(res.data).toBe(0n)
-			expect(res.executionGasUsed).toBe(2447n)
+			expect(res.executionGasUsed).toBe(2851n)
 			expect(res.logs).toEqual([])
 			expect('errors' in res).toBe(false)
 			expect(res.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
@@ -62,6 +72,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const tevm = createMemoryClient()
 			const res = await tevm.tevmContract({
 				deployedBytecode: addbytecode,
+				to: `0x${'45'.repeat(20)}`,
 				abi: addabi,
 				functionName: 'add',
 				args: [1n, 2n],

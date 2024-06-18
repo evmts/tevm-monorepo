@@ -29,7 +29,7 @@ const callParams: import('@tevm/api').CallParams = {
 
 > `optional` `readonly` **code**: [`Hex`](Hex.md)
 
-alias for deployedBytecode
+The encoded code to deploy with for a deployless call
 
 ### data?
 
@@ -41,7 +41,8 @@ The input data.
 
 > `optional` `readonly` **deployedBytecode**: [`Hex`](Hex.md)
 
-The EVM code to run.
+THe code to put into the state before executing call. If you wish to call the constructor
+use `code` instead.
 
 ### salt?
 

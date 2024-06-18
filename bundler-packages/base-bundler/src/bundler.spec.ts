@@ -270,7 +270,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract Contract
 				 */
-				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -355,7 +355,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract Contract
 				 */
-				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -434,7 +434,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createContract } from '@tevm/contract'
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]} as const
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				} as const
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -514,7 +517,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createContract } from '@tevm/contract'
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]} as const
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				} as const
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -594,7 +600,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { createContract } = require('@tevm/contract')
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				}
 				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -674,7 +683,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { createContract } = require('@tevm/contract')
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				}
 				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -754,7 +766,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createContract } from '@tevm/contract'
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				}
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -834,7 +849,10 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createContract } from '@tevm/contract'
-				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
+				const _TestContract = {
+				  "name": "TestContract",
+				  "humanReadableAbi": []
+				}
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {

@@ -6,7 +6,7 @@
 
 # Function: createContract()
 
-> **createContract**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`\>
+> **createContract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`__namedParameters`): [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Creates a tevm Contract instance from human readable abi
 
@@ -16,13 +16,21 @@ Creates a tevm Contract instance from human readable abi
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
+• **TAddress** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
+
+• **TBytecode** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
+
+• **TDeployedBytecode** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
+
+• **TCode** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
+
 ## Parameters
 
-• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
+• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 
-[`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`\>
+[`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Examples
 

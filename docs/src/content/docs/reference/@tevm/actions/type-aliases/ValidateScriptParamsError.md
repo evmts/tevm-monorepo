@@ -5,7 +5,7 @@ prev: false
 title: "ValidateScriptParamsError"
 ---
 
-> **ValidateScriptParamsError**: [`InvalidAbiError`](/reference/tevm/errors/classes/invalidabierror/) \| [`InvalidArgsError`](/reference/tevm/errors/classes/invalidargserror/) \| [`InvalidDeployedBytecodeError`](/reference/tevm/errors/classes/invaliddeployedbytecodeerror/) \| [`InvalidFunctionNameError`](/reference/tevm/errors/classes/invalidfunctionnameerror/) \| `ValidateBaseCallParamsError`
+> **ValidateScriptParamsError**: [`InvalidAbiError`](/reference/tevm/errors/classes/invalidabierror/) \| [`InvalidArgsError`](/reference/tevm/errors/classes/invalidargserror/) \| [`InvalidFunctionNameError`](/reference/tevm/errors/classes/invalidfunctionnameerror/) \| `ValidateBaseCallParamsError`
 
 ## Source
 

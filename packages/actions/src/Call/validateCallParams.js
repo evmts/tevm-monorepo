@@ -1,10 +1,9 @@
-import { InvalidSaltError } from '@tevm/errors'
-import { InvalidDataError, InvalidDeployedBytecodeError } from '@tevm/errors'
+import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zCallParams } from './zCallParams.js'
 
 /**
- * @typedef {InvalidSaltError| InvalidDataError| InvalidDeployedBytecodeError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateCallParamsError
+ * @typedef {InvalidSaltError| InvalidDataError| InvalidBytecodeError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateCallParamsError
  */
 
 /**
@@ -31,9 +30,9 @@ export const validateCallParams = (action) => {
 				errors.push(new InvalidDataError(error))
 			})
 		}
-		if (formattedErrors.deployedBytecode) {
-			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(new InvalidDeployedBytecodeError(error))
+		if (formattedErrors.code) {
+			formattedErrors.code._errors.forEach((error) => {
+				errors.push(new InvalidBytecodeError(error))
 			})
 		}
 	}

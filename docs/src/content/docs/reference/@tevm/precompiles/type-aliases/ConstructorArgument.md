@@ -15,4 +15,4 @@ Infers the the first argument of a class
 
 ## Source
 
-[precompiles/src/ConstructorArgument.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/ConstructorArgument.ts#L4)
+[ConstructorArgument.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/ConstructorArgument.ts#L4)

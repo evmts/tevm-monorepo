@@ -1,11 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { type Server, createServer } from 'node:http'
 import { Address } from '@ethereumjs/util'
+import { ERC20 } from '@tevm/contract'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
 import { http, type PublicClient, createPublicClient } from 'viem'
-import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
 
 describe('tevmViemExtension', () => {
@@ -44,10 +44,10 @@ describe('tevmViemExtension', () => {
 		async () => {
 			const decorated = tevmViemExtension()(client)
 			const params = {
-				...ERC20.readDeployless.balanceOf(`0x${'4'.repeat(40)}`),
+				...ERC20.script({ constructorArgs: ['Name', 'SYMBOL'] }).read.balanceOf(`0x${'4'.repeat(40)}`),
 			} as const
 			const response = await decorated.tevm.contract(params)
-			expect(response.executionGasUsed).toEqual(2447n)
+			expect(response.executionGasUsed).toEqual(2851n)
 			expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
 			expect(response.data).toBe(0n)
 		},

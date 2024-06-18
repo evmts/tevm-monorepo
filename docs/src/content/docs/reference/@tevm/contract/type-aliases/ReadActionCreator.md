@@ -5,7 +5,7 @@ prev: false
 title: "ReadActionCreator"
 ---
 
-> **ReadActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: Function & Object & (TBytecode extends undefined ? Object : Object) & (TDeployedBytecode extends undefined ? Object : Object) & TAddressArgs \}
+> **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: Function & Object & (TCode extends undefined ? Object : Object) & TAddressArgs \}
 
 A mapping of view and pure contract methods to action creators
 
@@ -21,11 +21,9 @@ tevm.contract(
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
-• **TBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
-
-• **TDeployedBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
-
 • **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
+• **TCode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 

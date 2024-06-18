@@ -45,7 +45,12 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'cjs', false, '@tevm/contract'))
 		expect(result).toMatchInlineSnapshot(`
 			"const { createContract } = require('@tevm/contract')
-			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]}
+			const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": [
+			    "constructor() payable"
+			  ]
+			}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -65,7 +70,7 @@ describe('generateRuntime', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;"
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;"
 		`)
 	})
 
@@ -73,7 +78,12 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'ts', false, '@tevm/contract'))
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
-			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]} as const
+			const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": [
+			    "constructor() payable"
+			  ]
+			} as const
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -86,7 +96,12 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'mjs', false, '@tevm/contract'))
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
-			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]}
+			const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": [
+			    "constructor() payable"
+			  ]
+			}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account

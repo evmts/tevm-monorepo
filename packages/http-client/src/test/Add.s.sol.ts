@@ -1,4 +1,4 @@
-import { createScript } from '@tevm/contract'
+import { createContract } from '@tevm/contract'
 import { formatAbi } from '@tevm/utils'
 
 const addbytecode =
@@ -31,7 +31,7 @@ const addabi = [
 	},
 ] as const
 
-export const Add = createScript({
+export const Add = createContract({
 	name: 'Add',
 	humanReadableAbi: formatAbi(addabi),
 	bytecode: '0x0',

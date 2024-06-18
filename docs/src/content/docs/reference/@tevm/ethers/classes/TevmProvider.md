@@ -54,7 +54,7 @@ The entire [tevm api](../clients/) exists on the `tevm` property. For example th
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
-import {createScript} from 'tevm'
+import {createContract} from 'tevm'
 
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
@@ -62,7 +62,7 @@ const provider = await TevmProvider.createMemoryProvider({
   },
 })
 
-const addContract = createScript({
+const addContract = createContract({
   name: 'AddContract',
   humanReadableAbi: [
     'function add(uint256 a, uint256 b) public pure returns (uint256)',
@@ -179,7 +179,7 @@ An instance of the TevmClient interface.
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
-import {createScript} from 'tevm'
+import {createContract} from 'tevm'
 
 const provider = await TevmProvider.createMemoryProvider({
   fork: {
@@ -187,7 +187,7 @@ const provider = await TevmProvider.createMemoryProvider({
   },
 })
 
-const addContract = createScript({
+const addContract = createContract({
   name: 'AddContract',
   humanReadableAbi: [
     'function add(uint256 a, uint256 b) public pure returns (uint256)',

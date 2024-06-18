@@ -2,15 +2,13 @@ import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates read action creators from parameters
- * @internal
  * @param {object} params
  * @param {import('@tevm/utils').Abi} params.methods
- * @param {import('@tevm/utils').Hex} [params.bytecode]
- * @param {import('@tevm/utils').Hex} [params.deployedBytecode]
+ * @param {import('@tevm/utils').Hex} [params.code]
  * @param {import('@tevm/utils').Address} [params.address]
- * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any, any>} A mapping of method names to action creators
+ * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any>} A mapping of method names to action creators
  */
-export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
+export const readFactory = ({ methods, address, code }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
@@ -31,17 +29,14 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
 						functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
-						...(bytecode !== undefined ? { bytecode } : {}),
-						...(deployedBytecode !== undefined ? { deployedBytecode, code: deployedBytecode } : {}),
+						...(code !== undefined ? { code } : {}),
 						...(address !== undefined ? { address, to: address } : {}),
 						...maybeArgs,
 					}
 				}
 				creator.abi = [method]
 				creator.humanReadableAbi = formatAbi([method])
-				creator.bytecode = bytecode
-				creator.deployedBytecode = deployedBytecode
-				creator.code = deployedBytecode
+				creator.code = code
 				creator.address = address
 				creator.to = address
 				return [/**@type {import('@tevm/utils').AbiFunction}*/ (method).name, creator]

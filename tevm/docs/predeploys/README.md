@@ -8,12 +8,6 @@
 
 ## References
 
-### CustomPredeploy
-
-Re-exports [CustomPredeploy](../index/type-aliases/CustomPredeploy.md)
-
-***
-
 ### Predeploy
 
 Re-exports [Predeploy](../index/classes/Predeploy.md)

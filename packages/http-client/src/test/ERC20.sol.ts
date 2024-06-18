@@ -1,5 +1,5 @@
 // TODO replace with solidity contract and import with tevm build tools
-import { createScript } from '@tevm/contract'
+import { createContract } from '@tevm/contract'
 import { formatAbi } from '@tevm/utils'
 
 export const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -290,7 +290,7 @@ const ERC20_ABI = [
 	},
 ] as const
 
-export const ERC20 = createScript({
+export const ERC20 = createContract({
 	humanReadableAbi: formatAbi(ERC20_ABI),
 	bytecode: '0x0',
 	deployedBytecode: ERC20_BYTECODE,

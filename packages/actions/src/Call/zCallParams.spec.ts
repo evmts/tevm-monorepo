@@ -10,7 +10,7 @@ test('zCallParams', () => {
 		data: '0x4242',
 		gas: 0x420n,
 		caller: `0x${'69'.repeat(20)}`,
-		deployedBytecode: `0x${'69'.repeat(32)}`,
+		code: `0x${'69'.repeat(32)}`,
 	} as const satisfies z.infer<typeof zCallParams> satisfies CallParams
 	expect(zCallParams.parse(callParams)).toEqual(callParams)
 	expect(() => zCallParams.parse('0x4')).toThrow()

@@ -26,4 +26,4 @@ whether to default to throwing or not when errors occur
 
 ## Source
 
-[packages/actions/src/Contract/contractHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L17)
+[packages/actions/src/Contract/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L16)

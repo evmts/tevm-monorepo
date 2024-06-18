@@ -5,7 +5,7 @@ prev: false
 title: "EventActionCreator"
 ---
 
-> **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
+> **EventActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
 
@@ -21,11 +21,11 @@ tevm.eth.getLog(
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
+• **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
 • **TBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
 
 • **TDeployedBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
-
-• **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 

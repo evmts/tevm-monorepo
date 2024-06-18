@@ -1,15 +1,15 @@
 import { formatAbi, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { createScript } from './createScript.js'
+import { createContract } from './createContract.js'
 import { dummyAbi } from './test/fixtures.js'
 
-describe(createScript.name, () => {
-	const contract = createScript({
+describe(createContract.name, () => {
+	const contract = createContract({
 		humanReadableAbi: formatAbi(dummyAbi),
 		name: 'DummyContract',
 		bytecode: '0x420',
 		deployedBytecode: '0x69',
-	})
+	}).script()
 
 	it('should have correct bytecode', () => {
 		expect(contract.bytecode).toBe('0x420')
@@ -40,14 +40,159 @@ describe(createScript.name, () => {
 		`)
 	})
 
-	it('should contain readDeployless', () => {
-		expect(contract.readDeployless).toMatchInlineSnapshot(`
+	it('should contain script', () => {
+		expect(contract.script()).toMatchInlineSnapshot(`
 			{
-			  "exampleRead": [Function],
-			  "exampleReadNoArgs": [Function],
-			  "exampleWrite": [Function],
-			  "overloadedRead": [Function],
-			  "overloadedWrite": [Function],
+			  "abi": [
+			    {
+			      "inputs": [
+			        {
+			          "name": "str",
+			          "type": "string",
+			        },
+			        {
+			          "name": "num",
+			          "type": "uint256",
+			        },
+			      ],
+			      "name": "exampleWrite",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "payable",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [
+			        {
+			          "name": "str",
+			          "type": "string",
+			        },
+			      ],
+			      "name": "overloadedWrite",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "payable",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [],
+			      "name": "overloadedWrite",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "payable",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [
+			        {
+			          "name": "str",
+			          "type": "string",
+			        },
+			        {
+			          "name": "num",
+			          "type": "uint256",
+			        },
+			      ],
+			      "name": "exampleRead",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "pure",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [],
+			      "name": "exampleReadNoArgs",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "pure",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [
+			        {
+			          "name": "str",
+			          "type": "string",
+			        },
+			      ],
+			      "name": "overloadedRead",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "pure",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [],
+			      "name": "overloadedRead",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "pure",
+			      "type": "function",
+			    },
+			    {
+			      "inputs": [
+			        {
+			          "name": "data",
+			          "type": "string",
+			        },
+			      ],
+			      "name": "exampleEvent",
+			      "type": "event",
+			    },
+			  ],
+			  "bytecode": "0x420",
+			  "code": "0x420",
+			  "deployedBytecode": "0x69",
+			  "events": {
+			    "exampleEvent": [Function],
+			  },
+			  "humanReadableAbi": [
+			    "function exampleWrite(string str, uint256 num) payable returns (string)",
+			    "function overloadedWrite(string str) payable returns (string)",
+			    "function overloadedWrite() payable returns (string)",
+			    "function exampleRead(string str, uint256 num) pure returns (string)",
+			    "function exampleReadNoArgs() pure returns (string)",
+			    "function overloadedRead(string str) pure returns (string)",
+			    "function overloadedRead() pure returns (string)",
+			    "event exampleEvent(string data)",
+			  ],
+			  "name": "DummyContract",
+			  "read": {
+			    "exampleRead": [Function],
+			    "exampleReadNoArgs": [Function],
+			    "exampleWrite": [Function],
+			    "overloadedRead": [Function],
+			    "overloadedWrite": [Function],
+			  },
+			  "script": [Function],
+			  "withAddress": [Function],
+			  "write": {
+			    "exampleRead": [Function],
+			    "exampleReadNoArgs": [Function],
+			    "exampleWrite": [Function],
+			    "overloadedRead": [Function],
+			    "overloadedWrite": [Function],
+			  },
 			}
 		`)
 	})
@@ -55,18 +200,6 @@ describe(createScript.name, () => {
 	it('should contain write', () => {
 		// see ./write for more tests
 		expect(contract.write).toMatchInlineSnapshot(`
-			{
-			  "exampleRead": [Function],
-			  "exampleReadNoArgs": [Function],
-			  "exampleWrite": [Function],
-			  "overloadedRead": [Function],
-			  "overloadedWrite": [Function],
-			}
-		`)
-	})
-
-	it('should contain writeDeployless', () => {
-		expect(contract.writeDeployless).toMatchInlineSnapshot(`
 			{
 			  "exampleRead": [Function],
 			  "exampleReadNoArgs": [Function],
@@ -152,6 +285,7 @@ describe(createScript.name, () => {
 			    "hello",
 			    2n,
 			  ],
+			  "code": "0x420",
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",

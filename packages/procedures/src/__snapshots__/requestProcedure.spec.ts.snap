@@ -29,7 +29,7 @@ Version: 1.1.0.next-73"
 }
 `;
 
-exports[`requestProcedure tevm_script(deprecated) should handle the evm throwing an error 1`] = `
+exports[`requestProcedure tevmCall with script should handle the evm throwing an error 1`] = `
 {
   "error": {
     "code": -32000,

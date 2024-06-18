@@ -1,4 +1,5 @@
-import { getAddress } from '@tevm/utils'
+import type { Contract } from '@tevm/contract'
+import { type Address, type Hex } from '@tevm/utils'
 import { Predeploy } from './Predeploy.js'
 
 /**
@@ -7,11 +8,11 @@ import { Predeploy } from './Predeploy.js'
  * ```ts
  * import { definePredeploy } from 'tevm/predeploys'
  * import { createMemoryClient } from 'tevm/vm'
- * import { createScript } from 'tevm/contract'
+ * import { createContract } from 'tevm/contract'
  *
  * const predeploy = definePredeploy({
  *   address: `0x${'23'.repeat(20)}`,
- *   contract: createScript({
+ *   contract: createContract({
  *     name: 'PredeployExample',
  *     humanReadableAbi: ['function foo() external pure returns (uint256)'],
  *     bytecode: '0x608060405234801561001057600080fd5b5061012f806100206000396000f3fe608060405260043610610041576000357c0100',
@@ -24,18 +25,8 @@ import { Predeploy } from './Predeploy.js'
  * })
  * ```
  */
-export const definePredeploy = <TName extends string, THumanReadableAbi extends readonly string[]>({
-	contract,
-	address,
-}: Pick<Predeploy<TName, THumanReadableAbi>, 'contract' | 'address'>): Predeploy<TName, THumanReadableAbi> => {
-	class PredeployImplementation extends Predeploy<TName, THumanReadableAbi> {
-		// the exta withAddress is a hack. The type for Predeploy is not correctly including a contract with an address
-		// TODO we should export contract with address as a type from @tevm/contract
-		contract = {
-			...contract.withAddress(address),
-			withAddress: contract.withAddress,
-		} as any
-		address = getAddress(address)
-	}
-	return new PredeployImplementation()
+export const definePredeploy = <TName extends string, THumanReadableAbi extends readonly string[]>(
+	contract: Contract<TName, THumanReadableAbi, Address, Hex, Hex>,
+): Predeploy<TName, THumanReadableAbi> => {
+	return new Predeploy(contract)
 }

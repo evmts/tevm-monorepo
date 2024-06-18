@@ -12,10 +12,10 @@ const importsByModuleType = (contractPackage) => ({
 		mjs: `import { createContract } from '${contractPackage}'`,
 	},
 	script: {
-		cjs: `const { createScript } = require('${contractPackage}')`,
-		dts: `import { Script } from '${contractPackage}'`,
-		ts: `import { createScript } from '${contractPackage}'`,
-		mjs: `import { createScript } from '${contractPackage}'`,
+		cjs: `const { createContract } = require('${contractPackage}')`,
+		dts: `import { Contract } from '${contractPackage}'`,
+		ts: `import { createContract } from '${contractPackage}'`,
+		mjs: `import { createContract } from '${contractPackage}'`,
 	},
 })
 /**

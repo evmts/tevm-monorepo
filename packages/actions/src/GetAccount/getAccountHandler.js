@@ -81,7 +81,12 @@ export const getAccountHandler =
 				storageRoot: bytesToHex(res.storageRoot),
 				...(params.returnStorage
 					? {
-							storage: /** @type any*/ (await vm.stateManager.dumpStorage(address)),
+							storage: Object.fromEntries(
+								Object.entries(await vm.stateManager.dumpStorage(address)).map(([key, value]) => [
+									`0x${key}`,
+									/** @type {import('../common/Hex.js').Hex}*/ (value),
+								]),
+							),
 						}
 					: {}),
 			}

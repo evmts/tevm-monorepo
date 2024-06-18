@@ -1,18 +1,17 @@
 export type { Contract } from './Contract.js'
-export type { Script } from './Script.js'
+export type { CreateScript } from './CreateScript.js'
 export type {
 	EventActionCreator,
 	MaybeExtractEventArgsFromAbi,
 	ValueOf,
 } from './event/EventActionCreator.js'
+export type { DeployArgs } from './DeployArgs.js'
 export type { ReadActionCreator } from './read/ReadActionCreator.js'
 export type { WriteActionCreator } from './write/WriteActionCreator.js'
-export type {
-	CreateScriptParams,
-	CreateContractParams,
-	CreateScript,
-	CreateContract,
-} from './types.js'
+export type { CreateContractParams } from './CreateContractParams.js'
+export type { CreateContractFn } from './CreateContractFn.js'
+// export { eventsFactory } from './event/eventFactory.js'
+// export { readFactory } from './read/readFactory.js'
+// export { writeFactory } from './write/writeFactory.js'
 export { createContract } from './createContract.js'
-export { createScript } from './createScript.js'
-export { SimpleContract } from './contract-lib/SimpleContract.js'
+export { SimpleContract, ERC20, ERC721 } from './contract-lib/index.js'

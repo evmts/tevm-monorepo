@@ -1,7 +1,7 @@
 import type { Chain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
 import type { LogOptions } from '@tevm/logger'
-import type { CustomPredeploy } from '@tevm/predeploys'
+import type { Predeploy } from '@tevm/predeploys'
 import type { StateManager } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 
@@ -36,10 +36,10 @@ export type CreateEvmOptions = {
 	 * @example
 	 * ```ts
 	 * import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
-	 * import { createScript } from '@tevm/contract'
+	 * import { createContract } from '@tevm/contract'
 	 * import fs from 'fs/promises'
 	 *
-	 * const Fs = createScript({
+	 * const Fs = createContract({
 	 *   name: 'Fs',
 	 *   humanReadableAbi: [
 	 *     'function readFile(string path) returns (string)',
@@ -84,7 +84,7 @@ export type CreateEvmOptions = {
 	 * })
 	 * ```
 	 */
-	customPredeploys?: ReadonlyArray<CustomPredeploy<any, any>>
+	customPredeploys?: ReadonlyArray<Predeploy<any, any>>
 	/**
 	 * Enable/disable unlimited contract size. Defaults to false.
 	 */

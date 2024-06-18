@@ -2,14 +2,12 @@ import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates write action creators from parameters
- * @internal
  * @param {object} params
  * @param {import('@tevm/utils').Abi} params.methods
- * @param {import('@tevm/utils').Hex} [params.bytecode]
- * @param {import('@tevm/utils').Hex} [params.deployedBytecode]
+ * @param {import('@tevm/utils').Hex} [params.code]
  * @param {import('@tevm/utils').Address} [params.address]
  */
-export const writeFactory = ({ methods, bytecode, deployedBytecode, address }) =>
+export const writeFactory = ({ methods, address, code }) =>
 	Object.fromEntries(
 		methods.map((method) => {
 			/**
@@ -29,16 +27,13 @@ export const writeFactory = ({ methods, bytecode, deployedBytecode, address }) =
 					abi: methodAbi,
 					humanReadableAbi: formatAbi([method]),
 					functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
-					...(bytecode !== undefined ? { bytecode } : {}),
-					...(deployedBytecode !== undefined ? { deployedBytecode, code: deployedBytecode } : {}),
 					...(address !== undefined ? { address, to: address } : {}),
 					...maybeArgs,
 				}
 			}
 			creator.abi = [method]
 			creator.humanReadableAbi = formatAbi([method])
-			creator.bytecode = bytecode
-			creator.deployedBytecode = deployedBytecode
+			creator.code = code
 			creator.address = address
 			creator.to = address
 			return [/**@type {import('@tevm/utils').AbiFunction}*/ (method).name, creator]

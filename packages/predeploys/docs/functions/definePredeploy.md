@@ -6,7 +6,7 @@
 
 # Function: definePredeploy()
 
-> **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): [`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+> **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 Defines a predeploy contract to use in the tevm vm
 
@@ -18,7 +18,7 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Parameters
 
-• **\_\_namedParameters**: `Pick`\<[`Predeploy`](../classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>, `"contract"` \| `"address"`\>
+• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
 ## Returns
 
@@ -29,11 +29,11 @@ Defines a predeploy contract to use in the tevm vm
 ```ts
 import { definePredeploy } from 'tevm/predeploys'
 import { createMemoryClient } from 'tevm/vm'
-import { createScript } from 'tevm/contract'
+import { createContract } from 'tevm/contract'
 
 const predeploy = definePredeploy({
   address: `0x${'23'.repeat(20)}`,
-  contract: createScript({
+  contract: createContract({
     name: 'PredeployExample',
     humanReadableAbi: ['function foo() external pure returns (uint256)'],
     bytecode: '0x608060405234801561001057600080fd5b5061012f806100206000396000f3fe608060405260043610610041576000357c0100',
@@ -48,4 +48,4 @@ const vm = createMemoryClient({
 
 ## Source
 
-[definePredeploy.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.ts#L27)
+[definePredeploy.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.ts#L28)

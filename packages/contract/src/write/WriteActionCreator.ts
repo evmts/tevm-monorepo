@@ -22,9 +22,8 @@ export type ValueOf<T> = T[keyof T]
  */
 export type WriteActionCreator<
 	THumanReadableAbi extends readonly string[],
-	TBytecode extends Hex | undefined,
-	TDeployedBytecode extends Hex | undefined,
 	TAddress extends Address | undefined,
+	TCode extends Hex | undefined,
 	// we have address and to so we support both tevm and viem with natively
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress; to: TAddress },
 > = {
@@ -41,12 +40,13 @@ export type WriteActionCreator<
 		// take the same args as the function
 		...args: TArgs
 	) => {
-		// return the action creator that matches viem api and also tevm.contract tevm.script
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
-		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
+		address: TAddress
+		to: TAddress
+		code: TCode
+	} & (TCode extends undefined ? {} : { code: TCode }) &
 		(TArgs['length'] extends 0
 			? {}
 			: {
@@ -56,7 +56,6 @@ export type WriteActionCreator<
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-	} & (TBytecode extends undefined ? {} : { bytecode: TBytecode }) &
-		(TDeployedBytecode extends undefined ? {} : { code: TDeployedBytecode; deployedBytecode: TDeployedBytecode }) &
+	} & (TCode extends undefined ? {} : { code: TCode }) &
 		TAddressArgs
 }

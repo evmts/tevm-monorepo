@@ -36,4 +36,4 @@
 
 ## Source
 
-packages/precompiles/dist/index.d.ts:101
+packages/precompiles/dist/index.d.ts:115

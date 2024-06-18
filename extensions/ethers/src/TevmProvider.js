@@ -54,7 +54,7 @@ import { JsonRpcApiProvider } from 'ethers'
  * @example
  * ```typescript
  * import {TevmProvider} from '@tevm/ethers'
- * import {createScript} from 'tevm'
+ * import {createContract} from 'tevm'
  *
  * const provider = await TevmProvider.createMemoryProvider({
  *   fork: {
@@ -62,7 +62,7 @@ import { JsonRpcApiProvider } from 'ethers'
  *   },
  * })
  *
- * const addContract = createScript({
+ * const addContract = createContract({
  *   name: 'AddContract',
  *   humanReadableAbi: [
  *     'function add(uint256 a, uint256 b) public pure returns (uint256)',
@@ -136,7 +136,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * @example
 	 * ```typescript
 	 * import {TevmProvider} from '@tevm/ethers'
-	 * import {createScript} from 'tevm'
+	 * import {createContract} from 'tevm'
 	 *
 	 * const provider = await TevmProvider.createMemoryProvider({
 	 *   fork: {
@@ -144,7 +144,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 *   },
 	 * })
 	 *
-	 * const addContract = createScript({
+	 * const addContract = createContract({
 	 *   name: 'AddContract',
 	 *   humanReadableAbi: [
 	 *     'function add(uint256 a, uint256 b) public pure returns (uint256)',

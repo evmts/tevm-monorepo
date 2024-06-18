@@ -38,13 +38,19 @@ describe('generateTevmBody', () => {
 	it('should generate correct body for cjs module', () => {
 		const result = runSync(generateTevmBody(artifacts, 'cjs', false))
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {"name":"MyContract","humanReadableAbi":[]}
+			"const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": []
+			}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			module.exports.MyContract = createContract(_MyContract)
-			const _AnotherContract = {"name":"AnotherContract","humanReadableAbi":[]}
+			const _AnotherContract = {
+			  "name": "AnotherContract",
+			  "humanReadableAbi": []
+			}
 			/**
 			 * MyContract
 			 */
@@ -55,13 +61,19 @@ describe('generateTevmBody', () => {
 	it('should generate correct body for mjs module', () => {
 		const result = runSync(generateTevmBody(artifacts, 'mjs', false))
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {"name":"MyContract","humanReadableAbi":[]}
+			"const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": []
+			}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract = createContract(_MyContract)
-			const _AnotherContract = {"name":"AnotherContract","humanReadableAbi":[]}
+			const _AnotherContract = {
+			  "name": "AnotherContract",
+			  "humanReadableAbi": []
+			}
 			/**
 			 * MyContract
 			 */
@@ -72,13 +84,19 @@ describe('generateTevmBody', () => {
 	it('should generate correct body for ts module', () => {
 		const result = runSync(generateTevmBody(artifacts, 'ts', false))
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {"name":"MyContract","humanReadableAbi":[]} as const
+			"const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": []
+			} as const
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract = createContract(_MyContract)
-			const _AnotherContract = {"name":"AnotherContract","humanReadableAbi":[]} as const
+			const _AnotherContract = {
+			  "name": "AnotherContract",
+			  "humanReadableAbi": []
+			} as const
 			/**
 			 * MyContract
 			 */
@@ -96,14 +114,14 @@ describe('generateTevmBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = "AnotherContract" as const;
 			/**
 			 * AnotherContract Contract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
+			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;"
 		`)
 	})
 })

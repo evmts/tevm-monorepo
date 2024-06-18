@@ -19,23 +19,23 @@ In the following diff the added code shows how to dispatch a [`script`](/referen
 -   deployedBytecode: HelloWorld.deployedBytecode
 - });
 + const scriptResult = await tevm.tevmContract(
-+   HelloWorld.read.greet('Vitalik')
++   HelloWorld.script().read.greet('Vitalik')
 + );
 ```
 
-## Creating a contract with createScript or createContract
+## Creating a contract with createContract
 
 There are two ways to create a contract.
 
-1. Using the [`createScript`](/reference/tevm/contract/functions/createscript) or [createContract](/reference/tevm/contract/functions/createcontract) utils.
+1. Using the [createContract](/reference/tevm/contract/functions/createcontract) utils.
 2. Automatically [generating scripts with the tevm bundler](/learn/solidity-imports)
 
 To create a contract instance pass in it's human readable ABI and name into `createContract`. If creating a script you will also need to pass `bytecode` and `deployedBytecode`
 
 ```typescript
-import { createScript} from 'tevm/contract'
+import { createContract} from 'tevm/contract'
 
-const script = createScript({
+const script = createContract({
   name: 'MyScript',
   humanReadableAbi: ['function exampleRead() returns (uint256)', ...],
   bytecode: '0x123...',
@@ -46,13 +46,13 @@ const script = createScript({
 Contracts and scripts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi).
 
 ```typescript
-import { createScript, formatAbi } from 'tevm/contract'
+import { createContract, formatAbi } from 'tevm/contract'
 
 const abi = [
   ...
 ] as const
 
-const script = createScript({
+const script = createContract({
   name: 'MyScript',
   humanReadableAbi: formatAbi(abi),
   bytecode: '0x123...',
@@ -71,11 +71,9 @@ See the [contract reference docs](/reference/tevm/contract/api) for more informa
 There are two types of contracts.
 
 1. [Contracts](/reference/tevm/contract/type-aliases/contract) which are created with [createContract](/reference/tevm/contract/functions/createcontract)
-2. [Scripts](/reference/tevm/contract/type-aliases/script) which are created with [createScript](/reference/tevm/contract/functions/createscript)
+2. Scripts which are created via calling `contract.script()`
 
 The only difference between the two is `Scripts` have bytecode and can run without being deployed first. Contracts can only run with the bytecode already deployed to the chain. Contract actions require a `to` address that is used by the EVM to fetch the bytecode from storage.
-
-Scripts are a superset of contracts and can be used both as scripts (e.g. using their own bytecode) and as contracts (e.g. using their abi against a deployed contract).
 
 ## Addresses
 

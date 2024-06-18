@@ -1,7 +1,6 @@
 import { formatAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createContract } from '../createContract.js'
-import { createScript } from '../createScript.js'
 import { dummyAbi } from '../test/fixtures.js'
 import { readFactory } from './readFactory.js'
 
@@ -152,12 +151,12 @@ describe(readFactory.name, () => {
 	})
 
 	it('should work with a script', () => {
-		const script = createScript({
+		const script = createContract({
 			name: 'DummyScript',
-			bytecode: '0x420',
 			humanReadableAbi: formatAbi(dummyAbi),
+			bytecode: '0x420',
 			deployedBytecode: '0x69',
-		})
+		}).script()
 		expect(script.read.exampleRead('data', BigInt(420))).toMatchInlineSnapshot(`
 			{
 			  "abi": [
@@ -186,6 +185,7 @@ describe(readFactory.name, () => {
 			    "data",
 			    420n,
 			  ],
+			  "code": "0x420",
 			  "functionName": "exampleRead",
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
