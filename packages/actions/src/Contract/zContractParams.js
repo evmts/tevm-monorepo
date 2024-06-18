@@ -13,17 +13,17 @@ export const zContractParams = zBaseCallParams
 		abi: zAbi.describe('The abi of the contract'),
 		args: z.array(z.any()).optional().describe('The arguments to pass to the function'),
 		functionName: z.string().describe('The name of the function to call'),
-		deployedBytecode: zHex.optional().describe('the deployed bytecode to use for the call'),
+		code: zHex.optional().describe('the encoded bytecode to use for the call'),
 	})
 	.refine(
 		(params) => {
-			if (!params.deployedBytecode && !params.to) {
+			if (!params.code && !params.to) {
 				return false
 			}
 			return true
 		},
 		{
-			message: 'Must have either deployedBytecode or to',
+			message: 'Must have either code or to',
 		},
 	)
 	.refine(

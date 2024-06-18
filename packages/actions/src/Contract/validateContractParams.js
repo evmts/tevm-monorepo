@@ -2,7 +2,7 @@ import {
 	InvalidAbiError,
 	InvalidAddressError,
 	InvalidArgsError,
-	InvalidDeployedBytecodeError,
+	InvalidBytecodeError,
 	InvalidFunctionNameError,
 } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
@@ -26,9 +26,9 @@ export const validateContractParams = (action) => {
 
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
-		if (formattedErrors.deployedBytecode) {
-			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(new InvalidDeployedBytecodeError(error))
+		if (formattedErrors.code) {
+			formattedErrors.code._errors.forEach((error) => {
+				errors.push(new InvalidBytecodeError(error))
 			})
 		}
 

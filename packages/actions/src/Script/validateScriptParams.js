@@ -1,9 +1,9 @@
-import { InvalidAbiError, InvalidArgsError, InvalidDeployedBytecodeError, InvalidFunctionNameError } from '@tevm/errors'
+import { InvalidAbiError, InvalidArgsError, InvalidFunctionNameError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zScriptParams } from './zScriptParams.js'
 
 /**
- * @typedef {InvalidAbiError| InvalidArgsError| InvalidDeployedBytecodeError| InvalidFunctionNameError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateScriptParamsError
+ * @typedef {InvalidAbiError| InvalidArgsError| InvalidFunctionNameError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateScriptParamsError
  */
 
 /**
