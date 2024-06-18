@@ -82,7 +82,7 @@ Anvil/hardhat methods are provided for compatability
 - [`anvil_dumpState'](/reference/tevm/procedures-types/type-aliases/anvildumpstateprocedure)
 - [`anvil_loadState'](/reference/tevm/procedures-types/type-aliases/anvilloadstateprocedure)
 - [`anvil_dropTransaction'](/reference/tevm/procedures-types/type-aliases/anvildroptransactionprocedure) (only supports dropping unmined tx atm)
-- [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure)
+- [`anvil_impersonateAccount'](/reference/tevm/procedures-types/type-aliases/anvilimpersonateaccountprocedure) (Can only impersonate one account at a time atm0
 - [`anvil_stopImpersonatingAccount'](/reference/tevm/procedures-types/type-aliases/anvilstopimpersonatingaccountprocedure)
 
 ## Wallet methods
