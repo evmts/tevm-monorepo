@@ -1,7 +1,7 @@
 import { prefundedAccounts } from '@tevm/base-client'
 import { InternalError, InternalEvmError, InvalidBytecodeError } from '@tevm/errors'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, getAddress, hexToBytes } from '@tevm/utils'
+import { EthjsAddress, getAddress, hexToBytes } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'

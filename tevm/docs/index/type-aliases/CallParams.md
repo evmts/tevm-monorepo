@@ -29,13 +29,20 @@ const callParams: import('@tevm/api').CallParams = {
 
 > `optional` `readonly` **code**: `Hex`
 
-The code to deploy with for a deployless call
+The encoded code to deploy with for a deployless call
 
 ### data?
 
 > `optional` `readonly` **data**: `Hex`
 
 The input data.
+
+### deployedBytecode?
+
+> `optional` `readonly` **deployedBytecode**: `Hex`
+
+THe code to put into the state before executing call. If you wish to call the constructor
+use `code` instead.
 
 ### salt?
 

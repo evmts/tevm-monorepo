@@ -26,7 +26,7 @@ export const contractHandler =
 		}
 		const vm = await client.getVm().then((vm) => vm.deepCopy())
 
-		const contract = params.to && await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(params.to))
+		const contract = params.to && (await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(params.to)))
 		const precompile = params.to && vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
 		if (contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(
