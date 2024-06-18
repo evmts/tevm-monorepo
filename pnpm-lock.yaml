@@ -2310,8 +2310,8 @@ importers:
         specifier: workspace:^
         version: link:../packages/sync-storage-persister
       '@tevm/ts-plugin':
-        specifier: next
-        version: 1.1.0-next.77(fast-check@3.19.0)(typescript@5.4.5)
+        specifier: workspace:^
+        version: link:../lsp/ts-plugin
       '@tevm/utils':
         specifier: workspace:^
         version: link:../packages/utils
@@ -5732,42 +5732,6 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-
-  '@tevm/base-bundler@1.1.0-next.77':
-    resolution: {integrity: sha512-cNvbV0KhJV6LfjRxjM1APX/f99YWfKWrN/S+Jw5GSPJT6DQljnlokp8VtRSrzbJQ34/hhZjCxMPHlut2TnLHWQ==}
-
-  '@tevm/bundler-cache@1.1.0-next.77':
-    resolution: {integrity: sha512-Cz8R+sOMMrEDVQnUSKGvSKOgOGH4BSZoKVyZDVPBhdxj+YXTRImNzjNoK40r95NnwBbZ3AIo5DQZjso3vsqPRQ==}
-
-  '@tevm/compiler@1.1.0-next.77':
-    resolution: {integrity: sha512-l2pdd3ddC+oLE/372Ki2pZEBtSDdRWhysn9C/rFSv4efdgqAuc7D/GN4GbfvGppgAzCAdZesyO0Sxy+zcRO/+w==}
-
-  '@tevm/config@1.1.0-next.77':
-    resolution: {integrity: sha512-CjMerGbAaj/BzJAckGj67KsdkKppJrWx6qxaj6mae7mLooHh8xaTQYD1RxVDRccQWK2u3ZHzyUpcVo9Ok9WyxA==}
-
-  '@tevm/effect@1.1.0-next.77':
-    resolution: {integrity: sha512-cjJVtqelclG9s46vKD7gDtwl00Fy8iWz4NyV4k6cbbX7ohkUkevPzu80gpNf6bplcZv/7FLPXp1mOiOglQzN+A==}
-
-  '@tevm/resolutions@1.1.0-next.77':
-    resolution: {integrity: sha512-TBlPyMlEk17Rnjq3a3IiI2Vg61ymGIb72+isw6LZ7C4AV9vXzdFdjR28rLS+il2CEUfwhDvlquCb/nBycLkp/g==}
-
-  '@tevm/runtime@1.1.0-next.77':
-    resolution: {integrity: sha512-Lyeuo/InAE+1Ixn2nW5XQ+3zbouB6XP32PiGIwEN3W7gbDNL+tOevlCMgW7lWXKjMiugDWAjTcI+bDIIk2b5oQ==}
-
-  '@tevm/solc@1.1.0-next.77':
-    resolution: {integrity: sha512-FqbyLNRZf7vRtR/UjmPioWFQjCYjIo4Fv1rOlqvwQlztXTJxqwoH4kIrKyB7Ah5zLc2Np52rvAOl4TgvF3yqKg==}
-
-  '@tevm/ts-plugin@1.1.0-next.77':
-    resolution: {integrity: sha512-andTxCiJX+cN6KszlCigNh3x3vgTZX1RTBmtZfUOg+/rBAPs2JhMKgqwu3iMfqs9Chjmy3b9Gw36nQAOkLTNLA==}
-    hasBin: true
-    peerDependencies:
-      typescript: '>=5.0.0'
-
-  '@tevm/tsconfig@1.1.0-next.77':
-    resolution: {integrity: sha512-cAIY822CNZFnJxcXnhQsvwdBQT9QEZIKrXHByvbFZiJB6N/JyJaz+U990l7cpUN0Wg+FT/BH7WdP/SynsUciVA==}
-
-  '@tevm/tsupconfig@1.1.0-next.77':
-    resolution: {integrity: sha512-VzJNd65PCn/BHttBdnr0Imn2VkSv9s4oTfyS9AnAPyRO6aqGIea5AW1y0xqZijpklp+xp7mlRnmXYDktPn79ZA==}
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18503,99 +18467,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
-
-  '@tevm/base-bundler@1.1.0-next.77(fast-check@3.19.0)':
-    dependencies:
-      '@tevm/bundler-cache': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/compiler': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/config': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/runtime': 1.1.0-next.77
-      '@tevm/solc': 1.1.0-next.77
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@tevm/tsupconfig': 1.1.0-next.77
-      '@types/node': 20.14.5
-      effect: 2.0.0-next.54
-      solc: 0.8.22
-      solidity-ast: 0.4.56
-    transitivePeerDependencies:
-      - debug
-      - fast-check
-
-  '@tevm/bundler-cache@1.1.0-next.77(fast-check@3.19.0)':
-    dependencies:
-      '@tevm/compiler': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@tevm/tsupconfig': 1.1.0-next.77
-      '@types/node': 20.14.5
-    transitivePeerDependencies:
-      - fast-check
-
-  '@tevm/compiler@1.1.0-next.77(fast-check@3.19.0)':
-    dependencies:
-      '@tevm/config': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/resolutions': 1.1.0-next.77
-      '@tevm/solc': 1.1.0-next.77
-      '@types/node': 20.14.5
-      effect: 2.0.0-next.54
-      resolve: 1.22.8
-      solidity-ast: 0.4.56
-    transitivePeerDependencies:
-      - fast-check
-
-  '@tevm/config@1.1.0-next.77(fast-check@3.19.0)':
-    dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.19.0)
-      '@tevm/effect': 1.1.0-next.77
-      '@types/node': 20.14.5
-      effect: 2.0.0-next.54
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - fast-check
-
-  '@tevm/effect@1.1.0-next.77':
-    dependencies:
-      effect: 2.0.0-next.54
-      jsonc-parser: 3.2.1
-      resolve: 1.22.8
-
-  '@tevm/resolutions@1.1.0-next.77':
-    dependencies:
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@tevm/tsupconfig': 1.1.0-next.77
-      '@types/node': 20.14.5
-      effect: 2.0.0-next.54
-      resolve: 1.22.8
-
-  '@tevm/runtime@1.1.0-next.77':
-    dependencies:
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@tevm/tsupconfig': 1.1.0-next.77
-      effect: 2.0.0-next.54
-
-  '@tevm/solc@1.1.0-next.77':
-    dependencies:
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@tevm/tsupconfig': 1.1.0-next.77
-
-  '@tevm/ts-plugin@1.1.0-next.77(fast-check@3.19.0)(typescript@5.4.5)':
-    dependencies:
-      '@tevm/base-bundler': 1.1.0-next.77(fast-check@3.19.0)
-      '@tevm/bundler-cache': 1.1.0-next.77(fast-check@3.19.0)
-      effect: 2.0.0-next.54
-      glob: 10.4.1
-      solc: 0.8.23-fixed
-      solidity-ast: 0.4.56
-      typescript: 5.4.5
-    transitivePeerDependencies:
-      - debug
-      - fast-check
-
-  '@tevm/tsconfig@1.1.0-next.77': {}
-
-  '@tevm/tsupconfig@1.1.0-next.77':
-    dependencies:
-      '@tevm/tsconfig': 1.1.0-next.77
-      '@types/node': 20.14.5
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
