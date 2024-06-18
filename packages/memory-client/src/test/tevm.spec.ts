@@ -56,7 +56,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				ERC20.script({ args: ['name', 'symbol'] }).read.balanceOf('0x00000000000000000000000000000000000000ff'),
 			)
 			expect(res.data).toBe(0n)
-			expect(res.executionGasUsed).toBe(2447n)
+			expect(res.executionGasUsed).toBe(2851n)
 			expect(res.logs).toEqual([])
 			expect('errors' in res).toBe(false)
 			expect(res.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
@@ -68,6 +68,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const tevm = createMemoryClient()
 			const res = await tevm.tevmContract({
 				deployedBytecode: addbytecode,
+				to: `0x${'45'.repeat(20)}`,
 				abi: addabi,
 				functionName: 'add',
 				args: [1n, 2n],

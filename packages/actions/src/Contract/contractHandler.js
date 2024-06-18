@@ -24,11 +24,11 @@ export const contractHandler =
 				rawData: '0x',
 			})
 		}
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const vm = await client.getVm()
 
 		const contract = params.to && (await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(params.to)))
 		const precompile = params.to && vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
-		if (contract && contract?.length === 0 && !precompile) {
+		if (!params.deployedBytecode && !params.code && contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(
 				{ contract, precompile, to: params.to },
 				'contractHandler: No contract bytecode nor precompile was found at specified `to` address. Unable to execute contract call.',
@@ -71,12 +71,9 @@ export const contractHandler =
 			'contractHandler: Encoded data, functionName, and args into hex data to execute call',
 		)
 
-		const result = await callHandler(
-			{ ...client, getVm: async () => vm },
-			{
-				throwOnFail: throwOnFailDefault,
-			},
-		)({
+		const result = await callHandler(client, {
+			throwOnFail: throwOnFailDefault,
+		})({
 			...params,
 			throwOnFail: false,
 			data: functionData,

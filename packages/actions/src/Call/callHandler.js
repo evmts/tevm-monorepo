@@ -160,7 +160,7 @@ export const callHandler =
 		const scriptResult =
 			code || deployedBytecode
 				? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, code, deployedBytecode, _params.to)
-				: { address: /** @type {import('@tevm/utils').Address}*/ (_params.to), errors: undefined }
+				: { address: _params.to, errors: undefined }
 		if (scriptResult.errors) {
 			client.logger.error(scriptResult.errors, 'contractHandler: Errors creating script')
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
@@ -170,8 +170,8 @@ export const callHandler =
 			})
 		}
 
-		// TODO this isn't clean that we are mutating here
-		if (code) {
+		if (scriptResult.address !== undefined) {
+			// TODO this isn't clean that we are mutating here
 			evmInput.to = EthjsAddress.fromString(scriptResult.address)
 			_params.to = scriptResult.address
 		}
