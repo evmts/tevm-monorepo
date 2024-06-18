@@ -1,5 +1,20 @@
 # @tevm/contract
 
+## 2.0.0-next.79
+
+### Minor Changes
+
+- [#1206](https://github.com/evmts/tevm-monorepo/pull/1206) [`2ecbdd2`](https://github.com/evmts/tevm-monorepo/commit/2ecbdd2cbc89e5932339866ed969d84b0eb1eb9f) Thanks [@roninjin10](https://github.com/roninjin10)! - Added autoinstall of ts-plugin. If the @tevm/ts-plugin is not installed tevm will automatically add it to tsconfig
+
+### Patch Changes
+
+- [#1219](https://github.com/evmts/tevm-monorepo/pull/1219) [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d) Thanks [@roninjin10](https://github.com/roninjin10)! - Making sure every package releases
+
+- [#1213](https://github.com/evmts/tevm-monorepo/pull/1213) [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies except effect to latest
+
+- Updated dependencies [[`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d), [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81)]:
+  - @tevm/effect@2.0.0-next.79
+
 ## 1.1.0-next.77
 
 ### Patch Changes

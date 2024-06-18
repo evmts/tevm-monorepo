@@ -1,5 +1,65 @@
 # @tevm/contract
 
+## 2.0.0-next.79
+
+### Minor Changes
+
+- [#1209](https://github.com/evmts/tevm-monorepo/pull/1209) [`6469208`](https://github.com/evmts/tevm-monorepo/commit/646920872b48bb48984b104c2e3960d31b4ecb0a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added code property for better compatability with new deployless calls from viem
+
+- [#1206](https://github.com/evmts/tevm-monorepo/pull/1206) [`2ecbdd2`](https://github.com/evmts/tevm-monorepo/commit/2ecbdd2cbc89e5932339866ed969d84b0eb1eb9f) Thanks [@roninjin10](https://github.com/roninjin10)! - Added autoinstall of ts-plugin. If the @tevm/ts-plugin is not installed tevm will automatically add it to tsconfig
+
+- [#1210](https://github.com/evmts/tevm-monorepo/pull/1210) [`f2d4ac4`](https://github.com/evmts/tevm-monorepo/commit/f2d4ac43dab0c5affe994985851639438cb05911) Thanks [@roninjin10](https://github.com/roninjin10)! - Add compatability for viem code property
+
+### Patch Changes
+
+- [#1220](https://github.com/evmts/tevm-monorepo/pull/1220) [`35c89fe`](https://github.com/evmts/tevm-monorepo/commit/35c89fe332640a7f0e92344b513a2ab8a71cce11) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix: bad deps
+
+- [#1211](https://github.com/evmts/tevm-monorepo/pull/1211) [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3) Thanks [@roninjin10](https://github.com/roninjin10)! - Update all packages for new tevm contract changes"
+
+- [#1205](https://github.com/evmts/tevm-monorepo/pull/1205) [`868e8f8`](https://github.com/evmts/tevm-monorepo/commit/868e8f840aa87eeb90bcc91486cb196025b9fcd9) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with top level tevm pacakge not listing viem as a peer dep
+
+- [#1219](https://github.com/evmts/tevm-monorepo/pull/1219) [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d) Thanks [@roninjin10](https://github.com/roninjin10)! - Making sure every package releases
+
+- [#1213](https://github.com/evmts/tevm-monorepo/pull/1213) [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies except effect to latest
+
+- Updated dependencies [[`8fa0298`](https://github.com/evmts/tevm-monorepo/commit/8fa029834697602a5674e6d09803e4e283444842), [`6469208`](https://github.com/evmts/tevm-monorepo/commit/646920872b48bb48984b104c2e3960d31b4ecb0a), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3), [`2ecbdd2`](https://github.com/evmts/tevm-monorepo/commit/2ecbdd2cbc89e5932339866ed969d84b0eb1eb9f), [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3), [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d), [`f2d4ac4`](https://github.com/evmts/tevm-monorepo/commit/f2d4ac43dab0c5affe994985851639438cb05911), [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3)]:
+  - @tevm/base-bundler@2.0.0-next.79
+  - @tevm/contract@2.0.0-next.79
+  - @tevm/state@2.0.0-next.79
+  - @tevm/config@2.0.0-next.79
+  - @tevm/solc@2.0.0-next.79
+  - @tevm/memory-client@2.0.0-next.79
+  - @tevm/client-types@2.0.0-next.79
+  - @tevm/base-client@2.0.0-next.79
+  - @tevm/http-client@2.0.0-next.79
+  - @tevm/precompiles@2.0.0-next.79
+  - @tevm/blockchain@2.0.0-next.79
+  - @tevm/decorators@2.0.0-next.79
+  - @tevm/predeploys@2.0.0-next.79
+  - @tevm/procedures@2.0.0-next.79
+  - @tevm/actions@2.0.0-next.79
+  - @tevm/jsonrpc@2.0.0-next.79
+  - @tevm/viem@2.0.0-next.79
+  - @tevm/common@2.0.0-next.79
+  - @tevm/errors@2.0.0-next.79
+  - @tevm/server@2.0.0-next.79
+  - @tevm/utils@2.0.0-next.79
+  - @tevm/ts-plugin@2.0.0-next.79
+  - @tevm/evm@2.0.0-next.79
+  - @tevm/bun-plugin@2.0.0-next.79
+  - @tevm/compiler@2.0.0-next.79
+  - @tevm/esbuild-plugin@2.0.0-next.79
+  - @tevm/rollup-plugin@2.0.0-next.79
+  - @tevm/rspack-plugin@2.0.0-next.79
+  - @tevm/vite-plugin@2.0.0-next.79
+  - @tevm/webpack-plugin@2.0.0-next.79
+  - @tevm/block@2.0.0-next.79
+  - @tevm/receipt-manager@2.0.0-next.79
+  - @tevm/sync-storage-persister@2.0.0-next.79
+  - @tevm/tx@2.0.0-next.79
+  - @tevm/txpool@2.0.0-next.79
+  - @tevm/vm@2.0.0-next.79
+
 ## 1.1.0-next.78
 
 ### Patch Changes

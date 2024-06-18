@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 2.0.0-next.79
+
+### Patch Changes
+
+- [#1219](https://github.com/evmts/tevm-monorepo/pull/1219) [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d) Thanks [@roninjin10](https://github.com/roninjin10)! - Making sure every package releases
+
 ## 1.1.0-next.77
 
 ### Patch Changes
