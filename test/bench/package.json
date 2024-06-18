@@ -66,13 +66,13 @@
 		"@tevm/viem": "workspace:^",
 		"tevm": "workspace:^",
 		"typescript": "^5.4.5",
-		"viem": "^2.14.2",
+		"viem": "^2.15.1",
 		"wagmi": "^2.10.2"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.14.2"
+		"@types/node": "^20.14.5"
 	},
 	"publishConfig": {
 		"access": "public"

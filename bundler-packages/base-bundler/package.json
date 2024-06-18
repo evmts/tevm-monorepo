@@ -69,10 +69,10 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.8.9",
-		"effect": "2.0.0-next.54",
-		"solc": "0.8.22",
-		"solidity-ast": "^0.4.52"
+		"@types/node": "^20.14.5",
+		"effect": "3.3.4",
+		"solc": "0.8.26",
+		"solidity-ast": "^0.4.56"
 	},
 	"publishConfig": {
 		"access": "public"

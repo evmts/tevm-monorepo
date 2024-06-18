@@ -64,11 +64,11 @@
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"effect": "2.0.0-next.54"
+		"effect": "3.3.4"
 	},
 	"devDependencies": {
 		"@tevm/compiler": "workspace:^",
-		"abitype": "^0.10.2"
+		"abitype": "^1.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
