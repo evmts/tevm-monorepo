@@ -157,9 +157,10 @@ export const callHandler =
 			})
 		}
 
-		const scriptResult = code
-			? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, code, deployedBytecode, _params.to)
-			: { address: /** @type {import('@tevm/utils').Address}*/ (_params.to), errors: undefined }
+		const scriptResult =
+			code || deployedBytecode
+				? await createScript({ ...client, getVm: () => vm.ready().then(() => vm) }, code, deployedBytecode, _params.to)
+				: { address: /** @type {import('@tevm/utils').Address}*/ (_params.to), errors: undefined }
 		if (scriptResult.errors) {
 			client.logger.error(scriptResult.errors, 'contractHandler: Errors creating script')
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
+import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { testActions } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
-import { ERC20 } from '@tevm/contract'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -49,6 +49,9 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
+			console.log(
+				ERC20.script({ args: ['name', 'symbol'] }).read.balanceOf('0x00000000000000000000000000000000000000ff'),
+			)
 			const res = await tevm.tevmContract(
 				ERC20.script({ args: ['name', 'symbol'] }).read.balanceOf('0x00000000000000000000000000000000000000ff'),
 			)

@@ -5,8 +5,8 @@ import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
 import { http, type PublicClient, createPublicClient } from 'viem'
-import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
+import { ERC20 } from '@tevm/contract'
 
 describe('tevmViemExtension', () => {
 	let tevm: MemoryClient
@@ -44,10 +44,10 @@ describe('tevmViemExtension', () => {
 		async () => {
 			const decorated = tevmViemExtension()(client)
 			const params = {
-				...ERC20.script({ args: [2000n, 'Name', 18n, 'SYMBOL'] }).read.balanceOf(`0x${'4'.repeat(40)}`),
+				...ERC20.script({ args: ['Name', 'SYMBOL'] }).read.balanceOf(`0x${'4'.repeat(40)}`),
 			} as const
 			const response = await decorated.tevm.contract(params)
-			expect(response.executionGasUsed).toEqual(2447n)
+			expect(response.executionGasUsed).toEqual(2851n)
 			expect(response.rawData).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
 			expect(response.data).toBe(0n)
 		},

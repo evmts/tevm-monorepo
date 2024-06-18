@@ -124,7 +124,7 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 			address: scriptAddress,
 			throwOnFail: false,
 			stateDiff: account.storage ?? {},
-			deployedBytecode: bytesToHex(res.execResult.returnValue),
+			deployedBytecode: account.deployedBytecode,
 		})
 		await vm.stateManager.deleteAccount(deployedAddress)
 		if (setAccountRes.errors) {

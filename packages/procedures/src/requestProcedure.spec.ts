@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
-import { type EthjsAccount, EthjsAddress, hexToBytes, encodeDeployData } from '@tevm/utils'
+import { ERC20 } from '@tevm/contract'
+import { type EthjsAccount, EthjsAddress, encodeDeployData, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
-import { ERC20 } from '@tevm/contract'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 
