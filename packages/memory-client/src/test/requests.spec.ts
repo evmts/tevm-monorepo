@@ -21,7 +21,7 @@ describe('Tevm.request', async () => {
 			params: [
 				{
 					data: encodeFunctionData(ERC20.read.balanceOf(contractAddress)),
-					code: ERC20.script({ args: ['Name', 'SYMBOL'] }).code,
+					code: ERC20.script({ constructorArgs: ['Name', 'SYMBOL'] }).code,
 				},
 			],
 			jsonrpc: '2.0',

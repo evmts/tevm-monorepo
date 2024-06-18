@@ -21,4 +21,6 @@ export type DeployArgs<
 		: // if only bytecode is needed require only that
 			[{ bytecode: Hex }]
 	: // otherwise require encoding args and bytecode if necessary
-		[{ args: EncodeDeployDataParameters<TAbi>['args'] } & TBytecode extends Hex ? {} : { bytecode: Hex }]
+		TBytecode extends Hex
+		? [{ constructorArgs: EncodeDeployDataParameters<TAbi>['args'] }]
+		: [{ constructorArgs: EncodeDeployDataParameters<TAbi>['args']; bytecode: Hex }]

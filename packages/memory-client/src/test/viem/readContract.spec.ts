@@ -31,7 +31,7 @@ beforeEach(async () => {
 describe('readContract', () => {
 	it('should work as script', async () => {
 		expect(SimpleContract.bytecode).not.toBe(SimpleContract.deployedBytecode)
-		const { code } = SimpleContract.script({ args: [42n] })
+		const { code } = SimpleContract.script({ constructorArgs: [42n] })
 		expect(
 			await mc.call({
 				code,

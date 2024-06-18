@@ -27,25 +27,34 @@ describe('Run a deployless contract call with viem and tevm', async () => {
 			transport: http(`http://localhost:${PORT}`),
 		})
 
-		expect(await client.getBlockNumber()).toBe(0n)
-		const result = await client.readContract(SimpleContract.read.get())
+		const result = await client.readContract(SimpleContract.script({ constructorArgs: [420n] }).read.get())
 
-		expect(result).toBe(0n)
+		expect(result).toBe(420n)
 	})
 
 	test('Run in memory with tevm MemoryClient', async () => {
 		const client = createMemoryClient()
 
-		const result = await client.readContract(SimpleContract.read.get())
+		const result = await client.readContract(SimpleContract.script({ constructorArgs: [69n] }).read.get())
 
-		expect(result).toBe(0n)
+		expect(result).toBe(69n)
 	})
 
 	test('Use tevmContract for more advanced features', async () => {
 		const client = createMemoryClient({ loggingLevel: 'debug' })
 
-		const result = await client.tevmContract(SimpleContract.read.get())
+		const result = await client.tevmContract(SimpleContract.script({ constructorArgs: [9n] }).read.get())
 
-		expect(result).toMatchInlineSnapshot()
+		expect(result).toEqual({
+			amountSpent: 164472n,
+			createdAddresses: new Set(),
+			data: 9n,
+			executionGasUsed: 2432n,
+			gas: 29976504n,
+			logs: [],
+			rawData: '0x0000000000000000000000000000000000000000000000000000000000000009',
+			selfdestruct: new Set(),
+			totalGasSpent: 23496n,
+		})
 	})
 })

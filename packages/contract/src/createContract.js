@@ -69,9 +69,9 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 	/**
 	 * @type {import('./CreateScript.js').CreateScript<any, any, any, any>}
 	 */
-	const script = (params = {}) => {
+	const script = (params) => {
 		const _bytecode = (() => {
-			if ('bytecode' in params && params.bytecode) {
+			if (params && 'bytecode' in params && params.bytecode) {
 				return params.bytecode
 			}
 			if (bytecode) {
@@ -87,13 +87,13 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 			if (!constructorAbi) {
 				return _bytecode
 			}
-			if (!('args' in params) || /** @type {Array<any>}*/ (params.args)?.length < 1) {
+			if (!('constructorArgs' in params) || /** @type {Array<any>}*/ (params.constructorArgs)?.length < 1) {
 				return _bytecode
 			}
 			return encodeDeployData({
 				abi,
 				bytecode: _bytecode,
-				args: /** @type {any}*/ (params.args),
+				args: /** @type {any}*/ (params.constructorArgs),
 			})
 		})()
 		return createContract(

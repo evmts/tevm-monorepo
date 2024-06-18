@@ -60,7 +60,7 @@ describe(TevmProvider.name, () => {
 			'provider.tevm.script',
 			async () => {
 				const result = await provider.tevm.contract(
-					ERC20.script({ args: ['name', 'SYMBOL'] }).read.balanceOf(`0x${'69'.repeat(20)}`),
+					ERC20.script({ constructorArgs: ['name', 'SYMBOL'] }).read.balanceOf(`0x${'69'.repeat(20)}`),
 				)
 				expect(result).toEqual({
 					amountSpent: 1454773185243n,
