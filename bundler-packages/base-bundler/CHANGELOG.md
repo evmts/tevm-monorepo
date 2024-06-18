@@ -1,5 +1,26 @@
 # @tevm/base
 
+## 2.0.0-next.79
+
+### Patch Changes
+
+- [#1208](https://github.com/evmts/tevm-monorepo/pull/1208) [`8fa0298`](https://github.com/evmts/tevm-monorepo/commit/8fa029834697602a5674e6d09803e4e283444842) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed default for bundler to tevm not tevm/contracts
+
+- [#1211](https://github.com/evmts/tevm-monorepo/pull/1211) [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3) Thanks [@roninjin10](https://github.com/roninjin10)! - Update all packages for new tevm contract changes"
+
+- [#1219](https://github.com/evmts/tevm-monorepo/pull/1219) [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d) Thanks [@roninjin10](https://github.com/roninjin10)! - Making sure every package releases
+
+- [#1213](https://github.com/evmts/tevm-monorepo/pull/1213) [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies except effect to latest
+
+- Updated dependencies [[`2ecbdd2`](https://github.com/evmts/tevm-monorepo/commit/2ecbdd2cbc89e5932339866ed969d84b0eb1eb9f), [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3), [`a8070b7`](https://github.com/evmts/tevm-monorepo/commit/a8070b769da6695d5e27569809f8ac86866b081d), [`84a6d9c`](https://github.com/evmts/tevm-monorepo/commit/84a6d9caae5e72246933d72e8721d466b238cf81), [`f51ef40`](https://github.com/evmts/tevm-monorepo/commit/f51ef4007f53b2ca6d4ebff770104d9e9f462ea3)]:
+  - @tevm/config@2.0.0-next.79
+  - @tevm/solc@2.0.0-next.79
+  - @tevm/runtime@2.0.0-next.79
+  - @tevm/bundler-cache@2.0.0-next.79
+  - @tevm/compiler@2.0.0-next.79
+  - @tevm/tsconfig@2.0.0-next.79
+  - @tevm/tsupconfig@2.0.0-next.79
+
 ## 1.1.0-next.77
 
 ### Patch Changes
