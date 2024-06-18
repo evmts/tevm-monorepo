@@ -365,7 +365,7 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "@tevm/ts-plugin": "next",
+    "@tevm/ts-plugin": "workspace:^",
     "viem": "^2.14.2"
   },
   "publishConfig": {
