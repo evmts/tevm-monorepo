@@ -2,7 +2,7 @@ import { DNSProver } from '@ensdomains/dnsprovejs'
 import { ethers } from 'ethers'
 import { createMemoryClient, hexToBytes } from 'tevm'
 
-import { createContract, createScript } from 'tevm/contract'
+import { createContract } from 'tevm/contract'
 import { EthjsAddress, encodeDeployData, formatAbi } from 'tevm/utils'
 
 import { abi, args as argsDNSSECImpl, bytecode, deployedBytecode } from './DNSSECImpl.json'
@@ -78,7 +78,7 @@ describe('tanrikulu usecase', () => {
 
 		expect(extractENSRecord(rrsBytes).at(-1)).toEqual('ENS1 dnsname.ens.eth 0x179A862703a4adfb29896552DF9e307980D19285')
 
-		const script = createScript({
+		const script = createContract({
 			name: 'DNSSECImpl',
 			humanReadableAbi: formatAbi(abi),
 			bytecode: `0x${bytecode.startsWith('0x') ? bytecode.slice(2) : bytecode}`,
