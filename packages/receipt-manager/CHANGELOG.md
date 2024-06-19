@@ -1,5 +1,19 @@
 # @tevm/state
 
+## 2.0.0-next.80
+
+### Patch Changes
+
+- [#1221](https://github.com/evmts/tevm-monorepo/pull/1221) [`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d) Thanks [@roninjin10](https://github.com/roninjin10)! - Bump bundler
+
+- Updated dependencies [[`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d)]:
+  - @tevm/block@2.0.0-next.80
+  - @tevm/blockchain@2.0.0-next.80
+  - @tevm/common@2.0.0-next.80
+  - @tevm/rlp@2.0.0-next.80
+  - @tevm/tx@2.0.0-next.80
+  - @tevm/utils@2.0.0-next.80
+
 ## 2.0.0-next.79
 
 ### Patch Changes

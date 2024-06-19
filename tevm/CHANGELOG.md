@@ -1,5 +1,49 @@
 # @tevm/contract
 
+## 2.0.0-next.80
+
+### Patch Changes
+
+- [#1221](https://github.com/evmts/tevm-monorepo/pull/1221) [`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d) Thanks [@roninjin10](https://github.com/roninjin10)! - Bump bundler
+
+- Updated dependencies [[`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d)]:
+  - @tevm/base-bundler@2.0.0-next.80
+  - @tevm/bun-plugin@2.0.0-next.80
+  - @tevm/compiler@2.0.0-next.80
+  - @tevm/config@2.0.0-next.80
+  - @tevm/esbuild-plugin@2.0.0-next.80
+  - @tevm/rollup-plugin@2.0.0-next.80
+  - @tevm/rspack-plugin@2.0.0-next.80
+  - @tevm/solc@2.0.0-next.80
+  - @tevm/vite-plugin@2.0.0-next.80
+  - @tevm/webpack-plugin@2.0.0-next.80
+  - @tevm/viem@2.0.0-next.80
+  - @tevm/ts-plugin@2.0.0-next.80
+  - @tevm/actions@2.0.0-next.80
+  - @tevm/base-client@2.0.0-next.80
+  - @tevm/block@2.0.0-next.80
+  - @tevm/blockchain@2.0.0-next.80
+  - @tevm/client-types@2.0.0-next.80
+  - @tevm/common@2.0.0-next.80
+  - @tevm/contract@2.0.0-next.80
+  - @tevm/decorators@2.0.0-next.80
+  - @tevm/errors@2.0.0-next.80
+  - @tevm/evm@2.0.0-next.80
+  - @tevm/http-client@2.0.0-next.80
+  - @tevm/jsonrpc@2.0.0-next.80
+  - @tevm/memory-client@2.0.0-next.80
+  - @tevm/precompiles@2.0.0-next.80
+  - @tevm/predeploys@2.0.0-next.80
+  - @tevm/procedures@2.0.0-next.80
+  - @tevm/receipt-manager@2.0.0-next.80
+  - @tevm/server@2.0.0-next.80
+  - @tevm/state@2.0.0-next.80
+  - @tevm/sync-storage-persister@2.0.0-next.80
+  - @tevm/tx@2.0.0-next.80
+  - @tevm/txpool@2.0.0-next.80
+  - @tevm/utils@2.0.0-next.80
+  - @tevm/vm@2.0.0-next.80
+
 ## 2.0.0-next.79
 
 ### Minor Changes

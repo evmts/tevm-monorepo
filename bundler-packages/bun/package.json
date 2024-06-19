@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/bun-plugin",
-	"version": "2.0.0-next.79",
+	"version": "2.0.0-next.80",
 	"private": false,
 	"description": "A bun plugin for tevm",
 	"keywords": [
