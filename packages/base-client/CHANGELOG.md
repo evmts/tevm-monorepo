@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 2.0.0-next.83
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/state@2.0.0-next.83
+  - @tevm/evm@2.0.0-next.83
+  - @tevm/sync-storage-persister@2.0.0-next.83
+  - @tevm/vm@2.0.0-next.83
+  - @tevm/txpool@2.0.0-next.83
+
 ## 2.0.0-next.80
 
 ### Patch Changes

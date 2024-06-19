@@ -1,5 +1,34 @@
 # @tevm/contract
 
+## 2.0.0-next.83
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-bundler@2.0.0-next.83
+  - @tevm/bun-plugin@2.0.0-next.83
+  - @tevm/ts-plugin@2.0.0-next.83
+  - @tevm/precompiles@2.0.0-next.83
+  - @tevm/esbuild-plugin@2.0.0-next.83
+  - @tevm/rollup-plugin@2.0.0-next.83
+  - @tevm/rspack-plugin@2.0.0-next.83
+  - @tevm/vite-plugin@2.0.0-next.83
+  - @tevm/webpack-plugin@2.0.0-next.83
+  - @tevm/viem@2.0.0-next.83
+  - @tevm/actions@2.0.0-next.83
+  - @tevm/base-client@2.0.0-next.83
+  - @tevm/http-client@2.0.0-next.83
+  - @tevm/memory-client@2.0.0-next.83
+  - @tevm/server@2.0.0-next.83
+  - @tevm/state@2.0.0-next.83
+  - @tevm/evm@2.0.0-next.83
+  - @tevm/procedures@2.0.0-next.83
+  - @tevm/sync-storage-persister@2.0.0-next.83
+  - @tevm/vm@2.0.0-next.83
+  - @tevm/client-types@2.0.0-next.80
+  - @tevm/decorators@2.0.0-next.83
+  - @tevm/txpool@2.0.0-next.83
+
 ## 2.0.0-next.82
 
 ### Patch Changes
