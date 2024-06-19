@@ -1,5 +1,12 @@
 # @tevm/state
 
+## 2.0.0-next.83
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/test-utils@2.0.0-next.83
+
 ## 2.0.0-next.80
 
 ### Patch Changes

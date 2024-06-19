@@ -1,5 +1,11 @@
 # @tevm/runtime
 
+## 2.0.0-next.83
+
+### Patch Changes
+
+- [#1230](https://github.com/evmts/tevm-monorepo/pull/1230) [`8e67714`](https://github.com/evmts/tevm-monorepo/commit/8e67714aac57382c5b941d714ec415651d56646a) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed typo in dts type for runtime
+
 ## 2.0.0-next.80
 
 ### Patch Changes
