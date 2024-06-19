@@ -4,7 +4,14 @@ import type { Address, Hex } from '@tevm/utils'
 import { Precompile } from './Precompile.js'
 
 export const definePrecompile = <
-	TContract extends Contract<any, any, Address, Hex, Hex> = Contract<string, ReadonlyArray<string>, Address, Hex, Hex>,
+	TContract extends Contract<any, any, Address, any, any, any> = Contract<
+		string,
+		ReadonlyArray<string>,
+		Address,
+		any,
+		any,
+		any
+	>,
 >({
 	contract,
 	call,
