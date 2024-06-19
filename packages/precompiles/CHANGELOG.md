@@ -1,5 +1,11 @@
 # @tevm/precompiles
 
+## 2.0.0-next.82
+
+### Patch Changes
+
+- [#1226](https://github.com/evmts/tevm-monorepo/pull/1226) [`32a73e8`](https://github.com/evmts/tevm-monorepo/commit/32a73e897c7f06b36e9fda705b1bc27e176e5e91) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with using Buffer rather than UInt8Array
+
 ## 2.0.0-next.81
 
 ### Patch Changes
