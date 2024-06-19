@@ -87,7 +87,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L75)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L77)
 
 ## Properties
 
@@ -103,7 +103,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L92)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L94)
 
 ***
 
@@ -270,6 +270,16 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Source
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### EVMErrorMessage
+
+> `static` **EVMErrorMessage**: [`EvmErrorMessage`](/reference/tevm/evm/enumerations/evmerrormessage/) = `EVMErrorMessage.STACK_OVERFLOW`
+
+#### Source
+
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L56)
 
 ***
 

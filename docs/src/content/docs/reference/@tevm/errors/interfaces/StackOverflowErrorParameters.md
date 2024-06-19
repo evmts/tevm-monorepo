@@ -15,7 +15,7 @@ The cause of the error.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L11)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L12)
 
 ***
 
@@ -27,7 +27,7 @@ Details of the error.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L12)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L13)
 
 ***
 
@@ -39,7 +39,7 @@ Base URL for the documentation.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L7)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L8)
 
 ***
 
@@ -51,7 +51,7 @@ Path to the documentation.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L8)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L9)
 
 ***
 
@@ -63,7 +63,7 @@ Slug for the documentation.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L9)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L10)
 
 ***
 
@@ -75,7 +75,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L13)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L14)
 
 ***
 
@@ -87,4 +87,4 @@ Additional meta messages.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L10)
+[packages/errors/src/ethereum/ethereumjs/StackOverflowError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackOverflowError.js#L11)

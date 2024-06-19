@@ -1,5 +1,5 @@
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -22,10 +22,24 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
 	 * @param {boolean} [params.throwOnFail]
 	 */
-	return async ({ evmInput, evmOutput, throwOnFail, ...priorityFeeOpts }) => {
+	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, ...priorityFeeOpts }) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
 
+		const accountAddress = evmInput.origin ?? EthjsAddress.zero()
+		const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
+		const hasEth = evmInput.skipBalance || (account?.balance ?? 0n) > 0n
+		if (!hasEth) {
+			return maybeThrowOnFail(throwOnFail, {
+				errors: [
+					{
+						_tag: 'InsufficientBalance',
+						name: 'InsufficientBalance',
+						message: `Insufficientbalance: Account ${accountAddress} attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address`,
+					},
+				],
+			})
+		}
 		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 		const priorityFee = 0n
 
