@@ -34,7 +34,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 						' */',
 						`export const ${contractName}: Contract<`,
 						`  typeof _name${contractName},`,
-						'  typeof _abi${contractName},',
+						`  typeof _abi${contractName},`,
 						'  undefined,',
 						'  `0x${string}`,',
 						'  `0x${string}`,',
