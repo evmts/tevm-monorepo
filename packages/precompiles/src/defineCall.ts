@@ -72,7 +72,7 @@ export const defineCall = <TAbi extends Abi>(
 		} catch (e) {
 			return {
 				executionGasUsed: BigInt(0),
-				returnValue: Buffer.alloc(0),
+				returnValue: new Uint8Array(),
 				exceptionError: {
 					...new EvmError(EvmErrorMessage.REVERT),
 					...{
