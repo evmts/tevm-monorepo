@@ -1,5 +1,27 @@
 # @tevm/client
 
+## 2.0.0-next.80
+
+### Patch Changes
+
+- [#1221](https://github.com/evmts/tevm-monorepo/pull/1221) [`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d) Thanks [@roninjin10](https://github.com/roninjin10)! - Bump bundler
+
+- Updated dependencies [[`b0b63d2`](https://github.com/evmts/tevm-monorepo/commit/b0b63d22076f35d76898ab1094ece9668ceef95d)]:
+  - @tevm/block@2.0.0-next.80
+  - @tevm/blockchain@2.0.0-next.80
+  - @tevm/common@2.0.0-next.80
+  - @tevm/evm@2.0.0-next.80
+  - @tevm/jsonrpc@2.0.0-next.80
+  - @tevm/logger@2.0.0-next.80
+  - @tevm/predeploys@2.0.0-next.80
+  - @tevm/receipt-manager@2.0.0-next.80
+  - @tevm/state@2.0.0-next.80
+  - @tevm/sync-storage-persister@2.0.0-next.80
+  - @tevm/tx@2.0.0-next.80
+  - @tevm/txpool@2.0.0-next.80
+  - @tevm/utils@2.0.0-next.80
+  - @tevm/vm@2.0.0-next.80
+
 ## 2.0.0-next.79
 
 ### Minor Changes

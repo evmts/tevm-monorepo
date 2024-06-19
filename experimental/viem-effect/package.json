@@ -1,6 +1,6 @@
 {
   "name": "@tevm/viem-effect",
-  "version": "2.0.0-next.79",
+  "version": "2.0.0-next.80",
   "private": false,
   "description": "Tevm extension to viem",
   "keywords": [
