@@ -1,5 +1,11 @@
 # @tevm/precompiles
 
+## 2.0.0-next.81
+
+### Patch Changes
+
+- [#1224](https://github.com/evmts/tevm-monorepo/pull/1224) [`734a771`](https://github.com/evmts/tevm-monorepo/commit/734a771e85f8e27523b16e25a33d2288535d494f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with precompiles type being too strict
+
 ## 2.0.0-next.80
 
 ### Patch Changes
