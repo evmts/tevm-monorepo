@@ -1,6 +1,6 @@
 {
   "name": "tevm",
-  "version": "2.0.0-next.81",
+  "version": "2.0.0-next.82",
   "private": false,
   "description": "A typesafe Ethereum Virtual Machine (EVM) toolkit written in TypeScript",
   "keywords": [
