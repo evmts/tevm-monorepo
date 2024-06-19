@@ -2,19 +2,19 @@
   "name": "@tevm/example-quick-start",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage",
-    "dev": "vite .",
-    "build": "nx build:app @tevm/example-quick-start",
-    "build:app": "vite build"
-  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "nx build:app @tevm/example-quick-start",
+    "build:app": "vite build",
+    "dev": "vite .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch"
+  },
   "dependencies": {
     "@tevm/test-utils": "workspace:^",
     "ethers": "^6.13.1",
