@@ -1,0 +1,32 @@
+{
+  "name": "@tevm/example-quick-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "dev": "vite .",
+    "build": "nx build:app @tevm/example-quick-start",
+    "build:app": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tevm/test-utils": "workspace:^",
+    "ethers": "^6.13.1",
+    "tevm": "workspace:^",
+    "viem": "^2.15.1",
+    "wagmi": "^2.10.2"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vitest": "^1.6.0"
+  }
+}
