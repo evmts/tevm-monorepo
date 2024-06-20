@@ -1,5 +1,5 @@
 import { runTx } from '@tevm/vm'
-import { bytesToHex, getAddress } from 'viem'
+import { bytesToHex } from 'viem'
 import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { handleRunTxError } from './handleEvmError.js'
@@ -9,7 +9,7 @@ import { handleRunTxError } from './handleEvmError.js'
  */
 
 /**
- * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').DebugTraceCallResult | undefined, accessList: undefined | Map<import('viem').Hex, Set<import('viem').Hex>>}} ExecuteCallResult
+ * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').DebugTraceCallResult | undefined, accessList: undefined | Map<string, Set<string>>}} ExecuteCallResult
  */
 
 /**
@@ -26,7 +26,7 @@ export const executeCall = async (client, evmInput, params) => {
 	let trace = undefined
 	/**
 	 * evm returns an access list without the 0x prefix
-	 * @type {Map<import('viem').Hex, Set<import('viem').Hex>> | undefined}
+	 * @type {Map<string, Set<string>> | undefined}
 	 */
 	let accessList = undefined
 	const vm = await client.getVm()
@@ -67,10 +67,9 @@ export const executeCall = async (client, evmInput, params) => {
 		)
 		if (params.createAccessList && runTxResult.accessList !== undefined) {
 			accessList = new Map(
-				runTxResult.accessList.map((item) => [
-					getAddress(item.address),
-					new Set(item.storageKeys.map((key) => getAddress(key))),
-				]),
+				runTxResult.accessList.map((item) => {
+					return [item.address, new Set(item.storageKeys)]
+				}),
 			)
 		}
 

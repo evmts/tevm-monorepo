@@ -9,7 +9,7 @@ title: "definePrecompile"
 
 ## Type parameters
 
-• **TContract** *extends* [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`any`, `any`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\> = [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`string`, readonly `string`[], \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
+• **TContract** *extends* [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
 
 ## Parameters
 

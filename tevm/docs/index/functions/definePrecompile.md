@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-• **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
+• **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
 
 ## Parameters
 

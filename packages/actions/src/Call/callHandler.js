@@ -179,8 +179,14 @@ export const callHandler =
 			}
 			client.logger.debug(txHash, 'Transaction successfully added')
 
-			// intentional floating promise
-			handleAutomining(client, txHash)
+			const miningRes = (await handleAutomining(client, txHash)) ?? {}
+			if ('errors' in miningRes) {
+				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+					...('errors' in miningRes ? { errors: miningRes.errors } : {}),
+					...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
+					...callHandlerResult(executedCall.runTxResult, txHash, executedCall.trace, executedCall.accessList),
+				})
+			}
 		}
 
 		/**
