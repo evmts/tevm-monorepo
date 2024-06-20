@@ -166,5 +166,9 @@ export const callHandlerOpts = async (client, params) => {
 		opts.gasLimit = BigInt(params.gas)
 	}
 
+	if (params.createTransaction && opts.block !== (await vm.blockchain.getCanonicalHeadBlock())) {
+		throw new Error('Creating transactions on past blocks is not currently supported')
+	}
+
 	return { data: opts }
 }

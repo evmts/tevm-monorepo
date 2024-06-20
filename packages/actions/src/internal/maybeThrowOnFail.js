@@ -1,4 +1,5 @@
 /**
+ * @internal
  * Internal utility to wrap a handler and handle the `throwOnError` option.
  * If `throwOnError` is true and the handler returns an `errors` array, it will throw an error.
  * Otherwise, it will return the result of the handler.

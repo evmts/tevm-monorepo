@@ -85,7 +85,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:68
+packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:69
 
 ## Properties
 
@@ -268,6 +268,16 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Source
 
 packages/errors/types/ethereum/BaseError.d.ts:59
+
+***
+
+### EVMErrorMessage
+
+> `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
+
+#### Source
+
+packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:50
 
 ***
 

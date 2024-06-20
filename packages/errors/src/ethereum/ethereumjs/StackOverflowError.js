@@ -1,4 +1,5 @@
 // StackOverflowError.js
+import { EVMErrorMessage } from '@ethereumjs/evm'
 import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**
@@ -52,6 +53,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StackOverflowError extends ExecutionError {
+	static EVMErrorMessage = EVMErrorMessage.STACK_OVERFLOW
 	/**
 	 * Constructs a StackOverflowError.
 	 * Represents an invalid bytecode error that occurs when there is a stack overflow during execution.

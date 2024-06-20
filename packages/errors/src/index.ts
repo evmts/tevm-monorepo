@@ -173,7 +173,7 @@ export {
 	type CreateCollisionErrorParameters,
 	type InvalidBeginSubErrorParameters,
 	type RefundExhaustedErrorParameters,
-	type BLS12381InvalidInputLengthError,
+	BLS12381InvalidInputLengthError,
 	type InvalidEofFormatErrorParameters,
 	type InvalidKzgInputsErrorParameters,
 	type InvalidReturnSubErrorParameters,

@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-• **TContract** *extends* `Contract`\<`any`, `any`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\> = `Contract`\<`string`, readonly `string`[], \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
+• **TContract** *extends* `Contract`\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
 
 ## Parameters
 

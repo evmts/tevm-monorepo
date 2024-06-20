@@ -1,3 +1,4 @@
+import { EVMErrorMessage } from '@ethereumjs/evm'
 import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**
@@ -50,6 +51,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StackUnderflowError extends ExecutionError {
+	static EVMErrorMessage = EVMErrorMessage.STACK_UNDERFLOW
 	/**
 	 * Constructs a StackUnderflowError.
 	 * This error is typically encountered when an operation requires more stack items than are present.
