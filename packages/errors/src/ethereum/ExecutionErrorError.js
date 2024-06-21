@@ -44,8 +44,9 @@ export class ExecutionError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag] - Internal name/tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'ExecutionError') {
 		super(
 			message,
 			{
@@ -53,7 +54,7 @@ export class ExecutionError extends BaseError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/executionerror/',
 			},
-			'ExecutionError',
+			tag,
 			-32000,
 		)
 
@@ -68,16 +69,4 @@ export class ExecutionError extends BaseError {
 		 */
 		this.meta = args.meta
 	}
-
-	/**
-	 * @type {string}
-	 * @override
-	 */
-	_tag = 'ExecutionError'
-
-	/**
-	 * @type {'ExecutionError'}
-	 * @override
-	 */
-	name = 'ExecutionError'
 }

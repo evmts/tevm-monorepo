@@ -34,11 +34,15 @@ export class NoForkTransportSetError extends BaseError {
 	 * @param {NoForkTransportSetErrorParameters} [args={}] - Additional parameters to pass to BaseError.
 	 */
 	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/noforktransportseterror/',
-		})
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/noforktransportseterror/',
+			},
+			'NoForkTransportSetError',
+		)
 
 		/**
 		 * @type {object|undefined}

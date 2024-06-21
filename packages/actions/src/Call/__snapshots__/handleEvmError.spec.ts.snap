@@ -1,3 +1,5 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`handleRunTxError should handle unknown EvmError subclasses 1`] = `"Uknown errror"`;
+exports[`handleRunTxError should handle EvmError instances 1`] = `"invalid JUMP"`;
+
+exports[`handleRunTxError should handle unknown EvmError subclasses 1`] = `"Unknown error: Unknown error occurred"`;

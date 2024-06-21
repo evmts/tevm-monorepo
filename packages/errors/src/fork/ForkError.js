@@ -72,7 +72,7 @@ export class ForkError extends BaseError {
 				cause:
 					args.cause instanceof Error
 						? args.cause
-						: new BaseError(args.cause.message, undefined, 'unknown', /** @type {number}*/ (args.cause.code)),
+						: new BaseError(args.cause.message, {}, 'unknown', /** @type {number}*/ (args.cause.code)),
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/accountlockederror/',
 			},

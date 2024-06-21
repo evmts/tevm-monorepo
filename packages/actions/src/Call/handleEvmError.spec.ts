@@ -48,7 +48,7 @@ describe('handleRunTxError', () => {
 		const error = 'unknown error'
 		const result = handleRunTxError(error)
 		expect(result).toBeInstanceOf(InternalEvmError)
-		expect(result.message).toBe('Uknown errror')
+		expect(result.message).toBe('Unknown error')
 		expect(result.cause).toBe(error)
 	})
 
@@ -81,76 +81,53 @@ describe('handleRunTxError', () => {
 		expect(result.message).toMatchSnapshot()
 	})
 
-	it.todo('should handle specific EvmError subclasses', () => {
+	it('should handle specific EvmError subclasses', () => {
 		const errorCases = [
-			{
-				errorInstance: new AuthCallNonZeroValueExtError('AuthCallNonZeroValueExtError'),
-				expectedError: AuthCallNonZeroValueExtError,
-			},
-			{ errorInstance: new AuthCallUnsetError('AuthCallUnsetError'), expectedError: AuthCallUnsetError },
-			{ errorInstance: new AuthInvalidSError('AuthInvalidSError'), expectedError: AuthInvalidSError },
-			{
-				errorInstance: new BLS12381FpNotInFieldError('BLS12381FpNotInFieldError'),
-				expectedError: BLS12381FpNotInFieldError,
-			},
-			{ errorInstance: new BLS12381InputEmptyError('BLS12381InputEmptyError'), expectedError: BLS12381InputEmptyError },
-			{
-				errorInstance: new BLS12381InvalidInputLengthError('BLS12381InvalidInputLengthError'),
-				expectedError: BLS12381InvalidInputLengthError,
-			},
-			{
-				errorInstance: new BLS12381PointNotOnCurveError('BLS12381PointNotOnCurveError'),
-				expectedError: BLS12381PointNotOnCurveError,
-			},
-			{
-				errorInstance: new CodeSizeExceedsMaximumError('CodeSizeExceedsMaximumError'),
-				expectedError: CodeSizeExceedsMaximumError,
-			},
-			{ errorInstance: new CodeStoreOutOfGasError('CodeStoreOutOfGasError'), expectedError: CodeStoreOutOfGasError },
-			{ errorInstance: new CreateCollisionError('CreateCollisionError'), expectedError: CreateCollisionError },
-			{ errorInstance: new InvalidCommitmentError('InvalidCommitmentError'), expectedError: InvalidCommitmentError },
-			{ errorInstance: new EvmRevertError('EvmRevertError'), expectedError: EvmRevertError },
-			{
-				errorInstance: new InitcodeSizeViolationError('InitcodeSizeViolationError'),
-				expectedError: InitcodeSizeViolationError,
-			},
-			{
-				errorInstance: new InsufficientBalanceError('InsufficientBalanceError'),
-				expectedError: InsufficientBalanceError,
-			},
-			{ errorInstance: new InternalEvmError('InternalEvmError'), expectedError: InternalEvmError },
-			{ errorInstance: new InvalidBeginSubError('InvalidBeginSubError'), expectedError: InvalidBeginSubError },
-			{
-				errorInstance: new InvalidBytecodeResultError('InvalidBytecodeResultError'),
-				expectedError: InvalidBytecodeResultError,
-			},
-			{ errorInstance: new InvalidEofFormatError('InvalidEofFormatError'), expectedError: InvalidEofFormatError },
-			{ errorInstance: new InvalidInputLengthError('InvalidInputLengthError'), expectedError: InvalidInputLengthError },
-			{ errorInstance: new InvalidJumpError('InvalidJumpError'), expectedError: InvalidJumpError },
-			{ errorInstance: new InvalidJumpSubError('InvalidJumpSubError'), expectedError: InvalidJumpSubError },
-			{ errorInstance: new InvalidKzgInputsError('InvalidKzgInputsError'), expectedError: InvalidKzgInputsError },
-			{ errorInstance: new InvalidOpcodeError('InvalidOpcodeError'), expectedError: InvalidOpcodeError },
-			{ errorInstance: new InvalidProofError('InvalidProofError'), expectedError: InvalidProofError },
-			{ errorInstance: new InvalidReturnSubError('InvalidReturnSubError'), expectedError: InvalidReturnSubError },
-			{ errorInstance: new OutOfGasError('OutOfGasError'), expectedError: OutOfGasError },
-			{ errorInstance: new OutOfRangeError('OutOfRangeError'), expectedError: OutOfRangeError },
-			{ errorInstance: new RefundExhaustedError('RefundExhaustedError'), expectedError: RefundExhaustedError },
-			{ errorInstance: new StackOverflowError('StackOverflowError'), expectedError: StackOverflowError },
-			{ errorInstance: new StackUnderflowError('StackUnderflowError'), expectedError: StackUnderflowError },
-			{ errorInstance: new StaticStateChangeError('StaticStateChangeError'), expectedError: StaticStateChangeError },
-			{ errorInstance: new StopError('StopError'), expectedError: StopError },
-			{ errorInstance: new ValueOverflowError('ValueOverflowError'), expectedError: ValueOverflowError },
+			InvalidJumpError,
+			AuthCallNonZeroValueExtError,
+			AuthCallUnsetError,
+			AuthInvalidSError,
+			BLS12381FpNotInFieldError,
+			BLS12381InputEmptyError,
+			BLS12381InvalidInputLengthError,
+			BLS12381PointNotOnCurveError,
+			CodeSizeExceedsMaximumError,
+			CodeStoreOutOfGasError,
+			CreateCollisionError,
+			EvmRevertError,
+			InitcodeSizeViolationError,
+			InsufficientBalanceError,
+			InternalEvmError,
+			InvalidBeginSubError,
+			InvalidBytecodeResultError,
+			InvalidCommitmentError,
+			InvalidEofFormatError,
+			InvalidInputLengthError,
+			InvalidJumpSubError,
+			InvalidKzgInputsError,
+			InvalidOpcodeError,
+			InvalidProofError,
+			InvalidReturnSubError,
+			OutOfGasError,
+			OutOfRangeError,
+			RefundExhaustedError,
+			StackOverflowError,
+			StackUnderflowError,
+			StaticStateChangeError,
+			StopError,
+			ValueOverflowError,
 		]
 
-		errorCases.forEach(({ errorInstance, expectedError }) => {
-			const result = handleRunTxError(errorInstance)
-			expect(result).toBeInstanceOf(expectedError)
-			expect(result.message).toBe(errorInstance.message)
-			expect(result.cause).toBe(errorInstance)
+		errorCases.forEach((constructor) => {
+			const err = new EvmError(constructor.EVMErrorMessage)
+			const result = handleRunTxError(err)
+			expect(result.name).toBe(constructor.name)
+			expect(result).toBeInstanceOf(constructor)
+			expect(result.cause).toBe(err)
 		})
 	})
 
-	it.todo('should handle unknown EvmError subclasses', () => {
+	it('should handle unknown EvmError subclasses', () => {
 		class UnknownEvmError extends EvmError {
 			constructor(message: string) {
 				super(message as any)

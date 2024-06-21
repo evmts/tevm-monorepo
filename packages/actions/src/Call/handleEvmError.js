@@ -1,4 +1,5 @@
 import {
+	InvalidJumpError,
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
 	AuthInvalidSError,
@@ -22,7 +23,6 @@ import {
 	InvalidGasLimitError,
 	InvalidGasPriceError,
 	InvalidInputLengthError,
-	InvalidJumpError,
 	InvalidJumpSubError,
 	InvalidKzgInputsError,
 	InvalidNonceError,
@@ -99,39 +99,41 @@ const evmErrors = [
  * @throws {never} returns errors as values
  */
 export const handleRunTxError = (e) => {
-	if (!(e instanceof Error)) {
-		return new InternalEvmError('Uknown errror', { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("is less than the block's baseFeePerGas")) {
-		return new InvalidGasPriceError(e.message, { cause: e })
-	}
-	if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
-		return new InvalidAddressError(e.message, { cause: e })
-	}
-	if (e.message.includes('is lower than the minimum gas limit')) {
-		return new InvalidGasLimitError(e.message, { cause: e })
-	}
-	if (e.message.includes('tx has a higher gas limit than the block')) {
-		return new GasLimitExceededError(e.message, { cause: e })
-	}
-	if (e.message.includes('block has a different hardfork than the vm')) {
-		return new MisconfiguredClientError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("the tx doesn't have the correct nonce.")) {
-		return new InvalidNonceError(e.message, { cause: e })
-	}
-	if (e.message.includes("sender doesn't have enough funds to send tx.")) {
-		return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("sender doesn't have enough funds to send tx. The upfront cost is")) {
-		return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (!(e instanceof EvmError)) {
+	if (e instanceof Error) {
+		if (e.message.includes("is less than the block's baseFeePerGas")) {
+			return new InvalidGasPriceError(e.message, { cause: e })
+		}
+		if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
+			return new InvalidAddressError(e.message, { cause: e })
+		}
+		if (e.message.includes('is lower than the minimum gas limit')) {
+			return new InvalidGasLimitError(e.message, { cause: e })
+		}
+		if (e.message.includes('tx has a higher gas limit than the block')) {
+			return new GasLimitExceededError(e.message, { cause: e })
+		}
+		if (e.message.includes('block has a different hardfork than the vm')) {
+			return new MisconfiguredClientError(e.message, { cause: /** @type {any}*/ (e) })
+		}
+		if (e.message.includes("the tx doesn't have the correct nonce.")) {
+			return new InvalidNonceError(e.message, { cause: e })
+		}
+		if (e.message.includes("sender doesn't have enough funds to send tx.")) {
+			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
+		}
+		if (e.message.includes("sender doesn't have enough funds to send tx. The upfront cost is")) {
+			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
+		}
 		return new InternalEvmError(e.message, { cause: /** @type {any}*/ (e) })
 	}
-	const ErrorConstructor = evmErrors.find((error) => error.EVMErrorMessage)
-	if (!ErrorConstructor) {
-		return new InternalEvmError(`Unknown error: ${e.message}`, { cause: e })
+	if (!(e instanceof EvmError)) {
+		console.log('not a valid EvmError')
+		return new InternalEvmError('Unknown error', { cause: /** @type {any}*/ (e) })
 	}
-	return new ErrorConstructor(e.message, { cause: e })
+	const ErrorConstructor = evmErrors.find((error) => error.EVMErrorMessage === e.error)
+	if (!ErrorConstructor) {
+		console.log('no error constructor found')
+		return new InternalEvmError(`Unknown error: ${e.error}`, { cause: e })
+	}
+	return new ErrorConstructor(e.error, { cause: e })
 }

@@ -37,11 +37,11 @@ const getVersion = () => '1.1.0.next-73'
 export class BaseError extends Error {
 	/**
 	 * @param {string} shortMessage - A short, human-readable summary of the error.
-	 * @param {BaseErrorParameters} [args={}] - Additional parameters for the error.
+	 * @param {BaseErrorParameters} args={} - Additional parameters for the error.
 	 * @param {string} _tag - Internal tag for the error.
-	 * @param {number} code - Error code analogous to the code in JSON RPC error.
+	 * @param {number} [code] - Error code analogous to the code in JSON RPC error.
 	 */
-	constructor(shortMessage, args = {}, _tag = 'BaseError', code = 0) {
+	constructor(shortMessage, args, _tag, code = 0) {
 		if (new.target === BaseError) {
 			throw new TypeError('Cannot construct BaseError instances directly')
 		}
@@ -75,7 +75,6 @@ export class BaseError extends Error {
 			}
 		})()
 		const docsPath = args.cause instanceof BaseError ? args.cause.docsPath || args.docsPath : args.docsPath
-
 		/**
 		 * @type {string}
 		 */

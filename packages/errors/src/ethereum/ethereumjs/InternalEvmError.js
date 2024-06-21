@@ -63,11 +63,15 @@ export class InternalEvmError extends BaseError {
 	 * @param {InternalEvmErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 */
 	constructor(message = 'Internal error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/internalerror/',
-		})
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/internalerror/',
+			},
+			'InternalEvmError',
+		)
 
 		/**
 		 * @type {string}

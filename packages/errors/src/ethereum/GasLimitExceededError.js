@@ -15,7 +15,6 @@ import { BaseError } from './BaseError.js'
 
 /**
  * Represents an error that occurs when the gas limit is exceeded.
- * This class is abstract and should be extended by other error classes.
  *
  * This error is typically encountered when a transaction or set of transactions exceed the specified gas limit.
  *
@@ -29,7 +28,6 @@ import { BaseError } from './BaseError.js'
  *   }
  * }
  *
- * @abstract
  * @param {string} message - A human-readable error message.
  * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
  * @property {string} _tag - Same as name, used internally.
@@ -48,9 +46,6 @@ export class GasLimitExceededError extends BaseError {
 	 * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 */
 	constructor(message, args = {}) {
-		if (new.target === GasLimitExceededError) {
-			throw new TypeError('Cannot construct GasLimitExceededError instances directly')
-		}
 		super(
 			message,
 			{
@@ -70,14 +65,12 @@ export class GasLimitExceededError extends BaseError {
 
 	/**
 	 * @type {string}
-	 * @abstract
 	 * @override
 	 */
 	_tag = 'GasLimitExceeded'
 
 	/**
 	 * @type {string}
-	 * @abstract
 	 * @override
 	 */
 	name = 'GasLimitExceeded'

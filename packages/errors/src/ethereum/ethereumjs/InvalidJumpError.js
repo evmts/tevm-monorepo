@@ -69,27 +69,21 @@ export class InvalidJumpError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid JUMP error occurred.'] - Human-readable error message.
 	 * @param {InvalidJumpErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag] - Optionally override the name/tag for the error.
 	 */
-	constructor(message = 'Invalid JUMP error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidjumperror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
+	constructor(message = 'Invalid JUMP error occurred.', args = {}, tag = 'InvalidJumpError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidjumperror/',
+			},
+			tag,
+		)
 		/**
 		 * @type {object|undefined}
 		 */
 		this.meta = args.meta
-		/**
-		 * @type {'InvalidJumpError'}
-		 */
-		this._tag = 'InvalidJumpError'
 	}
 }
