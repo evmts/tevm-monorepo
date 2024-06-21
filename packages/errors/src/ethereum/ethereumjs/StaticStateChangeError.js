@@ -71,27 +71,17 @@ export class StaticStateChangeError extends ExecutionError {
 	 *
 	 * @param {string} [message='Static state change error occurred.'] - Human-readable error message.
 	 * @param {StaticStateChangeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='StaticStateChangeError'] - The tag for the error.
 	 */
-	constructor(message = 'Static state change error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/staticstatechangeerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'StaticStateChangeError'}
-		 */
-		this._tag = 'StaticStateChangeError'
+	constructor(message = 'Static state change error occurred.', args = {}, tag = 'StaticStateChangeError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/staticstatechangeerror/',
+			},
+			tag,
+		)
 	}
 }

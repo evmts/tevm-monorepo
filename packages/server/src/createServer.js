@@ -43,7 +43,7 @@ export const createServer = async (client, serverOptions) => {
 		return httpCreateServer(serverOptions, createHttpHandler(client))
 	} catch (e) {
 		if (e instanceof Error) {
-			throw new CreateServerError(e.message, { cause: e })
+			throw new CreateServerError(e.message, { cause: e }, 'CreateServerError')
 		}
 		throw e
 	}

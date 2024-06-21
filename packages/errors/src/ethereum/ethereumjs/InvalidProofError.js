@@ -53,27 +53,17 @@ export class InvalidProofError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid proof error occurred.'] - Human-readable error message.
 	 * @param {InvalidProofErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidProofError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid proof error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidprooferror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidProofError'}
-		 */
-		this._tag = 'InvalidProofError'
+	constructor(message = 'Invalid proof error occurred.', args = {}, tag = 'InvalidProofError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidprooferror/',
+			},
+			tag,
+		)
 	}
 }

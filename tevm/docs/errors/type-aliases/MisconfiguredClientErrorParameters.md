@@ -56,4 +56,4 @@ Parameters for constructing a [MisconfiguredClientError](../classes/Misconfigure
 
 ## Source
 
-packages/errors/types/client/MisconfiguredClient.d.ts:53
+packages/errors/types/client/MisconfiguredClient.d.ts:54

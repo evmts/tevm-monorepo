@@ -56,4 +56,4 @@ Parameters for constructing a ContractExecutionFailedError.
 
 ## Source
 
-packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:63
+packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:50

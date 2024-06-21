@@ -144,19 +144,19 @@ describe('callHandler', () => {
 		await vm.evm.stateManager.checkpoint()
 		await vm.evm.stateManager.commit()
 		const caller = `0x${'23'.repeat(20)}` as const
-		expect(
-			await callHandler(client)({
-				data: encodeFunctionData({
-					abi: ERC20_ABI,
-					functionName: 'transferFrom',
-					args: [caller, caller, 1n],
-				}),
-				skipBalance: true,
-				from: caller,
-				to: ERC20_ADDRESS,
-				throwOnFail: false,
+		const callRes = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				args: [caller, caller, 1n],
 			}),
-		).toMatchSnapshot()
+			skipBalance: true,
+			from: caller,
+			to: ERC20_ADDRESS,
+			throwOnFail: false,
+		})
+		expect(callRes.errors).toBeDefined()
+		expect(callRes.errors).toMatchSnapshot()
 	})
 
 	it('should be able to send multiple tx from same account and then mine it', async () => {

@@ -41,7 +41,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidCommitmentError()
 
-> **new InvalidCommitmentError**(`message`?, `args`?): [`InvalidCommitmentError`](InvalidCommitmentError.md)
+> **new InvalidCommitmentError**(`message`?, `args`?, `tag`?): [`InvalidCommitmentError`](InvalidCommitmentError.md)
 
 Constructs an InvalidCommitmentError.
 Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
@@ -58,6 +58,10 @@ Human-readable error message.
 • **args?**: [`InvalidCommitmentErrorParameters`](../type-aliases/InvalidCommitmentErrorParameters.md)
 
 Additional parameters for the BaseError.
+
+• **tag?**: `string`
+
+The tag for the error.
 
 #### Returns
 
@@ -83,7 +87,7 @@ try {
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:66
+packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:67
 
 ## Properties
 
@@ -179,22 +183,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Inherited from
-
-[`ExecutionError`](ExecutionError.md).[`meta`](ExecutionError.md#meta)
-
-#### Source
-
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:48
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
@@ -213,7 +201,7 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 ### name
 
-> **name**: `"ExecutionError"`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
@@ -223,7 +211,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:53
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -353,50 +341,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

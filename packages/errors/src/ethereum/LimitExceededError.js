@@ -44,8 +44,9 @@ export class LimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {LimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='LimitExceededError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'LimitExceededError') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class LimitExceededError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/limitexceedederror/',
 			},
-			'LimitExceeded',
+			tag,
 			-32005,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'LimitExceeded'}
-	 * @override
-	 */
-	_tag = 'LimitExceeded'
-
-	/**
-	 * @type {'LimitExceeded'}
-	 * @override
-	 */
-	name = 'LimitExceeded'
 }

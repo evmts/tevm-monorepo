@@ -43,17 +43,17 @@ export class InvalidNonceError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidNonceErrorParameters} [args={}] - Additional parameters for the InvalidNonceError.
+	 * @param {string} [tag='InvalidNonceError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidnonceerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidNonceError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidnonceerror/',
+			},
+			tag,
+		)
 	}
 }

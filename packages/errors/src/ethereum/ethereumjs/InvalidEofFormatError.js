@@ -67,27 +67,17 @@ export class InvalidEofFormatError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid EOF format error occurred.'] - Human-readable error message.
 	 * @param {InvalidEofFormatErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidEofFormatError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid EOF format error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalideofformatterror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidEofFormatError'}
-		 */
-		this._tag = 'InvalidEofFormatError'
+	constructor(message = 'Invalid EOF format error occurred.', args = {}, tag = 'InvalidEofFormatError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalideofformatterror/',
+			},
+			tag,
+		)
 	}
 }

@@ -56,4 +56,4 @@ Parameters for constructing an OutOfGasError.
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:81
+packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:82

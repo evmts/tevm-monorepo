@@ -43,17 +43,17 @@ export class InvalidUrlError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidUrlErrorParameters} [args={}] - Additional parameters for the InvalidUrlError.
+	 * @param {string} [tag='InvalidUrlError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidurlerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidUrlError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidurlerror/',
+			},
+			tag,
+		)
 	}
 }

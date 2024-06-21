@@ -63,6 +63,7 @@ export class InvalidJumpSubError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid JUMPSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidJumpSubErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidJumpSubError'] - The tag for the error.}
 	 *
 	 * @example
 	 * ```typescript
@@ -77,26 +78,15 @@ export class InvalidJumpSubError extends ExecutionError {
 	 * }
 	 * ```
 	 */
-	constructor(message = 'Invalid JUMPSUB error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidjumpsuberror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidJumpSubError'}
-		 */
-		this._tag = 'InvalidJumpSubError'
+	constructor(message = 'Invalid JUMPSUB error occurred.', args = {}, tag = 'InvalidJumpSubError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidjumpsuberror/',
+			},
+			tag,
+		)
 	}
 }

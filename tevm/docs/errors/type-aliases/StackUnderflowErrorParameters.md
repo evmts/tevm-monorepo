@@ -56,4 +56,4 @@ Parameters for constructing a StackUnderflowError.
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:74
+packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:75

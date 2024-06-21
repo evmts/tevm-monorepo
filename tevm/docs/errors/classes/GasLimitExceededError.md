@@ -7,7 +7,6 @@
 # Class: GasLimitExceededError
 
 Represents an error that occurs when the gas limit is exceeded.
-This class is abstract and should be extended by other error classes.
 
 This error is typically encountered when a transaction or set of transactions exceed the specified gas limit.
 
@@ -23,8 +22,6 @@ try {
   }
 }
 ```
-
-## Abstract
 
 ## Param
 
@@ -48,7 +45,7 @@ Additional parameters for the BaseError.
 
 ### new GasLimitExceededError()
 
-> **new GasLimitExceededError**(`message`, `args`?): [`GasLimitExceededError`](GasLimitExceededError.md)
+> **new GasLimitExceededError**(`message`, `args`?, `tag`?): [`GasLimitExceededError`](GasLimitExceededError.md)
 
 Constructs a GasLimitExceededError.
 
@@ -62,6 +59,8 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
 #### Returns
 
 [`GasLimitExceededError`](GasLimitExceededError.md)
@@ -72,7 +71,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/GasLimitExceededError.d.ts:46
+packages/errors/types/ethereum/GasLimitExceededError.d.ts:44
 
 ## Properties
 
@@ -165,18 +164,6 @@ Human-readable error message.
 #### Source
 
 node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
-
-***
-
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Source
-
-packages/errors/types/ethereum/GasLimitExceededError.d.ts:50
 
 ***
 
@@ -328,50 +315,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

@@ -56,4 +56,4 @@ Parameters for constructing an AccountLockedError.
 
 ## Source
 
-packages/errors/types/ethereum/AccountLockedError.d.ts:65
+packages/errors/types/ethereum/AccountLockedError.d.ts:52

@@ -44,8 +44,9 @@ export class UnsupportedChainError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {UnsupportedChainErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='UnsupportedChain'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'UnsupportedChain') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class UnsupportedChainError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/unsupportedchainerror/',
 			},
-			'UnsupportedChain',
+			tag,
 			-32007,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'UnsupportedChain'}
-	 * @override
-	 */
-	_tag = 'UnsupportedChain'
-
-	/**
-	 * @type {'UnsupportedChain'}
-	 * @override
-	 */
-	name = 'UnsupportedChain'
 }

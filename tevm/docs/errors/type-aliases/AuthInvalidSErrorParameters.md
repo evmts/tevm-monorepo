@@ -56,4 +56,4 @@ Parameters for constructing a [AuthInvalidSError](../classes/AuthInvalidSError.m
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/AuthInvalidSError.d.ts:66
+packages/errors/types/ethereum/ethereumjs/AuthInvalidSError.d.ts:71

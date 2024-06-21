@@ -73,27 +73,17 @@ export class EvmRevertError extends RevertError {
 	 *
 	 * @param {string} [message='Revert error occurred.'] - Human-readable error message.
 	 * @param {EvmRevertErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='EvmRevertError'] - The tag for the error.
 	 */
-	constructor(message = 'Revert error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/reverterror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'EvmRevertError'}
-		 */
-		this._tag = 'EvmRevertError'
+	constructor(message = 'Revert error occurred.', args = {}, tag = 'EvmRevertError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/reverterror/',
+			},
+			tag,
+		)
 	}
 }

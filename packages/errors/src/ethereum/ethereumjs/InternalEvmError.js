@@ -61,27 +61,17 @@ export class InternalEvmError extends BaseError {
 	 *
 	 * @param {string} [message='Internal error occurred.'] - Human-readable error message.
 	 * @param {InternalEvmErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InternalEvmError'] - The tag for the error.
 	 */
-	constructor(message = 'Internal error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/internalerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InternalEvmError'}
-		 */
-		this._tag = 'InternalEvmError'
+	constructor(message = 'Internal error occurred.', args = {}, tag = 'InternalEvmError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/internalerror/',
+			},
+			tag,
+		)
 	}
 }

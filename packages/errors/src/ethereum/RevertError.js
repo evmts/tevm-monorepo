@@ -45,7 +45,7 @@ export class RevertError extends BaseError {
 	 * @param {string} message - Human-readable error message.
 	 * @param {RevertErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'RevertError') {
 		super(
 			message,
 			{
@@ -53,27 +53,8 @@ export class RevertError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/reverterror/',
 			},
-			'Revert',
+			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @abstract
-	 * @type {string}
-	 * @override
-	 */
-	_tag = 'Revert'
-
-	/**
-	 * @abstract
-	 * @type {string}
-	 * @override
-	 */
-	name = 'Revert'
 }

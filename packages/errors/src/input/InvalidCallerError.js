@@ -43,17 +43,17 @@ export class InvalidCallerError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidCallerErrorParameters} [args={}] - Additional parameters for the InvalidCallerError.
+	 * @param {string} [tag='InvalidCallerError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidcallererror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidCallerError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidcallererror/',
+			},
+			tag,
+		)
 	}
 }

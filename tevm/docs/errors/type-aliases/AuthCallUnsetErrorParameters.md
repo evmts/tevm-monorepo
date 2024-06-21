@@ -56,4 +56,4 @@ Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:66
+packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:71

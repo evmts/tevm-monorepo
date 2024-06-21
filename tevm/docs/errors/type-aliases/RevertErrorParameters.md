@@ -56,4 +56,4 @@ Parameters for constructing a RevertError.
 
 ## Source
 
-packages/errors/types/ethereum/RevertError.d.ts:54
+packages/errors/types/ethereum/RevertError.d.ts:50

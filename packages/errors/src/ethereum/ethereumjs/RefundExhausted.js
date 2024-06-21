@@ -64,27 +64,17 @@ export class RefundExhaustedError extends ExecutionError {
 	 *
 	 * @param {string} [message='Refund exhausted error occurred.'] - Human-readable error message.
 	 * @param {RefundExhaustedErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='RefundExhaustedError'] - The tag for the error.}
 	 */
-	constructor(message = 'Refund exhausted error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/refundexhaustederror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'RefundExhaustedError'}
-		 */
-		this._tag = 'RefundExhaustedError'
+	constructor(message = 'Refund exhausted error occurred.', args = {}, tag = 'RefundExhaustedError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/refundexhaustederror/',
+			},
+			tag,
+		)
 	}
 }

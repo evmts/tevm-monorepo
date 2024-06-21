@@ -44,8 +44,9 @@ export class ParseError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ParseErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='ParseError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'ParseError') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class ParseError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/parseerror/',
 			},
-			'ParseError',
+			tag,
 			-32700,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'ParseError'}
-	 * @override
-	 */
-	_tag = 'ParseError'
-
-	/**
-	 * @type {'ParseError'}
-	 * @override
-	 */
-	name = 'ParseError'
 }

@@ -44,8 +44,9 @@ export class InsufficientFundsError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InsufficientFundsErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InsufficientFunds'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InsufficientFunds') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InsufficientFundsError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/insufficientfundserror/',
 			},
-			'InsufficientFunds',
+			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InsufficientFunds'}
-	 * @override
-	 */
-	_tag = 'InsufficientFunds'
-
-	/**
-	 * @type {'InsufficientFunds'}
-	 * @override
-	 */
-	name = 'InsufficientFunds'
 }

@@ -45,17 +45,17 @@ export class InvalidBlockError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidBlockErrorParameters} [args={}] - Additional parameters for the InvalidBlockError.
+	 * @param {string} [tag='InvalidBlockError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidblockerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidBlockError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidblockerror/',
+			},
+			tag,
+		)
 	}
 }

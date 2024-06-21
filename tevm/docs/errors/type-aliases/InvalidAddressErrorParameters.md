@@ -56,4 +56,4 @@ Parameters for constructing an InvalidAddressError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidAddressError.d.ts:63
+packages/errors/types/ethereum/InvalidAddressError.d.ts:50

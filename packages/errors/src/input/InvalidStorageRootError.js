@@ -43,17 +43,17 @@ export class InvalidStorageRootError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidStorageRootErrorParameters} [args={}] - Additional parameters for the InvalidStorageRootError.
+	 * @param {string} [tag='InvalidStorageRootError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidstoragerooterror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidStorageRootError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidstoragerooterror/',
+			},
+			tag,
+		)
 	}
 }

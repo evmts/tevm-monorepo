@@ -44,8 +44,9 @@ export class InvalidTransactionError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidTransactionErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidTransaction'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InvalidTransaction') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InvalidTransactionError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/invalidtransactionerror/',
 			},
-			'InvalidTransaction',
+			tag,
 			-32003,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InvalidTransaction'}
-	 * @override
-	 */
-	_tag = 'InvalidTransaction'
-
-	/**
-	 * @type {'InvalidTransaction'}
-	 * @override
-	 */
-	name = 'InvalidTransaction'
 }

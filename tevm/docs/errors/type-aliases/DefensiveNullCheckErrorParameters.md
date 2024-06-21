@@ -56,4 +56,4 @@ Parameters for constructing a [DefensiveNullCheckError](../classes/DefensiveNull
 
 ## Source
 
-packages/errors/types/defensive/DefensiveNullCheckError.d.ts:58
+packages/errors/types/defensive/DefensiveNullCheckError.d.ts:59

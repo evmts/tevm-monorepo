@@ -44,8 +44,9 @@ export class TransactionUnderpricedError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {TransactionUnderpricedErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='TransactionUnderpriced'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'TransactionUnderpriced') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class TransactionUnderpricedError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/transactionunderpricederror/',
 			},
-			'TransactionUnderpriced',
+			tag,
 			-32014,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'TransactionUnderpriced'}
-	 * @override
-	 */
-	_tag = 'TransactionUnderpriced'
-
-	/**
-	 * @type {'TransactionUnderpriced'}
-	 * @override
-	 */
-	name = 'TransactionUnderpriced'
 }

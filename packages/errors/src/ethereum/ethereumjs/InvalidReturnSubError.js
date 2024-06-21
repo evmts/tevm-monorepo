@@ -63,27 +63,17 @@ export class InvalidReturnSubError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid RETURNSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidReturnSubErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidReturnSubError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid RETURNSUB error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidreturnsuberror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidReturnSubError'}
-		 */
-		this._tag = 'InvalidReturnSubError'
+	constructor(message = 'Invalid RETURNSUB error occurred.', args = {}, tag = 'InvalidReturnSubError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidreturnsuberror/',
+			},
+			tag,
+		)
 	}
 }

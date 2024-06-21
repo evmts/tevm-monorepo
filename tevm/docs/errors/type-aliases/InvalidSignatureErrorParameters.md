@@ -56,4 +56,4 @@ Parameters for constructing an InvalidSignatureError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidSignatureError.d.ts:63
+packages/errors/types/ethereum/InvalidSignatureError.d.ts:50

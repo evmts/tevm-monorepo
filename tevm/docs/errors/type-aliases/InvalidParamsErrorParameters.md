@@ -56,4 +56,4 @@ Parameters for constructing an InvalidParamsError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidParamsError.d.ts:63
+packages/errors/types/ethereum/InvalidParamsError.d.ts:50

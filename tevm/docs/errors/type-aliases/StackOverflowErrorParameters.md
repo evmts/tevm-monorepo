@@ -56,4 +56,4 @@ Parameters for constructing a StackOverflowError.
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:77
+packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:78

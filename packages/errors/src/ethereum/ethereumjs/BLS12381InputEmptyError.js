@@ -54,27 +54,17 @@ export class BLS12381InputEmptyError extends ExecutionError {
 	 *
 	 * @param {string} [message='BLS12-381 input empty error occurred.'] - Human-readable error message.
 	 * @param {BLS12381InputEmptyErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='BLS12381InputEmptyError'] - The tag for the error.
 	 */
-	constructor(message = 'BLS12-381 input empty error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381inputemptyerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'BLS12381InputEmptyError'}
-		 */
-		this._tag = 'BLS12381InputEmptyError'
+	constructor(message = 'BLS12-381 input empty error occurred.', args = {}, tag = 'BLS12381InputEmptyError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381inputemptyerror/',
+			},
+			tag,
+		)
 	}
 }

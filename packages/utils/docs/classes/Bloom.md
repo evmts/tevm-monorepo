@@ -88,7 +88,7 @@ The element to check
 
 #### Source
 
-[packages/utils/src/Bloom.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L53)
+[packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
 
 ***
 
@@ -112,7 +112,7 @@ Checks if multiple topics are in a bloom.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L78)
+[packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
 
 ***
 
@@ -134,4 +134,4 @@ Bitwise or blooms together.
 
 #### Source
 
-[packages/utils/src/Bloom.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L86)
+[packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)

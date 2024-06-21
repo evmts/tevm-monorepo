@@ -55,7 +55,7 @@ Additional parameters for the BaseError.
 
 ### new ForkError()
 
-> **new ForkError**(`message`, `args`): [`ForkError`](ForkError.md)
+> **new ForkError**(`message`, `args`, `tag`?): [`ForkError`](ForkError.md)
 
 Constructs an ForkError.
 
@@ -68,6 +68,8 @@ Human-readable error message.
 • **args**: [`ForkErrorParameters`](../type-aliases/ForkErrorParameters.md)
 
 Additional parameters for the BaseError.
+
+• **tag?**: `string`
 
 #### Returns
 
@@ -85,17 +87,17 @@ packages/errors/types/fork/ForkError.d.ts:62
 
 ### \_tag
 
-> **\_tag**: `"Fork"`
+> **\_tag**: `string`
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 #### Source
 
-packages/errors/types/fork/ForkError.d.ts:71
+packages/errors/types/ethereum/BaseError.d.ts:39
 
 ***
 
@@ -175,18 +177,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Source
-
-packages/errors/types/fork/ForkError.d.ts:66
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
@@ -205,17 +195,17 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 ### name
 
-> **name**: `"Fork"`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
 #### Source
 
-packages/errors/types/fork/ForkError.d.ts:76
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -335,50 +325,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

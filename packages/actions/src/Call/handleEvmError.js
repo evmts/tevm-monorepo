@@ -42,17 +42,12 @@ import {
 import { EvmError } from '@tevm/evm'
 
 /**
- * @type {[typeof AuthCallNonZeroValueExtError, typeof AuthCallUnsetError, 		typeof AuthInvalidSError, 		typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError, typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError]}
+ * @type {[typeof AuthCallNonZeroValueExtError, typeof AuthCallUnsetError, 		typeof AuthInvalidSError, 		typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError, typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError] }
  */
 const evmErrors = [
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
 	AuthInvalidSError,
-	BLS12381FpNotInFieldError,
-	BLS12381InputEmptyError,
-	BLS12381InvalidInputLengthError,
-	BLS12381PointNotOnCurveError,
-	CodeStoreOutOfGasError,
 	CodeSizeExceedsMaximumError,
 	CreateCollisionError,
 	InvalidCommitmentError,
@@ -78,6 +73,11 @@ const evmErrors = [
 	StaticStateChangeError,
 	StopError,
 	ValueOverflowError,
+	BLS12381InputEmptyError,
+	BLS12381FpNotInFieldError,
+	BLS12381InvalidInputLengthError,
+	BLS12381PointNotOnCurveError,
+	CodeStoreOutOfGasError,
 ]
 
 /**
@@ -99,39 +99,41 @@ const evmErrors = [
  * @throws {never} returns errors as values
  */
 export const handleRunTxError = (e) => {
-	if (!(e instanceof Error)) {
-		return new InternalEvmError('Uknown errror', { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("is less than the block's baseFeePerGas")) {
-		return new InvalidGasPriceError(e.message, { cause: e })
-	}
-	if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
-		return new InvalidAddressError(e.message, { cause: e })
-	}
-	if (e.message.includes('is lower than the minimum gas limit')) {
-		return new InvalidGasLimitError(e.message, { cause: e })
-	}
-	if (e.message.includes('tx has a higher gas limit than the block')) {
-		return new GasLimitExceededError(e.message, { cause: e })
-	}
-	if (e.message.includes('block has a different hardfork than the vm')) {
-		return new MisconfiguredClientError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("the tx doesn't have the correct nonce.")) {
-		return new InvalidNonceError(e.message, { cause: e })
-	}
-	if (e.message.includes("sender doesn't have enough funds to send tx.")) {
-		return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (e.message.includes("sender doesn't have enough funds to send tx. The upfront cost is")) {
-		return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
-	}
-	if (!(e instanceof EvmError)) {
+	if (e instanceof Error) {
+		if (e.message.includes("is less than the block's baseFeePerGas")) {
+			return new InvalidGasPriceError(e.message, { cause: e })
+		}
+		if (e.message.includes('invalid sender address, address is not an EOA (EIP-3607)')) {
+			return new InvalidAddressError(e.message, { cause: e })
+		}
+		if (e.message.includes('is lower than the minimum gas limit')) {
+			return new InvalidGasLimitError(e.message, { cause: e })
+		}
+		if (e.message.includes('tx has a higher gas limit than the block')) {
+			return new GasLimitExceededError(e.message, { cause: e })
+		}
+		if (e.message.includes('block has a different hardfork than the vm')) {
+			return new MisconfiguredClientError(e.message, { cause: /** @type {any}*/ (e) })
+		}
+		if (e.message.includes("the tx doesn't have the correct nonce.")) {
+			return new InvalidNonceError(e.message, { cause: e })
+		}
+		if (e.message.includes("sender doesn't have enough funds to send tx.")) {
+			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
+		}
+		if (e.message.includes("sender doesn't have enough funds to send tx. The upfront cost is")) {
+			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
+		}
 		return new InternalEvmError(e.message, { cause: /** @type {any}*/ (e) })
 	}
-	const ErrorConstructor = evmErrors.find((error) => error.EVMErrorMessage)
-	if (!ErrorConstructor) {
-		return new InternalEvmError(`Unknown error: ${e.message}`, { cause: e })
+	if (!(e instanceof EvmError)) {
+		console.log('not a valid EvmError')
+		return new InternalEvmError('Unknown error', { cause: /** @type {any}*/ (e) })
 	}
-	return new ErrorConstructor(e.message, { cause: e })
+	const ErrorConstructor = evmErrors.find((error) => error.EVMErrorMessage === e.error)
+	if (!ErrorConstructor) {
+		console.log('no error constructor found')
+		return new InternalEvmError(`Unknown error: ${e.error}`, { cause: e })
+	}
+	return new ErrorConstructor(e.error, { cause: e })
 }

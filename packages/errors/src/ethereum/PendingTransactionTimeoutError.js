@@ -44,8 +44,9 @@ export class PendingTransactionTimeoutError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {PendingTransactionTimeoutErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='PendingTransactionTimeout'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'PendingTransactionTimeout') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class PendingTransactionTimeoutError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/pendingtransactiontimeouterror/',
 			},
-			'PendingTransactionTimeout',
+			tag,
 			-32002,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'PendingTransactionTimeout'}
-	 * @override
-	 */
-	_tag = 'PendingTransactionTimeout'
-
-	/**
-	 * @type {'PendingTransactionTimeout'}
-	 * @override
-	 */
-	name = 'PendingTransactionTimeout'
 }

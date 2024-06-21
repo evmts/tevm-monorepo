@@ -16,7 +16,7 @@ import { handleRunTxError } from './handleEvmError.js'
  * @param {import('@tevm/base-client').BaseClient} client
  * @param {import("@tevm/evm").EvmRunCallOpts} evmInput
  * @param {import('./CallParams.js').CallParams} params
- * @returns {Promise<ExecuteCallResult | {errors: [ExecuteCallError]}>}
+ * @returns {Promise<(ExecuteCallResult & {errors?: [ExecuteCallError]}) | {errors: [ExecuteCallError]}>}
  * @throws {never} returns errors as values
  */
 export const executeCall = async (client, evmInput, params) => {
@@ -73,8 +73,19 @@ export const executeCall = async (client, evmInput, params) => {
 			)
 		}
 
-		return { runTxResult, accessList, trace }
+		return {
+			runTxResult,
+			accessList,
+			trace,
+			...(runTxResult.execResult.exceptionError !== undefined
+				? { errors: [handleRunTxError(runTxResult.execResult.exceptionError)] }
+				: {}),
+		}
 	} catch (e) {
-		return { trace, accessList, errors: [handleRunTxError(e)] }
+		return {
+			trace,
+			accessList,
+			errors: [handleRunTxError(e)],
+		}
 	}
 }

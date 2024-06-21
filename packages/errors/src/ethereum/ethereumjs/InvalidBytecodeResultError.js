@@ -63,27 +63,17 @@ export class InvalidBytecodeResultError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid bytecode result error occurred.'] - Human-readable error message.
 	 * @param {InvalidBytecodeResultErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidBytecodeResultError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid bytecode result error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytecoderesulterror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidBytecodeResultError'}
-		 */
-		this._tag = 'InvalidBytecodeResultError'
+	constructor(message = 'Invalid bytecode result error occurred.', args = {}, tag = 'InvalidBytecodeResultError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytecoderesulterror/',
+			},
+			tag,
+		)
 	}
 }

@@ -56,4 +56,4 @@ Parameters for constructing a ChainIdMismatchError.
 
 ## Source
 
-packages/errors/types/ethereum/ChainIdMismatchError.d.ts:63
+packages/errors/types/ethereum/ChainIdMismatchError.d.ts:50

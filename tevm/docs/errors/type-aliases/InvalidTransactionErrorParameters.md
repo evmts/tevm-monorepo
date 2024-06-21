@@ -56,4 +56,4 @@ Parameters for constructing an InvalidTransactionError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidTransactionError.d.ts:63
+packages/errors/types/ethereum/InvalidTransactionError.d.ts:50

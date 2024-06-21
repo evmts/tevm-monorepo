@@ -44,8 +44,9 @@ export class BlockGasLimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {BlockGasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='BlockGasLimitExceededError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'BlockGasLimitExceededError') {
 		super(
 			message,
 			{
@@ -53,7 +54,7 @@ export class BlockGasLimitExceededError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/blockgaslimitexceedederror/',
 			},
-			'BlockGasLimitExceeded',
+			tag,
 			-32006,
 		)
 

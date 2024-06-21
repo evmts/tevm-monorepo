@@ -56,4 +56,4 @@ Parameters for constructing a TransactionUnderpricedError.
 
 ## Source
 
-packages/errors/types/ethereum/TransactionUnderpricedError.d.ts:63
+packages/errors/types/ethereum/TransactionUnderpricedError.d.ts:50

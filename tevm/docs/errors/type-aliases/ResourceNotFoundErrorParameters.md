@@ -56,4 +56,4 @@ Parameters for constructing a ResourceNotFoundError.
 
 ## Source
 
-packages/errors/types/ethereum/ResourceNotFoundError.d.ts:63
+packages/errors/types/ethereum/ResourceNotFoundError.d.ts:50

@@ -49,8 +49,8 @@ import { ResourceNotFoundError } from '../ethereum/ResourceNotFoundError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {ForkErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'Fork'} _tag - Same as name, used internally.
- * @property {'Fork'} name - The name of the error, used to discriminate errors.
+ * @property {'ForkError'} _tag - Same as name, used internally.
+ * @property {'ForkError'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -64,7 +64,7 @@ export class ForkError extends BaseError {
 	 * @param {string} message - Human-readable error message.
 	 * @param {ForkErrorParameters} args - Additional parameters for the BaseError.
 	 */
-	constructor(message, args) {
+	constructor(message, args, tag = 'ForkError') {
 		super(
 			[message, ...('message' in args.cause ? [args.cause.message] : [])].join('\n'),
 			{
@@ -72,35 +72,12 @@ export class ForkError extends BaseError {
 				cause:
 					args.cause instanceof Error
 						? args.cause
-						: new BaseError(args.cause.message, undefined, 'unknown', /** @type {number}*/ (args.cause.code)),
+						: new BaseError(args.cause.message, {}, 'unknown', /** @type {number}*/ (args.cause.code)),
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/accountlockederror/',
 			},
-			'Fork',
-			-32005,
+			tag,
+			'code' in args.cause ? /** @type {number}*/ (args.cause.code) : new ResourceNotFoundError('').code,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-
-		/**
-		 * Proxy the code from underlying error if it exists, otherwise default to ResourceNotFoundError code.
-		 * @type {number}
-		 */
-		this.code = 'code' in args.cause ? /** @type {number}*/ (args.cause.code) : new ResourceNotFoundError('').code
 	}
-
-	/**
-	 * @type {'Fork'}
-	 * @override
-	 */
-	_tag = 'Fork'
-
-	/**
-	 * @type {'Fork'}
-	 * @override
-	 */
-	name = 'Fork'
 }

@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidReturnSubError](../classes/InvalidReturnSu
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:68
+packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:69

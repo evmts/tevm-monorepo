@@ -69,27 +69,17 @@ export class InvalidOpcodeError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid opcode error occurred.'] - Human-readable error message.
 	 * @param {InvalidOpcodeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidOpcodeError'] - The tag for the error.}
 	 */
-	constructor(message = 'Invalid opcode error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidopcodeerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidOpcodeError'}
-		 */
-		this._tag = 'InvalidOpcodeError'
+	constructor(message = 'Invalid opcode error occurred.', args = {}, tag = 'InvalidOpcodeError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidopcodeerror/',
+			},
+			tag,
+		)
 	}
 }

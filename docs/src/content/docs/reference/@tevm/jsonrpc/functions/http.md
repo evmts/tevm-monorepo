@@ -25,4 +25,4 @@ Creates a HTTP transport that connects to a JSON-RPC API.
 
 ## Source
 
-node\_modules/.pnpm/viem@2.15.1\_bufferutil@4.0.8\_typescript@5.4.5\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/transports/http.d.ts:44
+node\_modules/.pnpm/viem@2.15.1\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/transports/http.d.ts:44

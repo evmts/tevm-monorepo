@@ -61,13 +61,18 @@ export class AuthInvalidSError extends ExecutionError {
 	 *
 	 * @param {string} [message='AuthInvalidS error occurred.'] - Human-readable error message.
 	 * @param {AuthInvalidSErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='AuthInvalidSError'] - Tag for the error.
 	 */
-	constructor(message = 'AuthInvalidS error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authinvalidserror/',
-		})
+	constructor(message = 'AuthInvalidS error occurred.', args = {}, tag = 'AuthInvalidSError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authinvalidserror/',
+			},
+			tag,
+		)
 
 		/**
 		 * @type {string}

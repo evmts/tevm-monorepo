@@ -56,4 +56,4 @@ Parameters for constructing a MethodNotFoundError.
 
 ## Source
 
-packages/errors/types/ethereum/MethodNotFoundError.d.ts:63
+packages/errors/types/ethereum/MethodNotFoundError.d.ts:50

@@ -56,4 +56,4 @@ Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSi
 
 ## Source
 
-packages/errors/types/data/InvalidByteSizeError.d.ts:64
+packages/errors/types/data/InvalidByteSizeError.d.ts:57

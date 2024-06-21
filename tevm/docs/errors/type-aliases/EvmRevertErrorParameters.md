@@ -56,4 +56,4 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:78
+packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79

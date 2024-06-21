@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidEofFormatError](../classes/InvalidEofForma
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:72
+packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:73

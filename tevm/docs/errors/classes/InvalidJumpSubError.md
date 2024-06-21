@@ -46,7 +46,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidJumpSubError()
 
-> **new InvalidJumpSubError**(`message`?, `args`?): [`InvalidJumpSubError`](InvalidJumpSubError.md)
+> **new InvalidJumpSubError**(`message`?, `args`?, `tag`?): [`InvalidJumpSubError`](InvalidJumpSubError.md)
 
 Constructs an InvalidJumpSubError.
 Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
@@ -68,6 +68,10 @@ Human-readable error message.
 • **args?**: [`InvalidJumpSubErrorParameters`](../type-aliases/InvalidJumpSubErrorParameters.md)
 
 Additional parameters for the BaseError.
+
+• **tag?**: `string`
+
+The tag for the error.}
 
 #### Returns
 
@@ -93,7 +97,7 @@ try {
 
 #### Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:76
+packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:77
 
 ## Properties
 
@@ -189,22 +193,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Inherited from
-
-[`ExecutionError`](ExecutionError.md).[`meta`](ExecutionError.md#meta)
-
-#### Source
-
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:48
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
@@ -223,7 +211,7 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 ### name
 
-> **name**: `"ExecutionError"`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
@@ -233,7 +221,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:53
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -363,50 +351,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

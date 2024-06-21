@@ -54,27 +54,21 @@ export class BLS12381InvalidInputLengthError extends ExecutionError {
 	 *
 	 * @param {string} [message='BLS12-381 invalid input length error occurred.'] - Human-readable error message.
 	 * @param {BLS12381InvalidInputLengthErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='BLS12381InvalidInputLengthError'] - The tag for the error.
 	 */
-	constructor(message = 'BLS12-381 invalid input length error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381invalidinputlengtherror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'BLS12381InvalidInputLengthError'}
-		 */
-		this._tag = 'BLS12381InvalidInputLengthError'
+	constructor(
+		message = 'BLS12-381 invalid input length error occurred.',
+		args = {},
+		tag = 'BLS12381InvalidInputLengthError',
+	) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381invalidinputlengtherror/',
+			},
+			tag,
+		)
 	}
 }

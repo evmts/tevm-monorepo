@@ -71,27 +71,17 @@ export class OutOfRangeError extends ExecutionError {
 	 *
 	 * @param {string} [message='Value out of range error occurred.'] - Human-readable error message.
 	 * @param {OutOfRangeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='OutOfRangeError'] - The tag for the error.
 	 */
-	constructor(message = 'Value out of range error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/outofrangeerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'OutOfRangeError'}
-		 */
-		this._tag = 'OutOfRangeError'
+	constructor(message = 'Value out of range error occurred.', args = {}, tag = 'OutOfRangeError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/outofrangeerror/',
+			},
+			tag,
+		)
 	}
 }

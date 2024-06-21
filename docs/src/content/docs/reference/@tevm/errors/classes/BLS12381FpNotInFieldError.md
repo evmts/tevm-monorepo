@@ -40,7 +40,7 @@ Additional parameters for the BaseError.
 
 ### new BLS12381FpNotInFieldError()
 
-> **new BLS12381FpNotInFieldError**(`message`?, `args`?): [`BLS12381FpNotInFieldError`](/reference/tevm/errors/classes/bls12381fpnotinfielderror/)
+> **new BLS12381FpNotInFieldError**(`message`?, `args`?, `tag`?): [`BLS12381FpNotInFieldError`](/reference/tevm/errors/classes/bls12381fpnotinfielderror/)
 
 Constructs a BLS12381FpNotInFieldError.
 Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
@@ -58,6 +58,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`= `'BLS12381FpNotInFieldError'`
+
+The tag for the error.
+
 #### Returns
 
 [`BLS12381FpNotInFieldError`](/reference/tevm/errors/classes/bls12381fpnotinfielderror/)
@@ -68,13 +72,13 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js#L58)
+[packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js#L59)
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `string` = `'ExecutionError'`
+> **\_tag**: `string`
 
 Same as name, used internally.
 
@@ -84,7 +88,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/ExecutionErrorError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L76)
+[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
 ***
 
@@ -98,7 +102,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
 ***
 
@@ -114,7 +118,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
 ***
 
@@ -128,7 +132,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
 ***
 
@@ -144,7 +148,7 @@ Path to the documentation for this error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
 ***
 
@@ -170,13 +174,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional object containing additional information about the error.
 
-#### Inherited from
-
-[`ExecutionError`](/reference/tevm/errors/classes/executionerror/).[`meta`](/reference/tevm/errors/classes/executionerror/#meta)
-
 #### Source
 
-[packages/errors/src/ethereum/ExecutionErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L69)
+[packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js#L83)
 
 ***
 
@@ -192,13 +192,13 @@ Additional meta messages for more context.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
 ***
 
 ### name
 
-> **name**: `"ExecutionError"` = `'ExecutionError'`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
@@ -208,7 +208,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-[packages/errors/src/ethereum/ExecutionErrorError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L82)
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -222,7 +222,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
 ***
 
@@ -250,7 +250,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
 ***
 
@@ -332,7 +332,7 @@ The first error that matches the function, or the original error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
 ***
 

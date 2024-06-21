@@ -61,13 +61,18 @@ export class AuthCallNonZeroValueExtError extends ExecutionError {
 	 *
 	 * @param {string} [message='AuthCallNonZeroValueExt error occurred.'] - Human-readable error message.
 	 * @param {AuthCallNonZeroValueExtErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='AuthCallNonZeroValueExtError'] - The tag for the error.
 	 */
-	constructor(message = 'AuthCallNonZeroValueExt error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authcallnonzerovalueexterror/',
-		})
+	constructor(message = 'AuthCallNonZeroValueExt error occurred.', args = {}, tag = 'AuthCallNonZeroValueExtError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authcallnonzerovalueexterror/',
+			},
+			tag,
+		)
 
 		/**
 		 * @type {string}

@@ -43,17 +43,17 @@ export class InvalidFunctionNameError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidFunctionNameErrorParameters} [args={}] - Additional parameters for the InvalidFunctionNameError.
+	 * @param {string} [tag='InvalidFunctionNameError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidfunctionnameerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidFunctionNameError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidfunctionnameerror/',
+			},
+			tag,
+		)
 	}
 }

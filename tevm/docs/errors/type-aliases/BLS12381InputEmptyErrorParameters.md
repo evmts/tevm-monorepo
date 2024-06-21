@@ -56,4 +56,4 @@ Parameters for constructing a [BLS12381InputEmptyError](../classes/BLS12381Input
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:59
+packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:60

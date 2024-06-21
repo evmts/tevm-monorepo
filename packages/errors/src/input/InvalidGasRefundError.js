@@ -43,17 +43,17 @@ export class InvalidGasRefundError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidGasRefundErrorParameters} [args={}] - Additional parameters for the InvalidGasRefundError.
+	 * @param {string} [tag='InvalidGasRefundError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidgasrefunderror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidGasRefundError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidgasrefunderror/',
+			},
+			tag,
+		)
 	}
 }

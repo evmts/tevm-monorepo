@@ -56,4 +56,4 @@ Parameters for constructing a [EipNotEnabledError](../classes/EipNotEnabledError
 
 ## Source
 
-packages/errors/types/common/EipNotEnabledError.d.ts:55
+packages/errors/types/common/EipNotEnabledError.d.ts:56

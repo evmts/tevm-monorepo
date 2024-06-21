@@ -56,4 +56,4 @@ Parameters for constructing an InsufficientFundsError.
 
 ## Source
 
-packages/errors/types/ethereum/InsufficientFundsError.d.ts:63
+packages/errors/types/ethereum/InsufficientFundsError.d.ts:50

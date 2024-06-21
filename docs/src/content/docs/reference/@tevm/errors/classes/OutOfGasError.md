@@ -51,7 +51,7 @@ Additional parameters for the BaseError.
 
 ### new OutOfGasError()
 
-> **new OutOfGasError**(`message`?, `args`?): [`OutOfGasError`](/reference/tevm/errors/classes/outofgaserror/)
+> **new OutOfGasError**(`message`?, `args`?, `tag`?): [`OutOfGasError`](/reference/tevm/errors/classes/outofgaserror/)
 
 Constructs an OutOfGasError.
 Represents an execution error that occurs when a transaction runs out of gas during execution.
@@ -81,6 +81,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`= `'OutOfGasError'`
+
+The tag for the error.
+
 #### Returns
 
 [`OutOfGasError`](/reference/tevm/errors/classes/outofgaserror/)
@@ -91,13 +95,13 @@ Additional parameters for the BaseError.
 
 #### Source
 
-[packages/errors/src/ethereum/ethereumjs/OutOfGasError.js:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/OutOfGasError.js#L80)
+[packages/errors/src/ethereum/ethereumjs/OutOfGasError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/OutOfGasError.js#L81)
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `string` = `'GasLimitExceeded'`
+> **\_tag**: `string`
 
 Same as name, used internally.
 
@@ -107,7 +111,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/GasLimitExceededError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/GasLimitExceededError.js#L76)
+[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
 ***
 
@@ -121,7 +125,7 @@ Same as name, used internally.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
 ***
 
@@ -137,7 +141,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
 ***
 
@@ -151,7 +155,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
 ***
 
@@ -167,7 +171,7 @@ Path to the documentation for this error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
 ***
 
@@ -187,22 +191,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](/reference/tevm/errors/classes/gaslimitexceedederror/).[`meta`](/reference/tevm/errors/classes/gaslimitexceedederror/#meta)
-
-#### Source
-
-[packages/errors/src/ethereum/GasLimitExceededError.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/GasLimitExceededError.js#L68)
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
@@ -215,13 +203,13 @@ Additional meta messages for more context.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
 ***
 
 ### name
 
-> **name**: `string` = `'GasLimitExceeded'`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
@@ -231,7 +219,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-[packages/errors/src/ethereum/GasLimitExceededError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/GasLimitExceededError.js#L83)
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -245,7 +233,7 @@ The name of the error, used to discriminate errors.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
 ***
 
@@ -273,7 +261,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
 ***
 
@@ -355,7 +343,7 @@ The first error that matches the function, or the original error.
 
 #### Source
 
-[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
 ***
 

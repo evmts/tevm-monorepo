@@ -43,17 +43,17 @@ export class InvalidDeployedBytecodeError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidDeployedBytecodeErrorParameters} [args={}] - Additional parameters for the InvalidDeployedBytecodeError.
+	 * @param {string} [tag='InvalidDeployedBytecodeError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invaliddeployedbytecodeerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidDeployedBytecodeError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invaliddeployedbytecodeerror/',
+			},
+			tag,
+		)
 	}
 }

@@ -46,7 +46,7 @@ Additional parameters for the BaseError.
 
 ### new InternalError()
 
-> **new InternalError**(`message`, `args`?): [`InternalError`](InternalError.md)
+> **new InternalError**(`message`, `args`?, `tag`?): [`InternalError`](InternalError.md)
 
 Constructs an InternalError.
 
@@ -60,6 +60,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
+The tag for the error.
+
 #### Returns
 
 [`InternalError`](InternalError.md)
@@ -70,7 +74,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:44
+packages/errors/types/ethereum/InternalErrorError.d.ts:45
 
 ## Properties
 
@@ -174,7 +178,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:48
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 
@@ -326,50 +330,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

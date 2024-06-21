@@ -63,27 +63,17 @@ export class CreateCollisionError extends ExecutionError {
 	 *
 	 * @param {string} [message='Create collision error occurred.'] - Human-readable error message.
 	 * @param {CreateCollisionErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='CreateCollisionError'] - The tag for the error.
 	 */
-	constructor(message = 'Create collision error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/createcollisionerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'CreateCollisionError'}
-		 */
-		this._tag = 'CreateCollisionError'
+	constructor(message = 'Create collision error occurred.', args = {}, tag = 'CreateCollisionError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/createcollisionerror/',
+			},
+			tag,
+		)
 	}
 }

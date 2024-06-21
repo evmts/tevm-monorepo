@@ -56,4 +56,4 @@ Parameters for constructing a [UnreachableCodeError](../classes/UnreachableCodeE
 
 ## Source
 
-packages/errors/types/defensive/UnreachableCodeError.d.ts:61
+packages/errors/types/defensive/UnreachableCodeError.d.ts:62

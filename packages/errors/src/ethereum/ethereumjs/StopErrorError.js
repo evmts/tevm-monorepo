@@ -61,27 +61,18 @@ export class StopError extends ExecutionError {
 	 *
 	 * @param {string} [message='Stop error occurred.'] - Human-readable error message.
 	 * @param {StopErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='StopError'] - The tag for the error.
+	 *
 	 */
-	constructor(message = 'Stop error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stoperror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'StopError'}
-		 */
-		this._tag = 'StopError'
+	constructor(message = 'Stop error occurred.', args = {}, tag = 'StopError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stoperror/',
+			},
+			tag,
+		)
 	}
 }

@@ -1,0 +1,9 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cloneVmWithBlockTag should handle errors during VM cloning 1`] = `
+"State root for 0x00undefined01020304 does not exist
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: State root for 0x00undefined01020304 does not exist
+Version: 1.1.0.next-73"
+`;

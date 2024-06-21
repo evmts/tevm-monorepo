@@ -56,4 +56,4 @@ Parameters for constructing an UnsupportedChainError.
 
 ## Source
 
-packages/errors/types/ethereum/UnsupportedChainError.d.ts:63
+packages/errors/types/ethereum/UnsupportedChainError.d.ts:50

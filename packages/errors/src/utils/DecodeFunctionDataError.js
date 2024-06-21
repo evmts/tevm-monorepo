@@ -28,12 +28,17 @@ export class DecodeFunctionDataError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {object} [meta] - Optional object containing additional information about the error.
+	 * @param {string} [tag='DecodeFunctionDataError'] - The tag for the error.
 	 */
-	constructor(message, meta) {
-		super(message, {
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/decodefunctiondataerror/',
-			...meta,
-		})
+	constructor(message, meta, tag = 'DecodeFunctionDataError') {
+		super(
+			message,
+			{
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/decodefunctiondataerror/',
+				...meta,
+			},
+			tag,
+		)
 	}
 }

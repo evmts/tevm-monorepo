@@ -47,27 +47,17 @@ export class CommonMismatchError extends ExecutionError {
 	 *
 	 * @param {string} [message='Common mismatch error occurred.'] - Human-readable error message.
 	 * @param {CommonMismatchErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='CommonMismatchError'] - The tag for the error.
 	 */
-	constructor(message = 'Common mismatch error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/commonmismatcherror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'CommonMismatchError'}
-		 */
-		this._tag = 'CommonMismatchError'
+	constructor(message = 'Common mismatch error occurred.', args = {}, tag = 'CommonMismatchError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/commonmismatcherror/',
+			},
+			tag,
+		)
 	}
 }

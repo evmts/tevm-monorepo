@@ -56,4 +56,4 @@ Parameters for constructing an InvalidGasPriceError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidGasPriceError.d.ts:63
+packages/errors/types/ethereum/InvalidGasPriceError.d.ts:50

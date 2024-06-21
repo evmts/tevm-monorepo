@@ -44,8 +44,9 @@ export class ChainIdMismatchError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ChainIdMismatchErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='ChainIdMismatch'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'ChainIdMismatch') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class ChainIdMismatchError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/chainidmismatcherror/',
 			},
-			'ChainIdMismatch',
+			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'ChainIdMismatch'}
-	 * @override
-	 */
-	_tag = 'ChainIdMismatch'
-
-	/**
-	 * @type {'ChainIdMismatch'}
-	 * @override
-	 */
-	name = 'ChainIdMismatch'
 }

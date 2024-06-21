@@ -44,8 +44,9 @@ export class InvalidRequestError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidRequestErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidRequest'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InvalidRequest') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InvalidRequestError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/invalidrequesterror/',
 			},
-			'InvalidRequest',
+			tag,
 			-32600,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InvalidRequest'}
-	 * @override
-	 */
-	_tag = 'InvalidRequest'
-
-	/**
-	 * @type {'InvalidRequest'}
-	 * @override
-	 */
-	name = 'InvalidRequest'
 }

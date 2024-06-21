@@ -46,7 +46,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidBytesSizeError()
 
-> **new InvalidBytesSizeError**(`size`, `expectedSize`, `message`?, `args`?): [`InvalidBytesSizeError`](InvalidBytesSizeError.md)
+> **new InvalidBytesSizeError**(`size`, `expectedSize`, `message`?, `args`?, `tag`?): [`InvalidBytesSizeError`](InvalidBytesSizeError.md)
 
 Constructs an InvalidBytesSizeError.
 
@@ -68,6 +68,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
+The tag for the error.}
+
 #### Returns
 
 [`InvalidBytesSizeError`](InvalidBytesSizeError.md)
@@ -78,7 +82,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/data/InvalidByteSizeError.d.ts:51
+packages/errors/types/data/InvalidByteSizeError.d.ts:52
 
 ## Properties
 
@@ -158,18 +162,6 @@ packages/errors/types/ethereum/BaseError.d.ts:47
 
 ***
 
-### expectedSize
-
-> **expectedSize**: `number`
-
-The expected size of the bytes.
-
-#### Source
-
-packages/errors/types/data/InvalidByteSizeError.d.ts:59
-
-***
-
 ### message
 
 > **message**: `string`
@@ -198,7 +190,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:48
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 
@@ -245,18 +237,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Source
 
 packages/errors/types/ethereum/BaseError.d.ts:55
-
-***
-
-### size
-
-> **size**: `number`
-
-The actual size of the bytes.
-
-#### Source
-
-packages/errors/types/data/InvalidByteSizeError.d.ts:55
 
 ***
 
@@ -362,50 +342,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

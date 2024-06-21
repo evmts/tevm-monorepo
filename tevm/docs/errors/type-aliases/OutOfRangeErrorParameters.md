@@ -56,4 +56,4 @@ Parameters for constructing a [OutOfRangeError](../classes/OutOfRangeError.md).
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:76
+packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:77

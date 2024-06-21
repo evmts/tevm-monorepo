@@ -46,7 +46,7 @@ Additional parameters for the BaseError.
 
 ### new DefensiveNullCheckError()
 
-> **new DefensiveNullCheckError**(`message`?, `args`?): [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
+> **new DefensiveNullCheckError**(`message`?, `args`?, `tag`?): [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
 
 Constructs a DefensiveNullCheckError.
 
@@ -60,6 +60,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
+The tag for the error.
+
 #### Returns
 
 [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
@@ -70,7 +74,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/defensive/DefensiveNullCheckError.d.ts:53
+packages/errors/types/defensive/DefensiveNullCheckError.d.ts:54
 
 ## Properties
 
@@ -178,7 +182,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:48
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 
@@ -330,50 +334,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

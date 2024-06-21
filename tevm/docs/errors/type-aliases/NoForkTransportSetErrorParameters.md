@@ -56,4 +56,4 @@ Parameters for constructing an NoForkTransportSetError.
 
 ## Source
 
-packages/errors/types/fork/NoForkUriSetError.d.ts:42
+packages/errors/types/fork/NoForkUriSetError.d.ts:38
