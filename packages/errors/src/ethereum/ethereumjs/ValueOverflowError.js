@@ -63,7 +63,7 @@ export class ValueOverflowError extends ExecutionError {
 	 * @param {ValueOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 * @param {string} [tag='ValueOverflowError'] - The tag for the error.
 	 */
-	constructor(message = 'Value overflow error occurred.', args = {}, tag) {
+	constructor(message = 'Value overflow error occurred.', args = {}, tag = 'ValueOverflowError') {
 		super(
 			message,
 			{

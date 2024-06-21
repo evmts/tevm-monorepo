@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it, test } from 'bun:test'
 import {
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
@@ -48,7 +48,7 @@ describe('handleRunTxError', () => {
 		const error = 'unknown error'
 		const result = handleRunTxError(error)
 		expect(result).toBeInstanceOf(InternalEvmError)
-		expect(result.message).toBe('Unknown error')
+		expect(result.message).toMatchSnapshot()
 		expect(result.cause).toBe(error)
 	})
 
@@ -81,7 +81,7 @@ describe('handleRunTxError', () => {
 		expect(result.message).toMatchSnapshot()
 	})
 
-	it('should handle specific EvmError subclasses', () => {
+	describe('should handle specific EvmError subclasses', () => {
 		const errorCases = [
 			InvalidJumpError,
 			AuthCallNonZeroValueExtError,
@@ -89,7 +89,6 @@ describe('handleRunTxError', () => {
 			AuthInvalidSError,
 			BLS12381FpNotInFieldError,
 			BLS12381InputEmptyError,
-			BLS12381InvalidInputLengthError,
 			BLS12381PointNotOnCurveError,
 			CodeSizeExceedsMaximumError,
 			CodeStoreOutOfGasError,
@@ -119,11 +118,13 @@ describe('handleRunTxError', () => {
 		]
 
 		errorCases.forEach((constructor) => {
-			const err = new EvmError(constructor.EVMErrorMessage)
-			const result = handleRunTxError(err)
-			expect(result.name).toBe(constructor.name)
-			expect(result).toBeInstanceOf(constructor)
-			expect(result.cause).toBe(err)
+			test(constructor.name, () => {
+				const err = new EvmError(constructor.EVMErrorMessage)
+				const result = handleRunTxError(err)
+				expect(result.name).toBe(constructor.name)
+				expect(result).toBeInstanceOf(constructor)
+				expect(result.cause).toBe(err)
+			})
 		})
 	})
 

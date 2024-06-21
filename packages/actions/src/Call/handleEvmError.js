@@ -42,17 +42,12 @@ import {
 import { EvmError } from '@tevm/evm'
 
 /**
- * @type {[typeof AuthCallNonZeroValueExtError, typeof AuthCallUnsetError, 		typeof AuthInvalidSError, 		typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError, typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError]}
+ * @type {[typeof AuthCallNonZeroValueExtError, typeof AuthCallUnsetError, 		typeof AuthInvalidSError, 		typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError, typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError] }
  */
 const evmErrors = [
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
 	AuthInvalidSError,
-	BLS12381FpNotInFieldError,
-	BLS12381InputEmptyError,
-	BLS12381InvalidInputLengthError,
-	BLS12381PointNotOnCurveError,
-	CodeStoreOutOfGasError,
 	CodeSizeExceedsMaximumError,
 	CreateCollisionError,
 	InvalidCommitmentError,
@@ -78,6 +73,11 @@ const evmErrors = [
 	StaticStateChangeError,
 	StopError,
 	ValueOverflowError,
+	BLS12381InputEmptyError,
+	BLS12381FpNotInFieldError,
+	BLS12381InvalidInputLengthError,
+	BLS12381PointNotOnCurveError,
+	CodeStoreOutOfGasError,
 ]
 
 /**
