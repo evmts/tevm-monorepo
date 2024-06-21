@@ -73,24 +73,17 @@ export class StackOverflowError extends ExecutionError {
 	 *
 	 * @param {string} [message='Stack overflow error occurred.'] - Human-readable error message.
 	 * @param {StackOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='StackOverflowError'] - The tag for the error.
 	 */
-	constructor(message = 'Stack overflow error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stackoverflowerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		this._tag = 'StackOverflowError'
+	constructor(message = 'Stack overflow error occurred.', args = {}, tag = 'StackOverflowError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stackoverflowerror/',
+			},
+			tag,
+		)
 	}
 }

@@ -44,8 +44,9 @@ export class InvalidParamsError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidParamsErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidParams'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InvalidParams') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InvalidParamsError extends BaseError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidparamserror/',
 			},
-			'InvalidParams',
+			tag,
 			-32602,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InvalidParams'}
-	 * @override
-	 */
-	_tag = 'InvalidParams'
-
-	/**
-	 * @type {'InvalidParams'}
-	 * @override
-	 */
-	name = 'InvalidParams'
 }

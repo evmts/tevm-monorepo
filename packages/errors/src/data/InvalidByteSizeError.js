@@ -50,42 +50,23 @@ export class InvalidBytesSizeError extends /** we extend InternalError because t
 	 * @param {number} expectedSize - The expected size of the bytes.
 	 * @param {string} [message='Invalid bytes size error occurred.'] - Human-readable error message.
 	 * @param {InvalidBytesSizeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidBytesSizeError'] - The tag for the error.}
 	 */
 	constructor(
 		size,
 		expectedSize,
 		message = `Invalid bytes size error occurred. Expected ${expectedSize} receipted ${size}`,
 		args = {},
+		tag = 'InvalidBytesSizeError',
 	) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytessizeerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = `${message} Actual size: ${size}, Expected size: ${expectedSize}`
-
-		/**
-		 * @type {number}
-		 */
-		this.size = size
-
-		/**
-		 * @type {number}
-		 */
-		this.expectedSize = expectedSize
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidBytesSizeError'}
-		 */
-		this._tag = 'InvalidBytesSizeError'
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytessizeerror/',
+			},
+			tag,
+		)
 	}
 }

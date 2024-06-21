@@ -44,8 +44,9 @@ export class InvalidAddressError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidAddressErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidAddress'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InvalidAddress') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InvalidAddressError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/invalidaddresserror/',
 			},
-			'InvalidAddress',
+			tag,
 			-32013,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InvalidAddress'}
-	 * @override
-	 */
-	_tag = 'InvalidAddress'
-
-	/**
-	 * @type {'InvalidAddress'}
-	 * @override
-	 */
-	name = 'InvalidAddress'
 }

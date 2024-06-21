@@ -53,27 +53,21 @@ export class BLS12381PointNotOnCurveError extends ExecutionError {
 	 *
 	 * @param {string} [message='BLS12-381 point not on curve error occurred.'] - Human-readable error message.
 	 * @param {BLS12381PointNotOnCurveErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='BLS12381PointNotOnCurveError'] - The tag for the error.
 	 */
-	constructor(message = 'BLS12-381 point not on curve error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381pointnotoncurveerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'BLS12381PointNotOnCurveError'}
-		 */
-		this._tag = 'BLS12381PointNotOnCurveError'
+	constructor(
+		message = 'BLS12-381 point not on curve error occurred.',
+		args = {},
+		tag = 'BLS12381PointNotOnCurveError',
+	) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381pointnotoncurveerror/',
+			},
+			tag,
+		)
 	}
 }

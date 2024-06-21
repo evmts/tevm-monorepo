@@ -55,28 +55,18 @@ export class UnreachableCodeError extends InternalError {
 	 * @param {never} value - The value that should be of type never.
 	 * @param {string} [message='Unreachable code executed.'] - Human-readable error message.
 	 * @param {UnreachableCodeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='UnreachableCodeError'] - The tag for the error.
 	 */
-	constructor(value, message = 'Unreachable code executed.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/unreachablecodeerror/',
-			details: `Unreachable value: ${JSON.stringify(value)}`,
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'UnreachableCodeError'}
-		 */
-		this._tag = 'UnreachableCodeError'
+	constructor(value, message = 'Unreachable code executed.', args = {}, tag) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/unreachablecodeerror/',
+				details: `Unreachable value: ${JSON.stringify(value)}`,
+			},
+			tag,
+		)
 	}
 }

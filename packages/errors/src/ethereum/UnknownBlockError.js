@@ -44,8 +44,9 @@ export class UnknownBlockError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {UnknownBlockErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='UnknownBlock'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'UnknownBlock') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class UnknownBlockError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/unknownblockerror/',
 			},
-			'UnknownBlock',
+			tag,
 			-32001,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'UnknownBlock'}
-	 * @override
-	 */
-	_tag = 'UnknownBlock'
-
-	/**
-	 * @type {'UnknownBlock'}
-	 * @override
-	 */
-	name = 'UnknownBlock'
 }

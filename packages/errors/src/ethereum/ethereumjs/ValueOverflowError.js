@@ -61,27 +61,17 @@ export class ValueOverflowError extends ExecutionError {
 	 *
 	 * @param {string} [message='Value overflow error occurred.'] - Human-readable error message.
 	 * @param {ValueOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='ValueOverflowError'] - The tag for the error.
 	 */
-	constructor(message = 'Value overflow error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/valueoverflowerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'ValueOverflowError'}
-		 */
-		this._tag = 'ValueOverflowError'
+	constructor(message = 'Value overflow error occurred.', args = {}, tag) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/valueoverflowerror/',
+			},
+			tag,
+		)
 	}
 }

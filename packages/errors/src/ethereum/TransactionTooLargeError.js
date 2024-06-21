@@ -44,8 +44,9 @@ export class TransactionTooLargeError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {TransactionTooLargeErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='TransactionTooLargeError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'TransactionTooLargeError') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class TransactionTooLargeError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/transactiontoolargeerror/',
 			},
-			'TransactionTooLarge',
+			tag,
 			-32011,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'TransactionTooLarge'}
-	 * @override
-	 */
-	_tag = 'TransactionTooLarge'
-
-	/**
-	 * @type {'TransactionTooLarge'}
-	 * @override
-	 */
-	name = 'TransactionTooLarge'
 }

@@ -61,13 +61,18 @@ export class AuthCallUnsetError extends ExecutionError {
 	 *
 	 * @param {string} [message='AuthCallUnset error occurred.'] - Human-readable error message.
 	 * @param {AuthCallUnsetErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='AuthCallUnsetError'] - The tag for the error.
 	 */
-	constructor(message = 'AuthCallUnset error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authcallunseterror/',
-		})
+	constructor(message = 'AuthCallUnset error occurred.', args = {}, tag = 'AuthCallUnsetError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/authcallunseterror/',
+			},
+			tag,
+		)
 
 		/**
 		 * @type {string}

@@ -70,6 +70,7 @@ export class InvalidJumpError extends ExecutionError {
 	 * @param {string} [message='Invalid JUMP error occurred.'] - Human-readable error message.
 	 * @param {InvalidJumpErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 * @param {string} [tag] - Optionally override the name/tag for the error.
+	 * @param {string} [tag='InvalidJumpError'] - The tag for the error.}
 	 */
 	constructor(message = 'Invalid JUMP error occurred.', args = {}, tag = 'InvalidJumpError') {
 		super(
@@ -81,9 +82,5 @@ export class InvalidJumpError extends ExecutionError {
 			},
 			tag,
 		)
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
 }

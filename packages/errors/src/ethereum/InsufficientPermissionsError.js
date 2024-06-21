@@ -44,8 +44,9 @@ export class InsufficientPermissionsError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InsufficientPermissionsErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InsufficientPermissions'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InsufficientPermissions') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InsufficientPermissionsError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/insufficientpermissionserror/',
 			},
-			'InsufficientPermissions',
+			tag,
 			-32009,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InsufficientPermissions'}
-	 * @override
-	 */
-	_tag = 'InsufficientPermissions'
-
-	/**
-	 * @type {'InsufficientPermissions'}
-	 * @override
-	 */
-	name = 'InsufficientPermissions'
 }

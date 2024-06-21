@@ -45,7 +45,7 @@ export class GasLimitExceededError extends BaseError {
 	 * @param {string} message - Human-readable error message.
 	 * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'GasLimitExceededError') {
 		super(
 			message,
 			{
@@ -53,25 +53,8 @@ export class GasLimitExceededError extends BaseError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/gaslimitexceedederror/',
 			},
-			'GasLimitExceeded',
+			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {string}
-	 * @override
-	 */
-	_tag = 'GasLimitExceeded'
-
-	/**
-	 * @type {string}
-	 * @override
-	 */
-	name = 'GasLimitExceeded'
 }

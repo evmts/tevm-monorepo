@@ -44,8 +44,9 @@ export class TransactionRejectedError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {TransactionRejectedErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='TransactionRejected'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'TransactionRejected') {
 		super(
 			message,
 			{
@@ -53,7 +54,7 @@ export class TransactionRejectedError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/transactionrejectederror/',
 			},
-			'TransactionRejected',
+			tag,
 			-32003,
 		)
 

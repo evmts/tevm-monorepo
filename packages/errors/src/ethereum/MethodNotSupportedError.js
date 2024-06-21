@@ -44,8 +44,9 @@ export class MethodNotSupportedError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {MethodNotSupportedErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='MethodNotSupported'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'MethodNotSupported') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class MethodNotSupportedError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/methodnotsupportederror/',
 			},
-			'MethodNotSupported',
+			tag,
 			-32004,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'MethodNotSupported'}
-	 * @override
-	 */
-	_tag = 'MethodNotSupported'
-
-	/**
-	 * @type {'MethodNotSupported'}
-	 * @override
-	 */
-	name = 'MethodNotSupported'
 }

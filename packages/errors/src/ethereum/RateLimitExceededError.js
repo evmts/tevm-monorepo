@@ -44,8 +44,9 @@ export class RateLimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {RateLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='RateLimitExceeded'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'RateLimitExceeded') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class RateLimitExceededError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/ratelimitexceedederror/',
 			},
-			'RateLimitExceeded',
+			tag,
 			-32010,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'RateLimitExceeded'}
-	 * @override
-	 */
-	_tag = 'RateLimitExceeded'
-
-	/**
-	 * @type {'RateLimitExceeded'}
-	 * @override
-	 */
-	name = 'RateLimitExceeded'
 }

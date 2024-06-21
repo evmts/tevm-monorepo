@@ -72,27 +72,17 @@ export class CodeStoreOutOfGasError extends GasLimitExceededError {
 	 *
 	 * @param {string} [message='Code store out of gas error occurred.'] - Human-readable error message.
 	 * @param {CodeStoreOutOfGasErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='CodeStoreOutOfGasError'] - The tag for the error.
 	 */
-	constructor(message = 'Code store out of gas error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/codestoreoutofgaserror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'CodeStoreOutOfGasError'}
-		 */
-		this._tag = 'CodeStoreOutOfGasError'
+	constructor(message = 'Code store out of gas error occurred.', args = {}, tag = 'CodeStoreOutOfGasError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/codestoreoutofgaserror/',
+			},
+			tag,
+		)
 	}
 }

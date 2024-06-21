@@ -43,17 +43,17 @@ export class InvalidSkipBalanceError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidSkipBalanceErrorParameters} [args={}] - Additional parameters for the InvalidSkipBalanceError.
+	 * @param {string} [tag='InvalidSkipBalanceError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidskipbalanceerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidSkipBalanceError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidskipbalanceerror/',
+			},
+			tag,
+		)
 	}
 }

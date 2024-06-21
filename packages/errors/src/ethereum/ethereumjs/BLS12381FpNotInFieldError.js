@@ -54,13 +54,22 @@ export class BLS12381FpNotInFieldError extends ExecutionError {
 	 *
 	 * @param {string} [message='BLS12-381 fp point not in field error occurred.'] - Human-readable error message.
 	 * @param {BLS12381FpNotInFieldErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='BLS12381FpNotInFieldError'] - The tag for the error.
 	 */
-	constructor(message = 'BLS12-381 fp point not in field error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381fpnotinfielderror/',
-		})
+	constructor(
+		message = 'BLS12-381 fp point not in field error occurred.',
+		args = {},
+		tag = 'BLS12381FpNotInFieldError',
+	) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/bls12381fpnotinfielderror/',
+			},
+			tag,
+		)
 
 		/**
 		 * @type {string}
@@ -72,9 +81,5 @@ export class BLS12381FpNotInFieldError extends ExecutionError {
 		 * @type {object|undefined}
 		 */
 		this.meta = args.meta
-		/**
-		 * @type {'BLS12381FpNotInFieldError'}
-		 */
-		this._tag = 'BLS12381FpNotInFieldError'
 	}
 }

@@ -44,8 +44,9 @@ export class ResourceUnavailableError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ResourceUnavailableErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='ResourceUnavailable'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'ResourceUnavailable') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class ResourceUnavailableError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/resourceunavailableerror/',
 			},
-			'ResourceUnavailable',
+			tag,
 			-32002,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'ResourceUnavailable'}
-	 * @override
-	 */
-	_tag = 'ResourceUnavailable'
-
-	/**
-	 * @type {'ResourceUnavailable'}
-	 * @override
-	 */
-	name = 'ResourceUnavailable'
 }

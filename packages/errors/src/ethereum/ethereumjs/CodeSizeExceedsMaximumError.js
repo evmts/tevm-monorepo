@@ -84,27 +84,17 @@ export class CodeSizeExceedsMaximumError extends GasLimitExceededError {
 	 *
 	 * @param {string} [message='Code size exceeds maximum error occurred.'] - Human-readable error message.
 	 * @param {CodeSizeExceedsMaximumErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='CodeSizeExceedsMaximumError'] - The tag for the error.
 	 */
-	constructor(message = 'Code size exceeds maximum error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/codesizeexceedsmaximumerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'CodeSizeExceedsMaximumError'}
-		 */
-		this._tag = 'CodeSizeExceedsMaximumError'
+	constructor(message = 'Code size exceeds maximum error occurred.', args = {}, tag = 'CodeSizeExceedsMaximumError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/codesizeexceedsmaximumerror/',
+			},
+			tag,
+		)
 	}
 }

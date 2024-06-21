@@ -43,17 +43,17 @@ export class InvalidMaxFeePerGasError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidMaxFeePerGasErrorParameters} [args={}] - Additional parameters for the InvalidMaxFeePerGasError.
+	 * @param {string} [tag='InvalidMaxFeePerGasError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidmaxfeepergaserror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidMaxFeePerGasError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidmaxfeepergaserror/',
+			},
+			tag,
+		)
 	}
 }

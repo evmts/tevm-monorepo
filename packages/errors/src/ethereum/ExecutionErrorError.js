@@ -57,16 +57,5 @@ export class ExecutionError extends BaseError {
 			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {import('@ethereumjs/evm').EVMErrorMessage}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
 }

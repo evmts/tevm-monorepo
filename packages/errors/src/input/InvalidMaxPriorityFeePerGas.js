@@ -43,17 +43,17 @@ export class InvalidMaxPriorityFeePerGasError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidMaxPriorityFeePerGasErrorParameters} [args={}] - Additional parameters for the InvalidMaxPriorityFeePerGasError.
+	 * @param {string} [tag='InvalidMaxPriorityFeePerGasError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidMaxPriorityFeePerGasError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/',
+			},
+			tag,
+		)
 	}
 }

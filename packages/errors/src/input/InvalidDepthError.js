@@ -43,17 +43,17 @@ export class InvalidDepthError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidDepthErrorParameters} [args={}] - Additional parameters for the InvalidDepthError.
+	 * @param {string} [tag='InvalidDepthError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invaliddeptherror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidDepthError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invaliddeptherror/',
+			},
+			tag,
+		)
 	}
 }

@@ -52,27 +52,17 @@ export class DefensiveNullCheckError extends InternalError {
 	 *
 	 * @param {string} [message='Defensive null check error occurred.'] - Human-readable error message.
 	 * @param {DefensiveNullCheckErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='DefensiveNullCheckError'] - The tag for the error.
 	 */
-	constructor(message = 'Defensive null check error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/defensivenullcheckerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'DefensiveNullCheckError'}
-		 */
-		this._tag = 'DefensiveNullCheckError'
+	constructor(message = 'Defensive null check error occurred.', args = {}, tag = 'DefensiveNullCheckError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/defensivenullcheckerror/',
+			},
+			tag,
+		)
 	}
 }

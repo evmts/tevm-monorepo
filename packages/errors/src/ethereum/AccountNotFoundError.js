@@ -43,17 +43,17 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {AccountNotFoundErrorParameters} [args={}] - Additional parameters for the ResourceNotFoundError.
+	 * @param {string} [tag='AccountNotFoundError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/accountnotfounderror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'AccountNotFoundError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/accountnotfounderror/',
+			},
+			tag,
+		)
 	}
 }

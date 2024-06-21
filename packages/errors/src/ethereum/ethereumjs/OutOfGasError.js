@@ -76,27 +76,17 @@ export class OutOfGasError extends GasLimitExceededError {
 	 *
 	 * @param {string} [message='Out of gas error occurred.'] - Human-readable error message.
 	 * @param {OutOfGasErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='OutOfGasError'] - The tag for the error.
 	 */
-	constructor(message = 'Out of gas error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/outofgaserror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'OutOfGasError'}
-		 */
-		this._tag = 'OutOfGasError'
+	constructor(message = 'Out of gas error occurred.', args = {}, tag = 'OutOfGasError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/outofgaserror/',
+			},
+			tag,
+		)
 	}
 }

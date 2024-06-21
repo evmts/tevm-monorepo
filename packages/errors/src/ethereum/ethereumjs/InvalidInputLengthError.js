@@ -61,27 +61,17 @@ export class InvalidInputLengthError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid input length error occurred.'] - Human-readable error message.
 	 * @param {InvalidInputLengthErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidInputLengthError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid input length error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidinputlengtherror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidInputLengthError'}
-		 */
-		this._tag = 'InvalidInputLengthError'
+	constructor(message = 'Invalid input length error occurred.', args = {}, tag = 'InvalidInputLengthError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidinputlengtherror/',
+			},
+			tag,
+		)
 	}
 }

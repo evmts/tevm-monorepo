@@ -46,8 +46,9 @@ export class AccountLockedError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {AccountLockedErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='AccountLocked'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'AccountLocked') {
 		super(
 			message,
 			{
@@ -55,25 +56,8 @@ export class AccountLockedError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/accountlockederror/',
 			},
-			'AccountLocked',
+			tag,
 			-32005,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'AccountLocked'}
-	 * @override
-	 */
-	_tag = 'AccountLocked'
-
-	/**
-	 * @type {'AccountLocked'}
-	 * @override
-	 */
-	name = 'AccountLocked'
 }

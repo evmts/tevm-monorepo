@@ -43,17 +43,17 @@ export class InvalidGasLimitError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidGasLimitErrorParameters} [args={}] - Additional parameters for the InvalidGasLimitError.
+	 * @param {string} [tag='InvalidGasLimitError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidgaslimiterror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag = 'InvalidGasLimitError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidgaslimiterror/',
+			},
+			tag,
+		)
 	}
 }

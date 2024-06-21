@@ -54,27 +54,17 @@ export class InvalidKzgInputsError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid inputs error occurred.'] - Human-readable error message.
 	 * @param {InvalidKzgInputsErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidKzgInputsError'] - The tag for the error.}
 	 */
-	constructor(message = 'Invalid inputs error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidinputserror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidKzgInputsError'}
-		 */
-		this._tag = 'InvalidKzgInputsError'
+	constructor(message = 'Invalid inputs error occurred.', args = {}, tag = 'InvalidKzgInputsError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidinputserror/',
+			},
+			tag,
+		)
 	}
 }

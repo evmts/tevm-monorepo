@@ -63,27 +63,17 @@ export class InvalidBeginSubError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid BEGINSUB error occurred.'] - Human-readable error message.
 	 * @param {InvalidBeginSubErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidBeginSubError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid BEGINSUB error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbeginsuberror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidBeginSubError'}
-		 */
-		this._tag = 'InvalidBeginSubError'
+	constructor(message = 'Invalid BEGINSUB error occurred.', args = {}, tag = 'InvalidBeginSubError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbeginsuberror/',
+			},
+			tag,
+		)
 	}
 }

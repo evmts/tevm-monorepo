@@ -44,8 +44,9 @@ export class InternalError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InternalErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InternalError'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InternalError') {
 		super(
 			message,
 			{
@@ -53,7 +54,7 @@ export class InternalError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/internalerror/',
 			},
-			'InternalError',
+			tag,
 			-32603,
 		)
 
@@ -62,16 +63,4 @@ export class InternalError extends BaseError {
 		 */
 		this.meta = args.meta
 	}
-
-	/**
-	 * @type {string}
-	 * @override
-	 */
-	_tag = 'InternalError'
-
-	/**
-	 * @type {string}
-	 * @override
-	 */
-	name = 'InternalError'
 }

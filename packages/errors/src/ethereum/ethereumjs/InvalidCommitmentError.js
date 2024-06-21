@@ -66,27 +66,17 @@ export class InvalidCommitmentError extends ExecutionError {
 	 *
 	 * @param {string} [message='Invalid commitment error occurred.'] - Human-readable error message.
 	 * @param {InvalidCommitmentErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidCommitmentError'] - The tag for the error.
 	 */
-	constructor(message = 'Invalid commitment error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidcommitmenterror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InvalidCommitmentError'}
-		 */
-		this._tag = 'InvalidCommitmentError'
+	constructor(message = 'Invalid commitment error occurred.', args = {}, tag = 'InvalidCommitmentError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidcommitmenterror/',
+			},
+			tag,
+		)
 	}
 }

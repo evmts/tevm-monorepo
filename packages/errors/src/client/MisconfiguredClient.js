@@ -47,27 +47,17 @@ export class MisconfiguredClientError extends InternalError {
 	 *
 	 * @param {string} [message='Misconfigured memory client error occurred.'] - Human-readable error message.
 	 * @param {MisconfiguredClientErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='MisconfiguredClientError'] - The tag for the error.
 	 */
-	constructor(message = 'Misconfigured memory client error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/misconfiguredmemoryclienterror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'MisconfiguredClientError'}
-		 */
-		this._tag = 'MisconfiguredClientError'
+	constructor(message = 'Misconfigured memory client error occurred.', args = {}, tag = 'MisconfiguredClientError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/misconfiguredmemoryclienterror/',
+			},
+			tag,
+		)
 	}
 }

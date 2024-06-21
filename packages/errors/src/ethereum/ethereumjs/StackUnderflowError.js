@@ -69,24 +69,17 @@ export class StackUnderflowError extends ExecutionError {
 	 *
 	 * @param {string} [message='Stack underflow error occurred.'] - Human-readable error message.
 	 * @param {StackUnderflowErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='StackUnderflowError'] - The tag for the error.
 	 */
-	constructor(message = 'Stack underflow error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stackunderflowerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		this._tag = 'StackUnderflowError'
+	constructor(message = 'Stack underflow error occurred.', args = {}, tag = 'StackUnderflowError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/stackunderflowerror/',
+			},
+			tag,
+		)
 	}
 }

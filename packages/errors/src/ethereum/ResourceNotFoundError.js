@@ -44,8 +44,9 @@ export class ResourceNotFoundError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ResourceNotFoundErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='ResourceNotFound'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'ResourceNotFound') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class ResourceNotFoundError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/resourcenotfounderror/',
 			},
-			'ResourceNotFound',
+			tag,
 			-32001,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'ResourceNotFound'}
-	 * @override
-	 */
-	_tag = 'ResourceNotFound'
-
-	/**
-	 * @type {'ResourceNotFound'}
-	 * @override
-	 */
-	name = 'ResourceNotFound'
 }

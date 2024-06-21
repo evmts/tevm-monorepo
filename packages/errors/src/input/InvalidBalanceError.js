@@ -43,17 +43,17 @@ export class InvalidBalanceError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidBalanceErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
+	 * @param {string} [tag='InvalidBalanceError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/invalidbalanceerror/',
-		})
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
+	constructor(message, args = {}, tag) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidbalanceerror/',
+			},
+			tag,
+		)
 	}
 }

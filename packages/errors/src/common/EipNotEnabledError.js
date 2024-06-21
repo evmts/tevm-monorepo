@@ -49,27 +49,17 @@ export class EipNotEnabledError extends ExecutionError {
 	 *
 	 * @param {string} [message='EIP not enabled error occurred.'] - Human-readable error message.
 	 * @param {EipNotEnabledErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='EipNotEnabledError'] - The tag for the error.
 	 */
-	constructor(message = 'EIP not enabled error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/eipnotenablederror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'EipNotEnabledError'}
-		 */
-		this._tag = 'EipNotEnabledError'
+	constructor(message = 'EIP not enabled error occurred.', args = {}, tag = 'EipNotEnabledError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/eipnotenablederror/',
+			},
+			tag,
+		)
 	}
 }

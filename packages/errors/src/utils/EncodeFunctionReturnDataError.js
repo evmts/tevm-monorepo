@@ -31,12 +31,17 @@ export class EncodeFunctionReturnDataError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {object} [meta] - Optional object containing additional information about the error.
+	 * @param {string} [tag='EncodeFunctionReturnDataError'] - The tag for the error.
 	 */
-	constructor(message, meta) {
-		super(message, {
-			docsBaseUrl: 'https://tevm.sh',
-			docsPath: '/reference/tevm/errors/classes/encodefunctionreturndataerror/',
-			...meta,
-		})
+	constructor(message, meta, tag = 'EncodeFunctionReturnDataError') {
+		super(
+			message,
+			{
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/encodefunctionreturndataerror/',
+				...meta,
+			},
+			tag,
+		)
 	}
 }

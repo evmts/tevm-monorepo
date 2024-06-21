@@ -63,27 +63,17 @@ export class InitcodeSizeViolationError extends ExecutionError {
 	 *
 	 * @param {string} [message='Initcode size violation error occurred.'] - Human-readable error message.
 	 * @param {InitcodeSizeViolationErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InitcodeSizeViolationError'] - The tag for the error.
 	 */
-	constructor(message = 'Initcode size violation error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/initcodesizeviolationerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InitcodeSizeViolationError'}
-		 */
-		this._tag = 'InitcodeSizeViolationError'
+	constructor(message = 'Initcode size violation error occurred.', args = {}, tag = 'InitcodeSizeViolationError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/initcodesizeviolationerror/',
+			},
+			tag,
+		)
 	}
 }

@@ -65,27 +65,17 @@ export class InsufficientBalanceError extends ExecutionError {
 	 *
 	 * @param {string} [message='Insufficient balance error occurred.'] - Human-readable error message.
 	 * @param {InsufficientBalanceErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InsufficientBalanceError'] - The tag for the error.
 	 */
-	constructor(message = 'Insufficient balance error occurred.', args = {}) {
-		super(message, {
-			...args,
-			docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-			docsPath: args.docsPath ?? '/reference/tevm/errors/classes/insufficientbalanceerror/',
-		})
-
-		/**
-		 * @type {string}
-		 * @override
-		 */
-		this.message = message
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
-		/**
-		 * @type {'InsufficientBalanceError'}
-		 */
-		this._tag = 'InsufficientBalanceError'
+	constructor(message = 'Insufficient balance error occurred.', args = {}, tag = 'InsufficientBalanceError') {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/insufficientbalanceerror/',
+			},
+			tag,
+		)
 	}
 }

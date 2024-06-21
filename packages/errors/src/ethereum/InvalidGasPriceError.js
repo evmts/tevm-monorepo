@@ -44,8 +44,9 @@ export class InvalidGasPriceError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidGasPriceErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='InvalidGasPrice'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'InvalidGasPrice') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class InvalidGasPriceError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/invalidgaspriceerror/',
 			},
-			'InvalidGasPrice',
+			tag,
 			-32012,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'InvalidGasPrice'}
-	 * @override
-	 */
-	_tag = 'InvalidGasPrice'
-
-	/**
-	 * @type {'InvalidGasPrice'}
-	 * @override
-	 */
-	name = 'InvalidGasPrice'
 }

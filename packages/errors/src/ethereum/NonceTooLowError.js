@@ -44,8 +44,9 @@ export class NonceTooLowError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {NonceTooLowErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='NonceTooLow'] - The tag for the error.
 	 */
-	constructor(message, args = {}) {
+	constructor(message, args = {}, tag = 'NonceTooLow') {
 		super(
 			message,
 			{
@@ -53,25 +54,8 @@ export class NonceTooLowError extends BaseError {
 				docsBaseUrl: 'https://tevm.sh',
 				docsPath: '/reference/tevm/errors/classes/noncetoolowerror/',
 			},
-			'NonceTooLow',
+			tag,
 			-32000,
 		)
-
-		/**
-		 * @type {object|undefined}
-		 */
-		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'NonceTooLow'}
-	 * @override
-	 */
-	_tag = 'NonceTooLow'
-
-	/**
-	 * @type {'NonceTooLow'}
-	 * @override
-	 */
-	name = 'NonceTooLow'
 }
