@@ -1,5 +1,25 @@
 # @tevm/contract
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- [#1232](https://github.com/evmts/tevm-monorepo/pull/1232) [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issues with error handling and added unit testing
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd), [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/errors@2.0.0-next.84
+  - @tevm/jsonrpc@2.0.0-next.84
+  - @tevm/utils@2.0.0-next.84
+  - @tevm/block@2.0.0-next.84
+  - @tevm/state@2.0.0-next.84
+  - @tevm/tx@2.0.0-next.84
+  - @tevm/vm@2.0.0-next.84
+  - @tevm/base-client@2.0.0-next.84
+  - @tevm/blockchain@2.0.0-next.84
+  - @tevm/common@2.0.0-next.84
+  - @tevm/evm@2.0.0-next.84
+  - @tevm/receipt-manager@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @tevm/client
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/jsonrpc@2.0.0-next.84
+  - @tevm/utils@2.0.0-next.84
+  - @tevm/block@2.0.0-next.84
+  - @tevm/state@2.0.0-next.84
+  - @tevm/tx@2.0.0-next.84
+  - @tevm/vm@2.0.0-next.84
+  - @tevm/blockchain@2.0.0-next.84
+  - @tevm/common@2.0.0-next.84
+  - @tevm/evm@2.0.0-next.84
+  - @tevm/predeploys@2.0.0-next.84
+  - @tevm/receipt-manager@2.0.0-next.84
+  - @tevm/txpool@2.0.0-next.84
+  - @tevm/sync-storage-persister@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes

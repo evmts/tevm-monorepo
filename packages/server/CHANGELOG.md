@@ -1,5 +1,17 @@
 # @tevm/server
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- [#1232](https://github.com/evmts/tevm-monorepo/pull/1232) [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issues with error handling and added unit testing
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd), [`6595da4`](https://github.com/evmts/tevm-monorepo/commit/6595da4f4db76565057113baebce8e93e1a516f4), [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/errors@2.0.0-next.84
+  - @tevm/memory-client@2.0.0-next.84
+  - @tevm/jsonrpc@2.0.0-next.84
+  - @tevm/utils@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes

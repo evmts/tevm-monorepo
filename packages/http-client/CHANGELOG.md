@@ -1,5 +1,15 @@
 # @tevm/client
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- Updated dependencies [[`6595da4`](https://github.com/evmts/tevm-monorepo/commit/6595da4f4db76565057113baebce8e93e1a516f4), [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/memory-client@2.0.0-next.84
+  - @tevm/utils@2.0.0-next.84
+  - @tevm/viem@2.0.0-next.84
+  - @tevm/contract@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes

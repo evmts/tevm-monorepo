@@ -1,5 +1,14 @@
 # @tevm/viem
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/jsonrpc@2.0.0-next.84
+  - @tevm/decorators@2.0.0-next.84
+  - @tevm/base-client@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes

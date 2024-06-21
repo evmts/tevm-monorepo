@@ -1,5 +1,21 @@
 # @tevm/client
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- [#1234](https://github.com/evmts/tevm-monorepo/pull/1234) [`6595da4`](https://github.com/evmts/tevm-monorepo/commit/6595da4f4db76565057113baebce8e93e1a516f4) Thanks [@roninjin10](https://github.com/roninjin10)! - Add more jsdoc to MemoryClient docs
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/utils@2.0.0-next.84
+  - @tevm/procedures@2.0.0-next.84
+  - @tevm/decorators@2.0.0-next.84
+  - @tevm/base-client@2.0.0-next.84
+  - @tevm/common@2.0.0-next.84
+  - @tevm/contract@2.0.0-next.84
+  - @tevm/evm@2.0.0-next.84
+  - @tevm/predeploys@2.0.0-next.84
+
 ## 2.0.0-next.83
 
 ### Patch Changes
