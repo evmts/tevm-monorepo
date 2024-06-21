@@ -56,4 +56,4 @@ Parameters for constructing a [ValueOverflowError](../classes/ValueOverflowError
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:66
+packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:67

@@ -56,4 +56,4 @@ Parameters for constructing a MethodNotSupportedError.
 
 ## Source
 
-packages/errors/types/ethereum/MethodNotSupportedError.d.ts:63
+packages/errors/types/ethereum/MethodNotSupportedError.d.ts:50

@@ -56,4 +56,4 @@ Parameters for constructing a LimitExceededError.
 
 ## Source
 
-packages/errors/types/ethereum/LimitExceededError.d.ts:63
+packages/errors/types/ethereum/LimitExceededError.d.ts:50

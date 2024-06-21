@@ -56,4 +56,4 @@ Parameters for constructing a [CodeStoreOutOfGasError](../classes/CodeStoreOutOf
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:77
+packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:78

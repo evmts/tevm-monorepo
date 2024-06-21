@@ -56,4 +56,4 @@ Parameters for constructing a [CommonMismatchError](../classes/CommonMismatchErr
 
 ## Source
 
-packages/errors/types/common/CommonMismatchError.d.ts:53
+packages/errors/types/common/CommonMismatchError.d.ts:54

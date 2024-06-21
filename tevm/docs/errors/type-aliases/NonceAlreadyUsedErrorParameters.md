@@ -56,4 +56,4 @@ Parameters for constructing a NonceAlreadyUsedError.
 
 ## Source
 
-packages/errors/types/ethereum/NonceAlreadyUsedError.d.ts:63
+packages/errors/types/ethereum/NonceAlreadyUsedError.d.ts:50

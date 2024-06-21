@@ -56,4 +56,4 @@ Parameters for constructing a [BLS12381InvalidInputLengthError](../classes/BLS12
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:59
+packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:60

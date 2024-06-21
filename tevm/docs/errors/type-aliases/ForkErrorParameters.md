@@ -56,4 +56,4 @@ Parameters for constructing an ForkError.
 
 ## Source
 
-packages/errors/types/fork/ForkError.d.ts:81
+packages/errors/types/fork/ForkError.d.ts:67

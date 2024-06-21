@@ -56,4 +56,4 @@ Parameters for constructing an InvalidRequestError.
 
 ## Source
 
-packages/errors/types/ethereum/InvalidRequestError.d.ts:63
+packages/errors/types/ethereum/InvalidRequestError.d.ts:50

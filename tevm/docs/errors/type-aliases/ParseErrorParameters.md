@@ -56,4 +56,4 @@ Parameters for constructing a ParseError.
 
 ## Source
 
-packages/errors/types/ethereum/ParseErrorError.d.ts:63
+packages/errors/types/ethereum/ParseErrorError.d.ts:50

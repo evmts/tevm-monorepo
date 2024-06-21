@@ -5,7 +5,6 @@ import {
 	AuthInvalidSError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
-	BLS12381InvalidInputLengthError,
 	BLS12381PointNotOnCurveError,
 	CodeSizeExceedsMaximumError,
 	CodeStoreOutOfGasError,

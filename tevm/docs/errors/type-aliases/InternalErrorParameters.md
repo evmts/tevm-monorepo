@@ -56,4 +56,4 @@ Parameters for constructing an InternalError.
 
 ## Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:53
+packages/errors/types/ethereum/InternalErrorError.d.ts:54

@@ -56,4 +56,4 @@ Parameters for constructing a [InitcodeSizeViolationError](../classes/InitcodeSi
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:68
+packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:69

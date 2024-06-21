@@ -56,4 +56,4 @@ Parameters for constructing a [StopError](../classes/StopError.md).
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:66
+packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:68

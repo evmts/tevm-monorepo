@@ -56,4 +56,4 @@ Parameters for constructing a GasLimitExceededError.
 
 ## Source
 
-packages/errors/types/ethereum/GasLimitExceededError.d.ts:55
+packages/errors/types/ethereum/GasLimitExceededError.d.ts:49

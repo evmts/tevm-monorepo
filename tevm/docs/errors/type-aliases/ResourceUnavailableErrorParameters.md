@@ -56,4 +56,4 @@ Parameters for constructing a ResourceUnavailableError.
 
 ## Source
 
-packages/errors/types/ethereum/ResourceUnavailableError.d.ts:63
+packages/errors/types/ethereum/ResourceUnavailableError.d.ts:50

@@ -51,7 +51,7 @@ Additional parameters for the BaseError.
 
 ### new UnreachableCodeError()
 
-> **new UnreachableCodeError**(`value`, `message`?, `args`?): [`UnreachableCodeError`](UnreachableCodeError.md)
+> **new UnreachableCodeError**(`value`, `message`?, `args`?, `tag`?): [`UnreachableCodeError`](UnreachableCodeError.md)
 
 Constructs an UnreachableCodeError.
 
@@ -69,6 +69,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
+The tag for the error.
+
 #### Returns
 
 [`UnreachableCodeError`](UnreachableCodeError.md)
@@ -79,7 +83,7 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/defensive/UnreachableCodeError.d.ts:56
+packages/errors/types/defensive/UnreachableCodeError.d.ts:57
 
 ## Properties
 
@@ -187,7 +191,7 @@ Optional object containing additional information about the error.
 
 #### Source
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:48
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 
@@ -339,50 +343,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

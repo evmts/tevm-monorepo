@@ -56,4 +56,4 @@ Parameters for constructing a RateLimitExceededError.
 
 ## Source
 
-packages/errors/types/ethereum/RateLimitExceededError.d.ts:63
+packages/errors/types/ethereum/RateLimitExceededError.d.ts:50

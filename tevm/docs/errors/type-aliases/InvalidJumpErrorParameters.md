@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidJumpError](../classes/InvalidJumpError.md)
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:74
+packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:76

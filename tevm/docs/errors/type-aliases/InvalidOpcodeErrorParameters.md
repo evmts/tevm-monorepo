@@ -56,4 +56,4 @@ Parameters for constructing a [InvalidOpcodeError](../classes/InvalidOpcodeError
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:74
+packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:75

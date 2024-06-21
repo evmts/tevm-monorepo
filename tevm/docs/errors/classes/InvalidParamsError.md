@@ -68,7 +68,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidParamsError()
 
-> **new InvalidParamsError**(`message`, `args`?): [`InvalidParamsError`](InvalidParamsError.md)
+> **new InvalidParamsError**(`message`, `args`?, `tag`?): [`InvalidParamsError`](InvalidParamsError.md)
 
 Constructs an InvalidParamsError.
 
@@ -82,6 +82,10 @@ Human-readable error message.
 
 Additional parameters for the BaseError.
 
+• **tag?**: `string`
+
+The tag for the error.
+
 #### Returns
 
 [`InvalidParamsError`](InvalidParamsError.md)
@@ -92,23 +96,23 @@ Additional parameters for the BaseError.
 
 #### Source
 
-packages/errors/types/ethereum/InvalidParamsError.d.ts:44
+packages/errors/types/ethereum/InvalidParamsError.d.ts:45
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"InvalidParams"`
+> **\_tag**: `string`
 
 Same as name, used internally.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 #### Source
 
-packages/errors/types/ethereum/InvalidParamsError.d.ts:53
+packages/errors/types/ethereum/BaseError.d.ts:39
 
 ***
 
@@ -188,18 +192,6 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
-### meta
-
-> **meta**: `undefined` \| `object`
-
-Optional object containing additional information about the error.
-
-#### Source
-
-packages/errors/types/ethereum/InvalidParamsError.d.ts:48
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
@@ -218,17 +210,17 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 ### name
 
-> **name**: `"InvalidParams"`
+> **name**: `string`
 
 The name of the error, used to discriminate errors.
 
-#### Overrides
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
 #### Source
 
-packages/errors/types/ethereum/InvalidParamsError.d.ts:58
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -348,50 +340,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

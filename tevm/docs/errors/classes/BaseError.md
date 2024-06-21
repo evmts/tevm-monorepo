@@ -63,7 +63,7 @@ This class is abstract and should be extended by other error classes.
 
 ### new BaseError()
 
-> **new BaseError**(`shortMessage`, `args`?, `_tag`?, `code`?): [`BaseError`](BaseError.md)
+> **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): [`BaseError`](BaseError.md)
 
 #### Parameters
 
@@ -71,11 +71,9 @@ This class is abstract and should be extended by other error classes.
 
 A short, human-readable summary of the error.
 
-• **args?**: [`BaseErrorParameters`](../type-aliases/BaseErrorParameters.md)
+• **args**: [`BaseErrorParameters`](../type-aliases/BaseErrorParameters.md)
 
-Additional parameters for the error.
-
-• **\_tag?**: `string`
+• **\_tag**: `string`
 
 Internal tag for the error.
 
@@ -329,50 +327,24 @@ packages/errors/types/ethereum/BaseError.d.ts:70
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 `Error.captureStackTrace`
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`Error.captureStackTrace`
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613

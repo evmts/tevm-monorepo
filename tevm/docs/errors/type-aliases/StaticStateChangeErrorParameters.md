@@ -56,4 +56,4 @@ Parameters for constructing a [StaticStateChangeError](../classes/StaticStateCha
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:76
+packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:77

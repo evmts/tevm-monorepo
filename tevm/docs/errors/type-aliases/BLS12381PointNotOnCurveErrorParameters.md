@@ -56,4 +56,4 @@ Parameters for constructing a [BLS12381PointNotOnCurveError](../classes/BLS12381
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:58
+packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:59

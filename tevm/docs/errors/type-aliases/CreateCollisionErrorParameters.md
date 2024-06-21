@@ -56,4 +56,4 @@ Parameters for constructing a [CreateCollisionError](../classes/CreateCollisionE
 
 ## Source
 
-packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:68
+packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:69
