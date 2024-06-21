@@ -8,7 +8,7 @@ title: "MemoryClient"
 > **MemoryClient**: `Prettify`\<`Client`\<`Transport`, `undefined`, `undefined`, [`...PublicRpcSchema`, ...TestRpcSchema\<"anvil" \| "ganache" \| "hardhat"\>, `JsonRpcSchemaTevm`\[`"tevm_call"`\], `JsonRpcSchemaTevm`\[`"tevm_script"`\], `JsonRpcSchemaTevm`\[`"tevm_dumpState"`\], `JsonRpcSchemaTevm`\[`"tevm_loadState"`\], `JsonRpcSchemaTevm`\[`"tevm_getAccount"`\], `JsonRpcSchemaTevm`\[`"tevm_setAccount"`\]], `PublicActions` & [`TevmActions`](/reference/tevm/memory-client/type-aliases/tevmactions/)\>\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
+It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client)
 
 ## See
 
@@ -44,6 +44,19 @@ const balance = await tevm.tevmContract(
  console.log(balance) // 1n
  ```
 
+ Test actions can be added with `client.extend`
+
+ ```ts
+ import {testActions} from 'viem'
+
+ const tevm = createMemoryClient().extend(testActions({mode: 'anvil'}))
+
+ tevm.setBytecode({
+   address: `0x${'0'.repeat(40)}`,
+   bytecode: '0x608060405234801561001057600080fd5b5060405',
+ })
+ ```
+
 ## Source
 
-[packages/memory-client/src/MemoryClient.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L40)
+[packages/memory-client/src/MemoryClient.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L53)
