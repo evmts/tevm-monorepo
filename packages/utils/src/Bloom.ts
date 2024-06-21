@@ -41,7 +41,12 @@ export class Bloom {
 			const loc = mask & first2bytes
 			const byteLoc = loc >> 3
 			const bitLoc = 1 << (loc % 8)
-			this.bitvector[BYTE_SIZE - byteLoc - 1] |= bitLoc
+			let item = this.bitvector[BYTE_SIZE - byteLoc - 1]
+			if (item === undefined) {
+				throw new DefensiveNullCheckError('item is not defined. There is a bug in the implementation')
+			}
+			item |= bitLoc
+			this.bitvector[BYTE_SIZE - byteLoc - 1] = item
 		}
 	}
 

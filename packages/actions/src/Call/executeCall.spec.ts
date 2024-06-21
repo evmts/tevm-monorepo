@@ -3,9 +3,9 @@ import { createBaseClient } from '@tevm/base-client'
 import { EvmRevertError, InvalidGasPriceError, RevertError } from '@tevm/errors'
 import { TestERC20 } from '@tevm/test-utils'
 import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { parseEther } from 'viem'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { executeCall } from './executeCall.js'
-import { parseEther } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode
