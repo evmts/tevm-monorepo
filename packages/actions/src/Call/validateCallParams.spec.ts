@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
-import { validateCallParams } from './validateCallParams.js'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
+import { validateCallParams } from './validateCallParams.js'
 
 describe('validateCallParams', () => {
 	it('should return no errors for valid params', () => {

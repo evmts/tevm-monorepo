@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { shouldCreateTransaction } from './shouldCreateTransaction.js'
-import { type CallParams } from './CallParams.js'
 import { type RunTxResult } from '@tevm/vm'
+import { type CallParams } from './CallParams.js'
+import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 
 describe('shouldCreateTransaction', () => {
 	it('should return false when createTransaction is undefined', () => {

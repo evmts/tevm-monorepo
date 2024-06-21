@@ -45,7 +45,7 @@ export class InvalidBalanceError extends InvalidParamsError {
 	 * @param {InvalidBalanceErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
 	 * @param {string} [tag='InvalidBalanceError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}, tag) {
+	constructor(message, args, tag) {
 		super(
 			message,
 			{

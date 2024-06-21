@@ -57,7 +57,12 @@ export class UnreachableCodeError extends InternalError {
 	 * @param {UnreachableCodeErrorParameters} [args={}] - Additional parameters for the BaseError.
 	 * @param {string} [tag='UnreachableCodeError'] - The tag for the error.
 	 */
-	constructor(value, message = 'Unreachable code executed.', args = {}, tag) {
+	constructor(
+		value,
+		message = `UnrechableCodeError: An internal bug caused a type to not match possible types: ${value}`,
+		args = {},
+		tag = 'UnreachableCodeError',
+	) {
 		super(
 			message,
 			{

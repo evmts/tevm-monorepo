@@ -1,5 +1,4 @@
 import {
-	InvalidJumpError,
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
 	AuthInvalidSError,
@@ -23,6 +22,7 @@ import {
 	InvalidGasLimitError,
 	InvalidGasPriceError,
 	InvalidInputLengthError,
+	InvalidJumpError,
 	InvalidJumpSubError,
 	InvalidKzgInputsError,
 	InvalidNonceError,

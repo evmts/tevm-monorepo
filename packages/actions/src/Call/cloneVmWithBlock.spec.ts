@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
-import { transports } from '@tevm/test-utils'
 import { InternalError } from '@tevm/errors'
-import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
+import { transports } from '@tevm/test-utils'
 import { bytesToHex } from 'viem'
+import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 
 describe('cloneVmWithBlockTag', () => {
 	it('should clone the VM and set the state root successfully', async () => {
