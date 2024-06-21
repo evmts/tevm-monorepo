@@ -1,5 +1,40 @@
 # @tevm/contract
 
+## 2.0.0-next.84
+
+### Patch Changes
+
+- [#1232](https://github.com/evmts/tevm-monorepo/pull/1232) [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issues with error handling and added unit testing
+
+- Updated dependencies [[`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd), [`6595da4`](https://github.com/evmts/tevm-monorepo/commit/6595da4f4db76565057113baebce8e93e1a516f4), [`a170f0f`](https://github.com/evmts/tevm-monorepo/commit/a170f0f05a624f70cadea95f4fbaf11c00d5cadd)]:
+  - @tevm/errors@2.0.0-next.84
+  - @tevm/memory-client@2.0.0-next.84
+  - @tevm/actions@2.0.0-next.84
+  - @tevm/jsonrpc@2.0.0-next.84
+  - @tevm/server@2.0.0-next.84
+  - @tevm/utils@2.0.0-next.84
+  - @tevm/block@2.0.0-next.84
+  - @tevm/procedures@2.0.0-next.84
+  - @tevm/state@2.0.0-next.84
+  - @tevm/tx@2.0.0-next.84
+  - @tevm/vm@2.0.0-next.84
+  - @tevm/viem@2.0.0-next.84
+  - @tevm/http-client@2.0.0-next.84
+  - @tevm/client-types@2.0.0-next.84
+  - @tevm/decorators@2.0.0-next.84
+  - @tevm/base-client@2.0.0-next.84
+  - @tevm/blockchain@2.0.0-next.84
+  - @tevm/common@2.0.0-next.84
+  - @tevm/contract@2.0.0-next.84
+  - @tevm/evm@2.0.0-next.84
+  - @tevm/precompiles@2.0.0-next.84
+  - @tevm/predeploys@2.0.0-next.84
+  - @tevm/receipt-manager@2.0.0-next.84
+  - @tevm/txpool@2.0.0-next.84
+  - @tevm/sync-storage-persister@2.0.0-next.84
+  - @tevm/bun-plugin@2.0.0-next.83
+  - @tevm/ts-plugin@2.0.0-next.83
+
 ## 2.0.0-next.83
 
 ### Patch Changes
