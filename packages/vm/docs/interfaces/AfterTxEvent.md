@@ -26,7 +26,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L439)
+[packages/vm/src/utils/RunTxResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L41)
 
 ***
 
@@ -42,7 +42,7 @@ The amount of ether used by this transaction
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L417)
+[packages/vm/src/utils/RunTxResult.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L19)
 
 ***
 
@@ -58,7 +58,7 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:454](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L454)
+[packages/vm/src/utils/RunTxResult.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L56)
 
 ***
 
@@ -74,7 +74,7 @@ Bloom filter resulted from transaction
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L412)
+[packages/vm/src/utils/RunTxResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L14)
 
 ***
 
@@ -122,7 +122,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L434)
+[packages/vm/src/utils/RunTxResult.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L36)
 
 ***
 
@@ -138,7 +138,7 @@ The value that accrues to the miner by this transaction
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L449)
+[packages/vm/src/utils/RunTxResult.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L51)
 
 ***
 
@@ -154,7 +154,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L444)
+[packages/vm/src/utils/RunTxResult.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L46)
 
 ***
 
@@ -170,7 +170,7 @@ The tx receipt
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:422](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L422)
+[packages/vm/src/utils/RunTxResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L24)
 
 ***
 
@@ -188,7 +188,7 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L429)
+[packages/vm/src/utils/RunTxResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L31)
 
 ***
 
@@ -200,4 +200,4 @@ The transaction which just got finished
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L461)
+[packages/vm/src/utils/AfterTxEvent.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L8)

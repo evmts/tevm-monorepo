@@ -12,7 +12,7 @@
 
 ### buildBlock
 
-> **buildBlock**: `BuildBlock`
+> **buildBlock**: [`BuildBlock`](BuildBlock.md)
 
 ### deepCopy()
 
@@ -24,7 +24,7 @@
 
 ### runBlock
 
-> **runBlock**: `RunBlock`
+> **runBlock**: [`RunBlock`](RunBlock.md)
 
 ## Defined in
 

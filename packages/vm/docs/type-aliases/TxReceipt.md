@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[packages/vm/src/utils/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L11)
+[packages/vm/src/utils/TxReceipt.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/TxReceipt.ts#L5)

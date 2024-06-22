@@ -13,6 +13,16 @@ export const processTx = async (client, tx, blockBuilder, receipts) => {
 		const txResult = await blockBuilder.addTransaction(tx, {
 			skipHardForkValidation: true,
 		})
+		if (txResult.execResult.exceptionError) {
+			if (txResult.execResult.exceptionError.error === 'out of gas') {
+				client.logger.debug(txResult.execResult.executionGasUsed, 'out of gas')
+			}
+			client.logger.debug(
+				txResult.execResult.exceptionError,
+				`There was an exception when building block for tx ${bytesToHex(tx.hash())}`,
+			)
+		}
+		receipts.push(txResult.receipt)
 	} catch (e) {
 		if (e instanceof InvalidGasLimitError) {
 			throw e
@@ -24,14 +34,4 @@ export const processTx = async (client, tx, blockBuilder, receipts) => {
 		// if we get this far it means we didn't handle an expected error
 		throw e
 	}
-	if (txResult.execResult.exceptionError) {
-		if (txResult.execResult.exceptionError.error === 'out of gas') {
-			client.logger.debug(txResult.execResult.executionGasUsed, 'out of gas')
-		}
-		client.logger.debug(
-			txResult.execResult.exceptionError,
-			`There was an exception when building block for tx ${bytesToHex(tx.hash())}`,
-		)
-	}
-	receipts.push(txResult.receipt)
 }
