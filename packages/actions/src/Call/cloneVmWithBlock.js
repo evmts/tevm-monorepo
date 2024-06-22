@@ -3,8 +3,14 @@ import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 
 /**
  * @internal
+ * Prepares the VM for a call given a block tag. This includes
+ * - Cloning the VM
+ * - Setting the state root
+ * - Setting the fork transport if the block is in the past
  * @param {import('@tevm/base-client').BaseClient} client
  * @param {import('@tevm/block').Block} block
+ * @returns {Promise<import('@tevm/vm').Vm | {errors: InternalError[]}>} VM or errors
+ * @throws {never} returns errors as values
  */
 export const cloneVmWithBlockTag = async (client, block) => {
 	try {

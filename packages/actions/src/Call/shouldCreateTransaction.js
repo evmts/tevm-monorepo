@@ -1,6 +1,9 @@
 /**
+ * @internal
+ * Determines if a transaction should be created based on the `createTransaction` parameter
  * @param {import('./CallParams.js').CallParams} params
  * @param {import('@tevm/vm').RunTxResult} runTxResult
+ * @throws {never} only if the `createTransaction` parameter is invalid based on ts type
  */
 export const shouldCreateTransaction = (params, runTxResult) => {
 	if (params.createTransaction === undefined) {

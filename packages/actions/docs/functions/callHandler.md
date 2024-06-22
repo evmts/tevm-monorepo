@@ -8,7 +8,7 @@
 
 > **callHandler**(`client`, `options`?): [`CallHandler`](../type-aliases/CallHandler.md)
 
-Creates a code splitable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
+Creates a tree shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
 
 ## Parameters
 

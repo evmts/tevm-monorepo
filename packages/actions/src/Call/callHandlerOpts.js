@@ -4,10 +4,12 @@ import { hexToBytes } from '@tevm/utils'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 /**
+ * @internal
  * @typedef {UnknownBlockError | UnknownBlockError | InvalidParamsError} CallHandlerOptsError
  */
 
 /**
+ * @internal
  * Parses user provided params into ethereumjs options to pass into the EVM
  * @param {import('@tevm/base-client').BaseClient} client
  * @param {import('./CallParams.js').CallParams} params
