@@ -1,8 +1,8 @@
 import type { ExecutionError, InternalError, RevertError } from '@tevm/errors'
 import type { CallHandlerOptsError } from './callHandlerOpts.js'
-import type { ValidateCallParamsError } from './validateCallParams.js'
-import type { HandleRunTxError } from './handleEvmError.js'
 import type { ExecuteCallError } from './executeCall.js'
+import type { HandleRunTxError } from './handleEvmError.js'
+import type { ValidateCallParamsError } from './validateCallParams.js'
 
 /**
  * All errors that can occur during a Tevm call
