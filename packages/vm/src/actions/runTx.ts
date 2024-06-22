@@ -1,10 +1,9 @@
+// Originally from ethjs
 import { Block } from '@tevm/block'
-import { ConsensusType, type Hardfork } from '@tevm/common'
+import { ConsensusType } from '@tevm/common'
 import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, type Hex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
 
-import { Bloom } from '@ethereumjs/vm'
-import type { Common } from '@tevm/common'
 import {
 	BlockGasLimitExceededError,
 	EipNotEnabledError,
@@ -24,37 +23,14 @@ import type {
 	AccessListItem,
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
-	TypedTransaction,
 } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
-import type {
-	AfterTxEvent,
-	BaseTxReceipt,
-	EIP4844BlobTxReceipt,
-	PostByzantiumTxReceipt,
-	PreByzantiumTxReceipt,
-	RunTxOpts,
-	RunTxResult,
-	TxReceipt,
-} from '../utils/types.js'
-
-// TODO Might want to move these to utils these are getting copy pasted a lot
-export const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-export const KECCAK256_NULL = hexToBytes(KECCAK256_NULL_S)
-
-/**
- * Returns the hardfork excluding the merge hf which has
- * no effect on the vm execution capabilities.
- *
- * This is particularly useful in executing/evaluating the transaction
- * when chain td is not available at many places to correctly set the
- * hardfork in for e.g. vm or txs or when the chain is not fully synced yet.
- *
- * @returns Hardfork name
- */
-function execHardfork(hardfork: Hardfork | string, preMergeHf: Hardfork | string): string | Hardfork {
-	return hardfork !== 'paris' ? hardfork : preMergeHf
-}
+import type { AfterTxEvent, RunTxOpts, RunTxResult } from '../utils/index.js'
+import { execHardfork } from './execHardfork.js'
+import { KECCAK256_NULL } from './constants.js'
+import { errorMsg } from './errorMessage.js'
+import { generateTxReceipt } from './generateTxResult.js'
+import { txLogsBloom } from './txLogsBloom.js'
 
 /**
  * @ignore
@@ -62,7 +38,7 @@ function execHardfork(hardfork: Hardfork | string, preMergeHf: Hardfork | string
 export const runTx =
 	(vm: BaseVm) =>
 	async (opts: RunTxOpts): Promise<RunTxResult> => {
-		// create a reasonable default if no block is given
+		// creato a reasonable default if no block is given
 		opts.block = opts.block ?? Block.fromBlockData({}, { common: vm.common })
 
 		if (opts.skipHardForkValidation !== true) {
@@ -84,13 +60,13 @@ export const runTx =
 				execHardfork(vm.common.ethjsCommon.hardfork(), preMergeHf)
 			) {
 				// Block and VM's hardfork should match as well
-				const msg = _errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
+				const msg = errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
 				throw new MisconfiguredClientError(msg)
 			}
 		}
 
 		if (opts.skipBlockGasLimitValidation !== true && opts.block.header.gasLimit < opts.tx.gasLimit) {
-			const msg = _errorMsg('tx has a higher gas limit than the block', opts.block, opts.tx)
+			const msg = errorMsg('tx has a higher gas limit than the block', opts.block, opts.tx)
 			throw new BlockGasLimitExceededError(msg)
 		}
 
@@ -111,13 +87,13 @@ export const runTx =
 			// Is it an Access List transaction?
 			if (!vm.common.ethjsCommon.isActivatedEIP(2930)) {
 				await vm.evm.journal.revert()
-				const msg = _errorMsg('Cannot run transaction: EIP 2930 is not activated.', opts.block, opts.tx)
-				throw new Error(msg)
+				const msg = errorMsg('Cannot run transaction: EIP 2930 is not activated.', opts.block, opts.tx)
+				throw new EipNotEnabledError(msg)
 			}
 			if (opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.ethjsCommon.isActivatedEIP(1559)) {
 				await vm.evm.journal.revert()
-				const msg = _errorMsg('Cannot run transaction: EIP 1559 is not activated.', opts.block, opts.tx)
-				throw new Error(msg)
+				const msg = errorMsg('Cannot run transaction: EIP 1559 is not activated.', opts.block, opts.tx)
+				throw new EipNotEnabledError(msg)
 			}
 
 			const castedTx = <AccessListEIP2930Transaction>opts.tx
@@ -186,7 +162,7 @@ const _runTx =
 		const txBaseFee = tx.getBaseFee()
 		let gasLimit = tx.gasLimit
 		if (gasLimit < txBaseFee) {
-			const msg = _errorMsg(
+			const msg = errorMsg(
 				`tx gas limit ${Number(gasLimit)} is lower than the minimum gas limit of ${Number(txBaseFee)}`,
 				block,
 				tx,
@@ -202,7 +178,7 @@ const _runTx =
 			const maxFeePerGas = 'maxFeePerGas' in tx ? tx.maxFeePerGas : tx.gasPrice
 			const baseFeePerGas = block.header.baseFeePerGas ?? 0n
 			if (maxFeePerGas < baseFeePerGas) {
-				const msg = _errorMsg(
+				const msg = errorMsg(
 					`Transaction's ${
 						'maxFeePerGas' in tx ? 'maxFeePerGas' : 'gasPrice'
 					} (${maxFeePerGas}) is less than the block's baseFeePerGas (${baseFeePerGas})`,
@@ -220,7 +196,7 @@ const _runTx =
 		const { nonce, balance } = fromAccount
 		// EIP-3607: Reject transactions from senders with deployed code
 		if (vm.common.ethjsCommon.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
-			const msg = _errorMsg(
+			const msg = errorMsg(
 				'invalid sender address, address is not EOA (EIP-3607). When EIP-3607 is disabled this check is skipped',
 				block,
 				tx,
@@ -238,7 +214,7 @@ const _runTx =
 					await vm.evm.journal.putAccount(caller, fromAccount)
 				}
 			} else {
-				const msg = _errorMsg(
+				const msg = errorMsg(
 					`sender doesn't have enough funds to send tx. The upfront cost is: ${upFrontCost} and the sender's account (${caller}) only has: ${balance}`,
 					block,
 					tx,
@@ -260,7 +236,7 @@ const _runTx =
 
 		if (tx instanceof BlobEIP4844Transaction) {
 			if (!vm.common.ethjsCommon.isActivatedEIP(4844)) {
-				const msg = _errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
+				const msg = errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
 				throw new EipNotEnabledError(msg)
 			}
 			// EIP-4844 spec
@@ -272,12 +248,12 @@ const _runTx =
 
 			// 4844 minimum blobGas price check
 			if (opts.block === undefined) {
-				const msg = _errorMsg('Block option must be supplied to compute blob gas price', block, tx)
+				const msg = errorMsg('Block option must be supplied to compute blob gas price', block, tx)
 				throw new InvalidParamsError(msg)
 			}
 			blobGasPrice = opts.block.header.getBlobGasPrice()
 			if (castTx.maxFeePerBlobGas < blobGasPrice) {
-				const msg = _errorMsg(
+				const msg = errorMsg(
 					`Transaction's maxFeePerBlobGas ${castTx.maxFeePerBlobGas}) is less than block blobGasPrice (${blobGasPrice}).`,
 					block,
 					tx,
@@ -292,7 +268,7 @@ const _runTx =
 				fromAccount.balance = maxCost
 				await vm.evm.journal.putAccount(caller, fromAccount)
 			} else {
-				const msg = _errorMsg(
+				const msg = errorMsg(
 					`sender doesn't have enough funds to send tx. The max cost is: ${maxCost} and the sender's account (${caller}) only has: ${balance}`,
 					block,
 					tx,
@@ -303,7 +279,7 @@ const _runTx =
 
 		if (opts.skipNonce !== true) {
 			if (nonce !== tx.nonce) {
-				const msg = _errorMsg(
+				const msg = errorMsg(
 					`the tx doesn't have the correct nonce. account has nonce of: ${nonce} tx has nonce of: ${tx.nonce}`,
 					block,
 					tx,
@@ -482,99 +458,3 @@ const _runTx =
 
 		return results
 	}
-
-/**
- * @method txLogsBloom
- * @private
- */
-function txLogsBloom(logs?: any[], common?: Common): Bloom {
-	const bloom = new Bloom(undefined, common?.ethjsCommon)
-	if (logs) {
-		for (let i = 0; i < logs.length; i++) {
-			const log = logs[i]
-			// add the address
-			bloom.add(log[0])
-			// add the topics
-			const topics = log[1]
-			for (let q = 0; q < topics.length; q++) {
-				bloom.add(topics[q])
-			}
-		}
-	}
-	return bloom
-}
-
-/**
- * Returns the tx receipt.
- * @param this The vm instance
- * @param tx The transaction
- * @param txResult The tx result
- * @param cumulativeGasUsed The gas used in the block including this tx
- * @param blobGasUsed The blob gas used in the tx
- * @param blobGasPrice The blob gas price for the block including this tx
- */
-export const generateTxReceipt =
-	(vm: BaseVm) =>
-	async (
-		tx: TypedTransaction,
-		txResult: RunTxResult,
-		cumulativeGasUsed: bigint,
-		blobGasUsed?: bigint,
-		blobGasPrice?: bigint,
-	): Promise<TxReceipt> => {
-		const baseReceipt: BaseTxReceipt = {
-			cumulativeBlockGasUsed: cumulativeGasUsed,
-			bitvector: txResult.bloom.bitvector,
-			logs: txResult.execResult.logs ?? [],
-		}
-
-		let receipt: PostByzantiumTxReceipt | PreByzantiumTxReceipt | EIP4844BlobTxReceipt
-
-		if (!tx.supports(Capability.EIP2718TypedTransaction)) {
-			// Legacy transaction
-			if (vm.common.ethjsCommon.gteHardfork('byzantium') === true) {
-				// Post-Byzantium
-				receipt = {
-					status: txResult.execResult.exceptionError !== undefined ? 0 : 1, // Receipts have a 0 as status on error
-					...baseReceipt,
-				} as PostByzantiumTxReceipt
-			} else {
-				// Pre-Byzantium
-				const stateRoot = await vm.stateManager.getStateRoot()
-				receipt = {
-					stateRoot,
-					...baseReceipt,
-				} as PreByzantiumTxReceipt
-			}
-		} else {
-			// Typed EIP-2718 Transaction
-			if (isBlobEIP4844Tx(tx)) {
-				receipt = {
-					blobGasUsed,
-					blobGasPrice,
-					status: txResult.execResult.exceptionError ? 0 : 1,
-					...baseReceipt,
-				} as EIP4844BlobTxReceipt
-			} else {
-				receipt = {
-					status: txResult.execResult.exceptionError ? 0 : 1,
-					...baseReceipt,
-				} as PostByzantiumTxReceipt
-			}
-		}
-		return receipt
-	}
-
-/**
- * Internal helper function to create an annotated error message
- *
- * @param msg Base error message
- * @hidden
- */
-function _errorMsg(msg: string, block: Block, tx: TypedTransaction) {
-	const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
-	const txErrorStr = 'errorStr' in tx ? tx.errorStr() : 'tx'
-
-	const errorMsg = `${msg} -> ${blockErrorStr} -> ${txErrorStr})`
-	return errorMsg
-}

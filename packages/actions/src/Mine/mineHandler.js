@@ -2,6 +2,7 @@ import { InternalError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateMineParams } from './validateMineParams.js'
+import { emitEvents } from './emitEvents.js'
 
 // TODO Errors can leave us in bad states
 
@@ -34,9 +35,9 @@ export const mineHandler =
 		const pool = await client.getTxPool()
 		const originalVm = await client.getVm()
 		const vm = await originalVm.deepCopy()
+		const receiptsManager = await client.getReceiptsManager()
 
 		for (let count = 0; count < blockCount; count++) {
-			const receiptsManager = await client.getReceiptsManager()
 			const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 
 			let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
@@ -117,20 +118,7 @@ export const mineHandler =
 		originalVm.evm.blockchain = vm.evm.blockchain
 		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
-		// emit newBlock events
-		newBlocks.forEach((block) => {
-			client.emit('newBlock', block)
-			const receipts = newReceipts.get(bytesToHex(block.hash()))
-			if (!receipts) {
-				throw new Error('InternalError: Receipts not found in mineHandler. This indicates a bug in tevm.')
-			}
-			receipts.forEach((receipt) => {
-				client.emit('newReceipt', receipt)
-				receipt.logs.forEach((log) => {
-					client.emit('newLog', log)
-				})
-			})
-		})
+		emitEvents(client, newBlocks, newReceipts)
 
 		return { blockHashes: newBlocks.map((b) => bytesToHex(b.hash())) }
 	}
