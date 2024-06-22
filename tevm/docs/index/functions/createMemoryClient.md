@@ -13,7 +13,7 @@ It comes batteries included with all wallet, test, public, and tevm actions.
 
 ## Type Parameters
 
-• **TCommon** *extends* `Chain` & `object` = `Chain` & `object`
+• **TCommon** *extends* `Chain` & `object` & `Chain` = `Chain` & `object` & `Chain`
 
 • **TAccountOrAddress** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
 
@@ -136,7 +136,7 @@ Filter. CreateBlockFilterReturnType
 
 #### Type Parameters
 
-• **TAbi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **TAbi** *extends* readonly `unknown`[] \| `Abi`
 
 • **TEventName** *extends* `undefined` \| `string`
 
@@ -166,9 +166,9 @@ CreateContractEventFilterParameters
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| [`AbiEvent`](../type-aliases/AbiEvent.md) = `undefined`
+• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../type-aliases/AbiEvent.md)[] = `TAbiEvent` *extends* [`AbiEvent`](../type-aliases/AbiEvent.md) ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
@@ -220,7 +220,7 @@ CreateContractEventFilterParameters
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **chainOverride** *extends* `undefined` \| `Chain`
 
@@ -305,7 +305,7 @@ await client.dumpState()
 
 • **TChain** *extends* `undefined` \| `Chain`
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **functionName** *extends* `string`
 
@@ -554,7 +554,7 @@ The contract's bytecode. GetBytecodeReturnType
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **eventName** *extends* `undefined` \| `string` = `undefined`
 
@@ -846,7 +846,7 @@ The gas estimate (in wei). GetFeeHistoryReturnType
 
 • **TFilterType** *extends* `FilterType`
 
-• **TAbi** *extends* `undefined` \| [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **TAbi** *extends* `undefined` \| readonly `unknown`[] \| `Abi`
 
 • **TEventName** *extends* `undefined` \| `string`
 
@@ -874,7 +874,7 @@ Logs or hashes. GetFilterChangesReturnType
 
 #### Type Parameters
 
-• **TAbi** *extends* `undefined` \| [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **TAbi** *extends* `undefined` \| readonly `unknown`[] \| `Abi`
 
 • **TEventName** *extends* `undefined` \| `string`
 
@@ -912,9 +912,9 @@ The gas price (in wei). GetGasPriceReturnType
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| [`AbiEvent`](../type-aliases/AbiEvent.md) = `undefined`
+• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../type-aliases/AbiEvent.md)[] = `TAbiEvent` *extends* [`AbiEvent`](../type-aliases/AbiEvent.md) ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
@@ -1294,7 +1294,7 @@ const request = await client.prepareTransactionRequest({
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **functionName** *extends* `string`
 
@@ -2040,7 +2040,7 @@ The signed data. SignTypedDataReturnType
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **functionName** *extends* `string`
 
@@ -2874,7 +2874,7 @@ A function that can be invoked to stop watching for new block numbers. WatchBloc
 
 #### Type Parameters
 
-• **TAbi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **TAbi** *extends* readonly `unknown`[] \| `Abi`
 
 • **TEventName** *extends* `string`
 
@@ -2898,9 +2898,9 @@ A function that can be invoked to stop watching for new event logs. WatchContrac
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| [`AbiEvent`](../type-aliases/AbiEvent.md) = `undefined`
+• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../type-aliases/AbiEvent.md)[] = `TAbiEvent` *extends* [`AbiEvent`](../type-aliases/AbiEvent.md) ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
 
 • **TStrict** *extends* `undefined` \| `boolean` = `undefined`
 
@@ -2938,7 +2938,7 @@ A function that can be invoked to stop watching for new pending transaction hash
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| `Abi`
 
 • **functionName** *extends* `string`
 
