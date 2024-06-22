@@ -6,6 +6,8 @@
 
 # Function: callHandlerResult()
 
+`Internal`
+
 > **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](../type-aliases/CallResult.md)\<[`TevmCallError`](../type-aliases/TevmCallError.md)\>
 
 Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -26,6 +28,10 @@ returned by the evm
 
 [`CallResult`](../type-aliases/CallResult.md)\<[`TevmCallError`](../type-aliases/TevmCallError.md)\>
 
+## Throws
+
+any error means the input and output types were invalid or some invariant was broken
+
 ## Source
 
-[packages/actions/src/Call/callHandlerResult.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerResult.js#L12)
+[packages/actions/src/Call/callHandlerResult.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerResult.js#L14)

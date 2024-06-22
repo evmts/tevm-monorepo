@@ -14,7 +14,7 @@ import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 import { validateCallParams } from './validateCallParams.js'
 
 /**
- * Creates a code splitable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
+ * Creates a tree shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
  * @param {import('@tevm/base-client').BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail]
@@ -178,7 +178,6 @@ export const callHandler =
 				)
 			}
 			client.logger.debug(txHash, 'Transaction successfully added')
-
 			const miningRes = (await handleAutomining(client, txHash)) ?? {}
 			if ('errors' in miningRes) {
 				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {

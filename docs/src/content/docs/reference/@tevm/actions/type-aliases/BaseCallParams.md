@@ -13,6 +13,31 @@ Properties shared across call-like params
 - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams-1/)
 - [ScriptParams](https://tevm.sh/reference/tevm/actions/type-aliases/scriptparams-1/)
 
+## Example
+
+```typescript
+import {BaseCalLParams} from 'tevm'
+
+const params: BaseCallParams = {
+  createTrace: true,
+  createAccessList: true,
+  createTransaction: 'on-success',
+  blockTag: 'latest',
+  skipBalance: true,
+  gas: 1000000n,
+  gasPrice: 1n,
+  maxFeePerGas: 1n,
+  maxPriorityFeePerGas: 1n,
+  gasRefund: 0n,
+  from: '0x123...',
+  origin: '0x123...',
+  caller: '0x123...',
+  value: 0n,
+  depth: 0,
+  to: '0x123...',
+}
+```
+
 ## Type declaration
 
 ### blobVersionedHashes?
@@ -45,8 +70,13 @@ const res = await client.call({address: '0x1234', data: '0x1234', blockOverrideS
 > `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 The block number or block tag to execute the call at. Defaults to `latest`.
-Setting to `pending` will run the tx against a block built with the pending tx in the txpool
-that have not yet been mined.
+- bigint: The block number to execute the call at
+- Hex: The block hash to execute the call at
+- BlockTag: The named block tag to execute the call at
+Notable block tags:
+- 'latest': The cannonical head
+- 'pending': A block that is optimistically built with transactions in the txpool that have not yet been mined
+- 'forked': If forking the 'forked' block will be the block the chain was forked at
 
 ### caller?
 
@@ -59,13 +89,17 @@ This defaults to `from` address if set otherwise it defaults to the zero address
 
 > `optional` `readonly` **createAccessList**: `boolean`
 
-Whether to return an access list
+Whether to return an access list mapping of addresses to storage keys
 Defaults to `false`
 
 #### Example
 
 ```ts
-const {accessList} = await tevm.call({address: '0x1234', data: '0x1234', createAccessList: true})
+import {createMemoryClient} from 'tevm'
+
+const client = createMemoryClient()
+
+const {accessList} = await client.tevmCall({to: '0x1234...', data: '0x1234', createAccessList: true})
 console.log(accessList) // { "0x...": Set(["0x..."])}
 ```
 
@@ -79,7 +113,12 @@ Defaults to `false`
 #### Example
 
 ```ts
-const {trace} = await tevm.call({address: '0x1234', data: '0x1234', createTrace: true})
+import {createMemoryClient} from 'tevm'
+
+const client = createMemoryClient()
+
+const {trace} = await client.call({address: '0x1234', data: '0x1234', createTrace: true})
+
 trace.structLogs.forEach(console.log)
 ```
 
@@ -227,4 +266,4 @@ The value in ether that is being sent to `opts.address`. Defaults to `0`
 
 ## Source
 
-[packages/actions/src/BaseCall/BaseCallParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L12)
+[packages/actions/src/BaseCall/BaseCallParams.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L35)

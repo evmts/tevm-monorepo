@@ -2,6 +2,7 @@ import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
 import { zHex } from '../internal/zod/zHex.js'
 
 /**
+ * @internal
  * Zod validator for a valid call action
  */
 export const zCallParams = zBaseCallParams

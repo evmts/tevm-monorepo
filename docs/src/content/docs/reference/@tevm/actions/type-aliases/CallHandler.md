@@ -15,14 +15,14 @@ or undeployed scripts
 
 ## Example
 
-```ts
+```typescript
 const res = tevm.call({
-to: '0x123...',
-data: '0x123...',
-from: '0x123...',
-gas: 1000000,
-gasPrice: 1n,
-skipBalance: true,
+  to: '0x123...',
+  data: '0x123...',
+  from: '0x123...',
+  gas: 1000000,
+  gasPrice: 1n,
+  skipBalance: true,
 }
 ```
 
@@ -36,4 +36,4 @@ skipBalance: true,
 
 ## Source
 
-[packages/actions/src/Call/CallHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L21)
+[packages/actions/src/Call/CallHandlerType.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L23)

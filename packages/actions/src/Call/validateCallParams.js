@@ -3,10 +3,12 @@ import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zCallParams } from './zCallParams.js'
 
 /**
+ * @internal
  * @typedef {InvalidSaltError| InvalidDataError| InvalidBytecodeError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateCallParamsError
  */
 
 /**
+ * @internal
  * @param {import('../Call/CallParams.js').CallParams} action
  */
 export const validateCallParams = (action) => {

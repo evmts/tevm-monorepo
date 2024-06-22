@@ -8,14 +8,16 @@ import type { CallResult } from './CallResult.js'
  * See `contract` and `script` which executes calls specifically against deployed contracts
  * or undeployed scripts
  * @example
+ * ```typescript
  * const res = tevm.call({
- * to: '0x123...',
- * data: '0x123...',
- * from: '0x123...',
- * gas: 1000000,
- * gasPrice: 1n,
- * skipBalance: true,
+ *   to: '0x123...',
+ *   data: '0x123...',
+ *   from: '0x123...',
+ *   gas: 1000000,
+ *   gasPrice: 1n,
+ *   skipBalance: true,
  * }
+ * ```
  *
  */
 export type CallHandler = (action: CallParams) => Promise<CallResult>

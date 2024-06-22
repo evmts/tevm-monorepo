@@ -5,6 +5,8 @@ prev: false
 title: "validateCallParams"
 ---
 
+`Internal`
+
 > **validateCallParams**(`action`): [`ValidateCallParamsError`](/reference/tevm/actions/type-aliases/validatecallparamserror/)[]
 
 ## Parameters
@@ -17,4 +19,4 @@ title: "validateCallParams"
 
 ## Source
 
-[packages/actions/src/Call/validateCallParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L12)
+[packages/actions/src/Call/validateCallParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L14)

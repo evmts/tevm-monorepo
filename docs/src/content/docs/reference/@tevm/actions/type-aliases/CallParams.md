@@ -14,7 +14,7 @@ under the hood
 
 ## Example
 
-```ts
+```typescript`
 const callParams: import('@tevm/api').CallParams = {
   data: '0x...',
   bytecode: '0x...',
@@ -22,13 +22,51 @@ const callParams: import('@tevm/api').CallParams = {
 }
 ```
 
+## See
+
+[BaseCallParams](../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
+
 ## Type declaration
 
 ### code?
 
 > `optional` `readonly` **code**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-The encoded code to deploy with for a deployless call
+The encoded code to deploy with for a deployless call. Code is encoded with constructor args unlike `deployedBytecode`.
+
+#### Example
+
+```typescript
+import {createMemoryClient, encodeDeployData} from 'tevm'
+
+const client = createMemoryClient()
+
+await client.tevmCall({
+  createTransaction: true,
+  data: encodeDeployData({
+    bytecode: '0x...',
+    data: '0x...',
+    abi: [{...}],
+    args: [1, 2, 3],
+  })
+})
+```
+Code is also automatically created if using Tevm contracts via script method.
+
+```@example
+import {SimpleContract} from 'tevm/contracts'
+import {createMemoryClient} from 'tevm'
+
+const client = createMemoryClient()
+
+const script = SimpleContract.script({constructorArgs: [420n]})
+
+console.log(script.code)
+
+await client.tevmContract(
+  script.read.get() // abi, code, functionName, args
+) // 420n
+```
 
 ### data?
 
@@ -40,8 +78,18 @@ The input data.
 
 > `optional` `readonly` **deployedBytecode**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-THe code to put into the state before executing call. If you wish to call the constructor
+The code to put into the state before executing call. If you wish to call the constructor
 use `code` instead.
+```@example
+import {createMemoryClient} from 'tevm'
+
+const client = createMemoryClient()
+
+await client.tevmCall({
+  data: '0x...',
+  deployedBytecode: '0x...',
+})
+```
 
 ### salt?
 
@@ -55,4 +103,4 @@ An optional CREATE2 salt.
 
 ## Source
 
-[packages/actions/src/Call/CallParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L16)
+[packages/actions/src/Call/CallParams.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L19)

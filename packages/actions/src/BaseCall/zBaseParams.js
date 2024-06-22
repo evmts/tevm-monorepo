@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 /**
- * Parameters shared across actions
+ * Parameters shared across tevm actions
  */
 export const zBaseParams = z
 	.object({

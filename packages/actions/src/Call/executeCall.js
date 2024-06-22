@@ -5,14 +5,20 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { handleRunTxError } from './handleEvmError.js'
 
 /**
+ * The error returned by executeCall
+ * @internal
  * @typedef {import('./handleEvmError.js').HandleRunTxError} ExecuteCallError
  */
 
 /**
+ * The return value of executeCall
+ * @internal
  * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').DebugTraceCallResult | undefined, accessList: undefined | Map<string, Set<string>>}} ExecuteCallResult
  */
 
 /**
+ * executeCall encapsalates the internal logic of running a call in the EVM
+ * @internal
  * @param {import('@tevm/base-client').BaseClient} client
  * @param {import("@tevm/evm").EvmRunCallOpts} evmInput
  * @param {import('./CallParams.js').CallParams} params
