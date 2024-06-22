@@ -37,9 +37,9 @@ import type { TypedTransaction } from '@tevm/tx'
 import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
-import { runTx } from './runTx.js'
 import type { BlockStatus } from './BlockStatus.js'
 import { BuildStatus } from './BuildStatus.js'
+import { runTx } from './runTx.js'
 
 export type AddTransactionError = InvalidGasLimitError | EipNotEnabledError | BlockGasLimitExceededError
 

@@ -1,19 +1,17 @@
 // Originally from ethjs
-import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
 import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, type Hex, bytesToUnprefixedHex, equalsBytes, hexToBytes } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, type Hex, equalsBytes, hexToBytes } from '@tevm/utils'
 
 import {
-	BlockGasLimitExceededError,
 	EipNotEnabledError,
 	InsufficientFundsError,
 	InternalError,
+	InvalidArgsError,
 	InvalidGasLimitError,
 	InvalidGasPriceError,
 	InvalidParamsError,
 	InvalidTransactionError,
-	MisconfiguredClientError,
 	NonceTooHighError,
 	NonceTooLowError,
 } from '@tevm/errors'
@@ -26,11 +24,12 @@ import type {
 } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterTxEvent, RunTxOpts, RunTxResult } from '../utils/index.js'
-import { execHardfork } from './execHardfork.js'
 import { KECCAK256_NULL } from './constants.js'
 import { errorMsg } from './errorMessage.js'
 import { generateTxReceipt } from './generateTxResult.js'
 import { txLogsBloom } from './txLogsBloom.js'
+import { validateRunTx } from './validateRunTx.js'
+import { warmAddresses2929 } from './warmAddresses2929.js'
 
 /**
  * @ignore
@@ -38,67 +37,26 @@ import { txLogsBloom } from './txLogsBloom.js'
 export const runTx =
 	(vm: BaseVm) =>
 	async (opts: RunTxOpts): Promise<RunTxResult> => {
-		// creato a reasonable default if no block is given
-		opts.block = opts.block ?? Block.fromBlockData({}, { common: vm.common })
+		await vm.ready()
 
-		if (opts.skipHardForkValidation !== true) {
-			// Find and set preMerge hf for easy access later
-			const hfs = vm.common.ethjsCommon.hardforks()
-			const preMergeIndex = hfs.findIndex((hf) => hf.ttd !== null && hf.ttd !== undefined) - 1
-			// If no pre merge hf found, set it to first hf even if its merge
-			const preMergeHf = (preMergeIndex >= 0 ? hfs[preMergeIndex]?.name : hfs[0]?.name) as string
-
-			// If block and tx don't have a same hardfork, set tx hardfork to block
-			if (
-				execHardfork(opts.tx.common.hardfork(), preMergeHf) !==
-				execHardfork(opts.block.common.ethjsCommon.hardfork(), preMergeHf)
-			) {
-				opts.tx.common.setHardfork(opts.block.common.ethjsCommon.hardfork())
-			}
-			if (
-				execHardfork(opts.block.common.ethjsCommon.hardfork(), preMergeHf) !==
-				execHardfork(vm.common.ethjsCommon.hardfork(), preMergeHf)
-			) {
-				// Block and VM's hardfork should match as well
-				const msg = errorMsg('block has a different hardfork than the vm', opts.block, opts.tx)
-				throw new MisconfiguredClientError(msg)
-			}
-		}
-
-		if (opts.skipBlockGasLimitValidation !== true && opts.block.header.gasLimit < opts.tx.gasLimit) {
-			const msg = errorMsg('tx has a higher gas limit than the block', opts.block, opts.tx)
-			throw new BlockGasLimitExceededError(msg)
-		}
+		const validatedOpts = await validateRunTx(vm)(opts)
 
 		// Ensure we start with a clear warmed accounts Map
 		await vm.evm.journal.cleanup()
 
-		if (opts.reportAccessList === true) {
+		if (validatedOpts.reportAccessList === true) {
 			vm.evm.journal.startReportingAccessList()
 		}
 
-		if (opts.reportPreimages === true) {
+		if (validatedOpts.reportPreimages === true) {
 			vm.evm.journal.startReportingPreimages?.()
 		}
 
 		await vm.evm.journal.checkpoint()
 		// Typed transaction specific setup tasks
-		if (opts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
-			// Is it an Access List transaction?
-			if (!vm.common.ethjsCommon.isActivatedEIP(2930)) {
-				await vm.evm.journal.revert()
-				const msg = errorMsg('Cannot run transaction: EIP 2930 is not activated.', opts.block, opts.tx)
-				throw new EipNotEnabledError(msg)
-			}
-			if (opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.ethjsCommon.isActivatedEIP(1559)) {
-				await vm.evm.journal.revert()
-				const msg = errorMsg('Cannot run transaction: EIP 1559 is not activated.', opts.block, opts.tx)
-				throw new EipNotEnabledError(msg)
-			}
-
-			const castedTx = <AccessListEIP2930Transaction>opts.tx
-
-			for (const accessListItem of castedTx.AccessListJSON) {
+		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
+			const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
+			for (const accessListItem of castedTx.AccessListJSON ?? []) {
 				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
 				for (const storageKey of accessListItem.storageKeys) {
 					vm.evm.journal.addAlwaysWarmSlot(accessListItem.address, storageKey, true)
@@ -107,7 +65,7 @@ export const runTx =
 		}
 
 		try {
-			const result = await _runTx(vm)(opts)
+			const result = await _runTx(vm)(validatedOpts)
 			await vm.evm.journal.commit()
 			return result
 		} catch (e: any) {
@@ -123,15 +81,10 @@ export const runTx =
 const _runTx =
 	(vm: BaseVm) =>
 	async (opts: RunTxOpts): Promise<RunTxResult> => {
-		await vm.ready()
-		const state = vm.stateManager
-
 		const { tx, block } = opts
-
 		if (!block) {
-			throw new InvalidParamsError('block required')
+			throw new InvalidArgsError('block is required')
 		}
-
 		/**
 		 * The `beforeTx` event
 		 *
@@ -142,21 +95,8 @@ const _runTx =
 		await vm._emit('beforeTx', tx)
 
 		const caller = tx.getSenderAddress()
-		if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
-			// Add origin and precompiles to warm addresses
-			const activePrecompiles = vm.evm.precompiles
-			for (const [addressStr] of activePrecompiles.entries()) {
-				vm.evm.journal.addAlwaysWarmAddress(addressStr)
-			}
-			vm.evm.journal.addAlwaysWarmAddress(caller.toString())
-			if (tx.to !== undefined) {
-				// Note: in case we create a contract, we do vm in EVMs `_executeCreate` (vm is also correct in inner calls, per the EIP)
-				vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(tx.to.bytes))
-			}
-			if (vm.common.ethjsCommon.isActivatedEIP(3651)) {
-				vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(block.header.coinbase.bytes))
-			}
-		}
+
+		warmAddresses2929(vm, caller, tx.to, block.header.coinbase)
 
 		// Validate gas limit against tx base fee (DataFee + TxFee + Creation Fee)
 		const txBaseFee = tx.getBaseFee()
@@ -189,7 +129,7 @@ const _runTx =
 			}
 		}
 		// Check from account's balance and nonce
-		let fromAccount = await state.getAccount(caller)
+		let fromAccount = await vm.stateManager.getAccount(caller)
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
@@ -367,7 +307,7 @@ const _runTx =
 		results.amountSpent = results.totalGasSpent * gasPrice
 
 		// Update sender's balance
-		fromAccount = await state.getAccount(caller)
+		fromAccount = await vm.stateManager.getAccount(caller)
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
@@ -384,7 +324,7 @@ const _runTx =
 			miner = block.header.coinbase
 		}
 
-		let minerAccount = await state.getAccount(miner)
+		let minerAccount = await vm.stateManager.getAccount(miner)
 		if (minerAccount === undefined) {
 			minerAccount = new EthjsAccount()
 		}

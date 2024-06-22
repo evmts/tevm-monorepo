@@ -1,8 +1,8 @@
 import { InternalError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
-import { validateMineParams } from './validateMineParams.js'
 import { emitEvents } from './emitEvents.js'
+import { validateMineParams } from './validateMineParams.js'
 
 // TODO Errors can leave us in bad states
 

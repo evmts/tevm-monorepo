@@ -5,6 +5,6 @@ export const buildAndCachePendingBlock = async (client) => {
 const vm = await client.getVm().then(vm => vm.deepCopy())
 const txPool = await client.getTxPool()
 txPool
-let iterations = 0
+const iterations = 0
 while ()
 }

@@ -1,7 +1,7 @@
 import type { Bloom } from '@ethereumjs/vm'
 import type { Hex } from '@tevm/utils'
-import type { TxReceipt } from './TxReceipt.js'
 import type { RunTxResult } from './RunTxResult.js'
+import type { TxReceipt } from './TxReceipt.js'
 
 /**
  * Result of {@link applyBlock}
