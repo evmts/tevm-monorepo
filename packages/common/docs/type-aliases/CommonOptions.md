@@ -10,6 +10,19 @@
 
 Options for creating an Tevm MemoryClient instance
 
+## Example
+
+```typescript
+import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+
+const opts: CommonOptions = {
+  ...mainnet,
+  hardfork: 'london',
+}
+
+const common = createCommon(opts)
+````
+
 ## Type declaration
 
 ### customCrypto?
@@ -23,6 +36,22 @@ For EIP-4844 support kzg must be passed
 
 KZG can add a significant amount of bundle size to an app
 In future a stub will be provided that that automatically returns valid without checking the kzg proof
+
+#### Example
+
+```typescript
+import  { createMemoryClient } from 'tevm'
+import  { mainnet } from 'tevm/common'
+import { createMockKzg } from 'tevm/crypto'
+
+const common = createCommon({
+  ...mainnet,
+  customCrypto: {
+    kzg: createMockKzg(),
+    ...customCrypto,
+  },
+})
+```
 
 ### eips?
 
@@ -44,4 +73,4 @@ Tevm logger instance
 
 ## Source
 
-[packages/common/src/CommonOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L9)
+[packages/common/src/CommonOptions.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L20)

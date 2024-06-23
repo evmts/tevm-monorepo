@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { createCommon } from './createCommon.js'
-import { optimism } from './presets/index.js'
 import { createMockKzg } from './createMockKzg.js'
+import { optimism } from './presets/index.js'
 
 describe(createCommon.name, () => {
 	it('wraps ethereumjs common with default eips', () => {

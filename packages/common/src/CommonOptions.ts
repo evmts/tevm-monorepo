@@ -5,6 +5,18 @@ import type { Hardfork } from './Hardfork.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
+ * @example
+ * ```typescript
+ * import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+ *
+ * const opts: CommonOptions = {
+ *   ...mainnet,
+ *   hardfork: 'london',
+ * }
+ *
+ * const common = createCommon(opts)
+ * ````
+ * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
 export type CommonOptions = {
 	/**

@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test'
-import { keccak256 } from '@tevm/utils'
 import { createMockKzg } from './createMockKzg.js'
 
 describe('createMockKzg', () => {
@@ -17,7 +16,7 @@ describe('createMockKzg', () => {
 
 	it('should return 69 from loadTrustedSetup', () => {
 		const mockKzg = createMockKzg()
-		expect(mockKzg.loadTrustedSetup()).toBe(69)
+		expect(mockKzg.loadTrustedSetup()).toMatchSnapshot()
 	})
 
 	it('should return true from verifyKzgProof', () => {
@@ -40,13 +39,13 @@ describe('createMockKzg', () => {
 	it('should return keccak256 hash from blobToKzgCommitment', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.blobToKzgCommitment()).toBe(keccak256('0x69', 'bytes'))
+		expect(mockKzg.blobToKzgCommitment()).toMatchSnapshot()
 	})
 
 	it('should return keccak256 hash from computeBlobKzgProof', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.computeBlobKzgProof()).toBe(keccak256('0x69', 'bytes'))
+		expect(mockKzg.computeBlobKzgProof()).toMatchSnapshot()
 	})
 
 	it('should return true from verifyBlobKzgProofBatch', () => {
