@@ -23,9 +23,9 @@ describe('sendRawTransaction', () => {
 			account,
 			to,
 			value: 420n,
-			chain: tevmDefault,
+			chain: tevmDefault as any,
 		})
-		const tx = await signTransaction(mc, request)
+		const tx = await signTransaction(mc, request as any)
 		const hash = await mc.sendRawTransaction({
 			serializedTransaction: tx,
 		})
