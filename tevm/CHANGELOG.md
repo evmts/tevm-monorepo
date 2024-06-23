@@ -1,5 +1,32 @@
 # @tevm/contract
 
+## 2.0.0-next.85
+
+### Patch Changes
+
+- [#1235](https://github.com/evmts/tevm-monorepo/pull/1235) [`c5e7861`](https://github.com/evmts/tevm-monorepo/commit/c5e7861a91cbc93a12679e9989b666e6efef2c44) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated jsdoc
+
+- Updated dependencies [[`8de7d8c`](https://github.com/evmts/tevm-monorepo/commit/8de7d8cab488c61b8c91c62cabb7a428c70beeb1), [`c5e7861`](https://github.com/evmts/tevm-monorepo/commit/c5e7861a91cbc93a12679e9989b666e6efef2c44), [`8de7d8c`](https://github.com/evmts/tevm-monorepo/commit/8de7d8cab488c61b8c91c62cabb7a428c70beeb1)]:
+  - @tevm/memory-client@2.0.0-next.85
+  - @tevm/common@2.0.0-next.85
+  - @tevm/actions@2.0.0-next.85
+  - @tevm/evm@2.0.0-next.85
+  - @tevm/viem@2.0.0-next.85
+  - @tevm/http-client@2.0.0-next.85
+  - @tevm/server@2.0.0-next.85
+  - @tevm/base-client@2.0.0-next.85
+  - @tevm/block@2.0.0-next.85
+  - @tevm/blockchain@2.0.0-next.85
+  - @tevm/receipt-manager@2.0.0-next.85
+  - @tevm/state@2.0.0-next.85
+  - @tevm/vm@2.0.0-next.85
+  - @tevm/client-types@2.0.0-next.84
+  - @tevm/decorators@2.0.0-next.85
+  - @tevm/procedures@2.0.0-next.85
+  - @tevm/precompiles@2.0.0-next.85
+  - @tevm/txpool@2.0.0-next.85
+  - @tevm/sync-storage-persister@2.0.0-next.85
+
 ## 2.0.0-next.84
 
 ### Patch Changes

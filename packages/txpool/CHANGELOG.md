@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 2.0.0-next.85
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/block@2.0.0-next.85
+  - @tevm/vm@2.0.0-next.85
+
 ## 2.0.0-next.84
 
 ### Patch Changes

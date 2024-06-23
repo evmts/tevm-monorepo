@@ -1,5 +1,17 @@
 # @tevm/contract
 
+## 2.0.0-next.85
+
+### Patch Changes
+
+- Updated dependencies [[`c5e7861`](https://github.com/evmts/tevm-monorepo/commit/c5e7861a91cbc93a12679e9989b666e6efef2c44), [`8de7d8c`](https://github.com/evmts/tevm-monorepo/commit/8de7d8cab488c61b8c91c62cabb7a428c70beeb1)]:
+  - @tevm/actions@2.0.0-next.85
+  - @tevm/evm@2.0.0-next.85
+  - @tevm/base-client@2.0.0-next.85
+  - @tevm/block@2.0.0-next.85
+  - @tevm/state@2.0.0-next.85
+  - @tevm/vm@2.0.0-next.85
+
 ## 2.0.0-next.84
 
 ### Patch Changes
