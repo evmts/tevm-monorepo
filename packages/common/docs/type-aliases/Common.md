@@ -8,6 +8,8 @@
 
 > **Common**: `ViemChain` & `object`
 
+Common is the main representation of chain specific configuration for tevm clients.
+
 Tevm specific chain configuration wrapping viem chain and ethereumjs commmon
 Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
 extends ethereumjs Common class with the Viem Chain type
@@ -26,8 +28,12 @@ const createClient = (common: Common) => {
 }
 
 const client = createClient(optimism)
-
 ```
+
+## See
+
+ - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+ - [Tevm client docs](https://tevm.sh/learn/clients/)
 
 ## Type declaration
 
@@ -45,4 +51,4 @@ const client = createClient(optimism)
 
 ## Source
 
-[packages/common/src/Common.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Common.ts#L24)
+[packages/common/src/Common.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Common.ts#L27)

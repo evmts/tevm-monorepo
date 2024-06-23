@@ -199,36 +199,6 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/events.d.ts:15
 
 ***
 
-### `[captureRejectionSymbol]`()?
-
-> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
-
-#### Type parameters
-
-• **K**
-
-#### Parameters
-
-• **error**: `Error`
-
-• **event**: `string` \| `symbol`
-
-• ...**args**: `AnyRest`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`EventEmitter.[captureRejectionSymbol]`
-
-#### Source
-
-node\_modules/.pnpm/@types+node@20.14.7/node\_modules/@types/node/events.d.ts:608
-
-***
-
 ### addListener()
 
 > **addListener**\<`E`\>(`event`, `listener`): `this`
@@ -447,69 +417,35 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### off()
 
-#### off(eventName, listener)
-
 > **off**\<`K`\>(`eventName`, `listener`): `this`
 
 Alias for `emitter.removeListener()`.
 
-##### Type parameters
+#### Type parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
 • **eventName**: `string` \| `symbol`
 
 • **listener**
 
-##### Returns
+#### Returns
 
 `this`
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.off`
 
-##### Since
+#### Since
 
 v10.0.0
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/events.d.ts:763
-
-#### off(eventName, listener)
-
-> **off**\<`K`\>(`eventName`, `listener`): `this`
-
-Alias for `emitter.removeListener()`.
-
-##### Type parameters
-
-• **K**
-
-##### Parameters
-
-• **eventName**: `string` \| `symbol`
-
-• **listener**
-
-##### Returns
-
-`this`
-
-##### Inherited from
-
-`EventEmitter.off`
-
-##### Since
-
-v10.0.0
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.14.7/node\_modules/@types/node/events.d.ts:763
 
 ***
 
@@ -627,8 +563,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 ### rawListeners()
 
-#### rawListeners(eventName)
-
 > **rawListeners**\<`K`\>(`eventName`): `Function`[]
 
 Returns a copy of the array of listeners for the event named `eventName`,
@@ -659,85 +593,29 @@ newListeners[0]();
 emitter.emit('log');
 ```
 
-##### Type parameters
+#### Type parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
 • **eventName**: `string` \| `symbol`
 
-##### Returns
+#### Returns
 
 `Function`[]
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.rawListeners`
 
-##### Since
+#### Since
 
 v9.4.0
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/events.d.ts:834
-
-#### rawListeners(eventName)
-
-> **rawListeners**\<`K`\>(`eventName`): `Function`[]
-
-Returns a copy of the array of listeners for the event named `eventName`,
-including any wrappers (such as those created by `.once()`).
-
-```js
-import { EventEmitter } from 'node:events';
-const emitter = new EventEmitter();
-emitter.once('log', () => console.log('log once'));
-
-// Returns a new Array with a function `onceWrapper` which has a property
-// `listener` which contains the original listener bound above
-const listeners = emitter.rawListeners('log');
-const logFnWrapper = listeners[0];
-
-// Logs "log once" to the console and does not unbind the `once` event
-logFnWrapper.listener();
-
-// Logs "log once" to the console and removes the listener
-logFnWrapper();
-
-emitter.on('log', () => console.log('log persistently'));
-// Will return a new Array with a single function bound by `.on()` above
-const newListeners = emitter.rawListeners('log');
-
-// Logs "log persistently" twice
-newListeners[0]();
-emitter.emit('log');
-```
-
-##### Type parameters
-
-• **K**
-
-##### Parameters
-
-• **eventName**: `string` \| `symbol`
-
-##### Returns
-
-`Function`[]
-
-##### Inherited from
-
-`EventEmitter.rawListeners`
-
-##### Since
-
-v9.4.0
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.14.7/node\_modules/@types/node/events.d.ts:834
 
 ***
 

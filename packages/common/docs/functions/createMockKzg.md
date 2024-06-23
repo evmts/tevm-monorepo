@@ -31,6 +31,10 @@ const common = createCommon({
 })
 ```
 
+## See
+
+[createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+
 ## Source
 
-[packages/common/src/createMockKzg.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L21)
+[packages/common/src/createMockKzg.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L22)

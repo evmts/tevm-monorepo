@@ -27,6 +27,11 @@ const common = createCommon({
 })
 ```
 
+## See
+
+ - [createMockKzg](https://tevm.sh/reference/tevm/common/functions/createmockkzg/)
+ - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+
 ## Type declaration
 
 ### blobToKzgCommitment()
@@ -127,4 +132,4 @@ const common = createCommon({
 
 ## Source
 
-[packages/common/src/MockKzg.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L19)
+[packages/common/src/MockKzg.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L21)
