@@ -1,5 +1,18 @@
 /**
- * Ethereum hardfork option
+ * Ethereum hardfork options. Default option is currently cancun.
+ * If you use older hardforks you might run into issues with EIPs not being supported.
+ * @example
+ * ```typesxcript
+ * import { createCommon, mainnet } from 'tevm/common'`
+ *
+ * const hardfork: Hardfork = 'shanghai'
+ *
+ * const common = createCommon({
+ *   ...mainnet,
+ *   hardfork,
+ * })
+ * ```
+ * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
 export type Hardfork =
 	| 'chainstart'

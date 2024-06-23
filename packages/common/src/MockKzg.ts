@@ -1,3 +1,23 @@
+/**
+ * The interface of the custom crypto for kzg implemented by `createMockKzg``
+ * The real kzg commitmenet is over 500kb added to bundle size
+ * so this is useful alternative for smaller bundles and the default
+ * @example
+ * ```typescript
+ * import { createCommon, createMockKzg, mainnet, type MockKzg } from 'tevm/common'
+ *
+ * const kzg: MockKzg = createMockKzg()
+ *
+ * const common = createCommon({
+ *   ...mainnet,
+ *   customCrypto: {
+ *     kzg:,
+ *   },
+ * })
+ * ```
+ * @see [createMockKzg](https://tevm.sh/reference/tevm/common/functions/createmockkzg/)
+ * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+ */
 export type MockKzg = {
 	loadTrustedSetup: (trustedSetup?: any) => number
 	freeTrustedSetup: () => void

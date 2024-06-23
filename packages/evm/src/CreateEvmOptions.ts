@@ -5,6 +5,35 @@ import type { Predeploy } from '@tevm/predeploys'
 import type { StateManager } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 
+/**
+ * Options for [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
+ * @example
+ * ```typescript
+ * import { createEvm, CreateEvmOptions } from 'tevm/evm'
+ * import { mainnet } from 'tevm/common'
+ * import { createStateManager } from 'tevm/state'
+ * import { createBlockchain } from 'tevm/blockchain'}
+ * import { EthjsAddress } from 'tevm/utils'
+ *
+ * const evm = createEvm({
+ *   common: mainnet.copy(),
+ *   stateManager: createStateManager(),
+ *   blockchain: createBlockchain(),
+ * })
+ *
+ * const result = await evm.runCall({
+ *   to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
+ *   value: 420n,
+ *   skipBalance: true,
+ * })
+ *
+ * console.log(result)
+ * ```
+ * The EVM is normally encapsolated by both `@tevm/vm` Vm, BaseClient, and MemoryClient.
+ * @see [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
+ * @see [BaseClient](https://tevm.sh/reference/tevm/base-client/functions/createbaseclient/)
+ * @see [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
+ */
 export type CreateEvmOptions = {
 	/**
 	 * The logging level to run the evm at. Defaults to 'warn'

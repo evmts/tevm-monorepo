@@ -7,6 +7,36 @@ import type { Evm } from './Evm.js'
  */
 /**
  * Custom precompiles allow you to run arbitrary JavaScript code in the EVM
+ * @example
+ * ```typescript
+ * import { createMemoryClient } from 'tevm'
+ * import { type CustomPrecompile } from 'tevm/evm'
+ * import { definePrecompile, defineCall } from 'tevm'
+ * import { createContract } from 'tevm/contract'
+ *
+ * const precompileContract = createContract({
+ *   name: 'Precompile',
+ *   humanReadableAbi: [
+ *     'function cwd(string) returns (string)',
+ *   ],
+ * })
+ * const customPrecompiles: CustomPrecompile = definePrecompile({
+ *   contract: precompileContract,
+ *   call: defineCall(precompileContract.abi, {
+ *     cwd: async ({ args }) => {
+ *       return {
+ *         returnValue: process.cwd(),
+ *         executionGasUsed: 0n,
+ *       }
+ *     },
+ *   }),
+ * })
+ *
+ * const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles] })
+ * ```
+ * @see [Scripting guide](https://tevm.sh/learn/scripting/)
+ * @see [definePrecompile](https://tevm.sh/reference/tevm/precompiles/functions/defineprecompile/)
+ * @see [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
  */
 export type CustomPrecompile = Exclude<
 	Exclude<Parameters<(typeof Evm)['create']>[0], undefined>['customPrecompiles'],

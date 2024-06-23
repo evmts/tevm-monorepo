@@ -5,6 +5,18 @@ import type { Hardfork } from './Hardfork.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
+ * @example
+ * ```typescript
+ * import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+ *
+ * const opts: CommonOptions = {
+ *   ...mainnet,
+ *   hardfork: 'london',
+ * }
+ *
+ * const common = createCommon(opts)
+ * ````
+ * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
 export type CommonOptions = {
 	/**
@@ -24,6 +36,20 @@ export type CommonOptions = {
 	 * For EIP-4844 support kzg must be passed
 	 * @warning KZG can add a significant amount of bundle size to an app
 	 * In future a stub will be provided that that automatically returns valid without checking the kzg proof
+	 * @example
+	 * ```typescript
+	 * import  { createMemoryClient } from 'tevm'
+	 * import  { mainnet } from 'tevm/common'
+	 * import { createMockKzg } from 'tevm/crypto'
+	 *
+	 * const common = createCommon({
+	 *   ...mainnet,
+	 *   customCrypto: {
+	 *     kzg: createMockKzg(),
+	 *     ...customCrypto,
+	 *   },
+	 * })
+	 * ```
 	 */
 	customCrypto?: CustomCrypto
 } & ViemChain

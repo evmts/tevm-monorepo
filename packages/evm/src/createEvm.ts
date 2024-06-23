@@ -6,6 +6,27 @@ import { Evm } from './Evm.js'
  * Creates the Tevm Evm to execute ethereum bytecode
  * Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
  * @returns A tevm Evm instance with tevm specific defaults
+ * ```typescript
+ * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+ * import { mainnet } from 'tevm/common'
+ * import { createStateManager } from 'tevm/state'
+ * import { createBlockchain } from 'tevm/blockchain'}
+ * import { EthjsAddress } from 'tevm/utils'
+ *
+ * const evm: Evm = createEvm({
+ *   common: mainnet.copy(),
+ *   stateManager: createStateManager(),
+ *   blockchain: createBlockchain(),
+ * })
+ *
+ * const result = await evm.runCall({
+ *   to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
+ *   value: 420n,
+ *   skipBalance: true,
+ * })
+ *
+ * console.log(result)
+ * ```
  */
 export const createEvm = async ({
 	common,
@@ -39,7 +60,7 @@ export const createEvm = async ({
 			enabled: profiler ?? false,
 		},
 	})
-	if (logger.level === 'trace') {
+	if (loggingLevel === 'trace') {
 		// we are hacking ethereumjs logger into working with our logger
 		const evmAny = evm as any
 		evmAny.DEBUG = true
