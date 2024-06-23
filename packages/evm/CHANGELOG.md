@@ -1,5 +1,16 @@
 # @tevm/state
 
+## 2.0.0-next.85
+
+### Patch Changes
+
+- [#1238](https://github.com/evmts/tevm-monorepo/pull/1238) [`8de7d8c`](https://github.com/evmts/tevm-monorepo/commit/8de7d8cab488c61b8c91c62cabb7a428c70beeb1) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with `trace` logger not being properly configured in evm. Now when logging level is set to trace you will see logs from the EVM execution
+
+- Updated dependencies [[`8de7d8c`](https://github.com/evmts/tevm-monorepo/commit/8de7d8cab488c61b8c91c62cabb7a428c70beeb1)]:
+  - @tevm/common@2.0.0-next.85
+  - @tevm/blockchain@2.0.0-next.85
+  - @tevm/state@2.0.0-next.85
+
 ## 2.0.0-next.84
 
 ### Patch Changes
