@@ -6,8 +6,29 @@
 
 # Class: Evm
 
-A wrapper around the EVM to expose some protected functionality of the EVMStateManger
-Ideally we find a way to remove this complexity and replace with a normal `action`
+The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
+provide custom typing to the blockchain or common objects.
+
+## Example
+
+```typescript
+import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+import { mainnet } from 'tevm/common'
+import { createStateManager } from 'tevm/state'
+import { createBlockchain } from 'tevm/blockchain'}
+import { EthjsAddress } from 'tevm/utils'
+
+const evm: Evm = createEvm({
+  common: mainnet.copy(),
+  stateManager: createStateManager(),
+  blockchain: createBlockchain(),
+})
+```
+
+## See
+
+[createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
 
 ## Extends
 
@@ -331,7 +352,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-[packages/evm/src/Evm.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L12)
+[packages/evm/src/Evm.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L27)
 
 ***
 
@@ -367,7 +388,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-[packages/evm/src/Evm.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L11)
+[packages/evm/src/Evm.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L26)
 
 ***
 
