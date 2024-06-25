@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
 
 beforeEach(async () => {
 	mc = createMemoryClient()

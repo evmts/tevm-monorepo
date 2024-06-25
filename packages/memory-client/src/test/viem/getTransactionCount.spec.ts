@@ -5,7 +5,7 @@ import type { Address } from '@tevm/utils'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
 
 beforeEach(async () => {
 	mc = createMemoryClient()

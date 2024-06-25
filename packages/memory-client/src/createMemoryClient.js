@@ -8,7 +8,7 @@ import { createClient, createTransport, publicActions } from 'viem'
 /**
 * Creates a {@link MemoryClient} which is an viem client with an in-memory ethereum client as it's transport.
 * It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
-* @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn} [options]
+* @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn} 
 * @example
 * ```ts
 * import { createMemoryClient } from "tevm"

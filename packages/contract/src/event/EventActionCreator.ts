@@ -18,11 +18,14 @@ import type {
 export type MaybeExtractEventArgsFromAbi<
 	TAbi extends Abi | readonly unknown[] | undefined,
 	TEventName extends string | undefined,
-> = TAbi extends Abi | readonly unknown[]
-	? TEventName extends string
-		? GetEventArgs<TAbi, TEventName>
-		: undefined
-	: undefined
+> = Exclude<
+	TAbi extends Abi | readonly unknown[]
+		? TEventName extends string
+			? GetEventArgs<TAbi, TEventName>
+			: undefined
+		: undefined,
+	readonly unknown[] | Record<string, unknown>
+>
 
 export type ValueOf<T> = T[keyof T]
 
@@ -37,9 +40,9 @@ export type ValueOf<T> = T[keyof T]
  */
 export type EventActionCreator<
 	THumanReadableAbi extends readonly string[],
-	TAddress extends Address | undefined,
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
+	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
 	// for every event in the abi, create an action creator

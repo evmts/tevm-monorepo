@@ -1,6 +1,6 @@
 import * as tsup from 'tsup';
 
-type Target = 'js' | 'node' | 'browser';
+type Target = "js" | "node" | "browser";
 
 declare function createTsUpOptions({ entry, outDir, target, format, }: {
     entry?: string[] | undefined;

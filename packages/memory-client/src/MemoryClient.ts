@@ -52,15 +52,14 @@ import type { Address } from '@tevm/utils'
 *  ```
 */
 export type MemoryClient<
-	TTransport extends Transport,
 	TChain extends Chain | undefined = undefined,
 	TAccountOrAddress extends Account | Address | undefined = undefined,
 > = Prettify<
 	Client<
 		Transport,
-		undefined,
-		undefined,
+		TChain,
+		TAccountOrAddress extends Account ? Account : undefined,
 		TevmRpcSchema,
-		PublicActions<TTransport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
+		PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
 	>
 >

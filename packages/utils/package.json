@@ -65,7 +65,7 @@
 		"@ethereumjs/evm": "^3.0.0",
 		"@ethereumjs/util": "^9.0.3",
 		"@tevm/errors": "workspace:^",
-		"abitype": "^1.0.2"
+		"abitype": "^1.0.4"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

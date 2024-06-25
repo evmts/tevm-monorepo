@@ -4,7 +4,7 @@ import { type Hex, bytesToHex } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
 let deployTxHash: Hex
 
 beforeEach(async () => {
