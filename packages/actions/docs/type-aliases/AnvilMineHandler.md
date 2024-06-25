@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMineHandler
 
-# Type alias: AnvilMineHandler()
+# Type Alias: AnvilMineHandler()
 
 > **AnvilMineHandler**: (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L46)

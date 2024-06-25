@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / SetAccountHandler
 
-# Type alias: SetAccountHandler()
+# Type Alias: SetAccountHandler()
 
 > **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
@@ -30,6 +30,6 @@ await tevm.setAccount({
 
 `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/SetAccountHandlerType.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountHandlerType.ts#L15)

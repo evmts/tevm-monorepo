@@ -8,9 +8,7 @@
 
 > **parseUINT32Safe**\<`TUINT32`\>(`uint32`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT32`\>
 
-Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
-## Type parameters
+## Type Parameters
 
 • **TUINT32** *extends* `bigint`
 
@@ -22,6 +20,6 @@ Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentia
 
 `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT32`\>
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:65](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L65)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDropTransactionHandler
 
-# Type alias: AnvilDropTransactionHandler()
+# Type Alias: AnvilDropTransactionHandler()
 
 > **AnvilDropTransactionHandler**: (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L50)

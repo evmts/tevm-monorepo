@@ -8,9 +8,7 @@
 
 > **parseAddress**\<`TAddress`\>(`address`): `TAddress`
 
-Parses an Address returning the address or throwing an InvalidAddressError if invalid.
-
-## Type parameters
+## Type Parameters
 
 • **TAddress** *extends* \`0x$\{string\}\`
 
@@ -26,10 +24,6 @@ The address to parse.
 
 - The parsed address.
 
-## Throws
-
-- If the address is invalid.
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddress.js#L17)

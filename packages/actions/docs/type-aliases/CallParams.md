@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / CallParams
 
-# Type alias: CallParams\<TThrowOnFail\>
+# Type Alias: CallParams\<TThrowOnFail\>
 
 > **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -31,7 +31,7 @@ const callParams: import('@tevm/api').CallParams = {
 
 ### code?
 
-> `optional` `readonly` **code**: [`Hex`](Hex.md)
+> `readonly` `optional` **code**: [`Hex`](Hex.md)
 
 The encoded code to deploy with for a deployless call. Code is encoded with constructor args unlike `deployedBytecode`.
 
@@ -71,13 +71,13 @@ await client.tevmContract(
 
 ### data?
 
-> `optional` `readonly` **data**: [`Hex`](Hex.md)
+> `readonly` `optional` **data**: [`Hex`](Hex.md)
 
 The input data.
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](Hex.md)
+> `readonly` `optional` **deployedBytecode**: [`Hex`](Hex.md)
 
 The code to put into the state before executing call. If you wish to call the constructor
 use `code` instead.
@@ -94,14 +94,14 @@ await client.tevmCall({
 
 ### salt?
 
-> `optional` `readonly` **salt**: [`Hex`](Hex.md)
+> `readonly` `optional` **salt**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt.
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/CallParams.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L19)

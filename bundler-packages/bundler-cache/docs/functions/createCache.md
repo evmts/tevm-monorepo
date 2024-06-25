@@ -8,8 +8,6 @@
 
 > **createCache**(`cacheDir`, `fs`, `cwd`): [`Cache`](../type-aliases/Cache.md)
 
-Creates a Tevm cache object for reading and writing cached items
-
 ## Parameters
 
 • **cacheDir**: `string`
@@ -22,6 +20,6 @@ Creates a Tevm cache object for reading and writing cached items
 
 [`Cache`](../type-aliases/Cache.md)
 
-## Source
+## Defined in
 
 [createCache.js:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/createCache.js#L14)

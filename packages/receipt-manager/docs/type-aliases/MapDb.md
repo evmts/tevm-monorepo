@@ -4,7 +4,7 @@
 
 [@tevm/receipt-manager](../globals.md) / MapDb
 
-# Type alias: MapDb
+# Type Alias: MapDb
 
 > **MapDb**: `object`
 
@@ -50,6 +50,6 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L20)

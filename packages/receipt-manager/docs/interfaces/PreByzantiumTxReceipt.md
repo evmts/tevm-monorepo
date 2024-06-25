@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
@@ -41,7 +41,7 @@ Cumulative gas used in the block including this tx
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
@@ -57,7 +57,7 @@ Logs emitted
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
 
@@ -69,6 +69,6 @@ Logs emitted
 
 Intermediary state root
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L48)

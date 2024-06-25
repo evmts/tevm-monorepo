@@ -16,6 +16,6 @@
 
 `InvalidRequestError`[]
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/validateLoadStateParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L12)

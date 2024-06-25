@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDropTransactionParams
 
-# Type alias: AnvilDropTransactionParams
+# Type Alias: AnvilDropTransactionParams
 
 > **AnvilDropTransactionParams**: `object`
 
@@ -18,6 +18,6 @@ Params for `anvil_dropTransaction` handler
 
 The transaction hash
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L77)

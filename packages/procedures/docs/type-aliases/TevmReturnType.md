@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / TevmReturnType
 
-# Type alias: TevmReturnType
+# Type Alias: TevmReturnType
 
 > **TevmReturnType**: `object`
 
@@ -42,6 +42,6 @@ A mapping of `tevm_*` method names to their return type
 
 > **tevm\_setAccount**: [`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmReturnType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmReturnType.ts#L12)

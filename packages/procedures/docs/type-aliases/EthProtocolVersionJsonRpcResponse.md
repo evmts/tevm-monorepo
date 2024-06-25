@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / EthProtocolVersionJsonRpcResponse
 
-# Type alias: EthProtocolVersionJsonRpcResponse
+# Type Alias: EthProtocolVersionJsonRpcResponse
 
 > **EthProtocolVersionJsonRpcResponse**: `JsonRpcResponse`\<`"eth_protocolVersion"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:238](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L238)

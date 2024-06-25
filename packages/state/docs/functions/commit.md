@@ -27,6 +27,8 @@ Commits the current state.
 
 • **createNewStateRoot?**: `boolean`
 
+**`Experimental`**
+
 Whether to create a new state root
 Defaults to true.
 This api is not stable
@@ -35,6 +37,6 @@ This api is not stable
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/commit.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L11)

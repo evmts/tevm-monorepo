@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / SetAccountJsonRpcProcedure
 
-# Type alias: SetAccountJsonRpcProcedure()
+# Type Alias: SetAccountJsonRpcProcedure()
 
 > **SetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 `Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/setaccount/SetAccountJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/setaccount/SetAccountJsonRpcProcedure.ts#L7)

@@ -10,7 +10,7 @@
 
 // I manually updated this
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`, `number`]
 
@@ -22,6 +22,6 @@
 
 `Effect`\<`never`, `Error`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/address/getAddressEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/address/getAddressEffect.js#L8)

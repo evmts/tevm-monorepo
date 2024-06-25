@@ -8,7 +8,7 @@
 
 > **fromHexEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `FromHexErrorType`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`, `FromHexParameters`\<`"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `FromHexErrorType`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/encoding/fromHexEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/fromHexEffect.js#L7)

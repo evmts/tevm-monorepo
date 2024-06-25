@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / MineJsonRpcResponse
 
-# Type alias: MineJsonRpcResponse
+# Type Alias: MineJsonRpcResponse
 
 > **MineJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_mine"`, [`SerializeToJson`](SerializeToJson.md)\<`MineResult`\>, `TevmMineError`\[`"code"`\]\>
 
 JSON-RPC response for `tevm_mine` method
 
-## Source
+## Defined in
 
 [procedures/src/mine/MineJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcResponse.ts#L9)

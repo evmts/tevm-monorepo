@@ -8,7 +8,7 @@
 
 > **getEventSelectorEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetEventSelectorErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string` \| `AbiEvent`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetEventSelectorErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/hash/getEventSelectorEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/getEventSelectorEffect.js#L7)

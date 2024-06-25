@@ -4,10 +4,10 @@
 
 [@tevm/procedures](../globals.md) / JsonSerializable
 
-# Type alias: JsonSerializable
+# Type Alias: JsonSerializable
 
 > **JsonSerializable**: `bigint` \| `string` \| `number` \| `boolean` \| `null` \| [`JsonSerializableArray`](JsonSerializableArray.md) \| [`JsonSerializableObject`](JsonSerializableObject.md) \| [`JsonSerializableSet`](JsonSerializableSet.md) \| `Error` & `object`
 
-## Source
+## Defined in
 
 [procedures/src/utils/SerializeToJson.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L4)

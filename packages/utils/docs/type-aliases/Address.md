@@ -4,10 +4,10 @@
 
 [@tevm/utils](../globals.md) / Address
 
-# Type alias: Address
+# Type Alias: Address
 
-> **Address**: `ResolvedRegister`\[`"AddressType"`\]
+> **Address**: `ResolvedRegister`\[`"addressType"`\]
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:3
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:3

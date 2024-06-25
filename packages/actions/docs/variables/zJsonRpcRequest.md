@@ -28,6 +28,6 @@ Zod validator for a valid JsonRpcRequest
 
 > **params**: `ZodOptional`\<`ZodUnion`\<[`ZodRecord`\<`ZodString`, `ZodAny`\>, `ZodArray`\<`ZodAny`, `"many"`\>]\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zJsonRpcRequest.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zJsonRpcRequest.js#L6)

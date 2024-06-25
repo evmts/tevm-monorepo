@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / EVMProfilerOpts
 
-# Type alias: EVMProfilerOpts
+# Type Alias: EVMProfilerOpts
 
 > **EVMProfilerOpts**: `object`
 
@@ -14,6 +14,6 @@
 
 > **enabled**: `boolean`
 
-## Source
+## Defined in
 
 [packages/vm/src/utils/types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L70)

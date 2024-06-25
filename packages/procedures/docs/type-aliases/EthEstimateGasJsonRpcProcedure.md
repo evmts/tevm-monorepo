@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthEstimateGasJsonRpcProcedure
 
-# Type alias: EthEstimateGasJsonRpcProcedure()
+# Type Alias: EthEstimateGasJsonRpcProcedure()
 
 > **EthEstimateGasJsonRpcProcedure**: (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L95)

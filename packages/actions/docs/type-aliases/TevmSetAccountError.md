@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / TevmSetAccountError
 
-# Type alias: TevmSetAccountError
+# Type Alias: TevmSetAccountError
 
 > **TevmSetAccountError**: [`ValidateSetAccountParamsError`](ValidateSetAccountParamsError.md) \| `InternalError`
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/TevmSetAccountError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/TevmSetAccountError.ts#L4)

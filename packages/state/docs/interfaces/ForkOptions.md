@@ -12,7 +12,7 @@
 
 > `optional` **blockTag**: `bigint` \| `BlockTag`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/ForkOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L6)
 
@@ -26,6 +26,6 @@
 
 > **request**: `EIP1193RequestFn`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/ForkOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L5)

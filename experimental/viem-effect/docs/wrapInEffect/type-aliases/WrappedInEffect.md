@@ -4,17 +4,17 @@
 
 [@tevm/viem-effect](../../modules.md) / [wrapInEffect](../README.md) / WrappedInEffect
 
-# Type alias: WrappedInEffect()\<TViemFunction, TErrorType\>
+# Type Alias: WrappedInEffect()\<TViemFunction, TErrorType\>
 
 > **WrappedInEffect**\<`TViemFunction`, `TErrorType`\>: \<`TParams`\>(...`args`) => `Effect.Effect`\<`never`, `TErrorType`, `TViemFunction` *extends* [`AnyAsyncFunction`](../../types/type-aliases/AnyAsyncFunction.md) ? `Awaited`\<`ReturnType`\<`TViemFunction`\>\> : `ReturnType`\<`TViemFunction`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TViemFunction** *extends* [`AnyFunction`](../../types/type-aliases/AnyFunction.md)
 
 • **TErrorType** *extends* `Error`
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* `Parameters`\<`TViemFunction`\>
 
@@ -26,6 +26,6 @@
 
 `Effect.Effect`\<`never`, `TErrorType`, `TViemFunction` *extends* [`AnyAsyncFunction`](../../types/type-aliases/AnyAsyncFunction.md) ? `Awaited`\<`ReturnType`\<`TViemFunction`\>\> : `ReturnType`\<`TViemFunction`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/wrapInEffect.d.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L11)

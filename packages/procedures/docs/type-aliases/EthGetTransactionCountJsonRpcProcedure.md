@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetTransactionCountJsonRpcProcedure
 
-# Type alias: EthGetTransactionCountJsonRpcProcedure()
+# Type Alias: EthGetTransactionCountJsonRpcProcedure()
 
 > **EthGetTransactionCountJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L139)

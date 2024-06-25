@@ -8,8 +8,6 @@
 
 > **mineProcedure**(`client`): [`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)
 
-Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereumjs VM
-
 ## Parameters
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
@@ -18,6 +16,6 @@ Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereum
 
 [`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 [procedures/src/mine/mineProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/mineProcedure.js#L9)

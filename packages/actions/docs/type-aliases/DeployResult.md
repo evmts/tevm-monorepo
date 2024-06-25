@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / DeployResult
 
-# Type alias: DeployResult
+# Type Alias: DeployResult
 
 > **DeployResult**: [`CallResult`](CallResult.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/Deploy/DeployResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L3)

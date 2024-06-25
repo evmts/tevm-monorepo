@@ -4,7 +4,7 @@
 
 [@tevm/tx](../globals.md) / AccessListItem
 
-# Type alias: AccessListItem
+# Type Alias: AccessListItem
 
 > **AccessListItem**: `object`
 
@@ -18,6 +18,6 @@
 
 > **storageKeys**: `PrefixedHexString`[]
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:45

@@ -8,7 +8,7 @@
 
 > **stringifyEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `StringifyErrorType`, `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`any`, `null` \| (`string` \| `number`)[], `string` \| `number`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `StringifyErrorType`, `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/stringifyEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/stringifyEffect.js#L7)

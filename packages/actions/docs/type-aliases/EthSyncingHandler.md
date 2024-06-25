@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSyncingHandler
 
-# Type alias: EthSyncingHandler()
+# Type Alias: EthSyncingHandler()
 
 > **EthSyncingHandler**: (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L173)

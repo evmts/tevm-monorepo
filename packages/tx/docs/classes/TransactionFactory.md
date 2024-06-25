@@ -6,20 +6,6 @@
 
 # Class: TransactionFactory
 
-## Constructors
-
-### new TransactionFactory()
-
-> `private` **new TransactionFactory**(): [`TransactionFactory`](TransactionFactory.md)
-
-#### Returns
-
-[`TransactionFactory`](TransactionFactory.md)
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:9
-
 ## Methods
 
 ### fromBlockBodyData()
@@ -45,7 +31,7 @@ The transaction options
 
 [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:33
 
@@ -77,7 +63,7 @@ The transaction options
 
 the transaction specified by `txHash`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:41
 
@@ -90,7 +76,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 Method to decode data retrieved from RPC, such as `eth_getTransactionByHash`
 Note that this normalizes some of the parameters
 
-#### Type parameters
+#### Type Parameters
 
 • **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
@@ -108,7 +94,7 @@ The transaction options
 
 `Promise`\<`Transaction`\[`T`\]\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:49
 
@@ -120,7 +106,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 This method tries to decode serialized data.
 
-#### Type parameters
+#### Type Parameters
 
 • **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
@@ -138,7 +124,7 @@ The transaction options
 
 `Transaction`\[`T`\]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:23
 
@@ -150,7 +136,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 Create a transaction from a `txData` object
 
-#### Type parameters
+#### Type Parameters
 
 • **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
@@ -168,6 +154,6 @@ Options to pass on to the constructor of the transaction
 
 `Transaction`\[`T`\]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:16

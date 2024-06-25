@@ -8,7 +8,7 @@
 
 > **getEventSignatureEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetEventSignatureErrorType`, `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string` \| `AbiEvent`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetEventSignatureErrorType`, `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/hash/getEventSignatureEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/getEventSignatureEffect.js#L7)

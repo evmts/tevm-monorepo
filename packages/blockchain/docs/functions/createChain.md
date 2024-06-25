@@ -16,6 +16,6 @@
 
 `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
 
-## Source
+## Defined in
 
 [createChain.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L15)

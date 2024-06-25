@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetNonceParams
 
-# Type alias: AnvilSetNonceParams
+# Type Alias: AnvilSetNonceParams
 
 > **AnvilSetNonceParams**: `object`
 
@@ -24,6 +24,6 @@ The address to set the nonce for
 
 The nonce to set
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L118)

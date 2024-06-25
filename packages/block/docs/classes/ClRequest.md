@@ -26,7 +26,7 @@
 
 [`ClRequest`](ClRequest.md)
 
-#### Source
+#### Defined in
 
 [ClRequest.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L21)
 
@@ -40,7 +40,7 @@
 
 `CLRequestType.bytes`
 
-#### Source
+#### Defined in
 
 [ClRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L20)
 
@@ -54,7 +54,7 @@
 
 `CLRequestType.type`
 
-#### Source
+#### Defined in
 
 [ClRequest.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L19)
 
@@ -72,6 +72,6 @@
 
 `CLRequestType.serialize`
 
-#### Source
+#### Defined in
 
 [ClRequest.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L27)

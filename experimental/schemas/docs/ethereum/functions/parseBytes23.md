@@ -8,9 +8,7 @@
 
 > **parseBytes23**\<`TBytes23`\>(`bytes23`): `TBytes23`
 
-Parses a Bytes23 and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TBytes23** *extends* \`0x$\{string\}\`
 
@@ -22,13 +20,6 @@ Parses a Bytes23 and returns the value if no errors.
 
 `TBytes23`
 
-## Example
-
-```ts
-import { parseBytes23 } from '@tevm/schemas';
-const parsedBytes23 = parseBytes23('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc');
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:382](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L382)

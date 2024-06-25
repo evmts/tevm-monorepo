@@ -4,12 +4,12 @@
 
 [@tevm/utils](../globals.md) / EthjsLog
 
-# Type alias: EthjsLog
+# Type Alias: EthjsLog
 
 > **EthjsLog**: [`Uint8Array`, `Uint8Array`[], `Uint8Array`]
 
 Log that the contract emits.
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:299

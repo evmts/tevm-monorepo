@@ -29,27 +29,17 @@ Use the static factory methods to assist in creating an Account from varying dat
 
 [`EthjsAccount`](EthjsAccount.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:21
 
 ## Properties
 
-### \_validate
-
-> `private` **\_validate**: `any`
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:22
-
-***
-
 ### balance
 
 > **balance**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:11
 
@@ -59,7 +49,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **codeHash**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:13
 
@@ -69,7 +59,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **nonce**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:10
 
@@ -79,7 +69,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **storageRoot**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:12
 
@@ -95,7 +85,7 @@ Returns a `Boolean` determining if the account is a contract.
 
 `boolean`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
 
@@ -113,7 +103,7 @@ account emptiness in [EIP-161](https://eips.ethereum.org/EIPS/eip-161):
 
 `boolean`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
 
@@ -129,7 +119,7 @@ Returns an array of Uint8Arrays of the raw bytes for the account, in order.
 
 `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:26
 
@@ -145,7 +135,7 @@ Returns the RLP serialization of the account as a `Uint8Array`.
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
 
@@ -163,7 +153,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 [`EthjsAccount`](EthjsAccount.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:14
 
@@ -181,7 +171,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 [`EthjsAccount`](EthjsAccount.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:15
 
@@ -199,6 +189,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 [`EthjsAccount`](EthjsAccount.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:16

@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / NetworkSync
 
-# Type alias: NetworkSync
+# Type Alias: NetworkSync
 
 > **NetworkSync**: `object`
 
@@ -28,6 +28,6 @@ Number of latest block on the network
 
 Block number at which syncing started
 
-## Source
+## Defined in
 
 [eip1193/NetworkSync.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L11)

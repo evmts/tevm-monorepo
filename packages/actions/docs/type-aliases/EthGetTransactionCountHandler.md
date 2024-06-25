@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionCountHandler
 
-# Type alias: EthGetTransactionCountHandler()
+# Type Alias: EthGetTransactionCountHandler()
 
 > **EthGetTransactionCountHandler**: (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L123)

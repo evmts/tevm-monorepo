@@ -8,6 +8,6 @@
 
 > `const` **testAccounts**: [`HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`]
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/utils/testAccounts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/utils/testAccounts.js#L7)

@@ -10,7 +10,7 @@
 
 I manually updated this
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`EncodeEventTopicsParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
 
@@ -22,6 +22,6 @@ I manually updated this
 
 `Effect`\<`never`, `EncodeErrorResultErrorType`, \`0x$\{string\}\`[]\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/encodeEventTopicsEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeEventTopicsEffect.js#L8)

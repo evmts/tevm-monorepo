@@ -8,7 +8,7 @@
 
 > **encodeAbiParametersEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeAbiParametersErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [readonly `unknown`[] \| readonly `AbiParameter`[], readonly `unknown`[]]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `EncodeAbiParametersErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/encodeAbiParametersEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeAbiParametersEffect.js#L7)

@@ -4,26 +4,26 @@
 
 [@tevm/utils](../globals.md) / ExtractAbiFunction
 
-# Type alias: ExtractAbiFunction\<TAbi, TFunctionName, TAbiStateMutability\>
+# Type Alias: ExtractAbiFunction\<abi, functionName, abiStateMutability\>
 
-> **ExtractAbiFunction**\<`TAbi`, `TFunctionName`, `TAbiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`TAbi`, `TAbiStateMutability`\>, `object`\>
+> **ExtractAbiFunction**\<`abi`, `functionName`, `abiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>, `object`\>
 
 Extracts [AbiFunction](AbiFunction.md) with name from [Abi](Abi.md).
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](Abi.md)
+• **abi** *extends* [`Abi`](Abi.md)
 
 [Abi](Abi.md) to extract [AbiFunction](AbiFunction.md) from
 
-• **TFunctionName** *extends* [`ExtractAbiFunctionNames`](ExtractAbiFunctionNames.md)\<`TAbi`\>
+• **functionName** *extends* [`ExtractAbiFunctionNames`](ExtractAbiFunctionNames.md)\<`abi`\>
 
 String name of function to extract from [Abi](Abi.md)
 
-• **TAbiStateMutability** *extends* `AbiStateMutability` = `AbiStateMutability`
+• **abiStateMutability** *extends* `AbiStateMutability` = `AbiStateMutability`
 
 AbiStateMutability to filter by
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:123
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:123

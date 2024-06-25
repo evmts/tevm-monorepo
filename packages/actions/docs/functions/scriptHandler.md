@@ -12,7 +12,7 @@
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
-• **options?**= `{}`
+• **options?** = `{}`
 
 • **options.throwOnFail?**: `undefined` \| `boolean`
 
@@ -22,11 +22,6 @@ whether to default to throwing or not when errors occur
 
 [`ScriptHandler`](../type-aliases/ScriptHandler.md)
 
-## Deprecated
-
-can use `contractHandler` instead
-Creates an ScriptHandler for handling script params with Ethereumjs EVM
-
-## Source
+## Defined in
 
 [packages/actions/src/Script/scriptHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/scriptHandler.js#L12)

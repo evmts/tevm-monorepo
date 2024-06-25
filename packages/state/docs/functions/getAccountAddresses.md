@@ -22,6 +22,6 @@
 
 \`0x$\{string\}\`[]
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getAccountAddresses.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccountAddresses.js#L4)

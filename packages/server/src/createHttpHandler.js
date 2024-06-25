@@ -6,7 +6,7 @@ import { InternalError, InvalidRequestError } from '@tevm/errors'
 * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
 * Any unimplemented methods will be proxied to the given proxyUrl
 * This handler works for any server that supports the Node.js http module
-* @param {import('@tevm/memory-client').MemoryClient} client
+* @param {import('@tevm/memory-client').MemoryClient<any, any>} client
 * @returns {import('http').RequestListener}
 * @throws {never}
 * @example

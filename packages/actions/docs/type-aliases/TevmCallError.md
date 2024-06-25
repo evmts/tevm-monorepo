@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / TevmCallError
 
-# Type alias: TevmCallError
+# Type Alias: TevmCallError
 
 > **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| [`ValidateCallParamsError`](ValidateCallParamsError.md) \| `HandleRunTxError` \| `ExecuteCallError` \| `InternalError`
 
@@ -55,6 +55,6 @@ try {
 }
 ```
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/TevmCallError.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/TevmCallError.ts#L53)

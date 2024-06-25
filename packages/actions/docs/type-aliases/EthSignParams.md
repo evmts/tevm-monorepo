@@ -4,11 +4,11 @@
 
 [@tevm/actions](../globals.md) / EthSignParams
 
-# Type alias: EthSignParams
-
-`Experimental`
+# Type Alias: EthSignParams
 
 > **EthSignParams**: `object`
+
+**`Experimental`**
 
 Based on the JSON-RPC request for `eth_sign` procedure
 
@@ -18,10 +18,14 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
+**`Experimental`**
+
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-## Source
+**`Experimental`**
+
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)

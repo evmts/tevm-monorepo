@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / ScriptResult
 
-# Type alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
+# Type Alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`, `TErrorType`\>
 
@@ -12,7 +12,7 @@
 
 Can use `ContractResult` instead
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
 
@@ -20,6 +20,6 @@ Can use `ContractResult` instead
 
 • **TErrorType** = [`TevmScriptError`](TevmScriptError.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

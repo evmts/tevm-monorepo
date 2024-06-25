@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetFilterLogsHandler
 
-# Type alias: EthGetFilterLogsHandler()
+# Type Alias: EthGetFilterLogsHandler()
 
 > **EthGetFilterLogsHandler**: (`request`) => `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L117)

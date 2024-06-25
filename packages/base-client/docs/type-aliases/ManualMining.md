@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / ManualMining
 
-# Type alias: ManualMining
+# Type Alias: ManualMining
 
 > **ManualMining**: `object`
 
@@ -14,6 +14,6 @@
 
 > **type**: `"manual"`
 
-## Source
+## Defined in
 
 [packages/base-client/src/MiningConfig.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L5)

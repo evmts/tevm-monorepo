@@ -8,9 +8,6 @@
 
 > **createLogger**(`options`): [`Logger`](../type-aliases/Logger.md)
 
-Creates a tevm logger instance
-Wraps [pino](https://github.com/pinojs/pino/blob/master/docs/api.md)
-
 ## Parameters
 
 • **options**: [`LogOptions`](../type-aliases/LogOptions.md)
@@ -21,6 +18,6 @@ Wraps [pino](https://github.com/pinojs/pino/blob/master/docs/api.md)
 
 A logger instance
 
-## Source
+## Defined in
 
 [createLogger.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/createLogger.js#L9)

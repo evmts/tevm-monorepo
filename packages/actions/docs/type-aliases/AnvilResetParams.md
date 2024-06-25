@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilResetParams
 
-# Type alias: AnvilResetParams
+# Type Alias: AnvilResetParams
 
 > **AnvilResetParams**: `object`
 
@@ -18,16 +18,16 @@ Params for `anvil_reset` handler
 
 ### fork.block?
 
-> `optional` `readonly` **block**: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
+> `readonly` `optional` **block**: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
 
 The block number
 
 ### fork.url?
 
-> `optional` `readonly` **url**: `string`
+> `readonly` `optional` **url**: `string`
 
 The url to fork if forking
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L60)

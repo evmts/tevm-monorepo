@@ -8,7 +8,7 @@
 
 > **toAccountEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ToAccountErrorType`, `GetAccountReturnType`\<`AccountSource`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`AccountSource`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ToAccountErrorType`, `GetAccountReturnType`\<`AccountSource`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/toAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/toAccountEffect.js#L7)

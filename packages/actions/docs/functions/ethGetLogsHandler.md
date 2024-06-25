@@ -16,6 +16,6 @@
 
 [`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/ethGetLogsHandler.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L60)

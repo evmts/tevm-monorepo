@@ -8,7 +8,7 @@
 
 > **decodeFunctionResultEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `DecodeFunctionResultErrorType`, `unknown`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`DecodeFunctionResultParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `DecodeFunctionResultErrorType`, `unknown`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/decodeFunctionResultEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeFunctionResultEffect.js#L7)

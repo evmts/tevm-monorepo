@@ -8,9 +8,7 @@
 
 > **parseBytes4Safe**\<`TBytes4`\>(`bytes4`): `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes4`\>
 
-Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
-## Type parameters
+## Type Parameters
 
 • **TBytes4**
 
@@ -24,6 +22,6 @@ extends string
 
 `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes4`\>
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:124](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L124)

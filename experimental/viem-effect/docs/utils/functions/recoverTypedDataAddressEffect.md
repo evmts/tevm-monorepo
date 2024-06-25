@@ -8,7 +8,7 @@
 
 > **recoverTypedDataAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `RecoverTypedDataAddressErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`RecoverTypedDataAddressParameters`\<`object` \| `object`, `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `RecoverTypedDataAddressErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/recoverTypedDataAddressEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/recoverTypedDataAddressEffect.js#L7)

@@ -10,7 +10,7 @@
 
 Type guard that returns true if an address book is a valid address
 
-## Type parameters
+## Type Parameters
 
 • **TContractNames** *extends* `string`
 
@@ -22,6 +22,6 @@ Type guard that returns true if an address book is a valid address
 
 `addressBook is AddressBook<TContractNames>`
 
-## Source
+## Defined in
 
 [experimental/schemas/src/tevm/SAddressBook.js:38](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L38)

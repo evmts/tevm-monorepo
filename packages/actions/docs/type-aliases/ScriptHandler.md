@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / ScriptHandler
 
-# Type alias: ~~ScriptHandler()~~
+# Type Alias: ~~ScriptHandler()~~
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
@@ -35,7 +35,7 @@ const res = tevm.script(
 )
 ```
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -49,6 +49,6 @@ const res = tevm.script(
 
 `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

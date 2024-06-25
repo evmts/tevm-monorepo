@@ -42,7 +42,6 @@
 - [generateCanonicalGenesis](functions/generateCanonicalGenesis.md)
 - [getAccount](functions/getAccount.md)
 - [getAccountAddresses](functions/getAccountAddresses.md)
-- [getAccountFromProvider](functions/getAccountFromProvider.md)
 - [getAppliedKey](functions/getAppliedKey.md)
 - [getContractCode](functions/getContractCode.md)
 - [getContractStorage](functions/getContractStorage.md)

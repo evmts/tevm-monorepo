@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { createMemoryClient } from '../index.js'
-import { privateKeyToAccount } from 'viem/accounts'
 import { walletActions } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { createMemoryClient } from '../index.js'
 
 const TEVM_TEST_ACCOUNTS = ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'] as const
 

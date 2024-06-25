@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / AddEthereumChainParameter
 
-# Type alias: AddEthereumChainParameter
+# Type Alias: AddEthereumChainParameter
 
 > **AddEthereumChainParameter**: `object`
 
@@ -52,6 +52,6 @@ Native currency for the chain.
 
 > **rpcUrls**: readonly `string`[]
 
-## Source
+## Defined in
 
 [eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)

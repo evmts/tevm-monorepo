@@ -8,7 +8,7 @@
 
 > **getContractAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `never`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`GetContractAddressOptions`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `never`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/address/getContractAddressEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/address/getContractAddressEffect.js#L7)

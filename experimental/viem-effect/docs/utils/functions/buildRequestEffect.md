@@ -8,7 +8,7 @@
 
 > **buildRequestEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `never`, (`args`) => `Promise`\<`any`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [(`args`) => `Promise`\<`any`\>, `Object?`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `never`, (`args`) => `Promise`\<`any`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/buildRequestEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/buildRequestEffect.js#L7)

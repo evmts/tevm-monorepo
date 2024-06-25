@@ -4,17 +4,17 @@
 
 [@tevm/utils](../globals.md) / SerializeToJson
 
-# Type alias: SerializeToJson\<T\>
+# Type Alias: SerializeToJson\<T\>
 
 > **SerializeToJson**\<`T`\>: `T` *extends* [`JsonSerializableSet`](JsonSerializableSet.md)\<infer S\> ? `ReadonlyArray`\<`S`\> : `T` *extends* [`JsonSerializableObject`](JsonSerializableObject.md) ? `{ [P in keyof T]: SerializeToJson<T[P]> }` : `T` *extends* [`JsonSerializableArray`](JsonSerializableArray.md) ? [`SerializeToJson`](SerializeToJson.md)\<`T`\[`number`\]\>[] : [`BigIntToHex`](BigIntToHex.md)\<[`SetToHex`](SetToHex.md)\<`T`\>\>
 
 A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
 It replaces bigint with hex strings and sets with arrays.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L44)

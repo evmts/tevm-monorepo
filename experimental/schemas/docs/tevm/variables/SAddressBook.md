@@ -10,6 +10,6 @@
 
 [Effect schema](https://github.com/Effect-TS/schema) for the AddressBook type.
 
-## Source
+## Defined in
 
 [experimental/schemas/src/tevm/SAddressBook.js:46](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L46)

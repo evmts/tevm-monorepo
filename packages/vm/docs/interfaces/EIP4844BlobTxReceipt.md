@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`bitvector`](PostByzantiumTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L24)
 
@@ -40,7 +40,7 @@ blob gas price for block transaction was included in
 Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L67)
 
@@ -55,7 +55,7 @@ blob gas consumed by a transaction
 Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L60)
 
@@ -71,7 +71,7 @@ Cumulative gas used in the block including this tx
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`cumulativeBlockGasUsed`](PostByzantiumTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L20)
 
@@ -87,7 +87,7 @@ Logs emitted
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`logs`](PostByzantiumTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L28)
 
@@ -103,6 +103,6 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`status`](PostByzantiumTxReceipt.md#status)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L50)

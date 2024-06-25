@@ -35,6 +35,6 @@ If it is empty or filled with zeros, deletes the value.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/putContractStorage.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L21)

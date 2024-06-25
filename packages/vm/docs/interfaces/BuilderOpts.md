@@ -29,7 +29,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 `BlockOptions.calcDifficultyFromHeader`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:42
 
@@ -46,7 +46,7 @@ Will throw if provided on a non-PoA chain.
 
 `BlockOptions.cliqueSigner`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:59
 
@@ -70,7 +70,7 @@ Current default hardfork: `merge`
 
 `BlockOptions.common`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:23
 
@@ -84,7 +84,7 @@ packages/block/types/types.d.ts:23
 
 `BlockOptions.executionWitness`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:64
 
@@ -108,7 +108,7 @@ Default: true
 
 `BlockOptions.freeze`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:54
 
@@ -126,7 +126,7 @@ the underlying blockchain.
 
 Default: true
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L174)
 
@@ -148,7 +148,7 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 `BlockOptions.setHardfork`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:33
 
@@ -164,6 +164,6 @@ Skip consensus format validation checks on header if set. Defaults to false.
 
 `BlockOptions.skipConsensusFormatValidation`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:63

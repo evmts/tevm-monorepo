@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcModelChecker
 
-# Type alias: SolcModelChecker
+# Type Alias: SolcModelChecker
 
 > **SolcModelChecker**: `object`
 
@@ -54,6 +54,6 @@
 
 > `optional` **timeout**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L165)

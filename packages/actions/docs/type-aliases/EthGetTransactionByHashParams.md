@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionByHashParams
 
-# Type alias: EthGetTransactionByHashParams
+# Type Alias: EthGetTransactionByHashParams
 
 > **EthGetTransactionByHashParams**: `object`
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L177)

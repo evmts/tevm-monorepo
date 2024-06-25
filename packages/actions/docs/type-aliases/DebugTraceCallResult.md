@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugTraceCallResult
 
-# Type alias: DebugTraceCallResult
+# Type Alias: DebugTraceCallResult
 
 > **DebugTraceCallResult**: `object`
 
@@ -26,6 +26,6 @@
 
 > **structLogs**: [`StructLog`](StructLog.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/debug/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)

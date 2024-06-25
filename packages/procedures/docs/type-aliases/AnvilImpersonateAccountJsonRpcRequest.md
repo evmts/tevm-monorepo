@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / AnvilImpersonateAccountJsonRpcRequest
 
-# Type alias: AnvilImpersonateAccountJsonRpcRequest
+# Type Alias: AnvilImpersonateAccountJsonRpcRequest
 
 > **AnvilImpersonateAccountJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_impersonateAccount"`, [`Address`]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcRequest.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L16)

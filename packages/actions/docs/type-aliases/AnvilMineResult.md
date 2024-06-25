@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / AnvilMineResult
 
-# Type alias: AnvilMineResult
+# Type Alias: AnvilMineResult
 
 > **AnvilMineResult**: `null`
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L13)

@@ -17,6 +17,6 @@ import { Schema } from '@effect/schema/Schema';
 export const SUrl: Schema<string, Url>;
 ```
 
-## Source
+## Defined in
 
 [experimental/schemas/src/common/SUrl.js:51](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L51)

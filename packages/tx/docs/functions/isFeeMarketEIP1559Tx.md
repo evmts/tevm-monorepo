@@ -16,6 +16,6 @@
 
 `tx is FeeMarketEIP1559Transaction`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:95

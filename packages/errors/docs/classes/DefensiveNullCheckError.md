@@ -52,15 +52,15 @@ Constructs a DefensiveNullCheckError.
 
 #### Parameters
 
-• **message?**: `string`= `'Defensive null check error occurred.'`
+• **message?**: `string` = `'Defensive null check error occurred.'`
 
 Human-readable error message.
 
-• **args?**: [`DefensiveNullCheckErrorParameters`](../interfaces/DefensiveNullCheckErrorParameters.md)= `{}`
+• **args?**: [`DefensiveNullCheckErrorParameters`](../interfaces/DefensiveNullCheckErrorParameters.md) = `{}`
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string`= `'DefensiveNullCheckError'`
+• **tag?**: `string` = `'DefensiveNullCheckError'`
 
 The tag for the error.
 
@@ -72,7 +72,7 @@ The tag for the error.
 
 [`InternalError`](InternalError.md).[`constructor`](InternalError.md#constructors)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/defensive/DefensiveNullCheckError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L57)
 
@@ -88,7 +88,7 @@ Same as name, used internally.
 
 [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
@@ -102,7 +102,7 @@ Same as name, used internally.
 
 [`InternalError`](InternalError.md).[`cause`](InternalError.md#cause)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
@@ -118,7 +118,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
@@ -132,7 +132,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`InternalError`](InternalError.md).[`details`](InternalError.md#details)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
@@ -148,7 +148,7 @@ Path to the documentation for this error.
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
@@ -164,9 +164,9 @@ Human-readable error message.
 
 [`InternalError`](InternalError.md).[`message`](InternalError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -180,7 +180,7 @@ Optional object containing additional information about the error.
 
 [`InternalError`](InternalError.md).[`meta`](InternalError.md#meta)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/InternalErrorError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L64)
 
@@ -196,7 +196,7 @@ Additional meta messages for more context.
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
@@ -212,9 +212,9 @@ The name of the error, used to discriminate errors.
 
 [`InternalError`](InternalError.md).[`name`](InternalError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -226,7 +226,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InternalError`](InternalError.md).[`shortMessage`](InternalError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
@@ -240,9 +240,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InternalError`](InternalError.md).[`stack`](InternalError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -254,7 +254,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InternalError`](InternalError.md).[`version`](InternalError.md#version)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
@@ -284,9 +284,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`InternalError`](InternalError.md).[`prepareStackTrace`](InternalError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -298,9 +298,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`InternalError`](InternalError.md).[`stackTraceLimit`](InternalError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -326,7 +326,7 @@ The first error that matches the function, or the original error.
 
 [`InternalError`](InternalError.md).[`walk`](InternalError.md#walk)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
@@ -354,9 +354,9 @@ Create .stack property on a target object
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -378,6 +378,30 @@ Create .stack property on a target object
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

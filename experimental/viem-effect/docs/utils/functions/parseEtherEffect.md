@@ -8,7 +8,7 @@
 
 > **parseEtherEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ParseEtherErrorType`, `bigint`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`, `"wei"` \| `"gwei"`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ParseEtherErrorType`, `bigint`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/unit/parseEtherEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/parseEtherEffect.js#L7)

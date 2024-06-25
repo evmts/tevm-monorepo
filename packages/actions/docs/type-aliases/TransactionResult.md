@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / TransactionResult
 
-# Type alias: TransactionResult
+# Type Alias: TransactionResult
 
 > **TransactionResult**: `object`
 
@@ -69,6 +69,6 @@ json rpc procedures
 
 > `readonly` **value**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/common/TransactionResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L7)

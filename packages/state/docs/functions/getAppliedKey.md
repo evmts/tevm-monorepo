@@ -18,11 +18,6 @@
 
 `undefined` \| (`address`) => `Uint8Array`
 
-## Deprecated
-
-Returns the applied key for a given address
-Used for saving preimages
-
-## Source
+## Defined in
 
 [packages/state/src/actions/getAppliedKey.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAppliedKey.js#L9)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetStorageAtParams
 
-# Type alias: EthGetStorageAtParams
+# Type Alias: EthGetStorageAtParams
 
 > **EthGetStorageAtParams**: `object`
 
@@ -18,12 +18,12 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
 ### position
 
 > `readonly` **position**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L150)

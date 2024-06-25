@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / AnvilImpersonateAccountResult
 
-# Type alias: AnvilImpersonateAccountResult
+# Type Alias: AnvilImpersonateAccountResult
 
 > **AnvilImpersonateAccountResult**: `null`
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L4)

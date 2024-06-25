@@ -6,9 +6,9 @@
 
 # Function: validateBaseCallParams()
 
-`Internal`
-
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
+
+**`Internal`**
 
 can break on a minor release
 Validates that the parameters are correct with zod
@@ -21,6 +21,6 @@ Validates that the parameters are correct with zod
 
 `ValidateBaseCallParamsError`[]
 
-## Source
+## Defined in
 
 [packages/actions/src/BaseCall/validateBaseCallParams.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L32)

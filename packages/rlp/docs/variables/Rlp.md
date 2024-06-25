@@ -18,6 +18,6 @@
 
 > **encode**: *typeof* `encode`
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/@ethereumjs+rlp@5.0.2/node\_modules/@ethereumjs/rlp/dist/esm/index.d.ts:34
+index.d.ts:34

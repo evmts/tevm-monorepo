@@ -4,9 +4,7 @@
 
 [@tevm/procedures](../globals.md) / TevmJsonRpcBulkRequestHandler
 
-# Type alias: TevmJsonRpcBulkRequestHandler()
-
-`Experimental`
+# Type Alias: TevmJsonRpcBulkRequestHandler()
 
 > **TevmJsonRpcBulkRequestHandler**: (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
@@ -97,6 +95,6 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L94)

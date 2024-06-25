@@ -8,7 +8,7 @@
 
 > **isAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `IsAddressErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `IsAddressErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/address/isAddressEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/address/isAddressEffect.js#L7)

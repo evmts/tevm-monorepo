@@ -8,7 +8,7 @@
 
 > **generatePrivateKeyEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GeneratePrivateKeyErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* []
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GeneratePrivateKeyErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/generatePrivateKeyEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/generatePrivateKeyEffect.js#L7)

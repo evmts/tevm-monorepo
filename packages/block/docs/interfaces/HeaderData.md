@@ -14,7 +14,7 @@ A block header's data.
 
 > `optional` **baseFeePerGas**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L128)
 
@@ -24,7 +24,7 @@ A block header's data.
 
 > `optional` **blobGasUsed**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L130)
 
@@ -34,7 +34,7 @@ A block header's data.
 
 > `optional` **coinbase**: `AddressLike`
 
-#### Source
+#### Defined in
 
 [types.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L115)
 
@@ -44,7 +44,7 @@ A block header's data.
 
 > `optional` **difficulty**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L120)
 
@@ -54,7 +54,7 @@ A block header's data.
 
 > `optional` **excessBlobGas**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L131)
 
@@ -64,7 +64,7 @@ A block header's data.
 
 > `optional` **extraData**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L125)
 
@@ -74,7 +74,7 @@ A block header's data.
 
 > `optional` **gasLimit**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L122)
 
@@ -84,7 +84,7 @@ A block header's data.
 
 > `optional` **gasUsed**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L123)
 
@@ -94,7 +94,7 @@ A block header's data.
 
 > `optional` **logsBloom**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L119)
 
@@ -104,7 +104,7 @@ A block header's data.
 
 > `optional` **mixHash**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L126)
 
@@ -114,7 +114,7 @@ A block header's data.
 
 > `optional` **nonce**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L127)
 
@@ -124,7 +124,7 @@ A block header's data.
 
 > `optional` **number**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L121)
 
@@ -134,7 +134,7 @@ A block header's data.
 
 > `optional` **parentBeaconBlockRoot**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L132)
 
@@ -144,7 +144,7 @@ A block header's data.
 
 > `optional` **parentHash**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L113)
 
@@ -154,7 +154,7 @@ A block header's data.
 
 > `optional` **receiptTrie**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L118)
 
@@ -164,7 +164,7 @@ A block header's data.
 
 > `optional` **requestsRoot**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L133)
 
@@ -174,7 +174,7 @@ A block header's data.
 
 > `optional` **stateRoot**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L116)
 
@@ -184,7 +184,7 @@ A block header's data.
 
 > `optional` **timestamp**: `BigIntLike`
 
-#### Source
+#### Defined in
 
 [types.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L124)
 
@@ -194,7 +194,7 @@ A block header's data.
 
 > `optional` **transactionsTrie**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L117)
 
@@ -204,7 +204,7 @@ A block header's data.
 
 > `optional` **uncleHash**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L114)
 
@@ -214,6 +214,6 @@ A block header's data.
 
 > `optional` **withdrawalsRoot**: `BytesLike`
 
-#### Source
+#### Defined in
 
 [types.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L129)

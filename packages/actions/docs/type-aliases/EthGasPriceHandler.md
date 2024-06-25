@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGasPriceHandler
 
-# Type alias: EthGasPriceHandler()
+# Type Alias: EthGasPriceHandler()
 
 > **EthGasPriceHandler**: (`request`?) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L97)

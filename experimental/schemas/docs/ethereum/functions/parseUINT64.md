@@ -8,9 +8,7 @@
 
 > **parseUINT64**\<`TUINT64`\>(`uint64`): `TUINT64`
 
-Parses a UINT64 and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TUINT64** *extends* `bigint`
 
@@ -22,13 +20,6 @@ Parses a UINT64 and returns the value if no errors.
 
 `TUINT64`
 
-## Example
-
-```ts
-import { parseUINT64 } from '@tevm/schemas';
-const parsedUINT64 = parseUINT64(BigInt("9223372036854775807"));
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/parseUINT.js:70](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L70)

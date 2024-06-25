@@ -11,6 +11,6 @@
 The maximum value a [UINT8](../type-aliases/UINT8.md) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/constants.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L11)

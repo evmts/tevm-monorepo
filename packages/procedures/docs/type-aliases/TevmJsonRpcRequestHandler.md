@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / TevmJsonRpcRequestHandler
 
-# Type alias: TevmJsonRpcRequestHandler()
+# Type Alias: TevmJsonRpcRequestHandler()
 
 > **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
@@ -84,7 +84,7 @@ response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
 request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
-## Type parameters
+## Type Parameters
 
 • **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](DebugJsonRpcRequest.md)
 
@@ -96,6 +96,6 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L90)

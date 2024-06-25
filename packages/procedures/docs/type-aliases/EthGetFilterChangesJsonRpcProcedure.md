@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetFilterChangesJsonRpcProcedure
 
-# Type alias: EthGetFilterChangesJsonRpcProcedure()
+# Type Alias: EthGetFilterChangesJsonRpcProcedure()
 
 > **EthGetFilterChangesJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L125)

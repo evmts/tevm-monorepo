@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockByNumberHandler
 
-# Type alias: EthGetBlockByNumberHandler()
+# Type Alias: EthGetBlockByNumberHandler()
 
 > **EthGetBlockByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L103)

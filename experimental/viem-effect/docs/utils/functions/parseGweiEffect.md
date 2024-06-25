@@ -8,7 +8,7 @@
 
 > **parseGweiEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ParseGweiErrorType`, `bigint`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`, `"wei"`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ParseGweiErrorType`, `bigint`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/unit/parseGweiEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/parseGweiEffect.js#L7)

@@ -8,7 +8,7 @@
 
 > **privateKeyToAddressEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `PrivateKeyToAddressErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `PrivateKeyToAddressErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/privateKeyToAddressEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/privateKeyToAddressEffect.js#L7)

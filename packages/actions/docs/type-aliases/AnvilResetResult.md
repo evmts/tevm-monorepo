@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / AnvilResetResult
 
-# Type alias: AnvilResetResult
+# Type Alias: AnvilResetResult
 
 > **AnvilResetResult**: `null`
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L15)

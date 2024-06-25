@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / JsonRpcSchemaPublic
 
-# Type alias: JsonRpcSchemaPublic
+# Type Alias: JsonRpcSchemaPublic
 
 > **JsonRpcSchemaPublic**: `object`
 
@@ -1217,6 +1217,6 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 
 > **ReturnType**: `string`
 
-## Source
+## Defined in
 
 [eip1193/JsonRpcSchemaPublic.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L24)

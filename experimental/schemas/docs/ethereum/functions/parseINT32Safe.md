@@ -8,9 +8,7 @@
 
 > **parseINT32Safe**\<`TINT32`\>(`int32`): `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT32`\>
 
-Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
-## Type parameters
+## Type Parameters
 
 • **TINT32**
 
@@ -24,6 +22,6 @@ extends bigint
 
 `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT32`\>
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SINT/parseINTSafe.js:67](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINTSafe.js#L67)

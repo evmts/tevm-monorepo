@@ -17,13 +17,13 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-• **storageCache**: `StorageCache`= `undefined`
+• **storageCache**: `StorageCache` = `...`
 
 #### Returns
 
 [`ContractCache`](ContractCache.md)
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L11)
 
@@ -33,7 +33,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **storageCache**: `StorageCache`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L17)
 
@@ -47,7 +47,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `number`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L75)
 
@@ -61,7 +61,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L62)
 
@@ -75,7 +75,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L30)
 
@@ -89,7 +89,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L23)
 
@@ -107,7 +107,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L55)
 
@@ -125,7 +125,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 `undefined` \| `Uint8Array`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L38)
 
@@ -145,7 +145,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 if the cache has the key
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L70)
 
@@ -165,7 +165,7 @@ if the cache has the key
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L47)
 
@@ -179,7 +179,7 @@ if the cache has the key
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L86)
 
@@ -193,6 +193,6 @@ if the cache has the key
 
 `number`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ContractCache.js:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L79)

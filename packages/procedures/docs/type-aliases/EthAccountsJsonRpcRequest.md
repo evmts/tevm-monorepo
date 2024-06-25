@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / EthAccountsJsonRpcRequest
 
-# Type alias: EthAccountsJsonRpcRequest
+# Type Alias: EthAccountsJsonRpcRequest
 
 > **EthAccountsJsonRpcRequest**: `JsonRpcRequest`\<`"eth_accounts"`, readonly []\>
 
 JSON-RPC request for `eth_accounts` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L40)

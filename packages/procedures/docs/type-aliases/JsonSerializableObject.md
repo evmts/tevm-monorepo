@@ -4,14 +4,14 @@
 
 [@tevm/procedures](../globals.md) / JsonSerializableObject
 
-# Type alias: JsonSerializableObject
+# Type Alias: JsonSerializableObject
 
 > **JsonSerializableObject**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)
 
-## Source
+## Defined in
 
 [procedures/src/utils/SerializeToJson.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L15)

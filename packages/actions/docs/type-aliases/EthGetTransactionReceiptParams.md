@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionReceiptParams
 
-# Type alias: EthGetTransactionReceiptParams
+# Type Alias: EthGetTransactionReceiptParams
 
 > **EthGetTransactionReceiptParams**: `object`
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 > `readonly` **hash**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L198)

@@ -8,9 +8,7 @@
 
 > **parseBlockNumber**\<`TBlockNumber`\>(`blockNumber`): `TBlockNumber`
 
-Parses a BlockNumber and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TBlockNumber** *extends* `number`
 
@@ -22,13 +20,6 @@ Parses a BlockNumber and returns the value if no errors.
 
 `TBlockNumber`
 
-## Example
-
-```ts
-import { parseBlockNumber } from '@tevm/schemas';
-const parsedBlockNumber = parseBlockNumber('0x1234567890abcdef1234567890abcdef12345678');
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/common/SBlockNumber.js:106](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L106)

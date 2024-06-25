@@ -4,12 +4,12 @@
 
 [@tevm/config](../../modules.md) / [loadConfig](../README.md) / LoadConfigErrorType
 
-# Type alias: LoadConfigErrorType
+# Type Alias: LoadConfigErrorType
 
 > **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError` \| `InvalidJsonConfigError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [bundler-packages/config/src/loadConfig.js:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L9)

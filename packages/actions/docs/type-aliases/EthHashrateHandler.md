@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthHashrateHandler
 
-# Type alias: EthHashrateHandler()
+# Type Alias: EthHashrateHandler()
 
 > **EthHashrateHandler**: (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L95)

@@ -28,7 +28,7 @@ Represents a Bloom filter.
 
 If the byte size of the bitvector is not 256.
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
 
@@ -38,7 +38,7 @@ If the byte size of the bitvector is not 256.
 
 > **bitvector**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
 
@@ -62,7 +62,7 @@ The element to add
 
 #### Throws
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
 
@@ -86,7 +86,7 @@ The element to check
 
 #### Throws
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
 
@@ -110,7 +110,7 @@ Checks if multiple topics are in a bloom.
 
 #### Throws
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
 
@@ -132,6 +132,6 @@ Bitwise or blooms together.
 
 #### Throws
 
-#### Source
+#### Defined in
 
 [packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)

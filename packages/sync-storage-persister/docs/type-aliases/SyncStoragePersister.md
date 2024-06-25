@@ -4,7 +4,7 @@
 
 [@tevm/sync-storage-persister](../globals.md) / SyncStoragePersister
 
-# Type alias: SyncStoragePersister
+# Type Alias: SyncStoragePersister
 
 > **SyncStoragePersister**: `object`
 
@@ -38,6 +38,6 @@
 
 `SerializableTevmState` \| `undefined`
 
-## Source
+## Defined in
 
 [SyncStoragePersister.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/SyncStoragePersister.ts#L3)

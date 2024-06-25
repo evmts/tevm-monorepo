@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / JsonRpcReturnTypeFromMethod
 
-# Type alias: JsonRpcReturnTypeFromMethod\<TMethod\>
+# Type Alias: JsonRpcReturnTypeFromMethod\<TMethod\>
 
 > **JsonRpcReturnTypeFromMethod**\<`TMethod`\>: [`EthReturnType`](EthReturnType.md) & [`TevmReturnType`](TevmReturnType.md) & [`AnvilReturnType`](AnvilReturnType.md) & [`DebugReturnType`](DebugReturnType.md)\[`TMethod`\]
 
@@ -16,10 +16,10 @@ Utility type to get the return type given a method name
 type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 ```
 
-## Type parameters
+## Type Parameters
 
 • **TMethod** *extends* keyof [`EthReturnType`](EthReturnType.md) \| keyof [`TevmReturnType`](TevmReturnType.md) \| keyof [`AnvilReturnType`](AnvilReturnType.md) \| keyof [`DebugReturnType`](DebugReturnType.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts#L13)

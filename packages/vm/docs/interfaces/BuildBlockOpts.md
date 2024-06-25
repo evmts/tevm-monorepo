@@ -16,7 +16,7 @@ Options for building a block.
 
 The block and builder options to use.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L196)
 
@@ -29,7 +29,7 @@ The block and builder options to use.
 The block header data to use.
 Defaults used for any values not provided.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:190](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L190)
 
@@ -41,7 +41,7 @@ Defaults used for any values not provided.
 
 The parent block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L184)
 
@@ -51,6 +51,6 @@ The parent block
 
 > `optional` **withdrawals**: `WithdrawalData`[]
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L192)

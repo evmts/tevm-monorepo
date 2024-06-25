@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcContractOutput
 
-# Type alias: SolcContractOutput
+# Type Alias: SolcContractOutput
 
 > **SolcContractOutput**: `object`
 
@@ -66,6 +66,6 @@
 
 > **version**: `number`
 
-## Source
+## Defined in
 
 [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)

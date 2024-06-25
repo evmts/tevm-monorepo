@@ -1,8 +1,8 @@
+import type { Address } from '@tevm/utils'
 import type { Account, Chain, Client, PublicActions, Transport } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
-import type { Address } from '@tevm/utils'
 
 /**
 * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments

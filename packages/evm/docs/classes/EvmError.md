@@ -20,7 +20,7 @@
 
 [`EvmError`](EvmError.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:39
 
@@ -30,7 +30,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:37
 
@@ -40,6 +40,6 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **errorType**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:38

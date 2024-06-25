@@ -8,7 +8,7 @@
 
 > **getTransactionTypeEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `never`, `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`TransactionSerializable`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `never`, `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/getTransactionTypeEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/getTransactionTypeEffect.js#L7)

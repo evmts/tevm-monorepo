@@ -8,7 +8,7 @@
 
 > **getAbiItemEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetAbiItemErrorType`, `never`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`GetAbiItemParameters`\<`Abi` \| readonly `unknown`[], `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetAbiItemErrorType`, `never`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/getAbiItemEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/getAbiItemEffect.js#L7)

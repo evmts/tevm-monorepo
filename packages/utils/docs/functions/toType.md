@@ -13,7 +13,7 @@
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
 
-### Type parameters
+### Type Parameters
 
 • **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
@@ -31,7 +31,7 @@ type to output
 
 `null`
 
-### Source
+### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:35
 
@@ -39,7 +39,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **toType**\<`T`\>(`input`, `outputType`): `undefined`
 
-### Type parameters
+### Type Parameters
 
 • **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
@@ -53,7 +53,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 `undefined`
 
-### Source
+### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
 
@@ -61,7 +61,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
 
-### Type parameters
+### Type Parameters
 
 • **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
@@ -75,6 +75,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 `TypeOutputReturnType`\[`T`\]
 
-### Source
+### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37

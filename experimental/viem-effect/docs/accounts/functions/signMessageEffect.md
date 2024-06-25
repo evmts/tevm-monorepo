@@ -8,7 +8,7 @@
 
 > **signMessageEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignMessageErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`SignMessageParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SignMessageErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/signMessageEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signMessageEffect.js#L7)

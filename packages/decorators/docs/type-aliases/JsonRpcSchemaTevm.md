@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / JsonRpcSchemaTevm
 
-# Type alias: JsonRpcSchemaTevm
+# Type Alias: JsonRpcSchemaTevm
 
 > **JsonRpcSchemaTevm**: `object`
 
@@ -194,6 +194,6 @@ r
 
 > **ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
 
-## Source
+## Defined in
 
 [eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)

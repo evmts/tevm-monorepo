@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetBalanceJsonRpcProcedure
 
-# Type alias: EthGetBalanceJsonRpcProcedure()
+# Type Alias: EthGetBalanceJsonRpcProcedure()
 
 > **EthGetBalanceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L103)

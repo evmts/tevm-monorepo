@@ -6,11 +6,7 @@
 
 # Function: logAllErrors()
 
-`Internal`
-
 > **logAllErrors**(`e`): `Effect`\<`never`, `never`, `void`\>
-
-Logs all errors and causes from effect
 
 ## Parameters
 
@@ -20,15 +16,6 @@ Logs all errors and causes from effect
 
 `Effect`\<`never`, `never`, `void`\>
 
-## Example
-
-```typescript
-import { logAllErrors } from '@eth-optimism/config'
-
-someEffect.pipe(
-  tapError(logAllErrors)
-)
-
-## Source
+## Defined in
 
 [packages/effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)

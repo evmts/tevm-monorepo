@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetUncleByBlockHashAndIndexJsonRpcProcedure
 
-# Type alias: EthGetUncleByBlockHashAndIndexJsonRpcProcedure()
+# Type Alias: EthGetUncleByBlockHashAndIndexJsonRpcProcedure()
 
 > **EthGetUncleByBlockHashAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](EthGetUncleByBlockHashAndIndexJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](EthGetUncleByBlockHashAndIndexJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L167)

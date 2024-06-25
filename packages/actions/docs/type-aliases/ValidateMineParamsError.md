@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / ValidateMineParamsError
 
-# Type alias: ValidateMineParamsError
+# Type Alias: ValidateMineParamsError
 
 > **ValidateMineParamsError**\<\>: `InvalidAddressError` \| `InvalidBalanceError` \| `InvalidNonceError` \| `InvalidRequestError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/Mine/validateMineParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineParams.js#L5)

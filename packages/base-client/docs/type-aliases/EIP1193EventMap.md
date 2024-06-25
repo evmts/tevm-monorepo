@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / EIP1193EventMap
 
-# Type alias: EIP1193EventMap
+# Type Alias: EIP1193EventMap
 
 > **EIP1193EventMap**: `object`
 
@@ -100,6 +100,6 @@
 
 `void`
 
-## Source
+## Defined in
 
 [packages/base-client/src/EIP1193EventEmitterTypes.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L32)

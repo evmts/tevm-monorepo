@@ -4,7 +4,7 @@
 
 [@tevm/contract](../globals.md) / CreateContractParams
 
-# Type alias: CreateContractParams\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
+# Type Alias: CreateContractParams\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
 > **CreateContractParams**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
 
@@ -14,7 +14,7 @@ Params for creating a [Contract](Contract.md) instance
 
 CreateContract
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string` \| `undefined` \| `never`
 
@@ -54,6 +54,6 @@ CreateContract
 
 > `optional` **name**: `TName`
 
-## Source
+## Defined in
 
 [CreateContractParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L8)

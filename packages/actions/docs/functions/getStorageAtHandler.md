@@ -20,6 +20,6 @@
 
 [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/getStorageAtHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtHandler.js#L13)

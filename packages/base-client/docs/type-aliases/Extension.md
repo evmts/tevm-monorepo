@@ -4,11 +4,11 @@
 
 [@tevm/base-client](../globals.md) / Extension
 
-# Type alias: Extension()\<TExtended\>
+# Type Alias: Extension()\<TExtended\>
 
 > **Extension**\<`TExtended`\>: (`client`) => `TExtended`
 
-## Type parameters
+## Type Parameters
 
 • **TExtended**
 
@@ -20,6 +20,6 @@
 
 `TExtended`
 
-## Source
+## Defined in
 
 [packages/base-client/src/Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Extension.ts#L3)

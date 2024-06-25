@@ -4,11 +4,11 @@
 
 [@tevm/ethers](../globals.md) / BaseContractMethod
 
-# Type alias: BaseContractMethod()\<TArguments, TReturnType, TExtendedReturnType\>
+# Type Alias: BaseContractMethod()\<TArguments, TReturnType, TExtendedReturnType\>
 
 > **BaseContractMethod**\<`TArguments`, `TReturnType`, `TExtendedReturnType`\>: (...`args`) => `Promise`\<`TReturnType` \| `TExtendedReturnType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TArguments** *extends* `ReadonlyArray`\<`any`\> = `ReadonlyArray`\<`any`\>
 
@@ -114,6 +114,6 @@
 
 `Promise`\<`Result`\>
 
-## Source
+## Defined in
 
 [extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)

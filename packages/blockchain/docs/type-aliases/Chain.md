@@ -4,7 +4,7 @@
 
 [@tevm/blockchain](../globals.md) / Chain
 
-# Type alias: Chain
+# Type Alias: Chain
 
 > **Chain**: `object` & `BaseChain` & `object`
 
@@ -180,6 +180,6 @@ If this is an uncle header, this is the height of the block that is including it
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [Chain.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L16)

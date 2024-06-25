@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcInputDescription
 
-# Type alias: SolcInputDescription
+# Type Alias: SolcInputDescription
 
 > **SolcInputDescription**: `object`
 
@@ -22,6 +22,6 @@
 
 > **sources**: [`SolcInputSources`](SolcInputSources.md)
 
-## Source
+## Defined in
 
 [solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)

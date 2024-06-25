@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionByHashHandler
 
-# Type alias: EthGetTransactionByHashHandler()
+# Type Alias: EthGetTransactionByHashHandler()
 
 > **EthGetTransactionByHashHandler**: (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L135)

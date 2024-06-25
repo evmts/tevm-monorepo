@@ -4,7 +4,7 @@
 
 [@tevm/block](../globals.md) / ExecutionPayload
 
-# Type alias: ExecutionPayload
+# Type Alias: ExecutionPayload
 
 > **ExecutionPayload**: `object`
 
@@ -90,6 +90,6 @@
 
 > `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
-## Source
+## Defined in
 
 [types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)

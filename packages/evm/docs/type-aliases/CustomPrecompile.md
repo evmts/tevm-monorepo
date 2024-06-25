@@ -4,7 +4,7 @@
 
 [@tevm/evm](../globals.md) / CustomPrecompile
 
-# Type alias: CustomPrecompile
+# Type Alias: CustomPrecompile
 
 > **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
@@ -45,6 +45,6 @@ const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles]
  - [definePrecompile](https://tevm.sh/reference/tevm/precompiles/functions/defineprecompile/)
  - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
 
-## Source
+## Defined in
 
 [packages/evm/src/CustomPrecompile.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L41)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthMiningHandler
 
-# Type alias: EthMiningHandler()
+# Type Alias: EthMiningHandler()
 
 > **EthMiningHandler**: (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L159)

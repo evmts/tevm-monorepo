@@ -18,6 +18,6 @@ export const SINT256: Schema<bigint, INT256>;
 ```
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SINT/SINT.js:124](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L124)

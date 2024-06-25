@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / CallHandlerOptsError
 
-# Type alias: CallHandlerOptsError
+# Type Alias: CallHandlerOptsError
 
 > **CallHandlerOptsError**\<\>: `UnknownBlockError` \| `UnknownBlockError` \| `InvalidParamsError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/callHandlerOpts.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L8)

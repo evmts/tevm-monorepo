@@ -8,7 +8,7 @@
 
 > **getSerializedTransactionTypeEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetSerializedTransactionTypeErrorType`, `any`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetSerializedTransactionTypeErrorType`, `any`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/getSerializedTransactionTypeEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/getSerializedTransactionTypeEffect.js#L7)

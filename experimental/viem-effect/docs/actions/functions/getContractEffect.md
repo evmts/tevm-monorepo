@@ -8,7 +8,7 @@
 
 > **getContractEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetContractErrorType`, `GetContractReturnType`\<`Abi` \| readonly `unknown`[], `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`\>, `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`\>, \`0x$\{string\}\`, `string`, `string`, `string`, `true`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`GetContractParameters`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`, `Abi` \| readonly `unknown`[], `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`\>, `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`\>, \`0x$\{string\}\`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetContractErrorType`, `GetContractReturnType`\<`Abi` \| readonly `unknown`[], `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`\>, `undefined` \| `Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`\>, \`0x$\{string\}\`, `string`, `string`, `string`, `true`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/actions/getContractEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/actions/getContractEffect.js#L7)

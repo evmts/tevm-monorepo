@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilSetStorageAtProcedure
 
-# Type alias: AnvilSetStorageAtProcedure()
+# Type Alias: AnvilSetStorageAtProcedure()
 
 > **AnvilSetStorageAtProcedure**: (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L96)

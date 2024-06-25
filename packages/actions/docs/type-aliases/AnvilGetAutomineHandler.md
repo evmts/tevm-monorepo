@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilGetAutomineHandler
 
-# Type alias: AnvilGetAutomineHandler()
+# Type Alias: AnvilGetAutomineHandler()
 
 > **AnvilGetAutomineHandler**: (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L44)

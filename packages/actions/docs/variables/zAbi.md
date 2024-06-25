@@ -10,6 +10,6 @@
 
 Zod validator for a valid ABI
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zAbi.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAbi.js#L6)

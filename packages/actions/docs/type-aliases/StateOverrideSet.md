@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / StateOverrideSet
 
-# Type alias: StateOverrideSet
+# Type Alias: StateOverrideSet
 
 > **StateOverrideSet**: `object`
 
@@ -33,10 +33,10 @@ It can be used to debug smart contracts in an already deployed large suite of co
 }
 ```
 
-## Index signature
+## Index Signature
 
  \[`address`: `Address`\]: `object`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StateOverrideSet.ts#L29)

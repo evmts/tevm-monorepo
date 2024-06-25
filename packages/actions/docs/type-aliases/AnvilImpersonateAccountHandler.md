@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilImpersonateAccountHandler
 
-# Type alias: AnvilImpersonateAccountHandler()
+# Type Alias: AnvilImpersonateAccountHandler()
 
 > **AnvilImpersonateAccountHandler**: (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L33)

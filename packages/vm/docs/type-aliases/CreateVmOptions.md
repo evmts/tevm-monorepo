@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / CreateVmOptions
 
-# Type alias: CreateVmOptions
+# Type Alias: CreateVmOptions
 
 > **CreateVmOptions**: `object`
 
@@ -26,6 +26,6 @@
 
 > **stateManager**: `StateManager`
 
-## Source
+## Defined in
 
 [packages/vm/src/CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)

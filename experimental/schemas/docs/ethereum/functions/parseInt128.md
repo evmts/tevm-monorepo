@@ -8,9 +8,7 @@
 
 > **parseInt128**\<`TINT128`\>(`int128`): `TINT128`
 
-Parses an INT128 and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TINT128** *extends* `bigint`
 
@@ -22,13 +20,6 @@ Parses an INT128 and returns the value if no errors.
 
 `TINT128`
 
-## Example
-
-```ts
-import { parseInt128 } from '@tevm/schemas';
-const parsedINT128 = parseInt128(BigInt("-170141183460469231731687303715884105728"));
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SINT/parseINT.js:88](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINT.js#L88)

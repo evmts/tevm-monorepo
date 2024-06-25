@@ -18,6 +18,6 @@
 
 > **url**: `ZodString`
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zNetworkConfig.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zNetworkConfig.js#L4)

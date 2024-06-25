@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / BaseClient
 
-# Type alias: BaseClient\<TMode, TExtended\>
+# Type Alias: BaseClient\<TMode, TExtended\>
 
 > **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
@@ -19,7 +19,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-#### Type parameters
+#### Type Parameters
 
 • **TExtension** *extends* `Record`\<`string`, `any`\>
 
@@ -33,7 +33,7 @@ and extensibility
 
 ### forkTransport?
 
-> `optional` `readonly` **forkTransport**: `object`
+> `readonly` `optional` **forkTransport**: `object`
 
 Client to make json rpc requests to a forked node
 
@@ -193,12 +193,12 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 `void`
 
-## Type parameters
+## Type Parameters
 
 • **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
 
 • **TExtended** = `object`
 
-## Source
+## Defined in
 
 [packages/base-client/src/BaseClient.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L14)

@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthUninstallFilterJsonRpcProcedure
 
-# Type alias: EthUninstallFilterJsonRpcProcedure()
+# Type Alias: EthUninstallFilterJsonRpcProcedure()
 
 > **EthUninstallFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L207)

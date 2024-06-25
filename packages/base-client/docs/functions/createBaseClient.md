@@ -8,21 +8,14 @@
 
 > **createBaseClient**(`options`?): [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
 
-Creates the base instance of a memory client
-
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)= `{}`
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<`Common`\> = `{}`
 
 ## Returns
 
 [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
 
-## Example
-
-```ts
- ```
-
-## Source
+## Defined in
 
 [packages/base-client/src/createBaseClient.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L27)

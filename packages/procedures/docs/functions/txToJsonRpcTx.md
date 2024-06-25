@@ -20,6 +20,6 @@
 
 `TransactionResult`
 
-## Source
+## Defined in
 
 [procedures/src/utils/txToJsonRpcTx.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/txToJsonRpcTx.js#L9)

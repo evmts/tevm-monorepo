@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockTransactionCountByHashParams
 
-# Type alias: EthGetBlockTransactionCountByHashParams
+# Type Alias: EthGetBlockTransactionCountByHashParams
 
 > **EthGetBlockTransactionCountByHashParams**: `object`
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 > **hash**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L118)

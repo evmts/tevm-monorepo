@@ -1,8 +1,8 @@
 import { type BaseClientOptions } from '@tevm/base-client'
+import type { Common } from '@tevm/common'
+import type { Address } from '@tevm/utils'
 import { type Account, type Chain, type ClientConfig, type RpcSchema, type Transport } from 'viem'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
-import type { Address } from '@tevm/utils'
-import type { Common } from '@tevm/common'
 
 export type MemoryClientOptions<
 	TCommon extends Common & Chain = Common & Chain,

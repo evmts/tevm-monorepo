@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetCodeParams
 
-# Type alias: EthGetCodeParams
+# Type Alias: EthGetCodeParams
 
 > **EthGetCodeParams**: `object`
 
@@ -18,8 +18,8 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L130)

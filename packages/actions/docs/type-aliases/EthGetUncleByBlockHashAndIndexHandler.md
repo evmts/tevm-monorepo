@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetUncleByBlockHashAndIndexHandler
 
-# Type alias: EthGetUncleByBlockHashAndIndexHandler()
+# Type Alias: EthGetUncleByBlockHashAndIndexHandler()
 
 > **EthGetUncleByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L151)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / TraceCall
 
-# Type alias: TraceCall
+# Type Alias: TraceCall
 
 > **TraceCall**: `object`
 
@@ -46,6 +46,6 @@
 
 > `optional` **value**: `bigint`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L5)

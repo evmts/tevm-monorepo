@@ -4,11 +4,11 @@
 
 [@tevm/jsonrpc](../globals.md) / JsonRpcProcedure
 
-# Type alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
+# Type Alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\>: (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TMethod** *extends* `string`
 
@@ -26,6 +26,6 @@
 
 `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
-## Source
+## Defined in
 
 [packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)

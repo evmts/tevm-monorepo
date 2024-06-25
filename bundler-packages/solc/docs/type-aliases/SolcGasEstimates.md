@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcGasEstimates
 
-# Type alias: SolcGasEstimates
+# Type Alias: SolcGasEstimates
 
 > **SolcGasEstimates**: `object`
 
@@ -30,7 +30,7 @@
 
 > **external**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
@@ -38,10 +38,10 @@
 
 > **internal**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:504](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L504)

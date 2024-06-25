@@ -8,7 +8,7 @@
 
 > **verifyTypedDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `VerifyTypedDataErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`Client`\<`Transport`, `undefined` \| `Chain`\>, `VerifyTypedDataParameters`\<`object`, `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `VerifyTypedDataErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/verifyTypedDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/verifyTypedDataEffect.js#L7)

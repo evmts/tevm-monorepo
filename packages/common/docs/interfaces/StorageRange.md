@@ -17,7 +17,7 @@ Object that can contain a set of storage keys associated with an account.
 The next (hashed) storage key after the greatest storage key
 contained in `storage`.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:28
 
@@ -32,10 +32,10 @@ objects containing the preimage of the hashed key (in `key`) and the
 storage key (in `value`). Currently, there is no way to retrieve preimages,
 so they are always `null`.
 
-#### Index signature
+#### Index Signature
 
  \[`key`: `string`\]: `object`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:18

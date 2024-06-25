@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMineParams
 
-# Type alias: AnvilMineParams
+# Type Alias: AnvilMineParams
 
 > **AnvilMineParams**: `object`
 
@@ -14,16 +14,16 @@ Params for `anvil_mine` handler
 
 ### blockCount?
 
-> `optional` `readonly` **blockCount**: `number`
+> `readonly` `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
 ### interval?
 
-> `optional` `readonly` **interval**: `number`
+> `readonly` `optional` **interval**: `number`
 
 mineing interval
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L45)

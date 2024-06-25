@@ -1,9 +1,9 @@
-import type { Address } from '@tevm/utils'
-import type { MemoryClientOptions } from './MemoryClientOptions.js'
-import { type Account, type Chain, type RpcSchema } from 'viem'
-import type { TevmRpcSchema } from './TevmRpcSchema.js'
-import type { MemoryClient } from './MemoryClient.js'
 import type { Common } from '@tevm/common'
+import type { Address } from '@tevm/utils'
+import { type Account, type Chain, type RpcSchema } from 'viem'
+import type { MemoryClient } from './MemoryClient.js'
+import type { MemoryClientOptions } from './MemoryClientOptions.js'
+import type { TevmRpcSchema } from './TevmRpcSchema.js'
 
 export type CreateMemoryClientFn = <
 	TCommon extends Common & Chain = Common & Chain,

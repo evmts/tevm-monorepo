@@ -34,7 +34,7 @@
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:73
 
@@ -52,7 +52,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.checkpoint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
 
@@ -74,7 +74,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.clearContractStorage`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
 
@@ -92,7 +92,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.commit`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
 
@@ -114,7 +114,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.deleteAccount`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
 
@@ -132,7 +132,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `Promise`\<[`StorageDump`](StorageDump.md)\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
 
@@ -154,7 +154,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `Promise`\<[`StorageRange`](StorageRange.md)\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
 
@@ -172,7 +172,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
 
@@ -194,7 +194,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getAccount`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
 
@@ -216,7 +216,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getAppliedKey`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:70
 
@@ -238,7 +238,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getContractCode`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
 
@@ -262,7 +262,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getContractStorage`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
 
@@ -286,7 +286,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getProof`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80
 
@@ -304,7 +304,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.getStateRoot`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
 
@@ -326,7 +326,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.hasStateRoot`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
 
@@ -350,7 +350,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.modifyAccountFields`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
 
@@ -374,7 +374,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.putAccount`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
 
@@ -398,7 +398,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.putContractCode`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
 
@@ -424,7 +424,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.putContractStorage`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
 
@@ -442,7 +442,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.revert`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
 
@@ -466,7 +466,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.setStateRoot`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
 
@@ -488,6 +488,6 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `StateManagerInterface.shallowCopy`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:81

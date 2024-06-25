@@ -21,7 +21,7 @@ Abstract interface with common transaction receipt fields
 
 Bloom bitvector
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
@@ -33,7 +33,7 @@ Bloom bitvector
 
 Cumulative gas used in the block including this tx
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
@@ -45,6 +45,6 @@ Cumulative gas used in the block including this tx
 
 Logs emitted
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)

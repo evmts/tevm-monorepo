@@ -8,7 +8,7 @@
 
 > **parseTransactionEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ParseTransactionErrorType`, `any`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ParseTransactionErrorType`, `any`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/parseTransactionEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/parseTransactionEffect.js#L7)

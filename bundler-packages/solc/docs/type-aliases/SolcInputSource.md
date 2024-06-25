@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcInputSource
 
-# Type alias: SolcInputSource
+# Type Alias: SolcInputSource
 
 > **SolcInputSource**: `object` & `object` \| `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **keccak256**: `HexNumber`
 
-## Source
+## Defined in
 
 [solcTypes.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L15)

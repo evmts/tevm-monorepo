@@ -30,6 +30,6 @@ Both are represented as `0x` prefixed hex strings.
 
 `Promise`\<`StorageDump`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/dumpStorage.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorage.js#L9)

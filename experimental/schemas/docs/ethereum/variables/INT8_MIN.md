@@ -11,6 +11,6 @@
 The minimum value a [INT8](../type-aliases/INT8.md) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L16)

@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / ScriptJsonRpcRequest
 
-# Type alias: ~~ScriptJsonRpcRequest~~
+# Type Alias: ~~ScriptJsonRpcRequest~~
 
 > **ScriptJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_script"`, [[`SerializeToJson`](SerializeToJson.md)\<`Omit`\<`BaseCallParams`, `"stateOverrideSet"` \| `"blockOverrideSet"`\>\> & `object`, [`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\[`"stateOverrideSet"`\]\>, [`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\[`"blockOverrideSet"`\]\>]\>
 
@@ -13,6 +13,6 @@
 Use CallJsonRpcProcedure instead
 The JSON-RPC request for the `tevm_script` method
 
-## Source
+## Defined in
 
 [procedures/src/script/ScriptJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcRequest.ts#L10)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSendRawTransactionHandler
 
-# Type alias: EthSendRawTransactionHandler()
+# Type Alias: EthSendRawTransactionHandler()
 
 > **EthSendRawTransactionHandler**: (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L163)

@@ -21,7 +21,7 @@ Abstract interface with common transaction receipt fields
 
 Bloom bitvector
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L24)
 
@@ -33,7 +33,7 @@ Bloom bitvector
 
 Cumulative gas used in the block including this tx
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L20)
 
@@ -45,6 +45,6 @@ Cumulative gas used in the block including this tx
 
 Logs emitted
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L28)

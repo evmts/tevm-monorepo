@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / ValidateScriptParamsError
 
-# Type alias: ValidateScriptParamsError
+# Type Alias: ValidateScriptParamsError
 
 > **ValidateScriptParamsError**\<\>: `InvalidAbiError` \| `InvalidArgsError` \| `InvalidFunctionNameError` \| `ValidateBaseCallParamsError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/validateScriptParams.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L6)

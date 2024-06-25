@@ -14,7 +14,7 @@
 
 The cause of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L11)
 
@@ -26,7 +26,7 @@ The cause of the error.
 
 Details of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L12)
 
@@ -38,7 +38,7 @@ Details of the error.
 
 Base URL for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L7)
 
@@ -50,7 +50,7 @@ Base URL for the documentation.
 
 Path to the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L8)
 
@@ -62,7 +62,7 @@ Path to the documentation.
 
 Slug for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L9)
 
@@ -74,7 +74,7 @@ Slug for the documentation.
 
 Optional object containing additional information about the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L13)
 
@@ -86,6 +86,6 @@ Optional object containing additional information about the error.
 
 Additional meta messages.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/NonceTooHighError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L10)

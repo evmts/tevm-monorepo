@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetFilterChangesParams
 
-# Type alias: EthGetFilterChangesParams
+# Type Alias: EthGetFilterChangesParams
 
 > **EthGetFilterChangesParams**: `object`
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L135)

@@ -8,7 +8,7 @@
 
 > **toRlpEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ToRlpErrorType`, `ToRlpReturnType`\<`To`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`RecursiveArray`\<`Uint8Array`\> \| `RecursiveArray`\<\`0x$\{string\}\`\>, `To`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ToRlpErrorType`, `ToRlpReturnType`\<`To`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/encoding/toRlpEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/toRlpEffect.js#L7)

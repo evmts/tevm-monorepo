@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DeployParams
 
-# Type alias: DeployParams\<TThrowOnFail, TAbi, THasConstructor, TAllArgs\>
+# Type Alias: DeployParams\<TThrowOnFail, TAbi, THasConstructor, TAllArgs\>
 
 > **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>: `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & `EncodeDeployDataParameters`\<`TAbi`, `THasConstructor`, `TAllArgs`\>
 
@@ -15,11 +15,11 @@ Unlike most call actions `createTransaction` defaults to true
 
 ### salt?
 
-> `optional` `readonly` **salt**: [`Hex`](Hex.md)
+> `readonly` `optional` **salt**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt.
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
@@ -29,6 +29,6 @@ An optional CREATE2 salt.
 
 • **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Deploy/DeployParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L9)

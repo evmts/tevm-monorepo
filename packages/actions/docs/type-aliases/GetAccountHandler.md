@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / GetAccountHandler
 
-# Type alias: GetAccountHandler()
+# Type Alias: GetAccountHandler()
 
 > **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
@@ -27,6 +27,6 @@ console.log(res.balance)
 
 `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/GetAccount/GetAccountHandlerType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L12)

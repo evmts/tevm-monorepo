@@ -4,13 +4,13 @@
 
 [@tevm/contract](../globals.md) / DeployArgs
 
-# Type alias: DeployArgs\<THumanReadableAbi, TBytecode, TAbi, THasConstructor\>
+# Type Alias: DeployArgs\<THumanReadableAbi, TBytecode, TAbi, THasConstructor\>
 
 > **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* `Hex` ? [] \| [`object`] : [`object`] : `TBytecode` *extends* `Hex` ? [`object`] : [`object`]
 
 Inferred arguments for a contract deployment
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* `string`[] \| readonly `string`[]
 
@@ -20,6 +20,6 @@ Inferred arguments for a contract deployment
 
 • **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
 
-## Source
+## Defined in
 
 [DeployArgs.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/DeployArgs.ts#L6)

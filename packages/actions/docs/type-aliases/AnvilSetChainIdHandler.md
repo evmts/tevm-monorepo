@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetChainIdHandler
 
-# Type alias: AnvilSetChainIdHandler()
+# Type Alias: AnvilSetChainIdHandler()
 
 > **AnvilSetChainIdHandler**: (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L60)
