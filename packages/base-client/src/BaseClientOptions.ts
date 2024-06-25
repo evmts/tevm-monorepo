@@ -10,7 +10,7 @@ import type { MiningConfig } from './MiningConfig.js'
 /**
  * Options for creating an Tevm MemoryClient instance
  */
-export type BaseClientOptions = StateOptions & {
+export type BaseClientOptions<TCommon extends Common = Common> = StateOptions & {
 	/**
 	 * The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 	 * If not specified and a fork is provided the common chainId will be fetched from the fork
@@ -24,7 +24,7 @@ export type BaseClientOptions = StateOptions & {
 	 * ````
 	 * `
 	 */
-	readonly common?: Common
+	readonly common?: TCommon
 	/**
 	 * Client to make json rpc requests to a forked node
 	 * @example

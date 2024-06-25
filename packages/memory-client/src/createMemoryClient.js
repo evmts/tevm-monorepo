@@ -8,8 +8,7 @@ import { createClient, createTransport, publicActions } from 'viem'
 /**
 * Creates a {@link MemoryClient} which is an viem client with an in-memory ethereum client as it's transport.
 * It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
-* @param {import('@tevm/base-client').BaseClientOptions} [options]
-* @returns {import('./MemoryClient.js').MemoryClient}
+* @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn} [options]
 * @example
 * ```ts
 * import { createMemoryClient } from "tevm"
@@ -94,35 +93,38 @@ import { createClient, createTransport, publicActions } from 'viem'
 */
 export const createMemoryClient = (options) => {
 	const tevm = createBaseClient(options).extend(tevmSend()).extend(requestEip1193()).extend(tevmActions())
-	return createClient({
-		type: 'tevm',
-		.../** @type any*/ (options?.common !== undefined ? { chain: options.common } : { chain: tevmDefault }),
-		transport: () =>
-			createTransport({
-				request: /** @type any*/ (tevm.request),
-				type: 'tevm',
-				name: /**options?.name ??*/ 'Tevm transport',
-				key: /*options?.key ??*/ 'tevm',
-				timeout: /*options?.timeout ?? */ 20_000,
-				retryCount: /*options?.retryCount ??*/ 3,
-				retryDelay: /* options?.retryDelay ?? */ 150,
-			}),
-	})
-		.extend(publicActions)
-		.extend(() => {
-			return {
-				_tevm: tevm,
-				tevmReady: tevm.ready,
-				tevmCall: tevm.call,
-				tevmContract: tevm.contract,
-				tevmScript: tevm.script,
-				tevmDeploy: tevm.deploy,
-				tevmMine: tevm.mine,
-				tevmLoadState: tevm.loadState,
-				tevmDumpState: tevm.dumpState,
-				tevmSetAccount: tevm.setAccount,
-				tevmGetAccount: tevm.getAccount,
-				...(tevm.forkTransport !== undefined ? { forkTransport: tevm.forkTransport } : {}),
-			}
+	return /** @type any*/ (
+		createClient({
+			...options,
+			type: /** @type any*/ (options).type ?? 'tevm',
+			.../** @type any*/ (options?.common !== undefined ? { chain: options.common } : { chain: tevmDefault }),
+			transport: () =>
+				createTransport({
+					request: /** @type any*/ (tevm.request),
+					type: 'tevm',
+					name: /**options?.name ??*/ 'Tevm transport',
+					key: /*options?.key ??*/ 'tevm',
+					timeout: /*options?.timeout ?? */ 20_000,
+					retryCount: /*options?.retryCount ??*/ 3,
+					retryDelay: /* options?.retryDelay ?? */ 150,
+				}),
 		})
+			.extend(publicActions)
+			.extend(() => {
+				return {
+					_tevm: tevm,
+					tevmReady: tevm.ready,
+					tevmCall: tevm.call,
+					tevmContract: tevm.contract,
+					tevmScript: tevm.script,
+					tevmDeploy: tevm.deploy,
+					tevmMine: tevm.mine,
+					tevmLoadState: tevm.loadState,
+					tevmDumpState: tevm.dumpState,
+					tevmSetAccount: tevm.setAccount,
+					tevmGetAccount: tevm.getAccount,
+					...(tevm.forkTransport !== undefined ? { forkTransport: tevm.forkTransport } : {}),
+				}
+			})
+	)
 }

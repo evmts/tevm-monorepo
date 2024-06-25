@@ -1,7 +1,8 @@
-import { type JsonRpcSchemaTevm } from '@tevm/decorators'
-import type { Client, PublicActions, PublicRpcSchema, TestRpcSchema, Transport } from 'viem'
+import type { Account, Chain, Client, PublicActions, Transport } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
+import type { TevmRpcSchema } from './TevmRpcSchema.js'
+import type { Address } from '@tevm/utils'
 
 /**
 * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -50,21 +51,16 @@ import type { TevmActions } from './TevmActions.js'
 *  })
 *  ```
 */
-export type MemoryClient = Prettify<
+export type MemoryClient<
+	TTransport extends Transport,
+	TChain extends Chain | undefined = undefined,
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+> = Prettify<
 	Client<
 		Transport,
 		undefined,
 		undefined,
-		[
-			...PublicRpcSchema,
-			...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
-			JsonRpcSchemaTevm['tevm_call'],
-			JsonRpcSchemaTevm['tevm_script'],
-			JsonRpcSchemaTevm['tevm_dumpState'],
-			JsonRpcSchemaTevm['tevm_loadState'],
-			JsonRpcSchemaTevm['tevm_getAccount'],
-			JsonRpcSchemaTevm['tevm_setAccount'],
-		],
-		PublicActions & TevmActions
+		TevmRpcSchema,
+		PublicActions<TTransport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
 	>
 >
