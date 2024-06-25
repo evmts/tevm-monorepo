@@ -72,6 +72,7 @@
 		"@ethereumjs/util": "^9.0.3",
 		"@tevm/actions": "workspace:^",
 		"@tevm/client-types": "workspace:^",
+		"@tevm/common": "2.0.0-next.85",
 		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/procedures": "workspace:^",

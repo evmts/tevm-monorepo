@@ -1647,6 +1647,6 @@ const client = createClient({
  const chainId = await client.eth.getChainId()
  ```
 
-## Source
+## Defined in
 
 [packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)

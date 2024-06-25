@@ -4,6 +4,7 @@ import { Address } from '@ethereumjs/util'
 import { ERC20 } from '@tevm/contract'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
+import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { http, type PublicClient, createPublicClient } from 'viem'
 import { tevmViemExtension } from './tevmViemExtension.js'
@@ -15,6 +16,7 @@ describe('tevmViemExtension', () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
+			common: optimism,
 			fork: { transport: transports.optimism },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6420)
