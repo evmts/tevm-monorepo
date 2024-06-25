@@ -9,6 +9,6 @@ title: "EthCoinbaseParams"
 
 Based on the JSON-RPC request for `eth_coinbase` procedure
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L76)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / VMProfilerOpts
 
-# Type alias: VMProfilerOpts
+# Type Alias: VMProfilerOpts
 
 > **VMProfilerOpts**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **reportAfterTx**: `boolean`
 
-## Source
+## Defined in
 
 packages/vm/types/utils/types.d.ts:73

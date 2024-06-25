@@ -61,6 +61,6 @@ title: "FileAccessObject"
 
 `string`
 
-## Source
+## Defined in
 
 [types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L1)

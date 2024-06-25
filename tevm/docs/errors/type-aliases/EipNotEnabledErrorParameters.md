@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / EipNotEnabledErrorParameters
 
-# Type alias: EipNotEnabledErrorParameters
+# Type Alias: EipNotEnabledErrorParameters
 
 > **EipNotEnabledErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [EipNotEnabledError](../classes/EipNotEnabledError
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/common/EipNotEnabledError.d.ts:56

@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / JsonSerializableArray
 
-# Type alias: JsonSerializableArray
+# Type Alias: JsonSerializableArray
 
 > **JsonSerializableArray**: `ReadonlyArray`\<[`JsonSerializable`](JsonSerializable.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:14

@@ -16,6 +16,6 @@
 
 `Chain`\[`"getCanonicalHeadBlock"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/getCanonicalHeadBlock.d.ts:1

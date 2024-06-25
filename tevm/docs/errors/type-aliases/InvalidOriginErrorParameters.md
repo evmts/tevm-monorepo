@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidOriginErrorParameters
 
-# Type alias: InvalidOriginErrorParameters
+# Type Alias: InvalidOriginErrorParameters
 
 > **InvalidOriginErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidOriginError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidOriginError.d.ts:42

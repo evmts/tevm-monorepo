@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilDumpStateJsonRpcResponse
 
-# Type alias: AnvilDumpStateJsonRpcResponse
+# Type Alias: AnvilDumpStateJsonRpcResponse
 
 > **AnvilDumpStateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dumpState"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilDumpStateResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_dumpState` procedure
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:710

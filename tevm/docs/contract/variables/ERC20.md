@@ -10,6 +10,6 @@
 
 Bytecode and ABI for the ERC20 contract from open zeppelin.
 
-## Source
+## Defined in
 
 packages/contract/types/contract-lib/ERC20.d.ts:4

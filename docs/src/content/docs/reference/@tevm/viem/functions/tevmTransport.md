@@ -13,7 +13,7 @@ title: "tevmTransport"
 
 The Tevm instance
 
-• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"` \| `"timeout"` \| `"retryDelay"` \| `"retryCount"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"` \| `"timeout"` \| `"retryCount"` \| `"retryDelay"`\>
 
 ## Returns
 
@@ -21,6 +21,6 @@ The Tevm instance
 
 The transport function
 
-## Source
+## Defined in
 
 [extensions/viem/src/tevmTransport.js:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmTransport.js#L8)

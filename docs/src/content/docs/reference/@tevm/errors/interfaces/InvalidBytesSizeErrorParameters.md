@@ -13,7 +13,7 @@ title: "InvalidBytesSizeErrorParameters"
 
 The cause of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L10)
 
@@ -25,7 +25,7 @@ The cause of the error.
 
 Details of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L11)
 
@@ -37,7 +37,7 @@ Details of the error.
 
 Base URL for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L6)
 
@@ -49,7 +49,7 @@ Base URL for the documentation.
 
 Path to the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L7)
 
@@ -61,7 +61,7 @@ Path to the documentation.
 
 Slug for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L8)
 
@@ -73,7 +73,7 @@ Slug for the documentation.
 
 Optional object containing additional information about the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L12)
 
@@ -85,6 +85,6 @@ Optional object containing additional information about the error.
 
 Additional meta messages.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/data/InvalidByteSizeError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L9)

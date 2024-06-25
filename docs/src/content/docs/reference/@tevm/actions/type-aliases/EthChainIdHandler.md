@@ -15,6 +15,6 @@ title: "EthChainIdHandler"
 
 `Promise`\<[`EthChainIdResult`](/reference/tevm/actions/type-aliases/ethchainidresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L89)

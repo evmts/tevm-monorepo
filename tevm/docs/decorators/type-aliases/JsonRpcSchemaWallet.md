@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / JsonRpcSchemaWallet
 
-# Type alias: JsonRpcSchemaWallet
+# Type Alias: JsonRpcSchemaWallet
 
 > **JsonRpcSchemaWallet**: `object`
 
@@ -501,6 +501,6 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 > **ReturnType**: `boolean`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1343

@@ -15,6 +15,6 @@ title: "ethGetLogsHandler"
 
 [`EthGetLogsHandler`](/reference/tevm/actions/type-aliases/ethgetlogshandler/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/ethGetLogsHandler.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L60)

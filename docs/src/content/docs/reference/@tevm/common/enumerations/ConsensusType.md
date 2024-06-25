@@ -11,7 +11,7 @@ title: "ConsensusType"
 
 > **ProofOfAuthority**: `"poa"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:44
 
@@ -21,7 +21,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **ProofOfStake**: `"pos"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:42
 
@@ -31,6 +31,6 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 > **ProofOfWork**: `"pow"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:43

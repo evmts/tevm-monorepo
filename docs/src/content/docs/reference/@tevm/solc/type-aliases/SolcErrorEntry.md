@@ -41,6 +41,6 @@ title: "SolcErrorEntry"
 
 > **type**: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351)

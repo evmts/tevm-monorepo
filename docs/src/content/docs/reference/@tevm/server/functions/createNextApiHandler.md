@@ -7,8 +7,6 @@ title: "createNextApiHandler"
 
 > **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
-Creates a Next.js API handler for a Tevm JSON-RPC server
-
 ## Parameters
 
 • **client**
@@ -40,7 +38,7 @@ const mempool = await memoryClient._tevm.getTxPool()
 const receiptsManager = await memoryClient._tevm.getReceiptsManager()
 ````
 
-• **client.account**: `undefined`
+• **client.account**: `undefined` \| `Account`
 
 The Account of the Client.
 
@@ -84,7 +82,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-• **client.chain**: `undefined`
+• **client.chain**: `undefined` \| `Chain`
 
 Chain for the client.
 
@@ -1618,16 +1616,6 @@ const unwatch = await client.watchPendingTransactions({
 
 `NextApiHandler`\<`any`\>
 
-## Example
-
-```typescript
-import { createNextApiHandler } from 'tevm/server'
-import { createMemoryClient } from 'tevm'
-
-const tevm = createMemoryClient()
-export default createNextApiHandler({ request: tevm.request })
-```
-
-## Source
+## Defined in
 
 [packages/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createNextApiHandler.js#L16)

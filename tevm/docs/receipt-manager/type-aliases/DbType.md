@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [receipt-manager](../README.md) / DbType
 
-# Type alias: DbType
+# Type Alias: DbType
 
 > **DbType**: `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
-## Source
+## Defined in
 
 packages/receipt-manager/types/MapDb.d.ts:2

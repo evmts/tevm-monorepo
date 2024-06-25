@@ -8,7 +8,7 @@
 
 Type of predeploy contract for tevm
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -28,7 +28,7 @@ Type of predeploy contract for tevm
 
 [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-#### Source
+#### Defined in
 
 packages/predeploys/types/Predeploy.d.ts:8
 
@@ -38,7 +38,7 @@ packages/predeploys/types/Predeploy.d.ts:8
 
 > `readonly` **contract**: [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
-#### Source
+#### Defined in
 
 packages/predeploys/types/Predeploy.d.ts:7
 
@@ -52,7 +52,7 @@ packages/predeploys/types/Predeploy.d.ts:7
 
 [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-#### Source
+#### Defined in
 
 packages/predeploys/types/Predeploy.d.ts:9
 
@@ -70,6 +70,6 @@ packages/predeploys/types/Predeploy.d.ts:9
 
 > **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-#### Source
+#### Defined in
 
 packages/predeploys/types/Predeploy.d.ts:10

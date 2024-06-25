@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidInputLengthErrorParameters
 
-# Type alias: InvalidInputLengthErrorParameters
+# Type Alias: InvalidInputLengthErrorParameters
 
 > **InvalidInputLengthErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidInputLengthError](../classes/InvalidInputL
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:67

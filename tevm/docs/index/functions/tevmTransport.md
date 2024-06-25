@@ -12,12 +12,12 @@
 
 • **\_\_namedParameters**: `Pick`\<[`Eip1193RequestProvider`](../type-aliases/Eip1193RequestProvider.md), `"request"`\> \| `Pick`\<`object`, `"request"`\>
 
-• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\<`undefined`\>\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryDelay"` \| `"retryCount"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\<`undefined`\>\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryCount"` \| `"retryDelay"`\>
 
 ## Returns
 
 `Transport`
 
-## Source
+## Defined in
 
 extensions/viem/types/tevmTransport.d.ts:1

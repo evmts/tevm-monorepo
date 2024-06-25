@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidCommitmentErrorParameters
 
-# Type alias: InvalidCommitmentErrorParameters
+# Type Alias: InvalidCommitmentErrorParameters
 
 > **InvalidCommitmentErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidCommitmentError](../classes/InvalidCommitm
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:72

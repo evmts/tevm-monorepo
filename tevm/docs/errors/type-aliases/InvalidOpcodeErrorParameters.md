@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidOpcodeErrorParameters
 
-# Type alias: InvalidOpcodeErrorParameters
+# Type Alias: InvalidOpcodeErrorParameters
 
 > **InvalidOpcodeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidOpcodeError](../classes/InvalidOpcodeError
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:75

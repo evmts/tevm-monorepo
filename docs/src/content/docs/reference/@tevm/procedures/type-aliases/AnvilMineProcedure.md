@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_mine`
 
 `Promise`\<[`AnvilMineJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilminejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L62)

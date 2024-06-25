@@ -15,6 +15,6 @@ title: "AnvilGetAutomineHandler"
 
 `Promise`\<[`AnvilGetAutomineResult`](/reference/tevm/actions/type-aliases/anvilgetautomineresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L44)

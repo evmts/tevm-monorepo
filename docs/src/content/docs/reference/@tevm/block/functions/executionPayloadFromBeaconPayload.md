@@ -18,6 +18,6 @@ The JSON data can be retrieved from a consensus layer (CL) client on this Beacon
 
 [`ExecutionPayload`](/reference/tevm/block/type-aliases/executionpayload/)
 
-## Source
+## Defined in
 
 [from-beacon-payload.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L93)

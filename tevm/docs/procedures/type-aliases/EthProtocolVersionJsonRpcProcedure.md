@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthProtocolVersionJsonRpcProcedure
 
-# Type alias: EthProtocolVersionJsonRpcProcedure()
+# Type Alias: EthProtocolVersionJsonRpcProcedure()
 
 > **EthProtocolVersionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthProtocolVersionJsonRpcResponse`](EthProtocolVersionJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthProtocolVersionJsonRpcResponse`](EthProtocolVersionJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:619

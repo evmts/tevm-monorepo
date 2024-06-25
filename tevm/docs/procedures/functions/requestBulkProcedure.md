@@ -16,6 +16,6 @@
 
 [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1090

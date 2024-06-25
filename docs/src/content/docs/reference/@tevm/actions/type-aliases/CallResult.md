@@ -9,7 +9,7 @@ title: "CallResult"
 
 Result of a Tevm VM Call method
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmCallError`](/reference/tevm/actions/type-aliases/tevmcallerror/)
 
@@ -180,6 +180,6 @@ Will not be defined if the call was not included in the chain
 Whether a call is included in the chain depends on if the
 `createTransaction` option and the result of the call
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/CallResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L8)

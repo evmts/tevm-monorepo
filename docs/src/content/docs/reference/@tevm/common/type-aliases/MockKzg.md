@@ -129,6 +129,6 @@ const common = createCommon({
 
 `boolean`
 
-## Source
+## Defined in
 
 [packages/common/src/MockKzg.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L21)

@@ -4,9 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmJsonRpcBulkRequestHandler
 
-# Type alias: TevmJsonRpcBulkRequestHandler()
-
-`Experimental`
+# Type Alias: TevmJsonRpcBulkRequestHandler()
 
 > **TevmJsonRpcBulkRequestHandler**: (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
@@ -97,6 +95,6 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBa
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1088

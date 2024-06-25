@@ -4,12 +4,12 @@
 
 [tevm](../../../modules.md) / [bundler/compiler](../README.md) / CompiledContracts
 
-# Type alias: CompiledContracts
+# Type Alias: CompiledContracts
 
 > **CompiledContracts**: `CompiledContracts`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/compiler/types/src/index.d.ts:10

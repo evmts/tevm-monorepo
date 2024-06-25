@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / Hash
 
-# Type alias: Hash
+# Type Alias: Hash
 
 > **Hash**: \`0x$\{string\}\`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:354

@@ -10,12 +10,12 @@
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)
+• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
 
 ## Returns
 
 [`BaseClient`](../type-aliases/BaseClient.md)
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:354
+packages/base-client/dist/index.d.ts:355

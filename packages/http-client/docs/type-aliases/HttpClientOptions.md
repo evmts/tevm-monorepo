@@ -4,7 +4,7 @@
 
 [@tevm/http-client](../globals.md) / HttpClientOptions
 
-# Type alias: ~~HttpClientOptions~~
+# Type Alias: ~~HttpClientOptions~~
 
 > **HttpClientOptions**: `object`
 
@@ -16,7 +16,7 @@ Options for a HttpClient
 
 ### ~~name?~~
 
-> `optional` `readonly` **name**: `string`
+> `readonly` `optional` **name**: `string`
 
 Optional name for the client
 
@@ -26,6 +26,6 @@ Optional name for the client
 
 Remote URL to connect to
 
-## Source
+## Defined in
 
 [HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)

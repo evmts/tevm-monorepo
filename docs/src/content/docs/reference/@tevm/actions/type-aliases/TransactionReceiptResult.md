@@ -13,11 +13,11 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blobGasPrice?
 
-> `optional` `readonly` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice**: `bigint`
 
 ### blobGasUsed?
 
-> `optional` `readonly` **blobGasUsed**: `bigint`
+> `readonly` `optional` **blobGasUsed**: `bigint`
 
 ### blockHash
 
@@ -67,6 +67,6 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 > `readonly` **transactionIndex**: `bigint`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/TransactionReceiptResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L7)

@@ -23,6 +23,6 @@ Gets the current state root
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getStateRoot.js#L7)

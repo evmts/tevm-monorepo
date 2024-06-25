@@ -17,6 +17,6 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](/reference/tevm/procedures/type-aliases/debugtracetransactionjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/debug/DebugProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugProcedure.ts#L7)

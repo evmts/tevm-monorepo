@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / TevmRequestType
 
-# Type alias: TevmRequestType
+# Type Alias: TevmRequestType
 
 > **TevmRequestType**: `object`
 
@@ -42,6 +42,6 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_setAccount**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1244

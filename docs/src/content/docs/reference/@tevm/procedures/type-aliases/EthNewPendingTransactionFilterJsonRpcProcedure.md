@@ -15,6 +15,6 @@ title: "EthNewPendingTransactionFilterJsonRpcProcedure"
 
 `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethnewpendingtransactionfilterjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L203)

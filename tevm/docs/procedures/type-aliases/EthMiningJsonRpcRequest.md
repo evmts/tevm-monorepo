@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthMiningJsonRpcRequest
 
-# Type alias: EthMiningJsonRpcRequest
+# Type Alias: EthMiningJsonRpcRequest
 
 > **EthMiningJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_mining"`, readonly []\>
 
 JSON-RPC request for `eth_mining` procedure
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:369

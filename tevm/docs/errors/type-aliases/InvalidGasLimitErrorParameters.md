@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidGasLimitErrorParameters
 
-# Type alias: InvalidGasLimitErrorParameters
+# Type Alias: InvalidGasLimitErrorParameters
 
 > **InvalidGasLimitErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidGasLimitError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidGasLimitError.d.ts:42

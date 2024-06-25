@@ -9,6 +9,6 @@ title: "AnvilDropTransactionJsonRpcResponse"
 
 JSON-RPC response for `anvil_dropTransaction` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L77)

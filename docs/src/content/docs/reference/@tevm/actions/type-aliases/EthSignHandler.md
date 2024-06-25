@@ -15,6 +15,6 @@ title: "EthSignHandler"
 
 `Promise`\<[`EthSignResult`](/reference/tevm/actions/type-aliases/ethsignresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L169)

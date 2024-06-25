@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcBytecodeOutput
 
-# Type alias: SolcBytecodeOutput
+# Type Alias: SolcBytecodeOutput
 
 > **SolcBytecodeOutput**: `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
 
@@ -14,7 +14,7 @@
 
 > **functionDebugData**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionName`: `string`\]: [`SolcFunctionDebugData`](SolcFunctionDebugData.md)
 
@@ -26,7 +26,7 @@
 
 > **linkReferences**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`fileName`: `string`\]: `object`
 
@@ -42,6 +42,6 @@
 
 > **sourceMap**: `string`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:156

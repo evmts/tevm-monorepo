@@ -32,6 +32,6 @@ The head hash to save
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [actions/setIteratorHead.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/setIteratorHead.js#L7)

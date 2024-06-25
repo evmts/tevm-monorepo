@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmClient
 
-# Type alias: ~~ViemTevmClient~~
+# Type Alias: ~~ViemTevmClient~~
 
 > **ViemTevmClient**: `object`
 
@@ -19,6 +19,6 @@ The decorated properties added by the `tevmViemExtension`
 
 > **tevm**: `TevmClient`
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BLS12381PointNotOnCurveErrorParameters
 
-# Type alias: BLS12381PointNotOnCurveErrorParameters
+# Type Alias: BLS12381PointNotOnCurveErrorParameters
 
 > **BLS12381PointNotOnCurveErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [BLS12381PointNotOnCurveError](../classes/BLS12381
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:59

@@ -4,12 +4,12 @@
 
 [tevm](../../../modules.md) / [bundler/compiler](../README.md) / ResolvedArtifacts
 
-# Type alias: ResolvedArtifacts
+# Type Alias: ResolvedArtifacts
 
 > **ResolvedArtifacts**: `ResolvedArtifacts`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/compiler/types/src/index.d.ts:26

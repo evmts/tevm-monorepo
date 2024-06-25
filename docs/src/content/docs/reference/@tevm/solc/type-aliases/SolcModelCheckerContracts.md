@@ -7,10 +7,10 @@ title: "SolcModelCheckerContracts"
 
 > **SolcModelCheckerContracts**: `object`
 
-## Index signature
+## Index Signature
 
  \[`fileName`: \`$\{string\}.sol\`\]: `string`[]
 
-## Source
+## Defined in
 
 [solcTypes.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L161)

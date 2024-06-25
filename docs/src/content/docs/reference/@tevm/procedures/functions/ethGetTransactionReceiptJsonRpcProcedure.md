@@ -15,6 +15,6 @@ title: "ethGetTransactionReceiptJsonRpcProcedure"
 
 [`EthGetTransactionReceiptJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactionreceiptjsonrpcprocedure/)
 
-## Source
+## Defined in
 
 [procedures/src/eth/ethGetTransactionReceiptProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionReceiptProcedure.js#L8)

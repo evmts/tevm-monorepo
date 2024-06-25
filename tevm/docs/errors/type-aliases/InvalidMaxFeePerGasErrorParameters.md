@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidMaxFeePerGasErrorParameters
 
-# Type alias: InvalidMaxFeePerGasErrorParameters
+# Type Alias: InvalidMaxFeePerGasErrorParameters
 
 > **InvalidMaxFeePerGasErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidMaxFeePerGasError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:42

@@ -7,7 +7,7 @@ title: "Predeploy"
 
 Type of predeploy contract for tevm
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -27,7 +27,7 @@ Type of predeploy contract for tevm
 
 [`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`TName`, `THumanReadableAbi`\>
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
@@ -37,7 +37,7 @@ Type of predeploy contract for tevm
 
 > `readonly` **contract**: [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
@@ -51,7 +51,7 @@ Type of predeploy contract for tevm
 
 [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
 
@@ -69,6 +69,6 @@ Type of predeploy contract for tevm
 
 > **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L10)

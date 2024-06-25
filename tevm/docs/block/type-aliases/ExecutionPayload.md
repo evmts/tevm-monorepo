@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [block](../README.md) / ExecutionPayload
 
-# Type alias: ExecutionPayload
+# Type Alias: ExecutionPayload
 
 > **ExecutionPayload**: `object`
 
@@ -90,6 +90,6 @@
 
 > `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
-## Source
+## Defined in
 
 packages/block/types/types.d.ts:236

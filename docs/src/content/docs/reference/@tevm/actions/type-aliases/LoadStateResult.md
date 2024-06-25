@@ -9,7 +9,7 @@ title: "LoadStateResult"
 
 Result of LoadState Method
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmLoadStateError`](/reference/tevm/actions/type-aliases/tevmloadstateerror/)
 
@@ -21,6 +21,6 @@ Result of LoadState Method
 
 Description of the exception, if any occurred
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/LoadStateResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L6)

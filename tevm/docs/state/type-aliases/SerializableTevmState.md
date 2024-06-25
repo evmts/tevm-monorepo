@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [state](../README.md) / SerializableTevmState
 
-# Type alias: SerializableTevmState
+# Type Alias: SerializableTevmState
 
 > **SerializableTevmState**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: `object`
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:37

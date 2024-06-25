@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / RevertErrorParameters
 
-# Type alias: RevertErrorParameters
+# Type Alias: RevertErrorParameters
 
 > **RevertErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a RevertError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/RevertError.d.ts:50

@@ -15,6 +15,6 @@ title: "validateContractParams"
 
 [`ValidateContractParamsError`](/reference/tevm/actions/type-aliases/validatecontractparamserror/)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/validateContractParams.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L19)

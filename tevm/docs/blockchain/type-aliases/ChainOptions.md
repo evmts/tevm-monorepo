@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [blockchain](../README.md) / ChainOptions
 
-# Type alias: ChainOptions
+# Type Alias: ChainOptions
 
 > **ChainOptions**: `object`
 
@@ -57,6 +57,6 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 
 Logging level of blockchain package. Defaults to `warn`
 
-## Source
+## Defined in
 
 packages/blockchain/types/ChainOptions.d.ts:8

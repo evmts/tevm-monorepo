@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmActionsApi
 
-# Type alias: TevmActionsApi
+# Type Alias: TevmActionsApi
 
 > **TevmActionsApi**: `object`
 
@@ -182,6 +182,6 @@ await tevm.setAccount({
 })
 ```
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:95

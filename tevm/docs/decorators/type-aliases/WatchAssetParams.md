@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / WatchAssetParams
 
-# Type alias: WatchAssetParams
+# Type Alias: WatchAssetParams
 
 > **WatchAssetParams**: `object`
 
@@ -46,6 +46,6 @@ A ticker symbol or shorthand, up to 11 characters
 
 Token type.
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1328

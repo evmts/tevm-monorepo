@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_reset`
 
 `Promise`\<[`AnvilResetJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilresetjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L67)

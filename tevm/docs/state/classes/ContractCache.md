@@ -23,7 +23,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 [`ContractCache`](ContractCache.md)
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:52
 
@@ -33,7 +33,7 @@ packages/state/dist/index.d.ts:52
 
 > **storageCache**: `StorageCache`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:53
 
@@ -47,7 +47,7 @@ packages/state/dist/index.d.ts:53
 
 `number`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:87
 
@@ -61,7 +61,7 @@ packages/state/dist/index.d.ts:87
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:81
 
@@ -75,7 +75,7 @@ packages/state/dist/index.d.ts:81
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:61
 
@@ -89,7 +89,7 @@ packages/state/dist/index.d.ts:61
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:57
 
@@ -107,7 +107,7 @@ packages/state/dist/index.d.ts:57
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:77
 
@@ -125,7 +125,7 @@ packages/state/dist/index.d.ts:77
 
 `undefined` \| `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:66
 
@@ -145,7 +145,7 @@ packages/state/dist/index.d.ts:66
 
 if the cache has the key
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:86
 
@@ -165,7 +165,7 @@ packages/state/dist/index.d.ts:86
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:72
 
@@ -179,7 +179,7 @@ packages/state/dist/index.d.ts:72
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:92
 
@@ -193,6 +193,6 @@ packages/state/dist/index.d.ts:92
 
 `number`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:88

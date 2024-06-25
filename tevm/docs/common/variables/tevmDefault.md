@@ -10,6 +10,6 @@
 
 The default chain if no fork url is passed
 
-## Source
+## Defined in
 
 packages/common/types/presets/tevmDefault.d.ts:4

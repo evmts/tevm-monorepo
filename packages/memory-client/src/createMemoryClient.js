@@ -91,7 +91,7 @@ import { createClient, createTransport, publicActions } from 'viem'
 * Tevm clients are themselves EIP-1193 transports. This means you can fork a client with another client.
 *
 */
-export const createMemoryClient = (options) => {
+export const createMemoryClient = (options = {}) => {
 	const tevm = createBaseClient(options).extend(tevmSend()).extend(requestEip1193()).extend(tevmActions())
 	return /** @type any*/ (
 		createClient({

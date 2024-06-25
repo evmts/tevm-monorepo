@@ -16,6 +16,6 @@
 
 `Promise`\<`Chain`\>
 
-## Source
+## Defined in
 
 packages/blockchain/types/createChain.d.ts:1

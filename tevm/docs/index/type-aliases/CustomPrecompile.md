@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CustomPrecompile
 
-# Type alias: CustomPrecompile
+# Type Alias: CustomPrecompile
 
 > **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../../evm/classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:222
+packages/base-client/dist/index.d.ts:223

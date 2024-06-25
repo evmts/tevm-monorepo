@@ -30,6 +30,6 @@ Both are represented as `0x` prefixed hex strings.
 
 `Promise`\<[`StorageDump`](../../common/interfaces/StorageDump.md)\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:239

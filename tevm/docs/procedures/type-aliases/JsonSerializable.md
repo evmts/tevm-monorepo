@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / JsonSerializable
 
-# Type alias: JsonSerializable
+# Type Alias: JsonSerializable
 
 > **JsonSerializable**: `bigint` \| `string` \| `number` \| `boolean` \| `null` \| [`JsonSerializableArray`](JsonSerializableArray.md) \| [`JsonSerializableObject`](JsonSerializableObject.md) \| [`JsonSerializableSet`](JsonSerializableSet.md) \| `Error` & `object`
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:11

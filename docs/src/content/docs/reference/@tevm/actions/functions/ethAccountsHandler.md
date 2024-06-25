@@ -17,6 +17,6 @@ title: "ethAccountsHandler"
 
 [`EthAccountsHandler`](/reference/tevm/actions/type-aliases/ethaccountshandler/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/ethAccountsHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethAccountsHandler.js#L6)

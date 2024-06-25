@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / OutOfRangeErrorParameters
 
-# Type alias: OutOfRangeErrorParameters
+# Type Alias: OutOfRangeErrorParameters
 
 > **OutOfRangeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [OutOfRangeError](../classes/OutOfRangeError.md).
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:77

@@ -11,7 +11,7 @@ title: "ScriptResult"
 Can use `ContractResult` instead
 :::
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
 
@@ -19,6 +19,6 @@ Can use `ContractResult` instead
 
 • **TErrorType** = [`TevmScriptError`](/reference/tevm/actions/type-aliases/tevmscripterror/)
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBytecodeResultErrorParameters
 
-# Type alias: InvalidBytecodeResultErrorParameters
+# Type Alias: InvalidBytecodeResultErrorParameters
 
 > **InvalidBytecodeResultErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidBytecodeResultError](../classes/InvalidByt
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:69

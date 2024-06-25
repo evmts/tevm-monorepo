@@ -4,11 +4,11 @@
 
 [@tevm/viem](../globals.md) / ViemTevmOptimisticClient
 
-# Type alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
-
-`Experimental`
+# Type Alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
 
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
+
+**`Experimental`**
 
 ## Deprecated
 
@@ -16,7 +16,7 @@ in favor of the viem transport
 
 The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
 
-## Type parameters
+## Type Parameters
 
 • **TChain** *extends* `Chain` \| `undefined` = `Chain`
 
@@ -28,11 +28,13 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 > **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
 
+**`Experimental`**
+
 #### Type declaration
 
 ##### ~~writeContractOptimistic()~~
 
-###### Type parameters
+###### Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -50,6 +52,6 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 `AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

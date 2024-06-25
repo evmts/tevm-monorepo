@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcSettings
 
-# Type alias: SolcSettings
+# Type Alias: SolcSettings
 
 > **SolcSettings**: `object`
 
@@ -50,6 +50,6 @@
 
 > `optional` **viaIR**: `boolean`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:67

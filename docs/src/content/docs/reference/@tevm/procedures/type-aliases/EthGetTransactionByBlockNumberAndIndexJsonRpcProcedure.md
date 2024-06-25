@@ -15,6 +15,6 @@ title: "EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure"
 
 `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgettransactionbyblocknumberandindexjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L159)

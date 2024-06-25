@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateSyncStoragePersisterOptions
 
-# Type alias: CreateSyncStoragePersisterOptions
+# Type Alias: CreateSyncStoragePersisterOptions
 
 > **CreateSyncStoragePersisterOptions**: `object`
 
@@ -68,6 +68,6 @@ For SSR pass in `undefined`. Note that window.localStorage can be
 
 To avoid spamming, pass a time in ms to throttle saving the cache to disk
 
-## Source
+## Defined in
 
 packages/sync-storage-persister/types/CreateSyncStoragePersisterOptions.d.ts:6

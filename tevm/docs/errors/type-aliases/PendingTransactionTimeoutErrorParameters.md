@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / PendingTransactionTimeoutErrorParameters
 
-# Type alias: PendingTransactionTimeoutErrorParameters
+# Type Alias: PendingTransactionTimeoutErrorParameters
 
 > **PendingTransactionTimeoutErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a PendingTransactionTimeoutError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/PendingTransactionTimeoutError.d.ts:50

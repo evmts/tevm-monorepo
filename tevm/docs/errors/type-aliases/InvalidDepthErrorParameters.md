@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidDepthErrorParameters
 
-# Type alias: InvalidDepthErrorParameters
+# Type Alias: InvalidDepthErrorParameters
 
 > **InvalidDepthErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidDepthError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidDepthError.d.ts:42

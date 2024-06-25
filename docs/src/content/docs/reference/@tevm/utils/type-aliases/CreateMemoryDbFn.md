@@ -7,7 +7,7 @@ title: "CreateMemoryDbFn"
 
 > **CreateMemoryDbFn**\<`TKey`, `TValue`\>: (`initialDb`?) => [`MemoryDb`](/reference/tevm/utils/type-aliases/memorydb/)\<`TKey`, `TValue`\>
 
-## Type parameters
+## Type Parameters
 
 • **TKey** *extends* `string` \| `number` \| `Uint8Array` = `Uint8Array`
 
@@ -21,6 +21,6 @@ title: "CreateMemoryDbFn"
 
 [`MemoryDb`](/reference/tevm/utils/type-aliases/memorydb/)\<`TKey`, `TValue`\>
 
-## Source
+## Defined in
 
 [packages/utils/src/CreateMemoryDbFn.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/CreateMemoryDbFn.ts#L4)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ExecutionErrorParameters
 
-# Type alias: ExecutionErrorParameters
+# Type Alias: ExecutionErrorParameters
 
 > **ExecutionErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an ExecutionError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ExecutionErrorError.d.ts:50

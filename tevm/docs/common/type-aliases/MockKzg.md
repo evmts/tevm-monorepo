@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [common](../README.md) / MockKzg
 
-# Type alias: MockKzg
+# Type Alias: MockKzg
 
 > **MockKzg**: `object`
 
@@ -130,6 +130,6 @@ const common = createCommon({
 
 `boolean`
 
-## Source
+## Defined in
 
 packages/common/types/MockKzg.d.ts:21

@@ -12,6 +12,6 @@
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md)\>
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1576

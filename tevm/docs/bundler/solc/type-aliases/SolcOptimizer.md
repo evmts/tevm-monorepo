@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcOptimizer
 
-# Type alias: SolcOptimizer
+# Type Alias: SolcOptimizer
 
 > **SolcOptimizer**: `object`
 
@@ -22,6 +22,6 @@
 
 > **runs**: `number`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:29

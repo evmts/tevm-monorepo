@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / MineHandler
 
-# Type alias: MineHandler()
+# Type Alias: MineHandler()
 
 > **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
@@ -25,6 +25,6 @@ console.log(res.errors) // undefined
 
 `Promise`\<[`MineResult`](MineResult.md)\>
 
-## Source
+## Defined in
 
 packages/actions/types/Mine/MineHandlerType.d.ts:9

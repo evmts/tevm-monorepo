@@ -28,6 +28,6 @@ Clears all storage entries for the account corresponding to `address`.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:210

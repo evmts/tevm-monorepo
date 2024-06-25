@@ -11,6 +11,6 @@ title: "MetaDBManagerOptions"
 
 > **cache**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
 
-#### Source
+#### Defined in
 
 [MapDb.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L14)

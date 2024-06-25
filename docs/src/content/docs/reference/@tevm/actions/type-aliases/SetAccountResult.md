@@ -9,7 +9,7 @@ title: "SetAccountResult"
 
 Result of SetAccount Action
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmSetAccountError`](/reference/tevm/actions/type-aliases/tevmsetaccounterror/)
 
@@ -21,6 +21,6 @@ Result of SetAccount Action
 
 Description of the exception, if any occurred
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L6)

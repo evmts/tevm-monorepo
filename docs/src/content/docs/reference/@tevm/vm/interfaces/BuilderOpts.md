@@ -28,7 +28,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`calcDifficultyFromHeader`](/reference/tevm/block/interfaces/blockoptions/#calcdifficultyfromheader)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:42
 
@@ -45,7 +45,7 @@ Will throw if provided on a non-PoA chain.
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`cliqueSigner`](/reference/tevm/block/interfaces/blockoptions/#cliquesigner)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:59
 
@@ -69,7 +69,7 @@ Current default hardfork: `merge`
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`common`](/reference/tevm/block/interfaces/blockoptions/#common)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:23
 
@@ -83,7 +83,7 @@ packages/block/types/types.d.ts:23
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`executionWitness`](/reference/tevm/block/interfaces/blockoptions/#executionwitness)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:64
 
@@ -107,7 +107,7 @@ Default: true
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`freeze`](/reference/tevm/block/interfaces/blockoptions/#freeze)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:54
 
@@ -125,7 +125,7 @@ the underlying blockchain.
 
 Default: true
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L174)
 
@@ -147,7 +147,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`setHardfork`](/reference/tevm/block/interfaces/blockoptions/#sethardfork)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:33
 
@@ -163,6 +163,6 @@ Skip consensus format validation checks on header if set. Defaults to false.
 
 [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/).[`skipConsensusFormatValidation`](/reference/tevm/block/interfaces/blockoptions/#skipconsensusformatvalidation)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:63

@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputDescription
 
-# Type alias: SolcInputDescription
+# Type Alias: SolcInputDescription
 
 > **SolcInputDescription**: `object`
 
@@ -22,6 +22,6 @@
 
 > **sources**: [`SolcInputSources`](SolcInputSources.md)
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:88

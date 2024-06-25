@@ -9,6 +9,6 @@ title: "EthGetFilterLogsResult"
 
 JSON-RPC response for `eth_getFilterLogs` procedure
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthResult.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L101)

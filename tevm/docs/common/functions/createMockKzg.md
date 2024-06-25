@@ -12,6 +12,6 @@
 
 `MockKzg`
 
-## Source
+## Defined in
 
 packages/common/types/createMockKzg.d.ts:1

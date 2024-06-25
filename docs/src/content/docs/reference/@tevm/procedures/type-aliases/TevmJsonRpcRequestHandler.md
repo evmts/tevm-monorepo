@@ -83,7 +83,7 @@ response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/proc
 request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcrequest)
 response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcresponse)
 
-## Type parameters
+## Type Parameters
 
 • **TRequest** *extends* [`TevmJsonRpcRequest`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures/type-aliases/debugjsonrpcrequest/)
 
@@ -95,6 +95,6 @@ response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/pr
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures/type-aliases/jsonrpcreturntypefrommethod/)\<`TRequest`\[`"method"`\]\>\>
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L90)

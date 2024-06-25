@@ -15,6 +15,6 @@ title: "EthGasPriceHandler"
 
 `Promise`\<[`EthGasPriceResult`](/reference/tevm/actions/type-aliases/ethgaspriceresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L97)

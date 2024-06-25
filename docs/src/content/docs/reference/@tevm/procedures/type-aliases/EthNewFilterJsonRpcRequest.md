@@ -9,6 +9,6 @@ title: "EthNewFilterJsonRpcRequest"
 
 JSON-RPC request for `eth_newFilter` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:268](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L268)

@@ -4,9 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmOptimisticExtension
 
-# Type alias: ~~ViemTevmOptimisticExtension()~~
-
-`Experimental`
+# Type Alias: ~~ViemTevmOptimisticExtension()~~
 
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
@@ -39,6 +37,6 @@ await client.tevm.account({
 
 [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)

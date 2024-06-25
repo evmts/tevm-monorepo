@@ -19,6 +19,6 @@ title: "ethSignTransactionProcedure"
 
 [`EthSignTransactionJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethsigntransactionjsonrpcprocedure/)
 
-## Source
+## Defined in
 
 [procedures/src/eth/ethSignTransactionProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignTransactionProcedure.js#L8)

@@ -17,6 +17,6 @@ title: "SolcEwasmOutput"
 
 > **wast**: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)

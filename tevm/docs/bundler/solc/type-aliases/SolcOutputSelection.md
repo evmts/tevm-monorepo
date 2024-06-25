@@ -4,14 +4,14 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcOutputSelection
 
-# Type alias: SolcOutputSelection
+# Type Alias: SolcOutputSelection
 
 > **SolcOutputSelection**: `object`
 
-## Index signature
+## Index Signature
 
  \[`fileName`: `string`\]: `object` & `object`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:35

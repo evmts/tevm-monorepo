@@ -15,6 +15,6 @@ title: "gasPriceProcedure"
 
 [`EthGasPriceJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgaspricejsonrpcprocedure/)
 
-## Source
+## Defined in
 
 [procedures/src/eth/gasPriceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/gasPriceProcedure.js#L9)

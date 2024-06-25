@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TransactionResult
 
-# Type alias: TransactionResult
+# Type Alias: TransactionResult
 
 > **TransactionResult**: `object`
 
@@ -69,6 +69,6 @@ json rpc procedures
 
 > `readonly` **value**: `Hex`
 
-## Source
+## Defined in
 
 packages/actions/types/common/TransactionResult.d.ts:6

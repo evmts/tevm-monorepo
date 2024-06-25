@@ -24,6 +24,6 @@ Gets the current state root
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:307

@@ -16,6 +16,6 @@
 
 `bigint` \| `null`
 
-## Source
+## Defined in
 
 packages/block/types/helpers.d.ts:10

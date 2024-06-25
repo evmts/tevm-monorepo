@@ -33,10 +33,10 @@ title: "SolcEVMOutput"
 
 > **methodIdentifiers**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429)

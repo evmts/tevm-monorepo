@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [index](../README.md) / DeployArgs
 
-# Type alias: DeployArgs\<THumanReadableAbi, TBytecode, TAbi, THasConstructor\>
+# Type Alias: DeployArgs\<THumanReadableAbi, TBytecode, TAbi, THasConstructor\>
 
 > **DeployArgs**\<`THumanReadableAbi`, `TBytecode`, `TAbi`, `THasConstructor`\>: `THasConstructor` *extends* `false` ? `TBytecode` *extends* [`Hex`](Hex.md) ? [] \| [`object`] : [`object`] : `TBytecode` *extends* [`Hex`](Hex.md) ? [`object`] : [`object`]
 
 Inferred arguments for a contract deployment
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* `string`[] \| readonly `string`[]
 
@@ -20,6 +20,6 @@ Inferred arguments for a contract deployment
 
 • **THasConstructor** = `TAbi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
 
-## Source
+## Defined in
 
 packages/contract/types/DeployArgs.d.ts:5

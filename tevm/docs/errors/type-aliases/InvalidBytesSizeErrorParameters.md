@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBytesSizeErrorParameters
 
-# Type alias: InvalidBytesSizeErrorParameters
+# Type Alias: InvalidBytesSizeErrorParameters
 
 > **InvalidBytesSizeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSi
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/data/InvalidByteSizeError.d.ts:57

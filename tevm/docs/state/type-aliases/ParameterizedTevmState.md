@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [state](../README.md) / ParameterizedTevmState
 
-# Type alias: ParameterizedTevmState
+# Type Alias: ParameterizedTevmState
 
 > **ParameterizedTevmState**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`ParameterizedAccountStorage`](../interfaces/ParameterizedAccountStorage.md)
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:33

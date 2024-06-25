@@ -8,6 +8,6 @@
 
 > `const` **mainnet**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/mainnet.d.ts:1

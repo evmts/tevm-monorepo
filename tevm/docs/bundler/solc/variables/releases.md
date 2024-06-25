@@ -8,6 +8,6 @@
 
 > `const` **releases**: `Releases`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solc.d.ts:8

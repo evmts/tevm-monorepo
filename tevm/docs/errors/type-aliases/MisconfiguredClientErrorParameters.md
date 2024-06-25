@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / MisconfiguredClientErrorParameters
 
-# Type alias: MisconfiguredClientErrorParameters
+# Type Alias: MisconfiguredClientErrorParameters
 
 > **MisconfiguredClientErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [MisconfiguredClientError](../classes/Misconfigure
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/client/MisconfiguredClient.d.ts:54

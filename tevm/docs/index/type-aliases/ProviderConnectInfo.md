@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ProviderConnectInfo
 
-# Type alias: ProviderConnectInfo
+# Type Alias: ProviderConnectInfo
 
 > **ProviderConnectInfo**: `object`
 
@@ -14,6 +14,6 @@
 
 > **chainId**: `string`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:17
+packages/base-client/dist/index.d.ts:18

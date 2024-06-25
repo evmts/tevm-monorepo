@@ -60,9 +60,9 @@ const balance = await tevm.tevmContract(
 
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `undefined`
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
-• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `undefined`
+• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `Account` \| `Address` \| `undefined`
 
 ## Defined in
 

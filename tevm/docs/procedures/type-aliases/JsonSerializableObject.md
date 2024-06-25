@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / JsonSerializableObject
 
-# Type alias: JsonSerializableObject
+# Type Alias: JsonSerializableObject
 
 > **JsonSerializableObject**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:15

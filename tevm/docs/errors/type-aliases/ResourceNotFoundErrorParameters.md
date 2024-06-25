@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ResourceNotFoundErrorParameters
 
-# Type alias: ResourceNotFoundErrorParameters
+# Type Alias: ResourceNotFoundErrorParameters
 
 > **ResourceNotFoundErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a ResourceNotFoundError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ResourceNotFoundError.d.ts:50

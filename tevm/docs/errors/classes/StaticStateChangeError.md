@@ -89,7 +89,7 @@ The tag for the error.
 
 [`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:72
 
@@ -105,7 +105,7 @@ Same as name, used internally.
 
 [`ExecutionError`](ExecutionError.md).[`_tag`](ExecutionError.md#_tag)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:39
 
@@ -119,7 +119,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 [`ExecutionError`](ExecutionError.md).[`cause`](ExecutionError.md#cause)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:64
 
@@ -135,7 +135,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:63
 
@@ -149,7 +149,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 [`ExecutionError`](ExecutionError.md).[`details`](ExecutionError.md#details)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:43
 
@@ -165,7 +165,7 @@ Path to the documentation for this error.
 
 [`ExecutionError`](ExecutionError.md).[`docsPath`](ExecutionError.md#docspath)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:47
 
@@ -181,9 +181,9 @@ Human-readable error message.
 
 [`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -197,7 +197,7 @@ Additional meta messages for more context.
 
 [`ExecutionError`](ExecutionError.md).[`metaMessages`](ExecutionError.md#metamessages)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:51
 
@@ -213,9 +213,9 @@ The name of the error, used to discriminate errors.
 
 [`ExecutionError`](ExecutionError.md).[`name`](ExecutionError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -227,7 +227,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`ExecutionError`](ExecutionError.md).[`shortMessage`](ExecutionError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:55
 
@@ -241,9 +241,9 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 [`ExecutionError`](ExecutionError.md).[`stack`](ExecutionError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -255,7 +255,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`ExecutionError`](ExecutionError.md).[`version`](ExecutionError.md#version)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:59
 
@@ -265,7 +265,7 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 > `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:51
 
@@ -295,9 +295,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`ExecutionError`](ExecutionError.md).[`prepareStackTrace`](ExecutionError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -309,9 +309,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`ExecutionError`](ExecutionError.md).[`stackTraceLimit`](ExecutionError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -337,7 +337,7 @@ The first error that matches the function, or the original error.
 
 [`ExecutionError`](ExecutionError.md).[`walk`](ExecutionError.md#walk)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:70
 
@@ -363,6 +363,6 @@ Create .stack property on a target object
 
 [`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

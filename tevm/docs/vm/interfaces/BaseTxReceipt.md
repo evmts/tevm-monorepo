@@ -21,7 +21,7 @@ Abstract interface with common transaction receipt fields
 
 Bloom bitvector
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:22
 
@@ -33,7 +33,7 @@ packages/vm/types/utils/types.d.ts:22
 
 Cumulative gas used in the block including this tx
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:18
 
@@ -45,6 +45,6 @@ packages/vm/types/utils/types.d.ts:18
 
 Logs emitted
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:26

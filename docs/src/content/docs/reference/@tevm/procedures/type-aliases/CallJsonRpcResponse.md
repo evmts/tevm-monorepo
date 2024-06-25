@@ -9,6 +9,6 @@ title: "CallJsonRpcResponse"
 
 JSON-RPC response for `tevm_call` procedure
 
-## Source
+## Defined in
 
 [procedures/src/call/CallJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/call/CallJsonRpcResponse.ts#L8)

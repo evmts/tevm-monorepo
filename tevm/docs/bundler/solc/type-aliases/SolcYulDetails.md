@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcYulDetails
 
-# Type alias: SolcYulDetails
+# Type Alias: SolcYulDetails
 
 > **SolcYulDetails**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **stackAllocation**: `boolean`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:14

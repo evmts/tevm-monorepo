@@ -9,6 +9,6 @@ title: "DebugTraceTransactionJsonRpcResponse"
 
 JSON-RPC response for `debug_traceTransaction` procedure
 
-## Source
+## Defined in
 
 [procedures/src/debug/DebugJsonRpcResponse.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugJsonRpcResponse.ts#L13)

@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmGetAccountError
 
-# Type alias: TevmGetAccountError
+# Type Alias: TevmGetAccountError
 
 > **TevmGetAccountError**: [`AccountNotFoundError`](../../errors/classes/AccountNotFoundError.md) \| `ValidateGetAccountParamsError`
 
-## Source
+## Defined in
 
 packages/actions/types/GetAccount/TevmGetAccountError.d.ts:3

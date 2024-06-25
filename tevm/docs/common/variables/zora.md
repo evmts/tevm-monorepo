@@ -8,6 +8,6 @@
 
 > `const` **zora**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/zora.d.ts:1

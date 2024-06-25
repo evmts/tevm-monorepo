@@ -9,6 +9,6 @@ title: "ModuleInfo"
 
 ./moduleFactory.js
 
-## Source
+## Defined in
 
 resolutions/types/src/index.d.ts:14

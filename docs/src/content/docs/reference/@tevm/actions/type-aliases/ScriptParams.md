@@ -20,7 +20,7 @@ Tevm params for deploying and running a script
 
 The EVM code to run.
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
@@ -28,6 +28,6 @@ The EVM code to run.
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptParams.ts#L9)

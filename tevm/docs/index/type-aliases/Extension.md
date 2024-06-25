@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Extension
 
-# Type alias: Extension()\<TExtended\>
+# Type Alias: Extension()\<TExtended\>
 
 > **Extension**\<`TExtended`\>: (`client`) => `TExtended`
 
-## Type parameters
+## Type Parameters
 
 • **TExtended**
 
@@ -20,6 +20,6 @@
 
 `TExtended`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:356
+packages/base-client/dist/index.d.ts:357

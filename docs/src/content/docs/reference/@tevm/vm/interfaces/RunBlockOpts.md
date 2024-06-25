@@ -15,7 +15,7 @@ Options for running a block.
 
 The @ethereumjs/block to process
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L223)
 
@@ -31,7 +31,7 @@ If state root is not reset for whatever reason this can be set to `false` for be
 
 Default: true
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L235)
 
@@ -46,7 +46,7 @@ If `true`, `runBlock` will set the fields `stateRoot`, `receiptTrie`, `gasUsed`,
 If `false`, `runBlock` throws if any fields do not match.
 Defaults to `false`.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:242](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L242)
 
@@ -59,7 +59,7 @@ Defaults to `false`.
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:285](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L285)
 
@@ -71,7 +71,7 @@ to the `RunTxResult` returned.
 
 Root of the state trie
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L227)
 
@@ -89,7 +89,7 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../reference/tevm/common/type-aliases/common) instance)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:279](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L279)
 
@@ -102,7 +102,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 If true, checks the balance of the `from` account for the transaction and sets its
 balance equal equal to the upfront cost (gas limit * gas price + transaction value)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:269](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L269)
 
@@ -116,7 +116,7 @@ If true, will skip "Block validation":
 Block validation validates the header (with respect to the blockchain),
 the transactions, the transaction trie and the uncle hash.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:248](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L248)
 
@@ -129,7 +129,7 @@ the transactions, the transaction trie and the uncle hash.
 If true, skips the hardfork validation of vm, block
 and tx
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L253)
 
@@ -144,7 +144,7 @@ If the block has been picked from the blockchain to be executed,
 header has already been validated, and can be skipped especially when
 consensus of the chain has moved ahead.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L260)
 
@@ -156,6 +156,6 @@ consensus of the chain has moved ahead.
 
 If true, skips the nonce check
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:264](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L264)

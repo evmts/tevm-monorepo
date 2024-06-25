@@ -17,6 +17,6 @@ title: "ethSignHandler"
 
 [`EthSignHandler`](/reference/tevm/actions/type-aliases/ethsignhandler/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/ethSignHandler.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignHandler.js#L18)

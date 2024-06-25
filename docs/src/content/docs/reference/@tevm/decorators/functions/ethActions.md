@@ -11,6 +11,6 @@ title: "ethActions"
 
 `Extension`\<[`EthActionsApi`](/reference/tevm/decorators/type-aliases/ethactionsapi/)\>
 
-## Source
+## Defined in
 
 [actions/ethActions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/ethActions.js#L14)

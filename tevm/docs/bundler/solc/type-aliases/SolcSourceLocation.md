@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcSourceLocation
 
-# Type alias: SolcSourceLocation
+# Type Alias: SolcSourceLocation
 
 > **SolcSourceLocation**: `object`
 
@@ -22,6 +22,6 @@
 
 > **start**: `number`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:114

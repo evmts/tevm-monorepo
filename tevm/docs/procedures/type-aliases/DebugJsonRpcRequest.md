@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugJsonRpcRequest
 
-# Type alias: DebugJsonRpcRequest
+# Type Alias: DebugJsonRpcRequest
 
 > **DebugJsonRpcRequest**: [`DebugTraceTransactionJsonRpcRequest`](DebugTraceTransactionJsonRpcRequest.md) \| [`DebugTraceCallJsonRpcRequest`](DebugTraceCallJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:222

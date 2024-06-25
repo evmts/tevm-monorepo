@@ -15,6 +15,6 @@ title: "EthHashrateJsonRpcProcedure"
 
 `Promise`\<[`EthHashrateJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethhashratejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L99)

@@ -17,7 +17,7 @@ to query on tx capabilities
 Tx supports EIP-1559 gas fee market mechanism
 See: [1559](https://eips.ethereum.org/EIPS/eip-1559) Fee Market EIP
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:22
 
@@ -30,7 +30,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 Tx supports EIP-155 replay protection
 See: [155](https://eips.ethereum.org/EIPS/eip-155) Replay Attack Protection EIP
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:17
 
@@ -43,7 +43,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 Tx is a typed transaction as defined in EIP-2718
 See: [2718](https://eips.ethereum.org/EIPS/eip-2718) Transaction Type EIP
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:27
 
@@ -56,6 +56,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 Tx supports access list generation as defined in EIP-2930
 See: [2930](https://eips.ethereum.org/EIPS/eip-2930) Access Lists EIP
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:32

@@ -9,6 +9,6 @@ title: "LoadStateJsonRpcResponse"
 
 Response of the `tevm_loadState` RPC method.
 
-## Source
+## Defined in
 
 [procedures/src/loadstate/LoadStateJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcResponse.ts#L8)

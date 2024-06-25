@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / NonceTooLowErrorParameters
 
-# Type alias: NonceTooLowErrorParameters
+# Type Alias: NonceTooLowErrorParameters
 
 > **NonceTooLowErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a NonceTooLowError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/NonceTooLowError.d.ts:50

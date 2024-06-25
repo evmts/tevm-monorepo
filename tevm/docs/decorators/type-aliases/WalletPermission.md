@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / WalletPermission
 
-# Type alias: WalletPermission
+# Type Alias: WalletPermission
 
 > **WalletPermission**: `object`
 
@@ -30,6 +30,6 @@
 
 > **parentCapability**: `"eth_accounts"` \| `string`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1317

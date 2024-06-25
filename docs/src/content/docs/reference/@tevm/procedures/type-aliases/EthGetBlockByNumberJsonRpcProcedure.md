@@ -15,6 +15,6 @@ title: "EthGetBlockByNumberJsonRpcProcedure"
 
 `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgetblockbynumberjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L111)

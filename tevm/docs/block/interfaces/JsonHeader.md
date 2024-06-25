@@ -14,7 +14,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **baseFeePerGas**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:192
 
@@ -24,7 +24,7 @@ packages/block/types/types.d.ts:192
 
 > `optional` **blobGasUsed**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:194
 
@@ -34,7 +34,7 @@ packages/block/types/types.d.ts:194
 
 > `optional` **coinbase**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:179
 
@@ -44,7 +44,7 @@ packages/block/types/types.d.ts:179
 
 > `optional` **difficulty**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:184
 
@@ -54,7 +54,7 @@ packages/block/types/types.d.ts:184
 
 > `optional` **excessBlobGas**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:195
 
@@ -64,7 +64,7 @@ packages/block/types/types.d.ts:195
 
 > `optional` **extraData**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:189
 
@@ -74,7 +74,7 @@ packages/block/types/types.d.ts:189
 
 > `optional` **gasLimit**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:186
 
@@ -84,7 +84,7 @@ packages/block/types/types.d.ts:186
 
 > `optional` **gasUsed**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:187
 
@@ -94,7 +94,7 @@ packages/block/types/types.d.ts:187
 
 > `optional` **logsBloom**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:183
 
@@ -104,7 +104,7 @@ packages/block/types/types.d.ts:183
 
 > `optional` **mixHash**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:190
 
@@ -114,7 +114,7 @@ packages/block/types/types.d.ts:190
 
 > `optional` **nonce**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:191
 
@@ -124,7 +124,7 @@ packages/block/types/types.d.ts:191
 
 > `optional` **number**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:185
 
@@ -134,7 +134,7 @@ packages/block/types/types.d.ts:185
 
 > `optional` **parentBeaconBlockRoot**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:196
 
@@ -144,7 +144,7 @@ packages/block/types/types.d.ts:196
 
 > `optional` **parentHash**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:177
 
@@ -154,7 +154,7 @@ packages/block/types/types.d.ts:177
 
 > `optional` **receiptTrie**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:182
 
@@ -164,7 +164,7 @@ packages/block/types/types.d.ts:182
 
 > `optional` **requestsRoot**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:197
 
@@ -174,7 +174,7 @@ packages/block/types/types.d.ts:197
 
 > `optional` **stateRoot**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:180
 
@@ -184,7 +184,7 @@ packages/block/types/types.d.ts:180
 
 > `optional` **timestamp**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:188
 
@@ -194,7 +194,7 @@ packages/block/types/types.d.ts:188
 
 > `optional` **transactionsTrie**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:181
 
@@ -204,7 +204,7 @@ packages/block/types/types.d.ts:181
 
 > `optional` **uncleHash**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:178
 
@@ -214,6 +214,6 @@ packages/block/types/types.d.ts:178
 
 > `optional` **withdrawalsRoot**: `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:193

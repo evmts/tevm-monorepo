@@ -40,7 +40,7 @@ const mempool = await memoryClient._tevm.getTxPool()
 const receiptsManager = await memoryClient._tevm.getReceiptsManager()
 ````
 
-• **client.account**: `undefined`
+• **client.account**: `undefined` \| `Account`
 
 The Account of the Client.
 
@@ -84,7 +84,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-• **client.chain**: `undefined`
+• **client.chain**: `undefined` \| `Chain`
 
 Chain for the client.
 
@@ -1646,6 +1646,6 @@ const client = createClient({
  const chainId = await client.eth.getChainId()
  ```
 
-## Source
+## Defined in
 
 [packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)

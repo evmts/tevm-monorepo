@@ -4,16 +4,16 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / SetToHex
 
-# Type alias: SetToHex\<T\>
+# Type Alias: SetToHex\<T\>
 
 > **SetToHex**\<`T`\>: `T` *extends* `Set`\<`any`\> ? [`Hex`](../../index/type-aliases/Hex.md) : `T`
 
 A helper type that converts a set to a hex string.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 packages/utils/types/SerializeToJson.d.ts:27

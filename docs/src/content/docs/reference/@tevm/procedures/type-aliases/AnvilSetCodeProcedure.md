@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_setCode`
 
 `Promise`\<[`AnvilSetCodeJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilsetcodejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L86)

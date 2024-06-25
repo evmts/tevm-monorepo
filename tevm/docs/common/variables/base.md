@@ -8,6 +8,6 @@
 
 > `const` **base**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/base.d.ts:1

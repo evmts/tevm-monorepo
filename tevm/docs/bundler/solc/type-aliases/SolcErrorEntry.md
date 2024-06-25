@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcErrorEntry
 
-# Type alias: SolcErrorEntry
+# Type Alias: SolcErrorEntry
 
 > **SolcErrorEntry**: `object`
 
@@ -42,6 +42,6 @@
 
 > **type**: `string`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:104

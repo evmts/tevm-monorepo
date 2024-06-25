@@ -9,6 +9,6 @@ title: "EthSignJsonRpcRequest"
 
 JSON-RPC request for `eth_sign` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L239)

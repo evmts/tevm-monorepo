@@ -7,7 +7,7 @@ title: "CompiledContracts"
 
 > **CompiledContracts**\<`TIncludeAsts`\>: `object`
 
-## Type parameters
+## Type Parameters
 
 • **TIncludeAsts** *extends* `boolean` = `boolean`
 
@@ -33,6 +33,6 @@ title: "CompiledContracts"
 
 > **solcOutput**: [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
 
-## Source
+## Defined in
 
 [compiler/src/types.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L52)

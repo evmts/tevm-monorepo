@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugTraceTransactionProcedure
 
-# Type alias: DebugTraceTransactionProcedure()
+# Type Alias: DebugTraceTransactionProcedure()
 
 > **DebugTraceTransactionProcedure**: (`request`) => `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](DebugTraceTransactionJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](DebugTraceTransactionJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1102

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / AuthCallUnsetErrorParameters
 
-# Type alias: AuthCallUnsetErrorParameters
+# Type Alias: AuthCallUnsetErrorParameters
 
 > **AuthCallUnsetErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:71

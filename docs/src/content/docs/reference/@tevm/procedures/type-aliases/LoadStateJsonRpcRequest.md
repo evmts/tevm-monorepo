@@ -9,6 +9,6 @@ title: "LoadStateJsonRpcRequest"
 
 The JSON-RPC request for the `tevm_loadState` method
 
-## Source
+## Defined in
 
 [procedures/src/loadstate/LoadStateJsonRpcRequest.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcRequest.ts#L15)

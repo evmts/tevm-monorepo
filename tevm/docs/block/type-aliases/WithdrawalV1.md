@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [block](../README.md) / WithdrawalV1
 
-# Type alias: WithdrawalV1
+# Type Alias: WithdrawalV1
 
 > **WithdrawalV1**: `object`
 
@@ -26,6 +26,6 @@
 
 > **validatorIndex**: [`Hex`](../../index/type-aliases/Hex.md)
 
-## Source
+## Defined in
 
 packages/block/types/types.d.ts:230

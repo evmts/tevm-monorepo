@@ -16,6 +16,6 @@
 
 `Promise`\<`Solc`\>
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solc.d.ts:10

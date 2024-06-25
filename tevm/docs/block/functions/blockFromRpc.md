@@ -30,6 +30,6 @@ Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
 
 ## Deprecated
 
-## Source
+## Defined in
 
 packages/block/types/from-rpc.d.ts:11

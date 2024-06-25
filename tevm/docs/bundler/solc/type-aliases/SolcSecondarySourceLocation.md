@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcSecondarySourceLocation
 
-# Type alias: SolcSecondarySourceLocation
+# Type Alias: SolcSecondarySourceLocation
 
 > **SolcSecondarySourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
 
@@ -14,6 +14,6 @@
 
 > **message**: `string`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:119

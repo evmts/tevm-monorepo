@@ -14,7 +14,7 @@ An object with the block's data represented as strings.
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:171
 
@@ -26,7 +26,7 @@ packages/block/types/types.d.ts:171
 
 Header data for the block
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:166
 
@@ -36,7 +36,7 @@ packages/block/types/types.d.ts:166
 
 > `optional` **requests**: `null` \| \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:170
 
@@ -46,7 +46,7 @@ packages/block/types/types.d.ts:170
 
 > `optional` **transactions**: [`JsonTx`](../../tx/interfaces/JsonTx.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:167
 
@@ -56,7 +56,7 @@ packages/block/types/types.d.ts:167
 
 > `optional` **uncleHeaders**: [`JsonHeader`](JsonHeader.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:168
 
@@ -66,6 +66,6 @@ packages/block/types/types.d.ts:168
 
 > `optional` **withdrawals**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:169

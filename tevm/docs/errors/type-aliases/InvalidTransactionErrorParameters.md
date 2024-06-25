@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidTransactionErrorParameters
 
-# Type alias: InvalidTransactionErrorParameters
+# Type Alias: InvalidTransactionErrorParameters
 
 > **InvalidTransactionErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidTransactionError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InvalidTransactionError.d.ts:50

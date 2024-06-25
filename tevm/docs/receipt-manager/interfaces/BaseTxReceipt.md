@@ -21,7 +21,7 @@ Abstract interface with common transaction receipt fields
 
 Bloom bitvector
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:17
 
@@ -33,7 +33,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:17
 
 Cumulative gas used in the block including this tx
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:13
 
@@ -45,6 +45,6 @@ packages/receipt-manager/types/RecieptManager.d.ts:13
 
 Logs emitted
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:21

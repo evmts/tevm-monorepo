@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BLS12381FpNotInFieldErrorParameters
 
-# Type alias: BLS12381FpNotInFieldErrorParameters
+# Type Alias: BLS12381FpNotInFieldErrorParameters
 
 > **BLS12381FpNotInFieldErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [BLS12381FpNotInFieldError](../classes/BLS12381FpN
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:64

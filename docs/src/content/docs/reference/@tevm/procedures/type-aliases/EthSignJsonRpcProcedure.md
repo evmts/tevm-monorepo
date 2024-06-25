@@ -15,6 +15,6 @@ title: "EthSignJsonRpcProcedure"
 
 `Promise`\<[`EthSignJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethsignjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L189)

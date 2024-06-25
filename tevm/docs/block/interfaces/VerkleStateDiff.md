@@ -12,7 +12,7 @@
 
 > **stem**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:78
 
@@ -22,6 +22,6 @@ packages/block/types/types.d.ts:78
 
 > **suffixDiffs**: `object`[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:79

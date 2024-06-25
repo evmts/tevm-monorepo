@@ -7,10 +7,10 @@ title: "SolcOutputSelection"
 
 > **SolcOutputSelection**: `object`
 
-## Index signature
+## Index Signature
 
  \[`fileName`: `string`\]: `object` & `object`
 
-## Source
+## Defined in
 
 [solcTypes.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L121)

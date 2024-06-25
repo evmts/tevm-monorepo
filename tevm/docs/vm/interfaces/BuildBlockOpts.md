@@ -16,7 +16,7 @@ Options for building a block.
 
 The block and builder options to use.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:178
 
@@ -29,7 +29,7 @@ packages/vm/types/utils/types.d.ts:178
 The block header data to use.
 Defaults used for any values not provided.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:173
 
@@ -41,7 +41,7 @@ packages/vm/types/utils/types.d.ts:173
 
 The parent block
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:168
 
@@ -51,6 +51,6 @@ packages/vm/types/utils/types.d.ts:168
 
 > `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:174

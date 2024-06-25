@@ -15,6 +15,6 @@ A hex string
 const hex: Hex = '0x1234ff'
 ```
 
-## Source
+## Defined in
 
 [packages/actions/src/common/Hex.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Hex.ts#L6)

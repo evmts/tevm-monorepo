@@ -5,7 +5,7 @@ prev: false
 title: "EventActionCreator"
 ---
 
-> **EventActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
+> **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
 
@@ -17,18 +17,18 @@ tevm.eth.getLog(
 )
 ===
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
-
-• **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
 
 • **TBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
 
 • **TDeployedBytecode** *extends* [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `undefined`
 
+• **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
-## Source
+## Defined in
 
-[event/EventActionCreator.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L38)
+[event/EventActionCreator.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L41)

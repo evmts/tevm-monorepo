@@ -4,12 +4,12 @@
 
 [tevm](../../../modules.md) / [bundler/compiler](../README.md) / FileAccessObject
 
-# Type alias: FileAccessObject
+# Type Alias: FileAccessObject
 
 > **FileAccessObject**: `FileAccessObject`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/compiler/types/src/index.d.ts:14

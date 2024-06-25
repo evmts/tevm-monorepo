@@ -7,7 +7,7 @@ title: "JsonRpcResponse"
 
 > **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\>: `object` \| `object`
 
-## Type parameters
+## Type Parameters
 
 • **TMethod** *extends* `string`
 
@@ -15,6 +15,6 @@ title: "JsonRpcResponse"
 
 • **TErrorCode** *extends* `string` \| `number`
 
-## Source
+## Defined in
 
 [packages/jsonrpc/src/JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcResponse.ts#L1)

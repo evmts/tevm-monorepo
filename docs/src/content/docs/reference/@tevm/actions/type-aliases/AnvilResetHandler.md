@@ -15,6 +15,6 @@ title: "AnvilResetHandler"
 
 `Promise`\<[`AnvilResetResult`](/reference/tevm/actions/type-aliases/anvilresetresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L48)

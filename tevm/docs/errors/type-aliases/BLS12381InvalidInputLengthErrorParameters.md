@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BLS12381InvalidInputLengthErrorParameters
 
-# Type alias: BLS12381InvalidInputLengthErrorParameters
+# Type Alias: BLS12381InvalidInputLengthErrorParameters
 
 > **BLS12381InvalidInputLengthErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [BLS12381InvalidInputLengthError](../classes/BLS12
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:60

@@ -4,14 +4,14 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcModelCheckerContracts
 
-# Type alias: SolcModelCheckerContracts
+# Type Alias: SolcModelCheckerContracts
 
 > **SolcModelCheckerContracts**: `object`
 
-## Index signature
+## Index Signature
 
  \[`fileName`: \`$\{string\}.sol\`\]: `string`[]
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:42

@@ -9,7 +9,7 @@ title: "EIP4844CompatibleTx"
 
 - [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/)\<`T`\>
 
-## Type parameters
+## Type Parameters
 
 • **T** *extends* [`TransactionType`](/reference/tevm/tx/enumerations/transactiontype/) = [`TransactionType`](/reference/tevm/tx/enumerations/transactiontype/)
 
@@ -23,7 +23,7 @@ title: "EIP4844CompatibleTx"
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`AccessListJSON`](/reference/tevm/tx/interfaces/eip1559compatibletx/#accesslistjson)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:138
 
@@ -37,7 +37,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`accessList`](/reference/tevm/tx/interfaces/eip1559compatibletx/#accesslist)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:137
 
@@ -47,7 +47,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **blobVersionedHashes**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:146
 
@@ -57,7 +57,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **blobs**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:147
 
@@ -71,7 +71,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`cache`](/reference/tevm/tx/interfaces/eip1559compatibletx/#cache)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:107
 
@@ -85,7 +85,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`chainId`](/reference/tevm/tx/interfaces/eip1559compatibletx/#chainid)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:133
 
@@ -99,7 +99,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`common`](/reference/tevm/tx/interfaces/eip1559compatibletx/#common)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:98
 
@@ -113,7 +113,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`data`](/reference/tevm/tx/interfaces/eip1559compatibletx/#data)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:103
 
@@ -127,7 +127,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`gasLimit`](/reference/tevm/tx/interfaces/eip1559compatibletx/#gaslimit)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:100
 
@@ -137,7 +137,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **kzgCommitments**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:148
 
@@ -147,7 +147,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **kzgProofs**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
 
@@ -157,7 +157,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **maxFeePerBlobGas**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:145
 
@@ -171,7 +171,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`maxFeePerGas`](/reference/tevm/tx/interfaces/eip1559compatibletx/#maxfeepergas)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:142
 
@@ -185,7 +185,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`maxPriorityFeePerGas`](/reference/tevm/tx/interfaces/eip1559compatibletx/#maxpriorityfeepergas)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:141
 
@@ -199,7 +199,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`nonce`](/reference/tevm/tx/interfaces/eip1559compatibletx/#nonce)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:99
 
@@ -207,13 +207,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### r?
 
-> `optional` `readonly` **r**: `bigint`
+> `readonly` `optional` **r**: `bigint`
 
 #### Inherited from
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`r`](/reference/tevm/tx/interfaces/eip1559compatibletx/#r)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:105
 
@@ -221,13 +221,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### s?
 
-> `optional` `readonly` **s**: `bigint`
+> `readonly` `optional` **s**: `bigint`
 
 #### Inherited from
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`s`](/reference/tevm/tx/interfaces/eip1559compatibletx/#s)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:106
 
@@ -235,13 +235,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### to?
 
-> `optional` `readonly` **to**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> `readonly` `optional` **to**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Inherited from
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`to`](/reference/tevm/tx/interfaces/eip1559compatibletx/#to)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:101
 
@@ -255,7 +255,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`type`](/reference/tevm/tx/interfaces/eip1559compatibletx/#type)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:109
 
@@ -263,13 +263,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### v?
 
-> `optional` `readonly` **v**: `bigint`
+> `readonly` `optional` **v**: `bigint`
 
 #### Inherited from
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`v`](/reference/tevm/tx/interfaces/eip1559compatibletx/#v)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:104
 
@@ -283,7 +283,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`value`](/reference/tevm/tx/interfaces/eip1559compatibletx/#value)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:102
 
@@ -301,7 +301,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`errorStr`](/reference/tevm/tx/interfaces/eip1559compatibletx/#errorstr)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:128
 
@@ -319,7 +319,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getBaseFee`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getbasefee)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:110
 
@@ -337,7 +337,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getDataFee`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getdatafee)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:111
 
@@ -355,7 +355,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getHashedMessageToSign`](/reference/tevm/tx/interfaces/eip1559compatibletx/#gethashedmessagetosign)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:117
 
@@ -373,7 +373,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getMessageToSign`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getmessagetosign)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:134
 
@@ -391,7 +391,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getMessageToVerifySignature`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getmessagetoverifysignature)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:119
 
@@ -409,7 +409,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getSenderAddress`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getsenderaddress)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:124
 
@@ -427,7 +427,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getSenderPublicKey`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getsenderpublickey)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:125
 
@@ -445,7 +445,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getUpfrontCost`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getupfrontcost)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:112
 
@@ -463,7 +463,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`getValidationErrors`](/reference/tevm/tx/interfaces/eip1559compatibletx/#getvalidationerrors)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:120
 
@@ -481,7 +481,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`hash`](/reference/tevm/tx/interfaces/eip1559compatibletx/#hash)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:118
 
@@ -499,7 +499,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`isSigned`](/reference/tevm/tx/interfaces/eip1559compatibletx/#issigned)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:121
 
@@ -517,7 +517,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`isValid`](/reference/tevm/tx/interfaces/eip1559compatibletx/#isvalid)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:122
 
@@ -531,7 +531,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `number`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:151
 
@@ -549,7 +549,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`raw`](/reference/tevm/tx/interfaces/eip1559compatibletx/#raw)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:114
 
@@ -567,7 +567,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`serialize`](/reference/tevm/tx/interfaces/eip1559compatibletx/#serialize)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:115
 
@@ -581,7 +581,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:150
 
@@ -603,7 +603,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`sign`](/reference/tevm/tx/interfaces/eip1559compatibletx/#sign)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:126
 
@@ -625,7 +625,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`supports`](/reference/tevm/tx/interfaces/eip1559compatibletx/#supports)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:108
 
@@ -643,7 +643,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`toCreationAddress`](/reference/tevm/tx/interfaces/eip1559compatibletx/#tocreationaddress)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:113
 
@@ -661,7 +661,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`toJSON`](/reference/tevm/tx/interfaces/eip1559compatibletx/#tojson)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:127
 
@@ -679,6 +679,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 [`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`verifySignature`](/reference/tevm/tx/interfaces/eip1559compatibletx/#verifysignature)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:123

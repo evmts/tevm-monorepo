@@ -9,6 +9,6 @@ title: "EthGetTransactionReceiptJsonRpcRequest"
 
 JSON-RPC request for `eth_getTransactionReceipt` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L198)

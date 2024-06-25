@@ -9,6 +9,6 @@ title: "EthAccountsJsonRpcResponse"
 
 JSON-RPC response for `eth_accounts` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L14)

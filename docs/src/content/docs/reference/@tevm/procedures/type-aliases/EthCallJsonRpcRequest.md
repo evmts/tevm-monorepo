@@ -9,6 +9,6 @@ title: "EthCallJsonRpcRequest"
 
 JSON-RPC request for `eth_call` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L50)

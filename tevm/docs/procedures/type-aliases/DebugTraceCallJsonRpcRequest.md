@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugTraceCallJsonRpcRequest
 
-# Type alias: DebugTraceCallJsonRpcRequest
+# Type Alias: DebugTraceCallJsonRpcRequest
 
 > **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"debug_traceCall"`, [[`SerializeToJson`](SerializeToJson.md)\<`DebugTraceCallParams`\>]\>
 
 JSON-RPC request for `debug_traceCall` method
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:221

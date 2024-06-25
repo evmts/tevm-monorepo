@@ -4,14 +4,14 @@
 
 [@tevm/viem](../globals.md) / GenError
 
-# Type alias: GenError\<TErrorType, TTag\>
+# Type Alias: GenError\<TErrorType, TTag\>
 
 > **GenError**\<`TErrorType`, `TTag`\>: `object`
 
 An error yield of writeContractOptimistic
 Errors are yielded rather than throwing
 
-## Type parameters
+## Type Parameters
 
 • **TErrorType**
 
@@ -35,6 +35,6 @@ Errors are yielded rather than throwing
 
 > **tag**: `TTag`
 
-## Source
+## Defined in
 
 [extensions/viem/src/GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)

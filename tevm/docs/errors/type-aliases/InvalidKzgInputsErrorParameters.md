@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidKzgInputsErrorParameters
 
-# Type alias: InvalidKzgInputsErrorParameters
+# Type Alias: InvalidKzgInputsErrorParameters
 
 > **InvalidKzgInputsErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidKzgInputsError](../classes/InvalidKzgInput
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:60

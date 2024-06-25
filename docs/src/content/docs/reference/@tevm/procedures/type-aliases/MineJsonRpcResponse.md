@@ -9,6 +9,6 @@ title: "MineJsonRpcResponse"
 
 JSON-RPC response for `tevm_mine` method
 
-## Source
+## Defined in
 
 [procedures/src/mine/MineJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcResponse.ts#L9)

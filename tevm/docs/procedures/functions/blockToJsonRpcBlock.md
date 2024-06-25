@@ -18,6 +18,6 @@
 
 `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](../type-aliases/EthGetBlockByHashJsonRpcResponse.md)\[`"result"`\]\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1266

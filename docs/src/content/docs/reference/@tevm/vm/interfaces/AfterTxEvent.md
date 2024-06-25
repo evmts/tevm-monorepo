@@ -23,7 +23,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`accessList`](/reference/tevm/vm/interfaces/runtxresult/#accesslist)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L439)
 
@@ -39,7 +39,7 @@ The amount of ether used by this transaction
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`amountSpent`](/reference/tevm/vm/interfaces/runtxresult/#amountspent)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L417)
 
@@ -55,7 +55,7 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`blobGasUsed`](/reference/tevm/vm/interfaces/runtxresult/#blobgasused)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:454](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L454)
 
@@ -71,7 +71,7 @@ Bloom filter resulted from transaction
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`bloom`](/reference/tevm/vm/interfaces/runtxresult/#bloom)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L412)
 
@@ -87,7 +87,7 @@ Address of created account during transaction, if any
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`createdAddress`](/reference/tevm/vm/interfaces/runtxresult/#createdaddress)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:248
 
@@ -103,7 +103,7 @@ Contains the results from running the code, if any, as described in runCode
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`execResult`](/reference/tevm/vm/interfaces/runtxresult/#execresult)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:252
 
@@ -119,7 +119,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`gasRefund`](/reference/tevm/vm/interfaces/runtxresult/#gasrefund)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L434)
 
@@ -135,7 +135,7 @@ The value that accrues to the miner by this transaction
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`minerValue`](/reference/tevm/vm/interfaces/runtxresult/#minervalue)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L449)
 
@@ -151,7 +151,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`preimages`](/reference/tevm/vm/interfaces/runtxresult/#preimages)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L444)
 
@@ -167,7 +167,7 @@ The tx receipt
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`receipt`](/reference/tevm/vm/interfaces/runtxresult/#receipt)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:422](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L422)
 
@@ -185,7 +185,7 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/).[`totalGasSpent`](/reference/tevm/vm/interfaces/runtxresult/#totalgasspent)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L429)
 
@@ -197,6 +197,6 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 The transaction which just got finished
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L461)

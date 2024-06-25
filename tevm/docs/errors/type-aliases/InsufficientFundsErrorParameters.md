@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InsufficientFundsErrorParameters
 
-# Type alias: InsufficientFundsErrorParameters
+# Type Alias: InsufficientFundsErrorParameters
 
 > **InsufficientFundsErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InsufficientFundsError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InsufficientFundsError.d.ts:50

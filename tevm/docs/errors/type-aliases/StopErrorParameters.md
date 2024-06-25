@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / StopErrorParameters
 
-# Type alias: StopErrorParameters
+# Type Alias: StopErrorParameters
 
 > **StopErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [StopError](../classes/StopError.md).
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:68

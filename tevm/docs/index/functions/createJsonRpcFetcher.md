@@ -18,6 +18,6 @@
 
 `JsonRpcClient`
 
-## Source
+## Defined in
 
 packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1

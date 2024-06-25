@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcSourceEntry
 
-# Type alias: SolcSourceEntry
+# Type Alias: SolcSourceEntry
 
 > **SolcSourceEntry**: `object`
 
@@ -18,6 +18,6 @@
 
 > **id**: `number`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:122

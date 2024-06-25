@@ -16,6 +16,6 @@
 
 `SyncStoragePersister`
 
-## Source
+## Defined in
 
 packages/sync-storage-persister/types/createSyncStoragePersister.d.ts:1

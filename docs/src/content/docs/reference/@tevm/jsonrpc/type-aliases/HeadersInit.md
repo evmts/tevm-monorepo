@@ -9,6 +9,6 @@ title: "HeadersInit"
 
 The headers interface of the Fetch API
 
-## Source
+## Defined in
 
 [packages/jsonrpc/src/HeadersInit.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/HeadersInit.ts#L4)

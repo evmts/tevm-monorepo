@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / AbiConstructor
 
-# Type alias: AbiConstructor
+# Type Alias: AbiConstructor
 
 > **AbiConstructor**: `object`
 
@@ -36,6 +36,6 @@ https://github.com/ethereum/solidity/issues/992
 
 > **type**: `"constructor"`
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:74
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:77

@@ -26,15 +26,15 @@ provider.request({ method: 'eth_blobGasPrice' })
 
 ### eth\_blobGasPrice.Method
 
-> **Method**: `"eth_blobGasPrice"`
+> **eth\_blobGasPrice.Method**: `"eth_blobGasPrice"`
 
 ### eth\_blobGasPrice.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_blobGasPrice.Parameters**: `undefined`
 
 ### eth\_blobGasPrice.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_blobGasPrice.ReturnType**: `Quantity`
 
 ### eth\_blockNumber
 
@@ -53,15 +53,15 @@ provider.request({ method: 'eth_blockNumber' })
 
 ### eth\_blockNumber.Method
 
-> **Method**: `"eth_blockNumber"`
+> **eth\_blockNumber.Method**: `"eth_blockNumber"`
 
 ### eth\_blockNumber.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_blockNumber.Parameters**: `undefined`
 
 ### eth\_blockNumber.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_blockNumber.ReturnType**: `Quantity`
 
 ### eth\_call
 
@@ -80,15 +80,15 @@ provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] 
 
 ### eth\_call.Method
 
-> **Method**: `"eth_call"`
+> **eth\_call.Method**: `"eth_call"`
 
 ### eth\_call.Parameters
 
-> **Parameters**: [`Partial`\<`TransactionRequest`\>] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`, `RpcStateOverride`]
+> **eth\_call.Parameters**: [`Partial`\<`TransactionRequest`\>] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`, `RpcStateOverride`]
 
 ### eth\_call.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_call.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_chainId
 
@@ -107,15 +107,15 @@ provider.request({ method: 'eth_chainId' })
 
 ### eth\_chainId.Method
 
-> **Method**: `"eth_chainId"`
+> **eth\_chainId.Method**: `"eth_chainId"`
 
 ### eth\_chainId.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_chainId.Parameters**: `undefined`
 
 ### eth\_chainId.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_chainId.ReturnType**: `Quantity`
 
 ### eth\_coinbase
 
@@ -134,15 +134,15 @@ provider.request({ method: 'eth_coinbase' })
 
 ### eth\_coinbase.Method
 
-> **Method**: `"eth_coinbase"`
+> **eth\_coinbase.Method**: `"eth_coinbase"`
 
 ### eth\_coinbase.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_coinbase.Parameters**: `undefined`
 
 ### eth\_coinbase.ReturnType
 
-> **ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)
+> **eth\_coinbase.ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)
 
 ### eth\_estimateGas
 
@@ -164,15 +164,15 @@ provider.request({
 
 ### eth\_estimateGas.Method
 
-> **Method**: `"eth_estimateGas"`
+> **eth\_estimateGas.Method**: `"eth_estimateGas"`
 
 ### eth\_estimateGas.Parameters
 
-> **Parameters**: [`TransactionRequest`] \| [`TransactionRequest`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
+> **eth\_estimateGas.Parameters**: [`TransactionRequest`] \| [`TransactionRequest`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
 
 ### eth\_estimateGas.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_estimateGas.ReturnType**: `Quantity`
 
 ### eth\_feeHistory
 
@@ -199,15 +199,15 @@ provider.request({
 
 ### eth\_feeHistory.Method
 
-> **Method**: `"eth_feeHistory"`
+> **eth\_feeHistory.Method**: `"eth_feeHistory"`
 
 ### eth\_feeHistory.Parameters
 
-> **Parameters**: [`Quantity`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `number`[] \| `undefined`]
+> **eth\_feeHistory.Parameters**: [`Quantity`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `number`[] \| `undefined`]
 
 ### eth\_feeHistory.ReturnType
 
-> **ReturnType**: `FeeHistory`
+> **eth\_feeHistory.ReturnType**: `FeeHistory`
 
 ### eth\_gasPrice
 
@@ -226,15 +226,15 @@ provider.request({ method: 'eth_gasPrice' })
 
 ### eth\_gasPrice.Method
 
-> **Method**: `"eth_gasPrice"`
+> **eth\_gasPrice.Method**: `"eth_gasPrice"`
 
 ### eth\_gasPrice.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_gasPrice.Parameters**: `undefined`
 
 ### eth\_gasPrice.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_gasPrice.ReturnType**: `Quantity`
 
 ### eth\_getBalance
 
@@ -253,15 +253,15 @@ provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] })
 
 ### eth\_getBalance.Method
 
-> **Method**: `"eth_getBalance"`
+> **eth\_getBalance.Method**: `"eth_getBalance"`
 
 ### eth\_getBalance.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
+> **eth\_getBalance.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
 
 ### eth\_getBalance.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getBalance.ReturnType**: `Quantity`
 
 ### eth\_getBlockByHash
 
@@ -289,15 +289,15 @@ provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] })
 
 ### eth\_getBlockByHash.Method
 
-> **Method**: `"eth_getBlockByHash"`
+> **eth\_getBlockByHash.Method**: `"eth_getBlockByHash"`
 
 ### eth\_getBlockByHash.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `boolean`]
+> **eth\_getBlockByHash.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `boolean`]
 
 ### eth\_getBlockByHash.ReturnType
 
-> **ReturnType**: `Block` \| `null`
+> **eth\_getBlockByHash.ReturnType**: `Block` \| `null`
 
 ### eth\_getBlockByNumber
 
@@ -325,15 +325,15 @@ provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] })
 
 ### eth\_getBlockByNumber.Method
 
-> **Method**: `"eth_getBlockByNumber"`
+> **eth\_getBlockByNumber.Method**: `"eth_getBlockByNumber"`
 
 ### eth\_getBlockByNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `boolean`]
+> **eth\_getBlockByNumber.Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `boolean`]
 
 ### eth\_getBlockByNumber.ReturnType
 
-> **ReturnType**: `Block` \| `null`
+> **eth\_getBlockByNumber.ReturnType**: `Block` \| `null`
 
 ### eth\_getBlockTransactionCountByHash
 
@@ -356,15 +356,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...
 
 ### eth\_getBlockTransactionCountByHash.Method
 
-> **Method**: `"eth_getBlockTransactionCountByHash"`
+> **eth\_getBlockTransactionCountByHash.Method**: `"eth_getBlockTransactionCountByHash"`
 
 ### eth\_getBlockTransactionCountByHash.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
+> **eth\_getBlockTransactionCountByHash.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
 
 ### eth\_getBlockTransactionCountByHash.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getBlockTransactionCountByHash.ReturnType**: `Quantity`
 
 ### eth\_getBlockTransactionCountByNumber
 
@@ -387,15 +387,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1
 
 ### eth\_getBlockTransactionCountByNumber.Method
 
-> **Method**: `"eth_getBlockTransactionCountByNumber"`
+> **eth\_getBlockTransactionCountByNumber.Method**: `"eth_getBlockTransactionCountByNumber"`
 
 ### eth\_getBlockTransactionCountByNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
+> **eth\_getBlockTransactionCountByNumber.Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
 
 ### eth\_getBlockTransactionCountByNumber.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getBlockTransactionCountByNumber.ReturnType**: `Quantity`
 
 ### eth\_getCode
 
@@ -418,15 +418,15 @@ provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] })
 
 ### eth\_getCode.Method
 
-> **Method**: `"eth_getCode"`
+> **eth\_getCode.Method**: `"eth_getCode"`
 
 ### eth\_getCode.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
+> **eth\_getCode.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
 
 ### eth\_getCode.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_getCode.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_getFilterChanges
 
@@ -449,15 +449,15 @@ provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] })
 
 ### eth\_getFilterChanges.Method
 
-> **Method**: `"eth_getFilterChanges"`
+> **eth\_getFilterChanges.Method**: `"eth_getFilterChanges"`
 
 ### eth\_getFilterChanges.Parameters
 
-> **Parameters**: [`Quantity`]
+> **eth\_getFilterChanges.Parameters**: [`Quantity`]
 
 ### eth\_getFilterChanges.ReturnType
 
-> **ReturnType**: `Log`[] \| [`Hex`](/reference/tevm/utils/type-aliases/hex/)[]
+> **eth\_getFilterChanges.ReturnType**: `Log`[] \| [`Hex`](/reference/tevm/utils/type-aliases/hex/)[]
 
 ### eth\_getFilterLogs
 
@@ -480,15 +480,15 @@ provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] })
 
 ### eth\_getFilterLogs.Method
 
-> **Method**: `"eth_getFilterLogs"`
+> **eth\_getFilterLogs.Method**: `"eth_getFilterLogs"`
 
 ### eth\_getFilterLogs.Parameters
 
-> **Parameters**: [`Quantity`]
+> **eth\_getFilterLogs.Parameters**: [`Quantity`]
 
 ### eth\_getFilterLogs.ReturnType
 
-> **ReturnType**: `Log`[]
+> **eth\_getFilterLogs.ReturnType**: `Log`[]
 
 ### eth\_getLogs
 
@@ -511,15 +511,15 @@ provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock
 
 ### eth\_getLogs.Method
 
-> **Method**: `"eth_getLogs"`
+> **eth\_getLogs.Method**: `"eth_getLogs"`
 
 ### eth\_getLogs.Parameters
 
-> **Parameters**: [`object` & `object` \| `object`]
+> **eth\_getLogs.Parameters**: [`object` & `object` \| `object`]
 
 ### eth\_getLogs.ReturnType
 
-> **ReturnType**: `Log`[]
+> **eth\_getLogs.ReturnType**: `Log`[]
 
 ### eth\_getProof
 
@@ -544,15 +544,15 @@ provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'
 
 ### eth\_getProof.Method
 
-> **Method**: `"eth_getProof"`
+> **eth\_getProof.Method**: `"eth_getProof"`
 
 ### eth\_getProof.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), [`Hash`](/reference/tevm/decorators/type-aliases/hash/)[], `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
+> **eth\_getProof.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), [`Hash`](/reference/tevm/decorators/type-aliases/hash/)[], `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
 
 ### eth\_getProof.ReturnType
 
-> **ReturnType**: `Proof`
+> **eth\_getProof.ReturnType**: `Proof`
 
 ### eth\_getStorageAt
 
@@ -575,15 +575,15 @@ provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'lates
 
 ### eth\_getStorageAt.Method
 
-> **Method**: `"eth_getStorageAt"`
+> **eth\_getStorageAt.Method**: `"eth_getStorageAt"`
 
 ### eth\_getStorageAt.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `Quantity`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
+> **eth\_getStorageAt.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `Quantity`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
 
 ### eth\_getStorageAt.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_getStorageAt.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_getTransactionByBlockHashAndIndex
 
@@ -606,15 +606,15 @@ provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x
 
 ### eth\_getTransactionByBlockHashAndIndex.Method
 
-> **Method**: `"eth_getTransactionByBlockHashAndIndex"`
+> **eth\_getTransactionByBlockHashAndIndex.Method**: `"eth_getTransactionByBlockHashAndIndex"`
 
 ### eth\_getTransactionByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `Quantity`]
+> **eth\_getTransactionByBlockHashAndIndex.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `Quantity`]
 
 ### eth\_getTransactionByBlockHashAndIndex.ReturnType
 
-> **ReturnType**: `Transaction` \| `null`
+> **eth\_getTransactionByBlockHashAndIndex.ReturnType**: `Transaction` \| `null`
 
 ### eth\_getTransactionByBlockNumberAndIndex
 
@@ -637,15 +637,15 @@ provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['
 
 ### eth\_getTransactionByBlockNumberAndIndex.Method
 
-> **Method**: `"eth_getTransactionByBlockNumberAndIndex"`
+> **eth\_getTransactionByBlockNumberAndIndex.Method**: `"eth_getTransactionByBlockNumberAndIndex"`
 
 ### eth\_getTransactionByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `Quantity`]
+> **eth\_getTransactionByBlockNumberAndIndex.Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `Quantity`]
 
 ### eth\_getTransactionByBlockNumberAndIndex.ReturnType
 
-> **ReturnType**: `Transaction` \| `null`
+> **eth\_getTransactionByBlockNumberAndIndex.ReturnType**: `Transaction` \| `null`
 
 ### eth\_getTransactionByHash
 
@@ -668,15 +668,15 @@ provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] })
 
 ### eth\_getTransactionByHash.Method
 
-> **Method**: `"eth_getTransactionByHash"`
+> **eth\_getTransactionByHash.Method**: `"eth_getTransactionByHash"`
 
 ### eth\_getTransactionByHash.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
+> **eth\_getTransactionByHash.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
 
 ### eth\_getTransactionByHash.ReturnType
 
-> **ReturnType**: `Transaction` \| `null`
+> **eth\_getTransactionByHash.ReturnType**: `Transaction` \| `null`
 
 ### eth\_getTransactionCount
 
@@ -699,15 +699,15 @@ provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'
 
 ### eth\_getTransactionCount.Method
 
-> **Method**: `"eth_getTransactionCount"`
+> **eth\_getTransactionCount.Method**: `"eth_getTransactionCount"`
 
 ### eth\_getTransactionCount.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
+> **eth\_getTransactionCount.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `BlockIdentifier`]
 
 ### eth\_getTransactionCount.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getTransactionCount.ReturnType**: `Quantity`
 
 ### eth\_getTransactionReceipt
 
@@ -730,15 +730,15 @@ provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] })
 
 ### eth\_getTransactionReceipt.Method
 
-> **Method**: `"eth_getTransactionReceipt"`
+> **eth\_getTransactionReceipt.Method**: `"eth_getTransactionReceipt"`
 
 ### eth\_getTransactionReceipt.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
+> **eth\_getTransactionReceipt.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
 
 ### eth\_getTransactionReceipt.ReturnType
 
-> **ReturnType**: `TransactionReceipt` \| `null`
+> **eth\_getTransactionReceipt.ReturnType**: `TransactionReceipt` \| `null`
 
 ### eth\_getUncleByBlockHashAndIndex
 
@@ -761,15 +761,15 @@ provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', 
 
 ### eth\_getUncleByBlockHashAndIndex.Method
 
-> **Method**: `"eth_getUncleByBlockHashAndIndex"`
+> **eth\_getUncleByBlockHashAndIndex.Method**: `"eth_getUncleByBlockHashAndIndex"`
 
 ### eth\_getUncleByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `Quantity`]
+> **eth\_getUncleByBlockHashAndIndex.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/), `Quantity`]
 
 ### eth\_getUncleByBlockHashAndIndex.ReturnType
 
-> **ReturnType**: `Uncle` \| `null`
+> **eth\_getUncleByBlockHashAndIndex.ReturnType**: `Uncle` \| `null`
 
 ### eth\_getUncleByBlockNumberAndIndex
 
@@ -792,15 +792,15 @@ provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...'
 
 ### eth\_getUncleByBlockNumberAndIndex.Method
 
-> **Method**: `"eth_getUncleByBlockNumberAndIndex"`
+> **eth\_getUncleByBlockNumberAndIndex.Method**: `"eth_getUncleByBlockNumberAndIndex"`
 
 ### eth\_getUncleByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `Quantity`]
+> **eth\_getUncleByBlockNumberAndIndex.Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `Quantity`]
 
 ### eth\_getUncleByBlockNumberAndIndex.ReturnType
 
-> **ReturnType**: `Uncle` \| `null`
+> **eth\_getUncleByBlockNumberAndIndex.ReturnType**: `Uncle` \| `null`
 
 ### eth\_getUncleCountByBlockHash
 
@@ -823,15 +823,15 @@ provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] })
 
 ### eth\_getUncleCountByBlockHash.Method
 
-> **Method**: `"eth_getUncleCountByBlockHash"`
+> **eth\_getUncleCountByBlockHash.Method**: `"eth_getUncleCountByBlockHash"`
 
 ### eth\_getUncleCountByBlockHash.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
+> **eth\_getUncleCountByBlockHash.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
 
 ### eth\_getUncleCountByBlockHash.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getUncleCountByBlockHash.ReturnType**: `Quantity`
 
 ### eth\_getUncleCountByBlockNumber
 
@@ -854,15 +854,15 @@ provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] }
 
 ### eth\_getUncleCountByBlockNumber.Method
 
-> **Method**: `"eth_getUncleCountByBlockNumber"`
+> **eth\_getUncleCountByBlockNumber.Method**: `"eth_getUncleCountByBlockNumber"`
 
 ### eth\_getUncleCountByBlockNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
+> **eth\_getUncleCountByBlockNumber.Parameters**: [`BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
 
 ### eth\_getUncleCountByBlockNumber.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_getUncleCountByBlockNumber.ReturnType**: `Quantity`
 
 ### eth\_maxPriorityFeePerGas
 
@@ -885,15 +885,15 @@ provider.request({ method: 'eth_maxPriorityFeePerGas' })
 
 ### eth\_maxPriorityFeePerGas.Method
 
-> **Method**: `"eth_maxPriorityFeePerGas"`
+> **eth\_maxPriorityFeePerGas.Method**: `"eth_maxPriorityFeePerGas"`
 
 ### eth\_maxPriorityFeePerGas.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_maxPriorityFeePerGas.Parameters**: `undefined`
 
 ### eth\_maxPriorityFeePerGas.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_maxPriorityFeePerGas.ReturnType**: `Quantity`
 
 ### eth\_newBlockFilter
 
@@ -916,15 +916,15 @@ provider.request({ method: 'eth_newBlockFilter' })
 
 ### eth\_newBlockFilter.Method
 
-> **Method**: `"eth_newBlockFilter"`
+> **eth\_newBlockFilter.Method**: `"eth_newBlockFilter"`
 
 ### eth\_newBlockFilter.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_newBlockFilter.Parameters**: `undefined`
 
 ### eth\_newBlockFilter.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_newBlockFilter.ReturnType**: `Quantity`
 
 ### eth\_newFilter
 
@@ -947,15 +947,15 @@ provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlo
 
 ### eth\_newFilter.Method
 
-> **Method**: `"eth_newFilter"`
+> **eth\_newFilter.Method**: `"eth_newFilter"`
 
 ### eth\_newFilter.Parameters
 
-> **Parameters**: [`object`]
+> **eth\_newFilter.Parameters**: [`object`]
 
 ### eth\_newFilter.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_newFilter.ReturnType**: `Quantity`
 
 ### eth\_newPendingTransactionFilter
 
@@ -978,15 +978,15 @@ provider.request({ method: 'eth_newPendingTransactionFilter' })
 
 ### eth\_newPendingTransactionFilter.Method
 
-> **Method**: `"eth_newPendingTransactionFilter"`
+> **eth\_newPendingTransactionFilter.Method**: `"eth_newPendingTransactionFilter"`
 
 ### eth\_newPendingTransactionFilter.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_newPendingTransactionFilter.Parameters**: `undefined`
 
 ### eth\_newPendingTransactionFilter.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_newPendingTransactionFilter.ReturnType**: `Quantity`
 
 ### eth\_protocolVersion
 
@@ -1009,15 +1009,15 @@ provider.request({ method: 'eth_protocolVersion' })
 
 ### eth\_protocolVersion.Method
 
-> **Method**: `"eth_protocolVersion"`
+> **eth\_protocolVersion.Method**: `"eth_protocolVersion"`
 
 ### eth\_protocolVersion.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_protocolVersion.Parameters**: `undefined`
 
 ### eth\_protocolVersion.ReturnType
 
-> **ReturnType**: `string`
+> **eth\_protocolVersion.ReturnType**: `string`
 
 ### eth\_sendRawTransaction
 
@@ -1040,15 +1040,15 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 ### eth\_sendRawTransaction.Method
 
-> **Method**: `"eth_sendRawTransaction"`
+> **eth\_sendRawTransaction.Method**: `"eth_sendRawTransaction"`
 
 ### eth\_sendRawTransaction.Parameters
 
-> **Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]
+> **eth\_sendRawTransaction.Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]
 
 ### eth\_sendRawTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
+> **eth\_sendRawTransaction.ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
 
 ### eth\_uninstallFilter
 
@@ -1071,15 +1071,15 @@ provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] })
 
 ### eth\_uninstallFilter.Method
 
-> **Method**: `"eth_uninstallFilter"`
+> **eth\_uninstallFilter.Method**: `"eth_uninstallFilter"`
 
 ### eth\_uninstallFilter.Parameters
 
-> **Parameters**: [`Quantity`]
+> **eth\_uninstallFilter.Parameters**: [`Quantity`]
 
 ### eth\_uninstallFilter.ReturnType
 
-> **ReturnType**: `boolean`
+> **eth\_uninstallFilter.ReturnType**: `boolean`
 
 ### net\_listening
 
@@ -1098,15 +1098,15 @@ provider.request({ method: 'net_listening' })
 
 ### net\_listening.Method
 
-> **Method**: `"net_listening"`
+> **net\_listening.Method**: `"net_listening"`
 
 ### net\_listening.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **net\_listening.Parameters**: `undefined`
 
 ### net\_listening.ReturnType
 
-> **ReturnType**: `boolean`
+> **net\_listening.ReturnType**: `boolean`
 
 ### net\_peerCount
 
@@ -1125,15 +1125,15 @@ provider.request({ method: 'net_peerCount' })
 
 ### net\_peerCount.Method
 
-> **Method**: `"net_peerCount"`
+> **net\_peerCount.Method**: `"net_peerCount"`
 
 ### net\_peerCount.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **net\_peerCount.Parameters**: `undefined`
 
 ### net\_peerCount.ReturnType
 
-> **ReturnType**: `Quantity`
+> **net\_peerCount.ReturnType**: `Quantity`
 
 ### net\_version
 
@@ -1152,15 +1152,15 @@ provider.request({ method: 'net_version' })
 
 ### net\_version.Method
 
-> **Method**: `"net_version"`
+> **net\_version.Method**: `"net_version"`
 
 ### net\_version.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **net\_version.Parameters**: `undefined`
 
 ### net\_version.ReturnType
 
-> **ReturnType**: `Quantity`
+> **net\_version.ReturnType**: `Quantity`
 
 ### web3\_clientVersion
 
@@ -1179,15 +1179,15 @@ provider.request({ method: 'web3_clientVersion' })
 
 ### web3\_clientVersion.Method
 
-> **Method**: `"web3_clientVersion"`
+> **web3\_clientVersion.Method**: `"web3_clientVersion"`
 
 ### web3\_clientVersion.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **web3\_clientVersion.Parameters**: `undefined`
 
 ### web3\_clientVersion.ReturnType
 
-> **ReturnType**: `string`
+> **web3\_clientVersion.ReturnType**: `string`
 
 ### web3\_sha3
 
@@ -1206,16 +1206,16 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 
 ### web3\_sha3.Method
 
-> **Method**: `"web3_sha3"`
+> **web3\_sha3.Method**: `"web3_sha3"`
 
 ### web3\_sha3.Parameters
 
-> **Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
+> **web3\_sha3.Parameters**: [[`Hash`](/reference/tevm/decorators/type-aliases/hash/)]
 
 ### web3\_sha3.ReturnType
 
-> **ReturnType**: `string`
+> **web3\_sha3.ReturnType**: `string`
 
-## Source
+## Defined in
 
 [eip1193/JsonRpcSchemaPublic.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L24)

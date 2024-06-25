@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / NetworkSync
 
-# Type alias: NetworkSync
+# Type Alias: NetworkSync
 
 > **NetworkSync**: `object`
 
@@ -28,6 +28,6 @@ Number of latest block on the network
 
 Block number at which syncing started
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1303

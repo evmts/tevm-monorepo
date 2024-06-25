@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmSetAccountError
 
-# Type alias: TevmSetAccountError
+# Type Alias: TevmSetAccountError
 
 > **TevmSetAccountError**: `ValidateSetAccountParamsError` \| [`InternalError`](../../errors/classes/InternalError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/SetAccount/TevmSetAccountError.d.ts:3

@@ -15,6 +15,6 @@ The parameters for the `tevm_loadState` method
 
 > **state**: [`SerializeToJson`](/reference/tevm/procedures/type-aliases/serializetojson/)\<`ParameterizedTevmState`\>
 
-## Source
+## Defined in
 
 [procedures/src/loadstate/LoadStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcRequest.ts#L8)

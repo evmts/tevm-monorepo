@@ -15,21 +15,21 @@ title: "SolcGasEstimates"
 
 ### creation.codeDepositCost
 
-> **codeDepositCost**: `string`
+> **creation.codeDepositCost**: `string`
 
 ### creation.executionCost
 
-> **executionCost**: `string`
+> **creation.executionCost**: `string`
 
 ### creation.totalCost
 
-> **totalCost**: `string`
+> **creation.totalCost**: `string`
 
 ### external
 
 > **external**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
@@ -37,10 +37,10 @@ title: "SolcGasEstimates"
 
 > **internal**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:504](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L504)

@@ -4,7 +4,7 @@
 
 [@tevm/http-client](../globals.md) / HttpClient
 
-# Type alias: ~~HttpClient~~
+# Type Alias: ~~HttpClient~~
 
 > **HttpClient**: `TevmClient` & `object`
 
@@ -26,6 +26,6 @@ Name of the client
 
 The url being used to connect to the remote Tevm backend
 
-## Source
+## Defined in
 
 [HttpClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)

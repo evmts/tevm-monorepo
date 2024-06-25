@@ -4,15 +4,15 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EIP1193RequestFn
 
-# Type alias: EIP1193RequestFn()\<TRpcSchema\>
+# Type Alias: EIP1193RequestFn()\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchema** *extends* [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) \| `undefined` = `undefined`
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchemaOverride** *extends* [`RpcSchemaOverride`](../../decorators/type-aliases/RpcSchemaOverride.md) \| `undefined` = `undefined`
 
@@ -30,6 +30,6 @@
 
 `Promise`\<`_ReturnType`\>
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:278

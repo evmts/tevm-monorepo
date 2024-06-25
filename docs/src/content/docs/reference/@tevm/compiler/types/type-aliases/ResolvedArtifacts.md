@@ -29,6 +29,6 @@ title: "ResolvedArtifacts"
 
 > **solcOutput**: [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
 
-## Source
+## Defined in
 
 [compiler/src/types.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L6)

@@ -4,16 +4,16 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / JsonSerializableObject
 
-# Type alias: JsonSerializableObject
+# Type Alias: JsonSerializableObject
 
 > **JsonSerializableObject**: `object`
 
 A type that represents a JSON-serializable object.
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)
 
-## Source
+## Defined in
 
 packages/utils/types/SerializeToJson.d.ts:13

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Filter
 
-# Type alias: Filter
+# Type Alias: Filter
 
 > **Filter**: `object`
 
@@ -73,6 +73,6 @@ stores tx
 
 The type of the filter
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:62
+packages/base-client/dist/index.d.ts:63

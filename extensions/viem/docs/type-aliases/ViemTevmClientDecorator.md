@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmClientDecorator
 
-# Type alias: ~~ViemTevmClientDecorator()~~
+# Type Alias: ~~ViemTevmClientDecorator()~~
 
 > **ViemTevmClientDecorator**: (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 
@@ -15,12 +15,12 @@ A viem decorator for `tevmViemExtension`
 
 ## Parameters
 
-• **client**: `Pick`\<`Client`, `"request"`\>
+• **client**: `any`
 
 ## Returns
 
 [`ViemTevmClient`](ViemTevmClient.md)
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)

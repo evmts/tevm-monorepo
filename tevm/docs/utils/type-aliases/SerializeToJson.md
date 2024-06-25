@@ -4,17 +4,17 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / SerializeToJson
 
-# Type alias: SerializeToJson\<T\>
+# Type Alias: SerializeToJson\<T\>
 
 > **SerializeToJson**\<`T`\>: `T` *extends* [`JsonSerializableSet`](JsonSerializableSet.md)\<infer S\> ? `ReadonlyArray`\<`S`\> : `T` *extends* [`JsonSerializableObject`](JsonSerializableObject.md) ? `{ [P in keyof T]: SerializeToJson<T[P]> }` : `T` *extends* [`JsonSerializableArray`](JsonSerializableArray.md) ? [`SerializeToJson`](SerializeToJson.md)\<`T`\[`number`\]\>[] : [`BigIntToHex`](BigIntToHex.md)\<[`SetToHex`](SetToHex.md)\<`T`\>\>
 
 A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
 It replaces bigint with hex strings and sets with arrays.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 packages/utils/types/SerializeToJson.d.ts:32

@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / MemoryClient
 
-# Type alias: MemoryClient
+# Type Alias: MemoryClient\<TChain, TAccountOrAddress\>
 
-> **MemoryClient**: `Prettify`\<`Client`\<`Transport`, `undefined`, `undefined`, [`...PublicRpcSchema`, ...TestRpcSchema\<"anvil" \| "ganache" \| "hardhat"\>, [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_call"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_script"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_dumpState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_loadState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_getAccount"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_setAccount"`\]], `PublicActions` & [`TevmActions`](TevmActions.md)\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TevmRpcSchema`, `PublicActions`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](TevmActions.md)\>\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client)
@@ -58,6 +58,12 @@ const balance = await tevm.tevmContract(
  })
  ```
 
-## Source
+## Type Parameters
 
-packages/memory-client/types/MemoryClient.d.ts:52
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+• **TAccountOrAddress** *extends* `Account` \| [`Address`](Address.md) \| `undefined` = `Account` \| [`Address`](Address.md) \| `undefined`
+
+## Defined in
+
+packages/memory-client/types/MemoryClient.d.ts:53

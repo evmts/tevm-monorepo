@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [common](../README.md) / CommonOptions
 
-# Type alias: CommonOptions
+# Type Alias: CommonOptions
 
 > **CommonOptions**: `object` & `ViemChain`
 
@@ -72,6 +72,6 @@ Hardfork to use. Defaults to `shanghai`
 
 Tevm logger instance
 
-## Source
+## Defined in
 
 packages/common/types/CommonOptions.d.ts:20

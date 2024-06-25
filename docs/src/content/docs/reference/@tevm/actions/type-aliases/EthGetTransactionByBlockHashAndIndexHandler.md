@@ -15,6 +15,6 @@ title: "EthGetTransactionByBlockHashAndIndexHandler"
 
 `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](/reference/tevm/actions/type-aliases/ethgettransactionbyblockhashandindexresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L139)

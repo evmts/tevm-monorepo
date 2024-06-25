@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ChainIdMismatchErrorParameters
 
-# Type alias: ChainIdMismatchErrorParameters
+# Type Alias: ChainIdMismatchErrorParameters
 
 > **ChainIdMismatchErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a ChainIdMismatchError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ChainIdMismatchError.d.ts:50

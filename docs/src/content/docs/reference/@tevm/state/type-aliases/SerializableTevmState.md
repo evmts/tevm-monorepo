@@ -7,10 +7,10 @@ title: "SerializableTevmState"
 
 > **SerializableTevmState**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: `object`
 
-## Source
+## Defined in
 
 [packages/state/src/state-types/SerializableTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/SerializableTevmState.ts#L4)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [common](../README.md) / CliqueConfig
 
-# Type alias: CliqueConfig
+# Type Alias: CliqueConfig
 
 > **CliqueConfig**: `object`
 
@@ -18,6 +18,6 @@
 
 > **period**: `number`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:9

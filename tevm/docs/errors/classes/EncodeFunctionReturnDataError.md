@@ -65,7 +65,7 @@ The tag for the error.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
 
-#### Source
+#### Defined in
 
 packages/errors/types/utils/EncodeFunctionReturnDataError.d.ts:34
 
@@ -81,7 +81,7 @@ Same as name, used internally.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:39
 
@@ -95,7 +95,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 [`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:64
 
@@ -111,7 +111,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:63
 
@@ -125,7 +125,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 [`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:43
 
@@ -141,7 +141,7 @@ Path to the documentation for this error.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:47
 
@@ -157,9 +157,9 @@ Human-readable error message.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -173,7 +173,7 @@ Additional meta messages for more context.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:51
 
@@ -189,9 +189,9 @@ The name of the error, used to discriminate errors.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`name`](InvalidParamsError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -203,7 +203,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:55
 
@@ -217,9 +217,9 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 [`InvalidParamsError`](InvalidParamsError.md).[`stack`](InvalidParamsError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -231,7 +231,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:59
 
@@ -261,9 +261,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`InvalidParamsError`](InvalidParamsError.md).[`prepareStackTrace`](InvalidParamsError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -275,9 +275,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`InvalidParamsError`](InvalidParamsError.md).[`stackTraceLimit`](InvalidParamsError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -303,7 +303,7 @@ The first error that matches the function, or the original error.
 
 [`InvalidParamsError`](InvalidParamsError.md).[`walk`](InvalidParamsError.md#walk)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:70
 
@@ -329,6 +329,6 @@ Create .stack property on a target object
 
 [`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

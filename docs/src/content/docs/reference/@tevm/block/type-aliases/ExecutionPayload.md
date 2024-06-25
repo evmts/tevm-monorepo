@@ -89,6 +89,6 @@ title: "ExecutionPayload"
 
 > `optional` **withdrawals**: [`WithdrawalV1`](/reference/tevm/block/type-aliases/withdrawalv1/)[]
 
-## Source
+## Defined in
 
 [types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)

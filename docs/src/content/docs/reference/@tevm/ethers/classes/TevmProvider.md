@@ -9,7 +9,7 @@ An [ethers JsonRpcApiProvider](https://docs.ethers.org/v6/api/providers/jsonrpc/
 
 ## TevmProvider
 
-The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient](../clients/) as it's backend.
+The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient]() as it's backend.
 
 ## Examples
 
@@ -50,7 +50,7 @@ console.log(
 
 ## Tevm actions support
 
-The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
+The entire [tevm api]() exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -85,7 +85,7 @@ console.log(result)
 
 ## Tevm JSON-RPC support
 
-An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
+An ethers TevmProvider supports the tevm [JSON-RPC methods](). For example you can use `tevm_account` to set account
 
 ```typescript
 await provider.send('tevm_setAccount', {
@@ -131,39 +131,11 @@ An instance of a tevm Memory client or BaseClient with TevmSendApi
 
 `JsonRpcApiProvider.constructor`
 
-#### Source
+#### Defined in
 
 [extensions/ethers/src/TevmProvider.js:173](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L173)
 
 ## Properties
-
-### #private
-
-> `private` **#private**: `any`
-
-#### Inherited from
-
-`JsonRpcApiProvider.#private`
-
-#### Source
-
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:212
-
-***
-
-### #private
-
-> `private` **#private**: `any`
-
-#### Inherited from
-
-`JsonRpcApiProvider.#private`
-
-#### Source
-
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:253
-
-***
 
 ### tevm
 
@@ -208,7 +180,7 @@ console.log(result)
 //  selfdestruct: new Set(),
 ```
 
-#### Source
+#### Defined in
 
 [extensions/ethers/src/TevmProvider.js:168](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L168)
 
@@ -225,7 +197,11 @@ Gets the [[Network]] this provider has committed to. On each call, the network
 
 `Network`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider._network`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:224
 
@@ -245,7 +221,11 @@ If this provider has been destroyed using the [[destroy]] method.
 
 `boolean`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.destroyed`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:419
 
@@ -268,7 +248,11 @@ Prevent any CCIP-read operation, regardless of whether requested
 
 `boolean`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.disableCcipRead`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:282
 
@@ -298,7 +282,11 @@ Whether the provider is currently paused.
 
 `boolean`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.paused`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:438
 
@@ -314,7 +302,11 @@ Returns all the registered plug-ins.
 
 `AbstractProviderPlugin`[]
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.plugins`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:269
 
@@ -328,7 +320,11 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `number`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.pollingInterval`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:260
 
@@ -345,7 +341,11 @@ Returns ``this``, to allow an **AbstractProvider** to implement
 
 `this`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.provider`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:265
 
@@ -361,7 +361,11 @@ Returns true only if the [[_start]] has been called.
 
 `boolean`
 
-#### Source
+#### Inherited from
+
+`JsonRpcApiProvider.ready`
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:270
 
@@ -385,7 +389,7 @@ Clear a timer created using the [[_setTimeout]] method.
 
 `JsonRpcApiProvider._clearTimeout`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:374
 
@@ -409,7 +413,7 @@ Sub-classes may override this; it detects the *actual* network that
 
 `JsonRpcApiProvider._detectNetwork`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:245
 
@@ -433,7 +437,7 @@ Perform %%func%% on each subscriber.
 
 `JsonRpcApiProvider._forEachSubscriber`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:387
 
@@ -459,7 +463,7 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 `JsonRpcApiProvider._getAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:332
 
@@ -484,7 +488,7 @@ Returns or resolves to a valid block tag for %%blockTag%%, resolving
 
 `JsonRpcApiProvider._getBlockTag`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
 
@@ -510,7 +514,7 @@ Returns or resolves to a filter for %%filter%%, resolving any ENS
 
 `JsonRpcApiProvider._getFilter`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:343
 
@@ -524,7 +528,7 @@ Returns the value associated with the option %%key%%.
 
  Sub-classes can use this to inquire about configuration options.
 
-#### Type parameters
+#### Type Parameters
 
 • **K** *extends* keyof `JsonRpcApiProviderOptions`
 
@@ -540,7 +544,7 @@ Returns the value associated with the option %%key%%.
 
 `JsonRpcApiProvider._getOption`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:219
 
@@ -562,7 +566,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider._getProvider`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:364
 
@@ -589,7 +593,7 @@ Return a Subscriber that will manage the %%sub%%.
 
 `JsonRpcApiProvider._getSubscriber`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:266
 
@@ -615,7 +619,7 @@ Returns or resolves to a transaction for %%request%%, resolving
 
 `JsonRpcApiProvider._getTransactionRequest`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:349
 
@@ -642,7 +646,7 @@ Resolves to the non-normalized value by performing %%req%%.
 
 `JsonRpcApiProvider._perform`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:237
 
@@ -674,7 +678,7 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 `JsonRpcApiProvider._recoverSubscriber`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:402
 
@@ -698,7 +702,7 @@ Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 `JsonRpcApiProvider._send`
 
-#### Source
+#### Defined in
 
 [extensions/ethers/src/TevmProvider.js:187](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L187)
 
@@ -712,7 +716,7 @@ Create a timer that will execute %%func%% after at least %%timeout%%
  (in ms). If %%timeout%% is unspecified, then %%func%% will execute
  in the next event loop.
 
- [Pausing](AbstractProvider-paused) the provider will pause any
+ [Pausing]() the provider will pause any
  associated timers.
 
 #### Parameters
@@ -729,7 +733,7 @@ Create a timer that will execute %%func%% after at least %%timeout%%
 
 `JsonRpcApiProvider._setTimeout`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
 
@@ -753,7 +757,7 @@ Sub-classes **MUST** call this. Until [[_start]] has been called, no calls
 
 `JsonRpcApiProvider._start`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:253
 
@@ -775,7 +779,7 @@ Resolves once the [[_start]] has been called. This can be used in
 
 `JsonRpcApiProvider._waitUntilReady`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:259
 
@@ -803,7 +807,7 @@ Provides the opportunity for a sub-class to wrap a block before
 
 `JsonRpcApiProvider._wrapBlock`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:293
 
@@ -831,7 +835,7 @@ Provides the opportunity for a sub-class to wrap a log before
 
 `JsonRpcApiProvider._wrapLog`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:299
 
@@ -859,7 +863,7 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 `JsonRpcApiProvider._wrapTransactionReceipt`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:305
 
@@ -887,7 +891,7 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 `JsonRpcApiProvider._wrapTransactionResponse`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:311
 
@@ -896,6 +900,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### addListener()
 
 > **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Alias for [[on]].
 
 #### Parameters
 
@@ -911,7 +917,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.addListener`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
 
@@ -935,7 +941,7 @@ Attach a new plug-in.
 
 `JsonRpcApiProvider.attachPlugin`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:273
 
@@ -944,6 +950,10 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### broadcastTransaction()
 
 > **broadcastTransaction**(`signedTx`): `Promise`\<`TransactionResponse`\>
+
+Broadcasts the %%signedTx%% to the network, adding it to the
+ memory pool of any node for which the transaction meets the
+ rebroadcast requirements.
 
 #### Parameters
 
@@ -957,7 +967,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.broadcastTransaction`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:358
 
@@ -966,6 +976,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### call()
 
 > **call**(`_tx`): `Promise`\<`string`\>
+
+Simulate the execution of %%tx%%. If the call reverts, it will
+ throw a [[CallExceptionError]] which includes the revert data.
 
 #### Parameters
 
@@ -979,7 +992,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.call`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:353
 
@@ -1007,7 +1020,7 @@ Resolves to the data for executing the CCIP-read operations.
 
 `JsonRpcApiProvider.ccipReadFetch`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:287
 
@@ -1017,6 +1030,11 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 > **destroy**(): `void`
 
+Sub-classes may use this to shutdown any sockets or release their
+ resources and reject any pending requests.
+
+ Sub-classes **must** call ``super.destroy()``.
+
 #### Returns
 
 `void`
@@ -1025,7 +1043,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.destroy`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:320
 
@@ -1034,6 +1052,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### emit()
 
 > **emit**(`event`, ...`args`): `Promise`\<`boolean`\>
+
+Triggers each listener for %%event%% with the %%args%%.
 
 #### Parameters
 
@@ -1049,7 +1069,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.emit`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:405
 
@@ -1058,6 +1078,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### estimateGas()
 
 > **estimateGas**(`_tx`): `Promise`\<`bigint`\>
+
+Estimates the amount of gas required to execute %%tx%%.
 
 #### Parameters
 
@@ -1071,7 +1093,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.estimateGas`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:352
 
@@ -1093,7 +1115,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getAvatar`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:366
 
@@ -1102,6 +1124,10 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getBalance()
 
 > **getBalance**(`address`, `blockTag`?): `Promise`\<`bigint`\>
+
+Get the account balance (in wei) of %%address%%. If %%blockTag%%
+ is specified and the node supports archive access for that
+ %%blockTag%%, the balance is as of that [[BlockTag]].
 
 #### Parameters
 
@@ -1117,7 +1143,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getBalance`
 
-#### Source
+#### Note
+
+On nodes without archive access enabled, the %%blockTag%% may be
+       **silently ignored** by the node, which may cause issues if relied on.
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
 
@@ -1126,6 +1157,13 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getBlock()
 
 > **getBlock**(`block`, `prefetchTxs`?): `Promise`\<`null` \| `Block`\>
+
+Resolves to the block for %%blockHashOrBlockTag%%.
+
+ If %%prefetchTxs%%, and the backend supports including transactions
+ with block requests, all transactions will be included and the
+ [[Block]] object will not need to make remote calls for getting
+ transactions.
 
 #### Parameters
 
@@ -1141,7 +1179,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getBlock`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
 
@@ -1151,6 +1189,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 > **getBlockNumber**(): `Promise`\<`number`\>
 
+Get the current block number.
+
 #### Returns
 
 `Promise`\<`number`\>
@@ -1159,7 +1199,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getBlockNumber`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:326
 
@@ -1168,6 +1208,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getCode()
 
 > **getCode**(`address`, `blockTag`?): `Promise`\<`string`\>
+
+Get the bytecode for %%address%%.
 
 #### Parameters
 
@@ -1183,7 +1225,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getCode`
 
-#### Source
+#### Note
+
+On nodes without archive access enabled, the %%blockTag%% may be
+       **silently ignored** by the node, which may cause issues if relied on.
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
 
@@ -1193,6 +1240,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 > **getFeeData**(): `Promise`\<`FeeData`\>
 
+Get the best guess at the recommended [[FeeData]].
+
 #### Returns
 
 `Promise`\<`FeeData`\>
@@ -1201,7 +1250,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getFeeData`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:351
 
@@ -1210,6 +1259,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getLogs()
 
 > **getLogs**(`_filter`): `Promise`\<`Log`[]\>
+
+Resolves to the list of Logs that match %%filter%%
 
 #### Parameters
 
@@ -1223,7 +1274,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getLogs`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:363
 
@@ -1233,6 +1284,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 > **getNetwork**(): `Promise`\<`Network`\>
 
+Get the connected [[Network]].
+
 #### Returns
 
 `Promise`\<`Network`\>
@@ -1241,7 +1294,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getNetwork`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:350
 
@@ -1253,7 +1306,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 Get a plugin by name.
 
-#### Type parameters
+#### Type Parameters
 
 • **T** *extends* `AbstractProviderPlugin` = `AbstractProviderPlugin`
 
@@ -1269,7 +1322,7 @@ Get a plugin by name.
 
 `JsonRpcApiProvider.getPlugin`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:277
 
@@ -1291,7 +1344,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getResolver`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:365
 
@@ -1320,7 +1373,7 @@ Returns an ethers-style Error for the given JSON-RPC error
 
 `JsonRpcApiProvider.getRpcError`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:291
 
@@ -1345,7 +1398,7 @@ Returns the request method and arguments required to perform
 
 `JsonRpcApiProvider.getRpcRequest`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:281
 
@@ -1371,7 +1424,7 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 `JsonRpcApiProvider.getRpcTransaction`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:276
 
@@ -1404,7 +1457,7 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 `JsonRpcApiProvider.getSigner`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
 
@@ -1413,6 +1466,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getStorage()
 
 > **getStorage**(`address`, `_position`, `blockTag`?): `Promise`\<`string`\>
+
+Get the storage slot value for %%address%% at slot %%position%%.
 
 #### Parameters
 
@@ -1430,7 +1485,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getStorage`
 
-#### Source
+#### Note
+
+On nodes without archive access enabled, the %%blockTag%% may be
+       **silently ignored** by the node, which may cause issues if relied on.
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
 
@@ -1439,6 +1499,11 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getTransaction()
 
 > **getTransaction**(`hash`): `Promise`\<`null` \| `TransactionResponse`\>
+
+Resolves to the transaction for %%hash%%.
+
+ If the transaction is unknown or on pruning nodes which
+ discard old transactions this resolves to ``null``.
 
 #### Parameters
 
@@ -1452,7 +1517,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getTransaction`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:360
 
@@ -1461,6 +1526,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getTransactionCount()
 
 > **getTransactionCount**(`address`, `blockTag`?): `Promise`\<`number`\>
+
+Get the number of transactions ever sent for %%address%%, which
+ is used as the ``nonce`` when sending a transaction. If
+ %%blockTag%% is specified and the node supports archive access
+ for that %%blockTag%%, the transaction count is as of that
+ [[BlockTag]].
 
 #### Parameters
 
@@ -1476,7 +1547,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getTransactionCount`
 
-#### Source
+#### Note
+
+On nodes without archive access enabled, the %%blockTag%% may be
+       **silently ignored** by the node, which may cause issues if relied on.
+
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
 
@@ -1485,6 +1561,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getTransactionReceipt()
 
 > **getTransactionReceipt**(`hash`): `Promise`\<`null` \| `TransactionReceipt`\>
+
+Resolves to the transaction receipt for %%hash%%, if mined.
+
+ If the transaction has not been mined, is unknown or on
+ pruning nodes which discard old transactions this resolves to
+ ``null``.
 
 #### Parameters
 
@@ -1498,7 +1580,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getTransactionReceipt`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:361
 
@@ -1507,6 +1589,11 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### getTransactionResult()
 
 > **getTransactionResult**(`hash`): `Promise`\<`null` \| `string`\>
+
+Resolves to the result returned by the executions of %%hash%%.
+
+ This is only supported on nodes with archive access and with
+ the necessary debug APIs enabled.
 
 #### Parameters
 
@@ -1520,7 +1607,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.getTransactionResult`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:362
 
@@ -1538,7 +1625,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.listAccounts`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:319
 
@@ -1547,6 +1634,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### listenerCount()
 
 > **listenerCount**(`event`?): `Promise`\<`number`\>
+
+Resolves to the number of listeners for %%event%%.
 
 #### Parameters
 
@@ -1560,7 +1649,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.listenerCount`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
 
@@ -1569,6 +1658,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### listeners()
 
 > **listeners**(`event`?): `Promise`\<`Listener`[]\>
+
+Resolves to the listeners for %%event%%.
 
 #### Parameters
 
@@ -1582,7 +1673,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.listeners`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
 
@@ -1591,6 +1682,12 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### lookupAddress()
 
 > **lookupAddress**(`address`): `Promise`\<`null` \| `string`\>
+
+Resolves to the ENS name associated for the %%address%% or
+ ``null`` if the //primary name// is not configured.
+
+ Users must perform additional steps to configure a //primary name//,
+ which is not currently common.
 
 #### Parameters
 
@@ -1604,7 +1701,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.lookupAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:368
 
@@ -1613,6 +1710,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### off()
 
 > **off**(`event`, `listener`?): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Unregister the %%listener%% for %%event%%. If %%listener%%
+ is unspecified, all listeners are unregistered.
 
 #### Parameters
 
@@ -1628,7 +1728,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.off`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
 
@@ -1637,6 +1737,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### on()
 
 > **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Registers a %%listener%% that is called whenever the
+ %%event%% occurs until unregistered.
 
 #### Parameters
 
@@ -1652,7 +1755,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.on`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
 
@@ -1661,6 +1764,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### once()
 
 > **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Registers a %%listener%% that is called the next time
+ %%event%% occurs.
 
 #### Parameters
 
@@ -1676,7 +1782,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.once`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
 
@@ -1702,7 +1808,7 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 `JsonRpcApiProvider.pause`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
 
@@ -1711,6 +1817,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### removeAllListeners()
 
 > **removeAllListeners**(`event`?): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Unregister all listeners for %%event%%.
 
 #### Parameters
 
@@ -1724,7 +1832,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.removeAllListeners`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
 
@@ -1733,6 +1841,8 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### removeListener()
 
 > **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+
+Alias for [[off]].
 
 #### Parameters
 
@@ -1748,7 +1858,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.removeListener`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
 
@@ -1757,6 +1867,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### resolveName()
 
 > **resolveName**(`name`): `Promise`\<`null` \| `string`\>
+
+Resolves to the address configured for the %%ensName%% or
+ ``null`` if unconfigured.
 
 #### Parameters
 
@@ -1770,7 +1883,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.resolveName`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:367
 
@@ -1790,7 +1903,7 @@ Resume the provider.
 
 `JsonRpcApiProvider.resume`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:449
 
@@ -1826,7 +1939,7 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 `JsonRpcApiProvider.send`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:305
 
@@ -1835,6 +1948,11 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### waitForBlock()
 
 > **waitForBlock**(`blockTag`?): `Promise`\<`Block`\>
+
+Resolves to the block at %%blockTag%% once it has been mined.
+
+ This can be useful for waiting some number of blocks by using
+ the ``currentBlockNumber + N``.
 
 #### Parameters
 
@@ -1848,7 +1966,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.waitForBlock`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
 
@@ -1857,6 +1975,9 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 ### waitForTransaction()
 
 > **waitForTransaction**(`hash`, `_confirms`?, `timeout`?): `Promise`\<`null` \| `TransactionReceipt`\>
+
+Waits until the transaction %%hash%% is mined and has %%confirms%%
+ confirmations.
 
 #### Parameters
 
@@ -1874,7 +1995,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 `JsonRpcApiProvider.waitForTransaction`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
 
@@ -1882,13 +2003,13 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 ### createMemoryProvider()
 
-> `static` `readonly` **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
+> `readonly` `static` **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-• **options**: `BaseClientOptions`
+• **options**: `BaseClientOptions`\<[`Common`](/reference/tevm/common/type-aliases/common/)\>
 
 Options to create a new TevmProvider.
 
@@ -1912,6 +2033,6 @@ const provider = await TevmProvider.createMemoryProvider()
 const blockNumber = await provider.getBlockNumber()
 ```
 
-#### Source
+#### Defined in
 
 [extensions/ethers/src/TevmProvider.js:124](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L124)

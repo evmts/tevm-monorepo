@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthRequestType
 
-# Type alias: EthRequestType
+# Type Alias: EthRequestType
 
 > **EthRequestType**: `object`
 
@@ -164,6 +164,6 @@ A mapping of `eth_*` method names to their request type
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1200

@@ -7,6 +7,6 @@ title: "testAccounts"
 
 > `const` **testAccounts**: [[`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/)]
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/utils/testAccounts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/utils/testAccounts.js#L7)

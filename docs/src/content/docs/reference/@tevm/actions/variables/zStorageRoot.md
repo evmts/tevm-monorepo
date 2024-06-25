@@ -9,6 +9,6 @@ title: "zStorageRoot"
 
 Zod validator for valid ethereum storage root
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zStorageRoot.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zStorageRoot.js#L8)

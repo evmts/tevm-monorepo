@@ -8,6 +8,6 @@
 
 > `const` **SimpleContract**: `Contract`
 
-## Source
+## Defined in
 
 packages/contract/types/contract-lib/SimpleContract.s.sol.d.ts:1

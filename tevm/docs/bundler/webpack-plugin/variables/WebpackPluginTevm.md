@@ -73,6 +73,6 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
 }
 ```
 
-## Source
+## Defined in
 
 bundler-packages/webpack/types/WebpackPluginTevm.d.ts:66

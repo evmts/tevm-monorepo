@@ -4,16 +4,16 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / JsonSerializableSet
 
-# Type alias: JsonSerializableSet\<T\>
+# Type Alias: JsonSerializableSet\<T\>
 
 > **JsonSerializableSet**\<`T`\>: `Set`\<`T`\>
 
 A type that represents a JSON-serializable set.
 
-## Type parameters
+## Type Parameters
 
 • **T** *extends* `bigint` \| `string` \| `number` \| `boolean` = `bigint` \| `string` \| `number` \| `boolean`
 
-## Source
+## Defined in
 
 packages/utils/types/SerializeToJson.d.ts:19

@@ -15,6 +15,6 @@ title: "EthGetUncleByBlockNumberAndIndexHandler"
 
 `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](/reference/tevm/actions/type-aliases/ethgetunclebyblocknumberandindexresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L155)

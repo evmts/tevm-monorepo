@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / SetAccountJsonRpcProcedure
 
-# Type alias: SetAccountJsonRpcProcedure()
+# Type Alias: SetAccountJsonRpcProcedure()
 
 > **SetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 `Promise`\<[`SetAccountJsonRpcResponse`](SetAccountJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1166

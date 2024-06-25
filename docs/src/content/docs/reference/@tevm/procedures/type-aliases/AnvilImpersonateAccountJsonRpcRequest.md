@@ -9,6 +9,6 @@ title: "AnvilImpersonateAccountJsonRpcRequest"
 
 JSON-RPC request for `anvil_impersonateAccount` method
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcRequest.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L16)

@@ -15,6 +15,6 @@ title: "EthGetUncleByBlockNumberAndIndexJsonRpcProcedure"
 
 `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgetunclebyblocknumberandindexjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L171)

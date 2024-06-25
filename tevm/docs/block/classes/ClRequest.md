@@ -26,7 +26,7 @@
 
 [`ClRequest`](ClRequest.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/ClRequest.d.ts:14
 
@@ -40,7 +40,7 @@ packages/block/types/ClRequest.d.ts:14
 
 `CLRequestType.bytes`
 
-#### Source
+#### Defined in
 
 packages/block/types/ClRequest.d.ts:13
 
@@ -54,7 +54,7 @@ packages/block/types/ClRequest.d.ts:13
 
 `CLRequestType.type`
 
-#### Source
+#### Defined in
 
 packages/block/types/ClRequest.d.ts:12
 
@@ -72,6 +72,6 @@ packages/block/types/ClRequest.d.ts:12
 
 `CLRequestType.serialize`
 
-#### Source
+#### Defined in
 
 packages/block/types/ClRequest.d.ts:15

@@ -99,6 +99,6 @@ title: "EIP1193EventMap"
 
 `void`
 
-## Source
+## Defined in
 
 [packages/base-client/src/EIP1193EventEmitterTypes.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L32)

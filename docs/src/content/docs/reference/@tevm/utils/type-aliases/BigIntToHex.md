@@ -9,10 +9,10 @@ title: "BigIntToHex"
 
 A helper type that converts a bigint to a hex string.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L34)

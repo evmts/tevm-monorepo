@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidNonceErrorParameters
 
-# Type alias: InvalidNonceErrorParameters
+# Type Alias: InvalidNonceErrorParameters
 
 > **InvalidNonceErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidNonceError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidNonceError.d.ts:42

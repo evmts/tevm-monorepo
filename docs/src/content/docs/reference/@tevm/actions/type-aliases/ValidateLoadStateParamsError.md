@@ -7,6 +7,6 @@ title: "ValidateLoadStateParamsError"
 
 > **ValidateLoadStateParamsError**: [`InvalidRequestError`](/reference/tevm/errors/classes/invalidrequesterror/)
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/validateLoadStateParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L5)

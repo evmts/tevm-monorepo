@@ -43,6 +43,6 @@ This API is no longer supported and may be removed in a future release.
 
 > **tevm\_setAccount**: [`SetAccountJsonRpcRequest`](/reference/tevm/procedures/type-aliases/setaccountjsonrpcrequest/)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmRequestType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmRequestType.ts#L12)

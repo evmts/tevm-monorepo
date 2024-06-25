@@ -20,6 +20,6 @@ Procedure for handling script JSON-RPC requests
 
 `Promise`\<[`ScriptJsonRpcResponse`](/reference/tevm/procedures/type-aliases/scriptjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/script/ScriptJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcProcedure.ts#L8)

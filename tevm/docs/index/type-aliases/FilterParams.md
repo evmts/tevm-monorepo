@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / FilterParams
 
-# Type alias: FilterParams
+# Type Alias: FilterParams
 
 > **FilterParams**: `object`
 
@@ -14,20 +14,20 @@ An event filter optionsobject
 
 ### address?
 
-> `optional` `readonly` **address**: `Address`
+> `readonly` `optional` **address**: `Address`
 
 ### fromBlock?
 
-> `optional` `readonly` **fromBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **fromBlock**: [`BlockParam`](BlockParam.md)
 
 ### toBlock?
 
-> `optional` `readonly` **toBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **toBlock**: [`BlockParam`](BlockParam.md)
 
 ### topics?
 
-> `optional` `readonly` **topics**: `ReadonlyArray`\<`Hex`\>
+> `readonly` `optional` **topics**: `ReadonlyArray`\<`Hex`\>
 
-## Source
+## Defined in
 
 packages/actions/types/common/FilterParams.d.ts:7

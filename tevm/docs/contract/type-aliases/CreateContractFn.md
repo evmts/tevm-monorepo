@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [contract](../README.md) / CreateContractFn
 
-# Type alias: CreateContractFn()
+# Type Alias: CreateContractFn()
 
 > **CreateContractFn**: \<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
@@ -37,7 +37,7 @@ const contract = createContract({
 })
 ```
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -59,6 +59,6 @@ const contract = createContract({
 
 [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-## Source
+## Defined in
 
 packages/contract/types/CreateContractFn.d.ts:32

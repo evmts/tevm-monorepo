@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmCallError
 
-# Type alias: TevmCallError
+# Type Alias: TevmCallError
 
 > **TevmCallError**: `ValidateCallParamsError` \| `CallHandlerOptsError` \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ExecutionError`](../../errors/classes/ExecutionError.md) \| [`RevertError`](../../errors/classes/RevertError.md) \| `ValidateCallParamsError` \| `HandleRunTxError` \| `ExecuteCallError` \| [`InternalError`](../../errors/classes/InternalError.md)
 
@@ -55,6 +55,6 @@ try {
 }
 ```
 
-## Source
+## Defined in
 
 packages/actions/types/Call/TevmCallError.d.ts:52

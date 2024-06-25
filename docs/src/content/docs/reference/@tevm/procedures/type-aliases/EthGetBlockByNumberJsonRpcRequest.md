@@ -9,6 +9,6 @@ title: "EthGetBlockByNumberJsonRpcRequest"
 
 JSON-RPC request for `eth_getBlockByNumber` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L101)

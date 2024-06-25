@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / AbiEvent
 
-# Type alias: AbiEvent
+# Type Alias: AbiEvent
 
 > **AbiEvent**: `object`
 
@@ -28,6 +28,6 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 > **type**: `"event"`
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:101
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:104

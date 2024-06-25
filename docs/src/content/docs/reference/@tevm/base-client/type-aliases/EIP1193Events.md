@@ -11,7 +11,7 @@ title: "EIP1193Events"
 
 ### on()
 
-#### Type parameters
+#### Type Parameters
 
 • **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)
 
@@ -27,7 +27,7 @@ title: "EIP1193Events"
 
 ### removeListener()
 
-#### Type parameters
+#### Type Parameters
 
 • **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)
 
@@ -41,6 +41,6 @@ title: "EIP1193Events"
 
 `void`
 
-## Source
+## Defined in
 
 [packages/base-client/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L46)

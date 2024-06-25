@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBalanceErrorParameters
 
-# Type alias: InvalidBalanceErrorParameters
+# Type Alias: InvalidBalanceErrorParameters
 
 > **InvalidBalanceErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidBalanceError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidBalanceError.d.ts:42

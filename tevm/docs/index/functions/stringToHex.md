@@ -40,6 +40,6 @@ const data = stringToHex('Hello World!', { size: 32 })
 // '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000'
 ```
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:147

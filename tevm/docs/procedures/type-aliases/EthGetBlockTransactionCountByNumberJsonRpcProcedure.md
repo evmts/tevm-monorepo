@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetBlockTransactionCountByNumberJsonRpcProcedure
 
-# Type alias: EthGetBlockTransactionCountByNumberJsonRpcProcedure()
+# Type Alias: EthGetBlockTransactionCountByNumberJsonRpcProcedure()
 
 > **EthGetBlockTransactionCountByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](EthGetBlockTransactionCountByNumberJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](EthGetBlockTransactionCountByNumberJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:603

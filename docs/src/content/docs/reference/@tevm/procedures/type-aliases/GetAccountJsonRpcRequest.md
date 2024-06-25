@@ -9,6 +9,6 @@ title: "GetAccountJsonRpcRequest"
 
 JSON-RPC request for `tevm_getAccount` method
 
-## Source
+## Defined in
 
 [procedures/src/getaccount/GetAccountJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/getaccount/GetAccountJsonRpcRequest.ts#L8)

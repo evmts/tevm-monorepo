@@ -6,6 +6,8 @@
 
 # Class: TxPool
 
+**`Experimental`**
+
 Tx pool (mempool)
 
 ## Memberof
@@ -17,6 +19,8 @@ module:service
 ### new TxPool()
 
 > **new TxPool**(`options`): [`TxPool`](TxPool.md)
+
+**`Experimental`**
 
 Create new tx pool
 
@@ -30,7 +34,7 @@ constructor parameters
 
 [`TxPool`](TxPool.md)
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:67
 
@@ -40,10 +44,12 @@ packages/txpool/types/TxPool.d.ts:67
 
 > **BLOCKS\_BEFORE\_TARGET\_HEIGHT\_ACTIVATION**: `number`
 
+**`Experimental`**
+
 Activate before chain head is reached to start
 tx pool preparation (sorting out included txs)
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:53
 
@@ -53,10 +59,12 @@ packages/txpool/types/TxPool.d.ts:53
 
 > **HANDLED\_CLEANUP\_TIME\_LIMIT**: `number`
 
+**`Experimental`**
+
 Number of minutes to forget about handled
 txs (for cleanup/memory reasons)
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:62
 
@@ -66,81 +74,13 @@ packages/txpool/types/TxPool.d.ts:62
 
 > **POOLED\_STORAGE\_TIME\_LIMIT**: `number`
 
+**`Experimental`**
+
 Number of minutes to keep txs in the pool
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:57
-
-***
-
-### \_cleanupInterval
-
-> `private` **\_cleanupInterval**: `any`
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:28
-
-***
-
-### \_logInterval
-
-> `private` **\_logInterval**: `any`
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:29
-
-***
-
-### handled
-
-> `private` **handled**: `any`
-
-Map for handled tx hashes
-(have been added to the pool at some point)
-
-This is meant to be a superset of the tx pool
-so at any point it time containing minimally
-all txs from the pool.
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:48
-
-***
-
-### normalizedGasPrice
-
-> `private` **normalizedGasPrice**: `any`
-
-Helper to return a normalized gas price across different
-transaction types. Providing the baseFee param returns the
-priority tip, and omitting it returns the max total fee.
-
-#### Param
-
-The tx
-
-#### Param
-
-Provide a baseFee to subtract from the legacy
-gasPrice to determine the leftover priority tip.
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:129
-
-***
-
-### opened
-
-> `private` **opened**: `any`
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:26
 
 ***
 
@@ -148,11 +88,13 @@ packages/txpool/types/TxPool.d.ts:26
 
 > **pool**: `Map`\<`string`, `TxPoolObject`[]\>
 
+**`Experimental`**
+
 The central pool dataset.
 
 Maps an address to a `TxPoolObject`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:35
 
@@ -162,25 +104,11 @@ packages/txpool/types/TxPool.d.ts:35
 
 > **running**: `boolean`
 
-#### Source
+**`Experimental`**
+
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:27
-
-***
-
-### txGasPrice
-
-> `private` **txGasPrice**: `any`
-
-Returns the GasPrice object to provide information of the tx' gas prices
-
-#### Param
-
-Tx to use
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:135
 
 ***
 
@@ -188,47 +116,13 @@ packages/txpool/types/TxPool.d.ts:135
 
 > **txsInPool**: `number`
 
+**`Experimental`**
+
 The number of txs currently in the pool
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:39
-
-***
-
-### validate
-
-> `private` **validate**: `any`
-
-Validates a transaction against the pool and other constraints
-
-#### Param
-
-The tx to validate
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:81
-
-***
-
-### validateTxGasBump
-
-> `private` **validateTxGasBump**: `any`
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:76
-
-***
-
-### vm
-
-> `private` **vm**: `any`
-
-#### Source
-
-packages/txpool/types/TxPool.d.ts:25
 
 ## Methods
 
@@ -236,11 +130,13 @@ packages/txpool/types/TxPool.d.ts:25
 
 > **\_logPoolStats**(): `void`
 
+**`Experimental`**
+
 #### Returns
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:165
 
@@ -249,6 +145,8 @@ packages/txpool/types/TxPool.d.ts:165
 ### add()
 
 > **add**(`tx`, `requireSignature`?, `skipBalance`?): `Promise`\<`void`\>
+
+**`Experimental`**
 
 Adds a tx to the pool.
 
@@ -270,7 +168,7 @@ Transaction
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:101
 
@@ -279,6 +177,8 @@ packages/txpool/types/TxPool.d.ts:101
 ### addUnverified()
 
 > **addUnverified**(`tx`): `Promise`\<`void`\>
+
+**`Experimental`**
 
 Adds a tx to the pool without validating it.
 
@@ -296,7 +196,7 @@ Transaction
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:91
 
@@ -306,13 +206,15 @@ packages/txpool/types/TxPool.d.ts:91
 
 > **cleanup**(): `void`
 
+**`Experimental`**
+
 Regular tx pool cleanup
 
 #### Returns
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:120
 
@@ -322,13 +224,15 @@ packages/txpool/types/TxPool.d.ts:120
 
 > **close**(): `void`
 
+**`Experimental`**
+
 Close pool
 
 #### Returns
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:164
 
@@ -337,6 +241,8 @@ packages/txpool/types/TxPool.d.ts:164
 ### getByHash()
 
 > **getByHash**(`txHashes`): ([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]
+
+**`Experimental`**
 
 Returns the available txs from the pool
 
@@ -350,7 +256,7 @@ Returns the available txs from the pool
 
 Array with tx objects
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:107
 
@@ -360,6 +266,8 @@ packages/txpool/types/TxPool.d.ts:107
 
 > **getBySenderAddress**(`address`): `Promise`\<`TxPoolObject`[]\>
 
+**`Experimental`**
+
 #### Parameters
 
 • **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
@@ -368,7 +276,7 @@ packages/txpool/types/TxPool.d.ts:107
 
 `Promise`\<`TxPoolObject`[]\>
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:136
 
@@ -378,13 +286,15 @@ packages/txpool/types/TxPool.d.ts:136
 
 > **open**(): `boolean`
 
+**`Experimental`**
+
 Open pool
 
 #### Returns
 
 `boolean`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:71
 
@@ -393,6 +303,8 @@ packages/txpool/types/TxPool.d.ts:71
 ### removeByHash()
 
 > **removeByHash**(`txHash`): `void`
+
+**`Experimental`**
 
 Removes the given tx from the pool
 
@@ -406,7 +318,7 @@ Hash of the transaction
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:112
 
@@ -415,6 +327,8 @@ packages/txpool/types/TxPool.d.ts:112
 ### removeNewBlockTxs()
 
 > **removeNewBlockTxs**(`newBlocks`): `void`
+
+**`Experimental`**
 
 Remove txs included in the latest blocks from the tx pool
 
@@ -426,7 +340,7 @@ Remove txs included in the latest blocks from the tx pool
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:116
 
@@ -436,13 +350,15 @@ packages/txpool/types/TxPool.d.ts:116
 
 > **start**(): `boolean`
 
+**`Experimental`**
+
 Start tx processing
 
 #### Returns
 
 `boolean`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:75
 
@@ -452,13 +368,15 @@ packages/txpool/types/TxPool.d.ts:75
 
 > **stop**(): `boolean`
 
+**`Experimental`**
+
 Stop pool execution
 
 #### Returns
 
 `boolean`
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:160
 
@@ -467,6 +385,8 @@ packages/txpool/types/TxPool.d.ts:160
 ### txsByPriceAndNonce()
 
 > **txsByPriceAndNonce**(`baseFee`?): `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
+
+**`Experimental`**
 
 Returns eligible txs to be mined sorted by price in such a way that the
 nonce orderings within a single account are maintained.
@@ -495,6 +415,6 @@ Provide a baseFee to exclude txs with a lower gasPrice
 
 `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
 
-#### Source
+#### Defined in
 
 packages/txpool/types/TxPool.d.ts:153

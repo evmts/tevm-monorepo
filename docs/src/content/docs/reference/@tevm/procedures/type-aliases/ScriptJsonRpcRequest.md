@@ -12,6 +12,6 @@ Use CallJsonRpcProcedure instead
 The JSON-RPC request for the `tevm_script` method
 :::
 
-## Source
+## Defined in
 
 [procedures/src/script/ScriptJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcRequest.ts#L10)

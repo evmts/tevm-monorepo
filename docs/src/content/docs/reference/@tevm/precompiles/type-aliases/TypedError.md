@@ -7,7 +7,7 @@ title: "TypedError"
 
 > **TypedError**\<`TName`\>: `object`
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -25,6 +25,6 @@ title: "TypedError"
 
 > **name**: `TName`
 
-## Source
+## Defined in
 
 [TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L1)

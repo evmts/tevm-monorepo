@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / CallJsonRpcProcedure
 
-# Type alias: CallJsonRpcProcedure()
+# Type Alias: CallJsonRpcProcedure()
 
 > **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1095

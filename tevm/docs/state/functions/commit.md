@@ -27,6 +27,8 @@ Commits the current state.
 
 • **createNewStateRoot?**: `boolean`
 
+**`Experimental`**
+
 Whether to create a new state root
 Defaults to true.
 This api is not stable
@@ -35,6 +37,6 @@ This api is not stable
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:217

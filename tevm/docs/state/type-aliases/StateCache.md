@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [state](../README.md) / StateCache
 
-# Type alias: StateCache
-
-`Internal`
+# Type Alias: StateCache
 
 > **StateCache**: `object`
+
+**`Internal`**
 
 The shape of the internal cache
 
@@ -26,6 +26,6 @@ The shape of the internal cache
 
 > **storage**: `StorageCache`
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:99

@@ -16,6 +16,6 @@
 
 [`StateManager`](../interfaces/StateManager.md)
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:189

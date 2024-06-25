@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / SyncStoragePersister
 
-# Type alias: SyncStoragePersister
+# Type Alias: SyncStoragePersister
 
 > **SyncStoragePersister**: `object`
 
@@ -38,6 +38,6 @@
 
 [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
 
-## Source
+## Defined in
 
 packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2

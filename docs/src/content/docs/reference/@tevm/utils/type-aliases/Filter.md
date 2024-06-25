@@ -21,7 +21,7 @@ title: "Filter"
 
 > **type**: `TFilterType`
 
-## Type parameters
+## Type Parameters
 
 • **TFilterType** *extends* `FilterType` = `"event"`
 
@@ -37,6 +37,6 @@ title: "Filter"
 
 • **TToBlock** *extends* [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` = `undefined`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/types/filter.d.ts:11

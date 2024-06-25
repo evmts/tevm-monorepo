@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ParseErrorParameters
 
-# Type alias: ParseErrorParameters
+# Type Alias: ParseErrorParameters
 
 > **ParseErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a ParseError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ParseErrorError.d.ts:50

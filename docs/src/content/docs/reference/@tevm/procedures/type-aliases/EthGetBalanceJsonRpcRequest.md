@@ -9,6 +9,6 @@ title: "EthGetBalanceJsonRpcRequest"
 
 JSON-RPC request for `eth_getBalance` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L88)

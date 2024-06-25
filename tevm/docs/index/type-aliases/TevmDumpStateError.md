@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmDumpStateError
 
-# Type alias: TevmDumpStateError
+# Type Alias: TevmDumpStateError
 
 > **TevmDumpStateError**: [`InternalError`](../../errors/classes/InternalError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidParamsError`](../../errors/classes/InvalidParamsError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/DumpState/TevmDumpStateError.d.ts:2

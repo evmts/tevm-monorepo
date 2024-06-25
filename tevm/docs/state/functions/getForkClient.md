@@ -16,6 +16,6 @@
 
 `viem.PublicClient`
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:295

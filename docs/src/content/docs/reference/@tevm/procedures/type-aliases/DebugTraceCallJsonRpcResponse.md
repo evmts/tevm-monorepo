@@ -9,6 +9,6 @@ title: "DebugTraceCallJsonRpcResponse"
 
 JSON-RPC response for `debug_traceCall` procedure
 
-## Source
+## Defined in
 
 [procedures/src/debug/DebugJsonRpcResponse.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugJsonRpcResponse.ts#L22)

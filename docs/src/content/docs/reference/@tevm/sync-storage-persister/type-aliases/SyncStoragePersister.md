@@ -37,6 +37,6 @@ title: "SyncStoragePersister"
 
 `SerializableTevmState` \| `undefined`
 
-## Source
+## Defined in
 
 [SyncStoragePersister.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/SyncStoragePersister.ts#L3)

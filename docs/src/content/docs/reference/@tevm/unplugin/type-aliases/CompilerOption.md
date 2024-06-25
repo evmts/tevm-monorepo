@@ -7,6 +7,6 @@ title: "CompilerOption"
 
 > **CompilerOption**: `infer`
 
-## Source
+## Defined in
 
 [bundler-packages/unplugin/src/tevmUnplugin.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L28)

@@ -5,9 +5,9 @@ prev: false
 title: "StateCache"
 ---
 
-`Internal`
-
 > **StateCache**: `object`
+
+**`Internal`**
 
 The shape of the internal cache
 
@@ -25,6 +25,6 @@ The shape of the internal cache
 
 > **storage**: `StorageCache`
 
-## Source
+## Defined in
 
 [packages/state/src/state-types/StateCache.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L8)

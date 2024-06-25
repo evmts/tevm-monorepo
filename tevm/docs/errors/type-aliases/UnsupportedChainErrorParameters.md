@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / UnsupportedChainErrorParameters
 
-# Type alias: UnsupportedChainErrorParameters
+# Type Alias: UnsupportedChainErrorParameters
 
 > **UnsupportedChainErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an UnsupportedChainError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/UnsupportedChainError.d.ts:50

@@ -17,7 +17,7 @@ Options for the `runTx` method.
 The `@ethereumjs/block` the `tx` belongs to.
 If omitted, a default blank block will be used.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:326
 
@@ -29,7 +29,7 @@ packages/vm/types/utils/types.d.ts:326
 
 To obtain an accurate tx receipt input the block gas used up until this tx.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:368
 
@@ -48,7 +48,7 @@ be activated (included in `berlin` HF).
 Note: if this option is used with a custom [StateManager](../../state/interfaces/StateManager.md) implementation
 StateManager.generateAccessList must be implemented.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:359
 
@@ -61,7 +61,7 @@ packages/vm/types/utils/types.d.ts:359
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:364
 
@@ -73,7 +73,7 @@ packages/vm/types/utils/types.d.ts:364
 
 Skip balance checks if true. Adds transaction cost to balance to ensure execution doesn't fail.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:338
 
@@ -86,7 +86,7 @@ packages/vm/types/utils/types.d.ts:338
 If true, skips the validation of the tx's gas limit
 against the block's gas limit.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:343
 
@@ -99,7 +99,7 @@ packages/vm/types/utils/types.d.ts:343
 If true, skips the hardfork validation of vm, block
 and tx
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:348
 
@@ -111,7 +111,7 @@ packages/vm/types/utils/types.d.ts:348
 
 If true, skips the nonce check
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:334
 
@@ -123,6 +123,6 @@ packages/vm/types/utils/types.d.ts:334
 
 An `@ethereumjs/tx` to run
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:330

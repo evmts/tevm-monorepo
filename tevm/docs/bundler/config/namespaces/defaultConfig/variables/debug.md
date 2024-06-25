@@ -8,6 +8,6 @@
 
 > **debug**: `boolean`
 
-## Source
+## Defined in
 
 bundler-packages/config/types/config/withDefaults.d.ts:5

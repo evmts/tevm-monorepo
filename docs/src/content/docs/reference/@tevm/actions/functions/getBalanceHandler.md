@@ -15,6 +15,6 @@ title: "getBalanceHandler"
 
 [`EthGetBalanceHandler`](/reference/tevm/actions/type-aliases/ethgetbalancehandler/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/getBalanceHandler.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L21)

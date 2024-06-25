@@ -9,6 +9,6 @@ title: "zMineParams"
 
 Zod validator for a valid mine action invocation
 
-## Source
+## Defined in
 
 [packages/actions/src/Mine/zMineParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/zMineParams.js#L7)

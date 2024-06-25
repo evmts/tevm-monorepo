@@ -9,6 +9,6 @@ title: "zStrictHex"
 
 Hex strings returned by the Ethereum JSON-RPC API
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zHex.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zHex.js#L29)

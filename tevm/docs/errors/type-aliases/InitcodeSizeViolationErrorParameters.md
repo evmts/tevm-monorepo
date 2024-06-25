@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InitcodeSizeViolationErrorParameters
 
-# Type alias: InitcodeSizeViolationErrorParameters
+# Type Alias: InitcodeSizeViolationErrorParameters
 
 > **InitcodeSizeViolationErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InitcodeSizeViolationError](../classes/InitcodeSi
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:69

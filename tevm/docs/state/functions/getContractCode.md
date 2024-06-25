@@ -29,6 +29,6 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:278

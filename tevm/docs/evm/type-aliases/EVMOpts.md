@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [evm](../README.md) / EVMOpts
 
-# Type alias: EVMOpts
+# Type Alias: EVMOpts
 
 > **EVMOpts**: `Parameters`\<*typeof* `EVM.create`\>\[`0`\]
 
@@ -30,6 +30,6 @@ const evm: Evm = createEvm({
 })
 ```
 
-## Source
+## Defined in
 
 packages/evm/dist/index.d.ts:27

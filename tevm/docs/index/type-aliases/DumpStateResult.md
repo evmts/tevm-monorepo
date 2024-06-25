@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [index](../README.md) / DumpStateResult
 
-# Type alias: DumpStateResult\<ErrorType\>
+# Type Alias: DumpStateResult\<ErrorType\>
 
 > **DumpStateResult**\<`ErrorType`\>: `object`
 
 Result of the dumpState method
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmDumpStateError`](TevmDumpStateError.md)
 
@@ -28,6 +28,6 @@ Description of the exception, if any occurred
 
 The serialized tevm state
 
-## Source
+## Defined in
 
 packages/actions/types/DumpState/DumpStateResult.d.ts:6

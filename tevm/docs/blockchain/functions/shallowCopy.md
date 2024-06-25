@@ -20,6 +20,6 @@
 
 `BaseChain`
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/shallowCopy.d.ts:1

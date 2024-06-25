@@ -7,6 +7,6 @@ title: "LoadConfigErrorType"
 
 > **LoadConfigErrorType**: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError` \| `InvalidJsonConfigError`
 
-## Source
+## Defined in
 
 [bundler-packages/config/src/loadConfig.js:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L9)

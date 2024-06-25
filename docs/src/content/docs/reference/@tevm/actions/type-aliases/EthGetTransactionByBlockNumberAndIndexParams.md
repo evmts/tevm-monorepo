@@ -13,12 +13,12 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 ### index
 
 > `readonly` **index**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:190](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L190)

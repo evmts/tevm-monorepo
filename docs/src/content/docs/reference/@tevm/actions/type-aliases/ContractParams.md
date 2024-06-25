@@ -13,24 +13,24 @@ Tevm params to execute a call on a contract
 
 ### code?
 
-> `optional` `readonly` **code**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> `readonly` `optional` **code**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 Alias for deployedBytecode
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> `readonly` `optional` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 Code to execute at the contract address.
 If not provideded the code will be fetched from state
 
 ### to?
 
-> `optional` `readonly` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
+> `readonly` `optional` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
 
 The address to call.
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
 
@@ -38,6 +38,6 @@ The address to call.
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/ContractParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L8)

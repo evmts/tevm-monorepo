@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / CodeSizeExceedsMaximumErrorParameters
 
-# Type alias: CodeSizeExceedsMaximumErrorParameters
+# Type Alias: CodeSizeExceedsMaximumErrorParameters
 
 > **CodeSizeExceedsMaximumErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeE
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:90

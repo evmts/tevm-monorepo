@@ -9,6 +9,6 @@ title: "AnvilSetNonceJsonRpcResponse"
 
 JSON-RPC response for `anvil_setNonce` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L104)

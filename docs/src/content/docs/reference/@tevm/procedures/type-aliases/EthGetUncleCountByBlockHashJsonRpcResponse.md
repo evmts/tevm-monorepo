@@ -9,6 +9,6 @@ title: "EthGetUncleCountByBlockHashJsonRpcResponse"
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L152)

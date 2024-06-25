@@ -29,6 +29,6 @@ title: "ResolveArtifacts"
 
 `Promise`\<[`ResolvedArtifacts`](/reference/tevm/compiler/types/type-aliases/resolvedartifacts/)\>
 
-## Source
+## Defined in
 
 [compiler/src/types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L14)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / CommonMismatchErrorParameters
 
-# Type alias: CommonMismatchErrorParameters
+# Type Alias: CommonMismatchErrorParameters
 
 > **CommonMismatchErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [CommonMismatchError](../classes/CommonMismatchErr
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/common/CommonMismatchError.d.ts:54

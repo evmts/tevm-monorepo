@@ -12,6 +12,6 @@
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`EthActionsApi`](../../index/type-aliases/EthActionsApi.md)\>
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:89

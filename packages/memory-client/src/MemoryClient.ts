@@ -52,14 +52,14 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
 *  ```
 */
 export type MemoryClient<
-TChain extends Chain | undefined = Chain | undefined,
-TAccountOrAddress extends Account | Address | undefined = Account | Address | undefined,
+	TChain extends Chain | undefined = Chain | undefined,
+	TAccountOrAddress extends Account | Address | undefined = Account | Address | undefined,
 > = Prettify<
-Client<
-Transport,
-TChain,
-TAccountOrAddress extends Account ? Account : undefined,
-TevmRpcSchema,
-PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
->
+	Client<
+		Transport,
+		TChain,
+		TAccountOrAddress extends Account ? Account : undefined,
+		TevmRpcSchema,
+		PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
+	>
 >

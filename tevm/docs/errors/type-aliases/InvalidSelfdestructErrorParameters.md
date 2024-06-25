@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidSelfdestructErrorParameters
 
-# Type alias: InvalidSelfdestructErrorParameters
+# Type Alias: InvalidSelfdestructErrorParameters
 
 > **InvalidSelfdestructErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidSelfdestructError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidSelfdestructError.d.ts:42

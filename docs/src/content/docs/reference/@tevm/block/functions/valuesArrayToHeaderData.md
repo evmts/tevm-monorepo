@@ -15,6 +15,6 @@ title: "valuesArrayToHeaderData"
 
 [`HeaderData`](/reference/tevm/block/interfaces/headerdata/)
 
-## Source
+## Defined in
 
 [helpers.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L24)

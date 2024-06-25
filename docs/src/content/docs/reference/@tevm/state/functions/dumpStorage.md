@@ -29,6 +29,6 @@ Both are represented as `0x` prefixed hex strings.
 
 `Promise`\<[`StorageDump`](/reference/tevm/common/interfaces/storagedump/)\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/dumpStorage.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorage.js#L9)

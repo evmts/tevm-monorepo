@@ -13,12 +13,12 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 ### fullTransactionObjects
 
 > `readonly` **fullTransactionObjects**: `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L110)

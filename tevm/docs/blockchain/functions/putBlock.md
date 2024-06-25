@@ -16,6 +16,6 @@
 
 `Chain`\[`"putBlock"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/putBlock.d.ts:1

@@ -15,6 +15,6 @@ title: "EthGetBlockTransactionCountByNumberHandler"
 
 `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](/reference/tevm/actions/type-aliases/ethgetblocktransactioncountbynumberresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L109)

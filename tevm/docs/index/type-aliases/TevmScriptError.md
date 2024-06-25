@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmScriptError
 
-# Type alias: ~~TevmScriptError~~
+# Type Alias: ~~TevmScriptError~~
 
 > **TevmScriptError**: [`TevmCallError`](TevmCallError.md) \| [`TevmSetAccountError`](TevmSetAccountError.md) \| [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
@@ -12,6 +12,6 @@
 
 Can use `ContractError` instead
 
-## Source
+## Defined in
 
 packages/actions/types/Script/TevmScriptError.d.ts:7

@@ -16,6 +16,6 @@
 
 `Chain`\[`"validateHeader"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/validateHeader.d.ts:1

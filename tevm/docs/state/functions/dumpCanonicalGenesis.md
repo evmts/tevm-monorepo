@@ -26,6 +26,6 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:231

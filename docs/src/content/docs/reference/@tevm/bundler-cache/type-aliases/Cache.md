@@ -57,6 +57,6 @@ title: "Cache"
 
 > **writeMjsSync**: `WriteMjsSync`
 
-## Source
+## Defined in
 
 [types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L42)

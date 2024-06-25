@@ -16,6 +16,6 @@
 
 `Vm`
 
-## Source
+## Defined in
 
 packages/vm/types/createVm.d.ts:1

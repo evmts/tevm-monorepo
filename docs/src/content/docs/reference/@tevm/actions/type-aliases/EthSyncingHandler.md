@@ -15,6 +15,6 @@ title: "EthSyncingHandler"
 
 `Promise`\<[`EthSyncingResult`](/reference/tevm/actions/type-aliases/ethsyncingresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L173)

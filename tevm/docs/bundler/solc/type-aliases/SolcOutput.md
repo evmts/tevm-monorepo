@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcOutput
 
-# Type alias: SolcOutput
+# Type Alias: SolcOutput
 
 > **SolcOutput**: `object`
 
@@ -14,7 +14,7 @@
 
 > **contracts**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: `object`
 
@@ -26,10 +26,10 @@
 
 > **sources**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:93

@@ -9,7 +9,7 @@ title: "CallResult"
 
 A result of a precompile javascript call
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
@@ -54,6 +54,6 @@ The return value of the call. Required even on exceptions
 
 A set of accounts to selfdestruct
 
-## Source
+## Defined in
 
 [CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L7)

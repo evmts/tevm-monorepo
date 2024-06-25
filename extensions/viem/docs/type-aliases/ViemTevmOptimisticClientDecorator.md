@@ -4,9 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmOptimisticClientDecorator
 
-# Type alias: ~~ViemTevmOptimisticClientDecorator()~~
-
-`Experimental`
+# Type Alias: ~~ViemTevmOptimisticClientDecorator()~~
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
@@ -16,7 +14,7 @@ in favor of the viem transport
 
 A viem decorator for `tevmViemExtension`
 
-## Type parameters
+## Type Parameters
 
 • **TTransport** *extends* `Transport` = `Transport`
 
@@ -32,6 +30,6 @@ A viem decorator for `tevmViemExtension`
 
 [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)

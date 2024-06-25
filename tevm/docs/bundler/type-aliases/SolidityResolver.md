@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [bundler](../README.md) / SolidityResolver
 
-# Type alias: SolidityResolver
+# Type Alias: SolidityResolver
 
 > **SolidityResolver**: `SolidityResolver`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/base-bundler/types/src/index.d.ts:26

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InsufficientBalanceErrorParameters
 
-# Type alias: InsufficientBalanceErrorParameters
+# Type Alias: InsufficientBalanceErrorParameters
 
 > **InsufficientBalanceErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InsufficientBalanceError](../classes/Insufficient
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:71

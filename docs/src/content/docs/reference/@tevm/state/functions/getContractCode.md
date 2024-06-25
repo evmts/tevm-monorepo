@@ -28,6 +28,6 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getContractCode.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L13)

@@ -11,7 +11,7 @@ Creates a deployless instance of a contract
 Can be used to execute code that isn't deployed in tevm
 or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -29,6 +29,6 @@ or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
 [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
 
-## Source
+## Defined in
 
 [CreateScript.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateScript.ts#L10)

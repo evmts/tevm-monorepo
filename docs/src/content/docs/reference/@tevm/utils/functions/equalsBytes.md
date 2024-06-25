@@ -17,6 +17,6 @@ title: "equalsBytes"
 
 `boolean`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/ethereum-cryptography@2.2.0/node\_modules/ethereum-cryptography/utils.d.ts:7

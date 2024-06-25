@@ -60,7 +60,7 @@ const result = await client.readContract(
   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
 )
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -200,7 +200,7 @@ import { MyContract } from './MyContract.sol'
 const MyContractOptimism = MyContract.withAddress('0x420...')
 ```
 
-#### Type parameters
+#### Type Parameters
 
 • **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/)
 
@@ -226,6 +226,6 @@ tevm.contract(
 )
 ```
 
-## Source
+## Defined in
 
 [Contract.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L59)

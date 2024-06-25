@@ -7,10 +7,10 @@ title: "BigIntToHex"
 
 > **BigIntToHex**\<`T`\>: `T` *extends* `bigint` ? [`Hex`](/reference/tevm/utils/type-aliases/hex/) : `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [procedures/src/utils/SerializeToJson.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L19)

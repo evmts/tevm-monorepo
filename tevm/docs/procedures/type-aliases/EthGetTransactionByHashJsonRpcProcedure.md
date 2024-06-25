@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetTransactionByHashJsonRpcProcedure
 
-# Type alias: EthGetTransactionByHashJsonRpcProcedure()
+# Type Alias: EthGetTransactionByHashJsonRpcProcedure()
 
 > **EthGetTransactionByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:612

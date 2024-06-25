@@ -24,6 +24,6 @@ accordingly, otherwise return a "static" `v` just derived from the `recovery` bi
 
 `ECDSASignature`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:12

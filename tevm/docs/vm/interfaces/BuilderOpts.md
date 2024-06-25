@@ -29,7 +29,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`calcDifficultyFromHeader`](../../block/interfaces/BlockOptions.md#calcdifficultyfromheader)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:42
 
@@ -46,7 +46,7 @@ Will throw if provided on a non-PoA chain.
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`cliqueSigner`](../../block/interfaces/BlockOptions.md#cliquesigner)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:59
 
@@ -70,7 +70,7 @@ Current default hardfork: `merge`
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`common`](../../block/interfaces/BlockOptions.md#common)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:23
 
@@ -84,7 +84,7 @@ packages/block/types/types.d.ts:23
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`executionWitness`](../../block/interfaces/BlockOptions.md#executionwitness)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:64
 
@@ -108,7 +108,7 @@ Default: true
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`freeze`](../../block/interfaces/BlockOptions.md#freeze)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:54
 
@@ -126,7 +126,7 @@ the underlying blockchain.
 
 Default: true
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:159
 
@@ -148,7 +148,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`setHardfork`](../../block/interfaces/BlockOptions.md#sethardfork)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:33
 
@@ -164,6 +164,6 @@ Skip consensus format validation checks on header if set. Defaults to false.
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`skipConsensusFormatValidation`](../../block/interfaces/BlockOptions.md#skipconsensusformatvalidation)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:63

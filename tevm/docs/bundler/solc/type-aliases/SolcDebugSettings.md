@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcDebugSettings
 
-# Type alias: SolcDebugSettings
+# Type Alias: SolcDebugSettings
 
 > **SolcDebugSettings**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **revertStrings**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:58

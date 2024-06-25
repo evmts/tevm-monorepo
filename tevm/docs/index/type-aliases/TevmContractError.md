@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmContractError
 
-# Type alias: TevmContractError
+# Type Alias: TevmContractError
 
 > **TevmContractError**: [`TevmCallError`](TevmCallError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/Contract/TevmContractError.d.ts:2

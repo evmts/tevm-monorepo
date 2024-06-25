@@ -15,6 +15,6 @@ title: "EthGetTransactionByHashJsonRpcProcedure"
 
 `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgettransactionbyhashjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L151)

@@ -16,6 +16,6 @@
 
 `BaseChain`
 
-## Source
+## Defined in
 
 packages/blockchain/types/createBaseChain.d.ts:1

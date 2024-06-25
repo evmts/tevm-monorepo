@@ -14,7 +14,7 @@ A block header's data.
 
 > `optional` **baseFeePerGas**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:121
 
@@ -24,7 +24,7 @@ packages/block/types/types.d.ts:121
 
 > `optional` **blobGasUsed**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:123
 
@@ -34,7 +34,7 @@ packages/block/types/types.d.ts:123
 
 > `optional` **coinbase**: [`AddressLike`](../../utils/type-aliases/AddressLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:108
 
@@ -44,7 +44,7 @@ packages/block/types/types.d.ts:108
 
 > `optional` **difficulty**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:113
 
@@ -54,7 +54,7 @@ packages/block/types/types.d.ts:113
 
 > `optional` **excessBlobGas**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:124
 
@@ -64,7 +64,7 @@ packages/block/types/types.d.ts:124
 
 > `optional` **extraData**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:118
 
@@ -74,7 +74,7 @@ packages/block/types/types.d.ts:118
 
 > `optional` **gasLimit**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:115
 
@@ -84,7 +84,7 @@ packages/block/types/types.d.ts:115
 
 > `optional` **gasUsed**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:116
 
@@ -94,7 +94,7 @@ packages/block/types/types.d.ts:116
 
 > `optional` **logsBloom**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:112
 
@@ -104,7 +104,7 @@ packages/block/types/types.d.ts:112
 
 > `optional` **mixHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:119
 
@@ -114,7 +114,7 @@ packages/block/types/types.d.ts:119
 
 > `optional` **nonce**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:120
 
@@ -124,7 +124,7 @@ packages/block/types/types.d.ts:120
 
 > `optional` **number**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:114
 
@@ -134,7 +134,7 @@ packages/block/types/types.d.ts:114
 
 > `optional` **parentBeaconBlockRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:125
 
@@ -144,7 +144,7 @@ packages/block/types/types.d.ts:125
 
 > `optional` **parentHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:106
 
@@ -154,7 +154,7 @@ packages/block/types/types.d.ts:106
 
 > `optional` **receiptTrie**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:111
 
@@ -164,7 +164,7 @@ packages/block/types/types.d.ts:111
 
 > `optional` **requestsRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:126
 
@@ -174,7 +174,7 @@ packages/block/types/types.d.ts:126
 
 > `optional` **stateRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:109
 
@@ -184,7 +184,7 @@ packages/block/types/types.d.ts:109
 
 > `optional` **timestamp**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:117
 
@@ -194,7 +194,7 @@ packages/block/types/types.d.ts:117
 
 > `optional` **transactionsTrie**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:110
 
@@ -204,7 +204,7 @@ packages/block/types/types.d.ts:110
 
 > `optional` **uncleHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:107
 
@@ -214,6 +214,6 @@ packages/block/types/types.d.ts:107
 
 > `optional` **withdrawalsRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:122

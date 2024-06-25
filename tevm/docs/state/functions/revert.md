@@ -25,6 +25,6 @@ last call to checkpoint.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:350

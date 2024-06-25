@@ -16,6 +16,6 @@
 
 `"tevm/contract"` \| `"@tevm/contract"`
 
-## Source
+## Defined in
 
 bundler-packages/base-bundler/types/src/getContractPath.d.ts:1

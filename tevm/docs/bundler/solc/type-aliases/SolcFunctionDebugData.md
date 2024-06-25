@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcFunctionDebugData
 
-# Type alias: SolcFunctionDebugData
+# Type Alias: SolcFunctionDebugData
 
 > **SolcFunctionDebugData**: `object`
 
@@ -26,6 +26,6 @@
 
 > `optional` **returnSlots**: `number`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:181

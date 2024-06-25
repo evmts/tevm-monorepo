@@ -5,8 +5,6 @@ prev: false
 title: "EthSignTransactionParams"
 ---
 
-`Experimental`
-
 > **EthSignTransactionParams**: `object`
 
 Based on the JSON-RPC request for `eth_signTransaction` procedure
@@ -19,10 +17,14 @@ This API should not be used in production and may be trimmed from a public relea
 
 ### data?
 
-> `optional` `readonly` **data**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **data**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
+
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
 
 ### from
 
@@ -30,39 +32,63 @@ Optional if creating a contract.
 
 The address from which the transaction is sent from
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ### gas?
 
-> `optional` `readonly` **gas**: `bigint`
+> `readonly` `optional` **gas**: `bigint`
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ### gasPrice?
 
-> `optional` `readonly` **gasPrice**: `bigint`
+> `readonly` `optional` **gasPrice**: `bigint`
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ### nonce?
 
-> `optional` `readonly` **nonce**: `bigint`
+> `readonly` `optional` **nonce**: `bigint`
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ### to?
 
-> `optional` `readonly` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
+> `readonly` `optional` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
 
 The address the transaction is directed to. Optional if
 creating a contract
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ### value?
 
-> `optional` `readonly` **value**: `bigint`
+> `readonly` `optional` **value**: `bigint`
 
 Integer of the value sent with this transaction, in Wei.
 
-## Source
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L249)

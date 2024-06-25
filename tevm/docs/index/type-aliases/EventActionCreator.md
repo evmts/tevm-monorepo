@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EventActionCreator
 
-# Type alias: EventActionCreator\<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TAddressArgs\>
+# Type Alias: EventActionCreator\<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress, TAddressArgs\>
 
-> **EventActionCreator**\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
+> **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
 
@@ -18,18 +18,18 @@ tevm.eth.getLog(
 )
 ===
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
-
-• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
 
 • **TBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
 
 • **TDeployedBytecode** *extends* [`Hex`](Hex.md) \| `undefined`
 
+• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
-## Source
+## Defined in
 
 packages/contract/types/event/EventActionCreator.d.ts:16

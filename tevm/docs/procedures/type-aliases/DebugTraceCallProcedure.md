@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugTraceCallProcedure
 
-# Type alias: DebugTraceCallProcedure()
+# Type Alias: DebugTraceCallProcedure()
 
 > **DebugTraceCallProcedure**: (`request`) => `Promise`\<[`DebugTraceCallJsonRpcResponse`](DebugTraceCallJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `debug_traceCall`
 
 `Promise`\<[`DebugTraceCallJsonRpcResponse`](DebugTraceCallJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1106

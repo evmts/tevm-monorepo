@@ -30,6 +30,6 @@
 
 `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:244

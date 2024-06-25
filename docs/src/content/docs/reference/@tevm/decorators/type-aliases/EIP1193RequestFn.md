@@ -7,11 +7,11 @@ title: "EIP1193RequestFn"
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchema** *extends* [`RpcSchema`](/reference/tevm/decorators/type-aliases/rpcschema/) \| `undefined` = `undefined`
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchemaOverride** *extends* [`RpcSchemaOverride`](/reference/tevm/decorators/type-aliases/rpcschemaoverride/) \| `undefined` = `undefined`
 
@@ -29,6 +29,6 @@ title: "EIP1193RequestFn"
 
 `Promise`\<`_ReturnType`\>
 
-## Source
+## Defined in
 
 [eip1193/EIP1993RequestFn.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestFn.ts#L14)

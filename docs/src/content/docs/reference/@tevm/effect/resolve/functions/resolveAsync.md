@@ -19,16 +19,6 @@ Effect wrpper around import('node:resolve')
 
 `Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
 
-## Example
-
-```ts
-import {tap} from 'effect/Effect'
-import {resolveAsync} from '@tevm/effect'
-resolveAsync('react').pipe(
-   tap(console.log)
-)
-````
-
-## Source
+## Defined in
 
 [packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)

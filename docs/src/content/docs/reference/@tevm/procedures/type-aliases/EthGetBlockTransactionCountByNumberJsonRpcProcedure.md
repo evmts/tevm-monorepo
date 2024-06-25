@@ -15,6 +15,6 @@ title: "EthGetBlockTransactionCountByNumberJsonRpcProcedure"
 
 `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgetblocktransactioncountbynumberjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L119)

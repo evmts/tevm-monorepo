@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthHashrateJsonRpcProcedure
 
-# Type alias: EthHashrateJsonRpcProcedure()
+# Type Alias: EthHashrateJsonRpcProcedure()
 
 > **EthHashrateJsonRpcProcedure**: (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:597

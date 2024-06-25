@@ -24,7 +24,7 @@ Execution result of a transaction
 
 EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:399
 
@@ -36,7 +36,7 @@ packages/vm/types/utils/types.d.ts:399
 
 The amount of ether used by this transaction
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:381
 
@@ -48,7 +48,7 @@ packages/vm/types/utils/types.d.ts:381
 
 This is the blob gas units times the fee per blob gas for 4844 transactions
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:411
 
@@ -60,7 +60,7 @@ packages/vm/types/utils/types.d.ts:411
 
 Bloom filter resulted from transaction
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:377
 
@@ -76,7 +76,7 @@ Address of created account during transaction, if any
 
 [`EvmResult`](../../evm/interfaces/EvmResult.md).[`createdAddress`](../../evm/interfaces/EvmResult.md#createdaddress)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:248
 
@@ -92,7 +92,7 @@ Contains the results from running the code, if any, as described in runCode
 
 [`EvmResult`](../../evm/interfaces/EvmResult.md).[`execResult`](../../evm/interfaces/EvmResult.md#execresult)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:252
 
@@ -104,7 +104,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 The amount of gas as that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:395
 
@@ -116,7 +116,7 @@ packages/vm/types/utils/types.d.ts:395
 
 The value that accrues to the miner by this transaction
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:407
 
@@ -128,7 +128,7 @@ packages/vm/types/utils/types.d.ts:407
 
 Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:403
 
@@ -140,7 +140,7 @@ packages/vm/types/utils/types.d.ts:403
 
 The tx receipt
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:385
 
@@ -154,6 +154,6 @@ The amount of gas used in this transaction, which is paid for
 This contains the gas units that have been used on execution, plus the upfront cost,
 which consists of calldata cost, intrinsic cost and optionally the access list costs
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:391

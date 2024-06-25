@@ -23,6 +23,6 @@ Generic log information
 
 > `readonly` **topics**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/common/Log.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Log.ts#L7)

@@ -9,6 +9,6 @@ title: "EthGetStorageAtJsonRpcRequest"
 
 JSON-RPC request for `eth_getStorageAt` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L145)

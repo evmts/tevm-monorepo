@@ -32,6 +32,6 @@ fields, then saves the account into state. Account fields can include
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:321

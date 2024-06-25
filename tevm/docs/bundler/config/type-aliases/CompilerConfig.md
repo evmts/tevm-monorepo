@@ -4,10 +4,10 @@
 
 [tevm](../../../modules.md) / [bundler/config](../README.md) / CompilerConfig
 
-# Type alias: CompilerConfig
+# Type Alias: CompilerConfig
 
 > **CompilerConfig**: `CompilerConfig`
 
-## Source
+## Defined in
 
 bundler-packages/config/types/index.d.ts:4

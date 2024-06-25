@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidValueErrorParameters
 
-# Type alias: InvalidValueErrorParameters
+# Type Alias: InvalidValueErrorParameters
 
 > **InvalidValueErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidValueError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidValueError.d.ts:42

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / NonceAlreadyUsedErrorParameters
 
-# Type alias: NonceAlreadyUsedErrorParameters
+# Type Alias: NonceAlreadyUsedErrorParameters
 
 > **NonceAlreadyUsedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a NonceAlreadyUsedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/NonceAlreadyUsedError.d.ts:50

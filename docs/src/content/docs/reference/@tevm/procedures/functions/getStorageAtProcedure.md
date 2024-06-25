@@ -21,6 +21,6 @@ title: "getStorageAtProcedure"
 
 [`EthGetStorageAtJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetstorageatjsonrpcprocedure/)
 
-## Source
+## Defined in
 
 [procedures/src/eth/getStorageAtProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getStorageAtProcedure.js#L8)

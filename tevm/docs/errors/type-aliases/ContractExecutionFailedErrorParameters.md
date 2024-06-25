@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ContractExecutionFailedErrorParameters
 
-# Type alias: ContractExecutionFailedErrorParameters
+# Type Alias: ContractExecutionFailedErrorParameters
 
 > **ContractExecutionFailedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a ContractExecutionFailedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:50

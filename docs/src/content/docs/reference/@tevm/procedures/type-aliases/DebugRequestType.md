@@ -19,6 +19,6 @@ A mapping of `debug_*` method names to their request type
 
 > **debug\_traceTransaction**: [`DebugTraceTransactionJsonRpcRequest`](/reference/tevm/procedures/type-aliases/debugtracetransactionjsonrpcrequest/)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugRequestType.ts#L6)

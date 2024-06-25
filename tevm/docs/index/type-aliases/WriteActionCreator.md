@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / WriteActionCreator
 
-# Type alias: WriteActionCreator\<THumanReadableAbi, TAddress, TCode, TAddressArgs\>
+# Type Alias: WriteActionCreator\<THumanReadableAbi, TAddress, TCode, TAddressArgs\>
 
 > **WriteActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "payable" \| "nonpayable"\>\]: Function & Object & (TCode extends undefined ? Object : Object) & TAddressArgs \}
 
@@ -18,7 +18,7 @@ tevm.contract(
 )
 ```
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
@@ -28,6 +28,6 @@ tevm.contract(
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
-## Source
+## Defined in
 
 packages/contract/types/write/WriteActionCreator.d.ts:12

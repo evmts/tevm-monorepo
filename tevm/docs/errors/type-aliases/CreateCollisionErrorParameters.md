@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / CreateCollisionErrorParameters
 
-# Type alias: CreateCollisionErrorParameters
+# Type Alias: CreateCollisionErrorParameters
 
 > **CreateCollisionErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [CreateCollisionError](../classes/CreateCollisionE
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:69

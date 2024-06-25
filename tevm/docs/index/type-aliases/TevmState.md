@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmState
 
-# Type alias: TevmState
+# Type Alias: TevmState
 
 > **TevmState**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `Address`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:165

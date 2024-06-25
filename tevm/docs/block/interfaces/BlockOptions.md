@@ -27,7 +27,7 @@ difficulty takes precedence over a provided static `difficulty` value.
 Note that this option has no effect on networks other than PoW/Ethash networks
 (respectively also deactivates on the Merge HF switching to PoS/Casper).
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:42
 
@@ -40,7 +40,7 @@ packages/block/types/types.d.ts:42
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:59
 
@@ -60,7 +60,7 @@ hardfork in the [Common](../../common/type-aliases/Common.md) class.
 
 Current default hardfork: `merge`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:23
 
@@ -70,7 +70,7 @@ packages/block/types/types.d.ts:23
 
 > `optional` **executionWitness**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:64
 
@@ -90,7 +90,7 @@ within your code instead.
 
 Default: true
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:54
 
@@ -108,7 +108,7 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:33
 
@@ -120,6 +120,6 @@ packages/block/types/types.d.ts:33
 
 Skip consensus format validation checks on header if set. Defaults to false.
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:63

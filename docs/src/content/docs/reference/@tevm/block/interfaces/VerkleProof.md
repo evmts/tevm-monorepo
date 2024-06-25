@@ -11,7 +11,7 @@ title: "VerkleProof"
 
 > **commitmentsByPath**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L70)
 
@@ -21,7 +21,7 @@ title: "VerkleProof"
 
 > **d**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L71)
 
@@ -31,7 +31,7 @@ title: "VerkleProof"
 
 > **depthExtensionPresent**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L72)
 
@@ -53,7 +53,7 @@ title: "VerkleProof"
 
 > **finalEvaluation**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L73)
 
@@ -63,6 +63,6 @@ title: "VerkleProof"
 
 > **otherStems**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)

@@ -22,6 +22,6 @@ Used for saving preimages
 
 `undefined` \| (`address`) => `Uint8Array`
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getAppliedKey.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAppliedKey.js#L9)

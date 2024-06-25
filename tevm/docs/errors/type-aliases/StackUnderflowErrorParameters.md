@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / StackUnderflowErrorParameters
 
-# Type alias: StackUnderflowErrorParameters
+# Type Alias: StackUnderflowErrorParameters
 
 > **StackUnderflowErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a StackUnderflowError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/StackUnderflowError.d.ts:75

@@ -25,6 +25,6 @@ Returns a block by its hash or number.
 
 `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
-## Source
+## Defined in
 
 [actions/getBlock.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L9)

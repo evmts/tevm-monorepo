@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / Vm
 
-# Type alias: Vm
+# Type Alias: Vm
 
 > **Vm**: `BaseVm` & `object`
 
@@ -26,6 +26,6 @@
 
 > **runBlock**: `RunBlock`
 
-## Source
+## Defined in
 
 packages/vm/types/Vm.d.ts:4

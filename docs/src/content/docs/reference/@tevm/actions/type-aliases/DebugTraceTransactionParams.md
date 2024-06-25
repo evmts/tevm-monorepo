@@ -17,10 +17,10 @@ Params taken by `debug_traceTransaction` handler
 
 The transaction hash
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnError** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/debug/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L46)

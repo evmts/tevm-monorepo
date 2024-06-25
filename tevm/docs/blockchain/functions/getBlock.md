@@ -16,6 +16,6 @@
 
 `Chain`\[`"getBlock"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/getBlock.d.ts:1

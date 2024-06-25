@@ -13,7 +13,7 @@ title: "TypesafeEthersContract"
 
 > **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` *extends* [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/tevm/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
-#### Type parameters
+#### Type Parameters
 
 • **TContractEventName** *extends* `Omit`\<`ContractEventName`, [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>\> \| [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>
 
@@ -29,10 +29,10 @@ title: "TypesafeEthersContract"
 
 `Promise`\<`TContractEventName` *extends* [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/tevm/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-## Source
+## Defined in
 
 [extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L15)

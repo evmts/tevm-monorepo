@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BaseErrorParameters
 
-# Type alias: BaseErrorParameters
+# Type Alias: BaseErrorParameters
 
 > **BaseErrorParameters**: `object`
 
@@ -46,6 +46,6 @@
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:72

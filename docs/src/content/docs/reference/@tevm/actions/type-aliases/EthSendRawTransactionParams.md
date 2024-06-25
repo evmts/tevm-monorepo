@@ -16,6 +16,6 @@ This type is a placeholder
 
 > `readonly` **data**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L230)

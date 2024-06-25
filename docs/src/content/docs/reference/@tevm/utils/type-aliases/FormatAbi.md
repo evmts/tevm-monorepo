@@ -5,16 +5,16 @@ prev: false
 title: "FormatAbi"
 ---
 
-> **FormatAbi**\<`TAbi`\>: [`Abi`](/reference/tevm/utils/type-aliases/abi/) *extends* `TAbi` ? readonly `string`[] : `TAbi` *extends* readonly [] ? `never` : `TAbi` *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? `{ [K in keyof TAbi]: FormatAbiItem<TAbi[K]> }` : readonly `string`[]
+> **FormatAbi**\<`abi`\>: [`Abi`](/reference/tevm/utils/type-aliases/abi/) *extends* `abi` ? readonly `string`[] : `abi` *extends* readonly [] ? `never` : `abi` *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? `{ [key in keyof abi]: FormatAbiItem<abi[key]> }` : readonly `string`[]
 
 Parses JSON ABI into human-readable ABI
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+• **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
 
 ABI
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9

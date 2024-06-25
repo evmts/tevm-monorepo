@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBlockErrorParameters
 
-# Type alias: InvalidBlockErrorParameters
+# Type Alias: InvalidBlockErrorParameters
 
 > **InvalidBlockErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidBlockError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidBlockError.d.ts:44

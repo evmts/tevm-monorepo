@@ -17,7 +17,7 @@ title: "StateManager"
 
 The internal state representation
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L10)
 
@@ -33,7 +33,7 @@ Returns contract addresses
 
 \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L15)
 
@@ -65,7 +65,7 @@ Returns contract addresses
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`originalStorageCache`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#originalstoragecache)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:73
 
@@ -79,7 +79,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 `Promise`\<`true`\>
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L11)
 
@@ -97,7 +97,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`checkpoint`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#checkpoint)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
 
@@ -113,7 +113,7 @@ Resets all internal caches
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
 
@@ -135,7 +135,7 @@ Resets all internal caches
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`clearContractStorage`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#clearcontractstorage)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
 
@@ -167,7 +167,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`commit`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#commit)
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
 
@@ -183,7 +183,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 `Promise`\<[`StateManager`](/reference/tevm/state/interfaces/statemanager/)\>
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
 
@@ -205,7 +205,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`deleteAccount`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#deleteaccount)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
 
@@ -221,7 +221,7 @@ Dumps the state of the state manager as a [TevmState](../../../../../../../refer
 
 `Promise`\<[`TevmState`](/reference/tevm/state/type-aliases/tevmstate/)\>
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
 
@@ -243,7 +243,7 @@ Dumps the state of the state manager as a [TevmState](../../../../../../../refer
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`dumpStorage`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#dumpstorage)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
 
@@ -269,7 +269,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`dumpStorageRange`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#dumpstoragerange)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
 
@@ -291,7 +291,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`generateCanonicalGenesis`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#generatecanonicalgenesis)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
 
@@ -313,7 +313,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getAccount`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getaccount)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
 
@@ -335,7 +335,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getAppliedKey`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getappliedkey)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:70
 
@@ -357,7 +357,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getContractCode`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getcontractcode)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
 
@@ -381,7 +381,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getContractStorage`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getcontractstorage)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
 
@@ -405,7 +405,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getProof`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getproof)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80
 
@@ -423,7 +423,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`getStateRoot`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#getstateroot)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
 
@@ -445,7 +445,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`hasStateRoot`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#hasstateroot)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
 
@@ -469,7 +469,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`modifyAccountFields`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#modifyaccountfields)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
 
@@ -493,7 +493,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`putAccount`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#putaccount)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
 
@@ -517,7 +517,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`putContractCode`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#putcontractcode)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
 
@@ -543,7 +543,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`putContractStorage`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#putcontractstorage)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
 
@@ -561,15 +561,13 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`revert`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#revert)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
 
 ***
 
 ### saveStateRoot()
-
-`Experimental`
 
 > **saveStateRoot**(`root`, `state`): `void`
 
@@ -590,7 +588,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 `void`
 
-#### Source
+#### Defined in
 
 [packages/state/src/StateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L33)
 
@@ -614,7 +612,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`setStateRoot`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#setstateroot)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
 
@@ -636,6 +634,6 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/).[`shallowCopy`](/reference/tevm/common/interfaces/evmstatemanagerinterface/#shallowcopy)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:81

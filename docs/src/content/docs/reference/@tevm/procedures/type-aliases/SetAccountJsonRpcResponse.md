@@ -9,6 +9,6 @@ title: "SetAccountJsonRpcResponse"
 
 JSON-RPC response for `tevm_setAccount` method
 
-## Source
+## Defined in
 
 [procedures/src/setaccount/SetAccountJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/setaccount/SetAccountJsonRpcResponse.ts#L8)

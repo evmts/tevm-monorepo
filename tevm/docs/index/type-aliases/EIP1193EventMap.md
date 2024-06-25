@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EIP1193EventMap
 
-# Type alias: EIP1193EventMap
+# Type Alias: EIP1193EventMap
 
 > **EIP1193EventMap**: `object`
 
@@ -100,6 +100,6 @@
 
 `void`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:29
+packages/base-client/dist/index.d.ts:30

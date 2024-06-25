@@ -17,25 +17,25 @@ Parameters for the `watchAsset` method.
 
 ### options.address
 
-> **address**: `string`
+> **options.address**: `string`
 
 The address of the token contract
 
 ### options.decimals
 
-> **decimals**: `number`
+> **options.decimals**: `number`
 
 The number of token decimals
 
 ### options.image?
 
-> `optional` **image**: `string`
+> `optional` **options.image**: `string`
 
 A string url of the token logo
 
 ### options.symbol
 
-> **symbol**: `string`
+> **options.symbol**: `string`
 
 A ticker symbol or shorthand, up to 11 characters
 
@@ -45,6 +45,6 @@ A ticker symbol or shorthand, up to 11 characters
 
 Token type.
 
-## Source
+## Defined in
 
 [eip1193/WatchAssetParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WatchAssetParams.ts#L11)

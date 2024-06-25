@@ -35,6 +35,6 @@ If it is empty or filled with zeros, deletes the value.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:343

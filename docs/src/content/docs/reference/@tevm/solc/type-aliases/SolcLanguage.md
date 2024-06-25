@@ -7,6 +7,6 @@ title: "SolcLanguage"
 
 > **SolcLanguage**: `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
 
-## Source
+## Defined in
 
 [solcTypes.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L11)

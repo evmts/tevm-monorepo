@@ -15,6 +15,6 @@ title: "EthGetStorageAtHandler"
 
 `Promise`\<[`EthGetStorageAtResult`](/reference/tevm/actions/type-aliases/ethgetstorageatresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L121)

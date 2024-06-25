@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidReturnSubErrorParameters
 
-# Type alias: InvalidReturnSubErrorParameters
+# Type Alias: InvalidReturnSubErrorParameters
 
 > **InvalidReturnSubErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidReturnSubError](../classes/InvalidReturnSu
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:69

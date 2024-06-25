@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / UnreachableCodeErrorParameters
 
-# Type alias: UnreachableCodeErrorParameters
+# Type Alias: UnreachableCodeErrorParameters
 
 > **UnreachableCodeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [UnreachableCodeError](../classes/UnreachableCodeE
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/defensive/UnreachableCodeError.d.ts:62

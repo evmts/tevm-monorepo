@@ -28,6 +28,6 @@ Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manage
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:250

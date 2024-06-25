@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TransactionParams
 
-# Type alias: TransactionParams
+# Type Alias: TransactionParams
 
 > **TransactionParams**: `object`
 
@@ -18,11 +18,11 @@ A transaction request object
 
 ### gas?
 
-> `optional` `readonly` **gas**: `Hex`
+> `readonly` `optional` **gas**: `Hex`
 
 ### gasPrice?
 
-> `optional` `readonly` **gasPrice**: `Hex`
+> `readonly` `optional` **gasPrice**: `Hex`
 
 ### input
 
@@ -30,16 +30,16 @@ A transaction request object
 
 ### nonce?
 
-> `optional` `readonly` **nonce**: `Hex`
+> `readonly` `optional` **nonce**: `Hex`
 
 ### to?
 
-> `optional` `readonly` **to**: `Address`
+> `readonly` `optional` **to**: `Address`
 
 ### value?
 
-> `optional` `readonly` **value**: `Hex`
+> `readonly` `optional` **value**: `Hex`
 
-## Source
+## Defined in
 
 packages/actions/types/common/TransactionParams.d.ts:6

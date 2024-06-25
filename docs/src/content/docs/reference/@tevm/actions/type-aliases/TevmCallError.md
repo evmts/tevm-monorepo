@@ -54,6 +54,6 @@ try {
 }
 ```
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/TevmCallError.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/TevmCallError.ts#L53)

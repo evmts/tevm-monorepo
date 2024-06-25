@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidRequestErrorParameters
 
-# Type alias: InvalidRequestErrorParameters
+# Type Alias: InvalidRequestErrorParameters
 
 > **InvalidRequestErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidRequestError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InvalidRequestError.d.ts:50

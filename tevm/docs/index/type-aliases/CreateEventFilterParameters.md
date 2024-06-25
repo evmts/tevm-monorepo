@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateEventFilterParameters
 
-# Type alias: CreateEventFilterParameters\<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, _EventName, _Args\>
+# Type Alias: CreateEventFilterParameters\<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, _EventName, _Args\>
 
 > **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> *extends* infer TEventFilterArgs ? `object` \| `object` \| `object` \| `object` : `object`
 
@@ -22,7 +22,7 @@
 
 > `optional` **toBlock**: `TToBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
 
-## Type parameters
+## Type Parameters
 
 • **TAbiEvent** *extends* `AbiEvent` \| `undefined` = `undefined`
 
@@ -38,6 +38,6 @@
 
 • **_Args** *extends* `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> \| `undefined` = `undefined`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13

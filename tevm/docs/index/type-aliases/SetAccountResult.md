@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [index](../README.md) / SetAccountResult
 
-# Type alias: SetAccountResult\<ErrorType\>
+# Type Alias: SetAccountResult\<ErrorType\>
 
 > **SetAccountResult**\<`ErrorType`\>: `object`
 
 Result of SetAccount Action
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmSetAccountError`](TevmSetAccountError.md)
 
@@ -22,6 +22,6 @@ Result of SetAccount Action
 
 Description of the exception, if any occurred
 
-## Source
+## Defined in
 
 packages/actions/types/SetAccount/SetAccountResult.d.ts:5

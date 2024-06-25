@@ -30,6 +30,6 @@ Changes the currently loaded state root
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:356

@@ -17,11 +17,11 @@ A transaction request object
 
 ### gas?
 
-> `optional` `readonly` **gas**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **gas**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
 ### gasPrice?
 
-> `optional` `readonly` **gasPrice**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **gasPrice**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
 ### input
 
@@ -29,16 +29,16 @@ A transaction request object
 
 ### nonce?
 
-> `optional` `readonly` **nonce**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **nonce**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
 ### to?
 
-> `optional` `readonly` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
+> `readonly` `optional` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
 
 ### value?
 
-> `optional` `readonly` **value**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **value**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [packages/actions/src/common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L7)

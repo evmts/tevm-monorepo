@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / SetAccountParams
 
-# Type alias: SetAccountParams\<TThrowOnFail\>
+# Type Alias: SetAccountParams\<TThrowOnFail\>
 
 > **SetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -33,44 +33,44 @@ Address of account
 
 ### balance?
 
-> `optional` `readonly` **balance**: `bigint`
+> `readonly` `optional` **balance**: `bigint`
 
 Balance to set account to
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](Hex.md)
+> `readonly` `optional` **deployedBytecode**: [`Hex`](Hex.md)
 
 Contract bytecode to set account to
 
 ### nonce?
 
-> `optional` `readonly` **nonce**: `bigint`
+> `readonly` `optional` **nonce**: `bigint`
 
 Nonce to set account to
 
 ### state?
 
-> `optional` `readonly` **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> `readonly` `optional` **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
 ### stateDiff?
 
-> `optional` `readonly` **stateDiff**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> `readonly` `optional` **stateDiff**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
 ### storageRoot?
 
-> `optional` `readonly` **storageRoot**: [`Hex`](Hex.md)
+> `readonly` `optional` **storageRoot**: [`Hex`](Hex.md)
 
 Storage root to set account to
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 packages/actions/types/SetAccount/SetAccountParams.d.ts:16

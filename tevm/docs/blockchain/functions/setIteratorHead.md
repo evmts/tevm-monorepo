@@ -16,6 +16,6 @@
 
 `Chain`\[`"setIteratorHead"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/setIteratorHead.d.ts:1

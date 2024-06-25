@@ -15,6 +15,6 @@ title: "parseBlockTag"
 
 `bigint` \| \`0x$\{string\}\` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
-## Source
+## Defined in
 
 [procedures/src/utils/parseBlockTag.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/parseBlockTag.js#L7)

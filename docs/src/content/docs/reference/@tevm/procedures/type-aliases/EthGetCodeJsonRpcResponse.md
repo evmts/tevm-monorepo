@@ -9,6 +9,6 @@ title: "EthGetCodeJsonRpcResponse"
 
 JSON-RPC response for `eth_getCode` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L104)

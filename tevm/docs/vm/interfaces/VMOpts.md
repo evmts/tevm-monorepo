@@ -26,7 +26,7 @@ the very first call, which is intended for testing networks.
 
 Default: `false`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:124
 
@@ -38,7 +38,7 @@ packages/vm/types/utils/types.d.ts:124
 
 A Blockchain object for storing/retrieving blocks
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:110
 
@@ -68,7 +68,7 @@ Default setup if no `Common` instance is provided:
 - `hardfork`: `paris`
 - `eips`: `[]`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:102
 
@@ -80,7 +80,7 @@ packages/vm/types/utils/types.d.ts:102
 
 Use a custom EVM to run Messages on. If this is not present, use the default EVM.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:143
 
@@ -93,7 +93,7 @@ packages/vm/types/utils/types.d.ts:143
 A genesisState to generate canonical genesis for the "in-house" created stateManager if external
 stateManager not provided for the VM, defaults to an empty state
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:129
 
@@ -103,7 +103,7 @@ packages/vm/types/utils/types.d.ts:129
 
 > `optional` **profilerOpts**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:144
 
@@ -121,7 +121,7 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:139
 
@@ -133,6 +133,6 @@ packages/vm/types/utils/types.d.ts:139
 
 A [StateManager](../../state/interfaces/StateManager.md) instance to use as the state store
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:106

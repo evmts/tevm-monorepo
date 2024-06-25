@@ -18,7 +18,7 @@ Result of runBlock
 
 > **block**: [`Block`](../../block/classes/Block.md)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:316
 
@@ -34,7 +34,7 @@ The gas used after executing the block
 
 [`RunBlockResult`](RunBlockResult.md).[`gasUsed`](RunBlockResult.md#gasused)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:276
 
@@ -50,7 +50,7 @@ The bloom filter of the LOGs (events) after executing the block
 
 [`RunBlockResult`](RunBlockResult.md).[`logsBloom`](RunBlockResult.md#logsbloom)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:305
 
@@ -66,7 +66,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 [`RunBlockResult`](RunBlockResult.md).[`preimages`](RunBlockResult.md#preimages)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:292
 
@@ -82,7 +82,7 @@ Receipts generated for transactions in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`receipts`](RunBlockResult.md#receipts)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:284
 
@@ -98,7 +98,7 @@ The receipt root after executing the block
 
 [`RunBlockResult`](RunBlockResult.md).[`receiptsRoot`](RunBlockResult.md#receiptsroot)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:280
 
@@ -114,7 +114,7 @@ Any CL requests that were processed in the course of this block
 
 [`RunBlockResult`](RunBlockResult.md).[`requests`](RunBlockResult.md#requests)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:313
 
@@ -130,7 +130,7 @@ The requestsRoot for any CL requests in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`requestsRoot`](RunBlockResult.md#requestsroot)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:309
 
@@ -146,7 +146,7 @@ Results of executing the transactions in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`results`](RunBlockResult.md#results)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:288
 
@@ -162,6 +162,6 @@ The stateRoot after executing the block
 
 [`RunBlockResult`](RunBlockResult.md).[`stateRoot`](RunBlockResult.md#stateroot)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:301

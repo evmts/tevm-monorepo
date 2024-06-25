@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ScriptResult
 
-# Type alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
+# Type Alias: ~~ScriptResult\<TAbi, TFunctionName, TErrorType\>~~
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`, `TErrorType`\>
 
@@ -12,7 +12,7 @@
 
 Can use `ContractResult` instead
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -20,6 +20,6 @@ Can use `ContractResult` instead
 
 • **TErrorType** = [`TevmScriptError`](TevmScriptError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/Script/ScriptResult.d.ts:8

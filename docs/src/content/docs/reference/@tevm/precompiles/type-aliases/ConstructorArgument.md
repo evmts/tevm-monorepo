@@ -9,10 +9,10 @@ title: "ConstructorArgument"
 
 Infers the the first argument of a class
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [ConstructorArgument.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/ConstructorArgument.ts#L4)

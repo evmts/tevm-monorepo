@@ -38,6 +38,6 @@ This API should not be used in production and may be trimmed from a public relea
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/commit.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L11)

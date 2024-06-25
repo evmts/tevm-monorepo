@@ -34,7 +34,7 @@ and the state is reset after each execution unless the `persist` option is set
 to true.
 :::
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
@@ -48,6 +48,6 @@ to true.
 
 `Promise`\<[`ScriptResult`](/reference/tevm/actions/type-aliases/scriptresult/)\<`TAbi`, `TFunctionName`\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / JsonRpcTransaction
 
-# Type alias: JsonRpcTransaction
+# Type Alias: JsonRpcTransaction
 
 > **JsonRpcTransaction**: `object`
 
@@ -48,6 +48,6 @@ The address to which the transaction is addressed
 
 The integer of value sent with this transaction encoded as hexadecimal
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:227
