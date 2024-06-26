@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
+import { InternalError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
 import { forkAndCacheBlock } from './forkAndCacheBlock.js'
-import { InternalError } from '@tevm/errors'
 
 describe('forkAndCacheBlock', () => {
 	it('should throw an error if forkTransport is not provided', async () => {

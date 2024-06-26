@@ -7,7 +7,6 @@ import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
-import { InternalError } from '@tevm/errors'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode

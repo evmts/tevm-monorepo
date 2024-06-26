@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { transports } from '@tevm/test-utils'
-import { EthjsAddress, type Address } from '@tevm/utils'
-import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
+import { type Address, EthjsAddress } from '@tevm/utils'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
