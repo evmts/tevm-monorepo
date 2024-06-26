@@ -21,6 +21,15 @@ describe(createContract.name, () => {
 		expect(contract.humanReadableAbi).toBeDefined()
 	})
 
+	it('should contain deploy', () => {
+		expect(contract.deploy()).toMatchInlineSnapshot()
+		expect(
+			createContract({
+				humanReadableAbi: ['constructor(uint256 num) payable'] as const,
+			} as const).deploy(20n),
+		).toMatchInlineSnapshot()
+	})
+
 	it('should contain read', () => {
 		// see ./read for more tests
 		expect(contract.read).toMatchInlineSnapshot(`

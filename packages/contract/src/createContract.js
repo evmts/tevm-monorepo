@@ -108,5 +108,16 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 		...baseContract,
 		withAddress,
 		script,
+		/**
+		 * @param {Array<any>} args
+		 */
+		deploy: (...args) => {
+			const maybeArgs = args.length > 0 ? { args } : {}
+			return {
+				...maybeArgs,
+				bytecode: baseContract.bytecode,
+				abi,
+			}
+		},
 	})
 }
