@@ -1,0 +1,96 @@
+import { describe, expect, it } from 'bun:test'
+import {
+	AuthCallNonZeroValueExtError,
+	AuthCallUnsetError,
+	AuthInvalidSError,
+	BLS12381FpNotInFieldError,
+	BLS12381InputEmptyError,
+	BLS12381PointNotOnCurveError,
+	CodeSizeExceedsMaximumError,
+	CodeStoreOutOfGasError,
+	CreateCollisionError,
+	InitcodeSizeViolationError,
+	InsufficientBalanceError,
+	InternalError,
+	InvalidBeginSubError,
+	InvalidBytecodeResultError,
+	InvalidCommitmentError,
+	InvalidEofFormatError,
+	InvalidInputLengthError,
+	InvalidJumpError,
+	InvalidJumpSubError,
+	InvalidKzgInputsError,
+	InvalidOpcodeError,
+	InvalidProofError,
+	InvalidReturnSubError,
+	OutOfGasError,
+	OutOfRangeError,
+	RefundExhaustedError,
+	RevertError,
+	StackOverflowError,
+	StackUnderflowError,
+	StaticStateChangeError,
+	StopError,
+	ValueOverflowError,
+} from '@tevm/errors'
+import { EvmErrorMessage } from '@tevm/evm'
+import { createEvmError } from './createEvmError.js'
+
+describe('createEvmError', () => {
+	const testCases = [
+		{ error: { error: EvmErrorMessage.STOP }, expected: StopError },
+		{ error: { error: EvmErrorMessage.REVERT }, expected: RevertError },
+		{ error: { error: EvmErrorMessage.OUT_OF_GAS }, expected: OutOfGasError },
+		{ error: { error: EvmErrorMessage.INVALID_OPCODE }, expected: InvalidOpcodeError },
+		{ error: { error: EvmErrorMessage.STACK_OVERFLOW }, expected: StackOverflowError },
+		{ error: { error: EvmErrorMessage.STACK_UNDERFLOW }, expected: StackUnderflowError },
+		{ error: { error: EvmErrorMessage.INVALID_JUMP }, expected: InvalidJumpError },
+		{ error: { error: EvmErrorMessage.OUT_OF_RANGE }, expected: OutOfRangeError },
+		{ error: { error: EvmErrorMessage.INVALID_PROOF }, expected: InvalidProofError },
+		{ error: { error: EvmErrorMessage.AUTH_INVALID_S }, expected: AuthInvalidSError },
+		{ error: { error: EvmErrorMessage.AUTHCALL_UNSET }, expected: AuthCallUnsetError },
+		{ error: { error: EvmErrorMessage.INTERNAL_ERROR }, expected: InternalError },
+		{ error: { error: EvmErrorMessage.INVALID_INPUTS }, expected: InvalidKzgInputsError },
+		{ error: { error: EvmErrorMessage.VALUE_OVERFLOW }, expected: ValueOverflowError },
+		{ error: { error: EvmErrorMessage.INVALID_JUMPSUB }, expected: InvalidJumpSubError },
+		{ error: { error: EvmErrorMessage.CREATE_COLLISION }, expected: CreateCollisionError },
+		{ error: { error: EvmErrorMessage.INVALID_BEGINSUB }, expected: InvalidBeginSubError },
+		{ error: { error: EvmErrorMessage.REFUND_EXHAUSTED }, expected: RefundExhaustedError },
+		{ error: { error: EvmErrorMessage.INVALID_RETURNSUB }, expected: InvalidReturnSubError },
+		{ error: { error: EvmErrorMessage.INVALID_COMMITMENT }, expected: InvalidCommitmentError },
+		{ error: { error: EvmErrorMessage.INVALID_EOF_FORMAT }, expected: InvalidEofFormatError },
+		{ error: { error: EvmErrorMessage.STATIC_STATE_CHANGE }, expected: StaticStateChangeError },
+		{ error: { error: EvmErrorMessage.CODESTORE_OUT_OF_GAS }, expected: CodeStoreOutOfGasError },
+		{ error: { error: EvmErrorMessage.INSUFFICIENT_BALANCE }, expected: InsufficientBalanceError },
+		{ error: { error: EvmErrorMessage.INVALID_INPUT_LENGTH }, expected: InvalidInputLengthError },
+		{ error: { error: EvmErrorMessage.BLS_12_381_INPUT_EMPTY }, expected: BLS12381InputEmptyError },
+		{ error: { error: EvmErrorMessage.INITCODE_SIZE_VIOLATION }, expected: InitcodeSizeViolationError },
+		{ error: { error: EvmErrorMessage.INVALID_BYTECODE_RESULT }, expected: InvalidBytecodeResultError },
+		{ error: { error: EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM }, expected: CodeSizeExceedsMaximumError },
+		{ error: { error: EvmErrorMessage.AUTHCALL_NONZERO_VALUEEXT }, expected: AuthCallNonZeroValueExtError },
+		{ error: { error: EvmErrorMessage.BLS_12_381_FP_NOT_IN_FIELD }, expected: BLS12381FpNotInFieldError },
+		{ error: { error: EvmErrorMessage.BLS_12_381_POINT_NOT_ON_CURVE }, expected: BLS12381PointNotOnCurveError },
+	]
+
+	testCases.forEach(({ error, expected }) => {
+		it(`should return ${expected.name} for ${error.error}`, () => {
+			const result = createEvmError(error as any)
+			expect(result).toBeInstanceOf(expected)
+			expect(result.message).toInclude(error.error)
+		})
+	})
+
+	it('should return InternalError for unknown error', () => {
+		const error = { error: 'UNKNOWN_ERROR' }
+		const result = createEvmError(error as any)
+		expect(result).toBeInstanceOf(InternalError)
+		expect(result.name).toBe(InternalError.name)
+		expect(result.message).toMatchSnapshot()
+	})
+
+	it('should return the same error if it is an instance of BaseError', () => {
+		const baseError = new InternalError('Existing BaseError')
+		const result = createEvmError(baseError as any)
+		expect(result).toBe(baseError)
+	})
+})
