@@ -1555,8 +1555,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       '@tevm/errors':
-        specifier: 2.0.0-next.84
-        version: 2.0.0-next.84(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
@@ -5864,11 +5864,6 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-
-  '@tevm/errors@2.0.0-next.84':
-    resolution: {integrity: sha512-K5A3P4QeaoBiuQ9ikdMx+4kx1LbQtGrOHcWO4GQy2Vh4R4i+5AdfHYyBFIoQcZvYNaTA3ZOif4LgeKxe/LSePA==}
-    peerDependencies:
-      viem: ^2.14.2
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18526,13 +18521,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
-
-  '@tevm/errors@2.0.0-next.84(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
-    dependencies:
-      '@ethereumjs/evm': 3.0.0
-      viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-    transitivePeerDependencies:
-      - supports-color
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 

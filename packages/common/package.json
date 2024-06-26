@@ -63,7 +63,7 @@
 	},
 	"dependencies": {
 		"@ethereumjs/common": "^4.3.0",
-		"@tevm/errors": "2.0.0-next.84",
+		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
