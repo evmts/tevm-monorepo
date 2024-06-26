@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { walletActions, type Hex } from 'viem'
+import { walletActions } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { createMemoryClient } from '../index.js'
 
@@ -21,8 +21,10 @@ describe('using MemoryClient as viem signer', () => {
 		} else {
 		}
 		expect(deployResult.createdAddresses).toEqual(new Set(['0x5FbDB2315678afecb367f032d93F642f64180aa3']))
+		await client.tevmMine()
 		const contract = SimpleContract.withAddress(deployResult.createdAddress)
 		expect(await client.readContract(contract.read.get())).toEqual(2n)
-		// expect(await client.writeContract(contract.write.set(42n))).toMatchSnapshot()
+		expect(await client.writeContract(contract.write.set(42n))).toBe('0x')
+		// expect(await client.readContract(contract.read.get())).toEqual(42n)
 	})
 })

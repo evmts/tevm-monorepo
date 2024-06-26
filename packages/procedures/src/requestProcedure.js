@@ -7,9 +7,9 @@ import {
 	traceCallHandler,
 } from '@tevm/actions'
 import { Block, BlockHeader } from '@tevm/block'
-import { MethodNotFoundError, MethodNotSupportedError } from '@tevm/errors'
+import { InvalidParamsError, MethodNotFoundError, MethodNotSupportedError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { TransactionFactory } from '@tevm/tx'
+import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
 import {
 	EthjsAccount,
 	EthjsAddress,
@@ -78,6 +78,7 @@ import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
  */
 export const requestProcedure = (client) => {
 	return async (request) => {
+		console.log(request)
 		await client.ready()
 		client.logger.debug(request, 'JSON-RPC request received')
 		switch (request.method) {
@@ -264,17 +265,36 @@ export const requestProcedure = (client) => {
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendRawTransaction': {
-				const sendTransactionRequest = /** @type {import('./eth/index.js').EthSendRawTransactionJsonRpcRequest}*/ (
+				const sendRawTransactionRequest = /** @type {import('./eth/index.js').EthSendRawTransactionJsonRpcRequest}*/ (
 					request
 				)
-				const txHash = await ethSendTransactionHandler(client)({
-					data: request.params[0],
-				})
+				const vm = await client.getVm()
+				const [serializedTx] = request.params
+				const txBuf = hexToBytes(serializedTx)
+				// Blob Transactions sent over RPC are expected to be in Network Wrapper format
+				const tx =
+					txBuf[0] === 0x03
+						? BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon })
+						: TransactionFactory.fromSerializedData(txBuf, { common: vm.common.ethjsCommon })
+				if (!tx.isSigned()) {
+					const err = new InvalidParamsError('Transaction must be signed!')
+					return {
+						method: sendRawTransactionRequest.method,
+						jsonrpc: '2.0',
+						...(sendRawTransactionRequest.id ? { id: sendRawTransactionRequest.id } : {}),
+						error: {
+							code: err._tag,
+							message: err.message,
+						},
+					}
+				}
+				const txPool = await client.getTxPool()
+				await txPool.add(tx, true)
 				return {
-					method: sendTransactionRequest.method,
-					result: txHash,
+					method: sendRawTransactionRequest.method,
+					result: tx.hash(),
 					jsonrpc: '2.0',
-					...(sendTransactionRequest.id ? { id: sendTransactionRequest.id } : {}),
+					...(sendRawTransactionRequest.id ? { id: sendRawTransactionRequest.id } : {}),
 				}
 			}
 			// TODO move this to it's own procedure
@@ -889,27 +909,19 @@ export const requestProcedure = (client) => {
 				}
 			}
 			case 'eth_getTransactionCount': {
-				const getTransactionCountRequest =
-					/** @type {import('./eth/EthJsonRpcRequest.js').EthGetTransactionCountJsonRpcRequest}*/
-					(request)
-				const vm = await client.getVm()
 				const [address, tag] = request.params
-				if (tag === 'pending') {
-					const txPool = await client.getTxPool()
-					const count = (await txPool.getBySenderAddress(EthjsAddress.fromString(address))).length
-					return {
-						method: getTransactionCountRequest.method,
-						result: numberToHex(count),
-						jsonrpc: '2.0',
-						...(getTransactionCountRequest.id ? { id: getTransactionCountRequest.id } : {}),
-					}
-				}
+
 				const block = await (async () => {
+					const vm = await client.getVm()
 					if (tag.startsWith('0x') && tag.length === 66) {
 						return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (tag)))
 					}
 					if (tag.startsWith('0x')) {
 						return vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (tag)))
+					}
+					if (tag === 'pending') {
+						// if pending just get latest we will get pending seperately
+						return vm.blockchain.blocksByTag.get('latest')
 					}
 					if (tag === 'latest' || tag === 'safe' || tag === 'earliest' || tag === 'finalized') {
 						return vm.blockchain.blocksByTag.get(tag)
@@ -926,14 +938,33 @@ export const requestProcedure = (client) => {
 						},
 					}
 				}
-				const count = block.transactions.filter((tx) =>
-					tx.getSenderAddress().equals(EthjsAddress.fromString(address)),
-				).length
+
+				const pendingCount =
+					tag === 'pending'
+						? await (async () => {
+								const txPool = await client.getTxPool()
+								const pendingTx = await txPool.getBySenderAddress(EthjsAddress.fromString(address))
+								return BigInt(pendingTx.length)
+							})()
+						: 0n
+
+				const includedCount = await (async () => {
+					const vm = await client.getVm()
+					// TODO we can optimize this by not deep copying once we are more confident it's safe
+					const stateCopy = await vm.stateManager.deepCopy()
+					stateCopy.setStateRoot(block.header.stateRoot)
+					const account = await stateCopy.getAccount(EthjsAddress.fromString(address))
+					if (!account) {
+						return 0n
+					}
+					return account.nonce
+				})()
+
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
-					result: numberToHex(count),
+					result: numberToHex(pendingCount + includedCount),
 				}
 			}
 			case 'eth_newFilter': {
