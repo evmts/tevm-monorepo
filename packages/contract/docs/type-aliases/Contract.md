@@ -114,9 +114,13 @@ Code i
 
 ### deploy()
 
-> **deploy**: () => `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\>
+> **deploy**: (...`args`) => `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\>
 
 Action creator for deploying the contract
+
+#### Parameters
+
+• ...**args**: `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\> *extends* `object` ? `TArgs` *extends* `ReadonlyArray`\<`any`\> ? `TArgs` : [] : []
 
 #### Returns
 
