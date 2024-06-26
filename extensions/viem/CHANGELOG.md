@@ -1,5 +1,18 @@
 # @tevm/viem
 
+## 2.0.0-next.86
+
+### Patch Changes
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Bumped sub dep up
+
+- [#1241](https://github.com/evmts/tevm-monorepo/pull/1241) [`9982b6d`](https://github.com/evmts/tevm-monorepo/commit/9982b6df5245c6c52d16c9bed6909718d109377e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bad package.json entry in viem package
+
+- Updated dependencies [[`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8)]:
+  - @tevm/base-client@2.0.0-next.86
+  - @tevm/decorators@2.0.0-next.86
+  - @tevm/jsonrpc@2.0.0-next.86
+
 ## 2.0.0-next.85
 
 ### Patch Changes

@@ -1,5 +1,49 @@
 # @tevm/contract
 
+## 2.0.0-next.86
+
+### Patch Changes
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Bumped sub dep up
+
+- Updated dependencies [[`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`9982b6d`](https://github.com/evmts/tevm-monorepo/commit/9982b6df5245c6c52d16c9bed6909718d109377e), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8)]:
+  - @tevm/actions@2.0.0-next.86
+  - @tevm/memory-client@2.0.0-next.86
+  - @tevm/procedures@2.0.0-next.86
+  - @tevm/sync-storage-persister@2.0.0-next.86
+  - @tevm/base-bundler@2.0.0-next.86
+  - @tevm/compiler@2.0.0-next.86
+  - @tevm/esbuild-plugin@2.0.0-next.86
+  - @tevm/webpack-plugin@2.0.0-next.86
+  - @tevm/receipt-manager@2.0.0-next.86
+  - @tevm/config@2.0.0-next.86
+  - @tevm/rollup-plugin@2.0.0-next.86
+  - @tevm/rspack-plugin@2.0.0-next.86
+  - @tevm/solc@2.0.0-next.86
+  - @tevm/vite-plugin@2.0.0-next.86
+  - @tevm/client-types@2.0.0-next.86
+  - @tevm/bun-plugin@2.0.0-next.86
+  - @tevm/base-client@2.0.0-next.86
+  - @tevm/http-client@2.0.0-next.86
+  - @tevm/precompiles@2.0.0-next.86
+  - @tevm/blockchain@2.0.0-next.86
+  - @tevm/decorators@2.0.0-next.86
+  - @tevm/predeploys@2.0.0-next.86
+  - @tevm/contract@2.0.0-next.86
+  - @tevm/jsonrpc@2.0.0-next.86
+  - @tevm/viem@2.0.0-next.86
+  - @tevm/common@2.0.0-next.86
+  - @tevm/errors@2.0.0-next.86
+  - @tevm/server@2.0.0-next.86
+  - @tevm/txpool@2.0.0-next.86
+  - @tevm/block@2.0.0-next.86
+  - @tevm/state@2.0.0-next.86
+  - @tevm/utils@2.0.0-next.86
+  - @tevm/ts-plugin@2.0.0-next.86
+  - @tevm/evm@2.0.0-next.86
+  - @tevm/tx@2.0.0-next.86
+  - @tevm/vm@2.0.0-next.86
+
 ## 2.0.0-next.85
 
 ### Patch Changes
