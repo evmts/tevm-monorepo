@@ -2,7 +2,7 @@
   "name": "@tevm/memory-client",
   "version": "2.0.0-next.85",
   "private": false,
-  "description": "Client implementations of Tevm",
+  "description": "MemoryClient for tevm is an in memory devnet for JavaScript",
   "keywords": [
     "solidity",
     "sol",
