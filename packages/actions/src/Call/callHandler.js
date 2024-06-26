@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { EthjsAddress } from '@tevm/utils'
+import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
@@ -78,6 +78,26 @@ export const callHandler =
 			throw new InternalError(
 				'UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm',
 			)
+		}
+		// check if user forgot to mine a block
+		if (
+			code === undefined &&
+			deployedBytecode === undefined &&
+			_params.to !== undefined &&
+			_params.data !== undefined &&
+			hexToBytes(_params.data).length > 0
+		) {
+			const vm = await client.getVm()
+			const isCode = await vm.stateManager
+				.getContractCode(EthjsAddress.fromString(_params.to))
+				.then((code) => code.length > 0)
+				.catch(() => false)
+			const txPool = await client.getTxPool()
+			if (!isCode && txPool.txsInPool > 0) {
+				client.logger.warn(
+					`No code found for contract address ${_params.to}. But there ${txPool.txsInPool === 1 ? 'is' : 'are'} ${txPool.txsInPool} pending tx in tx pool. Did you forget to mine a block?`,
+				)
+			}
 		}
 		/**
 		 * ************
