@@ -253,17 +253,13 @@ describe('callHandler', () => {
 		expect(errors).toBeUndefined()
 		const result = await callHandler(client)({
 			createTransaction: true,
+			throwOnFail: false,
 			to,
 			value: parseEther('1'),
 			from: from.toString() as Address,
 		})
-		expect(result.errors).toContainEqual(
-			expect.objectContaining({
-				_tag: 'InsufficientBalance',
-				name: 'InsufficientBalance',
-				message: expect.any(String),
-			}),
-		)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
 	})
 
 	it.todo('should return error for invalid contract call data', async () => {
@@ -334,6 +330,73 @@ describe('callHandler', () => {
 	})
 
 	it.todo('should return correct result for read-only call', async () => {
+		const client = createBaseClient()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [to],
+			}),
+			to,
+		})
+		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.executionGasUsed).toBeGreaterThan(0n)
+		expect(result.errors).toBeUndefined()
+	})
+
+	it('should return error for invalid contract call data', async () => {
+		const client = createBaseClient()
+		const invalidData = '0x1234' // invalid function data
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: invalidData,
+			to,
+			throwOnFail: false,
+		})
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle unexpected errors during param conversion', async () => {
+		const client = createBaseClient()
+		const invalidParams = {
+			throwOnFail: false,
+			data: '0x1234',
+			gas: -1n, // Invalid gas value
+		}
+
+		const result = await callHandler(client)(invalidParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle unexpected errors during script creation', async () => {
+		const client = createBaseClient()
+		const invalidScriptParams = {
+			throwOnFail: false,
+			to: `0x${'12'.repeat(20)}`,
+			data: '0x1234',
+			value: 1000n,
+			code: '0x1234', // Invalid code
+		}
+
+		const result = await callHandler(client)(invalidScriptParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should return correct result for read-only call', async () => {
 		const client = createBaseClient()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({

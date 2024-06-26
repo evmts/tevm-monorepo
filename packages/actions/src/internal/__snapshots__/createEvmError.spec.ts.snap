@@ -1,0 +1,9 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createEvmError should return InternalError for unknown error 1`] = `
+"UNKNOWN_ERROR
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: {"error":"UNKNOWN_ERROR"}
+Version: 1.1.0.next-73"
+`;
