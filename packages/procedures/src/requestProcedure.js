@@ -78,7 +78,6 @@ import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
  */
 export const requestProcedure = (client) => {
 	return async (request) => {
-		console.log(request)
 		await client.ready()
 		client.logger.debug(request, 'JSON-RPC request received')
 		switch (request.method) {
@@ -292,7 +291,7 @@ export const requestProcedure = (client) => {
 				await txPool.add(tx, true)
 				return {
 					method: sendRawTransactionRequest.method,
-					result: tx.hash(),
+					result: bytesToHex(tx.hash()),
 					jsonrpc: '2.0',
 					...(sendRawTransactionRequest.id ? { id: sendRawTransactionRequest.id } : {}),
 				}
@@ -951,13 +950,12 @@ export const requestProcedure = (client) => {
 				const includedCount = await (async () => {
 					const vm = await client.getVm()
 					// TODO we can optimize this by not deep copying once we are more confident it's safe
-					const stateCopy = await vm.stateManager.deepCopy()
-					stateCopy.setStateRoot(block.header.stateRoot)
-					const account = await stateCopy.getAccount(EthjsAddress.fromString(address))
-					if (!account) {
+					const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+					if (!root) {
+						// todo we might want to throw an error hre
 						return 0n
 					}
-					return account.nonce
+					return root[getAddress(address)]?.nonce ?? 0n
 				})()
 
 				return {
