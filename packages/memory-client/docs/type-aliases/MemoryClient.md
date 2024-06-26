@@ -6,7 +6,7 @@
 
 # Type Alias: MemoryClient\<TChain, TAccountOrAddress\>
 
-> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TevmRpcSchema`, `PublicActions`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](TevmActions.md)\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), `PublicActions`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](TevmActions.md)\>\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client)

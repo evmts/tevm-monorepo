@@ -21,7 +21,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ## Parameters
 
-• **options?**: `MemoryClientOptions`\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
+• **options?**: [`MemoryClientOptions`](../type-aliases/MemoryClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
 
 ## Returns
 

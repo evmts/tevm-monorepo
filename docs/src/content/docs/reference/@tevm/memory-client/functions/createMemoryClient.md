@@ -20,7 +20,7 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 ## Parameters
 
-• **options?**: `MemoryClientOptions`\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
+• **options?**: [`MemoryClientOptions`](/reference/tevm/memory-client/type-aliases/memoryclientoptions/)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
 
 ## Returns
 
