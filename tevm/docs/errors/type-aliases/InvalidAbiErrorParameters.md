@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidAbiErrorParameters
 
-# Type alias: InvalidAbiErrorParameters
+# Type Alias: InvalidAbiErrorParameters
 
 > **InvalidAbiErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidAbiError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidAbiError.d.ts:42

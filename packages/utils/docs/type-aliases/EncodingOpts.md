@@ -4,7 +4,7 @@
 
 [@tevm/utils](../globals.md) / EncodingOpts
 
-# Type alias: EncodingOpts
+# Type Alias: EncodingOpts
 
 > **EncodingOpts**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **valueEncoding**: [`ValueEncoding`](../enumerations/ValueEncoding.md)
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:15

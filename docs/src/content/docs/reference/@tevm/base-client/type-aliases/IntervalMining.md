@@ -17,6 +17,6 @@ title: "IntervalMining"
 
 > **type**: `"interval"`
 
-## Source
+## Defined in
 
 [packages/base-client/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L1)

@@ -41,7 +41,7 @@ varying data types.
 
 `BaseTransaction<TransactionType.BlobEIP4844>.constructor`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:32
 
@@ -51,7 +51,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:16
 
@@ -65,7 +65,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction._type`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:14
 
@@ -75,7 +75,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > `readonly` **accessList**: `AccessListBytes`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:15
 
@@ -93,7 +93,7 @@ for FeeMarketEIP1559Transaction objects
 
 `BaseTransaction.activeCapabilities`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:31
 
@@ -103,7 +103,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > **blobVersionedHashes**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:21
 
@@ -113,7 +113,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `optional` **blobs**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:22
 
@@ -127,7 +127,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.cache`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:24
 
@@ -137,7 +137,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > `readonly` **chainId**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:14
 
@@ -151,7 +151,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.common`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:20
 
@@ -165,7 +165,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.data`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:19
 
@@ -179,7 +179,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.gasLimit`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:16
 
@@ -189,7 +189,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > `optional` **kzgCommitments**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:23
 
@@ -199,7 +199,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `optional` **kzgProofs**: `Uint8Array`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:24
 
@@ -209,7 +209,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `readonly` **maxFeePerBlobGas**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:19
 
@@ -219,7 +219,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `readonly` **maxFeePerGas**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:18
 
@@ -229,7 +229,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:17
 
@@ -243,7 +243,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.nonce`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:15
 
@@ -251,13 +251,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### r?
 
-> `optional` `readonly` **r**: `bigint`
+> `readonly` `optional` **r**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.r`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:21
 
@@ -265,13 +265,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### s?
 
-> `optional` `readonly` **s**: `bigint`
+> `readonly` `optional` **s**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.s`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:22
 
@@ -279,13 +279,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### to?
 
-> `optional` `readonly` **to**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> `readonly` `optional` **to**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
 `BaseTransaction.to`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:17
 
@@ -299,7 +299,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.txOptions`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:25
 
@@ -307,13 +307,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### v?
 
-> `optional` `readonly` **v**: `bigint`
+> `readonly` `optional` **v**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.v`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:20
 
@@ -327,7 +327,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.value`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:18
 
@@ -345,7 +345,11 @@ Note: legacy txs will return tx type `0`.
 
 [`TransactionType`](../enumerations/TransactionType.md)
 
-#### Source
+#### Inherited from
+
+`BaseTransaction.type`
+
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:47
 
@@ -366,7 +370,7 @@ tx type implementations.
 
 `BaseTransaction._getSharedErrorPostfix`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:189
 
@@ -400,7 +404,7 @@ Pass true if the number also cannot equal one less the maximum value
 
 `BaseTransaction._validateCannotExceedMaxInteger`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:168
 
@@ -410,15 +414,27 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > **addSignature**(`v`, `r`, `s`, `convertV`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
+Returns a new transaction with the same data fields as the current, but now signed
+
 #### Parameters
 
 • **v**: `bigint`
 
+The `v` value of the signature
+
 • **r**: `bigint` \| `Uint8Array`
+
+The `r` value of the signature
 
 • **s**: `bigint` \| `Uint8Array`
 
+The `s` value of the signature
+
 • **convertV?**: `boolean`
+
+Set this to `true` if the raw output of `ecsign` is used. If this is `false` (default)
+                then the raw value passed for `v` will be used for the signature. For legacy transactions,
+                if this is set to `true`, it will also set the right `v` value for the chain id.
 
 #### Returns
 
@@ -428,7 +444,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.addSignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:139
 
@@ -448,7 +464,7 @@ Return a compact error string representation of the object
 
 `BaseTransaction.errorStr`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:143
 
@@ -468,7 +484,7 @@ The minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
 
 `BaseTransaction.getBaseFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:78
 
@@ -488,7 +504,7 @@ The amount of gas paid for the data in this tx
 
 `BaseTransaction.getDataFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:71
 
@@ -514,7 +530,7 @@ Base fee retrieved from block
 
 `BaseTransaction.getEffectivePriorityFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:38
 
@@ -538,7 +554,7 @@ serialized and doesn't need to be RLP encoded any more.
 
 `BaseTransaction.getHashedMessageToSign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:125
 
@@ -566,7 +582,7 @@ const serializedMessage = tx.getMessageToSign() // use this for the HW wallet in
 
 `BaseTransaction.getMessageToSign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:117
 
@@ -584,7 +600,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.getMessageToVerifySignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:133
 
@@ -604,7 +620,7 @@ Returns the sender's address
 
 `BaseTransaction.getSenderAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:124
 
@@ -624,7 +640,7 @@ Returns the public key of the sender
 
 `BaseTransaction.getSenderPublicKey`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:137
 
@@ -650,7 +666,7 @@ The base fee of the block (will be set to 0 if not provided)
 
 `BaseTransaction.getUpfrontCost`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:76
 
@@ -672,7 +688,7 @@ an array of error strings
 
 `BaseTransaction.getValidationErrors`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:69
 
@@ -695,7 +711,7 @@ Use [BlobEIP4844Transaction.getMessageToSign](BlobEIP4844Transaction.md#getmessa
 
 `BaseTransaction.hash`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:132
 
@@ -713,7 +729,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 `BaseTransaction.isSigned`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:116
 
@@ -735,7 +751,7 @@ true if the transaction is valid, false otherwise
 
 `BaseTransaction.isValid`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:74
 
@@ -751,7 +767,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 the number of blobs included with this transaction
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:154
 
@@ -781,7 +797,7 @@ representation for external signing use [BlobEIP4844Transaction.getMessageToSign
 
 `BaseTransaction.raw`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:90
 
@@ -808,7 +824,7 @@ the RLP encoding of the values.
 
 `BaseTransaction.serialize`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:101
 
@@ -824,7 +840,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 the serialized form of a blob transaction in the network wrapper format (used for gossipping mempool transactions over devp2p)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:105
 
@@ -854,7 +870,7 @@ const signedTx = tx.sign(privateKey)
 
 `BaseTransaction.sign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
 
@@ -891,7 +907,7 @@ on all supported capabilities.
 
 `BaseTransaction.supports`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:64
 
@@ -911,7 +927,7 @@ If the tx's `to` is to the creation address
 
 `BaseTransaction.toCreationAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:96
 
@@ -921,6 +937,8 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
 
+Returns an object with the JSON representation of the transaction
+
 #### Returns
 
 [`JsonTx`](../interfaces/JsonTx.md)
@@ -929,7 +947,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.toJSON`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:138
 
@@ -949,7 +967,7 @@ Determines if the signature is valid
 
 `BaseTransaction.verifySignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:120
 
@@ -957,7 +975,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### \_validateNotArray()
 
-> `static` `protected` **\_validateNotArray**(`values`): `void`
+> `protected` `static` **\_validateNotArray**(`values`): `void`
 
 #### Parameters
 
@@ -971,7 +989,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction._validateNotArray`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:171
 
@@ -999,7 +1017,7 @@ any TxOptions defined
 
 a BlobEIP4844Transaction
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:67
 
@@ -1024,7 +1042,7 @@ access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`
 
 [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:53
 
@@ -1044,7 +1062,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/e
 
 [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:33
 
@@ -1069,7 +1087,7 @@ accessList, signatureYParity, signatureR, signatureS]`
 
 [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:60
 
@@ -1098,6 +1116,6 @@ dictionary of [TxOptions](../interfaces/TxOptions.md)
 
 the "minimal" representation of a BlobEIP4844Transaction (i.e. transaction object minus blobs and kzg commitments)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:46

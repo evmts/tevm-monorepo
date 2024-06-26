@@ -8,7 +8,7 @@
 
 Type of predeploy contract for tevm
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -28,7 +28,7 @@ Type of predeploy contract for tevm
 
 [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
@@ -38,7 +38,7 @@ Type of predeploy contract for tevm
 
 > `readonly` **contract**: `Contract`\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
@@ -52,7 +52,7 @@ Type of predeploy contract for tevm
 
 `Address`
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
 
@@ -70,6 +70,6 @@ Type of predeploy contract for tevm
 
 > **address**: `Address`
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L10)

@@ -4,15 +4,15 @@
 
 [@tevm/viem](../globals.md) / GenResult
 
-# Type alias: GenResult\<TDataType, TTag\>
-
-`Experimental`
+# Type Alias: GenResult\<TDataType, TTag\>
 
 > **GenResult**\<`TDataType`, `TTag`\>: `object`
 
+**`Experimental`**
+
 A result type for a single yield of writeContractOptimistic
 
-## Type parameters
+## Type Parameters
 
 • **TDataType**
 
@@ -24,18 +24,26 @@ A result type for a single yield of writeContractOptimistic
 
 > **data**: `TDataType`
 
+**`Experimental`**
+
 ### errors?
 
 > `optional` **errors**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
+
+**`Experimental`**
 
 ### success
 
 > **success**: `true`
 
+**`Experimental`**
+
 ### tag
 
 > **tag**: `TTag`
 
-## Source
+**`Experimental`**
+
+## Defined in
 
 [extensions/viem/src/GenResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L7)

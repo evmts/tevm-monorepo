@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [index](../README.md) / LoadStateResult
 
-# Type alias: LoadStateResult\<ErrorType\>
+# Type Alias: LoadStateResult\<ErrorType\>
 
 > **LoadStateResult**\<`ErrorType`\>: `object`
 
 Result of LoadState Method
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmLoadStateError`](TevmLoadStateError.md)
 
@@ -22,6 +22,6 @@ Result of LoadState Method
 
 Description of the exception, if any occurred
 
-## Source
+## Defined in
 
 packages/actions/types/LoadState/LoadStateResult.d.ts:5

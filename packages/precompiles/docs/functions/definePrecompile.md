@@ -8,7 +8,7 @@
 
 > **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
-## Type parameters
+## Type Parameters
 
 • **TContract** *extends* `Contract`\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
 
@@ -24,6 +24,6 @@
 
 `Precompile`\<`TContract`\>
 
-## Source
+## Defined in
 
 [definePrecompile.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)

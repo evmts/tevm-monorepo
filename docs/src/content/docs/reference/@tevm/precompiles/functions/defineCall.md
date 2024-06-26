@@ -7,7 +7,7 @@ title: "defineCall"
 
 > **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
@@ -33,6 +33,6 @@ title: "defineCall"
 
 `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
 
-## Source
+## Defined in
 
 [defineCall.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L21)

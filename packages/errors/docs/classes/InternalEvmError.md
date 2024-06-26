@@ -59,15 +59,15 @@ If you encounter this error please open an issue on the Tevm GitHub repository.
 
 #### Parameters
 
-• **message?**: `string`= `'Internal error occurred.'`
+• **message?**: `string` = `'Internal error occurred.'`
 
 Human-readable error message.
 
-• **args?**: [`InternalEvmErrorParameters`](../interfaces/InternalEvmErrorParameters.md)= `{}`
+• **args?**: [`InternalEvmErrorParameters`](../interfaces/InternalEvmErrorParameters.md) = `{}`
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string`= `'InternalEvmError'`
+• **tag?**: `string` = `'InternalEvmError'`
 
 The tag for the error.
 
@@ -79,7 +79,7 @@ The tag for the error.
 
 [`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L66)
 
@@ -95,7 +95,7 @@ Same as name, used internally.
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
@@ -109,7 +109,7 @@ Same as name, used internally.
 
 [`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
@@ -125,7 +125,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
@@ -139,7 +139,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`BaseError`](BaseError.md).[`details`](BaseError.md#details)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
@@ -155,7 +155,7 @@ Path to the documentation for this error.
 
 [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
@@ -171,9 +171,9 @@ Human-readable error message.
 
 [`BaseError`](BaseError.md).[`message`](BaseError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -187,7 +187,7 @@ Additional meta messages for more context.
 
 [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
@@ -203,9 +203,9 @@ The name of the error, used to discriminate errors.
 
 [`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -217,7 +217,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
@@ -231,9 +231,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -245,7 +245,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`BaseError`](BaseError.md).[`version`](BaseError.md#version)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
@@ -255,7 +255,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `static` **EVMErrorMessage**: `ERROR` = `EVMErrorMessage.INTERNAL_ERROR`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L50)
 
@@ -285,9 +285,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -299,9 +299,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -327,7 +327,7 @@ The first error that matches the function, or the original error.
 
 [`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
@@ -355,9 +355,9 @@ Create .stack property on a target object
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -379,6 +379,30 @@ Create .stack property on a target object
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

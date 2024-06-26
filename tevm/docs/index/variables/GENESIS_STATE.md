@@ -8,6 +8,6 @@
 
 > `const` **GENESIS\_STATE**: [`TevmState`](../type-aliases/TevmState.md)
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:372
+packages/base-client/dist/index.d.ts:373

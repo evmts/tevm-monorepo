@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / GasLimitExceededErrorParameters
 
-# Type alias: GasLimitExceededErrorParameters
+# Type Alias: GasLimitExceededErrorParameters
 
 > **GasLimitExceededErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a GasLimitExceededError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/GasLimitExceededError.d.ts:49

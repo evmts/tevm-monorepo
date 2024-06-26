@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidSkipBalanceErrorParameters
 
-# Type alias: InvalidSkipBalanceErrorParameters
+# Type Alias: InvalidSkipBalanceErrorParameters
 
 > **InvalidSkipBalanceErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidSkipBalanceError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidSkipBalanceError.d.ts:42

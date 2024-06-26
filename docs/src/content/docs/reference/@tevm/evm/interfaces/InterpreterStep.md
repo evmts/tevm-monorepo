@@ -11,7 +11,7 @@ title: "InterpreterStep"
 
 > **account**: [`EthjsAccount`](/reference/tevm/utils/classes/ethjsaccount/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
 
@@ -21,7 +21,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
 
@@ -31,7 +31,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **codeAddress**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:98
 
@@ -41,7 +41,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **depth**: `number`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:87
 
@@ -51,7 +51,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **gasLeft**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
 
@@ -61,7 +61,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **gasRefund**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
 
@@ -71,7 +71,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **memory**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:96
 
@@ -81,7 +81,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **memoryWordCount**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:97
 
@@ -107,7 +107,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **name**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:88
 
@@ -117,7 +117,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **pc**: `number`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:86
 
@@ -127,7 +127,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **returnStack**: `bigint`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
 
@@ -137,7 +137,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **stack**: `bigint`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
 
@@ -147,6 +147,6 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 > **stateManager**: [`EvmStateManagerInterface`](/reference/tevm/common/interfaces/evmstatemanagerinterface/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83

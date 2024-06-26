@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / UnknownBlockErrorParameters
 
-# Type alias: UnknownBlockErrorParameters
+# Type Alias: UnknownBlockErrorParameters
 
 > **UnknownBlockErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an UnknownBlockError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/UnknownBlockError.d.ts:50

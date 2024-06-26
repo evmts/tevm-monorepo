@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetUncleCountByBlockNumberJsonRpcProcedure
 
-# Type alias: EthGetUncleCountByBlockNumberJsonRpcProcedure()
+# Type Alias: EthGetUncleCountByBlockNumberJsonRpcProcedure()
 
 > **EthGetUncleCountByBlockNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:611

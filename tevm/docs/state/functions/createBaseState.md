@@ -16,6 +16,6 @@
 
 [`BaseState`](../type-aliases/BaseState.md)
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:191

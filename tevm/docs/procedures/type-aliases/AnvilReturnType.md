@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilReturnType
 
-# Type alias: AnvilReturnType
+# Type Alias: AnvilReturnType
 
 > **AnvilReturnType**: `object`
 
@@ -68,6 +68,6 @@ A mapping of `anvil_*` method names to their return type
 
 > **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:776

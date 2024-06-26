@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ResourceUnavailableErrorParameters
 
-# Type alias: ResourceUnavailableErrorParameters
+# Type Alias: ResourceUnavailableErrorParameters
 
 > **ResourceUnavailableErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a ResourceUnavailableError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ResourceUnavailableError.d.ts:50

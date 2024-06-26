@@ -15,6 +15,6 @@ title: "EthGetBlockTransactionCountByHashHandler"
 
 `Promise`\<[`EthGetBlockTransactionCountByHashResult`](/reference/tevm/actions/type-aliases/ethgetblocktransactioncountbyhashresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L105)

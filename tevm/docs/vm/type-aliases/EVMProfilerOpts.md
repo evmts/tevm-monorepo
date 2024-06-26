@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / EVMProfilerOpts
 
-# Type alias: EVMProfilerOpts
+# Type Alias: EVMProfilerOpts
 
 > **EVMProfilerOpts**: `object`
 
@@ -14,6 +14,6 @@
 
 > **enabled**: `boolean`
 
-## Source
+## Defined in
 
 packages/vm/types/utils/types.d.ts:64

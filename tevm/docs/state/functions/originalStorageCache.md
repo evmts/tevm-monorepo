@@ -39,6 +39,6 @@ last call to checkpoint.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:365

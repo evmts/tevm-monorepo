@@ -10,10 +10,10 @@ title: "SerializeToJson"
 A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
 It replaces bigint with hex strings and sets with arrays.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L44)

@@ -4,11 +4,11 @@
 
 [@tevm/viem-effect](../../modules.md) / [wrapInEffect](../README.md) / WrapInEffect
 
-# Type alias: WrapInEffect()
+# Type Alias: WrapInEffect()
 
 > **WrapInEffect**: \<`TViemFunction`, `TErrorType`\>(`viemFunction`) => [`WrappedInEffect`](WrappedInEffect.md)\<`TViemFunction`, `TErrorType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TViemFunction** *extends* [`AnyFunction`](../../types/type-aliases/AnyFunction.md)
 
@@ -22,6 +22,6 @@
 
 [`WrappedInEffect`](WrappedInEffect.md)\<`TViemFunction`, `TErrorType`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L4)

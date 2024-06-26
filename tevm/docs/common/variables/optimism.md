@@ -8,6 +8,6 @@
 
 > `const` **optimism**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/optimism.d.ts:1

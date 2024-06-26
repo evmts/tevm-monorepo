@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / VMEvents
 
-# Type alias: VMEvents
+# Type Alias: VMEvents
 
 > **VMEvents**: `object`
 
@@ -66,6 +66,6 @@
 
 `void`
 
-## Source
+## Defined in
 
 packages/vm/types/utils/types.d.ts:67

@@ -8,7 +8,7 @@
 
 > **decodeDeployDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `DecodeDeployDataErrorType`, `DecodeDeployDataReturnType`\<`Abi` \| readonly `unknown`[]\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`DecodeDeployDataParameters`\<`Abi` \| readonly `unknown`[]\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `DecodeDeployDataErrorType`, `DecodeDeployDataReturnType`\<`Abi` \| readonly `unknown`[]\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/decodeDeployDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeDeployDataEffect.js#L7)

@@ -33,6 +33,6 @@ await tevm.loadState({state})
 
 `Promise`\<[`LoadStateResult`](/reference/tevm/actions/type-aliases/loadstateresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/LoadStateHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateHandlerType.ts#L21)

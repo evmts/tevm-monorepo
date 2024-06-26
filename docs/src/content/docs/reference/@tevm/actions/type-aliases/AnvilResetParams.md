@@ -17,16 +17,16 @@ Params for `anvil_reset` handler
 
 ### fork.block?
 
-> `optional` `readonly` **block**: [`BlockTag`](/reference/tevm/actions/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/actions/type-aliases/hex/) \| `BigInt`
+> `readonly` `optional` **fork.block**: [`BlockTag`](/reference/tevm/actions/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/actions/type-aliases/hex/) \| `BigInt`
 
 The block number
 
 ### fork.url?
 
-> `optional` `readonly` **url**: `string`
+> `readonly` `optional` **fork.url**: `string`
 
 The url to fork if forking
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L60)

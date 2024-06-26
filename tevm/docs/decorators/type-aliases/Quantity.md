@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / Quantity
 
-# Type alias: Quantity
+# Type Alias: Quantity
 
 > **Quantity**: [`Hex`](../../index/type-aliases/Hex.md)
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1302

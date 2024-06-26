@@ -28,7 +28,7 @@ Represents a Bloom filter.
 
 If the byte size of the bitvector is not 256.
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:10
 
@@ -38,7 +38,7 @@ packages/utils/types/Bloom.d.ts:10
 
 > **bitvector**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:5
 
@@ -62,7 +62,7 @@ The element to add
 
 #### Throws
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:16
 
@@ -86,7 +86,7 @@ The element to check
 
 #### Throws
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:22
 
@@ -110,7 +110,7 @@ Checks if multiple topics are in a bloom.
 
 #### Throws
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:28
 
@@ -132,6 +132,6 @@ Bitwise or blooms together.
 
 #### Throws
 
-#### Source
+#### Defined in
 
 packages/utils/types/Bloom.d.ts:33

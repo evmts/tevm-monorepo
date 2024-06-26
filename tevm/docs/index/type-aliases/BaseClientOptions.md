@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / BaseClientOptions
 
-# Type alias: BaseClientOptions
+# Type Alias: BaseClientOptions\<TCommon\>
 
-> **BaseClientOptions**: [`StateOptions`](StateOptions.md) & `object`
+> **BaseClientOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -14,14 +14,14 @@ Options for creating an Tevm MemoryClient instance
 
 ### allowUnlimitedContractSize?
 
-> `optional` `readonly` **allowUnlimitedContractSize**: `boolean`
+> `readonly` `optional` **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 If set to true you may still run up against block limits
 
 ### common?
 
-> `optional` `readonly` **common**: [`Common`](../../common/type-aliases/Common.md)
+> `readonly` `optional` **common**: `TCommon`
 
 The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 If not specified and a fork is provided the common chainId will be fetched from the fork
@@ -39,7 +39,7 @@ const client = createMemoryClient({ chain: optimism })
 
 ### customPrecompiles?
 
-> `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
+> `readonly` `optional` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -90,7 +90,7 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys?
 
-> `optional` `readonly` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](../classes/Predeploy.md)\<`any`, `any`\>\>
+> `readonly` `optional` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](../classes/Predeploy.md)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -110,7 +110,7 @@ const tevm = createMemoryClient({
 
 ### forkTransport?
 
-> `optional` `readonly` **forkTransport**: `object`
+> `readonly` `optional` **forkTransport**: `object`
 
 Client to make json rpc requests to a forked node
 
@@ -126,13 +126,13 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### loggingLevel?
 
-> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
 ### miningConfig?
 
-> `optional` `readonly` **miningConfig**: [`MiningConfig`](MiningConfig.md)
+> `readonly` `optional` **miningConfig**: [`MiningConfig`](MiningConfig.md)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -141,7 +141,7 @@ The configuration for mining. Defaults to 'auto'
 
 ### persister?
 
-> `optional` `readonly` **persister**: [`SyncStoragePersister`](SyncStoragePersister.md)
+> `readonly` `optional` **persister**: [`SyncStoragePersister`](SyncStoragePersister.md)
 
 The memory client can optionally initialize and persist it's state to an external source like local storage
 using `createSyncPersister`
@@ -163,10 +163,14 @@ const memoryClient = createMemoryClient({ persister })
 
 ### profiler?
 
-> `optional` `readonly` **profiler**: `boolean`
+> `readonly` `optional` **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
 
-## Source
+## Type Parameters
 
-packages/base-client/dist/index.d.ts:227
+• **TCommon** *extends* [`Common`](../../common/type-aliases/Common.md) = [`Common`](../../common/type-aliases/Common.md)
+
+## Defined in
+
+packages/base-client/dist/index.d.ts:228

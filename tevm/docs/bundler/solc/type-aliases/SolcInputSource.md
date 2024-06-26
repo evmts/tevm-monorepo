@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputSource
 
-# Type alias: SolcInputSource
+# Type Alias: SolcInputSource
 
 > **SolcInputSource**: `object` & `object` \| `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **keccak256**: `HexNumber`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:5

@@ -33,6 +33,6 @@ If this does not exist an empty `Uint8Array` is returned.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:287

@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilGetAutomineProcedure
 
-# Type alias: AnvilGetAutomineProcedure()
+# Type Alias: AnvilGetAutomineProcedure()
 
 > **AnvilGetAutomineProcedure**: (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L55)

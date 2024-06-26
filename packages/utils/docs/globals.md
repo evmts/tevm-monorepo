@@ -135,9 +135,3 @@
 - [toRlp](functions/toRlp.md)
 - [toType](functions/toType.md)
 - [zeros](functions/zeros.md)
-
-## References
-
-### bytesToBigInt
-
-Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)

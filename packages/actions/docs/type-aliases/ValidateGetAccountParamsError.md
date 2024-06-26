@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / ValidateGetAccountParamsError
 
-# Type alias: ValidateGetAccountParamsError
+# Type Alias: ValidateGetAccountParamsError
 
 > **ValidateGetAccountParamsError**\<\>: `InvalidRequestError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/GetAccount/validateGetAccountParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L5)

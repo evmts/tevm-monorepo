@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [block](../README.md) / UncleHeadersBytes
 
-# Type alias: UncleHeadersBytes
+# Type Alias: UncleHeadersBytes
 
 > **UncleHeadersBytes**: `Uint8Array`[][]
 
-## Source
+## Defined in
 
 packages/block/types/types.d.ts:158

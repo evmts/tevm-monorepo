@@ -9,6 +9,6 @@ title: "AnvilGetAutomineJsonRpcResponse"
 
 JSON-RPC response for `anvil_getAutomine` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L58)

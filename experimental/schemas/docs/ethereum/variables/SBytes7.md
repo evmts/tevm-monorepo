@@ -10,6 +10,6 @@
 
 [Effect schema](https://github.com/Effect-TS/schema) for the Bytes7 type.
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:306](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L306)

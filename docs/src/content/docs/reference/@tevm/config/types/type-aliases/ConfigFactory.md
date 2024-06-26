@@ -11,6 +11,6 @@ title: "ConfigFactory"
 
 [`CompilerConfig`](/reference/tevm/config/types/type-aliases/compilerconfig/)
 
-## Source
+## Defined in
 
 [bundler-packages/config/src/types.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L39)

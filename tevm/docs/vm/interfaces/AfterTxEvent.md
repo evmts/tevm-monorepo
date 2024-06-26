@@ -24,7 +24,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 [`RunTxResult`](RunTxResult.md).[`accessList`](RunTxResult.md#accesslist)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:399
 
@@ -40,7 +40,7 @@ The amount of ether used by this transaction
 
 [`RunTxResult`](RunTxResult.md).[`amountSpent`](RunTxResult.md#amountspent)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:381
 
@@ -56,7 +56,7 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 [`RunTxResult`](RunTxResult.md).[`blobGasUsed`](RunTxResult.md#blobgasused)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:411
 
@@ -72,7 +72,7 @@ Bloom filter resulted from transaction
 
 [`RunTxResult`](RunTxResult.md).[`bloom`](RunTxResult.md#bloom)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:377
 
@@ -88,7 +88,7 @@ Address of created account during transaction, if any
 
 [`RunTxResult`](RunTxResult.md).[`createdAddress`](RunTxResult.md#createdaddress)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:248
 
@@ -104,7 +104,7 @@ Contains the results from running the code, if any, as described in runCode
 
 [`RunTxResult`](RunTxResult.md).[`execResult`](RunTxResult.md#execresult)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:252
 
@@ -120,7 +120,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 [`RunTxResult`](RunTxResult.md).[`gasRefund`](RunTxResult.md#gasrefund)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:395
 
@@ -136,7 +136,7 @@ The value that accrues to the miner by this transaction
 
 [`RunTxResult`](RunTxResult.md).[`minerValue`](RunTxResult.md#minervalue)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:407
 
@@ -152,7 +152,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 [`RunTxResult`](RunTxResult.md).[`preimages`](RunTxResult.md#preimages)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:403
 
@@ -168,7 +168,7 @@ The tx receipt
 
 [`RunTxResult`](RunTxResult.md).[`receipt`](RunTxResult.md#receipt)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:385
 
@@ -186,7 +186,7 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 [`RunTxResult`](RunTxResult.md).[`totalGasSpent`](RunTxResult.md#totalgasspent)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:391
 
@@ -198,6 +198,6 @@ packages/vm/types/utils/types.d.ts:391
 
 The transaction which just got finished
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:417

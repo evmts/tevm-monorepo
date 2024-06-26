@@ -37,7 +37,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 [`Block`](Block.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:89
 
@@ -59,7 +59,7 @@ packages/block/types/block.d.ts:89
 
 > `optional` **withdrawalsTrieRoot**: `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:26
 
@@ -69,7 +69,7 @@ packages/block/types/block.d.ts:26
 
 > `readonly` **common**: [`Common`](../../common/type-aliases/Common.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:18
 
@@ -77,13 +77,13 @@ packages/block/types/block.d.ts:18
 
 ### executionWitness?
 
-> `optional` `readonly` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `readonly` `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
 and will not lead to execution of the block via vm with verkle stateless manager
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:25
 
@@ -93,7 +93,7 @@ packages/block/types/block.d.ts:25
 
 > `readonly` **header**: [`BlockHeader`](BlockHeader.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:13
 
@@ -111,7 +111,7 @@ packages/block/types/block.d.ts:13
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:19
 
@@ -119,9 +119,9 @@ packages/block/types/block.d.ts:19
 
 ### requests?
 
-> `optional` `readonly` **requests**: [`ClRequest`](ClRequest.md)[]
+> `readonly` `optional` **requests**: [`ClRequest`](ClRequest.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:17
 
@@ -131,7 +131,7 @@ packages/block/types/block.d.ts:17
 
 > `readonly` **transactions**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:14
 
@@ -141,7 +141,7 @@ packages/block/types/block.d.ts:14
 
 > `readonly` **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:15
 
@@ -149,9 +149,9 @@ packages/block/types/block.d.ts:15
 
 ### withdrawals?
 
-> `optional` `readonly` **withdrawals**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
+> `readonly` `optional` **withdrawals**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:16
 
@@ -167,7 +167,7 @@ Return a compact error string representation of the object
 
 `string`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:186
 
@@ -189,7 +189,7 @@ the parent of this `Block`
 
 `bigint`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:170
 
@@ -205,7 +205,7 @@ Generates transaction trie for validation.
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:109
 
@@ -223,7 +223,7 @@ Validates transaction signatures and minimum gas requirements.
 
 an array of error strings
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:121
 
@@ -239,7 +239,7 @@ Returns the hash of the block.
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:97
 
@@ -255,7 +255,7 @@ Determines if this block is the genesis block.
 
 `boolean`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:101
 
@@ -271,7 +271,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:93
 
@@ -285,7 +285,7 @@ packages/block/types/block.d.ts:93
 
 `Promise`\<`boolean`\>
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:116
 
@@ -301,7 +301,7 @@ Returns the rlp encoding of the block.
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:105
 
@@ -315,7 +315,7 @@ packages/block/types/block.d.ts:105
 
 [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:182
 
@@ -331,7 +331,7 @@ Returns the block in JSON format.
 
 [`JsonBlock`](../interfaces/JsonBlock.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:181
 
@@ -349,7 +349,7 @@ Validates transaction signatures and minimum gas requirements.
 
 True if all transactions are valid, false otherwise
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:126
 
@@ -368,7 +368,7 @@ and do a check on the root hash.
 
 True if the transaction trie is valid, false otherwise
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:115
 
@@ -386,7 +386,7 @@ Validates the uncle's hash.
 
 true if the uncle's hash is valid, false otherwise.
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:149
 
@@ -410,7 +410,7 @@ header of parent block
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:144
 
@@ -441,7 +441,7 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:137
 
@@ -464,7 +464,7 @@ the parent of this `Block`
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:177
 
@@ -486,7 +486,7 @@ Header does not count an uncle twice.
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:164
 
@@ -504,7 +504,7 @@ Validates the withdrawal root
 
 true if the withdrawals trie root is valid, false otherwise
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:154
 
@@ -532,7 +532,7 @@ json of a beacon beacon fetched from beacon apis
 
 the block constructed block
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:84
 
@@ -554,7 +554,7 @@ Static constructor to create a block from a block data dictionary
 
 [`Block`](Block.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:56
 
@@ -580,7 +580,7 @@ Method to retrieve a block from an execution payload
 
 the block constructed block
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:77
 
@@ -602,7 +602,7 @@ Static constructor to create a block from a RLP-serialized block
 
 [`Block`](Block.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:63
 
@@ -624,7 +624,7 @@ Static constructor to create a block from an array of Bytes values
 
 [`Block`](Block.md)
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:70
 
@@ -652,7 +652,7 @@ optional empty trie used to generate the root
 
 a 32 byte Uint8Array representing the requests trie root
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:49
 
@@ -676,7 +676,7 @@ array of TypedTransaction to compute the root of
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:42
 
@@ -700,6 +700,6 @@ array of Withdrawal to compute the root of
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 packages/block/types/block.d.ts:36

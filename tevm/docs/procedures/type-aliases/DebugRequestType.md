@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugRequestType
 
-# Type alias: DebugRequestType
+# Type Alias: DebugRequestType
 
 > **DebugRequestType**: `object`
 
@@ -20,6 +20,6 @@ A mapping of `debug_*` method names to their request type
 
 > **debug\_traceTransaction**: [`DebugTraceTransactionJsonRpcRequest`](DebugTraceTransactionJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1192

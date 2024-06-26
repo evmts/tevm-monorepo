@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcDeployedBytecodeOutput
 
-# Type alias: SolcDeployedBytecodeOutput
+# Type Alias: SolcDeployedBytecodeOutput
 
 > **SolcDeployedBytecodeOutput**: `object`
 
@@ -14,10 +14,10 @@
 
 > **immutableReferences**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`astID`: `string`\]: `object`[]
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:173

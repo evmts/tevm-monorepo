@@ -16,6 +16,6 @@
 
 `BuildBlock`
 
-## Source
+## Defined in
 
 packages/vm/types/actions/buildBlock.d.ts:95

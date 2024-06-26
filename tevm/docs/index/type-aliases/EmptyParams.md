@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EmptyParams
 
-# Type alias: EmptyParams
+# Type Alias: EmptyParams
 
 > **EmptyParams**: readonly [] \| `object` \| `undefined` \| `never`
 
-## Source
+## Defined in
 
 packages/actions/types/common/EmptyParams.d.ts:1

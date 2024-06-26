@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / WalletPermissionCaveat
 
-# Type alias: WalletPermissionCaveat
+# Type Alias: WalletPermissionCaveat
 
 > **WalletPermissionCaveat**: `object`
 
@@ -18,6 +18,6 @@
 
 > **value**: `any`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1312

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBeginSubErrorParameters
 
-# Type alias: InvalidBeginSubErrorParameters
+# Type Alias: InvalidBeginSubErrorParameters
 
 > **InvalidBeginSubErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidBeginSubError](../classes/InvalidBeginSubE
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:69

@@ -18,6 +18,6 @@
 
 `Promise`\<`undefined` \| `BlockResult`\>
 
-## Source
+## Defined in
 
 [procedures/src/utils/blockToJsonRpcBlock.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/blockToJsonRpcBlock.js#L9)

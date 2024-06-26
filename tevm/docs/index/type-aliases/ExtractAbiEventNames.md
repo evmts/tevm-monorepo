@@ -4,18 +4,18 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ExtractAbiEventNames
 
-# Type alias: ExtractAbiEventNames\<TAbi\>
+# Type Alias: ExtractAbiEventNames\<abi\>
 
-> **ExtractAbiEventNames**\<`TAbi`\>: [`ExtractAbiEvents`](ExtractAbiEvents.md)\<`TAbi`\>\[`"name"`\]
+> **ExtractAbiEventNames**\<`abi`\>: [`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>\[`"name"`\]
 
 Extracts all [AbiEvent](AbiEvent.md) names from [Abi](Abi.md).
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](Abi.md)
+• **abi** *extends* [`Abi`](Abi.md)
 
 [Abi](Abi.md) to extract event names from
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:141
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:141

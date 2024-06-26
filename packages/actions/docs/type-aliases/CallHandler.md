@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / CallHandler
 
-# Type alias: CallHandler()
+# Type Alias: CallHandler()
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
@@ -35,6 +35,6 @@ const res = tevm.call({
 
 `Promise`\<[`CallResult`](CallResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/CallHandlerType.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L23)

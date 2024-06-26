@@ -15,6 +15,6 @@ title: "EthGetFilterChangesJsonRpcProcedure"
 
 `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgetfilterchangesjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L125)

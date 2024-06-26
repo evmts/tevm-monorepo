@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthCoinbaseJsonRpcProcedure
 
-# Type alias: EthCoinbaseJsonRpcProcedure()
+# Type Alias: EthCoinbaseJsonRpcProcedure()
 
 > **EthCoinbaseJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:595

@@ -9,6 +9,6 @@ title: "Hardfork"
 
 Ethereum hardfork option
 
-## Source
+## Defined in
 
 [packages/base-client/src/Hardfork.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Hardfork.ts#L4)

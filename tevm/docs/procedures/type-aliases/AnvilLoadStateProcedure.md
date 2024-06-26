@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilLoadStateProcedure
 
-# Type alias: AnvilLoadStateProcedure()
+# Type Alias: AnvilLoadStateProcedure()
 
 > **AnvilLoadStateProcedure**: (`request`) => `Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_loadState`
 
 `Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:771

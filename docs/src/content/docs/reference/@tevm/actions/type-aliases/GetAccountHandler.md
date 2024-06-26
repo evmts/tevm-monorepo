@@ -26,6 +26,6 @@ console.log(res.balance)
 
 `Promise`\<[`GetAccountResult`](/reference/tevm/actions/type-aliases/getaccountresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/GetAccount/GetAccountHandlerType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L12)

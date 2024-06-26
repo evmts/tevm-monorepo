@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / StateOptions
 
-# Type alias: StateOptions
+# Type Alias: StateOptions
 
 > **StateOptions**: `object`
 
@@ -24,7 +24,7 @@
 
 ### loggingLevel?
 
-> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
@@ -46,6 +46,6 @@ Called when state manager commits state
 
 > `optional` **stateRoots**: [`StateRoots`](../../state/type-aliases/StateRoots.md)
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:174

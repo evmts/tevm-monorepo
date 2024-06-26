@@ -9,10 +9,10 @@ title: "JsonSerializableObject"
 
 A type that represents a JSON-serializable object.
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`JsonSerializable`](/reference/tevm/utils/type-aliases/jsonserializable/)
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L24)

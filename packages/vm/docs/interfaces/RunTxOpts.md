@@ -17,7 +17,7 @@ Options for the `runTx` method.
 The `@ethereumjs/block` the `tx` belongs to.
 If omitted, a default blank block will be used.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:354](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L354)
 
@@ -29,7 +29,7 @@ If omitted, a default blank block will be used.
 
 To obtain an accurate tx receipt input the block gas used up until this tx.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:402](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L402)
 
@@ -48,7 +48,7 @@ be activated (included in `berlin` HF).
 Note: if this option is used with a custom StateManager implementation
 StateManager.generateAccessList must be implemented.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:391](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L391)
 
@@ -61,7 +61,7 @@ StateManager.generateAccessList must be implemented.
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L397)
 
@@ -73,7 +73,7 @@ to the `RunTxResult` returned.
 
 Skip balance checks if true. Adds transaction cost to balance to ensure execution doesn't fail.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:367](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L367)
 
@@ -86,7 +86,7 @@ Skip balance checks if true. Adds transaction cost to balance to ensure executio
 If true, skips the validation of the tx's gas limit
 against the block's gas limit.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:373](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L373)
 
@@ -99,7 +99,7 @@ against the block's gas limit.
 If true, skips the hardfork validation of vm, block
 and tx
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L379)
 
@@ -111,7 +111,7 @@ and tx
 
 If true, skips the nonce check
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:362](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L362)
 
@@ -123,6 +123,6 @@ If true, skips the nonce check
 
 An `@ethereumjs/tx` to run
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:358](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L358)

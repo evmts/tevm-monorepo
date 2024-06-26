@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / JsonRpcRequest
 
-# Type alias: JsonRpcRequest\<TMethod, TParams\>
+# Type Alias: JsonRpcRequest\<TMethod, TParams\>
 
 > **JsonRpcRequest**\<`TMethod`, `TParams`\>: `object` & `TParams` *extends* readonly [] ? `object` : `object`
 
@@ -14,7 +14,7 @@ Helper type for creating JSON-RPC request types
 
 ### id?
 
-> `optional` `readonly` **id**: `string` \| `number` \| `null`
+> `readonly` `optional` **id**: `string` \| `number` \| `null`
 
 ### jsonrpc
 
@@ -24,12 +24,12 @@ Helper type for creating JSON-RPC request types
 
 > `readonly` **method**: `TMethod`
 
-## Type parameters
+## Type Parameters
 
 • **TMethod** *extends* `string`
 
 • **TParams**
 
-## Source
+## Defined in
 
 packages/jsonrpc/types/JsonRpcRequest.d.ts:4

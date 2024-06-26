@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSendRawTransactionParams
 
-# Type alias: EthSendRawTransactionParams
+# Type Alias: EthSendRawTransactionParams
 
 > **EthSendRawTransactionParams**: `object`
 
@@ -17,6 +17,6 @@ This type is a placeholder
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L230)

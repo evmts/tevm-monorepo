@@ -15,6 +15,6 @@ title: "isAccessListEIP2930Tx"
 
 `tx is AccessListEIP2930Transaction`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:94

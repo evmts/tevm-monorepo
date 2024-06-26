@@ -3,7 +3,8 @@ import { SimpleContract } from '@tevm/test-utils'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
+
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }

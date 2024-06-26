@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSignHandler
 
-# Type alias: EthSignHandler()
+# Type Alias: EthSignHandler()
 
 > **EthSignHandler**: (`request`) => `Promise`\<[`EthSignResult`](EthSignResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthSignResult`](EthSignResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L169)

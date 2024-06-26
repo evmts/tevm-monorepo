@@ -8,7 +8,7 @@
 
 > **encodeFunctionDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeFunctionDataErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`EncodeFunctionDataParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `EncodeFunctionDataErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/encodeFunctionDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeFunctionDataEffect.js#L7)

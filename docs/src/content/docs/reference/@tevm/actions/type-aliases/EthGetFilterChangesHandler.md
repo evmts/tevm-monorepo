@@ -15,6 +15,6 @@ title: "EthGetFilterChangesHandler"
 
 `Promise`\<[`EthGetFilterChangesResult`](/reference/tevm/actions/type-aliases/ethgetfilterchangesresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L115)

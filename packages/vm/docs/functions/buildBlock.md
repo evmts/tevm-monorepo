@@ -16,6 +16,6 @@
 
 `BuildBlock`
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/buildBlock.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L409)

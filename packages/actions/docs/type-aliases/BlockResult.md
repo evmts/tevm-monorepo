@@ -4,14 +4,14 @@
 
 [@tevm/actions](../globals.md) / BlockResult
 
-# Type alias: BlockResult\<TIncludeTransactions\>
+# Type Alias: BlockResult\<TIncludeTransactions\>
 
 > **BlockResult**\<`TIncludeTransactions`\>: `object`
 
 The type returned by block related
 json rpc procedures
 
-## Type parameters
+## Type Parameters
 
 • **TIncludeTransactions** *extends* `boolean` = `false`
 
@@ -97,6 +97,6 @@ The hex stringhash of the uncles of the block.
 
 > `readonly` **uncles**: [`Hex`](Hex.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/common/BlockResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockResult.ts#L8)

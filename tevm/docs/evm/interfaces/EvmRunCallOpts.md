@@ -18,7 +18,7 @@ Options for running a call (or create) operation with `EVM.runCall()`
 
 > `optional` **accessWitness**: `AccessWitness`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:115
 
@@ -34,7 +34,7 @@ Versioned hashes for each blob in a blob transaction
 
 `EVMRunOpts.blobVersionedHashes`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:77
 
@@ -50,7 +50,7 @@ The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
 `EVMRunOpts.block`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:29
 
@@ -66,7 +66,7 @@ The address that ran this code (`msg.sender`). Defaults to the zero address.
 
 `EVMRunOpts.caller`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:41
 
@@ -82,7 +82,7 @@ The EVM code to run.
 
 `EVMRunOpts.code`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:45
 
@@ -94,7 +94,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 Created addresses in current context. Used in EIP 6780
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:97
 
@@ -110,7 +110,7 @@ The input data.
 
 `EVMRunOpts.data`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:49
 
@@ -122,7 +122,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 If the call is a DELEGATECALL. Defaults to false.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:106
 
@@ -138,7 +138,7 @@ The call depth. Defaults to `0`
 
 `EVMRunOpts.depth`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:61
 
@@ -154,7 +154,7 @@ The gas limit for the call. Defaults to `16777215` (`0xffffff`)
 
 `EVMRunOpts.gasLimit`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:53
 
@@ -170,7 +170,7 @@ The gas price for the call. Defaults to `0`
 
 `EVMRunOpts.gasPrice`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:33
 
@@ -182,7 +182,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 Refund counter. Defaults to `0`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:110
 
@@ -194,7 +194,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 If the code location is a precompile.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:89
 
@@ -210,7 +210,7 @@ If the call should be executed statically. Defaults to false.
 
 `EVMRunOpts.isStatic`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:65
 
@@ -222,7 +222,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 Optionally pass in an already-built message.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:114
 
@@ -238,7 +238,7 @@ The address where the call originated from. Defaults to the zero address.
 
 `EVMRunOpts.origin`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:37
 
@@ -250,7 +250,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 An optional salt to pass to CREATE2.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:93
 
@@ -266,7 +266,7 @@ Addresses to selfdestruct. Defaults to the empty set.
 
 `EVMRunOpts.selfdestruct`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:69
 
@@ -279,7 +279,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 Skip balance checks if true. If caller balance is less than message value,
 sets balance to message value to ensure execution doesn't fail.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:102
 
@@ -295,7 +295,7 @@ The address of the account that is executing this code (`address(this)`). Defaul
 
 `EVMRunOpts.to`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:73
 
@@ -311,6 +311,6 @@ The value in ether that is being sent to `opts.address`. Defaults to `0`
 
 `EVMRunOpts.value`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:57

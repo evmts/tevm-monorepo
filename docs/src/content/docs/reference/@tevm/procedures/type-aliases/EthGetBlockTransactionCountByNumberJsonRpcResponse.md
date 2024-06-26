@@ -9,6 +9,6 @@ title: "EthGetBlockTransactionCountByNumberJsonRpcResponse"
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L94)

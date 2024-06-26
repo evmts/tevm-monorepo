@@ -45,6 +45,6 @@ title: "SolcOptimizerDetails"
 
 > **yulDetails**: [`SolcYulDetails`](/reference/tevm/solc/type-aliases/solcyuldetails/)
 
-## Source
+## Defined in
 
 [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)

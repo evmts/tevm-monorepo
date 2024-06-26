@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [block](../README.md) / BlockBodyBytes
 
-# Type alias: BlockBodyBytes
+# Type Alias: BlockBodyBytes
 
 > **BlockBodyBytes**: [[`TransactionsBytes`](TransactionsBytes.md), [`UncleHeadersBytes`](UncleHeadersBytes.md), `WithdrawalsBytes?`, `Uint8Array?`]
 
-## Source
+## Defined in
 
 packages/block/types/types.d.ts:153

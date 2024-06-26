@@ -15,6 +15,6 @@ title: "requestBulkProcedure"
 
 [`TevmJsonRpcBulkRequestHandler`](/reference/tevm/procedures/type-aliases/tevmjsonrpcbulkrequesthandler/)
 
-## Source
+## Defined in
 
 [procedures/src/requestBulkProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestBulkProcedure.js#L7)

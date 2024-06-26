@@ -21,6 +21,6 @@ title: "SolcMetadataSettings"
 
 > `optional` **useLiteralContent**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)

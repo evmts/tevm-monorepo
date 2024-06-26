@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / ScriptJsonRpcProcedure
 
-# Type alias: ~~ScriptJsonRpcProcedure()~~
+# Type Alias: ~~ScriptJsonRpcProcedure()~~
 
 > **ScriptJsonRpcProcedure**: (`request`) => `Promise`\<[`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)\>
 
@@ -21,6 +21,6 @@ Procedure for handling script JSON-RPC requests
 
 `Promise`\<[`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1159

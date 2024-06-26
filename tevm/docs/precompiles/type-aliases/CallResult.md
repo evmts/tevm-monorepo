@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [precompiles](../README.md) / CallResult
 
-# Type alias: CallResult\<TAbi, TFunctionName\>
+# Type Alias: CallResult\<TAbi, TFunctionName\>
 
 > **CallResult**\<`TAbi`, `TFunctionName`\>: `object`
 
 A result of a precompile javascript call
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](../../index/type-aliases/Abi.md)
 
@@ -55,6 +55,6 @@ The return value of the call. Required even on exceptions
 
 A set of accounts to selfdestruct
 
-## Source
+## Defined in
 
 packages/precompiles/dist/index.d.ts:25

@@ -8,7 +8,7 @@
 
 > **formatAbiItemWithArgsEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `FormatAbiItemWithArgsErrorType`, `undefined` \| `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`object`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `FormatAbiItemWithArgsErrorType`, `undefined` \| `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/formatAbiItemWithArgsEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/formatAbiItemWithArgsEffect.js#L7)

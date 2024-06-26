@@ -8,7 +8,7 @@
 
 > **parseUnitsEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ParseUnitsErrorType`, `bigint`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`, `number`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ParseUnitsErrorType`, `bigint`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/unit/parseUnitsEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/parseUnitsEffect.js#L7)

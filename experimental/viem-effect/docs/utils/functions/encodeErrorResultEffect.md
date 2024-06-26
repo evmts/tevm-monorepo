@@ -8,7 +8,7 @@
 
 > **encodeErrorResultEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeErrorResultErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`EncodeErrorResultParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, `undefined` \| `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `EncodeErrorResultErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/encodeErrorResultEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeErrorResultEffect.js#L7)

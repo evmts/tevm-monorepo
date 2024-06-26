@@ -8,6 +8,6 @@
 
 > `const` **releases**: [`Releases`](../type-aliases/Releases.md)
 
-## Source
+## Defined in
 
 [solc.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L12)

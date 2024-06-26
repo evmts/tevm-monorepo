@@ -6,11 +6,7 @@
 
 # Function: createBaseState()
 
-`Internal`
-
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
-
-Creates the core data structure for ethereum state
 
 ## Parameters
 
@@ -22,6 +18,6 @@ Creates the core data structure for ethereum state
 
 Creates the core data structure the state manager operates on
 
-## Source
+## Defined in
 
 [packages/state/src/createBaseState.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createBaseState.js#L20)

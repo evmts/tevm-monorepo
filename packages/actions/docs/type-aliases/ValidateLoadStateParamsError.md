@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / ValidateLoadStateParamsError
 
-# Type alias: ValidateLoadStateParamsError
+# Type Alias: ValidateLoadStateParamsError
 
 > **ValidateLoadStateParamsError**\<\>: `InvalidRequestError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/validateLoadStateParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L5)

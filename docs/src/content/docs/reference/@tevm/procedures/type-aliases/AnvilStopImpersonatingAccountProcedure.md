@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilstopimpersonatingaccountjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L43)

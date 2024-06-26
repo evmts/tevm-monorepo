@@ -89,7 +89,7 @@ Error code analogous to the code in JSON RPC error.
 
 `Error.constructor`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:35
 
@@ -103,7 +103,7 @@ packages/errors/types/ethereum/BaseError.d.ts:35
 
 `BaseErrorType._tag`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:39
 
@@ -117,7 +117,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 `Error.cause`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:64
 
@@ -131,7 +131,7 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 `BaseErrorType.code`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:63
 
@@ -145,7 +145,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 `BaseErrorType.details`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:43
 
@@ -159,7 +159,7 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 `BaseErrorType.docsPath`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:47
 
@@ -177,9 +177,9 @@ packages/errors/types/ethereum/BaseError.d.ts:47
 
 `Error.message`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -187,7 +187,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:51
 
@@ -205,9 +205,9 @@ packages/errors/types/ethereum/BaseError.d.ts:51
 
 `Error.name`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -219,7 +219,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `BaseErrorType.shortMessage`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:55
 
@@ -233,9 +233,9 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 `Error.stack`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -247,7 +247,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `BaseErrorType.version`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:59
 
@@ -277,9 +277,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `Error.prepareStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -291,9 +291,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 `Error.stackTraceLimit`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -319,7 +319,7 @@ The first error that matches the function, or the original error.
 
 `BaseErrorType.walk`
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:70
 
@@ -345,6 +345,6 @@ Create .stack property on a target object
 
 `Error.captureStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

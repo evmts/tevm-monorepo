@@ -5,7 +5,7 @@ prev: false
 title: "MemoryClient"
 ---
 
-> **MemoryClient**: `Prettify`\<`Client`\<`Transport`, `undefined`, `undefined`, [`...PublicRpcSchema`, ...TestRpcSchema\<"anvil" \| "ganache" \| "hardhat"\>, `JsonRpcSchemaTevm`\[`"tevm_call"`\], `JsonRpcSchemaTevm`\[`"tevm_script"`\], `JsonRpcSchemaTevm`\[`"tevm_dumpState"`\], `JsonRpcSchemaTevm`\[`"tevm_loadState"`\], `JsonRpcSchemaTevm`\[`"tevm_getAccount"`\], `JsonRpcSchemaTevm`\[`"tevm_setAccount"`\]], `PublicActions` & [`TevmActions`](/reference/tevm/memory-client/type-aliases/tevmactions/)\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](/reference/tevm/memory-client/type-aliases/tevmrpcschema/), `PublicActions`\<`Transport`, `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](/reference/tevm/memory-client/type-aliases/tevmactions/)\>\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client)
@@ -57,6 +57,12 @@ const balance = await tevm.tevmContract(
  })
  ```
 
-## Source
+## Type Parameters
 
-[packages/memory-client/src/MemoryClient.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L53)
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+• **TAccountOrAddress** *extends* `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
+
+## Defined in
+
+[packages/memory-client/src/MemoryClient.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L54)

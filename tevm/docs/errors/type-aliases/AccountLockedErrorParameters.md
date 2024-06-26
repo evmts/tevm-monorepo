@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / AccountLockedErrorParameters
 
-# Type alias: AccountLockedErrorParameters
+# Type Alias: AccountLockedErrorParameters
 
 > **AccountLockedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an AccountLockedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/AccountLockedError.d.ts:52

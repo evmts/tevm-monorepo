@@ -10,7 +10,7 @@
 
 // I manually updated this
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`HashTypedDataParameters`\<`object` \| `object`, `string`\>]
 
@@ -22,6 +22,6 @@
 
 `Effect`\<`never`, `HashMessageErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js#L8)

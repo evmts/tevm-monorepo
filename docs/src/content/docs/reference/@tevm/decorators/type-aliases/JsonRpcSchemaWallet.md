@@ -30,15 +30,15 @@ provider.request({ method: 'eth_accounts' })
 
 ### eth\_accounts.Method
 
-> **Method**: `"eth_accounts"`
+> **eth\_accounts.Method**: `"eth_accounts"`
 
 ### eth\_accounts.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_accounts.Parameters**: `undefined`
 
 ### eth\_accounts.ReturnType
 
-> **ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)[]
+> **eth\_accounts.ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)[]
 
 ### eth\_chainId
 
@@ -57,15 +57,15 @@ provider.request({ method: 'eth_chainId' })
 
 ### eth\_chainId.Method
 
-> **Method**: `"eth_chainId"`
+> **eth\_chainId.Method**: `"eth_chainId"`
 
 ### eth\_chainId.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_chainId.Parameters**: `undefined`
 
 ### eth\_chainId.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_chainId.ReturnType**: `Quantity`
 
 ### eth\_estimateGas
 
@@ -87,15 +87,15 @@ provider.request({
 
 ### eth\_estimateGas.Method
 
-> **Method**: `"eth_estimateGas"`
+> **eth\_estimateGas.Method**: `"eth_estimateGas"`
 
 ### eth\_estimateGas.Parameters
 
-> **Parameters**: [`TransactionRequest`] \| [`TransactionRequest`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
+> **eth\_estimateGas.Parameters**: [`TransactionRequest`] \| [`TransactionRequest`, `BlockNumber` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)]
 
 ### eth\_estimateGas.ReturnType
 
-> **ReturnType**: `Quantity`
+> **eth\_estimateGas.ReturnType**: `Quantity`
 
 ### eth\_requestAccounts
 
@@ -118,15 +118,15 @@ provider.request({ method: 'eth_requestAccounts' }] })
 
 ### eth\_requestAccounts.Method
 
-> **Method**: `"eth_requestAccounts"`
+> **eth\_requestAccounts.Method**: `"eth_requestAccounts"`
 
 ### eth\_requestAccounts.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_requestAccounts.Parameters**: `undefined`
 
 ### eth\_requestAccounts.ReturnType
 
-> **ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)[]
+> **eth\_requestAccounts.ReturnType**: [`Address`](/reference/tevm/utils/type-aliases/address/)[]
 
 ### eth\_sendRawTransaction
 
@@ -149,15 +149,15 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 ### eth\_sendRawTransaction.Method
 
-> **Method**: `"eth_sendRawTransaction"`
+> **eth\_sendRawTransaction.Method**: `"eth_sendRawTransaction"`
 
 ### eth\_sendRawTransaction.Parameters
 
-> **Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]
+> **eth\_sendRawTransaction.Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]
 
 ### eth\_sendRawTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
+> **eth\_sendRawTransaction.ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
 
 ### eth\_sendTransaction
 
@@ -180,15 +180,15 @@ provider.request({ method: 'eth_sendTransaction', params: [{ from: '0x...', to: 
 
 ### eth\_sendTransaction.Method
 
-> **Method**: `"eth_sendTransaction"`
+> **eth\_sendTransaction.Method**: `"eth_sendTransaction"`
 
 ### eth\_sendTransaction.Parameters
 
-> **Parameters**: [`TransactionRequest`]
+> **eth\_sendTransaction.Parameters**: [`TransactionRequest`]
 
 ### eth\_sendTransaction.ReturnType
 
-> **ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
+> **eth\_sendTransaction.ReturnType**: [`Hash`](/reference/tevm/decorators/type-aliases/hash/)
 
 ### eth\_sign
 
@@ -211,15 +211,15 @@ provider.request({ method: 'eth_sign', params: ['0x...', '0x...'] })
 
 ### eth\_sign.Method
 
-> **Method**: `"eth_sign"`
+> **eth\_sign.Method**: `"eth_sign"`
 
 ### eth\_sign.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)]
+> **eth\_sign.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)]
 
 ### eth\_sign.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_sign.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_signTransaction
 
@@ -242,15 +242,15 @@ provider.request({ method: 'eth_signTransaction', params: [{ from: '0x...', to: 
 
 ### eth\_signTransaction.Method
 
-> **Method**: `"eth_signTransaction"`
+> **eth\_signTransaction.Method**: `"eth_signTransaction"`
 
 ### eth\_signTransaction.Parameters
 
-> **Parameters**: [`TransactionRequest`]
+> **eth\_signTransaction.Parameters**: [`TransactionRequest`]
 
 ### eth\_signTransaction.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_signTransaction.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_signTypedData\_v4
 
@@ -273,15 +273,15 @@ provider.request({ method: 'eth_signTypedData_v4', params: [{ from: '0x...', dat
 
 ### eth\_signTypedData\_v4.Method
 
-> **Method**: `"eth_signTypedData_v4"`
+> **eth\_signTypedData\_v4.Method**: `"eth_signTypedData_v4"`
 
 ### eth\_signTypedData\_v4.Parameters
 
-> **Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `string`]
+> **eth\_signTypedData\_v4.Parameters**: [[`Address`](/reference/tevm/utils/type-aliases/address/), `string`]
 
 ### eth\_signTypedData\_v4.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **eth\_signTypedData\_v4.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### eth\_syncing
 
@@ -304,15 +304,15 @@ provider.request({ method: 'eth_syncing' })
 
 ### eth\_syncing.Method
 
-> **Method**: `"eth_syncing"`
+> **eth\_syncing.Method**: `"eth_syncing"`
 
 ### eth\_syncing.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **eth\_syncing.Parameters**: `undefined`
 
 ### eth\_syncing.ReturnType
 
-> **ReturnType**: [`NetworkSync`](/reference/tevm/decorators/type-aliases/networksync/) \| `false`
+> **eth\_syncing.ReturnType**: [`NetworkSync`](/reference/tevm/decorators/type-aliases/networksync/) \| `false`
 
 ### personal\_sign
 
@@ -335,15 +335,15 @@ provider.request({ method: 'personal_sign', params: ['0x...', '0x...'] })
 
 ### personal\_sign.Method
 
-> **Method**: `"personal_sign"`
+> **personal\_sign.Method**: `"personal_sign"`
 
 ### personal\_sign.Parameters
 
-> **Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Address`](/reference/tevm/utils/type-aliases/address/)]
+> **personal\_sign.Parameters**: [[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Address`](/reference/tevm/utils/type-aliases/address/)]
 
 ### personal\_sign.ReturnType
 
-> **ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> **personal\_sign.ReturnType**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 ### wallet\_addEthereumChain
 
@@ -366,15 +366,15 @@ provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: 1, rpc
 
 ### wallet\_addEthereumChain.Method
 
-> **Method**: `"wallet_addEthereumChain"`
+> **wallet\_addEthereumChain.Method**: `"wallet_addEthereumChain"`
 
 ### wallet\_addEthereumChain.Parameters
 
-> **Parameters**: [[`AddEthereumChainParameter`](/reference/tevm/decorators/type-aliases/addethereumchainparameter/)]
+> **wallet\_addEthereumChain.Parameters**: [[`AddEthereumChainParameter`](/reference/tevm/decorators/type-aliases/addethereumchainparameter/)]
 
 ### wallet\_addEthereumChain.ReturnType
 
-> **ReturnType**: `null`
+> **wallet\_addEthereumChain.ReturnType**: `null`
 
 ### wallet\_getPermissions
 
@@ -397,15 +397,15 @@ provider.request({ method: 'wallet_getPermissions' })
 
 ### wallet\_getPermissions.Method
 
-> **Method**: `"wallet_getPermissions"`
+> **wallet\_getPermissions.Method**: `"wallet_getPermissions"`
 
 ### wallet\_getPermissions.Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **wallet\_getPermissions.Parameters**: `undefined`
 
 ### wallet\_getPermissions.ReturnType
 
-> **ReturnType**: [`WalletPermission`](/reference/tevm/decorators/type-aliases/walletpermission/)[]
+> **wallet\_getPermissions.ReturnType**: [`WalletPermission`](/reference/tevm/decorators/type-aliases/walletpermission/)[]
 
 ### wallet\_requestPermissions
 
@@ -428,15 +428,15 @@ provider.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts:
 
 ### wallet\_requestPermissions.Method
 
-> **Method**: `"wallet_requestPermissions"`
+> **wallet\_requestPermissions.Method**: `"wallet_requestPermissions"`
 
 ### wallet\_requestPermissions.Parameters
 
-> **Parameters**: [`object`]
+> **wallet\_requestPermissions.Parameters**: [`object`]
 
 ### wallet\_requestPermissions.ReturnType
 
-> **ReturnType**: [`WalletPermission`](/reference/tevm/decorators/type-aliases/walletpermission/)[]
+> **wallet\_requestPermissions.ReturnType**: [`WalletPermission`](/reference/tevm/decorators/type-aliases/walletpermission/)[]
 
 ### wallet\_switchEthereumChain
 
@@ -459,15 +459,15 @@ provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x
 
 ### wallet\_switchEthereumChain.Method
 
-> **Method**: `"wallet_switchEthereumChain"`
+> **wallet\_switchEthereumChain.Method**: `"wallet_switchEthereumChain"`
 
 ### wallet\_switchEthereumChain.Parameters
 
-> **Parameters**: [`object`]
+> **wallet\_switchEthereumChain.Parameters**: [`object`]
 
 ### wallet\_switchEthereumChain.ReturnType
 
-> **ReturnType**: `null`
+> **wallet\_switchEthereumChain.ReturnType**: `null`
 
 ### wallet\_watchAsset
 
@@ -490,16 +490,16 @@ provider.request({ method: 'wallet_watchAsset' }] })
 
 ### wallet\_watchAsset.Method
 
-> **Method**: `"wallet_watchAsset"`
+> **wallet\_watchAsset.Method**: `"wallet_watchAsset"`
 
 ### wallet\_watchAsset.Parameters
 
-> **Parameters**: [`WatchAssetParams`](/reference/tevm/decorators/type-aliases/watchassetparams/)
+> **wallet\_watchAsset.Parameters**: [`WatchAssetParams`](/reference/tevm/decorators/type-aliases/watchassetparams/)
 
 ### wallet\_watchAsset.ReturnType
 
-> **ReturnType**: `boolean`
+> **wallet\_watchAsset.ReturnType**: `boolean`
 
-## Source
+## Defined in
 
 [eip1193/JsonRpcSchemaWallet.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaWallet.ts#L14)

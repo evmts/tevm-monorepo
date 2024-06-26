@@ -8,7 +8,7 @@
 
 > **keccak256Effect**\<`TParams`\>(...`args`): `Effect`\<`never`, `Keccak256ErrorType`, `Keccak256Hash`\<`To`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\` \| `Uint8Array`, `To`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `Keccak256ErrorType`, `Keccak256Hash`\<`To`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/hash/keccak256Effect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/keccak256Effect.js#L7)

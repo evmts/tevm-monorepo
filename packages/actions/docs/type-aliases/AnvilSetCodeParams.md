@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetCodeParams
 
-# Type alias: AnvilSetCodeParams
+# Type Alias: AnvilSetCodeParams
 
 > **AnvilSetCodeParams**: `object`
 
@@ -24,6 +24,6 @@ The address to set the code for
 
 The code to set
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L103)

@@ -7,33 +7,33 @@ title: "@tevm/evm"
 
 ## Enumerations
 
-- [EvmErrorMessage](/reference/tevm/evm/enumerations/evmerrormessage-1/)
+- [EvmErrorMessage](/reference/tevm/evm/enumerations/evmerrormessage/)
 
 ## Classes
 
-- [EthjsMessage](/reference/tevm/evm/classes/ethjsmessage-1/)
-- [Evm](/reference/tevm/evm/classes/evm-1/)
-- [EvmError](/reference/tevm/evm/classes/evmerror-1/)
+- [EthjsMessage](/reference/tevm/evm/classes/ethjsmessage/)
+- [Evm](/reference/tevm/evm/classes/evm/)
+- [EvmError](/reference/tevm/evm/classes/evmerror/)
 
 ## Interfaces
 
-- [EvmResult](/reference/tevm/evm/interfaces/evmresult-1/)
-- [EvmRunCallOpts](/reference/tevm/evm/interfaces/evmruncallopts-1/)
-- [ExecResult](/reference/tevm/evm/interfaces/execresult-1/)
-- [InterpreterStep](/reference/tevm/evm/interfaces/interpreterstep-1/)
-- [PrecompileInput](/reference/tevm/evm/interfaces/precompileinput-1/)
+- [EvmResult](/reference/tevm/evm/interfaces/evmresult/)
+- [EvmRunCallOpts](/reference/tevm/evm/interfaces/evmruncallopts/)
+- [ExecResult](/reference/tevm/evm/interfaces/execresult/)
+- [InterpreterStep](/reference/tevm/evm/interfaces/interpreterstep/)
+- [PrecompileInput](/reference/tevm/evm/interfaces/precompileinput/)
 
 ## Type Aliases
 
-- [CreateEvmOptions](/reference/tevm/evm/type-aliases/createevmoptions-1/)
-- [CustomPrecompile](/reference/tevm/evm/type-aliases/customprecompile-1/)
-- [EVMOpts](/reference/tevm/evm/type-aliases/evmopts-1/)
+- [CreateEvmOptions](/reference/tevm/evm/type-aliases/createevmoptions/)
+- [CustomPrecompile](/reference/tevm/evm/type-aliases/customprecompile/)
+- [EVMOpts](/reference/tevm/evm/type-aliases/evmopts/)
 
 ## Variables
 
-- [Eof](/reference/tevm/evm/variables/eof-1/)
+- [Eof](/reference/tevm/evm/variables/eof/)
 
 ## Functions
 
-- [createEvm](/reference/tevm/evm/functions/createevm-1/)
-- [getActivePrecompiles](/reference/tevm/evm/functions/getactiveprecompiles-1/)
+- [createEvm](/reference/tevm/evm/functions/createevm/)
+- [getActivePrecompiles](/reference/tevm/evm/functions/getactiveprecompiles/)

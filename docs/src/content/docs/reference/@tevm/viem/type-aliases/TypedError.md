@@ -15,10 +15,10 @@ An error with a tag
 
 > **tag**: `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)

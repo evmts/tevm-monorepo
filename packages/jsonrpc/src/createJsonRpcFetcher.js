@@ -41,7 +41,6 @@ export const createJsonRpcFetcher = (client) => {
 						...(request.id !== undefined ? { id: request.id } : {}),
 					}
 				}
-				console.error(e)
 				return {
 					jsonrpc: '2.0',
 					error: {

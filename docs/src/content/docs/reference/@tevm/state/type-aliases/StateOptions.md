@@ -23,7 +23,7 @@ title: "StateOptions"
 
 ### loggingLevel?
 
-> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
@@ -45,6 +45,6 @@ Called when state manager commits state
 
 > `optional` **stateRoots**: [`StateRoots`](/reference/tevm/state/type-aliases/stateroots/)
 
-## Source
+## Defined in
 
 [packages/state/src/state-types/StateOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L8)

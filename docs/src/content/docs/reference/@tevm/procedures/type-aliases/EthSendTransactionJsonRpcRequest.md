@@ -9,6 +9,6 @@ title: "EthSendTransactionJsonRpcRequest"
 
 JSON-RPC request for `eth_sendTransaction` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:234](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L234)

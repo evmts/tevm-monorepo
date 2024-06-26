@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcContractOutput
 
-# Type alias: SolcContractOutput
+# Type Alias: SolcContractOutput
 
 > **SolcContractOutput**: `object`
 
@@ -66,6 +66,6 @@
 
 > **version**: `number`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:126

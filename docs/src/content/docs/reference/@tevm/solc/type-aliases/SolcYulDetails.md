@@ -17,6 +17,6 @@ title: "SolcYulDetails"
 
 > `optional` **stackAllocation**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L55)

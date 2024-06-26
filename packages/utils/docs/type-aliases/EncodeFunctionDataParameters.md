@@ -4,7 +4,7 @@
 
 [@tevm/utils](../globals.md) / EncodeFunctionDataParameters
 
-# Type alias: EncodeFunctionDataParameters\<abi, functionName, hasFunctions, allArgs, allFunctionNames\>
+# Type Alias: EncodeFunctionDataParameters\<abi, functionName, hasFunctions, allArgs, allFunctionNames\>
 
 > **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: `object` & `UnionEvaluate`\<`IsNarrowable`\<`abi`, `Abi`\> *extends* `true` ? `abi`\[`"length"`\] *extends* `1` ? `object` : `object` : `object`\> & `UnionEvaluate`\<readonly [] *extends* `allArgs` ? `object` : `object`\> & `hasFunctions` *extends* `true` ? `unknown` : `never`
 
@@ -14,7 +14,7 @@
 
 > **abi**: `abi`
 
-## Type parameters
+## Type Parameters
 
 • **abi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -26,6 +26,6 @@
 
 • **allFunctionNames** = [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\>
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/encodeFunctionData.d.ts:12

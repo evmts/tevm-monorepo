@@ -8,7 +8,7 @@
 
 > **formatGweiEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `FormatUnitsErrorType`, `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`bigint`, `"wei"`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `FormatUnitsErrorType`, `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/unit/formatGweiEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/formatGweiEffect.js#L7)

@@ -4,10 +4,10 @@
 
 [@tevm/actions](../globals.md) / EthAccountsResult
 
-# Type alias: EthAccountsResult
+# Type Alias: EthAccountsResult
 
 > **EthAccountsResult**: [`Address`](Address.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L13)

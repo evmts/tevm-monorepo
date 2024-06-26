@@ -24,6 +24,6 @@ Package to import contracts from
 
 `Effect`\<`never`, `never`, `string`\>
 
-## Source
+## Defined in
 
 [generateRuntime.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/generateRuntime.js#L28)

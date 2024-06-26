@@ -25,6 +25,6 @@ title: "WithdrawalV1"
 
 > **validatorIndex**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)

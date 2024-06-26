@@ -11,7 +11,7 @@ title: "TxData"
 
 > **0**: `LegacyTxData`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:154
 
@@ -21,7 +21,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **1**: `AccessListEIP2930TxData`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:155
 
@@ -31,7 +31,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **2**: `FeeMarketEIP1559TxData`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:156
 
@@ -41,6 +41,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **3**: `BlobEIP4844TxData`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:157

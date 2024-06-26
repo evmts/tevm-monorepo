@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcEVMOutput
 
-# Type alias: SolcEVMOutput
+# Type Alias: SolcEVMOutput
 
 > **SolcEVMOutput**: `object`
 
@@ -34,10 +34,10 @@
 
 > **methodIdentifiers**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionSignature`: `string`\]: `string`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:146

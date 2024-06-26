@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [index](../README.md) / BlockResult
 
-# Type alias: BlockResult\<TIncludeTransactions\>
+# Type Alias: BlockResult\<TIncludeTransactions\>
 
 > **BlockResult**\<`TIncludeTransactions`\>: `object`
 
 The type returned by block related
 json rpc procedures
 
-## Type parameters
+## Type Parameters
 
 • **TIncludeTransactions** *extends* `boolean` = `false`
 
@@ -97,6 +97,6 @@ The hex stringhash of the uncles of the block.
 
 > `readonly` **uncles**: `Hex`[]
 
-## Source
+## Defined in
 
 packages/actions/types/common/BlockResult.d.ts:7

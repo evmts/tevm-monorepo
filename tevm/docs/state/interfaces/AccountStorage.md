@@ -12,7 +12,7 @@
 
 > **balance**: `bigint`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:11
 
@@ -22,7 +22,7 @@ packages/state/dist/index.d.ts:11
 
 > **codeHash**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:13
 
@@ -32,7 +32,7 @@ packages/state/dist/index.d.ts:13
 
 > `optional` **deployedBytecode**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:14
 
@@ -42,7 +42,7 @@ packages/state/dist/index.d.ts:14
 
 > **nonce**: `bigint`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:10
 
@@ -52,7 +52,7 @@ packages/state/dist/index.d.ts:10
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:15
 
@@ -62,6 +62,6 @@ packages/state/dist/index.d.ts:15
 
 > **storageRoot**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:12

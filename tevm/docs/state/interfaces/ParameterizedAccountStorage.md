@@ -12,7 +12,7 @@
 
 > **balance**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:27
 
@@ -22,7 +22,7 @@ packages/state/dist/index.d.ts:27
 
 > **codeHash**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:29
 
@@ -32,7 +32,7 @@ packages/state/dist/index.d.ts:29
 
 > **nonce**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:26
 
@@ -42,7 +42,7 @@ packages/state/dist/index.d.ts:26
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:30
 
@@ -52,6 +52,6 @@ packages/state/dist/index.d.ts:30
 
 > **storageRoot**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:28

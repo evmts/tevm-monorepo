@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetStorageAtHandler
 
-# Type alias: EthGetStorageAtHandler()
+# Type Alias: EthGetStorageAtHandler()
 
 > **EthGetStorageAtHandler**: (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L121)

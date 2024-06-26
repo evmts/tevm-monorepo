@@ -33,7 +33,7 @@ withdrawal amount in Gwei to match the CL repesentation and eventually ssz withd
 
 [`Withdrawal`](/reference/tevm/utils/classes/withdrawal/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:40
 
@@ -43,7 +43,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:30
 
@@ -55,7 +55,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 withdrawal amount in Gwei to match the CL repesentation and eventually ssz withdrawalsRoot
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:34
 
@@ -65,7 +65,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **index**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:28
 
@@ -75,7 +75,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **validatorIndex**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:29
 
@@ -89,7 +89,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 `WithdrawalBytes`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:53
 
@@ -119,7 +119,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **validatorIndex**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:60
 
@@ -149,7 +149,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **validatorIndex**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:54
 
@@ -167,7 +167,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 [`Withdrawal`](/reference/tevm/utils/classes/withdrawal/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:46
 
@@ -185,7 +185,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 [`Withdrawal`](/reference/tevm/utils/classes/withdrawal/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:45
 
@@ -209,6 +209,6 @@ the withdrawal to convert
 
 buffer array of the withdrawal
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:52

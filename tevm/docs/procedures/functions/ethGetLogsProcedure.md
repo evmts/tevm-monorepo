@@ -16,6 +16,6 @@
 
 [`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:638

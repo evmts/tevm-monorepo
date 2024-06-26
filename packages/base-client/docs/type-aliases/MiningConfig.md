@@ -4,10 +4,10 @@
 
 [@tevm/base-client](../globals.md) / MiningConfig
 
-# Type alias: MiningConfig
+# Type Alias: MiningConfig
 
 > **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
-## Source
+## Defined in
 
 [packages/base-client/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L15)

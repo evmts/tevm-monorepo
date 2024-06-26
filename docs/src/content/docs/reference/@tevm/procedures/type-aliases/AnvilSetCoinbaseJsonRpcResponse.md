@@ -9,6 +9,6 @@ title: "AnvilSetCoinbaseJsonRpcResponse"
 
 JSON-RPC response for `anvil_setCoinbase` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L47)

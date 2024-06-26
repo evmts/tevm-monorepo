@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidToErrorParameters
 
-# Type alias: InvalidToErrorParameters
+# Type Alias: InvalidToErrorParameters
 
 > **InvalidToErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidToError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidToError.d.ts:42

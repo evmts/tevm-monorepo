@@ -12,7 +12,7 @@
 
 > **commitmentsByPath**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L70)
 
@@ -22,7 +22,7 @@
 
 > **d**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L71)
 
@@ -32,7 +32,7 @@
 
 > **depthExtensionPresent**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L72)
 
@@ -54,7 +54,7 @@
 
 > **finalEvaluation**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L73)
 
@@ -64,6 +64,6 @@
 
 > **otherStems**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)

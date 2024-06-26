@@ -4,7 +4,7 @@
 
 [@tevm/client-types](../globals.md) / TevmClient
 
-# Type alias: ~~TevmClient~~
+# Type Alias: ~~TevmClient~~
 
 > **TevmClient**: `object`
 
@@ -341,9 +341,9 @@ const accountResponse = await tevm.request({
 
 ### ~~requestBulk~~
 
-`Experimental`
-
 > **requestBulk**: `TevmJsonRpcBulkRequestHandler`
+
+**`Experimental`**
 
 Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
 Bulk requests are currently handled in parallel which can cause issues if the requests are expected to run
@@ -475,6 +475,6 @@ await tevm.setAccount({
 })
 ```
 
-## Source
+## Defined in
 
 [TevmClient.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L132)

@@ -9,6 +9,6 @@ title: "EthGetTransactionByHashJsonRpcRequest"
 
 JSON-RPC request for `eth_getTransactionByHash` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L177)

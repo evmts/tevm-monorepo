@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / Block
 
-# Type alias: Block
+# Type Alias: Block
 
 > **Block**: `object`
 
@@ -14,13 +14,13 @@ Header information of an ethereum block
 
 ### baseFeePerGas?
 
-> `optional` `readonly` **baseFeePerGas**: `bigint`
+> `readonly` `optional` **baseFeePerGas**: `bigint`
 
 (Optional) The base fee per gas in the block, introduced in EIP-1559 for dynamic transaction fee calculation.
 
 ### blobGasPrice?
 
-> `optional` `readonly` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice**: `bigint`
 
 The gas price for the block; may be undefined in blocks after EIP-1559.
 
@@ -54,6 +54,6 @@ The block number (height) in the blockchain.
 
 The timestamp at which the block was mined or validated.
 
-## Source
+## Defined in
 
 [packages/actions/src/common/Block.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Block.ts#L6)

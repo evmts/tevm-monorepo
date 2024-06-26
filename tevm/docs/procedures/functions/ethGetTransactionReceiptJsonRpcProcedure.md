@@ -16,6 +16,6 @@
 
 [`EthGetTransactionReceiptJsonRpcProcedure`](../type-aliases/EthGetTransactionReceiptJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:640

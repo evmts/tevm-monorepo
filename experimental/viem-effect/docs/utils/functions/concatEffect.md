@@ -8,7 +8,7 @@
 
 > **concatEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ConcatErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [readonly (\`0x$\{string\}\` \| `Uint8Array`)[]]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ConcatErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/concatEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/concatEffect.js#L7)

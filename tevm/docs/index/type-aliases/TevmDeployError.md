@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmDeployError
 
-# Type alias: TevmDeployError
+# Type Alias: TevmDeployError
 
 > **TevmDeployError**: [`TevmCallError`](TevmCallError.md) \| [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/Deploy/TevmDeployError.d.ts:3

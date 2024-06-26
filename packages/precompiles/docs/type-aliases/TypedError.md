@@ -4,11 +4,11 @@
 
 [@tevm/precompiles](../globals.md) / TypedError
 
-# Type alias: TypedError\<TName\>
+# Type Alias: TypedError\<TName\>
 
 > **TypedError**\<`TName`\>: `object`
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -26,6 +26,6 @@
 
 > **name**: `TName`
 
-## Source
+## Defined in
 
 [TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L1)

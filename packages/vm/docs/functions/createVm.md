@@ -16,6 +16,6 @@
 
 [`Vm`](../type-aliases/Vm.md)
 
-## Source
+## Defined in
 
 [packages/vm/src/createVm.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/createVm.js#L11)

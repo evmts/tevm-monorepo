@@ -9,6 +9,6 @@ title: "EthGetBlockByHashJsonRpcResponse"
 
 JSON-RPC response for `eth_getBlockByHash` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L72)

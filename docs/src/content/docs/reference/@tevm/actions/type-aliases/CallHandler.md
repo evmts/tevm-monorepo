@@ -34,6 +34,6 @@ const res = tevm.call({
 
 `Promise`\<[`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/CallHandlerType.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L23)

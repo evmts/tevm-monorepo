@@ -4,14 +4,14 @@
 
 [@tevm/actions](../globals.md) / ContractHandler
 
-# Type alias: ContractHandler()
+# Type Alias: ContractHandler()
 
 > **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 Handler for contract tevm procedure
 It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, functionName, and args
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -25,6 +25,6 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/ContractHandlerType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L12)

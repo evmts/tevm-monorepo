@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilSetChainIdProcedure
 
-# Type alias: AnvilSetChainIdProcedure()
+# Type Alias: AnvilSetChainIdProcedure()
 
 > **AnvilSetChainIdProcedure**: (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_setChainId`
 
 `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L103)

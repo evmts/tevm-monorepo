@@ -4,7 +4,7 @@
 
 [@tevm/contract](../globals.md) / CreateContractFn
 
-# Type alias: CreateContractFn()
+# Type Alias: CreateContractFn()
 
 > **CreateContractFn**: \<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`{
 	name,
@@ -43,7 +43,7 @@ const contract = createContract({
 })
 ```
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -71,6 +71,6 @@ const contract = createContract({
 
 [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-## Source
+## Defined in
 
 [CreateContractFn.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractFn.ts#L33)

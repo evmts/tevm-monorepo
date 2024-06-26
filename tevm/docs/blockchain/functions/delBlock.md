@@ -16,6 +16,6 @@
 
 `Chain`\[`"delBlock"`\]
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/delBlock.d.ts:1

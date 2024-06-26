@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [block](../README.md) / RequestsBytes
 
-# Type alias: RequestsBytes
+# Type Alias: RequestsBytes
 
 > **RequestsBytes**: `Uint8Array`[]
 
-## Source
+## Defined in
 
 packages/block/types/types.d.ts:146

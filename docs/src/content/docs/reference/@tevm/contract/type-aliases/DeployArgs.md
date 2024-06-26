@@ -9,7 +9,7 @@ title: "DeployArgs"
 
 Inferred arguments for a contract deployment
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* `string`[] \| readonly `string`[]
 
@@ -19,6 +19,6 @@ Inferred arguments for a contract deployment
 
 • **THasConstructor** = `TAbi` *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? [`Abi`](/reference/tevm/utils/type-aliases/abi/) *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
 
-## Source
+## Defined in
 
 [DeployArgs.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/DeployArgs.ts#L6)

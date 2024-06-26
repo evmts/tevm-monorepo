@@ -33,6 +33,6 @@ If this does not exist an empty `Uint8Array` is returned.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getContractStorage.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L14)

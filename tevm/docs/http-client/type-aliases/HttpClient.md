@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [http-client](../README.md) / HttpClient
 
-# Type alias: ~~HttpClient~~
+# Type Alias: ~~HttpClient~~
 
 > **HttpClient**: [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
@@ -26,6 +26,6 @@ Name of the client
 
 The url being used to connect to the remote Tevm backend
 
-## Source
+## Defined in
 
 packages/http-client/types/HttpClient.d.ts:5

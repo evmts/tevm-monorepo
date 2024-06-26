@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / EIP1193RequestOptions
 
-# Type alias: EIP1193RequestOptions
+# Type Alias: EIP1193RequestOptions
 
 > **EIP1193RequestOptions**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **retryDelay**: `number`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:273

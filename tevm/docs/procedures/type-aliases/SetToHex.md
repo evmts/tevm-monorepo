@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / SetToHex
 
-# Type alias: SetToHex\<T\>
+# Type Alias: SetToHex\<T\>
 
 > **SetToHex**\<`T`\>: `T` *extends* `Set`\<`any`\> ? [`Hex`](../../index/type-aliases/Hex.md) : `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:20

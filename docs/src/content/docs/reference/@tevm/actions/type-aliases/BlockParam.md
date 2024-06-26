@@ -7,6 +7,6 @@ title: "BlockParam"
 
 > **BlockParam**: [`BlockTag`](/reference/tevm/actions/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `bigint`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/BlockParam.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockParam.ts#L4)

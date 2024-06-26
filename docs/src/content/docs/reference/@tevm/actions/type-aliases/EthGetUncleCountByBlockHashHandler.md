@@ -15,6 +15,6 @@ title: "EthGetUncleCountByBlockHashHandler"
 
 `Promise`\<[`EthGetUncleCountByBlockHashResult`](/reference/tevm/actions/type-aliases/ethgetunclecountbyblockhashresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L127)

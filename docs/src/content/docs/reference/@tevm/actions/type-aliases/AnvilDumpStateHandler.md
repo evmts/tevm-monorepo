@@ -15,6 +15,6 @@ title: "AnvilDumpStateHandler"
 
 `Promise`\<[`AnvilDumpStateResult`](/reference/tevm/actions/type-aliases/anvildumpstateresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L63)

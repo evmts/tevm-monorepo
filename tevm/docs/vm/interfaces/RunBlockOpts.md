@@ -16,7 +16,7 @@ Options for running a block.
 
 The @ethereumjs/block to process
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:202
 
@@ -32,7 +32,7 @@ If state root is not reset for whatever reason this can be set to `false` for be
 
 Default: true
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:214
 
@@ -47,7 +47,7 @@ If `true`, `runBlock` will set the fields `stateRoot`, `receiptTrie`, `gasUsed`,
 If `false`, `runBlock` throws if any fields do not match.
 Defaults to `false`.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:221
 
@@ -60,7 +60,7 @@ packages/vm/types/utils/types.d.ts:221
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:263
 
@@ -72,7 +72,7 @@ packages/vm/types/utils/types.d.ts:263
 
 Root of the state trie
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:206
 
@@ -90,7 +90,7 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:258
 
@@ -103,7 +103,7 @@ packages/vm/types/utils/types.d.ts:258
 If true, checks the balance of the `from` account for the transaction and sets its
 balance equal equal to the upfront cost (gas limit * gas price + transaction value)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:248
 
@@ -117,7 +117,7 @@ If true, will skip "Block validation":
 Block validation validates the header (with respect to the blockchain),
 the transactions, the transaction trie and the uncle hash.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:227
 
@@ -130,7 +130,7 @@ packages/vm/types/utils/types.d.ts:227
 If true, skips the hardfork validation of vm, block
 and tx
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:232
 
@@ -145,7 +145,7 @@ If the block has been picked from the blockchain to be executed,
 header has already been validated, and can be skipped especially when
 consensus of the chain has moved ahead.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:239
 
@@ -157,6 +157,6 @@ packages/vm/types/utils/types.d.ts:239
 
 If true, skips the nonce check
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:243

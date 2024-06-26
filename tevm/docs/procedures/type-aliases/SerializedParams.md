@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / SerializedParams
 
-# Type alias: SerializedParams
+# Type Alias: SerializedParams
 
 > **SerializedParams**: `object`
 
@@ -16,6 +16,6 @@ The parameters for the `tevm_loadState` method
 
 > **state**: [`SerializeToJson`](SerializeToJson.md)\<[`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:91

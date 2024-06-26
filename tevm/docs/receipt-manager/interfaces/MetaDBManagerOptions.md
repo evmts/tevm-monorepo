@@ -12,6 +12,6 @@
 
 > **cache**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/MapDb.d.ts:4

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ValueOverflowErrorParameters
 
-# Type alias: ValueOverflowErrorParameters
+# Type Alias: ValueOverflowErrorParameters
 
 > **ValueOverflowErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [ValueOverflowError](../classes/ValueOverflowError
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:67

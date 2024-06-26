@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / BaseCallParams
 
-# Type alias: BaseCallParams\<TThrowOnFail\>
+# Type Alias: BaseCallParams\<TThrowOnFail\>
 
 > **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -43,13 +43,13 @@ const params: BaseCallParams = {
 
 ### blobVersionedHashes?
 
-> `optional` `readonly` **blobVersionedHashes**: [`Hex`](Hex.md)[]
+> `readonly` `optional` **blobVersionedHashes**: [`Hex`](Hex.md)[]
 
 Versioned hashes for each blob in a blob transaction for 4844 transactions
 
 ### blockOverrideSet?
 
-> `optional` `readonly` **blockOverrideSet**: [`BlockOverrideSet`](BlockOverrideSet.md)
+> `readonly` `optional` **blockOverrideSet**: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 This option cannot be used when `createTransaction` is set to `true`
@@ -68,7 +68,7 @@ const res = await client.call({address: '0x1234', data: '0x1234', blockOverrideS
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
 The block number or block tag to execute the call at. Defaults to `latest`.
 - bigint: The block number to execute the call at
@@ -81,14 +81,14 @@ Notable block tags:
 
 ### caller?
 
-> `optional` `readonly` **caller**: [`Address`](Address.md)
+> `readonly` `optional` **caller**: [`Address`](Address.md)
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### createAccessList?
 
-> `optional` `readonly` **createAccessList**: `boolean`
+> `readonly` `optional` **createAccessList**: `boolean`
 
 Whether to return an access list mapping of addresses to storage keys
 Defaults to `false`
@@ -106,7 +106,7 @@ console.log(accessList) // { "0x...": Set(["0x..."])}
 
 ### createTrace?
 
-> `optional` `readonly` **createTrace**: `boolean`
+> `readonly` `optional` **createTrace**: `boolean`
 
 Whether to return a complete trace with the call
 Defaults to `false`
@@ -125,7 +125,7 @@ trace.structLogs.forEach(console.log)
 
 ### createTransaction?
 
-> `optional` `readonly` **createTransaction**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
+> `readonly` `optional` **createTransaction**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
 
 Whether or not to update the state or run call in a dry-run. Defaults to `never`
 - `on-success`: Only update the state if the call is successful
@@ -148,14 +148,14 @@ const receipt = await client.getTransactionReceipt({hash: txHash})
 
 ### depth?
 
-> `optional` `readonly` **depth**: `number`
+> `readonly` `optional` **depth**: `number`
 
 Low level control over the EVM call depth. Useful if you want to simulate an internal call.
 Defaults to `0`
 
 ### from?
 
-> `optional` `readonly` **from**: [`Address`](Address.md)
+> `readonly` `optional` **from**: [`Address`](Address.md)
 
 The from address for the call. Defaults to the zero address on reads and account[0] on writes.
 It is also possible to set the `origin` and `caller` addresses seperately using
@@ -163,14 +163,14 @@ those options. Otherwise both are set to the `from` address
 
 ### gas?
 
-> `optional` `readonly` **gas**: `bigint`
+> `readonly` `optional` **gas**: `bigint`
 
 The gas limit for the call.
 Defaults to the block gas limit as specified by common or the fork url
 
 ### gasPrice?
 
-> `optional` `readonly` **gasPrice**: `bigint`
+> `readonly` `optional` **gasPrice**: `bigint`
 
 The gas price for the call.
 Note atm because only EIP-1559 tx transactions are created using the `maxFeePerGas` and `maxPriorityFeePerGas` options
@@ -178,14 +178,14 @@ this option will be ignored when creating transactions. This will be fixed in a 
 
 ### gasRefund?
 
-> `optional` `readonly` **gasRefund**: `bigint`
+> `readonly` `optional` **gasRefund**: `bigint`
 
 Low level control
 Refund counter. Defaults to `0`
 
 ### maxFeePerGas?
 
-> `optional` `readonly` **maxFeePerGas**: `bigint`
+> `readonly` `optional` **maxFeePerGas**: `bigint`
 
 The maximum fee per gas for the EIP-1559 tx. This is the maximum amount of ether that can be spent on gas
 for the call. This is the maximum amount of ether that can be spent on gas for the call.
@@ -193,26 +193,26 @@ This is the maximum amount of ether that can be spent on gas for the call.
 
 ### maxPriorityFeePerGas?
 
-> `optional` `readonly` **maxPriorityFeePerGas**: `bigint`
+> `readonly` `optional` **maxPriorityFeePerGas**: `bigint`
 
 The maximum priority fee per gas for the EIP-1559 tx.
 
 ### origin?
 
-> `optional` `readonly` **origin**: [`Address`](Address.md)
+> `readonly` `optional` **origin**: [`Address`](Address.md)
 
 The address where the call originated from. Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### selfdestruct?
 
-> `optional` `readonly` **selfdestruct**: `Set`\<[`Address`](Address.md)\>
+> `readonly` `optional` **selfdestruct**: `Set`\<[`Address`](Address.md)\>
 
 Addresses to selfdestruct. Defaults to the empty set.
 
 ### skipBalance?
 
-> `optional` `readonly` **skipBalance**: `boolean`
+> `readonly` `optional` **skipBalance**: `boolean`
 
 Set caller to msg.value of less than msg.value
 Defaults to false exceipt for when running scripts
@@ -220,7 +220,7 @@ where it is set to true
 
 ### stateOverrideSet?
 
-> `optional` `readonly` **stateOverrideSet**: [`StateOverrideSet`](StateOverrideSet.md)
+> `readonly` `optional` **stateOverrideSet**: [`StateOverrideSet`](StateOverrideSet.md)
 
 The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
 This option cannot be used when `createTransaction` is set to `true`
@@ -250,21 +250,21 @@ const res = await client.call({address: '0x1234', data: '0x1234', stateOverrideS
 
 ### to?
 
-> `optional` `readonly` **to**: [`Address`](Address.md)
+> `readonly` `optional` **to**: [`Address`](Address.md)
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 To is not set for create transactions but required for most transactions
 
 ### value?
 
-> `optional` `readonly` **value**: `bigint`
+> `readonly` `optional` **value**: `bigint`
 
 The value in ether that is being sent to `opts.address`. Defaults to `0`
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/BaseCall/BaseCallParams.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L35)

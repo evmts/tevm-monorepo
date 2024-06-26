@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / MethodNotFoundErrorParameters
 
-# Type alias: MethodNotFoundErrorParameters
+# Type Alias: MethodNotFoundErrorParameters
 
 > **MethodNotFoundErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a MethodNotFoundError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/MethodNotFoundError.d.ts:50

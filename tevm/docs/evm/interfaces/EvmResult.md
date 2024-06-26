@@ -20,7 +20,7 @@ Result of executing a message via the EVM.
 
 Address of created account during transaction, if any
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:248
 
@@ -32,6 +32,6 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 Contains the results from running the code, if any, as described in runCode
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:252

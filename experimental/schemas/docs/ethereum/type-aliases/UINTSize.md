@@ -4,12 +4,12 @@
 
 [@tevm/schemas](../../modules.md) / [ethereum](../README.md) / UINTSize
 
-# Type alias: UINTSize
+# Type Alias: UINTSize
 
 > **UINTSize**\<\>: `8` \| `16` \| `32` \| `64` \| `128` \| `256`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/Errors.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/Errors.js#L11)

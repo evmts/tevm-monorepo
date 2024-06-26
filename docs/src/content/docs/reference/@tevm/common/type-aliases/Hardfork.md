@@ -27,6 +27,6 @@ const common = createCommon({
 
 [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
 
-## Source
+## Defined in
 
 [packages/common/src/Hardfork.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Hardfork.ts#L17)

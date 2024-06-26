@@ -12,7 +12,7 @@
 
 > **balance**: `bigint`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L6)
 
@@ -22,7 +22,7 @@
 
 > **codeHash**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L8)
 
@@ -32,7 +32,7 @@
 
 > `optional` **deployedBytecode**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L9)
 
@@ -42,7 +42,7 @@
 
 > **nonce**: `bigint`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L5)
 
@@ -52,7 +52,7 @@
 
 > `optional` **storage**: `StorageDump`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L10)
 
@@ -62,6 +62,6 @@
 
 > **storageRoot**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [packages/state/src/state-types/AccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/AccountStorage.ts#L7)

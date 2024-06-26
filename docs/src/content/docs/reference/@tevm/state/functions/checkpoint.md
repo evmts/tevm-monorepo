@@ -24,6 +24,6 @@ last call to checkpoint.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/checkpoint.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/checkpoint.js#L6)

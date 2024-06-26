@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:22
 
@@ -41,7 +41,7 @@ Cumulative gas used in the block including this tx
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:18
 
@@ -57,7 +57,7 @@ Logs emitted
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:26
 
@@ -69,6 +69,6 @@ packages/vm/types/utils/types.d.ts:26
 
 Intermediary state root
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:36

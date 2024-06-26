@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmActions
 
-# Type alias: TevmActions
+# Type Alias: TevmActions
 
 > **TevmActions**: `object`
 
@@ -310,6 +310,6 @@ await client.tevmSetAccount({
 })
 ```
 
-## Source
+## Defined in
 
 packages/memory-client/types/TevmActions.d.ts:7

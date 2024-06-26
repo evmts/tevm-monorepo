@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InternalEvmErrorParameters
 
-# Type alias: InternalEvmErrorParameters
+# Type Alias: InternalEvmErrorParameters
 
 > **InternalEvmErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InternalEvmError](../classes/InternalEvmError.md)
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:67

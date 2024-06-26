@@ -8,7 +8,7 @@
 
 > **generateMnemonicEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GenerateMnemonicErrorType`, `string`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`[], `number`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GenerateMnemonicErrorType`, `string`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/generateMnemonicEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/generateMnemonicEffect.js#L7)

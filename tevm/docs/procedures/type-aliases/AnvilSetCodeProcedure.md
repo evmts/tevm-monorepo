@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilSetCodeProcedure
 
-# Type alias: AnvilSetCodeProcedure()
+# Type Alias: AnvilSetCodeProcedure()
 
 > **AnvilSetCodeProcedure**: (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_setCode`
 
 `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:751

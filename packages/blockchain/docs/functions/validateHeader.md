@@ -32,6 +32,6 @@ If this is an uncle header, this is the height of the block that is including it
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [actions/validateHeader.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/validateHeader.js#L8)

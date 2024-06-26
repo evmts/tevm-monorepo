@@ -4,11 +4,11 @@
 
 [@tevm/actions](../globals.md) / EthSignTransactionParams
 
-# Type alias: EthSignTransactionParams
-
-`Experimental`
+# Type Alias: EthSignTransactionParams
 
 > **EthSignTransactionParams**: `object`
+
+**`Experimental`**
 
 Based on the JSON-RPC request for `eth_signTransaction` procedure
 
@@ -16,7 +16,9 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ### data?
 
-> `optional` `readonly` **data**: [`Hex`](Hex.md)
+> `readonly` `optional` **data**: [`Hex`](Hex.md)
+
+**`Experimental`**
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
@@ -25,41 +27,53 @@ Optional if creating a contract.
 
 > `readonly` **from**: [`Address`](Address.md)
 
+**`Experimental`**
+
 The address from which the transaction is sent from
 
 ### gas?
 
-> `optional` `readonly` **gas**: `bigint`
+> `readonly` `optional` **gas**: `bigint`
+
+**`Experimental`**
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
 
 ### gasPrice?
 
-> `optional` `readonly` **gasPrice**: `bigint`
+> `readonly` `optional` **gasPrice**: `bigint`
+
+**`Experimental`**
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
 
 ### nonce?
 
-> `optional` `readonly` **nonce**: `bigint`
+> `readonly` `optional` **nonce**: `bigint`
+
+**`Experimental`**
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
 ### to?
 
-> `optional` `readonly` **to**: [`Address`](Address.md)
+> `readonly` `optional` **to**: [`Address`](Address.md)
+
+**`Experimental`**
 
 The address the transaction is directed to. Optional if
 creating a contract
 
 ### value?
 
-> `optional` `readonly` **value**: `bigint`
+> `readonly` `optional` **value**: `bigint`
+
+**`Experimental`**
 
 Integer of the value sent with this transaction, in Wei.
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L249)

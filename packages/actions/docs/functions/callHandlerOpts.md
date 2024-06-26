@@ -6,11 +6,7 @@
 
 # Function: callHandlerOpts()
 
-`Internal`
-
 > **callHandlerOpts**(`client`, `params`): `Promise`\<`object`\>
-
-Parses user provided params into ethereumjs options to pass into the EVM
 
 ## Parameters
 
@@ -30,10 +26,6 @@ Parses user provided params into ethereumjs options to pass into the EVM
 
 > `optional` **errors**: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]
 
-## Throws
-
-Returns all errors as values
-
-## Source
+## Defined in
 
 [packages/actions/src/Call/callHandlerOpts.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L19)

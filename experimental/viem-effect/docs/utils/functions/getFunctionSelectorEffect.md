@@ -8,7 +8,7 @@
 
 > **getFunctionSelectorEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `GetFunctionSelectorErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string` \| `AbiFunction`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `GetFunctionSelectorErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/hash/getFunctionSelectorEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/getFunctionSelectorEffect.js#L7)

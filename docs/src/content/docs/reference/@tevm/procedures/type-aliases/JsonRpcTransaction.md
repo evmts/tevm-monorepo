@@ -47,6 +47,6 @@ The address to which the transaction is addressed
 
 The integer of value sent with this transaction encoded as hexadecimal
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L9)

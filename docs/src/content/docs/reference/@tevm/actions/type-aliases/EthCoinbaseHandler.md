@@ -15,6 +15,6 @@ title: "EthCoinbaseHandler"
 
 `Promise`\<[`EthCoinbaseResult`](/reference/tevm/actions/type-aliases/ethcoinbaseresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L91)

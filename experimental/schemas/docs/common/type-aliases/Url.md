@@ -4,12 +4,12 @@
 
 [@tevm/schemas](../../modules.md) / [common](../README.md) / Url
 
-# Type alias: Url
+# Type Alias: Url
 
 > **Url**\<\>: `string`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [experimental/schemas/src/common/SUrl.js:14](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L14)

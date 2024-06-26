@@ -8,9 +8,7 @@
 
 > **parseBytes8**\<`TBytes8`\>(`bytes8`): `TBytes8`
 
-Parses a Bytes8 and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TBytes8** *extends* \`0x$\{string\}\`
 
@@ -22,13 +20,6 @@ Parses a Bytes8 and returns the value if no errors.
 
 `TBytes8`
 
-## Example
-
-```ts
-import { parseBytes8 } from '@tevm/schemas';
-const parsedBytes8 = parseBytes8('0xffaabbccddeeffaabb');
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:158](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L158)

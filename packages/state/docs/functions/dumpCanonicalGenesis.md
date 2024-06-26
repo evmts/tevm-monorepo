@@ -26,6 +26,6 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/dumpCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L12)

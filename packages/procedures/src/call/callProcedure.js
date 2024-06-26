@@ -54,6 +54,13 @@ export const callProcedure = (client) => async (request) => {
 		...(request.params[0].value ? { value: hexToBigInt(request.params[0].value) } : {}),
 		...(request.params[0].blockTag ? { blockTag: parseBlockTag(request.params[0].blockTag) } : {}),
 		...(request.params[0].createTransaction ? { createTransaction: request.params[0].createTransaction } : {}),
+		...(request.params[0].from ? { from: request.params[0].from } : {}),
+		...(request.params[0].maxFeePerGas ? { maxFeePerGas: hexToBigInt(request.params[0].maxFeePerGas) } : {}),
+		...(request.params[0].maxPriorityFeePerGas
+			? { maxPriorityFeePerGas: hexToBigInt(request.params[0].maxPriorityFeePerGas) }
+			: {}),
+		// TODO add support for manually setting nonce
+		// ...(request.params[0].nonce ? { nonce: hexToBigInt(request.params[0].nonce) } : {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/actions').TevmCallError}*/ (errors[0])

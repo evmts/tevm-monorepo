@@ -30,6 +30,6 @@ Get an EIP-1186 proof from the provider
 
 `Promise`\<`Proof`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getProof.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getProof.js#L10)

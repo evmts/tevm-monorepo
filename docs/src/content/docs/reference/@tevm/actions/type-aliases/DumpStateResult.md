@@ -9,7 +9,7 @@ title: "DumpStateResult"
 
 Result of the dumpState method
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmDumpStateError`](/reference/tevm/actions/type-aliases/tevmdumpstateerror/)
 
@@ -27,6 +27,6 @@ Description of the exception, if any occurred
 
 The serialized tevm state
 
-## Source
+## Defined in
 
 [packages/actions/src/DumpState/DumpStateResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L7)

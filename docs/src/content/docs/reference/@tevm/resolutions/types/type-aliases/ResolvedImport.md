@@ -23,6 +23,6 @@ The result of the resolution of an  import
 
 > **updated**: `string`
 
-## Source
+## Defined in
 
 [types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L28)

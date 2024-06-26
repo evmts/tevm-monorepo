@@ -8,7 +8,7 @@
 
 > **decodeFunctionResult**\<`abi`, `functionName`, `args`\>(`parameters`): [`DecodeFunctionResultReturnType`](../type-aliases/DecodeFunctionResultReturnType.md)\<`abi`, `functionName`, `args`\>
 
-## Type parameters
+## Type Parameters
 
 • **abi** *extends* `Abi` \| readonly `unknown`[]
 
@@ -24,6 +24,6 @@
 
 [`DecodeFunctionResultReturnType`](../type-aliases/DecodeFunctionResultReturnType.md)\<`abi`, `functionName`, `args`\>
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/decodeFunctionResult.d.ts:25

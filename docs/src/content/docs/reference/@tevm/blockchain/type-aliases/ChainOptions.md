@@ -25,20 +25,20 @@ Optional fork config for forking a live chain
 
 ### fork.blockTag?
 
-> `optional` **blockTag**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `bigint` \| \`0x$\{string\}\`
+> `optional` **fork.blockTag**: [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `bigint` \| \`0x$\{string\}\`
 
 Optional block tag to fork
 Defaults to 'latest'
 
 ### fork.transport
 
-> **transport**: `object`
+> **fork.transport**: `object`
 
 EIP-1193 request function to fetch forked blocks with
 
 ### fork.transport.request
 
-> **request**: `EIP1193RequestFn`
+> **fork.transport.request**: `EIP1193RequestFn`
 
 ### genesisBlock?
 
@@ -56,6 +56,6 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 
 Logging level of blockchain package. Defaults to `warn`
 
-## Source
+## Defined in
 
 [ChainOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L9)

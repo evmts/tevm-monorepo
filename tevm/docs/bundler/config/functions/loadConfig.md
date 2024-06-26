@@ -16,6 +16,6 @@
 
 `Effect`
 
-## Source
+## Defined in
 
 bundler-packages/config/types/loadConfig.d.ts:23

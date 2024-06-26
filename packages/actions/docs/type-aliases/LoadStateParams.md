@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / LoadStateParams
 
-# Type alias: LoadStateParams\<TThrowOnFail\>
+# Type Alias: LoadStateParams\<TThrowOnFail\>
 
 > **LoadStateParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -16,10 +16,10 @@ params for `tevm_loadState` method. Takes a TevmState to load into state.
 
 > `readonly` **state**: `TevmState`
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/LoadStateParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateParams.ts#L7)

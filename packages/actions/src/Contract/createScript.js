@@ -37,7 +37,6 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 				errors: setAccountRes.errors,
 			}
 		}
-		console.log('set account with bytecode success', scriptAddress, deployedBytecode)
 		return {
 			address: scriptAddress,
 		}

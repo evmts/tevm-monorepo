@@ -31,6 +31,6 @@ Resolves artifacts with solc asyncronously
 
 `Promise`\<[`ResolvedArtifacts`](/reference/tevm/compiler/types/type-aliases/resolvedartifacts/)\>
 
-## Source
+## Defined in
 
 [compiler/src/resolveArtifacts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifacts.js#L7)

@@ -20,7 +20,7 @@
 
 `null` \| `string`
 
-#### Source
+#### Defined in
 
 [Storage.ts:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L2)
 
@@ -38,7 +38,7 @@
 
 `void`
 
-#### Source
+#### Defined in
 
 [Storage.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L4)
 
@@ -58,6 +58,6 @@
 
 `void`
 
-#### Source
+#### Defined in
 
 [Storage.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L3)

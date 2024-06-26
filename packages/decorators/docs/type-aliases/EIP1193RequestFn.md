@@ -4,15 +4,15 @@
 
 [@tevm/decorators](../globals.md) / EIP1193RequestFn
 
-# Type alias: EIP1193RequestFn()\<TRpcSchema\>
+# Type Alias: EIP1193RequestFn()\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchema** *extends* [`RpcSchema`](RpcSchema.md) \| `undefined` = `undefined`
 
-## Type parameters
+## Type Parameters
 
 • **TRpcSchemaOverride** *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined` = `undefined`
 
@@ -30,6 +30,6 @@
 
 `Promise`\<`_ReturnType`\>
 
-## Source
+## Defined in
 
 [eip1193/EIP1993RequestFn.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestFn.ts#L14)

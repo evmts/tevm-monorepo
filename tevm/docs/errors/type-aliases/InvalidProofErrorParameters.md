@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidProofErrorParameters
 
-# Type alias: InvalidProofErrorParameters
+# Type Alias: InvalidProofErrorParameters
 
 > **InvalidProofErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidProofError](../classes/InvalidProofError.m
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:59

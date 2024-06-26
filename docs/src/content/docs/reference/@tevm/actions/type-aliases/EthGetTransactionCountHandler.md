@@ -15,6 +15,6 @@ title: "EthGetTransactionCountHandler"
 
 `Promise`\<[`EthGetTransactionCountResult`](/reference/tevm/actions/type-aliases/ethgettransactioncountresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L123)

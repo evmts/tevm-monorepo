@@ -4,9 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmExtension
 
-# Type alias: ~~ViemTevmExtension()~~
-
-`Experimental`
+# Type Alias: ~~ViemTevmExtension()~~
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
@@ -77,6 +75,6 @@ params: params,
 
 [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)

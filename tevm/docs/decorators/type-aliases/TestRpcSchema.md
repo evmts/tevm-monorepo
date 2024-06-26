@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / TestRpcSchema
 
-# Type alias: TestRpcSchema\<TMode\>
+# Type Alias: TestRpcSchema\<TMode\>
 
 > **TestRpcSchema**\<`TMode`\>: [`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`]
 
-## Type parameters
+## Type Parameters
 
 • **TMode** *extends* `string`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:357

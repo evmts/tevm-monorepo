@@ -8,7 +8,7 @@
 
 > **privateKeyToAccountEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `PrivateKeyToAccountErrorType`, `PrivateKeyAccount`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `PrivateKeyToAccountErrorType`, `PrivateKeyAccount`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/privateKeyToAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/privateKeyToAccountEffect.js#L7)

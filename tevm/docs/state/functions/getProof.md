@@ -30,6 +30,6 @@ Get an EIP-1186 proof from the provider
 
 `Promise`\<`Proof`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:301

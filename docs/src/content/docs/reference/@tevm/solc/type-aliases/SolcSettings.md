@@ -49,6 +49,6 @@ title: "SolcSettings"
 
 > `optional` **viaIR**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)

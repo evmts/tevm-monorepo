@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / IntervalMining
 
-# Type alias: IntervalMining
+# Type Alias: IntervalMining
 
 > **IntervalMining**: `object`
 
@@ -18,6 +18,6 @@
 
 > **type**: `"interval"`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:106
+packages/base-client/dist/index.d.ts:107

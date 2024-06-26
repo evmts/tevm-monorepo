@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / RateLimitExceededErrorParameters
 
-# Type alias: RateLimitExceededErrorParameters
+# Type Alias: RateLimitExceededErrorParameters
 
 > **RateLimitExceededErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a RateLimitExceededError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/RateLimitExceededError.d.ts:50

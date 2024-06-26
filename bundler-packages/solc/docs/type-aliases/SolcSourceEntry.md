@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcSourceEntry
 
-# Type alias: SolcSourceEntry
+# Type Alias: SolcSourceEntry
 
 > **SolcSourceEntry**: `object`
 
@@ -18,6 +18,6 @@
 
 > **id**: `number`
 
-## Source
+## Defined in
 
 [solcTypes.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L387)

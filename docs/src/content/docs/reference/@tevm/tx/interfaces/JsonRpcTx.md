@@ -11,7 +11,7 @@ title: "JsonRpcTx"
 
 > `optional` **accessList**: `JsonAccessListItem`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:376
 
@@ -21,7 +21,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **blobVersionedHashes**: `string`[]
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:388
 
@@ -31,7 +31,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **blockHash**: `null` \| `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:368
 
@@ -41,7 +41,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **blockNumber**: `null` \| `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:369
 
@@ -51,7 +51,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **chainId**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:377
 
@@ -61,7 +61,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **from**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:370
 
@@ -71,7 +71,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **gas**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:371
 
@@ -81,7 +81,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **gasPrice**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:372
 
@@ -91,7 +91,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **hash**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:378
 
@@ -101,7 +101,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **input**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:379
 
@@ -111,7 +111,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **maxFeePerBlobGas**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:387
 
@@ -121,7 +121,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **maxFeePerGas**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:373
 
@@ -131,7 +131,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `optional` **maxPriorityFeePerGas**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:374
 
@@ -141,7 +141,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **nonce**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:380
 
@@ -151,7 +151,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **r**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:385
 
@@ -161,7 +161,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **s**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:386
 
@@ -171,7 +171,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **to**: `null` \| `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:381
 
@@ -181,7 +181,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **transactionIndex**: `null` \| `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:382
 
@@ -191,7 +191,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **type**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:375
 
@@ -201,7 +201,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **v**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:384
 
@@ -211,6 +211,6 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **value**: `string`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:383

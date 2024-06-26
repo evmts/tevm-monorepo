@@ -43,7 +43,6 @@ title: "@tevm/state"
 - [generateCanonicalGenesis](/reference/tevm/state/functions/generatecanonicalgenesis/)
 - [getAccount](/reference/tevm/state/functions/getaccount/)
 - [getAccountAddresses](/reference/tevm/state/functions/getaccountaddresses/)
-- [getAccountFromProvider](/reference/tevm/state/functions/getaccountfromprovider/)
 - [getAppliedKey](/reference/tevm/state/functions/getappliedkey/)
 - [getContractCode](/reference/tevm/state/functions/getcontractcode/)
 - [getContractStorage](/reference/tevm/state/functions/getcontractstorage/)

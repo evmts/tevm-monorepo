@@ -15,6 +15,6 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 > `readonly` **data**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L177)

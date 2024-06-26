@@ -9,6 +9,6 @@ title: "ERC20"
 
 Bytecode and ABI for the ERC20 contract from open zeppelin.
 
-## Source
+## Defined in
 
 [contract-lib/ERC20.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/contract-lib/ERC20.ts#L32)

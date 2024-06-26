@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / DebugReturnType
 
-# Type alias: DebugReturnType
+# Type Alias: DebugReturnType
 
 > **DebugReturnType**: `object`
 
@@ -20,6 +20,6 @@ A mapping of `debug_*` method names to their return type
 
 > **debug\_traceTransaction**: [`DebugTraceTransactionJsonRpcResponse`](DebugTraceTransactionJsonRpcResponse.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugReturnType.ts#L9)

@@ -67,6 +67,6 @@ A mapping of `anvil_*` method names to their return type
 
 > **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilstopimpersonatingaccountjsonrpcresponse/)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/AnvilReturnType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/AnvilReturnType.ts#L21)

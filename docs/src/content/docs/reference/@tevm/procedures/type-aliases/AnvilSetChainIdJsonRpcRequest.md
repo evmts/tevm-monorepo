@@ -9,6 +9,6 @@ title: "AnvilSetChainIdJsonRpcRequest"
 
 JSON-RPC request for `anvil_setChainId` method
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcRequest.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L87)

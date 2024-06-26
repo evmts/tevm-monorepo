@@ -146,7 +146,13 @@ export type Contract<
 	/**
 	 * Action creator for deploying the contract
 	 */
-	deploy: () => EncodeDeployDataParameters<ParseAbi<THumanReadableAbi>>
+	deploy: (
+		...args: EncodeDeployDataParameters<ParseAbi<THumanReadableAbi>> extends { args: infer TArgs }
+			? TArgs extends ReadonlyArray<any>
+				? TArgs
+				: []
+			: []
+	) => EncodeDeployDataParameters<ParseAbi<THumanReadableAbi>>
 	/**
 	 * Adds an address to the contract. All action creators will return
 	 * the address property if added. THis method returns a new contract

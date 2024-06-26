@@ -44,6 +44,6 @@ Read autoamtically for forge projects if forge: true
 
 Remap the location of contracts
 
-## Source
+## Defined in
 
 [bundler-packages/config/src/types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L45)

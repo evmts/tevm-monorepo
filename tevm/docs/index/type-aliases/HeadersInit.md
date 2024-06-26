@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [index](../README.md) / HeadersInit
 
-# Type alias: HeadersInit
+# Type Alias: HeadersInit
 
 > **HeadersInit**: `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
 
 The headers interface of the Fetch API
 
-## Source
+## Defined in
 
 packages/jsonrpc/types/HeadersInit.d.ts:4

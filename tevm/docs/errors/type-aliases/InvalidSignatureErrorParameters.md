@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidSignatureErrorParameters
 
-# Type alias: InvalidSignatureErrorParameters
+# Type Alias: InvalidSignatureErrorParameters
 
 > **InvalidSignatureErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidSignatureError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InvalidSignatureError.d.ts:50

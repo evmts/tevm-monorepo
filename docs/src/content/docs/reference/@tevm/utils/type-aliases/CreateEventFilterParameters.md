@@ -21,7 +21,7 @@ title: "CreateEventFilterParameters"
 
 > `optional` **toBlock**: `TToBlock` \| [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/)
 
-## Type parameters
+## Type Parameters
 
 • **TAbiEvent** *extends* `AbiEvent` \| `undefined` = `undefined`
 
@@ -37,6 +37,6 @@ title: "CreateEventFilterParameters"
 
 • **_Args** *extends* `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> \| `undefined` = `undefined`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13

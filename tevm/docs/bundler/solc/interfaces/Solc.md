@@ -20,7 +20,7 @@
 
 [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:329
 
@@ -30,7 +30,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:329
 
 > **features**: `FeaturesConfig`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:328
 
@@ -40,7 +40,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:328
 
 > **license**: `string`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:326
 
@@ -60,7 +60,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:326
 
 `void`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:330
 
@@ -70,7 +70,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:330
 
 > **lowlevel**: `LowLevelConfig`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:327
 
@@ -80,7 +80,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 > **semver**: `string`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:325
 
@@ -98,7 +98,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:325
 
 `void`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:331
 
@@ -108,6 +108,6 @@ bundler-packages/solc/types/src/solcTypes.d.ts:331
 
 > **version**: `string`
 
-#### Source
+#### Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:324

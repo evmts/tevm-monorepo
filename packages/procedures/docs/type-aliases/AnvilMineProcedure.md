@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilMineProcedure
 
-# Type alias: AnvilMineProcedure()
+# Type Alias: AnvilMineProcedure()
 
 > **AnvilMineProcedure**: (`request`) => `Promise`\<[`AnvilMineJsonRpcResponse`](AnvilMineJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_mine`
 
 `Promise`\<[`AnvilMineJsonRpcResponse`](AnvilMineJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L62)

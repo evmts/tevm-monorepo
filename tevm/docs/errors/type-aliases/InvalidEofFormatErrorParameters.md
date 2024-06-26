@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidEofFormatErrorParameters
 
-# Type alias: InvalidEofFormatErrorParameters
+# Type Alias: InvalidEofFormatErrorParameters
 
 > **InvalidEofFormatErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidEofFormatError](../classes/InvalidEofForma
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:73

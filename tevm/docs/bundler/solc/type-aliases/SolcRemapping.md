@@ -4,10 +4,10 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcRemapping
 
-# Type alias: SolcRemapping
+# Type Alias: SolcRemapping
 
 > **SolcRemapping**: \`$\{string\}=$\{string\}\`[]
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:13

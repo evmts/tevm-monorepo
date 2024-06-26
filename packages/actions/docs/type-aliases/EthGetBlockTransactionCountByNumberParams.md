@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockTransactionCountByNumberParams
 
-# Type alias: EthGetBlockTransactionCountByNumberParams
+# Type Alias: EthGetBlockTransactionCountByNumberParams
 
 > **EthGetBlockTransactionCountByNumberParams**: `object`
 
@@ -14,8 +14,8 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L123)

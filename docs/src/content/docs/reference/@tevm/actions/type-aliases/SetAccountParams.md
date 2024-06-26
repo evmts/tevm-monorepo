@@ -32,44 +32,44 @@ Address of account
 
 ### balance?
 
-> `optional` `readonly` **balance**: `bigint`
+> `readonly` `optional` **balance**: `bigint`
 
 Balance to set account to
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> `readonly` `optional` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 Contract bytecode to set account to
 
 ### nonce?
 
-> `optional` `readonly` **nonce**: `bigint`
+> `readonly` `optional` **nonce**: `bigint`
 
 Nonce to set account to
 
 ### state?
 
-> `optional` `readonly` **state**: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+> `readonly` `optional` **state**: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
 ### stateDiff?
 
-> `optional` `readonly` **stateDiff**: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+> `readonly` `optional` **stateDiff**: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
 ### storageRoot?
 
-> `optional` `readonly` **storageRoot**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
+> `readonly` `optional` **storageRoot**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 Storage root to set account to
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountParams.ts#L17)

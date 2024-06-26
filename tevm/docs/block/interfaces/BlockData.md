@@ -16,7 +16,7 @@ A block's data.
 
 EIP-6800: Verkle Proof Data (experimental)
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:143
 
@@ -28,7 +28,7 @@ packages/block/types/types.d.ts:143
 
 Header data for the block
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:135
 
@@ -38,7 +38,7 @@ packages/block/types/types.d.ts:135
 
 > `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:139
 
@@ -48,7 +48,7 @@ packages/block/types/types.d.ts:139
 
 > `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:136
 
@@ -58,7 +58,7 @@ packages/block/types/types.d.ts:136
 
 > `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:137
 
@@ -68,6 +68,6 @@ packages/block/types/types.d.ts:137
 
 > `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:138

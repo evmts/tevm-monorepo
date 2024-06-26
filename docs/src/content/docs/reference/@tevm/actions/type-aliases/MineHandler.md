@@ -24,6 +24,6 @@ console.log(res.errors) // undefined
 
 `Promise`\<[`MineResult`](/reference/tevm/actions/type-aliases/mineresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Mine/MineHandlerType.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L10)

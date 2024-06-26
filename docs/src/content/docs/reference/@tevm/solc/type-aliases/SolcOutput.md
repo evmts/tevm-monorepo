@@ -13,7 +13,7 @@ title: "SolcOutput"
 
 > **contracts**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: `object`
 
@@ -25,10 +25,10 @@ title: "SolcOutput"
 
 > **sources**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: [`SolcSourceEntry`](/reference/tevm/solc/type-aliases/solcsourceentry/)
 
-## Source
+## Defined in
 
 [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)

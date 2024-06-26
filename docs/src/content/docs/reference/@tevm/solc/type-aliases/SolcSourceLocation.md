@@ -21,6 +21,6 @@ title: "SolcSourceLocation"
 
 > **start**: `number`
 
-## Source
+## Defined in
 
 [solcTypes.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L377)

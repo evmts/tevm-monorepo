@@ -4,7 +4,7 @@
 
 [@tevm/common](../globals.md) / Hardfork
 
-# Type alias: Hardfork
+# Type Alias: Hardfork
 
 > **Hardfork**: `"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeForkIdTransition"` \| `"paris"` \| `"shanghai"` \| `"cancun"`
 
@@ -28,6 +28,6 @@ const common = createCommon({
 
 [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
 
-## Source
+## Defined in
 
 [packages/common/src/Hardfork.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Hardfork.ts#L17)

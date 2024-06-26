@@ -8,6 +8,6 @@
 
 > `const` **zoraSepolia**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/zoraSepolia.d.ts:1

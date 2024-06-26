@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import { type TestActions, testActions } from 'viem'
-import type { MemoryClient } from '../../MemoryClient.js'
+import { testActions } from 'viem'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient & TestActions
+let mc = createMemoryClient().extend(testActions({ mode: 'anvil' }))
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }

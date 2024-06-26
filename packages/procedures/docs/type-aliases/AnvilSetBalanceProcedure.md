@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilSetBalanceProcedure
 
-# Type alias: AnvilSetBalanceProcedure()
+# Type Alias: AnvilSetBalanceProcedure()
 
 > **AnvilSetBalanceProcedure**: (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_setBalance`
 
 `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L79)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / ScriptJsonRpcResponse
 
-# Type alias: ~~ScriptJsonRpcResponse~~
+# Type Alias: ~~ScriptJsonRpcResponse~~
 
 > **ScriptJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<[`CallResult`](../../index/type-aliases/CallResult.md)\>, [`TevmScriptError`](../../index/type-aliases/TevmScriptError.md)\[`"code"`\]\>
 
@@ -29,6 +29,6 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 })
 ```
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:898

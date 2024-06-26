@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / Filter
 
-# Type alias: Filter
+# Type Alias: Filter
 
 > **Filter**: `object`
 
@@ -73,6 +73,6 @@ stores tx
 
 The type of the filter
 
-## Source
+## Defined in
 
 [packages/base-client/src/Filter.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Filter.ts#L14)

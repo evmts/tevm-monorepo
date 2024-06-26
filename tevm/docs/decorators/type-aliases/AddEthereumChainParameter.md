@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / AddEthereumChainParameter
 
-# Type alias: AddEthereumChainParameter
+# Type Alias: AddEthereumChainParameter
 
 > **AddEthereumChainParameter**: `object`
 
@@ -52,6 +52,6 @@ Native currency for the chain.
 
 > **rpcUrls**: readonly `string`[]
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:228

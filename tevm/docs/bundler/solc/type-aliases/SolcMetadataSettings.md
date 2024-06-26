@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcMetadataSettings
 
-# Type alias: SolcMetadataSettings
+# Type Alias: SolcMetadataSettings
 
 > **SolcMetadataSettings**: `object`
 
@@ -22,6 +22,6 @@
 
 > `optional` **useLiteralContent**: `boolean`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:62

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TraceCall
 
-# Type alias: TraceCall
+# Type Alias: TraceCall
 
 > **TraceCall**: `object`
 
@@ -46,6 +46,6 @@
 
 > `optional` **value**: `bigint`
 
-## Source
+## Defined in
 
 packages/actions/types/common/TraceCall.d.ts:4

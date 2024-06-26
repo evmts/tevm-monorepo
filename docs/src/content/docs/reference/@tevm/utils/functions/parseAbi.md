@@ -5,23 +5,23 @@ prev: false
 title: "parseAbi"
 ---
 
-> **parseAbi**\<`TSignatures`\>(`signatures`): [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`TSignatures`\>
+> **parseAbi**\<`signatures`\>(`signatures`): [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`signatures`\>
 
 Parses human-readable ABI into JSON [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
 
-## Type parameters
+## Type Parameters
 
-• **TSignatures** *extends* readonly `string`[]
-
-## Parameters
-
-• **signatures**: `TSignatures`\[`"length"`\] *extends* `0` ? [`"Error: At least one signature required"`] : `Signatures`\<`TSignatures`\> *extends* `TSignatures` ? `TSignatures` : `Signatures`\<`TSignatures`\>
+• **signatures** *extends* readonly `string`[]
 
 Human-Readable ABI
 
+## Parameters
+
+• **signatures**: `signatures`\[`"length"`\] *extends* `0` ? [`"Error: At least one signature required"`] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\>
+
 ## Returns
 
-[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`TSignatures`\>
+[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`signatures`\>
 
 Parsed [Abi](/reference/reference/tevm/utils/type-aliases/abi/)
 
@@ -35,6 +35,6 @@ const abi = parseAbi([
 ])
 ```
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37

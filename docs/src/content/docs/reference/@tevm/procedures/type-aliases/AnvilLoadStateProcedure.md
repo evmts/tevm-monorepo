@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_loadState`
 
 `Promise`\<[`AnvilLoadStateJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilloadstatejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L117)

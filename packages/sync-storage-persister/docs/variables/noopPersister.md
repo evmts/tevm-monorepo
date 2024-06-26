@@ -34,6 +34,6 @@
 
 `undefined`
 
-## Source
+## Defined in
 
 [noopPersister.js:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L2)

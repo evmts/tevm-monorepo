@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateScript
 
-# Type alias: CreateScript()\<TName, THumanReadableAbi, TAddress, TBytecode\>
+# Type Alias: CreateScript()\<TName, THumanReadableAbi, TAddress, TBytecode\>
 
 > **CreateScript**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`\>: (...`args`) => [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, [`Hex`](Hex.md), [`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
@@ -12,7 +12,7 @@ Creates a deployless instance of a contract
 Can be used to execute code that isn't deployed in tevm
 or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -30,6 +30,6 @@ or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
 [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, [`Hex`](Hex.md), [`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
-## Source
+## Defined in
 
 packages/contract/types/CreateScript.d.ts:9

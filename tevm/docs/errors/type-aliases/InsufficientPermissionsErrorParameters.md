@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InsufficientPermissionsErrorParameters
 
-# Type alias: InsufficientPermissionsErrorParameters
+# Type Alias: InsufficientPermissionsErrorParameters
 
 > **InsufficientPermissionsErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InsufficientPermissionsError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InsufficientPermissionsError.d.ts:50

@@ -14,7 +14,7 @@
 
 The cause of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L10)
 
@@ -26,7 +26,7 @@ The cause of the error.
 
 Details of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L11)
 
@@ -38,7 +38,7 @@ Details of the error.
 
 Base URL for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L6)
 
@@ -50,7 +50,7 @@ Base URL for the documentation.
 
 Path to the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L7)
 
@@ -62,7 +62,7 @@ Path to the documentation.
 
 Slug for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L8)
 
@@ -74,7 +74,7 @@ Slug for the documentation.
 
 Optional object containing additional information about the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L12)
 
@@ -86,6 +86,6 @@ Optional object containing additional information about the error.
 
 Additional meta messages.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/input/InvalidStorageRootError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidStorageRootError.js#L9)

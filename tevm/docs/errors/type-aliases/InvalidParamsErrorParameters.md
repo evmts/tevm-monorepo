@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidParamsErrorParameters
 
-# Type alias: InvalidParamsErrorParameters
+# Type Alias: InvalidParamsErrorParameters
 
 > **InvalidParamsErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidParamsError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InvalidParamsError.d.ts:50

@@ -5,7 +5,7 @@ prev: false
 title: "BaseClientOptions"
 ---
 
-> **BaseClientOptions**: `StateOptions` & `object`
+> **BaseClientOptions**\<`TCommon`\>: `StateOptions` & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -13,14 +13,14 @@ Options for creating an Tevm MemoryClient instance
 
 ### allowUnlimitedContractSize?
 
-> `optional` `readonly` **allowUnlimitedContractSize**: `boolean`
+> `readonly` `optional` **allowUnlimitedContractSize**: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 If set to true you may still run up against block limits
 
 ### common?
 
-> `optional` `readonly` **common**: [`Common`](/reference/tevm/common/type-aliases/common/)
+> `readonly` `optional` **common**: `TCommon`
 
 The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
 If not specified and a fork is provided the common chainId will be fetched from the fork
@@ -38,7 +38,7 @@ const client = createMemoryClient({ chain: optimism })
 
 ### customPrecompiles?
 
-> `optional` `readonly` **customPrecompiles**: [`CustomPrecompile`](/reference/tevm/base-client/type-aliases/customprecompile/)[]
+> `readonly` `optional` **customPrecompiles**: [`CustomPrecompile`](/reference/tevm/base-client/type-aliases/customprecompile/)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -89,7 +89,7 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys?
 
-> `optional` `readonly` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`any`, `any`\>\>
+> `readonly` `optional` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -109,7 +109,7 @@ const tevm = createMemoryClient({
 
 ### forkTransport?
 
-> `optional` `readonly` **forkTransport**: `object`
+> `readonly` `optional` **forkTransport**: `object`
 
 Client to make json rpc requests to a forked node
 
@@ -121,17 +121,17 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### forkTransport.request
 
-> **request**: `EIP1193RequestFn`
+> **forkTransport.request**: `EIP1193RequestFn`
 
 ### loggingLevel?
 
-> `optional` `readonly` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Configure logging options for the client
 
 ### miningConfig?
 
-> `optional` `readonly` **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+> `readonly` `optional` **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -140,7 +140,7 @@ The configuration for mining. Defaults to 'auto'
 
 ### persister?
 
-> `optional` `readonly` **persister**: [`SyncStoragePersister`](/reference/tevm/sync-storage-persister/type-aliases/syncstoragepersister/)
+> `readonly` `optional` **persister**: [`SyncStoragePersister`](/reference/tevm/sync-storage-persister/type-aliases/syncstoragepersister/)
 
 The memory client can optionally initialize and persist it's state to an external source like local storage
 using `createSyncPersister`
@@ -162,10 +162,14 @@ const memoryClient = createMemoryClient({ persister })
 
 ### profiler?
 
-> `optional` `readonly` **profiler**: `boolean`
+> `readonly` `optional` **profiler**: `boolean`
 
 Enable profiler. Defaults to false.
 
-## Source
+## Type Parameters
+
+• **TCommon** *extends* [`Common`](/reference/tevm/common/type-aliases/common/) = [`Common`](/reference/tevm/common/type-aliases/common/)
+
+## Defined in
 
 [packages/base-client/src/BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)

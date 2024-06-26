@@ -6,26 +6,26 @@
 
 # Function: formatAbi()
 
-> **formatAbi**\<`TAbi`\>(`abi`): [`FormatAbi`](../type-aliases/FormatAbi.md)\<`TAbi`\>
+> **formatAbi**\<`abi`\>(`abi`): [`FormatAbi`](../type-aliases/FormatAbi.md)\<`abi`\>
 
 Parses JSON ABI into human-readable ABI
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
-
-## Parameters
-
-• **abi**: `TAbi`
+• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
 
 ABI
 
+## Parameters
+
+• **abi**: `abi`
+
 ## Returns
 
-[`FormatAbi`](../type-aliases/FormatAbi.md)\<`TAbi`\>
+[`FormatAbi`](../type-aliases/FormatAbi.md)\<`abi`\>
 
 Human-readable ABI
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18

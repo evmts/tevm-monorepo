@@ -8,7 +8,7 @@
 
 > **extractEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ExtractErrorType`, `Record`\<`string`, `unknown`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`Record`\<`string`, `unknown`\>, `object`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ExtractErrorType`, `Record`\<`string`, `unknown`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/formatters/extractEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/formatters/extractEffect.js#L7)

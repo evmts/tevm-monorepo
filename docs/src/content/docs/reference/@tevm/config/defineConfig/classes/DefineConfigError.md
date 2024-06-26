@@ -31,7 +31,7 @@ Error class for [defineConfig](../../../../../../../../reference/tevm/config/def
 
 `Error.constructor`
 
-#### Source
+#### Defined in
 
 [bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
 
@@ -41,7 +41,7 @@ Error class for [defineConfig](../../../../../../../../reference/tevm/config/def
 
 > **\_tag**: `"ConfigFnThrowError"` \| `"InvalidConfigError"` \| `"FoundryNotFoundError"` \| `"FoundryConfigError"` \| `"InvalidRemappingsError"`
 
-#### Source
+#### Defined in
 
 [bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
 
@@ -55,9 +55,9 @@ Error class for [defineConfig](../../../../../../../../reference/tevm/config/def
 
 `Error.cause`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -69,9 +69,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.err
 
 `Error.message`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -83,7 +83,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `Error.name`
 
-#### Source
+#### Defined in
 
 [bundler-packages/config/src/defineConfig.js:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L13)
 
@@ -97,9 +97,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `Error.stack`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -127,9 +127,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `Error.prepareStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -141,9 +141,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 `Error.stackTraceLimit`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -167,6 +167,6 @@ Create .stack property on a target object
 
 `Error.captureStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

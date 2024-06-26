@@ -98,6 +98,6 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 `void`
 
-## Source
+## Defined in
 
 [types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L9)

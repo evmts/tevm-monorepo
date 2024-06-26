@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthNewPendingTransactionFilterJsonRpcProcedure
 
-# Type alias: EthNewPendingTransactionFilterJsonRpcProcedure()
+# Type Alias: EthNewPendingTransactionFilterJsonRpcProcedure()
 
 > **EthNewPendingTransactionFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:627

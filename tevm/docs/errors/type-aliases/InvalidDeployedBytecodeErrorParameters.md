@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidDeployedBytecodeErrorParameters
 
-# Type alias: InvalidDeployedBytecodeErrorParameters
+# Type Alias: InvalidDeployedBytecodeErrorParameters
 
 > **InvalidDeployedBytecodeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidDeployedBytecodeError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidDeployedBytecodeError.d.ts:42

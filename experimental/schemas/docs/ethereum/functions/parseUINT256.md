@@ -8,9 +8,7 @@
 
 > **parseUINT256**\<`TUINT256`\>(`uint256`): `TUINT256`
 
-Parses a UINT256 and returns the value if no errors.
-
-## Type parameters
+## Type Parameters
 
 • **TUINT256** *extends* `bigint`
 
@@ -22,13 +20,6 @@ Parses a UINT256 and returns the value if no errors.
 
 `TUINT256`
 
-## Example
-
-```ts
-import { parseUINT256 } from '@tevm/schemas';
-const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678');
-```
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L98)

@@ -9,6 +9,6 @@ title: "AnvilDumpStateJsonRpcRequest"
 
 JSON-RPC request for `anvil_dumpState` method
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L93)

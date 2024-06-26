@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidGasRefundErrorParameters
 
-# Type alias: InvalidGasRefundErrorParameters
+# Type Alias: InvalidGasRefundErrorParameters
 
 > **InvalidGasRefundErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidGasRefundError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidGasRefundError.d.ts:42

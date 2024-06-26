@@ -8,7 +8,7 @@
 
 > **serializeTransactionEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SerializeTransactionErrorType`, \`0x$\{string\}\` \| \`0x02$\{string\}\` \| \`0x01$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`TransactionSerializable`, `Signature`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SerializeTransactionErrorType`, \`0x$\{string\}\` \| \`0x02$\{string\}\` \| \`0x01$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/serializeTransactionEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/serializeTransactionEffect.js#L7)

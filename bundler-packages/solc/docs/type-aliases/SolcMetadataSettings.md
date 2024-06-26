@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcMetadataSettings
 
-# Type alias: SolcMetadataSettings
+# Type Alias: SolcMetadataSettings
 
 > **SolcMetadataSettings**: `object`
 
@@ -22,6 +22,6 @@
 
 > `optional` **useLiteralContent**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)

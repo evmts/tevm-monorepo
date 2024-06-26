@@ -8,8 +8,6 @@
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Typesafe wrapper around solc.compile
-
 ## Parameters
 
 • **solc**: `any`
@@ -20,6 +18,6 @@ Typesafe wrapper around solc.compile
 
 [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-## Source
+## Defined in
 
 [solc.js:130](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L130)

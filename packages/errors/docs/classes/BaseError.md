@@ -73,7 +73,7 @@ A short, human-readable summary of the error.
 
 Internal tag for the error.
 
-• **code?**: `number`= `0`
+• **code?**: `number` = `0`
 
 Error code analogous to the code in JSON RPC error.
 
@@ -85,7 +85,7 @@ Error code analogous to the code in JSON RPC error.
 
 `Error.constructor`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L44)
 
@@ -95,7 +95,7 @@ Error code analogous to the code in JSON RPC error.
 
 > **\_tag**: `string`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
@@ -109,7 +109,7 @@ Error code analogous to the code in JSON RPC error.
 
 `Error.cause`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
@@ -119,7 +119,7 @@ Error code analogous to the code in JSON RPC error.
 
 > **code**: `number`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
@@ -129,7 +129,7 @@ Error code analogous to the code in JSON RPC error.
 
 > **details**: `string`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
@@ -139,7 +139,7 @@ Error code analogous to the code in JSON RPC error.
 
 > **docsPath**: `undefined` \| `string`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
@@ -153,9 +153,9 @@ Error code analogous to the code in JSON RPC error.
 
 `Error.message`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -163,7 +163,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
@@ -177,9 +177,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `Error.name`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -187,7 +187,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **shortMessage**: `string`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
@@ -201,9 +201,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `Error.stack`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -211,7 +211,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
@@ -241,9 +241,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `Error.prepareStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -255,9 +255,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 `Error.stackTraceLimit`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -279,7 +279,7 @@ A function to execute on each error in the chain.
 
 The first error that matches the function, or the original error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
@@ -307,9 +307,9 @@ Create .stack property on a target object
 
 `Error.captureStackTrace`
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -331,6 +331,30 @@ Create .stack property on a target object
 
 `Error.captureStackTrace`
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

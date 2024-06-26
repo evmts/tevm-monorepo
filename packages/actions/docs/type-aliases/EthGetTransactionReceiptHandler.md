@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionReceiptHandler
 
-# Type alias: EthGetTransactionReceiptHandler()
+# Type Alias: EthGetTransactionReceiptHandler()
 
 > **EthGetTransactionReceiptHandler**: (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L147)

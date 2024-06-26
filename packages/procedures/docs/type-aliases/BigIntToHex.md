@@ -4,14 +4,14 @@
 
 [@tevm/procedures](../globals.md) / BigIntToHex
 
-# Type alias: BigIntToHex\<T\>
+# Type Alias: BigIntToHex\<T\>
 
 > **BigIntToHex**\<`T`\>: `T` *extends* `bigint` ? `Hex` : `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [procedures/src/utils/SerializeToJson.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L19)

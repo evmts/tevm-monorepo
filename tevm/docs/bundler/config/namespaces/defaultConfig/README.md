@@ -4,7 +4,7 @@
 
 [tevm](../../../../modules.md) / [bundler/config](../../README.md) / defaultConfig
 
-# Namespace: defaultConfig
+# defaultConfig
 
 ## Index
 

@@ -21,7 +21,7 @@ A block number is invalid if it is not a non-negative integer.
 
 #### Parameters
 
-• **options**= `{}`
+• **options** = `{}`
 
 The options for the error.
 
@@ -33,11 +33,11 @@ The invalid block number.
 
 The cause of the error.
 
-• **options.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
+• **options.docs**: `undefined` \| `string` = `'https://tevm.sh/reference/errors'`
 
 The documentation URL.
 
-• **options.message**: `undefined` \| `string`= `undefined`
+• **options.message**: `undefined` \| `string` = `...`
 
 The error message.
 
@@ -49,7 +49,7 @@ The error message.
 
 `TypeError.constructor`
 
-#### Source
+#### Defined in
 
 [experimental/schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L62)
 
@@ -63,7 +63,7 @@ The error message.
 
 `TypeError.cause`
 
-#### Source
+#### Defined in
 
 [experimental/schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L69)
 
@@ -77,9 +77,9 @@ The error message.
 
 `TypeError.message`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -91,9 +91,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `TypeError.name`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -105,9 +105,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 `TypeError.stack`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -135,9 +135,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `TypeError.prepareStackTrace`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -149,58 +149,32 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 `TypeError.stackTraceLimit`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 `TypeError.captureStackTrace`
 
-##### Source
-
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`TypeError.captureStackTrace`
-
-##### Source
+#### Defined in
 
 node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

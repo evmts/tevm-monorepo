@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / JsonRpcSchemaPublic
 
-# Type alias: JsonRpcSchemaPublic
+# Type Alias: JsonRpcSchemaPublic
 
 > **JsonRpcSchemaPublic**: `object`
 
@@ -1217,6 +1217,6 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 
 > **ReturnType**: `string`
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:751

@@ -8,9 +8,6 @@
 
 > **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
 
-Creates the Tevm Evm to execute ethereum bytecode
-Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
-
 ## Parameters
 
 • **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
@@ -42,6 +39,6 @@ const result = await evm.runCall({
 console.log(result)
 ```
 
-## Source
+## Defined in
 
 packages/evm/dist/index.d.ts:236

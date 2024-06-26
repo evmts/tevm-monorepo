@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / DebugReturnType
 
-# Type alias: DebugReturnType
+# Type Alias: DebugReturnType
 
 > **DebugReturnType**: `object`
 
@@ -20,6 +20,6 @@ A mapping of `debug_*` method names to their return type
 
 > **debug\_traceTransaction**: [`DebugTraceTransactionJsonRpcResponse`](DebugTraceTransactionJsonRpcResponse.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:806

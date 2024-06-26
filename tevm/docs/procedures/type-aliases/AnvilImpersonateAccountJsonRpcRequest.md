@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilImpersonateAccountJsonRpcRequest
 
-# Type alias: AnvilImpersonateAccountJsonRpcRequest
+# Type Alias: AnvilImpersonateAccountJsonRpcRequest
 
 > **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_impersonateAccount"`, [[`Address`](../../index/type-aliases/Address.md)]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:144

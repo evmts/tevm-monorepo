@@ -16,6 +16,6 @@
 
 [`CallJsonRpcProcedure`](../type-aliases/CallJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1097

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmJsonRpcRequestHandler
 
-# Type alias: TevmJsonRpcRequestHandler()
+# Type Alias: TevmJsonRpcRequestHandler()
 
 > **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
@@ -84,7 +84,7 @@ response - [EthGasPriceJsonRpcResponse](../../procedures/type-aliases/EthGasPric
 request - [EthGetBalanceJsonRpcRequest](../../procedures/type-aliases/EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBalanceJsonRpcResponse.md)
 
-## Type parameters
+## Type Parameters
 
 • **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures/type-aliases/DebugJsonRpcRequest.md)
 
@@ -96,6 +96,6 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBa
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1005

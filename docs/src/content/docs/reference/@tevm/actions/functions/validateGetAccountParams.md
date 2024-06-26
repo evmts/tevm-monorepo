@@ -15,6 +15,6 @@ title: "validateGetAccountParams"
 
 [`InvalidRequestError`](/reference/tevm/errors/classes/invalidrequesterror/)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/GetAccount/validateGetAccountParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L12)

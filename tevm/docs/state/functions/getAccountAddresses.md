@@ -22,6 +22,6 @@
 
 \`0x$\{string\}\`[]
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:261

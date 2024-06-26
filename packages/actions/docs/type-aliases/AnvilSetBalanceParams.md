@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetBalanceParams
 
-# Type alias: AnvilSetBalanceParams
+# Type Alias: AnvilSetBalanceParams
 
 > **AnvilSetBalanceParams**: `object`
 
@@ -24,6 +24,6 @@ The address to set the balance for
 
 The balance to set
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L88)

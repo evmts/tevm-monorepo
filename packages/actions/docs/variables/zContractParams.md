@@ -10,6 +10,6 @@
 
 Zod validator for a valid contract action
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/zContractParams.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/zContractParams.js#L10)

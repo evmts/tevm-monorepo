@@ -8,6 +8,6 @@
 
 > `const` **optimism**: [`Common`](../type-aliases/Common.md)
 
-## Source
+## Defined in
 
 [packages/common/src/presets/optimism.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/optimism.js#L4)

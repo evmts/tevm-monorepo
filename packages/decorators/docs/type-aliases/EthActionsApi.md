@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / EthActionsApi
 
-# Type alias: EthActionsApi
+# Type Alias: EthActionsApi
 
 > **EthActionsApi**: `object`
 
@@ -158,6 +158,6 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
 ```
 
-## Source
+## Defined in
 
 [actions/EthActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/EthActionsApi.ts#L16)

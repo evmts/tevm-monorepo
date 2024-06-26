@@ -7,6 +7,6 @@ title: "AccessList"
 
 > **AccessList**: [`AccessListItem`](/reference/tevm/tx/type-aliases/accesslistitem/)[]
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:51

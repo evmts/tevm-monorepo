@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilDropTransactionJsonRpcRequest
 
-# Type alias: AnvilDropTransactionJsonRpcRequest
+# Type Alias: AnvilDropTransactionJsonRpcRequest
 
 > **AnvilDropTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_dropTransaction"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilDropTransactionParams`\>]\>
 
 JSON-RPC request for `anvil_dropTransaction` method
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:175

@@ -9,6 +9,6 @@ title: "MineResult"
 
 Result of Mine Method
 
-## Source
+## Defined in
 
 [packages/actions/src/Mine/MineResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineResult.ts#L9)

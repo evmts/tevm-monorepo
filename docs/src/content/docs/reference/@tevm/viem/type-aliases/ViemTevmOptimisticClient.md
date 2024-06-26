@@ -5,8 +5,6 @@ prev: false
 title: "ViemTevmOptimisticClient"
 ---
 
-`Experimental`
-
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
 
 :::caution[Deprecated]
@@ -19,11 +17,11 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 This API should not be used in production and may be trimmed from a public release.
 :::
 
-## Type parameters
+## Type Parameters
 
 • **TChain** *extends* `Chain` \| `undefined` = `Chain`
 
-• **TAccount** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined`
+• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Type declaration
 
@@ -31,15 +29,19 @@ This API should not be used in production and may be trimmed from a public relea
 
 > **tevm**: `Omit`\<[`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/), `"request"`\> & `object`
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 #### Type declaration
 
 ##### ~~writeContractOptimistic()~~
 
-###### Type parameters
+###### Type Parameters
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-• **TFunctionName** *extends* `string` = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+• **TFunctionName** *extends* `string` = `ContractFunctionName`\<`TAbi`\>
 
 • **TArgs** *extends* `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
 
@@ -53,6 +55,6 @@ This API should not be used in production and may be trimmed from a public relea
 
 `AsyncGenerator`\<[`OptimisticResult`](/reference/tevm/viem/type-aliases/optimisticresult/)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

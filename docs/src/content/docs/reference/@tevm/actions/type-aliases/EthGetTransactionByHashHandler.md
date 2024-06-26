@@ -15,6 +15,6 @@ title: "EthGetTransactionByHashHandler"
 
 `Promise`\<[`EthGetTransactionByHashResult`](/reference/tevm/actions/type-aliases/ethgettransactionbyhashresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L135)

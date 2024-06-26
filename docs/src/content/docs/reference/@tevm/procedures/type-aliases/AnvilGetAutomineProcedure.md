@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilgetautominejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L55)

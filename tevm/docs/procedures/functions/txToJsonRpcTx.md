@@ -20,6 +20,6 @@
 
 [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1272

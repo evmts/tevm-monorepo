@@ -8,7 +8,7 @@
 
 > **verifyMessageEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `VerifyMessageErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`Client`\<`Transport`, `undefined` \| `Chain`\>, `VerifyMessageParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `VerifyMessageErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/verifyMessageEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/verifyMessageEffect.js#L7)

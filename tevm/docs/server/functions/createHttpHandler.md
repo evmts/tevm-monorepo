@@ -39,7 +39,7 @@ const mempool = await memoryClient._tevm.getTxPool()
 const receiptsManager = await memoryClient._tevm.getReceiptsManager()
 ````
 
-• **client.account**: `undefined`
+• **client.account**: `undefined` \| `Account`
 
 The Account of the Client.
 
@@ -83,7 +83,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-• **client.chain**: `undefined`
+• **client.chain**: `any`
 
 Chain for the client.
 
@@ -1617,6 +1617,6 @@ const unwatch = await client.watchPendingTransactions({
 
 `RequestListener`
 
-## Source
+## Defined in
 
 packages/server/types/createHttpHandler.d.ts:1

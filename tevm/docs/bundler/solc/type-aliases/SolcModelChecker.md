@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcModelChecker
 
-# Type alias: SolcModelChecker
+# Type Alias: SolcModelChecker
 
 > **SolcModelChecker**: `object`
 
@@ -54,6 +54,6 @@
 
 > `optional` **timeout**: `boolean`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:45

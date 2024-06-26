@@ -4,22 +4,22 @@
 
 [@tevm/utils](../globals.md) / ExtractAbiEvent
 
-# Type alias: ExtractAbiEvent\<TAbi, TEventName\>
+# Type Alias: ExtractAbiEvent\<abi, eventName\>
 
-> **ExtractAbiEvent**\<`TAbi`, `TEventName`\>: `Extract`\<[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`TAbi`\>, `object`\>
+> **ExtractAbiEvent**\<`abi`, `eventName`\>: `Extract`\<[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>, `object`\>
 
 Extracts [AbiEvent](AbiEvent.md) with name from [Abi](Abi.md).
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](Abi.md)
+• **abi** *extends* [`Abi`](Abi.md)
 
 [Abi](Abi.md) to extract [AbiEvent](AbiEvent.md) from
 
-• **TEventName** *extends* [`ExtractAbiEventNames`](ExtractAbiEventNames.md)\<`TAbi`\>
+• **eventName** *extends* [`ExtractAbiEventNames`](ExtractAbiEventNames.md)\<`abi`\>
 
 String name of event to extract from [Abi](Abi.md)
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:149
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:149

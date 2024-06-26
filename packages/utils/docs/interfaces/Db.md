@@ -6,7 +6,7 @@
 
 # Interface: Db\<TKey, TValue\>
 
-## Type parameters
+## Type Parameters
 
 • **TKey** *extends* `Uint8Array` \| `string` \| `number` = `Uint8Array`
 
@@ -30,7 +30,7 @@ A stack of levelup operations
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
 
@@ -52,7 +52,7 @@ Removes a raw value in the underlying db.
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
 
@@ -76,7 +76,7 @@ Retrieves a raw value from db.
 
 A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no value is found.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
 
@@ -92,7 +92,7 @@ Opens the database -- if applicable
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
 
@@ -118,7 +118,7 @@ The key as a `TValue`
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
 
@@ -135,6 +135,6 @@ to the **same** underlying db instance.
 
 [`Db`](Db.md)\<`TKey`, `TValue`\>
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57

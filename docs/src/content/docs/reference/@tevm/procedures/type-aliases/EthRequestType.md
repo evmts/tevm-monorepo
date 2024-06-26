@@ -163,6 +163,6 @@ A mapping of `eth_*` method names to their request type
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcRequest`](/reference/tevm/procedures/type-aliases/ethuninstallfilterjsonrpcrequest/)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/EthRequestType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthRequestType.ts#L45)

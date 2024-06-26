@@ -8,7 +8,7 @@
 
 > **encodeDeployDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `EncodeDeployDataErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`EncodeDeployDataParameters`\<`Abi` \| readonly `unknown`[]\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `EncodeDeployDataErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/encodeDeployDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeDeployDataEffect.js#L7)

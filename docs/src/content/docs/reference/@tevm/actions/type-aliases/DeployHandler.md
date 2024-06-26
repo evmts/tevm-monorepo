@@ -7,7 +7,7 @@ title: "DeployHandler"
 
 > **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](/reference/tevm/actions/type-aliases/deployresult/)\>
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
@@ -25,6 +25,6 @@ title: "DeployHandler"
 
 `Promise`\<[`DeployResult`](/reference/tevm/actions/type-aliases/deployresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Deploy/DeployHandlerType.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployHandlerType.ts#L5)

@@ -16,6 +16,6 @@
 
 [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/validateContractParams.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L19)

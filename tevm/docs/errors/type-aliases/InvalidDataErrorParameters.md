@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidDataErrorParameters
 
-# Type alias: InvalidDataErrorParameters
+# Type Alias: InvalidDataErrorParameters
 
 > **InvalidDataErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidDataError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidDataError.d.ts:42

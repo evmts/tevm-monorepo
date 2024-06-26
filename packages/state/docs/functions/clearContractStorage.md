@@ -28,6 +28,6 @@ Clears all storage entries for the account corresponding to `address`.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/clearContractStorage.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L5)

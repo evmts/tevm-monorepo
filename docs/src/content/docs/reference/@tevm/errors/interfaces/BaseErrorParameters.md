@@ -13,7 +13,7 @@ title: "BaseErrorParameters"
 
 The cause of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L14)
 
@@ -25,7 +25,7 @@ The cause of the error.
 
 Details of the error.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L15)
 
@@ -37,7 +37,7 @@ Details of the error.
 
 Base URL for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L10)
 
@@ -49,7 +49,7 @@ Base URL for the documentation.
 
 Path to the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L11)
 
@@ -61,7 +61,7 @@ Path to the documentation.
 
 Slug for the documentation.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L12)
 
@@ -73,6 +73,6 @@ Slug for the documentation.
 
 Additional meta messages.
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L13)

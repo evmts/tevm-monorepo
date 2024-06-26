@@ -9,6 +9,6 @@ title: "JsonSerializable"
 
 A type that represents a JSON-serializable value.
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L7)

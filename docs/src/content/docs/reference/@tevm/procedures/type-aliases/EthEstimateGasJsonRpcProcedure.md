@@ -15,6 +15,6 @@ title: "EthEstimateGasJsonRpcProcedure"
 
 `Promise`\<[`EthEstimateGasJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethestimategasjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L95)

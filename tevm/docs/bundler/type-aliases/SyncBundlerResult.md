@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [bundler](../README.md) / SyncBundlerResult
 
-# Type alias: SyncBundlerResult
+# Type Alias: SyncBundlerResult
 
 > **SyncBundlerResult**: `SyncBundlerResult`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/base-bundler/types/src/index.d.ts:30

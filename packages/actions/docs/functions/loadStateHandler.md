@@ -12,7 +12,7 @@
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
-• **options?**= `{}`
+• **options?** = `{}`
 
 • **options.throwOnFail?**: `undefined` \| `boolean`
 
@@ -22,6 +22,6 @@ whether to default to throwing or not when errors occur
 
 [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/loadStateHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L12)

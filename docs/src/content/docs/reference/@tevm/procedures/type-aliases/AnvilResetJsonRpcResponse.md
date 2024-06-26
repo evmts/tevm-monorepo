@@ -9,6 +9,6 @@ title: "AnvilResetJsonRpcResponse"
 
 JSON-RPC response for `anvil_reset` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L72)

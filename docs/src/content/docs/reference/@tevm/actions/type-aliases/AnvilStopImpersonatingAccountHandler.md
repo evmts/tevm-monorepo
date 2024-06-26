@@ -15,6 +15,6 @@ title: "AnvilStopImpersonatingAccountHandler"
 
 `Promise`\<[`AnvilStopImpersonatingAccountResult`](/reference/tevm/actions/type-aliases/anvilstopimpersonatingaccountresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L37)

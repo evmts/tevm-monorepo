@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthNewFilterJsonRpcProcedure
 
-# Type alias: EthNewFilterJsonRpcProcedure()
+# Type Alias: EthNewFilterJsonRpcProcedure()
 
 > **EthNewFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:625

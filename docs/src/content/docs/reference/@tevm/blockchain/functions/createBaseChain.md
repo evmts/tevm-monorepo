@@ -17,6 +17,6 @@ title: "createBaseChain"
 
 Base chain object
 
-## Source
+## Defined in
 
 [createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)

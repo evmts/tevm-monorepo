@@ -13,20 +13,20 @@ An event filter optionsobject
 
 ### address?
 
-> `optional` `readonly` **address**: [`Address`](/reference/tevm/actions/type-aliases/address/)
+> `readonly` `optional` **address**: [`Address`](/reference/tevm/actions/type-aliases/address/)
 
 ### fromBlock?
 
-> `optional` `readonly` **fromBlock**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **fromBlock**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 ### toBlock?
 
-> `optional` `readonly` **toBlock**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **toBlock**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 ### topics?
 
-> `optional` `readonly` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions/type-aliases/hex/)\>
+> `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions/type-aliases/hex/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L8)

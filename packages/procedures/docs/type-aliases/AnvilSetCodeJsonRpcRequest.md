@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / AnvilSetCodeJsonRpcRequest
 
-# Type alias: AnvilSetCodeJsonRpcRequest
+# Type Alias: AnvilSetCodeJsonRpcRequest
 
 > **AnvilSetCodeJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setCode"`, [`Address`, `Hex`]\>
 
 JSON-RPC request for `anvil_setCode` method
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L69)

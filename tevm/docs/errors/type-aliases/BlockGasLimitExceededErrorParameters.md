@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BlockGasLimitExceededErrorParameters
 
-# Type alias: BlockGasLimitExceededErrorParameters
+# Type Alias: BlockGasLimitExceededErrorParameters
 
 > **BlockGasLimitExceededErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a BlockGasLimitExceededError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:64

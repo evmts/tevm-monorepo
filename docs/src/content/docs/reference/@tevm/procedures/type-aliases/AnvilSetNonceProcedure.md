@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_setNonce`
 
 `Promise`\<[`AnvilSetNonceJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilsetnoncejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L91)

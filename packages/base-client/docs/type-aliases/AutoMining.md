@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / AutoMining
 
-# Type alias: AutoMining
+# Type Alias: AutoMining
 
 > **AutoMining**: `object`
 
@@ -14,6 +14,6 @@
 
 > **type**: `"auto"`
 
-## Source
+## Defined in
 
 [packages/base-client/src/MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / AuthInvalidSErrorParameters
 
-# Type alias: AuthInvalidSErrorParameters
+# Type Alias: AuthInvalidSErrorParameters
 
 > **AuthInvalidSErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [AuthInvalidSError](../classes/AuthInvalidSError.m
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/AuthInvalidSError.d.ts:71

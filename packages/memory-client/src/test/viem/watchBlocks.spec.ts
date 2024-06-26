@@ -1,9 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc = createMemoryClient()
 
 beforeEach(async () => {
 	mc = createMemoryClient()

@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilSetNonceProcedure
 
-# Type alias: AnvilSetNonceProcedure()
+# Type Alias: AnvilSetNonceProcedure()
 
 > **AnvilSetNonceProcedure**: (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_setNonce`
 
 `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L91)

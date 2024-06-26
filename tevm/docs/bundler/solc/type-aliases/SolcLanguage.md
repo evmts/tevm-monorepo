@@ -4,10 +4,10 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcLanguage
 
-# Type alias: SolcLanguage
+# Type Alias: SolcLanguage
 
 > **SolcLanguage**: `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:4

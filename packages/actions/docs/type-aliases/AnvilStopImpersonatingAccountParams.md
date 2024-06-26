@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilStopImpersonatingAccountParams
 
-# Type alias: AnvilStopImpersonatingAccountParams
+# Type Alias: AnvilStopImpersonatingAccountParams
 
 > **AnvilStopImpersonatingAccountParams**: `object`
 
@@ -18,6 +18,6 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 The address to stop impersonating
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L21)

@@ -70,15 +70,15 @@ Code store out of gas errors can occur due to:
 
 #### Parameters
 
-• **message?**: `string`= `'Code store out of gas error occurred.'`
+• **message?**: `string` = `'Code store out of gas error occurred.'`
 
 Human-readable error message.
 
-• **args?**: [`CodeStoreOutOfGasErrorParameters`](../interfaces/CodeStoreOutOfGasErrorParameters.md)= `{}`
+• **args?**: [`CodeStoreOutOfGasErrorParameters`](../interfaces/CodeStoreOutOfGasErrorParameters.md) = `{}`
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string`= `'CodeStoreOutOfGasError'`
+• **tag?**: `string` = `'CodeStoreOutOfGasError'`
 
 The tag for the error.
 
@@ -90,7 +90,7 @@ The tag for the error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructors)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L77)
 
@@ -106,7 +106,7 @@ Same as name, used internally.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
@@ -120,7 +120,7 @@ Same as name, used internally.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
@@ -136,7 +136,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
@@ -150,7 +150,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
@@ -166,7 +166,7 @@ Path to the documentation for this error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
@@ -182,9 +182,9 @@ Human-readable error message.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -198,7 +198,7 @@ Additional meta messages for more context.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
@@ -214,9 +214,9 @@ The name of the error, used to discriminate errors.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`name`](GasLimitExceededError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -228,7 +228,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
@@ -242,9 +242,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`stack`](GasLimitExceededError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -256,7 +256,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
@@ -266,7 +266,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `static` **EVMErrorMessage**: `ERROR` = `EVMErrorMessage.CODESTORE_OUT_OF_GAS`
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L59)
 
@@ -296,9 +296,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`prepareStackTrace`](GasLimitExceededError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -310,9 +310,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`stackTraceLimit`](GasLimitExceededError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -338,7 +338,7 @@ The first error that matches the function, or the original error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`walk`](GasLimitExceededError.md#walk)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
@@ -366,9 +366,9 @@ Create .stack property on a target object
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -390,6 +390,30 @@ Create .stack property on a target object
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

@@ -4,12 +4,12 @@
 
 [@tevm/schemas](../../modules.md) / [ethereum](../README.md) / BytesCapacity
 
-# Type alias: BytesCapacity
+# Type Alias: BytesCapacity
 
 > **BytesCapacity**\<\>: `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `15` \| `16` \| `17` \| `18` \| `19` \| `20` \| `21` \| `22` \| `23` \| `24` \| `25` \| `26` \| `27` \| `28` \| `29` \| `30` \| `31` \| `32`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/Errors.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/Errors.js#L11)

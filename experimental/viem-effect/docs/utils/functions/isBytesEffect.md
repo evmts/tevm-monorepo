@@ -8,7 +8,7 @@
 
 > **isBytesEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `IsBytesErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`unknown`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `IsBytesErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/isBytesEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/isBytesEffect.js#L7)

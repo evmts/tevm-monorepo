@@ -4,12 +4,12 @@
 
 [@tevm/logger](../globals.md) / Logger
 
-# Type alias: Logger
+# Type Alias: Logger
 
 > **Logger**: `Logger`
 
 A logger instance for tevm
 
-## Source
+## Defined in
 
 [Logger.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/Logger.ts#L5)

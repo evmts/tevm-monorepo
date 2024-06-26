@@ -16,6 +16,6 @@
 
 [`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 [procedures/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignProcedure.js#L7)

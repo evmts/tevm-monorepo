@@ -20,6 +20,6 @@
 
 `Promise`\<`BaseChain`\>
 
-## Source
+## Defined in
 
 [actions/deepCopy.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/deepCopy.js#L7)

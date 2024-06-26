@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / StackOverflowErrorParameters
 
-# Type alias: StackOverflowErrorParameters
+# Type Alias: StackOverflowErrorParameters
 
 > **StackOverflowErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a StackOverflowError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:78

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBalanceHandler
 
-# Type alias: EthGetBalanceHandler()
+# Type Alias: EthGetBalanceHandler()
 
 > **EthGetBalanceHandler**: (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L99)

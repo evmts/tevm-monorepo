@@ -28,6 +28,6 @@ Returns true if state root exists
 
 `Promise`\<`boolean`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:313

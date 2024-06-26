@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetCodeJsonRpcProcedure
 
-# Type alias: EthGetCodeJsonRpcProcedure()
+# Type Alias: EthGetCodeJsonRpcProcedure()
 
 > **EthGetCodeJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetCodeJsonRpcResponse`](EthGetCodeJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetCodeJsonRpcResponse`](EthGetCodeJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:604

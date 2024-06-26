@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetStorageAtJsonRpcProcedure
 
-# Type alias: EthGetStorageAtJsonRpcProcedure()
+# Type Alias: EthGetStorageAtJsonRpcProcedure()
 
 > **EthGetStorageAtJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L135)

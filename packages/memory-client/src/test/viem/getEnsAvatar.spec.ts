@@ -2,10 +2,9 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import { mainnet } from '@tevm/common'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import { loadKZG } from 'kzg-wasm'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient
+let mc = createMemoryClient()
 
 beforeEach(async () => {
 	mc = createMemoryClient()

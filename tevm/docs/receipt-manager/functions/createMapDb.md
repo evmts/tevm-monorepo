@@ -16,6 +16,6 @@
 
 `MapDb`
 
-## Source
+## Defined in
 
 packages/receipt-manager/types/createMapDb.d.ts:10

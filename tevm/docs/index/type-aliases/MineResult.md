@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [index](../README.md) / MineResult
 
-# Type alias: MineResult
+# Type Alias: MineResult
 
 > **MineResult**: `object` \| `object`
 
 Result of Mine Method
 
-## Source
+## Defined in
 
 packages/actions/types/Mine/MineResult.d.ts:6

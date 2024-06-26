@@ -162,6 +162,7 @@ describe(createContract.name, () => {
 			  ],
 			  "bytecode": "0x420",
 			  "code": "0x420",
+			  "deploy": [Function],
 			  "deployedBytecode": "0x69",
 			  "events": {
 			    "exampleEvent": [Function],

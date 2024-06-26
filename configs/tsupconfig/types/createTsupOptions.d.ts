@@ -3,5 +3,5 @@ export function createTsUpOptions({ entry, outDir, target, format, }: {
     outDir?: string | undefined;
     target?: import("./targets.js").Target | undefined;
     format?: ("cjs" | "esm")[] | undefined;
-}): import('tsup').Options;
+}): import("tsup").Options;
 //# sourceMappingURL=createTsupOptions.d.ts.map

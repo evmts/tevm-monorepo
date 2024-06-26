@@ -12,7 +12,7 @@
 
 > `optional` **blockTag**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:22
 
@@ -26,6 +26,6 @@ packages/state/dist/index.d.ts:22
 
 > **request**: `EIP1193RequestFn`
 
-#### Source
+#### Defined in
 
 packages/state/dist/index.d.ts:19

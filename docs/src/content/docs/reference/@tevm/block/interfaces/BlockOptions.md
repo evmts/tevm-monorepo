@@ -24,7 +24,7 @@ difficulty takes precedence over a provided static `difficulty` value.
 Note that this option has no effect on networks other than PoW/Ethash networks
 (respectively also deactivates on the Merge HF switching to PoS/Casper).
 
-#### Source
+#### Defined in
 
 [types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L43)
 
@@ -37,7 +37,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
 
-#### Source
+#### Defined in
 
 [types.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L60)
 
@@ -57,7 +57,7 @@ hardfork in the [Common](../../../../../../../reference/tevm/common/type-aliases
 
 Current default hardfork: `merge`
 
-#### Source
+#### Defined in
 
 [types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L24)
 
@@ -67,7 +67,7 @@ Current default hardfork: `merge`
 
 > `optional` **executionWitness**: [`VerkleExecutionWitness`](/reference/tevm/block/interfaces/verkleexecutionwitness/)
 
-#### Source
+#### Defined in
 
 [types.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L66)
 
@@ -87,7 +87,7 @@ within your code instead.
 
 Default: true
 
-#### Source
+#### Defined in
 
 [types.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L55)
 
@@ -105,7 +105,7 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../reference/tevm/common/type-aliases/common) instance)
 
-#### Source
+#### Defined in
 
 [types.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L34)
 
@@ -117,6 +117,6 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 Skip consensus format validation checks on header if set. Defaults to false.
 
-#### Source
+#### Defined in
 
 [types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L64)

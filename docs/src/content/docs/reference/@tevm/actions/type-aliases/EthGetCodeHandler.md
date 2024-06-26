@@ -15,6 +15,6 @@ title: "EthGetCodeHandler"
 
 `Promise`\<[`EthGetCodeResult`](/reference/tevm/actions/type-aliases/ethgetcoderesult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L113)

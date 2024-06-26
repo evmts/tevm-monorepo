@@ -4,11 +4,11 @@
 
 [@tevm/state](../globals.md) / BaseState
 
-# Type alias: BaseState
-
-`Internal`
+# Type Alias: BaseState
 
 > **BaseState**: `object`
+
+**`Internal`**
 
 The core data structure powering the state manager internally
 
@@ -60,6 +60,6 @@ The core data structure powering the state manager internally
 
 Mapping of hashes to State roots
 
-## Source
+## Defined in
 
 [packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)

@@ -4,10 +4,10 @@
 
 [@tevm/utils](../globals.md) / BigIntLike
 
-# Type alias: BigIntLike
+# Type Alias: BigIntLike
 
 > **BigIntLike**: `bigint` \| `PrefixedHexString` \| `number` \| `Uint8Array`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:3

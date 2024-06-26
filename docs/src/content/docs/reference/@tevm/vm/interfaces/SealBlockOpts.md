@@ -16,7 +16,7 @@ Options for sealing a block.
 For PoW, the mixHash.
 Overrides the value passed in the constructor.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L213)
 
@@ -29,6 +29,6 @@ Overrides the value passed in the constructor.
 For PoW, the nonce.
 Overrides the value passed in the constructor.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L207)

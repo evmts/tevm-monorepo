@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidArgsErrorParameters
 
-# Type alias: InvalidArgsErrorParameters
+# Type Alias: InvalidArgsErrorParameters
 
 > **InvalidArgsErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidArgsError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidArgsError.d.ts:42

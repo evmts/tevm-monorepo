@@ -8,8 +8,6 @@
 
 > **createSyncStoragePersister**(`options`): [`SyncStoragePersister`](../type-aliases/SyncStoragePersister.md)
 
-Creates a syncronous storage persister to be used in tevm clients
-
 ## Parameters
 
 • **options**: [`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md)
@@ -18,6 +16,6 @@ Creates a syncronous storage persister to be used in tevm clients
 
 [`SyncStoragePersister`](../type-aliases/SyncStoragePersister.md)
 
-## Source
+## Defined in
 
 [createSyncStoragePersister.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/createSyncStoragePersister.js#L8)

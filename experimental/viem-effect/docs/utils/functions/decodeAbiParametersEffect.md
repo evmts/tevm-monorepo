@@ -8,7 +8,7 @@
 
 > **decodeAbiParametersEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `DecodeAbiParametersErrorType`, `unknown`[] \| readonly `unknown`[]\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [readonly `unknown`[] \| readonly `AbiParameter`[], \`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `DecodeAbiParametersErrorType`, `unknown`[] \| readonly `unknown`[]\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/decodeAbiParametersEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeAbiParametersEffect.js#L7)

@@ -8,6 +8,6 @@
 
 > `const` **sepolia**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/sepolia.d.ts:1

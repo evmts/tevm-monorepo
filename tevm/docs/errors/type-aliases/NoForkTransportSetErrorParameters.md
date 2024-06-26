@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / NoForkTransportSetErrorParameters
 
-# Type alias: NoForkTransportSetErrorParameters
+# Type Alias: NoForkTransportSetErrorParameters
 
 > **NoForkTransportSetErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an NoForkTransportSetError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/fork/NoForkUriSetError.d.ts:38

@@ -21,6 +21,6 @@ Returns the latest full block in the canonical chain.
 
 `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
-## Source
+## Defined in
 
 [actions/getCanonicalHeadBlock.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L5)

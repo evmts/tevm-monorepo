@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / CodeStoreOutOfGasErrorParameters
 
-# Type alias: CodeStoreOutOfGasErrorParameters
+# Type Alias: CodeStoreOutOfGasErrorParameters
 
 > **CodeStoreOutOfGasErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [CodeStoreOutOfGasError](../classes/CodeStoreOutOf
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:78

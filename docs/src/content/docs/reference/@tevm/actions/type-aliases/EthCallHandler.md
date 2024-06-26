@@ -15,6 +15,6 @@ title: "EthCallHandler"
 
 `Promise`\<[`EthCallResult`](/reference/tevm/actions/type-aliases/ethcallresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L87)

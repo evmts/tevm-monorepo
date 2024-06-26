@@ -17,6 +17,6 @@ title: "TevmSendApi"
 
 > **sendBulk**: `TevmJsonRpcBulkRequestHandler`
 
-## Source
+## Defined in
 
 [request/TevmSendApi.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L3)

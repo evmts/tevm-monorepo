@@ -8,7 +8,7 @@
 
 > **trimEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `TrimErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\` \| `Uint8Array`, `TrimOptions?`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `TrimErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/trimEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/trimEffect.js#L7)

@@ -8,7 +8,7 @@
 
 > **fromBytesEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `FromBytesErrorType`, `string` \| `number` \| `bigint` \| `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`Uint8Array`, `FromBytesParameters`\<`"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `FromBytesErrorType`, `string` \| `number` \| `bigint` \| `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/encoding/fromBytesEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/fromBytesEffect.js#L7)

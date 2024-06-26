@@ -17,7 +17,7 @@ The options for initializing a Transaction.
 Allows unlimited contract code-size init while debugging. This (partially) disables EIP-3860.
 Gas cost for initcode size analysis will still be charged. Use with caution.
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:65
 
@@ -36,7 +36,7 @@ Default: Common object set to `mainnet` and the default hardfork as defined in t
 
 Current default hardfork: `istanbul`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:48
 
@@ -56,6 +56,6 @@ within your code instead.
 
 Default: true
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:60

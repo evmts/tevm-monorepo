@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / MiningConfig
 
-# Type alias: MiningConfig
+# Type Alias: MiningConfig
 
 > **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:120
+packages/base-client/dist/index.d.ts:121

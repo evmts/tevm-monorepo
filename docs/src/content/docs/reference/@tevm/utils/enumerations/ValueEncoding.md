@@ -11,7 +11,7 @@ title: "ValueEncoding"
 
 > **Bytes**: `"view"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:12
 
@@ -21,7 +21,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **JSON**: `"json"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:13
 
@@ -31,6 +31,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **String**: `"string"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:11

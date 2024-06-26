@@ -16,6 +16,6 @@
 
 [`HeaderData`](../interfaces/HeaderData.md)
 
-## Source
+## Defined in
 
 [helpers.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L24)

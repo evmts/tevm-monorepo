@@ -37,20 +37,20 @@ Native currency for the chain.
 
 ### nativeCurrency.decimals
 
-> **decimals**: `number`
+> **nativeCurrency.decimals**: `number`
 
 ### nativeCurrency.name
 
-> **name**: `string`
+> **nativeCurrency.name**: `string`
 
 ### nativeCurrency.symbol
 
-> **symbol**: `string`
+> **nativeCurrency.symbol**: `string`
 
 ### rpcUrls
 
 > **rpcUrls**: readonly `string`[]
 
-## Source
+## Defined in
 
 [eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)

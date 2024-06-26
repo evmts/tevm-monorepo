@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / EthGetUncleCountByBlockNumberJsonRpcResponse
 
-# Type alias: EthGetUncleCountByBlockNumberJsonRpcResponse
+# Type Alias: EthGetUncleCountByBlockNumberJsonRpcResponse
 
 > **EthGetUncleCountByBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getUncleCountByBlockNumber"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L162)

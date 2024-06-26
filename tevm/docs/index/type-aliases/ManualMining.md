@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ManualMining
 
-# Type alias: ManualMining
+# Type Alias: ManualMining
 
 > **ManualMining**: `object`
 
@@ -14,6 +14,6 @@
 
 > **type**: `"manual"`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:110
+packages/base-client/dist/index.d.ts:111

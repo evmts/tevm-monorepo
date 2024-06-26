@@ -8,7 +8,7 @@
 
 > **signEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignErrorType`, `Signature`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`SignParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SignErrorType`, `Signature`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/signEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signEffect.js#L7)

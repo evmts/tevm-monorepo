@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / WatchAssetParams
 
-# Type alias: WatchAssetParams
+# Type Alias: WatchAssetParams
 
 > **WatchAssetParams**: `object`
 
@@ -46,6 +46,6 @@ A ticker symbol or shorthand, up to 11 characters
 
 Token type.
 
-## Source
+## Defined in
 
 [eip1193/WatchAssetParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WatchAssetParams.ts#L11)

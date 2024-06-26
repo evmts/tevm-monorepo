@@ -7,7 +7,7 @@ title: "StateAction"
 
 > **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](/reference/tevm/state/interfaces/statemanager/)\[`T`\]
 
-## Type parameters
+## Type Parameters
 
 • **T** *extends* keyof [`StateManager`](/reference/tevm/state/interfaces/statemanager/)
 
@@ -21,6 +21,6 @@ title: "StateAction"
 
 [`StateManager`](/reference/tevm/state/interfaces/statemanager/)\[`T`\]
 
-## Source
+## Defined in
 
 [packages/state/src/state-types/StateAction.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateAction.ts#L4)

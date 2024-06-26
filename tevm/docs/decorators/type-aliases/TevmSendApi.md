@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / TevmSendApi
 
-# Type alias: TevmSendApi
+# Type Alias: TevmSendApi
 
 > **TevmSendApi**: `object`
 
@@ -18,6 +18,6 @@
 
 > **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:1578

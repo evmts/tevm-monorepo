@@ -28,6 +28,6 @@ Optional name of the iterator head (default: 'vm')
 
 `Promise`\<`Block`\>
 
-## Source
+## Defined in
 
 [actions/getIteratorHead.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L6)

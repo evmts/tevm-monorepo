@@ -72,7 +72,7 @@ The tag for the error.
 
 [`InternalError`](InternalError.md).[`constructor`](InternalError.md#constructors)
 
-#### Source
+#### Defined in
 
 packages/errors/types/defensive/DefensiveNullCheckError.d.ts:54
 
@@ -88,7 +88,7 @@ Same as name, used internally.
 
 [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:39
 
@@ -102,7 +102,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 [`InternalError`](InternalError.md).[`cause`](InternalError.md#cause)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:64
 
@@ -118,7 +118,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:63
 
@@ -132,7 +132,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 [`InternalError`](InternalError.md).[`details`](InternalError.md#details)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:43
 
@@ -148,7 +148,7 @@ Path to the documentation for this error.
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:47
 
@@ -164,9 +164,9 @@ Human-readable error message.
 
 [`InternalError`](InternalError.md).[`message`](InternalError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -180,7 +180,7 @@ Optional object containing additional information about the error.
 
 [`InternalError`](InternalError.md).[`meta`](InternalError.md#meta)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
@@ -196,7 +196,7 @@ Additional meta messages for more context.
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:51
 
@@ -212,9 +212,9 @@ The name of the error, used to discriminate errors.
 
 [`InternalError`](InternalError.md).[`name`](InternalError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -226,7 +226,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InternalError`](InternalError.md).[`shortMessage`](InternalError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:55
 
@@ -240,9 +240,9 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 [`InternalError`](InternalError.md).[`stack`](InternalError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -254,7 +254,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`InternalError`](InternalError.md).[`version`](InternalError.md#version)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:59
 
@@ -284,9 +284,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`InternalError`](InternalError.md).[`prepareStackTrace`](InternalError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -298,9 +298,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`InternalError`](InternalError.md).[`stackTraceLimit`](InternalError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -326,7 +326,7 @@ The first error that matches the function, or the original error.
 
 [`InternalError`](InternalError.md).[`walk`](InternalError.md#walk)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:70
 
@@ -352,6 +352,6 @@ Create .stack property on a target object
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

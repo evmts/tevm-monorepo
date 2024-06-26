@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcGeneratedSource
 
-# Type alias: SolcGeneratedSource
+# Type Alias: SolcGeneratedSource
 
 > **SolcGeneratedSource**: `object`
 
@@ -30,6 +30,6 @@
 
 > **name**: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:491](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L491)

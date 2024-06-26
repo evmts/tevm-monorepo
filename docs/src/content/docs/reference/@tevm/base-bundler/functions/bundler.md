@@ -110,32 +110,6 @@ Resolves typescript representation of the solidity module
 
 Resolves typescript representation of the solidity module
 
-## Example
-
-```typescript
-import { bundler } from '@tevm/base-bundler-bundler'
-import { createCache } from '@tevm/bundler-cache'
-import { readFile, writeFile } from 'fs/promises'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
-import { createSolc } from '@tevm/solc'
-import { loadConfig } from '@tevm/config'
-
-const fao = {
-  readFile,
-  writeFile,
-  readFileSync,
-  writeFileSync,
-  existsSync,
-  // may need more methods
-}
-
-const b = bundler(await loadConfig(), console, fao, await createSolc(), createCache())
-
-const path = '../contracts/ERC20.sol'
-
-const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
-```
-
-## Source
+## Defined in
 
 [bundler.js:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L45)

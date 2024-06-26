@@ -4,14 +4,14 @@
 
 [@tevm/state](../globals.md) / TevmState
 
-# Type alias: TevmState
+# Type Alias: TevmState
 
 > **TevmState**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `Address`\]: [`AccountStorage`](../interfaces/AccountStorage.md)
 
-## Source
+## Defined in
 
 [packages/state/src/state-types/TevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/TevmState.ts#L4)

@@ -4,10 +4,10 @@
 
 [tevm](../../../modules.md) / [bundler/config](../README.md) / ResolvedCompilerConfig
 
-# Type alias: ResolvedCompilerConfig
+# Type Alias: ResolvedCompilerConfig
 
 > **ResolvedCompilerConfig**: `ResolvedCompilerConfig`
 
-## Source
+## Defined in
 
 bundler-packages/config/types/index.d.ts:5

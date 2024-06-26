@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / DebugRequestType
 
-# Type alias: DebugRequestType
+# Type Alias: DebugRequestType
 
 > **DebugRequestType**: `object`
 
@@ -20,6 +20,6 @@ A mapping of `debug_*` method names to their request type
 
 > **debug\_traceTransaction**: [`DebugTraceTransactionJsonRpcRequest`](DebugTraceTransactionJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugRequestType.ts#L6)

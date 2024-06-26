@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:17
 
@@ -41,7 +41,7 @@ Cumulative gas used in the block including this tx
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:13
 
@@ -57,7 +57,7 @@ Logs emitted
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:21
 
@@ -69,6 +69,6 @@ packages/receipt-manager/types/RecieptManager.d.ts:21
 
 Intermediary state root
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:41

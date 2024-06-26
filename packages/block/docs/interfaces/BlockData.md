@@ -16,7 +16,7 @@ A block's data.
 
 EIP-6800: Verkle Proof Data (experimental)
 
-#### Source
+#### Defined in
 
 [types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
 
@@ -28,7 +28,7 @@ EIP-6800: Verkle Proof Data (experimental)
 
 Header data for the block
 
-#### Source
+#### Defined in
 
 [types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
 
@@ -38,7 +38,7 @@ Header data for the block
 
 > `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
-#### Source
+#### Defined in
 
 [types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
 
@@ -48,7 +48,7 @@ Header data for the block
 
 > `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
 
-#### Source
+#### Defined in
 
 [types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
 
@@ -58,7 +58,7 @@ Header data for the block
 
 > `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
-#### Source
+#### Defined in
 
 [types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
 
@@ -68,6 +68,6 @@ Header data for the block
 
 > `optional` **withdrawals**: `WithdrawalData`[]
 
-#### Source
+#### Defined in
 
 [types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)

@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / BlockParam
 
-# Type alias: BlockParam
+# Type Alias: BlockParam
 
 > **BlockParam**: `BlockTag` \| [`Hex`](Hex.md) \| `bigint`
 
-## Source
+## Defined in
 
 packages/actions/types/common/BlockParam.d.ts:3

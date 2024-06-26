@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`bitvector`](PostByzantiumTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:22
 
@@ -40,7 +40,7 @@ blob gas price for block transaction was included in
 Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:62
 
@@ -55,7 +55,7 @@ blob gas consumed by a transaction
 Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:55
 
@@ -71,7 +71,7 @@ Cumulative gas used in the block including this tx
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`cumulativeBlockGasUsed`](PostByzantiumTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:18
 
@@ -87,7 +87,7 @@ Logs emitted
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`logs`](PostByzantiumTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:26
 
@@ -103,6 +103,6 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`status`](PostByzantiumTxReceipt.md#status)
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:46

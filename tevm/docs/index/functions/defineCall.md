@@ -8,7 +8,7 @@
 
 > **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](../type-aliases/Abi.md)
 
@@ -34,6 +34,6 @@
 
 `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
-## Source
+## Defined in
 
 packages/precompiles/dist/index.d.ts:115

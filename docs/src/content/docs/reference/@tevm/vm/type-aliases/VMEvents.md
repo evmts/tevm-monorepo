@@ -65,6 +65,6 @@ title: "VMEvents"
 
 `void`
 
-## Source
+## Defined in
 
 [packages/vm/src/utils/types.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L75)

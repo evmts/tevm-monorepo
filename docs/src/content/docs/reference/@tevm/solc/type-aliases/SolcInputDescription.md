@@ -21,6 +21,6 @@ title: "SolcInputDescription"
 
 > **sources**: [`SolcInputSources`](/reference/tevm/solc/type-aliases/solcinputsources/)
 
-## Source
+## Defined in
 
 [solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)

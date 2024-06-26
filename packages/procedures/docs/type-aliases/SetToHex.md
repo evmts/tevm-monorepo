@@ -4,14 +4,14 @@
 
 [@tevm/procedures](../globals.md) / SetToHex
 
-# Type alias: SetToHex\<T\>
+# Type Alias: SetToHex\<T\>
 
 > **SetToHex**\<`T`\>: `T` *extends* `Set`\<`any`\> ? `Hex` : `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 [procedures/src/utils/SerializeToJson.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L20)

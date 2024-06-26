@@ -16,6 +16,6 @@
 
 [`EthCallJsonRpcProcedure`](../type-aliases/EthCallJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:636

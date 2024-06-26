@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / EvmRevertErrorParameters
 
-# Type alias: EvmRevertErrorParameters
+# Type Alias: EvmRevertErrorParameters
 
 > **EvmRevertErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79

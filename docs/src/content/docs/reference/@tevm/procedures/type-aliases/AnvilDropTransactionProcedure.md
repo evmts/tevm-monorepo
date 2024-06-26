@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvildroptransactionjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L72)

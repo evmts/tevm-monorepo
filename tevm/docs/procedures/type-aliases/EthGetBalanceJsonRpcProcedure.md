@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetBalanceJsonRpcProcedure
 
-# Type alias: EthGetBalanceJsonRpcProcedure()
+# Type Alias: EthGetBalanceJsonRpcProcedure()
 
 > **EthGetBalanceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:599

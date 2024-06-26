@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BLS12381InputEmptyErrorParameters
 
-# Type alias: BLS12381InputEmptyErrorParameters
+# Type Alias: BLS12381InputEmptyErrorParameters
 
 > **BLS12381InputEmptyErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [BLS12381InputEmptyError](../classes/BLS12381Input
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:60

@@ -4,7 +4,7 @@
 
 [@tevm/base-client](../globals.md) / IntervalMining
 
-# Type alias: IntervalMining
+# Type Alias: IntervalMining
 
 > **IntervalMining**: `object`
 
@@ -18,6 +18,6 @@
 
 > **type**: `"interval"`
 
-## Source
+## Defined in
 
 [packages/base-client/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L1)

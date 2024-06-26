@@ -16,6 +16,6 @@
 
 [`StateManager`](../interfaces/StateManager.md)
 
-## Source
+## Defined in
 
 [packages/state/src/createStateManager.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createStateManager.js#L36)

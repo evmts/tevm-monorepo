@@ -4,7 +4,7 @@
 
 [@tevm/utils](../globals.md) / WithdrawalData
 
-# Type alias: WithdrawalData
+# Type Alias: WithdrawalData
 
 > **WithdrawalData**: `object`
 
@@ -29,6 +29,6 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 > **validatorIndex**: [`BigIntLike`](BigIntLike.md)
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7

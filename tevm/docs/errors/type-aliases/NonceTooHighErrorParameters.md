@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / NonceTooHighErrorParameters
 
-# Type alias: NonceTooHighErrorParameters
+# Type Alias: NonceTooHighErrorParameters
 
 > **NonceTooHighErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a NonceTooHighError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/NonceTooHighError.d.ts:50

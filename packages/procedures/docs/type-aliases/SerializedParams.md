@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / SerializedParams
 
-# Type alias: SerializedParams
+# Type Alias: SerializedParams
 
 > **SerializedParams**: `object`
 
@@ -16,6 +16,6 @@ The parameters for the `tevm_loadState` method
 
 > **state**: [`SerializeToJson`](SerializeToJson.md)\<`ParameterizedTevmState`\>
 
-## Source
+## Defined in
 
 [procedures/src/loadstate/LoadStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcRequest.ts#L8)

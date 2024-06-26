@@ -4,11 +4,11 @@
 
 [@tevm/actions](../globals.md) / ContractResult
 
-# Type alias: ContractResult\<TAbi, TFunctionName, ErrorType\>
+# Type Alias: ContractResult\<TAbi, TFunctionName, ErrorType\>
 
 > **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](CallResult.md), `"errors"`\> & `object` \| [`CallResult`](CallResult.md)\<`ErrorType`\> & `object`
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
 
@@ -16,6 +16,6 @@
 
 • **ErrorType** = [`TevmContractError`](TevmContractError.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/ContractResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractResult.ts#L6)

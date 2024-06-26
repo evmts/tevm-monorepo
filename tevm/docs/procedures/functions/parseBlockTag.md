@@ -16,6 +16,6 @@
 
 `bigint` \| [`Hex`](../../index/type-aliases/Hex.md) \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1270

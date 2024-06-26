@@ -20,7 +20,7 @@
 
 `null` \| `string`
 
-#### Source
+#### Defined in
 
 packages/sync-storage-persister/types/Storage.d.ts:2
 
@@ -38,7 +38,7 @@ packages/sync-storage-persister/types/Storage.d.ts:2
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/sync-storage-persister/types/Storage.d.ts:4
 
@@ -58,6 +58,6 @@ packages/sync-storage-persister/types/Storage.d.ts:4
 
 `void`
 
-#### Source
+#### Defined in
 
 packages/sync-storage-persister/types/Storage.d.ts:3

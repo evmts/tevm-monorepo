@@ -15,7 +15,7 @@ Result of applyBlock
 
 The Bloom filter
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L295)
 
@@ -27,7 +27,7 @@ The Bloom filter
 
 The gas used after executing the block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:299](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L299)
 
@@ -39,7 +39,7 @@ The gas used after executing the block
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:315](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L315)
 
@@ -51,7 +51,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 Receipts generated for transactions in the block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L307)
 
@@ -63,7 +63,7 @@ Receipts generated for transactions in the block
 
 The receipt root after executing the block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L303)
 
@@ -75,6 +75,6 @@ The receipt root after executing the block
 
 Results of executing the transactions in the block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:311](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L311)

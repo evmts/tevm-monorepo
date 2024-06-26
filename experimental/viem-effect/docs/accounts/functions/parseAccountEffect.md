@@ -8,7 +8,7 @@
 
 > **parseAccountEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ParseAccountErrorType`, `Account`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\` \| `Account`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ParseAccountErrorType`, `Account`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/parseAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/parseAccountEffect.js#L7)

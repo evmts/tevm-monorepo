@@ -4,7 +4,7 @@
 
 [@tevm/evm](../globals.md) / CreateEvmOptions
 
-# Type alias: CreateEvmOptions
+# Type Alias: CreateEvmOptions
 
 > **CreateEvmOptions**: `object`
 
@@ -148,6 +148,6 @@ Enable profiler. Defaults to false.
 
 A custom Tevm state manager
 
-## Source
+## Defined in
 
 [packages/evm/src/CreateEvmOptions.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L37)

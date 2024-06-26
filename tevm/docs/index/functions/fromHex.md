@@ -13,7 +13,7 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 - Docs: https://viem.sh/docs/utilities/fromHex
 - Example: https://viem.sh/docs/utilities/fromHex#usage
 
-## Type parameters
+## Type Parameters
 
 • **TTo** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
 
@@ -56,6 +56,6 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 // 'Hello world'
 ```
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.2\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47

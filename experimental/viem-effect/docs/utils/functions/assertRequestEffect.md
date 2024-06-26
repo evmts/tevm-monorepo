@@ -8,7 +8,7 @@
 
 > **assertRequestEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `AssertRequestErrorType`, `void`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`AssertRequestParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `AssertRequestErrorType`, `void`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/assertRequestEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/assertRequestEffect.js#L7)

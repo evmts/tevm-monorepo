@@ -8,7 +8,7 @@
 
 > **serializeAccessListEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SerializeAccessListErrorType`, `RecursiveArray`\<\`0x$\{string\}\`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`AccessList`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SerializeAccessListErrorType`, `RecursiveArray`\<\`0x$\{string\}\`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/transaction/serializeAccessListEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/transaction/serializeAccessListEffect.js#L7)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / StructLog
 
-# Type alias: StructLog
+# Type Alias: StructLog
 
 > **StructLog**: `object`
 
@@ -16,7 +16,7 @@
 
 ### error?
 
-> `optional` `readonly` **error**: `object`
+> `readonly` `optional` **error**: `object`
 
 ### error.error
 
@@ -46,6 +46,6 @@
 
 > `readonly` **stack**: [`Hex`](Hex.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/debug/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L4)

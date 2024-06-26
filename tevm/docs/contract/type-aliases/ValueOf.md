@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [contract](../README.md) / ValueOf
 
-# Type alias: ValueOf\<T\>
+# Type Alias: ValueOf\<T\>
 
 > **ValueOf**\<`T`\>: `T`\[keyof `T`\]
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 packages/contract/types/event/EventActionCreator.d.ts:6

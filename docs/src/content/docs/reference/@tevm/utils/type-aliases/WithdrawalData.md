@@ -28,6 +28,6 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 > **validatorIndex**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7

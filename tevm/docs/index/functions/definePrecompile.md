@@ -8,7 +8,7 @@
 
 > **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
-## Type parameters
+## Type Parameters
 
 • **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
 
@@ -24,6 +24,6 @@
 
 `Precompile`\<`TContract`\>
 
-## Source
+## Defined in
 
 packages/precompiles/dist/index.d.ts:103

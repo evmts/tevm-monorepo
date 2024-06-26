@@ -33,6 +33,6 @@ await tevm.loadState({state})
 
 `Promise`\<[`DumpStateResult`](/reference/tevm/actions/type-aliases/dumpstateresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/DumpState/DumpStateHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateHandlerType.ts#L21)

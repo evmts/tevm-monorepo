@@ -19,6 +19,6 @@ The JSON data can be retrieved from a consensus layer (CL) client on this Beacon
 
 [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-## Source
+## Defined in
 
 packages/block/types/from-beacon-payload.d.ts:34

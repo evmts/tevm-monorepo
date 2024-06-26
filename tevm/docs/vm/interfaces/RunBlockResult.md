@@ -28,7 +28,7 @@ The gas used after executing the block
 
 `Omit.gasUsed`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:276
 
@@ -40,7 +40,7 @@ packages/vm/types/utils/types.d.ts:276
 
 The bloom filter of the LOGs (events) after executing the block
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:305
 
@@ -56,7 +56,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 `Omit.preimages`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:292
 
@@ -72,7 +72,7 @@ Receipts generated for transactions in the block
 
 `Omit.receipts`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:284
 
@@ -88,7 +88,7 @@ The receipt root after executing the block
 
 `Omit.receiptsRoot`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:280
 
@@ -100,7 +100,7 @@ packages/vm/types/utils/types.d.ts:280
 
 Any CL requests that were processed in the course of this block
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:313
 
@@ -112,7 +112,7 @@ packages/vm/types/utils/types.d.ts:313
 
 The requestsRoot for any CL requests in the block
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:309
 
@@ -128,7 +128,7 @@ Results of executing the transactions in the block
 
 `Omit.results`
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:288
 
@@ -140,6 +140,6 @@ packages/vm/types/utils/types.d.ts:288
 
 The stateRoot after executing the block
 
-#### Source
+#### Defined in
 
 packages/vm/types/utils/types.d.ts:301

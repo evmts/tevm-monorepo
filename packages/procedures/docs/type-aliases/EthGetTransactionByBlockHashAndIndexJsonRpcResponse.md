@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
-# Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
+# Type Alias: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getTransactionByBlockHashAndIndex"`, `TransactionResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L182)

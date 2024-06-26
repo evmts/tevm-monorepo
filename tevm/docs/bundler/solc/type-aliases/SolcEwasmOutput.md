@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcEwasmOutput
 
-# Type alias: SolcEwasmOutput
+# Type Alias: SolcEwasmOutput
 
 > **SolcEwasmOutput**: `object`
 
@@ -18,6 +18,6 @@
 
 > **wast**: `string`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:207

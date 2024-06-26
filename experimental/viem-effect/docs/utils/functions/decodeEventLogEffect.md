@@ -8,7 +8,7 @@
 
 > **decodeEventLogEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `DecodeEventLogErrorType`, `object` \| `object`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`DecodeEventLogParameters`\<`Abi` \| readonly `unknown`[], `undefined` \| `string`, \`0x$\{string\}\`[], `undefined` \| \`0x$\{string\}\`, `boolean`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `DecodeEventLogErrorType`, `object` \| `object`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/abi/decodeEventLogEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/decodeEventLogEffect.js#L7)

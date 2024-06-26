@@ -8,6 +8,6 @@
 
 > `const` **optimismSepolia**: `Common`
 
-## Source
+## Defined in
 
 packages/common/types/presets/optimismSepolia.d.ts:1

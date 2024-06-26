@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthCallHandler
 
-# Type alias: EthCallHandler()
+# Type Alias: EthCallHandler()
 
 > **EthCallHandler**: (`request`) => `Promise`\<[`EthCallResult`](EthCallResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthCallResult`](EthCallResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L87)

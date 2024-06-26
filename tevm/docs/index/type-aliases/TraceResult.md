@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TraceResult
 
-# Type alias: TraceResult
+# Type Alias: TraceResult
 
 > **TraceResult**: `object`
 
@@ -46,6 +46,6 @@
 
 > **value**: `bigint`
 
-## Source
+## Defined in
 
 packages/actions/types/common/TraceResult.d.ts:5

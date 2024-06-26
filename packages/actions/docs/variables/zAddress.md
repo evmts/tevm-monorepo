@@ -10,6 +10,6 @@
 
 Zod validator for a valid ethereum address
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zAddress.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAddress.js#L6)

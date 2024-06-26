@@ -15,6 +15,6 @@ title: "EthGetStorageAtJsonRpcProcedure"
 
 `Promise`\<[`EthGetStorageAtJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethgetstorageatjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L135)

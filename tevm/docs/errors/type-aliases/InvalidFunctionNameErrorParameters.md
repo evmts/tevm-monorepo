@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidFunctionNameErrorParameters
 
-# Type alias: InvalidFunctionNameErrorParameters
+# Type Alias: InvalidFunctionNameErrorParameters
 
 > **InvalidFunctionNameErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidFunctionNameError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidFunctionNameError.d.ts:42

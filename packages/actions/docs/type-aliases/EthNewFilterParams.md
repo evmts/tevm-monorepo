@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / EthNewFilterParams
 
-# Type alias: EthNewFilterParams
+# Type Alias: EthNewFilterParams
 
 > **EthNewFilterParams**: [`FilterParams`](FilterParams.md)
 
 Based on the JSON-RPC request for `eth_newFilter` procedure
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L293)

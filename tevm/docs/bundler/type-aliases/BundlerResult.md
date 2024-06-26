@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [bundler](../README.md) / BundlerResult
 
-# Type alias: BundlerResult
+# Type Alias: BundlerResult
 
 > **BundlerResult**: `BundlerResult`
 
 ./types.ts
 
-## Source
+## Defined in
 
 bundler-packages/base-bundler/types/src/index.d.ts:14

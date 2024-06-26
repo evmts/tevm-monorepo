@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ContractParams
 
-# Type alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
+# Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
 > **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & `BaseCallParams`\<`TThrowOnFail`\> & `object`
 
@@ -14,24 +14,24 @@ Tevm params to execute a call on a contract
 
 ### code?
 
-> `optional` `readonly` **code**: [`Hex`](Hex.md)
+> `readonly` `optional` **code**: [`Hex`](Hex.md)
 
 Alias for deployedBytecode
 
 ### deployedBytecode?
 
-> `optional` `readonly` **deployedBytecode**: [`Hex`](Hex.md)
+> `readonly` `optional` **deployedBytecode**: [`Hex`](Hex.md)
 
 Code to execute at the contract address.
 If not provideded the code will be fetched from state
 
 ### to?
 
-> `optional` `readonly` **to**: `Address`
+> `readonly` `optional` **to**: `Address`
 
 The address to call.
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -39,6 +39,6 @@ The address to call.
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 packages/actions/types/Contract/ContractParams.d.ts:7

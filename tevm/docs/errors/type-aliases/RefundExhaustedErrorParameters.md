@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / RefundExhaustedErrorParameters
 
-# Type alias: RefundExhaustedErrorParameters
+# Type Alias: RefundExhaustedErrorParameters
 
 > **RefundExhaustedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [RefundExhaustedError](../classes/RefundExhaustedE
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:70

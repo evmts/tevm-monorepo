@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [blockchain](../README.md) / Chain
 
-# Type alias: Chain
+# Type Alias: Chain
 
 > **Chain**: `object` & `BaseChain` & `object`
 
@@ -180,6 +180,6 @@ If this is an uncle header, this is the height of the block that is including it
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/blockchain/types/Chain.d.ts:14

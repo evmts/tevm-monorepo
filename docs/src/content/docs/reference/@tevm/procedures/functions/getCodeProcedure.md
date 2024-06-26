@@ -21,6 +21,6 @@ title: "getCodeProcedure"
 
 [`EthGetCodeJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetcodejsonrpcprocedure/)
 
-## Source
+## Defined in
 
 [procedures/src/eth/getCodeProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getCodeProcedure.js#L8)

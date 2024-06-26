@@ -27,6 +27,6 @@ Returns true if state root exists
 
 `Promise`\<`boolean`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/hasStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L7)

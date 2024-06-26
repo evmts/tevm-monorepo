@@ -16,6 +16,6 @@
 
 [`LoadStateJsonRpcProcedure`](../type-aliases/LoadStateJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:1146

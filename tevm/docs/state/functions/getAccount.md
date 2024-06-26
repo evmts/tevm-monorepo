@@ -28,6 +28,6 @@ Gets the code corresponding to the provided `address`.
 
 `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:256

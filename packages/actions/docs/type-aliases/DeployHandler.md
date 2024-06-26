@@ -4,11 +4,11 @@
 
 [@tevm/actions](../globals.md) / DeployHandler
 
-# Type alias: DeployHandler()
+# Type Alias: DeployHandler()
 
 > **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
@@ -26,6 +26,6 @@
 
 `Promise`\<[`DeployResult`](DeployResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Deploy/DeployHandlerType.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployHandlerType.ts#L5)

@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / RpcSchema
 
-# Type alias: RpcSchema
-
-`Internal`
+# Type Alias: RpcSchema
 
 > **RpcSchema**: readonly `object`[]
 
+**`Internal`**
+
 Most general RPC schema type.
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:248

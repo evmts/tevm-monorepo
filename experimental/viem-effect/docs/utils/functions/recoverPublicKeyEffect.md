@@ -8,7 +8,7 @@
 
 > **recoverPublicKeyEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `RecoverPublicKeyErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`RecoverPublicKeyParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `RecoverPublicKeyErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/recoverPublicKeyEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/recoverPublicKeyEffect.js#L7)

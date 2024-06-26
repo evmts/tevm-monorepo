@@ -9,6 +9,6 @@ title: "EthCoinbaseJsonRpcResponse"
 
 JSON-RPC response for `eth_coinbase` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcResponse.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L42)

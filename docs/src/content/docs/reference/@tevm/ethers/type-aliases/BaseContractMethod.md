@@ -7,7 +7,7 @@ title: "BaseContractMethod"
 
 > **BaseContractMethod**\<`TArguments`, `TReturnType`, `TExtendedReturnType`\>: (...`args`) => `Promise`\<`TReturnType` \| `TExtendedReturnType`\>
 
-## Type parameters
+## Type Parameters
 
 • **TArguments** *extends* `ReadonlyArray`\<`any`\> = `ReadonlyArray`\<`any`\>
 
@@ -113,6 +113,6 @@ title: "BaseContractMethod"
 
 `Promise`\<`Result`\>
 
-## Source
+## Defined in
 
 [extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)

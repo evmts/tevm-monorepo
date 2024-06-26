@@ -32,6 +32,6 @@ Resolves artifacts with solc asyncronously
 
 `Promise`\<`ResolvedArtifacts`\>
 
-## Source
+## Defined in
 
 bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5

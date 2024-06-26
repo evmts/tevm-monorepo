@@ -27,6 +27,6 @@ The block to be added to the blockchain.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [actions/putBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/putBlock.js#L7)

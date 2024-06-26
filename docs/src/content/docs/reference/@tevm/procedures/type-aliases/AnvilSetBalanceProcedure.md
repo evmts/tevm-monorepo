@@ -17,6 +17,6 @@ JSON-RPC procedure for `anvil_setBalance`
 
 `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](/reference/tevm/procedures/type-aliases/anvilsetbalancejsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilProcedure.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L79)

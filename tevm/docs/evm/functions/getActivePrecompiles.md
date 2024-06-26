@@ -18,6 +18,6 @@
 
 `Map`\<`string`, `PrecompileFunc`\>
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/index.d.ts:37

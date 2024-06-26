@@ -7,10 +7,10 @@ title: "ValueOf"
 
 > **ValueOf**\<`T`\>: `T`\[keyof `T`\]
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
-[event/EventActionCreator.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L27)
+[event/EventActionCreator.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L30)

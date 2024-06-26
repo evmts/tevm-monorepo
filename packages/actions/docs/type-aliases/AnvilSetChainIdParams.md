@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetChainIdParams
 
-# Type alias: AnvilSetChainIdParams
+# Type Alias: AnvilSetChainIdParams
 
 > **AnvilSetChainIdParams**: `object`
 
@@ -18,6 +18,6 @@ Params for `anvil_setChainId` handler
 
 The chain id to set
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L152)

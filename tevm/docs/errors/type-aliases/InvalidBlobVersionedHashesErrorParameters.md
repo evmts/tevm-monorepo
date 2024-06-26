@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidBlobVersionedHashesErrorParameters
 
-# Type alias: InvalidBlobVersionedHashesErrorParameters
+# Type Alias: InvalidBlobVersionedHashesErrorParameters
 
 > **InvalidBlobVersionedHashesErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidBlobVersionedHashesError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:42

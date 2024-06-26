@@ -24,6 +24,6 @@
 
 `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:263

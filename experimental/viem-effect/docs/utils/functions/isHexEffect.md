@@ -8,7 +8,7 @@
 
 > **isHexEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `IsHexErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`unknown`, `Object?`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `IsHexErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/isHexEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/isHexEffect.js#L7)

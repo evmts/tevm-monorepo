@@ -16,6 +16,6 @@
 
 [`HeaderData`](../interfaces/HeaderData.md)
 
-## Source
+## Defined in
 
 packages/block/types/helpers.d.ts:9

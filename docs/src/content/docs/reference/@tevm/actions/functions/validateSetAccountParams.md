@@ -15,6 +15,6 @@ title: "validateSetAccountParams"
 
 [`ValidateSetAccountParamsError`](/reference/tevm/actions/type-aliases/validatesetaccountparamserror/)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/validateSetAccountParams.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/validateSetAccountParams.js#L19)

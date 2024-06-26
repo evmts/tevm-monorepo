@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidStorageRootErrorParameters
 
-# Type alias: InvalidStorageRootErrorParameters
+# Type Alias: InvalidStorageRootErrorParameters
 
 > **InvalidStorageRootErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidStorageRootError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidStorageRootError.d.ts:42

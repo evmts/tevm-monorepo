@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / OutOfGasErrorParameters
 
-# Type alias: OutOfGasErrorParameters
+# Type Alias: OutOfGasErrorParameters
 
 > **OutOfGasErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an OutOfGasError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:82

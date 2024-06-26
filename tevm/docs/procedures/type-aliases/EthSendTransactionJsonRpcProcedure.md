@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthSendTransactionJsonRpcProcedure
 
-# Type alias: EthSendTransactionJsonRpcProcedure()
+# Type Alias: EthSendTransactionJsonRpcProcedure()
 
 > **EthSendTransactionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSendTransactionJsonRpcResponse`](EthSendTransactionJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthSendTransactionJsonRpcResponse`](EthSendTransactionJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:621

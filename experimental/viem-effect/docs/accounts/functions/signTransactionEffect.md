@@ -8,7 +8,7 @@
 
 > **signTransactionEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignTransactionErrorType`, `SignTransactionReturnType`\<`TransactionSerializable`\>\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`SignTransactionParameters`\<`TransactionSerializable`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SignTransactionErrorType`, `SignTransactionReturnType`\<`TransactionSerializable`\>\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/signTransactionEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signTransactionEffect.js#L7)

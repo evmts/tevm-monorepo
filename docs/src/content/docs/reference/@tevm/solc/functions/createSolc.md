@@ -17,6 +17,6 @@ title: "createSolc"
 
 An instance of solc
 
-## Source
+## Defined in
 
 [solc.js:143](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L143)

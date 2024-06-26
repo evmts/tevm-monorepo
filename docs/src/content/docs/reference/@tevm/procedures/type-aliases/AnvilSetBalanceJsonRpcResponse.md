@@ -9,6 +9,6 @@ title: "AnvilSetBalanceJsonRpcResponse"
 
 JSON-RPC response for `anvil_setBalance` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L86)

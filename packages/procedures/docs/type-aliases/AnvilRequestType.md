@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / AnvilRequestType
 
-# Type alias: AnvilRequestType
+# Type Alias: AnvilRequestType
 
 > **AnvilRequestType**: `object`
 
@@ -64,6 +64,6 @@ A mapping of `anvil_*` method names to their request type
 
 > **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/AnvilRequestType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/AnvilRequestType.ts#L19)

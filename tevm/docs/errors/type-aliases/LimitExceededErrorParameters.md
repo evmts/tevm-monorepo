@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / LimitExceededErrorParameters
 
-# Type alias: LimitExceededErrorParameters
+# Type Alias: LimitExceededErrorParameters
 
 > **LimitExceededErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a LimitExceededError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/LimitExceededError.d.ts:50

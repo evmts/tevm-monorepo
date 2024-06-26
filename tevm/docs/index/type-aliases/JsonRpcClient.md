@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / JsonRpcClient
 
-# Type alias: JsonRpcClient
+# Type Alias: JsonRpcClient
 
 > **JsonRpcClient**: `object`
 
@@ -16,6 +16,6 @@ A client for making JsonRpc requests over http
 
 > **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
 
-## Source
+## Defined in
 
 packages/jsonrpc/types/JsonRpcClient.d.ts:5

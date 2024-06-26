@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthSyncingJsonRpcResponse
 
-# Type alias: EthSyncingJsonRpcResponse
+# Type Alias: EthSyncingJsonRpcResponse
 
 > **EthSyncingJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_syncing"`, `boolean` \| `object`, `string` \| `number`\>
 
 JSON-RPC response for `eth_syncing` procedure
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:558

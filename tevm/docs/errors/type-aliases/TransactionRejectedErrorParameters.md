@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / TransactionRejectedErrorParameters
 
-# Type alias: TransactionRejectedErrorParameters
+# Type Alias: TransactionRejectedErrorParameters
 
 > **TransactionRejectedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a TransactionRejectedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/TransactionRejectedError.d.ts:64

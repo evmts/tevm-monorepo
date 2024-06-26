@@ -39,11 +39,11 @@ title: "SolcContractOutput"
 
 ### storageLayout.storage
 
-> **storage**: `any`[]
+> **storageLayout.storage**: `any`[]
 
 ### storageLayout.types
 
-> **types**: `any`
+> **storageLayout.types**: `any`
 
 ### userdoc
 
@@ -51,20 +51,20 @@ title: "SolcContractOutput"
 
 ### userdoc.kind
 
-> **kind**: `"user"`
+> **userdoc.kind**: `"user"`
 
 ### userdoc.methods?
 
-> `optional` **methods**: `Record`\<`string`, `object`\>
+> `optional` **userdoc.methods**: `Record`\<`string`, `object`\>
 
 ### userdoc.notice?
 
-> `optional` **notice**: `string`
+> `optional` **userdoc.notice**: `string`
 
 ### userdoc.version
 
-> **version**: `number`
+> **userdoc.version**: `number`
 
-## Source
+## Defined in
 
 [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)

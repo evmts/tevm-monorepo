@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidCallerErrorParameters
 
-# Type alias: InvalidCallerErrorParameters
+# Type Alias: InvalidCallerErrorParameters
 
 > **InvalidCallerErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidCallerError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidCallerError.d.ts:42

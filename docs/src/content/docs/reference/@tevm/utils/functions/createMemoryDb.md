@@ -5,9 +5,9 @@ prev: false
 title: "createMemoryDb"
 ---
 
-`Internal`
-
 > **createMemoryDb**(`initialDb`?): [`MemoryDb`](/reference/tevm/utils/type-aliases/memorydb/)\<`Uint8Array`, `Uint8Array`\>
+
+**`Internal`**
 
 A simple ethereumjs DB instance that uses an in memory Map as it's backend
 Pass in an initial DB optionally to prepoulate the DB.
@@ -20,8 +20,6 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 [`MemoryDb`](/reference/tevm/utils/type-aliases/memorydb/)\<`Uint8Array`, `Uint8Array`\>
 
-## Throws
-
-## Source
+## Defined in
 
 [packages/utils/src/createMemoryDb.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L22)

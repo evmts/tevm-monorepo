@@ -31,6 +31,6 @@ corresponding to `address` to reference this.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:334

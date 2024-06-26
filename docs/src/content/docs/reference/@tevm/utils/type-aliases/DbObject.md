@@ -7,10 +7,10 @@ title: "DbObject"
 
 > **DbObject**: `object`
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: `string` \| `string`[] \| `number`
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:1

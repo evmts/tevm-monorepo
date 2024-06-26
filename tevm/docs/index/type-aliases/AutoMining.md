@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / AutoMining
 
-# Type alias: AutoMining
+# Type Alias: AutoMining
 
 > **AutoMining**: `object`
 
@@ -14,6 +14,6 @@
 
 > **type**: `"auto"`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:113
+packages/base-client/dist/index.d.ts:114

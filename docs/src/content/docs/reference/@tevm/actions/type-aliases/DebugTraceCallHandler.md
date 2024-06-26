@@ -15,6 +15,6 @@ title: "DebugTraceCallHandler"
 
 `Promise`\<[`DebugTraceCallResult`](/reference/tevm/actions/type-aliases/debugtracecallresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)

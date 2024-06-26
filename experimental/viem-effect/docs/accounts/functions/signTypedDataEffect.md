@@ -8,7 +8,7 @@
 
 > **signTypedDataEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SignTypedDataErrorType`, \`0x$\{string\}\`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`SignTypedDataParameters`\<`object` \| `object`, `string`\>]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SignTypedDataErrorType`, \`0x$\{string\}\`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/accounts/utils/signTypedDataEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/utils/signTypedDataEffect.js#L7)

@@ -13,7 +13,7 @@ An object with the block's data represented as strings.
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](/reference/tevm/block/interfaces/verkleexecutionwitness/)
 
-#### Source
+#### Defined in
 
 [types.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L187)
 
@@ -25,7 +25,7 @@ An object with the block's data represented as strings.
 
 Header data for the block
 
-#### Source
+#### Defined in
 
 [types.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L182)
 
@@ -35,7 +35,7 @@ Header data for the block
 
 > `optional` **requests**: `null` \| \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 [types.ts:186](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L186)
 
@@ -45,7 +45,7 @@ Header data for the block
 
 > `optional` **transactions**: [`JsonTx`](/reference/tevm/tx/interfaces/jsontx/)[]
 
-#### Source
+#### Defined in
 
 [types.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L183)
 
@@ -55,7 +55,7 @@ Header data for the block
 
 > `optional` **uncleHeaders**: [`JsonHeader`](/reference/tevm/block/interfaces/jsonheader/)[]
 
-#### Source
+#### Defined in
 
 [types.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L184)
 
@@ -65,6 +65,6 @@ Header data for the block
 
 > `optional` **withdrawals**: [`JsonRpcWithdrawal`](/reference/tevm/utils/interfaces/jsonrpcwithdrawal/)[]
 
-#### Source
+#### Defined in
 
 [types.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L185)

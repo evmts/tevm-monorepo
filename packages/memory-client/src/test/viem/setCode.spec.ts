@@ -4,7 +4,7 @@ import { type TestActions, testActions } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc: MemoryClient & TestActions
+let mc: MemoryClient<any, any> & TestActions
 const c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }

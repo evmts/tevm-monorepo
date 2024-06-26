@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EIP1193Events
 
-# Type alias: EIP1193Events
+# Type Alias: EIP1193Events
 
 > **EIP1193Events**: `object`
 
@@ -12,7 +12,7 @@
 
 ### on()
 
-#### Type parameters
+#### Type Parameters
 
 • **TEvent** *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
@@ -28,7 +28,7 @@
 
 ### removeListener()
 
-#### Type parameters
+#### Type Parameters
 
 • **TEvent** *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
@@ -42,6 +42,6 @@
 
 `void`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:40
+packages/base-client/dist/index.d.ts:41

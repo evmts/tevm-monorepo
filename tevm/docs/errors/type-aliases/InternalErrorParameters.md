@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InternalErrorParameters
 
-# Type alias: InternalErrorParameters
+# Type Alias: InternalErrorParameters
 
 > **InternalErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InternalError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InternalErrorError.d.ts:54

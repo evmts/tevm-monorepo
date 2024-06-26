@@ -18,6 +18,6 @@ export const SUINT16: Schema<bigint, UINT16>;
 ```
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L98)

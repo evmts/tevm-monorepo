@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthReturnType
 
-# Type alias: EthReturnType
+# Type Alias: EthReturnType
 
 > **EthReturnType**: `object`
 
@@ -164,6 +164,6 @@ A mapping of `eth_*` method names to their return type
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:814

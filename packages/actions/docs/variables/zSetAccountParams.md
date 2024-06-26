@@ -10,6 +10,6 @@
 
 Zod validator for a valid setAccount action
 
-## Source
+## Defined in
 
 [packages/actions/src/SetAccount/zSetAccountParams.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/zSetAccountParams.js#L11)

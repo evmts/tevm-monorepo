@@ -30,6 +30,6 @@
 
 `ResolvedArtifacts`
 
-## Source
+## Defined in
 
 bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4

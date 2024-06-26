@@ -19,7 +19,7 @@ An array of state diffs.
 Each item corresponding to state accesses or state modifications of the block.
 In the current design, it also contains the resulting state of the block execution (post-state).
 
-#### Source
+#### Defined in
 
 [types.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L100)
 
@@ -32,6 +32,6 @@ In the current design, it also contains the resulting state of the block executi
 The verkle proof for the block.
 Proves that the provided stateDiff belongs to the canonical verkle tree.
 
-#### Source
+#### Defined in
 
 [types.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L105)

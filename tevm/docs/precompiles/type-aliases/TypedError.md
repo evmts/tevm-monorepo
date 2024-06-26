@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [precompiles](../README.md) / TypedError
 
-# Type alias: TypedError\<TName\>
+# Type Alias: TypedError\<TName\>
 
 > **TypedError**\<`TName`\>: `object`
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -26,6 +26,6 @@
 
 > **name**: `TName`
 
-## Source
+## Defined in
 
 packages/precompiles/dist/index.d.ts:16

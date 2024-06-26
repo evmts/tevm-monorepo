@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / AnvilImpersonateAccountProcedure
 
-# Type alias: AnvilImpersonateAccountProcedure()
+# Type Alias: AnvilImpersonateAccountProcedure()
 
 > **AnvilImpersonateAccountProcedure**: (`request`) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
@@ -18,6 +18,6 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:719

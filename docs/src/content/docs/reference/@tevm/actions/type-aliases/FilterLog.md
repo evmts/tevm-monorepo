@@ -47,6 +47,6 @@ FilterLog type for eth JSON-RPC procedures
 
 > `readonly` **transactionIndex**: `bigint`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/FilterLog.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterLog.ts#L6)

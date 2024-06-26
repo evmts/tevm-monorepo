@@ -4,16 +4,16 @@
 
 [@tevm/utils](../globals.md) / JsonSerializableObject
 
-# Type alias: JsonSerializableObject
+# Type Alias: JsonSerializableObject
 
 > **JsonSerializableObject**: `object`
 
 A type that represents a JSON-serializable object.
 
-## Index signature
+## Index Signature
 
  \[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)
 
-## Source
+## Defined in
 
 [packages/utils/src/SerializeToJson.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L24)

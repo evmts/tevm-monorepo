@@ -4,10 +4,10 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmLoadStateError
 
-# Type alias: TevmLoadStateError
+# Type Alias: TevmLoadStateError
 
 > **TevmLoadStateError**: [`InternalError`](../../errors/classes/InternalError.md)
 
-## Source
+## Defined in
 
 packages/actions/types/LoadState/TevmLoadStateError.d.ts:2

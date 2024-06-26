@@ -34,6 +34,6 @@
 
 > **time**: `ZodOptional`\<`ZodBigInt`\>
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zBlockOverrideSet.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zBlockOverrideSet.js#L4)

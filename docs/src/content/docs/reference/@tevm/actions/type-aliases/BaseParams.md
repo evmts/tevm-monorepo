@@ -9,7 +9,7 @@ title: "BaseParams"
 
 The base parameters shared across all actions
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
@@ -17,11 +17,11 @@ The base parameters shared across all actions
 
 ### throwOnFail?
 
-> `optional` `readonly` **throwOnFail**: `TThrowOnFail`
+> `readonly` `optional` **throwOnFail**: `TThrowOnFail`
 
 Whether to throw on errors or return errors as value on the 'errors' property
 Defaults to `true`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/BaseParams.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BaseParams.ts#L4)

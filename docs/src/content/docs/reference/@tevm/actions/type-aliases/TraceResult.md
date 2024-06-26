@@ -45,6 +45,6 @@ title: "TraceResult"
 
 > **value**: `bigint`
 
-## Source
+## Defined in
 
 [packages/actions/src/common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceResult.ts#L6)

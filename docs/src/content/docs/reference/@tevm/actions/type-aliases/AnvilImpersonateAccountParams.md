@@ -17,6 +17,6 @@ Params fro `anvil_impersonateAccount` handler
 
 The address to impersonate
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L10)

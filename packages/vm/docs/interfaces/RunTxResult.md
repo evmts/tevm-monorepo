@@ -24,7 +24,7 @@ Execution result of a transaction
 
 EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L439)
 
@@ -36,7 +36,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 The amount of ether used by this transaction
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L417)
 
@@ -48,7 +48,7 @@ The amount of ether used by this transaction
 
 This is the blob gas units times the fee per blob gas for 4844 transactions
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:454](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L454)
 
@@ -60,7 +60,7 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 Bloom filter resulted from transaction
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L412)
 
@@ -76,7 +76,7 @@ Address of created account during transaction, if any
 
 `EvmResult.createdAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:248
 
@@ -92,7 +92,7 @@ Contains the results from running the code, if any, as described in runCode
 
 `EvmResult.execResult`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:252
 
@@ -104,7 +104,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 The amount of gas as that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L434)
 
@@ -116,7 +116,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 The value that accrues to the miner by this transaction
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L449)
 
@@ -128,7 +128,7 @@ The value that accrues to the miner by this transaction
 
 Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L444)
 
@@ -140,7 +140,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 The tx receipt
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:422](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L422)
 
@@ -154,6 +154,6 @@ The amount of gas used in this transaction, which is paid for
 This contains the gas units that have been used on execution, plus the upfront cost,
 which consists of calldata cost, intrinsic cost and optionally the access list costs
 
-#### Source
+#### Defined in
 
 [packages/vm/src/utils/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L429)

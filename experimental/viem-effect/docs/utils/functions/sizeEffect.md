@@ -8,7 +8,7 @@
 
 > **sizeEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `SizeErrorType`, `number`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\` \| `Uint8Array`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `SizeErrorType`, `number`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/sizeEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/sizeEffect.js#L7)

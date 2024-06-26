@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / ScriptParams
 
-# Type alias: ~~ScriptParams\<TAbi, TFunctionName, TThrowOnFail\>~~
+# Type Alias: ~~ScriptParams\<TAbi, TFunctionName, TThrowOnFail\>~~
 
 > **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -21,7 +21,7 @@ Tevm params for deploying and running a script
 
 The EVM code to run.
 
-## Type parameters
+## Type Parameters
 
 • **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
@@ -29,6 +29,6 @@ The EVM code to run.
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/Script/ScriptParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptParams.ts#L9)

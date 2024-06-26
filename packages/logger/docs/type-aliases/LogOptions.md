@@ -4,7 +4,7 @@
 
 [@tevm/logger](../globals.md) / LogOptions
 
-# Type alias: LogOptions
+# Type Alias: LogOptions
 
 > **LogOptions**: `object`
 
@@ -25,6 +25,6 @@ Typically, debug and trace logs are only valid for development, and not needed i
 
 The name of the logger. Adds a name field to every JSON line logged.
 
-## Source
+## Defined in
 
 [LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)

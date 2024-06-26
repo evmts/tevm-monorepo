@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthGetBlockByNumberJsonRpcProcedure
 
-# Type alias: EthGetBlockByNumberJsonRpcProcedure()
+# Type Alias: EthGetBlockByNumberJsonRpcProcedure()
 
 > **EthGetBlockByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L111)

@@ -8,7 +8,7 @@
 
 > **hexToSignatureEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `HexToSignatureErrorType`, `Signature`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `HexToSignatureErrorType`, `Signature`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/signature/hexToSignatureEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/hexToSignatureEffect.js#L7)

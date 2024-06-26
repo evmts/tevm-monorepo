@@ -21,20 +21,20 @@ const mineParams: import('@tevm/actions').MineParams = {
 
 ### blockCount?
 
-> `optional` `readonly` **blockCount**: `number`
+> `readonly` `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
 ### interval?
 
-> `optional` `readonly` **interval**: `number`
+> `readonly` `optional` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 [packages/actions/src/Mine/MineParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L10)

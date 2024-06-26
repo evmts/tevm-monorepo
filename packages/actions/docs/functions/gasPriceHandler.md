@@ -16,6 +16,6 @@
 
 [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/gasPriceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/gasPriceHandler.js#L9)

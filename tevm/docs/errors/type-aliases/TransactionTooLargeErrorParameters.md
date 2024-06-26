@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / TransactionTooLargeErrorParameters
 
-# Type alias: TransactionTooLargeErrorParameters
+# Type Alias: TransactionTooLargeErrorParameters
 
 > **TransactionTooLargeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a TransactionTooLargeError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/TransactionTooLargeError.d.ts:50

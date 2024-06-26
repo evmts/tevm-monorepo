@@ -13,6 +13,6 @@ title: "zLoadStateParams"
 
 > **state**: `ZodRecord`\<`ZodString`, `ZodObject`\<`extendShape`\<`object`, `object`\>, `"strip"`, `ZodTypeAny`, `object`, `object`\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/LoadState/zLoadStateParams.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/zLoadStateParams.js#L15)

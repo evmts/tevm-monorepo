@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / MineParams
 
-# Type alias: MineParams\<TThrowOnFail\>
+# Type Alias: MineParams\<TThrowOnFail\>
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
@@ -22,20 +22,20 @@ const mineParams: import('@tevm/actions').MineParams = {
 
 ### blockCount?
 
-> `optional` `readonly` **blockCount**: `number`
+> `readonly` `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1
 
 ### interval?
 
-> `optional` `readonly` **interval**: `number`
+> `readonly` `optional` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Source
+## Defined in
 
 packages/actions/types/Mine/MineParams.d.ts:9

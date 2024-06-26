@@ -16,6 +16,6 @@
 
 `HttpClient`
 
-## Source
+## Defined in
 
 packages/http-client/types/createHttpClient.d.ts:1

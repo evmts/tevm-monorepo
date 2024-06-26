@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / ForkErrorParameters
 
-# Type alias: ForkErrorParameters
+# Type Alias: ForkErrorParameters
 
 > **ForkErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an ForkError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/fork/ForkError.d.ts:67

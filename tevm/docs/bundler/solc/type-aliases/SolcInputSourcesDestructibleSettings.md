@@ -4,7 +4,7 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputSourcesDestructibleSettings
 
-# Type alias: SolcInputSourcesDestructibleSettings
+# Type Alias: SolcInputSourcesDestructibleSettings
 
 > **SolcInputSourcesDestructibleSettings**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **keccak256**: `HexNumber`
 
-## Source
+## Defined in
 
 bundler-packages/solc/types/src/solcTypes.d.ts:79

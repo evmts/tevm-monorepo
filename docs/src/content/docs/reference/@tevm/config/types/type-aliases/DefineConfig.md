@@ -40,6 +40,6 @@ export default defineConfig({
 
 `Effect`\<`never`, [`DefineConfigError`](/reference/tevm/config/defineconfig/classes/defineconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
 
-## Source
+## Defined in
 
 [bundler-packages/config/src/types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L82)

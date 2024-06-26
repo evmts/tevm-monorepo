@@ -9,6 +9,6 @@ title: "EthSyncingJsonRpcRequest"
 
 JSON-RPC request for `eth_syncing` procedure
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthJsonRpcRequest.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L263)

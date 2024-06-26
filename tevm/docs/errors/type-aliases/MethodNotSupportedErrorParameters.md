@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / MethodNotSupportedErrorParameters
 
-# Type alias: MethodNotSupportedErrorParameters
+# Type Alias: MethodNotSupportedErrorParameters
 
 > **MethodNotSupportedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a MethodNotSupportedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/MethodNotSupportedError.d.ts:50

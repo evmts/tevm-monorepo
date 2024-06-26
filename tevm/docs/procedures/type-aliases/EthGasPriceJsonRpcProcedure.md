@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGasPriceJsonRpcProcedure
 
-# Type alias: EthGasPriceJsonRpcProcedure()
+# Type Alias: EthGasPriceJsonRpcProcedure()
 
 > **EthGasPriceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:598

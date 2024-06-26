@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [decorators](../README.md) / JsonRpcSchemaTevm
 
-# Type alias: JsonRpcSchemaTevm
+# Type Alias: JsonRpcSchemaTevm
 
 > **JsonRpcSchemaTevm**: `object`
 
@@ -194,6 +194,6 @@ r
 
 > **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`SetAccountResult`](../../index/type-aliases/SetAccountResult.md)\<`never`\>\>
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:282

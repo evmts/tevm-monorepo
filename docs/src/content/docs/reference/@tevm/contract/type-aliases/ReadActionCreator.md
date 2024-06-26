@@ -17,7 +17,7 @@ tevm.contract(
 )
 ```
 
-## Type parameters
+## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
@@ -27,6 +27,6 @@ tevm.contract(
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
-## Source
+## Defined in
 
 [read/ReadActionCreator.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/read/ReadActionCreator.ts#L23)

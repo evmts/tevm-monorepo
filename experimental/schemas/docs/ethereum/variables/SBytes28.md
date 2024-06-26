@@ -10,6 +10,6 @@
 
 [Effect schema](https://github.com/Effect-TS/schema) for the Bytes28 type.
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:600](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L600)

@@ -4,7 +4,7 @@
 
 [@tevm/bundler-cache](../globals.md) / Cache
 
-# Type alias: Cache
+# Type Alias: Cache
 
 > **Cache**: `object`
 
@@ -58,6 +58,6 @@
 
 > **writeMjsSync**: `WriteMjsSync`
 
-## Source
+## Defined in
 
 [types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L42)

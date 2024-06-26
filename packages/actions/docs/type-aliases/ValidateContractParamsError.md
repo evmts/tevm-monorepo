@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / ValidateContractParamsError
 
-# Type alias: ValidateContractParamsError
+# Type Alias: ValidateContractParamsError
 
 > **ValidateContractParamsError**\<\>: `InvalidAbiError` \| `InvalidAddressError` \| `InvalidArgsError` \| `InvalidFunctionNameError` \| `ValidateBaseCallParamsError`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [packages/actions/src/Contract/validateContractParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L12)

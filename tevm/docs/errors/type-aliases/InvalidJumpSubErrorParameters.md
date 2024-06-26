@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidJumpSubErrorParameters
 
-# Type alias: InvalidJumpSubErrorParameters
+# Type Alias: InvalidJumpSubErrorParameters
 
 > **InvalidJumpSubErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [InvalidJumpSubError](../classes/InvalidJumpSubErr
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:82

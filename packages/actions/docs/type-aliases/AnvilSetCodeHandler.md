@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetCodeHandler
 
-# Type alias: AnvilSetCodeHandler()
+# Type Alias: AnvilSetCodeHandler()
 
 > **AnvilSetCodeHandler**: (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L54)

@@ -8,7 +8,7 @@
 
 > **isHashEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `IsHashErrorType`, `boolean`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `IsHashErrorType`, `boolean`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/hash/isHashEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/hash/isHashEffect.js#L7)

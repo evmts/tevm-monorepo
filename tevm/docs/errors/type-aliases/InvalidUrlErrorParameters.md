@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidUrlErrorParameters
 
-# Type alias: InvalidUrlErrorParameters
+# Type Alias: InvalidUrlErrorParameters
 
 > **InvalidUrlErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidUrlError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidUrlError.d.ts:42

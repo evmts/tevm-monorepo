@@ -49,7 +49,7 @@ Additional parameters to pass to BaseError.
 
 [`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
 
-#### Source
+#### Defined in
 
 packages/errors/types/fork/NoForkUriSetError.d.ts:33
 
@@ -65,7 +65,7 @@ Same as name, used internally.
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:39
 
@@ -79,7 +79,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 [`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:64
 
@@ -95,7 +95,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:63
 
@@ -109,7 +109,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 [`BaseError`](BaseError.md).[`details`](BaseError.md#details)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:43
 
@@ -125,7 +125,7 @@ Path to the documentation for this error.
 
 [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:47
 
@@ -141,9 +141,9 @@ Human-readable error message.
 
 [`BaseError`](BaseError.md).[`message`](BaseError.md#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -157,7 +157,7 @@ Additional meta messages for more context.
 
 [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:51
 
@@ -173,9 +173,9 @@ The name of the error, used to discriminate errors.
 
 [`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -187,7 +187,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:55
 
@@ -201,9 +201,9 @@ packages/errors/types/ethereum/BaseError.d.ts:55
 
 [`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -215,7 +215,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`BaseError`](BaseError.md).[`version`](BaseError.md#version)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:59
 
@@ -245,9 +245,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -259,9 +259,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -287,7 +287,7 @@ The first error that matches the function, or the original error.
 
 [`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
 
-#### Source
+#### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:70
 
@@ -313,6 +313,6 @@ Create .stack property on a target object
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21

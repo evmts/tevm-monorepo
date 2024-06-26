@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcOutput
 
-# Type alias: SolcOutput
+# Type Alias: SolcOutput
 
 > **SolcOutput**: `object`
 
@@ -14,7 +14,7 @@
 
 > **contracts**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: `object`
 
@@ -26,10 +26,10 @@
 
 > **sources**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
 
-## Source
+## Defined in
 
 [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)

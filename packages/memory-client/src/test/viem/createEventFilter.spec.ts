@@ -27,7 +27,7 @@ const eventAbi = {
 	},
 } as const
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
 
 beforeEach(async () => {
 	mc = createMemoryClient()

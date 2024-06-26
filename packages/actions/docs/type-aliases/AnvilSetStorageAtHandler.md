@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetStorageAtHandler
 
-# Type alias: AnvilSetStorageAtHandler()
+# Type Alias: AnvilSetStorageAtHandler()
 
 > **AnvilSetStorageAtHandler**: (`params`) => `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L58)

@@ -20,6 +20,6 @@
 
 `Promise`\<`BaseChain`\>
 
-## Source
+## Defined in
 
 packages/blockchain/types/actions/deepCopy.d.ts:1

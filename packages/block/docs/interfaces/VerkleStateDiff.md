@@ -12,7 +12,7 @@
 
 > **stem**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 [types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L82)
 
@@ -22,6 +22,6 @@
 
 > **suffixDiffs**: `object`[]
 
-#### Source
+#### Defined in
 
 [types.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L83)

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [block](../README.md) / BeaconPayloadJson
 
-# Type alias: BeaconPayloadJson
+# Type Alias: BeaconPayloadJson
 
 > **BeaconPayloadJson**: `object`
 
@@ -86,6 +86,6 @@
 
 > `optional` **withdrawals**: `BeaconWithdrawal`[]
 
-## Source
+## Defined in
 
 packages/block/types/from-beacon-payload.d.ts:9

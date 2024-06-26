@@ -17,8 +17,8 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L159)

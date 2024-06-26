@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / ProviderMessage
 
-# Type alias: ProviderMessage
+# Type Alias: ProviderMessage
 
 > **ProviderMessage**: `object`
 
@@ -18,6 +18,6 @@
 
 > **type**: `string`
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:20
+packages/base-client/dist/index.d.ts:21

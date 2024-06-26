@@ -28,6 +28,6 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/generateCannonicalGenesis.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L11)

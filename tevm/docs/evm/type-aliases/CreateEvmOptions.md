@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [evm](../README.md) / CreateEvmOptions
 
-# Type alias: CreateEvmOptions
+# Type Alias: CreateEvmOptions
 
 > **CreateEvmOptions**: `object`
 
@@ -148,6 +148,6 @@ Enable profiler. Defaults to false.
 
 A custom Tevm state manager
 
-## Source
+## Defined in
 
 packages/evm/dist/index.d.ts:124

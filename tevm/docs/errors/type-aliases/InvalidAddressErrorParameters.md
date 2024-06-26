@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidAddressErrorParameters
 
-# Type alias: InvalidAddressErrorParameters
+# Type Alias: InvalidAddressErrorParameters
 
 > **InvalidAddressErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidAddressError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/InvalidAddressError.d.ts:50

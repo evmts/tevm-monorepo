@@ -4,13 +4,13 @@
 
 [@tevm/actions](../globals.md) / GetAccountResult
 
-# Type alias: GetAccountResult\<ErrorType\>
+# Type Alias: GetAccountResult\<ErrorType\>
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
 
 Result of GetAccount Action
 
-## Type parameters
+## Type Parameters
 
 • **ErrorType** = [`TevmGetAccountError`](TevmGetAccountError.md)
 
@@ -71,7 +71,7 @@ Nonce to set account to
 Contract storage for the account
 only included if `returnStorage` is set to true in the request
 
-#### Index signature
+#### Index Signature
 
  \[`key`: [`Hex`](Hex.md)\]: [`Hex`](Hex.md)
 
@@ -81,6 +81,6 @@ only included if `returnStorage` is set to true in the request
 
 Storage root to set account to
 
-## Source
+## Defined in
 
 [packages/actions/src/GetAccount/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L7)

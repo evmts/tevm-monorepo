@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [common](../README.md) / Common
 
-# Type alias: Common
+# Type Alias: Common
 
 > **Common**: `ViemChain` & `object`
 
@@ -49,6 +49,6 @@ const client = createClient(optimism)
 
 > **ethjsCommon**: `EthjsCommon`
 
-## Source
+## Defined in
 
 packages/common/types/Common.d.ts:26

@@ -28,6 +28,6 @@ Gets the code corresponding to the provided `address`.
 
 `Promise`\<`undefined` \| `Account`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/getAccount.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L8)

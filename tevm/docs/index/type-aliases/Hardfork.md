@@ -4,12 +4,12 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Hardfork
 
-# Type alias: Hardfork
+# Type Alias: Hardfork
 
 > **Hardfork**: `"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeForkIdTransition"` \| `"paris"` \| `"shanghai"` \| `"cancun"`
 
 Ethereum hardfork option
 
-## Source
+## Defined in
 
-packages/base-client/dist/index.d.ts:361
+packages/base-client/dist/index.d.ts:362

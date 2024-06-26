@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { type Server, createServer } from 'node:http'
 import { Address } from '@ethereumjs/util'
+import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
@@ -15,6 +16,7 @@ describe('tevmViemExtension', () => {
 
 	beforeAll(async () => {
 		tevm = createMemoryClient({
+			common: optimism,
 			fork: { transport: transports.optimism },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6420)

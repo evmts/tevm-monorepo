@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Contract
 
-# Type alias: Contract\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
+# Type Alias: Contract\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
 > **Contract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
 
@@ -61,7 +61,7 @@ const result = await client.readContract(
   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
 )
 
-## Type parameters
+## Type Parameters
 
 • **TName** *extends* `string`
 
@@ -114,9 +114,13 @@ Code i
 
 ### deploy()
 
-> **deploy**: () => [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<[`ParseAbi`](ParseAbi.md)\<`THumanReadableAbi`\>\>
+> **deploy**: (...`args`) => [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<[`ParseAbi`](ParseAbi.md)\<`THumanReadableAbi`\>\>
 
 Action creator for deploying the contract
+
+#### Parameters
+
+• ...**args**: [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<[`ParseAbi`](ParseAbi.md)\<`THumanReadableAbi`\>\> *extends* `object` ? `TArgs` *extends* `ReadonlyArray`\<`any`\> ? `TArgs` : [] : []
 
 #### Returns
 
@@ -201,7 +205,7 @@ import { MyContract } from './MyContract.sol'
 const MyContractOptimism = MyContract.withAddress('0x420...')
 ```
 
-#### Type parameters
+#### Type Parameters
 
 • **TAddress** *extends* [`Address`](Address.md)
 
@@ -227,6 +231,6 @@ tevm.contract(
 )
 ```
 
-## Source
+## Defined in
 
 packages/contract/types/Contract.d.ts:58

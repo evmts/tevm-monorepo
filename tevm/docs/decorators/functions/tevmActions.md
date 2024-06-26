@@ -12,6 +12,6 @@
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmActionsApi`](../../index/type-aliases/TevmActionsApi.md)\>
 
-## Source
+## Defined in
 
 packages/decorators/dist/index.d.ts:226

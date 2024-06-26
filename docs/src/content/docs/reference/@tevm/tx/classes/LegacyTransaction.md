@@ -37,7 +37,7 @@ varying data types.
 
 `BaseTransaction<TransactionType.Legacy>.constructor`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:42
 
@@ -51,7 +51,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction._type`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:14
 
@@ -69,7 +69,7 @@ for FeeMarketEIP1559Transaction objects
 
 `BaseTransaction.activeCapabilities`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:31
 
@@ -83,7 +83,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.cache`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:24
 
@@ -97,7 +97,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.common`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:12
 
@@ -111,7 +111,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction.data`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:19
 
@@ -125,7 +125,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.gasLimit`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:16
 
@@ -135,19 +135,9 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 > `readonly` **gasPrice**: `bigint`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:11
-
-***
-
-### keccakFunction
-
-> `private` **keccakFunction**: `any`
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:13
 
 ***
 
@@ -159,7 +149,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction.nonce`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:15
 
@@ -167,13 +157,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### r?
 
-> `optional` `readonly` **r**: `bigint`
+> `readonly` `optional` **r**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.r`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:21
 
@@ -181,13 +171,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### s?
 
-> `optional` `readonly` **s**: `bigint`
+> `readonly` `optional` **s**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.s`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:22
 
@@ -195,13 +185,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### to?
 
-> `optional` `readonly` **to**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
+> `readonly` `optional` **to**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Inherited from
 
 `BaseTransaction.to`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:17
 
@@ -215,7 +205,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.txOptions`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:25
 
@@ -223,13 +213,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### v?
 
-> `optional` `readonly` **v**: `bigint`
+> `readonly` `optional` **v**: `bigint`
 
 #### Inherited from
 
 `BaseTransaction.v`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:20
 
@@ -243,7 +233,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction.value`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:18
 
@@ -261,7 +251,11 @@ Note: legacy txs will return tx type `0`.
 
 [`TransactionType`](/reference/tevm/tx/enumerations/transactiontype/)
 
-#### Source
+#### Inherited from
+
+`BaseTransaction.type`
+
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:47
 
@@ -282,7 +276,7 @@ tx type implementations.
 
 `BaseTransaction._getSharedErrorPostfix`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:189
 
@@ -316,7 +310,7 @@ Pass true if the number also cannot equal one less the maximum value
 
 `BaseTransaction._validateCannotExceedMaxInteger`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:168
 
@@ -338,7 +332,7 @@ Validates tx's `v` value
 
 `Common`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:118
 
@@ -348,15 +342,27 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 > **addSignature**(`v`, `r`, `s`, `convertV`?): [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/)
 
+Returns a new transaction with the same data fields as the current, but now signed
+
 #### Parameters
 
 • **v**: `bigint`
 
+The `v` value of the signature
+
 • **r**: `bigint` \| `Uint8Array`
+
+The `r` value of the signature
 
 • **s**: `bigint` \| `Uint8Array`
 
+The `s` value of the signature
+
 • **convertV?**: `boolean`
+
+Set this to `true` if the raw output of `ecsign` is used. If this is `false` (default)
+                then the raw value passed for `v` will be used for the signature. For legacy transactions,
+                if this is set to `true`, it will also set the right `v` value for the chain id.
 
 #### Returns
 
@@ -366,7 +372,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction.addSignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:110
 
@@ -386,7 +392,7 @@ Return a compact error string representation of the object
 
 `BaseTransaction.errorStr`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:122
 
@@ -406,7 +412,7 @@ The minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
 
 `BaseTransaction.getBaseFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:78
 
@@ -426,7 +432,7 @@ The amount of gas paid for the data in this tx
 
 `BaseTransaction.getDataFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:90
 
@@ -436,9 +442,14 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 > **getEffectivePriorityFee**(`baseFee`?): `bigint`
 
+Returns the effective priority fee. This is the priority fee which the coinbase will receive
+once it is included in the block
+
 #### Parameters
 
 • **baseFee?**: `bigint`
+
+Optional baseFee of the block. Note for EIP1559 and EIP4844 this is required.
 
 #### Returns
 
@@ -448,7 +459,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction.getEffectivePriorityFee`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:43
 
@@ -469,7 +480,7 @@ to sign the transaction (e.g. for sending to a hardware wallet).
 
 `BaseTransaction.getHashedMessageToSign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:86
 
@@ -499,7 +510,7 @@ const serializedMessage = RLP.encode(message)) // use this for the HW wallet inp
 
 `BaseTransaction.getMessageToSign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:81
 
@@ -519,7 +530,7 @@ Computes a sha3-256 hash which can be used to verify the signature
 
 `BaseTransaction.getMessageToVerifySignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:105
 
@@ -539,7 +550,7 @@ Returns the sender's address
 
 `BaseTransaction.getSenderAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:124
 
@@ -559,7 +570,7 @@ Returns the public key of the sender
 
 `BaseTransaction.getSenderPublicKey`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:109
 
@@ -579,7 +590,7 @@ The up front amount that an account must have for this transaction to be valid
 
 `BaseTransaction.getUpfrontCost`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:94
 
@@ -601,7 +612,7 @@ an array of error strings
 
 `BaseTransaction.getValidationErrors`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:69
 
@@ -624,7 +635,7 @@ Use Transaction.getMessageToSign to get a tx hash for the purpose of signing.
 
 `BaseTransaction.hash`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:101
 
@@ -642,7 +653,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 `BaseTransaction.isSigned`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:116
 
@@ -664,7 +675,7 @@ true if the transaction is valid, false otherwise
 
 `BaseTransaction.isValid`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:74
 
@@ -694,7 +705,7 @@ representation have a look at Transaction.getMessageToSign.
 
 `BaseTransaction.raw`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:57
 
@@ -720,7 +731,7 @@ representation for external signing use Transaction.getMessageToSign.
 
 `BaseTransaction.serialize`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:67
 
@@ -750,7 +761,7 @@ const signedTx = tx.sign(privateKey)
 
 `BaseTransaction.sign`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
 
@@ -787,7 +798,7 @@ on all supported capabilities.
 
 `BaseTransaction.supports`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:64
 
@@ -807,7 +818,7 @@ If the tx's `to` is to the creation address
 
 `BaseTransaction.toCreationAddress`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:96
 
@@ -827,7 +838,7 @@ Returns an object with the JSON representation of the transaction.
 
 `BaseTransaction.toJSON`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:114
 
@@ -847,7 +858,7 @@ Determines if the signature is valid
 
 `BaseTransaction.verifySignature`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:120
 
@@ -869,7 +880,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 `BaseTransaction._validateNotArray`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:171
 
@@ -893,7 +904,7 @@ Format: `rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])`
 
 [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:28
 
@@ -920,7 +931,7 @@ Notes:
 
 [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:22
 
@@ -944,6 +955,6 @@ Format: `[nonce, gasPrice, gasLimit, to, value, data, v, r, s]`
 
 [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/)
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:34

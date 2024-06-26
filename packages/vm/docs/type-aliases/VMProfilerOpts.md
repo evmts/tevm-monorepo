@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / VMProfilerOpts
 
-# Type alias: VMProfilerOpts
+# Type Alias: VMProfilerOpts
 
 > **VMProfilerOpts**: `object`
 
@@ -18,6 +18,6 @@
 
 > `optional` **reportAfterTx**: `boolean`
 
-## Source
+## Defined in
 
 [packages/vm/src/utils/types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L82)

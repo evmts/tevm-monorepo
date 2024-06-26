@@ -21,6 +21,6 @@ title: "SolcOptimizer"
 
 > **runs**: `number`
 
-## Source
+## Defined in
 
 [solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)

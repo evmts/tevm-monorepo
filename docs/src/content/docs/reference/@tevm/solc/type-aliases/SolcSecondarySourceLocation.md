@@ -13,6 +13,6 @@ title: "SolcSecondarySourceLocation"
 
 > **message**: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)

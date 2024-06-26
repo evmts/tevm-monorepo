@@ -29,6 +29,6 @@ title: "resolveArtifactsSync"
 
 [`ResolvedArtifacts`](/reference/tevm/compiler/types/type-aliases/resolvedartifacts/)
 
-## Source
+## Defined in
 
 [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)

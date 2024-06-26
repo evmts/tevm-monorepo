@@ -8,6 +8,6 @@
 
 > `const` **node**: `Options`
 
-## Source
+## Defined in
 
 [node.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/node.js#L3)

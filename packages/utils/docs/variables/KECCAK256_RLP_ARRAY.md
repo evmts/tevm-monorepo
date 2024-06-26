@@ -10,6 +10,6 @@
 
 Keccak-256 of an RLP of an empty array
 
-## Source
+## Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/constants.d.ts:36

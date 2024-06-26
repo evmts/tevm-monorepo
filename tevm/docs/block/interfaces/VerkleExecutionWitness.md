@@ -19,7 +19,7 @@ An array of state diffs.
 Each item corresponding to state accesses or state modifications of the block.
 In the current design, it also contains the resulting state of the block execution (post-state).
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:95
 
@@ -32,6 +32,6 @@ packages/block/types/types.d.ts:95
 The verkle proof for the block.
 Proves that the provided stateDiff belongs to the canonical verkle tree.
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:100

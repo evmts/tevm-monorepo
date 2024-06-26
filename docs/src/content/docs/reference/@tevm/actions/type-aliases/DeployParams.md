@@ -14,11 +14,11 @@ Unlike most call actions `createTransaction` defaults to true
 
 ### salt?
 
-> `optional` `readonly` **salt**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
+> `readonly` `optional` **salt**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
 An optional CREATE2 salt.
 
-## Type parameters
+## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
@@ -28,6 +28,6 @@ An optional CREATE2 salt.
 
 • **TAllArgs** = [`ContractConstructorArgs`](/reference/tevm/utils/type-aliases/contractconstructorargs/)\<`TAbi`\>
 
-## Source
+## Defined in
 
 [packages/actions/src/Deploy/DeployParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L9)

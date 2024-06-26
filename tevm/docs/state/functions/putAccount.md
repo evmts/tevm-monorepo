@@ -30,6 +30,6 @@ Saves an account into state under the provided `address`.
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 packages/state/dist/index.d.ts:327

@@ -4,14 +4,14 @@
 
 [@tevm/ethers](../globals.md) / ContractMethodArgs
 
-# Type alias: ContractMethodArgs\<A\>
+# Type Alias: ContractMethodArgs\<A\>
 
 > **ContractMethodArgs**\<`A`\>: [`...A`, `Overrides`] \| `A`
 
-## Type parameters
+## Type Parameters
 
 • **A** *extends* `ReadonlyArray`\<`any`\>
 
-## Source
+## Defined in
 
 [extensions/ethers/src/contract/ContractMethodArgs.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/ContractMethodArgs.ts#L3)

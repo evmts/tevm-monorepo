@@ -309,6 +309,6 @@ await client.tevmSetAccount({
 })
 ```
 
-## Source
+## Defined in
 
 [packages/memory-client/src/TevmActions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L8)

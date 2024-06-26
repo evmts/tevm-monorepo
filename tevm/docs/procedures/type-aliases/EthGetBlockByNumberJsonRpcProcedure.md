@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / EthGetBlockByNumberJsonRpcProcedure
 
-# Type alias: EthGetBlockByNumberJsonRpcProcedure()
+# Type Alias: EthGetBlockByNumberJsonRpcProcedure()
 
 > **EthGetBlockByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:601

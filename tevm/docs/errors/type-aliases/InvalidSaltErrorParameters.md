@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidSaltErrorParameters
 
-# Type alias: InvalidSaltErrorParameters
+# Type Alias: InvalidSaltErrorParameters
 
 > **InvalidSaltErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidSaltError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidSaltError.d.ts:42

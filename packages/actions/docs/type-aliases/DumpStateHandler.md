@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DumpStateHandler
 
-# Type alias: DumpStateHandler()
+# Type Alias: DumpStateHandler()
 
 > **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
@@ -34,6 +34,6 @@ await tevm.loadState({state})
 
 `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/DumpState/DumpStateHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateHandlerType.ts#L21)

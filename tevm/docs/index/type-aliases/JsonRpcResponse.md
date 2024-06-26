@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / JsonRpcResponse
 
-# Type alias: JsonRpcResponse\<TMethod, TResult, TErrorCode\>
+# Type Alias: JsonRpcResponse\<TMethod, TResult, TErrorCode\>
 
 > **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\>: `object` \| `object`
 
-## Type parameters
+## Type Parameters
 
 • **TMethod** *extends* `string`
 
@@ -16,6 +16,6 @@
 
 • **TErrorCode** *extends* `string` \| `number`
 
-## Source
+## Defined in
 
 packages/jsonrpc/types/JsonRpcResponse.d.ts:1

@@ -19,7 +19,7 @@ title: "Solc"
 
 [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:754](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L754)
 
@@ -29,7 +29,7 @@ title: "Solc"
 
 > **features**: `FeaturesConfig`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:753](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L753)
 
@@ -39,7 +39,7 @@ title: "Solc"
 
 > **license**: `string`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:751](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L751)
 
@@ -59,7 +59,7 @@ title: "Solc"
 
 `void`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:755](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L755)
 
@@ -69,7 +69,7 @@ title: "Solc"
 
 > **lowlevel**: `LowLevelConfig`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L752)
 
@@ -79,7 +79,7 @@ title: "Solc"
 
 > **semver**: `string`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:750](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L750)
 
@@ -97,7 +97,7 @@ title: "Solc"
 
 `void`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:756](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L756)
 
@@ -107,6 +107,6 @@ title: "Solc"
 
 > **version**: `string`
 
-#### Source
+#### Defined in
 
 [solcTypes.ts:749](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L749)

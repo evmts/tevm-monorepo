@@ -7,6 +7,6 @@ title: "CallHandlerOptsError"
 
 > **CallHandlerOptsError**: [`UnknownBlockError`](/reference/tevm/errors/classes/unknownblockerror/) \| [`UnknownBlockError`](/reference/tevm/errors/classes/unknownblockerror/) \| [`InvalidParamsError`](/reference/tevm/errors/classes/invalidparamserror/)
 
-## Source
+## Defined in
 
 [packages/actions/src/Call/callHandlerOpts.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L8)

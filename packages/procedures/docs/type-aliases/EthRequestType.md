@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthRequestType
 
-# Type alias: EthRequestType
+# Type Alias: EthRequestType
 
 > **EthRequestType**: `object`
 
@@ -164,6 +164,6 @@ A mapping of `eth_*` method names to their request type
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/EthRequestType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthRequestType.ts#L45)

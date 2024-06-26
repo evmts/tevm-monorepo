@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / Log
 
-# Type alias: Log
+# Type Alias: Log
 
 > **Log**: `object`
 
@@ -24,6 +24,6 @@ Generic log information
 
 > `readonly` **topics**: [`Hex`](Hex.md)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/common/Log.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Log.ts#L7)

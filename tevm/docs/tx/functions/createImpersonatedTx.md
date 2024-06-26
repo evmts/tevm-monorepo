@@ -18,6 +18,6 @@
 
 `ImpersonatedTx`
 
-## Source
+## Defined in
 
 packages/tx/types/createImpersonatedTx.d.ts:1

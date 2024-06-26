@@ -15,15 +15,15 @@ title: "StructLog"
 
 ### error?
 
-> `optional` `readonly` **error**: `object`
+> `readonly` `optional` **error**: `object`
 
 ### error.error
 
-> **error**: `string`
+> **error.error**: `string`
 
 ### error.errorType
 
-> **errorType**: `string`
+> **error.errorType**: `string`
 
 ### gas
 
@@ -45,6 +45,6 @@ title: "StructLog"
 
 > `readonly` **stack**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)[]
 
-## Source
+## Defined in
 
 [packages/actions/src/debug/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L4)

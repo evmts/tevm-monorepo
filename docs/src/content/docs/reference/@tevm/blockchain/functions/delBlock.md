@@ -28,6 +28,6 @@ The hash of the block to be deleted
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [actions/delBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L7)

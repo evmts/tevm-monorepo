@@ -15,6 +15,6 @@ title: "EthNewBlockFilterJsonRpcProcedure"
 
 `Promise`\<[`EthNewBlockFilterJsonRpcResponse`](/reference/tevm/procedures/type-aliases/ethnewblockfilterjsonrpcresponse/)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L199)

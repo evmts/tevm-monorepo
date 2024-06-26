@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthAccountsHandler
 
-# Type alias: EthAccountsHandler()
+# Type Alias: EthAccountsHandler()
 
 > **EthAccountsHandler**: (`request`?) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L83)

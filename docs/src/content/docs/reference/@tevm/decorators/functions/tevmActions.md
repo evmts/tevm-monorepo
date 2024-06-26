@@ -11,6 +11,6 @@ title: "tevmActions"
 
 `Extension`\<[`TevmActionsApi`](/reference/tevm/decorators/type-aliases/tevmactionsapi/)\>
 
-## Source
+## Defined in
 
 [actions/tevmActions.js:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L98)

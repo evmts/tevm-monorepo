@@ -4,14 +4,14 @@
 
 [tevm](../../modules.md) / [procedures](../README.md) / BigIntToHex
 
-# Type alias: BigIntToHex\<T\>
+# Type Alias: BigIntToHex\<T\>
 
 > **BigIntToHex**\<`T`\>: `T` *extends* `bigint` ? [`Hex`](../../index/type-aliases/Hex.md) : `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:19

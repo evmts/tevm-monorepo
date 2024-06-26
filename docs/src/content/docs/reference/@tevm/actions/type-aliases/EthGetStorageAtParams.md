@@ -17,12 +17,12 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### blockTag?
 
-> `optional` `readonly` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
+> `readonly` `optional` **blockTag**: [`BlockParam`](/reference/tevm/actions/type-aliases/blockparam/)
 
 ### position
 
 > `readonly` **position**: [`Hex`](/reference/tevm/actions/type-aliases/hex/)
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthParams.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L150)

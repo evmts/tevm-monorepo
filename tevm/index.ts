@@ -181,7 +181,7 @@ export {
   type ProviderConnectInfo
 } from "@tevm/base-client";
 
-export { type MemoryClient, createMemoryClient, type TevmActions } from "@tevm/memory-client";
+export { type MemoryClient, createMemoryClient, type TevmActions, type TevmRpcSchema, type MemoryClientOptions, type CreateMemoryClientFn } from "@tevm/memory-client";
 export {
   tevmTransport,
 } from '@tevm/viem'

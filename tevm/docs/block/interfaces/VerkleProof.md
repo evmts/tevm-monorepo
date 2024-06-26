@@ -12,7 +12,7 @@
 
 > **commitmentsByPath**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:67
 
@@ -22,7 +22,7 @@ packages/block/types/types.d.ts:67
 
 > **d**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:68
 
@@ -32,7 +32,7 @@ packages/block/types/types.d.ts:68
 
 > **depthExtensionPresent**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:69
 
@@ -54,7 +54,7 @@ packages/block/types/types.d.ts:69
 
 > **finalEvaluation**: \`0x$\{string\}\`
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:70
 
@@ -64,6 +64,6 @@ packages/block/types/types.d.ts:70
 
 > **otherStems**: \`0x$\{string\}\`[]
 
-#### Source
+#### Defined in
 
 packages/block/types/types.d.ts:75

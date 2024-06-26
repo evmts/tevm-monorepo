@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionByBlockHashAndIndexHandler
 
-# Type alias: EthGetTransactionByBlockHashAndIndexHandler()
+# Type Alias: EthGetTransactionByBlockHashAndIndexHandler()
 
 > **EthGetTransactionByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L139)

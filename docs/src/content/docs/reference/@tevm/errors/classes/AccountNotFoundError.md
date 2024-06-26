@@ -48,11 +48,11 @@ Constructs an AccountNotFoundError.
 
 Human-readable error message.
 
-• **args?**: `AccountNotFoundErrorParameters`= `{}`
+• **args?**: `AccountNotFoundErrorParameters` = `{}`
 
 Additional parameters for the ResourceNotFoundError.
 
-• **tag?**: `string`= `'AccountNotFoundError'`
+• **tag?**: `string` = `'AccountNotFoundError'`
 
 The tag for the error.
 
@@ -64,7 +64,7 @@ The tag for the error.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`constructor`](/reference/tevm/errors/classes/resourcenotfounderror/#constructors)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/AccountNotFoundError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountNotFoundError.js#L48)
 
@@ -80,7 +80,7 @@ Same as name, used internally.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`_tag`](/reference/tevm/errors/classes/resourcenotfounderror/#_tag)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
@@ -94,7 +94,7 @@ Same as name, used internally.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`cause`](/reference/tevm/errors/classes/resourcenotfounderror/#cause)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
@@ -110,7 +110,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`code`](/reference/tevm/errors/classes/resourcenotfounderror/#code)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
@@ -124,7 +124,7 @@ Error code, analogous to the code in JSON RPC error.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`details`](/reference/tevm/errors/classes/resourcenotfounderror/#details)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
@@ -140,7 +140,7 @@ Path to the documentation for this error.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`docsPath`](/reference/tevm/errors/classes/resourcenotfounderror/#docspath)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
@@ -156,9 +156,9 @@ Human-readable error message.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`message`](/reference/tevm/errors/classes/resourcenotfounderror/#message)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -172,7 +172,7 @@ Additional meta messages for more context.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`metaMessages`](/reference/tevm/errors/classes/resourcenotfounderror/#metamessages)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
@@ -188,9 +188,9 @@ The name of the error, used to discriminate errors.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`name`](/reference/tevm/errors/classes/resourcenotfounderror/#name)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -202,7 +202,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`shortMessage`](/reference/tevm/errors/classes/resourcenotfounderror/#shortmessage)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
@@ -216,9 +216,9 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`stack`](/reference/tevm/errors/classes/resourcenotfounderror/#stack)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -230,7 +230,7 @@ node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`version`](/reference/tevm/errors/classes/resourcenotfounderror/#version)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
@@ -260,9 +260,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`prepareStackTrace`](/reference/tevm/errors/classes/resourcenotfounderror/#preparestacktrace)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -274,9 +274,9 @@ node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:2
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`stackTraceLimit`](/reference/tevm/errors/classes/resourcenotfounderror/#stacktracelimit)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -302,7 +302,7 @@ The first error that matches the function, or the original error.
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`walk`](/reference/tevm/errors/classes/resourcenotfounderror/#walk)
 
-#### Source
+#### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
@@ -330,9 +330,9 @@ Create .stack property on a target object
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`captureStackTrace`](/reference/tevm/errors/classes/resourcenotfounderror/#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.5/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -354,6 +354,30 @@ Create .stack property on a target object
 
 [`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`captureStackTrace`](/reference/tevm/errors/classes/resourcenotfounderror/#capturestacktrace)
 
-##### Source
+##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.13/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`ResourceNotFoundError`](/reference/tevm/errors/classes/resourcenotfounderror/).[`captureStackTrace`](/reference/tevm/errors/classes/resourcenotfounderror/#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

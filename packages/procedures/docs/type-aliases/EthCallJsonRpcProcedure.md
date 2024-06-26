@@ -4,7 +4,7 @@
 
 [@tevm/procedures](../globals.md) / EthCallJsonRpcProcedure
 
-# Type alias: EthCallJsonRpcProcedure()
+# Type Alias: EthCallJsonRpcProcedure()
 
 > **EthCallJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCallJsonRpcResponse`](EthCallJsonRpcResponse.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthCallJsonRpcResponse`](EthCallJsonRpcResponse.md)\>
 
-## Source
+## Defined in
 
 [procedures/src/eth/EthProcedure.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L89)

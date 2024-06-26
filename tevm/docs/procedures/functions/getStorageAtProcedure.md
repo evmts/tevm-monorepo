@@ -22,6 +22,6 @@
 
 [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:652

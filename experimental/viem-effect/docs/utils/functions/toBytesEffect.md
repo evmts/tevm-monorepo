@@ -8,7 +8,7 @@
 
 > **toBytesEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `ToBytesErrorType`, `Uint8Array`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [`string` \| `number` \| `bigint` \| `boolean`, `ToBytesParameters`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `ToBytesErrorType`, `Uint8Array`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/encoding/toBytesEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/toBytesEffect.js#L7)

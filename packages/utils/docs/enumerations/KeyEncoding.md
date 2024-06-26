@@ -12,7 +12,7 @@
 
 > **Bytes**: `"view"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:7
 
@@ -22,7 +22,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **Number**: `"number"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:8
 
@@ -32,6 +32,6 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **String**: `"string"`
 
-#### Source
+#### Defined in
 
 node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:6

@@ -14,6 +14,6 @@
 
 The message to display.
 
-#### Source
+#### Defined in
 
 [experimental/schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L17)

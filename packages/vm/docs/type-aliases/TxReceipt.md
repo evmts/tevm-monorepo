@@ -4,10 +4,10 @@
 
 [@tevm/vm](../globals.md) / TxReceipt
 
-# Type alias: TxReceipt
+# Type Alias: TxReceipt
 
 > **TxReceipt**: [`PreByzantiumTxReceipt`](../interfaces/PreByzantiumTxReceipt.md) \| [`PostByzantiumTxReceipt`](../interfaces/PostByzantiumTxReceipt.md) \| [`EIP4844BlobTxReceipt`](../interfaces/EIP4844BlobTxReceipt.md)
 
-## Source
+## Defined in
 
 [packages/vm/src/utils/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L11)

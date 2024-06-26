@@ -136,9 +136,3 @@ title: "@tevm/utils"
 - [toRlp](/reference/tevm/utils/functions/torlp/)
 - [toType](/reference/tevm/utils/functions/totype/)
 - [zeros](/reference/tevm/utils/functions/zeros/)
-
-## References
-
-### bytesToBigInt
-
-Renames and re-exports [bytesToBigint](/reference/tevm/utils/functions/bytestobigint/)

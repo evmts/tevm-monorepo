@@ -5,8 +5,6 @@ prev: false
 title: "ViemTevmExtension"
 ---
 
-`Experimental`
-
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
 
 ## Example
@@ -72,14 +70,10 @@ Creates a decorator to a viem wallet client that adds the `writeContractOptimist
 This enables viem to optimistically update the tevm state before the transaction is mined.
 :::
 
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
 ## Returns
 
 [`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
 
-## Source
+## Defined in
 
 [extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)

@@ -5,24 +5,24 @@ prev: false
 title: "ExtractAbiFunction"
 ---
 
-> **ExtractAbiFunction**\<`TAbi`, `TFunctionName`, `TAbiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`TAbi`, `TAbiStateMutability`\>, `object`\>
+> **ExtractAbiFunction**\<`abi`, `functionName`, `abiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>, `object`\>
 
 Extracts [AbiFunction](../../../../../../../reference/tevm/utils/type-aliases/abifunction) with name from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi).
 
-## Type parameters
+## Type Parameters
 
-• **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
+• **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) to extract [AbiFunction](../../../../../../../reference/tevm/utils/type-aliases/abifunction) from
 
-• **TFunctionName** *extends* [`ExtractAbiFunctionNames`](/reference/tevm/utils/type-aliases/extractabifunctionnames/)\<`TAbi`\>
+• **functionName** *extends* [`ExtractAbiFunctionNames`](/reference/tevm/utils/type-aliases/extractabifunctionnames/)\<`abi`\>
 
 String name of function to extract from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
 
-• **TAbiStateMutability** *extends* `AbiStateMutability` = `AbiStateMutability`
+• **abiStateMutability** *extends* `AbiStateMutability` = `AbiStateMutability`
 
 AbiStateMutability to filter by
 
-## Source
+## Defined in
 
-node\_modules/.pnpm/abitype@1.0.2\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:123
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:123

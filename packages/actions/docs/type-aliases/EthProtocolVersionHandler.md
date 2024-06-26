@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthProtocolVersionHandler
 
-# Type alias: EthProtocolVersionHandler()
+# Type Alias: EthProtocolVersionHandler()
 
 > **EthProtocolVersionHandler**: (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L161)

@@ -8,8 +8,6 @@
 
 > **isBytes22**(`bytes22`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes22.
-
 ## Parameters
 
 • **bytes22**: `unknown`
@@ -18,14 +16,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes22.
 
 `boolean`
 
-## Example
-
-```ts
-import { isBytes22 } from '@tevm/schemas';
-isBytes22("0xff");  // true
-isBytes22("0xfff"); // false
-````
-
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:371](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L371)

@@ -8,7 +8,7 @@
 
 > **padEffect**\<`TParams`\>(...`args`): `Effect`\<`never`, `PadErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Type parameters
+## Type Parameters
 
 • **TParams** *extends* [\`0x$\{string\}\` \| `Uint8Array`, `PadOptions?`]
 
@@ -20,6 +20,6 @@
 
 `Effect`\<`never`, `PadErrorType`, \`0x$\{string\}\` \| `Uint8Array`\>
 
-## Source
+## Defined in
 
 [experimental/viem-effect/src/utils/data/padEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/data/padEffect.js#L7)

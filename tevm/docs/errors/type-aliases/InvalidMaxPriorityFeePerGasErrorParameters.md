@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / InvalidMaxPriorityFeePerGasErrorParameters
 
-# Type alias: InvalidMaxPriorityFeePerGasErrorParameters
+# Type Alias: InvalidMaxPriorityFeePerGasErrorParameters
 
 > **InvalidMaxPriorityFeePerGasErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing an InvalidMaxPriorityFeePerGasError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/input/InvalidMaxPriorityFeePerGas.d.ts:42

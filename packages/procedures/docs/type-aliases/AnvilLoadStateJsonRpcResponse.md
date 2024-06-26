@@ -4,12 +4,12 @@
 
 [@tevm/procedures](../globals.md) / AnvilLoadStateJsonRpcResponse
 
-# Type alias: AnvilLoadStateJsonRpcResponse
+# Type Alias: AnvilLoadStateJsonRpcResponse
 
 > **AnvilLoadStateJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_loadState"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilLoadStateResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_loadState` procedure
 
-## Source
+## Defined in
 
 [procedures/src/anvil/AnvilJsonRpcResponse.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L142)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthNewBlockFilterHandler
 
-# Type alias: EthNewBlockFilterHandler()
+# Type Alias: EthNewBlockFilterHandler()
 
 > **EthNewBlockFilterHandler**: (`request`) => `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthHandler.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L177)

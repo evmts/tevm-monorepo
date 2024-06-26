@@ -4,12 +4,12 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockTransactionCountByNumberResult
 
-# Type alias: EthGetBlockTransactionCountByNumberResult
+# Type Alias: EthGetBlockTransactionCountByNumberResult
 
 > **EthGetBlockTransactionCountByNumberResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
-## Source
+## Defined in
 
 [packages/actions/src/eth/EthResult.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L83)

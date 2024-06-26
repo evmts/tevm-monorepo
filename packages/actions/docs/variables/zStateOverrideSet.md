@@ -8,6 +8,6 @@
 
 > `const` **zStateOverrideSet**: `ZodRecord`\<`ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\>, `ZodObject`\<`object`, `"strict"`, `ZodTypeAny`, `object`, `object`\>\>
 
-## Source
+## Defined in
 
 [packages/actions/src/internal/zod/zStateOverrideSet.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zStateOverrideSet.js#L5)

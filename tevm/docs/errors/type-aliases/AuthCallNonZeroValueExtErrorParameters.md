@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / AuthCallNonZeroValueExtErrorParameters
 
-# Type alias: AuthCallNonZeroValueExtErrorParameters
+# Type Alias: AuthCallNonZeroValueExtErrorParameters
 
 > **AuthCallNonZeroValueExtErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [AuthCallNonZeroValueExtError](../classes/AuthCall
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/AuthCallNonZeroValueExtError.d.ts:71

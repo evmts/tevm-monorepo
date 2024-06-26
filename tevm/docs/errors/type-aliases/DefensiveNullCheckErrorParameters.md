@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / DefensiveNullCheckErrorParameters
 
-# Type alias: DefensiveNullCheckErrorParameters
+# Type Alias: DefensiveNullCheckErrorParameters
 
 > **DefensiveNullCheckErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [DefensiveNullCheckError](../classes/DefensiveNull
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/defensive/DefensiveNullCheckError.d.ts:59

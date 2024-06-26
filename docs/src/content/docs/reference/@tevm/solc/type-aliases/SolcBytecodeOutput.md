@@ -13,7 +13,7 @@ title: "SolcBytecodeOutput"
 
 > **functionDebugData**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`functionName`: `string`\]: [`SolcFunctionDebugData`](/reference/tevm/solc/type-aliases/solcfunctiondebugdata/)
 
@@ -25,7 +25,7 @@ title: "SolcBytecodeOutput"
 
 > **linkReferences**: `object`
 
-#### Index signature
+#### Index Signature
 
  \[`fileName`: `string`\]: `object`
 
@@ -41,6 +41,6 @@ title: "SolcBytecodeOutput"
 
 > **sourceMap**: `string`
 
-## Source
+## Defined in
 
 [solcTypes.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L451)

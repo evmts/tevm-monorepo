@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcOptimizerDetails
 
-# Type alias: SolcOptimizerDetails
+# Type Alias: SolcOptimizerDetails
 
 > **SolcOptimizerDetails**: `object`
 
@@ -46,6 +46,6 @@
 
 > **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
 
-## Source
+## Defined in
 
 [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)

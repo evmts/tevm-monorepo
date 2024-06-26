@@ -57,6 +57,6 @@ title: "Logger"
 
 `void`
 
-## Source
+## Defined in
 
 [compiler/src/types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L43)

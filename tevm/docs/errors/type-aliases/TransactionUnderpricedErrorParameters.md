@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / TransactionUnderpricedErrorParameters
 
-# Type alias: TransactionUnderpricedErrorParameters
+# Type Alias: TransactionUnderpricedErrorParameters
 
 > **TransactionUnderpricedErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a TransactionUnderpricedError.
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/TransactionUnderpricedError.d.ts:50

@@ -16,6 +16,6 @@
 
 `Common`
 
-## Source
+## Defined in
 
 packages/common/types/createCommon.d.ts:1

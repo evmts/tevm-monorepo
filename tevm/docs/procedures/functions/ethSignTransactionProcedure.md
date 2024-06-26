@@ -20,6 +20,6 @@
 
 [`EthSignTransactionJsonRpcProcedure`](../type-aliases/EthSignTransactionJsonRpcProcedure.md)
 
-## Source
+## Defined in
 
 packages/procedures/dist/index.d.ts:644

@@ -4,12 +4,12 @@
 
 [@tevm/unplugin](../globals.md) / CompilerOption
 
-# Type alias: CompilerOption
+# Type Alias: CompilerOption
 
 > **CompilerOption**\<\>: `infer`
 
-## Type parameters
+## Type Parameters
 
-## Source
+## Defined in
 
 [bundler-packages/unplugin/src/tevmUnplugin.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L28)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDumpStateHandler
 
-# Type alias: AnvilDumpStateHandler()
+# Type Alias: AnvilDumpStateHandler()
 
 > **AnvilDumpStateHandler**: (`params`) => `Promise`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L63)

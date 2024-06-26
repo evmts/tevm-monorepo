@@ -4,7 +4,7 @@
 
 [@tevm/solc](../globals.md) / SolcSettings
 
-# Type alias: SolcSettings
+# Type Alias: SolcSettings
 
 > **SolcSettings**: `object`
 
@@ -50,6 +50,6 @@
 
 > `optional` **viaIR**: `boolean`
 
-## Source
+## Defined in
 
 [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)

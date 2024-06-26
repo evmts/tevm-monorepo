@@ -38,6 +38,6 @@ last call to checkpoint.
 
 `Promise`\<`Uint8Array`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/originalStorageCache.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/originalStorageCache.js#L9)

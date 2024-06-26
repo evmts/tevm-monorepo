@@ -4,14 +4,14 @@
 
 [@tevm/decorators](../globals.md) / RpcSchema
 
-# Type alias: RpcSchema
-
-`Internal`
+# Type Alias: RpcSchema
 
 > **RpcSchema**: readonly `object`[]
 
+**`Internal`**
+
 Most general RPC schema type.
 
-## Source
+## Defined in
 
 [eip1193/RpcSchema.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/RpcSchema.ts#L12)

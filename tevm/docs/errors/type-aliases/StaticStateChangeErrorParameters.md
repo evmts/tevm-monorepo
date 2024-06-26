@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / StaticStateChangeErrorParameters
 
-# Type alias: StaticStateChangeErrorParameters
+# Type Alias: StaticStateChangeErrorParameters
 
 > **StaticStateChangeErrorParameters**: `object`
 
@@ -54,6 +54,6 @@ Parameters for constructing a [StaticStateChangeError](../classes/StaticStateCha
 
 - Additional meta messages.
 
-## Source
+## Defined in
 
 packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:77

@@ -29,6 +29,6 @@ Changes the currently loaded state root
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/state/src/actions/setStateRoot.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/setStateRoot.js#L23)

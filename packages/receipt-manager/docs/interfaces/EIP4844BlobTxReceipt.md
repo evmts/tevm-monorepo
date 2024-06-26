@@ -25,7 +25,7 @@ Bloom bitvector
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`bitvector`](PostByzantiumTxReceipt.md#bitvector)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
@@ -40,7 +40,7 @@ blob gas price for block transaction was included in
 Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L64)
 
@@ -55,7 +55,7 @@ blob gas consumed by a transaction
 Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block
 and is only provided as part of receipt metadata.
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L57)
 
@@ -71,7 +71,7 @@ Cumulative gas used in the block including this tx
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`cumulativeBlockGasUsed`](PostByzantiumTxReceipt.md#cumulativeblockgasused)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
@@ -87,7 +87,7 @@ Logs emitted
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`logs`](PostByzantiumTxReceipt.md#logs)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
 
@@ -103,6 +103,6 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`status`](PostByzantiumTxReceipt.md#status)
 
-#### Source
+#### Defined in
 
 [RecieptManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)

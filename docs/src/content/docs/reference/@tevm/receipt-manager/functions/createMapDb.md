@@ -7,8 +7,6 @@ title: "createMapDb"
 
 > **createMapDb**(`options`): [`MapDb`](/reference/tevm/receipt-manager/type-aliases/mapdb/)
 
-Creates a {MapDb} which uses an in memory map as it's underlying data structure
-
 ## Parameters
 
 • **options**: [`MetaDBManagerOptions`](/reference/tevm/receipt-manager/interfaces/metadbmanageroptions/)
@@ -17,6 +15,6 @@ Creates a {MapDb} which uses an in memory map as it's underlying data structure
 
 [`MapDb`](/reference/tevm/receipt-manager/type-aliases/mapdb/)
 
-## Source
+## Defined in
 
 [createMapDb.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/createMapDb.js#L24)

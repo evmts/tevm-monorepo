@@ -15,6 +15,6 @@ title: "AnvilDropTransactionHandler"
 
 `Promise`\<[`AnvilDropTransactionResult`](/reference/tevm/actions/type-aliases/anvildroptransactionresult/)\>
 
-## Source
+## Defined in
 
 [packages/actions/src/anvil/AnvilHandler.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L50)

@@ -5,8 +5,6 @@ prev: false
 title: "TevmJsonRpcBulkRequestHandler"
 ---
 
-`Experimental`
-
 > **TevmJsonRpcBulkRequestHandler**: (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures/type-aliases/jsonrpcreturntypefrommethod/)\<`any`\>[]\>
 
 Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
@@ -88,10 +86,6 @@ response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/proc
 request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcrequest)
 response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcresponse)
 
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
 ## Parameters
 
 • **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures/type-aliases/debugjsonrpcrequest/)\>
@@ -100,6 +94,6 @@ This API should not be used in production and may be trimmed from a public relea
 
 `Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures/type-aliases/jsonrpcreturntypefrommethod/)\<`any`\>[]\>
 
-## Source
+## Defined in
 
 [procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L94)

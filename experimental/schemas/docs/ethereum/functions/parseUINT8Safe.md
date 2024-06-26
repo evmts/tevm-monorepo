@@ -8,9 +8,7 @@
 
 > **parseUINT8Safe**\<`TUINT8`\>(`uint8`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT8`\>
 
-Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
-## Type parameters
+## Type Parameters
 
 • **TUINT8** *extends* `bigint`
 
@@ -22,6 +20,6 @@ Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essential
 
 `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT8`\>
 
-## Source
+## Defined in
 
 [experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L19)

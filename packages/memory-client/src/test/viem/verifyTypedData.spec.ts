@@ -7,7 +7,7 @@ import { createMemoryClient } from '../../createMemoryClient.js'
 const privateKey = generatePrivateKey()
 const account = privateKeyToAccount(privateKey)
 
-let mc: MemoryClient
+let mc: MemoryClient<any, any>
 
 beforeEach(async () => {
 	mc = createMemoryClient()

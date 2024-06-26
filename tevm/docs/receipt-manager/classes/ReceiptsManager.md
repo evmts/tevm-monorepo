@@ -22,7 +22,7 @@
 
 [`ReceiptsManager`](ReceiptsManager.md)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:85
 
@@ -34,7 +34,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:85
 
 Block range limit for getLogs
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:97
 
@@ -46,7 +46,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:97
 
 Limit of logs to return in getLogs
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:89
 
@@ -58,7 +58,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:89
 
 Size limit for the getLogs response in megabytes
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:93
 
@@ -68,43 +68,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:93
 
 > `readonly` **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:84
-
-***
-
-### getIndex
-
-> `private` **getIndex**: `any`
-
-Returns the value for an index or null if not found
-
-#### Param
-
-the IndexType
-
-#### Param
-
-for IndexType.TxHash, the txHash to get
-
-#### Source
-
-packages/receipt-manager/types/RecieptManager.d.ts:135
-
-***
-
-### logsBloom
-
-> `private` **logsBloom**: `any`
-
-Returns the logs bloom for a receipt's logs
-
-#### Param
-
-#### Source
-
-packages/receipt-manager/types/RecieptManager.d.ts:147
 
 ***
 
@@ -112,57 +78,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:147
 
 > `readonly` **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:83
-
-***
-
-### rlp
-
-> `private` **rlp**: `any`
-
-Rlp encodes or decodes the specified data type for storage or retrieval from the metaDB
-
-#### Param
-
-RlpConvert.Encode or RlpConvert.Decode
-
-#### Param
-
-one of RlpType
-
-#### Param
-
-the value to encode or decode
-
-#### Source
-
-packages/receipt-manager/types/RecieptManager.d.ts:142
-
-***
-
-### updateIndex
-
-> `private` **updateIndex**: `any`
-
-Saves or deletes an index from the metaDB
-
-#### Param
-
-the IndexOperation
-
-#### Param
-
-the IndexType
-
-#### Param
-
-for IndexType.TxHash, the block to save or delete the tx hash indexes for
-
-#### Source
-
-packages/receipt-manager/types/RecieptManager.d.ts:129
 
 ## Methods
 
@@ -178,7 +96,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:129
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:105
 
@@ -204,7 +122,7 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 `Promise`\<`GetLogsReturn`\>
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:122
 
@@ -226,7 +144,7 @@ the tx hash
 
 `Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:118
 
@@ -258,7 +176,7 @@ whether to include the tx type for each receipt (default: false)
 
 `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
-##### Source
+##### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:112
 
@@ -278,7 +196,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:112
 
 `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
-##### Source
+##### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:113
 
@@ -305,6 +223,6 @@ the receipts to save
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:104

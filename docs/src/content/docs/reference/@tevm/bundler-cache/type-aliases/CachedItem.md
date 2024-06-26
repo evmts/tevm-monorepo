@@ -7,6 +7,6 @@ title: "CachedItem"
 
 > **CachedItem**: `"artifactsJson"` \| `"dts"` \| `"mjs"`
 
-## Source
+## Defined in
 
 [types.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L22)
