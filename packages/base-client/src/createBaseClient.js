@@ -25,7 +25,6 @@ import { statePersister } from './statePersister.js'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
-	console.time('baseClient-ready')
 	/**
 	 * @type {import('@tevm/utils').Address | undefined}
 	 */

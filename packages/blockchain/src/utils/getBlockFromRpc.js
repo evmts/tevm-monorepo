@@ -12,6 +12,22 @@ const isBlockTag = (blockTag) => {
 	return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
 }
 
+let i = 0
+
+/**
+ * @param {import('viem').RpcBlock} tx
+ */
+const warnOnce = (tx) => {
+	if (i > 0) {
+		return
+	}
+	i++
+	console.warn(
+		`Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
+	)
+}
+
 /**
  * @param {object} params
  * @param {{request: import('viem').EIP1193RequestFn}} params.transport
@@ -34,10 +50,7 @@ export const getBlockFromRpc = async ({ transport, blockTag = 'latest' }, common
 					// Optimism type is currently not in viem types
 					// @ts-expect-error
 					if (tx.type === '0x7e') {
-						console.warn(
-							`Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
-filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
-						)
+						warnOnce(tx)
 						return false
 					}
 					return true

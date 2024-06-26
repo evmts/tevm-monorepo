@@ -40,7 +40,6 @@ import { validateCallParams } from './validateCallParams.js'
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
-		console.log('callHandler', params)
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
