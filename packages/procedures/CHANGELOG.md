@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 2.0.0-next.87
+
+### Minor Changes
+
+- [#1245](https://github.com/evmts/tevm-monorepo/pull/1245) [`fe67a05`](https://github.com/evmts/tevm-monorepo/commit/fe67a05a49302f9753c60170846fb95295a75396) Thanks [@roninjin10](https://github.com/roninjin10)! - Made every json-rpc procedure a tree shakable procedure handler
+
+### Patch Changes
+
+- [#1245](https://github.com/evmts/tevm-monorepo/pull/1245) [`fe67a05`](https://github.com/evmts/tevm-monorepo/commit/fe67a05a49302f9753c60170846fb95295a75396) Thanks [@roninjin10](https://github.com/roninjin10)! - Refactored tevm/procedures and found small bugs along the way
+
 ## 2.0.0-next.86
 
 ### Patch Changes
