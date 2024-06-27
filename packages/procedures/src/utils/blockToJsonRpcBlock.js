@@ -4,7 +4,7 @@ import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 /**
  * @param {import('@tevm/block').Block} block
  * @param {boolean} includeTransactions
- * @returns {Promise<import('../eth/index.js').EthGetBlockByHashJsonRpcResponse['result']>}
+ * @returns {Promise<Required<import('../eth/index.js').EthGetBlockByHashJsonRpcResponse>['result']>}
  */
 export const blockToJsonRpcBlock = async (block, includeTransactions) => {
 	const json = block.toJSON()

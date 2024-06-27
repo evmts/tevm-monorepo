@@ -20,4 +20,4 @@ jsonrpc error response if there are errors otherwise it returns a successful emp
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1144
+packages/procedures/dist/index.d.ts:1213

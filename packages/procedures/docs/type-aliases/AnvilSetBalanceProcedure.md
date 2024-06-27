@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_setBalance`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L79)
+[procedures/src/anvil/AnvilProcedure.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L84)

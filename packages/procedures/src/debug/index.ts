@@ -1,3 +1,5 @@
 export * from './DebugProcedure.js'
 export * from './DebugJsonRpcRequest.js'
 export * from './DebugJsonRpcResponse.js'
+export * from './debugTraceCallProcedure.js'
+export * from './debugTraceTransactionProcedure.js'

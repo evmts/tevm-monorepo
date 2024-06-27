@@ -9,6 +9,7 @@ import type {
 	AnvilSetBalanceJsonRpcRequest,
 	AnvilSetChainIdJsonRpcRequest,
 	AnvilSetCodeJsonRpcRequest,
+	AnvilSetCoinbaseJsonRpcRequest,
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
@@ -24,11 +25,15 @@ import type {
 	AnvilSetBalanceJsonRpcResponse,
 	AnvilSetChainIdJsonRpcResponse,
 	AnvilSetCodeJsonRpcResponse,
+	AnvilSetCoinbaseJsonRpcResponse,
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
 } from './AnvilJsonRpcResponse.js'
 
+export type AnvilSetCoinbaseProcedure = (
+	request: AnvilSetCoinbaseJsonRpcRequest,
+) => Promise<AnvilSetCoinbaseJsonRpcResponse>
 // anvil_impersonateAccount
 /**
  * JSON-RPC procedure for `anvil_impersonateAccount`

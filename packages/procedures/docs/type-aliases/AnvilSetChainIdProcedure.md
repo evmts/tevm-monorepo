@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_setChainId`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L103)
+[procedures/src/anvil/AnvilProcedure.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L108)

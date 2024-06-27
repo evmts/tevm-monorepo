@@ -5,7 +5,7 @@ prev: false
 title: "blockToJsonRpcBlock"
 ---
 
-> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<`undefined` \| [`BlockResult`](/reference/tevm/actions/type-aliases/blockresult/)\>
+> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<[`BlockResult`](/reference/tevm/actions/type-aliases/blockresult/)\>
 
 ## Parameters
 
@@ -15,7 +15,7 @@ title: "blockToJsonRpcBlock"
 
 ## Returns
 
-`Promise`\<`undefined` \| [`BlockResult`](/reference/tevm/actions/type-aliases/blockresult/)\>
+`Promise`\<[`BlockResult`](/reference/tevm/actions/type-aliases/blockresult/)\>
 
 ## Defined in
 

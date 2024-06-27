@@ -5,13 +5,40 @@ import { walletActions } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { createMemoryClient } from '../index.js'
 
+// Same accounts anvil and hardhat prefund
 const TEVM_TEST_ACCOUNTS = [
 	'0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
 	'0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d',
 ] as const
 
 describe('using MemoryClient as viem signer', () => {
-	it('should be able to pass in an account', async () => {
+	it('should be able to pass in an account and use viem wallet api to interact with tevm', async () => {
+		const walletClient = createMemoryClient({
+			common: optimism,
+			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
+		}).extend(walletActions)
+
+		const txHash = await walletClient.deployContract(SimpleContract.deploy(2n))
+		await walletClient.tevmMine()
+
+		const receipt = await walletClient.getTransactionReceipt({ hash: txHash })
+
+		if (!receipt.contractAddress) {
+			throw new Error('No address created')
+		}
+		expect(receipt.contractAddress).toEqual('0x8464135c8f25da09e49bc8782676a84730c318bc')
+
+		const contract = SimpleContract.withAddress(receipt.contractAddress)
+
+		expect(await walletClient.readContract(contract.read.get())).toEqual(2n)
+		expect(await walletClient.writeContract(contract.write.set(420n))).toBe(
+			'0x57e8e1d07601c241a457e529457c6fec8bfe7366ea7c8d80655c6e2dcfa3528a',
+		)
+		await walletClient.tevmMine()
+		expect(await walletClient.readContract(contract.read.get())).toEqual(420n)
+	})
+
+	it('should be robust wrt nonces', async () => {
 		const client = createMemoryClient({
 			common: optimism,
 			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),

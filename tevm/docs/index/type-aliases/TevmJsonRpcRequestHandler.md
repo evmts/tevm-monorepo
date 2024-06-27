@@ -98,4 +98,4 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBa
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1005
+packages/procedures/dist/index.d.ts:1070

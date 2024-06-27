@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_reset`
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:739
+packages/procedures/dist/index.d.ts:780

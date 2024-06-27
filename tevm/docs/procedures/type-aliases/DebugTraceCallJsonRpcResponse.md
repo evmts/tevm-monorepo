@@ -12,4 +12,4 @@ JSON-RPC response for `debug_traceCall` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:801
+packages/procedures/dist/index.d.ts:866
