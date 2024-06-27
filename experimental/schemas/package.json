@@ -70,7 +70,7 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"viem": "^2.14.2"
+		"viem": "^2.16.3"
 	},
 	"publishConfig": {
 		"access": "public"

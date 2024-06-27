@@ -66,7 +66,7 @@
 		"typedoc": "^0.25.3",
 		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2",
-		"viem": "^2.14.2",
+		"viem": "^2.16.3",
 		"vitest": "^0.34.6",
 		"wagmi": "^1.4.5",
 		"wasm-pack": "^0.12.1",

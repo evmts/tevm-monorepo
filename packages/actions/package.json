@@ -83,7 +83,7 @@
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
     "abitype": "^1.0.4",
-    "viem": "^2.16.2"
+    "viem": "^2.16.3"
   },
   "peerDependencies": {
     "viem": "^2.14.2"

@@ -2,14 +2,8 @@ import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { walletActions } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
 import { createMemoryClient } from '../index.js'
-
-// Same accounts anvil and hardhat prefund
-const TEVM_TEST_ACCOUNTS = [
-	'0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
-	'0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d',
-] as const
+import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 
 describe('using MemoryClient as viem signer', () => {
 	it('should be able to pass in an account and use viem wallet api to interact with tevm', async () => {
@@ -41,7 +35,7 @@ describe('using MemoryClient as viem signer', () => {
 	it('should be robust wrt nonces', async () => {
 		const client = createMemoryClient({
 			common: optimism,
-			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
+			account: PREFUNDED_ACCOUNTS[1],
 		}).extend(walletActions)
 
 		const deployResult = await client.tevmDeploy(SimpleContract.deploy(2n))

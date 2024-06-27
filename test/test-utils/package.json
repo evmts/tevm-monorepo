@@ -74,6 +74,6 @@
     "@tevm/contract": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.16.2"
+    "viem": "^2.16.3"
   }
 }
