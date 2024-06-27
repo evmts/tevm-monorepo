@@ -1,5 +1,5 @@
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { hexToBigInt } from '@tevm/utils'
 import { blockToJsonRpcBlock } from '../utils/blockToJsonRpcBlock.js'
 
 /**
@@ -20,12 +20,26 @@ export const ethGetBlockByNumberJsonRpcProcedure = (client) => {
 
 		if (!block && client.forkTransport) {
 			const fetcher = createJsonRpcFetcher(client.forkTransport)
-			return fetcher.request({
+			const res = await fetcher.request({
 				jsonrpc: '2.0',
 				id: request.id ?? 1,
 				method: request.method,
 				params: [blockTagOrNumber, request.params[1] ?? false],
 			})
+			if (res.error) {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: res.error,
+				}
+			}
+			return {
+				...(request.id ? { id: request.id } : {}),
+				method: request.method,
+				jsonrpc: request.jsonrpc,
+				result: /** @type {any}*/ (res.result),
+			}
 		}
 		if (!block) {
 			return {

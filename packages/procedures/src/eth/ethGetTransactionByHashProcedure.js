@@ -14,12 +14,26 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 		const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(request.params[0]))
 		if (!receipt && client.forkTransport) {
 			const fetcher = createJsonRpcFetcher(client.forkTransport)
-			return fetcher.request({
+			const res = await fetcher.request({
 				jsonrpc: '2.0',
 				id: request.id ?? 1,
 				method: request.method,
 				params: [request.params[0]],
 			})
+			if (res.error) {
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: res.error,
+				}
+			}
+			return {
+				...(request.id ? { id: request.id } : {}),
+				method: request.method,
+				result: /** @type any*/ (res.result),
+				jsonrpc: '2.0',
+			}
 		}
 		if (!receipt) {
 			return {

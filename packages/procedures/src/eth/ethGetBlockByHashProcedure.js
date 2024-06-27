@@ -1,5 +1,4 @@
-import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 import { blockToJsonRpcBlock } from '../utils/blockToJsonRpcBlock.js'
 
 /**
@@ -12,9 +11,10 @@ export const ethGetBlockByHashJsonRpcProcedure = (client) => {
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
 		const includeTransactions = request.params[1] ?? false
+		const result = await blockToJsonRpcBlock(block, includeTransactions)
 		return {
 			method: request.method,
-			result: blockToJsonRpcBlock(block, includeTransactions),
+			result,
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}
