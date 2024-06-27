@@ -22,4 +22,4 @@ A mapping of `debug_*` method names to their return type
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:806
+packages/procedures/dist/index.d.ts:807

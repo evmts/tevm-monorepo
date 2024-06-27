@@ -6,7 +6,7 @@
 
 # Function: blockToJsonRpcBlock()
 
-> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](../type-aliases/EthGetBlockByHashJsonRpcResponse.md)\[`"result"`\]\>
+> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<`Required`\<[`EthGetBlockByHashJsonRpcResponse`](../type-aliases/EthGetBlockByHashJsonRpcResponse.md)\>\[`"result"`\]\>
 
 ## Parameters
 
@@ -16,8 +16,8 @@
 
 ## Returns
 
-`Promise`\<[`EthGetBlockByHashJsonRpcResponse`](../type-aliases/EthGetBlockByHashJsonRpcResponse.md)\[`"result"`\]\>
+`Promise`\<`Required`\<[`EthGetBlockByHashJsonRpcResponse`](../type-aliases/EthGetBlockByHashJsonRpcResponse.md)\>\[`"result"`\]\>
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1266
+packages/procedures/dist/index.d.ts:1267

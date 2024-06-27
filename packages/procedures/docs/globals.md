@@ -41,6 +41,7 @@
 - [AnvilSetCodeProcedure](type-aliases/AnvilSetCodeProcedure.md)
 - [AnvilSetCoinbaseJsonRpcRequest](type-aliases/AnvilSetCoinbaseJsonRpcRequest.md)
 - [AnvilSetCoinbaseJsonRpcResponse](type-aliases/AnvilSetCoinbaseJsonRpcResponse.md)
+- [AnvilSetCoinbaseProcedure](type-aliases/AnvilSetCoinbaseProcedure.md)
 - [AnvilSetNonceJsonRpcRequest](type-aliases/AnvilSetNonceJsonRpcRequest.md)
 - [AnvilSetNonceJsonRpcResponse](type-aliases/AnvilSetNonceJsonRpcResponse.md)
 - [AnvilSetNonceProcedure](type-aliases/AnvilSetNonceProcedure.md)

@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L72)
+[procedures/src/anvil/AnvilProcedure.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L77)

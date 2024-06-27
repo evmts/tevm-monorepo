@@ -6,7 +6,7 @@
 
 # Function: blockToJsonRpcBlock()
 
-> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<`undefined` \| `BlockResult`\>
+> **blockToJsonRpcBlock**(`block`, `includeTransactions`): `Promise`\<`BlockResult`\>
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Returns
 
-`Promise`\<`undefined` \| `BlockResult`\>
+`Promise`\<`BlockResult`\>
 
 ## Defined in
 

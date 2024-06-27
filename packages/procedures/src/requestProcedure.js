@@ -46,6 +46,6 @@ export const requestProcedure = (client) => {
 				},
 			})
 		}
-		return allHandlers[/** @type {keyof typeof allHandlers}*/ (request.method)](client)(request)
+		return allHandlers[/** @type {keyof typeof allHandlers}*/ (request.method)](request)
 	}
 }

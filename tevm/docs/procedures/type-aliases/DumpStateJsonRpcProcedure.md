@@ -20,4 +20,4 @@ the state as a JSON-RPC successful result
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1120
+packages/procedures/dist/index.d.ts:1121
