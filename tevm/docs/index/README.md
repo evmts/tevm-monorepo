@@ -134,6 +134,10 @@
 ### Variables
 
 - [GENESIS\_STATE](variables/GENESIS_STATE.md)
+- [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
+- [PREFUNDED\_PRIVATE\_KEYS](variables/PREFUNDED_PRIVATE_KEYS.md)
+- [PREFUNDED\_PUBLIC\_KEYS](variables/PREFUNDED_PUBLIC_KEYS.md)
+- [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
 - [prefundedAccounts](variables/prefundedAccounts.md)
 
 ### Functions
