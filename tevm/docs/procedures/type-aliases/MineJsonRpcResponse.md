@@ -12,4 +12,4 @@ JSON-RPC response for `tevm_mine` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:881
+packages/procedures/dist/index.d.ts:945

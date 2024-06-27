@@ -12,4 +12,4 @@ Response of the `tevm_loadState` RPC method.
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:876
+packages/procedures/dist/index.d.ts:940

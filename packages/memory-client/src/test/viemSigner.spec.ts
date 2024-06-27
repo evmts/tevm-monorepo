@@ -26,13 +26,13 @@ describe('using MemoryClient as viem signer', () => {
 		if (!receipt.contractAddress) {
 			throw new Error('No address created')
 		}
-		expect(receipt.contractAddress).toEqual('0x5FbDB2315678afecb367f032d93F642f64180aa3')
+		expect(receipt.contractAddress).toEqual('0x8464135c8f25da09e49bc8782676a84730c318bc')
 
 		const contract = SimpleContract.withAddress(receipt.contractAddress)
 
 		expect(await walletClient.readContract(contract.read.get())).toEqual(2n)
 		expect(await walletClient.writeContract(contract.write.set(420n))).toBe(
-			'0xb9efaaa8a2873f58058a8f426692c7774453e05664f56fbd925d15c063de5e54',
+			'0x57e8e1d07601c241a457e529457c6fec8bfe7366ea7c8d80655c6e2dcfa3528a',
 		)
 		await walletClient.tevmMine()
 		expect(await walletClient.readContract(contract.read.get())).toEqual(420n)

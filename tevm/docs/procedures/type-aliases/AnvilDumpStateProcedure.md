@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_dumpState`
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:768
+packages/procedures/dist/index.d.ts:808

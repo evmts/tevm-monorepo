@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setRpcUrl should throw an error 1`] = `[UnsupportedProviderMethodError: The Provider does not support the requested method.
+exports[`setRpcUrl should throw an error 1`] = `[MethodNotFoundRpcError: The method does not exist / is not available.
 
 Details: UnsupportedMethodError: Unknown method anvil_setRpcUrl
 

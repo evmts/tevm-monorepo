@@ -44,4 +44,4 @@ A mapping of `tevm_*` method names to their return type
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:909
+packages/procedures/dist/index.d.ts:973

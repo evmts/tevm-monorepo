@@ -20,4 +20,4 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1167
+packages/procedures/dist/index.d.ts:1235

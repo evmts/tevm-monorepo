@@ -20,4 +20,4 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1103
+packages/procedures/dist/index.d.ts:1167
