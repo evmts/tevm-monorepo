@@ -1,5 +1,30 @@
 # @tevm/contract
 
+## 2.0.0-next.86
+
+### Patch Changes
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated eth_sendRawTransaction to not simulate the tx
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Bumped sub dep up
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with `from` and gasFee related params not being respected in eth_estimateGas
+
+- [#1240](https://github.com/evmts/tevm-monorepo/pull/1240) [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in eth_getTransactionCount returning the block tx count rather than the historical tx count
+
+- Updated dependencies [[`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8), [`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8)]:
+  - @tevm/actions@2.0.0-next.86
+  - @tevm/base-client@2.0.0-next.86
+  - @tevm/contract@2.0.0-next.86
+  - @tevm/jsonrpc@2.0.0-next.86
+  - @tevm/errors@2.0.0-next.86
+  - @tevm/block@2.0.0-next.86
+  - @tevm/state@2.0.0-next.86
+  - @tevm/utils@2.0.0-next.86
+  - @tevm/evm@2.0.0-next.86
+  - @tevm/tx@2.0.0-next.86
+  - @tevm/vm@2.0.0-next.86
+
 ## 2.0.0-next.85
 
 ### Patch Changes

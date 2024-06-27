@@ -1,5 +1,13 @@
 # @tevm/lsp
 
+## 2.0.0-next.86
+
+### Patch Changes
+
+- Updated dependencies [[`b1f0504`](https://github.com/evmts/tevm-monorepo/commit/b1f0504a6be9abf08faa029e7b40fb53666293e8)]:
+  - @tevm/config@2.0.0-next.86
+  - @tevm/tsupconfig@2.0.0-next.86
+
 ## 2.0.0-next.80
 
 ### Patch Changes
