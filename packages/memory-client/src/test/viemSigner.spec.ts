@@ -3,7 +3,6 @@ import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { walletActions } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-import { deployContract, writeContract } from 'viem/actions'
 import { createMemoryClient } from '../index.js'
 
 // Same accounts anvil and hardhat prefund
@@ -17,9 +16,9 @@ describe('using MemoryClient as viem signer', () => {
 		const walletClient = createMemoryClient({
 			common: optimism,
 			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
-		})
+		}).extend(walletActions)
 
-		const txHash = await deployContract(walletClient, SimpleContract.deploy(2n))
+		const txHash = await walletClient.deployContract(SimpleContract.deploy(2n))
 		await walletClient.tevmMine()
 
 		const receipt = await walletClient.getTransactionReceipt({ hash: txHash })
@@ -32,7 +31,7 @@ describe('using MemoryClient as viem signer', () => {
 		const contract = SimpleContract.withAddress(receipt.contractAddress)
 
 		expect(await walletClient.readContract(contract.read.get())).toEqual(2n)
-		expect(await writeContract(walletClient, contract.write.set(420n))).toBe(
+		expect(await walletClient.writeContract(contract.write.set(420n))).toBe(
 			'0xb9efaaa8a2873f58058a8f426692c7774453e05664f56fbd925d15c063de5e54',
 		)
 		await walletClient.tevmMine()
