@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 2.0.0-next.87
+
+### Patch Changes
+
+- Updated dependencies [[`fe67a05`](https://github.com/evmts/tevm-monorepo/commit/fe67a05a49302f9753c60170846fb95295a75396), [`fe67a05`](https://github.com/evmts/tevm-monorepo/commit/fe67a05a49302f9753c60170846fb95295a75396)]:
+  - @tevm/procedures@2.0.0-next.87
+
 ## 2.0.0-next.86
 
 ### Patch Changes
