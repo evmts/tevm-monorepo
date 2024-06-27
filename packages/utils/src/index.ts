@@ -31,6 +31,7 @@ export type {
 	Filter,
 	ContractConstructorArgs,
 } from './abitype.js'
+export * from './prefundedAccounts.js'
 export {
 	serializeTransaction,
 	mnemonicToAccount,

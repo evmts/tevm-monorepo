@@ -20,6 +20,22 @@ Object.defineProperty(exports, "createContract", {
   enumerable: true,
   get: function () { return contract.createContract; }
 });
+Object.defineProperty(exports, "PREFUNDED_ACCOUNTS", {
+  enumerable: true,
+  get: function () { return utils.PREFUNDED_ACCOUNTS; }
+});
+Object.defineProperty(exports, "PREFUNDED_PRIVATE_KEYS", {
+  enumerable: true,
+  get: function () { return utils.PREFUNDED_PRIVATE_KEYS; }
+});
+Object.defineProperty(exports, "PREFUNDED_PUBLIC_KEYS", {
+  enumerable: true,
+  get: function () { return utils.PREFUNDED_PUBLIC_KEYS; }
+});
+Object.defineProperty(exports, "PREFUNDED_SEED", {
+  enumerable: true,
+  get: function () { return utils.PREFUNDED_SEED; }
+});
 Object.defineProperty(exports, "boolToBytes", {
   enumerable: true,
   get: function () { return utils.boolToBytes; }

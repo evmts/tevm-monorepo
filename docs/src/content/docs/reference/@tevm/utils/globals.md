@@ -76,6 +76,10 @@ title: "@tevm/utils"
 
 - [KECCAK256\_RLP](/reference/tevm/utils/variables/keccak256_rlp/)
 - [KECCAK256\_RLP\_ARRAY](/reference/tevm/utils/variables/keccak256_rlp_array/)
+- [PREFUNDED\_ACCOUNTS](/reference/tevm/utils/variables/prefunded_accounts/)
+- [PREFUNDED\_PRIVATE\_KEYS](/reference/tevm/utils/variables/prefunded_private_keys/)
+- [PREFUNDED\_PUBLIC\_KEYS](/reference/tevm/utils/variables/prefunded_public_keys/)
+- [PREFUNDED\_SEED](/reference/tevm/utils/variables/prefunded_seed/)
 
 ## Functions
 
