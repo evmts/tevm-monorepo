@@ -1737,7 +1737,7 @@ importers:
     dependencies:
       '@ponder/utils':
         specifier: ^0.1.6
-        version: 0.1.6(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+        version: 0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       viem:
         specifier: ^2.14.2
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
@@ -1863,6 +1863,9 @@ importers:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -1878,6 +1881,9 @@ importers:
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
+      '@tevm/test-utils':
+        specifier: 2.0.0-next.86
+        version: 2.0.0-next.86(fast-check@3.19.0)(typescript@5.5.2)(zod@3.23.8)
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
@@ -1943,7 +1949,7 @@ importers:
         version: 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/decorators':
         specifier: 2.0.0-next.87
-        version: 2.0.0-next.87(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+        version: 2.0.0-next.87(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -2232,7 +2238,7 @@ importers:
         version: 5.0.2
       '@ponder/utils':
         specifier: ^0.1.6
-        version: 0.1.6(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+        version: 0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
@@ -17208,7 +17214,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.25': {}
 
-  '@ponder/utils@0.1.6(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
+  '@ponder/utils@0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))':
     dependencies:
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     optionalDependencies:
@@ -18071,29 +18077,6 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@react-native/community-cli-plugin@0.74.84(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
-    dependencies:
-      '@react-native-community/cli-server-api': 13.6.8(bufferutil@4.0.8)(utf-8-validate@6.0.4)
-      '@react-native-community/cli-tools': 13.6.8
-      '@react-native/dev-middleware': 0.74.84(bufferutil@4.0.8)(utf-8-validate@6.0.4)
-      '@react-native/metro-babel-transformer': 0.74.84(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))
-      chalk: 4.1.2
-      execa: 5.1.1
-      metro: 0.80.9(bufferutil@4.0.8)(utf-8-validate@6.0.4)
-      metro-config: 0.80.9(bufferutil@4.0.8)(utf-8-validate@6.0.4)
-      metro-core: 0.80.9
-      node-fetch: 2.7.0
-      querystring: 0.2.1
-      readline: 1.3.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@babel/preset-env'
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    optional: true
-
   '@react-native/debugger-frontend@0.74.84': {}
 
   '@react-native/dev-middleware@0.74.84(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
@@ -18666,20 +18649,20 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
 
-  '@tevm/actions@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
+  '@tevm/actions@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
     dependencies:
-      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/block': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/blockchain': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/jsonrpc': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
       '@tevm/receipt-manager': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
       zod: 3.23.8
     transitivePeerDependencies:
@@ -18707,22 +18690,22 @@ snapshots:
       - debug
       - fast-check
 
-  '@tevm/base-client@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/base-client@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@tevm/block': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/blockchain': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/jsonrpc': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
       '@tevm/logger': 2.0.0-next.86
       '@tevm/predeploys': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/receipt-manager': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/sync-storage-persister': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/sync-storage-persister': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/txpool': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/txpool': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
@@ -18736,11 +18719,11 @@ snapshots:
   '@tevm/block@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       '@tevm/rlp': 2.0.0-next.86
       '@tevm/trie': 2.0.0-next.86
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -18755,7 +18738,7 @@ snapshots:
       '@tevm/jsonrpc': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
       '@tevm/logger': 2.0.0-next.86
       '@tevm/trie': 2.0.0-next.86
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
@@ -18774,9 +18757,9 @@ snapshots:
   '@tevm/common@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/common': 4.3.0
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       '@tevm/logger': 2.0.0-next.86
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
@@ -18805,21 +18788,21 @@ snapshots:
     transitivePeerDependencies:
       - fast-check
 
-  '@tevm/contract@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/contract@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript
       - viem
       - zod
 
-  '@tevm/decorators@2.0.0-next.87(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/decorators@2.0.0-next.87(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@tevm/actions': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/procedures': 2.0.0-next.87(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/actions': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/procedures': 2.0.0-next.87(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
@@ -18836,7 +18819,7 @@ snapshots:
       jsonc-parser: 3.3.1
       resolve: 1.22.8
 
-  '@tevm/errors@2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
+  '@tevm/errors@2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))':
     dependencies:
       '@ethereumjs/evm': 3.0.0
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
@@ -18850,15 +18833,15 @@ snapshots:
       - debug
       - fast-check
 
-  '@tevm/evm@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/evm@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/evm': 3.0.0
       '@tevm/blockchain': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/logger': 2.0.0-next.86
       '@tevm/predeploys': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -18871,7 +18854,7 @@ snapshots:
 
   '@tevm/jsonrpc@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
     dependencies:
-      '@ponder/utils': 0.1.6(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@ponder/utils': 0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
       - typescript
@@ -18882,27 +18865,27 @@ snapshots:
 
   '@tevm/predeploys@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript
       - viem
       - zod
 
-  '@tevm/procedures@2.0.0-next.87(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/procedures@2.0.0-next.87(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@tevm/actions': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/actions': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/base-client': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/block': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/jsonrpc': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -18920,7 +18903,7 @@ snapshots:
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/rlp': 2.0.0-next.86
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -18950,14 +18933,14 @@ snapshots:
       '@tevm/tsconfig': 2.0.0-next.80
       '@tevm/tsupconfig': 2.0.0-next.86
 
-  '@tevm/state@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/state@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/statemanager': 2.3.0
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       '@tevm/logger': 2.0.0-next.86
-      '@tevm/test-utils': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/test-utils': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       ethereum-cryptography: 2.2.0
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
@@ -18969,9 +18952,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@tevm/sync-storage-persister@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/sync-storage-persister@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -18982,11 +18965,28 @@ snapshots:
       - viem
       - zod
 
-  '@tevm/test-utils@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)':
+  '@tevm/test-utils@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)':
     dependencies:
       '@openzeppelin/contracts': 5.0.2
-      '@ponder/utils': 0.1.6(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@ponder/utils': 0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/esbuild-plugin': 2.0.0-next.86(fast-check@3.19.0)
+      '@tevm/ts-plugin': 2.0.0-next.86(fast-check@3.19.0)(typescript@5.5.2)
+      viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - fast-check
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@tevm/test-utils@2.0.0-next.86(fast-check@3.19.0)(typescript@5.5.2)(zod@3.23.8)':
+    dependencies:
+      '@openzeppelin/contracts': 5.0.2
+      '@ponder/utils': 0.1.6(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/contract': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       '@tevm/esbuild-plugin': 2.0.0-next.86(fast-check@3.19.0)
       '@tevm/ts-plugin': 2.0.0-next.86(fast-check@3.19.0)(typescript@5.5.2)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
@@ -19028,20 +19028,20 @@ snapshots:
   '@tevm/tx@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/tx': 5.3.0
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
       - typescript
       - viem
       - zod
 
-  '@tevm/txpool@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/txpool@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@tevm/block': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/vm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       qheap: 1.4.0
     transitivePeerDependencies:
       - bufferutil
@@ -19067,11 +19067,11 @@ snapshots:
       - debug
       - fast-check
 
-  '@tevm/utils@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/utils@2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/evm': 3.0.0
       '@ethereumjs/util': 9.0.3
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
       abitype: 1.0.4(typescript@5.5.2)(zod@3.23.8)
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     transitivePeerDependencies:
@@ -19079,19 +19079,19 @@ snapshots:
       - typescript
       - zod
 
-  '@tevm/vm@2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
+  '@tevm/vm@2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@ethereumjs/vm': 8.0.0
       '@tevm/block': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/blockchain': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/common': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/errors': 2.0.0-next.86(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))
+      '@tevm/evm': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/rlp': 2.0.0-next.86
-      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(fast-check@3.19.0)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/state': 2.0.0-next.86(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
       '@tevm/trie': 2.0.0-next.86
       '@tevm/tx': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+      '@tevm/utils': 2.0.0-next.86(typescript@5.5.2)(viem@2.16.2(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -24468,7 +24468,7 @@ snapshots:
     dependencies:
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
-  isows@1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)):
+  isows@1.0.4(ws@8.17.1):
     dependencies:
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
@@ -27157,7 +27157,7 @@ snapshots:
       '@react-native-community/cli-platform-ios': 13.6.8
       '@react-native/assets-registry': 0.74.84
       '@react-native/codegen': 0.74.84(@babel/preset-env@7.24.7(@babel/core@7.24.7))
-      '@react-native/community-cli-plugin': 0.74.84(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      '@react-native/community-cli-plugin': 0.74.84(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@6.0.4)
       '@react-native/gradle-plugin': 0.74.84
       '@react-native/js-polyfills': 0.74.84
       '@react-native/normalize-colors': 0.74.84
@@ -29386,7 +29386,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.0(typescript@5.5.2)(zod@3.23.8)
-      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4))
+      isows: 1.0.4(ws@8.17.1)
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.5.2
@@ -29403,7 +29403,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.4(typescript@5.5.2)(zod@3.23.8)
-      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4))
+      isows: 1.0.4(ws@8.17.1)
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.5.2

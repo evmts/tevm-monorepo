@@ -1,0 +1,8 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ethGetBlockByNumberJsonRpcProcedure should handle invalid block tag 1`] = `
+{
+  "code": -32602,
+  "message": "Invalid block tag invalidTag",
+}
+`;

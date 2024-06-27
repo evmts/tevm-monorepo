@@ -11,5 +11,6 @@ export {
 	setIteratorHead,
 	getCanonicalHeadBlock,
 } from './actions/index.js'
+export { getBlockFromRpc } from './utils/getBlockFromRpc.js'
 export type { Chain } from './Chain.js'
 export type { ChainOptions } from './ChainOptions.js'

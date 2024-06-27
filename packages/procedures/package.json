@@ -67,11 +67,13 @@
     "@tevm/actions": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
+    "@tevm/blockchain": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/state": "workspace:^",
+    "@tevm/test-utils": "2.0.0-next.86",
     "@tevm/tx": "workspace:^",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^"
