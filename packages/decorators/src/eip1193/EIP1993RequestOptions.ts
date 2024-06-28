@@ -6,7 +6,7 @@
 
 export type EIP1193RequestOptions = {
 	// The base delay (in ms) between retries.
-	retryDelay?: number
+	retryDelay?: number | undefined
 	// The max number of times to retry.
-	retryCount?: number
+	retryCount?: number | undefined
 }
