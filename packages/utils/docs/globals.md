@@ -122,6 +122,7 @@
 - [hexToBytes](functions/hexToBytes.md)
 - [hexToNumber](functions/hexToNumber.md)
 - [hexToString](functions/hexToString.md)
+- [invariant](functions/invariant.md)
 - [isAddress](functions/isAddress.md)
 - [isBytes](functions/isBytes.md)
 - [isHex](functions/isHex.md)

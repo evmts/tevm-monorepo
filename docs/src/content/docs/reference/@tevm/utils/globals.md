@@ -123,6 +123,7 @@ title: "@tevm/utils"
 - [hexToBytes](/reference/tevm/utils/functions/hextobytes/)
 - [hexToNumber](/reference/tevm/utils/functions/hextonumber/)
 - [hexToString](/reference/tevm/utils/functions/hextostring/)
+- [invariant](/reference/tevm/utils/functions/invariant/)
 - [isAddress](/reference/tevm/utils/functions/isaddress/)
 - [isBytes](/reference/tevm/utils/functions/isbytes/)
 - [isHex](/reference/tevm/utils/functions/ishex/)
