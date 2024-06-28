@@ -1,13 +1,12 @@
 import type { BaseClient } from '@tevm/base-client'
-import { type EIP1193RequestFn, type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorators'
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures'
+import { type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorators'
 
 /**
  * Powerful actions for interacting with the EVM
  */
 export type TevmActions = {
 	/**
-	 * Low level access to tevm can be accessed via `tevm_tevm`. These apis are not guaranteed to be stable
+	 * Low level access to tevm can be accessed via `tevmtevm`. These apis are not guaranteed to be stable
 	 * @see {@link BaseClient}
 	 * @example
 	 * ```typescript
@@ -16,24 +15,18 @@ export type TevmActions = {
 	 * const memoryClient = createMemoryClient()
 	 *
 	 * // low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-	 * const vm = await memoryClient._tevm.getVm()
+	 * const vm = await memoryClient.tevm.getVm()
 	 * vm.runBlocl(...)
 	 * const {blockchain, evm, stateManager} = vm
 	 * blockchain.addBlock(...)
 	 * evm.runCall(...)
 	 * stateManager.putAccount(...)
 	 *
-	 * const mempool = await memoryClient._tevm.getTxPool()
-	 * const receiptsManager = await memoryClient._tevm.getReceiptsManager()
+	 * const mempool = await memoryClient.tevm.getTxPool()
+	 * const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 	 * ````
 	 */
-	_tevm: BaseClient &
-		Eip1193RequestProvider &
-		TevmActionsApi & {
-			send: TevmJsonRpcRequestHandler
-			sendBulk: TevmJsonRpcBulkRequestHandler
-			request: EIP1193RequestFn
-		}
+	tevm: BaseClient & Eip1193RequestProvider
 	/**
 	 * Returns a promise that resolves when the tevm is ready
 	 * This is not needed to explicitly be called as all actions will wait for the tevm to be ready
@@ -45,7 +38,7 @@ export type TevmActions = {
 	 *
 	 * await client.tevmReady()
 	 * ```
-	 * Same as calling `client._tevm.ready()`
+	 * Same as calling `client.tevm.ready()`
 	 */
 	tevmReady: () => Promise<true>
 	/**
@@ -76,7 +69,7 @@ export type TevmActions = {
 	 * - Create a trace or access list using `createTrace: true` or `createAccessList: true`
 	 * - send as a transaction with `createTransaction: true`
 	 * For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-	 * Same as calling `client._tevm.call`
+	 * Same as calling `client.tevm.call`
 	 * `
 	 */
 	tevmCall: TevmActionsApi['call']
@@ -129,7 +122,7 @@ export type TevmActions = {
 	 *   args: [client.address, 1n],
 	 * })
 	 * ```
-	 * Same as calling `client._tevm.script`
+	 * Same as calling `client.tevm.script`
 	 * `
 	 */
 	tevmScript: TevmActionsApi['script']

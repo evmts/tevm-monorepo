@@ -1,6 +1,6 @@
 export { createMemoryClient } from './createMemoryClient.js'
 export type { MemoryClient } from './MemoryClient.js'
 export type { TevmActions } from './TevmActions.js'
-export type { CreateMemoryClientFn } from './CreateMemoryClientFn.js'
+export type { CreateMemoryClientFn } from './CreateTestClientFn.js'
 export type { MemoryClientOptions } from './MemoryClientOptions.js'
 export type { TevmRpcSchema } from './TevmRpcSchema.js'
