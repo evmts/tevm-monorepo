@@ -8,15 +8,23 @@
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Tevm params to mine 1 or more blocks
+Tevm params to mine one or more blocks.
 
 ## Example
 
-```ts
+```typescript
 const mineParams: import('@tevm/actions').MineParams = {
   blockCount: 5,
 }
 ```
+
+## Param
+
+Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Interval between block timestamps in seconds. Defaults to 1.
 
 ## Type declaration
 
@@ -24,13 +32,13 @@ const mineParams: import('@tevm/actions').MineParams = {
 
 > `readonly` `optional` **blockCount**: `number`
 
-Number of blocks to mine. Defaults to 1
+Number of blocks to mine. Defaults to 1.
 
 ### interval?
 
 > `readonly` `optional` **interval**: `number`
 
-Interval between block timestamps. Defaults to 1
+Interval between block timestamps. Defaults to 1.
 
 ## Type Parameters
 
@@ -38,4 +46,4 @@ Interval between block timestamps. Defaults to 1
 
 ## Defined in
 
-packages/actions/types/Mine/MineParams.d.ts:9
+packages/actions/types/Mine/MineParams.d.ts:14

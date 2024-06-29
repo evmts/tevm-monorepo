@@ -252,10 +252,6 @@ Object.defineProperty(exports, "prefundedAccounts", {
   enumerable: true,
   get: function () { return baseClient.prefundedAccounts; }
 });
-Object.defineProperty(exports, "createMemoryClient", {
-  enumerable: true,
-  get: function () { return memoryClient.createMemoryClient; }
-});
 Object.defineProperty(exports, "tevmTransport", {
   enumerable: true,
   get: function () { return viem.tevmTransport; }
@@ -271,6 +267,12 @@ Object.defineProperty(exports, "definePrecompile", {
 Object.defineProperty(exports, "createSyncStoragePersister", {
   enumerable: true,
   get: function () { return syncStoragePersister.createSyncStoragePersister; }
+});
+Object.keys(memoryClient).forEach(function (k) {
+  if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+    enumerable: true,
+    get: function () { return memoryClient[k]; }
+  });
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map
