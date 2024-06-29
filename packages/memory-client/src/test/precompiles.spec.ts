@@ -26,7 +26,7 @@ describe('precompiles option', () => {
 		}
 
 		const tevm = createMemoryClient({ customPrecompiles: [precompile] })
-		expect(((await tevm._tevm.getVm()).evm as any).getPrecompile(new EthjsAddress(hexToBytes(address)))).toEqual(
+		expect(((await tevm.tevm.getVm()).evm as any).getPrecompile(new EthjsAddress(hexToBytes(address)))).toEqual(
 			precompile.function,
 		)
 		const result = await tevm.tevmCall({

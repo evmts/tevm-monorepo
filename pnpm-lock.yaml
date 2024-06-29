@@ -1761,6 +1761,9 @@ importers:
 
   packages/memory-client:
     dependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
       '@tevm/base-client':
         specifier: workspace:^
         version: link:../base-client
@@ -1773,6 +1776,9 @@ importers:
       '@tevm/decorators':
         specifier: workspace:^
         version: link:../decorators
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
@@ -1782,6 +1788,9 @@ importers:
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils

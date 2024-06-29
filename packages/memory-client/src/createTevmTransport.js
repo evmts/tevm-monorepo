@@ -3,106 +3,72 @@ import { tevmDefault } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
 import { createTransport } from 'viem'
 
-// TODO strongly type this! Currently it's return type is inferred
-
 /**
-* Creates a TevmTransport which is a stateful devnet that can be used as a transport for both wagmi anv viem.
-* @param {import('@tevm/base-client').BaseClientOptions} options
-* @returns {import('./TevmTransport.js').TevmTransport}
-* Usage with viem
-* @example
-* ```ts
-* import { createTevmTransport } from "tevm"
-* import { createClient } from 'viem'
-*
-* const client = createClient({
-* 	fork: {
-* 	  transport: http("https://mainnet.optimism.io")({}),
-* 	},
-* })
-*
-* const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-
-* await tevm.runContractCall(
-*   MyERC721.write.mint({
-*     caller: address,
-*   }),
-* )
-*
-* const balance = await tevm.runContractCall(
-*  MyERC721.read.balanceOf({
-*  caller: address,
-*  }),
-*  )
-*  console.log(balance) // 1n
-*  ```
-*  @see {@link https://tevm.sh/learn/clients/}
-*
-*  ## Actions API
-*
-*  TevmClient supports the following actions
-*
-*  - [Tevm actions api](https://tevm.sh/reference/tevm/memory-client/type-aliases/tevmactions/)
-*
-*  ```typescript
-*  import { createTevmClient } from "tevm"
-*  import { testActions } from "tevm/decorators"
-*
-*  const tevm = createTevmClient()
-*  await tevm.setAccount({address: `0x${'01'.repeat(20)}`, balance: 100n})
-*  ```
-*  - [Viem public actions api](https://viem.sh/docs/actions/public/introduction) such as [getBlockNumber}(https://viem.sh/docs/actions/public/getBlockNumber)
-*
-*  ```typescript
-*  import { createTevmClient } from "tevm"
-*  import { testActions } from "tevm/decorators"
-*
-*  const tevm = createTevmClient()
-*  const bn = await tevm.getBlockNumber()
-*  ```
-*
-*  - [test actions](https://viem.sh/docs/actions/test/introduction) are not included by default but can be added via calling `.extend` on the client.`
-*
-*  ```typescript
-*  import { createTevmClient } from "tevm"
-*  import { testActions } from "tevm/decorators"
-*
-*  const tevm = createTevmClient().extend(testActions({mode: 'anvil'}))
-*  tevm.setBalance({address: `0x${'01'.repeat(20)}`, balance: 100n})
-*  ```
-*
-*  ## Forking
-* 
-* To fork an existing network simply pass an eip-1193 transport to the fork.transport option with an optional block tag.
-* When you fork tevm will pin the block tag and lazily cache state from the fork transport.
-* It's highly recomended to pass in a `common` object that matches the chain. This will increase the performance of forking with known values.
-*
-* ```typescript
-* import { createTevmClient, http } from "tevm"
-* import { optimism } from "tevm/common"
-* 
-* const forkedClient = createTevmClient({
-*  fork: {
-*    transport: http("https://mainnet.optimism.io")({}),
-*  },
-*  common: optimism,
-* })
-* ```
-*
-* Tevm clients are themselves EIP-1193 transports. This means you can fork a client with another client.
-*
-*/
+ * Creates a custom TEVM Transport for viem.
+ *
+ * A Transport in viem is the intermediary layer responsible for executing outgoing RPC requests. This custom TEVM Transport integrates an in-memory Ethereum client, making it ideal for local-first applications, optimistic updates, and advanced TEVM functionalities like scripting.
+ *
+ * @param {import('@tevm/base-client').BaseClientOptions} options - Configuration options for the base client, similar to those used in `memoryClient` or a low-level `baseClient`.
+ * @returns {import('./TevmTransport.js').TevmTransport} A configured TEVM transport.
+ *
+ * @example
+ * ```typescript
+ * import { createClient, http } from 'viem'
+ * import { createTevmTransport } from 'tevm'
+ * import { optimism } from 'tevm/common'
+ *
+ * const client = createClient({
+ *   transport: createTevmTransport({
+ *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *   }),
+ *   chain: optimism,
+ * })
+ *
+ * async function example() {
+ *   const blockNumber = await client.getBlockNumber()
+ *   console.log(blockNumber)
+ * }
+ *
+ * example()
+ * ```
+ *
+ * @see {@link createClient}
+ * @see [Viem Client Docs](https://viem.sh/docs/clients/introduction)
+ * @see [Client Guide](https://tevm.sh/learn/clients/)
+ * @see [tevm JSON-RPC Guide](https://tevm.sh/learn/json-rpc/)
+ * @see [EIP-1193 spec](https://eips.ethereum.org/EIPS/eip-1193)
+ * @see [Ethereum jsonrpc docs](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+ * @see [CreateMemoryClient Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/) - For a batteries-included client if not worried about tree shaking
+ *
+ * @typedef {Object} TevmTransportConfig
+ * @property {number} [timeout=20000] - Timeout duration for requests in milliseconds. Default is 20,000 ms. Supplied by viem.
+ * @property {number} [retryCount=3] - The maximum number of times to retry a failed request. Default is 3. Supplied by viem.
+ * @property {import('viem').Chain} [chain] - Blockchain configuration. Defaults to the chain specified in `options` or the default TEVM chain.
+ *
+ * ## Parameters
+ *
+ * - `timeout` (optional, number): Timeout duration for requests in milliseconds. Default is 20,000 ms. Supplied by viem.
+ * - `retryCount` (optional, number): The maximum number of times to retry a failed request. Default is 3. Supplied by viem.
+ * - `chain` (optional, Chain): Blockchain configuration. Defaults to the chain specified in `options` or the default TEVM chain if not provided.
+ *
+ * ## Gotchas
+ *
+ * - When specifying a chain, use TEVM common instead of viem chains. You can create a TEVM common from a viem chain using `createCommon`.
+ */
 export const createTevmTransport = (options = {}) => {
 	/**
+	 * A map to store and manage TEVM clients keyed by chain ID.
 	 * @type {Map<number, import('@tevm/base-client').BaseClient & import('@tevm/decorators').Eip1193RequestProvider & import('@tevm/decorators').TevmSendApi>}
 	 */
 	const tevmMap = new Map()
+
 	/**
+	 * Creates and returns a TEVM transport.
 	 * @type {import('./TevmTransport.js').TevmTransport}
 	 */
 	return ({ timeout = 20_000, retryCount = 3, chain }) => {
 		const dynamicChain =
-			chain && 'ethjsCommon' in chain ? /** @type {import('@tevm/common').Common}*/ (chain) : undefined
+			chain && 'ethjsCommon' in chain ? /** @type {import('@tevm/common').Common} */ (chain) : undefined
 		const common = options.common ?? dynamicChain ?? tevmDefault
 		const tevm =
 			tevmMap.get(common.id) ??
@@ -110,13 +76,14 @@ export const createTevmTransport = (options = {}) => {
 				.extend(requestEip1193())
 				.extend(tevmSend())
 		tevmMap.set(common.id, tevm)
-		return /** @type {any}*/ (
+
+		return /** @type {any} */ (
 			createTransport(
 				{
-					request: /** @type any*/ (tevm.request),
+					request: /** @type any */ (tevm.request),
 					type: 'tevm',
-					name: /**options?.name ??*/ 'Tevm transport',
-					key: /*options?.key ??*/ 'tevm',
+					name: /** options?.name ?? */ 'Tevm transport',
+					key: /* options?.key ?? */ 'tevm',
 					timeout,
 					retryCount,
 					retryDelay: /* options?.retryDelay ?? */ 150,
