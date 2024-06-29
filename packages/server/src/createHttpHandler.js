@@ -1,4 +1,5 @@
 import { zJsonRpcRequest } from '@tevm/actions'
+import { tevmSend } from '@tevm/decorators'
 import { InternalError, InvalidRequestError } from '@tevm/errors'
 
 /**
@@ -49,7 +50,7 @@ export const createHttpHandler = (client) => {
 			try {
 				raw = JSON.parse(body)
 			} catch (e) {
-				client._tevm.logger.error(e)
+				client.tevm.logger.error(e)
 				const err = new InvalidRequestError('Request body is not valid json')
 				res.writeHead(400, { 'Content-Type': 'application/json' })
 				res.end(
@@ -89,12 +90,12 @@ export const createHttpHandler = (client) => {
 				 */
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
-					requests.map((request) => client._tevm.send(/** @type any*/ (request))),
+					requests.map((request) => client.tevm.extend(tevmSend()).send(/** @type any*/ (request))),
 				)
 				responses.map((response, i) => {
 					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
 					if (response.status === 'rejected') {
-						client._tevm.logger.error(response.reason)
+						client.tevm.logger.error(response.reason)
 						// it should never reject since we return errors as value unless something went very wrong
 						const err = new InternalError(request.method, { cause: response.reason })
 						return {
@@ -117,13 +118,13 @@ export const createHttpHandler = (client) => {
 				// TODO update this type to accept any jsonrpc request if a fork url pass through exists
 				// We don't officially support it until we explicitly implement all the endpoints instead of
 				// blindly passing through
-				const response = await client._tevm.send(/** @type any*/ (request))
+				const response = await client.tevm.extend(tevmSend()).send(/** @type any*/ (request))
 				res.writeHead(200, { 'Content-Type': 'application/json' })
 				return res.end(JSON.stringify(response))
 			} catch (e) {
-				client._tevm.logger.error(e)
+				client.tevm.logger.error(e)
 				const err = new InternalError(request.method, { cause: e })
-				client._tevm.logger.error(err)
+				client.tevm.logger.error(err)
 				const response = {
 					id: request.id,
 					method: request.method,

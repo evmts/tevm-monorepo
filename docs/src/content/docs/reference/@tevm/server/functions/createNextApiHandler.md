@@ -11,9 +11,9 @@ title: "createNextApiHandler"
 
 • **client**
 
-• **client.\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
+• **client.\tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
 
-Low level access to tevm can be accessed via `tevm_tevm`. These apis are not guaranteed to be stable
+Low level access to tevm can be accessed via `tevmtevm`. These apis are not guaranteed to be stable
 
 **See**
 
@@ -27,15 +27,15 @@ import { createMemoryClient } from 'tevm'
 const memoryClient = createMemoryClient()
 
 // low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient._tevm.getVm()
+const vm = await memoryClient.tevm.getVm()
 vm.runBlocl(...)
 const {blockchain, evm, stateManager} = vm
 blockchain.addBlock(...)
 evm.runCall(...)
 stateManager.putAccount(...)
 
-const mempool = await memoryClient._tevm.getTxPool()
-const receiptsManager = await memoryClient._tevm.getReceiptsManager()
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 ````
 
 • **client.account**: `undefined` \| `Account`
@@ -1169,7 +1169,7 @@ In addiiton to making basic call, you can also do advanced things like
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
 - send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-Same as calling `client._tevm.call`
+Same as calling `client.tevm.call`
 `
 
 • **client.tevmContract**: [`ContractHandler`](/reference/tevm/actions/type-aliases/contracthandler/)
@@ -1309,7 +1309,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client._tevm.ready()`
+Same as calling `client.tevm.ready()`
 
 • **client.tevmScript**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
 
@@ -1334,7 +1334,7 @@ const balance = await client.tevmContract({
   args: [client.address, 1n],
 })
 ```
-Same as calling `client._tevm.script`
+Same as calling `client.tevm.script`
 `
 :::
 

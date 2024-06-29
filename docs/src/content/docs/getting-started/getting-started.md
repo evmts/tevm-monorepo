@@ -485,13 +485,13 @@ console.log(callResult.txHash);
 If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API [`getTxPool()`](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclient/#gettxpool)
 
 ```typescript
-// the _tevm means this api is not guaranteed to remain stable
-const mempool = await memoryClient._tevm.txPool();
+// the tevm means this api is not guaranteed to remain stable
+const mempool = await memoryClient.tevm.txPool();
 console.log(await mempool.getBySenderAddress(EthjsAddress.fromString(address)));
 ```
 
 :::tip[Using the low level api]
-The low level API on tevm such as `_tevm.getTxPool()` is the same API used internally to implement all tevm actions. Tevm believes in remaining maximally hackable and nearly anything you can imagine is possible if you use the low level api.
+The low level API on tevm such as `tevm.getTxPool()` is the same API used internally to implement all tevm actions. Tevm believes in remaining maximally hackable and nearly anything you can imagine is possible if you use the low level api.
 The actions api is a more streamlined experience and much more stable to breaking changes however so use the low level api at your own risk.
 :::
 
@@ -1138,7 +1138,7 @@ There are more features to explore such as
 - After calling `getVm()` you can explore the vm methods such as `vm.buildBlock`, stateManager methods such as `vm.stateManager.setStateRoot`, blockchain methods `vm.blockchain.getBlock`, and evm methods like `vm.evm.runCall`. This low level api uses the [`ethereumjs api`](https://github.com/ethereumjs)
 - Set `loggingLevel` in memory client to `trace` or `debug`
 - Configure the tevm bundler to read foundry remappings
-- Hack the evm using `client._tevm.getVm().evm.on` to log evm steps or modify the result of them (see ethereumjs generated evm docs for more information on this)
+- Hack the evm using `client.tevm.getVm().evm.on` to log evm steps or modify the result of them (see ethereumjs generated evm docs for more information on this)
 - Use the `statepersister` to persist tevm state to local storage
 - Run tevm as an http server
 

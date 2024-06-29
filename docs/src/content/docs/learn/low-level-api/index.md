@@ -1,11 +1,13 @@
 ---
-title: JSON-RPC
-description: JSON Remote Procedure Calls
+title: Low level api
+description: Using the low level tevm api
 ---
 
 ## Low-Level API Guide
 
 The low-level API for TEVM clients provides advanced functionalities and detailed control over the EVM and blockchain states. While the actions API is sufficient for most use cases, the low-level API can be extremely useful in advanced scenarios.
+
+The low-level API for tevm is an extension of the ethereumjs api used to implement tevm.
 
 ### Introduction
 

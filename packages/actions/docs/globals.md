@@ -263,7 +263,6 @@
 - [zSetAccountParams](variables/zSetAccountParams.md)
 - [zStateOverrideSet](variables/zStateOverrideSet.md)
 - [zStorageRoot](variables/zStorageRoot.md)
-- [zStrictHex](variables/zStrictHex.md)
 
 ## Functions
 
