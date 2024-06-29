@@ -1,4 +1,5 @@
 import { createBaseClient } from '@tevm/base-client'
+import { tevmDefault } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
 import { createTransport } from 'viem'
 
@@ -92,12 +93,23 @@ import { createTransport } from 'viem'
 *
 */
 export const createTevmTransport = (options = {}) => {
-	const tevm = createBaseClient(options).extend(tevmSend()).extend(requestEip1193())
+	/**
+	 * @type {Map<number, import('@tevm/base-client').BaseClient & import('@tevm/decorators').Eip1193RequestProvider & import('@tevm/decorators').TevmSendApi>}
+	 */
+	const tevmMap = new Map()
 	/**
 	 * @type {import('./TevmTransport.js').TevmTransport}
 	 */
-	const transport = ({ timeout = 20_000, retryCount = 3 }) => {
-		// the createTranssport type incorrectly infers the return type to have optional tevm prop
+	return ({ timeout = 20_000, retryCount = 3, chain }) => {
+		const dynamicChain =
+			chain && 'ethjsCommon' in chain ? /** @type {import('@tevm/common').Common}*/ (chain) : undefined
+		const common = options.common ?? dynamicChain ?? tevmDefault
+		const tevm =
+			tevmMap.get(common.id) ??
+			createBaseClient({ ...options, common })
+				.extend(requestEip1193())
+				.extend(tevmSend())
+		tevmMap.set(common.id, tevm)
 		return /** @type {any}*/ (
 			createTransport(
 				{
@@ -113,6 +125,4 @@ export const createTevmTransport = (options = {}) => {
 			)
 		)
 	}
-	transport.tevm = tevm
-	return transport
 }
