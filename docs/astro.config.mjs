@@ -102,6 +102,7 @@ label: 'Learn',
 items: [
 { label: 'Clients', link: '/learn/clients/' },
 { label: 'Actions', link: '/learn/actions/' },
+{ label: 'Low-level API', link: '/learn/low-level-api/' },
 { label: 'JSON RPC', link: '/learn/json-rpc/' },
 { label: 'Contracts', link: '/learn/contracts/' },
 { label: 'Bundler', link: '/learn/solidity-imports/' },
