@@ -12,16 +12,22 @@
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
+The base client instance.
+
 • **options?** = `{}`
+
+Optional configuration.
 
 • **options.throwOnFail?**: `undefined` \| `boolean`
 
-whether to default to throwing or not when errors occur
+Whether to throw an error when a failure occurs.
 
 ## Returns
 
 [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
+- The handler function.
+
 ## Defined in
 
-[packages/actions/src/LoadState/loadStateHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L12)
+[packages/actions/src/LoadState/loadStateHandler.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L35)

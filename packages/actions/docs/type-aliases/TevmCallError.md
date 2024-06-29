@@ -6,49 +6,56 @@
 
 # Type Alias: TevmCallError
 
-> **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| [`ValidateCallParamsError`](ValidateCallParamsError.md) \| `HandleRunTxError` \| `ExecuteCallError` \| `InternalError`
+> **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| `HandleRunTxError` \| `ExecuteCallError`
 
-All errors that can occur during a Tevm call
-The type is strongly typed if using `throwOnFail: false`
+All errors that can occur during a TEVM call.
+This type is strongly typed if using `throwOnFail: false`.
 
 ## Examples
 
-```typescript`
-import {TevmCallError} from 'tevm/errors'
-import {createMemoryClient} from 'tevm'
+```typescript
+import { TevmCallError } from 'tevm/errors'
+import { createMemoryClient, tevmCall } from 'tevm'
 
 const client = createMemoryClient()
 
-const result = await client.tevmCall({
+const result = await tevmCall(client, {
   throwOnFail: false,
   to: '0x...',
   data: '0x...',
 })
 
 const errors = result.errors satisfies Array<TevmCallError> | undefined
+if (errors) {
+  errors.forEach((error) => console.error(error))
+}
 ```
+
 If `throwOnFail: true` is used (the default), the errors are thrown directly. This type can then be used to catch the errors.
 
 ```typescript
-import {TevmCallError} from 'tevm/errors'
-import {createMemoryClient} from 'tevm'
+import { TevmCallError } from 'tevm/errors'
+import { createMemoryClient, tevmCall } from 'tevm'
 
 const client = createMemoryClient()
 
 try {
-  await client.tevmCall({
-  to: '0x...',
-  data: '0x...',
+  await tevmCall(client, {
+    to: '0x...',
+    data: '0x...',
   })
 } catch (error) {
   const typedError = error as TevmCallError
-  switch (typedErrorl.name) {
+  switch (typedError.name) {
     case 'ValidateCallParamsError':
     case 'CallHandlerOptsError':
     case 'InternalError':
     case 'ExecutionError':
     case 'RevertError':
-      handleIt()
+    case 'HandleRunTxError':
+    case 'ExecuteCallError':
+      handleIt(typedError)
+      break
     default:
       throw error
   }
@@ -57,4 +64,4 @@ try {
 
 ## Defined in
 
-[packages/actions/src/Call/TevmCallError.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/TevmCallError.ts#L53)
+[packages/actions/src/Call/TevmCallError.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/TevmCallError.ts#L62)

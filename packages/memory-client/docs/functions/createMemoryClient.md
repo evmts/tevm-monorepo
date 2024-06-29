@@ -8,8 +8,8 @@
 
 > **createMemoryClient**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?): `object`
 
-Creates a [MemoryClient](../type-aliases/MemoryClient.md) which is an viem client with an in-memory ethereum client as it's transport.
-It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
+Creates a [MemoryClient](../type-aliases/MemoryClient.md) which is a viem client with an in-memory Ethereum client as its transport.
+It comes batteries included with all wallet, test, public, and tevm actions.
 
 ## Type Parameters
 
@@ -27,259 +27,42 @@ It wraps the viem [public client](https://viem.sh/docs/clients/public#public-cli
 
 `object`
 
-### \_tevm
-
-> **\_tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
-
-Low level access to tevm can be accessed via `tevm_tevm`. These apis are not guaranteed to be stable
-
-#### See
-
-BaseClient
-
-#### Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-
-const memoryClient = createMemoryClient()
-
-// low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlocl(...)
-const {blockchain, evm, stateManager} = vm
-blockchain.addBlock(...)
-evm.runCall(...)
-stateManager.putAccount(...)
-
-const mempool = await memoryClient.tevm.getTxPool()
-const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-````
-
-#### Type declaration
-
-##### extend()
-
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
-
-Extends the base client with additional functionality. This enables optimal code splitting
-and extensibility
-
-###### Type Parameters
-
-• **TExtension** *extends* `Record`\<`string`, `any`\>
-
-###### Parameters
-
-• **decorator**
-
-###### Returns
-
-`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
-
-##### forkTransport?
-
-> `readonly` `optional` **forkTransport**: `object`
-
-Client to make json rpc requests to a forked node
-
-###### Example
-
-```ts
-const client = createMemoryClient({ request: eip1193RequestFn })
-```
-
-##### forkTransport.request
-
-> **request**: `EIP1193RequestFn`
-
-##### getFilters()
-
-> `readonly` **getFilters**: () => `Map`\<\`0x$\{string\}\`, `Filter`\>
-
-Gets all registered filters mapped by id
-
-###### Returns
-
-`Map`\<\`0x$\{string\}\`, `Filter`\>
-
-##### getImpersonatedAccount()
-
-> `readonly` **getImpersonatedAccount**: () => `undefined` \| \`0x$\{string\}\`
-
-The currently impersonated account. This is only used in `fork` mode
-
-###### Returns
-
-`undefined` \| \`0x$\{string\}\`
-
-##### getReceiptsManager()
-
-> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
-
-Interface for querying receipts and historical state
-
-###### Returns
-
-`Promise`\<`ReceiptsManager`\>
-
-##### getTxPool()
-
-> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
-
-Gets the pool of pending transactions to be included in next block
-
-###### Returns
-
-`Promise`\<`TxPool`\>
-
-##### getVm()
-
-> `readonly` **getVm**: () => `Promise`\<`Vm`\>
-
-Internal instance of the VM. Can be used for lower level operations.
-Normally not recomended to use unless building libraries or extensions
-on top of Tevm.
-
-###### Returns
-
-`Promise`\<`Vm`\>
-
-##### logger
-
-> `readonly` **logger**: `Logger`
-
-The logger instance
-
-##### miningConfig
-
-> `readonly` **miningConfig**: `MiningConfig`
-
-The configuration for mining. Defaults to 'auto'
-- 'auto' will mine a block on every transaction
-- 'interval' will mine a block every `interval` milliseconds
-- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
-
-##### mode
-
-> `readonly` **mode**: `"fork"` \| `"normal"`
-
-The mode the current client is running in
-`fork` mode will fetch and cache all state from the block forked from the provided URL
-`normal` mode will not fetch any state and will only run the EVM in memory
-
-###### Example
-
-```ts
-let client = createMemoryClient()
-console.log(client.mode) // 'normal'
-client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
-console.log(client.mode) // 'fork'
-```
-
-##### ready()
-
-> `readonly` **ready**: () => `Promise`\<`true`\>
-
-Returns promise that resulves when the client is ready
-The client is usable without calling this method but may
-have extra latency on the first call from initialization
-
-###### Example
-
-```ts
-const client = createMemoryClient()
-await client.ready()
-```
-
-###### Returns
-
-`Promise`\<`true`\>
-
-##### removeFilter()
-
-> `readonly` **removeFilter**: (`id`) => `void`
-
-Removes a filter by id
-
-###### Parameters
-
-• **id**: \`0x$\{string\}\`
-
-###### Returns
-
-`void`
-
-##### setFilter()
-
-> `readonly` **setFilter**: (`filter`) => `void`
-
-Creates a new filter to watch for logs events and blocks
-
-###### Parameters
-
-• **filter**: `Filter`
-
-###### Returns
-
-`void`
-
-##### setImpersonatedAccount()
-
-> `readonly` **setImpersonatedAccount**: (`address`) => `void`
-
-Sets the account to impersonate. This will allow the client to act as if it is that account
-On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
-
-###### Parameters
-
-• **address**: `undefined` \| \`0x$\{string\}\`
-
-###### Returns
-
-`void`
-
-#### Type declaration
-
-##### emit()
-
-Emit an event.
-
-###### Parameters
-
-• **eventName**: keyof `EIP1193EventMap`
-
-The event name.
-
-• ...**args**: `any`[]
-
-Arguments to pass to the event listeners.
-
-###### Returns
-
-`boolean`
-
-True if the event was emitted, false otherwise.
-
-#### Type declaration
-
-##### request
-
-> **request**: `EIP1193RequestFn`
-
-##### send
-
-> **send**: `TevmJsonRpcRequestHandler`
-
-##### sendBulk
-
-> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
-
 ### account
 
 > **account**: `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`
 
 The Account of the Client.
+
+### addChain()
+
+> **addChain**: (`args`) => `Promise`\<`void`\>
+
+Adds an EVM chain to the wallet.
+
+- Docs: https://viem.sh/docs/actions/wallet/addChain
+- JSON-RPC Methods: [`eth_addEthereumChain`](https://eips.ethereum.org/EIPS/eip-3085)
+
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { optimism } from 'viem/chains'
+
+const client = createWalletClient({
+  transport: custom(window.ethereum),
+})
+await client.addChain({ chain: optimism })
+```
+
+#### Parameters
+
+• **args**: `AddChainParameters`
+
+AddChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### batch?
 
@@ -431,6 +214,89 @@ CreateEventFilterParameters
 
 > **type**: `"transaction"`
 
+### deployContract()
+
+> **deployContract**: \<`abi`, `chainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Type Parameters
+
+• **abi** *extends* `Abi` \| readonly `unknown`[]
+
+• **chainOverride** *extends* `undefined` \| `Chain`
+
+#### Parameters
+
+• **args**: `DeployContractParameters`\<`abi`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`\>
+
+DeployContractParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. DeployContractReturnType
+
+### dropTransaction()
+
+> **dropTransaction**: (`args`) => `Promise`\<`void`\>
+
+Removes a transaction from the mempool.
+
+- Docs: https://viem.sh/docs/actions/test/dropTransaction
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.dropTransaction({
+  hash: '0xe58dceb6b20b03965bb678e27d141e151d7d4efc2334c2d6a49b9fac523f7364'
+})
+```
+
+#### Parameters
+
+• **args**: `DropTransactionParameters`
+
+DropTransactionParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### dumpState()
+
+> **dumpState**: () => `Promise`\<\`0x$\{string\}\`\>
+
+Serializes the current state (including contracts code, contract's storage,
+accounts properties, etc.) into a savable data blob.
+
+- Docs: https://viem.sh/docs/actions/test/dumpState
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.dumpState()
+```
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
 ### estimateContractGas()
 
 > **estimateContractGas**: \<`TChain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
@@ -513,7 +379,7 @@ An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePer
 
 ### extend()
 
-> **extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](../type-aliases/TevmActions.md)\>
+> **extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
 #### Type Parameters
 
@@ -525,7 +391,27 @@ An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePer
 
 #### Returns
 
-`Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & [`TevmActions`](../type-aliases/TevmActions.md)\>
+`Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
+
+### getAddresses()
+
+> **getAddresses**: () => `Promise`\<`GetAddressesReturnType`\>
+
+#### Returns
+
+`Promise`\<`GetAddressesReturnType`\>
+
+List of account addresses owned by the wallet or client. GetAddressesReturnType
+
+### getAutomine()
+
+> **getAutomine**: () => `Promise`\<`boolean`\>
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+Whether or not the node is auto mining. GetAutomineReturnType
 
 ### getBalance()
 
@@ -623,15 +509,28 @@ Use `getCode` instead.
 
 `Promise`\<`GetCodeReturnType`\>
 
-### getChainId()
+### getChainId
 
-> **getChainId**: () => `Promise`\<`number`\>
+> **getChainId**: () => `Promise`\<`number`\> & () => `Promise`\<`number`\>
 
-#### Returns
+Returns the chain ID associated with the current network.
 
-`Promise`\<`number`\>
+- Docs: https://viem.sh/docs/actions/public/getChainId
+- JSON-RPC Methods: [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid)
 
-The current chain ID. GetChainIdReturnType
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const chainId = await client.getChainId()
+// 1
+```
 
 ### getCode()
 
@@ -1035,6 +934,16 @@ GetLogsParameters
 
 A list of event logs. GetLogsReturnType
 
+### getPermissions()
+
+> **getPermissions**: () => `Promise`\<`GetPermissionsReturnType`\>
+
+#### Returns
+
+`Promise`\<`GetPermissionsReturnType`\>
+
+The wallet permissions. GetPermissionsReturnType
+
 ### getProof()
 
 > **getProof**: (`args`) => `Promise`\<`GetProofReturnType`\>
@@ -1133,11 +1042,171 @@ GetTransactionReceiptParameters
 
 The transaction receipt. GetTransactionReceiptReturnType
 
+### getTxpoolContent()
+
+> **getTxpoolContent**: () => `Promise`\<`GetTxpoolContentReturnType`\>
+
+#### Returns
+
+`Promise`\<`GetTxpoolContentReturnType`\>
+
+Transaction pool content. GetTxpoolContentReturnType
+
+### getTxpoolStatus()
+
+> **getTxpoolStatus**: () => `Promise`\<`GetTxpoolStatusReturnType`\>
+
+#### Returns
+
+`Promise`\<`GetTxpoolStatusReturnType`\>
+
+Transaction pool status. GetTxpoolStatusReturnType
+
+### impersonateAccount()
+
+> **impersonateAccount**: (`args`) => `Promise`\<`void`\>
+
+Impersonate an account or contract address. This lets you send transactions from that account even if you don't have access to its private key.
+
+- Docs: https://viem.sh/docs/actions/test/impersonateAccount
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.impersonateAccount({
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
+#### Parameters
+
+• **args**: `ImpersonateAccountParameters`
+
+ImpersonateAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### increaseTime()
+
+> **increaseTime**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Jump forward in time by the given amount of time, in seconds.
+
+- Docs: https://viem.sh/docs/actions/test/increaseTime
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.increaseTime({
+  seconds: 420,
+})
+```
+
+#### Parameters
+
+• **args**: `IncreaseTimeParameters`
+
+– IncreaseTimeParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+### inspectTxpool()
+
+> **inspectTxpool**: () => `Promise`\<`InspectTxpoolReturnType`\>
+
+#### Returns
+
+`Promise`\<`InspectTxpoolReturnType`\>
+
+Transaction pool inspection data. InspectTxpoolReturnType
+
 ### key
 
 > **key**: `string`
 
 A key for the client.
+
+### loadState()
+
+> **loadState**: (`args`) => `Promise`\<`void`\>
+
+Adds state previously dumped with `dumpState` to the current chain.
+
+- Docs: https://viem.sh/docs/actions/test/loadState
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.loadState({ state: '0x...' })
+```
+
+#### Parameters
+
+• **args**: `LoadStateParameters`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### mine()
+
+> **mine**: (`args`) => `Promise`\<`void`\>
+
+Mine a specified number of blocks.
+
+- Docs: https://viem.sh/docs/actions/test/mine
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.mine({ blocks: 1 })
+```
+
+#### Parameters
+
+• **args**: `MineParameters`
+
+– MineParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### multicall()
 
@@ -1173,29 +1242,51 @@ A name for the client.
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-### prepareTransactionRequest()
+### prepareTransactionRequest
 
-> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "gas" \| "nonce" \| "blobVersionedHashes" \| "chainId" \| "type" \| "fees"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\> & \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
 
-#### Type Parameters
+Prepares a transaction request for signing.
 
-• **TRequest** *extends* `object` & `object`
+- Docs: https://viem.sh/docs/actions/wallet/prepareTransactionRequest
 
-• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
-
-• **TAccountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
-
-#### Parameters
-
-• **args**: `PrepareTransactionRequestParameters`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TChainOverride`, `TAccountOverride`, `TRequest`\>
+#### Param
 
 PrepareTransactionRequestParameters
 
-#### Returns
+#### Examples
 
-`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "gas" \| "nonce" \| "blobVersionedHashes" \| "chainId" \| "type" \| "fees"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
 
-The transaction request. PrepareTransactionRequestReturnType
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const request = await client.prepareTransactionRequest({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x0000000000000000000000000000000000000000',
+  value: 1n,
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const request = await client.prepareTransactionRequest({
+  to: '0x0000000000000000000000000000000000000000',
+  value: 1n,
+})
+```
 
 ### readContract()
 
@@ -1221,25 +1312,727 @@ ReadContractParameters
 
 The response from the contract. Type is inferred. ReadContractReturnType
 
+### removeBlockTimestampInterval()
+
+> **removeBlockTimestampInterval**: () => `Promise`\<`void`\>
+
+Removes [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval) if it exists.
+
+- Docs: https://viem.sh/docs/actions/test/removeBlockTimestampInterval
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+import { removeBlockTimestampInterval } from 'viem/test'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.removeBlockTimestampInterval()
+```
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### request
 
 > **request**: `EIP1193RequestFn`\<[`object`, `object`, `object`, `object`, `object`]\>
 
 Request function wrapped with friendly error handling
 
-### sendRawTransaction()
+### requestAddresses()
 
-> **sendRawTransaction**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
+> **requestAddresses**: () => `Promise`\<`RequestAddressesReturnType`\>
+
+#### Returns
+
+`Promise`\<`RequestAddressesReturnType`\>
+
+List of accounts managed by a wallet RequestAddressesReturnType
+
+### requestPermissions()
+
+> **requestPermissions**: (`args`) => `Promise`\<`RequestPermissionsReturnType`\>
 
 #### Parameters
 
-• **args**: `SendRawTransactionParameters`
+• **args**
+
+RequestPermissionsParameters
+
+• **args.eth\_accounts**: `Record`\<`string`, `any`\>
+
+#### Returns
+
+`Promise`\<`RequestPermissionsReturnType`\>
+
+The wallet permissions. RequestPermissionsReturnType
+
+### reset()
+
+> **reset**: (`args`?) => `Promise`\<`void`\>
+
+Resets fork back to its original state.
+
+- Docs: https://viem.sh/docs/actions/test/reset
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.reset({ blockNumber: 69420n })
+```
+
+#### Parameters
+
+• **args?**: `ResetParameters`
+
+– ResetParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### revert()
+
+> **revert**: (`args`) => `Promise`\<`void`\>
+
+Revert the state of the blockchain at the current block.
+
+- Docs: https://viem.sh/docs/actions/test/revert
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.revert({ id: '0x…' })
+```
+
+#### Parameters
+
+• **args**: `RevertParameters`
+
+– RevertParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### sendRawTransaction
+
+> **sendRawTransaction**: (`args`) => `Promise`\<\`0x$\{string\}\`\> & (`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Sends a **signed** transaction to the network
+
+- Docs: https://viem.sh/docs/actions/wallet/sendRawTransaction
+- JSON-RPC Method: [`eth_sendRawTransaction`](https://ethereum.github.io/execution-apis/api-documentation/)
+
+#### Param
+
+Client to use
+
+#### Param
+
+SendRawTransactionParameters
+
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+import { sendRawTransaction } from 'viem/wallet'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const hash = await client.sendRawTransaction({
+  serializedTransaction: '0x02f850018203118080825208808080c080a04012522854168b27e5dc3d5839bab5e6b39e1a0ffd343901ce1622e3d64b48f1a04e00902ae0502c4728cbf12156290df99c3ed7de85b1dbfe20b5c36931733a33'
+})
+```
+
+### sendTransaction()
+
+> **sendTransaction**: \<`TRequest`, `TChainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Type Parameters
+
+• **TRequest** *extends* `object`
+
+• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
+
+#### Parameters
+
+• **args**: `SendTransactionParameters`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TChainOverride`, `TRequest`\>
+
+SendTransactionParameters
 
 #### Returns
 
 `Promise`\<\`0x$\{string\}\`\>
 
-The transaction hash. SendRawTransactionReturnType
+The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. SendTransactionReturnType
+
+### sendUnsignedTransaction()
+
+> **sendUnsignedTransaction**: \<`TChain`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Type Parameters
+
+• **TChain** *extends* `undefined` \| `Chain`
+
+#### Parameters
+
+• **args**: `SendUnsignedTransactionParameters`\<`TChain`\>
+
+– SendUnsignedTransactionParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+The transaction hash. SendUnsignedTransactionReturnType
+
+### setAutomine()
+
+> **setAutomine**: (`args`) => `Promise`\<`void`\>
+
+Enables or disables the automatic mining of new blocks with each new transaction submitted to the network.
+
+- Docs: https://viem.sh/docs/actions/test/setAutomine
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setAutomine()
+```
+
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setBalance()
+
+> **setBalance**: (`args`) => `Promise`\<`void`\>
+
+Modifies the balance of an account.
+
+- Docs: https://viem.sh/docs/actions/test/setBalance
+
+#### Example
+
+```ts
+import { createTestClient, http, parseEther } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setBalance({
+  address: '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
+  value: parseEther('1'),
+})
+```
+
+#### Parameters
+
+• **args**: `SetBalanceParameters`
+
+– SetBalanceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setBlockGasLimit()
+
+> **setBlockGasLimit**: (`args`) => `Promise`\<`void`\>
+
+Sets the block's gas limit.
+
+- Docs: https://viem.sh/docs/actions/test/setBlockGasLimit
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setBlockGasLimit({ gasLimit: 420_000n })
+```
+
+#### Parameters
+
+• **args**: `SetBlockGasLimitParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setBlockTimestampInterval()
+
+> **setBlockTimestampInterval**: (`args`) => `Promise`\<`void`\>
+
+Similar to [`increaseTime`](https://viem.sh/docs/actions/test/increaseTime), but sets a block timestamp `interval`. The timestamp of future blocks will be computed as `lastBlock_timestamp` + `interval`.
+
+- Docs: https://viem.sh/docs/actions/test/setBlockTimestampInterval
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setBlockTimestampInterval({ interval: 5 })
+```
+
+#### Parameters
+
+• **args**: `SetBlockTimestampIntervalParameters`
+
+– SetBlockTimestampIntervalParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setCode()
+
+> **setCode**: (`args`) => `Promise`\<`void`\>
+
+Modifies the bytecode stored at an account's address.
+
+- Docs: https://viem.sh/docs/actions/test/setCode
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setCode({
+  address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
+  bytecode: '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df…',
+})
+```
+
+#### Parameters
+
+• **args**: `SetCodeParameters`
+
+– SetCodeParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setCoinbase()
+
+> **setCoinbase**: (`args`) => `Promise`\<`void`\>
+
+Sets the coinbase address to be used in new blocks.
+
+- Docs: https://viem.sh/docs/actions/test/setCoinbase
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setCoinbase({
+  address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
+})
+```
+
+#### Parameters
+
+• **args**: `SetCoinbaseParameters`
+
+– SetCoinbaseParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setIntervalMining()
+
+> **setIntervalMining**: (`args`) => `Promise`\<`void`\>
+
+Sets the automatic mining interval (in seconds) of blocks. Setting the interval to 0 will disable automatic mining.
+
+- Docs: https://viem.sh/docs/actions/test/setIntervalMining
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setIntervalMining({ interval: 5 })
+```
+
+#### Parameters
+
+• **args**: `SetIntervalMiningParameters`
+
+– SetIntervalMiningParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setLoggingEnabled()
+
+> **setLoggingEnabled**: (`args`) => `Promise`\<`void`\>
+
+Enable or disable logging on the test node network.
+
+- Docs: https://viem.sh/docs/actions/test/setLoggingEnabled
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setLoggingEnabled()
+```
+
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setMinGasPrice()
+
+> **setMinGasPrice**: (`args`) => `Promise`\<`void`\>
+
+Change the minimum gas price accepted by the network (in wei).
+
+- Docs: https://viem.sh/docs/actions/test/setMinGasPrice
+
+Note: `setMinGasPrice` can only be used on clients that do not have EIP-1559 enabled.
+
+#### Example
+
+```ts
+import { createTestClient, http, parseGwei } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setMinGasPrice({
+  gasPrice: parseGwei('20'),
+})
+```
+
+#### Parameters
+
+• **args**: `SetMinGasPriceParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setNextBlockBaseFeePerGas()
+
+> **setNextBlockBaseFeePerGas**: (`args`) => `Promise`\<`void`\>
+
+Sets the next block's base fee per gas.
+
+- Docs: https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas
+
+#### Example
+
+```ts
+import { createTestClient, http, parseGwei } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setNextBlockBaseFeePerGas({
+  baseFeePerGas: parseGwei('20'),
+})
+```
+
+#### Parameters
+
+• **args**: `SetNextBlockBaseFeePerGasParameters`
+
+– SetNextBlockBaseFeePerGasParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setNextBlockTimestamp()
+
+> **setNextBlockTimestamp**: (`args`) => `Promise`\<`void`\>
+
+Sets the next block's timestamp.
+
+- Docs: https://viem.sh/docs/actions/test/setNextBlockTimestamp
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setNextBlockTimestamp({ timestamp: 1671744314n })
+```
+
+#### Parameters
+
+• **args**: `SetNextBlockTimestampParameters`
+
+– SetNextBlockTimestampParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setNonce()
+
+> **setNonce**: (`args`) => `Promise`\<`void`\>
+
+Modifies (overrides) the nonce of an account.
+
+- Docs: https://viem.sh/docs/actions/test/setNonce
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setNonce({
+  address: '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
+  nonce: 420,
+})
+```
+
+#### Parameters
+
+• **args**: `SetNonceParameters`
+
+– SetNonceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setRpcUrl()
+
+> **setRpcUrl**: (`args`) => `Promise`\<`void`\>
+
+Sets the backend RPC URL.
+
+- Docs: https://viem.sh/docs/actions/test/setRpcUrl
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
+```
+
+#### Parameters
+
+• **args**: `string`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### setStorageAt()
+
+> **setStorageAt**: (`args`) => `Promise`\<`void`\>
+
+Writes to a slot of an account's storage.
+
+- Docs: https://viem.sh/docs/actions/test/setStorageAt
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.setStorageAt({
+  address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
+  index: 2,
+  value: '0x0000000000000000000000000000000000000000000000000000000000000069',
+})
+```
+
+#### Parameters
+
+• **args**: `SetStorageAtParameters`
+
+– SetStorageAtParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### signMessage()
+
+> **signMessage**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Parameters
+
+• **args**: `SignMessageParameters`\<`TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>
+
+SignMessageParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+The signed message. SignMessageReturnType
+
+### signTransaction()
+
+> **signTransaction**: \<`TChainOverride`\>(`args`) => `Promise`\<\`0x02$\{string\}\` \| \`0x01$\{string\}\` \| \`0x03$\{string\}\` \| `TransactionSerializedLegacy`\>
+
+#### Type Parameters
+
+• **TChainOverride** *extends* `undefined` \| `Chain`
+
+#### Parameters
+
+• **args**: `SignTransactionParameters`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TChainOverride`\>
+
+SignTransactionParameters
+
+#### Returns
+
+`Promise`\<\`0x02$\{string\}\` \| \`0x01$\{string\}\` \| \`0x03$\{string\}\` \| `TransactionSerializedLegacy`\>
+
+The signed message. SignTransactionReturnType
+
+### signTypedData()
+
+> **signTypedData**: \<`TTypedData`, `TPrimaryType`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Type Parameters
+
+• **TTypedData** *extends* `object` \| `object`
+
+• **TPrimaryType** *extends* `string`
+
+#### Parameters
+
+• **args**: `SignTypedDataParameters`\<`TTypedData`, `TPrimaryType`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>
+
+SignTypedDataParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+The signed data. SignTypedDataReturnType
 
 ### simulateContract()
 
@@ -1269,17 +2062,347 @@ SimulateContractParameters
 
 The simulation result and write request. SimulateContractReturnType
 
+### snapshot()
+
+> **snapshot**: () => `Promise`\<\`0x$\{string\}\`\>
+
+Snapshot the state of the blockchain at the current block.
+
+- Docs: https://viem.sh/docs/actions/test/snapshot
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+import { snapshot } from 'viem/test'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.snapshot()
+```
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+### stopImpersonatingAccount()
+
+> **stopImpersonatingAccount**: (`args`) => `Promise`\<`void`\>
+
+Stop impersonating an account after having previously used [`impersonateAccount`](https://viem.sh/docs/actions/test/impersonateAccount).
+
+- Docs: https://viem.sh/docs/actions/test/stopImpersonatingAccount
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+import { stopImpersonatingAccount } from 'viem/test'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+await client.stopImpersonatingAccount({
+  address: '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
+})
+```
+
+#### Parameters
+
+• **args**: `StopImpersonatingAccountParameters`
+
+– StopImpersonatingAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### switchChain()
+
+> **switchChain**: (`args`) => `Promise`\<`void`\>
+
+Switch the target chain in a wallet.
+
+- Docs: https://viem.sh/docs/actions/wallet/switchChain
+- JSON-RPC Methods: [`eth_switchEthereumChain`](https://eips.ethereum.org/EIPS/eip-3326)
+
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet, optimism } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+await client.switchChain({ id: optimism.id })
+```
+
+#### Parameters
+
+• **args**: `SwitchChainParameters`
+
+SwitchChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### tevm
+
+> **tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider`
+
+Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
+
+#### See
+
+BaseClient
+
+#### Example
+
+```typescript
+import { createMemoryClient } from 'tevm'
+
+const memoryClient = createMemoryClient()
+
+// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
+const vm = await memoryClient.tevm.getVm()
+vm.runBlock(...)
+const { blockchain, evm, stateManager } = vm
+blockchain.addBlock(...)
+evm.runCall(...)
+stateManager.putAccount(...)
+
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
+```
+
+#### Type declaration
+
+##### extend()
+
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+
+Extends the base client with additional functionality. This enables optimal code splitting
+and extensibility
+
+###### Type Parameters
+
+• **TExtension** *extends* `Record`\<`string`, `any`\>
+
+###### Parameters
+
+• **decorator**
+
+###### Returns
+
+`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+
+##### forkTransport?
+
+> `readonly` `optional` **forkTransport**: `object`
+
+Client to make json rpc requests to a forked node
+
+###### Example
+
+```ts
+const client = createMemoryClient({ request: eip1193RequestFn })
+```
+
+##### forkTransport.request
+
+> **request**: `EIP1193RequestFn`
+
+##### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<\`0x$\{string\}\`, `Filter`\>
+
+Gets all registered filters mapped by id
+
+###### Returns
+
+`Map`\<\`0x$\{string\}\`, `Filter`\>
+
+##### getImpersonatedAccount()
+
+> `readonly` **getImpersonatedAccount**: () => `undefined` \| \`0x$\{string\}\`
+
+The currently impersonated account. This is only used in `fork` mode
+
+###### Returns
+
+`undefined` \| \`0x$\{string\}\`
+
+##### getReceiptsManager()
+
+> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+
+Interface for querying receipts and historical state
+
+###### Returns
+
+`Promise`\<`ReceiptsManager`\>
+
+##### getTxPool()
+
+> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
+
+Gets the pool of pending transactions to be included in next block
+
+###### Returns
+
+`Promise`\<`TxPool`\>
+
+##### getVm()
+
+> `readonly` **getVm**: () => `Promise`\<`Vm`\>
+
+Internal instance of the VM. Can be used for lower level operations.
+Normally not recomended to use unless building libraries or extensions
+on top of Tevm.
+
+###### Returns
+
+`Promise`\<`Vm`\>
+
+##### logger
+
+> `readonly` **logger**: `Logger`
+
+The logger instance
+
+##### miningConfig
+
+> `readonly` **miningConfig**: `MiningConfig`
+
+The configuration for mining. Defaults to 'auto'
+- 'auto' will mine a block on every transaction
+- 'interval' will mine a block every `interval` milliseconds
+- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
+
+##### mode
+
+> `readonly` **mode**: `"fork"` \| `"normal"`
+
+The mode the current client is running in
+`fork` mode will fetch and cache all state from the block forked from the provided URL
+`normal` mode will not fetch any state and will only run the EVM in memory
+
+###### Example
+
+```ts
+let client = createMemoryClient()
+console.log(client.mode) // 'normal'
+client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+console.log(client.mode) // 'fork'
+```
+
+##### ready()
+
+> `readonly` **ready**: () => `Promise`\<`true`\>
+
+Returns promise that resulves when the client is ready
+The client is usable without calling this method but may
+have extra latency on the first call from initialization
+
+###### Example
+
+```ts
+const client = createMemoryClient()
+await client.ready()
+```
+
+###### Returns
+
+`Promise`\<`true`\>
+
+##### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+###### Parameters
+
+• **id**: \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+##### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+###### Parameters
+
+• **filter**: `Filter`
+
+###### Returns
+
+`void`
+
+##### setImpersonatedAccount()
+
+> `readonly` **setImpersonatedAccount**: (`address`) => `void`
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+
+###### Parameters
+
+• **address**: `undefined` \| \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+#### Type declaration
+
+##### emit()
+
+Emit an event.
+
+###### Parameters
+
+• **eventName**: keyof `EIP1193EventMap`
+
+The event name.
+
+• ...**args**: `any`[]
+
+Arguments to pass to the event listeners.
+
+###### Returns
+
+`boolean`
+
+True if the event was emitted, false otherwise.
+
 ### tevmCall
 
 > **tevmCall**: `CallHandler`
 
-A powerful low level api for executing calls and sending transactions
-See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference
-See [CallResult](https://tevm.sh/reference/tevm/precompiles/type-aliases/callresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
-```typescript`
+A powerful low level API for executing calls and sending transactions.
+See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference.
+See [CallResult](https://tevm.sh/reference/tevm/actions/type-aliases/callresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
+```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from 'tevm/contract'
 
@@ -1290,29 +2413,29 @@ const token = ERC20.withAddress(`0x${'0721'.repeat(10)}`)
 await client.setAccount(token)
 
 const balance = await client.tevmCall({
- to: token.address,
- data: encodeFunctionData(token.read.balanceOf, [token.address]),
+  to: token.address,
+  data: encodeFunctionData(token.read.balanceOf, [token.address]),
 })
 ```
-In addiiton to making basic call, you can also do advanced things like
-- impersonate accounts via passing in `from`, `caller`, or `origin`
-- set the call depth via `depth`
+In addition to making basic calls, you can also do advanced things like:
+- Impersonate accounts via passing in `from`, `caller`, or `origin`
+- Set the call depth via `depth`
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
-- send as a transaction with `createTransaction: true`
+- Send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-Same as calling `client.tevm.call`
-`
 
 ### tevmContract
 
 > **tevmContract**: `ContractHandler`
 
-A powerful low level api for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
-See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference]
-See [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+A powerful low level API for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
+See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
+See [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
@@ -1326,26 +2449,28 @@ const balance = await client.tevmContract({
   args: [token.address],
 })
 ```
-In addiiton to making basic call, you can also do advanced things like
-- impersonate accounts via passing in `from`, `caller`, or `origin`
-- set the call depth via `depth`
+In addition to making basic calls, you can also do advanced things like:
+- Impersonate accounts via passing in `from`, `caller`, or `origin`
+- Set the call depth via `depth`
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
-- send as a transaction with `createTransaction: true`
+- Send as a transaction with `createTransaction: true`
 For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/)
 
 ### tevmDeploy
 
 > **tevmDeploy**: `DeployHandler`
 
-Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options
+Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options.
 
 #### See
 
- - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams/) for options reference
- - [DeployResult](https://tevm.sh/reference/tevm/actions/type-aliases/deployresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+ - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams/) for options reference.
+ - [DeployResult](https://tevm.sh/reference/tevm/actions/type-aliases/deployresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
@@ -1359,13 +2484,14 @@ const deploymentResult = await client.tevmDeploy({
   args: ['TokenName', 18, 'SYMBOL'],
 })
 
-console.log(deployedResult.createdAddressess)
+console.log(deploymentResult.createdAddress)
+```
 
 ### tevmDumpState
 
 > **tevmDumpState**: `DumpStateHandler`
 
-Dumps a json serializable state from the evm. This can be useful for persisting and restoring state between processes
+Dumps a JSON serializable state from the EVM. This can be useful for persisting and restoring state between processes.
 
 #### Example
 
@@ -1381,14 +2507,13 @@ fs.writeFileSync('state.json', JSON.stringify(state))
 
 > **tevmGetAccount**: `GetAccountHandler`
 
-Gets the account state of an account
-It does not return the storage state by default but can if `returnStorage` is set to `true`. In forked mode the storage is only the storage
-Tevm has cached and may not represent all the onchain storage.
+Gets the account state of an account. It does not return the storage state by default but can if `returnStorage` is set to `true`.
+In forked mode, the storage is only the storage TEVM has cached and may not represent all the on-chain storage.
 
 #### See
 
- - [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference
- - [GetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountresult/) for return values reference
+ - [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference.
+ - [GetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountresult/) for return values reference.
 
 #### Example
 
@@ -1407,7 +2532,7 @@ const account = await client.tevmGetAccount({
 
 > **tevmLoadState**: `LoadStateHandler`
 
-Loads a json serializable state into the evm. This can be useful for persisting and restoring state between processes
+Loads a JSON serializable state into the EVM. This can be useful for persisting and restoring state between processes.
 
 #### Example
 
@@ -1420,13 +2545,13 @@ const client = createMemoryClient()
 const state = fs.readFileSync('state.json', 'utf8')
 
 await client.tevmLoadState(state)
-````
+```
 
 ### tevmMine
 
 > **tevmMine**: `MineHandler`
 
-Mines a new block with all pending transactions. In `manual` mode you must call this manually before the cannonical head state is updated
+Mines a new block with all pending transactions. In `manual` mode you must call this manually before the canonical head state is updated.
 
 #### Example
 
@@ -1442,8 +2567,8 @@ await client.tevmMine()
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
-Returns a promise that resolves when the tevm is ready
-This is not needed to explicitly be called as all actions will wait for the tevm to be ready
+Returns a promise that resolves when the TEVM is ready.
+This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
 #### Example
 
@@ -1466,14 +2591,16 @@ Same as calling `client.tevm.ready()`
 
 #### Deprecated
 
-in favor of tevmContract. To migrate simply replace `tevmScript` with `tevmContract` as the api is supported and more
-tevmContract also now supports deploying contracts with constructor arguments too via `params.code`. TevmScript previously did not support this
-and only supported deployedBytecode with no constructor arguments. tevmContract supports using deployedBytecode as waell.
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmContract` as the API is supported and more.
+`tevmContract` also now supports deploying contracts with constructor arguments too via `params.code`. `tevmScript` previously did not support this
+and only supported deployedBytecode with no constructor arguments. `tevmContract` supports using deployedBytecode as well.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
-import { createMemoryClient } from 'tevm'`
+import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
 
 const client = createMemoryClient()
@@ -1486,24 +2613,17 @@ const balance = await client.tevmContract({
   args: [client.address, 1n],
 })
 ```
-Same as calling `client.tevm.script`
-`
 
 ### tevmSetAccount
 
 > **tevmSetAccount**: `SetAccountHandler`
 
-Sets any property of an account including
-- it's balance
-- It's nonce
-- It's contract deployedBytecode
-- It's contract state
-- more
+Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
 
 #### See
 
- - [SetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountparams/) for options reference]
- - [SetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountresult/) for return values reference
+ - [SetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountparams/) for options reference.
+ - [SetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountresult/) for return values reference.
 
 #### Example
 
@@ -1514,13 +2634,13 @@ import { SimpleContract } from 'tevm/contract'
 const client = createMemoryClient()
 
 await client.tevmSetAccount({
- address: `0x${'0123'.repeat(10)}`,
- balance: 100n,
- nonce: 1n,
- deployedBytecode: SimpleContract.deployedBytecode,
- state: {
-   [`0x${'0'.repeat(64)}`]: numberToHex(420n),
- }
+  address: `0x${'0123'.repeat(10)}`,
+  balance: 100n,
+  nonce: 1n,
+  deployedBytecode: SimpleContract.deployedBytecode,
+  state: {
+    [`0x${'0'.repeat(64)}`]: numberToHex(420n),
+  }
 })
 ```
 
@@ -1694,6 +2814,22 @@ WaitForTransactionReceiptParameters
 
 The transaction receipt. WaitForTransactionReceiptReturnType
 
+### watchAsset()
+
+> **watchAsset**: (`args`) => `Promise`\<`boolean`\>
+
+#### Parameters
+
+• **args**: `WatchAssetParams`
+
+WatchAssetParameters
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+Boolean indicating if the token was successfully added. WatchAssetReturnType
+
 ### watchBlockNumber()
 
 > **watchBlockNumber**: (`args`) => `WatchBlockNumberReturnType`
@@ -1796,6 +2932,32 @@ WatchPendingTransactionsParameters
 
 A function that can be invoked to stop watching for new pending transaction hashes. WatchPendingTransactionsReturnType
 
+### writeContract()
+
+> **writeContract**: \<`abi`, `functionName`, `args`, `TChainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+#### Type Parameters
+
+• **abi** *extends* `Abi` \| readonly `unknown`[]
+
+• **functionName** *extends* `string`
+
+• **args** *extends* `unknown`
+
+• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
+
+#### Parameters
+
+• **args**: `WriteContractParameters`\<`abi`, `functionName`, `args`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `TChainOverride`\>
+
+WriteContractParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+A [Transaction Hash](https://viem.sh/docs/glossary/terms#hash). WriteContractReturnType
+
 ## Defined in
 
-[packages/memory-client/src/createMemoryClient.js:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L94)
+[packages/memory-client/src/createMemoryClient.js:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L189)
