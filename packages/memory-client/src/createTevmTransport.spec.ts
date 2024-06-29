@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { createTevmTransport } from './createTevmTransport.js'
 import { tevmDefault } from '@tevm/common'
 import { opBNBTestnet } from 'viem/chains'
+import { createTevmTransport } from './createTevmTransport.js'
 
 describe('createTevmTransport', () => {
 	it('should create a TEVM transport with default options', () => {

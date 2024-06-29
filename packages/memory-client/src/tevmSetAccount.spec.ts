@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
-import { createTevmTransport } from './createTevmTransport.js'
-import { tevmSetAccount } from './tevmSetAccount.js'
-import { tevmGetAccount } from './tevmGetAccount.js'
-import type { TevmTransport } from './TevmTransport.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { numberToHex } from '@tevm/utils'
+import { type Client, createClient } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
+import { createTevmTransport } from './createTevmTransport.js'
+import { tevmGetAccount } from './tevmGetAccount.js'
+import { tevmSetAccount } from './tevmSetAccount.js'
 
 let client: Client<TevmTransport>
 
@@ -13,7 +13,7 @@ const balance = 1000n
 const nonce = 1n
 const deployedBytecode = '0x6003600501'
 const state = {
-	['0x' + '0'.repeat(64)]: numberToHex(42n),
+	[`0x${'0'.repeat(64)}`]: numberToHex(42n),
 }
 
 beforeEach(async () => {

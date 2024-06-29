@@ -6,11 +6,33 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'
 
 /**
- * Creates an ContractHandler for handling contract params with Ethereumjs EVM
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import("../Contract/ContractHandlerType.js").ContractHandler}
+ * Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
+ * This function uses `callHandler` under the hood to execute contract calls.
+ *
+ * Note: This is the internal logic used by higher-level APIs such as `tevmContract`.
+ *
+ * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {object} [options] - Optional parameters.
+ * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
+ * @returns {import("../Contract/ContractHandlerType.js").ContractHandler} The contract handler function.
+ * @throws {import('./TevmCallError.js').TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
+ *
+ * @example
+ * ```typescript
+ * import { createBaseClient } from 'tevm/base-client'
+ * import { contractHandler } from 'tevm/actions'
+ *
+ * const client = createBaseClient()
+ *
+ * const contract = contractHandler(client)
+ *
+ * const res = await contract({
+ *   to: `0x${'69'.repeat(20)}`,
+ *   abi: [{...}], // ABI array
+ *   functionName: 'myFunction',
+ *   args: [1, 2, 3],
+ * })
+ * ```
  */
 export const contractHandler =
 	(client, { throwOnFail: throwOnFailDefault = true } = {}) =>

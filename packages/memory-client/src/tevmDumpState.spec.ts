@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
+import { type Client, createClient } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmDumpState } from './tevmDumpState.js'
-import { transports } from '@tevm/test-utils'
-import { optimism } from '@tevm/common'
-import type { TevmTransport } from './TevmTransport.js'
 
 let client: Client<TevmTransport>
 

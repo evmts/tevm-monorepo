@@ -1,6 +1,6 @@
+import { createTevmTransport, tevmViemActions } from 'tevm'
 import { optimism } from 'tevm/common'
-import { createClient, http, publicActions, testActions, walletActions } from 'viem'
-import { tevmViemActions, createTevmTransport } from 'tevm'
+import { http, createClient, publicActions, testActions, walletActions } from 'viem'
 
 /**
 ####  #####  ######   ##   ##### # #    #  ####       ##       ####  #      # ###### #    # ##### 
@@ -12,11 +12,11 @@ import { tevmViemActions, createTevmTransport } from 'tevm'
 */
 
 /**
-* Create a client with viem using tevm as transport
-*/
+ * Create a client with viem using tevm as transport
+ */
 const client = createClient({
-transport: createTevmTransport({ fork: { transport: http('https://mainnet.optimism.io')({}) } }),
-chain: optimism,
+	transport: createTevmTransport({ fork: { transport: http('https://mainnet.optimism.io')({}) } }),
+	chain: optimism,
 })
 
 /**
@@ -34,8 +34,8 @@ chain: optimism,
 client.request({ method: 'eth_chainId' }).then(console.log)
 // you can make a tevm specific json rpc request
 client.transport
-.request({ method: 'tevm_setAccount', params: [{ address: `0x${'69'.repeat(20)}`, balance: '0xffffffffff' }] })
-.then(console.log)
+	.request({ method: 'tevm_setAccount', params: [{ address: `0x${'69'.repeat(20)}`, balance: '0xffffffffff' }] })
+	.then(console.log)
 // and you have access to the low level tevm vm, mempool and more
 // You can use the vm to low level run a tx or block and more
 const vm = await client.transport.tevm.getVm()
@@ -96,10 +96,10 @@ receiptManager.getReceiptByTxHash
 
 // You could extend the client with additional actions from viem and tevm
 const extendedClient = client
-.extend(tevmViemActions())
-.extend(publicActions)
-.extend(walletActions)
-.extend(testActions({ mode: 'anvil' }))
+	.extend(tevmViemActions())
+	.extend(publicActions)
+	.extend(walletActions)
+	.extend(testActions({ mode: 'anvil' }))
 // if you want 'batteries included' client createMemoryClient is available and comes preloaded with all actions like above extendedClient
 // Note: for UI apps you should use tree shakeable actions
 import { createMemoryClient } from 'tevm'
@@ -140,9 +140,9 @@ import { PREFUNDED_ACCOUNTS } from 'tevm'
 import { sendTransaction } from 'viem/actions'
 
 sendTransaction(client, {
-account: PREFUNDED_ACCOUNTS[0],
-to: `0x${'69'.repeat(20)}`,
-value: BigInt(0xffffffffff),
+	account: PREFUNDED_ACCOUNTS[0],
+	to: `0x${'69'.repeat(20)}`,
+	value: BigInt(0xffffffffff),
 }).then(console.log)
 
 // Tevm specific actions are also available

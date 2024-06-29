@@ -1,12 +1,12 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
+import { SimpleContract } from '@tevm/contract'
+import { transports } from '@tevm/test-utils'
+import { type Client, createClient } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmContract } from './tevmContract.js'
-import { transports } from '@tevm/test-utils'
-import { optimism } from '@tevm/common'
 import { tevmSetAccount } from './tevmSetAccount.js'
-import type { TevmTransport } from './TevmTransport.js'
-import { SimpleContract } from '@tevm/contract'
 
 let client: Client<TevmTransport>
 const contractAddress = '0x0000000000000000000000000000000000000000'

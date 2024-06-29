@@ -1,7 +1,7 @@
 import { tevmDefault } from '@tevm/common'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
-import { tevmViemActions } from './tevmViemActions.js'
 import { createTevmTransport } from './createTevmTransport.js'
+import { tevmViemActions } from './tevmViemActions.js'
 
 /**
  * Creates a {@link MemoryClient} which is a viem client with an in-memory Ethereum client as its transport.

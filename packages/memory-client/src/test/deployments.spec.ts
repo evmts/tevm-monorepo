@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { testActions, type Address } from 'viem'
+import { type Address, testActions } from 'viem'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 

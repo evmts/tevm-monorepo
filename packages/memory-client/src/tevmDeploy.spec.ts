@@ -1,13 +1,13 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
-import { createTevmTransport } from './createTevmTransport.js'
-import { tevmDeploy } from './tevmDeploy.js'
-import { transports } from '@tevm/test-utils'
-import { optimism } from '@tevm/common'
-import { tevmContract } from './tevmContract.js'
-import type { TevmTransport } from './TevmTransport.js'
-import { SimpleContract } from '@tevm/contract'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { mineHandler } from '@tevm/actions'
+import { optimism } from '@tevm/common'
+import { SimpleContract } from '@tevm/contract'
+import { transports } from '@tevm/test-utils'
+import { type Address, type Client, createClient } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
+import { createTevmTransport } from './createTevmTransport.js'
+import { tevmContract } from './tevmContract.js'
+import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
 
 let client: Client<TevmTransport>
@@ -37,7 +37,7 @@ describe('tevmDeploy', () => {
 		await mineHandler(client.transport.tevm)({ blockCount: 1 })
 
 		// Interact with the deployed contract
-		const contract = SimpleContract.withAddress(deployResult.createdAddress!)
+		const contract = SimpleContract.withAddress(deployResult.createdAddress as Address)
 		const result = await tevmContract(client, contract.read.get())
 
 		// Verify the interaction result

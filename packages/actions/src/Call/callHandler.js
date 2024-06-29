@@ -14,12 +14,18 @@ import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 import { validateCallParams } from './validateCallParams.js'
 
 /**
- * Creates a tree shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail]
- * @returns {import('./CallHandlerType.js').CallHandler}
- * @throws {import('./TevmCallError.js').TevmCallError} if throwOnFail is true returns TevmCallError as value
+ * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
+ * This function is designed for use with BaseClient and the internal instance of TEVM,
+ * and it is distinct from the viem API `tevmCall`.
+ *
+ * Note: This is the internal logic used by higher-level APIs such as `tevmCall`.
+ *
+ * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {object} [options] - Optional parameters.
+ * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
+ * @returns {import('./CallHandlerType.js').CallHandler} The call handler function.
+ * @throws {import('./TevmCallError.js').TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
+ *
  * @example
  * ```typescript
  * import { createBaseClient } from 'tevm/base-client'

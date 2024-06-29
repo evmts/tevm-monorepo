@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { type Client, createClient } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmReady } from './tevmReady.js'
-import type { TevmTransport } from './TevmTransport.js'
 
 let client: Client<TevmTransport>
 
