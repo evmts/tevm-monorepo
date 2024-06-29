@@ -3,13 +3,10 @@ import { createClient, publicActions, testActions, walletActions } from 'viem'
 import { tevmViemActions } from './tevmViemActions.js'
 import { createTevmTransport } from './createTevmTransport.js'
 
-// TODO strongly type this! Currently it's return type is inferred
-
 /**
 * Creates a {@link MemoryClient} which is an viem client with an in-memory ethereum client as it's transport.
 * It wraps the viem [public client](https://viem.sh/docs/clients/public#public-client) and [test client](https://viem.sh/docs/clients/test)
-* @param {import('@tevm/memory-client').MemoryClientOptions} [options]
-* @returns {import('./MemoryClient.js').MemoryClient}
+* @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
 * @example
 * ```ts
 * import { createMemoryClient } from "tevm"
@@ -93,7 +90,10 @@ import { createTevmTransport } from './createTevmTransport.js'
 *
 */
 export const createMemoryClient = (options) => {
-	return createClient({
+	/**
+	 * @type {import('./MemoryClient.js').MemoryClient}
+	 */
+	const memoryClient = createClient({
 		...options,
 		transport: createTevmTransport(options),
 		type: 'tevm',
@@ -103,4 +103,5 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
+	return /** @type {any} */ (memoryClient)
 }
