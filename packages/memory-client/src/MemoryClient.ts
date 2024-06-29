@@ -1,5 +1,5 @@
 import type { Address } from '@tevm/utils'
-import type { Account, Chain, Client, PublicActions, Transport } from 'viem'
+import type { Account, Chain, Client, PublicActions, TestActions, Transport, WalletActions } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
@@ -198,6 +198,9 @@ export type MemoryClient<
 		TChain,
 		TAccountOrAddress extends Account ? Account : undefined,
 		TevmRpcSchema,
-		PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> & TevmActions
+		TevmActions &
+			PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> &
+			WalletActions<TChain, TAccountOrAddress extends Account ? Account : undefined> &
+			TestActions
 	>
 >

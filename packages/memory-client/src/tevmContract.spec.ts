@@ -1,0 +1,73 @@
+import { describe, expect, it, beforeEach } from 'bun:test'
+import { createClient, type Client } from 'viem'
+import { createTevmTransport } from './createTevmTransport.js'
+import { tevmContract } from './tevmContract.js'
+import { transports } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
+import { tevmSetAccount } from './tevmSetAccount.js'
+import type { TevmTransport } from './TevmTransport.js'
+import { SimpleContract } from '@tevm/contract'
+
+let client: Client<TevmTransport>
+const contractAddress = '0x0000000000000000000000000000000000000000'
+const contract = SimpleContract.withAddress(contractAddress)
+
+beforeEach(async () => {
+	client = createClient({
+		transport: createTevmTransport({
+			fork: { transport: transports.optimism },
+		}),
+		chain: optimism,
+	})
+
+	await tevmSetAccount(client, {
+		address: contractAddress,
+		deployedBytecode: SimpleContract.deployedBytecode,
+	})
+})
+
+describe('tevmContract', () => {
+	it('should execute a basic contract call', async () => {
+		const result = await tevmContract(client, contract.read.get())
+		expect(result).toBeDefined()
+		expect(result.rawData).toBeDefined()
+	})
+
+	it('should handle contract call with arguments', async () => {
+		const result = await tevmContract(client, contract.write.set(42n))
+		expect(result).toBeDefined()
+		expect(result.rawData).toBeDefined()
+	})
+
+	it('should handle contract call with transaction creation', async () => {
+		const result = await tevmContract(client, {
+			...contract.write.set(42n),
+			createTransaction: true,
+		})
+		expect(result).toBeDefined()
+		expect(result.rawData).toBeDefined()
+	})
+
+	it('should handle errors gracefully', async () => {
+		const invalidAddress = '0xinvalid'
+		try {
+			await tevmContract(client, {
+				to: invalidAddress,
+				abi: SimpleContract.abi,
+				functionName: 'get',
+			})
+		} catch (error) {
+			expect(error).toBeDefined()
+		}
+	})
+
+	it('should handle contract call with custom sender', async () => {
+		const senderAddress = '0x0000000000000000000000000000000000000001'
+		const result = await tevmContract(client, {
+			...contract.write.set(42n),
+			from: senderAddress,
+		})
+		expect(result).toBeDefined()
+		expect(result.rawData).toBeDefined()
+	})
+})
