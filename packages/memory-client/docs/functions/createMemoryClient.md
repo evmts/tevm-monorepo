@@ -45,15 +45,15 @@ import { createMemoryClient } from 'tevm'
 const memoryClient = createMemoryClient()
 
 // low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient._tevm.getVm()
+const vm = await memoryClient.tevm.getVm()
 vm.runBlocl(...)
 const {blockchain, evm, stateManager} = vm
 blockchain.addBlock(...)
 evm.runCall(...)
 stateManager.putAccount(...)
 
-const mempool = await memoryClient._tevm.getTxPool()
-const receiptsManager = await memoryClient._tevm.getReceiptsManager()
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 ````
 
 #### Type declaration
@@ -1300,7 +1300,7 @@ In addiiton to making basic call, you can also do advanced things like
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
 - send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-Same as calling `client._tevm.call`
+Same as calling `client.tevm.call`
 `
 
 ### tevmContract
@@ -1454,7 +1454,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client._tevm.ready()`
+Same as calling `client.tevm.ready()`
 
 #### Returns
 
@@ -1486,7 +1486,7 @@ const balance = await client.tevmContract({
   args: [client.address, 1n],
 })
 ```
-Same as calling `client._tevm.script`
+Same as calling `client.tevm.script`
 `
 
 ### tevmSetAccount
