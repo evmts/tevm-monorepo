@@ -97,8 +97,8 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					expect(errors).toBeUndefined()
 					expect(blockHashes).toHaveLength(1)
 
-					const rm = await client._tevm.getReceiptsManager()
-					const vm = await client._tevm.getVm()
+					const rm = await client.tevm.getReceiptsManager()
+					const vm = await client.tevm.getVm()
 
 					const block = await vm.blockchain.getBlock(hexToBytes(blockHashes?.[0] as Hex))
 					expect(block).toBe(await vm.blockchain.getCanonicalHeadBlock())
