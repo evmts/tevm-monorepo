@@ -193,6 +193,12 @@ Memory client is similar to `anvil`. It can:
 - Run special scripts that have advanced functionality
 - Extremely hackable. Can mint yourself eth, run traces, modify storage, and more
 
+:::tip[Use tree shakable actions]
+This guide uses MemoryClient. A batteries included client. This client helps make exploring tevm for the first time easier.
+If you are building a UI with tevm, it is highly recomended you use `createClient` from viem along with `createTevmTransport` and tree shakable actions.
+See [client guide](https://tevm.sh/learn/clients/) for more info
+:::
+
 ### 1. In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
 ```typescript
