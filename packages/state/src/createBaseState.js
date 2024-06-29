@@ -49,11 +49,11 @@ export const createBaseState = (options) => {
 		caches: {
 			contracts: new ContractCache(),
 			accounts: new AccountCache({
-				size: 100_000,
+				size: 1_000_000_000,
 				type: CacheType.ORDERED_MAP,
 			}),
 			storage: new StorageCache({
-				size: 100_000,
+				size: 1_000_000_000,
 				type: CacheType.ORDERED_MAP,
 			}),
 		},
