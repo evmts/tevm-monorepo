@@ -45,7 +45,6 @@ export type WriteActionCreator<
 		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 		address: TAddress
 		to: TAddress
-		code: TCode
 	} & (TCode extends undefined ? {} : { code: TCode }) &
 		(TArgs['length'] extends 0
 			? {}
