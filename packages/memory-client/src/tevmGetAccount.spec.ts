@@ -1,11 +1,11 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Client } from 'viem'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
+import { type Client, createClient } from 'viem'
+import { parseEther } from 'viem'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
-import { transports } from '@tevm/test-utils'
-import { optimism } from '@tevm/common'
-import type { TevmTransport } from './TevmTransport.js'
-import { parseEther } from 'viem'
 
 let client: Client<TevmTransport>
 const prefundedAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'

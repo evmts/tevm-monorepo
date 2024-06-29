@@ -3,10 +3,33 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateLoadStateParams } from './validateLoadStateParams.js'
 
 /**
- * @param {import("@tevm/base-client").BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('./LoadStateHandlerType.js').LoadStateHandler}
+ * @internal
+ * Creates a handler for loading a previously dumped state into the VM.
+ *
+ * @param {import("@tevm/base-client").BaseClient} client - The base client instance.
+ * @param {object} [options] - Optional configuration.
+ * @param {boolean} [options.throwOnFail] - Whether to throw an error when a failure occurs.
+ * @returns {import('./LoadStateHandlerType.js').LoadStateHandler} - The handler function.
+ *
+ * @example
+ * ```typescript
+ * import { createClient } from 'tevm'
+ * import { loadStateHandler } from 'tevm/actions'
+ * import fs from 'fs'
+ *
+ * const client = createClient()
+ * const loadState = loadStateHandler(client)
+ *
+ * const state = JSON.parse(fs.readFileSync('state.json'))
+ * const result = await loadState({ state })
+ * if (result.errors) {
+ *   console.error('Failed to load state:', result.errors)
+ * }
+ * ```
+ *
+ * @see {@link LoadStateParams}
+ * @see {@link LoadStateResult}
+ * @see {@link TevmLoadStateError}
  */
 export const loadStateHandler =
 	(client, options = {}) =>

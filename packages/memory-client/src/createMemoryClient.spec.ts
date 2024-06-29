@@ -1,6 +1,6 @@
 // note: way more tests exist in the src/test folder
 // This only tests this specific unit the src/test folder has more e2e tests and examples
-import { describe, it, expect } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import { createMemoryClient } from './createMemoryClient.js'
 
 describe('createMemoryClient', () => {

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { createClient } from 'viem'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
-import { optimism } from '@tevm/common'
 
 describe('tevmViemActions', () => {
 	it('should extend the client with TEVM actions', () => {

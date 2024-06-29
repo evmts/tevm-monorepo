@@ -2,38 +2,79 @@ import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
 import type { Hex } from '../common/index.js'
 
 /**
- * Tevm params to execute a call on the vm
- * Call is the lowest level method to interact with the vm
- * and other messages such as contract and script are using call
- * under the hood
+ * TEVM parameters to execute a call on the VM.
+ * `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.
+ *
  * @example
- * ```typescript`
- * const callParams: import('@tevm/api').CallParams = {
+ * ```typescript
+ * import { createClient } from 'viem'
+ * import { createTevmTransport, tevmCall } from 'tevm'
+ * import { optimism } from 'tevm/common'
+ *
+ * const client = createClient({
+ *   transport: createTevmTransport({}),
+ *   chain: optimism,
+ * })
+ *
+ * const callParams = {
  *   data: '0x...',
  *   bytecode: '0x...',
  *   gasLimit: 420n,
  * }
+ *
+ * await tevmCall(client, callParams)
  * ```
- * @see {@link BaseCallParams}
+ *
+ * @see [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/)
+ * @see [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
  */
 export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<TThrowOnFail> & {
 	/**
 	 * An optional CREATE2 salt.
+	 *
+	 * @example
+	 * ```typescript
+	 * import { createClient } from 'viem'
+	 * import { createTevmTransport, tevmCall } from 'tevm'
+	 * import { optimism } from 'tevm/common'
+	 *
+	 * const client = createClient({
+	 *   transport: createTevmTransport({}),
+	 *   chain: optimism,
+	 * })
+	 *
+	 * const callParams = {
+	 *   data: '0x...',
+	 *   bytecode: '0x...',
+	 *   gasLimit: 420n,
+	 *   salt: '0x1234...',
+	 * }
+	 *
+	 * await tevmCall(client, callParams)
+	 * ```
+	 *
+	 * @see [CREATE2](https://eips.ethereum.org/EIPS/eip-1014)
 	 */
 	readonly salt?: Hex
 	/**
-	 * The input data.
+	 * The input data for the call.
 	 */
 	readonly data?: Hex
 	/**
-	 * The encoded code to deploy with for a deployless call. Code is encoded with constructor args unlike `deployedBytecode`.
+	 * The encoded code to deploy with for a deployless call. Code is encoded with constructor arguments, unlike `deployedBytecode`.
+	 *
 	 * @example
 	 * ```typescript
-	 * import {createMemoryClient, encodeDeployData} from 'tevm'
+	 * import { createClient } from 'viem'
+	 * import { createTevmTransport, tevmCall, encodeDeployData } from 'tevm'
+	 * import { optimism } from 'tevm/common'
 	 *
-	 * const client = createMemoryClient()
+	 * const client = createClient({
+	 *   transport: createTevmTransport({}),
+	 *   chain: optimism,
+	 * })
 	 *
-	 * await client.tevmCall({
+	 * const callParams = {
 	 *   createTransaction: true,
 	 *   data: encodeDeployData({
 	 *     bytecode: '0x...',
@@ -41,38 +82,50 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 *     abi: [{...}],
 	 *     args: [1, 2, 3],
 	 *   })
-	 * })
+	 * }
+	 *
+	 * await tevmCall(client, callParams)
 	 * ```
-	 * Code is also automatically created if using Tevm contracts via script method.
+	 * Code is also automatically created if using TEVM contracts via the `script` method.
 	 *
-	 * ```@example
-	 * import {SimpleContract} from 'tevm/contracts'
-	 * import {createMemoryClient} from 'tevm'
+	 * @example
+	 * ```typescript
+	 * import { createClient } from 'viem'
+	 * import { createTevmTransport, tevmContract } from 'tevm'
+	 * import { optimism } from 'tevm/common'
+	 * import { SimpleContract } from 'tevm/contracts'
 	 *
-	 * const client = createMemoryClient()
+	 * const client = createClient({
+	 *   transport: createTevmTransport({}),
+	 *   chain: optimism,
+	 * })
 	 *
-	 * const script = SimpleContract.script({constructorArgs: [420n]})
+	 * const script = SimpleContract.script({ constructorArgs: [420n] })
 	 *
-	 * console.log(script.code)
-	 *
-	 * await client.tevmContract(
-	 *   script.read.get() // abi, code, functionName, args
-	 * ) // 420n
+	 * await tevmContract(client, script.read.get()) // 420n
 	 * ```
 	 */
 	readonly code?: Hex
 	/**
-	 * The code to put into the state before executing call. If you wish to call the constructor
-	 * use `code` instead.
-	 * ```@example
-	 * import {createMemoryClient} from 'tevm'
+	 * The code to put into the state before executing the call. If you wish to call the constructor, use `code` instead.
 	 *
-	 * const client = createMemoryClient()
+	 * @example
+	 * ```typescript
+	 * import { createClient } from 'viem'
+	 * import { createTevmTransport, tevmCall } from 'tevm'
+	 * import { optimism } from 'tevm/common'
 	 *
-	 * await client.tevmCall({
+	 * const client = createClient({
+	 *   transport: createTevmTransport({}),
+	 *   chain: optimism,
+	 * })
+	 *
+	 * const callParams = {
 	 *   data: '0x...',
 	 *   deployedBytecode: '0x...',
-	 * })
+	 * }
+	 *
+	 * await tevmCall(client, callParams)
 	 * ```
 	 */
 	readonly deployedBytecode?: Hex

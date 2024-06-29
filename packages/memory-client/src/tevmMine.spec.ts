@@ -1,12 +1,12 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createClient, type Address, type Client } from 'viem'
-import { createTevmTransport } from './createTevmTransport.js'
-import { tevmDeploy } from './tevmDeploy.js'
-import { tevmContract } from './tevmContract.js'
-import { tevmMine } from './tevmMine.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
-import type { TevmTransport } from './TevmTransport.js'
+import { type Address, type Client, createClient } from 'viem'
 import { getBlockNumber } from 'viem/actions'
+import type { TevmTransport } from './TevmTransport.js'
+import { createTevmTransport } from './createTevmTransport.js'
+import { tevmContract } from './tevmContract.js'
+import { tevmDeploy } from './tevmDeploy.js'
+import { tevmMine } from './tevmMine.js'
 
 let client: Client<TevmTransport>
 let contractAddress: Address
@@ -28,7 +28,7 @@ describe('tevmMine', () => {
 
 		// Verify the contract's deployment address
 		expect(deployResult.createdAddress).toBeDefined()
-		contractAddress = deployResult.createdAddress!
+		contractAddress = deployResult.createdAddress as Address
 
 		// Mine a block to include the deployment transaction
 		await tevmMine(client, { blockCount: 1 })
