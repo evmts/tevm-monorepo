@@ -187,9 +187,6 @@ import { tevmViemActions } from './tevmViemActions.js'
  * ```
  */
 export const createMemoryClient = (options) => {
-	/**
-	 * @type {import('./MemoryClient.js').MemoryClient}
-	 */
 	const memoryClient = createClient({
 		...options,
 		transport: createTevmTransport(options),
