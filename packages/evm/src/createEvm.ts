@@ -55,6 +55,7 @@ export const createEvm = async ({
 		customOpcodes: [],
 		// TODO uncomment the mapping once we make the api correct
 		// Edit: nvm not letting this block a stable release maybe update it next major
+		// @warning Always pass in an empty array if no precompiles as `addPrecompile` method assumes it's there
 		customPrecompiles: customPrecompiles ?? [],
 		profiler: {
 			enabled: profiler ?? false,
