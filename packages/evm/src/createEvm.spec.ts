@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
+import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
-import { createEvm } from './createEvm.js'
 import { Evm } from './Evm.js'
-import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+import { createEvm } from './createEvm.js'
 
 describe(createEvm.name, () => {
 	it('wraps ethereumjs EVM', async () => {
