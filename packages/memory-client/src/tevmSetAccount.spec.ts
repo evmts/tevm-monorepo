@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
-import { numberToHex } from '@tevm/utils'
-import { type Client, createClient } from 'viem'
+import { EthjsAddress, numberToHex, type Hex } from '@tevm/utils'
+import { bytesToHex, type Client, createClient, hexToBytes } from 'viem'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
@@ -14,7 +14,7 @@ const nonce = 1n
 const deployedBytecode = '0x6003600501'
 const state = {
 	[`0x${'0'.repeat(64)}`]: numberToHex(42n),
-}
+} as const
 
 beforeEach(async () => {
 	client = createClient({
@@ -39,6 +39,29 @@ describe('tevmSetAccount', () => {
 		expect(account.balance).toBe(balance)
 		expect(account.nonce).toBe(nonce)
 		expect(account.deployedBytecode).toBe(deployedBytecode)
+		// lots of extra checks from debugging prior issue
+		const vm = await client.transport.tevm.getVm()
+		expect(
+			await vm.stateManager.getContractStorage(
+				EthjsAddress.fromString(address),
+				hexToBytes(Object.keys(state)[0] as Hex),
+			),
+		).toEqual(hexToBytes(state[`0x${'0'.repeat(64)}`] as Hex))
+		expect(
+			vm.stateManager._baseState.caches.storage._orderedMapCache?.getElementByKey(
+				EthjsAddress.fromString(address).toString().slice(2),
+			),
+		).toEqual(
+			new Map(
+				Object.entries({
+					'0000000000000000000000000000000000000000000000000000000000000000': Uint8Array.from([42]),
+				}),
+			),
+		)
+
+		expect(await vm.stateManager.dumpStorage(EthjsAddress.fromString(address))).toEqual({
+			'0000000000000000000000000000000000000000000000000000000000000000': bytesToHex(Uint8Array.from([42])),
+		})
 		expect(account.storage).toEqual(state)
 	})
 })
