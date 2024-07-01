@@ -65,6 +65,7 @@
 		"@ethereumjs/evm": "^3.0.0",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/state": "workspace:^",

@@ -67,5 +67,7 @@ export const createEvm = async ({
 		evmAny.DEBUG = true
 		evmAny._debug = logger
 	}
+	evm.addCustomPrecompile = evm.addCustomPrecompile?.bind(evm) ?? Evm.prototype.addCustomPrecompile.bind(evm)
+	evm.removeCustomPrecompile = evm.removeCustomPrecompile?.bind(evm) ?? Evm.prototype.removeCustomPrecompile.bind(evm)
 	return evm
 }

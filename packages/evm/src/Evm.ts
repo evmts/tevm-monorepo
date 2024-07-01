@@ -1,8 +1,8 @@
 import { EVM, getActivePrecompiles } from '@ethereumjs/evm'
 import type { StateManager } from '@tevm/state'
-import { MisconfiguredClientError } from '../../errors/types/client/MisconfiguredClient.js'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { EVMOpts } from './EvmOpts.js'
+import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
 /**
  * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
@@ -25,7 +25,7 @@ import type { EVMOpts } from './EvmOpts.js'
  * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
  */
 export class Evm extends EVM {
-	public readonly addCustomPrecompile = (precompile: CustomPrecompile) => {
+	public addCustomPrecompile(precompile: CustomPrecompile) {
 		if (this._customPrecompiles === undefined) {
 			throw new MisconfiguredClientError(
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
@@ -35,13 +35,17 @@ export class Evm extends EVM {
 		const mutableThis = this as unknown as { _precompiles: ReturnType<typeof getActivePrecompiles> }
 		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
-	public readonly removeCustomPrecompile = (precompile: CustomPrecompile) => {
+	public removeCustomPrecompile(precompile: CustomPrecompile) {
 		if (this._customPrecompiles === undefined) {
 			throw new MisconfiguredClientError(
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
-		this._customPrecompiles.splice(this._customPrecompiles.indexOf(precompile), 1)
+		const index = this._customPrecompiles.indexOf(precompile)
+		if (index === -1) {
+			throw new InvalidParamsError('Precompile not found')
+		}
+		this._customPrecompiles.splice(index, 1)
 		const mutableThis = this as unknown as { _precompiles: ReturnType<typeof getActivePrecompiles> }
 		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
