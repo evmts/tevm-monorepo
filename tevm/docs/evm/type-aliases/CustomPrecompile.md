@@ -47,4 +47,4 @@ const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles]
 
 ## Defined in
 
-packages/evm/dist/index.d.ts:93
+packages/evm/dist/index.d.ts:96

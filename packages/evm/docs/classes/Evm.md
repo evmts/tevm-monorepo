@@ -100,17 +100,17 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
-### \_customPrecompiles?
+### \_customPrecompiles
 
-> `protected` `readonly` `optional` **\_customPrecompiles**: `CustomPrecompile`[]
+> `protected` **\_customPrecompiles**: `CustomPrecompile`[]
 
-#### Inherited from
+#### Overrides
 
 `EVM._customPrecompiles`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
+[packages/evm/src/Evm.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L54)
 
 ***
 
@@ -352,7 +352,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L27)
+[packages/evm/src/Evm.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L53)
 
 ***
 
@@ -390,7 +390,7 @@ A new EVM
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L26)
+[packages/evm/src/Evm.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L52)
 
 ***
 
@@ -580,6 +580,24 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ***
 
+### addCustomPrecompile()
+
+> **addCustomPrecompile**(`precompile`): `void`
+
+#### Parameters
+
+• **precompile**: `CustomPrecompile`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[packages/evm/src/Evm.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L28)
+
+***
+
 ### clearPerformanceLogs()
 
 > **clearPerformanceLogs**(): `void`
@@ -667,6 +685,24 @@ if no such precompile exists.
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:104
+
+***
+
+### removeCustomPrecompile()
+
+> **removeCustomPrecompile**(`precompile`): `void`
+
+#### Parameters
+
+• **precompile**: `CustomPrecompile`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[packages/evm/src/Evm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L38)
 
 ***
 

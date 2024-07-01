@@ -150,4 +150,4 @@ A custom Tevm state manager
 
 ## Defined in
 
-packages/evm/dist/index.d.ts:124
+packages/evm/dist/index.d.ts:127
