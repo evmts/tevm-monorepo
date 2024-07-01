@@ -11,16 +11,22 @@ title: "deployHandler"
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
+The TEVM base client instance.
+
 • **options?** = `{}`
+
+Optional parameters.
 
 • **options.throwOnFail?**: `undefined` \| `boolean` = `true`
 
-whether to default to throwing or not when errors occur
+Whether to throw an error on failure.
 
 ## Returns
 
 [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
+The deploy handler function.
+
 ## Defined in
 
-[packages/actions/src/Deploy/deployHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L17)
+[packages/actions/src/Deploy/deployHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L37)

@@ -264,7 +264,6 @@ title: "@tevm/actions"
 - [zSetAccountParams](/reference/tevm/actions/variables/zsetaccountparams/)
 - [zStateOverrideSet](/reference/tevm/actions/variables/zstateoverrideset/)
 - [zStorageRoot](/reference/tevm/actions/variables/zstorageroot/)
-- [zStrictHex](/reference/tevm/actions/variables/zstricthex/)
 
 ## Functions
 
