@@ -3,9 +3,10 @@ import { createBaseClient } from '@tevm/base-client'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { transports } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
 
 describe('blockToJsonRpcBlock', async () => {
-	const client = createBaseClient()
+	const client = createBaseClient({ common: optimism })
 	const vm = await client.getVm()
 	const block = await getBlockFromRpc({ blockTag: 121960766n, transport: transports.optimism }, vm.common)
 

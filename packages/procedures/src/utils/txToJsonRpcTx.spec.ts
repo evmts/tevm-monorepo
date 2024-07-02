@@ -5,6 +5,7 @@ import { EthjsAddress } from '@tevm/utils'
 import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { transports } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
 
 describe(txToJsonRpcTx.name, () => {
 	it('should work', async () => {
@@ -21,7 +22,9 @@ describe(txToJsonRpcTx.name, () => {
 			gasLimit: 100n,
 			maxPriorityFeePerGas: 100n,
 		})
-		const client = createBaseClient()
+		const client = createBaseClient({
+			common: optimism,
+		})
 		const vm = await client.getVm()
 		const block = await getBlockFromRpc({ blockTag: 121960766n, transport: transports.optimism }, vm.common)
 		expect(txToJsonRpcTx(tx, block, 0)).toMatchSnapshot()

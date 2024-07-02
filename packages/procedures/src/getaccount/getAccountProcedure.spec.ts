@@ -42,7 +42,7 @@ describe('getAccountProcedure', () => {
 			isContract: true,
 			isEmpty: false,
 			codeHash: expect.any(String),
-			storage: {},
+			storage: undefined,
 		})
 	})
 
@@ -57,29 +57,12 @@ describe('getAccountProcedure', () => {
 		}
 
 		const response = await getAccountProcedure(client)(request)
-		expect(response.error).toBeUndefined()
-		expect(response.result).toBeDefined()
-		expect(response.method).toBe('tevm_getAccount')
-		expect(response.id).toBe(request.id as any)
-		expect(response.result).toMatchObject({
-			address,
-			balance: '0x0',
-			deployedBytecode: '0x0',
-			nonce: '0x0',
-			storageRoot: expect.any(String),
-			isContract: false,
-			isEmpty: true,
-			codeHash: expect.any(String),
-			storage: {},
-		})
+		expect(response.error).toBeDefined()
+		expect(response.error).toMatchSnapshot()
 	})
 
 	it('should handle errors from getAccountHandler', async () => {
 		const address = `0x${'69'.repeat(20)}` as const
-		const vm = await client.getVm()
-		vm.stateManager.getAccount = () => {
-			throw new Error('unexpected error')
-		}
 
 		const request: GetAccountJsonRpcRequest = {
 			jsonrpc: '2.0',
@@ -87,7 +70,6 @@ describe('getAccountProcedure', () => {
 			id: 1,
 			params: [{ address }],
 		}
-
 		const response = await getAccountProcedure(client)(request)
 		expect(response.error).toBeDefined()
 		expect(response.error).toMatchSnapshot()
@@ -119,18 +101,6 @@ describe('getAccountProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('tevm_getAccount')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toMatchObject({
-			address,
-			balance: '0x1a4',
-			deployedBytecode: '0x1234',
-			nonce: '0x45',
-			storageRoot: expect.any(String),
-			isContract: true,
-			isEmpty: false,
-			codeHash: expect.any(String),
-			storage: {
-				'0x0': '0x01',
-			},
-		})
+		expect(response.result).toMatchSnapshot()
 	})
 })

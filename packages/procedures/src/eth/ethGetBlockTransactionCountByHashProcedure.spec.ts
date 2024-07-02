@@ -20,20 +20,19 @@ describe('ethGetBlockTransactionCountByHashJsonRpcProcedure', () => {
 		const mockBlock = Block.fromBlockData(
 			{
 				header: {
-					parentHash: '0x',
-					coinbase: '0x',
-					stateRoot: '0x',
-					transactionsTrie: '0x',
-					receiptTrie: '0x',
+					parentHash: numberToHex(32, { size: 32 }),
+					coinbase: `0x${'12'.repeat(20)}`,
+					stateRoot: numberToHex(599, { size: 32 }),
+					transactionsTrie: numberToHex(999, { size: 32 }),
+					receiptTrie: numberToHex(10, { size: 32 }),
 					logsBloom: '0x',
-					difficulty: 1,
-					number: 1,
+					number: 0,
 					gasLimit: 1,
 					gasUsed: 0,
 					timestamp: 0,
 					extraData: '0x',
-					mixHash: '0x',
-					nonce: '0x',
+					mixHash: numberToHex(77, { size: 32 }),
+					nonce: numberToHex(0, { size: 8 }),
 					baseFeePerGas: 0,
 				},
 				transactions: [{}, {}, {}], // Mock 3 transactions
@@ -62,20 +61,19 @@ describe('ethGetBlockTransactionCountByHashJsonRpcProcedure', () => {
 		const mockBlock = Block.fromBlockData(
 			{
 				header: {
-					number: 1,
-					parentHash: '0x',
-					coinbase: '0x',
-					stateRoot: '0x',
-					transactionsTrie: '0x',
-					receiptTrie: '0x',
+					number: 0,
+					parentHash: numberToHex(32, { size: 32 }),
+					coinbase: `0x${'12'.repeat(20)}`,
+					stateRoot: numberToHex(599, { size: 32 }),
+					transactionsTrie: numberToHex(999, { size: 32 }),
+					receiptTrie: numberToHex(10, { size: 32 }),
 					logsBloom: '0x',
-					difficulty: 1,
 					gasLimit: 1,
 					gasUsed: 0,
 					timestamp: 0,
 					extraData: '0x',
-					mixHash: '0x',
-					nonce: '0x',
+					mixHash: numberToHex(77, { size: 32 }),
+					nonce: numberToHex(0, { size: 8 }),
 					baseFeePerGas: 0,
 				},
 				transactions: [{}, {}, {}], // Mock 3 transactions
@@ -106,8 +104,8 @@ describe('ethGetBlockTransactionCountByHashJsonRpcProcedure', () => {
 			params: ['0xInvalidHash'],
 		}
 
-		const response = await ethGetBlockTransactionCountByHashJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
+		const e = await ethGetBlockTransactionCountByHashJsonRpcProcedure(client)(request).catch((e) => e)
+		expect(e).toBeDefined()
+		expect(e).toMatchSnapshot()
 	})
 })

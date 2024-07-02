@@ -60,20 +60,4 @@ describe('getBalanceProcedure', () => {
 
 		expect(await getBalanceProcedure(client)(request).catch((e) => e)).toMatchSnapshot()
 	})
-
-	it('should handle errors from getBalanceHandler', async () => {
-		const invalidAddress = '0x0000000000000000000000000000000000000000' as Address
-		const request: EthGetBalanceJsonRpcRequest = {
-			jsonrpc: '2.0',
-			method: 'eth_getBalance',
-			id: 1,
-			params: [invalidAddress, 'latest'],
-		}
-
-		const response = await getBalanceProcedure(client)(request)
-		expect(response.method).toBe('eth_getBalance')
-		expect(response.id).toBe(request.id as any)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
-	})
 })

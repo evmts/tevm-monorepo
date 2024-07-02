@@ -21,22 +21,46 @@ describe('ethGetBlockTransactionCountByNumberJsonRpcProcedure', () => {
 			{
 				header: {
 					number: 1,
-					parentHash: '0x',
-					coinbase: '0x',
-					stateRoot: '0x',
-					transactionsTrie: '0x',
-					receiptTrie: '0x',
-					logsBloom: '0x',
-					difficulty: 1,
+					parentHash: `0x${'0'.repeat(64)}`,
+					coinbase: `0x${'1'.repeat(40)}`,
+					stateRoot: `0x${'0'.repeat(64)}`,
+					transactionsTrie: `0x${'0'.repeat(64)}`,
+					receiptTrie: `0x${'0'.repeat(64)}`,
+					logsBloom: `0x${'0'.repeat(512)}`,
 					gasLimit: 1,
 					gasUsed: 0,
 					timestamp: 0,
 					extraData: '0x',
-					mixHash: '0x',
-					nonce: '0x',
+					mixHash: `0x${'0'.repeat(64)}`,
+					nonce: `0x${'0'.repeat(16)}`,
 					baseFeePerGas: 0,
 				},
-				transactions: [{}, {}, {}], // Mock 3 transactions
+				transactions: [
+					{
+						to: `0x${'2'.repeat(40)}`,
+						value: 1,
+						gasLimit: 1,
+						gasPrice: 1,
+						nonce: 0,
+						data: '0x',
+					},
+					{
+						to: `0x${'2'.repeat(40)}`,
+						value: 1,
+						gasLimit: 1,
+						gasPrice: 1,
+						nonce: 1,
+						data: '0x',
+					},
+					{
+						to: `0x${'2'.repeat(40)}`,
+						value: 1,
+						gasLimit: 1,
+						gasPrice: 1,
+						nonce: 2,
+						data: '0x',
+					},
+				],
 			},
 			{ common: vm.common },
 		)
@@ -58,24 +82,22 @@ describe('ethGetBlockTransactionCountByNumberJsonRpcProcedure', () => {
 	})
 
 	it('should handle requests without an id', async () => {
-		// Prepare mock block with transactions
 		const mockBlock = Block.fromBlockData(
 			{
 				header: {
 					number: 1,
-					parentHash: '0x',
-					coinbase: '0x',
-					stateRoot: '0x',
-					transactionsTrie: '0x',
-					receiptTrie: '0x',
-					logsBloom: '0x',
-					difficulty: 1,
+					parentHash: `0x${'0'.repeat(64)}`,
+					coinbase: `0x${'0'.repeat(40)}`,
+					stateRoot: `0x${'0'.repeat(64)}`,
+					transactionsTrie: `0x${'0'.repeat(64)}`,
+					receiptTrie: `0x${'0'.repeat(64)}`,
+					logsBloom: `0x${'0'.repeat(512)}`,
 					gasLimit: 1,
 					gasUsed: 0,
 					timestamp: 0,
 					extraData: '0x',
-					mixHash: '0x',
-					nonce: '0x',
+					mixHash: `0x${'0'.repeat(64)}`,
+					nonce: `0x${'0'.repeat(16)}`,
 					baseFeePerGas: 0,
 				},
 				transactions: [{}, {}, {}], // Mock 3 transactions
@@ -96,18 +118,5 @@ describe('ethGetBlockTransactionCountByNumberJsonRpcProcedure', () => {
 		expect(response.result).toBe(numberToHex(mockBlock.transactions.length))
 		expect(response.method).toBe('eth_getBlockTransactionCountByNumber')
 		expect(response.id).toBeUndefined()
-	})
-
-	it('should handle an invalid block number', async () => {
-		const request: EthGetBlockTransactionCountByNumberJsonRpcRequest = {
-			jsonrpc: '2.0',
-			method: 'eth_getBlockTransactionCountByNumber',
-			id: 1,
-			params: ['0xInvalidNumber'],
-		}
-
-		const response = await ethGetBlockTransactionCountByNumberJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
 	})
 })

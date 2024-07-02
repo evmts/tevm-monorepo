@@ -3,7 +3,8 @@ import { createBaseClient, type BaseClient, type Filter } from '@tevm/base-clien
 import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
 import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { Block } from '@tevm/block'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { createImpersonatedTx, FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { EthjsAddress } from '@tevm/utils'
 
 let client: BaseClient
 
@@ -22,13 +23,13 @@ describe('ethGetFilterChangesProcedure', () => {
 			type: 'Log',
 			logs: [
 				{
-					address: '0x1234',
-					topics: ['0x5678'],
-					data: '0x9abc',
+					address: `0x${'0'.repeat(40)}`,
+					topics: [`0x${'0'.repeat(64)}`],
+					data: `0x${'0'.repeat(64)}`,
 					blockNumber: 1n,
-					transactionHash: '0xdef',
+					transactionHash: `0x${'0'.repeat(64)}`,
 					transactionIndex: 0,
-					blockHash: '0x12345',
+					blockHash: `0x${'0'.repeat(64)}`,
 					logIndex: 0,
 					removed: false,
 				},
@@ -39,7 +40,6 @@ describe('ethGetFilterChangesProcedure', () => {
 			err: undefined,
 			registeredListeners: [],
 		})
-
 		const request: EthGetFilterChangesJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_getFilterChanges',
@@ -62,26 +62,24 @@ describe('ethGetFilterChangesProcedure', () => {
 				{
 					header: {
 						number: 1,
-						parentHash: '0x',
-						coinbase: '0x',
-						stateRoot: '0x',
-						transactionsTrie: '0x',
-						receiptTrie: '0x',
-						logsBloom: '0x',
-						difficulty: 1,
+						parentHash: `0x${'0'.repeat(64)}`,
+						coinbase: `0x${'0'.repeat(40)}`,
+						stateRoot: `0x${'0'.repeat(64)}`,
+						transactionsTrie: `0x${'0'.repeat(64)}`,
+						receiptTrie: `0x${'0'.repeat(64)}`,
+						logsBloom: `0x${'0'.repeat(512)}`,
 						gasLimit: 1,
 						gasUsed: 0,
 						timestamp: 0,
-						extraData: '0x',
-						mixHash: '0x',
-						nonce: '0x',
+						extraData: `0x${'0'.repeat(64)}`,
+						mixHash: `0x${'0'.repeat(64)}`,
+						nonce: `0x${'0'.repeat(16)}`,
 						baseFeePerGas: 0,
 					},
 				},
 				{ common: vm.common },
 			),
 		]
-
 		const filter: Filter = {
 			id: filterId,
 			type: 'Block',
@@ -113,7 +111,8 @@ describe('ethGetFilterChangesProcedure', () => {
 	it('should return transaction changes for PendingTransaction type filter', async () => {
 		const filterId = '0x3' as const
 		const tx = [
-			new FeeMarketEIP1559Transaction({
+			createImpersonatedTx({
+				impersonatedAddress: EthjsAddress.fromString(`0x${'23'.repeat(20)}`),
 				to: `0x${'0'.repeat(40)}`,
 				data: `0x${'0'.repeat(40)}`,
 			}),

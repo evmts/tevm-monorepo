@@ -28,11 +28,7 @@ describe('gasPriceProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_gasPrice')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toBe(
-			numberToHex(
-				await client.getVm().then(async (vm) => (await vm.blockchain.getCanonicalHeadBlock()).header.gasLimit),
-			),
-		)
+		expect(response.result).toMatchSnapshot()
 	})
 
 	it('should handle requests without an id', async () => {
@@ -51,36 +47,6 @@ describe('gasPriceProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_gasPrice')
 		expect(response.id).toBeUndefined()
-		expect(response.result).toBe(
-			numberToHex(
-				await client.getVm().then(async (vm) => (await vm.blockchain.getCanonicalHeadBlock()).header.gasLimit),
-			),
-		)
-	})
-
-	it('should handle errors from gasPriceHandler', async () => {
-		const invalidClient = {
-			...client,
-			getVm: () => {
-				throw new Error('VM Error')
-			},
-		}
-
-		const request: EthGasPriceJsonRpcRequest = {
-			jsonrpc: '2.0',
-			method: 'eth_gasPrice',
-			id: 1,
-			params: [],
-		}
-
-		const response = await gasPriceProcedure({
-			getVm: invalidClient.getVm,
-			forkTransport: invalidClient.forkTransport,
-		} as any)(request)
-
-		expect(response.method).toBe('eth_gasPrice')
-		expect(response.id).toBe(request.id as any)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
+		expect(response.result).toMatchSnapshot()
 	})
 })

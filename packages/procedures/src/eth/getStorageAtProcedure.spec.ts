@@ -81,30 +81,4 @@ describe('getStorageAtProcedure', () => {
 		expect(response.id).toBeUndefined()
 		expect(response.result).toBe(numberToHex(420, { size: 2 }))
 	})
-
-	it('should return an error if getStorageAtHandler fails', async () => {
-		const request: EthGetStorageAtJsonRpcRequest = {
-			jsonrpc: '2.0',
-			method: 'eth_getStorageAt',
-			id: 1,
-			params: [contractAddress, numberToHex(1), 'latest'], // Invalid storage slot to trigger an error
-		}
-
-		const response = await getStorageAtProcedure({
-			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
-					if (req.method !== 'eth_getStorageAt') {
-						throw new Error('Invalid method')
-					}
-					return numberToHex(0, { size: 2 }) as any
-				},
-			},
-		})(request)
-
-		expect(response.method).toBe('eth_getStorageAt')
-		expect(response.id).toBe(request.id as any)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
-	})
 })

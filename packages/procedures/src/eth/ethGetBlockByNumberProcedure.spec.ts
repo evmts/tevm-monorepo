@@ -2,11 +2,14 @@ import { describe, expect, it, beforeEach } from 'bun:test'
 import { createBaseClient, type BaseClient } from '@tevm/base-client'
 import { ethGetBlockByNumberJsonRpcProcedure } from './ethGetBlockByNumberProcedure.js'
 import type { EthGetBlockByNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { mineHandler } from '@tevm/actions'
 
 let client: BaseClient
 
-beforeEach(() => {
+beforeEach(async () => {
 	client = createBaseClient()
+	await mineHandler(client)()
+	await mineHandler(client)()
 })
 
 describe('ethGetBlockByNumberJsonRpcProcedure', () => {

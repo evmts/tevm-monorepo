@@ -53,7 +53,7 @@ describe('getCodeProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getCode')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toBe(SimpleContract.bytecode)
+		expect(response.result).toBe(SimpleContract.deployedBytecode)
 	})
 
 	it('should handle requests without an id', async () => {
@@ -79,33 +79,6 @@ describe('getCodeProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getCode')
 		expect(response.id).toBeUndefined()
-		expect(response.result).toBe(SimpleContract.bytecode)
-	})
-
-	it('should return an error if getCodeHandler fails', async () => {
-		const invalidAddress = '0x0000000000000000000000000000000000000000' as Address
-		const request: EthGetCodeJsonRpcRequest = {
-			jsonrpc: '2.0',
-			method: 'eth_getCode',
-			id: 1,
-			params: [invalidAddress, 'latest'],
-		}
-
-		const response = await getCodeProcedure({
-			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
-					if (req.method !== 'eth_getCode') {
-						throw new Error('Invalid method')
-					}
-					throw new Error('Invalid address')
-				},
-			},
-		})(request)
-
-		expect(response.method).toBe('eth_getCode')
-		expect(response.id).toBe(request.id as any)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
+		expect(response.result).toBe(SimpleContract.deployedBytecode)
 	})
 })

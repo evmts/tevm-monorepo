@@ -105,7 +105,10 @@ describe('createHandlers', () => {
 			id: 1,
 			params: ['0x1', '0x1'],
 		})
-		expect(res).toMatchSnapshot()
+		expect(res.id).toBe(1)
+		expect(res.error).toBeUndefined()
+		expect(res.method).toBe('tevm_mine')
+		expect(res.result?.blockHashes).toHaveLength(1)
 	})
 
 	it('should handle tevm_contract', async () => {
