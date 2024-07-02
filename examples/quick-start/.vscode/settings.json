@@ -1,0 +1,34 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // This makes sure the ts-plugin is loaded without needing the vscode plugin
+  "typescript.tsserver.pluginPaths": [
+    "@tevm/ts-plugin"
+  ],
+  "editor.formatOnSaveMode": "file",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "editorconfig.generateAuto": false,
+  "files.trimTrailingWhitespace": true,
+  "solidity.packageDefaultDependenciesContractsDirectory": "src",
+  "solidity.packageDefaultDependenciesDirectory": "lib",
+  "solidity.compileUsingRemoteVersion": "v0.8.17",
+  "search.exclude": {
+    "lib": true,
+    "pnpm-lock.yaml": true
+  },
+  "files.associations": {
+    ".gas-snapshot": "julia",
+    "base.json": "jsonc"
+  }
+}
