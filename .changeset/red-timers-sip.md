@@ -1,8 +1,8 @@
 ---
-"@tevm/procedures": minor
-"@tevm/actions": minor
+"@tevm/procedures": patch
+"@tevm/actions": patch
 "@tevm/memory-client": minor
-"tevm": minor
+"tevm": patch
 ---
 
 Added Load State and Dump State to the API.

@@ -1,6 +1,6 @@
 ---
-"@tevm/base-client": minor
-"@tevm/procedures": minor
+"@tevm/base-client": patch
+"@tevm/procedures": patch
 ---
 
 Added more json-rpc methods

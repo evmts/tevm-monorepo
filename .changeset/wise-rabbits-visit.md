@@ -1,7 +1,7 @@
 ---
-"@tevm/actions": minor
+"@tevm/actions": patch
 "@tevm/memory-client": minor
-"tevm": minor
+"tevm": patch
 ---
 
 Added support for generating access lists

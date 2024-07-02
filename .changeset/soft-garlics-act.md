@@ -1,6 +1,6 @@
 ---
 "@tevm/memory-client": minor
-"@tevm/decorators": minor
+"@tevm/decorators": patch
 "@tevm/contract": minor
 ---
 
