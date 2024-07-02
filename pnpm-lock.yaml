@@ -1791,9 +1791,6 @@ importers:
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
