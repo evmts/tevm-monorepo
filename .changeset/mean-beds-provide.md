@@ -1,5 +1,5 @@
 ---
-"@tevm/test-utils": patch
+"@tevm/test-utils": minor
 ---
 
 Added simpleContract to testutils

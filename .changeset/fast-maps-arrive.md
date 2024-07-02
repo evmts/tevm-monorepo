@@ -1,5 +1,5 @@
 ---
-"@tevm/jsonrpc": patch
+"@tevm/jsonrpc": minor
 ---
 
 Added functionality for passing custom headers

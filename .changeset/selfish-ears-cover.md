@@ -1,7 +1,7 @@
 ---
 "@tevm/memory-client": minor
-"@tevm/client-types": patch
-"@tevm/http-client": patch
+"@tevm/client-types": minor
+"@tevm/http-client": minor
 "@tevm/viem": minor
 ---
 

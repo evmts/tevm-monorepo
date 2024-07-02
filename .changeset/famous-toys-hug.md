@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures": patch
+"@tevm/procedures": minor
 ---
 
 Added anvil_setStorageAt and anvil_reset

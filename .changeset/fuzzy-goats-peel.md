@@ -1,5 +1,5 @@
 ---
-"@tevm/actions": patch
+"@tevm/actions": minor
 "@tevm/memory-client": minor
 ---
 

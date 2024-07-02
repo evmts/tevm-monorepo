@@ -1,7 +1,7 @@
 ---
 "@tevm/memory-client": minor
-"@tevm/base-client": patch
-"@tevm/common": patch
+"@tevm/base-client": minor
+"@tevm/common": minor
 ---
 
 Added multicall3 on genesis to tevm devnet

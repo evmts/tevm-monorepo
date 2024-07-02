@@ -1,6 +1,6 @@
 ---
 "@tevm/memory-client": minor
-"@tevm/base-client": patch
+"@tevm/base-client": minor
 ---
 
 [Breaking] Made both createMemoryClient and createBaseClient synchronous

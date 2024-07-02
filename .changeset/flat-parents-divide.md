@@ -1,7 +1,7 @@
 ---
-"@tevm/actions": patch
+"@tevm/actions": minor
 "@tevm/memory-client": minor
-"@tevm/decorators": patch
+"@tevm/decorators": minor
 ---
 
 Added deployHandler to tevm

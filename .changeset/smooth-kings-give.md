@@ -1,6 +1,6 @@
 ---
 "@tevm/server": minor
-"tevm": patch
+"tevm": minor
 ---
 
 Added Next.js and Express handlers to @tevm/server

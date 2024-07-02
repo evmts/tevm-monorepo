@@ -1,5 +1,5 @@
 ---
-"@tevm/actions": patch
+"@tevm/actions": minor
 ---
 
 Added support for ethGetLogs

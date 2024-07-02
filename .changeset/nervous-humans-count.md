@@ -1,12 +1,12 @@
 ---
-"@tevm/actions": patch
+"@tevm/actions": minor
 "@tevm/memory-client": minor
-"@tevm/http-client": patch
-"@tevm/predeploys": patch
-"@tevm/procedures": patch
+"@tevm/http-client": minor
+"@tevm/predeploys": minor
+"@tevm/procedures": minor
 "@tevm/viem": minor
 "@tevm/state": minor
-"tevm": patch
+"tevm": minor
 ---
 
 Updated tevm call actions to not modify the state by default unless createTransaction: true is set

@@ -1,8 +1,8 @@
 ---
-"@tevm/actions": patch
-"@tevm/base-client": patch
+"@tevm/actions": minor
+"@tevm/base-client": minor
 "@tevm/memory-client": minor
-"tevm": patch
+"tevm": minor
 ---
 
 Added support for automining.
