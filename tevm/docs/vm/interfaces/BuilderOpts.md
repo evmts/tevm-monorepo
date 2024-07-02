@@ -128,7 +128,7 @@ Default: true
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:159
+packages/vm/types/utils/BuilderOpts.d.ts:15
 
 ***
 

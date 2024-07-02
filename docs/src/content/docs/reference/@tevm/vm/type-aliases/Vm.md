@@ -11,7 +11,7 @@ title: "Vm"
 
 ### buildBlock
 
-> **buildBlock**: `BuildBlock`
+> **buildBlock**: [`BuildBlock`](/reference/tevm/vm/type-aliases/buildblock/)
 
 ### deepCopy()
 
@@ -23,7 +23,7 @@ title: "Vm"
 
 ### runBlock
 
-> **runBlock**: `RunBlock`
+> **runBlock**: [`RunBlock`](/reference/tevm/vm/type-aliases/runblock/)
 
 ## Defined in
 

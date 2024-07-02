@@ -31,7 +31,7 @@ Bloom bitvector
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L24)
+[packages/vm/src/utils/BaseTxReceipt.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L14)
 
 ***
 
@@ -47,7 +47,7 @@ Cumulative gas used in the block including this tx
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L20)
+[packages/vm/src/utils/BaseTxReceipt.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L10)
 
 ***
 
@@ -63,7 +63,7 @@ Logs emitted
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L28)
+[packages/vm/src/utils/BaseTxReceipt.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L18)
 
 ***
 
@@ -75,4 +75,4 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L50)
+[packages/vm/src/utils/PostByzantiumTxReceipt.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/PostByzantiumTxReceipt.ts#L11)

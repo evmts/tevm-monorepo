@@ -20,4 +20,4 @@
 
 ## Defined in
 
-[packages/vm/src/utils/types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L82)
+[packages/vm/src/utils/VMProfileOpts.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L1)

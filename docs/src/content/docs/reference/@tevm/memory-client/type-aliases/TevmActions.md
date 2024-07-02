@@ -17,19 +17,11 @@ These actions allow for low-level access to the EVM, managing accounts, deployin
 
 ## Type declaration
 
-<<<<<<< HEAD
-### \tevm
-
-> **\tevm**: `BaseClient` & `Eip1193RequestProvider` & `TevmActionsApi` & `object`
-
-Low level access to tevm can be accessed via `tevmtevm`. These apis are not guaranteed to be stable
-=======
 ### tevm
 
 > **tevm**: `BaseClient` & `Eip1193RequestProvider`
 
 Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
->>>>>>> c91776e12e72b31f8c05f936f6969b3c8c67ba60
 
 #### See
 
@@ -42,42 +34,17 @@ import { createMemoryClient } from 'tevm'
 
 const memoryClient = createMemoryClient()
 
-<<<<<<< HEAD
-// low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlocl(...)
-const {blockchain, evm, stateManager} = vm
-=======
 // low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
 const vm = await memoryClient.tevm.getVm()
 vm.runBlock(...)
 const { blockchain, evm, stateManager } = vm
->>>>>>> c91776e12e72b31f8c05f936f6969b3c8c67ba60
 blockchain.addBlock(...)
 evm.runCall(...)
 stateManager.putAccount(...)
 
 const mempool = await memoryClient.tevm.getTxPool()
 const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-<<<<<<< HEAD
-````
-
-#### Type declaration
-
-##### request
-
-> **request**: `EIP1193RequestFn`
-
-##### send
-
-> **send**: `TevmJsonRpcRequestHandler`
-
-##### sendBulk
-
-> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
-=======
 ```
->>>>>>> c91776e12e72b31f8c05f936f6969b3c8c67ba60
 
 ### tevmCall
 
@@ -112,11 +79,6 @@ In addition to making basic calls, you can also do advanced things like:
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
 - Send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-<<<<<<< HEAD
-Same as calling `client.tevm.call`
-`
-=======
->>>>>>> c91776e12e72b31f8c05f936f6969b3c8c67ba60
 
 ### tevmContract
 
@@ -299,10 +261,6 @@ const balance = await client.tevmContract({
   args: [client.address, 1n],
 })
 ```
-<<<<<<< HEAD
-Same as calling `client.tevm.script`
-`
-=======
 
 :::caution[Deprecated]
 in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmContract` as the API is supported and more.
@@ -310,7 +268,6 @@ in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmCon
 and only supported deployedBytecode with no constructor arguments. `tevmContract` supports using deployedBytecode as well.
 Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
 before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
->>>>>>> c91776e12e72b31f8c05f936f6969b3c8c67ba60
 :::
 
 ### tevmSetAccount

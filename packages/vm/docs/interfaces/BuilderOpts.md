@@ -128,7 +128,7 @@ Default: true
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L174)
+[packages/vm/src/utils/BuilderOpts.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuilderOpts.ts#L16)
 
 ***
 

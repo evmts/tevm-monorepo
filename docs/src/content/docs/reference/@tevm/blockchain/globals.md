@@ -17,6 +17,7 @@ title: "@tevm/blockchain"
 - [deepCopy](/reference/tevm/blockchain/functions/deepcopy/)
 - [delBlock](/reference/tevm/blockchain/functions/delblock/)
 - [getBlock](/reference/tevm/blockchain/functions/getblock/)
+- [getBlockFromRpc](/reference/tevm/blockchain/functions/getblockfromrpc/)
 - [getCanonicalHeadBlock](/reference/tevm/blockchain/functions/getcanonicalheadblock/)
 - [getIteratorHead](/reference/tevm/blockchain/functions/getiteratorhead/)
 - [putBlock](/reference/tevm/blockchain/functions/putblock/)

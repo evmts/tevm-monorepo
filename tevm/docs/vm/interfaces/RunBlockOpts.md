@@ -18,7 +18,7 @@ The @ethereumjs/block to process
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:202
+packages/vm/types/utils/RunBlockOpts.d.ts:10
 
 ***
 
@@ -34,7 +34,7 @@ Default: true
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:214
+packages/vm/types/utils/RunBlockOpts.d.ts:22
 
 ***
 
@@ -49,7 +49,7 @@ Defaults to `false`.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:221
+packages/vm/types/utils/RunBlockOpts.d.ts:29
 
 ***
 
@@ -62,7 +62,7 @@ to the `RunTxResult` returned.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:263
+packages/vm/types/utils/RunBlockOpts.d.ts:71
 
 ***
 
@@ -74,7 +74,7 @@ Root of the state trie
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:206
+packages/vm/types/utils/RunBlockOpts.d.ts:14
 
 ***
 
@@ -88,11 +88,11 @@ for older Hfs.
 Additionally it is possible to pass in a specific TD value to support live-Merge-HF
 transitions. Note that this should only be needed in very rare and specific scenarios.
 
-Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
+Default: `false` (HF is set to whatever default HF is set by the Common instance)
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:258
+packages/vm/types/utils/RunBlockOpts.d.ts:66
 
 ***
 
@@ -105,7 +105,7 @@ balance equal equal to the upfront cost (gas limit * gas price + transaction val
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:248
+packages/vm/types/utils/RunBlockOpts.d.ts:56
 
 ***
 
@@ -119,7 +119,7 @@ the transactions, the transaction trie and the uncle hash.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:227
+packages/vm/types/utils/RunBlockOpts.d.ts:35
 
 ***
 
@@ -132,7 +132,7 @@ and tx
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:232
+packages/vm/types/utils/RunBlockOpts.d.ts:40
 
 ***
 
@@ -147,7 +147,7 @@ consensus of the chain has moved ahead.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:239
+packages/vm/types/utils/RunBlockOpts.d.ts:47
 
 ***
 
@@ -159,4 +159,4 @@ If true, skips the nonce check
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:243
+packages/vm/types/utils/RunBlockOpts.d.ts:51

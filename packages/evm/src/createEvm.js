@@ -1,32 +1,31 @@
 import { createLogger } from '@tevm/logger'
-import type { CreateEvmOptions } from './CreateEvmOptions.js'
 import { Evm } from './Evm.js'
 
 /**
- * Creates the Tevm Evm to execute ethereum bytecode
+ * Creates the Tevm Evm to execute ethereum bytecode internally.
  * Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
- * @returns A tevm Evm instance with tevm specific defaults
+ * @example
  * ```typescript
- * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
- * import { mainnet } from 'tevm/common'
- * import { createStateManager } from 'tevm/state'
- * import { createBlockchain } from 'tevm/blockchain'}
- * import { EthjsAddress } from 'tevm/utils'
+ * import { createEvm } from '@tevm/evm'
+ * import { mainnet } from '@tevm/common'
+ * import { createBlockchain } from '@tevm/blockchain'
+ * import { createStateManager } from '@tevm/state-manager'
+ * import { EthjsAddress } from '@tevm/utils'
  *
- * const evm: Evm = createEvm({
- *   common: mainnet.copy(),
- *   stateManager: createStateManager(),
- *   blockchain: createBlockchain(),
- * })
+ * const common = mainnet.clone()
+ * const stateManager = createStateManager({ common })
+ * const blockchain = createBlockchain({ common })
+ * const evm = await createEvm({ common, stateManager, blockchain})
  *
- * const result = await evm.runCall({
- *   to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
+ * const runCallResult = await evm.runCall({
+ *   to: EthjsAddress.from(`0x${'00'.repeat(20)}`),
  *   value: 420n,
  *   skipBalance: true,
  * })
- *
- * console.log(result)
- * ```
+ * console.log(runCallResult)
+ * ````
+ * @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
+ * @returns {Promise<import('./Evm.js').Evm>} A tevm Evm instance with tevm specific defaults
  */
 export const createEvm = async ({
 	common,
@@ -36,7 +35,7 @@ export const createEvm = async ({
 	profiler,
 	allowUnlimitedContractSize,
 	loggingLevel,
-}: CreateEvmOptions): Promise<Evm> => {
+}) => {
 	const logger = createLogger({
 		name: '@tevm/evm',
 		level: loggingLevel ?? 'warn',
@@ -63,7 +62,7 @@ export const createEvm = async ({
 	})
 	if (loggingLevel === 'trace') {
 		// we are hacking ethereumjs logger into working with our logger
-		const evmAny = evm as any
+		const evmAny = /** @type {any} */ (evm)
 		evmAny.DEBUG = true
 		evmAny._debug = logger
 	}

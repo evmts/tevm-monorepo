@@ -110,7 +110,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:54
+packages/evm/dist/index.d.ts:95
 
 ***
 
@@ -352,7 +352,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:53
+packages/evm/dist/index.d.ts:94
 
 ***
 
@@ -390,7 +390,7 @@ A new EVM
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:52
+packages/evm/dist/index.d.ts:93
 
 ***
 
@@ -594,7 +594,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:50
+packages/evm/dist/index.d.ts:91
 
 ***
 
@@ -702,7 +702,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:51
+packages/evm/dist/index.d.ts:92
 
 ***
 

@@ -17,7 +17,7 @@ The Bloom filter
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L295)
+[packages/vm/src/utils/ApplyBlockResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L13)
 
 ***
 
@@ -29,7 +29,7 @@ The gas used after executing the block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:299](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L299)
+[packages/vm/src/utils/ApplyBlockResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L17)
 
 ***
 
@@ -41,7 +41,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:315](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L315)
+[packages/vm/src/utils/ApplyBlockResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L33)
 
 ***
 
@@ -53,7 +53,7 @@ Receipts generated for transactions in the block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L307)
+[packages/vm/src/utils/ApplyBlockResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L25)
 
 ***
 
@@ -65,7 +65,7 @@ The receipt root after executing the block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L303)
+[packages/vm/src/utils/ApplyBlockResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L21)
 
 ***
 
@@ -77,4 +77,4 @@ Results of executing the transactions in the block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:311](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L311)
+[packages/vm/src/utils/ApplyBlockResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L29)

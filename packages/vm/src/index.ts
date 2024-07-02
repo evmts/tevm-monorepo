@@ -1,9 +1,28 @@
 export type { Vm } from './Vm.js'
 export { createVm } from './createVm.js'
 export { type CreateVmOptions } from './CreateVmOptions.js'
-export { runTx } from './actions/runTx.js'
-export { runBlock } from './actions/runBlock.js'
-export { buildBlock } from './actions/buildBlock.js'
+export {} from './actions/runBlock.js'
+export {
+	type BuildBlock,
+	type RunBlock,
+	type BlockStatus,
+	type AddTransactionError,
+	type DeepCopy,
+	buildBlock,
+	BlockBuilder,
+	BuildStatus,
+	runTx,
+	generateTxReceipt,
+	runBlock,
+	txLogsBloom,
+	rewardAccount,
+	execHardfork,
+	encodeReceipt,
+	calculateMinerReward,
+	accumulateParentBeaconBlockRoot,
+	accumulateParentBlockHash,
+	deepCopy,
+} from './actions/index.js'
 export type {
 	VMOpts,
 	RunTxOpts,
@@ -24,4 +43,4 @@ export type {
 	TxReceipt,
 	VMProfilerOpts,
 	EVMProfilerOpts,
-} from './utils/types.js'
+} from './utils/index.js'

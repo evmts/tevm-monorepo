@@ -27,7 +27,7 @@ Bloom bitvector
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L24)
+[packages/vm/src/utils/BaseTxReceipt.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L14)
 
 ***
 
@@ -43,7 +43,7 @@ Cumulative gas used in the block including this tx
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L20)
+[packages/vm/src/utils/BaseTxReceipt.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L10)
 
 ***
 
@@ -59,7 +59,7 @@ Logs emitted
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L28)
+[packages/vm/src/utils/BaseTxReceipt.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L18)
 
 ***
 
@@ -71,4 +71,4 @@ Intermediary state root
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L39)
+[packages/vm/src/utils/PrebyzantiumTxReceipt.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/PrebyzantiumTxReceipt.ts#L11)

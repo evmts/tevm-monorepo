@@ -26,7 +26,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:399
+packages/vm/types/utils/RunTxResult.d.ts:35
 
 ***
 
@@ -42,7 +42,7 @@ The amount of ether used by this transaction
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:381
+packages/vm/types/utils/RunTxResult.d.ts:17
 
 ***
 
@@ -58,7 +58,7 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:411
+packages/vm/types/utils/RunTxResult.d.ts:47
 
 ***
 
@@ -74,7 +74,7 @@ Bloom filter resulted from transaction
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:377
+packages/vm/types/utils/RunTxResult.d.ts:13
 
 ***
 
@@ -122,7 +122,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:395
+packages/vm/types/utils/RunTxResult.d.ts:31
 
 ***
 
@@ -138,7 +138,7 @@ The value that accrues to the miner by this transaction
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:407
+packages/vm/types/utils/RunTxResult.d.ts:43
 
 ***
 
@@ -154,7 +154,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:403
+packages/vm/types/utils/RunTxResult.d.ts:39
 
 ***
 
@@ -170,7 +170,7 @@ The tx receipt
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:385
+packages/vm/types/utils/RunTxResult.d.ts:21
 
 ***
 
@@ -188,7 +188,7 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:391
+packages/vm/types/utils/RunTxResult.d.ts:27
 
 ***
 
@@ -200,4 +200,4 @@ The transaction which just got finished
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:417
+packages/vm/types/utils/AfterTxEvent.d.ts:7

@@ -18,7 +18,7 @@ The block and builder options to use.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:178
+packages/vm/types/utils/BuildBlockOpts.d.ts:21
 
 ***
 
@@ -31,7 +31,7 @@ Defaults used for any values not provided.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:173
+packages/vm/types/utils/BuildBlockOpts.d.ts:16
 
 ***
 
@@ -43,7 +43,7 @@ The parent block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:168
+packages/vm/types/utils/BuildBlockOpts.d.ts:11
 
 ***
 
@@ -53,4 +53,4 @@ packages/vm/types/utils/types.d.ts:168
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:174
+packages/vm/types/utils/BuildBlockOpts.d.ts:17

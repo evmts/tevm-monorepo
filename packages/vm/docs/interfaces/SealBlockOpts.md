@@ -19,7 +19,7 @@ Overrides the value passed in the constructor.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L213)
+[packages/vm/src/utils/SealBlockOpts.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L15)
 
 ***
 
@@ -32,4 +32,4 @@ Overrides the value passed in the constructor.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L207)
+[packages/vm/src/utils/SealBlockOpts.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L9)

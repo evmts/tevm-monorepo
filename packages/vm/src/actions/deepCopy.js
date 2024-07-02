@@ -2,6 +2,12 @@ import { MisconfiguredClientError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createBaseVm } from '../createBaseVm.js'
 
+// TODO CreateEvmError
+// TODO CreateBaseVmError
+/**
+ * @typedef {MisconfiguredClientError} DeepCopyError
+ */
+
 /**
  * @typedef {() => Promise<import('../BaseVm.js').BaseVm>} DeepCopy
  */
@@ -9,6 +15,7 @@ import { createBaseVm } from '../createBaseVm.js'
 /**
  * @param {import('../BaseVm.js').BaseVm} baseVm
  * @returns {DeepCopy}
+ * @throws {DeepCopyError}
  */
 export const deepCopy = (baseVm) => async () => {
 	await baseVm.ready()

@@ -18,7 +18,7 @@ The Bloom filter
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:272
+packages/vm/types/utils/ApplyBlockResult.d.ts:12
 
 ***
 
@@ -30,7 +30,7 @@ The gas used after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:276
+packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 ***
 
@@ -42,7 +42,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:292
+packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 ***
 
@@ -54,7 +54,7 @@ Receipts generated for transactions in the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:284
+packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 ***
 
@@ -66,7 +66,7 @@ The receipt root after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:280
+packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 ***
 
@@ -78,4 +78,4 @@ Results of executing the transactions in the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:288
+packages/vm/types/utils/ApplyBlockResult.d.ts:28

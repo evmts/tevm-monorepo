@@ -28,7 +28,7 @@ Default: `false`
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:124
+packages/vm/types/utils/VMOpts.d.ts:54
 
 ***
 
@@ -40,7 +40,7 @@ A Blockchain object for storing/retrieving blocks
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:110
+packages/vm/types/utils/VMOpts.d.ts:40
 
 ***
 
@@ -70,7 +70,7 @@ Default setup if no `Common` instance is provided:
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:102
+packages/vm/types/utils/VMOpts.d.ts:32
 
 ***
 
@@ -82,7 +82,7 @@ Use a custom EVM to run Messages on. If this is not present, use the default EVM
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:143
+packages/vm/types/utils/VMOpts.d.ts:73
 
 ***
 
@@ -95,7 +95,7 @@ stateManager not provided for the VM, defaults to an empty state
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:129
+packages/vm/types/utils/VMOpts.d.ts:59
 
 ***
 
@@ -105,7 +105,7 @@ packages/vm/types/utils/types.d.ts:129
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:144
+packages/vm/types/utils/VMOpts.d.ts:74
 
 ***
 
@@ -123,7 +123,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:139
+packages/vm/types/utils/VMOpts.d.ts:69
 
 ***
 
@@ -135,4 +135,4 @@ A [StateManager](../../state/interfaces/StateManager.md) instance to use as the 
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:106
+packages/vm/types/utils/VMOpts.d.ts:36

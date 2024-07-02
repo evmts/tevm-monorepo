@@ -17,7 +17,7 @@ The @ethereumjs/block to process
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L223)
+[packages/vm/src/utils/RunBlockOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L12)
 
 ***
 
@@ -33,7 +33,7 @@ Default: true
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L235)
+[packages/vm/src/utils/RunBlockOpts.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L24)
 
 ***
 
@@ -48,7 +48,7 @@ Defaults to `false`.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:242](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L242)
+[packages/vm/src/utils/RunBlockOpts.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L31)
 
 ***
 
@@ -61,7 +61,7 @@ to the `RunTxResult` returned.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:285](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L285)
+[packages/vm/src/utils/RunBlockOpts.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L74)
 
 ***
 
@@ -73,7 +73,7 @@ Root of the state trie
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L227)
+[packages/vm/src/utils/RunBlockOpts.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L16)
 
 ***
 
@@ -91,7 +91,7 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:279](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L279)
+[packages/vm/src/utils/RunBlockOpts.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L68)
 
 ***
 
@@ -104,7 +104,7 @@ balance equal equal to the upfront cost (gas limit * gas price + transaction val
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:269](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L269)
+[packages/vm/src/utils/RunBlockOpts.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L58)
 
 ***
 
@@ -118,7 +118,7 @@ the transactions, the transaction trie and the uncle hash.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:248](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L248)
+[packages/vm/src/utils/RunBlockOpts.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L37)
 
 ***
 
@@ -131,7 +131,7 @@ and tx
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L253)
+[packages/vm/src/utils/RunBlockOpts.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L42)
 
 ***
 
@@ -146,7 +146,7 @@ consensus of the chain has moved ahead.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L260)
+[packages/vm/src/utils/RunBlockOpts.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L49)
 
 ***
 
@@ -158,4 +158,4 @@ If true, skips the nonce check
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:264](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L264)
+[packages/vm/src/utils/RunBlockOpts.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L53)
