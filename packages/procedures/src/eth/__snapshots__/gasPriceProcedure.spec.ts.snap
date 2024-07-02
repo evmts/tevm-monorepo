@@ -1,0 +1,5 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gasPriceProcedure should return the current gas price 1`] = `"0x3b9aca00"`;
+
+exports[`gasPriceProcedure should handle requests without an id 1`] = `"0x3b9aca00"`;

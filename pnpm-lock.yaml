@@ -1863,6 +1863,12 @@ importers:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -1878,6 +1884,9 @@ importers:
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
@@ -24468,7 +24477,7 @@ snapshots:
     dependencies:
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
-  isows@1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)):
+  isows@1.0.4(ws@8.17.1(bufferutil@4.0.8)):
     dependencies:
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
@@ -29386,7 +29395,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.0(typescript@5.5.2)(zod@3.23.8)
-      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4))
+      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8))
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.5.2
@@ -29403,7 +29412,7 @@ snapshots:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 1.0.4(typescript@5.5.2)(zod@3.23.8)
-      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4))
+      isows: 1.0.4(ws@8.17.1(bufferutil@4.0.8))
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       typescript: 5.5.2
