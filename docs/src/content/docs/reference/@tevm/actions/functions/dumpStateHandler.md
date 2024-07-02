@@ -11,16 +11,22 @@ title: "dumpStateHandler"
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
+The TEVM client instance.
+
 • **options?** = `{}`
+
+Optional settings.
 
 • **options.throwOnFail?**: `undefined` \| `boolean`
 
-whether to default to throwing or not when errors occur
+Whether to throw an error if the state dump fails.
 
 ## Returns
 
 [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
+- The state dump handler function.
+
 ## Defined in
 
-[packages/actions/src/DumpState/dumpStateHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L11)
+[packages/actions/src/DumpState/dumpStateHandler.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L30)

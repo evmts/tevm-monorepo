@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/mine/mineProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/mineProcedure.js#L9)
+[procedures/src/mine/mineProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/mineProcedure.js#L10)

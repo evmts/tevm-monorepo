@@ -32,12 +32,120 @@ Re-exports [TevmActions](../index/type-aliases/TevmActions.md)
 
 ***
 
+### TevmContract
+
+Re-exports [TevmContract](../index/type-aliases/TevmContract.md)
+
+***
+
 ### TevmRpcSchema
 
 Re-exports [TevmRpcSchema](../index/type-aliases/TevmRpcSchema.md)
 
 ***
 
+### TevmTransport
+
+Re-exports [TevmTransport](../index/type-aliases/TevmTransport.md)
+
+***
+
+### TevmViemActionsApi
+
+Re-exports [TevmViemActionsApi](../index/type-aliases/TevmViemActionsApi.md)
+
+***
+
+### createClient
+
+Re-exports [createClient](../index/functions/createClient.md)
+
+***
+
 ### createMemoryClient
 
 Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
+
+***
+
+### createTevmTransport
+
+Re-exports [createTevmTransport](../index/functions/createTevmTransport.md)
+
+***
+
+### publicActions
+
+Re-exports [publicActions](../index/functions/publicActions.md)
+
+***
+
+### testActions
+
+Re-exports [testActions](../index/functions/testActions.md)
+
+***
+
+### tevmCall
+
+Re-exports [tevmCall](../index/functions/tevmCall.md)
+
+***
+
+### tevmContract
+
+Re-exports [tevmContract](../index/functions/tevmContract.md)
+
+***
+
+### tevmDeploy
+
+Re-exports [tevmDeploy](../index/functions/tevmDeploy.md)
+
+***
+
+### tevmDumpState
+
+Re-exports [tevmDumpState](../index/functions/tevmDumpState.md)
+
+***
+
+### tevmGetAccount
+
+Re-exports [tevmGetAccount](../index/functions/tevmGetAccount.md)
+
+***
+
+### tevmLoadState
+
+Re-exports [tevmLoadState](../index/functions/tevmLoadState.md)
+
+***
+
+### tevmMine
+
+Re-exports [tevmMine](../index/functions/tevmMine.md)
+
+***
+
+### tevmReady
+
+Re-exports [tevmReady](../index/functions/tevmReady.md)
+
+***
+
+### tevmSetAccount
+
+Re-exports [tevmSetAccount](../index/functions/tevmSetAccount.md)
+
+***
+
+### tevmViemActions
+
+Re-exports [tevmViemActions](../index/functions/tevmViemActions.md)
+
+***
+
+### walletActions
+
+Re-exports [walletActions](../index/functions/walletActions.md)

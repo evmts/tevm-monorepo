@@ -137,9 +137,6 @@ export const callHandlerOpts = async (client, params) => {
 	if (params.selfdestruct) {
 		opts.selfdestruct = params.selfdestruct
 	}
-	if (params.skipBalance) {
-		opts.skipBalance = Boolean(params.skipBalance)
-	}
 	if (params.gasRefund) {
 		opts.gasRefund = BigInt(params.gasRefund)
 	}
@@ -162,6 +159,11 @@ export const callHandlerOpts = async (client, params) => {
 		params.from ||
 		(params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
 	if (origin) {
+		if (params.skipBalance !== undefined) {
+			opts.skipBalance = Boolean(params.skipBalance)
+		} else {
+			opts.skipBalance = caller === `0x${'00'.repeat(20)}` && (params.createTransaction ?? false) === false
+		}
 		opts.origin = EthjsAddress.fromString(origin)
 	}
 	if (params.gas) {

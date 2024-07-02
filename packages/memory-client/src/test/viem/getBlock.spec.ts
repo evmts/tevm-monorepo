@@ -24,7 +24,7 @@ beforeEach(async () => {
 
 describe('getBlock', () => {
 	it('should work with blockHash', async () => {
-		const vm = await mc._tevm.getVm()
+		const vm = await mc.tevm.getVm()
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
 		const { hash, timestamp, transactions, ...result } = await mc.getBlock({
 			blockHash: bytesToHex(latest.header.hash()),

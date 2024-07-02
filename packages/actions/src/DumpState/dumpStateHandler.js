@@ -2,10 +2,29 @@ import { InternalError } from '@tevm/errors'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 /**
- * @param {import("@tevm/base-client").BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import('../DumpState/DumpStateHandlerType.js').DumpStateHandler}
+ * Creates a handler for dumping the TEVM state.
+ *
+ * @param {import("@tevm/base-client").BaseClient} client - The TEVM client instance.
+ * @param {object} [options] - Optional settings.
+ * @param {boolean} [options.throwOnFail] - Whether to throw an error if the state dump fails.
+ * @returns {import('../DumpState/DumpStateHandlerType.js').DumpStateHandler} - The state dump handler function.
+ *
+ * @example
+ * ```typescript
+ * import { createBaseClient } from 'tevm/base-client'
+ * import { dumpStateHandler } from 'tevm/actions'
+ *
+ * const client = createBaseClient()
+ *
+ * const dumpState = dumpStateHandler(client)
+ *
+ * const { state, errors } = await dumpState()
+ * if (errors) {
+ *   console.error(errors)
+ * } else {
+ *   console.log(state)
+ * }
+ * ```
  */
 export const dumpStateHandler =
 	(client, options = {}) =>
@@ -16,7 +35,7 @@ export const dumpStateHandler =
 				return { state: await vm.stateManager.dumpCanonicalGenesis() }
 			}
 			throw new InternalError(
-				'Unsupported state manager. Must use a Tevm state manager from `@tevm/state` package. This may indicate a bug in tevm internal code.',
+				'Unsupported state manager. Must use a TEVM state manager from `@tevm/state` package. This may indicate a bug in TEVM internal code.',
 			)
 		} catch (e) {
 			return maybeThrowOnFail(throwOnFail ?? true, {

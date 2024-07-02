@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
@@ -17,6 +18,7 @@ describe('createHttpHandler', () => {
 		'should create an http handler',
 		async () => {
 			const tevm = createMemoryClient({
+				common: optimism,
 				fork: {
 					transport: transports.optimism,
 					blockTag: 115325880n,

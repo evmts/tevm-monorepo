@@ -2,12 +2,26 @@ import { InvalidRequestError } from '@tevm/errors'
 import { zLoadStateParams } from './zLoadStateParams.js'
 
 /**
+ * Type for errors returned by validateLoadStateParams.
  * @typedef {InvalidRequestError} ValidateLoadStateParamsError
  */
 
 /**
- * @param {import('./LoadStateParams.js').LoadStateParams} action
- * @returns {Array<ValidateLoadStateParamsError>}
+ * Validates the parameters for loading the state into the VM.
+ *
+ * @param {import('./LoadStateParams.js').LoadStateParams} action - The parameters for the load state action.
+ * @returns {Array<ValidateLoadStateParamsError>} - An array of errors, if any.
+ *
+ * @example
+ * ```typescript
+ * import { validateLoadStateParams } from 'tevm/actions'
+ *
+ * const params = { state: {...}  }
+ * const errors = validateLoadStateParams(params)
+ * if (errors.length > 0) {
+ *   console.error('Validation errors:', errors)
+ * }
+ * ```
  */
 export const validateLoadStateParams = (action) => {
 	/**

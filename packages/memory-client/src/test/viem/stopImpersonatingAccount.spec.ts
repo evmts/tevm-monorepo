@@ -13,8 +13,8 @@ describe('stopImpersonatingAccount', () => {
 	it('should work as expected', async () => {
 		const address = `0x${'ab'.repeat(20)}` as const
 		await mc.impersonateAccount({ address })
-		expect(mc._tevm.getImpersonatedAccount()).toBe(getAddress(address))
+		expect(mc.tevm.getImpersonatedAccount()).toBe(getAddress(address))
 		await mc.stopImpersonatingAccount({ address })
-		expect(mc._tevm.getImpersonatedAccount()).toBeUndefined()
+		expect(mc.tevm.getImpersonatedAccount()).toBeUndefined()
 	})
 })

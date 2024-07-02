@@ -4,14 +4,34 @@ import { decodeErrorResult, isHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
-// TODO let's add warnings to other calls such that if the contract is still in mempool we throw a warning telling user they need to mine a block
-
 /**
- * Creates an DeployHandler for handling deploying a contract to tevm
- * @param {import('@tevm/base-client').BaseClient} client
- * @param {object} [options]
- * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
- * @returns {import("../Deploy/DeployHandlerType.js").DeployHandler}
+ * Creates a tree-shakable instance of `deployHandler` for handling the deployment of contracts to TEVM.
+ * This function uses `callHandler` under the hood to execute the deployment.
+ *
+ * Note: This is the internal logic used by higher-level APIs such as `tevmDeploy`.
+ *
+ * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {object} [options] - Optional parameters.
+ * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
+ * @returns {import("../Deploy/DeployHandlerType.js").DeployHandler} The deploy handler function.
+ * @throws {import('./TevmCallError.js').TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
+ *
+ * @example
+ * ```typescript
+ * import { createBaseClient } from 'tevm/base-client'
+ * import { deployHandler } from 'tevm/actions'
+ *
+ * const client = createBaseClient()
+ *
+ * const deploy = deployHandler(client)
+ *
+ * const res = await deploy({
+ *   bytecode: '0x...', // Contract bytecode
+ *   abi: [{...}], // ABI array
+ *   args: [1, 2, 3], // Constructor arguments
+ *   createTransaction: true,
+ * })
+ * ```
  */
 export const deployHandler =
 	(client, { throwOnFail: throwOnFailDefault = true } = {}) =>

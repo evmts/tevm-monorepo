@@ -193,6 +193,12 @@ Memory client is similar to `anvil`. It can:
 - Run special scripts that have advanced functionality
 - Extremely hackable. Can mint yourself eth, run traces, modify storage, and more
 
+:::tip[Use tree shakable actions]
+This guide uses MemoryClient. A batteries included client. This client helps make exploring tevm for the first time easier.
+If you are building a UI with tevm, it is highly recomended you use `createClient` from viem along with `createTevmTransport` and tree shakable actions.
+See [client guide](https://tevm.sh/learn/clients/) for more info
+:::
+
 ### 1. In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
 ```typescript
@@ -479,13 +485,13 @@ console.log(callResult.txHash);
 If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API [`getTxPool()`](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclient/#gettxpool)
 
 ```typescript
-// the _tevm means this api is not guaranteed to remain stable
-const mempool = await memoryClient._tevm.txPool();
+// the tevm means this api is not guaranteed to remain stable
+const mempool = await memoryClient.tevm.txPool();
 console.log(await mempool.getBySenderAddress(EthjsAddress.fromString(address)));
 ```
 
 :::tip[Using the low level api]
-The low level API on tevm such as `_tevm.getTxPool()` is the same API used internally to implement all tevm actions. Tevm believes in remaining maximally hackable and nearly anything you can imagine is possible if you use the low level api.
+The low level API on tevm such as `tevm.getTxPool()` is the same API used internally to implement all tevm actions. Tevm believes in remaining maximally hackable and nearly anything you can imagine is possible if you use the low level api.
 The actions api is a more streamlined experience and much more stable to breaking changes however so use the low level api at your own risk.
 :::
 
@@ -1132,7 +1138,7 @@ There are more features to explore such as
 - After calling `getVm()` you can explore the vm methods such as `vm.buildBlock`, stateManager methods such as `vm.stateManager.setStateRoot`, blockchain methods `vm.blockchain.getBlock`, and evm methods like `vm.evm.runCall`. This low level api uses the [`ethereumjs api`](https://github.com/ethereumjs)
 - Set `loggingLevel` in memory client to `trace` or `debug`
 - Configure the tevm bundler to read foundry remappings
-- Hack the evm using `client._tevm.getVm().evm.on` to log evm steps or modify the result of them (see ethereumjs generated evm docs for more information on this)
+- Hack the evm using `client.tevm.getVm().evm.on` to log evm steps or modify the result of them (see ethereumjs generated evm docs for more information on this)
 - Use the `statepersister` to persist tevm state to local storage
 - Run tevm as an http server
 

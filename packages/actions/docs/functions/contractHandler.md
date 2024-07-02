@@ -12,16 +12,22 @@
 
 • **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
+The TEVM base client instance.
+
 • **options?** = `{}`
+
+Optional parameters.
 
 • **options.throwOnFail?**: `undefined` \| `boolean` = `true`
 
-whether to default to throwing or not when errors occur
+Whether to throw an error on failure.
 
 ## Returns
 
 [`ContractHandler`](../type-aliases/ContractHandler.md)
 
+The contract handler function.
+
 ## Defined in
 
-[packages/actions/src/Contract/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L16)
+[packages/actions/src/Contract/contractHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L38)

@@ -168,7 +168,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	tevm
 
 	/**
-	 * @param {(import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi) | {_tevm: import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}} client An instance of a tevm Memory client or BaseClient with TevmSendApi
+	 * @param {(import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi) | {tevm: import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}} client An instance of a tevm Memory client or BaseClient with TevmSendApi
 	 */
 	constructor(client) {
 		super(undefined, {
@@ -177,7 +177,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 			batchStallTime: 0,
 			cacheTimeout: -1,
 		})
-		this.tevm = '_tevm' in client ? client._tevm : client
+		this.tevm = 'tevm' in client ? client.tevm : client
 	}
 
 	/**

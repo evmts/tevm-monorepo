@@ -8,15 +8,21 @@
 
 > **TevmActions**: `object`
 
-Powerful actions for interacting with the EVM
+Provides powerful actions for interacting with the EVM using the TEVM API.
+These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
+
+## See
+
+ - [Actions Guide](https://tevm.sh/learn/actions/)
+ - [Viem Actions API](https://viem.sh/docs/actions/introduction)
 
 ## Type declaration
 
-### \_tevm
+### tevm
 
-> **\_tevm**: [`BaseClient`](BaseClient.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md) & [`TevmActionsApi`](TevmActionsApi.md) & `object`
+> **tevm**: [`BaseClient`](BaseClient.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md)
 
-Low level access to tevm can be accessed via `tevm_tevm`. These apis are not guaranteed to be stable
+Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
 
 #### See
 
@@ -29,43 +35,31 @@ import { createMemoryClient } from 'tevm'
 
 const memoryClient = createMemoryClient()
 
-// low level access to the tevm vm, blockchain, evm, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient._tevm.getVm()
-vm.runBlocl(...)
-const {blockchain, evm, stateManager} = vm
+// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
+const vm = await memoryClient.tevm.getVm()
+vm.runBlock(...)
+const { blockchain, evm, stateManager } = vm
 blockchain.addBlock(...)
 evm.runCall(...)
 stateManager.putAccount(...)
 
-const mempool = await memoryClient._tevm.getTxPool()
-const receiptsManager = await memoryClient._tevm.getReceiptsManager()
-````
-
-#### Type declaration
-
-##### request
-
-> **request**: [`EIP1193RequestFn`](EIP1193RequestFn.md)
-
-##### send
-
-> **send**: [`TevmJsonRpcRequestHandler`](TevmJsonRpcRequestHandler.md)
-
-##### sendBulk
-
-> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](TevmJsonRpcBulkRequestHandler.md)
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
+```
 
 ### tevmCall
 
 > **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)\[`"call"`\]
 
-A powerful low level api for executing calls and sending transactions
-See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference
-See [CallResult](https://tevm.sh/reference/tevm/precompiles/type-aliases/callresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
-```typescript`
+A powerful low level API for executing calls and sending transactions.
+See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference.
+See [CallResult](https://tevm.sh/reference/tevm/actions/type-aliases/callresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
+```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from 'tevm/contract'
 
@@ -76,29 +70,29 @@ const token = ERC20.withAddress(`0x${'0721'.repeat(10)}`)
 await client.setAccount(token)
 
 const balance = await client.tevmCall({
- to: token.address,
- data: encodeFunctionData(token.read.balanceOf, [token.address]),
+  to: token.address,
+  data: encodeFunctionData(token.read.balanceOf, [token.address]),
 })
 ```
-In addiiton to making basic call, you can also do advanced things like
-- impersonate accounts via passing in `from`, `caller`, or `origin`
-- set the call depth via `depth`
+In addition to making basic calls, you can also do advanced things like:
+- Impersonate accounts via passing in `from`, `caller`, or `origin`
+- Set the call depth via `depth`
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
-- send as a transaction with `createTransaction: true`
+- Send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
-Same as calling `client._tevm.call`
-`
 
 ### tevmContract
 
 > **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)\[`"contract"`\]
 
-A powerful low level api for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
-See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference]
-See [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+A powerful low level API for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
+See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
+See [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
@@ -112,26 +106,28 @@ const balance = await client.tevmContract({
   args: [token.address],
 })
 ```
-In addiiton to making basic call, you can also do advanced things like
-- impersonate accounts via passing in `from`, `caller`, or `origin`
-- set the call depth via `depth`
+In addition to making basic calls, you can also do advanced things like:
+- Impersonate accounts via passing in `from`, `caller`, or `origin`
+- Set the call depth via `depth`
 - Create a trace or access list using `createTrace: true` or `createAccessList: true`
-- send as a transaction with `createTransaction: true`
+- Send as a transaction with `createTransaction: true`
 For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/)
 
 ### tevmDeploy
 
 > **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
 
-Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options
+Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options.
 
 #### See
 
- - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams/) for options reference
- - [DeployResult](https://tevm.sh/reference/tevm/actions/type-aliases/deployresult/) for return values reference
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+ - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams/) for options reference.
+ - [DeployResult](https://tevm.sh/reference/tevm/actions/type-aliases/deployresult/) for return values reference.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
 import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
@@ -145,13 +141,14 @@ const deploymentResult = await client.tevmDeploy({
   args: ['TokenName', 18, 'SYMBOL'],
 })
 
-console.log(deployedResult.createdAddressess)
+console.log(deploymentResult.createdAddress)
+```
 
 ### tevmDumpState
 
 > **tevmDumpState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"dumpState"`\]
 
-Dumps a json serializable state from the evm. This can be useful for persisting and restoring state between processes
+Dumps a JSON serializable state from the EVM. This can be useful for persisting and restoring state between processes.
 
 #### Example
 
@@ -167,14 +164,13 @@ fs.writeFileSync('state.json', JSON.stringify(state))
 
 > **tevmGetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"getAccount"`\]
 
-Gets the account state of an account
-It does not return the storage state by default but can if `returnStorage` is set to `true`. In forked mode the storage is only the storage
-Tevm has cached and may not represent all the onchain storage.
+Gets the account state of an account. It does not return the storage state by default but can if `returnStorage` is set to `true`.
+In forked mode, the storage is only the storage TEVM has cached and may not represent all the on-chain storage.
 
 #### See
 
- - [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference
- - [GetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountresult/) for return values reference
+ - [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference.
+ - [GetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountresult/) for return values reference.
 
 #### Example
 
@@ -193,7 +189,7 @@ const account = await client.tevmGetAccount({
 
 > **tevmLoadState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"loadState"`\]
 
-Loads a json serializable state into the evm. This can be useful for persisting and restoring state between processes
+Loads a JSON serializable state into the EVM. This can be useful for persisting and restoring state between processes.
 
 #### Example
 
@@ -206,13 +202,13 @@ const client = createMemoryClient()
 const state = fs.readFileSync('state.json', 'utf8')
 
 await client.tevmLoadState(state)
-````
+```
 
 ### tevmMine
 
 > **tevmMine**: [`TevmActionsApi`](TevmActionsApi.md)\[`"mine"`\]
 
-Mines a new block with all pending transactions. In `manual` mode you must call this manually before the cannonical head state is updated
+Mines a new block with all pending transactions. In `manual` mode you must call this manually before the canonical head state is updated.
 
 #### Example
 
@@ -228,8 +224,8 @@ await client.tevmMine()
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
-Returns a promise that resolves when the tevm is ready
-This is not needed to explicitly be called as all actions will wait for the tevm to be ready
+Returns a promise that resolves when the TEVM is ready.
+This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
 #### Example
 
@@ -240,7 +236,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client._tevm.ready()`
+Same as calling `client.tevm.ready()`
 
 #### Returns
 
@@ -252,14 +248,16 @@ Same as calling `client._tevm.ready()`
 
 #### Deprecated
 
-in favor of tevmContract. To migrate simply replace `tevmScript` with `tevmContract` as the api is supported and more
-tevmContract also now supports deploying contracts with constructor arguments too via `params.code`. TevmScript previously did not support this
-and only supported deployedBytecode with no constructor arguments. tevmContract supports using deployedBytecode as waell.
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise it will be a call`. You must also mine the transaction
-before it updates the cannonical head state.` This can be avoided by setting mining mode to `auto` when using createMemoryClient`
-@example
+in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmContract` as the API is supported and more.
+`tevmContract` also now supports deploying contracts with constructor arguments too via `params.code`. `tevmScript` previously did not support this
+and only supported deployedBytecode with no constructor arguments. `tevmContract` supports using deployedBytecode as well.
+Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
+before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
+
+#### Example
+
 ```typescript
-import { createMemoryClient } from 'tevm'`
+import { createMemoryClient } from 'tevm'
 import { ERC20 } from './MyERC721.sol'
 
 const client = createMemoryClient()
@@ -272,24 +270,17 @@ const balance = await client.tevmContract({
   args: [client.address, 1n],
 })
 ```
-Same as calling `client._tevm.script`
-`
 
 ### tevmSetAccount
 
 > **tevmSetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"setAccount"`\]
 
-Sets any property of an account including
-- it's balance
-- It's nonce
-- It's contract deployedBytecode
-- It's contract state
-- more
+Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
 
 #### See
 
- - [SetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountparams/) for options reference]
- - [SetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountresult/) for return values reference
+ - [SetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountparams/) for options reference.
+ - [SetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/setaccountresult/) for return values reference.
 
 #### Example
 
@@ -300,16 +291,16 @@ import { SimpleContract } from 'tevm/contract'
 const client = createMemoryClient()
 
 await client.tevmSetAccount({
- address: `0x${'0123'.repeat(10)}`,
- balance: 100n,
- nonce: 1n,
- deployedBytecode: SimpleContract.deployedBytecode,
- state: {
-   [`0x${'0'.repeat(64)}`]: numberToHex(420n),
- }
+  address: `0x${'0123'.repeat(10)}`,
+  balance: 100n,
+  nonce: 1n,
+  deployedBytecode: SimpleContract.deployedBytecode,
+  state: {
+    [`0x${'0'.repeat(64)}`]: numberToHex(420n),
+  }
 })
 ```
 
 ## Defined in
 
-packages/memory-client/types/TevmActions.d.ts:7
+packages/memory-client/types/TevmActions.d.ts:10

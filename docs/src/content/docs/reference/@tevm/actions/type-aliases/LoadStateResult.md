@@ -7,7 +7,30 @@ title: "LoadStateResult"
 
 > **LoadStateResult**\<`ErrorType`\>: `object`
 
-Result of LoadState Method
+Result of the `tevmLoadState` method.
+
+This type represents the result returned by the `tevmLoadState` method. It includes any errors that might have occurred during the state loading process.
+
+## Example
+
+```typescript
+import { createClient } from 'tevm'
+import { loadStateHandler } from 'tevm/actions'
+import fs from 'fs'
+
+const client = createClient()
+const loadState = loadStateHandler(client)
+
+const state = JSON.parse(fs.readFileSync('state.json'))
+const result = await loadState({ state })
+if (result.errors) {
+  console.error('Failed to load state:', result.errors)
+}
+```
+
+## See
+
+[TevmLoadStateError](../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
 
 ## Type Parameters
 
@@ -19,8 +42,8 @@ Result of LoadState Method
 
 > `optional` **errors**: `ErrorType`[]
 
-Description of the exception, if any occurred
+Description of the exception, if any occurred.
 
 ## Defined in
 
-[packages/actions/src/LoadState/LoadStateResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L6)
+[packages/actions/src/LoadState/LoadStateResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L26)

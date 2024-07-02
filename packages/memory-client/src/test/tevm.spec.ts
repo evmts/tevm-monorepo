@@ -112,10 +112,10 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			})
 			await tevm.mine({ blocks: 1 })
 			expect(
-				(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
+				(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
 			).toBe(transferAmount)
 			expect(
-				(await (await tevm._tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
+				(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
 			).toBe(286183069n)
 			// TODO test other return properties
 		})

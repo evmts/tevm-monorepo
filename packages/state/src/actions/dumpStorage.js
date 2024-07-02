@@ -6,18 +6,19 @@ import { bytesToHex } from 'viem'
  * Both are represented as `0x` prefixed hex strings.
  * @type {import("../state-types/index.js").StateAction<'dumpStorage'>}
  */
-export const dumpStorage =
-	({ caches: { storage } }) =>
-	(address) => {
-		const storageMap = storage.dump(address)
-		/**
-		 * @type {import("@tevm/common").StorageDump}
-		 */
-		const dump = {}
-		if (storageMap !== undefined) {
-			for (const slot of storageMap) {
-				dump[slot[0]] = bytesToHex(slot[1])
-			}
+export const dumpStorage = (vm) => (address) => {
+	const {
+		caches: { storage },
+	} = vm
+	const storageMap = storage.dump(address)
+	/**
+	 * @type {import("@tevm/common").StorageDump}
+	 */
+	const dump = {}
+	if (storageMap !== undefined) {
+		for (const slot of storageMap) {
+			dump[slot[0]] = bytesToHex(slot[1])
 		}
-		return Promise.resolve(dump)
 	}
+	return Promise.resolve(dump)
+}

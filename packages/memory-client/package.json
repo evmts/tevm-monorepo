@@ -62,10 +62,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tevm/actions": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
+    "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/predeploys": "workspace:^",
     "@tevm/procedures": "workspace:^",

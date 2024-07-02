@@ -4389,5 +4389,6 @@ exports[`callHandlerOpts should handle empty params 1`] = `
       0,
     ],
   },
+  "skipBalance": true,
 }
 `;
