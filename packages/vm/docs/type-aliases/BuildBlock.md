@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / BuildBlock
 
-# Type alias: BuildBlock()
+# Type Alias: BuildBlock()
 
 > **BuildBlock**: (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
@@ -16,6 +16,6 @@
 
 `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/buildBlock.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L5)

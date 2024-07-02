@@ -18,6 +18,6 @@
 
 `bigint`
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/runBlock.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runBlock.ts#L439)

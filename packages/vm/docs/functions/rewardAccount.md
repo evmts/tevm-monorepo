@@ -20,6 +20,6 @@
 
 `Promise`\<`EthjsAccount`\>
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/runBlock.ts:447](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runBlock.ts#L447)

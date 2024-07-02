@@ -1,8 +1,8 @@
+import { EVM, getActivePrecompiles } from '@ethereumjs/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+import type { StateManager } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { EVMOpts } from './EvmOpts.js'
-import { EVM, getActivePrecompiles } from '@ethereumjs/evm'
-import type { StateManager } from '@tevm/state'
 
 /**
  * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM

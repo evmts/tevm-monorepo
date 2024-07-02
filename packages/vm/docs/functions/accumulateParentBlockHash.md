@@ -32,6 +32,6 @@ also add the currently available past blockhashes which are available by BLOCKHA
 
 `Promise`\<`void`\>
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/runBlock.ts:250](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runBlock.ts#L250)

@@ -4,10 +4,10 @@
 
 [@tevm/vm](../globals.md) / AddTransactionError
 
-# Type alias: AddTransactionError
+# Type Alias: AddTransactionError
 
 > **AddTransactionError**: `InvalidGasLimitError` \| `EipNotEnabledError` \| `BlockGasLimitExceededError`
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L44)

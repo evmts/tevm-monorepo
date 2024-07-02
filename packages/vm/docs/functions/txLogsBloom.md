@@ -6,9 +6,9 @@
 
 # Function: txLogsBloom()
 
-`Internal`
-
 > **txLogsBloom**(`logs`, `common`): `Bloom`
+
+**`Internal`**
 
 Creates a bloom filter from the logs.
 
@@ -28,6 +28,6 @@ The common object.')}
 
 ## Throws
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/txLogsBloom.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/txLogsBloom.js#L11)

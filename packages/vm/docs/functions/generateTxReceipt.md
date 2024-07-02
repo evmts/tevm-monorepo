@@ -34,6 +34,6 @@ Returns the tx receipt.
 
 `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/generateTxResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/generateTxResult.ts#L23)

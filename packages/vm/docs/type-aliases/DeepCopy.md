@@ -4,16 +4,16 @@
 
 [@tevm/vm](../globals.md) / DeepCopy
 
-# Type alias: DeepCopy()
+# Type Alias: DeepCopy()
 
 > **DeepCopy**\<\>: () => `Promise`\<`BaseVm`\>
 
-## Type parameters
+## Type Parameters
 
 ## Returns
 
 `Promise`\<`BaseVm`\>
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/deepCopy.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/deepCopy.js#L12)

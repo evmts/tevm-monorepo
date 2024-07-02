@@ -4,10 +4,10 @@
 
 [@tevm/vm](../globals.md) / BlockStatus
 
-# Type alias: BlockStatus
+# Type Alias: BlockStatus
 
 > **BlockStatus**: `object` \| `object`
 
-## Source
+## Defined in
 
 [packages/vm/src/actions/BlockStatus.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockStatus.ts#L4)

@@ -12,7 +12,7 @@
 
 > **Build**: `"build"`
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BuildStatus.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BuildStatus.ts#L3)
 
@@ -22,7 +22,7 @@
 
 > **Pending**: `"pending"`
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BuildStatus.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BuildStatus.ts#L4)
 
@@ -32,6 +32,6 @@
 
 > **Reverted**: `"reverted"`
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BuildStatus.ts:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BuildStatus.ts#L2)

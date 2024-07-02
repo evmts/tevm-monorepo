@@ -22,24 +22,11 @@
 
 [`BlockBuilder`](BlockBuilder.md)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L78)
 
 ## Properties
-
-### \_minerValue
-
-> `private` **\_minerValue**: `bigint`
-
-Value of the block, represented by the final transaction fees
-acruing to the miner.
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L59)
-
-***
 
 ### blobGasUsed
 
@@ -47,39 +34,9 @@ acruing to the miner.
 
 The cumulative blob gas used by the blobs in a block
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L54)
-
-***
-
-### blockOpts
-
-> `private` **blockOpts**: [`BuilderOpts`](../interfaces/BuilderOpts.md)
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L62)
-
-***
-
-### blockStatus
-
-> `private` **blockStatus**: [`BlockStatus`](../type-aliases/BlockStatus.md)
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L68)
-
-***
-
-### checkpointed
-
-> `private` **checkpointed**: `boolean` = `false`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L67)
 
 ***
 
@@ -89,59 +46,9 @@ The cumulative blob gas used by the blobs in a block
 
 The cumulative gas used by the transactions added to the block.
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L50)
-
-***
-
-### headerData
-
-> `private` **headerData**: `HeaderData`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L63)
-
-***
-
-### transactionResults
-
-> `private` **transactionResults**: [`RunTxResult`](../interfaces/RunTxResult.md)[] = `[]`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L65)
-
-***
-
-### transactions
-
-> `private` **transactions**: (`TypedTransaction` \| `ImpersonatedTx`)[] = `[]`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L64)
-
-***
-
-### vm
-
-> `private` `readonly` **vm**: `BaseVm`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L61)
-
-***
-
-### withdrawals?
-
-> `private` `optional` **withdrawals**: `Withdrawal`[]
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L66)
 
 ## Accessors
 
@@ -153,7 +60,7 @@ The cumulative gas used by the transactions added to the block.
 
 `bigint`
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L74)
 
@@ -167,7 +74,7 @@ The cumulative gas used by the transactions added to the block.
 
 [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L70)
 
@@ -186,7 +93,7 @@ the remaining gas in the block.
 
 • **tx**: `TypedTransaction` \| `ImpersonatedTx`
 
-• **\_\_namedParameters**= `{}`
+• **\_\_namedParameters** = `{}`
 
 • **\_\_namedParameters.skipHardForkValidation?**: `boolean`
 
@@ -194,7 +101,7 @@ the remaining gas in the block.
 
 `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L218)
 
@@ -222,25 +129,9 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 `Promise`\<`Block`\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:309](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L309)
-
-***
-
-### checkStatus()
-
-> `private` **checkStatus**(): `void`
-
-Throws if the block has already been built or reverted.
-
-#### Returns
-
-`void`
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L121)
 
 ***
 
@@ -252,7 +143,7 @@ Throws if the block has already been built or reverted.
 
 [`BlockStatus`](../type-aliases/BlockStatus.md)
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L130)
 
@@ -266,7 +157,7 @@ Throws if the block has already been built or reverted.
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:373](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L373)
 
@@ -282,25 +173,9 @@ Calculates and returns the logs bloom for the block.
 
 `Uint8Array`
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L147)
-
-***
-
-### processWithdrawals()
-
-> `private` **processWithdrawals**(): `Promise`\<`void`\>
-
-Adds the withdrawal amount to the withdrawal address
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L198)
 
 ***
 
@@ -314,7 +189,7 @@ Calculates and returns the receiptTrie for the block.
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L159)
 
@@ -330,25 +205,9 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:290](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L290)
-
-***
-
-### rewardMiner()
-
-> `private` **rewardMiner**(): `Promise`\<`void`\>
-
-Adds the block miner reward to the coinbase account.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Source
-
-[packages/vm/src/actions/BlockBuilder.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L179)
 
 ***
 
@@ -362,6 +221,6 @@ Calculates and returns the transactionsTrie for the block.
 
 `Promise`\<`Uint8Array`\>
 
-#### Source
+#### Defined in
 
 [packages/vm/src/actions/BlockBuilder.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L137)
