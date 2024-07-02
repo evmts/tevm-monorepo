@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/experimental-solc",
-	"version": "1.0.0-next.86",
+	"version": "2.0.0-next.86",
 	"private": false,
 	"description": "Experimental wrapper around solc",
 	"keywords": [
