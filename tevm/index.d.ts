@@ -8,7 +8,7 @@ export { Abi, AbiConstructor, AbiEvent, AbiFunction, AbiItemType, AbiParametersT
 export { StateOptions, TevmState } from '@tevm/state';
 export { EIP1193RequestFn, Eip1193RequestProvider, EthActionsApi, TevmActionsApi } from '@tevm/decorators';
 export { AutoMining, BaseClient, BaseClientOptions, CustomPrecompile, EIP1193EventEmitter, EIP1193EventMap, EIP1193Events, Extension, Filter, FilterType, GENESIS_STATE, Hardfork, IntervalMining, ManualMining, MiningConfig, ProviderConnectInfo, ProviderMessage, ProviderRpcError, createBaseClient, prefundedAccounts } from '@tevm/base-client';
-export { CreateMemoryClientFn, MemoryClient, MemoryClientOptions, TevmActions, TevmRpcSchema, createMemoryClient } from '@tevm/memory-client';
+export * from '@tevm/memory-client';
 export { tevmTransport } from '@tevm/viem';
 export { ConstructorArgument, defineCall, definePrecompile } from '@tevm/precompiles';
 export { CreateSyncStoragePersisterOptions, Storage, SyncStoragePersister, createSyncStoragePersister } from '@tevm/sync-storage-persister';
