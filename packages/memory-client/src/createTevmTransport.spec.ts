@@ -48,9 +48,7 @@ describe('createTevmTransport', () => {
 	it('should use the provided common object if available', async () => {
 		// TODO I shouldn't have to as any this
 		const transport = createTevmTransport({ common: base })({})
-
 		const { common } = await transport.value.tevm.getVm()
-
 		expect(common.id).toBe(base.id)
 	})
 })

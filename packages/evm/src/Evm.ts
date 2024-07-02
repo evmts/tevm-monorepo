@@ -1,5 +1,7 @@
-import { EVM } from '@ethereumjs/evm'
+import { EVM, getActivePrecompiles } from '@ethereumjs/evm'
+import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import type { StateManager } from '@tevm/state'
+import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { EVMOpts } from './EvmOpts.js'
 
 /**
@@ -23,6 +25,31 @@ import type { EVMOpts } from './EvmOpts.js'
  * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
  */
 export class Evm extends EVM {
+	public addCustomPrecompile(precompile: CustomPrecompile) {
+		if (this._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		this._customPrecompiles.push(precompile)
+		const mutableThis = this as unknown as { _precompiles: ReturnType<typeof getActivePrecompiles> }
+		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+	}
+	public removeCustomPrecompile(precompile: CustomPrecompile) {
+		if (this._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		const index = this._customPrecompiles.indexOf(precompile)
+		if (index === -1) {
+			throw new InvalidParamsError('Precompile not found')
+		}
+		this._customPrecompiles.splice(index, 1)
+		const mutableThis = this as unknown as { _precompiles: ReturnType<typeof getActivePrecompiles> }
+		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+	}
 	public declare static create: (options?: EVMOpts) => Promise<Evm>
 	public declare stateManager: StateManager
+	protected declare _customPrecompiles: CustomPrecompile[]
 }
