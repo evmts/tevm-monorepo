@@ -1,5 +1,5 @@
 ---
-"@tevm/utils": minor
+"@tevm/utils": patch
 ---
 
 Added serializeTransaction to `@tevm/utils`

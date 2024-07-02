@@ -1,26 +1,26 @@
 ---
 "@tevm/memory-client": minor
-"@tevm/client-types": minor
+"@tevm/client-types": patch
 "@tevm/schemas": minor
-"@tevm/base-client": minor
-"@tevm/http-client": minor
-"@tevm/precompiles": minor
-"@tevm/blockchain": minor
-"@tevm/decorators": minor
-"@tevm/predeploys": minor
-"@tevm/procedures": minor
+"@tevm/base-client": patch
+"@tevm/http-client": patch
+"@tevm/precompiles": patch
+"@tevm/blockchain": patch
+"@tevm/decorators": patch
+"@tevm/predeploys": patch
+"@tevm/procedures": patch
 "@tevm/revm": minor
 "@tevm/contract": minor
-"@tevm/actions": minor
-"@tevm/jsonrpc": minor
+"@tevm/actions": patch
+"@tevm/jsonrpc": patch
 "@tevm/viem": minor
-"@tevm/common": minor
-"@tevm/errors": minor
+"@tevm/common": patch
+"@tevm/errors": patch
 "@tevm/server": minor
-"@tevm/test-utils": minor
+"@tevm/test-utils": patch
 "@tevm/state": minor
-"@tevm/utils": minor
-"tevm": minor
+"@tevm/utils": patch
+"tevm": patch
 ---
 
 Add compatability for viem code property

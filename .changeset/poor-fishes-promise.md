@@ -1,7 +1,7 @@
 ---
-"@tevm/procedures": minor
-"@tevm/client-types": minor
-"tevm": minor
+"@tevm/procedures": patch
+"@tevm/client-types": patch
+"tevm": patch
 ---
 
 Added requestBulk action to execute an array of requests

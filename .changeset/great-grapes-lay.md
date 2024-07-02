@@ -1,9 +1,9 @@
 ---
 "@tevm/viem": minor
-"@tevm/procedures": minor
-"@tevm/actions": minor
+"@tevm/procedures": patch
+"@tevm/actions": patch
 "@tevm/memory-client": minor
-"tevm": minor
+"tevm": patch
 ---
 
 Added eth methods such as chainId getCode and getStorageAt to Tevm.eth.

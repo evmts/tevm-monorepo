@@ -1,6 +1,6 @@
 ---
 "@tevm/contract": minor
-"tevm": minor
+"tevm": patch
 ---
 
 Added code property for better compatability with new deployless calls from viem

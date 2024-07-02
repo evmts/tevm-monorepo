@@ -1,16 +1,16 @@
 ---
-"@tevm/actions": minor
+"@tevm/actions": patch
 "@tevm/memory-client": minor
 "@tevm/solc": minor
-"@tevm/base-client": minor
-"@tevm/procedures": minor
+"@tevm/base-client": patch
+"@tevm/procedures": patch
 "@tevm/ethers": minor
-"@tevm/jsonrpc": minor
-"@tevm/test-utils": minor
+"@tevm/jsonrpc": patch
+"@tevm/test-utils": patch
 "@tevm/state": minor
-"@tevm/utils": minor
-"@tevm/vm": minor
-"tevm": minor
+"@tevm/utils": patch
+"@tevm/vm": patch
+"tevm": patch
 ---
 
 Added more opstack gas information

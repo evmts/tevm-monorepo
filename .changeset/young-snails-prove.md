@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures": minor
+"@tevm/procedures": patch
 ---
 
 Added anvil_loadState
