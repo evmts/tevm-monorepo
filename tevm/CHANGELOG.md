@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.89
+
+### Patch Changes
+
+- [#1260](https://github.com/evmts/tevm-monorepo/pull/1260) [`7359a27`](https://github.com/evmts/tevm-monorepo/commit/7359a27f2cd8cabcea4c1f1edd6fc442083557e6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where new tree shakable apis were not being exported from main tevm package
+
 ## 1.1.0-next.88
 
 ### Patch Changes
