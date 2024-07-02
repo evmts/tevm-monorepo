@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { getAccountProcedure } from './getAccountProcedure.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { setAccountHandler } from '@tevm/actions'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
+import { getAccountProcedure } from './getAccountProcedure.js'
 
 let client: BaseClient
 

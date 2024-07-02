@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { numberToHex, type Address } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { deployHandler, mineHandler } from '@tevm/actions'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
-import { getStorageAtProcedure } from './getStorageAtProcedure.js'
-import { mineHandler, deployHandler } from '@tevm/actions'
+import { type Address, numberToHex } from '@tevm/utils'
 import type { EthGetStorageAtJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 
 let client: BaseClient
 let contractAddress: Address

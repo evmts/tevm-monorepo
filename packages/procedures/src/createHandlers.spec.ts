@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
-import { createHandlers, type RequestHandlers } from './createHandlers.js'
 import { ERC20 } from '@tevm/contract'
 import { numberToHex } from '@tevm/utils'
+import { type RequestHandlers, createHandlers } from './createHandlers.js'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 
 describe('createHandlers', () => {
-	let client
+	let client: any
 	let handlers: RequestHandlers
 
 	beforeEach(() => {

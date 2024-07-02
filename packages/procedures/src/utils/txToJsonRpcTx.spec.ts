@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test'
-import { txToJsonRpcTx } from './txToJsonRpcTx.js'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
-import { EthjsAddress } from '@tevm/utils'
 import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
-import { transports } from '@tevm/test-utils'
 import { optimism } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
+import { FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { EthjsAddress } from '@tevm/utils'
+import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 
 describe(txToJsonRpcTx.name, () => {
 	it('should work', async () => {

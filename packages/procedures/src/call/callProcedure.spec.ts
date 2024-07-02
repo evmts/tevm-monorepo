@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { setAccountHandler } from '@tevm/actions'
-import { callProcedure } from './callProcedure.js'
-import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
-import { encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { ERC20 } from '@tevm/contract'
+import { encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
+import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
+import { callProcedure } from './callProcedure.js'
 
 let client: BaseClient
 

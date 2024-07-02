@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { getCodeProcedure } from './getCodeProcedure.js'
-import { mineHandler, deployHandler } from '@tevm/actions'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { deployHandler, mineHandler } from '@tevm/actions'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address } from '@tevm/utils'
 import type { EthGetCodeJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { getCodeProcedure } from './getCodeProcedure.js'
 
 let client: BaseClient
 let contractAddress: Address

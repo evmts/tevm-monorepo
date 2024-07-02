@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient, type Filter } from '@tevm/base-client'
-import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
-import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { type BaseClient, type Filter, createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
-import { createImpersonatedTx, FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
+import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
 
 let client: BaseClient
 

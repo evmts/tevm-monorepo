@@ -1,8 +1,7 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { gasPriceProcedure } from './gasPriceProcedure.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthGasPriceJsonRpcRequest } from './EthJsonRpcRequest.js'
-import { numberToHex } from '@tevm/utils'
+import { gasPriceProcedure } from './gasPriceProcedure.js'
 
 let client: BaseClient
 

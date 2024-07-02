@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { EthjsAddress, bytesToHex, keccak256, numberToHex } from '@tevm/utils'
-import { setAccountProcedure } from './setAccountProcedure.js'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { ERC20 } from '@tevm/contract'
+import { EthjsAddress, bytesToHex, keccak256, numberToHex } from '@tevm/utils'
 import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
+import { setAccountProcedure } from './setAccountProcedure.js'
 
 let client: BaseClient
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const

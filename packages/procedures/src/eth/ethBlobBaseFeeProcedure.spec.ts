@@ -1,5 +1,5 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { ethBlobBaseFeeJsonRpcProcedure } from './ethBlobBaseFeeProcedure.js'
 
 let client: BaseClient

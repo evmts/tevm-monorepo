@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { setAccountHandler } from '@tevm/actions'
-import { dumpStateProcedure } from './dumpStateProcedure.js'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { DumpStateJsonRpcRequest } from './DumpStateJsonRpcRequest.js'
+import { dumpStateProcedure } from './dumpStateProcedure.js'
 
 let client: BaseClient
 
