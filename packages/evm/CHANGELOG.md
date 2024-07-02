@@ -1,5 +1,22 @@
 # @tevm/state
 
+## 1.1.0-next.88
+
+### Minor Changes
+
+- [#1253](https://github.com/evmts/tevm-monorepo/pull/1253) [`cb2dd84`](https://github.com/evmts/tevm-monorepo/commit/cb2dd844a043fd956ab72b90ec21b80c4f606a64) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support to evm to add and remove precompiles
+
+### Patch Changes
+
+- [#1237](https://github.com/evmts/tevm-monorepo/pull/1237) [`a3a8437`](https://github.com/evmts/tevm-monorepo/commit/a3a843794d11e1bec86e3747c1d07d91de53ee54) Thanks [@roninjin10](https://github.com/roninjin10)! - Internal changes to vm package
+
+- Updated dependencies [[`e6f57e8`](https://github.com/evmts/tevm-monorepo/commit/e6f57e8ec4765b0520c850cff92370de50b1cc47), [`0136b52`](https://github.com/evmts/tevm-monorepo/commit/0136b528fade3f557406ee52d24be35cfc2a752c), [`c91776e`](https://github.com/evmts/tevm-monorepo/commit/c91776e12e72b31f8c05f936f6969b3c8c67ba60)]:
+  - @tevm/utils@1.1.0-next.88
+  - @tevm/state@1.1.0-next.88
+  - @tevm/blockchain@1.1.0-next.88
+  - @tevm/common@1.1.0-next.88
+  - @tevm/predeploys@1.1.0-next.88
+
 ## 2.0.0-next.86
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @tevm/state
 
+## 1.1.0-next.88
+
+### Patch Changes
+
+- Updated dependencies [[`a3a8437`](https://github.com/evmts/tevm-monorepo/commit/a3a843794d11e1bec86e3747c1d07d91de53ee54), [`a3a8437`](https://github.com/evmts/tevm-monorepo/commit/a3a843794d11e1bec86e3747c1d07d91de53ee54), [`e6f57e8`](https://github.com/evmts/tevm-monorepo/commit/e6f57e8ec4765b0520c850cff92370de50b1cc47), [`c91776e`](https://github.com/evmts/tevm-monorepo/commit/c91776e12e72b31f8c05f936f6969b3c8c67ba60), [`0136b52`](https://github.com/evmts/tevm-monorepo/commit/0136b528fade3f557406ee52d24be35cfc2a752c)]:
+  - @tevm/vm@1.1.0-next.88
+  - @tevm/utils@1.1.0-next.88
+  - @tevm/block@1.1.0-next.88
+  - @tevm/tx@1.1.0-next.88
+
 ## 2.0.0-next.86
 
 ### Patch Changes

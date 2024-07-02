@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/state",
-	"version": "1.0.0-next.86",
+	"version": "1.1.0-next.88",
 	"private": false,
 	"description": "A custom implementation of ethereumjs state manager",
 	"keywords": [

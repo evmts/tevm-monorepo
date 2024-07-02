@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 1.1.0-next.88
+
+### Minor Changes
+
+- [#1248](https://github.com/evmts/tevm-monorepo/pull/1248) [`e6f57e8`](https://github.com/evmts/tevm-monorepo/commit/e6f57e8ec4765b0520c850cff92370de50b1cc47) Thanks [@roninjin10](https://github.com/roninjin10)! - Added PREFUNDED_PRIVATE_KEYS PREFUNDED_ACCOUNTS and PREFUNDED_ADDRESSES to @tevm/utils. These are all an array of 10 objects including hex private keys, hex public keys, and viem accounts respectively. The viem accounts can be used to add an account to `memoryClient` via passing in `account: PREFUNDED_ACCOUNTS[0]` to `createMemoryClient`
+
+- [#1250](https://github.com/evmts/tevm-monorepo/pull/1250) [`0136b52`](https://github.com/evmts/tevm-monorepo/commit/0136b528fade3f557406ee52d24be35cfc2a752c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added invariant method to asserting something is not null
+
 ## 2.0.0-next.86
 
 ### Patch Changes

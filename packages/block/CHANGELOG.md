@@ -1,5 +1,16 @@
 # @tevm/state
 
+## 1.1.0-next.88
+
+### Patch Changes
+
+- [#1252](https://github.com/evmts/tevm-monorepo/pull/1252) [`c91776e`](https://github.com/evmts/tevm-monorepo/commit/c91776e12e72b31f8c05f936f6969b3c8c67ba60) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated block package forking to throw a more useful error message when chain ids do not match
+
+- Updated dependencies [[`e6f57e8`](https://github.com/evmts/tevm-monorepo/commit/e6f57e8ec4765b0520c850cff92370de50b1cc47), [`0136b52`](https://github.com/evmts/tevm-monorepo/commit/0136b528fade3f557406ee52d24be35cfc2a752c)]:
+  - @tevm/utils@1.1.0-next.88
+  - @tevm/common@1.1.0-next.88
+  - @tevm/tx@1.1.0-next.88
+
 ## 2.0.0-next.86
 
 ### Patch Changes
