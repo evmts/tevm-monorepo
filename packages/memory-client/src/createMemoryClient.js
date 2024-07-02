@@ -1,7 +1,7 @@
-import { tevmDefault } from '@tevm/common'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
+import { tevmDefault } from '@tevm/common'
 
 /**
  * Creates a {@link MemoryClient} which is a viem client with an in-memory Ethereum client as its transport.
@@ -187,11 +187,25 @@ import { tevmViemActions } from './tevmViemActions.js'
  * ```
  */
 export const createMemoryClient = (options) => {
+	const common = (() => {
+		if (options?.common !== undefined) {
+			return options.common
+		}
+		if (options?.fork?.transport) {
+			// we don't want to return default chain if forking because we don't know chain id yet
+			return undefined
+		}
+		// but if not forking we know common will be default
+		return tevmDefault
+	})()
 	const memoryClient = createClient({
 		...options,
-		transport: createTevmTransport(options),
+		transport: createTevmTransport({
+			...options,
+			...(common !== undefined ? { common } : {}),
+		}),
 		type: 'tevm',
-		...(options?.common !== undefined ? { chain: options.common } : { chain: tevmDefault }),
+		...(common !== undefined ? { chain: common } : {}),
 	})
 		.extend(tevmViemActions())
 		.extend(publicActions)
