@@ -1,6 +1,6 @@
 ---
-"@tevm/receipt-manager": patch
-"@tevm/blockchain": patch
+"@tevm/receipt-manager": minor
+"@tevm/blockchain": minor
 ---
 
 Moved receipts manager to it's own package

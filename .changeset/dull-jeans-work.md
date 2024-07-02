@@ -1,24 +1,24 @@
 ---
-"@tevm/procedures": patch
-"@tevm/actions": patch
+"@tevm/procedures": minor
+"@tevm/actions": minor
 "@tevm/memory-client": minor
-"@tevm/client-types": patch
-"@tevm/base-client": patch
-"@tevm/http-client": patch
-"@tevm/precompiles": patch
-"@tevm/blockchain": patch
-"@tevm/decorators": patch
-"@tevm/predeploys": patch
+"@tevm/client-types": minor
+"@tevm/base-client": minor
+"@tevm/http-client": minor
+"@tevm/precompiles": minor
+"@tevm/blockchain": minor
+"@tevm/decorators": minor
+"@tevm/predeploys": minor
 "@tevm/ethers": minor
 "@tevm/contract": minor
 "@tevm/viem": minor
-"@tevm/common": patch
+"@tevm/common": minor
 "@tevm/server": minor
 "@tevm/state": minor
-"@tevm/utils": patch
-"@tevm/evm": patch
-"@tevm/vm": patch
-"tevm": patch
+"@tevm/utils": minor
+"@tevm/evm": minor
+"@tevm/vm": minor
+"tevm": minor
 ---
 
 Added new @tevm/utils package @tevm/decorators package and @tevm/base-client package. The @tevm/utils package has utils used throughout all of tevm. @tevm/base-client has a base client that can be decorated with actions like a viem client. The @tevm/decorators has decorators that can be added to @tevm/base

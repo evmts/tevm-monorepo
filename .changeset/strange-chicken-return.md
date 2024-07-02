@@ -1,5 +1,5 @@
 ---
-"@tevm/procedures": patch
+"@tevm/procedures": minor
 ---
 
 Added support for debug_traceCall handler

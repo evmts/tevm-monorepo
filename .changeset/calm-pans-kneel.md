@@ -1,6 +1,6 @@
 ---
-"@tevm/decorators": patch
-"tevm": patch
+"@tevm/decorators": minor
+"tevm": minor
 ---
 
 Added TevmSendApi type to decorators package for reuse in ethers package

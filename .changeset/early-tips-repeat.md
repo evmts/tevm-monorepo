@@ -1,5 +1,5 @@
 ---
-"tevm": patch
+"tevm": minor
 ---
 
 Bump barrel package version

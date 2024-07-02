@@ -1,7 +1,7 @@
 ---
-"@tevm/actions": patch
-"@tevm/tx": patch
-"@tevm/vm": patch
+"@tevm/actions": minor
+"@tevm/tx": minor
+"@tevm/vm": minor
 ---
 
 Added support for setting maxFeePerGas and maxPriorityFeePerGas
