@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
-import { EthjsAddress, numberToHex, type Hex } from '@tevm/utils'
-import { bytesToHex, type Client, createClient, hexToBytes } from 'viem'
+import { EthjsAddress, type Hex, numberToHex } from '@tevm/utils'
+import { type Client, bytesToHex, createClient, hexToBytes } from 'viem'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'

@@ -5,10 +5,10 @@ import { blockHeaderFromRpc } from './header-from-rpc.js'
 
 import { Block } from './index.js'
 
+import { InternalError, MisconfiguredClientError } from '@tevm/errors'
 import type { TypedTransaction } from '@tevm/tx'
 import { ClRequest } from './ClRequest.js'
 import type { BlockData, BlockOptions, JsonRpcBlock } from './index.js'
-import { InternalError, MisconfiguredClientError } from '@tevm/errors'
 
 function normalizeTxParams(_txParams: any) {
 	const txParams = Object.assign({}, _txParams)
@@ -46,14 +46,16 @@ export function blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, u
 		try {
 			const tx = TransactionFactory.fromTxData(txParams, opts)
 			transactions.push(tx)
-		} catch(e) {
+		} catch (e) {
 			if (e instanceof Error && e.message.includes('The chain ID does not match the chain ID of Common.')) {
-				throw new MisconfiguredClientError('Detected that forked blocks do not have same chain id as the tevm client. To fix this explicitly pass in a `common` property with correct chain id')
+				throw new MisconfiguredClientError(
+					'Detected that forked blocks do not have same chain id as the tevm client. To fix this explicitly pass in a `common` property with correct chain id',
+				)
 			}
 			if (e instanceof Error) {
-			throw new InternalError(e.message, {cause: e})
+				throw new InternalError(e.message, { cause: e })
 			}
-			throw new InternalError('Unexpected error', {cause: e})
+			throw new InternalError('Unexpected error', { cause: e })
 		}
 	}
 

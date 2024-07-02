@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, toHex } from '@tevm/utils'
 import { createMemoryClient } from '../createMemoryClient.js'
-import { optimism } from '@tevm/common'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
