@@ -92,7 +92,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### code?
 
-> `optional` **code**: `Uint8Array` \| `PrecompileFunc`
+> `optional` **code**: `PrecompileFunc` \| `Uint8Array`
 
 #### Defined in
 

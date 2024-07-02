@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/vm/types/utils/types.d.ts:73
+packages/vm/types/utils/VMProfileOpts.d.ts:1

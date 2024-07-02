@@ -32,4 +32,4 @@ const evm: Evm = createEvm({
 
 ## Defined in
 
-packages/evm/dist/index.d.ts:27
+packages/evm/dist/index.d.ts:68

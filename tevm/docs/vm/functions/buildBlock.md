@@ -6,7 +6,7 @@
 
 # Function: buildBlock()
 
-> **buildBlock**(`vm`): `BuildBlock`
+> **buildBlock**(`vm`): [`BuildBlock`](../type-aliases/BuildBlock.md)
 
 ## Parameters
 
@@ -14,8 +14,8 @@
 
 ## Returns
 
-`BuildBlock`
+[`BuildBlock`](../type-aliases/BuildBlock.md)
 
 ## Defined in
 
-packages/vm/types/actions/buildBlock.d.ts:95
+packages/vm/types/actions/buildBlock.d.ts:5

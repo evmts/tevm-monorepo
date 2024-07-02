@@ -17,7 +17,7 @@ The block and builder options to use.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L196)
+[packages/vm/src/utils/BuildBlockOpts.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L24)
 
 ***
 
@@ -30,7 +30,7 @@ Defaults used for any values not provided.
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:190](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L190)
+[packages/vm/src/utils/BuildBlockOpts.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L18)
 
 ***
 
@@ -42,7 +42,7 @@ The parent block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L184)
+[packages/vm/src/utils/BuildBlockOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L12)
 
 ***
 
@@ -52,4 +52,4 @@ The parent block
 
 #### Defined in
 
-[packages/vm/src/utils/types.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/types.ts#L192)
+[packages/vm/src/utils/BuildBlockOpts.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L20)

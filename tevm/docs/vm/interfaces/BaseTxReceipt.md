@@ -23,7 +23,7 @@ Bloom bitvector
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:22
+packages/vm/types/utils/BaseTxReceipt.d.ts:13
 
 ***
 
@@ -35,7 +35,7 @@ Cumulative gas used in the block including this tx
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:18
+packages/vm/types/utils/BaseTxReceipt.d.ts:9
 
 ***
 
@@ -47,4 +47,4 @@ Logs emitted
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:26
+packages/vm/types/utils/BaseTxReceipt.d.ts:17

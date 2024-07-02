@@ -19,7 +19,7 @@ If omitted, a default blank block will be used.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:326
+packages/vm/types/utils/RunTxOpts.d.ts:11
 
 ***
 
@@ -31,7 +31,7 @@ To obtain an accurate tx receipt input the block gas used up until this tx.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:368
+packages/vm/types/utils/RunTxOpts.d.ts:53
 
 ***
 
@@ -45,12 +45,12 @@ to the `RunTxResult` returned.
 Option works with all tx types. EIP-2929 needs to
 be activated (included in `berlin` HF).
 
-Note: if this option is used with a custom [StateManager](../../state/interfaces/StateManager.md) implementation
+Note: if this option is used with a custom StateManager implementation
 StateManager.generateAccessList must be implemented.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:359
+packages/vm/types/utils/RunTxOpts.d.ts:44
 
 ***
 
@@ -63,7 +63,7 @@ to the `RunTxResult` returned.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:364
+packages/vm/types/utils/RunTxOpts.d.ts:49
 
 ***
 
@@ -75,7 +75,7 @@ Skip balance checks if true. Adds transaction cost to balance to ensure executio
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:338
+packages/vm/types/utils/RunTxOpts.d.ts:23
 
 ***
 
@@ -88,7 +88,7 @@ against the block's gas limit.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:343
+packages/vm/types/utils/RunTxOpts.d.ts:28
 
 ***
 
@@ -101,7 +101,7 @@ and tx
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:348
+packages/vm/types/utils/RunTxOpts.d.ts:33
 
 ***
 
@@ -113,7 +113,7 @@ If true, skips the nonce check
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:334
+packages/vm/types/utils/RunTxOpts.d.ts:19
 
 ***
 
@@ -125,4 +125,4 @@ An `@ethereumjs/tx` to run
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:330
+packages/vm/types/utils/RunTxOpts.d.ts:15

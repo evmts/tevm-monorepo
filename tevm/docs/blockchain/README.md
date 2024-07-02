@@ -20,6 +20,7 @@
 - [deepCopy](functions/deepCopy.md)
 - [delBlock](functions/delBlock.md)
 - [getBlock](functions/getBlock.md)
+- [getBlockFromRpc](functions/getBlockFromRpc.md)
 - [getCanonicalHeadBlock](functions/getCanonicalHeadBlock.md)
 - [getIteratorHead](functions/getIteratorHead.md)
 - [putBlock](functions/putBlock.md)

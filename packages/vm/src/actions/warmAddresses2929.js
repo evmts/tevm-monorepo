@@ -1,4 +1,4 @@
-import { bytesToUnprefixedHex } from '../../../utils/dist/index.cjs'
+import { bytesToUnprefixedHex } from '@tevm/utils'
 
 /**
  * @param {import("../BaseVm.js").BaseVm} vm

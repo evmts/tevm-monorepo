@@ -10,4 +10,4 @@
 
 ## Defined in
 
-packages/vm/types/utils/types.d.ts:10
+packages/vm/types/utils/TxReceipt.d.ts:4

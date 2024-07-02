@@ -68,4 +68,4 @@
 
 ## Defined in
 
-packages/vm/types/utils/types.d.ts:67
+packages/vm/types/utils/VMEvents.d.ts:5

@@ -20,7 +20,7 @@ Result of runBlock
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:316
+packages/vm/types/utils/AfterblockEvent.d.ts:4
 
 ***
 
@@ -36,7 +36,7 @@ The gas used after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:276
+packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 ***
 
@@ -52,7 +52,7 @@ The bloom filter of the LOGs (events) after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:305
+packages/vm/types/utils/RunBlockResult.d.ts:14
 
 ***
 
@@ -68,7 +68,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:292
+packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 ***
 
@@ -84,7 +84,7 @@ Receipts generated for transactions in the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:284
+packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 ***
 
@@ -100,7 +100,7 @@ The receipt root after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:280
+packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 ***
 
@@ -116,7 +116,7 @@ Any CL requests that were processed in the course of this block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:313
+packages/vm/types/utils/RunBlockResult.d.ts:22
 
 ***
 
@@ -132,7 +132,7 @@ The requestsRoot for any CL requests in the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:309
+packages/vm/types/utils/RunBlockResult.d.ts:18
 
 ***
 
@@ -148,7 +148,7 @@ Results of executing the transactions in the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:288
+packages/vm/types/utils/ApplyBlockResult.d.ts:28
 
 ***
 
@@ -164,4 +164,4 @@ The stateRoot after executing the block
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:301
+packages/vm/types/utils/RunBlockResult.d.ts:10

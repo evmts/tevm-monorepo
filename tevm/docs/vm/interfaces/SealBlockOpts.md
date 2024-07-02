@@ -19,7 +19,7 @@ Overrides the value passed in the constructor.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:193
+packages/vm/types/utils/SealBlockOpts.d.ts:14
 
 ***
 
@@ -32,4 +32,4 @@ Overrides the value passed in the constructor.
 
 #### Defined in
 
-packages/vm/types/utils/types.d.ts:188
+packages/vm/types/utils/SealBlockOpts.d.ts:9

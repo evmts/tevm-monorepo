@@ -16,4 +16,4 @@
 
 ## Defined in
 
-packages/vm/types/utils/types.d.ts:64
+packages/vm/types/utils/EVMProfileOpts.d.ts:1

@@ -5,7 +5,7 @@ prev: false
 title: "buildBlock"
 ---
 
-> **buildBlock**(`vm`): `BuildBlock`
+> **buildBlock**(`vm`): [`BuildBlock`](/reference/tevm/vm/type-aliases/buildblock/)
 
 ## Parameters
 
@@ -13,8 +13,8 @@ title: "buildBlock"
 
 ## Returns
 
-`BuildBlock`
+[`BuildBlock`](/reference/tevm/vm/type-aliases/buildblock/)
 
 ## Defined in
 
-[packages/vm/src/actions/buildBlock.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L409)
+[packages/vm/src/actions/buildBlock.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L8)
