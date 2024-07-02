@@ -8,7 +8,6 @@ import { dumpStateProcedure } from '../dumpstate/dumpStateProcedure.js'
  * @returns {import('./AnvilProcedure.js').AnvilDumpStateProcedure}
  */
 export const anvilDumpStateJsonRpcProcedure = (client) => {
-	console.warn('anvilDumpStateJsonRpcProcedure is not implemented correctly')
 	return async (request) => {
 		return /** @type any*/ ({
 			...(await dumpStateProcedure(client)({

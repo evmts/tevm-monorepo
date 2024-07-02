@@ -9,4 +9,4 @@ title: "ValidateLoadStateParamsError"
 
 ## Defined in
 
-[packages/actions/src/LoadState/validateLoadStateParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L5)
+[packages/actions/src/LoadState/validateLoadStateParams.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L6)

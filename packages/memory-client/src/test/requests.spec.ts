@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
@@ -62,6 +63,7 @@ describe('Tevm.request', async () => {
 		'should execute a contractCall request via using tevm_call',
 		async () => {
 			const tevm = createMemoryClient({
+				common: optimism,
 				loggingLevel: 'warn',
 				fork: {
 					...forkConfig,

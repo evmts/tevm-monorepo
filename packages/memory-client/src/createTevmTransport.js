@@ -1,5 +1,5 @@
 import { createBaseClient } from '@tevm/base-client'
-import { tevmDefault } from '@tevm/common'
+import { createCommon } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
 import { createTransport } from 'viem'
 
@@ -68,14 +68,20 @@ export const createTevmTransport = (options = {}) => {
 	 */
 	return ({ timeout = 20_000, retryCount = 3, chain }) => {
 		const dynamicChain =
-			chain && 'ethjsCommon' in chain ? /** @type {import('@tevm/common').Common} */ (chain) : undefined
-		const common = options.common ?? dynamicChain ?? tevmDefault
+			chain && 'ethjsCommon' in chain
+				? /** @type {import('@tevm/common').Common} */ (chain)
+				: chain !== undefined
+					? // if user passed in chain instead of common create a common from it with cancun and default eips
+						createCommon({ ...chain, hardfork: 'cancun', loggingLevel: 'warn' })
+					: undefined
+		const common = options.common ?? dynamicChain
+		const id = common?.id ?? -1
 		const tevm =
-			tevmMap.get(common.id) ??
-			createBaseClient({ ...options, common })
+			tevmMap.get(id) ??
+			createBaseClient({ ...options, ...(common !== undefined ? { common } : {}) })
 				.extend(requestEip1193())
 				.extend(tevmSend())
-		tevmMap.set(common.id, tevm)
+		tevmMap.set(id, tevm)
 
 		return /** @type {any} */ (
 			createTransport(

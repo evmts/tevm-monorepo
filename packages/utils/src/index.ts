@@ -125,3 +125,4 @@ export type {
 	JsonSerializableArray,
 	JsonSerializableObject,
 } from './SerializeToJson.js'
+export * from './invariant.js'

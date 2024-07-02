@@ -1,4 +1,5 @@
 import { mineHandler } from '@tevm/actions'
+import { InternalError } from '@tevm/errors'
 import { hexToNumber } from '@tevm/utils'
 
 /**
@@ -27,9 +28,23 @@ export const mineProcedure = (client) => async (request) => {
 			...(request.id === undefined ? {} : { id: request.id }),
 		}
 	}
+	if (!result.blockHashes?.length) {
+		const error = new InternalError('No blocks were mined')
+		return {
+			jsonrpc: '2.0',
+			error: {
+				code: error.code,
+				message: error.message,
+			},
+			method: 'tevm_mine',
+			...(request.id === undefined ? {} : { id: request.id }),
+		}
+	}
 	return {
 		jsonrpc: '2.0',
-		result,
+		result: {
+			blockHashes: result.blockHashes ?? [],
+		},
 		method: 'tevm_mine',
 		...(request.id === undefined ? {} : { id: request.id }),
 	}

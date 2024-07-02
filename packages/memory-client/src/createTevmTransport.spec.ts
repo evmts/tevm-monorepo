@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { tevmDefault } from '@tevm/common'
-import { opBNBTestnet } from 'viem/chains'
+import { base, tevmDefault } from '@tevm/common'
 import { createTevmTransport } from './createTevmTransport.js'
 
 describe('createTevmTransport', () => {
@@ -31,8 +30,9 @@ describe('createTevmTransport', () => {
 	})
 
 	it('should reuse an existing TEVM client if available', () => {
-		const transport1 = createTevmTransport()({ chain: tevmDefault })
-		const transport2 = createTevmTransport()({ chain: tevmDefault })
+		const tevmTransport = createTevmTransport()
+		const transport1 = tevmTransport({ chain: tevmDefault })
+		const transport2 = tevmTransport({ chain: tevmDefault })
 
 		expect(transport1.value.tevm).toBe(transport2.value.tevm)
 	})
@@ -47,10 +47,8 @@ describe('createTevmTransport', () => {
 
 	it('should use the provided common object if available', async () => {
 		// TODO I shouldn't have to as any this
-		const transport = createTevmTransport({ common: opBNBTestnet as any })({})
-
-		const common = await transport.value.tevm.getVm()
-
-		expect(common).toBe(opBNBTestnet as any)
+		const transport = createTevmTransport({ common: base })({})
+		const { common } = await transport.value.tevm.getVm()
+		expect(common.id).toBe(base.id)
 	})
 })

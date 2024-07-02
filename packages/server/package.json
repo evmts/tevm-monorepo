@@ -64,6 +64,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tevm/common": "2.0.0-next.86",
     "@tevm/decorators": "2.0.0-next.87",
     "@tevm/errors": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
