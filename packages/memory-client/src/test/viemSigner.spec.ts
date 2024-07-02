@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
+import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { walletActions } from 'viem'
 import { createMemoryClient } from '../index.js'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 
 describe('using MemoryClient as viem signer', () => {
 	it('should be able to pass in an account and use viem wallet api to interact with tevm', async () => {
