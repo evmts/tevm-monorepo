@@ -32,4 +32,4 @@ Get an EIP-1186 proof from the provider
 
 ## Defined in
 
-packages/state/dist/index.d.ts:301
+packages/state/dist/index.d.ts:314

@@ -32,4 +32,4 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:239
+packages/state/dist/index.d.ts:252

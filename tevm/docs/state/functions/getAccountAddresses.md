@@ -24,4 +24,4 @@
 
 ## Defined in
 
-packages/state/dist/index.d.ts:261
+packages/state/dist/index.d.ts:274

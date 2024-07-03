@@ -33,4 +33,4 @@ corresponding to `address` to reference this.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:334
+packages/state/dist/index.d.ts:347

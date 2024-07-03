@@ -17,7 +17,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-• **storageCache?**: `StorageCache`
+• **storageCache?**: [`StorageCache`](StorageCache.md)
 
 #### Returns
 
@@ -25,17 +25,17 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Defined in
 
-packages/state/dist/index.d.ts:52
+packages/state/dist/index.d.ts:53
 
 ## Properties
 
 ### storageCache
 
-> **storageCache**: `StorageCache`
+> **storageCache**: [`StorageCache`](StorageCache.md)
 
 #### Defined in
 
-packages/state/dist/index.d.ts:53
+packages/state/dist/index.d.ts:54
 
 ## Accessors
 
@@ -49,7 +49,7 @@ packages/state/dist/index.d.ts:53
 
 #### Defined in
 
-packages/state/dist/index.d.ts:87
+packages/state/dist/index.d.ts:88
 
 ## Methods
 
@@ -63,7 +63,7 @@ packages/state/dist/index.d.ts:87
 
 #### Defined in
 
-packages/state/dist/index.d.ts:81
+packages/state/dist/index.d.ts:82
 
 ***
 
@@ -77,7 +77,7 @@ packages/state/dist/index.d.ts:81
 
 #### Defined in
 
-packages/state/dist/index.d.ts:61
+packages/state/dist/index.d.ts:62
 
 ***
 
@@ -91,7 +91,7 @@ packages/state/dist/index.d.ts:61
 
 #### Defined in
 
-packages/state/dist/index.d.ts:57
+packages/state/dist/index.d.ts:58
 
 ***
 
@@ -109,7 +109,7 @@ packages/state/dist/index.d.ts:57
 
 #### Defined in
 
-packages/state/dist/index.d.ts:77
+packages/state/dist/index.d.ts:78
 
 ***
 
@@ -127,7 +127,7 @@ packages/state/dist/index.d.ts:77
 
 #### Defined in
 
-packages/state/dist/index.d.ts:66
+packages/state/dist/index.d.ts:67
 
 ***
 
@@ -147,7 +147,7 @@ if the cache has the key
 
 #### Defined in
 
-packages/state/dist/index.d.ts:86
+packages/state/dist/index.d.ts:87
 
 ***
 
@@ -167,7 +167,7 @@ packages/state/dist/index.d.ts:86
 
 #### Defined in
 
-packages/state/dist/index.d.ts:72
+packages/state/dist/index.d.ts:73
 
 ***
 
@@ -181,7 +181,7 @@ packages/state/dist/index.d.ts:72
 
 #### Defined in
 
-packages/state/dist/index.d.ts:92
+packages/state/dist/index.d.ts:93
 
 ***
 
@@ -195,4 +195,4 @@ packages/state/dist/index.d.ts:92
 
 #### Defined in
 
-packages/state/dist/index.d.ts:88
+packages/state/dist/index.d.ts:89

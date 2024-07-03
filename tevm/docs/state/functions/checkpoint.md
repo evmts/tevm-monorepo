@@ -27,4 +27,4 @@ last call to checkpoint.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:198
+packages/state/dist/index.d.ts:211

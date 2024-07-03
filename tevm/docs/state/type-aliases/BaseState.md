@@ -62,4 +62,4 @@ Mapping of hashes to State roots
 
 ## Defined in
 
-packages/state/dist/index.d.ts:109
+packages/state/dist/index.d.ts:110

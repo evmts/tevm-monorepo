@@ -16,7 +16,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-• **storageCache**: `StorageCache` = `...`
+• **storageCache**: [`StorageCache`](/reference/tevm/state/classes/storagecache/) = `...`
 
 #### Returns
 
@@ -30,7 +30,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ### storageCache
 
-> **storageCache**: `StorageCache`
+> **storageCache**: [`StorageCache`](/reference/tevm/state/classes/storagecache/)
 
 #### Defined in
 

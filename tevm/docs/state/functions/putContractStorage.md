@@ -37,4 +37,4 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:343
+packages/state/dist/index.d.ts:356

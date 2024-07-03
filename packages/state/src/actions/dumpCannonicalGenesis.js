@@ -1,8 +1,8 @@
 import { EthjsAddress, bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
-import { getContractCode } from './getContractCode.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
+import { getContractCode } from './getContractCode.js'
 
 // might be good to cache this to optimize perf and memory
 

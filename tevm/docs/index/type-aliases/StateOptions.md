@@ -10,6 +10,18 @@
 
 ## Type declaration
 
+### accountsCache?
+
+> `readonly` `optional` **accountsCache**: [`AccountCache`](../../state/classes/AccountCache.md)
+
+Optionally configure the accounts cache
+
+### contractCache?
+
+> `readonly` `optional` **contractCache**: [`ContractCache`](../../state/classes/ContractCache.md)
+
+Optionally configure and pass in your own ContractCache
+
 ### currentStateRoot?
 
 > `optional` **currentStateRoot**: [`Hex`](Hex.md)
@@ -46,6 +58,12 @@ Called when state manager commits state
 
 > `optional` **stateRoots**: [`StateRoots`](../../state/type-aliases/StateRoots.md)
 
+### storageCache?
+
+> `readonly` `optional` **storageCache**: [`StorageCache`](../../state/classes/StorageCache.md)
+
+Optionally configure and pass in your own StorageCache
+
 ## Defined in
 
-packages/state/dist/index.d.ts:174
+packages/state/dist/index.d.ts:175

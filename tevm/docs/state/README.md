@@ -8,9 +8,15 @@
 
 ## Index
 
+### Enumerations
+
+- [CacheType](enumerations/CacheType.md)
+
 ### Classes
 
+- [AccountCache](classes/AccountCache.md)
 - [ContractCache](classes/ContractCache.md)
+- [StorageCache](classes/StorageCache.md)
 
 ### Interfaces
 

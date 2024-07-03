@@ -28,4 +28,4 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 ## Defined in
 
-packages/state/dist/index.d.ts:231
+packages/state/dist/index.d.ts:244
