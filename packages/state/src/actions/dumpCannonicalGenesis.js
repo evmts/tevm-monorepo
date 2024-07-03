@@ -2,6 +2,7 @@ import { EthjsAddress, bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 import { getContractCode } from './getContractCode.js'
+import { getAccountAddresses } from './getAccountAddresses.js'
 
 // might be good to cache this to optimize perf and memory
 
@@ -10,17 +11,10 @@ import { getContractCode } from './getContractCode.js'
  * @type {import("../state-types/index.js").StateAction<'dumpCanonicalGenesis'>}
  */
 export const dumpCanonicalGenesis = (baseState) => async () => {
-	const {
-		caches: { accounts },
-	} = baseState
-
 	/**
 	 * @type {string[]}
 	 */
-	const accountAddresses = []
-	accounts._orderedMapCache?.forEach((e) => {
-		accountAddresses.push(e[0])
-	})
+	const accountAddresses = getAccountAddresses(baseState)()
 
 	/**
 	 * @type {import('../state-types/TevmState.js').TevmState}
@@ -28,7 +22,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 	const state = {}
 
 	for (const address of accountAddresses) {
-		const hexAddress = getAddress(`0x${address}`)
+		const hexAddress = getAddress(address.startsWith('0x') ? address : `0x${address}`)
 		const ethAddress = EthjsAddress.fromString(hexAddress)
 		const account = await getAccount(baseState, true)(ethAddress)
 

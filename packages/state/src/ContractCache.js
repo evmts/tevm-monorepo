@@ -10,8 +10,8 @@ const oneBytes = Uint8Array.from([1])
 export class ContractCache {
 	constructor(
 		storageCache = new StorageCache({
-			size: 100000,
-			type: CacheType.ORDERED_MAP,
+			size: 100_000,
+			type: CacheType.LRU,
 		}),
 	) {
 		this.storageCache = storageCache
@@ -69,7 +69,9 @@ export class ContractCache {
 	 */
 	has(address) {
 		const storageMap = this.storageCache._orderedMapCache?.getElementByKey(bytesToUnprefixedHex(address.bytes))
-		return storageMap?.has(bytesToUnprefixedHex(oneBytes)) ?? false
+		const hasOrderedMapCache = storageMap?.has(bytesToUnprefixedHex(oneBytes)) ?? false
+		const hasLruCache = this.storageCache._lruCache?.has(bytesToUnprefixedHex(address.bytes))
+		return Boolean(hasOrderedMapCache || hasLruCache)
 	}
 
 	get _checkpoints() {

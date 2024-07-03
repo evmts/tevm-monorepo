@@ -51,14 +51,14 @@ export const createBaseState = (options) => {
 			accounts:
 				options.accountsCache ??
 				new AccountCache({
-					size: 1_000_000_000,
-					type: CacheType.ORDERED_MAP,
+					size: 100_000,
+					type: CacheType.LRU,
 				}),
 			storage:
 				options.storageCache ??
 				new StorageCache({
-					size: 1_000_000_000,
-					type: CacheType.ORDERED_MAP,
+					size: 100_000,
+					type: CacheType.LRU,
 				}),
 		},
 		ready: () => genesisPromise.then(() => true),

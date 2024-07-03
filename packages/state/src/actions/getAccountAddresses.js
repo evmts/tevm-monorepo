@@ -1,14 +1,23 @@
+import { getAddress } from '@tevm/utils'
+
 /**
  * @type {import("../state-types/index.js").StateAction<'getAccountAddresses'>}
  */
 export const getAccountAddresses = (baseState) => () => {
 	/**
-	 * @type {string[]}
+	 * @type {Array<import('@tevm/utils').Address>}
 	 */
 	const accountAddresses = []
 	//Tevm initializes stateManager account cache with an ordered map cache
 	baseState.caches.accounts._orderedMapCache?.forEach((e) => {
-		accountAddresses.push(e[0])
+		accountAddresses.push(getAddress(e[0].startsWith('0x') ? e[0] : `0x${e[0]}`))
 	})
-	return /** @type {import("viem").Address[]}*/ (accountAddresses)
+	const { _lruCache } = baseState.caches.accounts
+	if (_lruCache !== undefined) {
+		for (const address of _lruCache.rkeys()) {
+			accountAddresses.push(getAddress(address.startsWith('0x') ? address : `0x${address}`))
+		}
+	}
+
+	return accountAddresses
 }
