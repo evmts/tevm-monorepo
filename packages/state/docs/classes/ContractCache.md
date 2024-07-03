@@ -17,7 +17,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 #### Parameters
 
-• **storageCache**: `StorageCache` = `...`
+• **storageCache**: [`StorageCache`](StorageCache.md) = `...`
 
 #### Returns
 
@@ -31,7 +31,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ### storageCache
 
-> **storageCache**: `StorageCache`
+> **storageCache**: [`StorageCache`](StorageCache.md)
 
 #### Defined in
 
