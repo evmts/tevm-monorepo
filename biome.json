@@ -8,6 +8,8 @@
 			".nx",
 			"node_modules",
 			"package.json",
+			".vercel",
+			"**/.vercel",
 			"**/package.json",
 			"**/coverage",
 			"**/node_modules",
