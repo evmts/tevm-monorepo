@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        agent: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        agent: [1, 2, 3, 4, 5, 6]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
