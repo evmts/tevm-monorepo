@@ -99,5 +99,13 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * Removes a filter by id
 	 */
 	readonly removeFilter: (id: Hex) => void
+	/**
+	 * Returns status of the client
+	 * - INITIALIZING: The client is initializing
+	 * - READY: The client is ready to be used
+	 * - SYNCING: The client is syncing with the forked node
+	 * - MINING: The client is mining a block
+	 */
+	status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
 } & EIP1193EventEmitter &
 	TExtended

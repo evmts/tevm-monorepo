@@ -13,4 +13,4 @@ Also including zero address
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:369
+packages/base-client/dist/index.d.ts:377

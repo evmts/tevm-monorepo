@@ -23,4 +23,4 @@ title: "getAccountAddresses"
 
 ## Defined in
 
-[packages/state/src/actions/getAccountAddresses.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccountAddresses.js#L4)
+[packages/state/src/actions/getAccountAddresses.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccountAddresses.js#L6)

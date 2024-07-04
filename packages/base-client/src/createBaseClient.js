@@ -329,6 +329,15 @@ export const createBaseClient = (options = {}) => {
 		removeFilter: (filterId) => {
 			filters.delete(filterId)
 		},
+		status: 'INITIALIZING',
 	}
+
+	eventEmitter.on('connect', () => {
+		if (baseClient.status !== 'INITIALIZING') {
+			return
+		}
+		baseClient.status = 'READY'
+	})
+
 	return baseClient
 }
