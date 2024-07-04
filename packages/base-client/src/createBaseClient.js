@@ -61,9 +61,9 @@ export const createBaseClient = (options = {}) => {
 		}
 		return {
 			loggingLevel,
-			...(options.storageCache ? { storageCache: options.storageCache } : {}),
-			...(options.contractCache ? { contractCache: options.contractCache } : {}),
-			...(options.accountsCache ? { accountsCache: options.accountsCache } : {}),
+			...(options.storageCache !== undefined ? { storageCache: options.storageCache } : {}),
+			...(options.contractCache !== undefined ? { contractCache: options.contractCache } : {}),
+			...(options.accountsCache !== undefined ? { accountsCache: options.accountsCache } : {}),
 			...(options.fork?.transport ? options.fork : {}),
 			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
