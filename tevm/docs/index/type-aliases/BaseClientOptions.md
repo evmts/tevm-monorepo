@@ -173,4 +173,4 @@ Enable profiler. Defaults to false.
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:228
+packages/base-client/dist/index.d.ts:236

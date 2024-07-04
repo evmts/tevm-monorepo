@@ -2368,6 +2368,16 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 `void`
 
+##### status
+
+> **status**: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`
+
+Returns status of the client
+- INITIALIZING: The client is initializing
+- READY: The client is ready to be used
+- SYNCING: The client is syncing with the forked node
+- MINING: The client is mining a block
+
 #### Type declaration
 
 ##### emit()
