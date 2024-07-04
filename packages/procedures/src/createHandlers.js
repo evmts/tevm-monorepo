@@ -106,9 +106,8 @@ export const createHandlers = (client) => {
 			 * @param {any} request}
 			 */
 			(request) => {
-				// TODO implement me
 				return {
-					result: false,
+					result: client.status === 'MINING',
 					method: request.method,
 					jsonrpc: '2.0',
 					...(request.id ? { id: request.id } : {}),
@@ -119,9 +118,8 @@ export const createHandlers = (client) => {
 			 * @param {any} request}
 			 */
 			(request) => {
-				// TODO implement me
 				return {
-					result: false,
+					result: client.status === 'SYNCING',
 					method: request.method,
 					jsonrpc: '2.0',
 					...(request.id ? { id: request.id } : {}),
