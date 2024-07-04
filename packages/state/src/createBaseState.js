@@ -47,7 +47,7 @@ export const createBaseState = (options) => {
 		stateRoots,
 		options,
 		caches: {
-			contracts: options.contractCache ?? new ContractCache(),
+			contracts: options.contractCache ?? new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
 			accounts:
 				options.accountsCache ??
 				new AccountCache({
