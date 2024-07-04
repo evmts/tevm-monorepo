@@ -1,5 +1,20 @@
 # @tevm/contract
 
+## 1.1.0-next.90
+
+### Minor Changes
+
+- [#1270](https://github.com/evmts/tevm-monorepo/pull/1270) [`9141ab4`](https://github.com/evmts/tevm-monorepo/commit/9141ab4a767e811f12c77535f9d3259986e825d3) Thanks [@roninjin10](https://github.com/roninjin10)! - Implemented eth_syncing and eth_mining methods
+
+### Patch Changes
+
+- Updated dependencies [[`9141ab4`](https://github.com/evmts/tevm-monorepo/commit/9141ab4a767e811f12c77535f9d3259986e825d3), [`396157c`](https://github.com/evmts/tevm-monorepo/commit/396157c8ee742fcabeb768ba737c37a400908e3f)]:
+  - @tevm/actions@1.1.0-next.90
+  - @tevm/state@1.1.0-next.90
+  - @tevm/base-client@1.1.0-next.90
+  - @tevm/evm@1.1.0-next.90
+  - @tevm/vm@1.1.0-next.90
+
 ## 1.1.0-next.88
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 1.1.0-next.90
+
+### Patch Changes
+
+- Updated dependencies [[`396157c`](https://github.com/evmts/tevm-monorepo/commit/396157c8ee742fcabeb768ba737c37a400908e3f)]:
+  - @tevm/state@1.1.0-next.90
+  - @tevm/evm@1.1.0-next.90
+  - @tevm/sync-storage-persister@1.1.0-next.90
+  - @tevm/vm@1.1.0-next.90
+  - @tevm/txpool@1.1.0-next.90
+
 ## 1.1.0-next.88
 
 ### Patch Changes
