@@ -1,4 +1,4 @@
-import { InternalError } from '@tevm/errors'
+import { InternalError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { emitEvents } from './emitEvents.js'
@@ -34,6 +34,41 @@ export const mineHandler =
 		client.logger.debug({ blockCount }, 'processing txs')
 		const pool = await client.getTxPool()
 		const originalVm = await client.getVm()
+
+		switch (client.status) {
+			case 'MINING': {
+				// wait for the previous mine to finish
+				await new Promise((resolve) => {
+					client.on('newBlock', async () => {
+						if (client.status === 'MINING') {
+							return
+						}
+						client.status = 'MINING'
+						resolve(client)
+					})
+				})
+				break
+			}
+			case 'INITIALIZING': {
+				await client.ready()
+				client.status = 'MINING'
+				break
+			}
+			case 'SYNCING': {
+				throw new MisconfiguredClientError('Syncing not currently implemented')
+			}
+			case 'STOPPED': {
+				throw new MisconfiguredClientError('Client is stopped')
+			}
+			case 'READY': {
+				client.status = 'MINING'
+				break
+			}
+			default: {
+				throw new UnreachableCodeError(client.status)
+			}
+		}
+
 		const vm = await originalVm.deepCopy()
 		const receiptsManager = await client.getReceiptsManager()
 
@@ -117,6 +152,8 @@ export const mineHandler =
 		originalVm.blockchain = vm.blockchain
 		originalVm.evm.blockchain = vm.evm.blockchain
 		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
+
+		client.status = 'READY'
 
 		emitEvents(client, newBlocks, newReceipts)
 
