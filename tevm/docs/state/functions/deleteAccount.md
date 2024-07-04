@@ -30,4 +30,4 @@ Deletes an account from state under the provided `address`.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:225
+packages/state/dist/index.d.ts:238

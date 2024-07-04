@@ -30,4 +30,4 @@ Clears all storage entries for the account corresponding to `address`.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:210
+packages/state/dist/index.d.ts:223

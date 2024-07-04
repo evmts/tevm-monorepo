@@ -47,15 +47,19 @@ export const createBaseState = (options) => {
 		stateRoots,
 		options,
 		caches: {
-			contracts: new ContractCache(),
-			accounts: new AccountCache({
-				size: 1_000_000_000,
-				type: CacheType.ORDERED_MAP,
-			}),
-			storage: new StorageCache({
-				size: 1_000_000_000,
-				type: CacheType.ORDERED_MAP,
-			}),
+			contracts: options.contractCache ?? new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
+			accounts:
+				options.accountsCache ??
+				new AccountCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
+			storage:
+				options.storageCache ??
+				new StorageCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
 		},
 		ready: () => genesisPromise.then(() => true),
 	}

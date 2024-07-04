@@ -30,4 +30,4 @@ Gets the code corresponding to the provided `address`.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:256
+packages/state/dist/index.d.ts:269

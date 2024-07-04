@@ -28,4 +28,4 @@ Resets all internal caches
 
 ## Defined in
 
-packages/state/dist/index.d.ts:204
+packages/state/dist/index.d.ts:217

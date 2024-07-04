@@ -46,3 +46,4 @@ export {
 	generateCanonicalGenesis,
 	originalStorageCache,
 } from './actions/index.js'
+export { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'

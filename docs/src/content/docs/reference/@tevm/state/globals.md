@@ -5,9 +5,15 @@ prev: false
 title: "@tevm/state"
 ---
 
+## Enumerations
+
+- [CacheType](/reference/tevm/state/enumerations/cachetype/)
+
 ## Classes
 
+- [AccountCache](/reference/tevm/state/classes/accountcache/)
 - [ContractCache](/reference/tevm/state/classes/contractcache/)
+- [StorageCache](/reference/tevm/state/classes/storagecache/)
 
 ## Interfaces
 

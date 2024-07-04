@@ -16,7 +16,7 @@ The shape of the internal cache
 
 ### accounts
 
-> **accounts**: `AccountCache`
+> **accounts**: [`AccountCache`](../classes/AccountCache.md)
 
 ### contracts
 
@@ -24,8 +24,8 @@ The shape of the internal cache
 
 ### storage
 
-> **storage**: `StorageCache`
+> **storage**: [`StorageCache`](../classes/StorageCache.md)
 
 ## Defined in
 
-packages/state/dist/index.d.ts:99
+packages/state/dist/index.d.ts:100

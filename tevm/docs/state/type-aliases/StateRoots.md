@@ -12,4 +12,4 @@ Mapping of state roots as hex string to the state
 
 ## Defined in
 
-packages/state/dist/index.d.ts:172
+packages/state/dist/index.d.ts:173

@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/state/dist/index.d.ts:271
+packages/state/dist/index.d.ts:284

@@ -59,9 +59,11 @@ export const createBaseClient = (options = {}) => {
 				},
 			}
 		}
-		// handle normal mode
 		return {
 			loggingLevel,
+			...(options.storageCache !== undefined ? { storageCache: options.storageCache } : {}),
+			...(options.contractCache !== undefined ? { contractCache: options.contractCache } : {}),
+			...(options.accountsCache !== undefined ? { accountsCache: options.accountsCache } : {}),
 			...(options.fork?.transport ? options.fork : {}),
 			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}

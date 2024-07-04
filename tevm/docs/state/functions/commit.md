@@ -39,4 +39,4 @@ This api is not stable
 
 ## Defined in
 
-packages/state/dist/index.d.ts:217
+packages/state/dist/index.d.ts:230

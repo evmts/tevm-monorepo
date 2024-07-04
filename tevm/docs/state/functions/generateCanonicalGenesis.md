@@ -30,4 +30,4 @@ Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manage
 
 ## Defined in
 
-packages/state/dist/index.d.ts:250
+packages/state/dist/index.d.ts:263

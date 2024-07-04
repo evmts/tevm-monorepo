@@ -14,7 +14,7 @@
 
 #### Defined in
 
-packages/state/dist/index.d.ts:22
+packages/state/dist/index.d.ts:23
 
 ***
 
@@ -28,4 +28,4 @@ packages/state/dist/index.d.ts:22
 
 #### Defined in
 
-packages/state/dist/index.d.ts:19
+packages/state/dist/index.d.ts:20

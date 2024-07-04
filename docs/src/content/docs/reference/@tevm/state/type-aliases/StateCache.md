@@ -15,7 +15,7 @@ The shape of the internal cache
 
 ### accounts
 
-> **accounts**: `AccountCache`
+> **accounts**: [`AccountCache`](/reference/tevm/state/classes/accountcache/)
 
 ### contracts
 
@@ -23,7 +23,7 @@ The shape of the internal cache
 
 ### storage
 
-> **storage**: `StorageCache`
+> **storage**: [`StorageCache`](/reference/tevm/state/classes/storagecache/)
 
 ## Defined in
 

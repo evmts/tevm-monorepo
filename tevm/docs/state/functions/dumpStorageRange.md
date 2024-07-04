@@ -32,4 +32,4 @@
 
 ## Defined in
 
-packages/state/dist/index.d.ts:244
+packages/state/dist/index.d.ts:257

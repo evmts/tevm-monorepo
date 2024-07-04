@@ -9,6 +9,18 @@ title: "StateOptions"
 
 ## Type declaration
 
+### accountsCache?
+
+> `readonly` `optional` **accountsCache**: [`AccountCache`](/reference/tevm/state/classes/accountcache/)
+
+Optionally configure the accounts cache
+
+### contractCache?
+
+> `readonly` `optional` **contractCache**: [`ContractCache`](/reference/tevm/state/classes/contractcache/)
+
+Optionally configure and pass in your own ContractCache
+
 ### currentStateRoot?
 
 > `optional` **currentStateRoot**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
@@ -45,6 +57,12 @@ Called when state manager commits state
 
 > `optional` **stateRoots**: [`StateRoots`](/reference/tevm/state/type-aliases/stateroots/)
 
+### storageCache?
+
+> `readonly` `optional` **storageCache**: [`StorageCache`](/reference/tevm/state/classes/storagecache/)
+
+Optionally configure and pass in your own StorageCache
+
 ## Defined in
 
-[packages/state/src/state-types/StateOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L8)
+[packages/state/src/state-types/StateOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L10)
