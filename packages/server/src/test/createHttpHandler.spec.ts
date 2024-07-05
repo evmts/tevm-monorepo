@@ -11,11 +11,8 @@ import { DaiContract } from './DaiContract.sol.js'
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 describe('createHttpHandler', () => {
-	// this doesn't work yet
-	// haven't debugged if code is broke or test is broke yet
-	// landing immediately to avoid merge conflicts in other prs but need to circle back
 	it(
-		'should create an http handler',
+		'should create an http handler and handle valid JSON-RPC request',
 		async () => {
 			const tevm = createMemoryClient({
 				common: optimism,
@@ -32,13 +29,7 @@ describe('createHttpHandler', () => {
 					{
 						to: contractAddress,
 						data: encodeFunctionData(
-							DaiContract.read.balanceOf(
-								'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-								// this stubbed api is not the correct api atm
-								{
-									contractAddress,
-								},
-							),
+							DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', { contractAddress }),
 						),
 					},
 				],
@@ -64,4 +55,44 @@ describe('createHttpHandler', () => {
 		},
 		{ timeout: 10_000 },
 	)
+
+	it('should return 400 for invalid JSON', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 115325880n,
+			},
+		})
+
+		const server = require('node:http').createServer(createHttpHandler(tevm))
+
+		const invalidJson = '{ "jsonrpc": "2.0", "method": "tevm_call", "params": [ ] '
+
+		const res = await supertest(server).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32700)
+		expect(res.body.error.message).toMatchSnapshot()
+	})
+
+	it('should return 400 for invalid JSON-RPC request', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 115325880n,
+			},
+		})
+
+		const server = require('node:http').createServer(createHttpHandler(tevm))
+
+		const invalidRpcRequest = { jsonrpc: '2.0', method: 'invalid_method', params: 'invalid_params', id: 1 }
+
+		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32700)
+		expect(res.body.error.message).toMatchSnapshot()
+	})
 })
