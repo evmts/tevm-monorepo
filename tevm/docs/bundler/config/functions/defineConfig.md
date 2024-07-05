@@ -30,6 +30,19 @@ Typesafe way to create an Tevm CompilerConfig
 
 `Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig`\>
 
+## Example
+
+```ts
+import { defineConfig } from '@tevm/ts-plugin'
+
+export default defineConfig(() => ({
+	lib: ['lib'],
+	remappings: {
+	  'foo': 'foo/bar'
+	}
+})
+```
+
 ## Defined in
 
 bundler-packages/config/types/defineConfig.d.ts:35

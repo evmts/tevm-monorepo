@@ -78,7 +78,7 @@ The invalid URL value.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.5.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -92,7 +92,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.5.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -106,7 +106,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.5.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -115,10 +115,6 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -129,6 +125,10 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 #### Returns
 
 `any`
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -156,24 +156,50 @@ node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:3
 
 ### captureStackTrace()
 
+#### captureStackTrace(targetObject, constructorOpt)
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
 • **targetObject**: `object`
 
 • **constructorOpt?**: `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
 
 `TypeError.captureStackTrace`
 
-#### Defined in
+##### Defined in
 
 node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`TypeError.captureStackTrace`
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.14.9/node\_modules/@types/node/globals.d.ts:21

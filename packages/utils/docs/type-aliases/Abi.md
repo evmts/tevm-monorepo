@@ -12,4 +12,4 @@ Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.ht
 
 ## Defined in
 
-node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.2\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:121
+node\_modules/.pnpm/abitype@1.0.4\_typescript@5.5.3\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:121

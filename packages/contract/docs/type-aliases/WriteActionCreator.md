@@ -10,14 +10,6 @@
 
 A mapping of payable and nonpayable contract methods to action creators
 
-## Example
-
-```typescript
-tevm.contract(
-  MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
-)
-```
-
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
@@ -27,6 +19,14 @@ tevm.contract(
 • **TCode** *extends* `Hex` \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
+
+## Example
+
+```typescript
+tevm.contract(
+  MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
 
 ## Defined in
 

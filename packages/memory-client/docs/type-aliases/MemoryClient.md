@@ -13,6 +13,12 @@ The MemoryClient comes preloaded with all wallet, test, public, and TEVM actions
 
 This client allows for extensive interaction with the EVM, including making JSON-RPC requests, managing accounts, forking networks, and handling state persistence.
 
+## Type Parameters
+
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `Account` \| `Address` \| `undefined`
+
 ## Example
 
 ```typescript
@@ -192,12 +198,6 @@ const balance = await tevm.runContractCall(
 );
 console.log(balance); // 1n
 ```
-
-## Type Parameters
-
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
-
-• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `Account` \| `Address` \| `undefined`
 
 ## Defined in
 

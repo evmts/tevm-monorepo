@@ -4,6 +4,12 @@
 
 # @tevm/utils
 
+## References
+
+### bytesToBigInt
+
+Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
+
 ## Enumerations
 
 - [KeyEncoding](enumerations/KeyEncoding.md)

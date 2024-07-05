@@ -9,14 +9,6 @@ title: "GetAccountParams"
 
 Tevm params to get an account
 
-## Example
-
-```ts
-const getAccountParams: import('@tevm/api').GetAccountParams = {
-  address: '0x...',
-}
-```
-
 ## Type declaration
 
 ### address
@@ -38,6 +30,14 @@ Be aware that this can be very expensive if a contract has a lot of storage
 ## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
+
+## Example
+
+```ts
+const getAccountParams: import('@tevm/api').GetAccountParams = {
+  address: '0x...',
+}
+```
 
 ## Defined in
 

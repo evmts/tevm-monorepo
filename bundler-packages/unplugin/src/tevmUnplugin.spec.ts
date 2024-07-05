@@ -10,23 +10,23 @@ import { type Mock, type MockedFunction, beforeEach, describe, expect, it, vi } 
 import { tevmUnplugin } from './index.js'
 
 vi.mock('module', async () => ({
-...((await vi.importActual('module')) as {}),
-createRequire: vi.fn(() => ({
-resolve: () => ({}) as any,
-})),
+	...((await vi.importActual('module')) as {}),
+	createRequire: vi.fn(() => ({
+		resolve: () => ({}) as any,
+	})),
 }))
 vi.mock('@tevm/config', async () => ({
-...((await vi.importActual('@tevm/config')) as {}),
-loadConfig: vi.fn(),
+	...((await vi.importActual('@tevm/config')) as {}),
+	loadConfig: vi.fn(),
 }))
 vi.mock('@tevm/base-bundler', async () => ({
-...((await vi.importActual('@tevm/base-bundler')) as {}),
-bundler: vi.fn(),
+	...((await vi.importActual('@tevm/base-bundler')) as {}),
+	bundler: vi.fn(),
 }))
 
 vi.mock('fs', async () => ({
-...((await vi.importActual('fs')) as {}),
-existsSync: vi.fn(),
+	...((await vi.importActual('fs')) as {}),
+	existsSync: vi.fn(),
 }))
 
 const mockExistsSync = existsSync as Mock
@@ -34,47 +34,47 @@ const mockExistsSync = existsSync as Mock
 const mockBundler = bundler as Mock
 const mockLoadConfig = loadConfig as Mock
 mockBundler.mockReturnValue({
-resolveEsmModule: vi.fn(),
+	resolveEsmModule: vi.fn(),
 })
 
 class MockUnpluginContext implements UnpluginContext, UnpluginBuildContext {
-warn = vi.fn()
-error = vi.fn()
-emitFile = vi.fn()
-addWatchFile = vi.fn()
-parse = vi.fn()
-getWatchFiles = vi.fn()
+	warn = vi.fn()
+	error = vi.fn()
+	emitFile = vi.fn()
+	addWatchFile = vi.fn()
+	parse = vi.fn()
+	getWatchFiles = vi.fn()
 }
 
 let mockPlugin: MockUnpluginContext
 
 const mockCwd = 'mock/process/dot/cwd'
 vi.stubGlobal('process', {
-...process,
-cwd: () => mockCwd,
+	...process,
+	cwd: () => mockCwd,
 })
 
 describe('unpluginFn', () => {
-const mockConfig = succeed({ config: 'mockedConfig' })
+	const mockConfig = succeed({ config: 'mockedConfig' })
 
-beforeEach(() => {
-mockPlugin = new MockUnpluginContext()
-mockLoadConfig.mockReturnValue(mockConfig)
-mockBundler.mockReturnValue({
-resolveEsmModule: vi.fn().mockReturnValue({ code: 'mockedModule', modules: {} }),
-})
-})
+	beforeEach(() => {
+		mockPlugin = new MockUnpluginContext()
+		mockLoadConfig.mockReturnValue(mockConfig)
+		mockBundler.mockReturnValue({
+			resolveEsmModule: vi.fn().mockReturnValue({ code: 'mockedModule', modules: {} }),
+		})
+	})
 
-it('should create the plugin correctly', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-expect(plugin.name).toEqual('@tevm/rollup-plugin')
-expect((plugin as any).version).toBeTruthy()
+	it('should create the plugin correctly', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		expect(plugin.name).toEqual('@tevm/rollup-plugin')
+		expect((plugin as any).version).toBeTruthy()
 
-// call buildstart with mockPlugin as this
-await plugin.buildStart?.call(mockPlugin)
+		// call buildstart with mockPlugin as this
+		await plugin.buildStart?.call(mockPlugin)
 
-expect(loadConfig).toHaveBeenCalledWith(mockCwd)
-expect((bundler as Mock).mock.lastCall).toMatchInlineSnapshot(`
+		expect(loadConfig).toHaveBeenCalledWith(mockCwd)
+		expect((bundler as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  {
 			    "config": "mockedConfig",
@@ -151,124 +151,124 @@ expect((bundler as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			]
 		`)
 
-const result = plugin.load?.call(mockPlugin, 'test.sol')
-expect(await result).toMatchInlineSnapshot('"mockedModule"')
-})
+		const result = plugin.load?.call(mockPlugin, 'test.sol')
+		expect(await result).toMatchInlineSnapshot('"mockedModule"')
+	})
 
-it('should watch the tsconfig.json file', async () => {
-const plugin = tevmUnplugin({}, {} as any)
+	it('should watch the tsconfig.json file', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
 
-// call buildstart with mockPlugin as this
-await plugin.buildStart?.call(mockPlugin)
-})
+		// call buildstart with mockPlugin as this
+		await plugin.buildStart?.call(mockPlugin)
+	})
 
-it('should add module id to watch files if it is a .sol file', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-const mockedModuleId = 'mockedModuleId'
-const mockedModule = {
-code: 'mockedCode',
-modules: { [mockedModuleId]: { id: '/path/to/mock/module' } },
-} as const
+	it('should add module id to watch files if it is a .sol file', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		const mockedModuleId = 'mockedModuleId'
+		const mockedModule = {
+			code: 'mockedCode',
+			modules: { [mockedModuleId]: { id: '/path/to/mock/module' } },
+		} as const
 
-mockBundler.mockReturnValue({
-resolveEsmModule: () => mockedModule,
-})
+		mockBundler.mockReturnValue({
+			resolveEsmModule: () => mockedModule,
+		})
 
-await plugin?.buildStart?.call(mockPlugin)
-await plugin.load?.call(mockPlugin, 'test.sol')
-expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
-})
+		await plugin?.buildStart?.call(mockPlugin)
+		await plugin.load?.call(mockPlugin, 'test.sol')
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
+	})
 
-it('should not add module id to watch files if it is a .sol file in node modules', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-const mockedModuleId = 'mockedModuleId'
-const mockedModule = {
-code: 'mockedCode',
-modules: { [mockedModuleId]: { id: '/node_modules/to/mock/module' } },
-} as const
+	it('should not add module id to watch files if it is a .sol file in node modules', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		const mockedModuleId = 'mockedModuleId'
+		const mockedModule = {
+			code: 'mockedCode',
+			modules: { [mockedModuleId]: { id: '/node_modules/to/mock/module' } },
+		} as const
 
-mockBundler.mockReturnValue({
-resolveEsmModule: () => mockedModule,
-})
+		mockBundler.mockReturnValue({
+			resolveEsmModule: () => mockedModule,
+		})
 
-await plugin?.buildStart?.call(mockPlugin)
-await plugin.load?.call(mockPlugin, 'test.sol')
-expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
-})
+		await plugin?.buildStart?.call(mockPlugin)
+		await plugin.load?.call(mockPlugin, 'test.sol')
+		expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(mockedModule.modules[mockedModuleId].id)
+	})
 
-it('should not load non .sol files', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-mockExistsSync.mockReturnValueOnce(true)
-const result = plugin.loadInclude?.call(mockPlugin, 'test.js')
-expect(result).toBe(false)
-expect(mockExistsSync).not.toHaveBeenCalled()
-})
+	it('should not load non .sol files', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		mockExistsSync.mockReturnValueOnce(true)
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.js')
+		expect(result).toBe(false)
+		expect(mockExistsSync).not.toHaveBeenCalled()
+	})
 
-it('should not load if .sol file has corresponding .ts file', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-mockExistsSync.mockImplementation((path) => path.endsWith('.ts'))
-const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
-expect(result).toBe(false)
-expect(mockExistsSync).toHaveBeenCalledWith('test.sol.ts')
-})
+	it('should not load if .sol file has corresponding .ts file', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		mockExistsSync.mockImplementation((path) => path.endsWith('.ts'))
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
+		expect(result).toBe(false)
+		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.ts')
+	})
 
-it('should not load if .sol file has corresponding .d.ts file', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-mockExistsSync.mockImplementation((path) => path.endsWith('.d.ts'))
-const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
-expect(result).toBe(false)
-expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
-})
+	it('should not load if .sol file has corresponding .d.ts file', async () => {
+		const plugin = tevmUnplugin({}, {} as any)
+		mockExistsSync.mockImplementation((path) => path.endsWith('.d.ts'))
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
+		expect(result).toBe(false)
+		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
+	})
 
-it('should throw an error if solc version is bad', async () => {
-expect(() => tevmUnplugin({ solc: 'badVersion' as any }, {} as any)).toThrowErrorMatchingInlineSnapshot(
-`[Error: Invalid solc compiler passed to Tevm plugin']`,
-)
-})
+	it('should throw an error if solc version is bad', async () => {
+		expect(() => tevmUnplugin({ solc: 'badVersion' as any }, {} as any)).toThrowErrorMatchingInlineSnapshot(
+			`[Error: Invalid solc compiler passed to Tevm plugin']`,
+		)
+	})
 
-describe('unpluginFn.resolveId', () => {
-it('should resolve to local @tevm/contract when id starts with @tevm/contract', async () => {
-const plugin = tevmUnplugin({}, {} as any)
-const mockCreateRequre = createRequire as MockedFunction<typeof createRequire>
-const mockRequireResolve = vi.fn()
-mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/contract')
-mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
-const result = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', '/different/workspace', {} as any)
+	describe('unpluginFn.resolveId', () => {
+		it('should resolve to local @tevm/contract when id starts with @tevm/contract', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
+			const mockCreateRequre = createRequire as MockedFunction<typeof createRequire>
+			const mockRequireResolve = vi.fn()
+			mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/contract')
+			mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
+			const result = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', '/different/workspace', {} as any)
 
-expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@tevm/contract"')
-expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
+			expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@tevm/contract"')
+			expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "mock/process/dot/cwd/",
 				]
 			`)
-expect(mockRequireResolve.mock.lastCall).toMatchInlineSnapshot(`
+			expect(mockRequireResolve.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "@tevm/contract",
 				]
 			`)
-})
+		})
 
-it('should return null when id does not start with @tevm/contract', async () => {
-const plugin = tevmUnplugin({}, {} as any)
+		it('should return null when id does not start with @tevm/contract', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
 
-const result = await plugin.resolveId?.call(mockPlugin, 'some/other/id', '/some/workspace', {} as any)
+			const result = await plugin.resolveId?.call(mockPlugin, 'some/other/id', '/some/workspace', {} as any)
 
-expect(result).toBeNull()
-})
+			expect(result).toBeNull()
+		})
 
-it('should return null when id starts with @tevm/contract but importer is in node_modules or the same workspace', async () => {
-const plugin = tevmUnplugin({}, {} as any)
+		it('should return null when id starts with @tevm/contract but importer is in node_modules or the same workspace', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
 
-const resultInNodeModules = await plugin.resolveId?.call(
-mockPlugin,
-'@tevm/contract',
-'/some/workspace/node_modules',
-{} as any,
-)
-expect(resultInNodeModules).toBeNull()
+			const resultInNodeModules = await plugin.resolveId?.call(
+				mockPlugin,
+				'@tevm/contract',
+				'/some/workspace/node_modules',
+				{} as any,
+			)
+			expect(resultInNodeModules).toBeNull()
 
-const resultInSameWorkspace = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', mockCwd, {} as any)
-expect(resultInSameWorkspace).toBeNull()
-})
-})
+			const resultInSameWorkspace = await plugin.resolveId?.call(mockPlugin, '@tevm/contract', mockCwd, {} as any)
+			expect(resultInSameWorkspace).toBeNull()
+		})
+	})
 })

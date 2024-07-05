@@ -15,6 +15,32 @@ is set to true, because deployments result in state changes that need to be mine
 
 The `salt` parameter supports the use of CREATE2, allowing for deterministic address deployment.
 
+## Type declaration
+
+### salt?
+
+> `readonly` `optional` **salt**: [`Hex`](Hex.md)
+
+An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract address.
+
+## Type Parameters
+
+• **TThrowOnFail** *extends* `boolean` = `boolean`
+
+Indicates whether the function should throw on failure.
+
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+The ABI type, typically including constructor definitions.
+
+• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
+
+Determines whether the ABI includes a constructor.
+
+• **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
+
+Types of the constructor arguments for the deployment.
+
 ## Example
 
 ```typescript
@@ -44,32 +70,6 @@ const deployParams = {
 const result = await deployHandler(client)(deployParams)
 console.log('Deployed contract address:', result.createdAddress)
 ```
-
-## Type declaration
-
-### salt?
-
-> `readonly` `optional` **salt**: [`Hex`](Hex.md)
-
-An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract address.
-
-## Type Parameters
-
-• **TThrowOnFail** *extends* `boolean` = `boolean`
-
-Indicates whether the function should throw on failure.
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type, typically including constructor definitions.
-
-• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
-
-Determines whether the ABI includes a constructor.
-
-• **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
-
-Types of the constructor arguments for the deployment.
 
 ## Defined in
 

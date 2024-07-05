@@ -13,10 +13,10 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.7.0",
-		"@astrojs/starlight": "^0.24.4",
-		"astro": "^4.11.1",
+		"@astrojs/starlight": "^0.25.0",
+		"astro": "^4.11.5",
 		"sharp": "^0.33.4",
-		"starlight-links-validator": "^0.9.0"
+		"starlight-links-validator": "^0.9.1"
 	},
 	"devDependencies": {
 		"@tevm/memory-client": "workspace:^",

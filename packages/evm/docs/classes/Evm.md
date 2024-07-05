@@ -56,15 +56,15 @@ Initialized bn128 WASM object for precompile usage (internal)
 
 [`Evm`](Evm.md)
 
-#### Inherited from
-
-`EVM.constructor`
-
 #### Deprecated
 
 The direct usage of this constructor is replaced since
 non-finalized async initialization lead to side effects. Please
 use the async EVM.create constructor instead (same API).
+
+#### Inherited from
+
+`EVM.constructor`
 
 #### Defined in
 
