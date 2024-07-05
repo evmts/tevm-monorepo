@@ -18,6 +18,10 @@ Options for creating a sync storage persister.
 
 How to deserialize the data from storage.
 
+#### Default
+
+`JSON.parse`
+
 #### Parameters
 
 • **cachedString**: `string`
@@ -25,10 +29,6 @@ How to deserialize the data from storage.
 #### Returns
 
 `SerializableTevmState`
-
-#### Default
-
-`JSON.parse`
 
 ### key?
 
@@ -42,6 +42,10 @@ The key to use when storing the cache
 
 How to serialize the data to storage.
 
+#### Default
+
+`JSON.stringify`
+
 #### Parameters
 
 • **client**: `SerializableTevmState`
@@ -49,10 +53,6 @@ How to serialize the data to storage.
 #### Returns
 
 `string`
-
-#### Default
-
-`JSON.stringify`
 
 ### storage
 

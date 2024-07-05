@@ -506,6 +506,10 @@ The block transaction count. GetBlockTransactionCountReturnType
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
+#### Deprecated
+
+Use `getCode` instead.
+
 #### Parameters
 
 • **args**: `GetCodeParameters`
@@ -513,10 +517,6 @@ The block transaction count. GetBlockTransactionCountReturnType
 #### Returns
 
 `Promise`\<`GetCodeReturnType`\>
-
-#### Deprecated
-
-Use `getCode` instead.
 
 ### getChainId()
 

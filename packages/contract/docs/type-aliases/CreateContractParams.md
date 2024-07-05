@@ -10,6 +10,10 @@
 
 Params for creating a [Contract](Contract.md) instance
 
+## See
+
+CreateContract
+
 ## Type Parameters
 
 • **TName** *extends* `string` \| `undefined` \| `never`
@@ -49,10 +53,6 @@ Params for creating a [Contract](Contract.md) instance
 ### name?
 
 > `optional` **name**: `TName`
-
-## See
-
-CreateContract
 
 ## Defined in
 

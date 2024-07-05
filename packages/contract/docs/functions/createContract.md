@@ -32,32 +32,6 @@ Creates a tevm Contract instance from human readable abi
 
 [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-## Examples
-
-```typescript
-import { type Contract, createContract} from 'tevm/contract'
-
-const contract: Contract = createContract({
-  name: 'MyContract',
- 	abi: [
- 		...
- 	],
-})
-```
-
-To use a json abi first pass it into `formatAbi` to turn it into human readable
-
-```typescript
-import { type Contract, createContract} from 'tevm/contract'
-
-const contract = createContract({
-  name: 'MyContract',
- 	abi: [
- 		...
- 	],
-})
-```
-
 ## Defined in
 
 [createContract.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L34)

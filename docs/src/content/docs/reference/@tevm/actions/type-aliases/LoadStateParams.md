@@ -11,20 +11,6 @@ Parameters for the `tevmLoadState` method.
 
 This method takes a TevmState object and loads it into the VM state.
 
-## Type declaration
-
-### state
-
-> `readonly` **state**: `TevmState`
-
-The TEVM state object to load.
-
-## Type Parameters
-
-• **TThrowOnFail** *extends* `boolean` = `boolean`
-
-Optional parameter to throw an error on failure.
-
 ## Example
 
 ```typescript
@@ -42,6 +28,20 @@ await loadState({ state })
 ## Param
 
 The TEVM state object to load.
+
+## Type declaration
+
+### state
+
+> `readonly` **state**: `TevmState`
+
+The TEVM state object to load.
+
+## Type Parameters
+
+• **TThrowOnFail** *extends* `boolean` = `boolean`
+
+Optional parameter to throw an error on failure.
 
 ## Defined in
 

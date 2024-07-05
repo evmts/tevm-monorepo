@@ -12,20 +12,6 @@ Configuration options for creating a [MemoryClient](../../../../../../../referen
 This type extends `BaseClientOptions` and includes specific options for configuring the MemoryClient,
 such as the transport type, account, polling interval, and caching behavior.
 
-## Type Parameters
-
-• **TCommon** *extends* [`Common`](/reference/tevm/common/type-aliases/common/) & `Chain` = [`Common`](/reference/tevm/common/type-aliases/common/) & `Chain`
-
-The common chain configuration, extending both `Common` and `Chain`.
-
-• **TAccountOrAddress** *extends* `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `undefined`
-
-The account or address type for the client.
-
-• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](/reference/tevm/memory-client/type-aliases/tevmrpcschema/)
-
-The RPC schema type, defaults to `TevmRpcSchema`.
-
 ## Example
 
 ```typescript
@@ -50,6 +36,20 @@ const client = createMemoryClient(options);
 
  - [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient)
  - [CreateMemoryClientFn](../../../../../../../reference/tevm/memory-client/type-aliases/creatememoryclientfn)
+
+## Type Parameters
+
+• **TCommon** *extends* [`Common`](/reference/tevm/common/type-aliases/common/) & `Chain` = [`Common`](/reference/tevm/common/type-aliases/common/) & `Chain`
+
+The common chain configuration, extending both `Common` and `Chain`.
+
+• **TAccountOrAddress** *extends* `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `undefined`
+
+The account or address type for the client.
+
+• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](/reference/tevm/memory-client/type-aliases/tevmrpcschema/)
+
+The RPC schema type, defaults to `TevmRpcSchema`.
 
 ## Defined in
 

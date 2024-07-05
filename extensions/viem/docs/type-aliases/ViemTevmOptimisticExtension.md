@@ -8,10 +8,6 @@
 
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
-## Returns
-
-[`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
-
 ## Deprecated
 
 in favor of the viem transport
@@ -36,6 +32,10 @@ await client.tevm.account({
 ## See
 
 [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
+
+## Returns
+
+[`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
 ## Defined in
 

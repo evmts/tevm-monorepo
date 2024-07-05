@@ -42,16 +42,6 @@ Adds an EVM chain to the wallet.
 - Docs: https://viem.sh/docs/actions/wallet/addChain
 - JSON-RPC Methods: [`eth_addEthereumChain`](https://eips.ethereum.org/EIPS/eip-3085)
 
-#### Parameters
-
-• **args**: `AddChainParameters`
-
-AddChainParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -63,6 +53,16 @@ const client = createWalletClient({
 })
 await client.addChain({ chain: optimism })
 ```
+
+#### Parameters
+
+• **args**: `AddChainParameters`
+
+AddChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### batch?
 
@@ -244,16 +244,6 @@ Removes a transaction from the mempool.
 
 - Docs: https://viem.sh/docs/actions/test/dropTransaction
 
-#### Parameters
-
-• **args**: `DropTransactionParameters`
-
-DropTransactionParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -270,6 +260,16 @@ await client.dropTransaction({
 })
 ```
 
+#### Parameters
+
+• **args**: `DropTransactionParameters`
+
+DropTransactionParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### dumpState()
 
 > **dumpState**: () => `Promise`\<\`0x$\{string\}\`\>
@@ -278,10 +278,6 @@ Serializes the current state (including contracts code, contract's storage,
 accounts properties, etc.) into a savable data blob.
 
 - Docs: https://viem.sh/docs/actions/test/dumpState
-
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
 
 #### Example
 
@@ -296,6 +292,10 @@ const client = createTestClient({
 })
 await client.dumpState()
 ```
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
 
 ### estimateContractGas()
 
@@ -497,6 +497,10 @@ The block transaction count. GetBlockTransactionCountReturnType
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
+#### Deprecated
+
+Use `getCode` instead.
+
 #### Parameters
 
 • **args**: `GetCodeParameters`
@@ -504,10 +508,6 @@ The block transaction count. GetBlockTransactionCountReturnType
 #### Returns
 
 `Promise`\<`GetCodeReturnType`\>
-
-#### Deprecated
-
-Use `getCode` instead.
 
 ### getChainId
 
@@ -1070,16 +1070,6 @@ Impersonate an account or contract address. This lets you send transactions from
 
 - Docs: https://viem.sh/docs/actions/test/impersonateAccount
 
-#### Parameters
-
-• **args**: `ImpersonateAccountParameters`
-
-ImpersonateAccountParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -1096,6 +1086,16 @@ await client.impersonateAccount({
 })
 ```
 
+#### Parameters
+
+• **args**: `ImpersonateAccountParameters`
+
+ImpersonateAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### increaseTime()
 
 > **increaseTime**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
@@ -1103,16 +1103,6 @@ await client.impersonateAccount({
 Jump forward in time by the given amount of time, in seconds.
 
 - Docs: https://viem.sh/docs/actions/test/increaseTime
-
-#### Parameters
-
-• **args**: `IncreaseTimeParameters`
-
-– IncreaseTimeParameters
-
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
 
 #### Example
 
@@ -1129,6 +1119,16 @@ await client.increaseTime({
   seconds: 420,
 })
 ```
+
+#### Parameters
+
+• **args**: `IncreaseTimeParameters`
+
+– IncreaseTimeParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
 
 ### inspectTxpool()
 
@@ -1154,14 +1154,6 @@ Adds state previously dumped with `dumpState` to the current chain.
 
 - Docs: https://viem.sh/docs/actions/test/loadState
 
-#### Parameters
-
-• **args**: `LoadStateParameters`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -1176,6 +1168,14 @@ const client = createTestClient({
 await client.loadState({ state: '0x...' })
 ```
 
+#### Parameters
+
+• **args**: `LoadStateParameters`
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### mine()
 
 > **mine**: (`args`) => `Promise`\<`void`\>
@@ -1183,16 +1183,6 @@ await client.loadState({ state: '0x...' })
 Mine a specified number of blocks.
 
 - Docs: https://viem.sh/docs/actions/test/mine
-
-#### Parameters
-
-• **args**: `MineParameters`
-
-– MineParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1207,6 +1197,16 @@ const client = createTestClient({
 })
 await client.mine({ blocks: 1 })
 ```
+
+#### Parameters
+
+• **args**: `MineParameters`
+
+– MineParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### multicall()
 
@@ -1320,10 +1320,6 @@ Removes [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlock
 
 - Docs: https://viem.sh/docs/actions/test/removeBlockTimestampInterval
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -1338,6 +1334,10 @@ const client = createTestClient({
 })
 await client.removeBlockTimestampInterval()
 ```
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### request
 
@@ -1381,16 +1381,6 @@ Resets fork back to its original state.
 
 - Docs: https://viem.sh/docs/actions/test/reset
 
-#### Parameters
-
-• **args?**: `ResetParameters`
-
-– ResetParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -1405,6 +1395,16 @@ const client = createTestClient({
 await client.reset({ blockNumber: 69420n })
 ```
 
+#### Parameters
+
+• **args?**: `ResetParameters`
+
+– ResetParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### revert()
 
 > **revert**: (`args`) => `Promise`\<`void`\>
@@ -1412,16 +1412,6 @@ await client.reset({ blockNumber: 69420n })
 Revert the state of the blockchain at the current block.
 
 - Docs: https://viem.sh/docs/actions/test/revert
-
-#### Parameters
-
-• **args**: `RevertParameters`
-
-– RevertParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1436,6 +1426,16 @@ const client = createTestClient({
 })
 await client.revert({ id: '0x…' })
 ```
+
+#### Parameters
+
+• **args**: `RevertParameters`
+
+– RevertParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### sendRawTransaction
 
@@ -1521,14 +1521,6 @@ Enables or disables the automatic mining of new blocks with each new transaction
 
 - Docs: https://viem.sh/docs/actions/test/setAutomine
 
-#### Parameters
-
-• **args**: `boolean`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Example
 
 ```ts
@@ -1543,6 +1535,14 @@ const client = createTestClient({
 await client.setAutomine()
 ```
 
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setBalance()
 
 > **setBalance**: (`args`) => `Promise`\<`void`\>
@@ -1550,16 +1550,6 @@ await client.setAutomine()
 Modifies the balance of an account.
 
 - Docs: https://viem.sh/docs/actions/test/setBalance
-
-#### Parameters
-
-• **args**: `SetBalanceParameters`
-
-– SetBalanceParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1578,6 +1568,16 @@ await client.setBalance({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetBalanceParameters`
+
+– SetBalanceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setBlockGasLimit()
 
 > **setBlockGasLimit**: (`args`) => `Promise`\<`void`\>
@@ -1585,16 +1585,6 @@ await client.setBalance({
 Sets the block's gas limit.
 
 - Docs: https://viem.sh/docs/actions/test/setBlockGasLimit
-
-#### Parameters
-
-• **args**: `SetBlockGasLimitParameters`
-
-– SetBlockGasLimitParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1610,6 +1600,16 @@ const client = createTestClient({
 await client.setBlockGasLimit({ gasLimit: 420_000n })
 ```
 
+#### Parameters
+
+• **args**: `SetBlockGasLimitParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setBlockTimestampInterval()
 
 > **setBlockTimestampInterval**: (`args`) => `Promise`\<`void`\>
@@ -1617,16 +1617,6 @@ await client.setBlockGasLimit({ gasLimit: 420_000n })
 Similar to [`increaseTime`](https://viem.sh/docs/actions/test/increaseTime), but sets a block timestamp `interval`. The timestamp of future blocks will be computed as `lastBlock_timestamp` + `interval`.
 
 - Docs: https://viem.sh/docs/actions/test/setBlockTimestampInterval
-
-#### Parameters
-
-• **args**: `SetBlockTimestampIntervalParameters`
-
-– SetBlockTimestampIntervalParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1642,6 +1632,16 @@ const client = createTestClient({
 await client.setBlockTimestampInterval({ interval: 5 })
 ```
 
+#### Parameters
+
+• **args**: `SetBlockTimestampIntervalParameters`
+
+– SetBlockTimestampIntervalParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setCode()
 
 > **setCode**: (`args`) => `Promise`\<`void`\>
@@ -1649,16 +1649,6 @@ await client.setBlockTimestampInterval({ interval: 5 })
 Modifies the bytecode stored at an account's address.
 
 - Docs: https://viem.sh/docs/actions/test/setCode
-
-#### Parameters
-
-• **args**: `SetCodeParameters`
-
-– SetCodeParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1677,6 +1667,16 @@ await client.setCode({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetCodeParameters`
+
+– SetCodeParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setCoinbase()
 
 > **setCoinbase**: (`args`) => `Promise`\<`void`\>
@@ -1684,16 +1684,6 @@ await client.setCode({
 Sets the coinbase address to be used in new blocks.
 
 - Docs: https://viem.sh/docs/actions/test/setCoinbase
-
-#### Parameters
-
-• **args**: `SetCoinbaseParameters`
-
-– SetCoinbaseParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1711,6 +1701,16 @@ await client.setCoinbase({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetCoinbaseParameters`
+
+– SetCoinbaseParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setIntervalMining()
 
 > **setIntervalMining**: (`args`) => `Promise`\<`void`\>
@@ -1718,16 +1718,6 @@ await client.setCoinbase({
 Sets the automatic mining interval (in seconds) of blocks. Setting the interval to 0 will disable automatic mining.
 
 - Docs: https://viem.sh/docs/actions/test/setIntervalMining
-
-#### Parameters
-
-• **args**: `SetIntervalMiningParameters`
-
-– SetIntervalMiningParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1743,6 +1733,16 @@ const client = createTestClient({
 await client.setIntervalMining({ interval: 5 })
 ```
 
+#### Parameters
+
+• **args**: `SetIntervalMiningParameters`
+
+– SetIntervalMiningParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setLoggingEnabled()
 
 > **setLoggingEnabled**: (`args`) => `Promise`\<`void`\>
@@ -1750,14 +1750,6 @@ await client.setIntervalMining({ interval: 5 })
 Enable or disable logging on the test node network.
 
 - Docs: https://viem.sh/docs/actions/test/setLoggingEnabled
-
-#### Parameters
-
-• **args**: `boolean`
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1773,6 +1765,14 @@ const client = createTestClient({
 await client.setLoggingEnabled()
 ```
 
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setMinGasPrice()
 
 > **setMinGasPrice**: (`args`) => `Promise`\<`void`\>
@@ -1782,16 +1782,6 @@ Change the minimum gas price accepted by the network (in wei).
 - Docs: https://viem.sh/docs/actions/test/setMinGasPrice
 
 Note: `setMinGasPrice` can only be used on clients that do not have EIP-1559 enabled.
-
-#### Parameters
-
-• **args**: `SetMinGasPriceParameters`
-
-– SetBlockGasLimitParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1809,6 +1799,16 @@ await client.setMinGasPrice({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetMinGasPriceParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setNextBlockBaseFeePerGas()
 
 > **setNextBlockBaseFeePerGas**: (`args`) => `Promise`\<`void`\>
@@ -1816,16 +1816,6 @@ await client.setMinGasPrice({
 Sets the next block's base fee per gas.
 
 - Docs: https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas
-
-#### Parameters
-
-• **args**: `SetNextBlockBaseFeePerGasParameters`
-
-– SetNextBlockBaseFeePerGasParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1843,6 +1833,16 @@ await client.setNextBlockBaseFeePerGas({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetNextBlockBaseFeePerGasParameters`
+
+– SetNextBlockBaseFeePerGasParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setNextBlockTimestamp()
 
 > **setNextBlockTimestamp**: (`args`) => `Promise`\<`void`\>
@@ -1850,16 +1850,6 @@ await client.setNextBlockBaseFeePerGas({
 Sets the next block's timestamp.
 
 - Docs: https://viem.sh/docs/actions/test/setNextBlockTimestamp
-
-#### Parameters
-
-• **args**: `SetNextBlockTimestampParameters`
-
-– SetNextBlockTimestampParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1875,6 +1865,16 @@ const client = createTestClient({
 await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 ```
 
+#### Parameters
+
+• **args**: `SetNextBlockTimestampParameters`
+
+– SetNextBlockTimestampParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setNonce()
 
 > **setNonce**: (`args`) => `Promise`\<`void`\>
@@ -1882,16 +1882,6 @@ await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 Modifies (overrides) the nonce of an account.
 
 - Docs: https://viem.sh/docs/actions/test/setNonce
-
-#### Parameters
-
-• **args**: `SetNonceParameters`
-
-– SetNonceParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1910,6 +1900,16 @@ await client.setNonce({
 })
 ```
 
+#### Parameters
+
+• **args**: `SetNonceParameters`
+
+– SetNonceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setRpcUrl()
 
 > **setRpcUrl**: (`args`) => `Promise`\<`void`\>
@@ -1917,14 +1917,6 @@ await client.setNonce({
 Sets the backend RPC URL.
 
 - Docs: https://viem.sh/docs/actions/test/setRpcUrl
-
-#### Parameters
-
-• **args**: `string`
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1940,6 +1932,14 @@ const client = createTestClient({
 await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 ```
 
+#### Parameters
+
+• **args**: `string`
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### setStorageAt()
 
 > **setStorageAt**: (`args`) => `Promise`\<`void`\>
@@ -1947,16 +1947,6 @@ await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 Writes to a slot of an account's storage.
 
 - Docs: https://viem.sh/docs/actions/test/setStorageAt
-
-#### Parameters
-
-• **args**: `SetStorageAtParameters`
-
-– SetStorageAtParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -1975,6 +1965,16 @@ await client.setStorageAt({
   value: '0x0000000000000000000000000000000000000000000000000000000000000069',
 })
 ```
+
+#### Parameters
+
+• **args**: `SetStorageAtParameters`
+
+– SetStorageAtParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### signMessage()
 
@@ -2070,10 +2070,6 @@ Snapshot the state of the blockchain at the current block.
 
 - Docs: https://viem.sh/docs/actions/test/snapshot
 
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
-
 #### Example
 
 ```ts
@@ -2089,6 +2085,10 @@ const client = createTestClient({
 await client.snapshot()
 ```
 
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
 ### stopImpersonatingAccount()
 
 > **stopImpersonatingAccount**: (`args`) => `Promise`\<`void`\>
@@ -2096,16 +2096,6 @@ await client.snapshot()
 Stop impersonating an account after having previously used [`impersonateAccount`](https://viem.sh/docs/actions/test/impersonateAccount).
 
 - Docs: https://viem.sh/docs/actions/test/stopImpersonatingAccount
-
-#### Parameters
-
-• **args**: `StopImpersonatingAccountParameters`
-
-– StopImpersonatingAccountParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -2124,6 +2114,16 @@ await client.stopImpersonatingAccount({
 })
 ```
 
+#### Parameters
+
+• **args**: `StopImpersonatingAccountParameters`
+
+– StopImpersonatingAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### switchChain()
 
 > **switchChain**: (`args`) => `Promise`\<`void`\>
@@ -2132,16 +2132,6 @@ Switch the target chain in a wallet.
 
 - Docs: https://viem.sh/docs/actions/wallet/switchChain
 - JSON-RPC Methods: [`eth_switchEthereumChain`](https://eips.ethereum.org/EIPS/eip-3326)
-
-#### Parameters
-
-• **args**: `SwitchChainParameters`
-
-SwitchChainParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 #### Example
 
@@ -2156,11 +2146,44 @@ const client = createWalletClient({
 await client.switchChain({ id: optimism.id })
 ```
 
+#### Parameters
+
+• **args**: `SwitchChainParameters`
+
+SwitchChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 ### tevm
 
 > **tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider`
 
 Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
+
+#### See
+
+BaseClient
+
+#### Example
+
+```typescript
+import { createMemoryClient } from 'tevm'
+
+const memoryClient = createMemoryClient()
+
+// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
+const vm = await memoryClient.tevm.getVm()
+vm.runBlock(...)
+const { blockchain, evm, stateManager } = vm
+blockchain.addBlock(...)
+evm.runCall(...)
+stateManager.putAccount(...)
+
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
+```
 
 #### Type declaration
 
@@ -2291,16 +2314,16 @@ Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
 have extra latency on the first call from initialization
 
-###### Returns
-
-`Promise`\<`true`\>
-
 ###### Example
 
 ```ts
 const client = createMemoryClient()
 await client.ready()
 ```
+
+###### Returns
+
+`Promise`\<`true`\>
 
 ##### removeFilter()
 
@@ -2366,29 +2389,6 @@ Arguments to pass to the event listeners.
 `boolean`
 
 True if the event was emitted, false otherwise.
-
-#### See
-
-BaseClient
-
-#### Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-
-const memoryClient = createMemoryClient()
-
-// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlock(...)
-const { blockchain, evm, stateManager } = vm
-blockchain.addBlock(...)
-evm.runCall(...)
-stateManager.putAccount(...)
-
-const mempool = await memoryClient.tevm.getTxPool()
-const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-```
 
 ### tevmCall
 
@@ -2570,10 +2570,6 @@ await client.tevmMine()
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
-#### Returns
-
-`Promise`\<`true`\>
-
 #### Example
 
 ```typescript
@@ -2584,6 +2580,10 @@ const client = createMemoryClient()
 await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
+
+#### Returns
+
+`Promise`\<`true`\>
 
 ### ~~tevmScript~~
 
@@ -2957,186 +2957,6 @@ WriteContractParameters
 `Promise`\<\`0x$\{string\}\`\>
 
 A [Transaction Hash](https://viem.sh/docs/glossary/terms#hash). WriteContractReturnType
-
-## Example
-
-```typescript
-import { createMemoryClient } from "tevm";
-
-const client = createMemoryClient({
-  fork: {
-    transport: http("https://mainnet.optimism.io")({}),
-  },
-});
-
-const blockNumber = await client.getBlockNumber();
-console.log(blockNumber);
-```
-
-## See
-
- - [Client Guide](https://tevm.sh/learn/clients/)
- - [Actions Guide](https://tevm.sh/learn/actions/)
- - [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
- - For more information on viem clients, see the [viem client docs](https://viem.sh/docs/clients/introduction)
-
-## Actions API
-
-MemoryClient supports the following viem actions:
-
-- [TEVM actions API](https://tevm.sh/reference/tevm/memory-client/type-aliases/tevmactions/)
-```typescript
-import { createMemoryClient } from "tevm";
-
-const tevm = createMemoryClient();
-await tevm.setAccount({ address: `0x${'01'.repeat(20)}`, balance: 100n });
-```
-- [Viem public actions API](https://viem.sh/docs/actions/public/introduction) such as [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber)
-```typescript
-import { createMemoryClient } from "tevm";
-
-const tevm = createMemoryClient();
-const bn = await tevm.getBlockNumber();
-```
-- [Test actions](https://viem.sh/docs/actions/test/introduction) are included by default.
-```typescript
-import { createMemoryClient } from "tevm";
-
-const tevm = createMemoryClient();
-await tevm.setBalance({ address: `0x${'01'.repeat(20)}`, balance: 100n });
-```
-
-## Forking
-
-To fork an existing network, pass an EIP-1193 transport to the `fork.transport` option with an optional block tag.
-When you fork, TEVM will pin the block tag and lazily cache state from the fork transport.
-It's highly recommended to pass in a `common` object that matches the chain. This will increase the performance of forking with known values.
-
-```typescript
-import { createMemoryClient, http } from "tevm";
-import { optimism } from "tevm/common";
-
-const forkedClient = createMemoryClient({
-  fork: {
-    transport: http("https://mainnet.optimism.io")({}),
-    blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
-  },
-  common: optimism,
-});
-```
-
-The `common` object extends the viem chain interface with EVM-specific information. When using TEVM, you should also use `tevm/common` rather than `viem/chains` or use `createCommon` and pass in a viem chain.
-
-Viem clients, including MemoryClient, are themselves EIP-1193 transports. This means you can fork a client with another client.
-
-## Mining Modes
-
-TEVM supports two mining modes:
-- Manual: Using `tevm.mine()`
-- Auto: Automatically mines a block after every transaction.
-
-TEVM state does not update until blocks are mined.
-
-## Using TEVM over HTTP
-
-TEVM can be run as an HTTP server using `@tevm/server` to handle JSON-RPC requests.
-
-```typescript
-import { createServer } from "tevm/server";
-import { createMemoryClient } from "tevm";
-
-const memoryClient = createMemoryClient();
-
-const server = createServer({
-  request: memoryClient.request,
-});
-
-server.listen(8545, () => console.log("listening on 8545"));
-```
-
-This allows you to use any Ethereum client to communicate with it, including a viem public client.
-
-```typescript
-import { createPublicClient, http } from "viem";
-import { mainnet } from "viem/chains";
-
-const publicClient = createPublicClient({
-  chain: mainnet,
-  transport: http("https://localhost:8545"),
-});
-
-console.log(await publicClient.getChainId());
-```
-
-## State Persistence (Experimental)
-
-It is possible to persist the TEVM client to a synchronous source using the `persister` option.
-
-```typescript
-import { createMemoryClient, createSyncPersister } from "tevm";
-import { createMemoryClient } from "tevm/sync-storage-persister";
-
-// Client state will be hydrated and persisted from/to local storage
-const clientWithLocalStoragePersistence = createMemoryClient({
-  persister: createSyncPersister({
-    storage: localStorage,
-  }),
-});
-```
-
-## Network Support
-
-TEVM guarantees support for the following networks:
-- Ethereum mainnet
-- Standard OP Stack chains
-
-Other EVM chains are likely to work but do not officially carry support. More official chain support will be added in the near future.
-
-Note: Optimism deposit transactions are not currently supported but will be in a future release. TEVM filters out these transactions from blocks.
-
-## Network and Hardfork Support
-
-TEVM supports enabling and disabling different EIPs, but the following EIPs are always turned on:
-- 1559
-- 4895
-- 4844
-- 4788
-
-Currently, only EIP-1559 Fee Market transactions are supported.
-
-## Tree Shakeable Actions
-
-TEVM supports tree-shakeable actions using `createBaseClient()` and the `tevm/actions` package. If you are building a UI, you should use tree-shakeable actions to optimize bundle size. These are described in detail in the [actions API guide](https://tevm.sh/learn/actions/).
-
-## Composing with TEVM Contracts and Bundler
-
-MemoryClient can compose with TEVM contracts and the TEVM bundler. For more information, see the [TEVM contracts guide](https://tevm.sh/learn/contracts/) and the [TEVM Solidity imports guide](https://tevm.sh/learn/solidity-imports/).
-
-```typescript
-import { createMemoryClient } from "tevm";
-import { MyERC721 } from './MyERC721.sol';
-
-const tevm = createMemoryClient({
-  fork: {
-    transport: http("https://mainnet.optimism.io")({}),
-  },
-});
-
-const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
-
-await tevm.runContractCall(
-  MyERC721.write.mint({
-    caller: address,
-  }),
-);
-
-const balance = await tevm.runContractCall(
-  MyERC721.read.balanceOf({
-    caller: address,
-  }),
-);
-console.log(balance); // 1n
-```
 
 ## Defined in
 

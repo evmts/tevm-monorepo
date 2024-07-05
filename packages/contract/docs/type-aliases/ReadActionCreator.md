@@ -10,6 +10,14 @@
 
 A mapping of view and pure contract methods to action creators
 
+## Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
+
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
@@ -19,14 +27,6 @@ A mapping of view and pure contract methods to action creators
 • **TCode** *extends* `Hex` \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
-
-## Example
-
-```typescript
-tevm.contract(
-  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
-)
-```
 
 ## Defined in
 

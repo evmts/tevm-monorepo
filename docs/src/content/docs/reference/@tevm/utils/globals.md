@@ -5,12 +5,6 @@ prev: false
 title: "@tevm/utils"
 ---
 
-## References
-
-### bytesToBigInt
-
-Renames and re-exports [bytesToBigint](/reference/tevm/utils/functions/bytestobigint/)
-
 ## Enumerations
 
 - [KeyEncoding](/reference/tevm/utils/enumerations/keyencoding/)

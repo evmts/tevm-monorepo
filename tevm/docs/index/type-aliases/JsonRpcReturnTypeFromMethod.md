@@ -10,15 +10,15 @@
 
 Utility type to get the return type given a method name
 
-## Type Parameters
-
-• **TMethod** *extends* keyof [`EthReturnType`](../../procedures/type-aliases/EthReturnType.md) \| keyof [`TevmReturnType`](../../procedures/type-aliases/TevmReturnType.md) \| keyof [`AnvilReturnType`](../../procedures/type-aliases/AnvilReturnType.md) \| keyof [`DebugReturnType`](../../procedures/type-aliases/DebugReturnType.md)
-
 ## Example
 
 ```typescript
 type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 ```
+
+## Type Parameters
+
+• **TMethod** *extends* keyof [`EthReturnType`](../../procedures/type-aliases/EthReturnType.md) \| keyof [`TevmReturnType`](../../procedures/type-aliases/TevmReturnType.md) \| keyof [`AnvilReturnType`](../../procedures/type-aliases/AnvilReturnType.md) \| keyof [`DebugReturnType`](../../procedures/type-aliases/DebugReturnType.md)
 
 ## Defined in
 

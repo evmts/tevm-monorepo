@@ -11,18 +11,6 @@
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
 
-## Type Parameters
-
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures/type-aliases/DebugJsonRpcRequest.md)
-
-## Parameters
-
-• **request**: `TRequest`
-
-## Returns
-
-`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
-
 ## Example
 
 ```typescript
@@ -95,6 +83,18 @@ response - [EthGasPriceJsonRpcResponse](../../procedures/type-aliases/EthGasPric
 
 request - [EthGetBalanceJsonRpcRequest](../../procedures/type-aliases/EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBalanceJsonRpcResponse.md)
+
+## Type Parameters
+
+• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures/type-aliases/DebugJsonRpcRequest.md)
+
+## Parameters
+
+• **request**: `TRequest`
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
 ## Defined in
 

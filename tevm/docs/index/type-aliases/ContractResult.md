@@ -12,20 +12,6 @@ The result type for a TEVM contract call.
 
 This type extends the `CallResult` type with additional contract-specific fields, and it supports both success and error states.
 
-## Type Parameters
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type.
-
-• **TFunctionName** *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **ErrorType** = [`TevmContractError`](TevmContractError.md)
-
-The error type.
-
 ## Example
 
 ```typescript
@@ -59,6 +45,20 @@ if (result.errors) {
 ## See
 
 [CallResult](CallResult.md)
+
+## Type Parameters
+
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+The ABI type.
+
+• **TFunctionName** *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **ErrorType** = [`TevmContractError`](TevmContractError.md)
+
+The error type.
 
 ## Defined in
 

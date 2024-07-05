@@ -9,6 +9,10 @@ title: "CreateContractParams"
 
 Params for creating a [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) instance
 
+## See
+
+CreateContract
+
 ## Type Parameters
 
 • **TName** *extends* `string` \| `undefined` \| `never`
@@ -48,10 +52,6 @@ Params for creating a [Contract](../../../../../../../reference/tevm/contract/ty
 ### name?
 
 > `optional` **name**: `TName`
-
-## See
-
-CreateContract
 
 ## Defined in
 

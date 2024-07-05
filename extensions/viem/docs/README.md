@@ -26,7 +26,7 @@
 
 # @tevm/viem
 
-Viem client for tevm. For an ethers client see [@tevm/ethers](../ethers/) and for a lightweight fetch based client see [@tevm/client](../../vm/client/)
+Viem client for tevm. For an ethers client see [@tevm/ethers]() and for a lightweight fetch based client see [@tevm/client]()
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 
@@ -34,4 +34,4 @@ Viem client for tevm. For an ethers client see [@tevm/ethers](../ethers/) and fo
 
 ## License 📄
 
-<a href="_media/LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+<a href=""><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
