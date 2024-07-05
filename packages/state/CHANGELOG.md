@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.90
+
+### Minor Changes
+
+- [#1268](https://github.com/evmts/tevm-monorepo/pull/1268) [`396157c`](https://github.com/evmts/tevm-monorepo/commit/396157c8ee742fcabeb768ba737c37a400908e3f) Thanks [@roninjin10](https://github.com/roninjin10)! - Added options to configure and pass in custom caches. For example caches that prune old state sooner
+
 ## 1.1.0-next.88
 
 ### Patch Changes
