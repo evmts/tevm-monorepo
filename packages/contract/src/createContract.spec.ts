@@ -303,7 +303,7 @@ describe(createContract.name, () => {
 		`)
 	})
 	it('should handle bytecode from params in script function', () => {
-		const params = { bytecode: '0x123456' }
+		const params = { bytecode: '0x123456' } as const
 		const scriptContract = contract.script(params)
 		expect(scriptContract.bytecode).toBe(params.bytecode)
 		expect(scriptContract.code).toBe(params.bytecode)
