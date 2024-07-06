@@ -69,4 +69,15 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
 		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
 	})
+
+	it('should handle errroors', () => {
+		let err: any = undefined
+		try {
+			createCommon({ ...optimism, loggingLevel: 'info', hardfork: 'not valid hardfork' as any })
+		} catch (e) {
+			err = e
+		}
+		expect(err).toBeDefined()
+		expect(err).toMatchSnapshot()
+	})
 })
