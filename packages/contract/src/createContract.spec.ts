@@ -1,4 +1,4 @@
-import { formatAbi, parseAbi } from '@tevm/utils'
+import { encodeDeployData, formatAbi, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createContract } from './createContract.js'
 import { dummyAbi } from './test/fixtures.js'
@@ -301,5 +301,65 @@ describe(createContract.name, () => {
 			  ],
 			}
 		`)
+	})
+	it('should handle bytecode from params in script function', () => {
+		const params = { bytecode: '0x123456' }
+		const scriptContract = contract.script(params)
+		expect(scriptContract.bytecode).toBe(params.bytecode)
+		expect(scriptContract.code).toBe(params.bytecode)
+	})
+
+	it('should handle bytecode from base contract in script function', () => {
+		const contractWithBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			bytecode: '0x654321',
+		})
+		const scriptContract = contractWithBytecode.script({})
+		expect(scriptContract.bytecode).toBe('0x654321')
+		expect(scriptContract.code).toBe('0x654321')
+	})
+
+	it('should handle deployedBytecode from base contract in script function', () => {
+		const contractWithDeployedBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			deployedBytecode: '0xabcdef',
+		})
+		const scriptContract = contractWithDeployedBytecode.script({} as any)
+		expect(scriptContract.bytecode).toBe('0xabcdef')
+		expect(scriptContract.code).toBe('0xabcdef')
+	})
+
+	it('should throw an error if no bytecode is provided in script function', () => {
+		expect(() => contract.script({} as any)).toThrow('Unknown bytecode error')
+	})
+
+	it('should handle constructor without args in script function', () => {
+		const contractWithConstructor = createContract({
+			humanReadableAbi: ['constructor() payable'] as const,
+			name: 'ContractWithConstructor',
+			bytecode: '0x123456',
+		})
+		const scriptContract = contractWithConstructor.script({} as any)
+		expect(scriptContract.bytecode).toBe('0x123456')
+		expect(scriptContract.code).toBe('0x123456')
+	})
+
+	it('should handle constructor with args in script function', () => {
+		const contractWithConstructor = createContract({
+			humanReadableAbi: ['constructor(uint256 num) payable'] as const,
+			name: 'ContractWithConstructor',
+			bytecode: '0x123456',
+		})
+		const scriptContract = contractWithConstructor.script({ constructorArgs: [42n] })
+		expect(scriptContract.bytecode).toBe('0x123456')
+		expect(scriptContract.code).toBe(
+			encodeDeployData({
+				abi: contractWithConstructor.abi,
+				bytecode: '0x123456',
+				args: [42n],
+			}),
+		)
 	})
 })
