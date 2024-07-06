@@ -1,17 +1,15 @@
 import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
-	type AbiEvent,
 	type AbiParametersToPrimitiveTypes,
 	type ExtractAbiFunction,
 	type ExtractAbiFunctionNames,
 	decodeFunctionData,
-	encodeAbiParameters,
-	encodeEventTopics,
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
 import type { CallResult } from './CallResult.js'
+import { logToEthjsLog } from './logToEthjsLog.js'
 
 type Handler<TAbi extends Abi, TFunctionName extends ExtractAbiFunctionNames<TAbi>> = (params: {
 	gasLimit: bigint
@@ -49,22 +47,7 @@ export const defineCall = <TAbi extends Abi>(
 				...(logs
 					? // This logs part of the ternary is not covered
 						{
-							logs: logs.map((log) => {
-								const topics = encodeEventTopics({
-									abi,
-									eventName: log.eventName,
-									args: log.args,
-								} as any).map((topics) => hexToBytes(topics))
-								const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName) as AbiEvent
-								const indexedInputs = eventItem.inputs?.filter((param) => 'indexed' in param && param.indexed)
-								const argsArray = Array.isArray(log.args)
-									? log.args
-									: Object.values(log.args ?? {}).length > 0
-										? indexedInputs?.map((x: any) => (log.args as any)[x.name]) ?? []
-										: []
-								const data = encodeAbiParameters(eventItem.inputs, argsArray)
-								return [hexToBytes(log.address), topics, hexToBytes(data)]
-							}),
+							logs: logs.map((logs) => logToEthjsLog(abi, logs)),
 						}
 					: {}),
 				returnValue: hexToBytes(
