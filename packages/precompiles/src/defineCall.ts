@@ -1,17 +1,15 @@
 import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
-	type AbiEvent,
 	type AbiParametersToPrimitiveTypes,
 	type ExtractAbiFunction,
 	type ExtractAbiFunctionNames,
 	decodeFunctionData,
-	encodeAbiParameters,
-	encodeEventTopics,
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
 import type { CallResult } from './CallResult.js'
+import { logToEthjsLog } from './logToEthjsLog.js'
 
 type Handler<TAbi extends Abi, TFunctionName extends ExtractAbiFunctionNames<TAbi>> = (params: {
 	gasLimit: bigint
@@ -47,18 +45,9 @@ export const defineCall = <TAbi extends Abi>(
 				...(selfdestruct ? { selfdestruct } : {}),
 				...(blobGasUsed ? { blobGasUsed } : {}),
 				...(logs
-					? {
-							logs: logs.map((log) => {
-								const topics = encodeEventTopics({
-									abi,
-									eventName: log.name,
-									args: log.inputs,
-								} as any).map((topics) => hexToBytes(topics))
-								const eventItem = abi.find((item) => item.type === 'event' && item.name === log.name) as AbiEvent
-								if (!eventItem) throw new Error(`Event ${log.name} not found in ABI`)
-								const data = encodeAbiParameters(eventItem.inputs, log.inputs)
-								return [hexToBytes(log.address), topics, hexToBytes(data)]
-							}),
+					? // This logs part of the ternary is not covered
+						{
+							logs: logs.map((logs) => logToEthjsLog(abi, logs)),
 						}
 					: {}),
 				returnValue: hexToBytes(
@@ -69,6 +58,7 @@ export const defineCall = <TAbi extends Abi>(
 					} as any),
 				),
 			}
+			// This entire catch block is not covered
 		} catch (e) {
 			return {
 				executionGasUsed: BigInt(0),

@@ -26,4 +26,4 @@
 
 ## Defined in
 
-packages/precompiles/dist/index.d.ts:103
+packages/precompiles/dist/index.d.ts:109

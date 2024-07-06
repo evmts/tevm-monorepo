@@ -126,3 +126,4 @@ export type {
 	JsonSerializableObject,
 } from './SerializeToJson.js'
 export * from './invariant.js'
+export { type EncodeEventTopicsParameters } from 'viem/utils'

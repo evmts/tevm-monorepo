@@ -38,6 +38,7 @@
 - [ContractConstructorArgs](type-aliases/ContractConstructorArgs.md)
 - [DbObject](type-aliases/DbObject.md)
 - [EncodeDeployDataParameters](type-aliases/EncodeDeployDataParameters.md)
+- [EncodeEventTopicsParameters](type-aliases/EncodeEventTopicsParameters.md)
 - [EncodingOpts](type-aliases/EncodingOpts.md)
 - [EthjsLog](type-aliases/EthjsLog.md)
 - [JsonSerializable](type-aliases/JsonSerializable.md)

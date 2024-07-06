@@ -36,4 +36,4 @@
 
 ## Defined in
 
-packages/precompiles/dist/index.d.ts:115
+packages/precompiles/dist/index.d.ts:121
