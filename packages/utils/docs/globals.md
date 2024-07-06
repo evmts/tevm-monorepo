@@ -48,6 +48,7 @@
 - [DbObject](type-aliases/DbObject.md)
 - [DecodeFunctionResultReturnType](type-aliases/DecodeFunctionResultReturnType.md)
 - [EncodeDeployDataParameters](type-aliases/EncodeDeployDataParameters.md)
+- [EncodeEventTopicsParameters](type-aliases/EncodeEventTopicsParameters.md)
 - [EncodeFunctionDataParameters](type-aliases/EncodeFunctionDataParameters.md)
 - [EncodingOpts](type-aliases/EncodingOpts.md)
 - [EthjsLog](type-aliases/EthjsLog.md)

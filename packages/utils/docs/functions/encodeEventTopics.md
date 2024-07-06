@@ -16,7 +16,7 @@
 
 ## Parameters
 
-• **parameters**: `EncodeEventTopicsParameters`\<`abi`, `eventName`, `abi` *extends* `Abi` ? `Abi` *extends* `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`, `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName`\<`eventName`\> : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\>
+• **parameters**: [`EncodeEventTopicsParameters`](../type-aliases/EncodeEventTopicsParameters.md)\<`abi`, `eventName`, `abi` *extends* `Abi` ? `Abi` *extends* `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`, `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName`\<`eventName`\> : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\>
 
 ## Returns
 
