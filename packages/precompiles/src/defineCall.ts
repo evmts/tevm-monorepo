@@ -47,16 +47,22 @@ export const defineCall = <TAbi extends Abi>(
 				...(selfdestruct ? { selfdestruct } : {}),
 				...(blobGasUsed ? { blobGasUsed } : {}),
 				...(logs
-					? {
+					? // This logs part of the ternary is not covered
+						{
 							logs: logs.map((log) => {
 								const topics = encodeEventTopics({
 									abi,
-									eventName: log.name,
-									args: log.inputs,
+									eventName: log.eventName,
+									args: log.args,
 								} as any).map((topics) => hexToBytes(topics))
-								const eventItem = abi.find((item) => item.type === 'event' && item.name === log.name) as AbiEvent
-								if (!eventItem) throw new Error(`Event ${log.name} not found in ABI`)
-								const data = encodeAbiParameters(eventItem.inputs, log.inputs)
+								const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName) as AbiEvent
+								const indexedInputs = eventItem.inputs?.filter((param) => 'indexed' in param && param.indexed)
+								const argsArray = Array.isArray(log.args)
+									? log.args
+									: Object.values(log.args ?? {}).length > 0
+										? indexedInputs?.map((x: any) => (log.args as any)[x.name]) ?? []
+										: []
+								const data = encodeAbiParameters(eventItem.inputs, argsArray)
 								return [hexToBytes(log.address), topics, hexToBytes(data)]
 							}),
 						}
@@ -69,6 +75,7 @@ export const defineCall = <TAbi extends Abi>(
 					} as any),
 				),
 			}
+			// This entire catch block is not covered
 		} catch (e) {
 			return {
 				executionGasUsed: BigInt(0),
