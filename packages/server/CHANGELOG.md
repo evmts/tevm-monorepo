@@ -1,5 +1,15 @@
 # @tevm/server
 
+## 1.1.0-next.91
+
+### Patch Changes
+
+- Updated dependencies [[`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333)]:
+  - @tevm/utils@1.1.0-next.91
+  - @tevm/common@1.1.0-next.91
+  - @tevm/decorators@1.1.0-next.91
+  - @tevm/memory-client@1.1.0-next.91
+
 ## 1.1.0-next.90
 
 ### Patch Changes

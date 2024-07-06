@@ -1,5 +1,18 @@
 # @tevm/precompiles
 
+## 1.1.0-next.91
+
+### Minor Changes
+
+- [#1279](https://github.com/evmts/tevm-monorepo/pull/1279) [`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333) Thanks [@roninjin10](https://github.com/roninjin10)! - Added type inference to log return type of precompile functions created with createCall. Now autocomplete will work when filling out event names and the types of the event args are strongly typed
+
+### Patch Changes
+
+- Updated dependencies [[`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333)]:
+  - @tevm/utils@1.1.0-next.91
+  - @tevm/contract@1.1.0-next.91
+  - @tevm/evm@1.1.0-next.91
+
 ## 1.1.0-next.90
 
 ### Patch Changes
