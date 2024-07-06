@@ -71,15 +71,19 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 	 */
 	const script = (params) => {
 		const _bytecode = (() => {
+			// this case needs test coverage
 			if (params && 'bytecode' in params && params.bytecode) {
 				return params.bytecode
 			}
+			// this case needs test coverage
 			if (bytecode) {
 				return bytecode
 			}
+			// this case needs test coverage
 			if (deployedBytecode) {
 				return deployedBytecode
 			}
+			// this case needs test coverage
 			throw new Error('Unknown bytecode error')
 		})()
 		const constructorAbi = abi.find((item) => item.type === 'constructor')
@@ -87,9 +91,11 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 			if (!constructorAbi) {
 				return _bytecode
 			}
+			// this case needs test coverage
 			if (!('constructorArgs' in params) || /** @type {Array<any>}*/ (params.constructorArgs)?.length < 1) {
 				return _bytecode
 			}
+			// this case needs test coverage
 			return encodeDeployData({
 				abi,
 				bytecode: _bytecode,

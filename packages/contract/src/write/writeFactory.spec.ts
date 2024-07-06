@@ -10,6 +10,33 @@ const contract = createContract({
 })
 
 describe('write', () => {
+	it('should work for 0 arguments', () => {
+		const contract = createContract({
+			humanReadableAbi: ['function noArgs() payable returns (string)'] as const,
+		})
+		const writeInfo = contract.write.noArgs()
+		expect(writeInfo).toMatchInlineSnapshot(`
+			{
+			  "abi": [
+			    {
+			      "inputs": [],
+			      "name": "noArgs",
+			      "outputs": [
+			        {
+			          "type": "string",
+			        },
+			      ],
+			      "stateMutability": "payable",
+			      "type": "function",
+			    },
+			  ],
+			  "functionName": "noArgs",
+			  "humanReadableAbi": [
+			    "function noArgs() payable returns (string)",
+			  ],
+			}
+		`)
+	})
 	it('should return information for write function', () => {
 		const writeInfo = contract.write.exampleWrite('data', BigInt(420))
 		expect(writeInfo.args).toMatchInlineSnapshot(`
