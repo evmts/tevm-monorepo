@@ -115,10 +115,10 @@ client.tevmSetAccount({
   // ...
 })
 
-// MemoryClient can impersonate any account
 const { data, errors, events, executionGasUsed, logs } = client.tevmContract({
   createTransaction: true,
-  address: `0x${'69'.repeat(20)}`,
+  // MemoryClient can impersonate any account
+  from: `0x${'69'.repeat(20)}`,
   abi: [...],
   functionName: 'transferFrom',
   args: [...],
