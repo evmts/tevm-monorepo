@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.91
+
+### Minor Changes
+
+- [#1279](https://github.com/evmts/tevm-monorepo/pull/1279) [`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333) Thanks [@roninjin10](https://github.com/roninjin10)! - Added EncodeEventTopicsParameters to tevm/utils
+
 ## 1.1.0-next.88
 
 ### Minor Changes

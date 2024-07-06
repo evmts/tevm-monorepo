@@ -1,5 +1,21 @@
 # @tevm/contract
 
+## 1.1.0-next.91
+
+### Patch Changes
+
+- Updated dependencies [[`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333)]:
+  - @tevm/utils@1.1.0-next.91
+  - @tevm/base-client@1.1.0-next.91
+  - @tevm/block@1.1.0-next.91
+  - @tevm/blockchain@1.1.0-next.91
+  - @tevm/common@1.1.0-next.91
+  - @tevm/evm@1.1.0-next.91
+  - @tevm/receipt-manager@1.1.0-next.91
+  - @tevm/state@1.1.0-next.91
+  - @tevm/tx@1.1.0-next.91
+  - @tevm/vm@1.1.0-next.91
+
 ## 1.1.0-next.90
 
 ### Patch Changes

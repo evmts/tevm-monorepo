@@ -1,5 +1,20 @@
 # @tevm/client
 
+## 1.1.0-next.91
+
+### Patch Changes
+
+- Updated dependencies [[`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333), [`17dd822`](https://github.com/evmts/tevm-monorepo/commit/17dd82285cb3e2664179e38b62f35509d911f1a0)]:
+  - @tevm/utils@1.1.0-next.91
+  - @tevm/procedures@1.1.0-next.91
+  - @tevm/actions@1.1.0-next.91
+  - @tevm/base-client@1.1.0-next.91
+  - @tevm/common@1.1.0-next.91
+  - @tevm/contract@1.1.0-next.91
+  - @tevm/decorators@1.1.0-next.91
+  - @tevm/evm@1.1.0-next.91
+  - @tevm/predeploys@1.1.0-next.91
+
 ## 1.1.0-next.90
 
 ### Patch Changes

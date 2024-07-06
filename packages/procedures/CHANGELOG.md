@@ -1,5 +1,25 @@
 # @tevm/contract
 
+## 1.1.0-next.91
+
+### Patch Changes
+
+- [#1274](https://github.com/evmts/tevm-monorepo/pull/1274) [`17dd822`](https://github.com/evmts/tevm-monorepo/commit/17dd82285cb3e2664179e38b62f35509d911f1a0) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where anvil_setCoinbase would not await before returning successfully
+
+- Updated dependencies [[`7216932`](https://github.com/evmts/tevm-monorepo/commit/72169323bb89aba7165fcbedae7d024c71664333)]:
+  - @tevm/utils@1.1.0-next.91
+  - @tevm/actions@1.1.0-next.91
+  - @tevm/base-client@1.1.0-next.91
+  - @tevm/block@1.1.0-next.91
+  - @tevm/blockchain@1.1.0-next.91
+  - @tevm/common@1.1.0-next.91
+  - @tevm/contract@1.1.0-next.91
+  - @tevm/evm@1.1.0-next.91
+  - @tevm/state@1.1.0-next.91
+  - @tevm/tx@1.1.0-next.91
+  - @tevm/vm@1.1.0-next.91
+  - @tevm/test-utils@1.1.0-next.91
+
 ## 1.1.0-next.90
 
 ### Minor Changes
