@@ -7,7 +7,7 @@ import { succeed } from 'effect/Effect'
 import * as solc from 'solc'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
 import { type Mock, type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
-import { tevmUnplugin } from './tevmUnplugin.js'
+import { tevmUnplugin } from './index.js'
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
@@ -218,6 +218,12 @@ describe('unpluginFn', () => {
 		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
 		expect(result).toBe(false)
 		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
+	})
+
+	it('should throw an error if solc version is bad', async () => {
+		expect(() => tevmUnplugin({ solc: 'badVersion' as any }, {} as any)).toThrowErrorMatchingInlineSnapshot(
+			`[Error: Invalid solc compiler passed to Tevm plugin']`,
+		)
 	})
 
 	describe('unpluginFn.resolveId', () => {
