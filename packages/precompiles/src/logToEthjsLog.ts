@@ -1,12 +1,12 @@
 import {
-	type AbiEvent,
-	encodeEventTopics,
-	hexToBytes,
 	type Abi,
+	type AbiEvent,
 	type Address,
 	type EncodeEventTopicsParameters,
-	encodeAbiParameters,
 	type EthjsLog,
+	encodeAbiParameters,
+	encodeEventTopics,
+	hexToBytes,
 } from '@tevm/utils'
 import type { ContractEventName } from './CallResult.js'
 

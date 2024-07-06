@@ -36,4 +36,4 @@
 
 ## Defined in
 
-[defineCall.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L21)
+[defineCall.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L19)
