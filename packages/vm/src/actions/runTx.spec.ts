@@ -1,7 +1,15 @@
 import { describe, expect, it, beforeEach } from 'bun:test'
-import { createImpersonatedTx } from '@tevm/tx'
+import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import { runTx } from './runTx.js'
-import { encodeFunctionData, EthjsAccount, EthjsAddress, hexToBytes, parseEther, PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import {
+	encodeFunctionData,
+	EthjsAccount,
+	EthjsAddress,
+	hexToBytes,
+	parseEther,
+	PREFUNDED_ACCOUNTS,
+	randomBytes,
+} from '@tevm/utils'
 import { Block } from '@tevm/block'
 import type { Vm } from '../Vm.js'
 import { mainnet } from '@tevm/common'
@@ -10,7 +18,7 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { createChain } from '@tevm/blockchain'
 import { SimpleContract } from '@tevm/contract'
-import { InsufficientFundsError, NonceTooLowError } from '@tevm/errors'
+import { InsufficientFundsError, InvalidGasPriceError, NonceTooLowError } from '@tevm/errors'
 
 describe('runTx', () => {
 	let vm: Vm
@@ -205,6 +213,93 @@ describe('runTx', () => {
 		})
 
 		expect(result.accessList).toBeDefined()
+		expect(result).toMatchSnapshot()
+	})
+
+	it.todo('should throw InvalidGasPriceError for blob transactions', async () => {
+		const sender = EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address)
+
+		await vm.stateManager.putAccount(
+			sender,
+			EthjsAccount.fromAccountData({
+				balance: parseEther('1000'),
+				nonce: 0n,
+			}),
+		)
+
+		const tx = BlobEIP4844Transaction.fromTxData(
+			{
+				blobVersionedHashes: [randomBytes(32)],
+				blobs: [randomBytes(32)],
+				kzgCommitments: [randomBytes(32)],
+				maxFeePerBlobGas: 1000000n,
+				gasLimit: 0xffffffn,
+				to: randomBytes(20),
+			},
+			{ common: mainnet.ethjsCommon },
+		).sign(randomBytes(32))
+
+		const block = new Block({ common: mainnet })
+		const err = await runTx(vm)({
+			tx,
+			block,
+			skipNonce: true,
+			skipBalance: false,
+		}).catch((e) => e)
+
+		expect(err).toBeInstanceOf(InvalidGasPriceError)
+		expect(err).toMatchSnapshot()
+	})
+
+	it.todo('should throw EipNotEnabledError for blob transactions when EIP-4844 is not active', async () => {})
+
+	it('should handle EIP-1559 transactions', async () => {
+		const tx = createImpersonatedTx({
+			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			nonce: 0,
+			gasLimit: 21064,
+			maxFeePerGas: 1000000n,
+			maxPriorityFeePerGas: 500000n,
+			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			value: 1n,
+		})
+		const block = new Block({ common: mainnet })
+
+		const result = await runTx(vm)({
+			tx,
+			block,
+			skipNonce: true,
+			skipBalance: true,
+		})
+
+		expect(result.execResult.exceptionError).toBeUndefined()
+		expect(result).toMatchSnapshot()
+	})
+
+	it.todo('should handle transactions with access list', async () => {})
+
+	it('should execute a transaction with selfdestruct', async () => {})
+
+	it('should generate transaction receipt correctly', async () => {
+		const tx = createImpersonatedTx({
+			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			nonce: 0,
+			gasLimit: 21064,
+			maxFeePerGas: 8n,
+			maxPriorityFeePerGas: 1n,
+			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			value: 1n,
+		})
+		const block = new Block({ common: mainnet })
+
+		const result = await runTx(vm)({
+			tx,
+			block,
+			skipNonce: true,
+			skipBalance: true,
+		})
+
+		expect(result.receipt).toBeDefined()
 		expect(result).toMatchSnapshot()
 	})
 })
