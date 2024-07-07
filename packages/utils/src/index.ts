@@ -102,6 +102,8 @@ export {
 	ecsign,
 	zeros,
 	AsyncEventEmitter,
+	GWEI_TO_WEI,
+	randomBytes,
 } from './ethereumjs.js'
 export type {
 	GenesisState,

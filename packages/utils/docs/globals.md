@@ -74,6 +74,7 @@
 
 ## Variables
 
+- [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
 - [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
@@ -133,6 +134,7 @@
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
+- [randomBytes](functions/randomBytes.md)
 - [serializeTransaction](functions/serializeTransaction.md)
 - [setLengthLeft](functions/setLengthLeft.md)
 - [stringToHex](functions/stringToHex.md)

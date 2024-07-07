@@ -28,4 +28,4 @@
 
 ## Defined in
 
-packages/vm/types/actions/runBlock.d.ts:21
+packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2

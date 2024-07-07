@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/vm/types/actions/runBlock.d.ts:6
+packages/vm/types/actions/runBlock.d.ts:3

@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/vm/types/actions/runBlock.d.ts:22
+packages/vm/types/actions/calculateMinerReward.d.ts:1
