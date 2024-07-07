@@ -36,8 +36,9 @@ describe('createBaseVm', () => {
 		const baseVm = createBaseVm(opts)
 		const mockCallback = jest.fn()
 		baseVm.events.on('afterTx', mockCallback)
-		await baseVm._emit('afterTx', { test: 'data' })
-		expect(mockCallback).toHaveBeenCalledWith({ test: 'data' }, expect.any(Function))
+		const expectedData = { test: 'data' }
+		await baseVm._emit('afterTx', expectedData)
+		expect(mockCallback).toHaveBeenCalledWith(expectedData)
 	})
 
 	it('should call ready functions on stateManager and blockchain', async () => {

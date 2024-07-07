@@ -16,15 +16,9 @@ import {
 	zeros,
 } from '@tevm/utils'
 
-import {
-	accumulateParentBeaconBlockRoot,
-	accumulateParentBlockHash,
-	calculateMinerReward,
-	encodeReceipt,
-	rewardAccount,
-} from './runBlock.js'
+import {} from './runBlock.js'
 
-import { Bloom } from '@ethereumjs/vm'
+import { Bloom, encodeReceipt } from '@ethereumjs/vm'
 import type { HeaderData } from '@tevm/block'
 import {
 	BlockGasLimitExceededError,
@@ -40,6 +34,10 @@ import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '..
 import type { BlockStatus } from './BlockStatus.js'
 import { BuildStatus } from './BuildStatus.js'
 import { runTx } from './runTx.js'
+import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
+import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
+import { rewardAccount } from './rewardAccount.js'
+import { calculateMinerReward } from './calculateMinerReward.js'
 
 export type AddTransactionError = InvalidGasLimitError | EipNotEnabledError | BlockGasLimitExceededError
 
