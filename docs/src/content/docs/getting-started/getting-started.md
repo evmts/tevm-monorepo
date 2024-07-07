@@ -400,12 +400,12 @@ Anytime you create a transaction it will default to the first prefunded account 
 
 Tevm can execute the EVM using viem methods such as [`memoryClient.call`](https://viem.sh/docs/actions/public/call#call), [`memoryClient.readContract`](https://viem.sh/docs/contract/readContract#readcontract), [`memoryClient.estimateGas`](https://viem.sh/docs/actions/public/estimateGas#estimategas), etc. It also supports some wallet methods such as [`eth_sendRawTransaction`](https://viem.sh/docs/actions/wallet/sendRawTransaction#sendrawtransaction).
 
-Tevm also has it's own powerful method for executing the evm called [`tevmCall`](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler/#_top). It's like a normal ethereum call but with extra superpowers to do things such as
+Tevm also has it's own powerful method for executing the evm called [`tevmCall`](https://tevm.sh/reference/tevm/actions/type-aliases/callhandler/#_top). It's like a normal ethereum call but with extra superpowers to do things such as
 
-- [create a transaction](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#createtransaction)
-- [impersonate](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#from) any account or contract
-- arbitrarily [set the call depth](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#depth)
-- [skip all balance checks](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#skipbalance)
+- [create a transaction](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams/#createtransaction)
+- [impersonate](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams/#from) any account or contract
+- arbitrarily [set the call depth](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams/#depth)
+- [skip all balance checks](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams/#skipbalance)
 
 It also happens to be the [shared code](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js) that supports executing all other call-like methods so it can do everything.
 
