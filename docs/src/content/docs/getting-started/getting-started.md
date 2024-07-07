@@ -445,8 +445,6 @@ async function runApp() {
     to: address,
     value: 420n,
     throwOnFail: false,
-      // on-success will only create a transaction if the initial run of it doesn't revert
-  createTransaction: "on-success",
   });
   // aggregate error is a good way to throw an array of errors
   if (callResult.errors) throw callResult.errors;
@@ -486,8 +484,8 @@ If we remove the createTransaction: true the txHash will not be there. However, 
 
 ```typescript
 // the tevm means this api is not guaranteed to remain stable
-const mempool = await memoryClient.tevm.txPool();
-console.log(await mempool.getBySenderAddress(EthjsAddress.fromString(address)));
+const mempool = await memoryClient.tevm.getTxPool();
+console.log(await mempool.getBySenderAddress(EthjsAddress.fromString(prefundedAccounts[0])));
 ```
 
 :::tip[Using the low level api]
