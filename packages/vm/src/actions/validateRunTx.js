@@ -21,7 +21,7 @@ export const validateRunTx = (vm) => {
 					? opts
 					: {
 							...opts,
-							block: opts.block ?? Block.fromBlockData({}, { common: vm.common }),
+							block: opts.block ?? Block.fromBlockData({ header: {} }, { common: vm.common }),
 						}
 			)
 		if (_opts.skipHardForkValidation !== true) {
