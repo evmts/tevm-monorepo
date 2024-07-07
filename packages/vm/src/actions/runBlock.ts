@@ -4,10 +4,10 @@ import { bytesToHex, equalsBytes } from '@tevm/utils'
 import { InternalError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterBlockEvent, ApplyBlockResult, RunBlockOpts, RunBlockResult } from '../utils/index.js'
+import { applyBlock } from './applyBlock.js'
+import { applyDAOHardfork } from './applyDAOHardfork.js'
 import { errorMsg } from './errorMsg.js'
 import { genTxTrie } from './genTxTrie.js'
-import { applyDAOHardfork } from './applyDAOHardfork.js'
-import { applyBlock } from './applyBlock.js'
 
 export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
 

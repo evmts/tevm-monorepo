@@ -1,8 +1,8 @@
 import { Block } from '@tevm/block'
 import type { BaseVm } from '../BaseVm.js'
-import { rewardAccount } from './rewardAccount.js'
 import { calculateMinerReward } from './calculateMinerReward.js'
 import { calculateOmmerReward } from './calculateOmmerReward.js'
+import { rewardAccount } from './rewardAccount.js'
 
 /**
  * Calculates block rewards for miner and ommers and puts

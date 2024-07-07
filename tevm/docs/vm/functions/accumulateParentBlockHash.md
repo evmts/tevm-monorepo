@@ -34,4 +34,4 @@ also add the currently available past blockhashes which are available by BLOCKHA
 
 ## Defined in
 
-packages/vm/types/actions/runBlock.d.ts:20
+packages/vm/types/actions/accumulateParentBlockHash.d.ts:11

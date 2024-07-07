@@ -51,6 +51,7 @@
 
 ### Variables
 
+- [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
 
@@ -65,6 +66,7 @@
 - [fetchFromProvider](functions/fetchFromProvider.md)
 - [getProvider](functions/getProvider.md)
 - [invariant](functions/invariant.md)
+- [randomBytes](functions/randomBytes.md)
 - [serializeTransaction](functions/serializeTransaction.md)
 - [setLengthLeft](functions/setLengthLeft.md)
 - [toType](functions/toType.md)

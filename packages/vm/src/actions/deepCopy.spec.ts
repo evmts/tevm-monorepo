@@ -1,13 +1,13 @@
-import { describe, expect, it, beforeEach, jest } from 'bun:test'
+import { beforeEach, describe, expect, it, jest } from 'bun:test'
+import { createChain } from '@tevm/blockchain'
+import { type Common, mainnet } from '@tevm/common'
+import { createCommon } from '@tevm/common'
 import { MisconfiguredClientError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
+import { createStateManager } from '@tevm/state'
+import type { BaseVm } from '../BaseVm.js'
 import { createBaseVm } from '../createBaseVm.js'
 import { deepCopy } from './deepCopy.js'
-import { createStateManager } from '@tevm/state'
-import { createChain } from '@tevm/blockchain'
-import { mainnet, type Common } from '@tevm/common'
-import { createCommon } from '@tevm/common'
-import type { BaseVm } from '../BaseVm.js'
 
 describe('deepCopy', () => {
 	let baseVm: BaseVm

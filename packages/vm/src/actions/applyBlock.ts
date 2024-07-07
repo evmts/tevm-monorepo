@@ -5,12 +5,12 @@ import { bytesToHex } from '@tevm/utils'
 import { InternalError, MisconfiguredClientError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
 import type { ApplyBlockResult, RunBlockOpts } from '../utils/index.js'
-import { errorMsg } from './errorMsg.js'
-import { applyTransactions } from './applyTransactions.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
 import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
+import { applyTransactions } from './applyTransactions.js'
 import { assignBlockRewards } from './assignBlockRewards.js'
 import { assignWithdrawals } from './assignWithdrawals.js'
+import { errorMsg } from './errorMsg.js'
 
 /**
  * Validates and applies a block, computing the results of

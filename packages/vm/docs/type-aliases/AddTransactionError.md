@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L44)
+[packages/vm/src/actions/BlockBuilder.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L42)

@@ -41,6 +41,7 @@
 - [BuildBlock](type-aliases/BuildBlock.md)
 - [CreateVmOptions](type-aliases/CreateVmOptions.md)
 - [DeepCopy](type-aliases/DeepCopy.md)
+- [DeepCopyError](type-aliases/DeepCopyError.md)
 - [EVMProfilerOpts](type-aliases/EVMProfilerOpts.md)
 - [RunBlock](type-aliases/RunBlock.md)
 - [TxReceipt](type-aliases/TxReceipt.md)
@@ -48,16 +49,30 @@
 - [VMProfilerOpts](type-aliases/VMProfilerOpts.md)
 - [Vm](type-aliases/Vm.md)
 
+### Variables
+
+- [DAOConfig](variables/DAOConfig.md)
+- [KECCAK256\_NULL](variables/KECCAK256_NULL.md)
+- [parentBeaconBlockRootAddress](variables/parentBeaconBlockRootAddress.md)
+
 ### Functions
 
 - [accumulateParentBeaconBlockRoot](functions/accumulateParentBeaconBlockRoot.md)
 - [accumulateParentBlockHash](functions/accumulateParentBlockHash.md)
+- [applyBlock](functions/applyBlock.md)
+- [applyDAOHardfork](functions/applyDAOHardfork.md)
+- [applyTransactions](functions/applyTransactions.md)
+- [assignBlockRewards](functions/assignBlockRewards.md)
+- [assignWithdrawals](functions/assignWithdrawals.md)
 - [buildBlock](functions/buildBlock.md)
 - [calculateMinerReward](functions/calculateMinerReward.md)
+- [calculateOmmerReward](functions/calculateOmmerReward.md)
 - [createVm](functions/createVm.md)
 - [deepCopy](functions/deepCopy.md)
-- [encodeReceipt](functions/encodeReceipt.md)
 - [execHardfork](functions/execHardfork.md)
+- [genTxTrie](functions/genTxTrie.md)
 - [generateTxReceipt](functions/generateTxReceipt.md)
 - [rewardAccount](functions/rewardAccount.md)
 - [txLogsBloom](functions/txLogsBloom.md)
+- [validateRunTx](functions/validateRunTx.md)
+- [warmAddresses2929](functions/warmAddresses2929.md)

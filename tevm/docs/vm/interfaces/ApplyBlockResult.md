@@ -6,7 +6,7 @@
 
 # Interface: ApplyBlockResult
 
-Result of applyBlock
+Result of [applyBlock](../functions/applyBlock.md)
 
 ## Properties
 

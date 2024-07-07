@@ -1,7 +1,7 @@
-import { describe, expect, it, beforeEach, jest, type Mock } from 'bun:test'
-import { warmAddresses2929 } from './warmAddresses2929.js'
-import { bytesToUnprefixedHex, EthjsAddress } from '@tevm/utils'
+import { type Mock, beforeEach, describe, expect, it, jest } from 'bun:test'
+import { EthjsAddress, bytesToUnprefixedHex } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
+import { warmAddresses2929 } from './warmAddresses2929.js'
 
 describe('warmAddresses2929', () => {
 	let vm: Vm

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { execHardfork } from './execHardfork.js'
 import type { Hardfork } from '@tevm/common'
+import { execHardfork } from './execHardfork.js'
 
 describe('execHardfork', () => {
 	it('should return the same hardfork if it is not "paris"', () => {

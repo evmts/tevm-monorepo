@@ -5,11 +5,11 @@ import { type TypedTransaction } from '@tevm/tx'
 
 import { Bloom, encodeReceipt } from '@ethereumjs/vm'
 import { GasLimitExceededError } from '@tevm/errors'
+import { KECCAK256_RLP } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts, RunTxResult, TxReceipt } from '../utils/index.js'
-import { runTx } from './runTx.js'
 import { errorMsg } from './errorMsg.js'
-import { KECCAK256_RLP } from '@tevm/utils'
+import { runTx } from './runTx.js'
 
 /**
  * Applies the transactions in a block, computing the receipts

@@ -33,11 +33,11 @@ import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
 import type { BlockStatus } from './BlockStatus.js'
 import { BuildStatus } from './BuildStatus.js'
-import { runTx } from './runTx.js'
-import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
-import { rewardAccount } from './rewardAccount.js'
+import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
 import { calculateMinerReward } from './calculateMinerReward.js'
+import { rewardAccount } from './rewardAccount.js'
+import { runTx } from './runTx.js'
 
 export type AddTransactionError = InvalidGasLimitError | EipNotEnabledError | BlockGasLimitExceededError
 

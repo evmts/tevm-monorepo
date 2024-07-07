@@ -22,4 +22,4 @@
 
 ## Defined in
 
-packages/vm/types/actions/runBlock.d.ts:23
+packages/vm/types/actions/rewardAccount.d.ts:3

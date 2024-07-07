@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach, jest } from 'bun:test'
-import { AsyncEventEmitter } from '@tevm/utils'
-import { createBaseVm } from './createBaseVm.js'
-import { createStateManager } from '@tevm/state'
-import { createEvm } from '@tevm/evm'
+import { beforeEach, describe, expect, it, jest } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
+import { createEvm } from '@tevm/evm'
+import { createStateManager } from '@tevm/state'
+import { AsyncEventEmitter } from '@tevm/utils'
+import { createBaseVm } from './createBaseVm.js'
 
 describe('createBaseVm', () => {
 	let opts: any
