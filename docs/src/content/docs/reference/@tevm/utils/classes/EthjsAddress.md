@@ -7,6 +7,8 @@ title: "EthjsAddress"
 
 Handling and generating Ethereum addresses
 
+## Extended by
+
 ## Constructors
 
 ### new EthjsAddress()

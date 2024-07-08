@@ -390,7 +390,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.18/node\_modules/bun-types/globals.d.ts:1613
 
 #### captureStackTrace(targetObject, constructorOpt)
 

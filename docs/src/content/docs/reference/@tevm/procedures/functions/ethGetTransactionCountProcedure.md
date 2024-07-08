@@ -17,4 +17,4 @@ title: "ethGetTransactionCountProcedure"
 
 ## Defined in
 
-[procedures/src/eth/ethGetTransactionCountProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L8)
+[procedures/src/eth/ethGetTransactionCountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L9)

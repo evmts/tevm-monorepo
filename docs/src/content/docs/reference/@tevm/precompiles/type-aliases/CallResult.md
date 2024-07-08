@@ -37,10 +37,24 @@ The amount of gas used during execution.
 
 ### logs?
 
-> `optional` **logs**: `ReadonlyArray`\<[`ExtractAbiEvents`](/reference/tevm/utils/type-aliases/extractabievents/)\<`TAbi`\> & `object`\>
+> `optional` **logs**: `ReadonlyArray`\<`object`\>
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
+
+#### Type declaration
+
+##### address
+
+> **address**: [`Address`](/reference/tevm/utils/type-aliases/address/)
+
+##### args
+
+> **args**: [`EncodeEventTopicsParameters`](/reference/tevm/utils/type-aliases/encodeeventtopicsparameters/)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]
+
+##### eventName
+
+> **eventName**: [`EncodeEventTopicsParameters`](/reference/tevm/utils/type-aliases/encodeeventtopicsparameters/)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]
 
 ### returnValue
 
@@ -56,4 +70,4 @@ A set of accounts to selfdestruct
 
 ## Defined in
 
-[CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L7)
+[CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)

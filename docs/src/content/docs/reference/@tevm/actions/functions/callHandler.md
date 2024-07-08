@@ -29,4 +29,4 @@ The call handler function.
 
 ## Defined in
 
-[packages/actions/src/Call/callHandler.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L47)
+[packages/actions/src/Call/callHandler.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L48)

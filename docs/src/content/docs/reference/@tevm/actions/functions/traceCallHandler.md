@@ -20,4 +20,4 @@ mirroring the output from traceTransaction
 
 ## Defined in
 
-[packages/actions/src/debug/traceCallHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L11)
+[packages/actions/src/debug/traceCallHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L12)
