@@ -1,5 +1,13 @@
 # @tevm/test-utils
 
+## 1.1.0-next.92
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/contract@1.1.0-next.92
+  - @tevm/ts-plugin@1.0.0-next.86
+
 ## 1.1.0-next.91
 
 ### Patch Changes
