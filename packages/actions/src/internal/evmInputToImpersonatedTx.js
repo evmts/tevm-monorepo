@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
@@ -16,7 +16,7 @@ export const evmInputToImpersonatedTx = (client) => {
 		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 		const priorityFee = 0n
 
-		const sender = evmInput.origin ?? evmInput.caller ?? EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+		const sender = evmInput.origin ?? evmInput.caller ?? createAddress(`0x${'00'.repeat(20)}`)
 
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(sender)

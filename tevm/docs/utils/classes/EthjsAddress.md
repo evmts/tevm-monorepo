@@ -8,6 +8,10 @@
 
 Handling and generating Ethereum addresses
 
+## Extended by
+
+- [`Address`](../../address/classes/Address.md)
+
 ## Constructors
 
 ### new EthjsAddress()

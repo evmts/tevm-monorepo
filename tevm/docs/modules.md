@@ -6,6 +6,7 @@
 
 ## Modules
 
+- [address](address/README.md)
 - [base-client](base-client/README.md)
 - [block](block/README.md)
 - [blockchain](blockchain/README.md)

@@ -1,4 +1,5 @@
-import { EthjsAddress, bytesToHex, getAddress, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { createAddress } from '@tevm/address'
+import { bytesToHex, getAddress, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
  * Request handler for eth_getFilterLogs JSON-RPC requests.
@@ -42,7 +43,7 @@ export const ethGetTransactionCountProcedure = (client) => {
 			tag === 'pending'
 				? await (async () => {
 						const txPool = await client.getTxPool()
-						const pendingTx = await txPool.getBySenderAddress(EthjsAddress.fromString(address))
+						const pendingTx = await txPool.getBySenderAddress(createAddress(address))
 						return BigInt(pendingTx.length)
 					})()
 				: 0n

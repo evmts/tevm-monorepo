@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/ethNewFilterProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewFilterProcedure.js#L10)
+[procedures/src/eth/ethNewFilterProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewFilterProcedure.js#L11)

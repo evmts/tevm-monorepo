@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { NoForkUrlSetError } from './getBalanceHandler.js'
 
@@ -17,7 +17,7 @@ export const getStorageAtHandler =
 		if (tag === 'latest') {
 			return bytesToHex(
 				await vm.stateManager.getContractStorage(
-					EthjsAddress.fromString(params.address),
+					createAddress(params.address),
 					hexToBytes(params.position, { size: 32 }),
 				),
 			)

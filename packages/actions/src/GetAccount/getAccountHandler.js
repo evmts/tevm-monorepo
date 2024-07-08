@@ -1,6 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { EthjsAddress } from '@tevm/utils'
-import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { bytesToHex } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateGetAccountParams } from './validateGetAccountParams.js'
 
@@ -42,7 +42,7 @@ export const getAccountHandler =
 			})
 		}
 
-		const address = new EthjsAddress(hexToBytes(params.address))
+		const address = createAddress(params.address)
 		try {
 			const res = await vm.stateManager.getAccount(address)
 			if (!res) {

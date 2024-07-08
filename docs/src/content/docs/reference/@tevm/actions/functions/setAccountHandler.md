@@ -23,4 +23,4 @@ whether to default to throwing or not when errors occur
 
 ## Defined in
 
-[packages/actions/src/SetAccount/setAccountHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L16)
+[packages/actions/src/SetAccount/setAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L17)

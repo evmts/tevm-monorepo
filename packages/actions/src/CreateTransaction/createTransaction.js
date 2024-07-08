@@ -1,5 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
+import { EthjsAccount, bytesToHex } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -26,7 +27,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
 
-		const accountAddress = evmInput.origin ?? EthjsAddress.zero()
+		const accountAddress = evmInput.origin ?? createAddress(0)
 		const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
 		const hasEth = evmInput.skipBalance || (account?.balance ?? 0n) > 0n
 		if (!hasEth) {
@@ -74,7 +75,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			console.warn('The manually set gas limit set by tx is lower than the estimated cost. It may fail once mined.')
 		}
 
-		const sender = evmInput.origin ?? evmInput.caller ?? EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+		const sender = evmInput.origin ?? evmInput.caller ?? createAddress(`0x${'00'.repeat(20)}`)
 
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(sender)

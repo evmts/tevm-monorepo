@@ -151,6 +151,7 @@
 - [bytesToBool](functions/bytesToBool.md)
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
+- [createAddress](functions/createAddress.md)
 - [createBaseClient](functions/createBaseClient.md)
 - [createClient](functions/createClient.md)
 - [createContract](functions/createContract.md)

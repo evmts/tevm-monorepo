@@ -16,7 +16,6 @@ title: "@tevm/jsonrpc"
 ## Functions
 
 - [createJsonRpcFetcher](/reference/tevm/jsonrpc/functions/createjsonrpcfetcher/)
-- [createJsonRpcFetcherLegacy](/reference/tevm/jsonrpc/functions/createjsonrpcfetcherlegacy/)
 - [http](/reference/tevm/jsonrpc/functions/http/)
 - [loadBalance](/reference/tevm/jsonrpc/functions/loadbalance/)
 - [rateLimit](/reference/tevm/jsonrpc/functions/ratelimit/)

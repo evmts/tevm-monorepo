@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
-import { EthjsAddress } from '@tevm/utils'
 import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -48,8 +48,8 @@ export const contractHandler =
 		}
 		const vm = await client.getVm()
 
-		const contract = params.to && (await vm.evm.stateManager.getContractCode(EthjsAddress.fromString(params.to)))
-		const precompile = params.to && vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
+		const contract = params.to && (await vm.evm.stateManager.getContractCode(createAddress(params.to)))
+		const precompile = params.to && vm.evm.getPrecompile(createAddress(params.to))
 		if (!params.deployedBytecode && !params.code && contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(
 				{ contract, precompile, to: params.to },

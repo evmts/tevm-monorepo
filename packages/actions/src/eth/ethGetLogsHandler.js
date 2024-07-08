@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { ForkError, InvalidBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAddress, bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 import { InternalRpcError } from 'viem'
 
 /**
@@ -161,7 +162,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const cachedLogs = await receiptsManager.getLogs(
 		fetchFromRpc ? fromBlock : /** @type {import('@tevm/block').Block}*/ (forkedBlock),
 		toBlock,
-		params.filterParams.address !== undefined ? [EthjsAddress.fromString(params.filterParams.address).bytes] : [],
+		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
 		params.filterParams.topics?.map((topic) => hexToBytes(topic)),
 	)
 	logs.push(

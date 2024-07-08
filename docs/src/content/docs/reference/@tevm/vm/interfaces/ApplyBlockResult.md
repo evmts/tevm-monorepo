@@ -5,7 +5,7 @@ prev: false
 title: "ApplyBlockResult"
 ---
 
-Result of applyBlock
+Result of [applyBlock](../../../../../../../reference/tevm/vm/functions/applyblock)
 
 ## Properties
 

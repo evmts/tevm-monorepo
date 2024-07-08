@@ -27,4 +27,4 @@ Dumps the state of the state manager as a [TevmState](../../../../../../../refer
 
 ## Defined in
 
-[packages/state/src/actions/dumpCannonicalGenesis.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L13)
+[packages/state/src/actions/dumpCannonicalGenesis.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L14)

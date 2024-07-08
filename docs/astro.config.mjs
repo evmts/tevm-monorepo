@@ -63,6 +63,7 @@ entryPoints: [
 '../bundler-packages/compiler',
 '../bundler-packages/config',
 '../bundler-packages/esbuild',
+'../packages/address',
 '../packages/effect',
 '../bundler-packages/resolutions',
 '../bundler-packages/rollup',

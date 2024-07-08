@@ -1,4 +1,5 @@
-import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
+import { createAddress } from '@tevm/address'
+import { EthjsAccount, hexToBytes } from '@tevm/utils'
 
 /**
  * Request handler for anvil_loadState JSON-RPC requests.
@@ -14,7 +15,7 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 		return Promise.all(
 			Object.entries(loadStateRequest.params[0].state).map(([address, rlpEncodedAccount]) => {
 				return vm.stateManager.putAccount(
-					EthjsAddress.fromString(address),
+					createAddress(address),
 					EthjsAccount.fromRlpSerializedAccount(hexToBytes(rlpEncodedAccount)),
 				)
 			}),

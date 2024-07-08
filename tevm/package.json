@@ -84,6 +84,16 @@
         "default": "./memory-client/index.cjs"
       }
     },
+    "./address": {
+      "import": {
+        "types": "./address/index.d.ts",
+        "default": "./address/index.js"
+      },
+      "require": {
+        "types": "./address/index.d.cts",
+        "default": "./address/index.cjs"
+      }
+    },
     "./decorators": {
       "import": {
         "types": "./decorators/index.d.ts",
@@ -361,6 +371,7 @@
   "files": [
     "index*",
     "actions",
+    "address",
     "base-client",
     "block",
     "blockchain",
@@ -409,6 +420,7 @@
   },
   "dependencies": {
     "@tevm/actions": "workspace:^",
+    "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",

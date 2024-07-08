@@ -44,6 +44,7 @@ title: "Documentation"
 - [@tevm/compiler](/reference/tevm/compiler/readme/)
 - [@tevm/config](/reference/tevm/config/readme/)
 - [@tevm/esbuild-plugin](/reference/tevm/esbuild-plugin/readme/)
+- [@tevm/address](/reference/tevm/address/readme/)
 - [@tevm/effect](/reference/tevm/effect/readme/)
 - [@tevm/resolutions](/reference/tevm/resolutions/readme/)
 - [@tevm/rollup-plugin](/reference/tevm/rollup-plugin/readme/)

@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L77)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L78)

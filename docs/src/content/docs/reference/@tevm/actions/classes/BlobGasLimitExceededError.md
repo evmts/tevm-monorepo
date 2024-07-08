@@ -27,7 +27,7 @@ Error thrown when blob gas limit is exceeded
 
 #### Defined in
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L32)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L33)
 
 ## Properties
 
@@ -37,7 +37,7 @@ Error thrown when blob gas limit is exceeded
 
 #### Defined in
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L24)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L25)
 
 ***
 
@@ -79,7 +79,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L30)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L31)
 
 ***
 
@@ -189,7 +189,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/bun-types@1.1.17/node\_modules/bun-types/globals.d.ts:1613
+node\_modules/.pnpm/bun-types@1.1.18/node\_modules/bun-types/globals.d.ts:1613
 
 #### captureStackTrace(targetObject, constructorOpt)
 

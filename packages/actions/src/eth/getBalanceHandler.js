@@ -1,5 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAddress, bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
+import { bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
 
 export class NoForkUrlSetError extends Error {
 	/**
@@ -23,7 +24,7 @@ export const getBalanceHandler =
 		const vm = await baseClient.getVm()
 
 		if (blockTag === 'latest') {
-			const account = await vm.stateManager.getAccount(EthjsAddress.fromString(address))
+			const account = await vm.stateManager.getAccount(createAddress(address))
 			return account?.balance ?? 0n
 		}
 		const block =

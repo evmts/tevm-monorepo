@@ -21,6 +21,7 @@
     "receipt-manager/index.ts",
     "tx/index.ts",
     "txpool/index.ts",
+    "address/index.ts",
     "vm/index.ts",
     "procedures/index.ts",
     "http-client/index.ts",

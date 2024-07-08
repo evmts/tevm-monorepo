@@ -1,3 +1,4 @@
+import { createAddress } from '@tevm/address'
 import { prefundedAccounts } from '@tevm/base-client'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
@@ -93,7 +94,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
-		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(impersonatedAccount)
+		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
 		tx = createImpersonatedTx(impersonatedTx)
 	} else if (!tx.isSigned()) {
 		client.logger.debug(
@@ -103,7 +104,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
-		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(
+		impersonatedTx.impersonatedAddress = createAddress(
 			impersonatedAccount ?? /** @type {import('@tevm/utils').Address} */ (prefundedAccounts[0]),
 		)
 		tx = createImpersonatedTx(impersonatedTx)

@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/getBalanceHandler.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L21)
+[packages/actions/src/eth/getBalanceHandler.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L22)

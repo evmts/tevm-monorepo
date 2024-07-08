@@ -49,6 +49,7 @@ title: "@tevm/utils"
 - [DbObject](/reference/tevm/utils/type-aliases/dbobject/)
 - [DecodeFunctionResultReturnType](/reference/tevm/utils/type-aliases/decodefunctionresultreturntype/)
 - [EncodeDeployDataParameters](/reference/tevm/utils/type-aliases/encodedeploydataparameters/)
+- [EncodeEventTopicsParameters](/reference/tevm/utils/type-aliases/encodeeventtopicsparameters/)
 - [EncodeFunctionDataParameters](/reference/tevm/utils/type-aliases/encodefunctiondataparameters/)
 - [EncodingOpts](/reference/tevm/utils/type-aliases/encodingopts/)
 - [EthjsLog](/reference/tevm/utils/type-aliases/ethjslog/)
@@ -74,6 +75,7 @@ title: "@tevm/utils"
 
 ## Variables
 
+- [GWEI\_TO\_WEI](/reference/tevm/utils/variables/gwei_to_wei/)
 - [KECCAK256\_RLP](/reference/tevm/utils/variables/keccak256_rlp/)
 - [KECCAK256\_RLP\_ARRAY](/reference/tevm/utils/variables/keccak256_rlp_array/)
 - [PREFUNDED\_ACCOUNTS](/reference/tevm/utils/variables/prefunded_accounts/)
@@ -133,6 +135,7 @@ title: "@tevm/utils"
 - [parseAbi](/reference/tevm/utils/functions/parseabi/)
 - [parseEther](/reference/tevm/utils/functions/parseether/)
 - [parseGwei](/reference/tevm/utils/functions/parsegwei/)
+- [randomBytes](/reference/tevm/utils/functions/randombytes/)
 - [serializeTransaction](/reference/tevm/utils/functions/serializetransaction/)
 - [setLengthLeft](/reference/tevm/utils/functions/setlengthleft/)
 - [stringToHex](/reference/tevm/utils/functions/stringtohex/)

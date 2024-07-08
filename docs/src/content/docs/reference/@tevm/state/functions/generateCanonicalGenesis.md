@@ -29,4 +29,4 @@ Loads a [TevmState](../../../../../../../reference/tevm/state/type-aliases/tevms
 
 ## Defined in
 
-[packages/state/src/actions/generateCannonicalGenesis.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L11)
+[packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)

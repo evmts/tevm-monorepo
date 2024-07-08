@@ -64,6 +64,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tevm/address": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",

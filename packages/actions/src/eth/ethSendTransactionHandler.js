@@ -1,3 +1,4 @@
+import { createAddress } from '@tevm/address'
 import { prefundedAccounts } from '@tevm/base-client'
 import { TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
@@ -20,10 +21,10 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: import('@tevm/utils').EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
-		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(impersonatedAccount)
+		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
 		tx = createImpersonatedTx(impersonatedTx)
 	} else if (!tx.isSigned()) {
 		client.logger.debug(
@@ -33,7 +34,7 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
-		impersonatedTx.impersonatedAddress = EthjsAddress.fromString(
+		impersonatedTx.impersonatedAddress = createAddress(
 			impersonatedAccount ?? /** @type {import('@tevm/utils').Address} */ (prefundedAccounts[0]),
 		)
 		tx = createImpersonatedTx(impersonatedTx)

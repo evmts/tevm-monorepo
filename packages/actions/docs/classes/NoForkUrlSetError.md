@@ -62,7 +62,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/actions/src/eth/getBalanceHandler.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L8)
+[packages/actions/src/eth/getBalanceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L9)
 
 ***
 
@@ -104,7 +104,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/actions/src/eth/getBalanceHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L13)
+[packages/actions/src/eth/getBalanceHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L14)
 
 ***
 

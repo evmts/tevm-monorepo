@@ -38,6 +38,7 @@ title: "@tevm/vm"
 - [BuildBlock](/reference/tevm/vm/type-aliases/buildblock/)
 - [CreateVmOptions](/reference/tevm/vm/type-aliases/createvmoptions/)
 - [DeepCopy](/reference/tevm/vm/type-aliases/deepcopy/)
+- [DeepCopyError](/reference/tevm/vm/type-aliases/deepcopyerror/)
 - [EVMProfilerOpts](/reference/tevm/vm/type-aliases/evmprofileropts/)
 - [RunBlock](/reference/tevm/vm/type-aliases/runblock/)
 - [TxReceipt](/reference/tevm/vm/type-aliases/txreceipt/)
@@ -45,16 +46,30 @@ title: "@tevm/vm"
 - [VMProfilerOpts](/reference/tevm/vm/type-aliases/vmprofileropts/)
 - [Vm](/reference/tevm/vm/type-aliases/vm/)
 
+## Variables
+
+- [DAOConfig](/reference/tevm/vm/variables/daoconfig/)
+- [KECCAK256\_NULL](/reference/tevm/vm/variables/keccak256_null/)
+- [parentBeaconBlockRootAddress](/reference/tevm/vm/variables/parentbeaconblockrootaddress/)
+
 ## Functions
 
 - [accumulateParentBeaconBlockRoot](/reference/tevm/vm/functions/accumulateparentbeaconblockroot/)
 - [accumulateParentBlockHash](/reference/tevm/vm/functions/accumulateparentblockhash/)
+- [applyBlock](/reference/tevm/vm/functions/applyblock/)
+- [applyDAOHardfork](/reference/tevm/vm/functions/applydaohardfork/)
+- [applyTransactions](/reference/tevm/vm/functions/applytransactions/)
+- [assignBlockRewards](/reference/tevm/vm/functions/assignblockrewards/)
+- [assignWithdrawals](/reference/tevm/vm/functions/assignwithdrawals/)
 - [buildBlock](/reference/tevm/vm/functions/buildblock/)
 - [calculateMinerReward](/reference/tevm/vm/functions/calculateminerreward/)
+- [calculateOmmerReward](/reference/tevm/vm/functions/calculateommerreward/)
 - [createVm](/reference/tevm/vm/functions/createvm/)
 - [deepCopy](/reference/tevm/vm/functions/deepcopy/)
-- [encodeReceipt](/reference/tevm/vm/functions/encodereceipt/)
 - [execHardfork](/reference/tevm/vm/functions/exechardfork/)
+- [genTxTrie](/reference/tevm/vm/functions/gentxtrie/)
 - [generateTxReceipt](/reference/tevm/vm/functions/generatetxreceipt/)
 - [rewardAccount](/reference/tevm/vm/functions/rewardaccount/)
 - [txLogsBloom](/reference/tevm/vm/functions/txlogsbloom/)
+- [validateRunTx](/reference/tevm/vm/functions/validateruntx/)
+- [warmAddresses2929](/reference/tevm/vm/functions/warmaddresses2929/)
