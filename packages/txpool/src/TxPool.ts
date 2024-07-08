@@ -206,7 +206,7 @@ export class TxPool {
 			}
 		}
 		const senderAddress = tx.getSenderAddress()
-		const sender: UnprefixedAddress = senderAddress.toString().slice(2)
+		const sender: UnprefixedAddress = senderAddress.toString().slice(2).toLowerCase()
 		const inPool = this.pool.get(sender)
 		if (inPool) {
 			if (!isLocalTransaction && inPool.length >= MAX_TXS_PER_ACCOUNT) {
@@ -270,7 +270,7 @@ export class TxPool {
 	async addUnverified(tx: TypedTransaction | ImpersonatedTx) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
-		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2)
+		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2).toLowerCase()
 		try {
 			let add: TxPoolObject[] = this.pool.get(address) ?? []
 			const inPool = this.pool.get(address)
@@ -444,7 +444,7 @@ export class TxPool {
 	}
 
 	async getBySenderAddress(address: EthjsAddress): Promise<Array<TxPoolObject>> {
-		const unprefixedAddress = address.toString().slice(2)
+		const unprefixedAddress = address.toString().slice(2).toLowerCase()
 		return this.pool.get(unprefixedAddress) ?? []
 	}
 
@@ -516,7 +516,7 @@ export class TxPool {
 			if (best === undefined) break
 
 			// Push in its place the next transaction from the same account
-			const address = best.getSenderAddress().toString().slice(2)
+			const address = best.getSenderAddress().toString().slice(2).toLowerCase()
 			const accTxs = byNonce.get(address)
 
 			if (!accTxs) {

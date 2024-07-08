@@ -1,8 +1,9 @@
 import type { Address } from '@tevm/utils'
-import type { Account, Chain, Client, PublicActions, TestActions, Transport, WalletActions } from 'viem'
+import type { Account, Chain, Client, PublicActions, TestActions, WalletActions } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
+import type { TevmTransport } from './TevmTransport.js'
 
 /**
  * Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
@@ -194,12 +195,12 @@ export type MemoryClient<
 	TAccountOrAddress extends Account | Address | undefined = Account | Address | undefined,
 > = Prettify<
 	Client<
-		Transport,
+		TevmTransport,
 		TChain,
 		TAccountOrAddress extends Account ? Account : undefined,
 		TevmRpcSchema,
 		TevmActions &
-			PublicActions<Transport, TChain, TAccountOrAddress extends Account ? Account : undefined> &
+			PublicActions<TevmTransport, TChain, TAccountOrAddress extends Account ? Account : undefined> &
 			WalletActions<TChain, TAccountOrAddress extends Account ? Account : undefined> &
 			TestActions
 	>

@@ -379,11 +379,11 @@ An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePer
 
 ### extend()
 
-> **extend**: \<`client`\>(`fn`) => `Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
+> **extend**: \<`client`\>(`fn`) => `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
 #### Type Parameters
 
-• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>\>
+• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>\>
 
 #### Parameters
 
@@ -391,7 +391,7 @@ An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePer
 
 #### Returns
 
-`Client`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<`Transport`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`object`, `object`, `object`, `object`, `object`], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
 ### getAddresses()
 
@@ -2656,9 +2656,236 @@ await client.tevmSetAccount({
 
 ### transport
 
-> **transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
+> **transport**: `TransportConfig`\<`string`\> & `object`
 
 The RPC transport
+
+#### Type declaration
+
+##### tevm
+
+> **tevm**: `object` & `EIP1193Events` & `object` & `object`
+
+###### Type declaration
+
+###### extend()
+
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+
+Extends the base client with additional functionality. This enables optimal code splitting
+and extensibility
+
+###### Type Parameters
+
+• **TExtension** *extends* `Record`\<`string`, `any`\>
+
+###### Parameters
+
+• **decorator**
+
+###### Returns
+
+`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+
+###### forkTransport?
+
+> `readonly` `optional` **forkTransport**: `object`
+
+Client to make json rpc requests to a forked node
+
+###### Example
+
+```ts
+const client = createMemoryClient({ request: eip1193RequestFn })
+```
+
+###### forkTransport.request
+
+> **request**: `EIP1193RequestFn`
+
+###### getFilters()
+
+> `readonly` **getFilters**: () => `Map`\<\`0x$\{string\}\`, `Filter`\>
+
+Gets all registered filters mapped by id
+
+###### Returns
+
+`Map`\<\`0x$\{string\}\`, `Filter`\>
+
+###### getImpersonatedAccount()
+
+> `readonly` **getImpersonatedAccount**: () => `undefined` \| \`0x$\{string\}\`
+
+The currently impersonated account. This is only used in `fork` mode
+
+###### Returns
+
+`undefined` \| \`0x$\{string\}\`
+
+###### getReceiptsManager()
+
+> `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+
+Interface for querying receipts and historical state
+
+###### Returns
+
+`Promise`\<`ReceiptsManager`\>
+
+###### getTxPool()
+
+> `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
+
+Gets the pool of pending transactions to be included in next block
+
+###### Returns
+
+`Promise`\<`TxPool`\>
+
+###### getVm()
+
+> `readonly` **getVm**: () => `Promise`\<`Vm`\>
+
+Internal instance of the VM. Can be used for lower level operations.
+Normally not recomended to use unless building libraries or extensions
+on top of Tevm.
+
+###### Returns
+
+`Promise`\<`Vm`\>
+
+###### logger
+
+> `readonly` **logger**: `Logger`
+
+The logger instance
+
+###### miningConfig
+
+> `readonly` **miningConfig**: `MiningConfig`
+
+The configuration for mining. Defaults to 'auto'
+- 'auto' will mine a block on every transaction
+- 'interval' will mine a block every `interval` milliseconds
+- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
+
+###### mode
+
+> `readonly` **mode**: `"fork"` \| `"normal"`
+
+The mode the current client is running in
+`fork` mode will fetch and cache all state from the block forked from the provided URL
+`normal` mode will not fetch any state and will only run the EVM in memory
+
+###### Example
+
+```ts
+let client = createMemoryClient()
+console.log(client.mode) // 'normal'
+client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+console.log(client.mode) // 'fork'
+```
+
+###### ready()
+
+> `readonly` **ready**: () => `Promise`\<`true`\>
+
+Returns promise that resulves when the client is ready
+The client is usable without calling this method but may
+have extra latency on the first call from initialization
+
+###### Example
+
+```ts
+const client = createMemoryClient()
+await client.ready()
+```
+
+###### Returns
+
+`Promise`\<`true`\>
+
+###### removeFilter()
+
+> `readonly` **removeFilter**: (`id`) => `void`
+
+Removes a filter by id
+
+###### Parameters
+
+• **id**: \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+###### setFilter()
+
+> `readonly` **setFilter**: (`filter`) => `void`
+
+Creates a new filter to watch for logs events and blocks
+
+###### Parameters
+
+• **filter**: `Filter`
+
+###### Returns
+
+`void`
+
+###### setImpersonatedAccount()
+
+> `readonly` **setImpersonatedAccount**: (`address`) => `void`
+
+Sets the account to impersonate. This will allow the client to act as if it is that account
+On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
+
+###### Parameters
+
+• **address**: `undefined` \| \`0x$\{string\}\`
+
+###### Returns
+
+`void`
+
+###### status
+
+> **status**: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`
+
+Returns status of the client
+- INITIALIZING: The client is initializing
+- READY: The client is ready to be used
+- SYNCING: The client is syncing with the forked node
+- MINING: The client is mining a block
+
+###### Type declaration
+
+###### emit()
+
+Emit an event.
+
+###### Parameters
+
+• **eventName**: keyof `EIP1193EventMap`
+
+The event name.
+
+• ...**args**: `any`[]
+
+Arguments to pass to the event listeners.
+
+###### Returns
+
+`boolean`
+
+True if the event was emitted, false otherwise.
+
+###### Type declaration
+
+###### request
+
+> **request**: `EIP1193RequestFn`
 
 ### type
 
@@ -2868,7 +3095,7 @@ A function that can be invoked to stop watching for new block numbers. WatchBloc
 
 #### Parameters
 
-• **args**: `WatchBlocksParameters`\<`Transport`, `TCommon`, `TIncludeTransactions`, `TBlockTag`\>
+• **args**: `WatchBlocksParameters`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TIncludeTransactions`, `TBlockTag`\>
 
 WatchBlocksParameters
 
@@ -2892,7 +3119,7 @@ A function that can be invoked to stop watching for new block numbers. WatchBloc
 
 #### Parameters
 
-• **args**: `WatchContractEventParameters`\<`TAbi`, `TEventName`, `TStrict`, `Transport`\>
+• **args**: `WatchContractEventParameters`\<`TAbi`, `TEventName`, `TStrict`, [`TevmTransport`](../type-aliases/TevmTransport.md)\>
 
 WatchContractEventParameters
 
@@ -2916,7 +3143,7 @@ A function that can be invoked to stop watching for new event logs. WatchContrac
 
 #### Parameters
 
-• **args**: `WatchEventParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `Transport`\>
+• **args**: `WatchEventParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, [`TevmTransport`](../type-aliases/TevmTransport.md)\>
 
 WatchEventParameters
 
@@ -2932,7 +3159,7 @@ A function that can be invoked to stop watching for new Event Logs. WatchEventRe
 
 #### Parameters
 
-• **args**: `WatchPendingTransactionsParameters`\<`Transport`\>
+• **args**: `WatchPendingTransactionsParameters`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\>
 
 WatchPendingTransactionsParameters
 
