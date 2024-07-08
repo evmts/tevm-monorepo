@@ -630,7 +630,7 @@ Pass in the contract address as a param
 import { createMemoryClient, http, type Address } from "tevm";
 ...
 // const address = `0x${"0420".repeat(10)}` as const;
-async function updateAccounts(address: Address) {
+async function updateAccounts(contractAddress: Address) {
   const account = await memoryClient.tevmGetAccount({
     address,
     throwOnFail: false,
@@ -653,7 +653,7 @@ async function updateAccounts(address: Address) {
   const info = document.querySelector("#contractInfoRow")!;
 
   header.innerHTML = `<tr>Address</tr>
-  <tr>deplyedBytecode</tr>
+  <tr>deployedBytecode</tr>
   ${Object.keys(contractAccount.storage ?? []).map((storageSlot) => `<tr>${storageSlot}</tr>`)}
   `;
 
@@ -671,7 +671,7 @@ We should see the contract information show up in our html now.
 
 ### 1. Use `tevmContract` to write to our contract
 
-[`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/) is has a similar api to [readContract](https://viem.sh/docs/contract/readContract.html) from viem and has the followign advantages over a normal `tevmCall`.
+[`tevmContract`](https://tevm.sh/reference/tevm/actions-types/type-aliases/contracthandler/) is has a similar api to [readContract](https://viem.sh/docs/contract/readContract.html) from viem and has the following advantages over a normal `tevmCall`.
 
 - automatically encodes the call data without needing to manually use [`encodeFunctionData`](https://tevm.sh/reference/tevm/utils/functions/encodefunctiondata/)
 - automatically decodes the return data without needing to manually use [`decodeFunctionResult`](https://tevm.sh/reference/tevm/utils/functions/decodefunctionresult/)
@@ -692,15 +692,15 @@ async function runApp() {
 
   status.innerHTML = "Querying contract with tevmContract..."
 
-  const contractResult = await memoryClient.tevmContract({
+  const readResult = await memoryClient.tevmContract({
     abi: deployedContract.abi,
     functionName: "get",
     to: deployedContract.address,
   });
-  if (contractResult.errors) throw contractResult.errors;
-  console.log(contractResult.rawData); // returns the raw data returned by evm
-  console.log(contractResult.data); // returns the decoded data. Should be the initial value we set
-  console.log(contractResult.executionGasUsed); // returns the execution gas used (won't include the data cost or base fee)
+  if (readResult.errors) throw contractResult.errors;
+  console.log(readResult.rawData); // returns the raw data returned by evm
+  console.log(readResult.data); // returns the decoded data. Should be the initial value we set
+  console.log(readResult.executionGasUsed); // returns the execution gas used (won't include the data cost or base fee)
   // console log the entire result to become familiar with what all gets returned
 
   const newValue = 10_000n
@@ -752,15 +752,15 @@ Refactor our contract call to use the contract action creator. Note: the returne
 ```typescript
 const deployedContract = simpleContract.withAddress(deployResult.address)
 
-const contractResult = await memoryClient.tevmContract(
+const readResult = await memoryClient.tevmContract(
   deployedContract.read.get()
 );
 
 ...
 
-const contractResult = await memoryClient.tevmContract({
+const writeResult = await memoryClient.tevmContract({
   createTransaction: true,
-  ...deployedContract.write.set(10_000n)
+  ...deployedContract.write.set(newValue)
 });
 ```
 
@@ -856,7 +856,7 @@ If the contract you wish to use is external to your code base here are the optio
 
 1. If contract is on npm or github you can npm install the package and then import it from node_modules. The tevm compiler supports node_resolution to import from other monorepo packages and node_modules
 2. In future versions whatsabi integration will allow you to generate the contracts via pointing at a block explorer
-3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using `createScript` or `createContract` <- TODO link to reference docs. You only need to include the methods you wish to use
+3. Finally the most manual way of creating a contract is to use human readable abi for any contract methods you need using [`createScript`](https://tevm.sh/reference/tevm/contract/type-aliases/createscript/) or [`createContract`](https://tevm.sh/reference/tevm/contract/functions/createcontract/). You only need to include the methods you wish to use
 
 :::
 
