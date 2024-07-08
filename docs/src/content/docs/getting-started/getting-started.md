@@ -630,7 +630,7 @@ Pass in the contract address as a param
 import { createMemoryClient, http, type Address } from "tevm";
 ...
 // const address = `0x${"0420".repeat(10)}` as const;
-async function updateAccounts(contractAddress: Address) {
+async function updateAccounts(address: Address) {
   const account = await memoryClient.tevmGetAccount({
     address,
     throwOnFail: false,
