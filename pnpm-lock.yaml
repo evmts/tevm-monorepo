@@ -2200,8 +2200,8 @@ importers:
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
       '@tevm/contract':
-        specifier: 1.1.0-next.91
-        version: 1.1.0-next.91(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
+        specifier: workspace:^
+        version: link:../contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -5928,19 +5928,6 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-
-  '@tevm/contract@1.1.0-next.91':
-    resolution: {integrity: sha512-KmUspfN4Qvxzx/tkrt0nNrhi1qtmNxUJx6NVjwDKdG0LQoBSVGPaoF+3Iq5Dor3LRQvsB0/veXg9pg688q+b2A==}
-
-  '@tevm/errors@1.0.0-next.86':
-    resolution: {integrity: sha512-WG0eJEWG82XIZggLGB0e966zC5OGa9E5YRxAmvLDfIgajUqpxv/heCfTDxJhE2HS4NTU9fWejQhFBUo0WGNlxA==}
-    peerDependencies:
-      viem: ^2.14.2
-
-  '@tevm/utils@1.1.0-next.91':
-    resolution: {integrity: sha512-pLrvVf/BG/ksSI/L6WeuNCaurxSOiZwPMVGJBkIlNwb3LVZZrNYzV6oEHV3miV7jK4M8JThyPtWhqaxpbqcxgA==}
-    peerDependencies:
-      viem: ^2.14.2
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18601,34 +18588,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
-
-  '@tevm/contract@1.1.0-next.91(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
-    dependencies:
-      '@tevm/utils': 1.1.0-next.91(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-      - viem
-      - zod
-
-  '@tevm/errors@1.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))':
-    dependencies:
-      '@ethereumjs/evm': 3.0.0
-      viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@tevm/utils@1.1.0-next.91(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))(zod@3.23.8)':
-    dependencies:
-      '@ethereumjs/evm': 3.0.0
-      '@ethereumjs/util': 9.0.3
-      '@tevm/errors': 1.0.0-next.86(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8))
-      abitype: 1.0.4(typescript@5.5.2)(zod@3.23.8)
-      viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-      - zod
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
