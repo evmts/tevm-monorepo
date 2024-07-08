@@ -420,6 +420,7 @@
   },
   "dependencies": {
     "@tevm/actions": "workspace:^",
+    "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
     "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
@@ -430,7 +431,6 @@
     "@tevm/compiler": "workspace:^",
     "@tevm/config": "workspace:^",
     "@tevm/contract": "workspace:^",
-    "@tevm/address": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",

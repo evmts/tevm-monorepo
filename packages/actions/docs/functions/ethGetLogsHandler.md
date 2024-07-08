@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/ethGetLogsHandler.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L60)
+[packages/actions/src/eth/ethGetLogsHandler.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L61)

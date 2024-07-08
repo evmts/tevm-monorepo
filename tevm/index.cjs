@@ -4,6 +4,7 @@ var predeploys = require('@tevm/predeploys');
 var contract = require('@tevm/contract');
 var utils = require('@tevm/utils');
 var jsonrpc = require('@tevm/jsonrpc');
+var address = require('@tevm/address');
 var baseClient = require('@tevm/base-client');
 var memoryClient = require('@tevm/memory-client');
 var viem = require('@tevm/viem');
@@ -235,6 +236,10 @@ Object.defineProperty(exports, "rateLimit", {
 Object.defineProperty(exports, "webSocket", {
   enumerable: true,
   get: function () { return jsonrpc.webSocket; }
+});
+Object.defineProperty(exports, "createAddress", {
+  enumerable: true,
+  get: function () { return address.createAddress; }
 });
 Object.defineProperty(exports, "GENESIS_STATE", {
   enumerable: true,

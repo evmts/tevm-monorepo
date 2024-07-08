@@ -485,7 +485,7 @@ If we remove the createTransaction: true the txHash will not be there. However, 
 ```typescript
 // the tevm means this api is not guaranteed to remain stable
 const mempool = await memoryClient.tevm.getTxPool();
-console.log(await mempool.getBySenderAddress(EthjsAddress.fromString(prefundedAccounts[0])));
+console.log(await mempool.getBySenderAddress(createAddress(prefundedAccounts[0])));
 ```
 
 :::tip[Using the low level api]

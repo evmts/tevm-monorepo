@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { EthjsAddress, bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
+import { bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData } from 'viem'
 
 const abi = parseAbi([
