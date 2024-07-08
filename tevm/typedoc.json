@@ -21,6 +21,7 @@
     "./base-client/index.ts",
     "./decorators/index.ts",
     "./utils/index.ts",
+    "./address/index.ts",
     "./state/index.ts",
     "./common/index.ts",
     "./sync-storage-persister/index.ts",
@@ -36,8 +37,6 @@
     "./bundler/config/index.ts",
     "./bundler/compiler/index.ts"
   ],
-  "plugin": [
-    "typedoc-plugin-markdown"
-  ],
+  "plugin": ["typedoc-plugin-markdown"],
   "gitRevision": "main"
 }

@@ -24,6 +24,7 @@ const dirs = [
 'receipt-manager',
 'tx',
 'txpool',
+'address',
 'vm',
 'bundler/',
 'bundler/base-bundler',
