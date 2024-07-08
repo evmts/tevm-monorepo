@@ -2401,7 +2401,7 @@ await client.tevmSetAccount({
 })
 ```
 
-• **client.transport**: `TransportConfig`\<`string`, `EIP1193RequestFn`\> & `Record`\<`string`, `any`\>
+• **client.transport**: `TransportConfig`\<`string`\> & `object`
 
 The RPC transport
 
