@@ -1,5 +1,37 @@
 # @tevm/contract
 
+## 1.1.0-next.92
+
+### Patch Changes
+
+- Updated dependencies [[`7af1917`](https://github.com/evmts/tevm-monorepo/commit/7af1917c2cedfed22f62f3e6edf3e6e15a8b7ac8), [`254a16a`](https://github.com/evmts/tevm-monorepo/commit/254a16aad38e4017c7621028aa405504d2e38029)]:
+  - @tevm/utils@1.1.0-next.92
+  - @tevm/memory-client@1.1.0-next.92
+  - @tevm/viem@1.1.0-next.92
+  - @tevm/actions@1.1.0-next.92
+  - @tevm/address@1.1.0-next.92
+  - @tevm/base-client@1.1.0-next.92
+  - @tevm/block@1.1.0-next.92
+  - @tevm/blockchain@1.1.0-next.92
+  - @tevm/client-types@1.1.0-next.92
+  - @tevm/common@1.1.0-next.92
+  - @tevm/contract@1.1.0-next.92
+  - @tevm/decorators@1.1.0-next.92
+  - @tevm/evm@1.1.0-next.92
+  - @tevm/http-client@1.1.0-next.92
+  - @tevm/precompiles@1.1.0-next.92
+  - @tevm/predeploys@1.1.0-next.92
+  - @tevm/procedures@1.1.0-next.92
+  - @tevm/receipt-manager@1.1.0-next.92
+  - @tevm/server@1.1.0-next.92
+  - @tevm/state@1.1.0-next.92
+  - @tevm/tx@1.1.0-next.92
+  - @tevm/txpool@1.1.0-next.92
+  - @tevm/vm@1.1.0-next.92
+  - @tevm/bun-plugin@1.0.0-next.86
+  - @tevm/ts-plugin@1.0.0-next.86
+  - @tevm/sync-storage-persister@1.1.0-next.92
+
 ## 1.1.0-next.91
 
 ### Patch Changes

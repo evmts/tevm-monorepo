@@ -1,5 +1,22 @@
 # @tevm/client
 
+## 1.1.0-next.92
+
+### Patch Changes
+
+- [#1290](https://github.com/evmts/tevm-monorepo/pull/1290) [`254a16a`](https://github.com/evmts/tevm-monorepo/commit/254a16aad38e4017c7621028aa405504d2e38029) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with memory client transport not being strongly typed
+
+- Updated dependencies [[`7af1917`](https://github.com/evmts/tevm-monorepo/commit/7af1917c2cedfed22f62f3e6edf3e6e15a8b7ac8)]:
+  - @tevm/utils@1.1.0-next.92
+  - @tevm/actions@1.1.0-next.92
+  - @tevm/base-client@1.1.0-next.92
+  - @tevm/common@1.1.0-next.92
+  - @tevm/contract@1.1.0-next.92
+  - @tevm/decorators@1.1.0-next.92
+  - @tevm/evm@1.1.0-next.92
+  - @tevm/predeploys@1.1.0-next.92
+  - @tevm/procedures@1.1.0-next.92
+
 ## 1.1.0-next.91
 
 ### Patch Changes

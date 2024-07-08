@@ -68,7 +68,8 @@
     "@tevm/scripts": "1.0.0",
     "@tevm/test-utils": "0.0.1",
     "mdt-repro": "0.0.1",
-    "@tevm/receipt-manager": "0.0.1"
+    "@tevm/receipt-manager": "0.0.1",
+    "@tevm/address": "0.0.1"
   },
   "changesets": [
     "afraid-apples-turn",
@@ -385,6 +386,7 @@
     "tender-buttons-hammer",
     "thick-falcons-type",
     "thick-items-float",
+    "thick-monkeys-march",
     "thick-phones-smoke",
     "thin-games-decide",
     "thin-ligers-complain",
@@ -407,6 +409,7 @@
     "unlucky-days-hang",
     "unlucky-nails-tan",
     "unlucky-rice-applaud",
+    "violet-foxes-tan",
     "warm-glasses-glow",
     "warm-swans-explode",
     "warm-vans-occur",

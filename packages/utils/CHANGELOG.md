@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.92
+
+### Minor Changes
+
+- [#1284](https://github.com/evmts/tevm-monorepo/pull/1284) [`7af1917`](https://github.com/evmts/tevm-monorepo/commit/7af1917c2cedfed22f62f3e6edf3e6e15a8b7ac8) Thanks [@roninjin10](https://github.com/roninjin10)! - Added randomBytes to `@tevm/utils`. randomBytes(32) will generate 32 random bytes.
+
 ## 1.1.0-next.91
 
 ### Minor Changes
