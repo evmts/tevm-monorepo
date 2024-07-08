@@ -1,5 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
@@ -95,7 +96,7 @@ export const callHandler =
 		) {
 			const vm = await client.getVm()
 			const isCode = await vm.stateManager
-				.getContractCode(EthjsAddress.fromString(_params.to))
+				.getContractCode(createAddress(_params.to))
 				.then((code) => code.length > 0)
 				.catch(() => false)
 			const txPool = await client.getTxPool()
@@ -135,7 +136,7 @@ export const callHandler =
 
 		if (scriptResult.address !== undefined) {
 			// TODO this isn't clean that we are mutating here
-			evmInput.to = EthjsAddress.fromString(scriptResult.address)
+			evmInput.to = createAddress(scriptResult.address)
 			_params.to = scriptResult.address
 		}
 

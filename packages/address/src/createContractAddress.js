@@ -1,8 +1,8 @@
+import { InvalidAddressError } from '@tevm/errors'
 import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
+import { numberToBytes } from 'viem'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
-import { numberToBytes } from 'viem'
-import { InvalidAddressError } from '@tevm/errors'
 
 /**
  * @typedef {import('@tevm/errors').InvalidAddressError} CreateContractAddressError

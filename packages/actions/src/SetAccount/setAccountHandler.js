@@ -1,5 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { EthjsAccount } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -24,7 +25,7 @@ export const setAccountHandler =
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}
 
-		const address = new EthjsAddress(hexToBytes(params.address))
+		const address = createAddress(params.address)
 
 		/**
 		 * @type {Array<Promise<any>>}

@@ -1,7 +1,7 @@
-import { concatBytes, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
+import { InvalidSaltError } from '@tevm/errors'
+import { EthjsAddress, concatBytes, hexToBytes, keccak256 } from '@tevm/utils'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
-import { InvalidSaltError } from '@tevm/errors'
 
 /**
  * @typedef {InvalidSaltError | import('@tevm/errors').InvalidAddressError} Create2ContractAddressError

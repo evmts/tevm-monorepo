@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex } from '@tevm/utils'
 import { NoForkUrlSetError } from './getBalanceHandler.js'
 
@@ -15,7 +15,7 @@ export const getCodeHandler =
 		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'latest') {
-			return bytesToHex(await vm.stateManager.getContractCode(EthjsAddress.fromString(params.address)))
+			return bytesToHex(await vm.stateManager.getContractCode(createAddress(params.address)))
 		}
 		if (!forkClient) {
 			throw new NoForkUrlSetError(

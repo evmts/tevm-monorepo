@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
-import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
-import { createContractAddress } from './createContractAddress.js'
-import { Address } from './Address.js'
 import { InvalidAddressError } from '@tevm/errors'
+import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
 import { numberToBytes } from 'viem'
+import { Address } from './Address.js'
+import { createContractAddress } from './createContractAddress.js'
 
 describe('createContractAddress', () => {
 	it('should create a valid contract address with nonce 0', () => {

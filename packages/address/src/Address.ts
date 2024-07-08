@@ -1,4 +1,4 @@
-import { EthjsAddress, getAddress, bytesToHex, type Address as AddressType } from '@tevm/utils'
+import { type Address as AddressType, EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
 
 /**
  * Utility class for ethereum addresses.

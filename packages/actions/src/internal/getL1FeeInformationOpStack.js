@@ -1,3 +1,4 @@
+import { createAddress } from '@tevm/address'
 import { EthjsAddress, bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData } from 'viem'
 
@@ -23,7 +24,7 @@ export const getL1FeeInformationOpStack = async (data, vm) => {
 		data: bytesToHex(data ?? new Uint8Array()),
 		type: 'eip1559',
 	})
-	const to = EthjsAddress.fromString(opstackChain.contracts.gasPriceOracle.address)
+	const to = createAddress(opstackChain.contracts.gasPriceOracle.address)
 	const [l1GasUsed, l1Fee, l1BlobFee, l1BaseFee] = await Promise.all([
 		vm.evm.runCall({
 			to,

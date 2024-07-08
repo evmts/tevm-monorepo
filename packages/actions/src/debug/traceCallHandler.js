@@ -1,4 +1,5 @@
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { createAddress } from '@tevm/address'
+import { hexToBytes } from '@tevm/utils'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
 /**
@@ -15,12 +16,12 @@ export const traceCallHandler =
 		const callParams = {
 			...(params.from !== undefined
 				? {
-						origin: EthjsAddress.fromString(params.from),
-						caller: EthjsAddress.fromString(params.from),
+						origin: createAddress(params.from),
+						caller: createAddress(params.from),
 					}
 				: {}),
 			...(params.data !== undefined ? { data: hexToBytes(params.data) } : {}),
-			...(params.to ? { to: EthjsAddress.fromString(params.to) } : {}),
+			...(params.to ? { to: createAddress(params.to) } : {}),
 			...(params.gasPrice ? { gasPrice: params.gasPrice } : {}),
 			...(params.gas ? { gasLimit: params.gas } : {}),
 			...(params.value ? { value: params.value } : {}),

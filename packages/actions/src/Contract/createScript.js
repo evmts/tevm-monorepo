@@ -1,7 +1,8 @@
+import { createAddress, createContractAddress } from '@tevm/address'
 import { prefundedAccounts } from '@tevm/base-client'
 import { InternalError, InternalEvmError, InvalidBytecodeError } from '@tevm/errors'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress, getAddress, hexToBytes } from '@tevm/utils'
+import { getAddress, hexToBytes } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -20,9 +21,7 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 		to ??
 		(() => {
 			const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
-			return getAddress(
-				EthjsAddress.generate(EthjsAddress.fromString(`0x${'6969'.repeat(10)}`), randomBigInt).toString(),
-			)
+			return getAddress(createContractAddress(createAddress(`0x${'6969'.repeat(10)}`), randomBigInt).toString())
 		})()
 	const vm = await client.getVm()
 
@@ -51,7 +50,7 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 	const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 	const priorityFee = 0n
 
-	const sender = EthjsAddress.fromString(/** @type {import('@tevm/utils').Address}*/ (prefundedAccounts[0]))
+	const sender = createAddress(/** @type {import('@tevm/utils').Address}*/ (prefundedAccounts[0]))
 
 	let _maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
 	const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test'
+import { InvalidAddressError } from '@tevm/errors'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { numberToBytes } from 'viem'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
-import { InvalidAddressError } from '@tevm/errors'
-import { numberToBytes } from 'viem'
 
 describe('createAddress', () => {
 	it('should create an address from an EthjsAddress instance', () => {

@@ -1,4 +1,5 @@
-import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
+import { createAddress } from '@tevm/address'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { generateRandomId } from '../utils/generateRandomId.js'
 import { parseBlockTag } from '../utils/parseBlockTag.js'
 
@@ -75,7 +76,7 @@ export const ethNewFilterJsonRpcProcedure = (client) => {
 		const pastLogs = await receiptsManager.getLogs(
 			_fromBlock,
 			_toBlock,
-			address !== undefined ? [EthjsAddress.fromString(address).bytes] : [],
+			address !== undefined ? [createAddress(address).bytes] : [],
 			topics?.map((topic) => hexToBytes(topic)),
 		)
 		client.setFilter({

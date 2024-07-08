@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { InvalidBlockError, InvalidParamsError, UnknownBlockError } from '@tevm/errors'
-import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
@@ -69,7 +69,7 @@ export const callHandlerOpts = async (client, params) => {
 			header: {
 				coinbase:
 					params.blockOverrideSet.coinbase !== undefined
-						? EthjsAddress.fromString(params.blockOverrideSet.coinbase)
+						? createAddress(params.blockOverrideSet.coinbase)
 						: header.coinbase,
 				number: params.blockOverrideSet.number !== undefined ? BigInt(params.blockOverrideSet.number) : header.number,
 				difficulty: header.difficulty,
@@ -82,7 +82,7 @@ export const callHandlerOpts = async (client, params) => {
 						? BigInt(params.blockOverrideSet.baseFee)
 						: header.baseFeePerGas ?? BigInt(0),
 				cliqueSigner() {
-					return EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+					return createAddress(`0x${'00'.repeat(20)}`)
 				},
 				getBlobGasPrice() {
 					if (params.blockOverrideSet?.blobBaseFee !== undefined) {
@@ -120,7 +120,7 @@ export const callHandlerOpts = async (client, params) => {
 	}
 
 	if (params.to) {
-		opts.to = EthjsAddress.fromString(params.to)
+		opts.to = createAddress(params.to)
 	}
 	if (params.data) {
 		opts.data = hexToBytes(params.data)
@@ -152,7 +152,7 @@ export const callHandlerOpts = async (client, params) => {
 		params.origin ||
 		(params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
 	if (caller) {
-		opts.caller = EthjsAddress.fromString(caller)
+		opts.caller = createAddress(caller)
 	}
 	const origin =
 		params.origin ||
@@ -164,7 +164,7 @@ export const callHandlerOpts = async (client, params) => {
 		} else {
 			opts.skipBalance = caller === `0x${'00'.repeat(20)}` && (params.createTransaction ?? false) === false
 		}
-		opts.origin = EthjsAddress.fromString(origin)
+		opts.origin = createAddress(origin)
 	}
 	if (params.gas) {
 		opts.gasLimit = BigInt(params.gas)

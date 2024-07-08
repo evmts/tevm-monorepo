@@ -1,7 +1,7 @@
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
-import { Address } from './Address.js'
 import { InvalidAddressError, UnreachableCodeError } from '@tevm/errors'
+import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { numberToBytes } from 'viem'
+import { Address } from './Address.js'
 
 /**
  * Creates an {@link Address} for safely interacting with an Ethereum
@@ -45,7 +45,7 @@ export const createAddress = (address) => {
 	} catch (e) {
 		if (e instanceof UnreachableCodeError) {
 			throw new InvalidAddressError(
-				`Recieved an invalid address input type for createAddress. Valid input types include hex string, unprefixed hex, bytes, number, bigint, or EthjsAddress`,
+				'Recieved an invalid address input type for createAddress. Valid input types include hex string, unprefixed hex, bytes, number, bigint, or EthjsAddress',
 				{ cause: e },
 			)
 		}

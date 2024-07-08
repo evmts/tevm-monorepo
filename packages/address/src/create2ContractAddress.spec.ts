@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
-import { EthjsAddress, hexToBytes, keccak256, concatBytes } from '@tevm/utils'
+import { InvalidSaltError } from '@tevm/errors'
+import { EthjsAddress, concatBytes, hexToBytes, keccak256 } from '@tevm/utils'
 import { Address } from './Address.js'
 import { create2ContractAddress } from './create2ContractAddress.js'
-import { InvalidSaltError } from '@tevm/errors'
 
 describe('create2ContractAddress', () => {
 	it('should create a valid contract address using CREATE2', () => {
