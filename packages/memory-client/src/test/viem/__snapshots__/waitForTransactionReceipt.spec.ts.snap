@@ -6,7 +6,7 @@ exports[`waitForTransactionReceipt waitForTransactionReceipt hould work 1`] = `
   "contractAddress": null,
   "cumulativeGasUsed": 27784n,
   "effectiveGasPrice": null,
-  "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
   "gasUsed": 27784n,
   "l1Fee": null,
   "l1FeeScalar": null,
