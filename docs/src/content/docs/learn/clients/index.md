@@ -99,6 +99,16 @@ const forkedClient = createMemoryClient({
 forkedClient.getBlockNumber().then(console.log);
 ```
 
+For most of Tevm functionality to work, the forked network must support the following JSON-RPC methods:
+
+- eth_blockNumber
+- eth_getStorageAt
+- eth_getProof
+- eth_getBlockByNumber
+- eth_getCode
+
+Nearly all nodes do support these methods so using Tevm is a good way to get access to other methods like eth_debugTraceTransaction if your RPC node otherwise doesn't support it. Just fork the RPC node with tevm and execute the RPC method locally.
+
 ### Use Cases
 
 #### 1. Using TEVM to Share Logic Between Contracts and Frontend
