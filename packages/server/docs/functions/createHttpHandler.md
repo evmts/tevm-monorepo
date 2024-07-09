@@ -2729,4 +2729,4 @@ const hash = await client.writeContract(request)
 
 ## Defined in
 
-[packages/server/src/createHttpHandler.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L32)
+[packages/server/src/createHttpHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L37)

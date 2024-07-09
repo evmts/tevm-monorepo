@@ -8,6 +8,16 @@
 
 ## Index
 
+### Classes
+
+- [InvalidJsonError](classes/InvalidJsonError.md)
+- [ReadRequestBodyError](classes/ReadRequestBodyError.md)
+
+### Type Aliases
+
+- [InvalidJsonErrorParameters](type-aliases/InvalidJsonErrorParameters.md)
+- [ReadRequestBodyErrorParameters](type-aliases/ReadRequestBodyErrorParameters.md)
+
 ### Functions
 
 - [createExpressMiddleware](functions/createExpressMiddleware.md)
