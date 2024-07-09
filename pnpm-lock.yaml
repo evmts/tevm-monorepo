@@ -814,7 +814,7 @@ importers:
     dependencies:
       '@rainbow-me/rainbowkit':
         specifier: ^2.1.2
-        version: 2.1.2(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))
+        version: 2.1.2(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))
       '@tanstack/react-query':
         specifier: ^5.48.0
         version: 5.48.0(react@18.3.1)
@@ -871,7 +871,7 @@ importers:
         version: 3.3.0(vite@5.3.1(@types/node@20.14.8)(terser@5.31.1))
       wagmi:
         specifier: ^2.10.7
-        version: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+        version: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -1993,6 +1993,9 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@tevm/actions':
         specifier: workspace:^
@@ -2240,7 +2243,7 @@ importers:
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
       wagmi:
         specifier: ^2.10.7
-        version: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+        version: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -16679,14 +16682,13 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)
 
-  '@metamask/sdk-install-modal-web@0.26.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)':
+  '@metamask/sdk-install-modal-web@0.26.0(i18next@22.5.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)':
     dependencies:
       i18next: 22.5.1
       qr-code-styling: 1.6.0-rc.1
-      react-i18next: 14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
+      react-i18next: 14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
     optionalDependencies:
       react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)
 
   '@metamask/sdk@0.26.3(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)':
@@ -16725,12 +16727,12 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@metamask/sdk@0.26.3(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)':
+  '@metamask/sdk@0.26.3(bufferutil@4.0.8)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)':
     dependencies:
       '@metamask/onboarding': 1.0.1
       '@metamask/providers': 15.0.0
       '@metamask/sdk-communication-layer': 0.26.2(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5(bufferutil@4.0.8))
-      '@metamask/sdk-install-modal-web': 0.26.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
+      '@metamask/sdk-install-modal-web': 0.26.0(i18next@22.5.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
       '@types/dom-screen-wake-lock': 1.0.3
       bowser: 2.11.0
       cross-fetch: 4.0.0
@@ -16751,7 +16753,6 @@ snapshots:
       uuid: 8.3.2
     optionalDependencies:
       react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -17714,7 +17715,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@rainbow-me/rainbowkit@2.1.2(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))':
+  '@rainbow-me/rainbowkit@2.1.2(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))':
     dependencies:
       '@tanstack/react-query': 5.48.0(react@18.3.1)
       '@vanilla-extract/css': 1.14.0
@@ -17727,7 +17728,7 @@ snapshots:
       react-remove-scroll: 2.5.7(@types/react@18.3.3)(react@18.3.1)
       ua-parser-js: 1.0.38
       viem: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-      wagmi: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      wagmi: 2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -19275,10 +19276,10 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/connectors@5.0.19(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/connectors@5.0.19(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(ioredis@5.4.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.3
-      '@metamask/sdk': 0.26.3(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)
+      '@metamask/sdk': 0.26.3(bufferutil@4.0.8)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
       '@wagmi/core': 2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
@@ -26517,14 +26518,13 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)
 
-  react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1):
+  react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.7
       html-parse-stringify: 3.0.1
       i18next: 23.11.5
       react: 18.3.1
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)
 
   react-is@16.13.1: {}
@@ -29313,10 +29313,10 @@ snapshots:
       - utf-8-validate
       - zod
 
-  wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8):
+  wagmi@2.10.7(@tanstack/query-core@5.48.0)(@tanstack/react-query@5.48.0(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(ioredis@5.4.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8):
     dependencies:
       '@tanstack/react-query': 5.48.0(react@18.3.1)
-      '@wagmi/connectors': 5.0.19(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(ioredis@5.4.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/connectors': 5.0.19(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(ioredis@5.4.1)(react-i18next@14.1.2(i18next@23.11.5)(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       '@wagmi/core': 2.11.5(@tanstack/query-core@5.48.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.5.2)(viem@2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(zod@3.23.8))(zod@3.23.8)
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)

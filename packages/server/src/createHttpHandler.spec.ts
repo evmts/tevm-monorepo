@@ -5,8 +5,8 @@ import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
-import { createHttpHandler } from '../createHttpHandler.js'
-import { DaiContract } from './DaiContract.sol.js'
+import { createHttpHandler } from './createHttpHandler.js'
+import { DaiContract } from './test/DaiContract.sol.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 

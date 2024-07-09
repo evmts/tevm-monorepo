@@ -1,6 +1,11 @@
-import { zJsonRpcRequest } from '@tevm/actions'
 import { tevmSend } from '@tevm/decorators'
-import { InternalError, InvalidRequestError } from '@tevm/errors'
+import { BaseError, InternalError, InvalidRequestError } from '@tevm/errors'
+import { InvalidJsonError } from './errors/InvalidJsonError.js'
+import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
+import { getRequestBody } from './internal/getRequestBody.js'
+import { handleBulkRequest } from './internal/handleBulkRequest.js'
+import { handleError } from './internal/handleError.js'
+import { parseRequest } from './internal/parseRequest.js'
 
 /**
 /**
@@ -33,110 +38,42 @@ export const createHttpHandler = (client) => {
 	/**
 	 * @param {import('http').IncomingMessage} req
 	 * @param {import('http').ServerResponse} res
-	 * @returns {void}
+	 * @returns {Promise<void>}
 	 */
-	return (req, res) => {
-		let body = ''
+	return async (req, res) => {
+		const body = await getRequestBody(req)
+		if (body instanceof ReadRequestBodyError) {
+			return handleError(client, body, res)
+		}
 
-		req.on('data', (chunk) => {
-			body += chunk.toString()
-		})
+		const parsedRequest = parseRequest(body)
+		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
+			return handleError(client, parsedRequest, res)
+		}
 
-		req.on('end', async () => {
-			/**
-			 * @type {unknown}
-			 */
-			let raw
-			try {
-				raw = JSON.parse(body)
-			} catch (e) {
-				client.tevm.logger.error(e)
-				const err = new InvalidRequestError('Request body is not valid json')
-				res.writeHead(400, { 'Content-Type': 'application/json' })
-				res.end(
-					JSON.stringify({
-						id: 'unknown',
-						method: 'unknown',
-						jsonrpc: '2.0',
-						error: {
-							code: -32700,
-							message: err.message,
-						},
-					}),
-				)
-				return
-			}
-			const parsedRequest = zJsonRpcRequest.safeParse(raw)
-			if (!parsedRequest.success) {
-				const err = new InvalidRequestError(JSON.stringify(parsedRequest.error.format()))
-				res.writeHead(400, { 'Content-Type': 'application/json' })
-				res.end(
-					JSON.stringify({
-						id: 'unknown',
-						method: 'unknown',
-						jsonrpc: '2.0',
-						error: {
-							code: -32700,
-							message: err.message,
-						},
-					}),
-				)
-				return
-			}
+		if (Array.isArray(parsedRequest)) {
+			const responses = await handleBulkRequest(client, parsedRequest)
+			res.writeHead(200, { 'Content-Type': 'application/json' })
+			res.end(JSON.stringify(responses))
+			return
+		}
 
-			if (Array.isArray(parsedRequest.data)) {
-				/**
-				 * @type {ReadonlyArray<import("@tevm/jsonrpc").JsonRpcRequest<string, object>>}
-				 */
-				const requests = parsedRequest.data
-				const responses = await Promise.allSettled(
-					requests.map((request) => client.tevm.extend(tevmSend()).send(/** @type any*/ (request))),
-				)
-				responses.map((response, i) => {
-					const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
-					if (response.status === 'rejected') {
-						client.tevm.logger.error(response.reason)
-						// it should never reject since we return errors as value unless something went very wrong
-						const err = new InternalError(request.method, { cause: response.reason })
-						return {
-							id: request.id,
-							method: request.method,
-							jsonrpc: '2.0',
-							error: {
-								code: err._tag,
-								message: err.message,
-							},
-						}
-					}
-					return response.value
-				})
-				res.writeHead(200, { 'Content-Type': 'application/json' })
-				return res.end(JSON.stringify(responses))
-			}
-			const request = /**  @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (parsedRequest.data)
-			try {
-				// TODO update this type to accept any jsonrpc request if a fork url pass through exists
-				// We don't officially support it until we explicitly implement all the endpoints instead of
-				// blindly passing through
-				const response = await client.tevm.extend(tevmSend()).send(/** @type any*/ (request))
-				res.writeHead(200, { 'Content-Type': 'application/json' })
-				return res.end(JSON.stringify(response))
-			} catch (e) {
-				client.tevm.logger.error(e)
-				const err = new InternalError(request.method, { cause: e })
-				client.tevm.logger.error(err)
-				const response = {
-					id: request.id,
-					method: request.method,
-					jsonrpc: '2.0',
-					error: {
-						code: err._tag,
-						message: err.message,
-					},
+		const response = await client.transport.tevm
+			.extend(tevmSend())
+			.send(/** @type any*/ (parsedRequest))
+			.catch((e) => {
+				if (e instanceof BaseError) {
+					return e
 				}
-				res.writeHead(500, { 'Content-Type': 'application/json' })
-				return res.end(JSON.stringify(response))
-			}
-		})
+				return new InternalError('Unexpeced error', { cause: e })
+			})
+
+		if (response instanceof BaseError) {
+			return handleError(client, response, res, parsedRequest)
+		}
+
+		res.writeHead(200, { 'Content-Type': 'application/json' })
+		res.end(JSON.stringify(response))
+		return
 	}
 }
