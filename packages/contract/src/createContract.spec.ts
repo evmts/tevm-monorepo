@@ -1,7 +1,8 @@
-import { encodeDeployData, formatAbi, parseAbi } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { encodeDeployData, formatAbi, parseAbi, type Hex } from '@tevm/utils'
+import { assertType, describe, expect, it } from 'vitest'
 import { createContract } from './createContract.js'
 import { dummyAbi } from './test/fixtures.js'
+import type { Contract } from './Contract.js'
 
 describe(createContract.name, () => {
 	const contract = createContract({
@@ -362,4 +363,66 @@ describe(createContract.name, () => {
 			}),
 		)
 	})
+
+	it('should throw if no abi or humanReadableAbi is provided', () => {
+		expect(() => createContract({ name: 'ContractWithConstructor' } as any)).toThrowErrorMatchingInlineSnapshot(`
+			[InvalidParams: Must provide either humanReadableAbi or abi
+
+			Docs: https://tevm.shhttps://tevm.sh/learn/contracts/
+			Version: 1.1.0.next-73]
+		`)
+	})
+
+	it('should optionally take an abi rather than a humanReadableAbi', () => {
+		const contract = createContract({
+			name: 'ContractWithConstructor',
+			bytecode: '0x123456',
+			abi: [
+				{
+					constant: true,
+					inputs: [],
+					name: 'name',
+					outputs: [
+						{
+							name: '',
+							type: 'string',
+						},
+					],
+					payable: false,
+					stateMutability: 'view',
+					type: 'function',
+				},
+			] as const,
+		})
+		assertType<
+			Contract<
+				'ContractWithConstructor',
+				readonly ['function name() view returns (string)'],
+				undefined,
+				Hex,
+				undefined,
+				undefined
+			>
+		>(contract)
+		expect(contract.read.name()).toEqual({
+			abi: [
+				{
+					constant: true,
+					inputs: [],
+					name: 'name',
+					outputs: [
+						{
+							name: '',
+							type: 'string',
+						},
+					],
+					payable: false,
+					stateMutability: 'view',
+					type: 'function',
+				},
+			],
+			functionName: 'name',
+			humanReadableAbi: ['function name() view returns (string)'],
+		})
+})
 })
