@@ -49,7 +49,7 @@ export const createContract = ({
 			return { abi: parseAbi(_humanReadableAbi), humanReadableAbi: _humanReadableAbi }
 		}
 		throw new InvalidParamsError('Must provide either humanReadableAbi or abi', {
-			docsPath: 'https://tevm.sh/learn/contracts/',
+			docsPath: '/learn/contracts/',
 		})
 	})()
 

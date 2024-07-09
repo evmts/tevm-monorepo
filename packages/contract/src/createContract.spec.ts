@@ -368,7 +368,7 @@ describe(createContract.name, () => {
 		expect(() => createContract({ name: 'ContractWithConstructor' } as any)).toThrowErrorMatchingInlineSnapshot(`
 			[InvalidParams: Must provide either humanReadableAbi or abi
 
-			Docs: https://tevm.shhttps://tevm.sh/learn/contracts/
+			Docs: https://tevm.sh/learn/contracts/
 			Version: 1.1.0.next-73]
 		`)
 	})
