@@ -5,6 +5,16 @@ prev: false
 title: "@tevm/server"
 ---
 
+## Classes
+
+- [InvalidJsonError](/reference/tevm/server/classes/invalidjsonerror/)
+- [ReadRequestBodyError](/reference/tevm/server/classes/readrequestbodyerror/)
+
+## Interfaces
+
+- [InvalidJsonErrorParameters](/reference/tevm/server/interfaces/invalidjsonerrorparameters/)
+- [ReadRequestBodyErrorParameters](/reference/tevm/server/interfaces/readrequestbodyerrorparameters/)
+
 ## Functions
 
 - [createExpressMiddleware](/reference/tevm/server/functions/createexpressmiddleware/)

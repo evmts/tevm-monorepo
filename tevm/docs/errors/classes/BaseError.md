@@ -54,6 +54,8 @@ This class is abstract and should be extended by other error classes.
 - [`InsufficientPermissionsError`](InsufficientPermissionsError.md)
 - [`PendingTransactionTimeoutError`](PendingTransactionTimeoutError.md)
 - [`InternalEvmError`](InternalEvmError.md)
+- [`InvalidJsonError`](../../server/classes/InvalidJsonError.md)
+- [`ReadRequestBodyError`](../../server/classes/ReadRequestBodyError.md)
 
 ## Implements
 

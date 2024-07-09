@@ -4,6 +4,16 @@
 
 # @tevm/server
 
+## Classes
+
+- [InvalidJsonError](classes/InvalidJsonError.md)
+- [ReadRequestBodyError](classes/ReadRequestBodyError.md)
+
+## Interfaces
+
+- [InvalidJsonErrorParameters](interfaces/InvalidJsonErrorParameters.md)
+- [ReadRequestBodyErrorParameters](interfaces/ReadRequestBodyErrorParameters.md)
+
 ## Functions
 
 - [createExpressMiddleware](functions/createExpressMiddleware.md)

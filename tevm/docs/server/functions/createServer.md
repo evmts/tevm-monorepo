@@ -6,7 +6,7 @@
 
 # Function: createServer()
 
-> **createServer**(`client`, `serverOptions`?): `Promise`\<`Server`\>
+> **createServer**(`client`, `serverOptions`?): `Server`
 
 ## Parameters
 
@@ -2723,7 +2723,7 @@ const hash = await client.writeContract(request)
 
 ## Returns
 
-`Promise`\<`Server`\>
+`Server`
 
 ## Defined in
 

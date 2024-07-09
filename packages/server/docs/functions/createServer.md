@@ -6,9 +6,7 @@
 
 # Function: createServer()
 
-> **createServer**(`client`, `serverOptions`?): `Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
-
-Creates a lightweight http server for handling requests
+> **createServer**(`client`, `serverOptions`?): `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 ## Parameters
 
@@ -2721,16 +2719,16 @@ const { request } = await client.simulateContract({
 const hash = await client.writeContract(request)
 ```
 
-• **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
+• **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\> = `{}`
 
 Optional options to pass to the http server
 
-To use pass in the Tevm['request'] request handler
-
 ## Returns
 
-`Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
+`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
+
+To use pass in the Tevm['request'] request handler
 
 ## Defined in
 
-[packages/server/src/createServer.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L38)
+[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
