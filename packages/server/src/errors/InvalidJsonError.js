@@ -53,6 +53,7 @@ export class InvalidJsonError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidjsonerror/',
 			},
 			'InvalidJsonError',
+			-32700,
 		)
 	}
 }

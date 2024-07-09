@@ -1,5 +1,5 @@
 import { tevmSend } from '@tevm/decorators'
-import { BaseError, InternalError, InvalidRequestError } from '@tevm/errors'
+import { InternalError, InvalidRequestError } from '@tevm/errors'
 import { InvalidJsonError } from './errors/InvalidJsonError.js'
 import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
 import { getRequestBody } from './internal/getRequestBody.js'
@@ -52,7 +52,7 @@ export const createHttpHandler = (client) => {
 		}
 
 		if (Array.isArray(parsedRequest)) {
-			const responses = await handleBulkRequest(client, parsedRequest)
+			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
 			res.writeHead(200, { 'Content-Type': 'application/json' })
 			res.end(JSON.stringify(responses))
 			return
@@ -62,13 +62,10 @@ export const createHttpHandler = (client) => {
 			.extend(tevmSend())
 			.send(/** @type any*/ (parsedRequest))
 			.catch((e) => {
-				if (e instanceof BaseError) {
-					return e
-				}
-				return new InternalError('Unexpeced error', { cause: e })
+				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
 			})
 
-		if (response instanceof BaseError) {
+		if ('code' in response && 'message' in response) {
 			return handleError(client, response, res, parsedRequest)
 		}
 

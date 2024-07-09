@@ -7,7 +7,7 @@
  * @throws {never}
  */
 export const handleError = (client, error, res, jsonRpcReq = { method: 'unknown' }) => {
-	client.tevm.logger.error(error)
+	client.transport.tevm.logger.error(error)
 	res.writeHead(400, { 'Content-Type': 'application/json' })
 	res.end(
 		JSON.stringify({
