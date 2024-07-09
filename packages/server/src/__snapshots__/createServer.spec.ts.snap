@@ -1,0 +1,10 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createServer should create a server without options 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_chainId",
+  "result": "0x384",
+}
+`;
