@@ -12,7 +12,7 @@ import { parseRequest } from './internal/parseRequest.js'
 * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
 * Any unimplemented methods will be proxied to the given proxyUrl
 * This handler works for any server that supports the Node.js http module
-* @param {import('@tevm/memory-client').MemoryClient<any, any>} client
+* @param {import('./Client.js').Client} client
 * @returns {import('http').RequestListener}
 * @throws {never}
 * @example

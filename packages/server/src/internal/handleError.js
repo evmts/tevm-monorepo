@@ -1,5 +1,5 @@
 /**
- * @param {import('@tevm/memory-client').MemoryClient<any, any>} client
+ * @param {import('../Client.js').Client} client
  * @param {import('@tevm/errors').BaseError} error
  * @param {import('http').ServerResponse} res
  * @param {{method: string, id?: string | undefined | null | number}} [jsonRpcReq]
