@@ -10,7 +10,7 @@ const PORT = 6969
 let server: Server
 
 beforeEach(async () => {
-	server = await createServer(createMemoryClient())
+	server = createServer(createMemoryClient())
 	await new Promise((resolve) => {
 		server.listen(PORT, () => resolve(server))
 	})
