@@ -1,5 +1,16 @@
 # @tevm/ethers
 
+## 1.1.0-next.94
+
+### Patch Changes
+
+- Updated dependencies [[`9cff1bb`](https://github.com/evmts/tevm-monorepo/commit/9cff1bbb1a5d87eadff5b01b288e5f46732f7c71)]:
+  - @tevm/contract@1.1.0-next.94
+  - @tevm/procedures@1.1.0-next.94
+  - @tevm/base-client@1.1.0-next.94
+  - @tevm/client-types@1.1.0-next.92
+  - @tevm/decorators@1.1.0-next.94
+
 ## 1.1.0-next.92
 
 ### Patch Changes

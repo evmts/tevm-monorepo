@@ -1,5 +1,15 @@
 # @tevm/server
 
+## 1.1.0-next.94
+
+### Patch Changes
+
+- [#1295](https://github.com/evmts/tevm-monorepo/pull/1295) [`112ee87`](https://github.com/evmts/tevm-monorepo/commit/112ee8727dbbe9c35c4c7b39a6e899e612b47a77) Thanks [@roninjin10](https://github.com/roninjin10)! - Made tevmServer accept both tree shakable client and regular client. It should also accept BaseClient
+
+- Updated dependencies []:
+  - @tevm/memory-client@1.1.0-next.94
+  - @tevm/decorators@1.1.0-next.94
+
 ## 1.1.0-next.93
 
 ### Patch Changes

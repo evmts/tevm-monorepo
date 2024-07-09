@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.1.0-next.94
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/predeploys@1.1.0-next.94
+  - @tevm/vm@1.1.0-next.94
+  - @tevm/evm@1.1.0-next.94
+  - @tevm/state@1.1.0-next.94
+  - @tevm/sync-storage-persister@1.1.0-next.94
+  - @tevm/txpool@1.1.0-next.94
+
 ## 1.1.0-next.92
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.94
+
+### Minor Changes
+
+- [#1296](https://github.com/evmts/tevm-monorepo/pull/1296) [`9cff1bb`](https://github.com/evmts/tevm-monorepo/commit/9cff1bbb1a5d87eadff5b01b288e5f46732f7c71) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for optionally using abi rather than humanReadableAbi when calling createContract
+
 ## 1.1.0-next.92
 
 ### Patch Changes
