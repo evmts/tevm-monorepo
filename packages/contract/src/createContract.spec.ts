@@ -1,8 +1,8 @@
-import { encodeDeployData, formatAbi, parseAbi, type Hex } from '@tevm/utils'
+import { type Hex, encodeDeployData, formatAbi, parseAbi } from '@tevm/utils'
 import { assertType, describe, expect, it } from 'vitest'
+import type { Contract } from './Contract.js'
 import { createContract } from './createContract.js'
 import { dummyAbi } from './test/fixtures.js'
-import type { Contract } from './Contract.js'
 
 describe(createContract.name, () => {
 	const contract = createContract({
@@ -424,5 +424,5 @@ describe(createContract.name, () => {
 			functionName: 'name',
 			humanReadableAbi: ['function name() view returns (string)'],
 		})
-})
+	})
 })

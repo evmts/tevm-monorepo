@@ -6,7 +6,7 @@
 
 # Function: createContract()
 
-> **createContract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`__namedParameters`): [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+> **createContract**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Creates a tevm Contract instance from human readable abi
 
@@ -14,7 +14,7 @@ Creates a tevm Contract instance from human readable abi
 
 • **TName** *extends* `string`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| `Abi`
 
 • **TAddress** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
 
@@ -24,9 +24,11 @@ Creates a tevm Contract instance from human readable abi
 
 • **TCode** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
 
+• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\<`TAbi`\>\> : `never`
+
 ## Parameters
 
-• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+• **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 
@@ -34,4 +36,4 @@ Creates a tevm Contract instance from human readable abi
 
 ## Defined in
 
-[createContract.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L34)
+[createContract.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L35)

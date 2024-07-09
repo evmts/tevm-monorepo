@@ -15,6 +15,11 @@ title: "@tevm/server"
 - [InvalidJsonErrorParameters](/reference/tevm/server/interfaces/invalidjsonerrorparameters/)
 - [ReadRequestBodyErrorParameters](/reference/tevm/server/interfaces/readrequestbodyerrorparameters/)
 
+## Type Aliases
+
+- [Client](/reference/tevm/server/type-aliases/client/)
+- [Tevm](/reference/tevm/server/type-aliases/tevm/)
+
 ## Functions
 
 - [createExpressMiddleware](/reference/tevm/server/functions/createexpressmiddleware/)

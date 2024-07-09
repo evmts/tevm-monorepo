@@ -1,8 +1,8 @@
+import { InvalidParamsError } from '@tevm/errors'
 import { encodeDeployData, formatAbi, getAddress, parseAbi } from '@tevm/utils'
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
-import { InvalidParamsError } from '@tevm/errors'
 
 /**
  * Creates a tevm Contract instance from human readable abi

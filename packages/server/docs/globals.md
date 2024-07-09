@@ -14,6 +14,11 @@
 - [InvalidJsonErrorParameters](interfaces/InvalidJsonErrorParameters.md)
 - [ReadRequestBodyErrorParameters](interfaces/ReadRequestBodyErrorParameters.md)
 
+## Type Aliases
+
+- [Client](type-aliases/Client.md)
+- [Tevm](type-aliases/Tevm.md)
+
 ## Functions
 
 - [createExpressMiddleware](functions/createExpressMiddleware.md)
