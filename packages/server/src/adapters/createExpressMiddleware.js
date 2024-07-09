@@ -2,7 +2,7 @@ import { createHttpHandler } from '../createHttpHandler.js'
 
 /**
  * Creates express middleware for a Tevm JSON-RPC server
- * @param {import('@tevm/memory-client').MemoryClient} client
+ * @param {import('../Client.js').Client} client
  * @returns {import('express').RequestHandler}
  * @example
  * ```typescript
