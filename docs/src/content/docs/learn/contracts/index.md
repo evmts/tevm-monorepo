@@ -34,14 +34,15 @@ To create a contract instance pass in it's human readable ABI and name into `cre
 import { createContract} from 'tevm'
 
 const contract = createContract({
-  humanReadableAbi: ['function exampleRead() returns (uint256)', ...],
+  // make sure you use as const!!!
+  humanReadableAbi: ['function exampleRead() returns (uint256)', ...] as const,
 })
 ```
 
-Contracts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi).
+Contracts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi) utility or using the `abi` param with `createContract`. Make sure you `as const` the abi. The types will not work if the abi is imported from a json file.
 
 ```typescript
-import { createContract, formatAbi } from 'tevm'
+import { createContract } from 'tevm'
 
 const abi = [
   ...
@@ -49,7 +50,7 @@ const abi = [
 
 const script = createContract({
   name: 'MyScript',
-  humanReadableAbi: formatAbi(abi),
+  abi,
   bytecode: '0x123...',
   deployedBytecode: '0x123...',
 })
@@ -81,7 +82,7 @@ Addresses are optional on contracts. If you want your action creators to return 
 
 ```typescript
 const script = createContract({
-  humanReadableAbi: formatAbi(abi),
+  abi: abi,
   address: "0x...",
 });
 ```

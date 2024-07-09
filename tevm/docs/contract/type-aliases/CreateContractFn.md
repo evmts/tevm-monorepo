@@ -6,7 +6,7 @@
 
 # Type Alias: CreateContractFn()
 
-> **CreateContractFn**: \<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+> **CreateContractFn**: \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Type of `createContract` factory function
 Creates a tevm Contract instance from human readable abi
@@ -41,7 +41,7 @@ const contract = createContract({
 
 • **TName** *extends* `string`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](../../index/type-aliases/Abi.md)
 
 • **TAddress** *extends* `undefined` \| [`Address`](../../index/type-aliases/Address.md) = `undefined`
 
@@ -51,9 +51,11 @@ const contract = createContract({
 
 • **TCode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
 
+• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`FormatAbi`](../../index/type-aliases/FormatAbi.md)\<`TAbi`\> : `never`
+
 ## Parameters
 
-• **\{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}**: [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+• **\{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}**: [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 

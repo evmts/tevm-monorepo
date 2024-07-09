@@ -15,8 +15,10 @@
 
 ### Type Aliases
 
+- [Client](type-aliases/Client.md)
 - [InvalidJsonErrorParameters](type-aliases/InvalidJsonErrorParameters.md)
 - [ReadRequestBodyErrorParameters](type-aliases/ReadRequestBodyErrorParameters.md)
+- [Tevm](type-aliases/Tevm.md)
 
 ### Functions
 

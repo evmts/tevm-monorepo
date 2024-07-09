@@ -5,7 +5,7 @@ prev: false
 title: "createContract"
 ---
 
-> **createContract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`__namedParameters`): [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+> **createContract**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 Creates a tevm Contract instance from human readable abi
 
@@ -13,7 +13,7 @@ Creates a tevm Contract instance from human readable abi
 
 • **TName** *extends* `string`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 • **TAddress** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
 
@@ -23,9 +23,11 @@ Creates a tevm Contract instance from human readable abi
 
 • **TCode** *extends* `undefined` \| \`0x$\{string\}\` = `undefined`
 
+• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi`\<`TAbi`\> : `TAbi` *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? [`FormatAbi`](/reference/tevm/utils/type-aliases/formatabi/)\<`TAbi`\<`TAbi`\>\> : `never`
+
 ## Parameters
 
-• **\_\_namedParameters**: [`CreateContractParams`](/reference/tevm/contract/type-aliases/createcontractparams/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+• **\_\_namedParameters**: [`CreateContractParams`](/reference/tevm/contract/type-aliases/createcontractparams/)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 
@@ -33,4 +35,4 @@ Creates a tevm Contract instance from human readable abi
 
 ## Defined in
 
-[createContract.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L34)
+[createContract.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L35)

@@ -5,7 +5,7 @@ prev: false
 title: "CreateContractParams"
 ---
 
-> **CreateContractParams**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
+> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object` \| `object`
 
 Params for creating a [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) instance
 
@@ -17,7 +17,7 @@ CreateContract
 
 • **TName** *extends* `string` \| `undefined` \| `never`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 • **TAddress** *extends* `undefined` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `never`
 
@@ -26,32 +26,6 @@ CreateContract
 • **TDeployedBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
 
 • **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
-
-## Type declaration
-
-### address?
-
-> `optional` **address**: `TAddress`
-
-### bytecode?
-
-> `optional` **bytecode**: `TBytecode`
-
-### code?
-
-> `optional` **code**: `TCode`
-
-### deployedBytecode?
-
-> `optional` **deployedBytecode**: `TDeployedBytecode`
-
-### humanReadableAbi
-
-> **humanReadableAbi**: `THumanReadableAbi`
-
-### name?
-
-> `optional` **name**: `TName`
 
 ## Defined in
 

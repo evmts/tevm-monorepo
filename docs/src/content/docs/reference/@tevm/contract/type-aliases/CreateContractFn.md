@@ -5,7 +5,7 @@ prev: false
 title: "CreateContractFn"
 ---
 
-> **CreateContractFn**: \<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>(`{
+> **CreateContractFn**: \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{
 	name,
 	humanReadableAbi,
 	bytecode,
@@ -46,7 +46,7 @@ const contract = createContract({
 
 • **TName** *extends* `string`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 • **TAddress** *extends* `undefined` \| [`Address`](/reference/tevm/utils/type-aliases/address/) = `undefined`
 
@@ -56,6 +56,8 @@ const contract = createContract({
 
 • **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) = `undefined`
 
+• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? [`FormatAbi`](/reference/tevm/utils/type-aliases/formatabi/)\<`TAbi`\> : `never`
+
 ## Parameters
 
 • **\{
@@ -64,7 +66,7 @@ const contract = createContract({
 	bytecode,
 	deployedBytecode,
 	code,
-\}**: [`CreateContractParams`](/reference/tevm/contract/type-aliases/createcontractparams/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+\}**: [`CreateContractParams`](/reference/tevm/contract/type-aliases/createcontractparams/)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 

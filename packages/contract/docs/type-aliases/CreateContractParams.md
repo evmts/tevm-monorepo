@@ -4,9 +4,9 @@
 
 [@tevm/contract](../globals.md) / CreateContractParams
 
-# Type Alias: CreateContractParams\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
+# Type Alias: CreateContractParams\<TName, TAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
-> **CreateContractParams**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
+> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object` \| `object`
 
 Params for creating a [Contract](Contract.md) instance
 
@@ -18,7 +18,7 @@ CreateContract
 
 • **TName** *extends* `string` \| `undefined` \| `never`
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+• **TAbi** *extends* readonly `string`[] \| `Abi`
 
 • **TAddress** *extends* `undefined` \| `Address` \| `never`
 
@@ -27,32 +27,6 @@ CreateContract
 • **TDeployedBytecode** *extends* `undefined` \| `Hex` \| `never`
 
 • **TCode** *extends* `undefined` \| `Hex` \| `never`
-
-## Type declaration
-
-### address?
-
-> `optional` **address**: `TAddress`
-
-### bytecode?
-
-> `optional` **bytecode**: `TBytecode`
-
-### code?
-
-> `optional` **code**: `TCode`
-
-### deployedBytecode?
-
-> `optional` **deployedBytecode**: `TDeployedBytecode`
-
-### humanReadableAbi
-
-> **humanReadableAbi**: `THumanReadableAbi`
-
-### name?
-
-> `optional` **name**: `TName`
 
 ## Defined in
 

@@ -1,4 +1,4 @@
-import type { Address, Hex } from '@tevm/utils'
+import type { Abi, Address, FormatAbi, Hex } from '@tevm/utils'
 import type { Contract } from './Contract.js'
 import type { CreateContractParams } from './CreateContractParams.js'
 
@@ -32,7 +32,7 @@ import type { CreateContractParams } from './CreateContractParams.js'
  */
 export type CreateContractFn = <
 	TName extends string,
-	THumanReadableAbi extends readonly string[],
+	TAbi extends readonly string[] | Abi,
 	TAddress extends undefined | Address = undefined,
 	// Bytecode is the contract bytecode with constructor
 	TBytecode extends undefined | Hex = undefined,
@@ -40,13 +40,18 @@ export type CreateContractFn = <
 	TDeployedBytecode extends undefined | Hex = undefined,
 	// Code is Bytecode encoded with constructor arguments
 	TCode extends undefined | Hex = undefined,
+	THumanReadableAbi extends readonly string[] = TAbi extends readonly string[]
+		? TAbi
+		: TAbi extends Abi
+			? FormatAbi<TAbi>
+			: never,
 >({
 	name,
 	humanReadableAbi,
 	bytecode,
 	deployedBytecode,
 	code,
-}: CreateContractParams<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>) => Contract<
+}: CreateContractParams<TName, TAbi, TAddress, TBytecode, TDeployedBytecode, TCode>) => Contract<
 	TName,
 	THumanReadableAbi,
 	TAddress,

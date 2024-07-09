@@ -1,4 +1,5 @@
-import { encodeDeployData, getAddress, parseAbi } from '@tevm/utils'
+import { InvalidParamsError } from '@tevm/errors'
+import { encodeDeployData, formatAbi, getAddress, parseAbi } from '@tevm/utils'
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
@@ -31,8 +32,27 @@ import { writeFactory } from './write/writeFactory.js'
  * })
  * ```
  */
-export const createContract = ({ name, humanReadableAbi, address, deployedBytecode, code, bytecode }) => {
-	const abi = parseAbi(/**@type any*/ (humanReadableAbi))
+export const createContract = ({
+	name,
+	humanReadableAbi: _humanReadableAbi,
+	abi: _abi,
+	address,
+	deployedBytecode,
+	code,
+	bytecode,
+}) => {
+	const { abi, humanReadableAbi } = (() => {
+		if (_abi) {
+			return { abi: _abi, humanReadableAbi: formatAbi(_abi) }
+		}
+		if (_humanReadableAbi) {
+			return { abi: parseAbi(_humanReadableAbi), humanReadableAbi: _humanReadableAbi }
+		}
+		throw new InvalidParamsError('Must provide either humanReadableAbi or abi', {
+			docsPath: 'https://tevm.sh/learn/contracts/',
+		})
+	})()
+
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
@@ -97,7 +117,7 @@ export const createContract = ({ name, humanReadableAbi, address, deployedByteco
 			}
 			// this case needs test coverage
 			return encodeDeployData({
-				abi,
+				abi: /** @type {any}*/ (abi),
 				bytecode: _bytecode,
 				args: /** @type {any}*/ (params.constructorArgs),
 			})
