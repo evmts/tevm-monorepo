@@ -1,5 +1,11 @@
 # @tevm/server
 
+## 1.1.0-next.93
+
+### Patch Changes
+
+- [#1291](https://github.com/evmts/tevm-monorepo/pull/1291) [`dc5bc99`](https://github.com/evmts/tevm-monorepo/commit/dc5bc99d5d309ad04615f9542b9543804e590f00) Thanks [@roninjin10](https://github.com/roninjin10)! - Internal refactor to server package. Error handling may be changed and test coverage 100%
+
 ## 1.1.0-next.92
 
 ### Patch Changes
