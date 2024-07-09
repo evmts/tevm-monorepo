@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.1.0-next.95
+
+### Patch Changes
+
+- [#1297](https://github.com/evmts/tevm-monorepo/pull/1297) [`e626b40`](https://github.com/evmts/tevm-monorepo/commit/e626b40d7004e528dabf02f59c34436c9c6667ee) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix error message typo"
+
 ## 1.1.0-next.94
 
 ### Minor Changes
