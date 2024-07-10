@@ -52,10 +52,10 @@ export const createBaseClient = (options = {}) => {
 			const blockTag = await blockTagPromise
 			return {
 				loggingLevel,
+				...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				fork: {
 					...options.fork,
 					blockTag,
-					...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				},
 			}
 		}
@@ -160,6 +160,7 @@ export const createBaseClient = (options = {}) => {
 		.then(async (headBlock) => {
 			const stateRootHex = bytesToHex(headBlock.header.stateRoot)
 			const restoredState = options.persister?.restoreState()
+			restoredState && console.log(restoredState)
 			if (restoredState) {
 				logger.debug(restoredState, 'Restoring persisted state...')
 				logger.warn(
