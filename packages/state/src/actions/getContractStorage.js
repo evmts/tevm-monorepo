@@ -1,3 +1,4 @@
+import { InternalError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from 'viem'
 import { getAccount } from './getAccount.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
@@ -17,7 +18,7 @@ export const getContractStorage = (baseState) => async (address, key) => {
 	} = baseState
 	// Check storage slot in cache
 	if (key.length !== 32) {
-		throw new Error(
+		throw new InternalError(
 			`Storage key must be 32 bytes long. Received ${key.length}. If using numberToHex make the length 32.`,
 		)
 	}

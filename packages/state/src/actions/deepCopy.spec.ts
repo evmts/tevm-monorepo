@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import { InternalError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
@@ -40,5 +41,28 @@ describe(deepCopy.name, () => {
 		expect(await getContractCode(baseState)(address)).toEqual(hexToBytes(deployedBytecode))
 		expect(await getAccount(newState)(address)).toEqual(account)
 		expect(await getContractCode(newState)(address)).toEqual(hexToBytes(deployedBytecode))
+	})
+
+	it('should throw if uncommitted state', async () => {
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
+
+		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+
+		const nonce = 2n
+		const balance = 420n
+		const account = new EthjsAccount(nonce, balance, undefined, hexToBytes(keccak256(deployedBytecode)))
+
+		await putAccount(baseState)(address, account)
+
+		await putContractCode(baseState)(address, hexToBytes(deployedBytecode))
+
+		await checkpoint(baseState)()
+
+		const error = await deepCopy(baseState)().catch((e) => e)
+
+		expect(error).toBeInstanceOf(InternalError)
+		expect(error).toMatchSnapshot()
 	})
 })
