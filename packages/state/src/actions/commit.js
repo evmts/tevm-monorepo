@@ -1,8 +1,6 @@
 import { keccak256, numberToHex, toHex } from 'viem'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 
-// TODO we might want to sometimes prune state roots
-
 /**
  * Commits the current change-set to the instance since the
  * last call to checkpoint.

@@ -1,16 +1,7 @@
 import { InternalError } from '@tevm/errors'
+import { stripZeros } from '../utils/stripZeros.js'
 import { getAccount } from './getAccount.js'
 
-/**
- * @param {Uint8Array} bytes
- * @returns {Uint8Array}
- */
-const stripZeros = (bytes) => {
-	if (!(bytes instanceof Uint8Array)) {
-		throw new InternalError('Unexpected type')
-	}
-	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
-}
 /**
  * Adds value to the cache for the `account`
  * corresponding to `address` at the provided `key`.

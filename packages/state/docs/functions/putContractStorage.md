@@ -37,4 +37,4 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Defined in
 
-[packages/state/src/actions/putContractStorage.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L21)
+[packages/state/src/actions/putContractStorage.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L12)
