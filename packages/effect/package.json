@@ -2,6 +2,7 @@
 	"name": "@tevm/effect",
 	"version": "1.0.0-next.86",
 	"private": false,
+"sideEffect": false,
 	"description": "Effect.ts utilities",
 	"keywords": [
 		"effect",

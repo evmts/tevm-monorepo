@@ -2,6 +2,7 @@
 	"name": "@tevm/esbuild-plugin",
 	"version": "1.0.0-next.86",
 	"private": false,
+"sideEffect": false,
 	"description": "A esbuild plugin for tevm",
 	"keywords": [
 		"esbuild",

@@ -2,6 +2,7 @@
 	"name": "@tevm/ts-plugin",
 	"version": "1.0.0-next.86",
 	"private": false,
+"sideEffect": false,
 	"description": "A typescript plugin for tevm",
 	"keywords": [
 		"typescript",

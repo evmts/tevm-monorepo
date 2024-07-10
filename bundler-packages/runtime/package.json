@@ -2,6 +2,7 @@
 	"name": "@tevm/runtime",
 	"version": "1.0.0-next.86",
 	"private": false,
+"sideEffect": false,
 	"description": "Tools for generating the Tevm contract runtime",
 	"keywords": [
 		"solidity",
