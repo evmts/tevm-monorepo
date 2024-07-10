@@ -2,6 +2,7 @@
 	"name": "@tevm/base-bundler",
 	"version": "1.0.0-next.86",
 	"private": false,
+"sideEffect": false,
 	"description": "Internal bundler for Tevm",
 	"keywords": [
 		"tevm",
