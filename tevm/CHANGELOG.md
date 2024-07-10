@@ -1,5 +1,50 @@
 # @tevm/contract
 
+## 1.1.0-next.96
+
+### Patch Changes
+
+- [#1301](https://github.com/evmts/tevm-monorepo/pull/1301) [`59268b2`](https://github.com/evmts/tevm-monorepo/commit/59268b2e00423ba8f9ddf6fa89ea0070ae1023a6) Thanks [@roninjin10](https://github.com/roninjin10)! - Added sideEffect: false to package.json for better tree shaking support
+
+- Updated dependencies [[`59268b2`](https://github.com/evmts/tevm-monorepo/commit/59268b2e00423ba8f9ddf6fa89ea0070ae1023a6)]:
+  - @tevm/sync-storage-persister@1.1.0-next.96
+  - @tevm/base-bundler@1.1.0-next.96
+  - @tevm/compiler@1.1.0-next.96
+  - @tevm/esbuild-plugin@1.1.0-next.96
+  - @tevm/webpack-plugin@1.1.0-next.96
+  - @tevm/receipt-manager@1.1.0-next.96
+  - @tevm/config@1.1.0-next.96
+  - @tevm/rollup-plugin@1.1.0-next.96
+  - @tevm/rspack-plugin@1.1.0-next.96
+  - @tevm/memory-client@1.1.0-next.96
+  - @tevm/solc@1.1.0-next.96
+  - @tevm/vite-plugin@1.1.0-next.96
+  - @tevm/client-types@1.1.0-next.96
+  - @tevm/bun-plugin@1.1.0-next.96
+  - @tevm/base-client@1.1.0-next.96
+  - @tevm/http-client@1.1.0-next.96
+  - @tevm/precompiles@1.1.0-next.96
+  - @tevm/blockchain@1.1.0-next.96
+  - @tevm/decorators@1.1.0-next.96
+  - @tevm/predeploys@1.1.0-next.96
+  - @tevm/procedures@1.1.0-next.96
+  - @tevm/contract@1.1.0-next.96
+  - @tevm/actions@1.1.0-next.96
+  - @tevm/address@1.1.0-next.96
+  - @tevm/jsonrpc@1.1.0-next.96
+  - @tevm/viem@1.1.0-next.96
+  - @tevm/common@1.1.0-next.96
+  - @tevm/errors@1.1.0-next.96
+  - @tevm/server@1.1.0-next.96
+  - @tevm/txpool@1.1.0-next.96
+  - @tevm/block@1.1.0-next.96
+  - @tevm/state@1.1.0-next.96
+  - @tevm/utils@1.1.0-next.96
+  - @tevm/ts-plugin@1.1.0-next.96
+  - @tevm/evm@1.1.0-next.96
+  - @tevm/tx@1.1.0-next.96
+  - @tevm/vm@1.1.0-next.96
+
 ## 1.1.0-next.95
 
 ### Patch Changes
