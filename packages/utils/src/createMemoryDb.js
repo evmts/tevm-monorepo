@@ -46,7 +46,7 @@ export const createMemoryDb = (initialDb) => {
 				} else if (item.type === 'put') {
 					db.set(encodeKey(item.key), item.value)
 				} else {
-					throw new UnreachableCodeError(item)
+					return Promise.reject(new UnreachableCodeError(item))
 				}
 			}
 			return Promise.resolve()
