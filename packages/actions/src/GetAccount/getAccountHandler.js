@@ -91,12 +91,13 @@ export const getAccountHandler =
 					: {}),
 			}
 		} catch (e) {
+			let err = e
 			// TODO this isn't clean
 			// What we are doing here is checking if we threw a known error or not
 			if (typeof e !== 'object' || e === null || !('_tag' in e)) {
-				throw new InternalError('UnexpectedError in getAccountHandler', { cause: /** @type {any}*/ (e) })
+				err = new InternalError('UnexpectedError in getAccountHandler', { cause: /** @type {any}*/ (e) })
 			}
-			errors.push(/** @type any*/ (e))
+			errors.push(/** @type any*/ (err))
 			return maybeThrowOnFail(throwOnFail, {
 				errors,
 				address: params.address,
