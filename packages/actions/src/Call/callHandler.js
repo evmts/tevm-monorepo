@@ -1,18 +1,16 @@
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
-import { hexToBytes } from '@tevm/utils'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
-import { createTransaction } from '../CreateTransaction/createTransaction.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 import { executeCall } from './executeCall.js'
-import { handleAutomining } from './handleAutomining.js'
-import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 import { validateCallParams } from './validateCallParams.js'
+import { handleTransactionCreation } from './handleTransactionCreation.js'
+import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
@@ -75,7 +73,7 @@ export const callHandler =
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors,
 				executionGasUsed: 0n,
-				rawData: /** utype {`0x${string}`}*/ '0x',
+				rawData: /** @type {`0x${string}`}*/ ('0x'),
 			})
 		}
 
@@ -86,26 +84,9 @@ export const callHandler =
 				'UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm',
 			)
 		}
-		// check if user forgot to mine a block
-		if (
-			code === undefined &&
-			deployedBytecode === undefined &&
-			_params.to !== undefined &&
-			_params.data !== undefined &&
-			hexToBytes(_params.data).length > 0
-		) {
-			const vm = await client.getVm()
-			const isCode = await vm.stateManager
-				.getContractCode(createAddress(_params.to))
-				.then((code) => code.length > 0)
-				.catch(() => false)
-			const txPool = await client.getTxPool()
-			if (!isCode && txPool.txsInPool > 0) {
-				client.logger.warn(
-					`No code found for contract address ${_params.to}. But there ${txPool.txsInPool === 1 ? 'is' : 'are'} ${txPool.txsInPool} pending tx in tx pool. Did you forget to mine a block?`,
-				)
-			}
-		}
+
+		await handlePendingTransactionsWarning(client, params, code, deployedBytecode)
+
 		/**
 		 * ************
 		 * 1 CLONE THE VM WITH BLOCK TAG
@@ -117,6 +98,9 @@ export const callHandler =
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: vm.errors,
 				executionGasUsed: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
 				rawData: '0x',
 			})
 		}
@@ -128,8 +112,12 @@ export const callHandler =
 		if (scriptResult.errors) {
 			client.logger.error(scriptResult.errors, 'contractHandler: Errors creating script')
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				errors: scriptResult.errors,
+				// TODO type errors better in callHandler
+				errors: /** @type {any}*/ (scriptResult.errors),
 				executionGasUsed: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
 				rawData: '0x',
 			})
 		}
@@ -182,37 +170,13 @@ export const callHandler =
 		 * 3 CREATE TRANSACTION WITH CALL (if neessary)
 		 * ****************************
 		 */
-		/**
-		 * @type {import('@tevm/utils').Hex | undefined}
-		 */
-		let txHash = undefined
-		if (shouldCreateTransaction(_params, executedCall.runTxResult)) {
-			const txRes = await createTransaction(client)({
-				throwOnFail: false,
-				evmOutput: executedCall.runTxResult,
-				evmInput,
-				maxPriorityFeePerGas: _params.maxPriorityFeePerGas,
-				maxFeePerGas: _params.maxFeePerGas,
+		const txResult = await handleTransactionCreation(client, params, executedCall, evmInput)
+		if (txResult.errors) {
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+				...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
+				...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
+				errors: txResult.errors,
 			})
-			txHash = 'txHash' in txRes ? txRes.txHash : undefined
-			if ('errors' in txRes && txRes.errors.length) {
-				return /** @type {any}*/ (
-					maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-						...('errors' in txRes ? { errors: txRes.errors } : {}),
-						...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
-						...callHandlerResult(executedCall.runTxResult, undefined, executedCall.trace, executedCall.accessList),
-					})
-				)
-			}
-			client.logger.debug(txHash, 'Transaction successfully added')
-			const miningRes = (await handleAutomining(client, txHash)) ?? {}
-			if ('errors' in miningRes) {
-				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-					...('errors' in miningRes ? { errors: miningRes.errors } : {}),
-					...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
-					...callHandlerResult(executedCall.runTxResult, txHash, executedCall.trace, executedCall.accessList),
-				})
-			}
 		}
 
 		/**
@@ -222,6 +186,7 @@ export const callHandler =
 		 */
 		return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 			...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
-			...callHandlerResult(executedCall.runTxResult, txHash, executedCall.trace, executedCall.accessList),
+			...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
 		})
 	}
+// 74-79,85-87,104-106,116-121,146-147,199-204,210-214
