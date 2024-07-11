@@ -29,6 +29,6 @@ describe('invariant', () => {
 		expect(() => invariant('')).toThrow(DefensiveNullCheckError)
 		expect(() => invariant(null)).toThrow(DefensiveNullCheckError)
 		expect(() => invariant(undefined)).toThrow(DefensiveNullCheckError)
-		expect(() => invariant(NaN)).toThrow(DefensiveNullCheckError)
+		expect(() => invariant(Number.NaN)).toThrow(DefensiveNullCheckError)
 	})
 })

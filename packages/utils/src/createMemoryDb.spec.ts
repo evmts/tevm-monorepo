@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
-import { createMemoryDb } from './createMemoryDb.js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 import { UnreachableCodeError } from '@tevm/errors'
-import { bytesToHex } from './viem.js'
 import type { MemoryDb } from './MemoryDb.js'
+import { createMemoryDb } from './createMemoryDb.js'
+import { bytesToHex } from './viem.js'
 
 describe('createMemoryDb', () => {
 	let db: MemoryDb<any, any>

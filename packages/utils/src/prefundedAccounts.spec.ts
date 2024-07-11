@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test'
+import type { Address } from 'abitype'
 import { mnemonicToAccount, privateKeyToAddress } from 'viem/accounts'
 import {
 	PREFUNDED_ACCOUNTS,
@@ -6,7 +7,6 @@ import {
 	PREFUNDED_PUBLIC_KEYS,
 	PREFUNDED_SEED,
 } from './prefundedAccounts.js'
-import type { Address } from 'abitype'
 
 describe('prefundedAccounts', () => {
 	it('has constants for the 10 prefunded accounts. Thesea re same accounts anvil and hardhat use', () => {

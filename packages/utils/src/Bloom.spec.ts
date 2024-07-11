@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { hexToBytes, keccak256 } from './viem.js'
-import { Bloom } from './Bloom.js'
 import { DefensiveNullCheckError, InvalidBytesSizeError } from '@tevm/errors'
+import { Bloom } from './Bloom.js'
+import { hexToBytes, keccak256 } from './viem.js'
 
 describe('Bloom', () => {
 	it('should initialize with zeros if no bitvector is provided', () => {
