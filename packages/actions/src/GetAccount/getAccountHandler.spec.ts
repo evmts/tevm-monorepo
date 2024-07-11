@@ -5,6 +5,9 @@ import { TestERC20 } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getAccountHandler } from './getAccountHandler.js'
+import { TestERC20 } from '@tevm/test-utils'
+import { AccountNotFoundError, InvalidAddressError } from '@tevm/errors'
+import { numberToHex } from 'viem'
 
 const contract = TestERC20.withAddress(`0x${'3'.repeat(40)}`)
 
