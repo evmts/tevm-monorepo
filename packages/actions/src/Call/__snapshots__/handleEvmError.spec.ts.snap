@@ -23,3 +23,11 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: {"error":"Unknown error occurred","errorType":"EvmError"}
 Version: 1.1.0.next-73"
 `;
+
+exports[`handleRunTxError should handle unknown unexpected errror 1`] = `
+"Unknown error occurred
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Unknown error occurred
+Version: 1.1.0.next-73"
+`;

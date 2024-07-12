@@ -19,11 +19,10 @@ describe('forkAndCacheBlock', () => {
 		})
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-		await forkAndCacheBlock(client, block, false)
+		const vm = await forkAndCacheBlock(client, block, false)
 
-		const stateManager = await client.getVm().then((vm) => vm.evm.stateManager)
-		const stateRoot = await stateManager.getStateRoot()
-		expect(stateRoot).toEqual(block.header.stateRoot)
+		expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+		expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
 	})
 
 	it(
@@ -35,10 +34,9 @@ describe('forkAndCacheBlock', () => {
 			})
 			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-			await forkAndCacheBlock(client, block, true)
+			const vm = await forkAndCacheBlock(client, block, true)
 
-			const stateManager = await client.getVm().then((vm) => vm.evm.stateManager)
-			const stateRoot = await stateManager.getStateRoot()
+			const stateRoot = await vm.stateManager.getStateRoot()
 			expect(stateRoot).toEqual(block.header.stateRoot)
 		},
 		{ timeout: 30_000 },
@@ -53,11 +51,10 @@ describe('forkAndCacheBlock', () => {
 			})
 			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-			await forkAndCacheBlock(client, block, false)
+			const vm = await forkAndCacheBlock(client, block, false)
 
-			const stateManager = await client.getVm().then((vm) => vm.evm.stateManager)
-			const stateRoot = await stateManager.getStateRoot()
-			expect(stateRoot).toEqual(block.header.stateRoot) // Modify this check as per the actual expected state root after transaction execution
+			expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+			expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
 		},
 		{ timeout: 30_000 },
 	)

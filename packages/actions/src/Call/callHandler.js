@@ -45,8 +45,6 @@ import { handlePendingTransactionsWarning } from './handlePendingTransactionsWar
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
-		// declaring the output like this makes type errors show up in the correct spot rather than for the entire function
-		// which has been a pretty consistent painpoint in this partciular function (having to guess where the error is coming from)
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS

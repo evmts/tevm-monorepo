@@ -1,11 +1,17 @@
-import { describe, expect, it } from 'bun:test'
-import { createBaseClient } from '@tevm/base-client'
-import { EthjsAddress } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { createBaseClient, type BaseClient } from '@tevm/base-client'
+import { bytesToHex, EthjsAddress, numberToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { callHandlerOpts } from './callHandlerOpts.js'
+import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 
 describe('callHandlerOpts', () => {
-	const client = createBaseClient()
+	let client: BaseClient
+
+	beforeEach(() => {
+		client = createBaseClient()
+	})
+
 	it('should handle empty params', async () => {
 		const result = await callHandlerOpts(client, {})
 		expect(result.data).toMatchSnapshot()
@@ -151,5 +157,120 @@ describe('callHandlerOpts', () => {
 			gas,
 		})
 		expect(result.data).toMatchObject({ gasLimit: gas })
+	})
+
+	it('should handle named tags', async () => {
+		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const result = await callHandlerOpts(client, { blockTag: 'latest' })
+		expect(result.data?.block?.header.number).toEqual(block.header.number)
+		expect(result.data?.block?.header).toEqual(block.header)
+	})
+
+	it('should handle hash block tags', async () => {
+		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const result = await callHandlerOpts(client, { blockTag: bytesToHex(block.hash()) })
+		expect(result.data?.block?.header.number).toEqual(block.header.number)
+		expect(result.data?.block?.header).toEqual(block.header)
+		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+	})
+
+	it('should return an error for unknown block tag', async () => {
+		const result = await callHandlerOpts(client, { blockTag: 'unknown' as any })
+		expect(result.errors?.[0]?.message).toContain('Unknown blocktag unknown')
+		expect(result.errors).toMatchSnapshot()
+		expect(result.data?.block?.header.getBlobGasPrice()).toBeUndefined()
+	})
+
+	it('should return an error if no block is found', async () => {
+		const result = await callHandlerOpts(client, { blockTag: 100n })
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle block overrides correctly', async () => {
+		const blockOverrideSet = {
+			coinbase: `0x${'1'.repeat(40)}` as const,
+			number: 42n,
+			gasLimit: 8000000n,
+			time: 1618925403n,
+			baseFee: 1000000000n,
+			blobBaseFee: 2000000000n,
+		}
+		const result = await callHandlerOpts(client, { blockOverrideSet })
+		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
+		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
+		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
+		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
+		expect(result.data?.block?.header.getBlobGasPrice()).toEqual(blockOverrideSet.blobBaseFee)
+		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+	})
+
+	it('should handle block overrides correctly with no blobBaseFee', async () => {
+		const blockOverrideSet = {
+			coinbase: `0x${'1'.repeat(40)}` as const,
+			number: 42n,
+			gasLimit: 8000000n,
+			time: 1618925403n,
+			baseFee: 1000000000n,
+		}
+		const result = await callHandlerOpts(client, { blockOverrideSet })
+		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
+		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
+		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
+		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
+		expect(result.data?.block?.header.getBlobGasPrice()).toBe(1n)
+		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+	})
+
+	it('should handle state overrides correctly', async () => {
+		const address = `0x${'1'.repeat(40)}` as const
+		const overridedAccount = {
+			nonce: 1n,
+			balance: 1000000000n,
+			code: '0x60' as const,
+			state: {
+				[numberToHex(0, { size: 32 })]: numberToHex(420, { size: 2 }),
+				[numberToHex(1, { size: 32 })]: numberToHex(69, { size: 1 }),
+			},
+		}
+		const stateOverrideSet = {
+			[address]: overridedAccount,
+		}
+		const result = await callHandlerOpts(client, { stateOverrideSet })
+		expect(result.errors).toBeUndefined()
+		expect(await getAccountHandler(client)({ address, returnStorage: true })).toEqual({
+			address,
+			nonce: overridedAccount.nonce,
+			balance: overridedAccount.balance,
+			deployedBytecode: overridedAccount.code,
+			storage: overridedAccount.state,
+			isContract: true,
+			isEmpty: false,
+			storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+			codeHash: '0x15a5de5d00dfc39d199ee772e89858c204d1d545de092db54a345c7303942607',
+		})
+	})
+
+	it('should handle invalid state overrides', async () => {
+		const stateOverrideSet = {
+			[`0x${'1'.repeat(40)}` as const]: {
+				nonce: 1n,
+				balance: 1000000000n,
+				code: 'invalid_code' as const as any,
+			},
+		}
+		const result = await callHandlerOpts(client, { stateOverrideSet })
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toHaveLength(1)
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should throw error for transaction creation on past blocks', async () => {
+		const blockTag = 42n
+		const params = { blockTag, createTransaction: true } as const
+		const result = await callHandlerOpts(client, params)
+		expect(result.errors?.[0]).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
 	})
 })

@@ -139,4 +139,11 @@ describe('handleRunTxError', () => {
 		expect(result).toBeInstanceOf(InternalEvmError)
 		expect(result.message).toMatchSnapshot()
 	})
+
+	it('should handle unknown unexpected errror', () => {
+		const error = new Error('Unknown error occurred')
+		const result = handleRunTxError(error)
+		expect(result).toBeInstanceOf(InternalEvmError)
+		expect(result.message).toMatchSnapshot()
+	})
 })

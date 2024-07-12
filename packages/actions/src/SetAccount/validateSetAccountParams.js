@@ -54,6 +54,21 @@ export const validateSetAccountParams = (action) => {
 				errors.push(new InvalidStorageRootError(error))
 			})
 		}
+		if (formattedErrors.state) {
+			formattedErrors.state._errors.forEach((error) => {
+				errors.push(new InvalidRequestError(error))
+			})
+		}
+		if (formattedErrors.stateDiff) {
+			formattedErrors.stateDiff._errors.forEach((error) => {
+				errors.push(new InvalidRequestError(error))
+			})
+		}
+		if (formattedErrors.throwOnFail) {
+			formattedErrors.throwOnFail._errors.forEach((error) => {
+				errors.push(new InvalidRequestError(error))
+			})
+		}
 	}
 
 	return errors

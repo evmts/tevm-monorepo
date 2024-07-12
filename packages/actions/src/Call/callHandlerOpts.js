@@ -24,34 +24,34 @@ export const callHandlerOpts = async (client, params) => {
 	const vm = await client.getVm()
 
 	// TODO need better error handling here
-	const block = await (() => {
-		if (params.blockTag === undefined) {
-			return vm.blockchain.blocksByTag.get('latest')
+	const block = await (async () => {
+		try {
+			if (params.blockTag === undefined) {
+				return vm.blockchain.blocksByTag.get('latest')
+			}
+			if (typeof params.blockTag === 'bigint') {
+				return await vm.blockchain.getBlock(params.blockTag)
+			}
+			if (typeof params.blockTag === 'string' && params.blockTag.startsWith('0x')) {
+				return await vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (params.blockTag)))
+			}
+			// TODO support all these and resolve all of them both vs fork and non fork
+			if (
+				params.blockTag === 'latest' ||
+				params.blockTag === 'safe' ||
+				params.blockTag === 'pending' ||
+				params.blockTag === 'earliest' ||
+				params.blockTag === 'finalized'
+			) {
+				return vm.blockchain.blocksByTag.get(/** */ params.blockTag)
+			}
+			return new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
+		} catch (e) {
+			return new UnknownBlockError(e instanceof Error ? e.message : `Unable to find block ${params.blockTag}`)
 		}
-		if (typeof params.blockTag === 'bigint') {
-			return vm.blockchain.getBlock(params.blockTag)
-		}
-		if (typeof params.blockTag === 'string' && params.blockTag.startsWith('0x')) {
-			return vm.blockchain.getBlock(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (params.blockTag)))
-		}
-		// TODO support all these and resolve all of them both vs fork and non fork
-		if (
-			params.blockTag === 'latest' ||
-			params.blockTag === 'safe' ||
-			params.blockTag === 'pending' ||
-			params.blockTag === 'earliest' ||
-			params.blockTag === 'finalized'
-		) {
-			return vm.blockchain.blocksByTag.get(/** */ params.blockTag)
-		}
-		return new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
 	})()
-	if (block === undefined) {
-		// TODO need better error handling here
-		return { errors: [new UnknownBlockError('No block found')] }
-	}
-	if (block instanceof Error) {
-		return { errors: [block] }
+	if (block instanceof UnknownBlockError || block instanceof InvalidBlockError || block === undefined) {
+		return { errors: [block ?? new UnknownBlockError(`Unable to find block ${params.blockTag}`)] }
 	}
 
 	client.logger.debug({ block: block.header }, 'Using block')
@@ -82,7 +82,7 @@ export const callHandlerOpts = async (client, params) => {
 						? BigInt(params.blockOverrideSet.baseFee)
 						: header.baseFeePerGas ?? BigInt(0),
 				cliqueSigner() {
-					return createAddress(`0x${'00'.repeat(20)}`)
+					return header.cliqueSigner()
 				},
 				getBlobGasPrice() {
 					if (params.blockOverrideSet?.blobBaseFee !== undefined) {
@@ -102,7 +102,7 @@ export const callHandlerOpts = async (client, params) => {
 				address: /** @type import('@tevm/utils').Address*/ (address),
 				...(state.nonce !== undefined ? { nonce: state.nonce } : {}),
 				...(state.balance !== undefined ? { balance: state.balance } : {}),
-				...(state.code !== undefined ? { code: state.code } : {}),
+				...(state.code !== undefined ? { deployedBytecode: state.code } : {}),
 				...(state.state !== undefined ? { state: state.state } : {}),
 				...(state.stateDiff !== undefined ? { stateDiff: state.stateDiff } : {}),
 				throwOnFail: false,
@@ -176,3 +176,4 @@ export const callHandlerOpts = async (client, params) => {
 
 	return { data: opts }
 }
+// 36,45-46,84,90
