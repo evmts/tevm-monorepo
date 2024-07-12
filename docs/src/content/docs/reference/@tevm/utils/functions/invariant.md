@@ -11,7 +11,7 @@ title: "invariant"
 
 • **condition**: `any`
 
-• **error**: [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/) = `...`
+• **error**: `Error` = `...`
 
 ## Returns
 

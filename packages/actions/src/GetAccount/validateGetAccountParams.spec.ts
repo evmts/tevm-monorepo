@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { validateGetAccountParams } from './validateGetAccountParams.js'
 import { InvalidAddressError, InvalidRequestError } from '@tevm/errors'
+import { validateGetAccountParams } from './validateGetAccountParams.js'
 
 describe('validateGetAccountParams', () => {
 	it('should return an empty array if parameters are valid', () => {

@@ -12,7 +12,7 @@
 
 • **condition**: `any`
 
-• **error?**: [`DefensiveNullCheckError`](../../errors/classes/DefensiveNullCheckError.md)
+• **error?**: `Error`
 
 ## Returns
 
@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/utils/types/invariant.d.ts:2
+packages/utils/types/invariant.d.ts:1
