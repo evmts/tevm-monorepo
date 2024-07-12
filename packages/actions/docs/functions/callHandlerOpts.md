@@ -6,7 +6,7 @@
 
 # Function: callHandlerOpts()
 
-> **callHandlerOpts**(`client`, `params`): `Promise`\<`object`\>
+> **callHandlerOpts**(`client`, `params`): `Promise`\<`object` \| `object`\>
 
 ## Parameters
 
@@ -16,15 +16,7 @@
 
 ## Returns
 
-`Promise`\<`object`\>
-
-### data?
-
-> `optional` **data**: `EVMRunCallOpts`
-
-### errors?
-
-> `optional` **errors**: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]
+`Promise`\<`object` \| `object`\>
 
 ## Defined in
 
