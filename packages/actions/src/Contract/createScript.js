@@ -110,7 +110,7 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 		}
 		const account = await getAccountHandler(client)({
 			throwOnFail: false,
-			address: /** @type {import('abitype').Address}*/ (deployedAddress.toString()),
+			address: /** @type {import('@tevm/utils').Address}*/ (deployedAddress.toString()),
 			returnStorage: true,
 		})
 		if (account.errors) {
@@ -125,14 +125,14 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 			stateDiff: account.storage ?? {},
 			deployedBytecode: account.deployedBytecode,
 		})
-		await vm.stateManager.deleteAccount(deployedAddress)
 		if (setAccountRes.errors) {
 			return {
 				errors: setAccountRes.errors,
 			}
 		}
+		await vm.stateManager.deleteAccount(deployedAddress)
 		return {
-			address: to ?? /** @type {import('@tevm/utils').Address}*/ (deployedAddress.toString()),
+			address: to ?? scriptAddress,
 		}
 	} catch (e) {
 		return {
