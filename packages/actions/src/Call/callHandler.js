@@ -45,6 +45,8 @@ import { handlePendingTransactionsWarning } from './handlePendingTransactionsWar
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
+		// declaring the output like this makes type errors show up in the correct spot rather than for the entire function
+		// which has been a pretty consistent painpoint in this partciular function (having to guess where the error is coming from)
 		/**
 		 * ***************
 		 * 0 VALIDATE PARAMS
@@ -156,14 +158,20 @@ export const callHandler =
 		const executedCall = await executeCall({ ...client, getVm: () => Promise.resolve(vm) }, evmInput, _params)
 		if ('errors' in executedCall) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				executionGasUsed: 0n,
+				executionGasUsed: /** @type {any}*/ (executeCall).rawData ?? 0n,
 				/**
 				 * @type {`0x${string}`}
 				 */
-				rawData: '0x',
-				...executedCall,
+				rawData: /** @type {any}*/ (executedCall).rawData ?? '0x',
+				errors: executedCall.errors,
+				...('runTxResult' in executedCall && executedCall.runTxResult !== undefined
+					? callHandlerResult(executedCall.runTxResult, undefined, executedCall.trace, executedCall.accessList)
+					: {}),
+				...('trace' in executedCall && executedCall.trace !== undefined ? { trace: executedCall.trace } : {}),
+				...('trace' in executedCall && executedCall.trace !== undefined ? { trace: executedCall.trace } : {}),
 			})
 		}
+		executedCall.runTxResult
 
 		/**
 		 * ****************************
@@ -189,4 +197,3 @@ export const callHandler =
 			...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
 		})
 	}
-// 74-79,85-87,104-106,116-121,146-147,199-204,210-214
