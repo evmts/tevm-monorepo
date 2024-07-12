@@ -68,4 +68,25 @@ describe('validateCallParams', () => {
 			expect.any(InvalidBytecodeError),
 		])
 	})
+
+	it('code and deployedbytecode', () => {
+		const action = { code: '0x1234', deployedBytecode: '0x5678' }
+
+		const errors = validateCallParams(action as any)
+		expect(errors).toHaveLength(1)
+		expect(errors[0]).toMatchSnapshot()
+	})
+
+	it('createTransaction and stateOverrideSet', () => {
+		const action = {
+			createTransaction: true,
+			stateOverrideSet: {
+				'0x1234': { nonce: 0n, balance: 0n, code: '0x5678' },
+			},
+		}
+
+		const errors = validateCallParams(action as any)
+		expect(errors).toHaveLength(2)
+		expect(errors[0]).toMatchSnapshot()
+	})
 })
