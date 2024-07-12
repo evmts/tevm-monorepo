@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.1.0-next.98
+
+### Patch Changes
+
+- [#1309](https://github.com/evmts/tevm-monorepo/pull/1309) [`6c08846`](https://github.com/evmts/tevm-monorepo/commit/6c08846503e5eae6869dad60a67091cb314cba53) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where deployedBytecode validation errors were being swallowed
+
+- [#1309](https://github.com/evmts/tevm-monorepo/pull/1309) [`6c08846`](https://github.com/evmts/tevm-monorepo/commit/6c08846503e5eae6869dad60a67091cb314cba53) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in tevmContract where `code` property without a `to` property would fail to deploy
+
+- [#1309](https://github.com/evmts/tevm-monorepo/pull/1309) [`6c08846`](https://github.com/evmts/tevm-monorepo/commit/6c08846503e5eae6869dad60a67091cb314cba53) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with tevmContract not properly throwing a typescript error if neither to nor code is provided
+
 ## 1.1.0-next.97
 
 ### Patch Changes
