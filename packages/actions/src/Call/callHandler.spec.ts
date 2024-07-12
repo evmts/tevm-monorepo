@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
+import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { type Address, EthjsAddress, encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
@@ -7,7 +8,6 @@ import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
-import { optimism } from '@tevm/common'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode

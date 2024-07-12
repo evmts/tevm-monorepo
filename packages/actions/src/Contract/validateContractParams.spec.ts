@@ -1,6 +1,6 @@
-import { validateContractParams } from './validateContractParams.js'
 import { describe, expect, it } from 'bun:test'
 import { createAddress } from '@tevm/address'
+import { validateContractParams } from './validateContractParams.js'
 
 describe('validateContractParams', () => {
 	it('should return no errors for valid params', () => {

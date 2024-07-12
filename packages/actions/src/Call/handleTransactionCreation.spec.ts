@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'bun:test'
-import { handleTransactionCreation } from './handleTransactionCreation.js'
-import { createBaseClient } from '@tevm/base-client'
-import type { CallParams } from './CallParams.js'
-import { encodeFunctionData } from 'viem'
-import { TestERC20 } from '@tevm/test-utils'
 import { createAddress } from '@tevm/address'
+import { createBaseClient } from '@tevm/base-client'
+import { TestERC20 } from '@tevm/test-utils'
+import { encodeFunctionData } from 'viem'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import type { CallParams } from './CallParams.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { executeCall } from './executeCall.js'
+import { handleTransactionCreation } from './handleTransactionCreation.js'
 
 const contract = TestERC20.withAddress(createAddress(420420420420420).toString())
 
