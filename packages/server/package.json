@@ -2,7 +2,6 @@
   "name": "@tevm/server",
   "version": "1.1.0-next.96",
   "private": false,
-  "sideEffect": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
     "solidity",
@@ -87,5 +86,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffect": false
 }
