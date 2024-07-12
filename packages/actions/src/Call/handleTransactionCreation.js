@@ -30,14 +30,9 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			maxFeePerGas: params.maxFeePerGas,
 		})
 		txHash = 'txHash' in txRes ? txRes.txHash : undefined
-		if ('errors' in txRes && txRes.errors.length) {
-			errors.push(/** @type {any}*/ (txRes.errors))
-		}
-		client.logger.debug(txHash, 'Transaction successfully added')
 		const miningRes = (await handleAutomining(client, txHash)) ?? {}
-		if ('errors' in miningRes) {
-			errors.push(/** @type {any}*/ (miningRes.errors))
-		}
+		const { errors: txCreationErrors } = /** @type {{errors: Array<any>}}*/ (txRes)
+		errors.push(...(miningRes.errors ?? []), ...(txCreationErrors ?? []))
 	}
 	if (errors.length > 0) {
 		return {

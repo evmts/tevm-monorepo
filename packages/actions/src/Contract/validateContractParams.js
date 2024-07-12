@@ -4,6 +4,7 @@ import {
 	InvalidArgsError,
 	InvalidBytecodeError,
 	InvalidFunctionNameError,
+	InvalidParamsError,
 } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zContractParams } from './zContractParams.js'
@@ -26,12 +27,21 @@ export const validateContractParams = (action) => {
 
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
+		if (formattedErrors._errors) {
+			formattedErrors._errors.forEach((error) => {
+				errors.push(new InvalidParamsError(error))
+			})
+		}
 		if (formattedErrors.code) {
 			formattedErrors.code._errors.forEach((error) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}
-
+		if (formattedErrors.deployedBytecode) {
+			formattedErrors.deployedBytecode._errors.forEach((error) => {
+				errors.push(new InvalidBytecodeError(error))
+			})
+		}
 		if (formattedErrors.abi) {
 			formattedErrors.abi._errors.forEach((error) => {
 				errors.push(new InvalidAbiError(error))

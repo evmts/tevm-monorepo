@@ -49,6 +49,7 @@ describe('ScriptHandler', () => {
 			args: [5],
 		})
 		const { deployedBytecode: _, ...badAction } = goodAction
+		// @ts-expect-error
 		contractHandler(badAction)
 	})
 })

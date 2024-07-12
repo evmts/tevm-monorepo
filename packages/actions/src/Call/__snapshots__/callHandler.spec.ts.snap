@@ -42,3 +42,101 @@ Details: {"error":"stack underflow","errorType":"EvmError"}
 Version: 1.1.0.next-73],
 ]
 `;
+
+exports[`callHandler should handle error during VM cloning 1`] = `
+[
+  [InvalidBlockError: value must be a hex string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler should handle error during script creation 1`] = `
+[
+  [InvalidBytecodeError: stack underflow
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Details: {"error":"stack underflow","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler should handle error during EVM execution 1`] = `
+[
+  [RevertError: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
+
+exports[`callHandler should handle insufficient balance error 1`] = `
+[
+  [InsufficientBalanceError: sender doesn't have enough funds to send tx. The upfront cost is: 1000000000210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x063ee66a862cecf7793eb47603e910eab64f801107476b74d25d4cc2325623e0 nonce=0 value=1000000000000000000 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+Version: 1.1.0.next-73
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+Details: /reference/tevm/errors/classes/insufficientfundserror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler should handle error during transaction creation 1`] = `
+[
+  {
+    "_tag": "UnexpectedError",
+    "message": "Error adding transaction to pool",
+    "name": "UnexpectedError",
+  },
+]
+`;
+
+exports[`callHandler should return op stack info if forking 1`] = `28250043671n`;
+
+exports[`callHandler should return op stack info if forking 2`] = `3377898839n`;
+
+exports[`callHandler should return op stack info if forking 3`] = `1n`;
+
+exports[`callHandler should return op stack info if forking 4`] = `1600n`;
+
+exports[`callHandler should handle opstack throwing unexpectedly 1`] = `
+[
+  [
+    [InvalidAddressError: Recieved an invalid address input Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
+
+Version: viem@2.14.2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Details: Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
+
+Version: viem@2.14.2
+Version: 1.1.0.next-73],
+    "Unable to get l1 fee estimation",
+  ],
+]
+`;
+
+exports[`callHandler should handle vm cloning throwing unexpectedly 1`] = `
+[
+  [InternalError: Error cloning VM
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Error cloning VM
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler should handle being unable to get options 1`] = `
+[
+  [UnknownBlockError: Error cloning VM
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73],
+]
+`;

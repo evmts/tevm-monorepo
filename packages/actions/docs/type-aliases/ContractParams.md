@@ -6,7 +6,7 @@
 
 # Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object` \| `object` \| `object`
 
 Parameters to execute a call on a contract with TEVM.
 
@@ -42,27 +42,6 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [BaseCallParams](BaseCallParams.md)
  - EncodeFunctionDataParameters
-
-## Type declaration
-
-### code?
-
-> `readonly` `optional` **code**: `Hex`
-
-Alias for deployedBytecode.
-
-### deployedBytecode?
-
-> `readonly` `optional` **deployedBytecode**: `Hex`
-
-The deployed bytecode to execute at the contract address.
-If not provided, the code will be fetched from state.
-
-### to?
-
-> `readonly` `optional` **to**: [`Address`](Address.md)
-
-The address of the contract to call.
 
 ## Type Parameters
 

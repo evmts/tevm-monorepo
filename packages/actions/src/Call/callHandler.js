@@ -1,5 +1,4 @@
 import { createAddress } from '@tevm/address'
-import { InternalError } from '@tevm/errors'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
@@ -67,23 +66,18 @@ export const callHandler =
 			...params,
 		}
 
-		const { errors, data: evmInput } = await callHandlerOpts(client, _params)
-		if (errors) {
-			client.logger.error(errors ?? evmInput, 'callHandler: Unexpected error converting params to ethereumjs params')
+		const callHandlerRes = await callHandlerOpts(client, _params)
+		if (callHandlerRes.errors) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				errors,
+				errors: callHandlerRes.errors,
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
 			})
 		}
 
-		const block = /** @type {import('@tevm/block').Block}*/ (evmInput?.block)
-		// this will never happen the type is wrong internally
-		if (!block) {
-			throw new InternalError(
-				'UnexpectedError: Internal block header does not have a state root. This potentially indicates a bug in tevm',
-			)
-		}
+		const evmInput = callHandlerRes.data
+
+		const block = /** @type {import('@tevm/block').Block}*/ (evmInput.block)
 
 		await handlePendingTransactionsWarning(client, params, code, deployedBytecode)
 
