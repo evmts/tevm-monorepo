@@ -47,7 +47,10 @@ describe('cloneVmWithBfockTag', () => {
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
 		// block Infinity is invalid
-		const invalidBlock = { ...block, header: { ...block.header, number: Infinity, stateRoot: '0x1234' } }
+		const invalidBlock = {
+			...block,
+			header: { ...block.header, number: Number.POSITIVE_INFINITY, stateRoot: '0x1234' },
+		}
 
 		const result = await cloneVmWithBlockTag(client, invalidBlock as any)
 		if (!(result instanceof Error)) {

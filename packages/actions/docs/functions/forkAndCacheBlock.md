@@ -6,7 +6,7 @@
 
 # Function: forkAndCacheBlock()
 
-> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`void`\>
+> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`Vm`\>
 
 ## Parameters
 
@@ -18,8 +18,10 @@
 
 ## Returns
 
-`Promise`\<`void`\>
+`Promise`\<`Vm`\>
+
+A vm that forks the given block
 
 ## Defined in
 
-[packages/actions/src/internal/forkAndCacheBlock.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L11)
+[packages/actions/src/internal/forkAndCacheBlock.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L14)

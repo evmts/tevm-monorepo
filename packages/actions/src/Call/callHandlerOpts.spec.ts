@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { bytesToHex, EthjsAddress, numberToHex } from '@tevm/utils'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { EthjsAddress, bytesToHex, numberToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
-import { callHandlerOpts } from './callHandlerOpts.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
+import { callHandlerOpts } from './callHandlerOpts.js'
 
 describe('callHandlerOpts', () => {
 	let client: BaseClient

@@ -1,9 +1,9 @@
-import { jest, describe, expect, it } from 'bun:test'
-import { createBaseClient } from '@tevm/base-client'
+import { describe, expect, it, jest } from 'bun:test'
 import { createAddress } from '@tevm/address'
-import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
+import { createBaseClient } from '@tevm/base-client'
 import { createImpersonatedTx } from '@tevm/tx'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 
 describe('handlePendingTransactionsWarning', () => {
 	const client = createBaseClient()
@@ -26,7 +26,7 @@ describe('handlePendingTransactionsWarning', () => {
 		)
 
 		expect(client.logger.warn).toHaveBeenCalledWith(
-			`No code found for contract address 0x1111111111111111111111111111111111111111. But there is 1 pending tx in tx pool. Did you forget to mine a block?`,
+			'No code found for contract address 0x1111111111111111111111111111111111111111. But there is 1 pending tx in tx pool. Did you forget to mine a block?',
 		)
 	})
 

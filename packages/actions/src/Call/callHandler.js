@@ -8,9 +8,9 @@ import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 import { executeCall } from './executeCall.js'
-import { validateCallParams } from './validateCallParams.js'
-import { handleTransactionCreation } from './handleTransactionCreation.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
+import { handleTransactionCreation } from './handleTransactionCreation.js'
+import { validateCallParams } from './validateCallParams.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
@@ -93,10 +93,9 @@ export const callHandler =
 		 * ************
 		 */
 		const vm = await cloneVmWithBlockTag(client, block)
-		if ('errors' in vm) {
-			client.logger.error(vm.errors, 'contractHandler: Errors cloning vm')
+		if (vm instanceof Error) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				errors: vm.errors,
+				errors: [vm],
 				executionGasUsed: 0n,
 				/**
 				 * @type {`0x${string}`}
