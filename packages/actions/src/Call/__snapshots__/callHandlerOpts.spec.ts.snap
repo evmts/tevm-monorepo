@@ -4392,3 +4392,40 @@ exports[`callHandlerOpts should handle empty params 1`] = `
   "skipBalance": true,
 }
 `;
+
+exports[`callHandlerOpts should return an error for unknown block tag 1`] = `
+[
+  [InvalidBlockError: Unknown blocktag unknown
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandlerOpts should return an error if no block is found 1`] = `
+[
+  [UnknownBlockError: Block number 100 does not exist
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandlerOpts should handle invalid state overrides 1`] = `
+[
+  [InvalidParamsError: Invalid state override
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeployedbytecodeerror/
+Details: /reference/tevm/errors/classes/invaliddeployedbytecodeerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandlerOpts should throw error for transaction creation on past blocks 1`] = `
+[
+  [UnknownBlockError: Block number 42 does not exist
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73],
+]
+`;

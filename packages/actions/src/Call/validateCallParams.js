@@ -37,6 +37,11 @@ export const validateCallParams = (action) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}
+		if (formattedErrors._errors) {
+			formattedErrors._errors.forEach((error) => {
+				errors.push(new InvalidBytecodeError(error))
+			})
+		}
 	}
 
 	return errors

@@ -1,9 +1,59 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`cloneVmWithBlockTag should handle errors during VM cloning 1`] = `
-"State root for 0x00undefined01020304 does not exist
+"Invalid blocktag Infinity
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: State root for 0x00undefined01020304 does not exist
+Details: Invalid blocktag Infinity
 Version: 1.1.0.next-73"
 `;
+
+exports[`cloneVmWithBlockTag should properly handle a fork client requestiong a block prefork 1`] = `
+Uint8Array [
+  107,
+  141,
+  207,
+  138,
+  42,
+  50,
+  122,
+  161,
+  178,
+  227,
+  235,
+  237,
+  89,
+  43,
+  27,
+  29,
+  9,
+  190,
+  201,
+  146,
+  105,
+  196,
+  134,
+  37,
+  180,
+  103,
+  155,
+  110,
+  214,
+  164,
+  226,
+  87,
+]
+`;
+
+exports[`cloneVmWithBfockTag should handle errors during forking 1`] = `[ForkError: Invalid blocktag Infinity
+Invalid blocktag Infinity
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/accountlockederror/
+Details: Invalid blocktag Infinity
+Version: 1.1.0.next-73]`;
+
+exports[`cloneVmWithBfockTag should handle errors during VM cloning 1`] = `[InternalError: deepCopy error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: deepCopy error
+Version: 1.1.0.next-73]`;
