@@ -12,7 +12,7 @@
 
 • **condition**: `any`
 
-• **error**: `DefensiveNullCheckError` = `...`
+• **error**: `Error` = `...`
 
 ## Returns
 
