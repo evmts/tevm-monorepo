@@ -1,5 +1,13 @@
 # @tevm/server
 
+## 1.1.0-next.98
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/decorators@1.1.0-next.98
+  - @tevm/memory-client@1.1.0-next.98
+
 ## 1.1.0-next.97
 
 ### Patch Changes
