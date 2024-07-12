@@ -1,5 +1,13 @@
 # @tevm/viem
 
+## 1.1.0-next.97
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-client@1.1.0-next.97
+  - @tevm/decorators@1.1.0-next.97
+
 ## 1.1.0-next.96
 
 ### Patch Changes

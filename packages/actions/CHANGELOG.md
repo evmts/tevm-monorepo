@@ -1,5 +1,31 @@
 # @tevm/contract
 
+## 1.1.0-next.97
+
+### Patch Changes
+
+- [#1306](https://github.com/evmts/tevm-monorepo/pull/1306) [`e19fc84`](https://github.com/evmts/tevm-monorepo/commit/e19fc84037a72a7c2bc0dd60f6a8841a28a5f99e) Thanks [@roninjin10](https://github.com/roninjin10)! - - Increased unit test coverage of tevm/actions to 87%
+  - fixed bug where we weren't properly returning tracing and access list information any errors happen during evm execution. Returning this information helps make debugging easier for users of tevm
+  - Fixed bug in callHandler where some validation errors were being swallowed
+  - fixed bug in setAccount and getAccount where some validation errors were being swallowed
+  - fixed bug with evm not reforking state manager in situation where forkUrl is set and blockTag for a call is before
+  - fixed bug with vm blockchainManager not being updated where forkUrl is set and blockTag for a call is before. This could cause state to leak from this call to the cannonical blockchain
+  - fixed bug with a bad blockTag causing an unexpected `InternalError` rather than `ForkError` to be thrown
+  - Fixed issue with stateOverrides not respecting the `code` property
+  - fixed issue where block.cliqueSigner() on forked blocks not properly throwing an error for not being a POA network
+- Updated dependencies [[`277ed48`](https://github.com/evmts/tevm-monorepo/commit/277ed48697e1e094af5ee8bed0955c823123570e), [`e19fc84`](https://github.com/evmts/tevm-monorepo/commit/e19fc84037a72a7c2bc0dd60f6a8841a28a5f99e)]:
+  - @tevm/utils@1.1.0-next.97
+  - @tevm/address@1.1.0-next.97
+  - @tevm/base-client@1.1.0-next.97
+  - @tevm/block@1.1.0-next.97
+  - @tevm/blockchain@1.1.0-next.97
+  - @tevm/common@1.1.0-next.97
+  - @tevm/evm@1.1.0-next.97
+  - @tevm/receipt-manager@1.1.0-next.97
+  - @tevm/state@1.1.0-next.97
+  - @tevm/tx@1.1.0-next.97
+  - @tevm/vm@1.1.0-next.97
+
 ## 1.1.0-next.96
 
 ### Patch Changes

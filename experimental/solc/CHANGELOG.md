@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.1.0-next.97
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/contract@1.1.0-next.97
+
 ## 1.1.0-next.96
 
 ### Patch Changes
