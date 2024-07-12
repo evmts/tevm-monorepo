@@ -76,4 +76,19 @@ export type ContractParams<
 				 */
 				readonly code: Hex
 		  }
+		| {
+				/**
+				 * The address of the contract to call.
+				 */
+				readonly to?: Address
+				/**
+				 * The deployed bytecode to execute at the contract address.
+				 * If not provided, the code will be fetched from state.
+				 */
+				readonly deployedBytecode: Hex
+				/**
+				 * Alias for deployedBytecode.
+				 */
+				readonly code?: Hex
+		  }
 	)
