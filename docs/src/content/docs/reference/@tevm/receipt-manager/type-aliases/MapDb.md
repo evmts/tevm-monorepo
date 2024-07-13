@@ -11,6 +11,12 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 ## Type declaration
 
+### deepCopy()
+
+#### Returns
+
+[`MapDb`](/reference/tevm/receipt-manager/type-aliases/mapdb/)
+
 ### delete()
 
 #### Parameters

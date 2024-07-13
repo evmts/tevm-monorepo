@@ -17,4 +17,4 @@ title: "validateContractParams"
 
 ## Defined in
 
-[packages/actions/src/Contract/validateContractParams.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L19)
+[packages/actions/src/Contract/validateContractParams.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L20)

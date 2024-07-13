@@ -138,7 +138,7 @@ packages/txpool/types/TxPool.d.ts:39
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:165
+packages/txpool/types/TxPool.d.ts:166
 
 ***
 
@@ -170,7 +170,7 @@ Transaction
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:101
+packages/txpool/types/TxPool.d.ts:102
 
 ***
 
@@ -198,7 +198,7 @@ Transaction
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:91
+packages/txpool/types/TxPool.d.ts:92
 
 ***
 
@@ -216,7 +216,7 @@ Regular tx pool cleanup
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:120
+packages/txpool/types/TxPool.d.ts:121
 
 ***
 
@@ -234,7 +234,27 @@ Close pool
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:164
+packages/txpool/types/TxPool.d.ts:165
+
+***
+
+### deepCopy()
+
+> **deepCopy**(`opt`): [`TxPool`](TxPool.md)
+
+**`Experimental`**
+
+#### Parameters
+
+• **opt**: `TxPoolOptions`
+
+#### Returns
+
+[`TxPool`](TxPool.md)
+
+#### Defined in
+
+packages/txpool/types/TxPool.d.ts:68
 
 ***
 
@@ -258,7 +278,7 @@ Array with tx objects
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:107
+packages/txpool/types/TxPool.d.ts:108
 
 ***
 
@@ -278,7 +298,7 @@ packages/txpool/types/TxPool.d.ts:107
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:136
+packages/txpool/types/TxPool.d.ts:137
 
 ***
 
@@ -296,7 +316,7 @@ Open pool
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:71
+packages/txpool/types/TxPool.d.ts:72
 
 ***
 
@@ -320,7 +340,7 @@ Hash of the transaction
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:112
+packages/txpool/types/TxPool.d.ts:113
 
 ***
 
@@ -342,7 +362,7 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:116
+packages/txpool/types/TxPool.d.ts:117
 
 ***
 
@@ -360,7 +380,7 @@ Start tx processing
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:75
+packages/txpool/types/TxPool.d.ts:76
 
 ***
 
@@ -378,7 +398,7 @@ Stop pool execution
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:160
+packages/txpool/types/TxPool.d.ts:161
 
 ***
 
@@ -417,4 +437,4 @@ Provide a baseFee to exclude txs with a lower gasPrice
 
 #### Defined in
 
-packages/txpool/types/TxPool.d.ts:153
+packages/txpool/types/TxPool.d.ts:154

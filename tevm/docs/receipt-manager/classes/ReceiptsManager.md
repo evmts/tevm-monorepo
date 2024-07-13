@@ -84,6 +84,24 @@ packages/receipt-manager/types/RecieptManager.d.ts:83
 
 ## Methods
 
+### deepCopy()
+
+> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+
+#### Parameters
+
+• **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
+
+#### Returns
+
+[`ReceiptsManager`](ReceiptsManager.md)
+
+#### Defined in
+
+packages/receipt-manager/types/RecieptManager.d.ts:98
+
+***
+
 ### deleteReceipts()
 
 > **deleteReceipts**(`block`): `Promise`\<`void`\>
@@ -98,7 +116,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:83
 
 #### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:105
+packages/receipt-manager/types/RecieptManager.d.ts:106
 
 ***
 
@@ -124,7 +142,7 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:122
+packages/receipt-manager/types/RecieptManager.d.ts:123
 
 ***
 
@@ -146,7 +164,7 @@ the tx hash
 
 #### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:118
+packages/receipt-manager/types/RecieptManager.d.ts:119
 
 ***
 
@@ -178,7 +196,7 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:112
+packages/receipt-manager/types/RecieptManager.d.ts:113
 
 #### getReceipts(blockHash, calcBloom, includeTxType)
 
@@ -198,7 +216,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:112
 
 ##### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:113
+packages/receipt-manager/types/RecieptManager.d.ts:114
 
 ***
 
@@ -225,4 +243,4 @@ the receipts to save
 
 #### Defined in
 
-packages/receipt-manager/types/RecieptManager.d.ts:104
+packages/receipt-manager/types/RecieptManager.d.ts:105
