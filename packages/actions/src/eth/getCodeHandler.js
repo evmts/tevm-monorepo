@@ -1,6 +1,6 @@
+import { UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
-import { UnknownBlockError } from '@tevm/errors'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} baseClient

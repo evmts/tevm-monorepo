@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
+import { transports } from '@tevm/test-utils'
 import { parseGwei } from '@tevm/utils'
 import { gasPriceHandler } from './gasPriceHandler.js'
-import { transports } from '@tevm/test-utils'
 
 describe(gasPriceHandler.name, () => {
 	it('should default to 1 gwei if no forkUrl', async () => {
