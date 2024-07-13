@@ -77,9 +77,38 @@ memoryClient
   .then(console.log);
 ```
 
-### Forking a Network
+### Forking a Network with fork Transport
 
-Viem clients themselves are EIP-1193 providers and can be used as the fork transport. These options are available for both `createMemoryClient` and `createTevmTransport`. Once you fork, the forked block is saved under block tag `fork`, and any blocks mined higher than the forked block will not be included in the forked chain.
+Tevm can fork a network via being provided an [transport](https://viem.sh/docs/clients/transports/http) with an [EIP-1193 compatabile request function](https://eips.ethereum.org/EIPS/eip-1193).
+
+```typescript
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+
+const client = createMemoryClient({
+  // fork optimism at blockNumber 420n
+  fork: { transport: http("https://mainnet.optimism.io")(), blockTag: 420n },
+  common: optimism,
+});
+
+console.log(await client.getBlockNumber()); // 420n
+```
+
+For most of Tevm functionality to work, the forked network must support the following JSON-RPC methods:
+
+- eth_blockNumber
+- eth_getStorageAt
+- eth_getProof
+- eth_getBlockByNumber
+- eth_getCode
+
+Nearly all nodes do support these methods so using Tevm is a good way to get access to other methods like eth_debugTraceTransaction if your RPC node otherwise doesn't support it. Just fork the RPC node with tevm and execute the RPC method locally.
+
+### Forking another client
+
+Any client with an EIP-1559 `request` function works so this includes all viem clients, and all tevm clients and more.
+
+Forking your own clients could be useful depending on use case:
 
 ```typescript
 import { createMemoryClient, http } from "tevm";
@@ -99,15 +128,17 @@ const forkedClient = createMemoryClient({
 forkedClient.getBlockNumber().then(console.log);
 ```
 
-For most of Tevm functionality to work, the forked network must support the following JSON-RPC methods:
+### Deep Copying a client
 
-- eth_blockNumber
-- eth_getStorageAt
-- eth_getProof
-- eth_getBlockByNumber
-- eth_getCode
+For the vast majority of use cases you will want to fork rather than clone because forking is much more performant. But if your use case requires it such as needing to copy the mempool you can also `deepCopy()` clients.
 
-Nearly all nodes do support these methods so using Tevm is a good way to get access to other methods like eth_debugTraceTransaction if your RPC node otherwise doesn't support it. Just fork the RPC node with tevm and execute the RPC method locally.
+```typescript
+import { createMemoryClient } from "tevm";
+
+const client = createMemoryClient();
+
+const copy = await client.deepCopy();
+```
 
 ### Use Cases
 
