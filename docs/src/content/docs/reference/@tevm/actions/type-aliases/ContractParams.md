@@ -5,7 +5,7 @@ prev: false
 title: "ContractParams"
 ---
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](/reference/tevm/utils/type-aliases/encodefunctiondataparameters/)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](/reference/tevm/actions/type-aliases/basecallparams/)\<`TThrowOnFail`\> & `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](/reference/tevm/utils/type-aliases/encodefunctiondataparameters/)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](/reference/tevm/actions/type-aliases/basecallparams/)\<`TThrowOnFail`\> & `object` \| `object` \| `object`
 
 Parameters to execute a call on a contract with TEVM.
 
@@ -41,27 +41,6 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [BaseCallParams](../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
  - [EncodeFunctionDataParameters](../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
-
-## Type declaration
-
-### code?
-
-> `readonly` `optional` **code**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
-
-Alias for deployedBytecode.
-
-### deployedBytecode?
-
-> `readonly` `optional` **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
-
-The deployed bytecode to execute at the contract address.
-If not provided, the code will be fetched from state.
-
-### to?
-
-> `readonly` `optional` **to**: [`Address`](/reference/tevm/actions/type-aliases/address/)
-
-The address of the contract to call.
 
 ## Type Parameters
 

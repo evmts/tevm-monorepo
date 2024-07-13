@@ -22,4 +22,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:365
+packages/base-client/dist/index.d.ts:369

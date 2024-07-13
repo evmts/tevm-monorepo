@@ -63,6 +63,10 @@
 	},
 	"dependencies": {
 		"@tevm/block": "workspace:^",
+		"@tevm/blockchain": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/evm": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",

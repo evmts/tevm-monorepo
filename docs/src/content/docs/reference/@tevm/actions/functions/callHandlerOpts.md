@@ -5,7 +5,7 @@ prev: false
 title: "callHandlerOpts"
 ---
 
-> **callHandlerOpts**(`client`, `params`): `Promise`\<`object`\>
+> **callHandlerOpts**(`client`, `params`): `Promise`\<`object` \| `object`\>
 
 ## Parameters
 
@@ -15,15 +15,7 @@ title: "callHandlerOpts"
 
 ## Returns
 
-`Promise`\<`object`\>
-
-### data?
-
-> `optional` **data**: [`EvmRunCallOpts`](/reference/tevm/evm/interfaces/evmruncallopts/)
-
-### errors?
-
-> `optional` **errors**: [`CallHandlerOptsError`](/reference/tevm/actions/type-aliases/callhandleroptserror/)[]
+`Promise`\<`object` \| `object`\>
 
 ## Defined in
 

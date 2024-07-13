@@ -12,4 +12,4 @@ Ethereum hardfork option
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:370
+packages/base-client/dist/index.d.ts:374

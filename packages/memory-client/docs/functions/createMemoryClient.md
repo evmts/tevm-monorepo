@@ -2187,6 +2187,16 @@ const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 
 #### Type declaration
 
+##### deepCopy()
+
+> `readonly` **deepCopy**: () => `Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+
+Copies the current client state into a new client
+
+###### Returns
+
+`Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+
 ##### extend()
 
 > `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
@@ -2667,6 +2677,16 @@ The RPC transport
 > **tevm**: `object` & `EIP1193Events` & `object` & `object`
 
 ###### Type declaration
+
+###### deepCopy()
+
+> `readonly` **deepCopy**: () => `Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+
+Copies the current client state into a new client
+
+###### Returns
+
+`Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
 
 ###### extend()
 

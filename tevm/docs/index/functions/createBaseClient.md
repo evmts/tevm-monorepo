@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:363
+packages/base-client/dist/index.d.ts:367

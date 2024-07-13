@@ -141,6 +141,10 @@ export class ReceiptsManager {
 	 */
 	GET_LOGS_BLOCK_RANGE_LIMIT = 2500
 
+	deepCopy(chain: Chain): ReceiptsManager {
+		return new ReceiptsManager(this.mapDb.deepCopy(), chain)
+	}
+
 	/**
 	 * Saves receipts to db. Also saves tx hash indexes if within txLookupLimit,
 	 * and removes tx hash indexes for one block past txLookupLimit.

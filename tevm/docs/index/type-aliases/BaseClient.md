@@ -12,6 +12,16 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
 
+### deepCopy()
+
+> `readonly` **deepCopy**: () => `Promise`\<[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended`\>\>
+
+Copies the current client state into a new client
+
+#### Returns
+
+`Promise`\<[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended`\>\>
+
 ### extend()
 
 > `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>

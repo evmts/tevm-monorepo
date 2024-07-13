@@ -45,5 +45,8 @@ export const createMapDb = ({ cache }) => {
 			cache.delete(dbKey(type, hash))
 			return Promise.resolve()
 		},
+		deepCopy() {
+			return createMapDb({ cache: new Map(cache) })
+		},
 	}
 }

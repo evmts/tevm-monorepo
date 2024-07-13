@@ -107,5 +107,9 @@ export type BaseClient<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExt
 	 * - MINING: The client is mining a block
 	 */
 	status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+	/**
+	 * Copies the current client state into a new client
+	 */
+	readonly deepCopy: () => Promise<BaseClient<TMode, TExtended>>
 } & EIP1193EventEmitter &
 	TExtended
