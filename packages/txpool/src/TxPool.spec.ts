@@ -1,10 +1,10 @@
-import { expect, describe, it } from 'bun:test'
-import { TxPool } from './TxPool.js'
-import { createVm } from '@tevm/vm'
+import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
+import { createVm } from '@tevm/vm'
+import { TxPool } from './TxPool.js'
 
 describe(TxPool.name, () => {
 	describe('deepCopy', () => {

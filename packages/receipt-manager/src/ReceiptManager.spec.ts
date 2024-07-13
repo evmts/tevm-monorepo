@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
-import { ReceiptsManager } from './RecieptManager.js'
-import { createMapDb } from './createMapDb.js'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
+import { ReceiptsManager } from './RecieptManager.js'
+import { createMapDb } from './createMapDb.js'
 
 const createEmptyChain = () => {
 	const common = optimism.copy()

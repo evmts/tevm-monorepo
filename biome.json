@@ -9,6 +9,8 @@
 			"node_modules",
 			"package.json",
 			".vercel",
+			".tevm",
+			"**/.tevm",
 			"**/.vercel",
 			"**/package.json",
 			"**/coverage",
