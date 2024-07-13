@@ -138,7 +138,7 @@ The number of txs currently in the pool
 
 #### Defined in
 
-[TxPool.ts:578](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L578)
+[TxPool.ts:588](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L588)
 
 ***
 
@@ -170,7 +170,7 @@ Transaction
 
 #### Defined in
 
-[TxPool.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L300)
+[TxPool.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310)
 
 ***
 
@@ -198,7 +198,7 @@ Transaction
 
 #### Defined in
 
-[TxPool.ts:270](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L270)
+[TxPool.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L280)
 
 ***
 
@@ -216,7 +216,7 @@ Regular tx pool cleanup
 
 #### Defined in
 
-[TxPool.ts:364](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L364)
+[TxPool.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L374)
 
 ***
 
@@ -234,7 +234,27 @@ Close pool
 
 #### Defined in
 
-[TxPool.ts:571](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L571)
+[TxPool.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L581)
+
+***
+
+### deepCopy()
+
+> **deepCopy**(`opt`): [`TxPool`](TxPool.md)
+
+**`Experimental`**
+
+#### Parameters
+
+• **opt**: `TxPoolOptions`
+
+#### Returns
+
+[`TxPool`](TxPool.md)
+
+#### Defined in
+
+[TxPool.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L128)
 
 ***
 
@@ -258,7 +278,7 @@ Array with tx objects
 
 #### Defined in
 
-[TxPool.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310)
+[TxPool.ts:320](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L320)
 
 ***
 
@@ -278,7 +298,7 @@ Array with tx objects
 
 #### Defined in
 
-[TxPool.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L446)
+[TxPool.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L456)
 
 ***
 
@@ -296,7 +316,7 @@ Open pool
 
 #### Defined in
 
-[TxPool.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L131)
+[TxPool.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L141)
 
 ***
 
@@ -320,7 +340,7 @@ Hash of the transaction
 
 #### Defined in
 
-[TxPool.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L331)
+[TxPool.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L341)
 
 ***
 
@@ -342,7 +362,7 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Defined in
 
-[TxPool.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L351)
+[TxPool.ts:361](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L361)
 
 ***
 
@@ -360,7 +380,7 @@ Start tx processing
 
 #### Defined in
 
-[TxPool.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L143)
+[TxPool.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153)
 
 ***
 
@@ -378,7 +398,7 @@ Stop pool execution
 
 #### Defined in
 
-[TxPool.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L560)
+[TxPool.ts:570](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L570)
 
 ***
 
@@ -417,4 +437,4 @@ Provide a baseFee to exclude txs with a lower gasPrice
 
 #### Defined in
 
-[TxPool.ts:467](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L467)
+[TxPool.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L477)

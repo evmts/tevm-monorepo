@@ -12,6 +12,12 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 ## Type declaration
 
+### deepCopy()
+
+#### Returns
+
+[`MapDb`](MapDb.md)
+
 ### delete()
 
 #### Parameters

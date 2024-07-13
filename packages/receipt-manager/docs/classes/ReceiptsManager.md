@@ -84,6 +84,24 @@ Size limit for the getLogs response in megabytes
 
 ## Methods
 
+### deepCopy()
+
+> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+
+#### Parameters
+
+• **chain**: `Chain`
+
+#### Returns
+
+[`ReceiptsManager`](ReceiptsManager.md)
+
+#### Defined in
+
+[RecieptManager.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L144)
+
+***
+
 ### deleteReceipts()
 
 > **deleteReceipts**(`block`): `Promise`\<`void`\>
@@ -98,7 +116,7 @@ Size limit for the getLogs response in megabytes
 
 #### Defined in
 
-[RecieptManager.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L156)
+[RecieptManager.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L160)
 
 ***
 
@@ -124,7 +142,7 @@ Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Defined in
 
-[RecieptManager.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L221)
+[RecieptManager.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L225)
 
 ***
 
@@ -146,7 +164,7 @@ the tx hash
 
 #### Defined in
 
-[RecieptManager.ts:200](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L200)
+[RecieptManager.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L204)
 
 ***
 
@@ -178,7 +196,7 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Defined in
 
-[RecieptManager.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L167)
+[RecieptManager.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L171)
 
 #### getReceipts(blockHash, calcBloom, includeTxType)
 
@@ -198,7 +216,7 @@ whether to include the tx type for each receipt (default: false)
 
 ##### Defined in
 
-[RecieptManager.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L168)
+[RecieptManager.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L172)
 
 ***
 
@@ -225,4 +243,4 @@ the receipts to save
 
 #### Defined in
 
-[RecieptManager.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L150)
+[RecieptManager.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L154)
