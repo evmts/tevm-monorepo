@@ -21,4 +21,5 @@ export type MapDb = {
 	put(type: DbType, hash: Uint8Array, value: Uint8Array): Promise<void>
 	get(type: DbType, hash: Uint8Array): Promise<Uint8Array | null>
 	delete(type: DbType, hash: Uint8Array): Promise<void>
+	deepCopy(): MapDb
 }

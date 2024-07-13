@@ -125,6 +125,16 @@ export class TxPool {
 		this.running = true
 	}
 
+	deepCopy(opt: TxPoolOptions): TxPool {
+		const newTxPool = new TxPool(opt)
+		newTxPool.pool = new Map(this.pool)
+		newTxPool.txsInPool = this.txsInPool
+		newTxPool.handled = new Map(this.handled)
+		newTxPool.opened = this.opened
+		newTxPool.running = this.running
+		return newTxPool
+	}
+
 	/**
 	 * Open pool
 	 */

@@ -2121,6 +2121,18 @@ importers:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/evm':
+        specifier: workspace:^
+        version: link:../evm
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx

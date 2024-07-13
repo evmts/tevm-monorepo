@@ -205,4 +205,26 @@ describe('createBaseClient', () => {
 		const vm = await getVm()
 		expect(vm.blockchain.getCanonicalHeadBlock()).toBeDefined()
 	})
+
+	describe('deepCopy', () => {
+		it('Client.deepCopy() returns a deep copy of the client', async () => {
+			const client = createBaseClient()
+			const copy = await client.deepCopy()
+			expect(copy).not.toBe(client)
+			expect(await client.getVm()).not.toBe(await copy.getVm())
+			expect(await client.getTxPool()).not.toBe(await copy.getTxPool())
+			expect(await client.getReceiptsManager()).not.toBe(await copy.getReceiptsManager())
+			expect((await client.getTxPool()).pool).not.toBe((await copy.getTxPool()).pool)
+			expect((await client.getTxPool()).pool).toEqual((await copy.getTxPool()).pool)
+			expect((await client.getVm()).stateManager._baseState.caches).not.toBe(
+				(await copy.getVm()).stateManager._baseState.caches,
+			)
+			expect((await client.getVm()).stateManager._baseState.stateRoots).toEqual(
+				(await copy.getVm()).stateManager._baseState.stateRoots,
+			)
+			expect((await client.getVm()).stateManager._baseState.getCurrentStateRoot()).toEqual(
+				(await copy.getVm()).stateManager._baseState.getCurrentStateRoot(),
+			)
+		})
+	})
 })

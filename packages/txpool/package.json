@@ -66,6 +66,10 @@
 		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^",
+		"@tevm/evm": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/state": "workspace:^",
+		"@tevm/blockchain": "workspace:^",
 		"qheap": "^1.4.0"
 	},
 	"devDependencies": {

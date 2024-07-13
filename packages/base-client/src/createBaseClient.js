@@ -246,44 +246,47 @@ export const createBaseClient = (options = {}) => {
 		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
-
 	/**
 	 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
 	 */
 	const filters = new Map()
 
-	/** @type {Map<string | symbol, Array<Function>>} */
-	const events = new Map()
-	/**
-	 * @type {import('./EIP1193EventEmitterTypes.js').EIP1193EventEmitter}
-	 */
-	const eventEmitter = {
-		on(eventName, listener) {
-			const listeners = events.get(eventName) || []
-			listeners.push(listener)
-			events.set(eventName, listeners)
-		},
-		removeListener(eventName, listener) {
-			const listeners = events.get(eventName)
-			if (listeners) {
-				const index = listeners.findIndex((l) => l === listener)
-				if (index !== -1) {
-					listeners.splice(index, 1)
-					if (listeners.length === 0) {
-						events.delete(eventName)
+	const createEventEmitter = () => {
+		/** @type {Map<string | symbol, Array<Function>>} */
+		const events = new Map()
+		/**
+		 * @type {import('./EIP1193EventEmitterTypes.js').EIP1193EventEmitter}
+		 */
+		const eventEmitter = {
+			on(eventName, listener) {
+				const listeners = events.get(eventName) || []
+				listeners.push(listener)
+				events.set(eventName, listeners)
+			},
+			removeListener(eventName, listener) {
+				const listeners = events.get(eventName)
+				if (listeners) {
+					const index = listeners.findIndex((l) => l === listener)
+					if (index !== -1) {
+						listeners.splice(index, 1)
+						if (listeners.length === 0) {
+							events.delete(eventName)
+						}
 					}
 				}
-			}
-		},
-		emit(eventName, ...args) {
-			const listeners = events.get(eventName)
-			if (listeners?.length) {
-				listeners.forEach((listener) => listener(...args))
-				return true // Event was successfully emitted
-			}
-			return false // No listeners for the event
-		},
+			},
+			emit(eventName, ...args) {
+				const listeners = events.get(eventName)
+				if (listeners?.length) {
+					listeners.forEach((listener) => listener(...args))
+					return true // Event was successfully emitted
+				}
+				return false // No listeners for the event
+			},
+		}
+		return eventEmitter
 	}
+	const eventEmitter = createEventEmitter()
 
 	const readyPromise = (async () => {
 		await blockchainPromise.then((b) => b.ready())
@@ -292,6 +295,66 @@ export const createBaseClient = (options = {}) => {
 		eventEmitter.emit('connect')
 		return /** @type {true}*/ (true)
 	})()
+
+	/**
+	 * @param {import('./BaseClient.js').BaseClient} baseClient
+	 * @returns {import('./BaseClient.js').BaseClient['deepCopy']}
+	 */
+	const deepCopy = (baseClient) => async () => {
+		/**
+		 * @type {import('@tevm/utils').Address | undefined}
+		 */
+		let impersonatedAccount = undefined
+		/**
+		 * @param {import('@tevm/utils').Address | undefined} address
+		 * returns {void}
+		 */
+		const setImpersonatedAccount = (address) => {
+			impersonatedAccount = address
+		}
+		await readyPromise
+		const oldVm = await vmPromise
+		const vm = await oldVm.deepCopy()
+		const oldReceiptsManager = await receiptManagerPromise
+		const receiptsManager = oldReceiptsManager.deepCopy(vm.blockchain)
+		const oldTxPool = await txPoolPromise
+		const txPool = oldTxPool.deepCopy({ vm })
+		/**
+		 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
+		 */
+		const newFilters = new Map(filters)
+		// don't copy registered events because that would be confusing
+		const eventEmitter = createEventEmitter()
+		/**
+		 * @type {import('./BaseClient.js').BaseClient}
+		 */
+		const copiedClient = {
+			...eventEmitter,
+			logger: baseClient.logger,
+			getReceiptsManager: async () => Promise.resolve(receiptsManager),
+			getTxPool: async () => Promise.resolve(txPool),
+			getVm: async () => Promise.resolve(vm),
+			miningConfig: baseClient.miningConfig,
+			mode: baseClient.mode,
+			...('forkTransport' in baseClient ? { forkTransport: baseClient.forkTransport } : {}),
+			extend: (extension) => extend(baseClient)(extension),
+			deepCopy: () => deepCopy(copiedClient)(),
+			ready: () => Promise.resolve(true),
+			getFilters: () => newFilters,
+			getImpersonatedAccount() {
+				return impersonatedAccount
+			},
+			setImpersonatedAccount,
+			setFilter: (filter) => {
+				newFilters.set(filter.id, filter)
+			},
+			removeFilter: (filterId) => {
+				newFilters.delete(filterId)
+			},
+			status: 'READY',
+		}
+		return copiedClient
+	}
 
 	/**
 	 * Create and return the baseClient
@@ -331,6 +394,7 @@ export const createBaseClient = (options = {}) => {
 			filters.delete(filterId)
 		},
 		status: 'INITIALIZING',
+		deepCopy: () => deepCopy(baseClient)(),
 	}
 
 	eventEmitter.on('connect', () => {
