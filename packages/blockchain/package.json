@@ -65,6 +65,7 @@
 		"@ethereumjs/blockchain": "^7.2.0",
 		"@tevm/block": "workspace:^",
 		"@tevm/common": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/trie": "workspace:^",

@@ -1532,6 +1532,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc

@@ -1,6 +1,7 @@
 import { deepCopy } from './actions/deepCopy.js'
 import { delBlock } from './actions/delBlock.js'
 import { getBlock } from './actions/getBlock.js'
+import { getBlockByTag } from './actions/getBlockByTag.js'
 import { getCanonicalHeadBlock } from './actions/getCanonicalHeadBlock.js'
 import { getIteratorHead } from './actions/getIteratorHead.js'
 import { putBlock } from './actions/putBlock.js'
@@ -18,6 +19,7 @@ export const createChain = async (options) => {
 	 */
 	const decorate = (baseChain) => {
 		return Object.assign(baseChain, {
+			getBlockByTag: getBlockByTag(baseChain),
 			deepCopy: async () => decorate(await deepCopy(baseChain)()),
 			shallowCopy: () => decorate(shallowCopy(baseChain)()),
 			getBlock: getBlock(baseChain),

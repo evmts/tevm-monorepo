@@ -1,6 +1,6 @@
 import { type BlockchainEvents, type Consensus, type OnBlock } from '@ethereumjs/blockchain'
 import type { Block, BlockHeader } from '@tevm/block'
-import type { AsyncEventEmitter } from '@tevm/utils'
+import type { AsyncEventEmitter, BlockTag, Hex } from '@tevm/utils'
 import type { BaseChain } from './BaseChain.js'
 
 /**
@@ -40,6 +40,20 @@ export type Chain = {} & BaseChain & {
 		 * Returns a block by its hash or number.
 		 */
 		getBlock(blockId: Uint8Array | number | bigint): Promise<Block>
+
+		/**
+		 * Gets block given one of the following inputs:
+		 * - Hex block hash
+		 * - Hex block number (if length is 32 bytes, it is treated as a hash)
+		 * - Uint8Array block hash
+		 * - Number block number
+		 * - BigInt block number
+		 * - BlockTag block tag
+		 * - Named block tag (e.g. 'latest', 'earliest', 'pending')
+		 * @throws {UnknownBlockError} - If the block is not found
+		 * @throw {InvalidBlockTagError} - If the block tag is invalid}
+		 */
+		getBlockByTag(blockTag: Hex | Uint8Array | number | bigint | BlockTag): Promise<Block>
 
 		/**
 		 * Iterates through blocks starting at the specified iterator head and calls
