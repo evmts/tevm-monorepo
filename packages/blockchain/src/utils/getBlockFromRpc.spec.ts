@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { Block } from '@tevm/block'
+import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { getBlockFromRpc } from './getBlockFromRpc.js'
-import { optimism } from '@tevm/common'
 
 describe('getBlockFromRpc', () => {
 	it('should fetch the latest block', async () => {
@@ -57,7 +57,7 @@ describe('getBlockFromRpc', () => {
 	it('should handle non-existing block hash', async () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
-		const nonExistingBlockHash = '0x' + '0'.repeat(64)
+		const nonExistingBlockHash = `0x${'0'.repeat(64)}`
 
 		await expect(getBlockFromRpc({ transport, blockTag: nonExistingBlockHash }, common)).rejects.toThrow(
 			'No block found',

@@ -1,7 +1,7 @@
-import { hexToBytes, hexToNumber, isHex } from '@tevm/utils'
-import { getBlock } from './getBlock.js'
 import { UnknownBlockError } from '@tevm/errors'
+import { hexToBytes, hexToNumber, isHex } from '@tevm/utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
+import { getBlock } from './getBlock.js'
 import { putBlock } from './putBlock.js'
 
 /**
