@@ -1,4 +1,4 @@
-import type { BaseParams } from '../common/BaseParams.js'
+import type { DumpStateParams } from './DumpStateParams.js'
 import type { DumpStateResult } from './DumpStateResult.js'
 
 /**
@@ -26,4 +26,4 @@ import type { DumpStateResult } from './DumpStateResult.js'
  *
  * @see LoadStateHandler for loading the dumped state back into the VM.
  */
-export type DumpStateHandler = (params?: BaseParams) => Promise<DumpStateResult>
+export type DumpStateHandler = (params?: DumpStateParams) => Promise<DumpStateResult>

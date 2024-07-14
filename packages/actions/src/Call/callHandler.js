@@ -79,6 +79,7 @@ export const callHandler =
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
 				..._params,
+				blockTag: 'latest',
 			})
 		}
 

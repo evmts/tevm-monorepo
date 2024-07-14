@@ -24,6 +24,9 @@ export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	readonly returnStorage?: boolean
 	/**
 	 * Block tag to fetch account from
+	 * - bigint for block number
+	 * - hex string for block hash
+	 * - 'latest', 'earliest', 'pending', 'forked' etc. tags
 	 */
 	readonly blockTag?: BlockTag | bigint | Hex
 }
