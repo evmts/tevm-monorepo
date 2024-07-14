@@ -19,6 +19,7 @@ export const getBlockByTag = (baseChain) => async (blockId) => {
 	const block = baseChain.blocksByTag.get(blockId)
 	if (!block && baseChain.options.fork?.transport) {
 		const block = await getBlockFromRpc(
+			baseChain,
 			{
 				transport: baseChain.options.fork.transport,
 				blockTag: blockId,

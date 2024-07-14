@@ -6,9 +6,11 @@
 
 # Function: getBlockFromRpc()
 
-> **getBlockFromRpc**(`params`, `common`): `Promise`\<`Block`\>
+> **getBlockFromRpc**(`baseChain`, `params`, `common`): `Promise`\<`Block`\>
 
 ## Parameters
+
+• **baseChain**: `BaseChain`
 
 • **params**
 
@@ -26,4 +28,4 @@
 
 ## Defined in
 
-[utils/getBlockFromRpc.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L37)
+[utils/getBlockFromRpc.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L23)

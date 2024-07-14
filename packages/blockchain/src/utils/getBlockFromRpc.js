@@ -2,6 +2,7 @@ import { Block, blockFromRpc } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
+import { warnOnce } from './warnOnce.js'
 
 /**
  * Determines if an unknown type is a valid block tag
@@ -12,29 +13,14 @@ const isBlockTag = (blockTag) => {
 	return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
 }
 
-let i = 0
-
 /**
- * @param {import('viem').RpcBlock} tx
- */
-const warnOnce = (tx) => {
-	if (i > 0) {
-		return
-	}
-	i++
-	console.warn(
-		`Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
-filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}`,
-	)
-}
-
-/**
+ * @param {import('../BaseChain.js').BaseChain} baseChain
  * @param {object} params
  * @param {{request: import('viem').EIP1193RequestFn}} params.transport
  * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
  * @param {import('@tevm/common').Common} common
  */
-export const getBlockFromRpc = async ({ transport, blockTag = 'latest' }, common) => {
+export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest' }, common) => {
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
 	 * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
@@ -50,7 +36,7 @@ export const getBlockFromRpc = async ({ transport, blockTag = 'latest' }, common
 					// Optimism type is currently not in viem types
 					// @ts-expect-error
 					if (tx.type === '0x7e') {
-						warnOnce(tx)
+						warnOnce(baseChain)(tx)
 						return false
 					}
 					return true

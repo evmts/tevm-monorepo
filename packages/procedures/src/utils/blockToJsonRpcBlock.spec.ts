@@ -8,7 +8,11 @@ import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 describe('blockToJsonRpcBlock', async () => {
 	const client = createBaseClient({ common: optimism })
 	const vm = await client.getVm()
-	const block = await getBlockFromRpc({ blockTag: 121960766n, transport: transports.optimism }, vm.common)
+	const block = await getBlockFromRpc(
+		vm.blockchain,
+		{ blockTag: 121960766n, transport: transports.optimism },
+		vm.common,
+	)
 
 	it('should convert block to JSON-RPC block format with transactions', async () => {
 		expect(await blockToJsonRpcBlock(block, true)).toMatchSnapshot()
