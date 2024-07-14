@@ -2,8 +2,16 @@ import { describe, expect, it, jest } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
-import { TestERC20, transports } from '@tevm/test-utils'
-import { type Address, EthjsAddress, encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
+import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
+import {
+	type Address,
+	EthjsAddress,
+	decodeFunctionData,
+	decodeFunctionResult,
+	encodeFunctionData,
+	hexToBytes,
+	parseEther,
+} from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -689,5 +697,66 @@ describe('callHandler', () => {
 		expect(result.errors).toBeDefined()
 		expect(result.errors).toHaveLength(1)
 		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should submit a transaction and read the result with pending blockTag', async () => {
+		const client = createBaseClient()
+		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+
+		// Set up account with enough balance
+		await setAccountHandler(client)({
+			address: from.toString() as Address,
+			balance: parseEther('1'),
+			nonce: 0n,
+		})
+
+		const simpleContract = SimpleContract.withAddress(`0x${'42'.repeat(20)}` as const)
+		const setValue = 42n
+
+		// Deploy SimpleContract
+		await setAccountHandler(client)({
+			address: simpleContract.address,
+			deployedBytecode: simpleContract.deployedBytecode,
+		})
+
+		// Send transaction to set value
+		const setResult = await callHandler(client)({
+			createTransaction: true,
+			to: simpleContract.address,
+			from: from.toString() as Address,
+			data: encodeFunctionData({
+				abi: SimpleContract.abi,
+				functionName: 'set',
+				args: [setValue],
+			}),
+			gas: 16784800n,
+		})
+		expect(setResult.txHash).toBeDefined()
+		expect(setResult.txHash).toMatchSnapshot()
+
+		// Check the result with pending blockTag
+		const getResult = await callHandler(client)({
+			to: simpleContract.address,
+			blockTag: 'pending',
+			data: encodeFunctionData({
+				abi: SimpleContract.abi,
+				functionName: 'get',
+			}),
+		})
+
+		expect(decodeFunctionResult({ functionName: 'get', abi: simpleContract.abi, data: getResult.rawData })).toBe(
+			setValue,
+		)
+
+		// Mine the transaction and verify the state change
+		await mineHandler(client)()
+		const stateResult = await callHandler(client)({
+			to: simpleContract.address,
+			data: encodeFunctionData({
+				abi: SimpleContract.abi,
+				functionName: 'get',
+			}),
+		})
+		expect(stateResult.rawData).toBe(`0x${setValue.toString(16).padStart(64, '0')}`)
 	})
 })

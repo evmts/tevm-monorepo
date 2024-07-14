@@ -1,3 +1,4 @@
+import type { BlockTag, Hex } from '@tevm/utils'
 import type { BaseParams } from '../common/BaseParams.js'
 import type { Address } from '../common/index.js'
 
@@ -21,4 +22,8 @@ export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	 * Be aware that this can be very expensive if a contract has a lot of storage
 	 */
 	readonly returnStorage?: boolean
+	/**
+	 * Block tag to fetch account from
+	 */
+	readonly blockTag?: BlockTag | bigint | Hex
 }

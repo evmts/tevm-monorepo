@@ -10,6 +10,7 @@ import { executeCall } from './executeCall.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 import { validateCallParams } from './validateCallParams.js'
+import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
@@ -64,6 +65,21 @@ export const callHandler =
 		}
 		const _params = {
 			...params,
+		}
+
+		if (_params.blockTag === 'pending') {
+			const pendingClient = await getPendingClient(client)
+			if (_params.createTransaction) {
+				// if we are creating a transaction we want to use the real pending client
+				// use case is if you want your transaction to take previous tx into account when simulating
+				const pendingClientAny = /** @type {any}*/ (pendingClient)
+				pendingClientAny.getTxPool = client.getTxPool
+			}
+			return callHandler(pendingClient, { throwOnFail: defaultThrowOnFail })({
+				...(code !== undefined ? { code } : {}),
+				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
+				..._params,
+			})
 		}
 
 		const callHandlerRes = await callHandlerOpts(client, _params)
