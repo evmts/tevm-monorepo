@@ -1,28 +1,45 @@
-import { createAddress } from '@tevm/address'
+import { UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex } from '@tevm/utils'
-import { NoForkUrlSetError } from './getBalanceHandler.js'
+import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
 
 /**
- * @param {object} options
- * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
- * @param {{request: import('viem').EIP1193RequestFn}}  [options.forkClient]
+ * @param {import('@tevm/base-client').BaseClient} baseClient
  * @returns {import('./EthHandler.js').EthGetCodeHandler}
  */
-export const getCodeHandler =
-	({ getVm, forkClient }) =>
-	async (params) => {
-		const vm = await getVm()
-		const tag = params.blockTag ?? 'pending'
-		if (tag === 'latest') {
-			return bytesToHex(await vm.stateManager.getContractCode(createAddress(params.address)))
+export const getCodeHandler = (baseClient) => async (params) => {
+	const vm = await baseClient.getVm()
+	const tag = params.blockTag ?? 'latest'
+
+	const block = await (async () => {
+		if (tag === 'latest' || tag === 'earliest' || tag === 'safe' || tag === 'finalized') {
+			return vm.blockchain.blocksByTag.get(tag)
 		}
-		if (!forkClient) {
-			throw new NoForkUrlSetError(
-				'getCode is not supported for any block tags other than latest atm. This will be fixed in the next few releases',
-			)
+		if (tag === 'pending') {
+			// TODO
+			throw new Error('Pending block not supported')
 		}
-		const fetcher = createJsonRpcFetcher(forkClient)
+		if (isHex(tag)) {
+			return vm.blockchain.getBlock(hexToBytes(tag))
+		}
+		return vm.blockchain.getBlock(tag)
+	})()
+
+	if (!block) {
+		throw new UnknownBlockError(`Unable to find block ${tag}`)
+	}
+	/**
+	 * @type {import('viem').Hex | undefined}
+	 */
+	let deployedBytecode = undefined
+	// if we have the state cached already grab it from there
+	if (await vm.stateManager.hasStateRoot(block.header.stateRoot)) {
+		deployedBytecode = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))?.[
+			getAddress(params.address)
+		]?.deployedBytecode
+	}
+	// if we don't have it cached and we got a fork client try to fetch it from fork
+	if (!deployedBytecode && baseClient.forkTransport) {
+		const fetcher = createJsonRpcFetcher(baseClient.forkTransport)
 		return fetcher
 			.request({
 				jsonrpc: '2.0',
@@ -45,8 +62,10 @@ export const getCodeHandler =
 			.catch((err) => {
 				// TODO handle this in a strongly typed way
 				if (err.name === 'MethodNotFound') {
-					throw new Error(`Method eth_getCode not supported by fork url ${forkClient}`)
+					throw new Error('Method eth_getCode not supported by fork url')
 				}
 				throw err
 			})
 	}
+	return deployedBytecode ?? bytesToHex(new Uint8Array())
+}

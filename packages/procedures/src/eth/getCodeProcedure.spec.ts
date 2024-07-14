@@ -1,53 +1,27 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
-import { deployHandler, mineHandler } from '@tevm/actions'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { describe, expect, it } from 'bun:test'
+import { setAccountHandler } from '@tevm/actions'
+import { createAddress } from '@tevm/address'
+import { createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
-import { type Address } from '@tevm/utils'
 import type { EthGetCodeJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getCodeProcedure } from './getCodeProcedure.js'
 
-let client: BaseClient
-let contractAddress: Address
-
-beforeEach(async () => {
-	client = createBaseClient()
-	const tevmDeploy = deployHandler(client)
-	const { bytecode, abi } = SimpleContract
-	const deployResult = await tevmDeploy({
-		bytecode,
-		abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	contractAddress = deployResult.createdAddress as Address
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	await mineHandler(client)()
-})
-
 describe('getCodeProcedure', () => {
 	it('should return the code of a contract', async () => {
+		const client = createBaseClient()
+
+		const contract = SimpleContract.withAddress(createAddress(420420).toString())
+
+		await setAccountHandler(client)(contract)
+
 		const request: EthGetCodeJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_getCode',
 			id: 1,
-			params: [contractAddress, 'latest'],
+			params: [contract.address, 'latest'],
 		}
 
-		const response = await getCodeProcedure({
-			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
-					if (req.method !== 'eth_getCode') {
-						throw new Error('Invalid method')
-					}
-					return SimpleContract.bytecode as any
-				},
-			},
-		})(request)
+		const response = await getCodeProcedure(client)(request)
 
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()
@@ -57,28 +31,24 @@ describe('getCodeProcedure', () => {
 	})
 
 	it('should handle requests without an id', async () => {
+		const client = createBaseClient()
+
+		const contract = SimpleContract.withAddress(createAddress(420420).toString())
+
+		await setAccountHandler(client)(contract)
+
 		const request: EthGetCodeJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_getCode',
-			params: [contractAddress, 'latest'],
+			params: [contract.address, 'latest'],
 		}
 
-		const response = await getCodeProcedure({
-			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
-					if (req.method !== 'eth_getCode') {
-						throw new Error('Invalid method')
-					}
-					return SimpleContract.bytecode as any
-				},
-			},
-		})(request)
+		const response = await getCodeProcedure(client)(request)
 
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getCode')
-		expect(response.id).toBeUndefined()
+		expect(response).not.toHaveProperty('id')
 		expect(response.result).toBe(SimpleContract.deployedBytecode)
 	})
 })

@@ -12,4 +12,4 @@ Zod validator for a valid getAccount action
 
 ## Defined in
 
-[packages/actions/src/GetAccount/zGetAccountParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/zGetAccountParams.js#L8)
+[packages/actions/src/GetAccount/zGetAccountParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/zGetAccountParams.js#L9)

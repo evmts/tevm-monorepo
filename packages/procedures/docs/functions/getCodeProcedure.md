@@ -6,17 +6,11 @@
 
 # Function: getCodeProcedure()
 
-> **getCodeProcedure**(`options`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
+> **getCodeProcedure**(`baseClient`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
 
 ## Parameters
 
-• **options**
-
-• **options.forkClient?**
-
-• **options.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
-
-• **options.getVm**
+• **baseClient**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -24,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/getCodeProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getCodeProcedure.js#L8)
+[procedures/src/eth/getCodeProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getCodeProcedure.js#L7)

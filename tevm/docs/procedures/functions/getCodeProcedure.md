@@ -6,17 +6,11 @@
 
 # Function: getCodeProcedure()
 
-> **getCodeProcedure**(`__namedParameters`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
+> **getCodeProcedure**(`baseClient`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
 
 ## Parameters
 
-• **\_\_namedParameters**
-
-• **\_\_namedParameters.forkClient?**
-
-• **\_\_namedParameters.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
-
-• **\_\_namedParameters.getVm**
+• **baseClient**: [`BaseClient`](../../index/type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

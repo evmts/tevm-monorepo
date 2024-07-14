@@ -40,6 +40,11 @@ export const validateGetAccountParams = (action) => {
 				errors.push(new InvalidAddressError(`Invalid address param. ${err}`))
 			}
 		}
+		if (formattedErrors.blockTag) {
+			for (const err of formattedErrors.blockTag._errors) {
+				errors.push(new InvalidRequestError(`Invalid blockTag param. ${err}`))
+			}
+		}
 		formattedErrors._errors.forEach((error) => {
 			errors.push(new InvalidRequestError(error))
 		})
