@@ -6,15 +6,11 @@
 
 # Function: getCodeHandler()
 
-> **getCodeHandler**(`options`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
+> **getCodeHandler**(`baseClient`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
 ## Parameters
 
-• **options**
-
-• **options.forkClient**: `undefined` \| `object`
-
-• **options.getVm**
+• **baseClient**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -22,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/getCodeHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L13)
+[packages/actions/src/eth/getCodeHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L9)
