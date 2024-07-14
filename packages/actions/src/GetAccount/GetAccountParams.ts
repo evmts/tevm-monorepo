@@ -1,6 +1,5 @@
-import type { BlockTag, Hex } from '@tevm/utils'
 import type { BaseParams } from '../common/BaseParams.js'
-import type { Address } from '../common/index.js'
+import type { Address, BlockParam } from '../common/index.js'
 
 /**
  * Tevm params to get an account
@@ -28,5 +27,5 @@ export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParam
 	 * - hex string for block hash
 	 * - 'latest', 'earliest', 'pending', 'forked' etc. tags
 	 */
-	readonly blockTag?: BlockTag | bigint | Hex
+	readonly blockTag?: BlockParam
 }

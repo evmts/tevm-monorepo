@@ -1,6 +1,5 @@
 import type { BaseParams } from '../common/BaseParams.js'
-import type { BlockTag } from '../common/BlockTag.js'
-import type { Hex } from '../common/Hex.js'
+import type { BlockParam } from '../common/BlockParam.js'
 
 export type DumpStateParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
 	/**
@@ -9,5 +8,5 @@ export type DumpStateParams<TThrowOnFail extends boolean = boolean> = BaseParams
 	 * - hex string for block hash
 	 * - 'latest', 'earliest', 'pending', 'forked' etc. tags
 	 */
-	readonly blockTag?: BlockTag | bigint | Hex
+	readonly blockTag?: BlockParam
 }
