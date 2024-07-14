@@ -1551,6 +1551,9 @@ importers:
         specifier: ^2.14.2
         version: 2.14.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
