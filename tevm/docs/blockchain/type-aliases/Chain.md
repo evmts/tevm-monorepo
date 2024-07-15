@@ -67,6 +67,33 @@ Returns a block by its hash or number.
 
 `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
+### getBlockByTag()
+
+Gets block given one of the following inputs:
+- Hex block hash
+- Hex block number (if length is 32 bytes, it is treated as a hash)
+- Uint8Array block hash
+- Number block number
+- BigInt block number
+- BlockTag block tag
+- Named block tag (e.g. 'latest', 'earliest', 'pending')
+
+#### Parameters
+
+• **blockTag**: `number` \| `bigint` \| \`0x$\{string\}\` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `Uint8Array`
+
+#### Returns
+
+`Promise`\<[`Block`](../../block/classes/Block.md)\>
+
+#### Throws
+
+- If the block is not found
+
+#### Throw
+
+- If the block tag is invalid}
+
 ### getCanonicalHeadBlock()
 
 Returns the latest full block in the canonical chain.

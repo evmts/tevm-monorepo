@@ -38,6 +38,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 	baseChain.logger.debug('Fetching block from remote rpc...')
 
 	const fetchedBlock = await getBlockFromRpc(
+		baseChain,
 		{
 			transport: baseChain.options.fork?.transport,
 			blockTag: blockId instanceof Uint8Array ? bytesToHex(blockId) : BigInt(blockId),
