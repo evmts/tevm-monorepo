@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
+import { getPendingClient } from '../internal/getPendingClient.js'
 
 export class NoForkUrlSetError extends Error {
 	/**
@@ -26,6 +27,9 @@ export const getBalanceHandler =
 		if (blockTag === 'latest') {
 			const account = await vm.stateManager.getAccount(createAddress(address))
 			return account?.balance ?? 0n
+		}
+		if (blockTag === 'pending') {
+			return getBalanceHandler(await getPendingClient(baseClient))({ address, blockTag: 'latest' })
 		}
 		const block =
 			vm.blockchain.blocks.get(

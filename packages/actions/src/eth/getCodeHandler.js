@@ -1,6 +1,7 @@
 import { UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
+import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} baseClient
@@ -10,13 +11,13 @@ export const getCodeHandler = (baseClient) => async (params) => {
 	const vm = await baseClient.getVm()
 	const tag = params.blockTag ?? 'latest'
 
+	if (tag === 'pending') {
+		return getCodeHandler(await getPendingClient(baseClient))({ ...params, blockTag: 'latest' })
+	}
+
 	const block = await (async () => {
 		if (tag === 'latest' || tag === 'earliest' || tag === 'safe' || tag === 'finalized') {
 			return vm.blockchain.blocksByTag.get(tag)
-		}
-		if (tag === 'pending') {
-			// TODO
-			throw new Error('Pending block not supported')
 		}
 		if (isHex(tag)) {
 			return vm.blockchain.getBlock(hexToBytes(tag))

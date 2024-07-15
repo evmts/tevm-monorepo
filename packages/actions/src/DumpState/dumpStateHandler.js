@@ -1,6 +1,7 @@
 import { InternalError } from '@tevm/errors'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { getPendingClient } from '../internal/getPendingClient.js'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * Creates a handler for dumping the TEVM state.
@@ -29,7 +30,7 @@ import { getPendingClient } from '../internal/getPendingClient.js'
  */
 export const dumpStateHandler =
 	(client, options = {}) =>
-	async ({ throwOnFail = options.throwOnFail, blockTag } = {}) => {
+	async ({ throwOnFail = options.throwOnFail, blockTag = 'latest' } = {}) => {
 		try {
 			const vm =
 				blockTag === 'pending' ? await getPendingClient(client).then(({ getVm }) => getVm()) : await client.getVm()
@@ -37,8 +38,12 @@ export const dumpStateHandler =
 				if (blockTag === 'latest' || blockTag === 'pending') {
 					return { state: await vm.stateManager.dumpCanonicalGenesis() }
 				}
-				const block = await vm.blockchain.getBlock(blockTag)
-				const stateManager = vm.stateManager.setStateRoot(blockTag)
+				const block = await vm.blockchain.getBlockByTag(blockTag)
+				if (await vm.stateManager.hasStateRoot(block.header.stateRoot)) {
+					return { state: vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot)) ?? {} }
+				}
+				client.logger.warn(`State root does not exist for block ${blockTag}. Returning empty state`)
+				return { state: {} }
 			}
 			throw new InternalError(
 				'Unsupported state manager. Must use a TEVM state manager from `@tevm/state` package. This may indicate a bug in TEVM internal code.',

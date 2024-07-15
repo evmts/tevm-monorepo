@@ -6,7 +6,6 @@ import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
 	EthjsAddress,
-	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,
 	hexToBytes,
