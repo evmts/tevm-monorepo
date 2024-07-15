@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_getAutomine` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:156
+packages/procedures/dist/index.d.ts:167

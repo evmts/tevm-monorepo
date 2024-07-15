@@ -22,4 +22,4 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:993
+packages/procedures/dist/index.d.ts:1004

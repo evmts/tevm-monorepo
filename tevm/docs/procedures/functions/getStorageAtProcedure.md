@@ -10,13 +10,7 @@
 
 ## Parameters
 
-• **\_\_namedParameters**
-
-• **\_\_namedParameters.forkClient?**
-
-• **\_\_namedParameters.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
-
-• **\_\_namedParameters.getVm**
+• **\_\_namedParameters**: [`BaseClient`](../../index/type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -24,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:692
+packages/procedures/dist/index.d.ts:703

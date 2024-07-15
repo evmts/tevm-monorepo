@@ -13,4 +13,4 @@ A Tevm JSON-RPC request
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:139
+packages/procedures/dist/index.d.ts:150

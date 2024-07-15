@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_mine`
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:776
+packages/procedures/dist/index.d.ts:787

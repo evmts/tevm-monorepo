@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:518
+packages/procedures/dist/index.d.ts:529

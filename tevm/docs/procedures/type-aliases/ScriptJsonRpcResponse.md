@@ -31,4 +31,4 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:963
+packages/procedures/dist/index.d.ts:974

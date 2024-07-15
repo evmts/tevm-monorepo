@@ -140,3 +140,5 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73],
 ]
 `;
+
+exports[`callHandler should submit a transaction and read the result with pending blockTag 1`] = `"0x3c7a9a03c23faf6431c7b0fab86c70761cb36bf79a305da17bc581fd6e479116"`;

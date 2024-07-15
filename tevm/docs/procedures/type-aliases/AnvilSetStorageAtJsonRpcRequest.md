@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setStorageAt` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:193
+packages/procedures/dist/index.d.ts:204

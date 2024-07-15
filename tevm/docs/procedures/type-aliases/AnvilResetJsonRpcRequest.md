@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_reset` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:171
+packages/procedures/dist/index.d.ts:182

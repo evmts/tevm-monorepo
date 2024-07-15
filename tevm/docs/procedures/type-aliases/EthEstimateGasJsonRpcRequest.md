@@ -12,4 +12,4 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:281
+packages/procedures/dist/index.d.ts:292

@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:144
+packages/procedures/dist/index.d.ts:155

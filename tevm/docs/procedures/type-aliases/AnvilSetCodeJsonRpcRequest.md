@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setCode` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:185
+packages/procedures/dist/index.d.ts:196

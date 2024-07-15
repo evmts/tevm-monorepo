@@ -12,4 +12,4 @@ JSON-RPC response for `eth_mining` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:534
+packages/procedures/dist/index.d.ts:545

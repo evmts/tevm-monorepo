@@ -13,4 +13,4 @@ Not included atm because tevm_call supports it and i was getting methodNotFound 
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:163
+packages/procedures/dist/index.d.ts:174

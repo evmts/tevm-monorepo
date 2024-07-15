@@ -77,6 +77,7 @@
 - [DeployParams](type-aliases/DeployParams.md)
 - [DeployResult](type-aliases/DeployResult.md)
 - [DumpStateHandler](type-aliases/DumpStateHandler.md)
+- [DumpStateParams](type-aliases/DumpStateParams.md)
 - [DumpStateResult](type-aliases/DumpStateResult.md)
 - [EmptyParams](type-aliases/EmptyParams.md)
 - [EthAccountsHandler](type-aliases/EthAccountsHandler.md)

@@ -2,6 +2,7 @@ import { createAddress } from '@tevm/address'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
+import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
@@ -10,7 +11,6 @@ import { executeCall } from './executeCall.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 import { validateCallParams } from './validateCallParams.js'
-import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.

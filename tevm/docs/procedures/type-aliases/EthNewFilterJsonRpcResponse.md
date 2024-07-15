@@ -12,4 +12,4 @@ JSON-RPC response for `eth_newFilter` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:577
+packages/procedures/dist/index.d.ts:588

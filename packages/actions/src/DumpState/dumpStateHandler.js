@@ -1,7 +1,7 @@
 import { InternalError } from '@tevm/errors'
-import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
-import { getPendingClient } from '../internal/getPendingClient.js'
 import { bytesToHex } from '@tevm/utils'
+import { getPendingClient } from '../internal/getPendingClient.js'
+import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 /**
  * Creates a handler for dumping the TEVM state.

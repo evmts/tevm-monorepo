@@ -1,10 +1,10 @@
 import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, ForkError, InternalError } from '@tevm/errors'
 import { bytesToHex } from '@tevm/utils'
+import { cloneVmWithBlockTag } from '../Call/cloneVmWithBlock.js'
+import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateGetAccountParams } from './validateGetAccountParams.js'
-import { getPendingClient } from '../internal/getPendingClient.js'
-import { cloneVmWithBlockTag } from '../Call/cloneVmWithBlock.js'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
