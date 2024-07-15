@@ -28,4 +28,4 @@
 
 ## Defined in
 
-[utils/getBlockFromRpc.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L23)
+[utils/getBlockFromRpc.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L24)
