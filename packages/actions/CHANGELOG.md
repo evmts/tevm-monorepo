@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.1.0-next.99
+
+### Minor Changes
+
+- [#1311](https://github.com/evmts/tevm-monorepo/pull/1311) [`de2a2ab`](https://github.com/evmts/tevm-monorepo/commit/de2a2ab90a262c084eea9d955d544531c41af506) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for all blocktags to eth_getCode actions and json-rpc
+
+- [#1311](https://github.com/evmts/tevm-monorepo/pull/1311) [`de2a2ab`](https://github.com/evmts/tevm-monorepo/commit/de2a2ab90a262c084eea9d955d544531c41af506) Thanks [@roninjin10](https://github.com/roninjin10)! - Added blockTag to `tevmGetAccount` action
+
+### Patch Changes
+
+- Updated dependencies [[`a8c810b`](https://github.com/evmts/tevm-monorepo/commit/a8c810b87f682fb3504e6db8a0ace6ef4220e842), [`c71445a`](https://github.com/evmts/tevm-monorepo/commit/c71445a1aa729f079737ff8e53bc8b39cb70d37b)]:
+  - @tevm/receipt-manager@1.1.0-next.99
+  - @tevm/base-client@1.1.0-next.99
+  - @tevm/blockchain@1.1.0-next.99
+  - @tevm/evm@1.1.0-next.99
+  - @tevm/vm@1.1.0-next.99
+
 ## 1.1.0-next.98
 
 ### Patch Changes

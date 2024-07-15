@@ -1,5 +1,20 @@
 # @tevm/client
 
+## 1.1.0-next.99
+
+### Minor Changes
+
+- [#1312](https://github.com/evmts/tevm-monorepo/pull/1312) [`a8c810b`](https://github.com/evmts/tevm-monorepo/commit/a8c810b87f682fb3504e6db8a0ace6ef4220e842) Thanks [@roninjin10](https://github.com/roninjin10)! - Add deepCopy method to BaseClient ReceiptManager and TxPool
+
+### Patch Changes
+
+- Updated dependencies [[`a8c810b`](https://github.com/evmts/tevm-monorepo/commit/a8c810b87f682fb3504e6db8a0ace6ef4220e842), [`c71445a`](https://github.com/evmts/tevm-monorepo/commit/c71445a1aa729f079737ff8e53bc8b39cb70d37b)]:
+  - @tevm/receipt-manager@1.1.0-next.99
+  - @tevm/txpool@1.1.0-next.99
+  - @tevm/blockchain@1.1.0-next.99
+  - @tevm/evm@1.1.0-next.99
+  - @tevm/vm@1.1.0-next.99
+
 ## 1.1.0-next.97
 
 ### Patch Changes
