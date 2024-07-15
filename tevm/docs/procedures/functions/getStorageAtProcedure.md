@@ -6,11 +6,11 @@
 
 # Function: getStorageAtProcedure()
 
-> **getStorageAtProcedure**(`__namedParameters`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
+> **getStorageAtProcedure**(`client`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
 ## Parameters
 
-• **\_\_namedParameters**: [`BaseClient`](../../index/type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
+• **client**: [`BaseClient`](../../index/type-aliases/BaseClient.md)
 
 ## Returns
 
