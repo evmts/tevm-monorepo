@@ -1,5 +1,12 @@
 # @tevm/precompiles
 
+## 1.1.0-next.99
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/evm@1.1.0-next.99
+
 ## 1.1.0-next.97
 
 ### Patch Changes

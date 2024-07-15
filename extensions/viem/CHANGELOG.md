@@ -1,5 +1,13 @@
 # @tevm/viem
 
+## 1.1.0-next.99
+
+### Patch Changes
+
+- Updated dependencies [[`a8c810b`](https://github.com/evmts/tevm-monorepo/commit/a8c810b87f682fb3504e6db8a0ace6ef4220e842)]:
+  - @tevm/base-client@1.1.0-next.99
+  - @tevm/decorators@1.1.0-next.99
+
 ## 1.1.0-next.98
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.1.0-next.99
+
+### Minor Changes
+
+- [#1315](https://github.com/evmts/tevm-monorepo/pull/1315) [`c71445a`](https://github.com/evmts/tevm-monorepo/commit/c71445a1aa729f079737ff8e53bc8b39cb70d37b) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new getBlockByTag method to Chain. It gets blocks by hash or number just like getBlock but also accepts a named tag such as 'latest', 'pending', or 'forked'
+
 ## 1.1.0-next.97
 
 ### Patch Changes
