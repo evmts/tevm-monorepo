@@ -1,6 +1,8 @@
 import { createAddress } from '@tevm/address'
-import { AccountNotFoundError, InternalError } from '@tevm/errors'
+import { AccountNotFoundError, ForkError, InternalError } from '@tevm/errors'
 import { bytesToHex } from '@tevm/utils'
+import { cloneVmWithBlockTag } from '../Call/cloneVmWithBlock.js'
+import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateGetAccountParams } from './validateGetAccountParams.js'
 
@@ -44,6 +46,42 @@ export const getAccountHandler =
 
 		const address = createAddress(params.address)
 		try {
+			if (params.blockTag === 'pending') {
+				return getAccountHandler(
+					await getPendingClient(client),
+					options,
+				)({ throwOnFail, ...params, blockTag: 'latest' })
+			}
+			if (params.blockTag !== 'latest' && params.blockTag !== undefined) {
+				const block = await vm.blockchain.getBlockByTag(params.blockTag)
+				const clonedVm = await cloneVmWithBlockTag(client, block)
+				if (clonedVm instanceof ForkError || clonedVm instanceof InternalError) {
+					return maybeThrowOnFail(throwOnFail, {
+						errors: [clonedVm],
+						address: params.address,
+						balance: 0n,
+						/**
+						 * @type {`0x${string}`}
+						 */
+						storageRoot: '0x',
+						nonce: 0n,
+						/**
+						 * @type {`0x${string}`}
+						 */
+						deployedBytecode: '0x',
+						/**
+						 * @type {`0x${string}`}
+						 */
+						codeHash: '0x',
+						isContract: false,
+						isEmpty: true,
+					})
+				}
+				return getAccountHandler(
+					{ ...client, getVm: () => Promise.resolve(clonedVm) },
+					options,
+				)({ throwOnFail, ...params, blockTag: 'latest' })
+			}
 			const res = await vm.stateManager.getAccount(address)
 			if (!res) {
 				return maybeThrowOnFail(throwOnFail, {

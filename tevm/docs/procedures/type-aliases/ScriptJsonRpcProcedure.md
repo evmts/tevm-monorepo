@@ -23,4 +23,4 @@ Procedure for handling script JSON-RPC requests
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1228
+packages/procedures/dist/index.d.ts:1239

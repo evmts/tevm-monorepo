@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getCode` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:478
+packages/procedures/dist/index.d.ts:489

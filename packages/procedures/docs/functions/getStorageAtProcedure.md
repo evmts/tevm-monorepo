@@ -6,17 +6,11 @@
 
 # Function: getStorageAtProcedure()
 
-> **getStorageAtProcedure**(`options`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
+> **getStorageAtProcedure**(`client`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
 ## Parameters
 
-• **options**
-
-• **options.forkClient?**
-
-• **options.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
-
-• **options.getVm**
+• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -24,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/getStorageAtProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getStorageAtProcedure.js#L8)
+[procedures/src/eth/getStorageAtProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/getStorageAtProcedure.js#L7)

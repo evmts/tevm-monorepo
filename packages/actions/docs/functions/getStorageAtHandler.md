@@ -6,15 +6,11 @@
 
 # Function: getStorageAtHandler()
 
-> **getStorageAtHandler**(`options`): [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
+> **getStorageAtHandler**(`client`): [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
 
 ## Parameters
 
-• **options**
-
-• **options.forkClient**: `undefined` \| `object`
-
-• **options.getVm**
+• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -22,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/getStorageAtHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtHandler.js#L13)
+[packages/actions/src/eth/getStorageAtHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtHandler.js#L11)

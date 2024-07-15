@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:601
+packages/procedures/dist/index.d.ts:612

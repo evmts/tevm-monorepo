@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setBalance` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:181
+packages/procedures/dist/index.d.ts:192

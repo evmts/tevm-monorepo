@@ -39,15 +39,15 @@ describe('getStorageAtProcedure', () => {
 
 		const response = await getStorageAtProcedure({
 			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
+			forkTransport: {
+				request: async (req: any) => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
 					return numberToHex(420, { size: 2 }) as any
 				},
 			},
-		})(request)
+		} as any)(request)
 
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()
@@ -65,15 +65,15 @@ describe('getStorageAtProcedure', () => {
 
 		const response = await getStorageAtProcedure({
 			getVm: client.getVm,
-			forkClient: {
-				request: async (req) => {
+			forkTransport: {
+				request: async (req: any) => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
 					return numberToHex(420, { size: 2 }) as any
 				},
 			},
-		})(request)
+		} as any)(request)
 
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()

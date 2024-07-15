@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:510
+packages/procedures/dist/index.d.ts:521

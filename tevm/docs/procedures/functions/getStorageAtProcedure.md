@@ -6,17 +6,11 @@
 
 # Function: getStorageAtProcedure()
 
-> **getStorageAtProcedure**(`__namedParameters`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
+> **getStorageAtProcedure**(`client`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
 ## Parameters
 
-• **\_\_namedParameters**
-
-• **\_\_namedParameters.forkClient?**
-
-• **\_\_namedParameters.forkClient.request**: `EIP1193RequestFn`\<`undefined`\>
-
-• **\_\_namedParameters.getVm**
+• **client**: [`BaseClient`](../../index/type-aliases/BaseClient.md)
 
 ## Returns
 
@@ -24,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:692
+packages/procedures/dist/index.d.ts:703

@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:742
+packages/procedures/dist/index.d.ts:753

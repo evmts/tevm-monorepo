@@ -15,4 +15,4 @@ The JSON-RPC request for the `tevm_script` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:108
+packages/procedures/dist/index.d.ts:119

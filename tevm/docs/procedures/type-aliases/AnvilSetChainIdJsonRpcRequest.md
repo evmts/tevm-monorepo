@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_setChainId` method
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:201
+packages/procedures/dist/index.d.ts:212

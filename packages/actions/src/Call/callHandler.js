@@ -2,6 +2,7 @@ import { createAddress } from '@tevm/address'
 import { numberToBytes } from 'viem'
 import { createScript } from '../Contract/createScript.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
+import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
@@ -64,6 +65,22 @@ export const callHandler =
 		}
 		const _params = {
 			...params,
+		}
+
+		if (_params.blockTag === 'pending') {
+			const pendingClient = await getPendingClient(client)
+			if (_params.createTransaction) {
+				// if we are creating a transaction we want to use the real pending client
+				// use case is if you want your transaction to take previous tx into account when simulating
+				const pendingClientAny = /** @type {any}*/ (pendingClient)
+				pendingClientAny.getTxPool = client.getTxPool
+			}
+			return callHandler(pendingClient, { throwOnFail: defaultThrowOnFail })({
+				...(code !== undefined ? { code } : {}),
+				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
+				..._params,
+				blockTag: 'latest',
+			})
 		}
 
 		const callHandlerRes = await callHandlerOpts(client, _params)

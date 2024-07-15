@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **params?**: [`BaseParams`](BaseParams.md)
+• **params?**: [`DumpStateParams`](DumpStateParams.md)
 
 Optional parameters to customize the state dumping process.
 

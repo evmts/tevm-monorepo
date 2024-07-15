@@ -9,7 +9,7 @@ title: "DumpStateHandler"
 
 ## Parameters
 
-• **params?**: [`BaseParams`](/reference/tevm/actions/type-aliases/baseparams/)
+• **params?**: [`DumpStateParams`](/reference/tevm/actions/type-aliases/dumpstateparams/)
 
 Optional parameters to customize the state dumping process.
 

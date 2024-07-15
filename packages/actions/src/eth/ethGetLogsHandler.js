@@ -3,6 +3,7 @@ import { ForkError, InvalidBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 import { InternalRpcError } from 'viem'
+import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
  * @param {import('@tevm/blockchain').Chain} blockchain
@@ -65,6 +66,13 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	client.logger.debug(params, 'blockNumberHandler called with params')
 	const vm = await client.getVm()
 	const receiptsManager = await client.getReceiptsManager()
+
+	if (params.filterParams.toBlock === 'pending') {
+		return ethGetLogsHandler(await getPendingClient(client))({
+			...params,
+			filterParams: { ...params.filterParams, toBlock: 'latest' },
+		})
+	}
 
 	// TODO make this more parallized
 	const fromBlock = await vm.blockchain.getBlock(

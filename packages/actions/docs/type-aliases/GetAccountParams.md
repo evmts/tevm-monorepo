@@ -26,6 +26,15 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 Address of account
 
+### blockTag?
+
+> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+
+Block tag to fetch account from
+- bigint for block number
+- hex string for block hash
+- 'latest', 'earliest', 'pending', 'forked' etc. tags
+
 ### returnStorage?
 
 > `readonly` `optional` **returnStorage**: `boolean`
