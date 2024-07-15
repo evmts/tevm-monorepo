@@ -1,4 +1,5 @@
 import { Block, blockFromRpc } from '@tevm/block'
+import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
@@ -21,6 +22,7 @@ const isBlockTag = (blockTag) => {
  * @param {import('@tevm/common').Common} common
  */
 export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest' }, common) => {
+	const doWarning = warnOnce(baseChain)
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
 	 * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
@@ -36,7 +38,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					// Optimism type is currently not in viem types
 					// @ts-expect-error
 					if (tx.type === '0x7e') {
-						warnOnce(baseChain)(tx)
+						doWarning(tx)
 						return false
 					}
 					return true
@@ -63,7 +65,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					throw error
 				}
 				if (!result) {
-					throw new Error('No block found')
+					throw new UnknownBlockError('No block found')
 				}
 				return asEthjsBlock(result)
 			}
@@ -75,12 +77,10 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					params: [blockTag, true],
 				})
 				if (error) {
-					console.error(error)
 					throw error
 				}
 				if (!result) {
-					console.error(error)
-					throw new Error('No block found')
+					throw new UnknownBlockError('No block found')
 				}
 				return asEthjsBlock(/** @type {any}*/ (result))
 			}
@@ -93,15 +93,14 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					params: [blockTag, true],
 				})
 				if (error) {
-					console.error(error)
 					throw error
 				}
 				if (!result) {
-					throw new Error('No block found')
+					throw new UnknownBlockError('No block found')
 				}
 				return asEthjsBlock(/** @type {any}*/ (result))
 			}
-			throw new Error(`Invalid blocktag ${blockTag}`)
+			throw new InvalidBlockError(`Invalid blocktag ${blockTag}`)
 		},
 		{
 			retryCount: 3,

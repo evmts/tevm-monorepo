@@ -66,6 +66,33 @@ Returns a block by its hash or number.
 
 `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
+### getBlockByTag()
+
+Gets block given one of the following inputs:
+- Hex block hash
+- Hex block number (if length is 32 bytes, it is treated as a hash)
+- Uint8Array block hash
+- Number block number
+- BigInt block number
+- BlockTag block tag
+- Named block tag (e.g. 'latest', 'earliest', 'pending')
+
+#### Parameters
+
+• **blockTag**: `number` \| `bigint` \| `Uint8Array` \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| \`0x$\{string\}\`
+
+#### Returns
+
+`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
+
+#### Throws
+
+- If the block is not found
+
+#### Throw
+
+- If the block tag is invalid}
+
 ### getCanonicalHeadBlock()
 
 Returns the latest full block in the canonical chain.

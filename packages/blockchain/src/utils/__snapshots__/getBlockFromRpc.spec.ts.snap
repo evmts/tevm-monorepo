@@ -1,0 +1,42 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getBlockFromRpc should handle invalid block tag 1`] = `[UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle non-existing block number 1`] = `[UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle non-existing block hash 1`] = `[UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle Optimism deposit transactions filtering 1`] = `
+[
+  [
+    
+"Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35. 
+Note: The block hash will be different because of the execluded txs"
+,
+  ],
+  [
+    
+"Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35. 
+Note: The block hash will be different because of the execluded txs"
+,
+  ],
+  [
+    
+"Warning: Optimism deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35. 
+Note: The block hash will be different because of the execluded txs"
+,
+  ],
+]
+`;
