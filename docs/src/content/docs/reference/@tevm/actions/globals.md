@@ -78,6 +78,7 @@ title: "@tevm/actions"
 - [DeployParams](/reference/tevm/actions/type-aliases/deployparams/)
 - [DeployResult](/reference/tevm/actions/type-aliases/deployresult/)
 - [DumpStateHandler](/reference/tevm/actions/type-aliases/dumpstatehandler/)
+- [DumpStateParams](/reference/tevm/actions/type-aliases/dumpstateparams/)
 - [DumpStateResult](/reference/tevm/actions/type-aliases/dumpstateresult/)
 - [EmptyParams](/reference/tevm/actions/type-aliases/emptyparams/)
 - [EthAccountsHandler](/reference/tevm/actions/type-aliases/ethaccountshandler/)

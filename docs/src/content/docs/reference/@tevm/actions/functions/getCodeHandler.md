@@ -17,4 +17,4 @@ title: "getCodeHandler"
 
 ## Defined in
 
-[packages/actions/src/eth/getCodeHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L9)
+[packages/actions/src/eth/getCodeHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L10)

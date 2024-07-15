@@ -17,4 +17,4 @@ title: "getBalanceHandler"
 
 ## Defined in
 
-[packages/actions/src/eth/getBalanceHandler.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L22)
+[packages/actions/src/eth/getBalanceHandler.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L23)
