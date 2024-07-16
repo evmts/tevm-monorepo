@@ -25,8 +25,8 @@ describe('createBlockFilter', () => {
 	it('works', async () => {
 		const id = await mc.createBlockFilter()
 		expect(id.type).toBe('block')
-		expect(id.request).toBeFunction()
+		expect(id.request).toBeInstanceOf(Function)
 		expect(id.id).toBeDefined()
-		expect(id.id.startsWith('0x')).toBeTrue()
+		expect(id.id.startsWith('0x')).toBe(true)
 	})
 })

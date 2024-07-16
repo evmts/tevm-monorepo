@@ -24,9 +24,9 @@ beforeEach(async () => {
 describe('createPendingTransactionFilter', () => {
 	it('createPendingTransactionFilter work', async () => {
 		const res = await mc.createPendingTransactionFilter()
-		expect(res.request).toBeFunction()
+		expect(res.request).toBeInstanceOf(Function)
 		expect(res.type).toBe('transaction')
 		expect(res.id).toBeDefined()
-		expect(res.id.startsWith('0x')).toBeTrue()
+		expect(res.id.startsWith('0x')).toBe(true)
 	})
 })

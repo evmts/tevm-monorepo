@@ -43,6 +43,6 @@ describe('createBaseVm', () => {
 
 	it('should call ready functions on stateManager and blockchain', async () => {
 		const baseVm = createBaseVm(opts)
-		expect(await baseVm.ready()).toBeTrue()
+		expect(await baseVm.ready()).toBe(true)
 	})
 })

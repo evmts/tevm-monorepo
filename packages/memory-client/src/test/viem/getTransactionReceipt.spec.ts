@@ -27,7 +27,7 @@ beforeEach(async () => {
 describe('getTransactionReceipt', () => {
 	it('should work', async () => {
 		const { blockHash, ...receipt } = await mc.getTransactionReceipt({ hash: deployTxHash })
-		expect(blockHash).toStartWith('0x')
+		expect(blockHash.startsWith('0x')).toBe(true)
 		expect(receipt).toMatchSnapshot()
 	})
 })

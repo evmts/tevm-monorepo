@@ -16,10 +16,10 @@ describe(createImpersonatedTx.name, () => {
 			data,
 			impersonatedAddress,
 		})
-		expect(tx.isImpersonated).toBeTrue()
+		expect(tx.isImpersonated).toBe(true)
 		expect(tx.hash()).toMatchSnapshot()
 		expect(tx.getSenderAddress()).toEqual(impersonatedAddress)
-		expect(tx.isSigned()).toBeTrue()
+		expect(tx.isSigned()).toBe(true)
 	})
 
 	it('should support Object.keys', () => {
