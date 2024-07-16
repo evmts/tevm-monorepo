@@ -33,7 +33,14 @@ export const dumpStateHandler =
 	async ({ throwOnFail = options.throwOnFail, blockTag = 'latest' } = {}) => {
 		try {
 			const vm =
-				blockTag === 'pending' ? await getPendingClient(client).then(({ getVm }) => getVm()) : await client.getVm()
+				blockTag === 'pending'
+					? await getPendingClient(client).then((mineResult) => {
+							if (mineResult.errors) {
+								throw mineResult.errors[0]
+							}
+							return mineResult.pendingClient.getVm()
+						})
+					: await client.getVm()
 			if ('dumpCanonicalGenesis' in vm.stateManager) {
 				if (blockTag === 'latest' || blockTag === 'pending') {
 					return { state: await vm.stateManager.dumpCanonicalGenesis() }

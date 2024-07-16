@@ -55,17 +55,20 @@ export const mineHandler =
 				break
 			}
 			case 'SYNCING': {
-				throw new MisconfiguredClientError('Syncing not currently implemented')
+				const err = new MisconfiguredClientError('Syncing not currently implemented')
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
 			}
 			case 'STOPPED': {
-				throw new MisconfiguredClientError('Client is stopped')
+				const err = new MisconfiguredClientError('Client is stopped')
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
 			}
 			case 'READY': {
 				client.status = 'MINING'
 				break
 			}
 			default: {
-				throw new UnreachableCodeError(client.status)
+				const err = new UnreachableCodeError(client.status)
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
 			}
 		}
 

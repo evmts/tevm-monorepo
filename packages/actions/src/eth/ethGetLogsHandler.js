@@ -68,7 +68,11 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
 
 	if (params.filterParams.toBlock === 'pending') {
-		return ethGetLogsHandler(await getPendingClient(client))({
+		const mineResult = await getPendingClient(client)
+		if (mineResult.errors) {
+			throw mineResult.errors[0]
+		}
+		return ethGetLogsHandler(mineResult.pendingClient)({
 			...params,
 			filterParams: { ...params.filterParams, toBlock: 'latest' },
 		})

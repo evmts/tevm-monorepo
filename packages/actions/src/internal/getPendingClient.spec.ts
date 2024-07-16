@@ -36,12 +36,16 @@ describe('getPendingClient', () => {
 
 		expect(txPool.txsInPool).toBe(1)
 
-		const pendingClient = await getPendingClient(client)
+		const mineResult = await getPendingClient(client)
 
-		expect((await pendingClient.getTxPool()).txsInPool).toBe(0)
+		if (mineResult.errors) {
+			throw mineResult.errors[0]
+		}
 
-		const fromAccount = await getAccountHandler(pendingClient)({ address: from })
-		const toAccount = await getAccountHandler(pendingClient)({ address: to })
+		expect((await mineResult.pendingClient.getTxPool()).txsInPool).toBe(0)
+
+		const fromAccount = await getAccountHandler(mineResult.pendingClient)({ address: from })
+		const toAccount = await getAccountHandler(mineResult.pendingClient)({ address: to })
 
 		expect(fromAccount.balance).toBeLessThan(value * 2n)
 		expect(fromAccount.nonce).toBe(1n)
