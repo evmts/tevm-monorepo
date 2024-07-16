@@ -1,10 +1,11 @@
 import { createBaseClient } from '@tevm/base-client'
-import { Evm } from '@tevm/evm'
+import { createEvm } from '@tevm/evm'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from './setAccountHandler.js'
+import { mainnet } from '@tevm/common'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -52,10 +53,12 @@ describe('setAccountHandler', () => {
 				)
 			},
 		}
-		const evm = await Evm.create({
+		const { common, blockchain } = await createBaseClient().getVm()
+		const evm = await createEvm({
+			common,
+			blockchain,
 			stateManager: stateManager as any,
 		})
-		const { common, blockchain } = await createBaseClient().getVm()
 		const vm = createVm({ evm, stateManager: stateManager as any, common, blockchain })
 		const client = createBaseClient()
 		const res = await setAccountHandler({ ...client, getVm: async () => vm } as any)({

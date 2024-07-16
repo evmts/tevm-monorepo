@@ -63,6 +63,9 @@ export class Evm extends EVM {
 	 * @override
 	 */
 	static create = (options) => {
-		return Evm.create(options)
+		const evm = /** @type {any}*/ (EVM.create(options))
+		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
+		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
+		return evm
 	}
 }
