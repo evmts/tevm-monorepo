@@ -86,8 +86,10 @@ describe('getContractStorage forking', () => {
 		const noForkBaseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toEqual(
-			Uint8Array.from([0]),
-		)
+		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toMatchInlineSnapshot(`
+			Uint8Array [
+			  0,
+			]
+		`)
 	})
 })

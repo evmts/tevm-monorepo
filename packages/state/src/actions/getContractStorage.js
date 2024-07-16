@@ -54,5 +54,5 @@ export const getContractStorage = (baseState) => async (address, key) => {
 
 	baseState.logger.debug({ address, key, value }, 'Cached forked storage to state')
 
-	return value
+	return getContractStorage(baseState)(address, key)
 }

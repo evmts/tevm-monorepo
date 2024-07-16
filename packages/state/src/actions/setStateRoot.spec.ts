@@ -32,8 +32,8 @@ describe(setStateRoot.name, () => {
 		})
 		await baseState.ready()
 		const root = hexToBytes(`0x${'11'.repeat(32)}`)
-		expect(() => setStateRoot(baseState)(root)).toThrowError(
-			new NoStateRootExistsError(`State root for ${bytesToHex(root)} does not exist`),
-		)
+		const err = await setStateRoot(baseState)(root).catch((e) => e)
+		expect(err).toBeInstanceOf(NoStateRootExistsError)
+		expect(err).toMatchSnapshot()
 	})
 })
