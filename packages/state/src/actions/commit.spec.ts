@@ -55,7 +55,7 @@ describe(commit.name, () => {
 		})
 		baseState.getCurrentStateRoot = vi.fn(() => 'existingStateRoot') as any
 		baseState.setCurrentStateRoot = vi.fn()
-		baseState.logger.debug = vi.fn()
+		baseState.logger.debug = vi.fn() as any
 		baseState.options.onCommit = vi.fn()
 		baseState.stateRoots.set = vi.fn()
 		baseState.caches.accounts.commit = vi.fn()
