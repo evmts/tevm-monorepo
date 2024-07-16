@@ -29,7 +29,11 @@ export const getBalanceHandler =
 			return account?.balance ?? 0n
 		}
 		if (blockTag === 'pending') {
-			return getBalanceHandler(await getPendingClient(baseClient))({ address, blockTag: 'latest' })
+			const mineResult = await getPendingClient(baseClient)
+			if (mineResult.errors) {
+				throw mineResult.errors[0]
+			}
+			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
 		}
 		const block =
 			vm.blockchain.blocks.get(
@@ -58,7 +62,8 @@ export const getBalanceHandler =
 			params: [address, blockTag],
 		})
 		if (jsonRpcResponse.error) {
-			throw new Error(jsonRpcResponse.error.message)
+			// TODO we should parse this into the correct error type
+			throw jsonRpcResponse.error
 		}
 		if (jsonRpcResponse.result === null) {
 			return 0n

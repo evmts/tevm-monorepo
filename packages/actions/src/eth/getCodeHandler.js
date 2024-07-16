@@ -12,7 +12,11 @@ export const getCodeHandler = (baseClient) => async (params) => {
 	const tag = params.blockTag ?? 'latest'
 
 	if (tag === 'pending') {
-		return getCodeHandler(await getPendingClient(baseClient))({ ...params, blockTag: 'latest' })
+		const mineResult = await getPendingClient(baseClient)
+		if (mineResult.errors) {
+			throw mineResult.errors[0]
+		}
+		return getCodeHandler(mineResult.pendingClient)({ ...params, blockTag: 'latest' })
 	}
 
 	const block = await (async () => {

@@ -68,14 +68,24 @@ export const callHandler =
 		}
 
 		if (_params.blockTag === 'pending') {
-			const pendingClient = await getPendingClient(client)
+			const minePending = await getPendingClient(client)
+			if (minePending.errors) {
+				client.logger.error(minePending.errors)
+				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+					errors: minePending.errors,
+					executionGasUsed: 0n,
+					/**
+					 * @type {`0x${string}`}
+					 */
+					rawData: '0x',
+				})
+			}
+			// if we are creating a transaction we want to use the real txpool so the tx gets properly added
 			if (_params.createTransaction) {
-				// if we are creating a transaction we want to use the real pending client
-				// use case is if you want your transaction to take previous tx into account when simulating
-				const pendingClientAny = /** @type {any}*/ (pendingClient)
+				const pendingClientAny = /** @type {any}*/ (minePending.pendingClient)
 				pendingClientAny.getTxPool = client.getTxPool
 			}
-			return callHandler(pendingClient, { throwOnFail: defaultThrowOnFail })({
+			return callHandler(minePending.pendingClient, { throwOnFail: defaultThrowOnFail })({
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
 				..._params,

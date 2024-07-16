@@ -12,7 +12,11 @@ export const getStorageAtHandler = (client) => async (params) => {
 	const vm = await client.getVm()
 	const tag = params.blockTag ?? 'latest'
 	if (tag === 'pending') {
-		return getStorageAtHandler(await getPendingClient(client))({ ...params, blockTag: 'latest' })
+		const mineResult = await getPendingClient(client)
+		if (mineResult.errors) {
+			throw mineResult.errors[0]
+		}
+		return getStorageAtHandler(mineResult.pendingClient)({ ...params, blockTag: 'latest' })
 	}
 	if (tag === 'latest') {
 		return bytesToHex(

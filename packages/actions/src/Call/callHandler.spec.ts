@@ -1,12 +1,15 @@
 import { describe, expect, it, jest } from 'bun:test'
+import { createAddress, createContractAddress } from '@tevm/address'
 import { createBaseClient } from '@tevm/base-client'
 import { optimism } from '@tevm/common'
-import { InvalidGasPriceError } from '@tevm/errors'
+import { InvalidGasPriceError, MisconfiguredClientError } from '@tevm/errors'
 import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
 	EthjsAddress,
+	PREFUNDED_ACCOUNTS,
 	decodeFunctionResult,
+	encodeDeployData,
 	encodeFunctionData,
 	hexToBytes,
 	parseEther,
@@ -757,5 +760,163 @@ describe('callHandler', () => {
 			}),
 		})
 		expect(stateResult.rawData).toBe(`0x${setValue.toString(16).padStart(64, '0')}`)
+	})
+
+	it('should be able to process pending transactions', async () => {
+		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
+		const contractAddress = createContractAddress(from, 0n)
+		const contract = SimpleContract.withAddress(contractAddress.toString())
+
+		const client = createBaseClient()
+
+		const deployResult = await callHandler(client)({
+			createTransaction: true,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			data: encodeDeployData(SimpleContract.deploy(2n)),
+			throwOnFail: false,
+		})
+
+		// deploy contract using transaction
+		expect(deployResult).toEqual({
+			amountSpent: 1117613n,
+			createdAddress: createContractAddress(from, 0n).toString(),
+			createdAddresses: new Set([contractAddress.toString()]),
+			executionGasUsed: 98137n,
+			gas: 29915941n,
+			logs: [],
+			rawData: SimpleContract.deployedBytecode,
+			selfdestruct: new Set(),
+			totalGasSpent: 159659n,
+			txHash: '0x8f656a85084ae373ac42a63a2f2186e683107d753cd9509574f314f3c97b923e',
+		})
+
+		if (!deployResult.createdAddress) throw new Error('No created address')
+
+		// cannot read from contract using latest because we haven't mined
+		expect(
+			await callHandler(client)({
+				blockTag: 'latest',
+				throwOnFail: false,
+				...contract.read.get(),
+			}),
+		).toEqual({
+			amountSpent: 147000n,
+			executionGasUsed: 0n,
+			// rawData is 0x because the contract hasn't been mined yet
+			rawData: '0x',
+			totalGasSpent: 21000n,
+		})
+
+		// can read from contract if we using pending though
+		expect(
+			await callHandler(client)({
+				blockTag: 'pending',
+				throwOnFail: false,
+				data: encodeFunctionData(contract.read.get()),
+				to: contract.address,
+			}),
+		).toEqual({
+			// it works with pending tag
+			rawData: '0x0000000000000000000000000000000000000000000000000000000000000002',
+			amountSpent: 164472n,
+			createdAddresses: new Set(),
+			executionGasUsed: 2432n,
+			gas: 29976504n,
+			logs: [],
+			selfdestruct: new Set(),
+			totalGasSpent: 23496n,
+		})
+
+		// can also submit tx using pending
+		expect(
+			await callHandler(client)({
+				blockTag: 'pending',
+				throwOnFail: false,
+				createTransaction: true,
+				createAccessList: true,
+				to: contract.address,
+				data: encodeFunctionData(contract.write.set(42n)),
+			}),
+		).toEqual({
+			amountSpent: 194488n,
+			createdAddresses: new Set(),
+			executionGasUsed: 6580n,
+			gas: 29972216n,
+			logs: [
+				{
+					address: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+					data: '0x000000000000000000000000000000000000000000000000000000000000002a',
+					topics: ['0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc'],
+				},
+			],
+			accessList: {
+				'0x5fbdb2315678afecb367f032d93f642f64180aa3': new Set([
+					'0x0000000000000000000000000000000000000000000000000000000000000000',
+				]),
+			},
+			preimages: {
+				'0x44e659e60b21cc961f64ad47f20523c1d329d4bbda245ef3940a76dc89d0911b':
+					'0x5fbdb2315678afecb367f032d93f642f64180aa3',
+				'0x5380c7b7ae81a58eb98d9c78de4a1fd7fd9535fc953ed2be602daaa41767312a':
+					'0x0000000000000000000000000000000000000000',
+				'0xe9707d0e6171f728f7473c24cc0432a9b07eaaf1efed6a137a4a8c12c79552d9':
+					'0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+			},
+			rawData: '0x',
+			selfdestruct: new Set(),
+			totalGasSpent: 27784n,
+			txHash: '0x837ec20cf75b4fbac2da3b8efc547b9683af8afa5a54e9d2975b32224ea4ae86',
+		})
+	})
+
+	it('should handle mining failing', async () => {
+		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
+		const contractAddress = createContractAddress(from, 0n)
+		const contract = SimpleContract.withAddress(contractAddress.toString())
+
+		const client = createBaseClient()
+
+		const deployResult = await callHandler(client)({
+			createTransaction: true,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			data: encodeDeployData(SimpleContract.deploy(2n)),
+			throwOnFail: false,
+		})
+
+		// deploy contract using transaction
+		expect(deployResult).toEqual({
+			amountSpent: 1117613n,
+			createdAddress: createContractAddress(from, 0n).toString(),
+			createdAddresses: new Set([contractAddress.toString()]),
+			executionGasUsed: 98137n,
+			gas: 29915941n,
+			logs: [],
+			rawData: SimpleContract.deployedBytecode,
+			selfdestruct: new Set(),
+			totalGasSpent: 159659n,
+			txHash: '0x8f656a85084ae373ac42a63a2f2186e683107d753cd9509574f314f3c97b923e',
+		})
+
+		if (!deployResult.createdAddress) throw new Error('No created address')
+
+		// make it so an error happens while mining
+		const originalDeepCopy = client.deepCopy.bind(client)
+		;(client as any).deepCopy = async () => {
+			const copy = await originalDeepCopy()
+			return {
+				...copy,
+				// This will cause the mine handler to throw an error for not being ready
+				status: 'SYNCING',
+			}
+		}
+
+		const { errors } = await callHandler(client)({
+			blockTag: 'pending',
+			throwOnFail: false,
+			...contract.read.get(),
+			to: contract.address,
+		})
+		expect(errors?.[0]).toBeInstanceOf(MisconfiguredClientError)
+		expect(errors).toMatchSnapshot()
 	})
 })
