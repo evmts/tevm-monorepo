@@ -1,5 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`ethGetBlockTransactionCountByHashJsonRpcProcedure > should handle an invalid block hash 1`] = `
+[ViemError: Invalid byte sequence ("0I" in "0InvalidHash").
+
+Version: viem@2.14.2]
+`;
+
 exports[`ethGetBlockTransactionCountByHashJsonRpcProcedure should handle an invalid block hash 1`] = `[BaseError: Invalid byte sequence ("0I" in "0InvalidHash").
 
 Version: viem@2.14.2]`;

@@ -7,6 +7,12 @@ exports[`ethGetFilterChangesProcedure > should return an error if the filter is 
 }
 `;
 
+exports[`ethGetFilterChangesProcedure > should return block changes for Block type filter 1`] = `
+[
+  "0x1",
+]
+`;
+
 exports[`ethGetFilterChangesProcedure > should return log changes for Log type filter 1`] = `
 [
   {
