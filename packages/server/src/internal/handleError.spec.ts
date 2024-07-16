@@ -14,7 +14,7 @@ describe('handleError', () => {
 
 	it('should handle error with JSON-RPC request id', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = vi.fn()
+		client.transport.tevm.logger.error = vi.fn() as any
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 		const jsonRpcReq = { method: 'testMethod', id: 1 }
@@ -39,7 +39,7 @@ describe('handleError', () => {
 
 	it('should handle error without JSON-RPC request id', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = vi.fn()
+		client.transport.tevm.logger.error = vi.fn() as any
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 		const jsonRpcReq = { method: 'testMethod' }
@@ -63,7 +63,7 @@ describe('handleError', () => {
 
 	it('should handle error with default method when JSON-RPC request is not provided', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = vi.fn()
+		client.transport.tevm.logger.error = vi.fn() as any
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 

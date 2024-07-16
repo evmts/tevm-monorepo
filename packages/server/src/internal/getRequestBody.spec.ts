@@ -39,7 +39,7 @@ describe('getRequestBody', () => {
 		const result = await getRequestBody(req as unknown as IncomingMessage)
 		expect(result).toBeInstanceOf(ReadRequestBodyError)
 		expect((result as ReadRequestBodyError).cause?.message).toBe(errorMessage)
-		expect((result as ReadRequestBodyError).message).toInclude(errorMessage)
+		expect((result as ReadRequestBodyError).message.includes(errorMessage)).toBe(true)
 		expect(result).toMatchSnapshot()
 	})
 })
