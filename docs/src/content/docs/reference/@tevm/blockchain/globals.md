@@ -20,6 +20,7 @@ title: "@tevm/blockchain"
 - [getBlockFromRpc](/reference/tevm/blockchain/functions/getblockfromrpc/)
 - [getCanonicalHeadBlock](/reference/tevm/blockchain/functions/getcanonicalheadblock/)
 - [getIteratorHead](/reference/tevm/blockchain/functions/getiteratorhead/)
+- [isTevmBlockTag](/reference/tevm/blockchain/functions/istevmblocktag/)
 - [putBlock](/reference/tevm/blockchain/functions/putblock/)
 - [setIteratorHead](/reference/tevm/blockchain/functions/setiteratorhead/)
 - [shallowCopy](/reference/tevm/blockchain/functions/shallowcopy/)
