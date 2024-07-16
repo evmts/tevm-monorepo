@@ -1,4 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`deepCopy should throw MisconfiguredClientError if stateManager does not support deepCopy 1`] = `[MisconfiguredClientError: StateManager does not support deepCopy. Was a Tevm state manager used?
 

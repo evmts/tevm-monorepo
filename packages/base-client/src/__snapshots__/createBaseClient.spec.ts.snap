@@ -1,6 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`createBaseClient with State Persister Restores state correctly from persister 1`] = `Map {}`;
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`createBaseClient Creates a base client 1`] = `
 {
@@ -36,3 +34,5 @@ exports[`createBaseClient Creates a base client 1`] = `
   },
 }
 `;
+
+exports[`createBaseClient with State Persister Restores state correctly from persister 1`] = `Map {}`;

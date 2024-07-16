@@ -1,4 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`ethGetBlockByNumberJsonRpcProcedure should handle invalid block tag 1`] = `
 {
@@ -7,8 +7,8 @@ exports[`ethGetBlockByNumberJsonRpcProcedure should handle invalid block tag 1`]
 }
 `;
 
-exports[`ethGetBlockByNumberJsonRpcProcedure should return block details by number 1`] = `Promise {}`;
+exports[`ethGetBlockByNumberJsonRpcProcedure should handle requests without an id 1`] = `Promise {}`;
 
 exports[`ethGetBlockByNumberJsonRpcProcedure should include transactions if requested 1`] = `Promise {}`;
 
-exports[`ethGetBlockByNumberJsonRpcProcedure should handle requests without an id 1`] = `Promise {}`;
+exports[`ethGetBlockByNumberJsonRpcProcedure should return block details by number 1`] = `Promise {}`;

@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ethGetBlockByHashJsonRpcProcedure should return block details by hash 1`] = `
+exports[`ethGetBlockByHashJsonRpcProcedure should handle requests without an id 1`] = `
 {
   "baseFeePerGas": "0x7",
   "blobGasUsed": "0x0",
@@ -88,7 +88,7 @@ exports[`ethGetBlockByHashJsonRpcProcedure should include transactions if reques
 }
 `;
 
-exports[`ethGetBlockByHashJsonRpcProcedure should handle requests without an id 1`] = `
+exports[`ethGetBlockByHashJsonRpcProcedure should return block details by hash 1`] = `
 {
   "baseFeePerGas": "0x7",
   "blobGasUsed": "0x0",
