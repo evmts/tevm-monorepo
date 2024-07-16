@@ -3,30 +3,16 @@
 exports[`createHttpHandler > should handle a bulk JSON-RPC request 1`] = `
 [
   {
-    "error": {
-      "code": -32603,
-      "message": "eth_chainId
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Maximum call stack size exceeded
-Version: 1.1.0.next-73",
-    },
     "id": 1,
     "jsonrpc": "2.0",
     "method": "eth_chainId",
+    "result": "0x384",
   },
   {
-    "error": {
-      "code": -32603,
-      "message": "eth_blockNumber
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Maximum call stack size exceeded
-Version: 1.1.0.next-73",
-    },
     "id": 2,
     "jsonrpc": "2.0",
     "method": "eth_blockNumber",
+    "result": "0x0",
   },
 ]
 `;
@@ -51,51 +37,6 @@ Version: 1.1.0.next-73"
 `;
 
 exports[`createHttpHandler > should return 400 for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"params":{"_errors":["Expected object, received string","Expected array, received string"]}}
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;
-
-exports[`createHttpHandler should handle a bulk JSON-RPC request 1`] = `
-[
-  {
-    "id": 1,
-    "jsonrpc": "2.0",
-    "method": "eth_chainId",
-    "result": "0x384",
-  },
-  {
-    "id": 2,
-    "jsonrpc": "2.0",
-    "method": "eth_blockNumber",
-    "result": "0x0",
-  },
-]
-`;
-
-exports[`createHttpHandler should handle an unexpected error during request processing that are not base error 1`] = `
-{
-  "code": -32603,
-  "message": 
-"Unexpeced error
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: oops
-Version: 1.1.0.next-73"
-,
-}
-`;
-
-exports[`createHttpHandler should return 400 for invalid JSON 1`] = `
-"JSON Parse error: Expected '}'
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: JSON Parse error: Expected '}'
-Version: 1.1.0.next-73"
-`;
-
-exports[`createHttpHandler should return 400 for invalid JSON-RPC request 1`] = `
 "{"_errors":[],"params":{"_errors":["Expected object, received string","Expected array, received string"]}}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/

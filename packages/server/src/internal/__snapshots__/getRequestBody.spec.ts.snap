@@ -7,9 +7,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/readrequestbodyerror/
 Details: Network error
 Version: 1.1.0.next-73]
 `;
-
-exports[`getRequestBody should return a ReadRequestBodyError on request error 1`] = `[ReadRequestBodyError: Network error
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/readrequestbodyerror/
-Details: Network error
-Version: 1.1.0.next-73]`;
