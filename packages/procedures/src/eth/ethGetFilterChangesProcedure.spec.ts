@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, type Filter, createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
 import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
 

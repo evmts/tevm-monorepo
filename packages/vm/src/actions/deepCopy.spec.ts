@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { type Common, mainnet } from '@tevm/common'
 import { createCommon } from '@tevm/common'
 import { MisconfiguredClientError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BaseVm } from '../BaseVm.js'
 import { createBaseVm } from '../createBaseVm.js'
 import { deepCopy } from './deepCopy.js'
@@ -50,7 +50,7 @@ describe('deepCopy', () => {
 		anyEvm.allowUnlimitedContractSize = true
 		anyEvm._customPrecompiles = [{ mock: 'object' }]
 		anyEvm.DEBUG = true
-		anyEvm._debug = jest.fn()
+		anyEvm._debug = vi.fn()
 
 		const deepCopyVm = await deepCopy(baseVm)()
 		expect(deepCopyVm.evm.allowUnlimitedContractSize).toBe(true)

@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
 import { type Address, type Client, createClient } from 'viem'
 import { getBlockNumber } from 'viem/actions'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmContract } from './tevmContract.js'

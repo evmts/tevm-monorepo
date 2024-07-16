@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import type { Address } from 'abitype'
 import { mnemonicToAccount, privateKeyToAddress } from 'viem/accounts'
+import { describe, expect, it } from 'vitest'
 import {
 	PREFUNDED_ACCOUNTS,
 	PREFUNDED_PRIVATE_KEYS,

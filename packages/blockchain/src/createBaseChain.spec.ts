@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
+import { describe, expect, it } from 'vitest'
 import { createBaseChain } from './createBaseChain.js'
 import { getMockBlocks } from './test/getBlocks.js'
 

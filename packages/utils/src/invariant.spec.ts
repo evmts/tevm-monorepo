@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { DefensiveNullCheckError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { invariant } from './invariant.js'
 
 describe('invariant', () => {

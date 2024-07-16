@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { InternalError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { forkAndCacheBlock } from './forkAndCacheBlock.js'
 
 describe('forkAndCacheBlock', () => {

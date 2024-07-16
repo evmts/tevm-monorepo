@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { EMPTY_STATE_ROOT } from './EMPTY_STATE_ROOT.js'
 import { genesisStateRoot } from './index.js'
 

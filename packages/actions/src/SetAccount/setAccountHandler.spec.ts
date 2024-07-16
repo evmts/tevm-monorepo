@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { Evm } from '@tevm/evm'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from './setAccountHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const

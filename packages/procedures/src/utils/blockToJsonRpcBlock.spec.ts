@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 
 describe('blockToJsonRpcBlock', async () => {

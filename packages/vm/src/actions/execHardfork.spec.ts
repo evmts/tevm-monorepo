@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import type { Hardfork } from '@tevm/common'
+import { describe, expect, it } from 'vitest'
 import { execHardfork } from './execHardfork.js'
 
 describe('execHardfork', () => {

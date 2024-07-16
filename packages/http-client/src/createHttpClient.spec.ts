@@ -1,4 +1,3 @@
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { type Server, createServer } from 'node:http'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
@@ -6,6 +5,7 @@ import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from 'viem'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createHttpClient } from './createHttpClient.js'
 
 describe.skip(createHttpClient.name, () => {

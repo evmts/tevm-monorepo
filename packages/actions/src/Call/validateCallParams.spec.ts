@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateCallParams } from './validateCallParams.js'
 

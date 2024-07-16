@@ -1,11 +1,11 @@
-import { describe, it, jest } from 'bun:test'
 import type { Hex } from 'viem'
+import { describe, it, vi } from 'vitest'
 import type { Eip1193RequestProvider } from './Eip1193RequestProvider.js'
 
 describe('Eip1193RequestProvider types', () => {
 	it('should create a typesafe request function', async () => {
 		const client = {
-			request: jest.fn().mockResolvedValue({}),
+			request: vi.fn().mockResolvedValue({}),
 		} as Eip1193RequestProvider
 
 		// tevm_script

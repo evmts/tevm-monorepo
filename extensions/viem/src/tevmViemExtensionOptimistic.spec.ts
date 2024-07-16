@@ -1,17 +1,17 @@
-import { describe, expect, it, jest, mock } from 'bun:test'
 import type { WaitForTransactionReceiptReturnType } from 'viem/actions'
+import { describe, expect, it, mock, vi } from 'vitest'
 // TODO convert to js and make src the entrypoint
 import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
 
 mock.module('viem/actions', () => ({
 	...require('viem/actions'),
-	waitForTransactionReceipt: jest.fn(),
+	waitForTransactionReceipt: vi.fn(),
 }))
 
 const client = (() => {
 	const c = {
-		request: jest.fn(),
-		writeContract: jest.fn(),
+		request: vi.fn(),
+		writeContract: vi.fn(),
 		extend: (decorator: ReturnType<typeof tevmViemExtensionOptimistic>) => {
 			const decorated = decorator(c)
 			return {
@@ -47,7 +47,7 @@ client.writeContract.mockResolvedValue(mockWriteContractResponse)
 
 describe('tevmViemExtension', () => {
 	it('writeContractOptimistic should write a contract call and optimistically execute it against the vm', async () => {
-		const mockWaitForTransactionReceipt = (await import('viem/actions')).waitForTransactionReceipt as jest.Mock
+		const mockWaitForTransactionReceipt = (await import('viem/actions')).waitForTransactionReceipt as vi.Mock
 		mockWaitForTransactionReceipt.mockResolvedValue(mockTxReciept)
 
 		const decoratedClient = client.extend(tevmViemExtensionOptimistic())
@@ -69,12 +69,12 @@ describe('tevmViemExtension', () => {
 					success: true,
 					tag: 'OPTIMISTIC_RESULT',
 				})
-				expect((client.request as jest.Mock).mock.lastCall?.[0]).toEqual({
+				expect((client.request as vi.Mock).mock.lastCall?.[0]).toEqual({
 					method: 'tevm_contract',
 					params: params,
 					jsonrpc: '2.0',
 				})
-				expect((client.writeContract as jest.Mock).mock.lastCall?.[0]).toEqual({
+				expect((client.writeContract as vi.Mock).mock.lastCall?.[0]).toEqual({
 					abi: params.abi,
 					functionName: params.functionName,
 					args: params.args,

@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { AccountNotFoundError, InvalidAddressError } from '@tevm/errors'
 import { TestERC20 } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getAccountHandler } from './getAccountHandler.js'
 

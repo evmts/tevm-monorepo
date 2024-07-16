@@ -1,5 +1,5 @@
-import { expect, test } from 'bun:test'
 import type { Hex } from 'viem'
+import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zStorageRoot } from './zStorageRoot.js'
 

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidAddressError, InvalidBalanceError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { validateMineParams } from './validateMineParams.js'
 
 describe('validateMineParams', () => {

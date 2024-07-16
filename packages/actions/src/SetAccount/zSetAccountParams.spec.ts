@@ -1,4 +1,4 @@
-import { expect, test } from 'bun:test'
+import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import type { SetAccountParams } from './SetAccountParams.js'
 import { zSetAccountParams } from './zSetAccountParams.js'

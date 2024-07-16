@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { createClient } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
 

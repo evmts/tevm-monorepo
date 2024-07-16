@@ -1,4 +1,3 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { createAddress, createContractAddress } from '@tevm/address'
 import { createBaseClient } from '@tevm/base-client'
 import { optimism } from '@tevm/common'
@@ -14,6 +13,7 @@ import {
 	hexToBytes,
 	parseEther,
 } from '@tevm/utils'
+import { describe, expect, it, vi } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -591,7 +591,7 @@ describe('callHandler', () => {
 				},
 			},
 		})
-		const mockWarn = jest.fn()
+		const mockWarn = vi.fn()
 		client.logger.warn = mockWarn
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({

@@ -1,5 +1,5 @@
-import { expect, test } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
+import { expect, test } from 'vitest'
 
 import { existsSync, rmSync } from 'node:fs'
 import { fsPrecompile } from './FsPrecompile.js'

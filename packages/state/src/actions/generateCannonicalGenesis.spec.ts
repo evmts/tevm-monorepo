@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
 import { EthjsAccount } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import type { TevmState } from '../state-types/TevmState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'

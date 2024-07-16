@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { ethAccountsHandler } from './ethAccountsHandler.js'
 import { testAccounts } from './utils/testAccounts.js'
 

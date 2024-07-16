@@ -1,6 +1,6 @@
-import { describe, expect, test } from 'bun:test'
 import { EvmErrorMessage } from '@tevm/evm'
 import { hexToBigInt } from '@tevm/utils'
+import { describe, expect, test } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 // These regressed from switching to stricter tx running within the VM.runTx function

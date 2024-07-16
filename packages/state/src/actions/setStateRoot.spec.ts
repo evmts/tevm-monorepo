@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { hexToBytes } from 'ethereum-cryptography/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
 import { NoStateRootExistsError, setStateRoot } from './setStateRoot.js'

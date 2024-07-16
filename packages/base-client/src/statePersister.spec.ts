@@ -1,9 +1,9 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { createLogger } from '@tevm/logger'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { TestERC20 } from '@tevm/test-utils'
 import { hexToBytes } from 'viem'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseClient } from './createBaseClient.js'
 import { statePersister } from './statePersister.js'
 
@@ -45,7 +45,7 @@ describe(statePersister.name, () => {
 
 	it('logs errors', async () => {
 		const logger = createLogger({ name: 'test', level: 'warn' })
-		const mockError = jest.fn()
+		const mockError = vi.fn()
 		logger.error = mockError
 		const setItemPromise = Promise.withResolvers()
 		const persist = statePersister(

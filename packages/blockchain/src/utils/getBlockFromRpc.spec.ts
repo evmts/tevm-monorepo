@@ -1,9 +1,9 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
 import { bytesToHex, custom } from 'viem'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getBlockFromRpc } from './getBlockFromRpc.js'
 
@@ -117,7 +117,7 @@ describe('getBlockFromRpc', () => {
 		const common = optimism.copy()
 
 		const baseChain = createBaseChain({ common })
-		const consoleWarnSpy = jest.fn()
+		const consoleWarnSpy = vi.fn()
 		baseChain.logger.warn = consoleWarnSpy
 
 		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)

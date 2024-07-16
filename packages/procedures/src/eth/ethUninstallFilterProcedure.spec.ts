@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { type Hex } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthUninstallFilterJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethUninstallFilterJsonRpcProcedure } from './ethUninstallFilterProcedure.js'
 

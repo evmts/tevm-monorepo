@@ -1,7 +1,7 @@
-import { expect, test } from 'bun:test'
 import { createContract } from '@tevm/contract'
 import { EthjsAddress } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
+import { expect, test } from 'vitest'
 import { definePredeploy } from './definePredeploy.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 

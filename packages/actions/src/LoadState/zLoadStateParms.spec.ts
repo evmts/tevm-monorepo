@@ -1,5 +1,5 @@
-import { expect, test } from 'bun:test'
 import { stringToHex } from 'viem'
+import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import type { LoadStateParams } from './LoadStateParams.js'
 import { zLoadStateParams } from './zLoadStateParams.js'

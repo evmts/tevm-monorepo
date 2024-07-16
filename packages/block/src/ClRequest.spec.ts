@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { InternalError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { ClRequest } from './ClRequest.js'
 
 describe(ClRequest.name, () => {

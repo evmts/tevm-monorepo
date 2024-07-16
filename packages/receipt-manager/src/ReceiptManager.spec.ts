@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
+import { describe, expect, it } from 'vitest'
 import { ReceiptsManager } from './RecieptManager.js'
 import { createMapDb } from './createMapDb.js'
 

@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { walletActions } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../index.js'
 
 // Same accounts anvil and hardhat prefund

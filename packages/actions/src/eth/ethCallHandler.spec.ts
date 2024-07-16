@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethCallHandler } from './ethCallHandler.js'
 

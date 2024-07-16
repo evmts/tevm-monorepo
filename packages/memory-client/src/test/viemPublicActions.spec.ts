@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { type PublicActions } from 'viem'
+import { describe, expect, it } from 'vitest'
 
 describe('viemPublicActions', () => {
 	it('should support all viem public actions', () => {

@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { EthjsAccount } from '@tevm/utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
 import { commit } from './commit.js'
@@ -53,14 +53,14 @@ describe(commit.name, () => {
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		baseState.getCurrentStateRoot = jest.fn(() => 'existingStateRoot') as any
-		baseState.setCurrentStateRoot = jest.fn()
-		baseState.logger.debug = jest.fn()
-		baseState.options.onCommit = jest.fn()
-		baseState.stateRoots.set = jest.fn()
-		baseState.caches.accounts.commit = jest.fn()
-		baseState.caches.contracts.commit = jest.fn()
-		baseState.caches.storage.commit = jest.fn()
+		baseState.getCurrentStateRoot = vi.fn(() => 'existingStateRoot') as any
+		baseState.setCurrentStateRoot = vi.fn()
+		baseState.logger.debug = vi.fn()
+		baseState.options.onCommit = vi.fn()
+		baseState.stateRoots.set = vi.fn()
+		baseState.caches.accounts.commit = vi.fn()
+		baseState.caches.contracts.commit = vi.fn()
+		baseState.caches.storage.commit = vi.fn()
 	})
 
 	it('should commit to existing state root', async () => {
@@ -94,7 +94,7 @@ describe(commit.name, () => {
 	})
 
 	it('should handle onCommit callback correctly', async () => {
-		const onCommitMock = jest.fn()
+		const onCommitMock = vi.fn()
 		baseState.options.onCommit = onCommitMock
 
 		await checkpoint(baseState)()

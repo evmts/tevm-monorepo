@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { handleAutomining } from './handleAutomining.js'
 
 describe('handleAutomining', () => {

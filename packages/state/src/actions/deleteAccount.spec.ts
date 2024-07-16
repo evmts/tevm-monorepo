@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { deleteAccount } from './deleteAccount.js'
 import { getAccount } from './getAccount.js'

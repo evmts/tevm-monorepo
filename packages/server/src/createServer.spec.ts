@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createServer as createHttpServer } from './createServer.js'
 
 import supertest from 'supertest'

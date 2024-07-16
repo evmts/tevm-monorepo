@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
@@ -16,6 +15,7 @@ import {
 	parseEther,
 	randomBytes,
 } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { Vm } from '../Vm.js'
 import { createVm } from '../createVm.js'
 import { runTx } from './runTx.js'

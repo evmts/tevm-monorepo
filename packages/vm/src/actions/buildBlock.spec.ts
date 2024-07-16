@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
@@ -13,6 +12,7 @@ import {
 	keccak256,
 	parseEther,
 } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createVm } from '../createVm.js'
 import { buildBlock } from './buildBlock.js'
 

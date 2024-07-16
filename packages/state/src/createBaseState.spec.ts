@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { describe, expect, it } from 'vitest'
 import { ContractCache } from './ContractCache.js'
 import { createBaseState } from './createBaseState.js'
 

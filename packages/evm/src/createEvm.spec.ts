@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { Evm } from './Evm.js'
 import { createEvm } from './createEvm.js'
 

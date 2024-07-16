@@ -1,14 +1,14 @@
-import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { afterEach, beforeEach, describe, expect, it, mock, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
 afterEach(() => {
-	jest.restoreAllMocks()
+	vi.restoreAllMocks()
 })
 
 describe(getAccount.name, () => {

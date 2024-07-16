@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidSaltError } from '@tevm/errors'
 import { EthjsAddress, concatBytes, hexToBytes, keccak256 } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { create2ContractAddress } from './create2ContractAddress.js'
 

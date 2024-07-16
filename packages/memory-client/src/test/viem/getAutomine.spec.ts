@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { testActions } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 describe('getAutomine', () => {

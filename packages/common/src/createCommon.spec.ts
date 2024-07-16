@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { createCommon } from './createCommon.js'
 import { createMockKzg } from './createMockKzg.js'
 import { optimism } from './presets/index.js'

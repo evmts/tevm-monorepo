@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidAddressError } from '@tevm/errors'
 import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
 import { numberToBytes } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { createContractAddress } from './createContractAddress.js'
 

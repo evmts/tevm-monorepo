@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { EventEmitter } from 'node:events'
 import { IncomingMessage } from 'node:http'
+import { describe, expect, it } from 'vitest'
 import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
 import { getRequestBody } from './getRequestBody.js'
 

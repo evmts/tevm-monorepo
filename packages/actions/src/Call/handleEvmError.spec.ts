@@ -1,4 +1,3 @@
-import { describe, expect, it, test } from 'bun:test'
 import {
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
@@ -40,6 +39,7 @@ import {
 	ValueOverflowError,
 } from '@tevm/errors'
 import { EvmError, EvmErrorMessage } from '@tevm/evm'
+import { describe, expect, it, test } from 'vitest'
 import { handleRunTxError } from './handleEvmError.js'
 
 describe('handleRunTxError', () => {

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidAddressError, InvalidRequestError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { validateGetAccountParams } from './validateGetAccountParams.js'
 
 describe('validateGetAccountParams', () => {

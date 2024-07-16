@@ -1,20 +1,20 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { InvalidRequestError } from '@tevm/errors'
 import { createMemoryClient } from '@tevm/memory-client'
+import { describe, expect, it, vi } from 'vitest'
 import { handleError } from './handleError.js'
 
 describe('handleError', () => {
 	const createMockResponse = () => {
 		const res = {
-			writeHead: jest.fn(),
-			end: jest.fn(),
+			writeHead: vi.fn(),
+			end: vi.fn(),
 		}
 		return res as any
 	}
 
 	it('should handle error with JSON-RPC request id', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = jest.fn()
+		client.transport.tevm.logger.error = vi.fn()
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 		const jsonRpcReq = { method: 'testMethod', id: 1 }
@@ -39,7 +39,7 @@ describe('handleError', () => {
 
 	it('should handle error without JSON-RPC request id', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = jest.fn()
+		client.transport.tevm.logger.error = vi.fn()
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 		const jsonRpcReq = { method: 'testMethod' }
@@ -63,7 +63,7 @@ describe('handleError', () => {
 
 	it('should handle error with default method when JSON-RPC request is not provided', () => {
 		const client = createMemoryClient()
-		client.transport.tevm.logger.error = jest.fn()
+		client.transport.tevm.logger.error = vi.fn()
 		const error = new InvalidRequestError('Invalid request')
 		const res = createMockResponse()
 

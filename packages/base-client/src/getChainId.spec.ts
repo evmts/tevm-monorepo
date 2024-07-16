@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { http } from '@tevm/jsonrpc'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getChainId } from './getChainId.js'
 
 describe('getChainId', () => {

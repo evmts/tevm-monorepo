@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { type Common, createCommon, mainnet, optimism } from '@tevm/common'
@@ -7,6 +6,7 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Vm } from '../Vm.js'
 import { createVm } from '../createVm.js'
 import { validateRunTx } from './validateRunTx.js'
@@ -47,7 +47,7 @@ describe('validateRunTx', () => {
 			{ common },
 		)
 
-		vm.common.ethjsCommon.hardforks = jest.fn().mockReturnValue([])
+		vm.common.ethjsCommon.hardforks = vi.fn().mockReturnValue([])
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(MisconfiguredClientError)
@@ -87,7 +87,7 @@ describe('validateRunTx', () => {
 			{ common },
 		)
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 2930)
+		vm.common.ethjsCommon.isActivatedEIP = vi.fn((eip) => eip !== 2930)
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(EipNotEnabledError)
@@ -106,7 +106,7 @@ describe('validateRunTx', () => {
 
 		const block = Block.fromBlockData({ header: {} }, { common })
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 1559)
+		vm.common.ethjsCommon.isActivatedEIP = vi.fn((eip) => eip !== 1559)
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(EipNotEnabledError)
@@ -124,7 +124,7 @@ describe('validateRunTx', () => {
 
 		const block = Block.fromBlockData({ header: {} }, { common })
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn(() => true)
+		vm.common.ethjsCommon.isActivatedEIP = vi.fn(() => true)
 
 		const opts = { tx, block }
 		const validate = validateRunTx(vm)
@@ -146,7 +146,7 @@ describe('validateRunTx', () => {
 			maxPriorityFeePerGas: 1n,
 		})
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn(() => true)
+		vm.common.ethjsCommon.isActivatedEIP = vi.fn(() => true)
 
 		const opts = { tx }
 		const validate = validateRunTx(vm)

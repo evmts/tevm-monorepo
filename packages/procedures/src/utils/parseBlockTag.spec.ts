@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { hexToBigInt } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { parseBlockTag } from './parseBlockTag.js'
 
 describe('parseBlockTag', () => {

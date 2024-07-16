@@ -1,11 +1,11 @@
-import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 import { Common } from '@ethereumjs/common'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
+import { afterEach, describe, expect, it, mock, vi } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
 
 afterEach(() => {
-	jest.restoreAllMocks()
+	vi.restoreAllMocks()
 })
 
 describe(createImpersonatedTx.name, () => {

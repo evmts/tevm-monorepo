@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { InvalidBlockError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
 import { getIteratorHead } from './getIteratorHead.js'

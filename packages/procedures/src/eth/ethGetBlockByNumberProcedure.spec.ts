@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { mineHandler } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBlockByNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetBlockByNumberJsonRpcProcedure } from './ethGetBlockByNumberProcedure.js'
 

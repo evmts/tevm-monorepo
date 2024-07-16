@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { deployHandler } from './deployHandler.js'

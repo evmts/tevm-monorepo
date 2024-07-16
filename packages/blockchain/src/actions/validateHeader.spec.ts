@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { mainnet, optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
 import { getBlock } from './getBlock.js'

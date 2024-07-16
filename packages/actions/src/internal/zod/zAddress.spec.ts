@@ -1,5 +1,5 @@
-import { expect, test } from 'bun:test'
 import type { Address } from 'abitype'
+import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zAddress } from './zAddress.js'
 

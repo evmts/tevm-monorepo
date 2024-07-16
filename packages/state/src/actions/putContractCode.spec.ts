@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from 'ethereum-cryptography/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getContractCode } from './getContractCode.js'
 import { putContractCode } from './putContractCode.js'

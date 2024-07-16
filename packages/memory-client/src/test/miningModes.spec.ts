@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { toHex } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 describe('Mining modes', () => {

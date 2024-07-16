@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { base, tevmDefault } from '@tevm/common'
+import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 
 describe('createTevmTransport', () => {

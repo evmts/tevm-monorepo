@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { DefensiveNullCheckError, InvalidBytesSizeError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { Bloom } from './Bloom.js'
 import { hexToBytes, keccak256 } from './viem.js'
 
