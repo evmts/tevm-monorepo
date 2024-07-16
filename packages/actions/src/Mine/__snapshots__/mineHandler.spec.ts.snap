@@ -1,8 +1,8 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`mineHandler works with transactions in the tx pool 1`] = `[]`;
+exports[`mineHandler > works with transactions in the tx pool 1`] = `[]`;
 
-exports[`mineHandler works with transactions in the tx pool 2`] = `
+exports[`mineHandler > works with transactions in the tx pool 2`] = `
 Uint8Array [
   0,
   0,
@@ -263,4 +263,4 @@ Uint8Array [
 ]
 `;
 
-exports[`mineHandler works with transactions in the tx pool 3`] = `21000n`;
+exports[`mineHandler > works with transactions in the tx pool 3`] = `21000n`;

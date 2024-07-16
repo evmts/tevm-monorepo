@@ -1,3 +1,5 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`setCoinbase > should work as expected 1`] = `"0x0101010101010101010101010101010101010101"`;
 
 exports[`setCoinbase should work as expected 1`] = `"0x0101010101010101010101010101010101010101"`;

@@ -1,3 +1,5 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getContractEvents > getContractEvents should work 1`] = `Promise {}`;
 
 exports[`getContractEvents getContractEvents should work 1`] = `Promise {}`;

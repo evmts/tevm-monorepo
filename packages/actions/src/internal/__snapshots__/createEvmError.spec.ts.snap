@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createEvmError should return InternalError for unknown error 1`] = `
+exports[`createEvmError > should return InternalError for unknown error 1`] = `
 "UNKNOWN_ERROR
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/

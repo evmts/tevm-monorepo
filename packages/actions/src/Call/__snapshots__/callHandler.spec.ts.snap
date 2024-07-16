@@ -1,6 +1,17 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`callHandler should handle errors returned during contract call 1`] = `
+exports[`callHandler > should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
+
+exports[`callHandler > should handle being unable to get options 1`] = `
+[
+  [UnknownBlock: Error cloning VM
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler > should handle error during EVM execution 1`] = `
 [
   [RevertError: revert
 
@@ -10,40 +21,7 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should return error for invalid contract call data 1`] = `
-[
-  [RevertError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle unexpected errors during param conversion 1`] = `
-[
-  [InvalidGasPriceError: Invalid input
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-  [InvalidGasPriceError: Invalid input
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle unexpected errors during script creation 1`] = `
-[
-  [InvalidBytecodeError: stack underflow
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"stack underflow","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle error during VM cloning 1`] = `
+exports[`callHandler > should handle error during VM cloning 1`] = `
 [
   [InvalidBlockError: value must be a hex string
 
@@ -52,7 +30,7 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle error during script creation 1`] = `
+exports[`callHandler > should handle error during script creation 1`] = `
 [
   [InvalidBytecodeError: stack underflow
 
@@ -62,7 +40,17 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle error during EVM execution 1`] = `
+exports[`callHandler > should handle error during transaction creation 1`] = `
+[
+  {
+    "_tag": "UnexpectedError",
+    "message": "Error adding transaction to pool",
+    "name": "UnexpectedError",
+  },
+]
+`;
+
+exports[`callHandler > should handle errors returned during contract call 1`] = `
 [
   [RevertError: revert
 
@@ -72,9 +60,7 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
-
-exports[`callHandler should handle insufficient balance error 1`] = `
+exports[`callHandler > should handle insufficient balance error 1`] = `
 [
   [InsufficientBalanceError: sender doesn't have enough funds to send tx. The upfront cost is: 1000000000210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x063ee66a862cecf7793eb47603e910eab64f801107476b74d25d4cc2325623e0 nonce=0 value=1000000000000000000 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
 
@@ -87,20 +73,19 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle error during transaction creation 1`] = `
+exports[`callHandler > should handle mining failing 1`] = `
 [
-  {
-    "_tag": "UnexpectedError",
-    "message": "Error adding transaction to pool",
-    "name": "UnexpectedError",
-  },
+  [MisconfiguredClientError: Syncing not currently implemented
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle opstack throwing unexpectedly 1`] = `
+exports[`callHandler > should handle opstack throwing unexpectedly 1`] = `
 [
   [
-    [InvalidAddressError: Recieved an invalid address input Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
+    [InvalidAddress: Recieved an invalid address input Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
 
 Version: viem@2.14.2
 
@@ -114,7 +99,30 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle vm cloning throwing unexpectedly 1`] = `
+exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
+[
+  [InvalidGasPrice: Invalid input
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+  [InvalidGasPrice: Invalid input
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler > should handle unexpected errors during script creation 1`] = `
+[
+  [InvalidBytecodeError: stack underflow
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Details: {"error":"stack underflow","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler > should handle vm cloning throwing unexpectedly 1`] = `
 [
   [InternalError: Error cloning VM
 
@@ -124,22 +132,14 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should handle being unable to get options 1`] = `
+exports[`callHandler > should return error for invalid contract call data 1`] = `
 [
-  [UnknownBlockError: Error cloning VM
+  [RevertError: revert
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
 Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler should submit a transaction and read the result with pending blockTag 1`] = `"0x3c7a9a03c23faf6431c7b0fab86c70761cb36bf79a305da17bc581fd6e479116"`;
-
-exports[`callHandler should handle mining failing 1`] = `
-[
-  [MisconfiguredClientError: Syncing not currently implemented
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73],
-]
-`;
+exports[`callHandler > should submit a transaction and read the result with pending blockTag 1`] = `"0x3c7a9a03c23faf6431c7b0fab86c70761cb36bf79a305da17bc581fd6e479116"`;

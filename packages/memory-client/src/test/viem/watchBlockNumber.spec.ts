@@ -5,47 +5,61 @@ import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient<any, any>
 
+Promise.withResolvers = () => {
+let resolve: PromiseWithResolvers<unknown>['resolve']
+let reject: PromiseWithResolvers<unknown>['reject']
+const promise = new Promise<unknown>((res, rej) => {
+resolve = res
+reject = rej
+})
+return {
+promise,
+resolve,
+reject,
+}
+}
+
 beforeEach(async () => {
-	mc = createMemoryClient()
-	const deployResult = await mc.tevmDeploy({
-		bytecode: SimpleContract.bytecode,
-		abi: SimpleContract.abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	await mc.tevmMine()
+mc = createMemoryClient()
+const deployResult = await mc.tevmDeploy({
+bytecode: SimpleContract.bytecode,
+abi: SimpleContract.abi,
+args: [420n],
+})
+if (!deployResult.createdAddress) {
+throw new Error('contract never deployed')
+}
+if (!deployResult.txHash) {
+throw new Error('txHash not found')
+}
+await mc.tevmMine()
 })
 
 describe('watchBlockNumber', () => {
-	it('watchBlockNumber should work', async () => {
-		const resultPromises = [
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-		] as const
-		const errors: Error[] = []
-		const unwatch = mc.watchBlockNumber({
-			poll: true,
-			pollingInterval: 100,
-			emitOnBegin: true,
-			emitMissed: false,
-			onError: (e) => errors.push(e),
-			onBlockNumber: (blockNumber) => {
-				resultPromises[Number(blockNumber)]?.resolve(blockNumber)
-			},
-		})
-		for (let i = 1; i <= 4; i++) {
-			expect(await resultPromises[i]?.promise).toBe(BigInt(i))
-			await mc.tevmMine()
-		}
-		expect(errors).toHaveLength(0)
-		unwatch()
-	})
+it('watchBlockNumber should work', async () => {
+const resultPromises = [
+Promise.withResolvers<bigint>(),
+Promise.withResolvers<bigint>(),
+Promise.withResolvers<bigint>(),
+Promise.withResolvers<bigint>(),
+Promise.withResolvers<bigint>(),
+] as const
+const errors: Error[] = []
+const unwatch = mc.watchBlockNumber({
+poll: true,
+pollingInterval: 100,
+emitOnBegin: true,
+emitMissed: false,
+onError: (e) => errors.push(e),
+onBlockNumber: (blockNumber) => {
+resultPromises[Number(blockNumber)]?.resolve(blockNumber)
+},
+})
+for (let i = 1; i <= 4; i++) {
+expect(await resultPromises[i]?.promise).toBe(BigInt(i))
+await mc.tevmMine()
+}
+expect(errors).toHaveLength(0)
+unwatch()
+})
 })

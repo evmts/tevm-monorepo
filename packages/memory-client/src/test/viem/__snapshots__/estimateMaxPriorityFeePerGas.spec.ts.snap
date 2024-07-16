@@ -1,3 +1,5 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`estimateMaxPriorityFeePerGas > should work 1`] = `999999993n`;
 
 exports[`estimateMaxPriorityFeePerGas should work 1`] = `999999993n`;
