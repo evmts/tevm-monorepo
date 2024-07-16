@@ -1,4 +1,4 @@
-import { callProcedure } from '../index.js'
+import { callProcedure } from '../call/callProcedure.js'
 
 /**
  * Executes a message call without creating a transaction on the block chain.

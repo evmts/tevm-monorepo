@@ -3,7 +3,3 @@
 exports[`ethCoinbaseJsonRpcProcedure > should handle requests without an id 1`] = `"0x0000000000000000000000000000000000000000"`;
 
 exports[`ethCoinbaseJsonRpcProcedure > should return the coinbase address 1`] = `"0x0000000000000000000000000000000000000000"`;
-
-exports[`ethCoinbaseJsonRpcProcedure should handle requests without an id 1`] = `"0x0000000000000000000000000000000000000000"`;
-
-exports[`ethCoinbaseJsonRpcProcedure should return the coinbase address 1`] = `"0x0000000000000000000000000000000000000000"`;

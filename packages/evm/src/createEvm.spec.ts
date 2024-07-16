@@ -39,7 +39,7 @@ describe(createEvm.name, () => {
 		expect((evm as any).DEBUG).toBe(true)
 	})
 
-	describe(Evm.prototype.addCustomPrecompile.name, () => {
+	describe('addCustomPrecompile', () => {
 		it('Should add a custom precompile', async () => {
 			const evm = await createEvm({
 				common: mainnet,
@@ -84,7 +84,7 @@ describe(createEvm.name, () => {
 			throw new Error('should have thrown')
 		})
 	})
-	describe(Evm.prototype.removeCustomPrecompile.name, () => {
+	describe('removeCustomPrecompile', () => {
 		it('Should remove a custom precompile', async () => {
 			const evm = await createEvm({
 				common: mainnet,

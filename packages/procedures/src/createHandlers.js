@@ -36,22 +36,20 @@ import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProc
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
-import {
-	blockNumberProcedure,
-	callProcedure,
-	chainIdProcedure,
-	dumpStateProcedure,
-	ethGetLogsProcedure,
-	gasPriceProcedure,
-	getAccountProcedure,
-	getBalanceProcedure,
-	getCodeProcedure,
-	getStorageAtProcedure,
-	loadStateProcedure,
-	mineProcedure,
-	scriptProcedure,
-	setAccountProcedure,
-} from './index.js'
+import { callProcedure } from './call/callProcedure.js'
+import { getAccountProcedure } from './getaccount/getAccountProcedure.js'
+import { setAccountProcedure } from './setaccount/setAccountProcedure.js'
+import { scriptProcedure } from './script/scriptProcedure.js'
+import { dumpStateProcedure } from './dumpstate/dumpStateProcedure.js'
+import { loadStateProcedure } from './loadstate/loadStateProcedure.js'
+import { mineProcedure } from './mine/mineProcedure.js'
+import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
+import { chainIdProcedure } from './eth/chainIdProcedure.js'
+import { getCodeProcedure } from './eth/getCodeProcedure.js'
+import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
+import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
+import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
+import { ethGetLogsProcedure } from './eth/ethGetLogsProcedure.js'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers
