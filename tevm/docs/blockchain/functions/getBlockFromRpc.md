@@ -6,7 +6,7 @@
 
 # Function: getBlockFromRpc()
 
-> **getBlockFromRpc**(`baseChain`, `__namedParameters`, `common`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
+> **getBlockFromRpc**(`baseChain`, `__namedParameters`, `common`): `Promise`\<[[`Block`](../../block/classes/Block.md), `RpcBlock`]\>
 
 ## Parameters
 
@@ -24,7 +24,7 @@
 
 ## Returns
 
-`Promise`\<[`Block`](../../block/classes/Block.md)\>
+`Promise`\<[[`Block`](../../block/classes/Block.md), `RpcBlock`]\>
 
 ## Defined in
 

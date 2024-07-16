@@ -5,7 +5,7 @@ prev: false
 title: "getBlockFromRpc"
 ---
 
-> **getBlockFromRpc**(`baseChain`, `params`, `common`): `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
+> **getBlockFromRpc**(`baseChain`, `params`, `common`): `Promise`\<[[`Block`](/reference/tevm/block/classes/block/), `RpcBlock`\<[`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `true`, `RpcTransaction`\<`boolean`\>\>]\>
 
 ## Parameters
 
@@ -23,8 +23,8 @@ title: "getBlockFromRpc"
 
 ## Returns
 
-`Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
+`Promise`\<[[`Block`](/reference/tevm/block/classes/block/), `RpcBlock`\<[`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/), `true`, `RpcTransaction`\<`boolean`\>\>]\>
 
 ## Defined in
 
-[utils/getBlockFromRpc.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L24)
+[utils/getBlockFromRpc.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L16)

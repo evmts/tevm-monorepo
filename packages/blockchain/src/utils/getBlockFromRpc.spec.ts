@@ -3,7 +3,7 @@ import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
-import { bytesToHex } from 'viem'
+import { bytesToHex, custom } from 'viem'
 import { createBaseChain } from '../createBaseChain.js'
 import { getBlockFromRpc } from './getBlockFromRpc.js'
 
@@ -13,7 +13,7 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBeGreaterThanOrEqual(0n)
 	})
@@ -27,10 +27,10 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBe(blockNumber)
-		expect(bytesToHex(block.header.hash())).toEqual(blockHashAfterForking)
+		expect(bytesToHex(block.hash())).toEqual(blockHashAfterForking)
 		// this is an ethjs bug that the type doesn't match
 		expect(block.toJSON()).toEqual(expectedBlock as any)
 	})
@@ -39,7 +39,7 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(bytesToHex(block.hash())).toBe(blockHashAfterForking)
 		expect(block.header.number).toBe(blockNumber)
@@ -57,6 +57,22 @@ describe('getBlockFromRpc', () => {
 		)
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
+	})
+
+	it('should handle a fetch error', async () => {
+		const transport = custom({
+			request: () => {
+				throw new Error('fetch error')
+			},
+		})({ retryCount: 0 })
+		const common = optimism.copy()
+
+		const err = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common).catch((e) => e)
+		expect(err).toMatchSnapshot()
+		const err2 = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common).catch((e) => e)
+		expect(err2).toMatchSnapshot()
+		const err3 = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common).catch((e) => e)
+		expect(err3).toMatchSnapshot()
 	})
 
 	it('should handle non-existing block number', async () => {
@@ -82,6 +98,20 @@ describe('getBlockFromRpc', () => {
 		expect(err).toMatchSnapshot()
 	})
 
+	it('shoudl handle unlikely event of a non-existing named block tag', async () => {
+		const transport = custom({
+			request: () => {
+				return Promise.resolve(undefined)
+			},
+		})({ retryCount: 0 })
+		const common = optimism.copy()
+		const nonExistingBlockTag = 'latest'
+
+		const err = await getBlockFromRpc(baseChain, { transport, blockTag: nonExistingBlockTag }, common).catch((e) => e)
+		expect(err).toBeInstanceOf(UnknownBlockError)
+		expect(err).toMatchSnapshot()
+	})
+
 	it('should handle Optimism deposit transactions filtering', async () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
@@ -90,7 +120,7 @@ describe('getBlockFromRpc', () => {
 		const consoleWarnSpy = jest.fn()
 		baseChain.logger.warn = consoleWarnSpy
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		expect(block).toBeInstanceOf(Block)

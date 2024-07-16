@@ -18,7 +18,7 @@ export const getBlockByTag = (baseChain) => async (blockId) => {
 	}
 	const block = baseChain.blocksByTag.get(blockId)
 	if (!block && baseChain.options.fork?.transport) {
-		const block = await getBlockFromRpc(
+		const [block, jsonRpcBlock] = await getBlockFromRpc(
 			baseChain,
 			{
 				transport: baseChain.options.fork.transport,
@@ -27,6 +27,11 @@ export const getBlockByTag = (baseChain) => async (blockId) => {
 			baseChain.common,
 		)
 		await putBlock(baseChain)(block)
+		baseChain.blocksByTag.set(blockId, block)
+		// because of optimism tx we need to set block hash twice
+		if (jsonRpcBlock.hash) {
+			baseChain.blocks.set(jsonRpcBlock.hash, block)
+		}
 		return block
 	}
 	if (!block) {

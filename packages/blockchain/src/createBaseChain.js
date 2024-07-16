@@ -68,9 +68,13 @@ export const createBaseChain = (options) => {
 	// Add genesis block and forked block to chain
 	const genesisBlockPromise = (async () => {
 		if (options.fork?.transport) {
-			const block = await getBlockFromRpc(chain, options.fork, options.common)
+			const [block, jsonRpcBlock] = await getBlockFromRpc(chain, options.fork, options.common)
 			await putBlock(chain)(block)
 			chain.blocksByTag.set('forked', block)
+			// because we are filtering transactions from optimism we must set the block to the optimism hash so parentBlock traversing works
+			if (jsonRpcBlock.hash) {
+				chain.blocks.set(jsonRpcBlock.hash, block)
+			}
 		} else {
 			await putBlock(chain)(
 				options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? EMPTY_STATE_ROOT, options.common),

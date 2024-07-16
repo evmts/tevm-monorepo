@@ -19,6 +19,7 @@
 - [getBlockFromRpc](functions/getBlockFromRpc.md)
 - [getCanonicalHeadBlock](functions/getCanonicalHeadBlock.md)
 - [getIteratorHead](functions/getIteratorHead.md)
+- [isTevmBlockTag](functions/isTevmBlockTag.md)
 - [putBlock](functions/putBlock.md)
 - [setIteratorHead](functions/setIteratorHead.md)
 - [shallowCopy](functions/shallowCopy.md)

@@ -264,11 +264,3 @@ Uint8Array [
 `;
 
 exports[`mineHandler works with transactions in the tx pool 3`] = `21000n`;
-
-exports[`mineHandler should work in forked mode too 1`] = `
-"State root for 0x00undefined01020304 does not exist
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: State root for 0x00undefined01020304 does not exist
-Version: 1.1.0.next-73"
-`;

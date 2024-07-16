@@ -10,7 +10,7 @@ export const putBlock = (baseChain) => (block) => {
 	}
 	// skipping validating the blocks
 	// skipping validating consensus
-	baseChain.blocks.set(bytesToHex(block.header.hash()), block)
+	baseChain.blocks.set(bytesToHex(block.hash()), block)
 	baseChain.blocksByNumber.set(block.header.number, block)
 	const latestBlock = baseChain.blocksByTag.get('latest')
 	baseChain.logger.debug(block.hash(), 'Saved new block')

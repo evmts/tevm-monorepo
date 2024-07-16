@@ -1,0 +1,9 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validateHeader should throw an error for invalid block number 1`] = `[TypeError: header.isGenesis is not a function. (In 'header.isGenesis()', 'header.isGenesis' is undefined)]`;
+
+exports[`validateHeader should throw an error for invalid timestamp 1`] = `[TypeError: header.isGenesis is not a function. (In 'header.isGenesis()', 'header.isGenesis' is undefined)]`;
+
+exports[`validateHeader should throw an error for unsupported consensus type 1`] = `"header.isGenesis is not a function. (In 'header.isGenesis()', 'header.isGenesis' is undefined)"`;
+
+exports[`validateHeader should throw an error for invalid timestamp diff (clique) 1`] = `"header.isGenesis is not a function. (In 'header.isGenesis()', 'header.isGenesis' is undefined)"`;

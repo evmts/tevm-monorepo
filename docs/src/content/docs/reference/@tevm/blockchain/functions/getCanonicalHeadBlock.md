@@ -23,4 +23,4 @@ Returns the latest full block in the canonical chain.
 
 ## Defined in
 
-[actions/getCanonicalHeadBlock.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L5)
+[actions/getCanonicalHeadBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L7)

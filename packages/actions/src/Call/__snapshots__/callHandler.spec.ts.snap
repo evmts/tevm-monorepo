@@ -97,14 +97,6 @@ exports[`callHandler should handle error during transaction creation 1`] = `
 ]
 `;
 
-exports[`callHandler should return op stack info if forking 1`] = `28250043671n`;
-
-exports[`callHandler should return op stack info if forking 2`] = `3377898839n`;
-
-exports[`callHandler should return op stack info if forking 3`] = `1n`;
-
-exports[`callHandler should return op stack info if forking 4`] = `1600n`;
-
 exports[`callHandler should handle opstack throwing unexpectedly 1`] = `
 [
   [

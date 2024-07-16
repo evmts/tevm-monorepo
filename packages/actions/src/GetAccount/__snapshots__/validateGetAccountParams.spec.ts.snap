@@ -27,15 +27,6 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`validateGetAccountParams should handle additional errors in the formattedErrors._errors array 1`] = `
-[
-  [InvalidRequestError: Test error
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`validateGetAccountParams should return multiple errors for multiple invalid parameters 1`] = `
 [
   [InvalidRequestError: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Expected boolean, received string
@@ -49,6 +40,15 @@ Version: 1.1.0.next-73],
   [InvalidAddressError: Invalid address param. Invalid Address invalidAddress
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`validateGetAccountParams should handle additional errors in the formattedErrors._errors array 1`] = `
+[
+  [InvalidRequestError: Test error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73],
 ]
 `;

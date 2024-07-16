@@ -3,16 +3,8 @@ import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
+import { isTevmBlockTag } from './isTevmBlockTag.js'
 import { warnOnce } from './warnOnce.js'
-
-/**
- * Determines if an unknown type is a valid block tag
- * @param {unknown} blockTag
- * @returns {boolean} true if valid block tag
- */
-const isBlockTag = (blockTag) => {
-	return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
-}
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
@@ -25,27 +17,30 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 	const doWarning = warnOnce(baseChain)
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
-	 * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
-	 * @returns {Block}
+	 * @param {import('viem').RpcBlock<import('viem').BlockTag, true>} rpcBlock
+	 * @returns {[Block, import('viem').RpcBlock<import('viem').BlockTag, true>]}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
-		return blockFromRpc(
-			{
-				.../** @type {any}*/ (rpcBlock),
-				// filter out transactions we don't support as a hack
-				transactions: rpcBlock.transactions?.filter((tx) => {
-					// we currently don't support optimism deposit tx which uses this custom code
-					// Optimism type is currently not in viem types
-					// @ts-expect-error
-					if (tx.type === '0x7e') {
-						doWarning(tx)
-						return false
-					}
-					return true
-				}),
-			},
-			{ common, setHardfork: false, freeze: false, skipConsensusFormatValidation: true },
-		)
+		return [
+			blockFromRpc(
+				{
+					.../** @type {any}*/ (rpcBlock),
+					// filter out transactions we don't support as a hack
+					transactions: rpcBlock.transactions?.filter((tx) => {
+						// we currently don't support optimism deposit tx which uses this custom code
+						// Optimism type is currently not in viem types
+						// @ts-expect-error
+						if (tx.type === '0x7e') {
+							doWarning(tx)
+							return false
+						}
+						return true
+					}),
+				},
+				{ common, setHardfork: false, freeze: false, skipConsensusFormatValidation: true },
+			),
+			rpcBlock,
+		]
 	}
 
 	return withRetry(
@@ -62,6 +57,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 						})
 					)
 				if (error) {
+					// TODO we should handle this error code better
 					throw error
 				}
 				if (!result) {
@@ -84,7 +80,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 				}
 				return asEthjsBlock(/** @type {any}*/ (result))
 			}
-			if (isBlockTag(blockTag)) {
+			if (isTevmBlockTag(blockTag)) {
 				// TODO add an isBlockTag helper
 				const { result, error } = await fetcher.request({
 					jsonrpc: '2.0',
