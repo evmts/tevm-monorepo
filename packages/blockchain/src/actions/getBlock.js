@@ -1,6 +1,8 @@
 import { bytesToHex } from '@tevm/utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
 import { putBlock } from './putBlock.js'
+import { UnknownBlockError } from '@tevm/errors'
+import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
@@ -29,7 +31,7 @@ export const getBlock = (baseChain) => async (blockId) => {
 	}
 
 	if (!baseChain.options.fork?.transport) {
-		throw new Error(
+		throw new UnknownBlockError(
 			blockId instanceof Uint8Array
 				? `Block with hash ${bytesToHex(blockId)} does not exist`
 				: `Block number ${blockId} does not exist`,
@@ -48,15 +50,8 @@ export const getBlock = (baseChain) => async (blockId) => {
 
 	baseChain.logger.debug(fetchedBlock.header.toJSON(), 'Saving forked block to blockchain')
 
-	const forkedBlock = baseChain.blocksByTag.get('forked')
-	const latestBlock = baseChain.blocksByTag.get('latest')
-	if (!forkedBlock || !latestBlock) {
-		throw new Error('TevmInternalError: Expected forked and latest blocktags to exist in tevm blockchain')
-	}
-	if (fetchedBlock.header.number > latestBlock.header.number) {
-		throw new Error(`Current blockheight is ${latestBlock.header.number} and the fork block is ${forkedBlock.header.number}. The block requested has height of ${fetchedBlock.header.number}.
-Fetching blocks from future of the current block is not allowed`)
-	}
+	const forkedBlock = /** @type {import('@tevm/block').Block}*/ (baseChain.blocksByTag.get('forked'))
+	const latestBlock = await getCanonicalHeadBlock(baseChain)()
 	if (fetchedBlock.header.number > forkedBlock.header.number) {
 		throw new Error(`The fetched block ${fetchedBlock.header.number} has a higher block height than the forked block ${forkedBlock.header.number} but less than the latest block ${latestBlock.header.number}
 This could indicate a bug in tevm as it implies a block is missing if the internal chain tried fetching it from rpc
