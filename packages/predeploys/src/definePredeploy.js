@@ -1,9 +1,8 @@
-import type { Contract } from '@tevm/contract'
-import { type Address, type Hex } from '@tevm/utils'
-import { Predeploy } from './Predeploy.js'
+import { createAddress } from '@tevm/address'
 
 /**
  * Defines a predeploy contract to use in the tevm vm
+ * @type {import('./DefinePredeployFn.js').DefinePredeployFn}
  * @example
  * ```ts
  * import { definePredeploy } from 'tevm/predeploys'
@@ -25,8 +24,12 @@ import { Predeploy } from './Predeploy.js'
  * })
  * ```
  */
-export const definePredeploy = <TName extends string, THumanReadableAbi extends readonly string[]>(
-	contract: Contract<TName, THumanReadableAbi, Address, Hex, Hex>,
-): Predeploy<TName, THumanReadableAbi> => {
-	return new Predeploy(contract)
+export const definePredeploy = (contract) => {
+	const ethjsAddress = createAddress(contract.address)
+	return {
+		contract,
+		predeploy: () => ({
+			address: ethjsAddress,
+		}),
+	}
 }
