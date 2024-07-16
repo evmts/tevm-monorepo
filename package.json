@@ -36,7 +36,8 @@
     "test": "bun test:run",
     "test:coverage": "nx run-many --target=test:coverage --skip-nx-cache",
     "test:run": "nx run-many --target=test:run",
-    "up": "bun x npm-check-updates -ui -ws"
+    "up": "bun x npm-check-updates -ui -ws",
+    "vm:coverage": "bun test --coverage packages/**/*.spec.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
