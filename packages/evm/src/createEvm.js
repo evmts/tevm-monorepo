@@ -1,5 +1,5 @@
 import { createLogger } from '@tevm/logger'
-import { Evm } from './EvmType.js'
+import { Evm } from './Evm.js'
 
 /**
  * Creates the Tevm Evm to execute ethereum bytecode internally.

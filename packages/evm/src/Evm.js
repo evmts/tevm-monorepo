@@ -59,4 +59,12 @@ export class Evm extends EVM {
 		const mutableThis = /** @type {any} */ (this)
 		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
+
+	/**
+	 * @type {(typeof import('./EvmType.js').Evm)['create']}
+	 * @override
+	 */
+	static create = (options) => {
+		return Evm.create(options)
+	}
 }

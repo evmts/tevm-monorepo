@@ -67,12 +67,12 @@ describe('createBaseClient', () => {
 		expect(mode).toBe('normal')
 		expect(await ready()).toBe(true)
 		expect(await getVm().then((vm) => vm.evm.runCall({}))).toMatchSnapshot()
-		expect(extend).toBeFunction()
-		expect(logger.warn).toBeFunction()
+		expect(extend).toBeInstanceOf(Function)
+		expect(logger.warn).toBeInstanceOf(Function)
 		expect(forkTransport).toBeUndefined()
 		expect(await getTxPool().then((pool) => pool.pool)).toEqual(new Map())
 		expect(miningConfig).toEqual({ type: 'manual' })
-		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeFunction()
+		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeInstanceOf(Function)
 	})
 
 	it('Can be extended', async () => {

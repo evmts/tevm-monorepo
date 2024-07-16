@@ -16,7 +16,7 @@ describe('handlePendingTransactionsWarning', () => {
 				data: `0x${'1'.repeat(40)}` as const,
 			}),
 		)
-		client.logger.warn = vi.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -45,7 +45,7 @@ describe('handlePendingTransactionsWarning', () => {
 				data: `0x${'1'.repeat(40)}` as const,
 			}),
 		)
-		client.logger.warn = vi.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -58,7 +58,7 @@ describe('handlePendingTransactionsWarning', () => {
 	})
 
 	it('should not warn if there are no pending transactions', async () => {
-		client.logger.warn = vi.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -71,7 +71,7 @@ describe('handlePendingTransactionsWarning', () => {
 	})
 
 	it('should not warn if both code and deployedBytecode are provided', async () => {
-		client.logger.warn = vi.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
