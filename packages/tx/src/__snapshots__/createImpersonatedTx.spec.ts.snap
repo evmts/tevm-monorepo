@@ -1,4 +1,28 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createImpersonatedTx > should support Object.keys 1`] = `
+[
+  "cache",
+  "activeCapabilities",
+  "DEFAULT_CHAIN",
+  "_type",
+  "txOptions",
+  "nonce",
+  "gasLimit",
+  "to",
+  "value",
+  "data",
+  "v",
+  "r",
+  "s",
+  "common",
+  "chainId",
+  "accessList",
+  "AccessListJSON",
+  "maxFeePerGas",
+  "maxPriorityFeePerGas",
+]
+`;
 
 exports[`createImpersonatedTx should create an EIP-1559 tx impersonating the address 1`] = `
 Uint8Array [

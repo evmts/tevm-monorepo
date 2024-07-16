@@ -1,5 +1,5 @@
 export { createEvm } from './createEvm.js'
-export { Evm } from './Evm.js'
+export { Evm, type EvmType } from './EvmType.js'
 export { type EVMOpts } from './EvmOpts.js'
 export type { CreateEvmOptions } from './CreateEvmOptions.js'
 export type { CustomPrecompile } from './CustomPrecompile.js'
