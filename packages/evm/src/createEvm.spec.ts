@@ -4,7 +4,6 @@ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { Evm } from './EvmType.js'
 import { createEvm } from './createEvm.js'
 
 describe(createEvm.name, () => {
