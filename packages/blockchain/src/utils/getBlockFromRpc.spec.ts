@@ -3,7 +3,7 @@ import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
-import { bytesToHex } from 'viem'
+import { bytesToHex, custom } from 'viem'
 import { createBaseChain } from '../createBaseChain.js'
 import { getBlockFromRpc } from './getBlockFromRpc.js'
 
@@ -59,6 +59,22 @@ describe('getBlockFromRpc', () => {
 		expect(err).toMatchSnapshot()
 	})
 
+	it('should handle a fetch error', async () => {
+		const transport = custom({
+			request: () => {
+				throw new Error('fetch error')
+			},
+		})({ retryCount: 0 })
+		const common = optimism.copy()
+
+		const err = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common).catch((e) => e)
+		expect(err).toMatchSnapshot()
+		const err2 = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common).catch((e) => e)
+		expect(err2).toMatchSnapshot()
+		const err3 = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common).catch((e) => e)
+		expect(err3).toMatchSnapshot()
+	})
+
 	it('should handle non-existing block number', async () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
@@ -78,6 +94,20 @@ describe('getBlockFromRpc', () => {
 		const nonExistingBlockHash = `0x${'0'.repeat(64)}` as const
 
 		const err = await getBlockFromRpc(baseChain, { transport, blockTag: nonExistingBlockHash }, common).catch((e) => e)
+		expect(err).toBeInstanceOf(UnknownBlockError)
+		expect(err).toMatchSnapshot()
+	})
+
+	it('shoudl handle unlikely event of a non-existing named block tag', async () => {
+		const transport = custom({
+			request: () => {
+				return Promise.resolve(undefined)
+			},
+		})({ retryCount: 0 })
+		const common = optimism.copy()
+		const nonExistingBlockTag = 'latest'
+
+		const err = await getBlockFromRpc(baseChain, { transport, blockTag: nonExistingBlockTag }, common).catch((e) => e)
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
 	})

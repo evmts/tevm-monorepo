@@ -40,3 +40,44 @@ Note: The block hash will be different because of the excluded txs"
   ],
 ]
 `;
+
+exports[`getBlockFromRpc should handle a fetch error 1`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.14.2"
+,
+}
+`;
+
+exports[`getBlockFromRpc should handle a fetch error 2`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.14.2"
+,
+}
+`;
+
+exports[`getBlockFromRpc should handle a fetch error 3`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.14.2"
+,
+}
+`;
+
+exports[`getBlockFromRpc shoudl handle unlikely event of a non-existing named block tag 1`] = `[UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;

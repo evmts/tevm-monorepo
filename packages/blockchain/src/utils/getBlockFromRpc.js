@@ -4,15 +4,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
 import { warnOnce } from './warnOnce.js'
-
-/**
- * Determines if an unknown type is a valid block tag
- * @param {unknown} blockTag
- * @returns {boolean} true if valid block tag
- */
-const isBlockTag = (blockTag) => {
-	return typeof blockTag === 'string' && ['latest', 'earliest', 'pending', 'safe', 'finalized'].includes(blockTag)
-}
+import { isTevmBlockTag } from './isTevmBlockTag.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
@@ -62,6 +54,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 						})
 					)
 				if (error) {
+					// TODO we should handle this error code better
 					throw error
 				}
 				if (!result) {
@@ -84,7 +77,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 				}
 				return asEthjsBlock(/** @type {any}*/ (result))
 			}
-			if (isBlockTag(blockTag)) {
+			if (isTevmBlockTag(blockTag)) {
 				// TODO add an isBlockTag helper
 				const { result, error } = await fetcher.request({
 					jsonrpc: '2.0',
