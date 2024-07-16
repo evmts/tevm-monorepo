@@ -1,5 +1,5 @@
+import { type Mock, beforeEach, describe, expect, it, jest } from 'bun:test'
 import { EthjsAddress, bytesToUnprefixedHex } from '@tevm/utils'
-import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Vm } from '../Vm.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
@@ -17,7 +17,7 @@ describe('warmAddresses2929', () => {
 		vm = {
 			common: {
 				ethjsCommon: {
-					isActivatedEIP: vi.fn().mockReturnValue(false),
+					isActivatedEIP: jest.fn().mockReturnValue(false),
 				},
 			},
 			evm: {
@@ -26,7 +26,7 @@ describe('warmAddresses2929', () => {
 					['0x02', {}],
 				]),
 				journal: {
-					addAlwaysWarmAddress: vi.fn(),
+					addAlwaysWarmAddress: jest.fn(),
 				},
 			},
 		} as unknown as Vm
@@ -38,9 +38,9 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should add origin and precompiles to warm addresses if EIP 2929 is activated', () => {
-		;(
-			vm.common.ethjsCommon.isActivatedEIP as MockedFunction<typeof vm.common.ethjsCommon.isActivatedEIP>
-		).mockImplementation((eip) => eip === 2929)
+		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+			(eip) => eip === 2929,
+		)
 
 		warmAddresses2929(vm, caller, to, coinbase)
 
@@ -52,9 +52,9 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should add coinbase to warm addresses if EIP 3651 is also activated', () => {
-		;(
-			vm.common.ethjsCommon.isActivatedEIP as MockedFunction<typeof vm.common.ethjsCommon.isActivatedEIP>
-		).mockImplementation((eip) => eip === 2929 || eip === 3651)
+		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+			(eip) => eip === 2929 || eip === 3651,
+		)
 
 		warmAddresses2929(vm, caller, to, coinbase)
 
@@ -66,9 +66,9 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should handle undefined "to" address correctly', () => {
-		;(
-			vm.common.ethjsCommon.isActivatedEIP as MockedFunction<typeof vm.common.ethjsCommon.isActivatedEIP>
-		).mockImplementation((eip) => eip === 2929)
+		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+			(eip) => eip === 2929,
+		)
 		to = undefined
 
 		warmAddresses2929(vm, caller, to, coinbase)
