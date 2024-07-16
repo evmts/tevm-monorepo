@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { ERC20 } from '@tevm/contract'
 import { EthjsAddress, bytesToHex, keccak256, numberToHex } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
 import { setAccountProcedure } from './setAccountProcedure.js'
 

@@ -1,6 +1,6 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { bytesToHex } from 'viem'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
 import { warnOnce } from './warnOnce.js'
@@ -12,7 +12,7 @@ describe(warnOnce.name, () => {
 		const chain = createBaseChain(options)
 		await chain.ready()
 
-		const mockWarn = jest.fn()
+		const mockWarn = vi.fn()
 		chain.logger.warn = mockWarn
 
 		const warningFunction = warnOnce(chain)
@@ -37,7 +37,7 @@ Note: The block hash will be different because of the excluded txs`,
 		const chain = createBaseChain(options)
 		await chain.ready()
 
-		const mockWarn = jest.fn()
+		const mockWarn = vi.fn()
 		chain.logger.warn = mockWarn
 
 		const warningFunction = warnOnce(chain)

@@ -1,37 +1,7 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ethCallProcedure should return error when call fails 1`] = `
-{
-  "code": -32000,
-  "data": {
-    "errors": [
-      
-"sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd3e22d4c76284ef1cd4b984bc3e20308dbcb13a96239f9e550ca74b03d67f779 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
+exports[`ethCallProcedure > should execute a message call successfully 1`] = `"0x"`;
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
+exports[`ethCallProcedure > should handle missing optional fields in the request 1`] = `"0x"`;
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73"
-,
-    ],
-  },
-  "message": 
-"sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd3e22d4c76284ef1cd4b984bc3e20308dbcb13a96239f9e550ca74b03d67f779 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73"
-,
-}
-`;
-
-exports[`ethCallProcedure should handle missing optional fields in the request 1`] = `"0x"`;
-
-exports[`ethCallProcedure should handle requests without an id 1`] = `"0x"`;
-
-exports[`ethCallProcedure should execute a message call successfully 1`] = `"0x"`;
+exports[`ethCallProcedure > should handle requests without an id 1`] = `"0x"`;

@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { mineHandler, setAccountHandler } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { type Address, numberToHex } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBalanceJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getBalanceProcedure } from './getBalanceProcedure.js'
 

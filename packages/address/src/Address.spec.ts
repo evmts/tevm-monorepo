@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAddress, getAddress, hexToBytes } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
 

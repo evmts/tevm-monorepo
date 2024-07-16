@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { createContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { transports } from '@tevm/test-utils'
 import { createPublicClient, numberToHex } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { tevmTransport } from './tevmTransport.js'
 
 const daiContract = createContract({

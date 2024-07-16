@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 
 describe(txToJsonRpcTx.name, () => {

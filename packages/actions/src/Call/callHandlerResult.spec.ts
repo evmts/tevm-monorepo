@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import type { EvmResult } from '@tevm/evm'
 import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
+import { describe, expect, it } from 'vitest'
 import { callHandlerResult } from './callHandlerResult.js'
 
 describe('callHandlerResult', async () => {

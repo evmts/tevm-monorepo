@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { createAddress } from '@tevm/address'
+import { describe, expect, it } from 'vitest'
 import { validateContractParams } from './validateContractParams.js'
 
 describe('validateContractParams', () => {

@@ -25,7 +25,7 @@ import { Evm } from './Evm.js'
  * console.log(runCallResult)
  * ````
  * @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
- * @returns {Promise<import('./Evm.js').Evm>} A tevm Evm instance with tevm specific defaults
+ * @returns {Promise<import('./EvmType.js').Evm>} A tevm Evm instance with tevm specific defaults
  */
 export const createEvm = async ({
 	common,

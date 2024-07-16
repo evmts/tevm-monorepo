@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { testActions } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 

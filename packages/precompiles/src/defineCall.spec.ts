@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
 import { encodeFunctionData, toBytes } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { defineCall } from './defineCall.js'
 
 describe(defineCall.name, () => {

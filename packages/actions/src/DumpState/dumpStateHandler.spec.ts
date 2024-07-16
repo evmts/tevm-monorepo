@@ -1,7 +1,7 @@
-import { expect, test } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
+import { expect, test } from 'vitest'
 import { loadStateHandler } from '../LoadState/loadStateHandler.js'
 import { dumpStateHandler } from './dumpStateHandler.js'
 

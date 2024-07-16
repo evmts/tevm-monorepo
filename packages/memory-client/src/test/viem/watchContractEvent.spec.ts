@@ -1,6 +1,6 @@
-import { beforeEach, describe, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
 import type { WatchContractEventOnLogsParameter } from 'viem'
+import { beforeEach, describe, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 

@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { ForkError, InternalError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
 import { bytesToHex } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 
 describe('cloneVmWithBfockTag', () => {

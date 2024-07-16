@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test'
 import { setAccountHandler } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
 import { createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import type { EthGetCodeJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getCodeProcedure } from './getCodeProcedure.js'
 

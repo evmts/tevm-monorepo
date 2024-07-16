@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
 import { bytesToHex } from 'viem'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
@@ -30,7 +30,7 @@ describe('getBlock', () => {
 			blockHash: bytesToHex(latest.header.hash()),
 			includeTransactions: true,
 		})
-		expect(hash).toStartWith('0x')
+		expect(hash.startsWith('0x')).toBe(true)
 		expect(timestamp).toBeDefined()
 		expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
 		expect(result).toMatchSnapshot()
@@ -42,7 +42,7 @@ describe('getBlock', () => {
 			blockNumber: 0n,
 			includeTransactions: true,
 		})
-		expect(hash).toStartWith('0x')
+		expect(hash.startsWith('0x')).toBe(true)
 		expect(timestamp).toBeDefined()
 		expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
 		expect(result).toMatchSnapshot()

@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { keccak256, stringToHex } from '@tevm/utils'
 import { http } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
 describe(ethGetLogsHandler.name, () => {

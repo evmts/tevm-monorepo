@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { createServer } from 'node:http'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { NextApiHandler } from 'next'
 import supertest from 'supertest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createNextApiHandler } from './createNextApiHandler.js'
 
 describe('createNextApiHandler', () => {

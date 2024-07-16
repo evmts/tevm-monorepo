@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { numberToHex } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { requestBulkProcedure } from './requestBulkProcedure.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const

@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
+import { describe, expect, it } from 'vitest'
 import { NonceTooLowError } from '../../errors/dist/index.cjs'
 import { createHttpHandler } from './createHttpHandler.js'
 

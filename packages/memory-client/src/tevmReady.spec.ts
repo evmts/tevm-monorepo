@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type Client, createClient } from 'viem'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmReady } from './tevmReady.js'

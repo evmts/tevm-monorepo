@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`txToJsonRpcTx should work 1`] = `
+exports[`txToJsonRpcTx > should work 1`] = `
 {
   "accessList": [],
   "blobVersionedHashes": undefined,

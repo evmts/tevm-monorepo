@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
 import { revert } from './revert.js'

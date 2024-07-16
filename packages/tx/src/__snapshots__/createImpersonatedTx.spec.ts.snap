@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createImpersonatedTx should create an EIP-1559 tx impersonating the address 1`] = `
+exports[`createImpersonatedTx > should create an EIP-1559 tx impersonating the address 1`] = `
 Uint8Array [
   157,
   170,
@@ -37,7 +37,7 @@ Uint8Array [
 ]
 `;
 
-exports[`createImpersonatedTx should support Object.keys 1`] = `
+exports[`createImpersonatedTx > should support Object.keys 1`] = `
 [
   "cache",
   "activeCapabilities",

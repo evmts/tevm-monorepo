@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`traceCallHandler should execute a contract call 1`] = `
+exports[`traceCallHandler > should execute a contract call 1`] = `
 {
   "failed": true,
   "gas": 538n,

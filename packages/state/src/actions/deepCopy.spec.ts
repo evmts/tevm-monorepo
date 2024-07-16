@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { InternalError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
 import { commit } from './commit.js'

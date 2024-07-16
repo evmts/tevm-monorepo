@@ -1,11 +1,14 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`validateCallParams code and deployedbytecode 1`] = `[InvalidBytecodeError: Cannot have both code and deployedBytecode set
+exports[`validateCallParams > code and deployedbytecode 1`] = `
+[InvalidBytecodeError: Cannot have both code and deployedBytecode set
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73]`;
+Version: 1.1.0.next-73]
+`;
 
-exports[`validateCallParams createTransaction and stateOverrideSet 1`] = `[InvalidParamsError: [
+exports[`validateCallParams > createTransaction and stateOverrideSet 1`] = `
+[InvalidParams: [
   {
     "code": "custom",
     "message": "Invalid Address 0x1234",
@@ -17,4 +20,5 @@ exports[`validateCallParams createTransaction and stateOverrideSet 1`] = `[Inval
 ]
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73]`;
+Version: 1.1.0.next-73]
+`;

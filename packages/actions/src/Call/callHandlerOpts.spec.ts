@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { EthjsAddress, bytesToHex, numberToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 

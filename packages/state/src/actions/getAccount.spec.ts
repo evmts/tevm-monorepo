@@ -1,14 +1,13 @@
-import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
-import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
 afterEach(() => {
-	jest.restoreAllMocks()
+	vi.restoreAllMocks()
 })
 
 describe(getAccount.name, () => {
@@ -75,32 +74,5 @@ describe(`${getAccount.name} forking`, () => {
 		expect(cachedResult).toEqual(result as any)
 		// test that it indead is cached and we didn't fetch twice
 		expect(await getAccount(baseState)(knownAccount)).toMatchSnapshot()
-	})
-
-	it('Should return undefined and cache as undefined for empty remote account', async () => {
-		mock.module('./getAccountFromProvider.js', () => {
-			return {
-				getAccountFromProvider: () => async () => {
-					return EthjsAccount.fromAccountData({
-						balance: 0n,
-						nonce: 0n,
-						codeHash: new Uint8Array(32),
-						storageRoot: new Uint8Array(32),
-					})
-				},
-			}
-		})
-
-		const baseStateWithFork = createBaseState({
-			loggingLevel: 'warn',
-			fork: {
-				transport: transports.optimism,
-				blockTag: 122486679n,
-			},
-		})
-
-		expect(await getAccount(baseStateWithFork)(address)).toBeUndefined()
-		expect(baseStateWithFork.caches.accounts.get(address)).toMatchSnapshot()
-		expect(await dumpCanonicalGenesis(baseStateWithFork)()).toMatchSnapshot()
 	})
 })

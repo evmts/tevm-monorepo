@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Hex, bytesToHex } from 'viem'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
@@ -27,7 +27,7 @@ beforeEach(async () => {
 describe('getTransaction', () => {
 	it('should work', async () => {
 		const { blockHash, ...tx } = await mc.getTransaction({ hash: deployTxHash })
-		expect(blockHash).toStartWith('0x')
+		expect(blockHash.startsWith('0x')).toBe(true)
 		const vm = await mc.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
 		expect(blockHash).toEqual(bytesToHex(block.header.hash()))

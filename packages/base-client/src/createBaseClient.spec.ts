@@ -1,4 +1,3 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { createCommon, mainnet } from '@tevm/common'
 import { definePredeploy } from '@tevm/predeploys'
@@ -6,6 +5,7 @@ import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseClient } from './createBaseClient.js'
 
 describe('createBaseClient with State Persister', () => {
@@ -67,12 +67,12 @@ describe('createBaseClient', () => {
 		expect(mode).toBe('normal')
 		expect(await ready()).toBe(true)
 		expect(await getVm().then((vm) => vm.evm.runCall({}))).toMatchSnapshot()
-		expect(extend).toBeFunction()
-		expect(logger.warn).toBeFunction()
+		expect(extend).toBeInstanceOf(Function)
+		expect(logger.warn).toBeInstanceOf(Function)
 		expect(forkTransport).toBeUndefined()
 		expect(await getTxPool().then((pool) => pool.pool)).toEqual(new Map())
 		expect(miningConfig).toEqual({ type: 'manual' })
-		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeFunction()
+		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeInstanceOf(Function)
 	})
 
 	it('Can be extended', async () => {
@@ -126,8 +126,8 @@ describe('createBaseClient', () => {
 
 	it('Persists state with custom persister', async () => {
 		const persister = {
-			persistTevmState: jest.fn(),
-			restoreState: jest.fn(),
+			persistTevmState: vi.fn(),
+			restoreState: vi.fn(),
 		}
 		const persistingClient = createBaseClient({
 			persister: persister as any,
@@ -149,8 +149,8 @@ describe('createBaseClient', () => {
 
 	it('Persists state with custom persister', async () => {
 		const persister = {
-			persistTevmState: jest.fn(),
-			restoreState: jest.fn(),
+			persistTevmState: vi.fn(),
+			restoreState: vi.fn(),
 		}
 		const persistingClient = createBaseClient({
 			persister: persister as any,

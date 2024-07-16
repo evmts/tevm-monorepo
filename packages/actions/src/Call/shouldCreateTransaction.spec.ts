@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { type RunTxResult } from '@tevm/vm'
+import { describe, expect, it } from 'vitest'
 import { type CallParams } from './CallParams.js'
 import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 

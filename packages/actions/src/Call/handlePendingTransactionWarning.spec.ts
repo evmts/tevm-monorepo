@@ -1,7 +1,7 @@
-import { describe, expect, it, jest } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { createBaseClient } from '@tevm/base-client'
 import { createImpersonatedTx } from '@tevm/tx'
+import { describe, expect, it, vi } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 
@@ -16,7 +16,7 @@ describe('handlePendingTransactionsWarning', () => {
 				data: `0x${'1'.repeat(40)}` as const,
 			}),
 		)
-		client.logger.warn = jest.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -45,7 +45,7 @@ describe('handlePendingTransactionsWarning', () => {
 				data: `0x${'1'.repeat(40)}` as const,
 			}),
 		)
-		client.logger.warn = jest.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -58,7 +58,7 @@ describe('handlePendingTransactionsWarning', () => {
 	})
 
 	it('should not warn if there are no pending transactions', async () => {
-		client.logger.warn = jest.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,
@@ -71,7 +71,7 @@ describe('handlePendingTransactionsWarning', () => {
 	})
 
 	it('should not warn if both code and deployedBytecode are provided', async () => {
-		client.logger.warn = jest.fn()
+		client.logger.warn = vi.fn() as any
 
 		await handlePendingTransactionsWarning(
 			client,

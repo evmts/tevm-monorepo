@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
 import { EthjsAccount, EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
 import { getContractStorage } from './getContractStorage.js'
@@ -86,8 +86,10 @@ describe('getContractStorage forking', () => {
 		const noForkBaseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toEqual(
-			Uint8Array.from([0]),
-		)
+		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toMatchInlineSnapshot(`
+			Uint8Array [
+			  0,
+			]
+		`)
 	})
 })

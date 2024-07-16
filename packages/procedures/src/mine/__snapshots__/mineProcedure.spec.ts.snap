@@ -1,13 +1,11 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`mineProcedure should handle errors from mineHandler 1`] = `
+exports[`mineProcedure > should handle errors from mineHandler 1`] = `
 {
   "code": -32603,
-  "message": 
-"No blocks were mined
+  "message": "No blocks were mined
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73"
-,
+Version: 1.1.0.next-73",
 }
 `;

@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
 import { numberToHex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBlockTransactionCountByNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetBlockTransactionCountByNumberJsonRpcProcedure } from './ethGetBlockTransactionCountByNumberProcedure.js'
 

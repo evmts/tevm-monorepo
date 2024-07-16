@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { createAddress } from '@tevm/address'
 import { createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
 

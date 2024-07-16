@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
 import { getBlockByTag } from './getBlockByTag.js'

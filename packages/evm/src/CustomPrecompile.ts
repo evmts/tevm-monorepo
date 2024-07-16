@@ -1,4 +1,4 @@
-import type { Evm } from './Evm.js'
+import type { Evm } from './EvmType.js'
 /**
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it

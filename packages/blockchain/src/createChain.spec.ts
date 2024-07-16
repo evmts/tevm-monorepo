@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { optimism } from '@tevm/common'
+import { describe, expect, it } from 'vitest'
 import { createChain } from './createChain.js'
 import { getMockBlocks } from './test/getBlocks.js'
 

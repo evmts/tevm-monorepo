@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseClient } from './BaseClient.js'
 import { addPredeploy } from './addPredeploy.js'
 import { createBaseClient } from './createBaseClient.js'

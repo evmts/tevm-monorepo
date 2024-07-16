@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { shallowCopy } from './shallowCopy.js'
 

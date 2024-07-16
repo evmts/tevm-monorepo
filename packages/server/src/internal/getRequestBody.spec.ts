@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { EventEmitter } from 'node:events'
 import { IncomingMessage } from 'node:http'
+import { describe, expect, it } from 'vitest'
 import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
 import { getRequestBody } from './getRequestBody.js'
 
@@ -39,7 +39,7 @@ describe('getRequestBody', () => {
 		const result = await getRequestBody(req as unknown as IncomingMessage)
 		expect(result).toBeInstanceOf(ReadRequestBodyError)
 		expect((result as ReadRequestBodyError).cause?.message).toBe(errorMessage)
-		expect((result as ReadRequestBodyError).message).toInclude(errorMessage)
+		expect((result as ReadRequestBodyError).message.includes(errorMessage)).toBe(true)
 		expect(result).toMatchSnapshot()
 	})
 })

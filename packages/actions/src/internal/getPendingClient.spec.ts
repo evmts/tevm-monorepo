@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { createBaseClient } from '@tevm/base-client'
 import { parseEther } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'

@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { tevmDefault } from '@tevm/common'
 import { hexToBytes } from 'viem'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
 import { prepareTransactionRequest, signTransaction } from 'viem/actions'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 

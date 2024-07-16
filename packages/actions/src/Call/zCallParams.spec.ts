@@ -1,4 +1,4 @@
-import { expect, test } from 'bun:test'
+import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import type { CallParams } from './CallParams.js'
 import { zCallParams } from './zCallParams.js'

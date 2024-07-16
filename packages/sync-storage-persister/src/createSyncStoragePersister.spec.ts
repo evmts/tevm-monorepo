@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import type { SerializableTevmState } from '@tevm/state'
+import { describe, expect, it } from 'vitest'
 import type { Storage } from './Storage.js'
 import { createSyncStoragePersister } from './createSyncStoragePersister.js'
 

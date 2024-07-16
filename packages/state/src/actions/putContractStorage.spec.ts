@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { InternalError } from '@tevm/errors'
 import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
 import { getContractStorage } from './getContractStorage.js'

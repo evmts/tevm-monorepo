@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { InvalidRequestError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
 import { InvalidJsonError } from '../errors/InvalidJsonError.js'
 import { parseRequest } from './parseRequest.js'
 

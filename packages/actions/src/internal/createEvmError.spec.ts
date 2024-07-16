@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'bun:test'
 import {
 	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
@@ -34,6 +33,7 @@ import {
 	ValueOverflowError,
 } from '@tevm/errors'
 import { EvmErrorMessage } from '@tevm/evm'
+import { describe, expect, it } from 'vitest'
 import { createEvmError } from './createEvmError.js'
 
 describe('createEvmError', () => {
@@ -76,7 +76,7 @@ describe('createEvmError', () => {
 		it(`should return ${expected.name} for ${error.error}`, () => {
 			const result = createEvmError(error as any)
 			expect(result).toBeInstanceOf(expected)
-			expect(result.message).toInclude(error.error)
+			expect(result.message.includes(error.error)).toBe(true)
 		})
 	})
 

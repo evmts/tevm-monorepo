@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'bun:test'
 import { SimpleContract } from '@tevm/contract'
 import { type AbiEvent, encodeAbiParameters, encodeEventTopics, hexToBytes } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { logToEthjsLog } from './logToEthjsLog.js'
 
 describe('logToEthjsLog', () => {

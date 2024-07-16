@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { dumpStorage } from './dumpStorage.js'
 

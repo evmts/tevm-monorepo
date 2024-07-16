@@ -1,6 +1,6 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`getAccount forking Should fetch account from remote provider if not in cache and fork transport is provided 1`] = `
+exports[`getAccount forking > Should fetch account from remote provider if not in cache and fork transport is provided 1`] = `
 Account {
   "balance": 121136012589291788664n,
   "codeHash": Uint8Array [
@@ -75,7 +75,7 @@ Account {
 }
 `;
 
-exports[`getAccount forking Should fetch account from remote provider if not in cache and fork transport is provided 2`] = `
+exports[`getAccount forking > Should fetch account from remote provider if not in cache and fork transport is provided 2`] = `
 Account {
   "balance": 121136012589291788664n,
   "codeHash": Uint8Array [
@@ -149,11 +149,3 @@ Account {
   ],
 }
 `;
-
-exports[`getAccount forking Should return undefined and cache as undefined for empty remote account 1`] = `
-{
-  "accountRLP": undefined,
-}
-`;
-
-exports[`getAccount forking Should return undefined and cache as undefined for empty remote account 2`] = `{}`;

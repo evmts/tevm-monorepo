@@ -1,4 +1,3 @@
-import { expect, test } from 'bun:test'
 import {
 	InvalidBlobVersionedHashesError,
 	InvalidBlockError,
@@ -15,6 +14,7 @@ import {
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
+import { expect, test } from 'vitest'
 import type { BaseCallParams } from './BaseCallParams.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 

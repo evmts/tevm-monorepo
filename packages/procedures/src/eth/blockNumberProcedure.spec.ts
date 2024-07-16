@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthBlockNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { blockNumberProcedure } from './blockNumberProcedure.js'
 

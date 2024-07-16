@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { deployHandler, mineHandler } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address, numberToHex } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetStorageAtJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 

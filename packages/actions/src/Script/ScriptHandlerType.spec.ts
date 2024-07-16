@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import type { ContractHandler } from '../Contract/ContractHandlerType.js'
 import type { ContractParams } from '../Contract/ContractParams.js'
 import type { ContractResult } from '../Contract/ContractResult.js'

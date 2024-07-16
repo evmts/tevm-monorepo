@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { http } from 'viem'
+import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from './mineHandler.js'
 

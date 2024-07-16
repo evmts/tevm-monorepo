@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { createMemoryClient } from '@tevm/memory-client'
 import express from 'express'
 import supertest from 'supertest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createExpressMiddleware } from './createExpressMiddleware.js'
 
 describe('createExpressMiddleware', () => {

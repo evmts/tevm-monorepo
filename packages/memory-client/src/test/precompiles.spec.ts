@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'bun:test'
 import type { CustomPrecompile } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 describe('precompiles option', () => {

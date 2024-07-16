@@ -12,8 +12,12 @@ import { anvilSetCoinbaseJsonRpcProcedure } from './anvil/anvilSetCoinbaseProced
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProcedure.js'
 import { anvilStopImpersonatingAccountJsonRpcProcedure } from './anvil/anvilStopImpersonatingAccountProcedure.js'
+import { callProcedure } from './call/callProcedure.js'
 import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
+import { dumpStateProcedure } from './dumpstate/dumpStateProcedure.js'
+import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
+import { chainIdProcedure } from './eth/chainIdProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethCoinbaseJsonRpcProcedure } from './eth/ethCoinbaseProcedure.js'
@@ -24,6 +28,7 @@ import { ethGetBlockTransactionCountByHashJsonRpcProcedure } from './eth/ethGetB
 import { ethGetBlockTransactionCountByNumberJsonRpcProcedure } from './eth/ethGetBlockTransactionCountByNumberProcedure.js'
 import { ethGetFilterChangesProcedure } from './eth/ethGetFilterChangesProcedure.js'
 import { ethGetFilterLogsProcedure } from './eth/ethGetFilterLogsProcedure.js'
+import { ethGetLogsProcedure } from './eth/ethGetLogsProcedure.js'
 import { ethGetTransactionByBlockHashAndIndexJsonRpcProcedure } from './eth/ethGetTransactionByBlockHashAndIndexProcedure.js'
 import { ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure } from './eth/ethGetTransactionByBlockNumberAndIndexProcedure.js'
 import { ethGetTransactionByHashJsonRpcProcedure } from './eth/ethGetTransactionByHashProcedure.js'
@@ -36,22 +41,15 @@ import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProc
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
-import {
-	blockNumberProcedure,
-	callProcedure,
-	chainIdProcedure,
-	dumpStateProcedure,
-	ethGetLogsProcedure,
-	gasPriceProcedure,
-	getAccountProcedure,
-	getBalanceProcedure,
-	getCodeProcedure,
-	getStorageAtProcedure,
-	loadStateProcedure,
-	mineProcedure,
-	scriptProcedure,
-	setAccountProcedure,
-} from './index.js'
+import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
+import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
+import { getCodeProcedure } from './eth/getCodeProcedure.js'
+import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
+import { getAccountProcedure } from './getaccount/getAccountProcedure.js'
+import { loadStateProcedure } from './loadstate/loadStateProcedure.js'
+import { mineProcedure } from './mine/mineProcedure.js'
+import { scriptProcedure } from './script/scriptProcedure.js'
+import { setAccountProcedure } from './setaccount/setAccountProcedure.js'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers

@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { createVm } from '@tevm/vm'
+import { describe, expect, it } from 'vitest'
 import { TxPool } from './TxPool.js'
 
 describe(TxPool.name, () => {

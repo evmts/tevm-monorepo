@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
 import { type Hex } from '@tevm/utils'
 import type { MemoryClient } from '../../MemoryClient.js'

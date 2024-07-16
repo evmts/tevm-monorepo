@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
 

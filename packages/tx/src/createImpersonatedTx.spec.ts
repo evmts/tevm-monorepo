@@ -1,11 +1,30 @@
-import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 import { Common } from '@ethereumjs/common'
+import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
+import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
 
-afterEach(() => {
-	jest.restoreAllMocks()
+vi.mock('@ethereumjs/tx', async () => {
+	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
+	const mockClass = vi.fn()
+	mockClass.mockImplementation((...args: any[]) => {
+		return new actualEthjsTx.FeeMarketEIP1559Transaction(...args)
+	})
+	return {
+		...actualEthjsTx,
+		FeeMarketEIP1559Transaction: mockClass,
+	}
+})
+
+const FeeMarketEIP1559TransactionMock = FeeMarketEIP1559Transaction as unknown as MockedFunction<any>
+
+afterEach(async () => {
+	vi.resetAllMocks()
+	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
+	FeeMarketEIP1559TransactionMock.mockImplementation((...args: any[]) => {
+		return new actualEthjsTx.FeeMarketEIP1559Transaction(...args)
+	})
 })
 
 describe(createImpersonatedTx.name, () => {
@@ -16,10 +35,10 @@ describe(createImpersonatedTx.name, () => {
 			data,
 			impersonatedAddress,
 		})
-		expect(tx.isImpersonated).toBeTrue()
+		expect(tx.isImpersonated).toBe(true)
 		expect(tx.hash()).toMatchSnapshot()
 		expect(tx.getSenderAddress()).toEqual(impersonatedAddress)
-		expect(tx.isSigned()).toBeTrue()
+		expect(tx.isSigned()).toBe(true)
 	})
 
 	it('should support Object.keys', () => {
@@ -56,6 +75,9 @@ describe(createImpersonatedTx.name, () => {
 		const ethjsError = new Error(
 			'gasLimit cannot exceed MAX_UINT64 (2^64-1), given 374144419156711147060143317175368453031918731001855 (tx type=2 hash=not available (unsigned) nonce=0 value=0 signed=false hf=error maxFeePerGas=undefined maxPriorityFeePerGas=undefined)',
 		)
+		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+			throw ethjsError
+		})
 		expect(() => createImpersonatedTx({ impersonatedAddress, data, gasLimit: `0x${'ff'.repeat(21)}` })).toThrow(
 			new InvalidGasLimitError(ethjsError.message, { cause: ethjsError }),
 		)
@@ -65,15 +87,8 @@ describe(createImpersonatedTx.name, () => {
 		const expectedError = new Error(
 			'maxFeePerGas cannot be less than maxPriorityFeePerGas (The total must be the larger of the two)',
 		)
-		class ThrowsOnConstruction {
-			constructor() {
-				throw expectedError
-			}
-		}
-		mock.module('@ethereumjs/tx', () => {
-			return {
-				FeeMarketEIP1559Transaction: ThrowsOnConstruction,
-			}
+		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+			throw expectedError
 		})
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
@@ -84,15 +99,8 @@ describe(createImpersonatedTx.name, () => {
 
 	it('should throw an error if FeeMarketEIP1559Transaction throws', () => {
 		const expectedError = new Error('Constructor error')
-		class ThrowsOnConstruction {
-			constructor() {
-				throw expectedError
-			}
-		}
-		mock.module('@ethereumjs/tx', () => {
-			return {
-				FeeMarketEIP1559Transaction: ThrowsOnConstruction,
-			}
+		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+			throw expectedError
 		})
 
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
@@ -104,17 +112,9 @@ describe(createImpersonatedTx.name, () => {
 
 	it('should throw an error if FeeMarketEIP1559Transaction throws non error', () => {
 		const notError = { not: 'error' }
-		class ThrowsOnConstruction {
-			constructor() {
-				throw notError
-			}
-		}
-		mock.module('@ethereumjs/tx', () => {
-			return {
-				FeeMarketEIP1559Transaction: ThrowsOnConstruction,
-			}
+		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+			throw notError
 		})
-
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
 		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(
