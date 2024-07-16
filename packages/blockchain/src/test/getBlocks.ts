@@ -1,8 +1,8 @@
-import { optimism } from '@tevm/common'
 import { Block } from '@tevm/block'
+import { optimism } from '@tevm/common'
+import { createLogger } from '@tevm/logger'
 import { transports } from '@tevm/test-utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
-import { createLogger } from '@tevm/logger'
 
 let blocks: [Block, Block, Block, Block] | undefined = undefined
 export const getMockBlocks = async (): Promise<[Block, Block, Block, Block]> => {
@@ -14,7 +14,7 @@ export const getMockBlocks = async (): Promise<[Block, Block, Block, Block]> => 
 					{ logger: createLogger({ name: 'test', level: 'warn' }) } as any,
 					{ transport: transports.optimism, blockTag },
 					optimism,
-				),
+				).then((res) => res[0]),
 			),
 		)) as [Block, Block, Block, Block])
 	return blocks

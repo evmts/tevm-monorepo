@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from 'bun:test'
-import { warnOnce } from './warnOnce.js'
-import { createBaseChain } from '../createBaseChain.js'
 import { optimism } from '@tevm/common'
-import { getMockBlocks } from '../test/getBlocks.js'
 import { bytesToHex } from 'viem'
+import { createBaseChain } from '../createBaseChain.js'
+import { getMockBlocks } from '../test/getBlocks.js'
+import { warnOnce } from './warnOnce.js'
 
 describe(warnOnce.name, () => {
 	it('should log a warning once for unsupported transaction type', async () => {
@@ -18,7 +18,7 @@ describe(warnOnce.name, () => {
 		const warningFunction = warnOnce(chain)
 
 		const mockBlocks = await getMockBlocks()
-		const tx = { hash: bytesToHex(mockBlocks[0].header.hash()) }
+		const tx = { hash: bytesToHex(mockBlocks[0].hash()) }
 
 		warningFunction(tx as any)
 		warningFunction(tx as any)
@@ -43,7 +43,7 @@ Note: The block hash will be different because of the excluded txs`,
 		const warningFunction = warnOnce(chain)
 
 		const mockBlocks = await getMockBlocks()
-		const tx = { hash: bytesToHex(mockBlocks[0].header.hash()) }
+		const tx = { hash: bytesToHex(mockBlocks[0].hash()) }
 
 		warningFunction(tx as any)
 		warningFunction(tx as any)

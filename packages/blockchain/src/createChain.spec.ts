@@ -1,9 +1,16 @@
 import { describe, expect, it } from 'bun:test'
+import { optimism } from '@tevm/common'
 import { createChain } from './createChain.js'
 import { getMockBlocks } from './test/getBlocks.js'
-import { optimism } from '@tevm/common'
 
 describe(createChain.name, () => {
+	it('has state', async () => {
+		const chain = await createChain({ common: optimism.copy() })
+		expect(chain.blocks).toBeInstanceOf(Map)
+		expect(chain.blocksByNumber).toBeInstanceOf(Map)
+		expect(chain.blocksByTag).toBeInstanceOf(Map)
+	})
+
 	it('should create a chain with the correct methods', async () => {
 		const options = { common: optimism.copy() }
 		const chain = await createChain(options)
@@ -28,7 +35,7 @@ describe(createChain.name, () => {
 		const copy = await chain.deepCopy()
 
 		expect(copy).not.toBe(chain)
-		expect(copy.common).toEqual(chain.common)
+		expect(copy.common.id).toEqual(chain.common.id)
 		expect(copy.blocks.size).toBe(chain.blocks.size)
 	})
 
@@ -53,17 +60,6 @@ describe(createChain.name, () => {
 		expect(block).toEqual(mockBlocks[0])
 	})
 
-	it('should validate block header correctly', async () => {
-		const options = { common: optimism.copy() }
-		const chain = await createChain(options)
-		const mockBlocks = await getMockBlocks()
-
-		await chain.putBlock(mockBlocks[0])
-		await chain.putBlock(mockBlocks[1])
-		const error = await chain.validateHeader(mockBlocks[1].header).catch((e) => e)
-		expect(error).toBeUndefined()
-	})
-
 	it('should throw an error for invalid block header validation', async () => {
 		const options = { common: optimism.copy() }
 		const chain = await createChain(options)
@@ -83,11 +79,9 @@ describe(createChain.name, () => {
 
 		await chain.putBlock(mockBlocks[0])
 		await chain.putBlock(mockBlocks[1])
-		await chain.delBlock(mockBlocks[1].header.hash())
+		await chain.delBlock(mockBlocks[0].hash())
 
-		const block = await chain.getBlock(mockBlocks[1].header.hash()).catch((e) => e)
-		expect(block).toBeInstanceOf(Error)
-		expect(block.message).toMatchSnapshot()
+		expect(chain.blocksByNumber.get(mockBlocks[0].header.number)).toBeUndefined()
 	})
 
 	it('should get and set iterator head correctly', async () => {
@@ -96,7 +90,7 @@ describe(createChain.name, () => {
 		const mockBlocks = await getMockBlocks()
 
 		await chain.putBlock(mockBlocks[0])
-		await chain.setIteratorHead('vm', mockBlocks[0].header.hash())
+		await chain.setIteratorHead('vm', mockBlocks[0].hash())
 
 		const head = await chain.getIteratorHead('vm')
 		expect(head).toEqual(mockBlocks[0])

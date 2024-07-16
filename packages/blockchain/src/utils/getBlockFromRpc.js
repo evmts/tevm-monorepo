@@ -3,8 +3,8 @@ import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
-import { warnOnce } from './warnOnce.js'
 import { isTevmBlockTag } from './isTevmBlockTag.js'
+import { warnOnce } from './warnOnce.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
@@ -17,27 +17,30 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 	const doWarning = warnOnce(baseChain)
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
-	 * @param {import('viem').RpcBlock<'latest', true>} rpcBlock
-	 * @returns {Block}
+	 * @param {import('viem').RpcBlock<import('viem').BlockTag, true>} rpcBlock
+	 * @returns {[Block, import('viem').RpcBlock<import('viem').BlockTag, true>]}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
-		return blockFromRpc(
-			{
-				.../** @type {any}*/ (rpcBlock),
-				// filter out transactions we don't support as a hack
-				transactions: rpcBlock.transactions?.filter((tx) => {
-					// we currently don't support optimism deposit tx which uses this custom code
-					// Optimism type is currently not in viem types
-					// @ts-expect-error
-					if (tx.type === '0x7e') {
-						doWarning(tx)
-						return false
-					}
-					return true
-				}),
-			},
-			{ common, setHardfork: false, freeze: false, skipConsensusFormatValidation: true },
-		)
+		return [
+			blockFromRpc(
+				{
+					.../** @type {any}*/ (rpcBlock),
+					// filter out transactions we don't support as a hack
+					transactions: rpcBlock.transactions?.filter((tx) => {
+						// we currently don't support optimism deposit tx which uses this custom code
+						// Optimism type is currently not in viem types
+						// @ts-expect-error
+						if (tx.type === '0x7e') {
+							doWarning(tx)
+							return false
+						}
+						return true
+					}),
+				},
+				{ common, setHardfork: false, freeze: false, skipConsensusFormatValidation: true },
+			),
+			rpcBlock,
+		]
 	}
 
 	return withRetry(

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'bun:test'
-import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
-import { createBaseChain } from '../createBaseChain.js'
-import { putBlock } from './putBlock.js'
-import { getMockBlocks } from '../test/getBlocks.js'
 import { optimism } from '@tevm/common'
 import { InternalError } from '@tevm/errors'
+import { createBaseChain } from '../createBaseChain.js'
+import { getMockBlocks } from '../test/getBlocks.js'
+import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
+import { putBlock } from './putBlock.js'
 
 describe(getCanonicalHeadBlock.name, async () => {
 	const blocks = await getMockBlocks()
@@ -16,7 +16,7 @@ describe(getCanonicalHeadBlock.name, async () => {
 	it('should throw an error if not cannonical block', async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		chain.blocksByTag.set('latest', undefined)
-		let error = await getCanonicalHeadBlock(chain)().catch((e) => e)
+		const error = await getCanonicalHeadBlock(chain)().catch((e) => e)
 		expect(error).toBeInstanceOf(InternalError)
 		expect(error).toMatchSnapshot()
 	})

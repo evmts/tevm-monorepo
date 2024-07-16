@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { isTevmBlockTag, type TevmBlockTag } from './isTevmBlockTag.js'
+import { type TevmBlockTag, isTevmBlockTag } from './isTevmBlockTag.js'
 
 describe(isTevmBlockTag.name, () => {
 	it('should return true for valid block tags', () => {

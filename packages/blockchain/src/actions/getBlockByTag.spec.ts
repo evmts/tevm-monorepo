@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'bun:test'
-import { getBlockByTag } from './getBlockByTag.js'
-import { createBaseChain } from '../createBaseChain.js'
-import { mainnet } from '@tevm/common'
-import { getMockBlocks } from '../test/getBlocks.js'
-import { putBlock } from './putBlock.js'
+import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
+import { createBaseChain } from '../createBaseChain.js'
+import { getMockBlocks } from '../test/getBlocks.js'
+import { getBlockByTag } from './getBlockByTag.js'
+import { putBlock } from './putBlock.js'
 
 describe(getBlockByTag.name, async () => {
 	const chain = createBaseChain({
-		common: mainnet.copy(),
+		common: optimism.copy(),
 	})
 
 	const blocks = await getMockBlocks()
@@ -31,7 +31,7 @@ describe(getBlockByTag.name, async () => {
 	})
 
 	it('should throw an error if the block does not exist', async () => {
-		let error = await getBlockByTag(chain)(69).then((e) => e)
+		let error = await getBlockByTag(chain)(69).catch((e) => e)
 		expect(error).toBeInstanceOf(UnknownBlockError)
 		expect(error).toMatchSnapshot()
 		error = await getBlockByTag(chain)(blocks[3].hash()).catch((e) => e)
@@ -41,7 +41,7 @@ describe(getBlockByTag.name, async () => {
 
 	it('should fetch and cache the block from rpc if it does not exist', async () => {
 		const chain = createBaseChain({
-			common: mainnet.copy(),
+			common: optimism.copy(),
 			fork: {
 				transport: transports.optimism,
 				blockTag: blocks[0].header.number,
@@ -53,7 +53,7 @@ describe(getBlockByTag.name, async () => {
 
 	it('should throw UnknownBlockError if tag doesn not exist', async () => {
 		const chain = createBaseChain({
-			common: mainnet.copy(),
+			common: optimism.copy(),
 		})
 		const error = await getBlockByTag(chain)('safe').catch((e) => e)
 		expect(error).toBeInstanceOf(UnknownBlockError)

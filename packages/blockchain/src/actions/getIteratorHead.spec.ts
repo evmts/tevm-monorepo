@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'bun:test'
-import { getIteratorHead } from './getIteratorHead.js'
-import { createBaseChain } from '../createBaseChain.js'
-import { putBlock } from './putBlock.js'
-import { getMockBlocks } from '../test/getBlocks.js'
 import { optimism } from '@tevm/common'
+import { InvalidBlockError } from '@tevm/errors'
+import { createBaseChain } from '../createBaseChain.js'
+import { getMockBlocks } from '../test/getBlocks.js'
+import { getIteratorHead } from './getIteratorHead.js'
+import { putBlock } from './putBlock.js'
 
 describe(getIteratorHead.name, async () => {
 	const blocks = await getMockBlocks()
@@ -24,16 +25,16 @@ describe(getIteratorHead.name, async () => {
 
 	it('should throw an error if the iterator head block does not exist', async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
-		let error = await getIteratorHead(chain)('nonExistentTag').catch((e) => e)
-		expect(error).toBeInstanceOf(Error)
-		expect(error.message).toBe('No block with tag nonExistentTag exists. Current tags include ')
+		const error = await getIteratorHead(chain)('nonExistentTag').catch((e) => e)
+		expect(error).toBeInstanceOf(InvalidBlockError)
+		expect(error).toMatchSnapshot()
 	})
 
 	it('should include current tags in error message if the iterator head block does not exist', async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		chain.blocksByTag.set('someTag' as any, blocks[0])
-		let error = await getIteratorHead(chain)('nonExistentTag').catch((e) => e)
-		expect(error).toBeInstanceOf(Error)
-		expect(error.message).toBe(`No block with tag nonExistentTag exists. Current tags include someTag`)
+		const error = await getIteratorHead(chain)('nonExistentTag').catch((e) => e)
+		expect(error).toBeInstanceOf(InvalidBlockError)
+		expect(error).toMatchSnapshot()
 	})
 })

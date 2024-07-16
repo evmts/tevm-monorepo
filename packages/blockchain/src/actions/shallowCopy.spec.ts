@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { shallowCopy } from './shallowCopy.js'
-import { createBaseChain } from '../createBaseChain.js'
 import { optimism } from '@tevm/common'
+import { createBaseChain } from '../createBaseChain.js'
+import { shallowCopy } from './shallowCopy.js'
 
 describe(shallowCopy.name, () => {
 	it('should create a shallow copy of the chain', () => {

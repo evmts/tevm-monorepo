@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test'
-import { deepCopy } from './deepCopy.js'
-import { createBaseChain } from '../createBaseChain.js'
 import { optimism } from '@tevm/common'
-import { putBlock } from './putBlock.js'
 import { bytesToHex } from '@tevm/utils'
-import { getBlock } from './getBlock.js'
+import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
+import { deepCopy } from './deepCopy.js'
+import { getBlock } from './getBlock.js'
+import { putBlock } from './putBlock.js'
 
 describe(deepCopy.name, async () => {
 	it('should deepCopy the chain', async () => {

@@ -13,7 +13,7 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: 'latest' }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBeGreaterThanOrEqual(0n)
 	})
@@ -27,10 +27,10 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBe(blockNumber)
-		expect(bytesToHex(block.header.hash())).toEqual(blockHashAfterForking)
+		expect(bytesToHex(block.hash())).toEqual(blockHashAfterForking)
 		// this is an ethjs bug that the type doesn't match
 		expect(block.toJSON()).toEqual(expectedBlock as any)
 	})
@@ -39,7 +39,7 @@ describe('getBlockFromRpc', () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(bytesToHex(block.hash())).toBe(blockHashAfterForking)
 		expect(block.header.number).toBe(blockNumber)
@@ -120,7 +120,7 @@ describe('getBlockFromRpc', () => {
 		const consoleWarnSpy = jest.fn()
 		baseChain.logger.warn = consoleWarnSpy
 
-		const block = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
+		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		expect(block).toBeInstanceOf(Block)
