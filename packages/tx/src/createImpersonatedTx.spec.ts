@@ -1,9 +1,9 @@
 import { Common } from '@ethereumjs/common'
+import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
-import { afterEach, describe, expect, it, vi, type MockedFunction } from 'vitest'
+import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
-import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
 
 vi.mock('@ethereumjs/tx', async () => {
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any

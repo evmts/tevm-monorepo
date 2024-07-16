@@ -1,5 +1,5 @@
 import type { Contract } from '@tevm/contract'
-import { EthjsAddress, type Address, type Hex } from '@tevm/utils'
+import { type Address, EthjsAddress, type Hex } from '@tevm/utils'
 
 /**
  * Type of predeploy contract for tevm

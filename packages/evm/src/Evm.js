@@ -35,8 +35,7 @@ export class Evm extends EVM {
 			)
 		}
 		this._customPrecompiles.push(precompile)
-		const mutableThis = /** @type {any} */ (this)
-		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
 	/**
@@ -56,8 +55,7 @@ export class Evm extends EVM {
 			throw new InvalidParamsError('Precompile not found')
 		}
 		this._customPrecompiles.splice(index, 1)
-		const mutableThis = /** @type {any} */ (this)
-		mutableThis._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
 	/**
