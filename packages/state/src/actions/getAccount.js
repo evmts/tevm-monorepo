@@ -2,7 +2,8 @@ import { EthjsAccount } from '@tevm/utils'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
 
 /**
- * Gets the code corresponding to the provided `address`.
+ * Gets the account corresponding to the provided `address`.
+ * Returns undefined if account does not exist
  * @type {import("../state-types/index.js").StateAction<'getAccount'>}
  */
 export const getAccount =

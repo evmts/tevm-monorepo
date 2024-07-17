@@ -4,6 +4,7 @@ import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
 import { getContractCode } from './getContractCode.js'
+import { InternalError } from '@tevm/errors'
 
 // might be good to cache this to optimize perf and memory
 
@@ -29,6 +30,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 
 		if (account === undefined) {
 			baseState.logger.debug({ address: hexAddress }, 'Warning: Account in accountAddresses not found')
+			throw new InternalError(`Account ${hexAddress} unexpecedly does not exist in state`)
 		}
 		if (account !== undefined) {
 			const storage = await dumpStorage(baseState, true)(ethAddress)
