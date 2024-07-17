@@ -1,5 +1,28 @@
 # @tevm/contract
 
+## 1.1.0-next.100
+
+### Patch Changes
+
+- [#1322](https://github.com/evmts/tevm-monorepo/pull/1322) [`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated to vitest for better coverage reporting
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5), [`45950f7`](https://github.com/evmts/tevm-monorepo/commit/45950f758ff2a97334cd0edafca3cca656ed8f7c), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131), [`419b19f`](https://github.com/evmts/tevm-monorepo/commit/419b19f4c493636f3624ae9dd474cbade42daa26), [`1028d01`](https://github.com/evmts/tevm-monorepo/commit/1028d01f546938f16db73f012a33626cc71fa9ca), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131)]:
+  - @tevm/base-client@1.1.0-next.100
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/contract@1.1.0-next.100
+  - @tevm/actions@1.1.0-next.100
+  - @tevm/address@1.1.0-next.100
+  - @tevm/jsonrpc@1.1.0-next.100
+  - @tevm/common@1.1.0-next.100
+  - @tevm/errors@1.1.0-next.100
+  - @tevm/block@1.1.0-next.100
+  - @tevm/state@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+  - @tevm/evm@1.1.0-next.100
+  - @tevm/tx@1.1.0-next.100
+  - @tevm/vm@1.1.0-next.100
+  - @tevm/test-utils@1.1.0-next.100
+
 ## 1.1.0-next.99
 
 ### Minor Changes

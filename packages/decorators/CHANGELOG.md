@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.1.0-next.100
+
+### Patch Changes
+
+- [#1322](https://github.com/evmts/tevm-monorepo/pull/1322) [`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated to vitest for better coverage reporting
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5), [`45950f7`](https://github.com/evmts/tevm-monorepo/commit/45950f758ff2a97334cd0edafca3cca656ed8f7c), [`419b19f`](https://github.com/evmts/tevm-monorepo/commit/419b19f4c493636f3624ae9dd474cbade42daa26)]:
+  - @tevm/base-client@1.1.0-next.100
+  - @tevm/procedures@1.1.0-next.100
+  - @tevm/actions@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+
 ## 1.1.0-next.99
 
 ### Patch Changes

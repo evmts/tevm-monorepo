@@ -1,5 +1,19 @@
 # @tevm/server
 
+## 1.1.0-next.100
+
+### Patch Changes
+
+- [#1322](https://github.com/evmts/tevm-monorepo/pull/1322) [`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated to vitest for better coverage reporting
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5)]:
+  - @tevm/memory-client@1.1.0-next.100
+  - @tevm/decorators@1.1.0-next.100
+  - @tevm/jsonrpc@1.1.0-next.100
+  - @tevm/common@1.1.0-next.100
+  - @tevm/errors@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+
 ## 1.1.0-next.99
 
 ### Patch Changes

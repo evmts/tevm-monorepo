@@ -1,5 +1,32 @@
 # @tevm/contract
 
+## 1.1.0-next.100
+
+### Minor Changes
+
+- [#1314](https://github.com/evmts/tevm-monorepo/pull/1314) [`419b19f`](https://github.com/evmts/tevm-monorepo/commit/419b19f4c493636f3624ae9dd474cbade42daa26) Thanks [@roninjin10](https://github.com/roninjin10)! - Added pending block tag support to eth_getStorageAt eth_getLogs tevm_getAccount eth_getBalance eth_getCode and tevm_dumpState. All these methods also support historical blocck tags in a more robust way now too
+
+### Patch Changes
+
+- [#1322](https://github.com/evmts/tevm-monorepo/pull/1322) [`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated to vitest for better coverage reporting
+
+- [#1318](https://github.com/evmts/tevm-monorepo/pull/1318) [`45950f7`](https://github.com/evmts/tevm-monorepo/commit/45950f758ff2a97334cd0edafca3cca656ed8f7c) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated json-rpc methods to bubble up errors from failing to build a pending client
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131), [`1028d01`](https://github.com/evmts/tevm-monorepo/commit/1028d01f546938f16db73f012a33626cc71fa9ca), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131)]:
+  - @tevm/receipt-manager@1.1.0-next.100
+  - @tevm/base-client@1.1.0-next.100
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/address@1.1.0-next.100
+  - @tevm/jsonrpc@1.1.0-next.100
+  - @tevm/common@1.1.0-next.100
+  - @tevm/errors@1.1.0-next.100
+  - @tevm/block@1.1.0-next.100
+  - @tevm/state@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+  - @tevm/evm@1.1.0-next.100
+  - @tevm/tx@1.1.0-next.100
+  - @tevm/vm@1.1.0-next.100
+
 ## 1.1.0-next.99
 
 ### Minor Changes
