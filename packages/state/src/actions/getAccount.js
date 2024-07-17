@@ -23,9 +23,7 @@ export const getAccount =
 			return undefined
 		}
 		baseState.logger.debug({ address }, 'fetching account from remote RPC')
-		const account = await getAccountFromProvider(baseState)(
-			/** @type {import('@tevm/utils').Address}*/ (address.toString()),
-		)
+		const account = await getAccountFromProvider(baseState)(address)
 		if (
 			account.nonce === 0n &&
 			account.balance === 0n &&
