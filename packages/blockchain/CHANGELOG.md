@@ -1,5 +1,26 @@
 # @tevm/state
 
+## 1.1.0-next.100
+
+### Patch Changes
+
+- [#1322](https://github.com/evmts/tevm-monorepo/pull/1322) [`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated to vitest for better coverage reporting
+
+- [#1319](https://github.com/evmts/tevm-monorepo/pull/1319) [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where async methods would sometimes syncronously throw rather than returning a rejected promise
+
+- [#1317](https://github.com/evmts/tevm-monorepo/pull/1317) [`1028d01`](https://github.com/evmts/tevm-monorepo/commit/1028d01f546938f16db73f012a33626cc71fa9ca) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed mispelling in console.warn
+
+- [#1319](https://github.com/evmts/tevm-monorepo/pull/1319) [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where on optimism based chains block.header.parentHash would falsely not exist. This is because deposit transactions are filtered out at this time thus the block hashes are changed. As a workaround until optimism deposit transactions are supported getBlock(realHash) will still return the intended block
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5)]:
+  - @tevm/jsonrpc@1.1.0-next.100
+  - @tevm/common@1.1.0-next.100
+  - @tevm/errors@1.1.0-next.100
+  - @tevm/logger@1.1.0-next.100
+  - @tevm/block@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+  - @tevm/trie@1.1.0-next.100
+
 ## 1.1.0-next.99
 
 ### Minor Changes

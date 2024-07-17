@@ -1,5 +1,39 @@
 # @tevm/contract
 
+## 1.1.0-next.100
+
+### Patch Changes
+
+- Updated dependencies [[`6407be7`](https://github.com/evmts/tevm-monorepo/commit/6407be7736c996aa8939a0ec5ee13c3d3c34f1e5), [`45950f7`](https://github.com/evmts/tevm-monorepo/commit/45950f758ff2a97334cd0edafca3cca656ed8f7c), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131), [`419b19f`](https://github.com/evmts/tevm-monorepo/commit/419b19f4c493636f3624ae9dd474cbade42daa26), [`1028d01`](https://github.com/evmts/tevm-monorepo/commit/1028d01f546938f16db73f012a33626cc71fa9ca), [`fb42620`](https://github.com/evmts/tevm-monorepo/commit/fb4262025f58d627bd96df95b757ab3f7e2f2131)]:
+  - @tevm/sync-storage-persister@1.1.0-next.100
+  - @tevm/receipt-manager@1.1.0-next.100
+  - @tevm/memory-client@1.1.0-next.100
+  - @tevm/client-types@1.1.0-next.100
+  - @tevm/base-client@1.1.0-next.100
+  - @tevm/http-client@1.1.0-next.100
+  - @tevm/precompiles@1.1.0-next.100
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/decorators@1.1.0-next.100
+  - @tevm/predeploys@1.1.0-next.100
+  - @tevm/procedures@1.1.0-next.100
+  - @tevm/contract@1.1.0-next.100
+  - @tevm/actions@1.1.0-next.100
+  - @tevm/address@1.1.0-next.100
+  - @tevm/jsonrpc@1.1.0-next.100
+  - @tevm/viem@1.1.0-next.100
+  - @tevm/common@1.1.0-next.100
+  - @tevm/errors@1.1.0-next.100
+  - @tevm/server@1.1.0-next.100
+  - @tevm/txpool@1.1.0-next.100
+  - @tevm/block@1.1.0-next.100
+  - @tevm/state@1.1.0-next.100
+  - @tevm/utils@1.1.0-next.100
+  - @tevm/evm@1.1.0-next.100
+  - @tevm/tx@1.1.0-next.100
+  - @tevm/vm@1.1.0-next.100
+  - @tevm/bun-plugin@1.1.0-next.96
+  - @tevm/ts-plugin@1.1.0-next.96
+
 ## 1.1.0-next.99
 
 ### Patch Changes
