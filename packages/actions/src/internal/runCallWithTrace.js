@@ -33,6 +33,7 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 	vm.evm.events?.on('step', async (step, next) => {
 		logger.debug(step, 'runCallWithTrace: new evm step')
 		trace.structLogs.push({
+			memory: step.memory,
 			pc: step.pc,
 			op: step.opcode.name,
 			gasCost: BigInt(step.opcode.fee) + (step.opcode.dynamicFee ?? 0n),
