@@ -13,7 +13,7 @@ describe(getProof.name, () => {
 			},
 		})
 		await state.ready()
-		expect(getProof(state)(createAddress(0))).toMatchInlineSnapshot()
+		expect(getProof(state)(createAddress(0))).toMatchInlineSnapshot(`Promise {}`)
 	})
 
 	it('throws error if attempting to getProof with no fork uri', () => {
