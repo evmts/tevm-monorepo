@@ -3,6 +3,8 @@ import { generateRuntime } from '@tevm/runtime'
 import { runPromise } from 'effect/Effect'
 import { readCache } from './readCache.js'
 import { writeCache } from './writeCache.js'
+import { parseImportPath } from './parseInputPath.js'
+import { createPublicClient, http } from 'viem'
 
 /**
  * @param {import('@tevm/compiler').Logger} logger
@@ -32,6 +34,15 @@ export const resolveModuleAsync = async (
 	contractPackage,
 ) => {
 	const cachedResult = await readCache(logger, cache, modulePath, includeAst, includeBytecode)
+
+	const networkInput = parseImportPath(modulePath)
+	if (networkInput) {
+		const client = createPublicClient({
+			name: networkInput.network,
+			// hardcoding network input fallback until we support config for real
+			transport: http(networkInput.rpcUrl ?? 'https://mainnet.optimism.io'),
+		})
+	}
 	try {
 		const { solcInput, solcOutput, asts, artifacts, modules } =
 			cachedResult ??

@@ -62,6 +62,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
+		"@shazow/whatsabi": "^0.12.0",
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/compiler": "workspace:^",
 		"@tevm/config": "workspace:^",
@@ -72,7 +73,8 @@
 		"@types/node": "^20.14.5",
 		"effect": "2.0.0-next.54",
 		"solc": "0.8.26",
-		"solidity-ast": "^0.4.56"
+		"solidity-ast": "^0.4.56",
+		"viem": "^2.17.8"
 	},
 	"publishConfig": {
 		"access": "public"
