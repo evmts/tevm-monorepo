@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 2.0.0-next.101
+
+### Minor Changes
+
+- [#1332](https://github.com/evmts/tevm-monorepo/pull/1332) [`fcdaf43`](https://github.com/evmts/tevm-monorepo/commit/fcdaf43922716f718288b9e0aff1fb4328fe8b5f) Thanks [@roninjin10](https://github.com/roninjin10)! - Added suport for loading remappings.txt without foundry
+
 ## 1.1.0-next.96
 
 ### Patch Changes

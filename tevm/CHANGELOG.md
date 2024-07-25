@@ -1,5 +1,37 @@
 # @tevm/contract
 
+## 2.0.0-next.101
+
+### Patch Changes
+
+- Updated dependencies [[`fcdaf43`](https://github.com/evmts/tevm-monorepo/commit/fcdaf43922716f718288b9e0aff1fb4328fe8b5f)]:
+  - @tevm/config@2.0.0-next.101
+  - @tevm/base-bundler@2.0.0-next.101
+  - @tevm/bun-plugin@2.0.0-next.101
+  - @tevm/compiler@2.0.0-next.101
+  - @tevm/ts-plugin@2.0.0-next.101
+  - @tevm/precompiles@2.0.0-next.101
+  - @tevm/esbuild-plugin@2.0.0-next.101
+  - @tevm/rollup-plugin@2.0.0-next.101
+  - @tevm/rspack-plugin@2.0.0-next.101
+  - @tevm/vite-plugin@2.0.0-next.101
+  - @tevm/webpack-plugin@2.0.0-next.101
+  - @tevm/viem@2.0.0-next.101
+  - @tevm/actions@2.0.0-next.101
+  - @tevm/base-client@2.0.0-next.101
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/http-client@2.0.0-next.101
+  - @tevm/memory-client@2.0.0-next.101
+  - @tevm/procedures@2.0.0-next.101
+  - @tevm/server@2.0.0-next.101
+  - @tevm/state@2.0.0-next.101
+  - @tevm/client-types@1.1.0-next.100
+  - @tevm/decorators@2.0.0-next.101
+  - @tevm/evm@2.0.0-next.101
+  - @tevm/sync-storage-persister@2.0.0-next.101
+  - @tevm/txpool@2.0.0-next.101
+  - @tevm/vm@2.0.0-next.101
+
 ## 1.1.0-next.100
 
 ### Patch Changes
