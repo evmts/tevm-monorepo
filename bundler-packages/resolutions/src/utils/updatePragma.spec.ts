@@ -29,7 +29,18 @@ contract Foo {}
 		)
 	})
 
-	const pragmaStyles = ['^0.8.0', '0.8.0', '>0.8.0', '>=0.8.0', '<0.8.0', '<=0.8.0', '~0.8.0']
+	const pragmaStyles = [
+		'^0.8.0',
+		'0.8.0',
+		'>0.8.0',
+		'>=0.8.0',
+		'<0.8.0',
+		'<=0.8.0',
+		'~0.8.0',
+		'>=0.8.0 <0.8.9',
+		' >=0.8.0  <0.8.9 ',
+		'^0.8.0 ',
+	]
 
 	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
 		const file = `
