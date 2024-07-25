@@ -1,11 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { ethGetFilterLogsProcedure } from './ethGetFilterLogsProcedure.js'
-import { createBaseClient, type BaseClient } from '@tevm/base-client'
-import { callProcedure } from '../call/callProcedure.js'
-import { encodeDeployData, encodeFunctionData, numberToHex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { SimpleContract } from '@tevm/contract'
 import { createAddress, createContractAddress } from '@tevm/address'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { SimpleContract } from '@tevm/contract'
+import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, numberToHex } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { callProcedure } from '../call/callProcedure.js'
 import { mineProcedure } from '../mine/mineProcedure.js'
+import { ethGetFilterLogsProcedure } from './ethGetFilterLogsProcedure.js'
 import { ethNewFilterJsonRpcProcedure } from './ethNewFilterProcedure.js'
 
 describe(ethGetFilterLogsProcedure.name, () => {
