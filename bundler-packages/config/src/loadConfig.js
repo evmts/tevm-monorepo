@@ -4,6 +4,7 @@ import { mergeConfigs, withDefaults } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
 import { InvalidJsonConfigError, loadJsonConfig } from './json/loadJsonConfig.js'
 import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
+import { loadRemappings } from './json/loadRemappingstxt.js'
 
 /**
  * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError | InvalidJsonConfigError} LoadConfigErrorType
@@ -73,6 +74,7 @@ export const loadConfig = (configFilePath) => {
 	const foundryConfig = flatMap(userConfig, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)
 	})
+	const remappingsConfig = loadRemappings(configFilePath)
 	/**
 	 * @param {LoadConfigErrorType} error
 	 * @returns {import("effect/Effect").Effect<never, LoadConfigError, never>}
@@ -80,12 +82,13 @@ export const loadConfig = (configFilePath) => {
 	const handleError = (error) => {
 		return fail(new LoadConfigError(configFilePath, error))
 	}
-	return all([userConfig, foundryConfig]).pipe(
-		tap(([userConfig, foundryConfig]) =>
+	return all([userConfig, foundryConfig, remappingsConfig]).pipe(
+		tap(([userConfig, foundryConfig, remappingsConfig]) =>
 			logDebug(
 				`loadConfig: Config read CompilerConfigs ${JSON.stringify({
 					userConfig,
 					foundryConfig,
+					remappingsConfig,
 				})}`,
 			),
 		),
@@ -107,6 +110,7 @@ export const loadConfig = (configFilePath) => {
 			InvalidConfigError: handleError,
 			InvalidRemappingsError: handleError,
 			ParseJsonError: handleError,
+			InvalidREmappingsError: handleError,
 		}),
 		tap((config) => logDebug(`loadConfig: Config loaded ${JSON.stringify({ config })}`)),
 	)
