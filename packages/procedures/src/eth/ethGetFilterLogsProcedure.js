@@ -50,6 +50,7 @@ export const ethGetFilterLogsProcedure = (client) => {
 				result: jsonRpcResult,
 			}
 		} catch (e) {
+			console.log(e)
 			return {
 				...(request.id ? { id: request.id } : {}),
 				method: request.method,
