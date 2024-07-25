@@ -26,6 +26,7 @@ export const validFixtureNames = [
 	'legacy-js',
 	'jsonc',
 	'withFoundry',
+	'withRemappingsTxt',
 ] as const
 
 export const expectedErrors = ['configFnThrows', 'invalid', 'invalidJson']
@@ -39,6 +40,7 @@ export const validFixtureValidator = z.union([
 	z.literal(validFixtureNames[5]),
 	z.literal(validFixtureNames[6]),
 	z.literal(validFixtureNames[7]),
+	z.literal(validFixtureNames[8]),
 ])
 
 const layer = Logger.replace(Logger.defaultLogger, logger)

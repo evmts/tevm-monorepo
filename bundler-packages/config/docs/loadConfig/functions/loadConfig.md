@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[bundler-packages/config/src/loadConfig.js:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L54)
+[bundler-packages/config/src/loadConfig.js:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L55)
