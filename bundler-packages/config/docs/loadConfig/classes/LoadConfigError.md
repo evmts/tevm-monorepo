@@ -34,7 +34,7 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:29](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L29)
+[bundler-packages/config/src/loadConfig.js:30](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L30)
 
 ## Properties
 
@@ -44,7 +44,7 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:24](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L24)
+[bundler-packages/config/src/loadConfig.js:25](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L25)
 
 ***
 
@@ -86,7 +86,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L20)
+[bundler-packages/config/src/loadConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L21)
 
 ***
 

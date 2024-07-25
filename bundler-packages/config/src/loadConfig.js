@@ -3,8 +3,8 @@ import { all, catchTags, fail, flatMap, logDebug, tap, tapError } from 'effect/E
 import { mergeConfigs, withDefaults } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
 import { InvalidJsonConfigError, loadJsonConfig } from './json/loadJsonConfig.js'
-import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 import { loadRemappings } from './json/loadRemappingstxt.js'
+import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 
 /**
  * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError | InvalidJsonConfigError} LoadConfigErrorType
