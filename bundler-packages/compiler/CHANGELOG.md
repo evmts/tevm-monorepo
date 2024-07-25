@@ -1,5 +1,13 @@
 # @tevm/contract
 
+## 2.0.0-next.101
+
+### Patch Changes
+
+- Updated dependencies [[`fcdaf43`](https://github.com/evmts/tevm-monorepo/commit/fcdaf43922716f718288b9e0aff1fb4328fe8b5f), [`c15a71f`](https://github.com/evmts/tevm-monorepo/commit/c15a71fcef5b3b6d2698f50d31738e1448915c31)]:
+  - @tevm/config@2.0.0-next.101
+  - @tevm/resolutions@2.0.0-next.101
+
 ## 1.1.0-next.96
 
 ### Patch Changes

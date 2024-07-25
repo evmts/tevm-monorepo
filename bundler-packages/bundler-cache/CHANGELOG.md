@@ -1,5 +1,12 @@
 # @tevm/base
 
+## 2.0.0-next.101
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/compiler@2.0.0-next.101
+
 ## 1.1.0-next.96
 
 ### Patch Changes

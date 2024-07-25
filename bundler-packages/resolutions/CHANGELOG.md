@@ -1,5 +1,11 @@
 # @tevm/resolutions
 
+## 2.0.0-next.101
+
+### Patch Changes
+
+- [#1335](https://github.com/evmts/tevm-monorepo/pull/1335) [`c15a71f`](https://github.com/evmts/tevm-monorepo/commit/c15a71fcef5b3b6d2698f50d31738e1448915c31) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with resolutions not resolving unprettified pragmas or pragmas with upper and lower bound
+
 ## 1.1.0-next.96
 
 ### Patch Changes

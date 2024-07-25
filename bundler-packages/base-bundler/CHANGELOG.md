@@ -1,5 +1,15 @@
 # @tevm/base
 
+## 2.0.0-next.101
+
+### Patch Changes
+
+- Updated dependencies [[`fcdaf43`](https://github.com/evmts/tevm-monorepo/commit/fcdaf43922716f718288b9e0aff1fb4328fe8b5f)]:
+  - @tevm/config@2.0.0-next.101
+  - @tevm/compiler@2.0.0-next.101
+  - @tevm/bundler-cache@2.0.0-next.101
+  - @tevm/runtime@1.1.0-next.96
+
 ## 1.1.0-next.96
 
 ### Patch Changes
