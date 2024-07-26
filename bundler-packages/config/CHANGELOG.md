@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 2.0.0-next.102
+
+### Patch Changes
+
+- [#1342](https://github.com/evmts/tevm-monorepo/pull/1342) [`6bd9e85`](https://github.com/evmts/tevm-monorepo/commit/6bd9e851d9c79a247e48217976c60350e84bdee6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with remappings sometimes failing to append the rootdir. This would not cause issues in most bundlers but did cause issues in ts-plugin in some setups
+
 ## 2.0.0-next.101
 
 ### Minor Changes

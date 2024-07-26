@@ -1,5 +1,19 @@
 # @tevm/client
 
+## 2.0.0-next.102
+
+### Patch Changes
+
+- [#1338](https://github.com/evmts/tevm-monorepo/pull/1338) [`f69b86f`](https://github.com/evmts/tevm-monorepo/commit/f69b86f7c26d519900d224647b1bbc1ebe415a0e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where unused client option was still on typescript type
+
+- Updated dependencies []:
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/state@2.0.0-next.102
+  - @tevm/evm@2.0.0-next.102
+  - @tevm/sync-storage-persister@2.0.0-next.102
+  - @tevm/txpool@2.0.0-next.102
+  - @tevm/vm@2.0.0-next.102
+
 ## 2.0.0-next.101
 
 ### Patch Changes
