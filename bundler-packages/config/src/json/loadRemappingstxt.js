@@ -75,7 +75,10 @@ export const loadRemappings = (configFilePath) => {
 					remappingEntries.map((remapping) => {
 						const [from, to] = remapping.trim().split('=')
 						// TODO this line of code won't work on windows
-						return /** @type {[string, string]}*/ ([from, `${configFilePath.endsWith('/') ? configFilePath : `${configFilePath}/`}${to?.startsWith('/') ? to.slice(1) : to}`])
+						return /** @type {[string, string]}*/ ([
+							from,
+							`${configFilePath.endsWith('/') ? configFilePath : `${configFilePath}/`}${to?.startsWith('/') ? to.slice(1) : to}`,
+						])
 					}),
 				),
 			}
