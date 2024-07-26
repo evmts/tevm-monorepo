@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 2.0.0-next.102
+
+### Patch Changes
+
+- Updated dependencies [[`f69b86f`](https://github.com/evmts/tevm-monorepo/commit/f69b86f7c26d519900d224647b1bbc1ebe415a0e)]:
+  - @tevm/base-client@2.0.0-next.102
+  - @tevm/actions@2.0.0-next.102
+  - @tevm/test-utils@2.0.0-next.102
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/state@2.0.0-next.102
+  - @tevm/evm@2.0.0-next.102
+  - @tevm/vm@2.0.0-next.102
+
 ## 2.0.0-next.101
 
 ### Patch Changes
