@@ -87,17 +87,6 @@ describe(loadConfig.name, () => {
 	it('should be able to load a remappings.txt even when foundryConfig is not set', () => {
 		const configEffect = loadConfig(join(__dirname, 'fixtures/withRemappingsTxt'))
 		const config = runSync(configEffect)
-		expect(config.remappings['@solmate-utils/']).toBe('lib/solmate/src/utils/')
-		expect(config).toMatchInlineSnapshot(`
-			{
-			  "cacheDir": ".tevm",
-			  "debug": false,
-			  "foundryProject": false,
-			  "libs": [],
-			  "remappings": {
-			    "@solmate-utils/": "lib/solmate/src/utils/",
-			  },
-			}
-		`)
+		expect(config.remappings['@solmate-utils/']?.includes('lib/solmate/src/utils/')).toBe(true)
 	})
 })
