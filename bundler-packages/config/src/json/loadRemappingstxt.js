@@ -74,7 +74,7 @@ export const loadRemappings = (configFilePath) => {
 				remappings: Object.fromEntries(
 					remappingEntries.map((remapping) => {
 						const [from, to] = remapping.trim().split('=')
-						return /** @type {[string, string]}*/ ([from, to])
+						return /** @type {[string, string]}*/ ([from, `${configFilePath}${to}`])
 					}),
 				),
 			}
