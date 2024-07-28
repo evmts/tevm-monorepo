@@ -19,9 +19,6 @@ export const getContractPath = (basePath) => {
 	// @ts-expect-error checking for global existence of bun
 	const isBun = typeof Bun !== 'undefined'
 	if (isBun) {
-		console.warn(`Unable to autodetect whether tevm or @tevm/contract is installed because of a known bug in bun. Defaulting to tevm.
-You may need to install tevm if it is not already installed for use with bun.
-see https://github.com/oven-sh/bun/issues/8974`)
 		return 'tevm/contract'
 	}
 	throw new Error(

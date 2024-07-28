@@ -1,0 +1,55 @@
+{
+  "name": "tevm-run",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./src/tevm-run.js",
+        "default": "./src/tevm-run.js"
+      }
+    }
+  },
+  "main": "src/tevm-run.js",
+  "module": "src/tevm-run.js",
+  "types": "src/tevm-run.js",
+  "bin": {
+    "tevm-run": "dist/tevm-run.js"
+  },
+  "files": [
+    "src",
+    "bunfig.toml",
+    "plugin.js"
+  ],
+  "scripts": {
+    "all": "bun nx build:app && bun typecheck && bun run lint && bun run format && bun run test:coverage && bun run lint:deps && bun run lint:package",
+    "build:dist": "echo 'this package does not have a build'",
+    "build:types": "echo 'this package does not have a build'",
+    "dev": "bun run --watch src/tevm-run.js example/example.ts",
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "lint": "biome check . --apply-unsafe",
+    "lint:check": "biome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "test": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "test:run": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^"
+  },
+  "engines": {
+    "bun-types": "latest",
+    "node": ">=16"
+  },
+  "peerDependencies": {
+    "@tevm/bun-plugin": "workspace:^",
+    "bun": "latest",
+    "tevm": "latest",
+    "bun-types": "latest"
+  }
+}
