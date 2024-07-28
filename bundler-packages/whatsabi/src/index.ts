@@ -6,5 +6,3 @@ export type * from './contractUriPattern.js'
 export type * from './knownChains.js'
 export type * from './parseUri.js'
 export type * from './resolveContractUri.js'
-
-export * from '@shazow/whatsabi'
