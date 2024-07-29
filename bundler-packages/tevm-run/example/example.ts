@@ -17,4 +17,6 @@ if (value !== 20n) {
 	console.error(value)
 	throw new Error('value should be 20')
 }
-console.log(value, 'success')
+console.log('success')
+console.log('address: ', createdAddress)
+console.log('SimpleContract.get(): ', value)

@@ -1,7 +1,5 @@
 #!/usr/bin/env bun
 
-console.log('tevm run', ...process.argv.slice(1))
-
 import('./run.js')
 	.then(({ run }) => {
 		return run()
