@@ -32,12 +32,9 @@
     "format:check": "biome format .",
     "lint": "biome check . --apply-unsafe",
     "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack",
     "test": "bun test --watch",
     "test:coverage": "bun test --coverage",
-    "test:run": "bun test",
-    "typecheck": "tsc --noEmit"
+    "test:run": "bun test"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^"
