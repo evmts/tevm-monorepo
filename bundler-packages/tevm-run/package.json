@@ -42,14 +42,14 @@
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^"
   },
-  "engines": {
-    "bun-types": "latest",
-    "node": ">=16"
-  },
   "peerDependencies": {
     "@tevm/bun-plugin": "workspace:^",
     "bun": "latest",
-    "tevm": "latest",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "tevm": "latest"
+  },
+  "engines": {
+    "bun-types": "latest",
+    "node": ">=16"
   }
 }

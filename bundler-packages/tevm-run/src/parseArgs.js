@@ -1,5 +1,5 @@
+import { parseArgs as nodeParseArgs } from 'node:util'
 import { argsSchema } from './argsSchema.js'
-import { parseArgs as nodeParseArgs } from 'util'
 
 /**
  * @param {string[]} rawArgs

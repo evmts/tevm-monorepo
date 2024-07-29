@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import { run } from './run.js'
 
 describe(run.name, () => {
