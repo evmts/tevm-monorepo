@@ -9,7 +9,7 @@ export const parseArgs = (rawArgs) => {
 		...argsSchema,
 		args: rawArgs,
 	})
-	if (args.positionals.length < 2) {
+	if (args.positionals.length <= 2) {
 		console.error('Usage: tevm-run <scriptPath> [positionals...]')
 		process.exit(1)
 	}

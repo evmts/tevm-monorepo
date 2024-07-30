@@ -1,3 +1,0 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`parseArgs should throw an error if no args 1`] = `"/Users/williamcory/tevm-monorepo/bundler-packages/plugins.js"`;

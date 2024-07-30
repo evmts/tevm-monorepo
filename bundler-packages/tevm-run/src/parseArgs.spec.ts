@@ -2,13 +2,14 @@ import { describe, expect, it } from 'bun:test'
 import { parseArgs } from './parseArgs.js'
 
 describe(parseArgs.name, () => {
-	it('should parse the arguments', () => {
-		it('should parse the arguments', () => {
-			expect(parseArgs(['bunx', 'tevm-run', './example/example.ts'])).toMatchSnapshot()
+	it('should parse the arguments', async () => {
+		expect(await parseArgs(['bunx', 'tevm-run', './example/example.ts'])).toEqual({
+			values: {},
+			positionals: ['./example/example.ts'],
 		})
+	})
 
-		it('should throw if no positional argument is provided', () => {
-			expect(() => parseArgs(['bunx', 'tevm-run'])).toThrow()
-		})
+	it('should throw if no positional argument is provided', () => {
+		expect(() => parseArgs(['bunx', 'tevm-run'])).toThrow()
 	})
 })
