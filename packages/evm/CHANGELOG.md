@@ -1,5 +1,13 @@
 # @tevm/state
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/state@2.0.0-next.103
+
 ## 2.0.0-next.102
 
 ### Patch Changes
