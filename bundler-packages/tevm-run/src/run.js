@@ -10,7 +10,7 @@ import { parseArgs } from './parseArgs.js'
  */
 export const run = async ([scriptPath, ...positionals] = parseArgs(process.argv).positionals) => {
 	try {
-		const command = `[tevm-gen] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
+		const command = `[tevm-run] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
 		console.log(command)
 		return $`bun run --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
 	} catch (error) {
