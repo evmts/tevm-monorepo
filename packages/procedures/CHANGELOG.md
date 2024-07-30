@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/test-utils@2.0.0-next.103
+  - @tevm/actions@2.0.0-next.103
+  - @tevm/base-client@2.0.0-next.103
+  - @tevm/blockchain@1.1.0-next.100
+  - @tevm/state@2.0.0-next.103
+  - @tevm/evm@2.0.0-next.103
+  - @tevm/vm@2.0.0-next.103
+
 ## 2.0.0-next.102
 
 ### Patch Changes

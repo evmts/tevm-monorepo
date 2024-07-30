@@ -1,6 +1,6 @@
 {
   "name": "tevm-run",
-  "version": "0.0.1",
+  "version": "2.0.0-next.103",
   "license": "MIT",
   "type": "module",
   "exports": {

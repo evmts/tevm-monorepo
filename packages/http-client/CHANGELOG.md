@@ -1,5 +1,13 @@
 # @tevm/client
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/viem@2.0.0-next.103
+  - @tevm/memory-client@2.0.0-next.103
+
 ## 2.0.0-next.102
 
 ### Patch Changes

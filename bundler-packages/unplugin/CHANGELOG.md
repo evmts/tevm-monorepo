@@ -1,5 +1,12 @@
 # @tevm/unplugin
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- Updated dependencies [[`2a0c5af`](https://github.com/evmts/tevm-monorepo/commit/2a0c5af3ab8201e8430d2cd71b7928ebc86025ea)]:
+  - @tevm/base-bundler@2.0.0-next.103
+
 ## 2.0.0-next.102
 
 ### Patch Changes

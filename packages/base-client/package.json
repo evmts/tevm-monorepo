@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/base-client",
-	"version": "2.0.0-next.102",
+	"version": "2.0.0-next.103",
 	"private": false,
 	"description": "Client implementations of Tevm",
 	"keywords": [
