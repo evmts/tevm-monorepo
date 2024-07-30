@@ -7,8 +7,8 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./src/tevm-run.js",
-        "default": "./src/tevm-run.js"
+        "types": "./src/index.js",
+        "default": "./src/index.js"
       }
     }
   },
@@ -16,7 +16,7 @@
   "module": "src/tevm-run.js",
   "types": "src/tevm-run.js",
   "bin": {
-    "tevm-run": "dist/tevm-run.js"
+    "tevm-run": "src/tevm-run.js"
   },
   "files": [
     "src",
@@ -24,7 +24,7 @@
     "plugin.js"
   ],
   "scripts": {
-    "all": "bun nx build:app && bun typecheck && bun run lint && bun run format && bun run test:coverage && bun run lint:deps && bun run lint:package",
+    "all": "bun run lint && bun run format && bun run test:coverage",
     "build:dist": "echo 'this package does not have a build'",
     "build:types": "echo 'this package does not have a build'",
     "dev": "bun run --watch src/tevm-run.js example/example.ts",
