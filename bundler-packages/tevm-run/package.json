@@ -21,7 +21,7 @@
   "files": [
     "src",
     "bunfig.toml",
-    "plugin.js"
+    "plugins.js"
   ],
   "scripts": {
     "all": "bun run lint && bun run format && bun run test:coverage",
