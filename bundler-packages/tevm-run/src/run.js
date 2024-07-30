@@ -1,5 +1,5 @@
 import { $ } from 'bun'
-import { configPath } from './configPath.js'
+import { createBunConfig } from './createBunConfig.js'
 import { parseArgs } from './parseArgs.js'
 
 /**
@@ -10,16 +10,20 @@ import { parseArgs } from './parseArgs.js'
  */
 export const run = async ([scriptPath, ...positionals] = parseArgs(process.argv).positionals) => {
 	try {
-		const command = `[tevm-run] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
+		const paths = await createBunConfig()
+		const command = `[tevm-run] bun run --bun --config=${paths.bunfig} --install=fallback ${scriptPath} ${positionals.join(' ')}`
 		console.log(command)
 		return $`bun run --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
 	} catch (error) {
 		console.log('error')
-		console.log(err.stdout.toString())
-		console.error(`Failed with code ${err.exitCode}`)
-		console.error(err.stderr.toString())
-		throw new Error(`Error executing the script: ${error instanceof Error ? error.message : err.stderr.toString()}`, {
-			cause: error,
-		})
+		console.log(error.stdout?.toString())
+		console.error(`Failed with code ${error.exitCode}`)
+		console.error(error.stderr.toString())
+		throw new Error(
+			`Error executing the script: ${error instanceof Error ? error.message : error.stderr?.toString()}`,
+			{
+				cause: error,
+			},
+		)
 	}
 }
