@@ -64,7 +64,7 @@
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"effect": "2.0.0-next.54"
+		"effect": "1.1.0-next.54"
 	},
 	"devDependencies": {
 		"@tevm/compiler": "workspace:^",
