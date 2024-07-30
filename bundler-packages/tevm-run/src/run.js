@@ -18,7 +18,7 @@ export const run = async ([scriptPath, ...positionals] = parseArgs(process.argv)
 		console.log('error')
 		console.log(error.stdout?.toString())
 		console.error(`Failed with code ${error.exitCode}`)
-		console.error(error.stderr.toString())
+		console.error(error.stderr?.toString())
 		throw new Error(
 			`Error executing the script: ${error instanceof Error ? error.message : error.stderr?.toString()}`,
 			{

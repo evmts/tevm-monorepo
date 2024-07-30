@@ -46,6 +46,7 @@
     "tevm": "workspace:^"
   },
   "engines": {
+    "@tevm/ts-plugin": "workspace:^",
     "bun-types": "latest",
     "node": ">=16"
   }
