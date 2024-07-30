@@ -41,9 +41,9 @@
   },
   "peerDependencies": {
     "@tevm/bun-plugin": "workspace:^",
-    "bun": "latest",
-    "bun-types": "latest",
-    "tevm": "latest"
+    "bun": "*",
+    "bun-types": "*",
+    "tevm": "workspace:^"
   },
   "engines": {
     "bun-types": "latest",
