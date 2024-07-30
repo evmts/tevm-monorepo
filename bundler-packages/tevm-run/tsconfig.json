@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"react": ["./node_modules/@types/react"]
+		},
+		"plugins": [
+			{
+				"name": "@tevm/ts-plugin"
+			}
+		],
+		"types": ["bun-types"]
+	}
+}

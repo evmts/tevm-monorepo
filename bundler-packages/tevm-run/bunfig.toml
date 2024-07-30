@@ -1,0 +1,5 @@
+preload = ["./plugins.js"]
+[install]
+auto = "fallback"
+[test]
+preload = ["./plugins.js"]
