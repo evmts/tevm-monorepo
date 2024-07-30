@@ -9,11 +9,12 @@ export const parseArgs = (rawArgs) => {
 		...argsSchema,
 		args: rawArgs,
 	})
-	if (args.positionals.length <= 2) {
-		console.error('Usage: tevm-run <scriptPath> [positionals...]')
-		process.exit(1)
-	}
+	const tevmRunIndex = rawArgs.findIndex((arg) => arg.endsWith('tevm-run') || arg.endsWith('tevm-run.js'))
 	// remove the bun arg and the tevm-run.js arg
-	args.positionals = args.positionals.slice(2)
+	args.positionals = args.positionals.slice(tevmRunIndex + 1)
+	if (args.positionals.length === 0) {
+		console.error('Usage: tevm-run <scriptPath> [positionals...]')
+		throw new Error('No script path provided.')
+	}
 	return args
 }
