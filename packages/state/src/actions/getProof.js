@@ -11,7 +11,9 @@ export const getProof =
 	(baseState) =>
 	async (address, storageSlots = []) => {
 		if (!baseState.options.fork?.transport) {
-			throw new Error('getProof only implemented in fork mode atm')
+			throw new Error(
+				'getProof only implemented in fork mode atm because tevm at this moment does not merkilize the state',
+			)
 		}
 		const client = getForkClient(baseState)
 		const blockTag = getForkBlockTag(baseState)

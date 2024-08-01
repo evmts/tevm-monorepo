@@ -1,4 +1,5 @@
 import { createAddress } from '@tevm/address'
+import { InternalError } from '@tevm/errors'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
@@ -29,6 +30,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 
 		if (account === undefined) {
 			baseState.logger.debug({ address: hexAddress }, 'Warning: Account in accountAddresses not found')
+			throw new InternalError(`Account ${hexAddress} unexpecedly does not exist in state`)
 		}
 		if (account !== undefined) {
 			const storage = await dumpStorage(baseState, true)(ethAddress)
