@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest'
-import { getAppliedKey } from './getAppliedKey.js'
-import { createBaseState } from '../createBaseState.js'
 import { createAddress } from '@tevm/address'
+import { describe, expect, it } from 'vitest'
+import { createBaseState } from '../createBaseState.js'
+import { getAppliedKey } from './getAppliedKey.js'
 
 describe(getAppliedKey.name, () => {
 	it('should work', () => {

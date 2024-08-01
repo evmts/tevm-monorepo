@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dumpStorageRange > should dump storage from a range 1`] = `
+{
+  "nextKey": null,
+  "storage": {
+    "0000000000000000000000000000000000000000000000000000000000000000": {
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x01a4",
+    },
+  },
+}
+`;

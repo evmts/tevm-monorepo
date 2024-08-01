@@ -1,10 +1,10 @@
 import { createAddress } from '@tevm/address'
+import { InternalError } from '@tevm/errors'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
 import { getContractCode } from './getContractCode.js'
-import { InternalError } from '@tevm/errors'
 
 // might be good to cache this to optimize perf and memory
 
