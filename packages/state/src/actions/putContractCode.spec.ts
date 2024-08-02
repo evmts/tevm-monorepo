@@ -1,8 +1,9 @@
-import { EthjsAddress } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from 'ethereum-cryptography/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getContractCode } from './getContractCode.js'
+import { putAccount } from './putAccount.js'
 import { putContractCode } from './putContractCode.js'
 
 const deployedBytecode =
@@ -15,6 +16,14 @@ describe(putContractCode.name, () => {
 		})
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+
+		await putAccount(baseState)(
+			address,
+			EthjsAccount.fromAccountData({
+				nonce: 2n,
+				balance: 420n,
+			}),
+		)
 
 		await putContractCode(baseState)(address, hexToBytes(deployedBytecode))
 

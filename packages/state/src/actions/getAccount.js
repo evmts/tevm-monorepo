@@ -2,7 +2,8 @@ import { EthjsAccount } from '@tevm/utils'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
 
 /**
- * Gets the code corresponding to the provided `address`.
+ * Gets the account corresponding to the provided `address`.
+ * Returns undefined if account does not exist
  * @type {import("../state-types/index.js").StateAction<'getAccount'>}
  */
 export const getAccount =
@@ -22,9 +23,7 @@ export const getAccount =
 			return undefined
 		}
 		baseState.logger.debug({ address }, 'fetching account from remote RPC')
-		const account = await getAccountFromProvider(baseState)(
-			/** @type {import('@tevm/utils').Address}*/ (address.toString()),
-		)
+		const account = await getAccountFromProvider(baseState)(address)
 		if (
 			account.nonce === 0n &&
 			account.balance === 0n &&

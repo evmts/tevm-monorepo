@@ -56,9 +56,6 @@
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
-		"test": "vitest --watch",
-		"test:coverage": "vitest --coverage",
-		"test:run": "vitest",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

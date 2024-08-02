@@ -5,7 +5,7 @@ prev: false
 title: "definePredeploy"
 ---
 
-> **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`TName`, `THumanReadableAbi`\>
+> **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](/reference/tevm/predeploys/type-aliases/predeploy/)\<`TName`, `THumanReadableAbi`\>
 
 Defines a predeploy contract to use in the tevm vm
 
@@ -21,8 +21,8 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Returns
 
-[`Predeploy`](/reference/tevm/predeploys/classes/predeploy/)\<`TName`, `THumanReadableAbi`\>
+[`Predeploy`](/reference/tevm/predeploys/type-aliases/predeploy/)\<`TName`, `THumanReadableAbi`\>
 
 ## Defined in
 
-[definePredeploy.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.ts#L28)
+[definePredeploy.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.js#L27)

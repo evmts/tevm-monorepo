@@ -1,5 +1,13 @@
 # @tevm/test-utils
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/ts-plugin@2.0.0-next.103
+  - @tevm/esbuild-plugin@2.0.0-next.103
+
 ## 2.0.0-next.102
 
 ### Patch Changes

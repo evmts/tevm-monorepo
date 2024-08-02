@@ -5,9 +5,10 @@ prev: false
 title: "@tevm/predeploys"
 ---
 
-## Classes
+## Type Aliases
 
-- [Predeploy](/reference/tevm/predeploys/classes/predeploy/)
+- [DefinePredeployFn](/reference/tevm/predeploys/type-aliases/definepredeployfn/)
+- [Predeploy](/reference/tevm/predeploys/type-aliases/predeploy/)
 
 ## Functions
 

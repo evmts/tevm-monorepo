@@ -1,5 +1,11 @@
 # @tevm/base
 
+## 2.0.0-next.103
+
+### Patch Changes
+
+- [#1346](https://github.com/evmts/tevm-monorepo/pull/1346) [`2a0c5af`](https://github.com/evmts/tevm-monorepo/commit/2a0c5af3ab8201e8430d2cd71b7928ebc86025ea) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed warning from tevm bundler
+
 ## 2.0.0-next.102
 
 ### Patch Changes

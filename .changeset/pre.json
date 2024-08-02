@@ -69,7 +69,8 @@
     "@tevm/test-utils": "0.0.1",
     "mdt-repro": "0.0.1",
     "@tevm/receipt-manager": "0.0.1",
-    "@tevm/address": "0.0.1"
+    "@tevm/address": "0.0.1",
+    "tevm-run": "0.0.1"
   },
   "changesets": [
     "afraid-apples-turn",
@@ -166,6 +167,7 @@
     "fast-coins-dress",
     "fast-donuts-trade",
     "fast-maps-arrive",
+    "fast-toys-boil",
     "few-bears-lick",
     "few-pandas-nail",
     "few-pots-nail",
@@ -185,6 +187,7 @@
     "forty-planes-walk",
     "forty-rice-invent",
     "forty-trees-refuse",
+    "four-cheetahs-begin",
     "four-terms-beg",
     "fresh-lemons-decide",
     "friendly-mangos-beam",
@@ -220,6 +223,7 @@
     "honest-dogs-move",
     "honest-goats-count",
     "honest-humans-guess",
+    "hungry-berries-join",
     "hungry-llamas-kiss",
     "hungry-parents-fail",
     "itchy-beans-scream",
