@@ -42,10 +42,6 @@
     "src"
   ],
   "scripts": {
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
     "all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
     "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/whatsabi ",
     "build:dist": "tsup",
@@ -57,12 +53,16 @@
     "lint": "biome check . --write --unsafe",
     "lint:check": "biome check . --verbose",
     "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack"
+    "lint:package": "bunx publint --strict && attw --pack",
+    "test": "vitest --coverage",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@shazow/whatsabi": "^0.12.0",
-    "@tevm/config": "workspace:^",
     "@tevm/compiler": "workspace:^",
+    "@tevm/config": "workspace:^",
     "@tevm/utils": "workspace:^",
     "viem": "^2.18.2"
   },

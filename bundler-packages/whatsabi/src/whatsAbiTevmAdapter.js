@@ -14,17 +14,20 @@ export class UnknownChainError extends Error {
 	 * @type {'UnknownChainError'}
 	 */
 	_tag = 'UnknownChainError'
+	/**
+	 * @param {number} chainId
+	 */
 	constructor(chainId) {
 		super(
-			`Unknown chain ID: ${chainId}. No default rpc known. Please pass in a valid rpc url as a query string \`?rpcUrl=${rpcUrl}\` or open a pr to viem to add your chain to viem/chains`,
+			`Unknown chain ID: ${chainId}. No default rpc known. Please pass in a valid rpc url as a query string \`?rpcUrl=\${rpcUrl}\` or open a pr to viem to add your chain to viem/chains`,
 		)
 	}
 }
 
 // TODO pass in tevm config too
 /**
- * @param {import('./ContractUri.js').ContractUri}
- * @returns { Promise<{abi: Abi, address: Address, deployedBytecode: import('viem').Hex} | undefined>}
+ * @param {import('./ContractUri.js').ContractUri} contractUri
+ * @returns { Promise<{abi: import('@tevm/utils').Abi, address: import('@tevm/utils').Address, deployedBytecode: import('viem').Hex} | undefined>}
  * @throws {UnknownChainError} if the chainId is not known and no rpcUrl is provided
  */
 export const resolveWithWhatsabi = async (contractUri) => {
@@ -58,13 +61,15 @@ export const resolveWithWhatsabi = async (contractUri) => {
 				: []),
 		]),
 	})
-	const deployedBytecode = await getCode(client, { address: whatsabiResult.address })
+	const deployedBytecode = await getCode(client, {
+		address: /** @type {import('@tevm/utils').Address}*/ (whatsabiResult.address),
+	})
 	if (!deployedBytecode) {
 		throw new Error('Could not fetch deployed bytecode')
 	}
 	return {
 		abi: /** @type {any}*/ (whatsabiResult.abi),
-		address: whatsabiResult.address,
+		address: /** @type {import('@tevm/utils').Address}*/ (whatsabiResult.address),
 		deployedBytecode,
 		// TODO if we can get a verified contract we should compile it with solc and return solc output too
 	}

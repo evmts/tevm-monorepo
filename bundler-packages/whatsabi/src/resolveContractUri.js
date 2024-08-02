@@ -32,6 +32,7 @@ export class UnknownChainError extends Error {
  * @throws {UnknownChainError} if the chainId is not known and no rpcUrl is provided
  */
 export const resolveContractUri = async (contractUri, config) => {
+	console.log('todo config', config)
 	const parsedUri = parseUri(contractUri)
 	if (!parsedUri) {
 		return undefined
