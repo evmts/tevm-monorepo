@@ -1,8 +1,8 @@
-import { createClient, http } from 'viem'
-import { parseUri } from './parseUri.js'
-import { knownChains } from './knownChains.js'
+import { http, createClient } from 'viem'
 import { getCode } from 'viem/actions'
+import { knownChains } from './knownChains.js'
 import { loadAbi } from './loadAbi.js'
+import { parseUri } from './parseUri.js'
 
 export class UnknownChainError extends Error {
 	/**

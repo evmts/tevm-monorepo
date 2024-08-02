@@ -1,5 +1,4 @@
 import * as chains from 'viem/chains'
-import { type Chain } from 'viem/chains'
 
 export type KnownChainsType = typeof knownChains
 
