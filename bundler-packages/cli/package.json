@@ -47,6 +47,9 @@
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.45.1",
+		"@tevm/common": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@types/ink-select-input": "^3.0.5",
 		"@types/object-hash": "^3.0.6",
 		"figures": "^6.1.0",

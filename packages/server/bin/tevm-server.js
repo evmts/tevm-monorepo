@@ -5,9 +5,9 @@ import { http } from '@tevm/jsonrpc'
 import { base, optimism, mainnet, tevmDefault } from '@tevm/common'
 import { createServer } from '../src/createServer.js'
 import { Command } from 'commander'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
 
-const program = new Command()
+const program = new Command('tevm-server')
 
 program
 	.option('--fork-url <url>', 'set fork URL')
@@ -72,7 +72,7 @@ ${PREFUNDED_ACCOUNTS.map((acc, index) => `(${index}) ${acc.address} (1000 ETH)`)
 
 Private Keys
 ==================
-${PREFUNDED_ACCOUNTS.map((acc, index) => `(${index}) ${acc.privateKey}`).join('\n')}
+${PREFUNDED_PRIVATE_KEYS.map((acc, index) => `(${index}) ${acc}`).join('\n')}
 
 Wallet
 ==================
