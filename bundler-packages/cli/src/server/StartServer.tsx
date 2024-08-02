@@ -1,61 +1,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { createTevmTransport } from '@tevm/memory-client';
-import { http } from '@tevm/jsonrpc';
-import { base, optimism, mainnet, tevmDefault } from '@tevm/common';
-import { createServer } from './createServer.js';
 import { Box, Text } from 'ink';
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils';
-import { options as optionsSchema } from './options.js';
-import { z } from 'zod';
-
-type StartServerProps = {
-options: z.infer<typeof optionsSchema>;
-};
-
-const chains = {
-[base.id]: base,
-[optimism.id]: optimism,
-[mainnet.id]: mainnet,
-[tevmDefault.id]: tevmDefault,
-};
-
-const startTevm = async (options: z.infer<typeof optionsSchema>) => {
-const chain = chains[options.chainId];
-
-if (!chain) {
-throw new Error(
-`Unknown chain id: ${options.chainId}. Valid chain ids are ${Object.values(chains)
-.map((chain) => chain.id)
-.join(', ')}`,
-);
-}
-
-const transport = createTevmTransport({
-common: chain,
-fork: {
-// TODO transform it into parsing block tag right with tevm/zod
-blockTag: options.forkBlockNumber ?? 'latest',
-transport: http(options.forkUrl ?? chain.rpcUrls.default.http[0])({}),
-},
-loggingLevel: options.loggingLevel,
-});
-
-const server = createServer(transport);
-
-await new Promise<void>((resolve) => {
-server.listen(parseInt(options.port), options.host, resolve);
-});
-
-return {
-transport,
-server,
-};
-};
+import type { StartServerProps } from './StartServerProps.js';
+import { startTevm } from './startTevm.js';
 
 export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 const { data, error, isLoading } = useQuery({
-queryKey: ['tevm', options.chainId, options.host, options.port],
+queryKey: ['tevm', options.preset, options.preset, options.host, options.loggingLevel, options.block, options.forkUrl, options.port],
 queryFn: () => startTevm(options),
 staleTime: Infinity,
 },

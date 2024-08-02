@@ -47,6 +47,7 @@
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.45.1",
+		"@tevm/actions": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
