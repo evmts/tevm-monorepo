@@ -4,6 +4,7 @@ import { Box, Text } from 'ink';
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils';
 import type { StartServerProps } from './StartServerProps.js';
 import { startTevm } from './startTevm.js';
+import { FancyCreateTitle } from '../components/FancyCreateTitle.js';
 
 export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 const { data, error, isLoading } = useQuery({
@@ -14,14 +15,13 @@ staleTime: Infinity,
 
 );
 
-if (isLoading) {
 return (
 <Box>
-<Text>Starting TEVM server...</Text>
-</Box>
-);
+<FancyCreateTitle loading={isLoading} />
+{(() => {
+if (isLoading) {
+return <Text>Initializing...</Text>;
 }
-
 if (error) {
 return (
 <Box>
@@ -29,6 +29,10 @@ return (
 </Box>
 );
 }
+})()}
+</Box>
+);
+
 
 return (
 <Box flexDirection="column">
