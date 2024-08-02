@@ -1,5 +1,6 @@
-import { command } from '../create/index.js'
+import { command } from '../menu/index.js'
 
+export const isDefault = true
 export const args = command.args
 export const options = command.options
 

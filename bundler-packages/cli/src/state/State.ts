@@ -1,4 +1,4 @@
-import type { args } from '../args.js'
+import type { args } from '../create/args.js'
 import type { options } from '../options.js'
 import type { z } from 'zod'
 

@@ -7,8 +7,8 @@ import Pastel from 'pastel'
  */
 new Pastel({
 	importMeta: import.meta,
-	name: 'create-evmts-app',
+	name: 'tevm',
 	version: 'beta',
-	description: 'Scaffold a new EVMTS application',
+	description: 'entrypoint to tevm cli',
 }).run()
 console.clear()

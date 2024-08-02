@@ -1,4 +1,4 @@
-import { generateRandomName } from './utils/generateRandomName.js'
+import { generateRandomName } from '../utils/generateRandomName.js'
 import { z } from 'zod'
 
 const defaultName = generateRandomName()
