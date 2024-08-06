@@ -23,6 +23,7 @@
           pkgs.nodejs_22
           pkgs.nodePackages.pnpm
           pkgs.bun
+          pkgs.direnv
           pkgs.foundry-bin
           pkgs.rust-bin.stable.latest.default # or pkgs.rust-bin.beta.latest.default
         ];

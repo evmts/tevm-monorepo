@@ -29,6 +29,7 @@
   },
   "files.associations": {
     ".gas-snapshot": "julia",
-    "base.json": "jsonc"
+    "base.json": "jsonc",
+    ".envrc": "dotenv"
   }
 }
