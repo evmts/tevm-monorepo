@@ -1,6 +1,7 @@
 packages:
   - "bundler-packages/*"
   - "bundler"
+  - "cli"
   - "configs/*"
   - "docs"
   - "examples/*"
@@ -8,6 +9,6 @@ packages:
   - "extensions/*"
   - "lsp/*"
   - "packages/*"
-  - 'scripts'
-  - 'tevm'
+  - "scripts"
+  - "tevm"
   - "test/*"
