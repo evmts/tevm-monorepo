@@ -13,7 +13,7 @@ title: "Extension"
 
 ## Parameters
 
-• **client**: [`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)
+• **client**: [`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)
 
 ## Returns
 

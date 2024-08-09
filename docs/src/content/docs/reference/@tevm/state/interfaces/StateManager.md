@@ -25,13 +25,13 @@ The internal state representation
 
 ### getAccountAddresses()
 
-> **getAccountAddresses**: () => \`0x$\{string\}\`[]
+> **getAccountAddresses**: () => `Set`\<\`0x$\{string\}\`\>
 
 Returns contract addresses
 
 #### Returns
 
-\`0x$\{string\}\`[]
+`Set`\<\`0x$\{string\}\`\>
 
 #### Defined in
 

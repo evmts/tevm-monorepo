@@ -13,17 +13,17 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`TMode`, `TExtended`\>\>
 
 Copies the current client state into a new client
 
 #### Returns
 
-`Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
+`Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`TMode`, `TExtended`\>\>
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -38,7 +38,7 @@ and extensibility
 
 #### Returns
 
-[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
+[`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`TMode`, `TExtended` & `TExtension`\>
 
 ### forkTransport?
 

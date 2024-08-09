@@ -214,6 +214,36 @@ node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/events.d.ts:15
 
 #### Defined in
 
+node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:592
+
+***
+
+### \[captureRejectionSymbol\]()?
+
+> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
+
+#### Type Parameters
+
+• **K**
+
+#### Parameters
+
+• **error**: `Error`
+
+• **event**: `string` \| `symbol`
+
+• ...**args**: `AnyRest`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EventEmitter.[captureRejectionSymbol]`
+
+#### Defined in
+
 node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:545
 
 ***
@@ -596,6 +626,38 @@ v10.0.0
 
 ##### Defined in
 
+node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:747
+
+#### off(eventName, listener)
+
+> **off**\<`K`\>(`eventName`, `listener`): `this`
+
+Alias for `emitter.removeListener()`.
+
+##### Type Parameters
+
+• **K**
+
+##### Parameters
+
+• **eventName**: `string` \| `symbol`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Inherited from
+
+`EventEmitter.off`
+
+##### Since
+
+v10.0.0
+
+##### Defined in
+
 node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:700
 
 ***
@@ -869,6 +931,62 @@ v9.4.0
 ##### Defined in
 
 node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/events.d.ts:834
+
+#### rawListeners(eventName)
+
+> **rawListeners**\<`K`\>(`eventName`): `Function`[]
+
+Returns a copy of the array of listeners for the event named `eventName`,
+including any wrappers (such as those created by `.once()`).
+
+```js
+import { EventEmitter } from 'node:events';
+const emitter = new EventEmitter();
+emitter.once('log', () => console.log('log once'));
+
+// Returns a new Array with a function `onceWrapper` which has a property
+// `listener` which contains the original listener bound above
+const listeners = emitter.rawListeners('log');
+const logFnWrapper = listeners[0];
+
+// Logs "log once" to the console and does not unbind the `once` event
+logFnWrapper.listener();
+
+// Logs "log once" to the console and removes the listener
+logFnWrapper();
+
+emitter.on('log', () => console.log('log persistently'));
+// Will return a new Array with a single function bound by `.on()` above
+const newListeners = emitter.rawListeners('log');
+
+// Logs "log persistently" twice
+newListeners[0]();
+emitter.emit('log');
+```
+
+##### Type Parameters
+
+• **K**
+
+##### Parameters
+
+• **eventName**: `string` \| `symbol`
+
+##### Returns
+
+`Function`[]
+
+##### Inherited from
+
+`EventEmitter.rawListeners`
+
+##### Since
+
+v9.4.0
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:818
 
 #### rawListeners(eventName)
 
