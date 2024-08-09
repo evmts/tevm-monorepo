@@ -4,41 +4,42 @@ import { existsSync, rmSync } from 'fs-extra'
 import { render } from 'ink-testing-library'
 import { join } from 'path'
 import { afterAll, expect, test } from 'vitest'
+import * as React from 'react'
 
 const TODO = true
 
 afterAll(() => {
-try {
-rmSync(join(__dirname, '..', '..', 'my-app'), { recursive: true })
-} catch (e) {
-console.error(e)
-}
+	try {
+		rmSync(join(__dirname, '..', '..', 'my-app'), { recursive: true })
+	} catch (e) {
+		console.error(e)
+	}
 })
 
 test('Should work', async () => {
-if (TODO) return
-const { lastFrame, stdin } = render(
-<App
-args={['my-app']}
-options={{
-noGit: false,
-noInstall: false,
-framework: 'remix',
-packageManager: 'bun',
-skipPrompts: true,
-useCase: 'ui',
-walletConnectProjectId: '123',
-}}
-/>,
-)
+	if (TODO) return
+	const { lastFrame, stdin } = render(
+		<App
+			args={['my-app']}
+			options={{
+				noGit: false,
+				noInstall: false,
+				framework: 'remix',
+				packageManager: 'bun',
+				skipPrompts: true,
+				useCase: 'ui',
+				walletConnectProjectId: '123',
+			}}
+		/>,
+	)
 
-// hackily waiting
-await new Promise((resolve) => setTimeout(resolve, 2000))
+	// hackily waiting
+	await new Promise((resolve) => setTimeout(resolve, 2000))
 
-expect(lastFrame()).toMatchSnapshot()
-stdin.write('\r')
-expect(lastFrame()).toBe(`Hello, ${chalk.green('Jane')}`)
-/*
+	expect(lastFrame()).toMatchSnapshot()
+	stdin.write('\r')
+	expect(lastFrame()).toBe(`Hello, ${chalk.green('Jane')}`)
+	/*
 stdin.write('\r')
 expect(lastFrame()).toBe(`Hello, ${chalk.green('Jane')}`)
 stdin.write('\r')
@@ -52,5 +53,5 @@ stdin.write('\r')
 await new Promise(resolve => setTimeout(resolve, 1000))
 */
 
-expect(existsSync(join(__dirname, '..', '..', 'my-app'))).toBe(true)
+	expect(existsSync(join(__dirname, '..', '..', 'my-app'))).toBe(true)
 })

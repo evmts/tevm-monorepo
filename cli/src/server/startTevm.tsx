@@ -1,31 +1,31 @@
-import { createTevmTransport } from '@tevm/memory-client';
-import { http } from '@tevm/jsonrpc';
-import { createServer } from '@tevm/server';
-import { options as optionsSchema } from './options.js';
-import { z } from 'zod';
-import { chains } from './chains.js';
+import { createMemoryClient } from '@tevm/memory-client'
+import { http } from '@tevm/jsonrpc'
+import { createServer } from '@tevm/server'
+import { options as optionsSchema } from './options.js'
+import { z } from 'zod'
+import { chains } from './chains.js'
 
 export const startTevm = async (options: z.infer<typeof optionsSchema>) => {
-const chain = options.preset !== undefined ? chains[options.preset] : undefined;
+	const chain = options.preset !== undefined ? chains[options.preset] : undefined
 
-const transport = createTevmTransport({
-...(chain !== undefined ? { common: chain } : {}),
-fork: {
-// TODO transform it into parsing block tag right with tevm/zod
-blockTag: options.block as any ?? 'latest',
-transport: http(options.forkUrl ?? chain?.rpcUrls.default.http[0])({}),
-},
-loggingLevel: options.loggingLevel,
-})({ chain, retryCount: 2 });
+	const client = createMemoryClient({
+		...(chain !== undefined ? { common: chain } : {}),
+		fork: {
+			// TODO transform it into parsing block tag right with tevm/zod
+			blockTag: (options.block as any) ?? 'latest',
+			transport: http(options.forkUrl ?? chain?.rpcUrls.default.http[0])({}),
+		},
+		loggingLevel: options.loggingLevel,
+	})
 
-const server = createServer(transport);
+	const server = createServer(client)
 
-await new Promise<void>((resolve) => {
-server.listen(parseInt(options.port), options.host, resolve);
-});
+	await new Promise<void>((resolve) => {
+		server.listen(parseInt(options.port), options.host, resolve)
+	})
 
-return {
-transport,
-server,
-};
-};
+	return {
+		transport: client,
+		server,
+	}
+}
