@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
@@ -7,7 +7,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getPendingClient } from './getPendingClient.js'
 
 describe('getPendingClient', () => {
-	const createClient = () => createBaseClient()
+	const createClient = () => createTevmNode()
 
 	it('should process pending transactions', async () => {
 		const client = createClient()

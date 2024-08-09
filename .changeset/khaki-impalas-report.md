@@ -26,7 +26,7 @@
 "@tevm/ts-plugin": patch
 "@tevm/vscode": patch
 "@tevm/actions": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/block": patch
 "@tevm/blockchain": patch
 "@tevm/client-types": patch

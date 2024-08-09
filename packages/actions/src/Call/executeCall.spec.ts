@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { EvmRevertError, InvalidGasPriceError, RevertError } from '@tevm/errors'
+import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { parseEther } from 'viem'
@@ -13,7 +13,7 @@ const ERC20_ABI = TestERC20.abi
 
 describe('executeCall', () => {
 	it('should execute a contract call successfully', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		expect(
 			(
 				await setAccountHandler(client)({
@@ -51,7 +51,7 @@ describe('executeCall', () => {
 	})
 
 	it('should handle contract call errors', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
@@ -100,7 +100,7 @@ describe('executeCall', () => {
 	})
 
 	it('should handle gas price too low error', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 
 		const evmInput = {

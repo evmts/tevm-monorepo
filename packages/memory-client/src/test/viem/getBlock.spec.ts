@@ -26,7 +26,7 @@ describe('getBlock', () => {
 	it('should work with blockHash', async () => {
 		const vm = await mc.tevm.getVm()
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const { hash, timestamp, transactions, ...result } = await mc.getBlock({
+		const { hash, timestamp, transactions, stateRoot, ...result } = await mc.getBlock({
 			blockHash: bytesToHex(latest.header.hash()),
 			includeTransactions: true,
 		})

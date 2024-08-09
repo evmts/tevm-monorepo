@@ -2,7 +2,7 @@ import { callProcedure } from '../call/callProcedure.js'
 
 /**
  * Executes a message call without creating a transaction on the block chain.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthCallJsonRpcProcedure}
  */
 export const ethCallProcedure = (client) => async (req) => {

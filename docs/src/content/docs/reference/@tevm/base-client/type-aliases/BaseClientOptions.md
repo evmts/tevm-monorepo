@@ -2,10 +2,10 @@
 editUrl: false
 next: false
 prev: false
-title: "BaseClientOptions"
+title: "TevmNodeOptions"
 ---
 
-> **BaseClientOptions**\<`TCommon`\>: `StateOptions` & `object`
+> **TevmNodeOptions**\<`TCommon`\>: `StateOptions` & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -38,7 +38,7 @@ const client = createMemoryClient({ chain: optimism })
 
 ### customPrecompiles?
 
-> `readonly` `optional` **customPrecompiles**: [`CustomPrecompile`](/reference/tevm/base-client/type-aliases/customprecompile/)[]
+> `readonly` `optional` **customPrecompiles**: [`CustomPrecompile`](/reference/tevm/node/type-aliases/customprecompile/)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -131,7 +131,7 @@ Configure logging options for the client
 
 ### miningConfig?
 
-> `readonly` `optional` **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+> `readonly` `optional` **miningConfig**: [`MiningConfig`](/reference/tevm/node/type-aliases/miningconfig/)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -172,4 +172,4 @@ Enable profiler. Defaults to false.
 
 ## Defined in
 
-[packages/base-client/src/BaseClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L13)
+[packages/node/src/TevmNodeOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L13)

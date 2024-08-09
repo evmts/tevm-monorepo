@@ -68,10 +68,10 @@ stores tx
 
 ### type
 
-> **type**: [`FilterType`](/reference/tevm/base-client/type-aliases/filtertype/)
+> **type**: [`FilterType`](/reference/tevm/node/type-aliases/filtertype/)
 
 The type of the filter
 
 ## Defined in
 
-[packages/base-client/src/Filter.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Filter.ts#L14)
+[packages/node/src/Filter.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L14)

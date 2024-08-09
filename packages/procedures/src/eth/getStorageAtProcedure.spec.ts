@@ -1,16 +1,16 @@
 import { deployHandler, mineHandler } from '@tevm/actions'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetStorageAtJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 let contractAddress: Address
 
 beforeEach(async () => {
-	client = createBaseClient()
+	client = createTevmNode()
 	const tevmDeploy = deployHandler(client)
 	const { bytecode, abi } = SimpleContract
 	const deployResult = await tevmDeploy({

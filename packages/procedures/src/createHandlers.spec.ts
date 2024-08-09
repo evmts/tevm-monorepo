@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { ERC20 } from '@tevm/contract'
+import { createTevmNode } from '@tevm/node'
 import { numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { type RequestHandlers, createHandlers } from './createHandlers.js'
@@ -11,7 +11,7 @@ describe('createHandlers', () => {
 	let handlers: RequestHandlers
 
 	beforeEach(() => {
-		client = createBaseClient()
+		client = createTevmNode()
 		handlers = createHandlers(client)
 	})
 

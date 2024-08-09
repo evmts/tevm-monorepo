@@ -32,4 +32,4 @@
 
 ## Defined in
 
-[packages/state/src/actions/dumpStorageRange.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L4)
+[packages/state/src/actions/dumpStorageRange.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L7)

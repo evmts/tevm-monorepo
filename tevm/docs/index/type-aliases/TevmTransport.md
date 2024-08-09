@@ -52,7 +52,7 @@ The configured TEVM transport.
 
 ### value.tevm
 
-> **tevm**: [`BaseClient`](BaseClient.md) & `object`
+> **tevm**: [`TevmNode`](TevmNode.md) & `object`
 
 #### Type declaration
 

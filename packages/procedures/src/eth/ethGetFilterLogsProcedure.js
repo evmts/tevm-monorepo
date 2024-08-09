@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * Request handler for eth_getFilterLogs JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetFilterLogsJsonRpcProcedure}
  */
 export const ethGetFilterLogsProcedure = (client) => {

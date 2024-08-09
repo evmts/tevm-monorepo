@@ -166,12 +166,12 @@ export { createAddress } from '@tevm/address'
 export {
 GENESIS_STATE,
 prefundedAccounts,
-createBaseClient,
+createTevmNode,
 type Hardfork,
 type Extension,
-type BaseClient,
+type TevmNode,
 type CustomPrecompile,
-type BaseClientOptions,
+type TevmNodeOptions,
 type AutoMining,
 type ManualMining,
 type MiningConfig,
@@ -184,7 +184,7 @@ type ProviderMessage,
 ProviderRpcError,
 type EIP1193EventEmitter,
 type ProviderConnectInfo
-} from "@tevm/base-client";
+} from "@tevm/node";
 
 export * from "@tevm/memory-client";
 export {

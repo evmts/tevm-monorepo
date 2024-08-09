@@ -13,7 +13,7 @@ title: "Extension"
 
 ## Parameters
 
-• **client**: [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)
+• **client**: [`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)
 
 ## Returns
 
@@ -21,4 +21,4 @@ title: "Extension"
 
 ## Defined in
 
-[packages/base-client/src/Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Extension.ts#L3)
+[packages/node/src/Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Extension.ts#L3)

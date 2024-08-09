@@ -11,7 +11,7 @@ import { createHandlers } from './createHandlers.js'
  * this method but this method may be desired if hyper optimizing
  * bundle size.
  *
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript

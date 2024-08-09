@@ -44,4 +44,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:41
+packages/node/dist/index.d.ts:41

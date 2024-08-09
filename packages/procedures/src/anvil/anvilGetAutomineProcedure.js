@@ -1,6 +1,6 @@
 /**
  * Request handler for anvil_getAutomine JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilGetAutomineProcedure}
  */
 export const anvilGetAutomineJsonRpcProcedure = (client) => {

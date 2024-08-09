@@ -15,4 +15,4 @@ title: "AutoMining"
 
 ## Defined in
 
-[packages/base-client/src/MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)
+[packages/node/src/MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L8)

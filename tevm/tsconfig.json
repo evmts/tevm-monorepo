@@ -13,7 +13,7 @@
     "predeploys/index.ts",
     "precompiles/index.ts",
     "decorators/index.ts",
-    "base-client/index.ts",
+    "node/index.ts",
     "utils/index.ts",
     "block/index.ts",
     "blockchain/index.ts",

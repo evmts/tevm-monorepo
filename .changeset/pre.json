@@ -50,7 +50,7 @@
     "@tevm/cli": "0.0.0",
     "@tevm/precompiles": "0.0.1",
     "@tevm/vm": "0.0.1",
-    "@tevm/base-client": "0.0.1",
+    "@tevm/node": "0.0.1",
     "@tevm/blockchain": "0.0.1",
     "@tevm/common": "0.0.1",
     "@tevm/decorators": "0.0.1",

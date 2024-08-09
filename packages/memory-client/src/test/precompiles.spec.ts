@@ -1,4 +1,4 @@
-import type { CustomPrecompile } from '@tevm/base-client'
+import type { CustomPrecompile } from '@tevm/node'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'

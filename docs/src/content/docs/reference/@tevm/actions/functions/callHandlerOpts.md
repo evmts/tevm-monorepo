@@ -9,7 +9,7 @@ title: "callHandlerOpts"
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 • **params**: [`CallParams`](/reference/tevm/actions/type-aliases/callparams/)\<`boolean`\>
 

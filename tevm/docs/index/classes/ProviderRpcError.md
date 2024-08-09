@@ -32,7 +32,7 @@
 
 #### Defined in
 
-packages/base-client/dist/index.d.ts:28
+packages/node/dist/index.d.ts:28
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.5.2/node\_modules/typescript/lib/lib.es2022.err
 
 #### Defined in
 
-packages/base-client/dist/index.d.ts:26
+packages/node/dist/index.d.ts:26
 
 ***
 
@@ -66,7 +66,7 @@ packages/base-client/dist/index.d.ts:26
 
 #### Defined in
 
-packages/base-client/dist/index.d.ts:27
+packages/node/dist/index.d.ts:27
 
 ***
 

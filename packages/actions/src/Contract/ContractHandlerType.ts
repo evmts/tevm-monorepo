@@ -15,10 +15,10 @@ import type { ContractResult } from './ContractResult.js'
  *
  * @example
  * ```typescript
- * import { createBaseClient } from 'tevm/base-client'
+ * import { createTevmNode } from 'tevm/node'
  * import { contractHandler } from 'tevm/actions'
  *
- * const client = createBaseClient()
+ * const client = createTevmNode()
  *
  * const contractCall = contractHandler(client)
  *

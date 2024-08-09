@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
+• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
 
 ## Returns
 

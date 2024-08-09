@@ -4,7 +4,7 @@ import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} baseClient
+ * @param {import('@tevm/node').TevmNode} baseClient
  * @returns {import('./EthHandler.js').EthGetCodeHandler}
  */
 export const getCodeHandler = (baseClient) => async (params) => {

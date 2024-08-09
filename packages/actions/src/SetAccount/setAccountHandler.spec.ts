@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { createEvm } from '@tevm/evm'
+import { createTevmNode } from '@tevm/node'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
@@ -12,7 +12,7 @@ const ERC20_BYTECODE =
 
 describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const res = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
@@ -28,7 +28,7 @@ describe('setAccountHandler', () => {
 	})
 
 	it('should validate params', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		// @ts-expect-error
 		const res = await setAccountHandler({ vm })({
@@ -52,14 +52,14 @@ describe('setAccountHandler', () => {
 				)
 			},
 		}
-		const { common, blockchain } = await createBaseClient().getVm()
+		const { common, blockchain } = await createTevmNode().getVm()
 		const evm = await createEvm({
 			common,
 			blockchain,
 			stateManager: stateManager as any,
 		})
 		const vm = createVm({ evm, stateManager: stateManager as any, common, blockchain })
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const res = await setAccountHandler({ ...client, getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,

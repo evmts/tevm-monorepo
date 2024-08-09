@@ -1,7 +1,7 @@
 import { createAddress, createContractAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
 import { optimism } from '@tevm/common'
 import { InvalidGasPriceError, MisconfiguredClientError } from '@tevm/errors'
+import { createTevmNode } from '@tevm/node'
 import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
@@ -25,7 +25,7 @@ const ERC20_ABI = TestERC20.abi
 
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		// deploy contract
 		expect(
 			(
@@ -114,7 +114,7 @@ describe('callHandler', () => {
 	})
 
 	it('should be able to send value', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
@@ -141,7 +141,7 @@ describe('callHandler', () => {
 		).toEqual(420n)
 	})
 	it('should handle errors returned during contract call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		// deploy contract
 		expect(
@@ -171,7 +171,7 @@ describe('callHandler', () => {
 	})
 
 	it('should be able to send multiple tx from same account and then mine it', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
 		const to = `0x${'42'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
@@ -253,7 +253,7 @@ describe('callHandler', () => {
 	})
 
 	it.todo('should return error when deploying contract with insufficient balance', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const from = EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
 		const to = `0x${'42'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
@@ -274,7 +274,7 @@ describe('callHandler', () => {
 	})
 
 	it.todo('should return error for invalid contract call data', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidData = '0x1234' // invalid function data
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
@@ -295,7 +295,7 @@ describe('callHandler', () => {
 	})
 
 	it.todo('should handle gas limit exceeded error', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
@@ -319,7 +319,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle gas price too low error', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
@@ -341,7 +341,7 @@ describe('callHandler', () => {
 	})
 
 	it.todo('should return correct result for read-only call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
@@ -362,7 +362,7 @@ describe('callHandler', () => {
 	})
 
 	it('should return error for invalid contract call data', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidData = '0x1234' // invalid function data
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
@@ -380,7 +380,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle unexpected errors during param conversion', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidParams = {
 			throwOnFail: false,
 			data: '0x1234',
@@ -393,7 +393,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle unexpected errors during script creation', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidScriptParams = {
 			throwOnFail: false,
 			to: `0x${'12'.repeat(20)}`,
@@ -408,7 +408,7 @@ describe('callHandler', () => {
 	})
 
 	it('should return correct result for read-only call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
@@ -429,7 +429,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle error during VM cloning', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidParams = {
 			throwOnFail: false,
 			data: '0x1234',
@@ -443,7 +443,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle error during script creation', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const invalidScriptParams = {
 			throwOnFail: false,
 			to: `0x${'12'.repeat(20)}`,
@@ -458,7 +458,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle error during EVM execution', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
@@ -475,7 +475,7 @@ describe('callHandler', () => {
 	})
 
 	it('should create transaction when createTransaction is true', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'69'.repeat(20)}` as const
 		// Set up account with enough balance
 		await setAccountHandler(client)({
@@ -493,7 +493,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle insufficient balance error', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const from = `0x${'69'.repeat(20)}` as const
 		const to = `0x${'42'.repeat(20)}` as const
 		// Set up account with zero balance
@@ -514,7 +514,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle error during transaction creation', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const txPool = await client.getTxPool()
 		txPool.addUnverified = () => {
 			throw new Error('Error adding transaction to pool')
@@ -541,7 +541,7 @@ describe('callHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -576,7 +576,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle opstack throwing unexpectedly', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -619,7 +619,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle vm cloning throwing unexpectedly', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -660,7 +660,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle being unable to get options', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -702,7 +702,7 @@ describe('callHandler', () => {
 	})
 
 	it('should submit a transaction and read the result with pending blockTag', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
 
 		// Set up account with enough balance
@@ -767,7 +767,7 @@ describe('callHandler', () => {
 		const contractAddress = createContractAddress(from, 0n)
 		const contract = SimpleContract.withAddress(contractAddress.toString())
 
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		const deployResult = await callHandler(client)({
 			createTransaction: true,
@@ -874,7 +874,7 @@ describe('callHandler', () => {
 		const contractAddress = createContractAddress(from, 0n)
 		const contract = SimpleContract.withAddress(contractAddress.toString())
 
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		const deployResult = await callHandler(client)({
 			createTransaction: true,

@@ -19,7 +19,7 @@ import { handleRunTxError } from './handleEvmError.js'
 /**
  * executeCall encapsalates the internal logic of running a call in the EVM
  * @internal
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import("@tevm/evm").EvmRunCallOpts} evmInput
  * @param {import('./CallParams.js').CallParams} params
  * @returns {Promise<(ExecuteCallResult & {errors?: [ExecuteCallError]}) | {errors: [ExecuteCallError]}>}

@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **client**: [`BaseClient`](../../index/type-aliases/BaseClient.md)
+• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

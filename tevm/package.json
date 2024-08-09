@@ -104,14 +104,14 @@
         "default": "./decorators/index.cjs"
       }
     },
-    "./base-client": {
+    "./node": {
       "import": {
-        "types": "./base-client/index.d.ts",
-        "default": "./base-client/index.js"
+        "types": "./node/index.d.ts",
+        "default": "./node/index.js"
       },
       "require": {
-        "types": "./base-client/index.d.cts",
-        "default": "./base-client/index.cjs"
+        "types": "./node/index.d.cts",
+        "default": "./node/index.cjs"
       }
     },
     "./predeploys": {
@@ -372,7 +372,7 @@
     "index*",
     "actions",
     "address",
-    "base-client",
+    "node",
     "block",
     "blockchain",
     "evm",
@@ -422,7 +422,6 @@
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
-    "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
@@ -438,6 +437,7 @@
     "@tevm/http-client": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
+    "@tevm/node": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
     "@tevm/procedures": "workspace:^",

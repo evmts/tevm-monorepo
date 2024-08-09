@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { optimism } from '@tevm/common'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { numberToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -7,7 +7,7 @@ import { getL1FeeInformationOpStack } from './getL1FeeInformationOpStack.js'
 
 describe(getL1FeeInformationOpStack.name, () => {
 	it('should work', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			common: optimism,
 			fork: {
 				transport: transports.optimism,

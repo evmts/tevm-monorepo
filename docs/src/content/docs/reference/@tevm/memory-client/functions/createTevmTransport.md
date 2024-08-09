@@ -9,7 +9,7 @@ title: "createTevmTransport"
 
 ## Parameters
 
-• **options**: `BaseClientOptions`\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
+• **options**: `TevmNodeOptions`\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
 
 Configuration options for the base client, similar to those used in `memoryClient` or a low-level `baseClient`.
 

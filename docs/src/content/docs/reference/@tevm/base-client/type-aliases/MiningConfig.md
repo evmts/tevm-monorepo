@@ -5,8 +5,8 @@ prev: false
 title: "MiningConfig"
 ---
 
-> **MiningConfig**: [`IntervalMining`](/reference/tevm/base-client/type-aliases/intervalmining/) \| [`ManualMining`](/reference/tevm/base-client/type-aliases/manualmining/) \| [`AutoMining`](/reference/tevm/base-client/type-aliases/automining/) \| `GasMining`
+> **MiningConfig**: [`IntervalMining`](/reference/tevm/node/type-aliases/intervalmining/) \| [`ManualMining`](/reference/tevm/node/type-aliases/manualmining/) \| [`AutoMining`](/reference/tevm/node/type-aliases/automining/) \| `GasMining`
 
 ## Defined in
 
-[packages/base-client/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L15)
+[packages/node/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L15)

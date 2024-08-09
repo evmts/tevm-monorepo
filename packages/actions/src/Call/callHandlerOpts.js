@@ -11,7 +11,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 /**
  * @internal
  * Parses user provided params into ethereumjs options to pass into the EVM
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import('./CallParams.js').CallParams} params
  * @returns {Promise<{data: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: never} | {data?: never, errors: Array<CallHandlerOptsError>}>}
  * @throws { never } Returns all errors as values

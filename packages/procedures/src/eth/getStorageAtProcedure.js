@@ -1,7 +1,7 @@
 import { getStorageAtHandler } from '@tevm/actions'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetStorageAtJsonRpcProcedure}
  */
 export const getStorageAtProcedure = (client) => async (req) => ({

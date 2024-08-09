@@ -1,6 +1,6 @@
 ignores: [
   "@tevm/client-types",
   "@tevm/procedures",
-  "@tevm/base-client"
+  "@tevm/node"
 ]
 skip-missing: true

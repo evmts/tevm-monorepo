@@ -8,7 +8,8 @@
 
 > **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| `Account`\>
 
-Gets the code corresponding to the provided `address`.
+Gets the account corresponding to the provided `address`.
+Returns undefined if account does not exist
 
 ## Parameters
 
@@ -30,4 +31,4 @@ Gets the code corresponding to the provided `address`.
 
 ## Defined in
 
-[packages/state/src/actions/getAccount.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L8)
+[packages/state/src/actions/getAccount.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L9)

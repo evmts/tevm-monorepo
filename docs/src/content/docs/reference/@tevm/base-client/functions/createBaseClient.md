@@ -2,19 +2,19 @@
 editUrl: false
 next: false
 prev: false
-title: "createBaseClient"
+title: "createTevmNode"
 ---
 
-> **createBaseClient**(`options`?): [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object`\>
+> **createTevmNode**(`options`?): [`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object`\>
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
+• **options?**: [`TevmNodeOptions`](/reference/tevm/node/type-aliases/baseclientoptions/)\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
 
 ## Returns
 
-[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object`\>
+[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`"fork"` \| `"normal"`, `object`\>
 
 ## Defined in
 
-[packages/base-client/src/createBaseClient.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L27)
+[packages/node/src/createTevmNode.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/createTevmNode.js#L27)

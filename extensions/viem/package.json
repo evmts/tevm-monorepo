@@ -64,9 +64,9 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/base-client": "workspace:^",
 		"@tevm/decorators": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^"
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/node": "workspace:^"
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.3",

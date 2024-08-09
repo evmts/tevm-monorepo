@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
@@ -15,7 +15,7 @@ const simpleConstructorAbi = parseAbi([
 ])
 describe('deployHandler', () => {
 	it('should deploy a contract', async () => {
-		const client = createBaseClient({ loggingLevel: 'warn' })
+		const client = createTevmNode({ loggingLevel: 'warn' })
 		const initialValue = 420n
 		// TODO this type is fucked atm
 		const deployResult = await deployHandler(client)({

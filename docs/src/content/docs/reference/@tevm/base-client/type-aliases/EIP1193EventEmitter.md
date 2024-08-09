@@ -5,7 +5,7 @@ prev: false
 title: "EIP1193EventEmitter"
 ---
 
-> **EIP1193EventEmitter**: [`EIP1193Events`](/reference/tevm/base-client/type-aliases/eip1193events/) & `object`
+> **EIP1193EventEmitter**: [`EIP1193Events`](/reference/tevm/node/type-aliases/eip1193events/) & `object`
 
 A very minimal EventEmitter interface
 
@@ -17,7 +17,7 @@ Emit an event.
 
 #### Parameters
 
-• **eventName**: keyof [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)
+• **eventName**: keyof [`EIP1193EventMap`](/reference/tevm/node/type-aliases/eip1193eventmap/)
 
 The event name.
 
@@ -33,4 +33,4 @@ True if the event was emitted, false otherwise.
 
 ## Defined in
 
-[packages/base-client/src/EIP1193EventEmitterTypes.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L53)
+[packages/node/src/EIP1193EventEmitterTypes.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L53)

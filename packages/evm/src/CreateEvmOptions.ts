@@ -29,9 +29,9 @@ import type { CustomPrecompile } from './CustomPrecompile.js'
  *
  * console.log(result)
  * ```
- * The EVM is normally encapsolated by both `@tevm/vm` Vm, BaseClient, and MemoryClient.
+ * The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClient.
  * @see [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
- * @see [BaseClient](https://tevm.sh/reference/tevm/base-client/functions/createbaseclient/)
+ * @see [TevmNode](https://tevm.sh/reference/tevm/node/functions/createbaseclient/)
  * @see [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
  */
 export type CreateEvmOptions = {

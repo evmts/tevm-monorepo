@@ -1,6 +1,6 @@
 ignores: [
   "@tevm/state",
-  "@tevm/base-client",
+  "@tevm/node",
   "@tevm/decorators",
   "@tevm/procedures",
   "@tevm/jsonrpc"

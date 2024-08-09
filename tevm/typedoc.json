@@ -18,7 +18,7 @@
     "./procedures/index.ts",
     "./http-client/index.ts",
     "./server/index.ts",
-    "./base-client/index.ts",
+    "./node/index.ts",
     "./decorators/index.ts",
     "./utils/index.ts",
     "./address/index.ts",
@@ -37,6 +37,8 @@
     "./bundler/config/index.ts",
     "./bundler/compiler/index.ts"
   ],
-  "plugin": ["typedoc-plugin-markdown"],
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
   "gitRevision": "main"
 }

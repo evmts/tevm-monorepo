@@ -10,4 +10,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:58
+packages/node/dist/index.d.ts:58

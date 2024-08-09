@@ -33,7 +33,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **connectInfo**: [`ProviderConnectInfo`](/reference/tevm/base-client/type-aliases/providerconnectinfo/)
+• **connectInfo**: [`ProviderConnectInfo`](/reference/tevm/node/type-aliases/providerconnectinfo/)
 
 #### Returns
 
@@ -43,7 +43,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **error**: [`ProviderRpcError`](/reference/tevm/base-client/classes/providerrpcerror/)
+• **error**: [`ProviderRpcError`](/reference/tevm/node/classes/providerrpcerror/)
 
 #### Returns
 
@@ -53,7 +53,7 @@ title: "EIP1193EventMap"
 
 #### Parameters
 
-• **message**: [`ProviderMessage`](/reference/tevm/base-client/type-aliases/providermessage/)
+• **message**: [`ProviderMessage`](/reference/tevm/node/type-aliases/providermessage/)
 
 #### Returns
 
@@ -101,4 +101,4 @@ title: "EIP1193EventMap"
 
 ## Defined in
 
-[packages/base-client/src/EIP1193EventEmitterTypes.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L32)
+[packages/node/src/EIP1193EventEmitterTypes.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L32)

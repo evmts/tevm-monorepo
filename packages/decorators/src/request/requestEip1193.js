@@ -13,7 +13,7 @@ import { withRetry } from 'viem'
 
 /**
  * A decorator that adds the EIP-1193 request method to the client
- * @returns {import('@tevm/base-client').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
+ * @returns {import('@tevm/node').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
  */
 export const requestEip1193 = () => (client) => {
 	return {
