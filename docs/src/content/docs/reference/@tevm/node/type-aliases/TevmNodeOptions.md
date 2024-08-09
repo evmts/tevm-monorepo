@@ -22,8 +22,7 @@ If set to true you may still run up against block limits
 
 > `readonly` `optional` **common**: `TCommon`
 
-The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work.
-If not specified and a fork is provided the common chainId will be fetched from the fork
+The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work. If not specified and a fork is provided the common chainId will be fetched from the fork
 Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
 
 #### Example
@@ -107,22 +106,6 @@ const tevm = createMemoryClient({
 })
 ```
 
-### forkTransport?
-
-> `readonly` `optional` **forkTransport**: `object`
-
-Client to make json rpc requests to a forked node
-
-#### Example
-
-```ts
-const client = createMemoryClient({ request: eip1193RequestFn })
-```
-
-### forkTransport.request
-
-> **forkTransport.request**: `EIP1193RequestFn`
-
 ### loggingLevel?
 
 > `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
@@ -172,4 +155,4 @@ Enable profiler. Defaults to false.
 
 ## Defined in
 
-[packages/node/src/TevmNodeOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L13)
+[packages/node/src/TevmNodeOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L12)

@@ -8,15 +8,13 @@ description: Using TevmNode from `tevm/node` package
 TevmNode is a local evm blockchain instance that can be used programatically in Node.js or browser.
 
 :::[tip] When to use TevmNode
-Most users are best off using the recomended [Viem client](../clients/index.md).
+Most users are best off using the higher level recomended [Viem client api](../clients/index.md).
 
 Using TevmNode directly can be a great choice if
 
 - you want to use Tevm in the most minimal tree shakable way
 - you need low level control of the evm node
-
-If you use the viem api you still have access to the underlying tevm node with `client.transport.tevm`
-:::
+  :::
 
 ## Installation
 
@@ -38,6 +36,8 @@ import { createTevmNode } from "tevm/node";
 const tevm = createTevmNode();
 ```
 
+### Accessing underlying TevmNode on a viem client
+
 TevmNode is also available on [viem clients](../clients/index.md) using Tevm including MemoryClient
 
 ```typescript
@@ -48,7 +48,7 @@ const tevm: TevmNode = client.transport.tevm;
 
 ### TevmOptions
 
-See [TevmOptions]() docs for options that can be passed to TevmNode.
+See [TevmOptions](../../reference/@tevm/node/type-aliases/TevmNode.md) docs for options that can be passed to TevmNode.
 
 ### TevmNode.ready()
 
@@ -64,7 +64,30 @@ await tevm.ready();
 
 It is not strictly required to wait for tevm.ready(). The entire api will implicitly wait for tevm to be ready if it needs to.
 
+## Adding EIP-1193 Provider
+
+TevmNode can become an EIP-1193 Provider using [requestEip1193](https://tevm.sh/reference/tevm/decorators/functions/requesteip1193/) decorator from `tevm/decorators` package.
+
+```typescript
+import { createTevmNode } from "tevm/node";
+import { requestEip1193 } from "tevm/decorators";
+
+const tevm = createTevmNode().extend(requestEip1193());
+const blockNumber = await tevm.request({ method: "eth_getBlockNumber" });
+```
+
+See [json-rpc api](../json-rpc/) for which methods are supported.
+
 ## Using a TevmNode
+
+In addition to being used as an EIP-1193 provider, a TevmNode has direct access to all it's internals including
+
+- VM - the internal vm
+- Blockchain - the blockchain sub component of the vm
+- StateManager - the state sub component of the vm
+- EVM - The raw EVM interpreter on the vm
+- TxPool - A cache of unmined tx
+- ReceiptsManager - A cache of receipts and log information
 
 ### VM
 
@@ -78,7 +101,88 @@ const tevm = createTevmNode();
 const vm = await tevm.getVm();
 ```
 
-See [Vm docs](../vm/) for it's usage.
+Notable methods include:
+
+- `vm.runBlock({block})` to execute an entire block of tx
+- `vm.runTx({tx})` to execute a single tx on the vm
+
+The VM is also how you get access to it's sub components including the blockchain, the state manager, and the evm.
+
+**See [generated Vm docs](../../reference/@tevm/vm/type-aliases/Vm.md) for it's usage.**
+**The VM can be used as a standalone package using `@tevm/vm` package. See generated docs for more**
+
+### StateManager
+
+The Tevm StateManager controls account state, contract bytecode, and contract storage. It supports forking via lazily fetching state from the fork if not already cached.
+
+```typescript
+import { createTevmNode } from "tevm/node";
+
+const tevm = createTevmNode();
+
+const stateManager = await tevm.getVm().then((vm) => vm.stateManager);
+console.log(await stateManager.dumpCannonicalGenesis());
+```
+
+Notable methods include
+
+- `stateManager.getAccount` to get an Account from state
+- `stateManager.putAccount` to add or update an Account
+- `stateManager.putContractStorage` to add contract storage
+- `stateManager.setStateRoot(block.header.stateRoot)` to update the state to the state of a given block
+- many more
+
+**See [generated StateManager docs](../../reference/@tevm/vm/type-aliases/Vm.md) for it's usage.**
+**The StateManager can be used as a standalone package using `@tevm/state` package. See generated docs for more**
+
+### Blockchain
+
+The blockchain controls the state of blocks. It supports forking via lazily fetching blocks from the fork if not already cached.
+
+```typescript
+import { createTevmNode } from "tevm/node";
+
+const tevm = createTevmNode();
+
+const blockchain = await tevm.getVm().then((vm) => vm.blockchain);
+console.log(await blockchain.getBlock(420n));
+```
+
+Notable methods include
+
+- `blockchain.getBlock` to get a block
+- `blockchain.getCanonicalHeadBlock` to get the latest block
+- `blockchain.putBlock` to add or update a block
+- many more
+
+**See [generated StateManager docs](../../reference/@tevm/vm/type-aliases/Vm.md) for it's usage.**
+**The Blockchain can be used as a standalone package using `@tevm/blockchain` package. See generated docs for more**
+**Blockchain package uses [@tevm/block](../../reference/@tevm/block/functions/blockFromRpc.md)** to fetch blocks from rpc and create blocks
+
+### Evm
+
+The EVM is the raw EVM interpreter of the TevmNode. It is an extremely light wrapper around [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+
+```typescript
+import { createTevmNode } from "tevm/node";
+import { createAddress } from "tevm/address";
+
+const tevm = createTevmNode();
+
+const evm = await tevm.getVm().then((vm) => vm.evm);
+console.log(
+  await evm.runCall({
+    from: createAddress(0),
+    to: createAddress(1),
+    data: Uint8Array.from([0]),
+  }),
+);
+```
+
+EVM has one notable method on it, `runCall` which runs a call on the EVM. `runCall` is just raw execution and does not do things like deduct the base fee. See `vm.runTx` if you wish to deduct base fees and do other checks.
+
+**See [generated EVM docs](../../reference/@tevm/evm/functions/createEvm.md) for it's usage.**
+**The EVM can be used as a standalone package using `@tevm/evm` package. See generated docs for more**
 
 ### Copying or Forking a node
 
@@ -102,15 +206,13 @@ const tevm = createTevmNode();
 const tevmCopy = tevm.deepCopy();
 ```
 
-### Filters
+### Adding and removing Filters
 
 The following methods allow you to read and write filters to the node:
 
-- [`TevmNode.getFilters`](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclient/#getfilters) Returns a Mapping of filters
-- [`TevmNode.removeFilter`] Used to remove a filter
-- [`TevmNode.getFilters`] Used to get a filter
-
-TODO fix above links
+- [`TevmNode.getFilters`](../../reference/@tevm/node/type-aliases/TevmNode.md#getFilters) Returns a Mapping of filters
+- [`TevmNode.removeFilter`](../../reference/@tevm/node/type-aliases/TevmNode.md#removeFilter) Used to remove a filter
+- [`TevmNode.addFilter`](../../reference/@tevm/node/type-aliases/TevmNode.md#addFilter) Used to add a filter
 
 ### TevmNode.getReceiptsManager()
 
@@ -122,6 +224,8 @@ import { createTevmNode } from "tevm/node";
 const tevm = createTevmNode();
 const manager = await tevm.getReceiptsManager();
 ```
+
+Note: the VM does not cache anything in the receipts manager.
 
 ### TevmNode.getTxPool()
 
@@ -155,25 +259,11 @@ There are a few packages that add additional functionality to a TevmNode in a tr
 - `tevm/procedures` Tree shakable methods for implementing the JSON-RPC api for ethereum, hardhat, anvil, and custom tevm json-rpc methods.
 - `tevm/decorators` Extensions to add additional properties to a TevmNode
 
-### Adding EIP-1193 Provider
-
-TevmNode can become an EIP-1193 Provider using [requestEip1193](https://tevm.sh/reference/tevm/decorators/functions/requesteip1193/) decorator from `tevm/decorators` package.
-
-```typescript
-import { createTevmNode } from "tevm/node";
-import { requestEip1193 } from "tevm/decorators";
-
-const tevm = createTevmNode().extend(requestEip1193());
-const blockNumber = await tevm.request({ method: "eth_getBlockNumber" });
-```
-
-See [json-rpc api](../json-rpc/) for which methods are supported.
-
 ### Extending with actions
 
 Actions are high level methods for interacting with a Node.
 
-In above section we extended a TevmNode with a EIP-1193 request fn. Tevm has other extensions too.
+Towards the beginning of this page we extend a TevmNode with a EIP-1193 request fn. Tevm has other extensions too.
 
 #### [ethActions](https://tevm.sh/reference/tevm/decorators/functions/ethactions/)
 
@@ -250,19 +340,3 @@ const vm = await tevmNode.getVm();
 ```
 
 For ethers providers tevm node is available on `Provider.tevm`
-
-## Creating your own custom Node implementation
-
-All the libraries used to create a TevmNode are also available. They follow the ethereumjs api adding custom tevm functionality.
-
-For extreme use cases it can be benificial to implement your own custom EVM or StateManager to create your own client.
-
-The [source code for createTevmClient is small](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js)
-
-Under the hood it's using the following tevm packages
-
-- [@tevm/common]() used to represent chain specific information such as EIPs hardforks and fee info. The Tevm common wraps viem/chains and ethereumjs/common
-- [@tevm/vm]() Composes the evm, state, and blockchain to do things like run blocks and tx
-- [@tevm/evm]() the evm interpreter implementation. Light wrapper around ethereumjs
-- [@tevm/state]() a custom ethereumjs state manager that supports forking
-- [@tevm/blockchain]() a custom ethereumjs blockchain implementation that supports forking
