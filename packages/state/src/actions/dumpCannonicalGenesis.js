@@ -12,9 +12,6 @@ import { getContractCode } from './getContractCode.js'
  * @type {import("../state-types/index.js").StateAction<'dumpCanonicalGenesis'>}
  */
 export const dumpCanonicalGenesis = (baseState) => async () => {
-	/**
-	 * @type {string[]}
-	 */
 	const accountAddresses = getAccountAddresses(baseState)()
 
 	/**
