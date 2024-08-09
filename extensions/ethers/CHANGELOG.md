@@ -1,5 +1,21 @@
 # @tevm/ethers
 
+## 2.0.0-next.105
+
+### Minor Changes
+
+- [#1370](https://github.com/evmts/tevm-monorepo/pull/1370) [`1dcfd69`](https://github.com/evmts/tevm-monorepo/commit/1dcfd6944f77493a00daa0d64590c2b0c0983a0f) Thanks [@roninjin10](https://github.com/roninjin10)! - Renamed tevm/base-client to tevm/node
+
+### Patch Changes
+
+- Updated dependencies [[`1dcfd69`](https://github.com/evmts/tevm-monorepo/commit/1dcfd6944f77493a00daa0d64590c2b0c0983a0f)]:
+  - @tevm/decorators@2.0.0-next.105
+  - @tevm/procedures@2.0.0-next.105
+  - @tevm/utils@2.0.0-next.105
+  - @tevm/node@2.0.0-next.105
+  - @tevm/client-types@2.0.0-next.105
+  - @tevm/contract@2.0.0-next.105
+
 ## 2.0.0-next.103
 
 ### Patch Changes
