@@ -12,11 +12,16 @@ export const getAccountAddresses = (baseState) => () => {
 	baseState.caches.accounts._orderedMapCache?.forEach((e) => {
 		accountAddresses.push(getAddress(e[0].startsWith('0x') ? e[0] : `0x${e[0]}`))
 	})
-	const { _lruCache } = baseState.caches.accounts
+	const { _lruCache, _orderedMapCache } = baseState.caches.accounts
 	if (_lruCache !== undefined) {
 		for (const address of _lruCache.rkeys()) {
 			accountAddresses.push(getAddress(address.startsWith('0x') ? address : `0x${address}`))
 		}
+	}
+	if (_orderedMapCache !== undefined) {
+		_orderedMapCache.forEach(([address]) => {
+			accountAddresses.push(getAddress(address.startsWith('0x') ? address : `0x${address}`))
+		})
 	}
 
 	return accountAddresses

@@ -29,27 +29,24 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 		const account = await getAccount(baseState, true)(ethAddress)
 
 		if (account === undefined) {
-			baseState.logger.debug({ address: hexAddress }, 'Warning: Account in accountAddresses not found')
-			throw new InternalError(`Account ${hexAddress} unexpecedly does not exist in state`)
+			throw new InternalError(`Account ${hexAddress} unexpectedly does not exist in state`)
 		}
-		if (account !== undefined) {
-			const storage = await dumpStorage(baseState, true)(ethAddress)
+		const storage = await dumpStorage(baseState, true)(ethAddress)
 
-			const deployedBytecode = await getContractCode(baseState, true)(ethAddress)
+		const deployedBytecode = await getContractCode(baseState, true)(ethAddress)
 
-			const dump = {
-				nonce: account.nonce,
-				balance: account.balance,
-				storageRoot: bytesToHex(account.storageRoot),
-				codeHash: bytesToHex(account.codeHash),
-				storage,
-				...(baseState.caches.contracts.has(ethAddress) ? { deployedBytecode: toHex(deployedBytecode) } : {}),
-			}
-
-			baseState.logger.debug({ address: hexAddress, ...dump }, 'dumping address')
-
-			state[hexAddress] = dump
+		const dump = {
+			nonce: account.nonce,
+			balance: account.balance,
+			storageRoot: bytesToHex(account.storageRoot),
+			codeHash: bytesToHex(account.codeHash),
+			storage,
+			...(baseState.caches.contracts.has(ethAddress) ? { deployedBytecode: toHex(deployedBytecode) } : {}),
 		}
+
+		baseState.logger.debug({ address: hexAddress, ...dump }, 'dumping address')
+
+		state[hexAddress] = dump
 	}
 
 	return state
