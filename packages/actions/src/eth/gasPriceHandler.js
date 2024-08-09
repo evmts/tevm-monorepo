@@ -3,7 +3,7 @@ import { hexToBigInt, parseGwei } from '@tevm/utils'
 import { blockNumberHandler } from './blockNumberHandler.js'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthGasPriceHandler}
  */
 export const gasPriceHandler = ({ forkTransport, getVm, ...client }) => {

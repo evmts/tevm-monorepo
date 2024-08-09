@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **baseClient**: [`BaseClient`](../../index/type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>
+• **baseClient**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

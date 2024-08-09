@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:21
+packages/node/dist/index.d.ts:21

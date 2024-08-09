@@ -1,6 +1,6 @@
 /**
  * Request handler for anvil_stopImpersonatingAccount JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilStopImpersonatingAccountProcedure}
  */
 export const anvilStopImpersonatingAccountJsonRpcProcedure = (client) => {

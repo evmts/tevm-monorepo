@@ -13,13 +13,13 @@ title: "EIP1193Events"
 
 #### Type Parameters
 
-• **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)
+• **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/node/type-aliases/eip1193eventmap/)
 
 #### Parameters
 
 • **event**: `TEvent`
 
-• **listener**: [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)\[`TEvent`\]
+• **listener**: [`EIP1193EventMap`](/reference/tevm/node/type-aliases/eip1193eventmap/)\[`TEvent`\]
 
 #### Returns
 
@@ -29,13 +29,13 @@ title: "EIP1193Events"
 
 #### Type Parameters
 
-• **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)
+• **TEvent** *extends* keyof [`EIP1193EventMap`](/reference/tevm/node/type-aliases/eip1193eventmap/)
 
 #### Parameters
 
 • **event**: `TEvent`
 
-• **listener**: [`EIP1193EventMap`](/reference/tevm/base-client/type-aliases/eip1193eventmap/)\[`TEvent`\]
+• **listener**: [`EIP1193EventMap`](/reference/tevm/node/type-aliases/eip1193eventmap/)\[`TEvent`\]
 
 #### Returns
 
@@ -43,4 +43,4 @@ title: "EIP1193Events"
 
 ## Defined in
 
-[packages/base-client/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/EIP1193EventEmitterTypes.ts#L46)
+[packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)

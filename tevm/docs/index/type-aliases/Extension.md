@@ -14,7 +14,7 @@
 
 ## Parameters
 
-• **client**: [`BaseClient`](BaseClient.md)
+• **client**: [`TevmNode`](TevmNode.md)
 
 ## Returns
 
@@ -22,4 +22,4 @@
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:369
+packages/node/dist/index.d.ts:369

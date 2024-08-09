@@ -1,6 +1,6 @@
 import { setAccountHandler } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import type { EthGetCodeJsonRpcRequest } from './EthJsonRpcRequest.js'
@@ -8,7 +8,7 @@ import { getCodeProcedure } from './getCodeProcedure.js'
 
 describe('getCodeProcedure', () => {
 	it('should return the code of a contract', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		const contract = SimpleContract.withAddress(createAddress(420420).toString())
 
@@ -31,7 +31,7 @@ describe('getCodeProcedure', () => {
 	})
 
 	it('should handle requests without an id', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		const contract = SimpleContract.withAddress(createAddress(420420).toString())
 

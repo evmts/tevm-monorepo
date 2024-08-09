@@ -2,11 +2,11 @@
 
 ***
 
-[tevm](../../modules.md) / [index](../README.md) / BaseClientOptions
+[tevm](../../modules.md) / [index](../README.md) / TevmNodeOptions
 
-# Type Alias: BaseClientOptions\<TCommon\>
+# Type Alias: TevmNodeOptions\<TCommon\>
 
-> **BaseClientOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
+> **TevmNodeOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
 
 Options for creating an Tevm MemoryClient instance
 
@@ -173,4 +173,4 @@ Enable profiler. Defaults to false.
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:240
+packages/node/dist/index.d.ts:240

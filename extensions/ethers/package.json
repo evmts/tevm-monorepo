@@ -63,10 +63,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/base-client": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
+		"@tevm/node": "workspace:^",
 		"@tevm/procedures": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},

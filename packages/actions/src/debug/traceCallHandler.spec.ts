@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { encodeFunctionData, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -292,7 +292,7 @@ const ERC20_ABI = [
 
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		// deploy contract
 		expect(
 			(

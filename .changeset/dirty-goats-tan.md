@@ -1,5 +1,5 @@
 ---
-"@tevm/base-client": minor
+"@tevm/node": minor
 "@tevm/procedures": minor
 ---
 

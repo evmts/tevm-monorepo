@@ -14,12 +14,12 @@ import { validateCallParams } from './validateCallParams.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
- * This function is designed for use with BaseClient and the internal instance of TEVM,
+ * This function is designed for use with TevmNode and the internal instance of TEVM,
  * and it is distinct from the viem API `tevmCall`.
  *
  * Note: This is the internal logic used by higher-level APIs such as `tevmCall`.
  *
- * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
  * @param {object} [options] - Optional parameters.
  * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
  * @returns {import('./CallHandlerType.js').CallHandler} The call handler function.
@@ -27,10 +27,10 @@ import { validateCallParams } from './validateCallParams.js'
  *
  * @example
  * ```typescript
- * import { createBaseClient } from 'tevm/base-client'
+ * import { createTevmNode } from 'tevm/node'
  * import { callHandler } from 'tevm/actions'
  *
- * const client = createBaseClient()
+ * const client = createTevmNode()
  *
  * const call = callHandler(client)
  *

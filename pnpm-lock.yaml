@@ -1153,9 +1153,6 @@ importers:
 
   extensions/ethers:
     dependencies:
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../../packages/base-client
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../../packages/client-types
@@ -1165,6 +1162,9 @@ importers:
       '@tevm/decorators':
         specifier: workspace:^
         version: link:../../packages/decorators
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../../packages/procedures
@@ -1187,15 +1187,15 @@ importers:
 
   extensions/viem:
     dependencies:
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../../packages/base-client
       '@tevm/decorators':
         specifier: workspace:^
         version: link:../../packages/decorators
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../../packages/jsonrpc
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       viem:
         specifier: ^2.14.2
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
@@ -1376,9 +1376,6 @@ importers:
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../base-client
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -1397,6 +1394,9 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../node
       '@tevm/receipt-manager':
         specifier: workspace:^
         version: link:../receipt-manager
@@ -1444,67 +1444,6 @@ importers:
         specifier: ^2.14.2
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  packages/base-client:
-    dependencies:
-      '@tevm/address':
-        specifier: workspace:^
-        version: link:../address
-      '@tevm/block':
-        specifier: workspace:^
-        version: link:../block
-      '@tevm/blockchain':
-        specifier: workspace:^
-        version: link:../blockchain
-      '@tevm/common':
-        specifier: workspace:^
-        version: link:../common
-      '@tevm/evm':
-        specifier: workspace:^
-        version: link:../evm
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/logger':
-        specifier: workspace:^
-        version: link:../logger
-      '@tevm/predeploys':
-        specifier: workspace:^
-        version: link:../predeploys
-      '@tevm/receipt-manager':
-        specifier: workspace:^
-        version: link:../receipt-manager
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/sync-storage-persister':
-        specifier: workspace:^
-        version: link:../sync-storage-persister
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
-      '@tevm/txpool':
-        specifier: workspace:^
-        version: link:../txpool
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
-      '@tevm/vm':
-        specifier: workspace:^
-        version: link:../vm
-      viem:
-        specifier: ^2.14.2
-        version: 2.14.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
-    devDependencies:
-      '@tevm/test-utils':
-        specifier: workspace:^
-        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1654,9 +1593,9 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
-      '@tevm/base-client':
+      '@tevm/node':
         specifier: workspace:^
-        version: link:../base-client
+        version: link:../node
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
@@ -1820,9 +1759,6 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../base-client
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
@@ -1838,6 +1774,9 @@ importers:
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../node
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../predeploys
@@ -1863,6 +1802,67 @@ importers:
       viem:
         specifier: ^2.16.2
         version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
+
+  packages/node:
+    dependencies:
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
+      '@tevm/block':
+        specifier: workspace:^
+        version: link:../block
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/evm':
+        specifier: workspace:^
+        version: link:../evm
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../jsonrpc
+      '@tevm/logger':
+        specifier: workspace:^
+        version: link:../logger
+      '@tevm/predeploys':
+        specifier: workspace:^
+        version: link:../predeploys
+      '@tevm/receipt-manager':
+        specifier: workspace:^
+        version: link:../receipt-manager
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/sync-storage-persister':
+        specifier: workspace:^
+        version: link:../sync-storage-persister
+      '@tevm/tx':
+        specifier: workspace:^
+        version: link:../tx
+      '@tevm/txpool':
+        specifier: workspace:^
+        version: link:../txpool
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../vm
+      viem:
+        specifier: ^2.14.2
+        version: 2.16.2(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@6.0.4)(zod@3.23.8)
+    devDependencies:
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
 
   packages/precompiles:
     dependencies:
@@ -1916,9 +1916,6 @@ importers:
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../base-client
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -1940,6 +1937,9 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../node
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -2359,9 +2359,6 @@ importers:
       '@tevm/base-bundler':
         specifier: workspace:^
         version: link:../bundler-packages/base-bundler
-      '@tevm/base-client':
-        specifier: workspace:^
-        version: link:../packages/base-client
       '@tevm/block':
         specifier: workspace:^
         version: link:../packages/block
@@ -2407,6 +2404,9 @@ importers:
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../packages/memory-client
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../packages/node
       '@tevm/precompiles':
         specifier: workspace:^
         version: link:../packages/precompiles

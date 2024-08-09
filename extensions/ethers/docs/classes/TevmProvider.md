@@ -122,7 +122,7 @@ console.log(await provider.send('tevm_getAccount', {
 
 • **client**: `TevmSendApi` & `TevmActionsApi` \| `object`
 
-An instance of a tevm Memory client or BaseClient with TevmSendApi
+An instance of a tevm Memory client or TevmNode with TevmSendApi
 
 #### Returns
 
@@ -2010,7 +2010,7 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-• **options**: `BaseClientOptions`\<`Common`\>
+• **options**: `TevmNodeOptions`\<`Common`\>
 
 Options to create a new TevmProvider.
 

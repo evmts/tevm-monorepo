@@ -1,11 +1,11 @@
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from './mineHandler.js'
 
-const getBlockNumber = (client: BaseClient) => {
+const getBlockNumber = (client: TevmNode) => {
 	return client
 		.getVm()
 		.then((vm) => vm.blockchain.getCanonicalHeadBlock())
@@ -14,7 +14,7 @@ const getBlockNumber = (client: BaseClient) => {
 
 describe(mineHandler.name, () => {
 	it('as a default it should mine 1 block', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		expect(await getBlockNumber(client)).toBe(0n)
 		await mineHandler(client)({})
 		expect(await getBlockNumber(client)).toBe(1n)
@@ -23,7 +23,7 @@ describe(mineHandler.name, () => {
 	it(
 		'should work in forked mode too',
 		async () => {
-			const client = createBaseClient({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
+			const client = createTevmNode({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
 			const bn = await getBlockNumber(client)
 			expect(bn).toBeGreaterThan(119504797n)
 			await mineHandler(client)({})
@@ -33,7 +33,7 @@ describe(mineHandler.name, () => {
 	)
 
 	it('can be passed blockCount and interval props', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		expect(await getBlockNumber(client)).toBe(0n)
 		await mineHandler(client)({
 			interval: 2,
@@ -47,7 +47,7 @@ describe(mineHandler.name, () => {
 	})
 
 	it('works with transactions in the tx pool', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		const callResult = await callHandler(client)({

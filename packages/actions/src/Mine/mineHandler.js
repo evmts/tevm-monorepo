@@ -7,7 +7,7 @@ import { validateMineParams } from './validateMineParams.js'
 // TODO Errors can leave us in bad states
 
 /**
- * @param {import("@tevm/base-client").BaseClient} client
+ * @param {import("@tevm/node").TevmNode} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('./MineHandlerType.js').MineHandler}

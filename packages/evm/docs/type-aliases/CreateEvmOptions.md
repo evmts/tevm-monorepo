@@ -33,12 +33,12 @@ const result = await evm.runCall({
 
 console.log(result)
 ```
-The EVM is normally encapsolated by both `@tevm/vm` Vm, BaseClient, and MemoryClient.
+The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClient.
 
 ## See
 
  - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
- - [BaseClient](https://tevm.sh/reference/tevm/base-client/functions/createbaseclient/)
+ - [TevmNode](https://tevm.sh/reference/tevm/node/functions/createbaseclient/)
  - [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
 
 ## Type declaration

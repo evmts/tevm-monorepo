@@ -3,7 +3,7 @@ import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
 
 /**
  * Request handler for eth_getTransactionByBlockNumberAndIndex JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure}
  */
 export const ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure = (client) => {

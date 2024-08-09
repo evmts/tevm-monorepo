@@ -9,7 +9,7 @@ title: "forkAndCacheBlock"
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 • **block**: [`Block`](/reference/tevm/block/classes/block/)
 

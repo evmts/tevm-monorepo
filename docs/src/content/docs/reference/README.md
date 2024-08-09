@@ -8,7 +8,7 @@ title: "Documentation"
 ## Packages
 
 - [@tevm/actions](/reference/tevm/actions/readme/)
-- [@tevm/base-client](/reference/tevm/base-client/readme/)
+- [@tevm/node](/reference/tevm/node/readme/)
 - [@tevm/block](/reference/tevm/block/readme/)
 - [@tevm/blockchain](/reference/tevm/blockchain/readme/)
 - [@tevm/client-types](/reference/tevm/client-types/readme/)

@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { EthjsAddress } from '@tevm/utils'
@@ -13,7 +13,7 @@ const ERC20_ABI = TestERC20.abi
 
 describe('runCallWithTrace', () => {
 	it('should execute a contract call with tracing', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		expect(
 			(

@@ -2,10 +2,10 @@
 editUrl: false
 next: false
 prev: false
-title: "BaseClient"
+title: "TevmNode"
 ---
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](/reference/tevm/base-client/type-aliases/eip1193eventemitter/) & `TExtended`
+> **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](/reference/tevm/node/type-aliases/eip1193eventemitter/) & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -13,17 +13,17 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
 
 Copies the current client state into a new client
 
 #### Returns
 
-`Promise`\<[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
+`Promise`\<[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended`\>\>
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -38,7 +38,7 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
+[`TevmNode`](/reference/tevm/node/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
 ### forkTransport?
 
@@ -58,13 +58,13 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 ### getFilters()
 
-> `readonly` **getFilters**: () => `Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/base-client/type-aliases/filter/)\>
+> `readonly` **getFilters**: () => `Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/node/type-aliases/filter/)\>
 
 Gets all registered filters mapped by id
 
 #### Returns
 
-`Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/base-client/type-aliases/filter/)\>
+`Map`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Filter`](/reference/tevm/node/type-aliases/filter/)\>
 
 ### getImpersonatedAccount()
 
@@ -116,7 +116,7 @@ The logger instance
 
 ### miningConfig
 
-> `readonly` **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+> `readonly` **miningConfig**: [`MiningConfig`](/reference/tevm/node/type-aliases/miningconfig/)
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
@@ -181,7 +181,7 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-• **filter**: [`Filter`](/reference/tevm/base-client/type-aliases/filter/)
+• **filter**: [`Filter`](/reference/tevm/node/type-aliases/filter/)
 
 #### Returns
 
@@ -220,4 +220,4 @@ Returns status of the client
 
 ## Defined in
 
-[packages/base-client/src/BaseClient.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L14)
+[packages/node/src/TevmNode.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts#L14)

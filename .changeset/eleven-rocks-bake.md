@@ -2,7 +2,7 @@
 "@tevm/actions": minor
 "@tevm/memory-client": minor
 "@tevm/solc": minor
-"@tevm/base-client": minor
+"@tevm/node": minor
 "@tevm/procedures": minor
 "@tevm/ethers": minor
 "@tevm/jsonrpc": minor

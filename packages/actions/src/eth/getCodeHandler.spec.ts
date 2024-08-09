@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -9,7 +9,7 @@ const contract = SimpleContract.withAddress(createAddress(420420).toString())
 
 describe(getCodeHandler.name, () => {
 	it('should implement eth_getCode', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		await setAccountHandler(client)({
 			address: contract.address,

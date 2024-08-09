@@ -5,7 +5,7 @@ import { cloneVmWithBlockTag } from '../Call/cloneVmWithBlock.js'
 import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthGetStorageAtHandler}
  */
 export const getStorageAtHandler = (client) => async (params) => {

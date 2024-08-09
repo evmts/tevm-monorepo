@@ -1,15 +1,15 @@
 import { mineHandler, setAccountHandler } from '@tevm/actions'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Address, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBalanceJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getBalanceProcedure } from './getBalanceProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 let accountAddress: Address
 
 beforeEach(async () => {
-	client = createBaseClient()
+	client = createTevmNode()
 	accountAddress = `0x${'69'.repeat(20)}` as Address
 	await setAccountHandler(client)({
 		address: accountAddress,

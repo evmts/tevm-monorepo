@@ -1,14 +1,14 @@
 import { callHandler, mineHandler } from '@tevm/actions'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { bytesToHex, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBlockByHashJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetBlockByHashJsonRpcProcedure } from './ethGetBlockByHashProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 
 beforeEach(async () => {
-	client = createBaseClient()
+	client = createTevmNode()
 	await callHandler(client)({ createTransaction: true, value: 420n, to: `0x${'01'.repeat(20)}` })
 	await mineHandler(client)()
 })

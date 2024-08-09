@@ -99,18 +99,18 @@ If tevm is running in an http server using the `@tevm/server` package, any http 
 
 ## Base Client and tree shakeable actions
 
-While `MemoryClient` is suggested for most users, users trying to squeeze out bundle size wins such as 3rd party libraries may want to use the lower level BaseClient api.
+While `MemoryClient` is suggested for most users, users trying to squeeze out bundle size wins such as 3rd party libraries may want to use the lower level TevmNode api.
 
 Tevm supports tree shakeable actions [similar to viem](https://viem.sh/docs/clients/custom#tree-shaking).
 
-To make a minimal Tevm client use [`createBaseClient`](https://tevm.sh/reference/tevm/base-client/functions/createbaseclient/) and import actions such as `tevmSetAccount` from `@tevm/actions`.
+To make a minimal Tevm client use [`createTevmNode`](https://tevm.sh/reference/tevm/node/functions/createbaseclient/) and import actions such as `tevmSetAccount` from `@tevm/actions`.
 
 ```typescript
-import { createBaseClient } from "tevm/base-client";
+import { createTevmNode } from "tevm/node";
 import { mainnet } from "tevm/common";
 import { setAccountHandler } from "tevm/actions";
 
-const tevm = createBaseClient({
+const tevm = createTevmNode({
   common: mainnet,
   fork: { transport: http("https://mainnet.optimism.io")({}) },
 });
@@ -128,14 +128,14 @@ await tevmSetAccount({
 To use viem tree shakeable actions you must build a client from scratch.
 
 ```typescript
-import { createBaseClient } from "tevm/base-client";
+import { createTevmNode } from "tevm/node";
 import { requestEip1193 } from "tevm/decorators";
 import { mainnet } from "tevm/common";
 import { tevmTransport } from "tevm";
 import { createClient as createViemClient } from "viem";
 
 // Create a minimal tevm client with only a EIP-1193 Request JSON-RPC function
-export const mainnetTevm = createBaseClient({ common: mainnet }).extend(
+export const mainnetTevm = createTevmNode({ common: mainnet }).extend(
   requestEip1193(),
 );
 
@@ -170,7 +170,7 @@ await setAccountHandler(mainnetTevm)({
 
 ## Lower level packages
 
-For those wanting to dive deeper into tevms internal or squeeze out even smaller bundlers, in addition to `BaseClient` all the internal packages used to create base client are publically available on NPM. Notably:
+For those wanting to dive deeper into tevms internal or squeeze out even smaller bundlers, in addition to `TevmNode` all the internal packages used to create base client are publically available on NPM. Notably:
 
 - `@tevm/evm` contains a very simple EVM interpreter used by tevm
 - `@tevm/state` provides a custom state manager used to implement forking

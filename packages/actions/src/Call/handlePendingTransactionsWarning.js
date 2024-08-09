@@ -4,7 +4,7 @@ import { hexToBytes } from '@tevm/utils'
 /**
  * Handles warning for pending transactions in the transaction pool.
  *
- * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
  * @param {import('./CallParams.js').CallParams} params - The call parameters.
  * @param {string | undefined} code - The code to execute.
  * @param {string | undefined} deployedBytecode - The deployed bytecode to use.

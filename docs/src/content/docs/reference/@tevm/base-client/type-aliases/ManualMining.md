@@ -15,4 +15,4 @@ title: "ManualMining"
 
 ## Defined in
 
-[packages/base-client/src/MiningConfig.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L5)
+[packages/node/src/MiningConfig.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L5)

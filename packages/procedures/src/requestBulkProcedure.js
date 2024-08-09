@@ -1,7 +1,7 @@
 import { requestProcedure } from './requestProcedure.js'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./tevm-request-handler/TevmJsonRpcBulkRequestHandler.js').TevmJsonRpcBulkRequestHandler}
  */
 export const requestBulkProcedure = (client) => async (requests) => {

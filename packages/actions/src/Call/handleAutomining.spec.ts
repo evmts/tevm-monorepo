@@ -1,11 +1,11 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { handleAutomining } from './handleAutomining.js'
 
 describe('handleAutomining', () => {
 	it('should return undefined if mining type is not auto', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
@@ -15,7 +15,7 @@ describe('handleAutomining', () => {
 	})
 
 	it('should mine transaction if mining type is auto', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		})
@@ -25,7 +25,7 @@ describe('handleAutomining', () => {
 	})
 
 	it('should return mineHandler result if there are errors', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		})
@@ -38,7 +38,7 @@ describe('handleAutomining', () => {
 	})
 
 	it('should log mining process', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		})

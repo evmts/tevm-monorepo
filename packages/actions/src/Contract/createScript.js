@@ -1,6 +1,6 @@
 import { createAddress, createContractAddress } from '@tevm/address'
-import { prefundedAccounts } from '@tevm/base-client'
 import { InternalError, InternalEvmError, InvalidBytecodeError } from '@tevm/errors'
+import { prefundedAccounts } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
 import { getAddress, hexToBytes } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
@@ -10,7 +10,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 /**
  * @internal
  * Creates a script with a randomly generated address
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/utils').Hex} [code]
  * @param {import('@tevm/utils').Hex} [deployedBytecode]
  * @param {import('@tevm/utils').Address} [to]

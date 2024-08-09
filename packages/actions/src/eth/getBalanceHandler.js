@@ -16,7 +16,7 @@ export class NoForkUrlSetError extends Error {
 }
 
 /**
- * @param {import('@tevm/base-client').BaseClient} baseClient
+ * @param {import('@tevm/node').TevmNode} baseClient
  * @returns {import('./EthHandler.js').EthGetBalanceHandler}
  */
 export const getBalanceHandler =
