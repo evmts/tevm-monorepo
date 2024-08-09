@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
-import { bytesToHex, getAddress, toHex } from '@tevm/utils'
+import { EthjsAccount, bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
@@ -26,11 +26,8 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 	for (const address of accountAddresses) {
 		const hexAddress = getAddress(address.startsWith('0x') ? address : `0x${address}`)
 		const ethAddress = createAddress(hexAddress)
-		const account = await getAccount(baseState, true)(ethAddress)
+		const account = (await getAccount(baseState, true)(ethAddress)) ?? EthjsAccount.fromAccountData({})
 
-		if (account === undefined) {
-			throw new InternalError(`Account ${hexAddress} unexpectedly does not exist in state`)
-		}
 		const storage = await dumpStorage(baseState, true)(ethAddress)
 
 		const deployedBytecode = await getContractCode(baseState, true)(ethAddress)
