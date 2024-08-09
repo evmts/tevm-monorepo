@@ -1,5 +1,4 @@
 import { createAddress } from '@tevm/address'
-import { InternalError } from '@tevm/errors'
 import { EthjsAccount, bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
