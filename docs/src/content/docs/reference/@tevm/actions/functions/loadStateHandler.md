@@ -9,7 +9,7 @@ title: "loadStateHandler"
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 The base client instance.
 

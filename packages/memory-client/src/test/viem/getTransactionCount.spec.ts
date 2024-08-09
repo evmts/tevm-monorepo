@@ -1,4 +1,4 @@
-import { prefundedAccounts } from '@tevm/base-client'
+import { prefundedAccounts } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import type { Address } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'

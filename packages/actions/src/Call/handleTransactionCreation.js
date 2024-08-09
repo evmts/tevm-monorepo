@@ -5,7 +5,7 @@ import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 /**
  * Handles the creation of a transaction based on the call parameters and execution result.
  *
- * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
  * @param {import('./CallParams.js').CallParams} params - The call parameters.
  * @param {import('./executeCall.js').ExecuteCallResult} executedCall - The result of the executed call.
  * @param {import('@tevm/evm').EvmRunCallOpts} evmInput - The EVM input parameters.

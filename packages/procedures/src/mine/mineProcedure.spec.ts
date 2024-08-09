@@ -1,12 +1,12 @@
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MineJsonRpcRequest } from './MineJsonRpcRequest.js'
 import { mineProcedure } from './mineProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 
 beforeEach(() => {
-	client = createBaseClient()
+	client = createTevmNode()
 })
 
 describe('mineProcedure', () => {

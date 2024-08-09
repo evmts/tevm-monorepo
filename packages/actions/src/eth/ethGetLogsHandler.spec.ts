@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { keccak256, stringToHex } from '@tevm/utils'
 import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -11,7 +11,7 @@ describe(ethGetLogsHandler.name, () => {
 	it.skip(
 		'should work fetching from fork url',
 		async () => {
-			const client = createBaseClient({
+			const client = createTevmNode({
 				fork: {
 					transport: http('https://mainnet.optimism.io')({}),
 				},

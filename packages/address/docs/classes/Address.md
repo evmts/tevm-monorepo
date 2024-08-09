@@ -12,17 +12,17 @@ toString returns a checksummed address rather than lowercase
 
 ## Example
 
-```typescript
-import { createAddress } from '@tevm/address'`
+```javascript
+import { createAddress } from '@tevm/address';
 
 // takes hex string
-let address = createAddress(`0x${'00'.repeat(20)}`)
+let address = createAddress(`0x${'00'.repeat(20)}`);
 // takes number and bigint
-address = createAddress(0)
+address = createAddress(0);
 // takes bytes
-address = createAddress(new Uint8Array()))
+address = createAddress(new Uint8Array());
 // non hex string
-address = createAddress('55'.repeat(20))
+address = createAddress('55'.repeat(20));
 ```
 
 ## Extends
@@ -156,11 +156,13 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 > **toString**(): \`0x$\{string\}\`
 
-Returns hex encoding of address.
+Returns the checksummed address.
 
 #### Returns
 
 \`0x$\{string\}\`
+
+The checksummed address.
 
 #### Overrides
 
@@ -168,7 +170,7 @@ Returns hex encoding of address.
 
 #### Defined in
 
-[packages/address/src/Address.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/Address.ts#L22)
+[packages/address/src/Address.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/Address.js#L27)
 
 ***
 

@@ -1,6 +1,6 @@
 /**
  * Request handler for eth_coinbase JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthCoinbaseJsonRpcProcedure}
  */
 export const ethCoinbaseJsonRpcProcedure = (client) => {

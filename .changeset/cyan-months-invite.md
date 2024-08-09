@@ -20,7 +20,7 @@
 "@tevm/bun-plugin": patch
 "@tevm/cli": patch
 "@tevm/schemas": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
 "@tevm/blockchain": patch

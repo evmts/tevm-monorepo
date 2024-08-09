@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
 import { EvmError, EvmErrorMessage } from '@tevm/evm'
+import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { PREFUNDED_ACCOUNTS, getAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -10,7 +10,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { createScript } from './createScript.js'
 
 describe('createScript', () => {
-	const client = createBaseClient()
+	const client = createTevmNode()
 	const validCode = TestERC20.script({ constructorArgs: ['Name', 'Symbol'] }).code
 	const invalidCode = '0x6969696969' // invalid EVM bytecode
 	const validDeployedBytecode = TestERC20.deployedBytecode
@@ -44,7 +44,7 @@ describe('createScript', () => {
 	})
 
 	it('should handle script creation failure due to EVM error', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		vm.evm.runCall = async () => {
 			throw new Error('EVM error')
@@ -55,7 +55,7 @@ describe('createScript', () => {
 	})
 
 	it('should handle setAccount failing unexpecdedly', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		vm.stateManager.putAccount = async () => {
 			throw new Error('Unexpected error')
@@ -66,7 +66,7 @@ describe('createScript', () => {
 	})
 
 	it('should succeed even if base fee higher than calcNextBaseFee', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
 		const newBlock = Block.fromBlockData(
@@ -85,7 +85,7 @@ describe('createScript', () => {
 	})
 
 	it('should handle vm errors', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		vm.evm.runCall = () => {
 			return Promise.resolve({
@@ -106,7 +106,7 @@ describe('createScript', () => {
 	})
 
 	it('should handle the case where the code property did not produce any bytecode', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const originalRunCall = vm.evm.runCall.bind(vm.evm)
 		vm.evm.runCall = async (params) => {
@@ -122,7 +122,7 @@ describe('createScript', () => {
 	})
 
 	it('should handle the unlikely case we are unable to get the account after successful creation', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const originalRunCall = vm.evm.runCall.bind(vm.evm)
 		vm.evm.runCall = async (params) => {

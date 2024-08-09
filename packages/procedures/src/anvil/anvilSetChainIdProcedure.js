@@ -3,7 +3,7 @@ import { hexToNumber } from '@tevm/utils'
 
 /**
  * Request handler for anvil_setChainId JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilSetChainIdProcedure}
  */
 export const anvilSetChainIdJsonRpcProcedure = (client) => {

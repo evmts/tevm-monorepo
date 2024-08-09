@@ -2,11 +2,11 @@
 
 ***
 
-[tevm](../../modules.md) / [index](../README.md) / BaseClient
+[tevm](../../modules.md) / [index](../README.md) / TevmNode
 
-# Type Alias: BaseClient\<TMode, TExtended\>
+# Type Alias: TevmNode\<TMode, TExtended\>
 
-> **BaseClient**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
+> **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -14,17 +14,17 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended`\>\>
 
 Copies the current client state into a new client
 
 #### Returns
 
-`Promise`\<[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended`\>\>
+`Promise`\<[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended`\>\>
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](TevmNode.md)\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -39,7 +39,7 @@ and extensibility
 
 #### Returns
 
-[`BaseClient`](BaseClient.md)\<`TMode`, `TExtended` & `TExtension`\>
+[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended` & `TExtension`\>
 
 ### forkTransport?
 
@@ -221,4 +221,4 @@ Returns status of the client
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:126
+packages/node/dist/index.d.ts:126

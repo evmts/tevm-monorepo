@@ -3,7 +3,7 @@ import type { GetAccountResult } from './GetAccountResult.js'
 
 /**
  * Gets the state of a specific Ethereum address.
- * This handler is for use with a low-level TEVM `BaseClient`, unlike `tevmGetAccount`.
+ * This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount`.
  * @example
  * ```typescript
  * import { createClient } from 'tevm'

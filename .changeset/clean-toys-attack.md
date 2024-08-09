@@ -2,7 +2,7 @@
 "@tevm/procedures": patch
 "@tevm/memory-client": patch
 "@tevm/schemas": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/blockchain": patch
 "@tevm/decorators": patch

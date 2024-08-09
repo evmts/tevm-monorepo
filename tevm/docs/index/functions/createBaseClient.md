@@ -2,20 +2,20 @@
 
 ***
 
-[tevm](../../modules.md) / [index](../README.md) / createBaseClient
+[tevm](../../modules.md) / [index](../README.md) / createTevmNode
 
-# Function: createBaseClient()
+# Function: createTevmNode()
 
-> **createBaseClient**(`options`?): [`BaseClient`](../type-aliases/BaseClient.md)
+> **createTevmNode**(`options`?): [`TevmNode`](../type-aliases/TevmNode.md)
 
 ## Parameters
 
-• **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
+• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
 
 ## Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)
+[`TevmNode`](../type-aliases/TevmNode.md)
 
 ## Defined in
 
-packages/base-client/dist/index.d.ts:367
+packages/node/dist/index.d.ts:367

@@ -10,7 +10,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
  *
  * Note: This is the internal logic used by higher-level APIs such as `tevmDeploy`.
  *
- * @param {import('@tevm/base-client').BaseClient} client - The TEVM base client instance.
+ * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
  * @param {object} [options] - Optional parameters.
  * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
  * @returns {import("../Deploy/DeployHandlerType.js").DeployHandler} The deploy handler function.
@@ -18,10 +18,10 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
  *
  * @example
  * ```typescript
- * import { createBaseClient } from 'tevm/base-client'
+ * import { createTevmNode } from 'tevm/node'
  * import { deployHandler } from 'tevm/actions'
  *
- * const client = createBaseClient()
+ * const client = createTevmNode()
  *
  * const deploy = deployHandler(client)
  *

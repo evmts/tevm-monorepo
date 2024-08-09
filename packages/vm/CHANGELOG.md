@@ -1,5 +1,19 @@
 # @tevm/state
 
+## 2.0.0-next.105
+
+### Patch Changes
+
+- Updated dependencies [[`1dcfd69`](https://github.com/evmts/tevm-monorepo/commit/1dcfd6944f77493a00daa0d64590c2b0c0983a0f), [`1dcfd69`](https://github.com/evmts/tevm-monorepo/commit/1dcfd6944f77493a00daa0d64590c2b0c0983a0f)]:
+  - @tevm/state@2.0.0-next.105
+  - @tevm/blockchain@2.0.0-next.105
+  - @tevm/common@2.0.0-next.105
+  - @tevm/errors@2.0.0-next.105
+  - @tevm/utils@2.0.0-next.105
+  - @tevm/evm@2.0.0-next.105
+  - @tevm/block@2.0.0-next.105
+  - @tevm/tx@2.0.0-next.105
+
 ## 2.0.0-next.103
 
 ### Patch Changes

@@ -154,7 +154,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * ## Tree Shakeable Actions
  *
- * TEVM supports tree-shakeable actions using `createBaseClient()` and the `tevm/actions` package. If you are building a UI, you should use tree-shakeable actions to optimize bundle size. These are described in detail in the [actions API guide](https://tevm.sh/learn/actions/).
+ * TEVM supports tree-shakeable actions using `createTevmNode()` and the `tevm/actions` package. If you are building a UI, you should use tree-shakeable actions to optimize bundle size. These are described in detail in the [actions API guide](https://tevm.sh/learn/actions/).
  *
  * ## Composing with TEVM Contracts and Bundler
  *

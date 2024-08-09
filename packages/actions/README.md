@@ -9,7 +9,7 @@
 
 # @tevm/actions
 
-Actions add functionality to the [base client](https://github.com/evmts/tevm-monorepo/tree/main/packages/base-client)
+Actions add functionality to the [base client](https://github.com/evmts/tevm-monorepo/tree/main/packages/node)
 
 ## Installation
 
@@ -30,13 +30,13 @@ npm install @tevm/actions
 Action handlers take a client and return an tevm action handler function
 
 ```typescript
-import {createBaseClient} from 'tevm/base-client'
+import {createTevmNode} from 'tevm/node'
 import {callHandler} from 'tevm/actions'
 
 /**
  * Most action handlers wrap the base client
  */
-const client = createBaseClient()
+const client = createTevmNode()
 
 /**
  * To use the action first instanciate it with the base client

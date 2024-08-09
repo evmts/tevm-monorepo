@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { tevmActions, tevmSend } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
 import { JsonRpcApiProvider } from 'ethers'
 
 /**
@@ -108,7 +108,7 @@ import { JsonRpcApiProvider } from 'ethers'
 export class TevmProvider extends JsonRpcApiProvider {
 	/**
 	 * Creates a new TevmProvider instance with a TevmMemoryClient.
-	 * @param {import('@tevm/base-client').BaseClientOptions} options - Options to create a new TevmProvider.
+	 * @param {import('@tevm/node').TevmNodeOptions} options - Options to create a new TevmProvider.
 	 * @returns {Promise<TevmProvider>} A new TevmProvider instance.
 	 * @readonly
 	 * @see {@link https://tevm.sh/learn/clients/ | Tevm Clients Docs}
@@ -122,7 +122,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * ```
 	 */
 	static createMemoryProvider = async (options) => {
-		return new TevmProvider(createBaseClient(options).extend(tevmActions()).extend(tevmSend()))
+		return new TevmProvider(createTevmNode(options).extend(tevmActions()).extend(tevmSend()))
 	}
 
 	/**
@@ -168,7 +168,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	tevm
 
 	/**
-	 * @param {(import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi) | {tevm: import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}} client An instance of a tevm Memory client or BaseClient with TevmSendApi
+	 * @param {(import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi) | {tevm: import('@tevm/decorators').TevmSendApi & import('@tevm/decorators').TevmActionsApi}} client An instance of a tevm Memory client or TevmNode with TevmSendApi
 	 */
 	constructor(client) {
 		super(undefined, {

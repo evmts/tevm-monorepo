@@ -480,7 +480,7 @@ Well we did successfully create a transaction which we can see by checking the [
 console.log(callResult.txHash);
 ```
 
-If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API [`getTxPool()`](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclient/#gettxpool)
+If we remove the createTransaction: true the txHash will not be there. However, the transaction has not been mined. It is currently in the mempool. Let's see it using a low level API [`getTxPool()`](https://tevm.sh/reference/tevm/node/type-aliases/baseclient/#gettxpool)
 
 ```typescript
 // the tevm means this api is not guaranteed to remain stable
@@ -499,7 +499,7 @@ The actions api is a more streamlined experience and much more stable to breakin
 
 While `cheat` methods like `tevmSetAccount` will immediately update the state for the current block. `call` methods like `tevmCall` will not update the state until a new block is mined.
 
-Currently tevm only supports [`manual` mining](https://tevm.sh/reference/tevm/base-client/type-aliases/baseclientoptions/#miningconfig) but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call [`tevm.mine()`](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/). It will sort the mempool based on priority fees and nonces and mine all transactions up until the block gas limit.
+Currently tevm only supports [`manual` mining](https://tevm.sh/reference/tevm/node/type-aliases/baseclientoptions/#miningconfig) but in future versions it will support other modes including `automining`, `gasmining` and `intervalmining`. To mine a block simply call [`tevm.mine()`](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/). It will sort the mempool based on priority fees and nonces and mine all transactions up until the block gas limit.
 
 First delete the mempool code and then replace it with a [memoryClient.tevmMine()](https://tevm.sh/reference/tevm/actions-types/type-aliases/minehandler/)
 

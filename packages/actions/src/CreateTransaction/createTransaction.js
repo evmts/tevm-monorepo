@@ -11,7 +11,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 const requireSig = false
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {boolean} [defaultThrowOnFail]
  */
 export const createTransaction = (client, defaultThrowOnFail = true) => {

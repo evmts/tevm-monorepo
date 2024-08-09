@@ -5,7 +5,7 @@ prev: false
 title: "getAccountAddresses"
 ---
 
-> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => \`0x$\{string\}\`[]
+> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => `Set`\<\`0x$\{string\}\`\>
 
 ## Parameters
 
@@ -19,7 +19,7 @@ title: "getAccountAddresses"
 
 ### Returns
 
-\`0x$\{string\}\`[]
+`Set`\<\`0x$\{string\}\`\>
 
 ## Defined in
 

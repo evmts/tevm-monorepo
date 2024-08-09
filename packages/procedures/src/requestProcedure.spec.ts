@@ -1,6 +1,6 @@
 import { testAccounts } from '@tevm/actions'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { ERC20 } from '@tevm/contract'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type EthjsAccount, EthjsAddress, encodeDeployData, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -12,9 +12,9 @@ import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 
-let client: BaseClient
+let client: TevmNode
 beforeEach(() => {
-	client = createBaseClient()
+	client = createTevmNode()
 })
 
 describe('requestProcedure', () => {

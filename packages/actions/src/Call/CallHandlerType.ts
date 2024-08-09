@@ -12,10 +12,10 @@ import type { CallResult } from './CallResult.js'
  *
  * @example
  * ```typescript
- * import { createBaseClient } from 'tevm/base-client'
+ * import { createTevmNode } from 'tevm/node'
  * import { callHandler } from 'tevm/actions'
  *
- * const client = createBaseClient()
+ * const client = createTevmNode()
  *
  * const call = callHandler(client)
  *

@@ -3,7 +3,7 @@ import { bytesToHex, getAddress, hexToBigInt, hexToBytes, numberToHex } from '@t
 
 /**
  * Request handler for eth_getFilterLogs JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetTransactionCountJsonRpcProcedure}
  */
 export const ethGetTransactionCountProcedure = (client) => {

@@ -395,6 +395,30 @@ Create .stack property on a target object
 
 ##### Defined in
 
+node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/globals.d.ts:22
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`GasLimitExceededError`](/reference/tevm/errors/classes/gaslimitexceedederror/).[`captureStackTrace`](/reference/tevm/errors/classes/gaslimitexceedederror/#capturestacktrace)
+
+##### Defined in
+
 node\_modules/.pnpm/bun-types@1.1.18/node\_modules/bun-types/globals.d.ts:1613
 
 #### captureStackTrace(targetObject, constructorOpt)

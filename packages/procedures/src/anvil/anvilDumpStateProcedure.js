@@ -4,7 +4,7 @@ import { dumpStateProcedure } from '../dumpstate/dumpStateProcedure.js'
 /**
  * @experimental
  * Request handler for anvil_dumpState JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilDumpStateProcedure}
  */
 export const anvilDumpStateJsonRpcProcedure = (client) => {

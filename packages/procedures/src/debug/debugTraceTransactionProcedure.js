@@ -6,7 +6,7 @@ import { requestProcedure } from '../requestProcedure.js'
 
 /**
  * Request handler for debug_traceTransaction JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugTraceTransactionProcedure}
  */
 export const debugTraceTransactionJsonRpcProcedure = (client) => {

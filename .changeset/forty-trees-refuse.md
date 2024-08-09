@@ -1,5 +1,5 @@
 ---
-"@tevm/base-client": minor
+"@tevm/node": minor
 ---
 
-Updated BaseClient to emit a 'connect' event after it is ready
+Updated TevmNode to emit a 'connect' event after it is ready

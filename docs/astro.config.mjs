@@ -32,7 +32,7 @@ export default defineConfig({
                 starlightTypeDoc({
                     entryPoints: [
                         '../packages/actions',
-                        '../packages/base-client',
+                        '../packages/node',
                         '../packages/block',
                         '../packages/blockchain',
                         '../packages/client-types',

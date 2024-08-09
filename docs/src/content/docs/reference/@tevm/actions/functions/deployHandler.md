@@ -9,7 +9,7 @@ title: "deployHandler"
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 The TEVM base client instance.
 

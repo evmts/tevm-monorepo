@@ -6,7 +6,7 @@ import { validateLoadStateParams } from './validateLoadStateParams.js'
  * @internal
  * Creates a handler for loading a previously dumped state into the VM.
  *
- * @param {import("@tevm/base-client").BaseClient} client - The base client instance.
+ * @param {import("@tevm/node").TevmNode} client - The base client instance.
  * @param {object} [options] - Optional configuration.
  * @param {boolean} [options.throwOnFail] - Whether to throw an error when a failure occurs.
  * @returns {import('./LoadStateHandlerType.js').LoadStateHandler} - The handler function.

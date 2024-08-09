@@ -10,7 +10,7 @@
     // there is no angular in this repo!
     // but this is useful for running nx commands in vscode
     "nrwl.angular-console",
-    "antfu.vite"
+    "jeff-hykin.better-nix-syntax"
   ],
   "unwantedRecommendations": [
     // we use biome for linting and formatting

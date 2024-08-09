@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { prefundedAccounts } from '@tevm/base-client'
+import { prefundedAccounts } from '@tevm/node'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
@@ -72,7 +72,7 @@ const getTx = (vm, txBuf) => {
 }
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {

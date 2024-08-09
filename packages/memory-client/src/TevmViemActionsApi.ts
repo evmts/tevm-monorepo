@@ -1,5 +1,5 @@
-import type { BaseClient } from '@tevm/base-client'
 import type { Eip1193RequestProvider, TevmActionsApi } from '@tevm/decorators'
+import type { TevmNode } from '@tevm/node'
 
 /**
  * A custom [viem extension](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration) for adding powerful
@@ -14,8 +14,8 @@ import type { Eip1193RequestProvider, TevmActionsApi } from '@tevm/decorators'
  * ```
  */
 export type TevmViemActionsApi = {
-	tevm: BaseClient & Eip1193RequestProvider
-	tevmReady: BaseClient['ready']
+	tevm: TevmNode & Eip1193RequestProvider
+	tevmReady: TevmNode['ready']
 	tevmCall: TevmActionsApi['call']
 	tevmContract: TevmActionsApi['contract']
 	tevmScript: TevmActionsApi['script']

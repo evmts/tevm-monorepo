@@ -5,11 +5,11 @@ prev: false
 title: "MemoryClientOptions"
 ---
 
-> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>: `BaseClientOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
+> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>: `TevmNodeOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
 
 Configuration options for creating a [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
 
-This type extends `BaseClientOptions` and includes specific options for configuring the MemoryClient,
+This type extends `TevmNodeOptions` and includes specific options for configuring the MemoryClient,
 such as the transport type, account, polling interval, and caching behavior.
 
 ## Example

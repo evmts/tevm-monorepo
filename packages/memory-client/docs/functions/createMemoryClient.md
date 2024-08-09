@@ -2164,7 +2164,7 @@ Low level access to TEVM can be accessed via `tevm`. These APIs are not guarante
 
 #### See
 
-BaseClient
+TevmNode
 
 #### Example
 
@@ -2189,17 +2189,17 @@ const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 
 ##### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, `object`\>\>
 
 Copies the current client state into a new client
 
 ###### Returns
 
-`Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+`Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, `object`\>\>
 
 ##### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `TevmNode`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -2214,7 +2214,7 @@ and extensibility
 
 ###### Returns
 
-`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+`TevmNode`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ##### forkTransport?
 
@@ -2680,17 +2680,17 @@ The RPC transport
 
 ###### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, `object`\>\>
 
 Copies the current client state into a new client
 
 ###### Returns
 
-`Promise`\<`BaseClient`\<`"fork"` \| `"normal"`, `object`\>\>
+`Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, `object`\>\>
 
 ###### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `TevmNode`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -2705,7 +2705,7 @@ and extensibility
 
 ###### Returns
 
-`BaseClient`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+`TevmNode`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ###### forkTransport?
 

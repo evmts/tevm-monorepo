@@ -4,7 +4,7 @@ import { hexToNumber } from '@tevm/utils'
 
 /**
  * Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereumjs VM
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./MineJsonRpcProcedure.js').MineJsonRpcProcedure}
  */
 export const mineProcedure = (client) => async (request) => {

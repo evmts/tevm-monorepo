@@ -1,6 +1,6 @@
-import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
@@ -22,7 +22,7 @@ describe(txToJsonRpcTx.name, () => {
 			gasLimit: 100n,
 			maxPriorityFeePerGas: 100n,
 		})
-		const client = createBaseClient({
+		const client = createTevmNode({
 			common: optimism,
 		})
 		const vm = await client.getVm()

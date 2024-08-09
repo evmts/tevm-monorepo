@@ -2,9 +2,9 @@
 
 ***
 
-[tevm](../modules.md) / base-client
+[tevm](../modules.md) / node
 
-# base-client
+# node
 
 ## References
 
@@ -14,15 +14,15 @@ Re-exports [AutoMining](../index/type-aliases/AutoMining.md)
 
 ***
 
-### BaseClient
+### TevmNode
 
-Re-exports [BaseClient](../index/type-aliases/BaseClient.md)
+Re-exports [TevmNode](../index/type-aliases/TevmNode.md)
 
 ***
 
-### BaseClientOptions
+### TevmNodeOptions
 
-Re-exports [BaseClientOptions](../index/type-aliases/BaseClientOptions.md)
+Re-exports [TevmNodeOptions](../index/type-aliases/TevmNodeOptions.md)
 
 ***
 
@@ -116,9 +116,9 @@ Re-exports [ProviderRpcError](../index/classes/ProviderRpcError.md)
 
 ***
 
-### createBaseClient
+### createTevmNode
 
-Re-exports [createBaseClient](../index/functions/createBaseClient.md)
+Re-exports [createTevmNode](../index/functions/createTevmNode.md)
 
 ***
 

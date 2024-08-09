@@ -26,7 +26,7 @@
 "@tevm/ts-plugin": minor
 "@tevm/vscode": minor
 "@tevm/actions": minor
-"@tevm/base-client": minor
+"@tevm/node": minor
 "@tevm/block": minor
 "@tevm/blockchain": minor
 "@tevm/client-types": minor

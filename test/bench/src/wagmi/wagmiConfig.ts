@@ -1,9 +1,9 @@
-import { type Address, createBaseClient, encodeDeployData, tevmTransport } from 'tevm'
+import { type Address, createTevmNode, encodeDeployData, tevmTransport } from 'tevm'
 import { optimism } from 'tevm/common'
 import { requestEip1193 } from 'tevm/decorators'
 import { createConfig } from 'wagmi'
 
-export const client = createBaseClient({ common: optimism }).extend(requestEip1193())
+export const client = createTevmNode({ common: optimism }).extend(requestEip1193())
 
 export const wagmiConfig = createConfig({
 	chains: [optimism],

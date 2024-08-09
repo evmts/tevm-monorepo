@@ -3,7 +3,7 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
  * @internal
  * Prepares a trace to be listened to. If laizlyRun is true, it will return an object with the trace and not run the evm internally
  * @param {import('@tevm/vm').Vm} vm
- * @param {import('@tevm/base-client').BaseClient['logger']} logger
+ * @param {import('@tevm/node').TevmNode['logger']} logger
  * @param {import('@tevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
  * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../debug/DebugResult.js').DebugTraceCallResult}>}

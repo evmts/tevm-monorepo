@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`createPendingTransactionFilter createPendingTransactionFilter work 1`] = `
-{
-  "id": "0xaa5211d996c9710721e046787068a150",
-  "request": [Function: AsyncFunction],
-  "type": "transaction",
-}
-`;

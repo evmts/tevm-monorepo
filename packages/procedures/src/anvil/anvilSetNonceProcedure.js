@@ -2,7 +2,7 @@ import { setAccountProcedure } from '../setaccount/setAccountProcedure.js'
 
 /**
  * Request handler for anvil_setNonce JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilSetNonceProcedure}
  */
 export const anvilSetNonceJsonRpcProcedure = (client) => {

@@ -3,7 +3,7 @@ import { contractHandler } from '../Contract/contractHandler.js'
 /**
  * @deprecated can use `contractHandler` instead
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {import("@tevm/base-client").BaseClient} client
+ * @param {import("@tevm/node").TevmNode} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("../Script/ScriptHandlerType.js").ScriptHandler}
