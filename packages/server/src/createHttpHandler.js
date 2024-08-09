@@ -12,7 +12,7 @@ import { parseRequest } from './internal/parseRequest.js'
 * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
 * Any unimplemented methods will be proxied to the given proxyUrl
 * This handler works for any server that supports the Node.js http module
-* @param {{request: (request: {id: number | string, params?: unknown, method: string, jsonrpc: '2.0'}) => unknown} | import('@tevm/memory-client').MemoryClient} client
+* @param {import('./Client.js').Client} client
 * @returns {import('http').RequestListener}
 * @throws {never}
 * @example
@@ -35,42 +35,42 @@ import { parseRequest } from './internal/parseRequest.js'
 *
 */
 export const createHttpHandler = (client) => {
-/**
-* @param {import('http').IncomingMessage} req
-* @param {import('http').ServerResponse} res
-* @returns {Promise<void>}
-*/
-return async (req, res) => {
-const body = await getRequestBody(req)
-if (body instanceof ReadRequestBodyError) {
-return handleError(client, body, res)
-}
+	/**
+	 * @param {import('http').IncomingMessage} req
+	 * @param {import('http').ServerResponse} res
+	 * @returns {Promise<void>}
+	 */
+	return async (req, res) => {
+		const body = await getRequestBody(req)
+		if (body instanceof ReadRequestBodyError) {
+			return handleError(client, body, res)
+		}
 
-const parsedRequest = parseRequest(body)
-if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
-return handleError(client, parsedRequest, res)
-}
+		const parsedRequest = parseRequest(body)
+		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
+			return handleError(client, parsedRequest, res)
+		}
 
-if (Array.isArray(parsedRequest)) {
-const responses = await handleBulkRequest(client, /** @type {any}*/(parsedRequest))
-res.writeHead(200, { 'Content-Type': 'application/json' })
-res.end(JSON.stringify(responses))
-return
-}
+		if (Array.isArray(parsedRequest)) {
+			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
+			res.writeHead(200, { 'Content-Type': 'application/json' })
+			res.end(JSON.stringify(responses))
+			return
+		}
 
-const response = await client.transport.tevm
-.extend(tevmSend())
-.send(/** @type any*/(parsedRequest))
-.catch((e) => {
-return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
-})
+		const response = await client.transport.tevm
+			.extend(tevmSend())
+			.send(/** @type any*/ (parsedRequest))
+			.catch((e) => {
+				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
+			})
 
-if ('code' in response && 'message' in response) {
-return handleError(client, response, res, parsedRequest)
-}
+		if ('code' in response && 'message' in response) {
+			return handleError(client, response, res, parsedRequest)
+		}
 
-res.writeHead(200, { 'Content-Type': 'application/json' })
-res.end(JSON.stringify(response))
-return
-}
+		res.writeHead(200, { 'Content-Type': 'application/json' })
+		res.end(JSON.stringify(response))
+		return
+	}
 }

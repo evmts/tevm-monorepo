@@ -39,7 +39,6 @@
   "module": "dist/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "bin",
     "dist",
     "types",
     "src",
@@ -71,7 +70,6 @@
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "commander": "^12.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
