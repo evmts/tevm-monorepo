@@ -1,5 +1,13 @@
 # tevm-run
 
+## 2.0.0-next.105
+
+### Patch Changes
+
+- Updated dependencies [[`1dcfd69`](https://github.com/evmts/tevm-monorepo/commit/1dcfd6944f77493a00daa0d64590c2b0c0983a0f)]:
+  - tevm@2.0.0-next.105
+  - @tevm/bun-plugin@2.0.0-next.103
+
 ## 2.0.0-next.104
 
 ### Patch Changes
