@@ -60,8 +60,7 @@ export const frameworks = {
 		next: { value: 'next', label: 'next - The most popular react framework' },
 		remix: {
 			value: 'remix',
-			label:
-				'remix - React framework emphasizing tighter integration with the web platform',
+			label: 'remix - React framework emphasizing tighter integration with the web platform',
 		},
 		//     astro: { value: 'astro', label: 'astro - A popular choice for mostly static content' },
 		//     svelte: { value: 'svelte', label: 'svelte - UI framework producing highly efficient JavaScript' },

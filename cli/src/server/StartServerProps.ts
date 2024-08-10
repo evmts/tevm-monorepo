@@ -1,6 +1,6 @@
-import { options as optionsSchema } from './options.js';
-import { z } from 'zod';
+import { z } from 'zod'
+import { options as optionsSchema } from './options.js'
 
 export type StartServerProps = {
-options: z.infer<typeof optionsSchema>;
-};
+	options: z.infer<typeof optionsSchema>
+}

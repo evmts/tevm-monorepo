@@ -1,10 +1,10 @@
-import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Box, Text } from 'ink'
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
+import { Box, Text } from 'ink'
+import React from 'react'
+import { FancyCreateTitle } from '../components/FancyCreateTitle.js'
 import type { StartServerProps } from './StartServerProps.js'
 import { startTevm } from './startTevm.js'
-import { FancyCreateTitle } from '../components/FancyCreateTitle.js'
 
 export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 	const { data, error, isLoading } = useQuery({
@@ -19,7 +19,7 @@ export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 			options.port,
 		],
 		queryFn: () => startTevm(options),
-		staleTime: Infinity,
+		staleTime: Number.POSITIVE_INFINITY,
 	})
 
 	const { data: chainId } = useQuery({
@@ -30,7 +30,7 @@ export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 			}
 			return data.transport.tevm.getVm().then((vm) => vm.common.id)
 		},
-		staleTime: Infinity,
+		staleTime: Number.POSITIVE_INFINITY,
 		enabled: !isLoading && !error && Boolean(data),
 	})
 
@@ -45,7 +45,7 @@ export const StartServer: React.FC<StartServerProps> = ({ options }) => {
 				return vm.blockchain.getCanonicalHeadBlock()
 			})
 		},
-		staleTime: Infinity,
+		staleTime: Number.POSITIVE_INFINITY,
 		enabled: !isLoading && !error && Boolean(data),
 	})
 

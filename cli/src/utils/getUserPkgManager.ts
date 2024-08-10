@@ -8,15 +8,15 @@ export const getUserPkgManager: () => PackageManager = () => {
 	if (userAgent) {
 		if (userAgent.startsWith('yarn')) {
 			return 'yarn'
-		} else if (userAgent.startsWith('pnpm')) {
-			return 'pnpm'
-		} else if (userAgent.startsWith('bun')) {
-			return 'bun'
-		} else {
-			return 'npm'
 		}
-	} else {
-		// If no user agent is set, assume npm
+		if (userAgent.startsWith('pnpm')) {
+			return 'pnpm'
+		}
+		if (userAgent.startsWith('bun')) {
+			return 'bun'
+		}
 		return 'npm'
 	}
+	// If no user agent is set, assume npm
+	return 'npm'
 }

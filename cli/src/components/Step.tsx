@@ -1,8 +1,8 @@
-import { asyncStateColors, colorPallet } from '../styles/colors.js'
 import { Box, Text } from 'ink'
 import Spinner from 'ink-spinner'
 import React from 'react'
 import type { FC, ReactNode } from 'react'
+import { asyncStateColors, colorPallet } from '../styles/colors.js'
 
 type ValueOf<T> = T[keyof T]
 
@@ -40,13 +40,10 @@ export const Step: FC<StepProps> = ({
 		return <></>
 	}
 	return (
-		<Box minHeight={3} flexDirection='column'>
-			<Box flexDirection='row' gap={2}>
-				<Text bold color='black' backgroundColor={color}>
-					{formatName(
-						name,
-						icon ? DEFAULT_DESIRED_WIDTH - 1 : DEFAULT_DESIRED_WIDTH,
-					)}
+		<Box minHeight={3} flexDirection="column">
+			<Box flexDirection="row" gap={2}>
+				<Text bold color="black" backgroundColor={color}>
+					{formatName(name, icon ? DEFAULT_DESIRED_WIDTH - 1 : DEFAULT_DESIRED_WIDTH)}
 				</Text>
 				<Text>{prompt}</Text>
 			</Box>
@@ -78,22 +75,14 @@ export const AsyncStep: FC<AsyncStepProps> = ({
 		<Step
 			name={name}
 			isActive={state === 'loading'}
-			activeContent={
-				state === 'loading' && (
-					<Text color={colorPallet.blue}>{loadingMessage}</Text>
-				)
-			}
+			activeContent={state === 'loading' && <Text color={colorPallet.blue}>{loadingMessage}</Text>}
 			nonActiveContent={[
-				state === 'error' && (
-					<Text color={colorPallet.red}>{errorMessage}</Text>
-				),
-				state === 'success' && (
-					<Text color={colorPallet.green}>{successMessage}</Text>
-				),
+				state === 'error' && <Text color={colorPallet.red}>{errorMessage}</Text>,
+				state === 'success' && <Text color={colorPallet.green}>{successMessage}</Text>,
 			]}
 			color={asyncStateColors[state]}
 			prompt={prompt}
-			icon={state === 'loading' ? <Spinner type='dots' /> : undefined}
+			icon={state === 'loading' ? <Spinner type="dots" /> : undefined}
 		/>
 	)
 }

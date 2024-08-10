@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { createTevmTransport } from '@tevm/memory-client'
+import { base, mainnet, optimism, tevmDefault } from '@tevm/common'
 import { http } from '@tevm/jsonrpc'
-import { base, optimism, mainnet, tevmDefault } from '@tevm/common'
-import { createServer } from '../src/createServer.js'
-import { Command } from 'commander'
+import { createTevmTransport } from '@tevm/memory-client'
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
+import { Command } from 'commander'
+import { createServer } from '../src/createServer.js'
 
 const program = new Command('tevm-server')
 
@@ -87,6 +87,6 @@ Listening on ${options.host}:${options.port}
 `)
 }
 
-server.listen(parseInt(options.port), options.host, () => {
+server.listen(Number.parseInt(options.port), options.host, () => {
 	displayStartupInfo()
 })

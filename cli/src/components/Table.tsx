@@ -115,10 +115,7 @@ export default class Table<T extends ScalarDict> extends React.Component<
 	getHeadings(): Partial<T> {
 		const { columns } = this.getConfig()
 
-		const headings: Partial<T> = columns.reduce(
-			(acc, column) => ({ ...acc, [column]: column }),
-			{},
-		)
+		const headings: Partial<T> = columns.reduce((acc, column) => ({ ...acc, [column]: column }), {})
 
 		return headings
 	}
@@ -204,7 +201,7 @@ export default class Table<T extends ScalarDict> extends React.Component<
 		 * Render the table line by line.
 		 */
 		return (
-			<Box flexDirection='column'>
+			<Box flexDirection="column">
 				{/* Header */}
 				{this.header({ key: 'header', columns, data: {} })}
 				{this.heading({ key: 'heading', columns, data: headings })}
@@ -215,7 +212,7 @@ export default class Table<T extends ScalarDict> extends React.Component<
 
 					// Construct a row.
 					return (
-						<Box flexDirection='column' key={key}>
+						<Box flexDirection="column" key={key}>
 							{this.separator({ key: `separator-${key}`, columns, data: {} })}
 							{this.data({ key: `data-${key}`, columns, data: row })}
 						</Box>
@@ -272,16 +269,14 @@ type Column<T> = {
 /**
  * Constructs a Row element from the configuration.
  */
-function row<T extends ScalarDict>(
-	config: RowConfig,
-): (props: RowProps<T>) => JSX.Element {
+function row<T extends ScalarDict>(config: RowConfig): (props: RowProps<T>) => JSX.Element {
 	/* This is a component builder. We return a function. */
 
 	const skeleton = config.skeleton
 
 	/* Row */
 	return (props) => (
-		<Box flexDirection='row'>
+		<Box flexDirection="row">
 			{/* Left */}
 			<skeleton.component>{skeleton.left}</skeleton.component>
 			{/* Data */}
@@ -290,9 +285,7 @@ function row<T extends ScalarDict>(
 					const key = `${props.key}-hseparator-${i}`
 
 					// The horizontal separator.
-					return (
-						<skeleton.component key={key}>{skeleton.cross}</skeleton.component>
-					)
+					return <skeleton.component key={key}>{skeleton.cross}</skeleton.component>
 				},
 
 				// Values.
@@ -308,22 +301,19 @@ function row<T extends ScalarDict>(
 								{skeleton.line.repeat(column.width)}
 							</config.cell>
 						)
-					} else {
-						const key = `${props.key}-cell-${column.key}`
-
-						// margins
-						const ml = config.padding
-						const mr = column.width - String(value).length - config.padding
-
-						return (
-							/* prettier-ignore */
-							<config.cell key={key} column={colI}>
-								{`${skeleton.line.repeat(ml)}${String(
-									value,
-								)}${skeleton.line.repeat(mr)}`}
-							</config.cell>
-						)
 					}
+					const key = `${props.key}-cell-${column.key}`
+
+					// margins
+					const ml = config.padding
+					const mr = column.width - String(value).length - config.padding
+
+					return (
+						/* prettier-ignore */
+						<config.cell key={key} column={colI}>
+							{`${skeleton.line.repeat(ml)}${String(value)}${skeleton.line.repeat(mr)}`}
+						</config.cell>
+					)
 				}),
 			)}
 			{/* Right */}
@@ -337,7 +327,7 @@ function row<T extends ScalarDict>(
  */
 export function Header(props: React.PropsWithChildren<{}>) {
 	return (
-		<Text bold color='blue'>
+		<Text bold color="blue">
 			{props.children}
 		</Text>
 	)
@@ -362,17 +352,17 @@ export function Skeleton(props: React.PropsWithChildren<{}>) {
 /**
  * Intersperses a list of elements with another element.
  */
-function intersperse<T, I>(
-	intersperser: (index: number) => I,
-	elements: T[],
-): (T | I)[] {
+function intersperse<T, I>(intersperser: (index: number) => I, elements: T[]): (T | I)[] {
 	// Intersparse by reducing from left.
-	const interspersed: (T | I)[] = elements.reduce((acc, element, index) => {
-		// Only add element if it's the first one.
-		if (acc.length === 0) return [element]
-		// Add the intersparser as well otherwise.
-		return [...acc, intersperser(index), element]
-	}, [] as (T | I)[])
+	const interspersed: (T | I)[] = elements.reduce(
+		(acc, element, index) => {
+			// Only add element if it's the first one.
+			if (acc.length === 0) return [element]
+			// Add the intersparser as well otherwise.
+			return [...acc, intersperser(index), element]
+		},
+		[] as (T | I)[],
+	)
 
 	return interspersed
 }

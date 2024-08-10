@@ -1,8 +1,4 @@
-import {
-	type MultipleChoiceStep,
-	frameworks,
-	type useCases,
-} from './MultipleChoice.js'
+import { type MultipleChoiceStep, frameworks, type useCases } from './MultipleChoice.js'
 
 /**
  * A mapping of use case to framworks
@@ -59,7 +55,4 @@ export const frameworksByUseCase = {
 	//       mud: frameworks.choices.mud,
 	//     }
 	//   },
-} as const satisfies Record<
-	keyof typeof useCases['choices'],
-	MultipleChoiceStep
->
+} as const satisfies Record<keyof (typeof useCases)['choices'], MultipleChoiceStep>
