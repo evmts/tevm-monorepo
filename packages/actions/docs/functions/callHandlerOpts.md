@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 • **params**: [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 

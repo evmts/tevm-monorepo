@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **options**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

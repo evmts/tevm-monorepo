@@ -1,6 +1,6 @@
-import { createBaseClient } from '@tevm/base-client'
 import { createCommon } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
 import { createTransport } from 'viem'
 
 /**
@@ -8,7 +8,7 @@ import { createTransport } from 'viem'
  *
  * A Transport in viem is the intermediary layer responsible for executing outgoing RPC requests. This custom TEVM Transport integrates an in-memory Ethereum client, making it ideal for local-first applications, optimistic updates, and advanced TEVM functionalities like scripting.
  *
- * @param {import('@tevm/base-client').BaseClientOptions} options - Configuration options for the base client, similar to those used in `memoryClient` or a low-level `baseClient`.
+ * @param {import('@tevm/node').TevmNodeOptions} options - Configuration options for the base client, similar to those used in `memoryClient` or a low-level `baseClient`.
  * @returns {import('./TevmTransport.js').TevmTransport} A configured TEVM transport.
  *
  * @example
@@ -58,7 +58,7 @@ import { createTransport } from 'viem'
 export const createTevmTransport = (options = {}) => {
 	/**
 	 * A map to store and manage TEVM clients keyed by chain ID.
-	 * @type {Map<number, import('@tevm/base-client').BaseClient & import('@tevm/decorators').Eip1193RequestProvider & import('@tevm/decorators').TevmSendApi>}
+	 * @type {Map<number, import('@tevm/node').TevmNode & import('@tevm/decorators').Eip1193RequestProvider & import('@tevm/decorators').TevmSendApi>}
 	 */
 	const tevmMap = new Map()
 
@@ -78,7 +78,7 @@ export const createTevmTransport = (options = {}) => {
 		const id = common?.id ?? -1
 		const tevm =
 			tevmMap.get(id) ??
-			createBaseClient({ ...options, ...(common !== undefined ? { common } : {}) })
+			createTevmNode({ ...options, ...(common !== undefined ? { common } : {}) })
 				.extend(requestEip1193())
 				.extend(tevmSend())
 		tevmMap.set(id, tevm)

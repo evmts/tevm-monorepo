@@ -20,7 +20,7 @@ const uintEquals = (a, b) => {
 }
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthGetTransactionReceiptHandler}
  */
 export const ethGetTransactionReceiptHandler = (client) => async (params) => {

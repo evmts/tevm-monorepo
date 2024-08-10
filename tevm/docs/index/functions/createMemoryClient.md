@@ -2164,7 +2164,7 @@ Low level access to TEVM can be accessed via `tevm`. These APIs are not guarante
 
 #### See
 
-[BaseClient](../type-aliases/BaseClient.md)
+[TevmNode](../type-aliases/TevmNode.md)
 
 #### Example
 
@@ -2189,17 +2189,17 @@ const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 
 ##### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>\>
 
 Copies the current client state into a new client
 
 ###### Returns
 
-`Promise`\<[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>\>
+`Promise`\<[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>\>
 
 ##### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -2214,7 +2214,7 @@ and extensibility
 
 ###### Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ##### forkTransport?
 
@@ -2680,17 +2680,17 @@ The RPC transport
 
 ###### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>\>
 
 Copies the current client state into a new client
 
 ###### Returns
 
-`Promise`\<[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object`\>\>
+`Promise`\<[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>\>
 
 ###### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
@@ -2705,7 +2705,7 @@ and extensibility
 
 ###### Returns
 
-[`BaseClient`](../type-aliases/BaseClient.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
+[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
 ###### forkTransport?
 

@@ -8,7 +8,7 @@ import { validateGetAccountParams } from './validateGetAccountParams.js'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {import("@tevm/base-client").BaseClient} client
+ * @param {import("@tevm/node").TevmNode} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('../GetAccount/GetAccountHandlerType.js').GetAccountHandler}

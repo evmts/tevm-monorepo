@@ -6,7 +6,7 @@ import { createStateManager } from '@tevm/state'
 
 /**
  * Will fork a given block number and save the state roots to state manager
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/block').Block} block
  * @param {boolean} [executeBlock=false]
  * @returns {Promise<import('@tevm/vm').Vm>} A vm that forks the given block

@@ -12,7 +12,7 @@ export interface StateManager extends EvmStateManagerInterface {
 	/**
 	 * Returns contract addresses
 	 */
-	getAccountAddresses: () => Address[]
+	getAccountAddresses: () => Set<Address>
 	/**
 	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 	 */

@@ -59,3 +59,4 @@ Thumbs.db
 .zshrc
 /target
 _
+.direnv

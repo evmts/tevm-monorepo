@@ -4,9 +4,10 @@
 
 # @tevm/predeploys
 
-## Classes
+## Type Aliases
 
-- [Predeploy](classes/Predeploy.md)
+- [DefinePredeployFn](type-aliases/DefinePredeployFn.md)
+- [Predeploy](type-aliases/Predeploy.md)
 
 ## Functions
 

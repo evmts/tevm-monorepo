@@ -58,7 +58,7 @@ import { setAccountProcedure } from './setaccount/setAccountProcedure.js'
 /**
  * @internal
  * Creates a mapping of methods to jsonrpc request handlers
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns Request handlers
  * @example
  */

@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -293,7 +293,7 @@ const ERC20_ABI = [
 
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		// deploy contract
 		expect(
 			(
@@ -318,7 +318,7 @@ describe('callHandler', () => {
 	})
 
 	it('should not modify state', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value

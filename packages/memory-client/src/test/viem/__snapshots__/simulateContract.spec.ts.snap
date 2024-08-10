@@ -32,36 +32,3 @@ exports[`simulateContract > should work 1`] = `
   "result": undefined,
 }
 `;
-
-exports[`simulateContract should work 1`] = `
-{
-  "request": {
-    "abi": [
-      {
-        "inputs": [
-          {
-            "name": "newValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "set",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-    ],
-    "account": undefined,
-    "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    "args": [
-      99999n,
-    ],
-    "dataSuffix": undefined,
-    "functionName": "set",
-    "humanReadableAbi": [
-      "function set(uint256 newValue)",
-    ],
-    "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  },
-  "result": undefined,
-}
-`;

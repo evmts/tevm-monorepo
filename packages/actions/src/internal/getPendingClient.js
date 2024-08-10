@@ -1,8 +1,8 @@
 import { mineHandler } from '../Mine/mineHandler.js'
 
 /**
- * @param {import("@tevm/base-client").BaseClient} client
- * @returns {Promise<{pendingClient: import("@tevm/base-client").BaseClient, blockHashes: Array<import('../common/Hex.js').Hex>, errors?: never} | {errors: Array<import('../Mine/TevmMineError.js').TevmMineError>}>}
+ * @param {import("@tevm/node").TevmNode} client
+ * @returns {Promise<{pendingClient: import("@tevm/node").TevmNode, blockHashes: Array<import('../common/Hex.js').Hex>, errors?: never} | {errors: Array<import('../Mine/TevmMineError.js').TevmMineError>}>}
  */
 export const getPendingClient = async (client) => {
 	// TODO we can do this using fork way more efficiently

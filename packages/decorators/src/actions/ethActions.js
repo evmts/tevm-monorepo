@@ -9,7 +9,7 @@ import {
 } from '@tevm/actions'
 
 /**
- * @returns {import('@tevm/base-client').Extension<import('./EthActionsApi.js').EthActionsApi>}
+ * @returns {import('@tevm/node').Extension<import('./EthActionsApi.js').EthActionsApi>}
  */
 export const ethActions = () => (client) => {
 	const wrappedEth = (() => {

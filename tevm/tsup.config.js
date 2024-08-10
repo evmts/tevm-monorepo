@@ -13,7 +13,7 @@ const dirs = [
 'procedures',
 'http-client',
 'server',
-'base-client',
+'node',
 'decorators',
 'state',
 'sync-storage-persister',

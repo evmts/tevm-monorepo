@@ -2,7 +2,7 @@ import { generateRandomId } from '../utils/generateRandomId.js'
 
 /**
  * Request handler for eth_newPendingTransactionFilter JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthNewPendingTransactionFilterJsonRpcProcedure}
  */
 export const ethNewPendingTransactionFilterProcedure = (client) => {

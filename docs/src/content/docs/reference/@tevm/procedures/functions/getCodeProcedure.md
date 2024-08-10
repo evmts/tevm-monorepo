@@ -9,7 +9,7 @@ title: "getCodeProcedure"
 
 ## Parameters
 
-• **baseClient**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **baseClient**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

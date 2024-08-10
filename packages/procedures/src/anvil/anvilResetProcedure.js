@@ -1,6 +1,6 @@
 /**
  * Request handler for anvil_reset JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilResetProcedure}
  */
 export const anvilResetJsonRpcProcedure = (client) => {

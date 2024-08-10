@@ -1,5 +1,5 @@
-import type { BaseClient } from '@tevm/base-client'
 import { type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorators'
+import type { TevmNode } from '@tevm/node'
 
 /**
  * Provides powerful actions for interacting with the EVM using the TEVM API.
@@ -11,7 +11,7 @@ import { type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorato
 export type TevmActions = {
 	/**
 	 * Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
-	 * @see {@link BaseClient}
+	 * @see {@link TevmNode}
 	 * @example
 	 * ```typescript
 	 * import { createMemoryClient } from 'tevm'
@@ -30,7 +30,7 @@ export type TevmActions = {
 	 * const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 	 * ```
 	 */
-	tevm: BaseClient & Eip1193RequestProvider
+	tevm: TevmNode & Eip1193RequestProvider
 
 	/**
 	 * Returns a promise that resolves when the TEVM is ready.

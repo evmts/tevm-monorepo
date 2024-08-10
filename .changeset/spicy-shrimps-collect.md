@@ -1,6 +1,6 @@
 ---
 "@tevm/memory-client": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
 "@tevm/blockchain": patch

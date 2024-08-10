@@ -2,7 +2,7 @@ import { hexToBigInt, numberToHex } from '@tevm/utils'
 
 /**
  * Request handler for eth_getBlockTransactionCountByNumber JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetBlockTransactionCountByNumberJsonRpcProcedure}
  */
 export const ethGetBlockTransactionCountByNumberJsonRpcProcedure = (client) => {

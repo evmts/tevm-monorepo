@@ -12,16 +12,3 @@ exports[`tevmGetAccount > should get the account information for a prefunded add
   "storageRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
 }
 `;
-
-exports[`tevmGetAccount should get the account information for a prefunded address 1`] = `
-{
-  "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-  "balance": 1000000000000000000000n,
-  "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "deployedBytecode": "0x",
-  "isContract": true,
-  "isEmpty": false,
-  "nonce": 0n,
-  "storageRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-}
-`;

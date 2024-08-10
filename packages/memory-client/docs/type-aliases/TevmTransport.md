@@ -82,7 +82,7 @@ The configured TEVM transport.
 
 ### value.tevm
 
-> **tevm**: `BaseClient` & `object`
+> **tevm**: `TevmNode` & `object`
 
 #### Type declaration
 

@@ -6,30 +6,6 @@
 
 # Class: Evm
 
-The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
-The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
-provide custom typing to the blockchain or common objects.
-
-## Example
-
-```typescript
-import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
-import { mainnet } from 'tevm/common'
-import { createStateManager } from 'tevm/state'
-import { createBlockchain } from 'tevm/blockchain'}
-import { EthjsAddress } from 'tevm/utils'
-
-const evm: Evm = createEvm({
-  common: mainnet.copy(),
-  stateManager: createStateManager(),
-  blockchain: createBlockchain(),
-})
-```
-
-## See
-
-[createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
-
 ## Extends
 
 - `EVM`
@@ -58,7 +34,7 @@ Initialized bn128 WASM object for precompile usage (internal)
 
 #### Inherited from
 
-`EVM.constructor`
+`EthereumEVM.constructor`
 
 #### Deprecated
 
@@ -78,7 +54,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._block`
+`EthereumEVM._block`
 
 #### Defined in
 
@@ -92,7 +68,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._customOpcodes`
+`EthereumEVM._customOpcodes`
 
 #### Defined in
 
@@ -106,11 +82,11 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Overrides
 
-`EVM._customPrecompiles`
+`EthereumEVM._customPrecompiles`
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L54)
+[packages/evm/src/EvmType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L14)
 
 ***
 
@@ -120,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._dynamicGasHandlers`
+`EthereumEVM._dynamicGasHandlers`
 
 #### Defined in
 
@@ -144,7 +120,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._emit`
+`EthereumEVM._emit`
 
 #### Defined in
 
@@ -158,7 +134,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._handlers`
+`EthereumEVM._handlers`
 
 #### Defined in
 
@@ -172,7 +148,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._opcodeMap`
+`EthereumEVM._opcodeMap`
 
 #### Defined in
 
@@ -186,7 +162,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._opcodes`
+`EthereumEVM._opcodes`
 
 #### Defined in
 
@@ -200,7 +176,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._optsCached`
+`EthereumEVM._optsCached`
 
 #### Defined in
 
@@ -214,7 +190,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._precompiles`
+`EthereumEVM._precompiles`
 
 #### Defined in
 
@@ -236,7 +212,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._tx`
+`EthereumEVM._tx`
 
 #### Defined in
 
@@ -250,7 +226,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.allowUnlimitedContractSize`
+`EthereumEVM.allowUnlimitedContractSize`
 
 #### Defined in
 
@@ -264,7 +240,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.allowUnlimitedInitCodeSize`
+`EthereumEVM.allowUnlimitedInitCodeSize`
 
 #### Defined in
 
@@ -278,7 +254,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.blockchain`
+`EthereumEVM.blockchain`
 
 #### Defined in
 
@@ -292,7 +268,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.common`
+`EthereumEVM.common`
 
 #### Defined in
 
@@ -306,7 +282,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.events`
+`EthereumEVM.events`
 
 #### Defined in
 
@@ -320,7 +296,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.journal`
+`EthereumEVM.journal`
 
 #### Defined in
 
@@ -334,7 +310,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.performanceLogger`
+`EthereumEVM.performanceLogger`
 
 #### Defined in
 
@@ -348,11 +324,11 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Overrides
 
-`EVM.stateManager`
+`EthereumEVM.stateManager`
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L53)
+[packages/evm/src/EvmType.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L13)
 
 ***
 
@@ -362,35 +338,11 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.transientStorage`
+`EthereumEVM.transientStorage`
 
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
-
-***
-
-### create()
-
-> `static` **create**: (`options`?) => `Promise`\<[`Evm`](Evm.md)\>
-
-#### Parameters
-
-• **options?**: `EVMOpts`
-
-#### Returns
-
-`Promise`\<[`Evm`](Evm.md)\>
-
-A new EVM
-
-#### Overrides
-
-`EVM.create`
-
-#### Defined in
-
-[packages/evm/src/Evm.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L52)
 
 ***
 
@@ -400,7 +352,7 @@ A new EVM
 
 #### Inherited from
 
-`EVM.supportedHardforks`
+`EthereumEVM.supportedHardforks`
 
 #### Defined in
 
@@ -418,7 +370,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.opcodes`
+`EthereumEVM.opcodes`
 
 #### Defined in
 
@@ -436,7 +388,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.precompiles`
+`EthereumEVM.precompiles`
 
 #### Defined in
 
@@ -460,7 +412,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._addToBalance`
+`EthereumEVM._addToBalance`
 
 #### Defined in
 
@@ -482,7 +434,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._executeCall`
+`EthereumEVM._executeCall`
 
 #### Defined in
 
@@ -504,7 +456,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._executeCreate`
+`EthereumEVM._executeCreate`
 
 #### Defined in
 
@@ -526,7 +478,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._generateAddress`
+`EthereumEVM._generateAddress`
 
 #### Defined in
 
@@ -548,7 +500,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._loadCode`
+`EthereumEVM._loadCode`
 
 #### Defined in
 
@@ -572,7 +524,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM._reduceSenderBalance`
+`EthereumEVM._reduceSenderBalance`
 
 #### Defined in
 
@@ -594,7 +546,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L28)
+[packages/evm/src/EvmType.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L16)
 
 ***
 
@@ -608,7 +560,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.clearPerformanceLogs`
+`EthereumEVM.clearPerformanceLogs`
 
 #### Defined in
 
@@ -629,7 +581,7 @@ available for EVM execution
 
 #### Inherited from
 
-`EVM.getActiveOpcodes`
+`EthereumEVM.getActiveOpcodes`
 
 #### Defined in
 
@@ -655,7 +607,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Inherited from
 
-`EVM.getPerformanceLogs`
+`EthereumEVM.getPerformanceLogs`
 
 #### Defined in
 
@@ -680,7 +632,7 @@ if no such precompile exists.
 
 #### Inherited from
 
-`EVM.getPrecompile`
+`EthereumEVM.getPrecompile`
 
 #### Defined in
 
@@ -702,7 +654,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-[packages/evm/src/Evm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L38)
+[packages/evm/src/EvmType.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L17)
 
 ***
 
@@ -724,7 +676,7 @@ if an exception happens during the message execution.
 
 #### Inherited from
 
-`EVM.runCall`
+`EthereumEVM.runCall`
 
 #### Defined in
 
@@ -749,7 +701,7 @@ shouldn't be used directly from the evm class
 
 #### Inherited from
 
-`EVM.runCode`
+`EthereumEVM.runCode`
 
 #### Defined in
 
@@ -775,7 +727,7 @@ Starts the actual bytecode processing for a CALL or CREATE
 
 #### Inherited from
 
-`EVM.runInterpreter`
+`EthereumEVM.runInterpreter`
 
 #### Defined in
 
@@ -803,7 +755,7 @@ Executes a precompiled contract with given data and gas limit.
 
 #### Inherited from
 
-`EVM.runPrecompile`
+`EthereumEVM.runPrecompile`
 
 #### Defined in
 
@@ -829,8 +781,35 @@ EVM
 
 #### Inherited from
 
-`EVM.shallowCopy`
+`EthereumEVM.shallowCopy`
 
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:126
+
+***
+
+### create()
+
+> `static` **create**(`options`?): `Promise`\<[`Evm`](Evm.md)\>
+
+Use this async static constructor for the initialization
+of an EVM object
+
+#### Parameters
+
+• **options?**: `EVMOpts`
+
+#### Returns
+
+`Promise`\<[`Evm`](Evm.md)\>
+
+A new EVM
+
+#### Overrides
+
+`EthereumEVM.create`
+
+#### Defined in
+
+[packages/evm/src/EvmType.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L18)

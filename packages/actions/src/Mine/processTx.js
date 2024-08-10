@@ -2,7 +2,7 @@ import { BaseError, InvalidGasLimitError } from '@tevm/errors'
 import { bytesToHex } from '@tevm/utils'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/tx').TypedTransaction} tx
  * @param {import('@tevm/vm').BlockBuilder} blockBuilder
  * @param {Array<import('@tevm/receipt-manager').TxReceipt>} receipts

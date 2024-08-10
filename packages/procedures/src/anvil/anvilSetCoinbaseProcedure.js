@@ -3,7 +3,7 @@ import { getAddress } from '@tevm/utils'
 
 /**
  * Request handler for anvil_SetCoinbase JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilSetCoinbaseProcedure}
  */
 export const anvilSetCoinbaseJsonRpcProcedure = (client) => {

@@ -13,7 +13,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

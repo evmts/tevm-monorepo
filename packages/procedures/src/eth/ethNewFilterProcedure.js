@@ -5,7 +5,7 @@ import { parseBlockTag } from '../utils/parseBlockTag.js'
 
 /**
  * Request handler for eth_newFilter JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthNewFilterJsonRpcProcedure}
  */
 export const ethNewFilterJsonRpcProcedure = (client) => {
@@ -61,7 +61,7 @@ export const ethNewFilterJsonRpcProcedure = (client) => {
 		}
 
 		/**
-		 * @param {import('@tevm/base-client').Filter['logs'][number]} log
+		 * @param {import('@tevm/node').Filter['logs'][number]} log
 		 */
 		const listener = (log) => {
 			const filter = client.getFilters().get(id)

@@ -1,7 +1,7 @@
 ---
 "@tevm/sync-storage-persister": patch
 "@tevm/actions": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/procedures": patch
 "@tevm/state": patch
 "@tevm/utils": patch

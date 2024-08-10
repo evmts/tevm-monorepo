@@ -1,5 +1,5 @@
-import type { BaseClient } from '@tevm/base-client'
 import type { EIP1193RequestFn } from '@tevm/decorators'
+import type { TevmNode } from '@tevm/node'
 import type { Chain, ClientConfig, TransportConfig } from 'viem'
 
 /**
@@ -13,7 +13,7 @@ import type { Chain, ClientConfig, TransportConfig } from 'viem'
  * @returns {TransportConfig<TName>} config - The transport configuration.
  * @returns {EIP1193RequestFn} request - The EIP-1193 request function.
  * @returns {Object} value - The transport value.
- * @returns {BaseClient & { request: EIP1193RequestFn }} value.tevm - The TEVM base client with the EIP-1193 request function.
+ * @returns {TevmNode & { request: EIP1193RequestFn }} value.tevm - The TEVM base client with the EIP-1193 request function.
  */
 export type TevmTransport<TName extends string = string> = <TChain extends Chain | undefined = Chain>({
 	chain,
@@ -28,5 +28,5 @@ export type TevmTransport<TName extends string = string> = <TChain extends Chain
 }) => {
 	config: TransportConfig<TName>
 	request: EIP1193RequestFn
-	value: { tevm: BaseClient & { request: EIP1193RequestFn } }
+	value: { tevm: TevmNode & { request: EIP1193RequestFn } }
 }

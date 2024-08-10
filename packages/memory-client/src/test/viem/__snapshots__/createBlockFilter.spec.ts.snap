@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`createBlockFilter works 1`] = `
-{
-  "id": "0xce871f2e44aaa4ed70dacc69b209454f",
-  "request": [Function: AsyncFunction],
-  "type": "block",
-}
-`;

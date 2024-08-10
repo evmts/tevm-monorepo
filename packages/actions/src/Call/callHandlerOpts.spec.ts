@@ -1,4 +1,4 @@
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { EthjsAddress, bytesToHex, numberToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -6,10 +6,10 @@ import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 
 describe('callHandlerOpts', () => {
-	let client: BaseClient
+	let client: TevmNode
 
 	beforeEach(() => {
-		client = createBaseClient()
+		client = createTevmNode()
 	})
 
 	it('should handle empty params', async () => {

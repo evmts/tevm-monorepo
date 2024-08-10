@@ -3,7 +3,7 @@ import { hexToBigInt, numberToHex } from '@tevm/utils'
 
 /**
  * Request handler for debug_traceCall JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugTraceCallProcedure}
  */
 export const debugTraceCallJsonRpcProcedure = (client) => {

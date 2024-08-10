@@ -1,12 +1,12 @@
-import { createBaseClient } from '@tevm/base-client'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 
 describe('blockToJsonRpcBlock', async () => {
-	const client = createBaseClient({ common: optimism })
+	const client = createTevmNode({ common: optimism })
 	const vm = await client.getVm()
 	const [block] = await getBlockFromRpc(
 		vm.blockchain,

@@ -1,5 +1,5 @@
 ---
-"@tevm/base-client": minor
+"@tevm/node": minor
 ---
 
-Updated base-client log filters type to include more information such as the tx hash and block hash
+Updated node log filters type to include more information such as the tx hash and block hash
