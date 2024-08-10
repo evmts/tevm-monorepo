@@ -54,10 +54,10 @@
     "lint:check": "biome check . --verbose",
     "lint:deps": "bunx depcheck",
     "lint:package": "bunx publint --strict && attw --pack",
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui"
+    "//test": "vitest --coverage",
+    "//test:coverage": "vitest run --coverage",
+    "//test:run": "vitest run",
+    "//test:ui": "vitest --ui"
   },
   "dependencies": {
     "@shazow/whatsabi": "^0.12.0",
