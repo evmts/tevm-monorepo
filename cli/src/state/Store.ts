@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { create } from 'zustand'
 import type { State } from './State.js'
 import type { Dispatchers } from './dispatchers.js'
 import { reducers } from './reducers.js'
+import { useState } from 'react'
+import { create } from 'zustand'
 
 /**
  * Type of zustand store for create-evmts-app cli

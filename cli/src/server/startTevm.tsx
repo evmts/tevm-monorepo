@@ -1,12 +1,13 @@
+import { chains } from './chains.js'
+import { options as optionsSchema } from './options.js'
 import { http } from '@tevm/jsonrpc'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import { z } from 'zod'
-import { chains } from './chains.js'
-import { options as optionsSchema } from './options.js'
 
 export const startTevm = async (options: z.infer<typeof optionsSchema>) => {
-	const chain = options.preset !== undefined ? chains[options.preset] : undefined
+	const chain =
+		options.preset !== undefined ? chains[options.preset] : undefined
 
 	const client = createMemoryClient({
 		...(chain !== undefined ? { common: chain } : {}),

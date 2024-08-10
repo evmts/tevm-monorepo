@@ -1,8 +1,14 @@
+import { wait } from '../utils/wait.js'
 import { spawn } from 'node:child_process'
 import { useEffect, useReducer, useState } from 'react'
-import { wait } from '../utils/wait.js'
 
-export const useExec = (command: string, cwd: string, args: any, onSuccess: () => void, withWait = 0) => {
+export const useExec = (
+	command: string,
+	cwd: string,
+	args: any,
+	onSuccess: () => void,
+	withWait = 0,
+) => {
 	const [isStarted, mutate] = useReducer(() => true, false)
 	const [output, setOutput] = useState('')
 	const [error, setError] = useState('')

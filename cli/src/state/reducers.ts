@@ -1,5 +1,5 @@
-import { basename } from 'node:path'
 import type { State } from './State.js'
+import { basename } from 'node:path'
 
 /**
  * State transition functions the UI can call
@@ -32,12 +32,16 @@ const selectAndContinue = (<TName extends keyof State>(
 		...state,
 		[payload.name]: payload.value,
 		currentStep: payload.nextPage ? state.currentStep : state.currentStep + 1,
-		currentPage: payload.nextPage ? goToNextPage({}, state).currentPage : state.currentPage,
+		currentPage: payload.nextPage
+			? goToNextPage({}, state).currentPage
+			: state.currentPage,
 	}
 
 	const isName = payload.name === 'name'
-	const isFrameworkBun = payload.name === 'framework' && (payload.value as string).includes('bun')
-	const isFrameworkMud = payload.name === 'framework' && (payload.value as string).includes('mud')
+	const isFrameworkBun =
+		payload.name === 'framework' && (payload.value as string).includes('bun')
+	const isFrameworkMud =
+		payload.name === 'framework' && (payload.value as string).includes('mud')
 	// if name step is set also set the path if name is a path instead of a name
 	if (isName) {
 		return {

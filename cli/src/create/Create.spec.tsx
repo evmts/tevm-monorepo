@@ -1,10 +1,10 @@
-import { join } from 'node:path'
+import { App } from './Create.js'
 import chalk from 'chalk'
 import { existsSync, rmSync } from 'fs-extra'
 import { render } from 'ink-testing-library'
+import { join } from 'node:path'
 import * as React from 'react'
 import { afterAll, expect, test } from 'vitest'
-import { App } from './Create.js'
 
 const TODO = true
 
