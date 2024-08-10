@@ -60,11 +60,11 @@
     "//test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@shazow/whatsabi": "^0.12.0",
+    "@shazow/whatsabi": "^0.14.0",
     "@tevm/compiler": "workspace:^",
     "@tevm/config": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "viem": "^2.18.2"
+    "viem": "^2.19.3"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
