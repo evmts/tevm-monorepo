@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 2.0.0-next.106
+
+### Patch Changes
+
+- Updated dependencies [[`9a5cf70`](https://github.com/evmts/tevm-monorepo/commit/9a5cf70d282a034e4cf488ccaad33ac5dad98720)]:
+  - @tevm/server@2.0.0-next.106
+  - @tevm/viem@2.0.0-next.105
+  - @tevm/http-client@2.0.0-next.105
+
 ## 2.0.0-next.105
 
 ### Minor Changes
