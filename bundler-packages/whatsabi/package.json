@@ -42,6 +42,7 @@
     "src"
   ],
   "scripts": {
+    "//lint:package": "bunx publint --strict && attw --pack",
     "//test": "vitest --coverage",
     "//test:coverage": "vitest run --coverage",
     "//test:run": "vitest run",
@@ -56,8 +57,7 @@
     "generate:docs": "typedoc",
     "lint": "biome check . --write --unsafe",
     "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "//lint:package": "bunx publint --strict && attw --pack"
+    "lint:deps": "bunx depcheck"
   },
   "dependencies": {
     "@shazow/whatsabi": "^0.14.0",
