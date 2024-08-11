@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { AccountNotFoundError, InvalidAddressError } from '@tevm/errors'
+import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -10,7 +10,7 @@ const contract = TestERC20.withAddress(`0x${'3'.repeat(40)}`)
 
 describe('getAccount', () => {
 	it('should get an account from evm', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const res = await setAccountHandler(client)({
 			address: contract.address,
 			deployedBytecode: contract.deployedBytecode,
@@ -27,7 +27,7 @@ describe('getAccount', () => {
 	})
 
 	it('should validate params', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const res = await setAccountHandler(client)({
 			// @ts-expect-error
 			address: 'not an address',
@@ -37,7 +37,7 @@ describe('getAccount', () => {
 	})
 
 	it('should handle account not found', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const account = await getAccountHandler(client)({
 			throwOnFail: false,
 			address: `0x${'4'.repeat(40)}`,
@@ -51,7 +51,7 @@ describe('getAccount', () => {
 	})
 
 	it('should handle internal errors gracefully', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		// Simulate an internal error by passing invalid parameters to getAccountHandler
 		const invalidParams = { throwOnFail: false }
 		const account = await getAccountHandler(client)(invalidParams as any)
@@ -64,7 +64,7 @@ describe('getAccount', () => {
 	})
 
 	it('should return storage if requested', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const state = {
 			[numberToHex(0, { size: 32 })]: numberToHex(420, { size: 2 }),
 			[numberToHex(2, { size: 32 })]: numberToHex(420, { size: 2 }),
@@ -88,7 +88,7 @@ describe('getAccount', () => {
 	})
 
 	it('should handle getAccount unexpectedly throwing', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		const vm = await client.getVm()
 		vm.stateManager.getAccount = () => {
 			throw new Error('Unexpected error')

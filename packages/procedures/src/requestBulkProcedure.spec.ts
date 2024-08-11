@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { numberToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { requestBulkProcedure } from './requestBulkProcedure.js'
@@ -9,7 +9,7 @@ const ERC20_BYTECODE =
 
 describe('requestBulkProcedure', () => {
 	it('should work', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 		await requestBulkProcedure(client)([
 			{
 				jsonrpc: '2.0',

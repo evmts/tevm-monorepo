@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -7,7 +7,7 @@ import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
@@ -27,7 +27,7 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct nonce', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
@@ -54,7 +54,7 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct gas parameters', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
@@ -82,7 +82,7 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should allow setting custom maxFeePerGas and maxPriorityFeePerGas', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
@@ -103,7 +103,7 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with a default sender if origin and caller are not provided', async () => {
-		const client = createBaseClient({
+		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})

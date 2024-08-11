@@ -4,7 +4,7 @@ import { blockToJsonRpcBlock } from '../utils/blockToJsonRpcBlock.js'
 
 /**
  * Request handler for eth_getBlockByNumber JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetBlockByNumberJsonRpcProcedure}
  */
 export const ethGetBlockByNumberJsonRpcProcedure = (client) => {

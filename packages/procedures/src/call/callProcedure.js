@@ -4,7 +4,7 @@ import { parseBlockTag } from '../utils/parseBlockTag.js'
 
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./CallJsonRpcProcedure.js').CallJsonRpcProcedure}
  */
 export const callProcedure = (client) => async (request) => {

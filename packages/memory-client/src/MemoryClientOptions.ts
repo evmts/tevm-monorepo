@@ -1,5 +1,5 @@
-import { type BaseClientOptions } from '@tevm/base-client'
 import type { Common } from '@tevm/common'
+import { type TevmNodeOptions } from '@tevm/node'
 import type { Address } from '@tevm/utils'
 import { type Account, type Chain, type ClientConfig, type RpcSchema, type Transport } from 'viem'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
@@ -7,7 +7,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
 /**
  * Configuration options for creating a {@link MemoryClient}.
  *
- * This type extends `BaseClientOptions` and includes specific options for configuring the MemoryClient,
+ * This type extends `TevmNodeOptions` and includes specific options for configuring the MemoryClient,
  * such as the transport type, account, polling interval, and caching behavior.
  *
  * @template TCommon - The common chain configuration, extending both `Common` and `Chain`.
@@ -51,7 +51,7 @@ export type MemoryClientOptions<
 	TCommon extends Common & Chain = Common & Chain,
 	TAccountOrAddress extends Account | Address | undefined = undefined,
 	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
-> = BaseClientOptions<TCommon> &
+> = TevmNodeOptions<TCommon> &
 	Pick<
 		ClientConfig<Transport, TCommon, TAccountOrAddress, TRpcSchema>,
 		'type' | 'key' | 'name' | 'account' | 'pollingInterval' | 'cacheTime'

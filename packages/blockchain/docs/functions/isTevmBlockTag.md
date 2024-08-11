@@ -6,20 +6,20 @@
 
 # Function: isTevmBlockTag()
 
-> **isTevmBlockTag**(`blockTag`): blockTag is "latest" \| "earliest" \| "pending" \| "safe" \| "finalized" \| "forked"
+> **isTevmBlockTag**(`blockTag`): `blockTag is TevmBlockTag`
 
 Determines if an unknown type is a valid block tag
 
 ## Parameters
 
-• **blockTag**: `string`
+• **blockTag**: `unknown`
 
 ## Returns
 
-blockTag is "latest" \| "earliest" \| "pending" \| "safe" \| "finalized" \| "forked"
+`blockTag is TevmBlockTag`
 
 true if valid block tag
 
 ## Defined in
 
-[utils/isTevmBlockTag.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/isTevmBlockTag.ts#L13)
+[utils/isTevmBlockTag.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/isTevmBlockTag.js#L17)

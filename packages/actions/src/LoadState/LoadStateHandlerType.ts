@@ -32,7 +32,7 @@ import type { LoadStateResult } from './LoadStateResult.js'
  * await loadState({ state })
  * ```
  *
- * Note: This handler is intended for use with the low-level TEVM BaseClient, unlike `tevmLoadState` which is a higher-level API function.
+ * Note: This handler is intended for use with the low-level TEVM TevmNode, unlike `tevmLoadState` which is a higher-level API function.
  *
  * @param {LoadStateParams} params - The parameters for loading the state.
  * @returns {Promise<LoadStateResult>} The result of the load state operation.

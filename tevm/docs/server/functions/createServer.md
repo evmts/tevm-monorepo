@@ -2151,7 +2151,7 @@ Low level access to TEVM can be accessed via `tevm`. These APIs are not guarante
 
 **See**
 
-[BaseClient](../../index/type-aliases/BaseClient.md)
+[TevmNode](../../index/type-aliases/TevmNode.md)
 
 **Example**
 

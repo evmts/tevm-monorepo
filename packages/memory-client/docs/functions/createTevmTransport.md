@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options**: `BaseClientOptions`\<`Common`\> = `{}`
+• **options**: `TevmNodeOptions`\<`Common`\> = `{}`
 
 Configuration options for the base client, similar to those used in `memoryClient` or a low-level `baseClient`.
 

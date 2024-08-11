@@ -1,12 +1,12 @@
 import { createAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
 import { describe, expect, it, vi } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 
 describe('handlePendingTransactionsWarning', () => {
-	const client = createBaseClient()
+	const client = createTevmNode()
 
 	it('should warn if no code is found and there are pending transactions', async () => {
 		const txPool = await client.getTxPool()

@@ -3,7 +3,7 @@ import { bytesToHex } from '@tevm/utils'
 /**
  * @internal
  * Emits events after successful mine
- * @param {import("@tevm/base-client").BaseClient} client
+ * @param {import("@tevm/node").TevmNode} client
  * @param {Array<import('@tevm/block').Block>} newBlocks]
  * @param {Map<import('@tevm/utils').Hex,Array<import('@tevm/receipt-manager').TxReceipt>>} newReceipts
  */

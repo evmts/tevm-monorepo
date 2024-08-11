@@ -11,7 +11,7 @@
 "@tevm/bun-plugin": patch
 "@tevm/cli": patch
 "@tevm/schemas": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/procedures": patch
 "@tevm/tsupconfig": patch
 "@tevm/revm": patch

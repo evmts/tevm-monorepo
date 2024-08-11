@@ -1,5 +1,5 @@
 ---
-"@tevm/base-client": minor
+"@tevm/node": minor
 ---
 
-Added event emitter support to BaseClient
+Added event emitter support to TevmNode

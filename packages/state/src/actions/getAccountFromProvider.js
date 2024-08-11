@@ -5,7 +5,7 @@ import { getForkClient } from './getForkClient.js'
 /**
  * Retrieves an account from the provider and stores in the local trie
  * @param {import('../BaseState.js').BaseState} baseState
- * @returns {(address: import('@tevm/utils').Address) => Promise<EthjsAccount>}
+ * @returns {(address: import('@tevm/utils').EthjsAddress) => Promise<EthjsAccount>}
  * @private
  */
 export const getAccountFromProvider = (baseState) => async (address) => {

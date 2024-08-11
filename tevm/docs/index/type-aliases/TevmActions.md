@@ -20,13 +20,13 @@ These actions allow for low-level access to the EVM, managing accounts, deployin
 
 ### tevm
 
-> **tevm**: [`BaseClient`](BaseClient.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md)
+> **tevm**: [`TevmNode`](TevmNode.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md)
 
 Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
 
 #### See
 
-[BaseClient](BaseClient.md)
+[TevmNode](TevmNode.md)
 
 #### Example
 

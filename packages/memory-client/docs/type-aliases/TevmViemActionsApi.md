@@ -25,7 +25,7 @@ const client = createTevmClient()
 
 ### tevm
 
-> **tevm**: `BaseClient` & `Eip1193RequestProvider`
+> **tevm**: `TevmNode` & `Eip1193RequestProvider`
 
 ### tevmCall
 
@@ -57,7 +57,7 @@ const client = createTevmClient()
 
 ### tevmReady
 
-> **tevmReady**: `BaseClient`\[`"ready"`\]
+> **tevmReady**: `TevmNode`\[`"ready"`\]
 
 ### tevmScript
 

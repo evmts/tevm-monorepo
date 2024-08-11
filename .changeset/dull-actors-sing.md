@@ -17,7 +17,7 @@
 "@tevm/vite-plugin": patch
 "@tevm/client-types": patch
 "@tevm/bun-plugin": patch
-"@tevm/base-client": patch
+"@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
 "@tevm/blockchain": patch

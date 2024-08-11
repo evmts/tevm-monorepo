@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  */
 export const evmInputToImpersonatedTx = (client) => {
 	/**

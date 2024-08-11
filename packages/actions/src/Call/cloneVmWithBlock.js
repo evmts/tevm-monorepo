@@ -7,7 +7,7 @@ import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
  * - Cloning the VM
  * - Setting the state root
  * - Setting the fork transport if the block is in the past
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/block').Block} block
  * @returns {Promise<import('@tevm/vm').Vm | ForkError | InternalError>} VM or errors
  * @throws {never} returns errors as values

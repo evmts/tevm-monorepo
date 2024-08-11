@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -13,7 +13,7 @@ const contract = TestERC20.withAddress(createAddress(420420420420420).toString()
 
 describe(handleTransactionCreation.name, async () => {
 	it('should handle transaction creation', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		await setAccountHandler(client)({
 			address: contract.address,
@@ -46,7 +46,7 @@ describe(handleTransactionCreation.name, async () => {
 	})
 
 	it('should do nothing if createTransaction is false', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		await setAccountHandler(client)({
 			address: contract.address,
@@ -77,7 +77,7 @@ describe(handleTransactionCreation.name, async () => {
 	})
 
 	it('should handle createTransaction having errors', async () => {
-		const client = createBaseClient()
+		const client = createTevmNode()
 
 		const params: CallParams = {
 			to: createAddress(0).toString(),

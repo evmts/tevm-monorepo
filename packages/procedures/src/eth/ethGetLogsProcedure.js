@@ -3,7 +3,7 @@ import { numberToHex } from '@tevm/utils'
 
 /**
  * Executes a message call without creating a transaction on the block chain.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthGetLogsJsonRpcProcedure}
  */
 export const ethGetLogsProcedure = (client) => async (req) => {

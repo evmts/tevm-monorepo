@@ -2,7 +2,7 @@ import { callProcedure } from '../call/callProcedure.js'
 
 /**
  * Request handler for eth_estimateGas JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthEstimateGasJsonRpcProcedure}
  */
 export const ethEstimateGasJsonRpcProcedure = (client) => {

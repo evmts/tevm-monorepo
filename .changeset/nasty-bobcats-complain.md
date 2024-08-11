@@ -1,5 +1,5 @@
 ---
-"@tevm/base-client": minor
+"@tevm/node": minor
 ---
 
-Made Common generic but optional on BaseClientOptions
+Made Common generic but optional on TevmNodeOptions

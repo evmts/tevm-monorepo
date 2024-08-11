@@ -1,16 +1,16 @@
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { numberToHex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetBlockTransactionCountByNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetBlockTransactionCountByNumberJsonRpcProcedure } from './ethGetBlockTransactionCountByNumberProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 let vm: Vm
 
 beforeEach(async () => {
-	client = createBaseClient()
+	client = createTevmNode()
 	vm = await client.getVm()
 })
 

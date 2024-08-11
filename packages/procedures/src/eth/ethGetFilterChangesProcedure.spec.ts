@@ -1,15 +1,15 @@
-import { type BaseClient, type Filter, createBaseClient } from '@tevm/base-client'
 import { Block } from '@tevm/block'
+import { type Filter, type TevmNode, createTevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 
 beforeEach(() => {
-	client = createBaseClient()
+	client = createTevmNode()
 })
 
 describe('ethGetFilterChangesProcedure', () => {

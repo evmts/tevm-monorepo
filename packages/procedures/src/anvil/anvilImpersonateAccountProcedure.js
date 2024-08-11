@@ -2,7 +2,7 @@ import { getAddress } from '@tevm/utils'
 
 /**
  * Request handler for anvil_impersonateAccount JSON-RPC requests.
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilImpersonateAccountProcedure}
  */
 export const anvilImpersonateAccountJsonRpcProcedure = (client) => {

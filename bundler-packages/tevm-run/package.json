@@ -1,6 +1,6 @@
 {
   "name": "tevm-run",
-  "version": "1.1.0-next.103",
+  "version": "2.0.0-next.105",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -21,7 +21,7 @@
   "files": [
     "src",
     "bunfig.toml",
-    "plugin.js"
+    "plugins.js"
   ],
   "scripts": {
     "all": "bun run lint && bun run format && bun run test:coverage",

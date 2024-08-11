@@ -15,7 +15,7 @@ export const tevmDefault = createCommon({
 		custom: foundry.custom,
 		contracts: {
 			...foundry.contracts,
-			// we add this in createBaseClient
+			// we add this in createTevmNode
 			multicall3: { address: '0xcA11bde05977b3631167028862bE2a173976CA11', blockCreated: 0 },
 		},
 		formatters: _optimism.formatters,

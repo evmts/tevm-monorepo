@@ -27,6 +27,7 @@ describe(putAccount.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
+		await baseState.ready()
 
 		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n

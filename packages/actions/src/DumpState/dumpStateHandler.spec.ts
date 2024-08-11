@@ -1,4 +1,4 @@
-import { createBaseClient } from '@tevm/base-client'
+import { createTevmNode } from '@tevm/node'
 import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { expect, test } from 'vitest'
@@ -11,7 +11,7 @@ test('should dump important account info and storage', async () => {
 
 	const accountInstance = new EthjsAccount(0n, 100n)
 
-	const client = createBaseClient()
+	const client = createTevmNode()
 	;(await client.getVm()).stateManager.putAccount(account, accountInstance)
 
 	const storageKey = hexToBytes('0x1', { size: 32 })
@@ -30,7 +30,7 @@ test('should dump important account info and storage', async () => {
 
 	expect(Object.keys(storage).length).toBe(1)
 
-	const client2 = createBaseClient()
+	const client2 = createTevmNode()
 
 	await loadStateHandler(client2)({
 		state: dumpedState,

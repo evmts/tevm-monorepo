@@ -1,6 +1,6 @@
 ---
 "@tevm/sync-storage-persister": minor
-"@tevm/base-client": minor
+"@tevm/node": minor
 "@tevm/http-client": minor
 "@tevm/precompiles": minor
 "@tevm/blockchain": minor

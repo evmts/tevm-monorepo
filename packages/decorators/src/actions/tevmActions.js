@@ -12,7 +12,7 @@ import {
 
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'script'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'script'>>}
  */
 const scriptAction = () => (client) => {
 	return {
@@ -21,7 +21,7 @@ const scriptAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'getAccount'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'getAccount'>>}
  */
 const getAccountAction = () => (client) => {
 	return {
@@ -30,7 +30,7 @@ const getAccountAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'setAccount'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'setAccount'>>}
  */
 const setAccountAction = () => (client) => {
 	return {
@@ -39,7 +39,7 @@ const setAccountAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'call'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'call'>>}
  */
 const callAction = () => (client) => {
 	return {
@@ -48,7 +48,7 @@ const callAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'contract'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'contract'>>}
  */
 const contractAction = () => (client) => {
 	return {
@@ -57,7 +57,7 @@ const contractAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'dumpState'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'dumpState'>>}
  */
 const dumpStateAction = () => (client) => {
 	return {
@@ -66,7 +66,7 @@ const dumpStateAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'loadState'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'loadState'>>}
  */
 const loadStateAction = () => (client) => {
 	return {
@@ -75,7 +75,7 @@ const loadStateAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'mine'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'mine'>>}
  */
 const mineAction = () => (client) => {
 	return {
@@ -84,7 +84,7 @@ const mineAction = () => (client) => {
 }
 /**
  * @internal
- * @returns {import('@tevm/base-client').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'deploy'>>}
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'deploy'>>}
  */
 const deployAction = () => (client) => {
 	return {
@@ -93,7 +93,7 @@ const deployAction = () => (client) => {
 }
 
 /**
- * @returns {import('@tevm/base-client').Extension<import('./TevmActionsApi.js').TevmActionsApi>}
+ * @returns {import('@tevm/node').Extension<import('./TevmActionsApi.js').TevmActionsApi>}
  */
 export const tevmActions = () => (client) => {
 	return client

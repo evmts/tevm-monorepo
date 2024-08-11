@@ -6,17 +6,17 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 /**
  * Creates a handler for dumping the TEVM state.
  *
- * @param {import("@tevm/base-client").BaseClient} client - The TEVM client instance.
+ * @param {import("@tevm/node").TevmNode} client - The TEVM client instance.
  * @param {object} [options] - Optional settings.
  * @param {boolean} [options.throwOnFail] - Whether to throw an error if the state dump fails.
  * @returns {import('../DumpState/DumpStateHandlerType.js').DumpStateHandler} - The state dump handler function.
  *
  * @example
  * ```typescript
- * import { createBaseClient } from 'tevm/base-client'
+ * import { createTevmNode } from 'tevm/node'
  * import { dumpStateHandler } from 'tevm/actions'
  *
- * const client = createBaseClient()
+ * const client = createTevmNode()
  *
  * const dumpState = dumpStateHandler(client)
  *

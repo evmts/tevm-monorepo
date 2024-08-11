@@ -1,14 +1,14 @@
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Hex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthUninstallFilterJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethUninstallFilterJsonRpcProcedure } from './ethUninstallFilterProcedure.js'
 
-let client: BaseClient
+let client: TevmNode
 const filterId: Hex = '0x1'
 
 beforeEach(() => {
-	client = createBaseClient()
+	client = createTevmNode()
 
 	client.getFilters().set(filterId, {
 		id: filterId,

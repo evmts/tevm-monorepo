@@ -9,7 +9,7 @@ title: "anvilDropTransactionJsonRpcProcedure"
 
 ## Parameters
 
-• **client**: `BaseClient`\<`"fork"` \| `"normal"`, `object`\>
+• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 

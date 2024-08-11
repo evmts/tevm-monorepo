@@ -1,6 +1,6 @@
 {
   "name": "@tevm/procedures",
-  "version": "1.1.0-next.103",
+  "version": "2.0.0-next.105",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
@@ -66,7 +66,6 @@
   "dependencies": {
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
-    "@tevm/base-client": "workspace:^",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
     "@tevm/common": "workspace:^",
@@ -74,6 +73,7 @@
     "@tevm/errors": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
+    "@tevm/node": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tx": "workspace:^",

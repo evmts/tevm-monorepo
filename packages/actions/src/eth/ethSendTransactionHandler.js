@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { prefundedAccounts } from '@tevm/base-client'
+import { prefundedAccounts } from '@tevm/node'
 import { TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
@@ -7,7 +7,7 @@ import { callHandler } from '../Call/callHandler.js'
 // TODO we should be properly checking signatures
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
