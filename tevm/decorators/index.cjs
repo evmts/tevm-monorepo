@@ -10,5 +10,5 @@ Object.keys(decorators).forEach(function (k) {
 		get: function () { return decorators[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

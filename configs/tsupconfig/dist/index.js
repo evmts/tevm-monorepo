@@ -53,5 +53,5 @@ var node = createTsUpOptions({
 });
 
 export { browser, createTsUpOptions, js, node };
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

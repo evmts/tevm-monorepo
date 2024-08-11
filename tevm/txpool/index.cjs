@@ -10,5 +10,5 @@ Object.keys(txpool).forEach(function (k) {
 		get: function () { return txpool[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

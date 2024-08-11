@@ -10,5 +10,5 @@ Object.keys(contract).forEach(function (k) {
 		get: function () { return contract[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

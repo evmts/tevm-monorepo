@@ -1,3 +1,3 @@
 export { blockNumberProcedure, blockToJsonRpcBlock, callProcedure, chainIdProcedure, dumpStateProcedure, ethAccountsProcedure, ethCallProcedure, ethGetLogsProcedure, ethGetTransactionReceiptJsonRpcProcedure, ethSignProcedure, ethSignTransactionProcedure, gasPriceProcedure, generateRandomId, getAccountProcedure, getBalanceProcedure, getCodeProcedure, getStorageAtProcedure, loadStateProcedure, mineProcedure, parseBlockTag, requestBulkProcedure, requestProcedure, scriptProcedure, setAccountProcedure, txToJsonRpcTx } from '@tevm/procedures';
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

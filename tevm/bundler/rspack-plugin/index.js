@@ -1,3 +1,3 @@
 export * from '@tevm/rspack-plugin';
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

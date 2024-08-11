@@ -104,5 +104,5 @@ Object.defineProperty(exports, "txToJsonRpcTx", {
   enumerable: true,
   get: function () { return procedures.txToJsonRpcTx; }
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

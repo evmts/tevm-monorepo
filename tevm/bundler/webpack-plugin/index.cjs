@@ -10,5 +10,5 @@ Object.keys(webpackPlugin).forEach(function (k) {
 		get: function () { return webpackPlugin[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

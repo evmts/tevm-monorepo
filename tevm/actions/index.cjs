@@ -10,5 +10,5 @@ Object.keys(actions).forEach(function (k) {
 		get: function () { return actions[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

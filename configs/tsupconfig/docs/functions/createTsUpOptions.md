@@ -8,6 +8,8 @@
 
 > **createTsUpOptions**(`options`): `Options`
 
+Creates tsup options from params
+
 ## Parameters
 
 • **options**

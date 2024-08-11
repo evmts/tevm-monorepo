@@ -10,5 +10,5 @@ Object.keys(node).forEach(function (k) {
 		get: function () { return node[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
