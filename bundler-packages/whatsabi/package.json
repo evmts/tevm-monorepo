@@ -61,7 +61,6 @@
   },
   "dependencies": {
     "@shazow/whatsabi": "^0.14.0",
-    "@tevm/compiler": "workspace:^",
     "@tevm/config": "workspace:^",
     "@tevm/utils": "workspace:^",
     "viem": "^2.19.3"
