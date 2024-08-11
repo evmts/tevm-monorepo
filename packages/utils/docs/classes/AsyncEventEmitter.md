@@ -215,7 +215,7 @@ node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/events.d.ts:15
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:592
+node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:592
 
 ***
 
@@ -627,7 +627,7 @@ v10.0.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:747
+node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:747
 
 #### off(eventName, listener)
 
@@ -987,7 +987,7 @@ v9.4.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/events.d.ts:818
+node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:818
 
 #### rawListeners(eventName)
 

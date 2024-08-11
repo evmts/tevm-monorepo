@@ -393,7 +393,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.1.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
 
 #### captureStackTrace(targetObject, constructorOpt)
 
