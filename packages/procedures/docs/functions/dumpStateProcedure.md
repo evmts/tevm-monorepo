@@ -8,6 +8,8 @@
 
 > **dumpStateProcedure**(`client`): [`DumpStateJsonRpcProcedure`](../type-aliases/DumpStateJsonRpcProcedure.md)
 
+Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

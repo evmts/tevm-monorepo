@@ -9,6 +9,20 @@ title: "DefinePredeployFn"
 
 Defines a predeploy contract to use in the tevm vm
 
+## Type Parameters
+
+• **TName** *extends* `string`
+
+• **THumanReadableAbi** *extends* readonly `string`[]
+
+## Parameters
+
+• **contract**: [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, [`Address`](/reference/tevm/utils/type-aliases/address/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+
+## Returns
+
+[`Predeploy`](/reference/tevm/predeploys/type-aliases/predeploy/)\<`TName`, `THumanReadableAbi`\>
+
 ## Example
 
 ```ts
@@ -30,20 +44,6 @@ const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```
-
-## Type Parameters
-
-• **TName** *extends* `string`
-
-• **THumanReadableAbi** *extends* readonly `string`[]
-
-## Parameters
-
-• **contract**: [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, [`Address`](/reference/tevm/utils/type-aliases/address/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
-
-## Returns
-
-[`Predeploy`](/reference/tevm/predeploys/type-aliases/predeploy/)\<`TName`, `THumanReadableAbi`\>
 
 ## Defined in
 

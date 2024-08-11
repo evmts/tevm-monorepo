@@ -8,6 +8,8 @@
 
 > **ethNewPendingTransactionFilterProcedure**(`client`): [`EthNewPendingTransactionFilterJsonRpcProcedure`](../type-aliases/EthNewPendingTransactionFilterJsonRpcProcedure.md)
 
+Request handler for eth_newPendingTransactionFilter JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

@@ -10,10 +10,6 @@
 
 Params for creating a [Contract](Contract.md) instance
 
-## See
-
-CreateContract
-
 ## Type Parameters
 
 • **TName** *extends* `string` \| `undefined` \| `never`
@@ -27,6 +23,10 @@ CreateContract
 • **TDeployedBytecode** *extends* `undefined` \| `Hex` \| `never`
 
 • **TCode** *extends* `undefined` \| `Hex` \| `never`
+
+## See
+
+CreateContract
 
 ## Defined in
 

@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/state/dist/index.d.ts:302
+packages/state/dist/index.d.ts:303

@@ -8,6 +8,8 @@
 
 > **parseUINT256Safe**\<`TUINT256`\>(`uint256`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT256`\>
 
+Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
 ## Type Parameters
 
 • **TUINT256** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT256`\>
+
+## Example
+
+```ts
+import { parseUINT256Safe } from '@tevm/schemas';
+const parsedUINT256Effect = parseUINT256Safe('0x1234567890abcdef1234567890abcdef12345678');
+```
 
 ## Defined in
 

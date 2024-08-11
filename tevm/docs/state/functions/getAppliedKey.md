@@ -18,6 +18,11 @@
 
 `undefined` \| (`address`) => `Uint8Array`
 
+## Deprecated
+
+Returns the applied key for a given address
+Used for saving preimages
+
 ## Defined in
 
-packages/state/dist/index.d.ts:284
+packages/state/dist/index.d.ts:285

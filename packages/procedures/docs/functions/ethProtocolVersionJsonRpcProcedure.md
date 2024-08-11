@@ -8,6 +8,8 @@
 
 > **ethProtocolVersionJsonRpcProcedure**(): [`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)
 
+Request handler for eth_protocolVersion JSON-RPC requests.
+
 ## Returns
 
 [`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)

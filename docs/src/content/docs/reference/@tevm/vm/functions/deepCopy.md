@@ -15,6 +15,8 @@ title: "deepCopy"
 
 [`DeepCopy`](/reference/tevm/vm/type-aliases/deepcopy/)
 
+## Throws
+
 ## Defined in
 
 [packages/vm/src/actions/deepCopy.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/deepCopy.js#L20)

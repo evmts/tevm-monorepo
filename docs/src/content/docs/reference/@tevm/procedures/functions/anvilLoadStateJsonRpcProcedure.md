@@ -7,6 +7,8 @@ title: "anvilLoadStateJsonRpcProcedure"
 
 > **anvilLoadStateJsonRpcProcedure**(`client`): [`AnvilLoadStateProcedure`](/reference/tevm/procedures/type-aliases/anvilloadstateprocedure/)
 
+Request handler for anvil_loadState JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

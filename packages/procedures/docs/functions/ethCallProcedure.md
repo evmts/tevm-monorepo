@@ -8,6 +8,8 @@
 
 > **ethCallProcedure**(`client`): [`EthCallJsonRpcProcedure`](../type-aliases/EthCallJsonRpcProcedure.md)
 
+Executes a message call without creating a transaction on the block chain.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

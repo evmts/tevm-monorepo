@@ -8,6 +8,8 @@
 
 > **ethCoinbaseJsonRpcProcedure**(`client`): [`EthCoinbaseJsonRpcProcedure`](../type-aliases/EthCoinbaseJsonRpcProcedure.md)
 
+Request handler for eth_coinbase JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

@@ -10,37 +10,6 @@
 
 Options for [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
 
-## Example
-
-```typescript
-import { createEvm, CreateEvmOptions } from 'tevm/evm'
-import { mainnet } from 'tevm/common'
-import { createStateManager } from 'tevm/state'
-import { createBlockchain } from 'tevm/blockchain'}
-import { EthjsAddress } from 'tevm/utils'
-
-const evm = createEvm({
-  common: mainnet.copy(),
-  stateManager: createStateManager(),
-  blockchain: createBlockchain(),
-})
-
-const result = await evm.runCall({
-  to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
-  value: 420n,
-  skipBalance: true,
-})
-
-console.log(result)
-```
-The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClient.
-
-## See
-
- - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
- - [TevmNode](https://tevm.sh/reference/tevm/node/functions/createbaseclient/)
- - [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
-
 ## Type declaration
 
 ### allowUnlimitedContractSize?
@@ -112,7 +81,7 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys?
 
-> `optional` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](../../index/classes/Predeploy.md)\<`any`, `any`\>\>
+> `optional` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](../../index/type-aliases/Predeploy.md)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -148,6 +117,37 @@ Enable profiler. Defaults to false.
 
 A custom Tevm state manager
 
+## Example
+
+```typescript
+import { createEvm, CreateEvmOptions } from 'tevm/evm'
+import { mainnet } from 'tevm/common'
+import { createStateManager } from 'tevm/state'
+import { createBlockchain } from 'tevm/blockchain'}
+import { EthjsAddress } from 'tevm/utils'
+
+const evm = createEvm({
+  common: mainnet.copy(),
+  stateManager: createStateManager(),
+  blockchain: createBlockchain(),
+})
+
+const result = await evm.runCall({
+  to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
+  value: 420n,
+  skipBalance: true,
+})
+
+console.log(result)
+```
+The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClient.
+
+## See
+
+ - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
+ - [TevmNode](https://tevm.sh/reference/tevm/node/functions/createbaseclient/)
+ - [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
+
 ## Defined in
 
-packages/evm/dist/index.d.ts:127
+packages/evm/dist/index.d.ts:107

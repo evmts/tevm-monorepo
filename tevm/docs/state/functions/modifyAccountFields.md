@@ -34,4 +34,4 @@ fields, then saves the account into state. Account fields can include
 
 ## Defined in
 
-packages/state/dist/index.d.ts:334
+packages/state/dist/index.d.ts:335

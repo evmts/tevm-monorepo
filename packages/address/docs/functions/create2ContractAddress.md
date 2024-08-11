@@ -8,6 +8,8 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
+Generates an [Address](../classes/Address.md) for a contract created using CREATE2.
+
 ## Parameters
 
 • **from**: `Address`
@@ -25,6 +27,10 @@ THe creation code of the contract
 ## Returns
 
 [`Address`](../classes/Address.md)
+
+## Throws
+
+if salt is not 32 bytes or input is wrong in some other way
 
 ## Defined in
 

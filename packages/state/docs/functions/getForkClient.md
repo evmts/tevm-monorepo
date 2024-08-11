@@ -8,6 +8,8 @@
 
 > **getForkClient**(`baseState`): `object`
 
+Creates a viem public client for the fork
+
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
@@ -506,10 +508,6 @@ The block transaction count. GetBlockTransactionCountReturnType
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
-#### Deprecated
-
-Use `getCode` instead.
-
 #### Parameters
 
 • **args**: `GetCodeParameters`
@@ -517,6 +515,10 @@ Use `getCode` instead.
 #### Returns
 
 `Promise`\<`GetCodeReturnType`\>
+
+#### Deprecated
+
+Use `getCode` instead.
 
 ### getChainId()
 

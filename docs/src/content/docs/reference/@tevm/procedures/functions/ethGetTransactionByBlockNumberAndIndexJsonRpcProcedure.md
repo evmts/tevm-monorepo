@@ -7,6 +7,8 @@ title: "ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure"
 
 > **ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure**(`client`): [`EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactionbyblocknumberandindexjsonrpcprocedure/)
 
+Request handler for eth_getTransactionByBlockNumberAndIndex JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

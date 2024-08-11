@@ -7,6 +7,8 @@ title: "anvilDumpStateJsonRpcProcedure"
 
 > **anvilDumpStateJsonRpcProcedure**(`client`): [`AnvilDumpStateProcedure`](/reference/tevm/procedures/type-aliases/anvildumpstateprocedure/)
 
+Request handler for anvil_dumpState JSON-RPC requests.
+
 :::caution[Experimental]
 This API should not be used in production and may be trimmed from a public release.
 :::
@@ -18,6 +20,8 @@ This API should not be used in production and may be trimmed from a public relea
 ## Returns
 
 [`AnvilDumpStateProcedure`](/reference/tevm/procedures/type-aliases/anvildumpstateprocedure/)
+
+## Param
 
 ## Defined in
 

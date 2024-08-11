@@ -8,6 +8,8 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
+Creates the core data structure for ethereum state
+
 ## Parameters
 
 • **options**: [`StateOptions`](../type-aliases/StateOptions.md)

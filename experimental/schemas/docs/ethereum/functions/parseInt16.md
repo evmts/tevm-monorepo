@@ -8,6 +8,8 @@
 
 > **parseInt16**\<`TINT16`\>(`int16`): `TINT16`
 
+Parses an INT16 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TINT16** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TINT16`
+
+## Example
+
+```ts
+import { parseInt16 } from '@tevm/schemas';
+const parsedINT16 = parseInt16(BigInt(-32768));
+```
 
 ## Defined in
 

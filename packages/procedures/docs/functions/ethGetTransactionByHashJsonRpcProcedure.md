@@ -8,6 +8,8 @@
 
 > **ethGetTransactionByHashJsonRpcProcedure**(`client`): [`EthGetTransactionByHashJsonRpcProcedure`](../type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)
 
+Request handler for eth_getTransactionByHash JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

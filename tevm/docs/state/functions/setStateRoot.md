@@ -32,4 +32,4 @@ Changes the currently loaded state root
 
 ## Defined in
 
-packages/state/dist/index.d.ts:369
+packages/state/dist/index.d.ts:370

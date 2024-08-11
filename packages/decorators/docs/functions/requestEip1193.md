@@ -8,6 +8,8 @@
 
 > **requestEip1193**(): `Extension`\<[`Eip1193RequestProvider`](../type-aliases/Eip1193RequestProvider.md)\>
 
+A decorator that adds the EIP-1193 request method to the client
+
 ## Returns
 
 `Extension`\<[`Eip1193RequestProvider`](../type-aliases/Eip1193RequestProvider.md)\>

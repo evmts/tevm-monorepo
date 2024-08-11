@@ -19,6 +19,17 @@ Effect wrapper around import('node:resolve').resolveSync
 
 `Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
 
+## Example
+
+```ts
+import {tap} from 'effect/Effect'
+import {resolveSync} from '@tevm/effect'
+resolveSync('react').pipe(
+   tap(console.log)
+)
+````
+`
+
 ## Defined in
 
 [packages/effect/src/resolve.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L46)

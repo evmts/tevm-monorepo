@@ -8,6 +8,8 @@
 
 > **anvilStopImpersonatingAccountJsonRpcProcedure**(`client`): [`AnvilStopImpersonatingAccountProcedure`](../type-aliases/AnvilStopImpersonatingAccountProcedure.md)
 
+Request handler for anvil_stopImpersonatingAccount JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

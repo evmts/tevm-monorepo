@@ -11,10 +11,6 @@
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 These actions correspond 1:1 eith the public ethereum JSON-RPC api
 
-## See
-
-[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
-
 ## Type declaration
 
 ### eth
@@ -157,6 +153,10 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 ```ts
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
 ```
+
+## See
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
 
 ## Defined in
 

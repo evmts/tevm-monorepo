@@ -7,6 +7,8 @@ title: "blockNumberHandler"
 
 > **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](/reference/tevm/actions/type-aliases/ethblocknumberhandler/)
 
+Handler for the `eth_blockNumber` RPC call
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

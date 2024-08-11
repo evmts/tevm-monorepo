@@ -11,6 +11,18 @@
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
 
+## Type Parameters
+
+• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](DebugJsonRpcRequest.md)
+
+## Parameters
+
+• **request**: `TRequest`
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
+
 ## Example
 
 ```typescript
@@ -83,18 +95,6 @@ response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
 
 request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
-
-## Type Parameters
-
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](DebugJsonRpcRequest.md)
-
-## Parameters
-
-• **request**: `TRequest`
-
-## Returns
-
-`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
 ## Defined in
 

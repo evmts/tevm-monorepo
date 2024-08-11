@@ -7,6 +7,8 @@ title: "ethGetLogsProcedure"
 
 > **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetlogsjsonrpcprocedure/)
 
+Executes a message call without creating a transaction on the block chain.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

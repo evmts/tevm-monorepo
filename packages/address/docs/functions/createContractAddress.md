@@ -8,6 +8,9 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
+Generates an [Address](../classes/Address.md) for a newly generated contract
+address.
+
 ## Parameters
 
 • **from**: `Address`
@@ -17,6 +20,8 @@
 ## Returns
 
 [`Address`](../classes/Address.md)
+
+## Throws
 
 ## Defined in
 
