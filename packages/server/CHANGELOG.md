@@ -1,5 +1,11 @@
 # @tevm/server
 
+## 2.0.0-next.106
+
+### Minor Changes
+
+- [#1358](https://github.com/evmts/tevm-monorepo/pull/1358) [`9a5cf70`](https://github.com/evmts/tevm-monorepo/commit/9a5cf70d282a034e4cf488ccaad33ac5dad98720) Thanks [@roninjin10](https://github.com/roninjin10)! - Added npx tevm-server command
+
 ## 2.0.0-next.105
 
 ### Minor Changes
