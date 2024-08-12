@@ -1,1 +1,0 @@
-{"version":3,"file":"StartServerProps.d.ts","sourceRoot":"","sources":["../../src/server/StartServerProps.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,IAAI,aAAa,EAAE,MAAM,cAAc,CAAC;AACxD,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AAExB,MAAM,MAAM,gBAAgB,GAAG;IAC/B,OAAO,EAAE,CAAC,CAAC,KAAK,CAAC,OAAO,aAAa,CAAC,CAAC;CACtC,CAAC"}
