@@ -7,6 +7,8 @@ title: "ethProtocolVersionJsonRpcProcedure"
 
 > **ethProtocolVersionJsonRpcProcedure**(): [`EthProtocolVersionJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethprotocolversionjsonrpcprocedure/)
 
+Request handler for eth_protocolVersion JSON-RPC requests.
+
 ## Returns
 
 [`EthProtocolVersionJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethprotocolversionjsonrpcprocedure/)

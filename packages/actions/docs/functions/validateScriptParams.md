@@ -16,6 +16,8 @@
 
 [`ValidateScriptParamsError`](../type-aliases/ValidateScriptParamsError.md)[]
 
+## Deprecated
+
 ## Defined in
 
 [packages/actions/src/Script/validateScriptParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L14)

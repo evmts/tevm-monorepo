@@ -10,6 +10,14 @@ title: "GetAccountHandler"
 Gets the state of a specific Ethereum address.
 This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount`.
 
+## Parameters
+
+• **params**: [`GetAccountParams`](/reference/tevm/actions/type-aliases/getaccountparams/)
+
+## Returns
+
+`Promise`\<[`GetAccountResult`](/reference/tevm/actions/type-aliases/getaccountresult/)\>
+
 ## Example
 
 ```typescript
@@ -24,14 +32,6 @@ console.log(res.deployedBytecode)
 console.log(res.nonce)
 console.log(res.balance)
 ```
-
-## Parameters
-
-• **params**: [`GetAccountParams`](/reference/tevm/actions/type-aliases/getaccountparams/)
-
-## Returns
-
-`Promise`\<[`GetAccountResult`](/reference/tevm/actions/type-aliases/getaccountresult/)\>
 
 ## Defined in
 

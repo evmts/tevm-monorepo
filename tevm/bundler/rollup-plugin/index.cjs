@@ -10,5 +10,5 @@ Object.keys(rollupPlugin).forEach(function (k) {
 		get: function () { return rollupPlugin[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

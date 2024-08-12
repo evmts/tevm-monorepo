@@ -35,4 +35,4 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:300
+packages/state/dist/index.d.ts:301

@@ -32,4 +32,4 @@ Saves an account into state under the provided `address`.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:340
+packages/state/dist/index.d.ts:341

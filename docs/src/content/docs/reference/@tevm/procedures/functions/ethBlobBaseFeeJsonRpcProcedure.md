@@ -7,6 +7,8 @@ title: "ethBlobBaseFeeJsonRpcProcedure"
 
 > **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthGasPriceJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgaspricejsonrpcprocedure/)
 
+Request handler for eth_coinbase JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

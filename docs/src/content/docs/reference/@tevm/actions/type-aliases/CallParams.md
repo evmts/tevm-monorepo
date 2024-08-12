@@ -10,32 +10,6 @@ title: "CallParams"
 TEVM parameters to execute a call on the VM.
 `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.
 
-## Example
-
-```typescript
-import { createClient } from 'viem'
-import { createTevmTransport, tevmCall } from 'tevm'
-import { optimism } from 'tevm/common'
-
-const client = createClient({
-  transport: createTevmTransport({}),
-  chain: optimism,
-})
-
-const callParams = {
-  data: '0x...',
-  bytecode: '0x...',
-  gasLimit: 420n,
-}
-
-await tevmCall(client, callParams)
-```
-
-## See
-
- - [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/)
- - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
-
 ## Type declaration
 
 ### code?
@@ -153,6 +127,32 @@ await tevmCall(client, callParams)
 ## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
+
+## Example
+
+```typescript
+import { createClient } from 'viem'
+import { createTevmTransport, tevmCall } from 'tevm'
+import { optimism } from 'tevm/common'
+
+const client = createClient({
+  transport: createTevmTransport({}),
+  chain: optimism,
+})
+
+const callParams = {
+  data: '0x...',
+  bytecode: '0x...',
+  gasLimit: 420n,
+}
+
+await tevmCall(client, callParams)
+```
+
+## See
+
+ - [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/)
+ - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
 
 ## Defined in
 

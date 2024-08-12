@@ -10,6 +10,12 @@
 
 Parses human-readable ABI into JSON [Abi](Abi.md)
 
+## Type Parameters
+
+• **signatures** *extends* readonly `string`[]
+
+Human-readable ABI
+
 ## Example
 
 ```ts
@@ -21,12 +27,6 @@ type Result = ParseAbi<
   ]
 >
 ```
-
-## Type Parameters
-
-• **signatures** *extends* readonly `string`[]
-
-Human-readable ABI
 
 ## Defined in
 

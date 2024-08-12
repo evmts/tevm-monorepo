@@ -7,6 +7,8 @@ title: "createCache"
 
 > **createCache**(`cacheDir`, `fs`, `cwd`): [`Cache`](/reference/tevm/bundler-cache/type-aliases/cache/)
 
+Creates a Tevm cache object for reading and writing cached items
+
 ## Parameters
 
 • **cacheDir**: `string`

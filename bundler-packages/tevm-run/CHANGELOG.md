@@ -1,5 +1,12 @@
 # tevm-run
 
+## 2.0.0-next.106
+
+### Patch Changes
+
+- Updated dependencies []:
+  - tevm@2.0.0-next.106
+
 ## 2.0.0-next.105
 
 ### Patch Changes

@@ -8,6 +8,8 @@
 
 > **ethEstimateGasJsonRpcProcedure**(`client`): [`EthEstimateGasJsonRpcProcedure`](../type-aliases/EthEstimateGasJsonRpcProcedure.md)
 
+Request handler for eth_estimateGas JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

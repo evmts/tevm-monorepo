@@ -8,6 +8,8 @@
 
 > **anvilDropTransactionJsonRpcProcedure**(`client`): [`AnvilDropTransactionProcedure`](../type-aliases/AnvilDropTransactionProcedure.md)
 
+Request handler for anvil_dropTransaction JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

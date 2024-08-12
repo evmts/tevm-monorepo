@@ -7,7 +7,6 @@
 ## Modules
 
 - [address](address/README.md)
-- [node](node/README.md)
 - [block](block/README.md)
 - [blockchain](blockchain/README.md)
 - [bundler](bundler/README.md)
@@ -28,6 +27,7 @@
 - [http-client](http-client/README.md)
 - [index](index/README.md)
 - [memory-client](memory-client/README.md)
+- [node](node/README.md)
 - [precompiles](precompiles/README.md)
 - [predeploys](predeploys/README.md)
 - [procedures](procedures/README.md)

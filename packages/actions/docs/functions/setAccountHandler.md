@@ -8,6 +8,8 @@
 
 > **setAccountHandler**(`client`, `options`?): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
+Creates an SetAccountHandler for handling account params with Ethereumjs EVM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

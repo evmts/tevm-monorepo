@@ -8,6 +8,8 @@
 
 > **parseAddressSafe**\<`TAddress`\>(`address`): `Effect`\<`never`, [`InvalidAddressError`](../classes/InvalidAddressError.md), `TAddress`\>
 
+Parses an Address safely into an effect.
+
 ## Type Parameters
 
 • **TAddress** *extends* \`0x$\{string\}\`

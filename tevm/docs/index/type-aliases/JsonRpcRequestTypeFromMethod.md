@@ -10,15 +10,15 @@
 
 Utility type to get the request type given a method name
 
+## Type Parameters
+
+• **TMethod** *extends* keyof [`EthRequestType`](../../procedures/type-aliases/EthRequestType.md) \| keyof [`TevmRequestType`](../../procedures/type-aliases/TevmRequestType.md) \| keyof [`AnvilRequestType`](../../procedures/type-aliases/AnvilRequestType.md) \| keyof [`DebugRequestType`](../../procedures/type-aliases/DebugRequestType.md)
+
 ## Example
 
 ```typescript
 type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 ```
-
-## Type Parameters
-
-• **TMethod** *extends* keyof [`EthRequestType`](../../procedures/type-aliases/EthRequestType.md) \| keyof [`TevmRequestType`](../../procedures/type-aliases/TevmRequestType.md) \| keyof [`AnvilRequestType`](../../procedures/type-aliases/AnvilRequestType.md) \| keyof [`DebugRequestType`](../../procedures/type-aliases/DebugRequestType.md)
 
 ## Defined in
 

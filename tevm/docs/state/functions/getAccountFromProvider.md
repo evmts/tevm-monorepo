@@ -18,7 +18,7 @@
 
 ### Parameters
 
-• **address**: [`Address`](../../index/type-aliases/Address.md)
+• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ### Returns
 
@@ -26,4 +26,4 @@
 
 ## Defined in
 
-packages/state/dist/index.d.ts:276
+packages/state/dist/index.d.ts:277

@@ -14,6 +14,14 @@ will be added in the future.
 
 Currently is not very generic with regard to input and output types.
 
+## Parameters
+
+• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures/type-aliases/debugjsonrpcrequest/)\>
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures/type-aliases/jsonrpcreturntypefrommethod/)\<`any`\>[]\>
+
 ## Example
 
 ```typescript
@@ -85,14 +93,6 @@ response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/proc
 
 request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcrequest)
 response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/procedures/type-aliases/ethgetbalancejsonrpcresponse)
-
-## Parameters
-
-• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](/reference/tevm/procedures/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures/type-aliases/debugjsonrpcrequest/)\>
-
-## Returns
-
-`Promise`\<[`JsonRpcReturnTypeFromMethod`](/reference/tevm/procedures/type-aliases/jsonrpcreturntypefrommethod/)\<`any`\>[]\>
 
 ## Defined in
 

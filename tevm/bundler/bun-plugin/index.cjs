@@ -10,5 +10,5 @@ Object.keys(bunPlugin).forEach(function (k) {
 		get: function () { return bunPlugin[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

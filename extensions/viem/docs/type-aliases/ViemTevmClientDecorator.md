@@ -8,11 +8,6 @@
 
 > **ViemTevmClientDecorator**: (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 
-## Deprecated
-
-in favor of the viem transport
-A viem decorator for `tevmViemExtension`
-
 ## Parameters
 
 • **client**: `any`
@@ -20,6 +15,11 @@ A viem decorator for `tevmViemExtension`
 ## Returns
 
 [`ViemTevmClient`](ViemTevmClient.md)
+
+## Deprecated
+
+in favor of the viem transport
+A viem decorator for `tevmViemExtension`
 
 ## Defined in
 

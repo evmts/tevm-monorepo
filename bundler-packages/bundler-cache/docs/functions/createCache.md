@@ -8,6 +8,8 @@
 
 > **createCache**(`cacheDir`, `fs`, `cwd`): [`Cache`](../type-aliases/Cache.md)
 
+Creates a Tevm cache object for reading and writing cached items
+
 ## Parameters
 
 • **cacheDir**: `string`

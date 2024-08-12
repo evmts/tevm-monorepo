@@ -8,6 +8,8 @@
 
 > **debugTraceCallJsonRpcProcedure**(`client`): [`DebugTraceCallProcedure`](../type-aliases/DebugTraceCallProcedure.md)
 
+Request handler for debug_traceCall JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

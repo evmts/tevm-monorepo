@@ -7,6 +7,8 @@ title: "anvilStopImpersonatingAccountJsonRpcProcedure"
 
 > **anvilStopImpersonatingAccountJsonRpcProcedure**(`client`): [`AnvilStopImpersonatingAccountProcedure`](/reference/tevm/procedures/type-aliases/anvilstopimpersonatingaccountprocedure/)
 
+Request handler for anvil_stopImpersonatingAccount JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

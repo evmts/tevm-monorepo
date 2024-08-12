@@ -6,30 +6,6 @@
 
 # Class: Evm
 
-The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
-The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
-provide custom typing to the blockchain or common objects.
-
-## Example
-
-```typescript
-import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
-import { mainnet } from 'tevm/common'
-import { createStateManager } from 'tevm/state'
-import { createBlockchain } from 'tevm/blockchain'}
-import { EthjsAddress } from 'tevm/utils'
-
-const evm: Evm = createEvm({
-  common: mainnet.copy(),
-  stateManager: createStateManager(),
-  blockchain: createBlockchain(),
-})
-```
-
-## See
-
-[createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
-
 ## Extends
 
 - `EVM`
@@ -56,15 +32,15 @@ Initialized bn128 WASM object for precompile usage (internal)
 
 [`Evm`](Evm.md)
 
-#### Inherited from
-
-`EVM.constructor`
-
 #### Deprecated
 
 The direct usage of this constructor is replaced since
 non-finalized async initialization lead to side effects. Please
 use the async EVM.create constructor instead (same API).
+
+#### Inherited from
+
+`EVM.constructor`
 
 #### Defined in
 
@@ -110,7 +86,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:95
+packages/evm/dist/index.d.ts:72
 
 ***
 
@@ -352,7 +328,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:94
+packages/evm/dist/index.d.ts:71
 
 ***
 
@@ -367,30 +343,6 @@ packages/evm/dist/index.d.ts:94
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
-
-***
-
-### create()
-
-> `static` **create**: (`options`?) => `Promise`\<[`Evm`](Evm.md)\>
-
-#### Parameters
-
-• **options?**: `EVMOpts`
-
-#### Returns
-
-`Promise`\<[`Evm`](Evm.md)\>
-
-A new EVM
-
-#### Overrides
-
-`EVM.create`
-
-#### Defined in
-
-packages/evm/dist/index.d.ts:93
 
 ***
 
@@ -594,7 +546,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:91
+packages/evm/dist/index.d.ts:73
 
 ***
 
@@ -702,7 +654,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-packages/evm/dist/index.d.ts:92
+packages/evm/dist/index.d.ts:74
 
 ***
 
@@ -834,3 +786,30 @@ EVM
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:126
+
+***
+
+### create()
+
+> `static` **create**(`options`?): `Promise`\<[`Evm`](Evm.md)\>
+
+Use this async static constructor for the initialization
+of an EVM object
+
+#### Parameters
+
+• **options?**: `EVMOpts`
+
+#### Returns
+
+`Promise`\<[`Evm`](Evm.md)\>
+
+A new EVM
+
+#### Overrides
+
+`EVM.create`
+
+#### Defined in
+
+packages/evm/dist/index.d.ts:75

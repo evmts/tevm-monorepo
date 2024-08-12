@@ -7,6 +7,8 @@ title: "ethNewBlockFilterProcedure"
 
 > **ethNewBlockFilterProcedure**(`client`): [`EthNewBlockFilterJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethnewblockfilterjsonrpcprocedure/)
 
+Request handler for eth_newBlock JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

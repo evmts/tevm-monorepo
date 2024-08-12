@@ -7,6 +7,8 @@ title: "callProcedure"
 
 > **callProcedure**(`client`): [`CallJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/calljsonrpcprocedure/)
 
+Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

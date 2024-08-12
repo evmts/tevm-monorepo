@@ -8,6 +8,8 @@
 
 > **logAllErrors**(`e`): `Effect`\<`never`, `never`, `void`\>
 
+Logs all errors and causes from effect
+
 ## Parameters
 
 • **e**: `unknown`
@@ -15,6 +17,15 @@
 ## Returns
 
 `Effect`\<`never`, `never`, `void`\>
+
+## Example
+
+```typescript
+import { logAllErrors } from '@eth-optimism/config'
+
+someEffect.pipe(
+  tapError(logAllErrors)
+)
 
 ## Defined in
 

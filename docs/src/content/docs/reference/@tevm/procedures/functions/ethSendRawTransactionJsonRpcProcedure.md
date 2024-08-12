@@ -7,6 +7,8 @@ title: "ethSendRawTransactionJsonRpcProcedure"
 
 > **ethSendRawTransactionJsonRpcProcedure**(`client`): [`EthSendRawTransactionJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethsendrawtransactionjsonrpcprocedure/)
 
+Request handler for eth_sendRawTransaction JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

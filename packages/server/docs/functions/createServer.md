@@ -8,6 +8,8 @@
 
 > **createServer**(`client`, `serverOptions`?): `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
+Creates a lightweight http server for handling requests
+
 ## Parameters
 
 • **client**
@@ -2728,6 +2730,30 @@ Optional options to pass to the http server
 `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 To use pass in the Tevm['request'] request handler
+
+## Throws
+
+## Examples
+
+```typescript
+import { createMemoryClient } from 'tevm'
+import { createServer } from 'tevm/server'
+
+const tevm = createMemoryClient()
+
+const server = createServer({
+  request: tevm.request,
+})
+
+server.listen(8080, () => console.log('listening on 8080'))
+```
+To interact with the HTTP server you can create a Tevm client
+
+```typescript
+import { createTevmClient } from '@tevm/client'
+
+const client = createTevmClient()
+```
 
 ## Defined in
 
