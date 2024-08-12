@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":"AAAA,SAAS,WAAW;AACpB,SAAS,YAAY;AACrB,SAAS,eAAe;AAEjB,MAAM,UAAU;AAAA,EACtB;AAAA,EACA;AAAA,EACA,WAAW;AACZ","sourcesContent":["import { App } from './App.js'\nimport { args } from './args.js'\nimport { options } from './options.js'\n\nexport const command = {\n\targs,\n\toptions,\n\tComponent: App,\n}\n"]}

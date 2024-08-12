@@ -14,13 +14,23 @@
 				"types": "./dist/index.d.cts",
 				"default": "./dist/index.cjs"
 			}
+		},
+		"./tevm-cli": {
+			"import": {
+				"types": "./dist/tevm-cli.d.ts",
+				"default": "./dist/tevm-cli.js"
+			},
+			"require": {
+				"types": "./dist/tevm-cli.d.cts",
+				"default": "./dist/tevm-cli.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"create-tevm-app": "dist/create-tevm-app.js"
+		"tevm-cli": "dist/tevm-cli.js"
 	},
 	"files": [
 		"dist",
@@ -38,7 +48,7 @@
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"start": "node dist/create-tevm-app.js",
+		"start": "node dist/tevm-cli.js",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",

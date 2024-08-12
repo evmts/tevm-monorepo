@@ -2408,6 +2408,9 @@ importers:
       '@tevm/bun-plugin':
         specifier: workspace:^
         version: link:../bundler-packages/bun
+      '@tevm/cli':
+        specifier: workspace:^
+        version: link:../cli
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../packages/client-types
