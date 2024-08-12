@@ -1,5 +1,13 @@
 # @tevm/viem
 
+## 2.0.0-next.107
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/decorators@2.0.0-next.107
+  - @tevm/node@2.0.0-next.107
+
 ## 2.0.0-next.105
 
 ### Minor Changes
