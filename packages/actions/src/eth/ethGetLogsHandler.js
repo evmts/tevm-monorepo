@@ -60,9 +60,6 @@ const parseBlockParam = async (blockchain, blockParam) => {
  * @returns {import('./EthHandler.js').EthGetLogsHandler}
  */
 export const ethGetLogsHandler = (client) => async (params) => {
-	params.filterParams.topics
-	params.filterParams.address
-
 	client.logger.debug(params, 'blockNumberHandler called with params')
 	const vm = await client.getVm()
 	const receiptsManager = await client.getReceiptsManager()
@@ -172,7 +169,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	}
 
 	const cachedLogs = await receiptsManager.getLogs(
-		fetchFromRpc ? fromBlock : /** @type {import('@tevm/block').Block}*/ (forkedBlock),
+		fetchFromRpc ? /** @type {import('@tevm/block').Block}*/ (forkedBlock) : fromBlock,
 		toBlock,
 		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
 		params.filterParams.topics?.map((topic) => hexToBytes(topic)),

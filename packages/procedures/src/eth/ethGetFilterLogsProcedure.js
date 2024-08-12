@@ -23,8 +23,8 @@ export const ethGetFilterLogsProcedure = (client) => {
 		try {
 			const ethGetLogsResult = await ethGetLogsHandler(client)({
 				filterParams: {
-					fromBlock: filter.logsCriteria.fromBlock,
-					toBlock: filter.logsCriteria.toBlock,
+					fromBlock: filter.logsCriteria.fromBlock?.header?.number ?? 0n,
+					toBlock: filter.logsCriteria.toBlock?.header?.number ?? 'latest',
 					address: filter.logsCriteria.address,
 					topics: filter.logsCriteria.topics,
 				},
