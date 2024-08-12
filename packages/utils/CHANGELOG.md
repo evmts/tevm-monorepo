@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 2.0.0-next.107
+
+### Patch Changes
+
+- [#1375](https://github.com/evmts/tevm-monorepo/pull/1375) [`4ff712a`](https://github.com/evmts/tevm-monorepo/commit/4ff712af924afdb32462aa45c10530352ae89c29) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bugs in eth filters and logs
+
 ## 2.0.0-next.105
 
 ### Minor Changes

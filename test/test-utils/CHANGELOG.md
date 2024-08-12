@@ -1,5 +1,13 @@
 # @tevm/test-utils
 
+## 2.0.0-next.107
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/contract@2.0.0-next.107
+  - @tevm/ts-plugin@2.0.0-next.103
+
 ## 2.0.0-next.105
 
 ### Patch Changes

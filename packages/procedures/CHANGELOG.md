@@ -1,5 +1,26 @@
 # @tevm/contract
 
+## 2.0.0-next.107
+
+### Patch Changes
+
+- [#1375](https://github.com/evmts/tevm-monorepo/pull/1375) [`4ff712a`](https://github.com/evmts/tevm-monorepo/commit/4ff712af924afdb32462aa45c10530352ae89c29) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bugs in eth filters and logs
+
+- Updated dependencies [[`4ff712a`](https://github.com/evmts/tevm-monorepo/commit/4ff712af924afdb32462aa45c10530352ae89c29)]:
+  - @tevm/actions@2.0.0-next.107
+  - @tevm/utils@2.0.0-next.107
+  - @tevm/address@2.0.0-next.107
+  - @tevm/block@2.0.0-next.107
+  - @tevm/blockchain@2.0.0-next.107
+  - @tevm/common@2.0.0-next.107
+  - @tevm/contract@2.0.0-next.107
+  - @tevm/evm@2.0.0-next.107
+  - @tevm/node@2.0.0-next.107
+  - @tevm/state@2.0.0-next.107
+  - @tevm/tx@2.0.0-next.107
+  - @tevm/vm@2.0.0-next.107
+  - @tevm/test-utils@2.0.0-next.107
+
 ## 2.0.0-next.105
 
 ### Minor Changes

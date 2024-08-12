@@ -1,5 +1,13 @@
 # tevm-run
 
+## 2.0.0-next.107
+
+### Patch Changes
+
+- Updated dependencies []:
+  - tevm@2.0.0-next.107
+  - @tevm/bun-plugin@2.0.0-next.103
+
 ## 2.0.0-next.106
 
 ### Patch Changes
