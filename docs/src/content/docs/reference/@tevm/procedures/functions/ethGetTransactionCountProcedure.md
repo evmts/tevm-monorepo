@@ -7,6 +7,8 @@ title: "ethGetTransactionCountProcedure"
 
 > **ethGetTransactionCountProcedure**(`client`): [`EthGetTransactionCountJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactioncountjsonrpcprocedure/)
 
+Request handler for eth_getFilterLogs JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

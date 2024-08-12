@@ -7,6 +7,8 @@ title: "getAccountProcedure"
 
 > **getAccountProcedure**(`client`): [`GetAccountJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/getaccountjsonrpcprocedure/)
 
+Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

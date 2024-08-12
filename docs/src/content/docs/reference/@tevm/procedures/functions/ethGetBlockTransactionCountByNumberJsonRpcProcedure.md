@@ -7,6 +7,8 @@ title: "ethGetBlockTransactionCountByNumberJsonRpcProcedure"
 
 > **ethGetBlockTransactionCountByNumberJsonRpcProcedure**(`client`): [`EthGetBlockTransactionCountByNumberJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetblocktransactioncountbynumberjsonrpcprocedure/)
 
+Request handler for eth_getBlockTransactionCountByNumber JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

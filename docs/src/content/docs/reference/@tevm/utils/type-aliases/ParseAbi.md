@@ -9,6 +9,12 @@ title: "ParseAbi"
 
 Parses human-readable ABI into JSON [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
 
+## Type Parameters
+
+• **signatures** *extends* readonly `string`[]
+
+Human-readable ABI
+
 ## Example
 
 ```ts
@@ -20,12 +26,6 @@ type Result = ParseAbi<
   ]
 >
 ```
-
-## Type Parameters
-
-• **signatures** *extends* readonly `string`[]
-
-Human-readable ABI
 
 ## Defined in
 

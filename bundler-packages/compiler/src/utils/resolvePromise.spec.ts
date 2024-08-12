@@ -91,7 +91,7 @@ describe('resolvePromise', () => {
 		expect(
 			Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger)),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: exists error]')
-		expect((logger.error as Mock).mock.calls[0].slice(0, 2)).toMatchInlineSnapshot(`
+		expect((logger.error as Mock)?.mock?.calls?.[0]?.slice(0, 2)).toMatchInlineSnapshot(`
       [
         [Error: exists error],
       ]

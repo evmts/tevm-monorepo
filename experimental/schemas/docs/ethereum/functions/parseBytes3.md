@@ -8,6 +8,8 @@
 
 > **parseBytes3**\<`TBytes3`\>(`bytes3`): `TBytes3`
 
+Parses a Bytes3 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TBytes3** *extends* \`0x$\{string\}\`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TBytes3`
+
+## Example
+
+```ts
+import { parseBytes3 } from '@tevm/schemas';
+const parsedBytes3 = parseBytes3('0xffaabb');
+```
 
 ## Defined in
 

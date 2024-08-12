@@ -8,6 +8,8 @@
 
 > **parseUINT64**\<`TUINT64`\>(`uint64`): `TUINT64`
 
+Parses a UINT64 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TUINT64** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TUINT64`
+
+## Example
+
+```ts
+import { parseUINT64 } from '@tevm/schemas';
+const parsedUINT64 = parseUINT64(BigInt("9223372036854775807"));
+```
 
 ## Defined in
 

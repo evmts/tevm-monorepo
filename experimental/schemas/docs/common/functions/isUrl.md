@@ -8,6 +8,8 @@
 
 > **isUrl**(`value`): `boolean`
 
+Type guard that returns true if the provided string is a valid URL.
+
 ## Parameters
 
 • **value**: `string`
@@ -15,6 +17,14 @@
 ## Returns
 
 `boolean`
+
+## Example
+
+```javascript
+import { isUrl } from '@tevm/schemas';
+isUrl('https://tevm.sh');  // true
+isUrl('not a url'); // false
+````
 
 ## Defined in
 

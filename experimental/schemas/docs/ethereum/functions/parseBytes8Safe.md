@@ -8,6 +8,8 @@
 
 > **parseBytes8Safe**\<`TBytes8`\>(`bytes8`): `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes8`\>
 
+Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
 ## Type Parameters
 
 • **TBytes8**

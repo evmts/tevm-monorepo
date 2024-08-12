@@ -8,7 +8,8 @@
 
 > **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-Gets the code corresponding to the provided `address`.
+Gets the account corresponding to the provided `address`.
+Returns undefined if account does not exist
 
 ## Parameters
 
@@ -30,4 +31,4 @@ Gets the code corresponding to the provided `address`.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:269
+packages/state/dist/index.d.ts:270

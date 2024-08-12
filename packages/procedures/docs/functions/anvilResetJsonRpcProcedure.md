@@ -8,6 +8,8 @@
 
 > **anvilResetJsonRpcProcedure**(`client`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
 
+Request handler for anvil_reset JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

@@ -8,6 +8,8 @@
 
 > **parseINT64Safe**\<`TINT64`\>(`int64`): `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT64`\>
 
+Safely parses an INT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
 ## Type Parameters
 
 • **TINT64**

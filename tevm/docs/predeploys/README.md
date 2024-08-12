@@ -6,11 +6,17 @@
 
 # predeploys
 
+## Index
+
+### Type Aliases
+
+- [DefinePredeployFn](type-aliases/DefinePredeployFn.md)
+
 ## References
 
 ### Predeploy
 
-Re-exports [Predeploy](../index/classes/Predeploy.md)
+Re-exports [Predeploy](../index/type-aliases/Predeploy.md)
 
 ***
 

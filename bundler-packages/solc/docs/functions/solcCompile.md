@@ -8,6 +8,8 @@
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
+Typesafe wrapper around solc.compile
+
 ## Parameters
 
 • **solc**: `any`

@@ -31,4 +31,4 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 ## Defined in
 
-packages/state/dist/index.d.ts:291
+packages/state/dist/index.d.ts:292

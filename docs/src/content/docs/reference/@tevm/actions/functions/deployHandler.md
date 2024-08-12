@@ -7,6 +7,11 @@ title: "deployHandler"
 
 > **deployHandler**(`client`, `options`?): [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
+Creates a tree-shakable instance of `deployHandler` for handling the deployment of contracts to TEVM.
+This function uses `callHandler` under the hood to execute the deployment.
+
+Note: This is the internal logic used by higher-level APIs such as `tevmDeploy`.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -26,6 +31,28 @@ Whether to throw an error on failure.
 [`DeployHandler`](/reference/tevm/actions/type-aliases/deployhandler/)
 
 The deploy handler function.
+
+## Throws
+
+If `throwOnFail` is true, returns `TevmCallError` as value.
+
+## Example
+
+```typescript
+import { createTevmNode } from 'tevm/node'
+import { deployHandler } from 'tevm/actions'
+
+const client = createTevmNode()
+
+const deploy = deployHandler(client)
+
+const res = await deploy({
+  bytecode: '0x...', // Contract bytecode
+  abi: [{...}], // ABI array
+  args: [1, 2, 3], // Constructor arguments
+  createTransaction: true,
+})
+```
 
 ## Defined in
 

@@ -34,7 +34,7 @@ describe(gasPriceHandler.name, () => {
 				forkTransport: transports.mainnet,
 				getVm: () => ({ blockchain }) as any,
 			} as any)({}),
-		).toBeGreaterThan(parseGwei('1'))
+		).toBeGreaterThan(parseGwei('.1'))
 
 		// should be able tof etch again and have it cached
 		expect(

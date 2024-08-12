@@ -8,6 +8,8 @@
 
 > **loadStateProcedure**(`client`): [`LoadStateJsonRpcProcedure`](../type-aliases/LoadStateJsonRpcProcedure.md)
 
+Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

@@ -30,4 +30,4 @@ Returns true if state root exists
 
 ## Defined in
 
-packages/state/dist/index.d.ts:326
+packages/state/dist/index.d.ts:327

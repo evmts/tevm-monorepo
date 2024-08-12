@@ -7,6 +7,8 @@ title: "chainIdHandler"
 
 > **chainIdHandler**(`client`): [`EthChainIdHandler`](/reference/tevm/actions/type-aliases/ethchainidhandler/)
 
+Handler for the `eth_chainId` RPC call.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

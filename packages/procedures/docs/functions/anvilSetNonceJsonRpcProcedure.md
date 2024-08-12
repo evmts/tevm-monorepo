@@ -8,6 +8,8 @@
 
 > **anvilSetNonceJsonRpcProcedure**(`client`): [`AnvilSetNonceProcedure`](../type-aliases/AnvilSetNonceProcedure.md)
 
+Request handler for anvil_setNonce JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

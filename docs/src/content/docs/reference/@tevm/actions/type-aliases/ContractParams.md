@@ -11,6 +11,20 @@ Parameters to execute a call on a contract with TEVM.
 
 This type combines the parameters required for encoding function data with additional call parameters.
 
+## Type Parameters
+
+• **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
+
+The ABI type.
+
+• **TFunctionName** *extends* [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **TThrowOnFail** *extends* `boolean` = `boolean`
+
+The type indicating whether to throw on failure.
+
 ## Example
 
 ```typescript
@@ -41,20 +55,6 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [BaseCallParams](../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
  - [EncodeFunctionDataParameters](../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
-
-## Type Parameters
-
-• **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
-
-The ABI type.
-
-• **TFunctionName** *extends* [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **TThrowOnFail** *extends* `boolean` = `boolean`
-
-The type indicating whether to throw on failure.
 
 ## Defined in
 

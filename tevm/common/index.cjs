@@ -10,5 +10,5 @@ Object.keys(common).forEach(function (k) {
 		get: function () { return common[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

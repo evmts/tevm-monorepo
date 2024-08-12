@@ -7,6 +7,8 @@ title: "createTevmNode"
 
 > **createTevmNode**(`options`?): [`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`"fork"` \| `"normal"`, `object`\>
 
+Creates the base instance of a memory client
+
 ## Parameters
 
 • **options?**: [`TevmNodeOptions`](/reference/tevm/node/type-aliases/tevmnodeoptions/)\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
@@ -14,6 +16,11 @@ title: "createTevmNode"
 ## Returns
 
 [`TevmNode`](/reference/tevm/node/type-aliases/tevmnode/)\<`"fork"` \| `"normal"`, `object`\>
+
+## Example
+
+```ts
+ ```
 
 ## Defined in
 

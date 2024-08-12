@@ -6,7 +6,7 @@
 
 # Function: getAccountAddresses()
 
-> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => \`0x$\{string\}\`[]
+> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => `Set`\<\`0x$\{string\}\`\>
 
 ## Parameters
 
@@ -20,8 +20,8 @@
 
 ### Returns
 
-\`0x$\{string\}\`[]
+`Set`\<\`0x$\{string\}\`\>
 
 ## Defined in
 
-packages/state/dist/index.d.ts:274
+packages/state/dist/index.d.ts:275

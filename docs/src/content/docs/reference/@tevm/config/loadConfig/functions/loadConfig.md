@@ -7,6 +7,8 @@ title: "loadConfig"
 
 > **loadConfig**(`configFilePath`): `Effect`\<`never`, [`LoadConfigError`](/reference/tevm/config/loadconfig/classes/loadconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
 
+Loads an Tevm config from the given path
+
 ## Parameters
 
 • **configFilePath**: `string`
@@ -14,6 +16,17 @@ title: "loadConfig"
 ## Returns
 
 `Effect`\<`never`, [`LoadConfigError`](/reference/tevm/config/loadconfig/classes/loadconfigerror/), [`ResolvedCompilerConfig`](/reference/tevm/config/types/type-aliases/resolvedcompilerconfig/)\>
+
+## Example
+
+```ts
+import {tap} from 'effect/Effect'
+import {loadConfig} from '@tevm/config'
+
+runPromise(loadConfig('./tsconfig.json')).pipe(
+  tap(config => console.log(config))
+)
+```
 
 ## Defined in
 

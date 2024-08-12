@@ -58,5 +58,5 @@ exports.browser = browser;
 exports.createTsUpOptions = createTsUpOptions;
 exports.js = js;
 exports.node = node;
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

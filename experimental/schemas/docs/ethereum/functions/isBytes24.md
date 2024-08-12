@@ -8,6 +8,8 @@
 
 > **isBytes24**(`bytes24`): `boolean`
 
+Type guard that returns true if the provided string is a valid Ethereum Bytes24.
+
 ## Parameters
 
 • **bytes24**: `unknown`
@@ -15,6 +17,14 @@
 ## Returns
 
 `boolean`
+
+## Example
+
+```ts
+import { isBytes24 } from '@tevm/schemas';
+isBytes24("0xff");  // true
+isBytes24("0xfff"); // false
+````
 
 ## Defined in
 

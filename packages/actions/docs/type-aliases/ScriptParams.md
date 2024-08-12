@@ -8,11 +8,6 @@
 
 > **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
-## Deprecated
-
-Can use `ContraactParams` instead
-Tevm params for deploying and running a script
-
 ## Type declaration
 
 ### ~~deployedBytecode~~
@@ -28,6 +23,11 @@ The EVM code to run.
 • **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
+
+## Deprecated
+
+Can use `ContraactParams` instead
+Tevm params for deploying and running a script
 
 ## Defined in
 

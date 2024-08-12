@@ -8,6 +8,8 @@
 
 > **parseUINT128**\<`TUINT128`\>(`uint128`): `TUINT128`
 
+Parses a UINT128 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TUINT128** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TUINT128`
+
+## Example
+
+```ts
+import { parseUINT128 } from '@tevm/schemas';
+const parsedUINT128 = parseUINT128(BigInt("170141183460469231731687303715884105727"));
+```
 
 ## Defined in
 

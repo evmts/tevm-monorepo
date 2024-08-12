@@ -8,6 +8,8 @@
 
 > **parseUINT32**\<`TUINT32`\>(`uint32`): `TUINT32`
 
+Parses a UINT32 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TUINT32** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TUINT32`
+
+## Example
+
+```ts
+import { parseUINT32 } from '@tevm/schemas';
+const parsedUINT32 = parseUINT32(BigInt(2147483647));
+```
 
 ## Defined in
 

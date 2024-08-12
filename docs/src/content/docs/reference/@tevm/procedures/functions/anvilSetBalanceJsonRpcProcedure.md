@@ -7,6 +7,8 @@ title: "anvilSetBalanceJsonRpcProcedure"
 
 > **anvilSetBalanceJsonRpcProcedure**(`client`): [`AnvilSetBalanceProcedure`](/reference/tevm/procedures/type-aliases/anvilsetbalanceprocedure/)
 
+Request handler for anvil_setBalance JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

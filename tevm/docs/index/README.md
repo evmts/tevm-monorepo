@@ -10,7 +10,6 @@
 
 ### Classes
 
-- [Predeploy](classes/Predeploy.md)
 - [ProviderRpcError](classes/ProviderRpcError.md)
 
 ### Interfaces
@@ -28,8 +27,6 @@
 - [Account](type-aliases/Account.md)
 - [Address](type-aliases/Address.md)
 - [AutoMining](type-aliases/AutoMining.md)
-- [TevmNode](type-aliases/TevmNode.md)
-- [TevmNodeOptions](type-aliases/TevmNodeOptions.md)
 - [BaseParams](type-aliases/BaseParams.md)
 - [BlockNumber](type-aliases/BlockNumber.md)
 - [BlockParam](type-aliases/BlockParam.md)
@@ -98,6 +95,7 @@
 - [MineResult](type-aliases/MineResult.md)
 - [MiningConfig](type-aliases/MiningConfig.md)
 - [ParseAbi](type-aliases/ParseAbi.md)
+- [Predeploy](type-aliases/Predeploy.md)
 - [ProviderConnectInfo](type-aliases/ProviderConnectInfo.md)
 - [ProviderMessage](type-aliases/ProviderMessage.md)
 - [ReadActionCreator](type-aliases/ReadActionCreator.md)
@@ -121,6 +119,8 @@
 - [TevmJsonRpcRequestHandler](type-aliases/TevmJsonRpcRequestHandler.md)
 - [TevmLoadStateError](type-aliases/TevmLoadStateError.md)
 - [TevmMineError](type-aliases/TevmMineError.md)
+- [TevmNode](type-aliases/TevmNode.md)
+- [TevmNodeOptions](type-aliases/TevmNodeOptions.md)
 - [TevmRpcSchema](type-aliases/TevmRpcSchema.md)
 - [TevmScriptError](type-aliases/TevmScriptError.md)
 - [TevmSetAccountError](type-aliases/TevmSetAccountError.md)
@@ -152,13 +152,13 @@
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
 - [createAddress](functions/createAddress.md)
-- [createTevmNode](functions/createTevmNode.md)
 - [createClient](functions/createClient.md)
 - [createContract](functions/createContract.md)
 - [createJsonRpcFetcher](functions/createJsonRpcFetcher.md)
 - [createMemoryClient](functions/createMemoryClient.md)
 - [createMemoryDb](functions/createMemoryDb.md)
 - [createSyncStoragePersister](functions/createSyncStoragePersister.md)
+- [createTevmNode](functions/createTevmNode.md)
 - [createTevmTransport](functions/createTevmTransport.md)
 - [decodeAbiParameters](functions/decodeAbiParameters.md)
 - [decodeErrorResult](functions/decodeErrorResult.md)

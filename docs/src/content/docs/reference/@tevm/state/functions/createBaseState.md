@@ -7,6 +7,8 @@ title: "createBaseState"
 
 > **createBaseState**(`options`): [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
 
+Creates the core data structure for ethereum state
+
 ## Parameters
 
 • **options**: [`StateOptions`](/reference/tevm/state/type-aliases/stateoptions/)

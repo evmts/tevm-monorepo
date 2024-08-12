@@ -8,6 +8,8 @@
 
 > **parseInt128**\<`TINT128`\>(`int128`): `TINT128`
 
+Parses an INT128 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TINT128** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TINT128`
+
+## Example
+
+```ts
+import { parseInt128 } from '@tevm/schemas';
+const parsedINT128 = parseInt128(BigInt("-170141183460469231731687303715884105728"));
+```
 
 ## Defined in
 

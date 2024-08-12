@@ -10,5 +10,5 @@ Object.keys(errors).forEach(function (k) {
 		get: function () { return errors[k]; }
 	});
 });
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
