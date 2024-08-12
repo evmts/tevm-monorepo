@@ -368,8 +368,12 @@
   "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "tevm": "./bin/tevm.js"
+  },
   "files": [
     "index*",
+    "bin",
     "actions",
     "address",
     "node",
@@ -425,6 +429,7 @@
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
+    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
