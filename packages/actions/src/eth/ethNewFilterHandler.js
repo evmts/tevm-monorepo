@@ -9,13 +9,13 @@ import { parseBlockTag } from './utils/parseBlockTag.js'
  */
 
 /**
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {import('@tevm/node').TevmNode} tevmNode
  * @returns {import('./EthHandler.js').EthNewFilterHandler} ethNewFilterHandler
  */
-export const ethNewFilterHandler = (client) => {
+export const ethNewFilterHandler = (tevmNode) => {
 	return async (params) => {
 		const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = params
-		const vm = await client.getVm()
+		const vm = await tevmNode.getVm()
 		/**
 		 * @param {typeof toBlock} tag
 		 */
@@ -50,25 +50,25 @@ export const ethNewFilterHandler = (client) => {
 
 		const id = generateRandomId()
 		/**
-		 * @param {import('@tevm/base-client').Filter['logs'][number]} log
+		 * @param {import('@tevm/node').Filter['logs'][number]} log
 		 */
 		const listener = (log) => {
-			const filter = client.getFilters().get(id)
+			const filter = tevmNode.getFilters().get(id)
 			if (!filter) {
 				return
 			}
 			filter.logs.push(log)
 		}
-		client.on('newLog', listener)
+		tevmNode.on('newLog', listener)
 		// populate with past blocks
-		const receiptsManager = await client.getReceiptsManager()
+		const receiptsManager = await tevmNode.getReceiptsManager()
 		const pastLogs = await receiptsManager.getLogs(
 			_fromBlock,
 			_toBlock,
 			address !== undefined ? [createAddress(address).bytes] : [],
 			topics?.map((topic) => hexToBytes(topic)),
 		)
-		client.setFilter({
+		tevmNode.setFilter({
 			id,
 			type: 'Log',
 			created: Date.now(),

@@ -1,5 +1,5 @@
 import { createAddress, createContractAddress } from '@tevm/address'
-import { type BaseClient, createBaseClient } from '@tevm/base-client'
+import { type TevmNode, createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/contract'
 import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -9,7 +9,7 @@ import { ethGetFilterLogsProcedure } from './ethGetFilterLogsProcedure.js'
 import { ethNewFilterJsonRpcProcedure } from './ethNewFilterProcedure.js'
 
 describe(ethGetFilterLogsProcedure.name, () => {
-	let client: BaseClient
+	let client: TevmNode
 
 	const INITIAL_BALANCE = 20n
 	const contract = SimpleContract.withAddress(
@@ -25,7 +25,7 @@ describe(ethGetFilterLogsProcedure.name, () => {
 	}
 
 	beforeEach(async () => {
-		client = createBaseClient()
+		client = createTevmNode()
 
 		expect(
 			(
