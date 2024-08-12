@@ -14,7 +14,7 @@ import { parseBlockTag } from './utils/parseBlockTag.js'
  */
 export const ethNewFilterHandler = (tevmNode) => {
 	return async (params) => {
-		const { topics, address, toBlock = 'latest', fromBlock = 'latest' } = params
+		const { topics, address, toBlock = 'latest', fromBlock } = params
 		const vm = await tevmNode.getVm()
 		/**
 		 * @param {typeof toBlock} tag
@@ -43,7 +43,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 		if (!_toBlock) {
 			throw new UnknownBlockError(`Unknown block tag ${toBlock}`)
 		}
-		const _fromBlock = await getBlock(fromBlock)
+		const _fromBlock = await getBlock(fromBlock ?? 'latest')
 		if (!_fromBlock) {
 			throw new UnknownBlockError(`Unknown block tag ${fromBlock}`)
 		}
@@ -94,7 +94,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 				topics,
 				address,
 				toBlock: toBlock,
-				fromBlock: fromBlock,
+				fromBlock: fromBlock ?? _fromBlock.header.number,
 			},
 			installed: {},
 			err: undefined,
