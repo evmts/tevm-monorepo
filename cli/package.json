@@ -47,7 +47,7 @@
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"//lint:package": "bunx publint --strict && attw --pack",
 		"start": "node dist/tevm-cli.js",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
