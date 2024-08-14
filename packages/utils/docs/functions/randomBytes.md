@@ -8,8 +8,6 @@
 
 > **randomBytes**(`length`): `Uint8Array`
 
-Generates a Uint8Array of random bytes of specified length.
-
 ## Parameters
 
 • **length**: `number`

@@ -269,13 +269,13 @@ Alias for `emitter.on(eventName, listener)`.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.addListener`
+
+#### Since
+
+v0.1.26
 
 #### Defined in
 
@@ -391,13 +391,13 @@ myEmitter.emit('event', 1, 2, 3, 4, 5);
 
 `boolean`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.emit`
+
+#### Since
+
+v0.1.26
 
 #### Defined in
 
@@ -430,13 +430,13 @@ console.log(myEE.eventNames());
 
 keyof `T` & `string`[]
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.eventNames`
+
+#### Since
+
+v6.0.0
 
 #### Defined in
 
@@ -479,13 +479,13 @@ set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](AsyncEv
 
 `number`
 
-#### Since
-
-v1.0.0
-
 #### Overrides
 
 `EventEmitter.getMaxListeners`
+
+#### Since
+
+v1.0.0
 
 #### Defined in
 
@@ -509,13 +509,13 @@ in the list of the listeners of the event.
 
 `number`
 
-#### Since
-
-v3.2.0
-
 #### Overrides
 
 `EventEmitter.listenerCount`
+
+#### Since
+
+v3.2.0
 
 #### Defined in
 
@@ -549,13 +549,13 @@ console.log(util.inspect(server.listeners('connection')));
 
 `T`\[`E`\][]
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.listeners`
+
+#### Since
+
+v0.1.26
 
 #### Defined in
 
@@ -585,13 +585,13 @@ Alias for `emitter.removeListener()`.
 
 `this`
 
-##### Since
-
-v10.0.0
-
 ##### Inherited from
 
 `EventEmitter.off`
+
+##### Since
+
+v10.0.0
 
 ##### Defined in
 
@@ -617,13 +617,13 @@ Alias for `emitter.removeListener()`.
 
 `this`
 
-##### Since
-
-v10.0.0
-
 ##### Inherited from
 
 `EventEmitter.off`
+
+##### Since
+
+v10.0.0
 
 ##### Defined in
 
@@ -649,13 +649,13 @@ Alias for `emitter.removeListener()`.
 
 `this`
 
-##### Since
-
-v10.0.0
-
 ##### Inherited from
 
 `EventEmitter.off`
+
+##### Since
+
+v10.0.0
 
 ##### Defined in
 
@@ -710,13 +710,13 @@ The callback function
 
 `this`
 
-#### Since
-
-v0.1.101
-
 #### Overrides
 
 `EventEmitter.on`
+
+#### Since
+
+v0.1.101
 
 #### Defined in
 
@@ -769,13 +769,13 @@ The callback function
 
 `this`
 
-#### Since
-
-v0.3.0
-
 #### Overrides
 
 `EventEmitter.once`
+
+#### Since
+
+v0.3.0
 
 #### Defined in
 
@@ -816,13 +816,13 @@ The callback function
 
 `this`
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.prependListener`
+
+#### Since
+
+v6.0.0
 
 #### Defined in
 
@@ -861,13 +861,13 @@ The callback function
 
 `this`
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.prependOnceListener`
+
+#### Since
+
+v6.0.0
 
 #### Defined in
 
@@ -921,13 +921,13 @@ emitter.emit('log');
 
 `Function`[]
 
-##### Since
-
-v9.4.0
-
 ##### Inherited from
 
 `EventEmitter.rawListeners`
+
+##### Since
+
+v9.4.0
 
 ##### Defined in
 
@@ -977,13 +977,13 @@ emitter.emit('log');
 
 `Function`[]
 
-##### Since
-
-v9.4.0
-
 ##### Inherited from
 
 `EventEmitter.rawListeners`
+
+##### Since
+
+v9.4.0
 
 ##### Defined in
 
@@ -1033,13 +1033,13 @@ emitter.emit('log');
 
 `Function`[]
 
-##### Since
-
-v9.4.0
-
 ##### Inherited from
 
 `EventEmitter.rawListeners`
+
+##### Since
+
+v9.4.0
 
 ##### Defined in
 
@@ -1067,13 +1067,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.removeAllListeners`
+
+#### Since
+
+v0.1.26
 
 #### Defined in
 
@@ -1179,13 +1179,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.removeListener`
+
+#### Since
+
+v0.1.26
 
 #### Defined in
 
@@ -1212,13 +1212,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.3.5
-
 #### Overrides
 
 `EventEmitter.setMaxListeners`
+
+#### Since
+
+v0.3.5
 
 #### Defined in
 
@@ -1274,13 +1274,13 @@ function example(signal) {
 
 Disposable that removes the `abort` listener.
 
-#### Since
-
-v20.5.0
-
 #### Inherited from
 
 `EventEmitter.addAbortListener`
+
+#### Since
+
+v20.5.0
 
 #### Defined in
 
@@ -1327,13 +1327,13 @@ import { getEventListeners, EventEmitter } from 'node:events';
 
 `Function`[]
 
-#### Since
-
-v15.2.0, v14.17.0
-
 #### Inherited from
 
 `EventEmitter.getEventListeners`
+
+#### Since
+
+v15.2.0, v14.17.0
 
 #### Defined in
 
@@ -1379,13 +1379,13 @@ import { getMaxListeners, setMaxListeners, EventEmitter } from 'node:events';
 
 `number`
 
-#### Since
-
-v19.9.0
-
 #### Inherited from
 
 `EventEmitter.getMaxListeners`
+
+#### Since
+
+v19.9.0
 
 #### Defined in
 
@@ -1423,6 +1423,10 @@ The event name
 
 `number`
 
+#### Inherited from
+
+`EventEmitter.listenerCount`
+
 #### Since
 
 v0.9.12
@@ -1430,10 +1434,6 @@ v0.9.12
 #### Deprecated
 
 Since v3.2.0 - Use `listenerCount` instead.
-
-#### Inherited from
-
-`EventEmitter.listenerCount`
 
 #### Defined in
 
@@ -1540,13 +1540,13 @@ The name of the event being listened for
 
 An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
 
-##### Since
-
-v13.6.0, v12.16.0
-
 ##### Inherited from
 
 `EventEmitter.on`
+
+##### Since
+
+v13.6.0, v12.16.0
 
 ##### Defined in
 
@@ -1673,13 +1673,13 @@ ee.emit('foo'); // Prints: Waiting for the event was canceled!
 
 `Promise`\<`any`[]\>
 
-##### Since
-
-v11.13.0, v10.16.0
-
 ##### Inherited from
 
 `EventEmitter.once`
+
+##### Since
+
+v11.13.0, v10.16.0
 
 ##### Defined in
 
@@ -1736,13 +1736,13 @@ A non-negative number. The maximum number of listeners per `EventTarget` event.
 
 `void`
 
-#### Since
-
-v15.4.0
-
 #### Inherited from
 
 `EventEmitter.setMaxListeners`
+
+#### Since
+
+v15.4.0
 
 #### Defined in
 

@@ -8,9 +8,6 @@
 
 > **setLengthLeft**(`msg`, `length`): `Uint8Array`
 
-Left Pads a `Uint8Array` with leading zeros till it has `length` bytes.
-Or it truncates the beginning if it exceeds.
-
 ## Parameters
 
 • **msg**: `Uint8Array`
