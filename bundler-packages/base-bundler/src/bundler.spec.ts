@@ -264,11 +264,13 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { Contract } from '@tevm/contract'
+				  "code": "import type { Contract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = "TestContract" as const;
 				/**
-				 * TestContract Contract
+				 * TestContract Contract (no bytecode)
+				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
 				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
 				  "modules": {
@@ -349,11 +351,13 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { Contract } from '@tevm/contract'
+				  "code": "import type { Contract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = "TestContract" as const;
 				/**
-				 * TestContract Contract
+				 * TestContract Contract (no bytecode)
+				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
 				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
 				  "modules": {
@@ -438,6 +442,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				} as const
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -521,6 +528,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				} as const
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -604,6 +614,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				}
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -687,6 +700,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				}
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -770,6 +786,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				}
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -853,6 +872,9 @@ describe(bundler.name, () => {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
 				}
+				/**
+				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+				 */
 				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {

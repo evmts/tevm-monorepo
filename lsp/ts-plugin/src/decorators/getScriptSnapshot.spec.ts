@@ -126,7 +126,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld2.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
-			"import { Contract } from 'tevm/contract'
+			"import type { Contract } from 'tevm/contract'
 			const _abiHelloWorld = ["function greet() pure returns (string)"] as const;
 			const _nameHelloWorld = "HelloWorld" as const;
 			/**
