@@ -45,6 +45,7 @@ describe('generateTevmBody', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			module.exports.MyContract = createContract(_MyContract)
 			const _AnotherContract = {
@@ -53,6 +54,7 @@ describe('generateTevmBody', () => {
 			}
 			/**
 			 * MyContract
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			module.exports.AnotherContract = createContract(_AnotherContract)"
 		`)
@@ -68,6 +70,7 @@ describe('generateTevmBody', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {
@@ -76,6 +79,7 @@ describe('generateTevmBody', () => {
 			}
 			/**
 			 * MyContract
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const AnotherContract = createContract(_AnotherContract)"
 		`)
@@ -91,6 +95,7 @@ describe('generateTevmBody', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {
@@ -99,6 +104,7 @@ describe('generateTevmBody', () => {
 			} as const
 			/**
 			 * MyContract
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const AnotherContract = createContract(_AnotherContract)"
 		`)
@@ -110,7 +116,9 @@ describe('generateTevmBody', () => {
 			"const _abiMyContract = [] as const;
 			const _nameMyContract = "MyContract" as const;
 			/**
-			 * MyContract Contract
+			 * MyContract Contract (no bytecode)
+			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
@@ -118,7 +126,9 @@ describe('generateTevmBody', () => {
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = "AnotherContract" as const;
 			/**
-			 * AnotherContract Contract
+			 * AnotherContract Contract (no bytecode)
+			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 * @notice MyContract
 			 */
 			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;"

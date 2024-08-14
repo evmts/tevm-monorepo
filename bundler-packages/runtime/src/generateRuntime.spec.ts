@@ -54,6 +54,7 @@ describe('generateRuntime', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			module.exports.MyContract = createContract(_MyContract)"
 		`)
@@ -66,7 +67,9 @@ describe('generateRuntime', () => {
 			const _abiMyContract = ["constructor() payable"] as const;
 			const _nameMyContract = "MyContract" as const;
 			/**
-			 * MyContract Contract
+			 * MyContract Contract (no bytecode)
+			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
@@ -87,6 +90,7 @@ describe('generateRuntime', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const MyContract = createContract(_MyContract)"
 		`)
@@ -105,6 +109,7 @@ describe('generateRuntime', () => {
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const MyContract = createContract(_MyContract)"
 		`)

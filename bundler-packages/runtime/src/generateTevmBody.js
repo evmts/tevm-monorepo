@@ -35,10 +35,10 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 				if (userdoc.notice) {
 					natspec.unshift(` * ${userdoc.notice}`)
 				}
-				if (natspec.length) {
-					natspec.unshift('/**')
-					natspec.push(' */')
-				}
+				natspec.push(' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation')
+				natspec.unshift('/**')
+				natspec.push(' */')
+
 				if (moduleType === 'cjs') {
 					return [
 						`const _${contractName} = ${contract}`,

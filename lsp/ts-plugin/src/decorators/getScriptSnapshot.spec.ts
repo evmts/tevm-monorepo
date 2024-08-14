@@ -130,13 +130,17 @@ describe(getScriptSnapshotDecorator.name, () => {
 			const _abiHelloWorld = ["function greet() pure returns (string)"] as const;
 			const _nameHelloWorld = "HelloWorld" as const;
 			/**
-			 * HelloWorld Contract
+			 * HelloWorld Contract (no bytecode)
+			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const HelloWorld: Contract<typeof _nameHelloWorld, typeof _abiHelloWorld, undefined, undefined, undefined, undefined>;
 			const _abiHelloWorld2 = ["function greet2() pure returns (string)"] as const;
 			const _nameHelloWorld2 = "HelloWorld2" as const;
 			/**
-			 * HelloWorld2 Contract
+			 * HelloWorld2 Contract (no bytecode)
+			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
 			export const HelloWorld2: Contract<typeof _nameHelloWorld2, typeof _abiHelloWorld2, undefined, undefined, undefined, undefined>;"
 		`)
