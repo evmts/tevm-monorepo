@@ -7,13 +7,13 @@ import { generateTevmBody } from './generateTevmBody.js'
 const importsByModuleType = (contractPackage) => ({
 	contract: {
 		cjs: `const { createContract } = require('${contractPackage}')`,
-		dts: `import { Contract } from '${contractPackage}'`,
+		dts: `import type { Contract } from '${contractPackage}'`,
 		ts: `import { createContract } from '${contractPackage}'`,
 		mjs: `import { createContract } from '${contractPackage}'`,
 	},
 	script: {
 		cjs: `const { createContract } = require('${contractPackage}')`,
-		dts: `import { Contract } from '${contractPackage}'`,
+		dts: `import type { Contract } from '${contractPackage}'`,
 		ts: `import { createContract } from '${contractPackage}'`,
 		mjs: `import { createContract } from '${contractPackage}'`,
 	},

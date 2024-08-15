@@ -63,7 +63,7 @@ describe('generateRuntime', () => {
 	it('should handle dts module type', () => {
 		const result = runSync(generateRuntime(artifacts, 'dts', false, '@tevm/contract'))
 		expect(result).toMatchInlineSnapshot(`
-			"import { Contract } from '@tevm/contract'
+			"import type { Contract } from '@tevm/contract'
 			const _abiMyContract = ["constructor() payable"] as const;
 			const _nameMyContract = "MyContract" as const;
 			/**
