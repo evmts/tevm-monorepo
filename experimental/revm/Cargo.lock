@@ -946,21 +946,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rtevm"
-version = "0.1.0"
-dependencies = [
- "bn-rs",
- "bytes",
- "getrandom",
- "hex",
- "js-sys",
- "primitive-types",
- "revm",
- "ruint",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "rfc6979"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -987,6 +972,21 @@ checksum = "bb919243f34364b6bd2fc10ef797edbfa75f33c252e7998527479c6d6b47e1ec"
 dependencies = [
  "bytes",
  "rustc-hex",
+]
+
+[[package]]
+name = "rtevm"
+version = "0.1.0"
+dependencies = [
+ "bn-rs",
+ "bytes",
+ "getrandom",
+ "hex",
+ "js-sys",
+ "primitive-types",
+ "revm",
+ "ruint",
+ "wasm-bindgen",
 ]
 
 [[package]]
