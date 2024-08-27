@@ -48,7 +48,7 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"@openzeppelin/contracts": "^5.0.2",
+		"@openzeppelin/contracts": "^4.x.x",
 		"@testing-library/react": "^16.0.0",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
