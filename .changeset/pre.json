@@ -65,13 +65,13 @@
     "@tevm/trie": "0.0.1",
     "@tevm/tx": "0.0.1",
     "@tevm/txpool": "0.0.1",
-    "@tevm/scripts": "1.0.0",
+    "@tevm/scripts": "0.0.0",
     "@tevm/test-utils": "0.0.1",
     "mdt-repro": "0.0.1",
     "@tevm/receipt-manager": "0.0.1",
     "@tevm/address": "0.0.1",
     "tevm-run": "0.0.1",
-    "@tevm/whatsabi": "1.1.0-next.96"
+    "@tevm/whatsabi": "0.1.0-next.96"
   },
   "changesets": [
     "afraid-apples-turn",
