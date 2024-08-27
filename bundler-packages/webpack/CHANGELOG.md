@@ -1,5 +1,11 @@
 # @tevm/plugin
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- @tevm/unplugin@1.0.0-next.108
+
 ## 2.0.0-next.103
 
 ### Patch Changes

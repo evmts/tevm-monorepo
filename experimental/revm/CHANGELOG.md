@@ -1,5 +1,11 @@
 # @tevm/revm
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- dc51d4c: Fixed wasm build in release for tevm/revm
+
 ## 2.0.0-next.80
 
 ### Patch Changes

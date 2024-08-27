@@ -1,5 +1,5 @@
 ---
-"@tevm/contract": major
+"@tevm/contract": minor
 ---
 
 - Changed name of `TevmContract` to `Contract` 

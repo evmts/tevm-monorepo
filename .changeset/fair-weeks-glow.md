@@ -4,7 +4,7 @@
 "@tevm/state": patch
 ---
 
-Made major improvements to tevm performance
+Made minor improvements to tevm performance
 
 before: 2.38s
 after: 0.83s

@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/ethers",
-	"version": "0.0.0-next.107",
+	"version": "1.0.0-next.108",
 	"private": false,
 	"description": "A collection of ethers.js utilities for working with Tevm",
 	"keywords": [

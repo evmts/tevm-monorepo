@@ -1,5 +1,17 @@
 # @tevm/cli
 
+## 1.0.0-next.108
+
+### Minor Changes
+
+- eec8690: Added tevm cli to top level package
+
+### Patch Changes
+
+- @tevm/actions@1.0.0-next.108
+- @tevm/memory-client@1.0.0-next.108
+- @tevm/server@1.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

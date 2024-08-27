@@ -1,5 +1,13 @@
 # @tevm/base
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies [7eebe33]
+- Updated dependencies [35f2d5e]
+  - @tevm/runtime@1.0.0-next.108
+
 ## 2.0.0-next.103
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @tevm/test-utils
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- @tevm/ts-plugin@1.0.0-next.108
+- @tevm/esbuild-plugin@1.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

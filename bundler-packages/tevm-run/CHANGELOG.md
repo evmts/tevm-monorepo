@@ -1,5 +1,14 @@
 # tevm-run
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies [bcf524e]
+- Updated dependencies [eec8690]
+  - tevm@1.0.0-next.108
+  - @tevm/bun-plugin@1.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

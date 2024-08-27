@@ -1,5 +1,41 @@
 # @tevm/contract
 
+## 1.0.0-next.108
+
+### Minor Changes
+
+- eec8690: Added tevm cli to top level package
+
+### Patch Changes
+
+- bcf524e: Added tevm gen command to main tevm package
+- Updated dependencies [eec8690]
+  - @tevm/cli@1.0.0-next.108
+  - @tevm/base-bundler@1.0.0-next.108
+  - @tevm/bun-plugin@1.0.0-next.108
+  - @tevm/ts-plugin@1.0.0-next.108
+  - @tevm/precompiles@1.0.0-next.108
+  - @tevm/esbuild-plugin@1.0.0-next.108
+  - @tevm/rollup-plugin@1.0.0-next.108
+  - @tevm/rspack-plugin@1.0.0-next.108
+  - @tevm/vite-plugin@1.0.0-next.108
+  - @tevm/webpack-plugin@1.0.0-next.108
+  - @tevm/viem@1.0.0-next.108
+  - @tevm/actions@1.0.0-next.108
+  - @tevm/blockchain@0.0.0-next.107
+  - @tevm/http-client@1.0.0-next.108
+  - @tevm/memory-client@1.0.0-next.108
+  - @tevm/node@1.0.0-next.108
+  - @tevm/procedures@1.0.0-next.108
+  - @tevm/server@1.0.0-next.108
+  - @tevm/state@1.0.0-next.108
+  - @tevm/client-types@0.0.0-next.107
+  - @tevm/decorators@1.0.0-next.108
+  - @tevm/evm@1.0.0-next.108
+  - @tevm/sync-storage-persister@1.0.0-next.108
+  - @tevm/txpool@1.0.0-next.108
+  - @tevm/vm@1.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

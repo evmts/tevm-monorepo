@@ -1,5 +1,12 @@
 # @tevm/runtime
 
+## 1.0.0-next.108
+
+### Patch Changes
+
+- 7eebe33: Changed the import type of Contract in generated files to include an explicit `type` modifier
+- 35f2d5e: Added natspec comments to contract imports linking to documentation
+
 ## 1.1.0-next.96
 
 ### Patch Changes
