@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/blockchain@0.0.0-next.107
+  - @tevm/state@2.0.0-next.108
+  - @tevm/evm@2.0.0-next.108
+  - @tevm/sync-storage-persister@2.0.0-next.108
+  - @tevm/txpool@2.0.0-next.108
+  - @tevm/vm@2.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

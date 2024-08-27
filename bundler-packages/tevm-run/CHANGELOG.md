@@ -1,5 +1,13 @@
 # tevm-run
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies [[`bcf524e`](https://github.com/evmts/tevm-monorepo/commit/bcf524e78358e6879ef224e089d809ca71cc5f29), [`eec8690`](https://github.com/evmts/tevm-monorepo/commit/eec86902726d9c52accdd574d68d302c2d2541ca)]:
+  - tevm@2.0.0-next.108
+  - @tevm/bun-plugin@2.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

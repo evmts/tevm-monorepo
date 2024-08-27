@@ -1,5 +1,13 @@
 # @tevm/runtime
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- [#1382](https://github.com/evmts/tevm-monorepo/pull/1382) [`7eebe33`](https://github.com/evmts/tevm-monorepo/commit/7eebe337dc38f0e895f3d7178cc313c73408d669) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed the import type of Contract in generated files to include an explicit `type` modifier
+
+- [#1380](https://github.com/evmts/tevm-monorepo/pull/1380) [`35f2d5e`](https://github.com/evmts/tevm-monorepo/commit/35f2d5ec83639f60b118e603fda6986a113f1b97) Thanks [@roninjin10](https://github.com/roninjin10)! - Added natspec comments to contract imports linking to documentation
+
 ## 1.1.0-next.96
 
 ### Patch Changes

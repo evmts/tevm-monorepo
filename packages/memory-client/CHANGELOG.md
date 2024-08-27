@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/actions@2.0.0-next.108
+  - @tevm/node@2.0.0-next.108
+  - @tevm/procedures@2.0.0-next.108
+  - @tevm/decorators@2.0.0-next.108
+  - @tevm/evm@2.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

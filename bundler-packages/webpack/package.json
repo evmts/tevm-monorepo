@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/webpack-plugin",
-	"version": "0.0.0-next.103",
+	"version": "2.0.0-next.108",
 	"private": false,
 	"description": "A webpack plugin for tevm",
 	"keywords": [

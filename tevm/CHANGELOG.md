@@ -1,5 +1,42 @@
 # @tevm/contract
 
+## 2.0.0-next.108
+
+### Minor Changes
+
+- [#1377](https://github.com/evmts/tevm-monorepo/pull/1377) [`eec8690`](https://github.com/evmts/tevm-monorepo/commit/eec86902726d9c52accdd574d68d302c2d2541ca) Thanks [@roninjin10](https://github.com/roninjin10)! - Added tevm cli to top level package
+
+### Patch Changes
+
+- [#1392](https://github.com/evmts/tevm-monorepo/pull/1392) [`bcf524e`](https://github.com/evmts/tevm-monorepo/commit/bcf524e78358e6879ef224e089d809ca71cc5f29) Thanks [@roninjin10](https://github.com/roninjin10)! - Added tevm gen command to main tevm package
+
+- Updated dependencies [[`eec8690`](https://github.com/evmts/tevm-monorepo/commit/eec86902726d9c52accdd574d68d302c2d2541ca)]:
+  - @tevm/cli@2.0.0-next.108
+  - @tevm/base-bundler@2.0.0-next.108
+  - @tevm/bun-plugin@2.0.0-next.108
+  - @tevm/ts-plugin@2.0.0-next.108
+  - @tevm/precompiles@2.0.0-next.108
+  - @tevm/esbuild-plugin@2.0.0-next.108
+  - @tevm/rollup-plugin@2.0.0-next.108
+  - @tevm/rspack-plugin@2.0.0-next.108
+  - @tevm/vite-plugin@2.0.0-next.108
+  - @tevm/webpack-plugin@2.0.0-next.108
+  - @tevm/viem@2.0.0-next.108
+  - @tevm/actions@2.0.0-next.108
+  - @tevm/blockchain@0.0.0-next.107
+  - @tevm/http-client@2.0.0-next.108
+  - @tevm/memory-client@2.0.0-next.108
+  - @tevm/node@2.0.0-next.108
+  - @tevm/procedures@2.0.0-next.108
+  - @tevm/server@2.0.0-next.108
+  - @tevm/state@2.0.0-next.108
+  - @tevm/client-types@0.0.0-next.107
+  - @tevm/decorators@2.0.0-next.108
+  - @tevm/evm@2.0.0-next.108
+  - @tevm/sync-storage-persister@2.0.0-next.108
+  - @tevm/txpool@2.0.0-next.108
+  - @tevm/vm@2.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

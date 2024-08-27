@@ -1,5 +1,18 @@
 # @tevm/cli
 
+## 2.0.0-next.108
+
+### Minor Changes
+
+- [#1377](https://github.com/evmts/tevm-monorepo/pull/1377) [`eec8690`](https://github.com/evmts/tevm-monorepo/commit/eec86902726d9c52accdd574d68d302c2d2541ca) Thanks [@roninjin10](https://github.com/roninjin10)! - Added tevm cli to top level package
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/actions@2.0.0-next.108
+  - @tevm/memory-client@2.0.0-next.108
+  - @tevm/server@2.0.0-next.108
+
 ## 2.0.0-next.107
 
 ### Patch Changes

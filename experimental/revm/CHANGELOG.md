@@ -1,5 +1,11 @@
 # @tevm/revm
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- [#1389](https://github.com/evmts/tevm-monorepo/pull/1389) [`dc51d4c`](https://github.com/evmts/tevm-monorepo/commit/dc51d4ca8918f2a6b31214a88c2e3d4eac418e89) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed wasm build in release for tevm/revm
+
 ## 2.0.0-next.80
 
 ### Patch Changes

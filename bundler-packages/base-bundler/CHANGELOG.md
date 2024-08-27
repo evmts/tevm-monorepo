@@ -1,5 +1,12 @@
 # @tevm/base
 
+## 2.0.0-next.108
+
+### Patch Changes
+
+- Updated dependencies [[`7eebe33`](https://github.com/evmts/tevm-monorepo/commit/7eebe337dc38f0e895f3d7178cc313c73408d669), [`35f2d5e`](https://github.com/evmts/tevm-monorepo/commit/35f2d5ec83639f60b118e603fda6986a113f1b97)]:
+  - @tevm/runtime@2.0.0-next.108
+
 ## 2.0.0-next.103
 
 ### Patch Changes
