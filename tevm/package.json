@@ -429,6 +429,7 @@
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
+    "@tevm/bundler-cache": "2.0.0-next.102",
     "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
@@ -459,7 +460,11 @@
     "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
-    "@tevm/webpack-plugin": "workspace:^"
+    "@tevm/webpack-plugin": "workspace:^",
+    "commander": "^12.1.0",
+    "effect": "2.0.0-next.54",
+    "glob": "^11.0.0",
+    "solc": "^0.8.26"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
