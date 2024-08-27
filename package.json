@@ -12,7 +12,7 @@
   ],
   "type": "commonjs",
   "scripts": {
-    "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:wasm",
+    "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app",
     "all:clean": "bun clean && pnpm i && bun allz",
     "all:slow": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=1",
     "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format",
@@ -29,7 +29,7 @@
     "lint:deps": "bunx depcheck && nx run-many --target=lint:deps",
     "lint:package": "nx run-many --target=lint:package",
     "release:check": "changeset status --verbose --since=origin/main",
-    "release:publish": "pnpm install && nx run-many --target=build:dist,build:types,build:wasm --skip-nx-cache && changeset publish",
+    "release:publish": "pnpm install && nx run-many --target=build:dist,build:types --skip-nx-cache && changeset publish",
     "release:version": "changeset version && pnpm install --lockfile-only",
     "sort-package-json": "sort-package-json package.json apps/*/package.json bundler-packages/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json tevm/package.json",
     "sort-package-json:check": "sort-package-json package.json docs/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json && git diff --exit-code tevm/package.json",
