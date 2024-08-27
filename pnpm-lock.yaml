@@ -2411,9 +2411,6 @@ importers:
       '@tevm/bundler-cache':
         specifier: workspace:^
         version: link:../bundler-packages/bundler-cache
-      '@tevm/cli':
-        specifier: workspace:^
-        version: link:../cli
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../packages/client-types

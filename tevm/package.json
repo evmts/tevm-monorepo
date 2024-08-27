@@ -430,7 +430,6 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
-    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
