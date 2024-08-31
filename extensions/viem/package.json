@@ -69,7 +69,7 @@
 		"@tevm/node": "workspace:^"
 	},
 	"devDependencies": {
-		"@ethereumjs/util": "^9.0.3",
+		"@ethereumjs/util": "^9.1.0",
 		"@tevm/actions": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/common": "workspace:^",
@@ -82,7 +82,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.0.4"
+		"abitype": "^1.0.6"
 	},
 	"peerDependencies": {
 		"viem": "^2.14.2"

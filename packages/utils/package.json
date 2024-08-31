@@ -62,10 +62,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^3.0.0",
-		"@ethereumjs/util": "^9.0.3",
+		"@ethereumjs/evm": "^3.1.0",
+		"@ethereumjs/util": "^9.1.0",
 		"@tevm/errors": "workspace:^",
-		"abitype": "^1.0.4"
+		"abitype": "^1.0.6"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
