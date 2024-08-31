@@ -4,11 +4,17 @@ import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
 import { invariant } from '../utils/invariant.js'
 
+// TODO we need to update the syncronous version of this function. This is only if we hadn't completed the issue to make the lsp async yet
+// TODO we made a breaking change to this function will need to update it's other call sites and update tests
+// TODO since there can be more than one sol`` per file we will need to double check the tevm cache can handle that properly
+// TODO since we are making this function now publically available in package index.ts we should refactor it to take an object bag rather than ordered args as is standard in all of tevm
+
 /**
  * Compile the Solidity contract and return its ABI.
  *
  * @template TIncludeAsts
  * @template TIncludeBytecode
+ * @param {string} source
  * @param {string} filePath
  * @param {string} basedir
  * @param {import('@tevm/config').ResolvedCompilerConfig} config
@@ -28,18 +34,21 @@ import { invariant } from '../utils/invariant.js'
  *  logger,
  *  )
  */
-export function compileContractSync(filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) {
+export function compileContractSync(source, filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) {
 	const moduleMap = runSync(
 		moduleFactory(
 			filePath,
-			fao.readFileSync(
-				resolve.sync(filePath, {
-					basedir,
-					readFileSync: (file) => fao.readFileSync(file, 'utf8'),
-					isFile: fao.existsSync,
-				}),
-				'utf8',
-			),
+			// TODO: (low priority) I don't want this ?? I'd rather just force the caller to do that themselves consistently
+			// TODO do we actually need filePath as an argument? I think so but maybe worth double checking
+			source ??
+				fao.readFileSync(
+					resolve.sync(filePath, {
+						basedir,
+						readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+						isFile: fao.existsSync,
+					}),
+					'utf8',
+				),
 			config.remappings,
 			config.libs,
 			fao,

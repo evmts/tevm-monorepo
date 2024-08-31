@@ -1,0 +1,4 @@
+ignores: [
+  "@tevm/contract"
+]
+skip-missing: true

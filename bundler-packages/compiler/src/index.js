@@ -9,3 +9,4 @@
  */
 export { resolveArtifacts } from './resolveArtifacts.js'
 export { resolveArtifactsSync } from './resolveArtifactsSync.js'
+export { compileContract, compileContractSync } from './compiler/index.js'

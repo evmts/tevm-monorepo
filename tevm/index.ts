@@ -1,3 +1,6 @@
+import type { Hex } from "@tevm/actions";
+import type { Contract } from "@tevm/contract";
+
 export type {
 SetAccountParams,
 GetAccountParams,
@@ -203,3 +206,4 @@ type SyncStoragePersister,
 type CreateSyncStoragePersisterOptions,
 type Storage,
 } from "@tevm/sync-storage-persister";
+
