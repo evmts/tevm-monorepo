@@ -1,7 +1,5 @@
 import {
-	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
-	AuthInvalidSError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
 	BLS12381PointNotOnCurveError,
@@ -83,9 +81,7 @@ describe('handleRunTxError', () => {
 	describe('should handle specific EvmError subclasses', () => {
 		const errorCases = [
 			InvalidJumpError,
-			AuthCallNonZeroValueExtError,
 			AuthCallUnsetError,
-			AuthInvalidSError,
 			BLS12381FpNotInFieldError,
 			BLS12381InputEmptyError,
 			BLS12381PointNotOnCurveError,

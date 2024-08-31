@@ -1,11 +1,6 @@
 // index.ts
 
-export {
-	AuthCallNonZeroValueExtError,
-	type AuthCallNonZeroValueExtErrorParameters,
-} from './AuthCallNonZeroValueExtError.js'
 export { AuthCallUnsetError, type AuthCallUnsetErrorParameters } from './AuthCallUnsetError.js'
-export { AuthInvalidSError, type AuthInvalidSErrorParameters } from './AuthInvalidSError.js'
 export { BLS12381FpNotInFieldError, type BLS12381FpNotInFieldErrorParameters } from './BLS12381FpNotInFieldError.js'
 export { BLS12381InputEmptyError, type BLS12381InputEmptyErrorParameters } from './BLS12381InputEmptyError.js'
 export {

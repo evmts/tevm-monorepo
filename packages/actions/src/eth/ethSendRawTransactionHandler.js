@@ -83,7 +83,8 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	 */
 	let tx
 	try {
-		tx = getTx(vm, txBuf)
+		// huh? why did type break?
+		tx = /** @type {any} */ (getTx(vm, txBuf))
 	} catch (e) {
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to parse data')

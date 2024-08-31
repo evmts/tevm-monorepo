@@ -45,12 +45,8 @@ export { UnknownBlockError, type UnknownBlockErrorParameters } from './UnknownBl
 export { UnsupportedChainError, type UnsupportedChainErrorParameters } from './UnsupportedChainError.js'
 export { AccountNotFoundError } from './AccountNotFoundError.js'
 export {
-	AuthCallNonZeroValueExtError,
-	type AuthCallNonZeroValueExtErrorParameters,
 	AuthCallUnsetError,
 	type AuthCallUnsetErrorParameters,
-	AuthInvalidSError,
-	type AuthInvalidSErrorParameters,
 	BLS12381FpNotInFieldError,
 	type BLS12381FpNotInFieldErrorParameters,
 	BLS12381InputEmptyError,

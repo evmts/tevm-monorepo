@@ -20,7 +20,7 @@ import { Address } from './Address.js'
  * // non hex string
  * address = createAddress('55'.repeat(20))
  * ```
- * @param {import("@tevm/utils").AddressLike | number | bigint} address
+ * @param {import("@tevm/utils").AddressLike | number | bigint | string} address
  * @returns {import('./Address.js').Address}
  * @throws {InvalidAddressError} if the input is not a valid address}
  */
