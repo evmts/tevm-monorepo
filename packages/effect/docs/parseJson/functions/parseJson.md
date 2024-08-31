@@ -8,8 +8,6 @@
 
 > **parseJson**(`jsonStr`): `Effect`\<`never`, [`ParseJsonError`](../classes/ParseJsonError.md), `unknown`\>
 
-Parses a json string
-
 ## Parameters
 
 • **jsonStr**: `string`
@@ -17,17 +15,6 @@ Parses a json string
 ## Returns
 
 `Effect`\<`never`, [`ParseJsonError`](../classes/ParseJsonError.md), `unknown`\>
-
-## Throws
-
-when the tevm.json file is not valid json
-
-## Example
-
-```ts
-const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
-````
-@internal
 
 ## Defined in
 
