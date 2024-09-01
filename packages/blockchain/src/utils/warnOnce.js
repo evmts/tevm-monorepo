@@ -14,7 +14,7 @@ export const warnOnce = (baseChain) => {
 		}
 		i++
 		baseChain.logger.warn(
-			`Warning: Optimism and arbitrum deposit transactions (type 0x7e) are currently not supported and will be filtered out of blocks until support is added
+			`Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
 filtering out tx ${/** @type {import('viem').RpcBlock}*/ (tx).hash}.
 Note: The block hash will be different because of the excluded txs`,
 		)
