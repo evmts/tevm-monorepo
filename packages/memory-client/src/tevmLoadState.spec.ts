@@ -18,7 +18,7 @@ beforeEach(async () => {
 		transport: createTevmTransport({
 			fork: { transport: transports.optimism },
 		}),
-		chain: optimism
+		chain: optimism,
 	})
 })
 

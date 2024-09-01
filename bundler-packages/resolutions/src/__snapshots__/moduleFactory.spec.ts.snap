@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`moduleFactory > should resolve correctly for case $s 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 2`] = `
 "{
@@ -14,7 +14,7 @@ exports[`moduleFactory > should resolve correctly for case $s 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case $s 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 4`] = `
 "{
@@ -28,7 +28,7 @@ exports[`moduleFactory > should resolve correctly for case $s 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case $s 5`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 5`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 6`] = `
 "{
@@ -41,7 +41,7 @@ exports[`moduleFactory > should resolve correctly for case $s 6`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case $s 7`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 7`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 8`] = `
 "{
@@ -54,7 +54,7 @@ exports[`moduleFactory > should resolve correctly for case $s 8`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case $s 9`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 9`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 10`] = `
 "{
@@ -67,7 +67,7 @@ exports[`moduleFactory > should resolve correctly for case $s 10`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case $s 11`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case $s 11`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case $s 12`] = `
 "{
