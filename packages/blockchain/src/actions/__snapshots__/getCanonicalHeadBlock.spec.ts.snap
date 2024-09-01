@@ -6,8 +6,3 @@ exports[`getCanonicalHeadBlock > should throw an error if not cannonical block 1
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]
 `;
-
-exports[`getCanonicalHeadBlock should throw an error if not cannonical block 1`] = `[InternalError: No cannonical head exists on blockchain
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
