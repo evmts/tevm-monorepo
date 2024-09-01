@@ -1,5 +1,28 @@
 # @tevm/client
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [da74460]
+- Updated dependencies [4c9746e]
+  - @tevm/common@1.0.0-next.109
+  - @tevm/blockchain@1.0.0-next.109
+  - @tevm/address@1.0.0-next.109
+  - @tevm/jsonrpc@1.0.0-next.109
+  - @tevm/logger@1.0.0-next.109
+  - @tevm/state@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+  - @tevm/evm@1.0.0-next.109
+  - @tevm/tx@1.0.0-next.109
+  - @tevm/vm@1.0.0-next.109
+  - @tevm/block@1.0.0-next.109
+  - @tevm/receipt-manager@1.0.0-next.109
+  - @tevm/txpool@1.0.0-next.109
+  - @tevm/predeploys@1.0.0-next.109
+  - @tevm/sync-storage-persister@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @tevm/client-types
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- Updated dependencies [4c9746e]
+  - @tevm/utils@1.0.0-next.109
+
 ## 2.0.0-next.107
 
 ### Patch Changes

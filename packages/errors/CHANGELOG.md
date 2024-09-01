@@ -1,5 +1,11 @@
 # @tevm/errors
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+
 ## 2.0.0-next.105
 
 ### Minor Changes

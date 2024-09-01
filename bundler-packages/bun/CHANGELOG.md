@@ -1,5 +1,15 @@
 # @tevm/bun-plugin
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- Updated dependencies [4c9746e]
+  - @tevm/bundler-cache@1.0.0-next.109
+  - @tevm/base-bundler@1.0.0-next.109
+  - @tevm/config@1.0.0-next.109
+  - @tevm/solc@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Patch Changes

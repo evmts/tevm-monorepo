@@ -1,5 +1,14 @@
 # @tevm/base
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [4c9746e]
+  - @tevm/compiler@1.0.0-next.109
+  - @tevm/tsupconfig@1.0.0-next.109
+
 ## 2.0.0-next.102
 
 ### Patch Changes
