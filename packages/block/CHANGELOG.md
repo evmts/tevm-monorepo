@@ -1,5 +1,18 @@
 # @tevm/state
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- Updated dependencies [da74460]
+- Updated dependencies [4c9746e]
+  - @tevm/common@1.0.0-next.109
+  - @tevm/errors@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+  - @tevm/trie@1.0.0-next.109
+  - @tevm/tx@1.0.0-next.109
+  - @tevm/rlp@0.0.0-next.100
+
 ## 2.0.0-next.107
 
 ### Patch Changes

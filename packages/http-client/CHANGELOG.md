@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [4c9746e]
+  - @tevm/memory-client@1.0.0-next.109
+  - @tevm/contract@1.0.0-next.109
+  - @tevm/viem@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Patch Changes

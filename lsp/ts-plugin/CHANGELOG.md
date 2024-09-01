@@ -1,5 +1,14 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [4c9746e]
+  - @tevm/bundler-cache@1.0.0-next.109
+  - @tevm/base-bundler@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Patch Changes
