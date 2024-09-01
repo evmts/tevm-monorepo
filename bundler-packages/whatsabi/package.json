@@ -62,8 +62,10 @@
   "dependencies": {
     "@shazow/whatsabi": "^0.14.0",
     "@tevm/config": "workspace:^",
-    "@tevm/utils": "workspace:^",
-    "viem": "^2.19.3"
+    "@tevm/utils": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.21.1"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
