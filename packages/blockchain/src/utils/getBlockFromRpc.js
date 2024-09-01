@@ -30,7 +30,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 						// we currently don't support optimism deposit tx which uses this custom code
 						// Optimism type is currently not in viem types
 						// @ts-expect-error
-						if (tx.type === '0x7e') {
+						if (tx.type === '0x7e' || tx.type === '0x6a') {
 							doWarning(tx)
 							return false
 						}
