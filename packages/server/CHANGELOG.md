@@ -1,5 +1,19 @@
 # @tevm/server
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [da74460]
+- Updated dependencies [4c9746e]
+  - @tevm/common@1.0.0-next.109
+  - @tevm/memory-client@1.0.0-next.109
+  - @tevm/decorators@1.0.0-next.109
+  - @tevm/jsonrpc@1.0.0-next.109
+  - @tevm/errors@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Patch Changes

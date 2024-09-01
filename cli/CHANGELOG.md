@@ -1,5 +1,18 @@
 # @tevm/cli
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- Updated dependencies [da74460]
+- Updated dependencies [4c9746e]
+  - @tevm/common@1.0.0-next.109
+  - @tevm/memory-client@1.0.0-next.109
+  - @tevm/actions@1.0.0-next.109
+  - @tevm/jsonrpc@1.0.0-next.109
+  - @tevm/server@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Minor Changes

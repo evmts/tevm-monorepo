@@ -1,5 +1,27 @@
 # @tevm/state
 
+## 1.0.0-next.109
+
+### Minor Changes
+
+- da74460: Added support for more networks to tevm/common
+  - arbitrum
+  - avalanche
+  - blast
+  - manta
+  - mantle
+  - polygon
+  - redstone
+  - scroll
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [4c9746e]
+  - @tevm/errors@1.0.0-next.109
+  - @tevm/logger@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+
 ## 2.0.0-next.107
 
 ### Patch Changes

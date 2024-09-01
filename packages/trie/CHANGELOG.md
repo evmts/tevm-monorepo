@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+
 ## 1.1.0-next.100
 
 ### Patch Changes

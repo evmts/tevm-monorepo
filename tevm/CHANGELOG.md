@@ -1,5 +1,51 @@
 # @tevm/contract
 
+## 1.0.0-next.109
+
+### Patch Changes
+
+- 4c9746e: Upgrade all dependencies to latest
+- Updated dependencies [da74460]
+- Updated dependencies [4c9746e]
+  - @tevm/common@1.0.0-next.109
+  - @tevm/bundler-cache@1.0.0-next.109
+  - @tevm/base-bundler@1.0.0-next.109
+  - @tevm/compiler@1.0.0-next.109
+  - @tevm/esbuild-plugin@1.0.0-next.109
+  - @tevm/config@1.0.0-next.109
+  - @tevm/memory-client@1.0.0-next.109
+  - @tevm/solc@1.0.0-next.109
+  - @tevm/http-client@1.0.0-next.109
+  - @tevm/precompiles@1.0.0-next.109
+  - @tevm/blockchain@1.0.0-next.109
+  - @tevm/decorators@1.0.0-next.109
+  - @tevm/contract@1.0.0-next.109
+  - @tevm/actions@1.0.0-next.109
+  - @tevm/address@1.0.0-next.109
+  - @tevm/jsonrpc@1.0.0-next.109
+  - @tevm/viem@1.0.0-next.109
+  - @tevm/errors@1.0.0-next.109
+  - @tevm/server@1.0.0-next.109
+  - @tevm/state@1.0.0-next.109
+  - @tevm/utils@1.0.0-next.109
+  - @tevm/ts-plugin@1.0.0-next.109
+  - @tevm/node@1.0.0-next.109
+  - @tevm/evm@1.0.0-next.109
+  - @tevm/tx@1.0.0-next.109
+  - @tevm/vm@1.0.0-next.109
+  - @tevm/block@1.0.0-next.109
+  - @tevm/procedures@1.0.0-next.109
+  - @tevm/receipt-manager@1.0.0-next.109
+  - @tevm/txpool@1.0.0-next.109
+  - @tevm/bun-plugin@1.0.0-next.109
+  - @tevm/rollup-plugin@1.0.0-next.109
+  - @tevm/rspack-plugin@1.0.0-next.109
+  - @tevm/vite-plugin@1.0.0-next.109
+  - @tevm/webpack-plugin@1.0.0-next.109
+  - @tevm/client-types@1.0.0-next.109
+  - @tevm/predeploys@1.0.0-next.109
+  - @tevm/sync-storage-persister@1.0.0-next.109
+
 ## 1.0.0-next.108
 
 ### Minor Changes
