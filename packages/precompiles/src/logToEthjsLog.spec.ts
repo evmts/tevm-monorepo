@@ -20,7 +20,7 @@ describe('logToEthjsLog', () => {
 			abi,
 			eventName: log.eventName,
 			args: log.args,
-		}).map((topic) => hexToBytes(topic))
+		}).map((topic) => hexToBytes(topic as `0x${string}`))
 		const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName)
 		const data = encodeAbiParameters(eventItem?.inputs as any, Object.values(log.args))
 
@@ -58,7 +58,7 @@ describe('logToEthjsLog', () => {
 			abi: abi,
 			eventName: log.eventName,
 			args: log.args,
-		}).map((topic) => hexToBytes(topic))
+		}).map((topic) => hexToBytes(topic as `0x${string}`))
 		const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName)
 		if (!eventItem) throw new Error('Event not found in ABI')
 		const data = encodeAbiParameters(eventItem.inputs, [] as any)
