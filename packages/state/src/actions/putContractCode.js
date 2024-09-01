@@ -12,6 +12,8 @@ export const putContractCode = (baseState) => async (address, value) => {
 	await putAccount(baseState)(
 		address,
 		EthjsAccount.fromAccountData({
+			nonce: account?.nonce ?? 0n,
+			balance: account?.balance ?? 0n,
 			...account,
 			codeHash: keccak256(value, 'bytes'),
 		}),

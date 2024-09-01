@@ -10,8 +10,8 @@ describe(getAccountFromProvider.name, () => {
 		const state = createBaseState({ fork: { transport: transports.optimism, blockTag: 123468305n } })
 		expect(await getAccountFromProvider(state)(address)).toMatchInlineSnapshot(`
 			Account {
-			  "balance": 0n,
-			  "codeHash": Uint8Array [
+			  "_balance": 0n,
+			  "_codeHash": Uint8Array [
 			    133,
 			    81,
 			    217,
@@ -45,8 +45,9 @@ describe(getAccountFromProvider.name, () => {
 			    224,
 			    127,
 			  ],
-			  "nonce": 1n,
-			  "storageRoot": Uint8Array [
+			  "_codeSize": null,
+			  "_nonce": 1n,
+			  "_storageRoot": Uint8Array [
 			    92,
 			    82,
 			    93,
@@ -80,6 +81,7 @@ describe(getAccountFromProvider.name, () => {
 			    159,
 			    77,
 			  ],
+			  "_version": 0,
 			}
 		`)
 	})

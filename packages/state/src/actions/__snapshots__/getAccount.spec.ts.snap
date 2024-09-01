@@ -2,8 +2,8 @@
 
 exports[`getAccount forking > Should fetch account from remote provider if not in cache and fork transport is provided 1`] = `
 Account {
-  "balance": 121136012589291788664n,
-  "codeHash": Uint8Array [
+  "_balance": 121136012589291788664n,
+  "_codeHash": Uint8Array [
     197,
     210,
     70,
@@ -37,8 +37,9 @@ Account {
     164,
     112,
   ],
-  "nonce": 654430n,
-  "storageRoot": Uint8Array [
+  "_codeSize": 0,
+  "_nonce": 654430n,
+  "_storageRoot": Uint8Array [
     86,
     232,
     31,
@@ -72,13 +73,14 @@ Account {
     180,
     33,
   ],
+  "_version": 0,
 }
 `;
 
 exports[`getAccount forking > Should fetch account from remote provider if not in cache and fork transport is provided 2`] = `
 Account {
-  "balance": 121136012589291788664n,
-  "codeHash": Uint8Array [
+  "_balance": 121136012589291788664n,
+  "_codeHash": Uint8Array [
     197,
     210,
     70,
@@ -112,8 +114,9 @@ Account {
     164,
     112,
   ],
-  "nonce": 654430n,
-  "storageRoot": Uint8Array [
+  "_codeSize": 0,
+  "_nonce": 654430n,
+  "_storageRoot": Uint8Array [
     86,
     232,
     31,
@@ -147,5 +150,6 @@ Account {
     180,
     33,
   ],
+  "_version": 0,
 }
 `;

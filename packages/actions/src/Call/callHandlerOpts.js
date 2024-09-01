@@ -96,7 +96,7 @@ export const callHandlerOpts = async (client, params) => {
 
 	// handle state overrides
 	if (params.stateOverrideSet) {
-		client.logger.debug(params.stateOverrideSet, 'callHandlerOpts: Detected a stateOverrideSet')
+		console.log(params.stateOverrideSet, 'callHandlerOpts: Detected a stateOverrideSet')
 		for (const [address, state] of Object.entries(params.stateOverrideSet)) {
 			const res = await setAccountHandler(client)({
 				address: /** @type import('@tevm/utils').Address*/ (address),
