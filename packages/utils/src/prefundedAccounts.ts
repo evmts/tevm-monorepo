@@ -1,4 +1,4 @@
-import { privateKeyToAccount } from 'viem/accounts'
+import { type PrivateKeyAccount, privateKeyToAccount } from 'viem/accounts'
 
 export const PREFUNDED_PRIVATE_KEYS = [
 	'0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', // 0
@@ -26,7 +26,18 @@ export const PREFUNDED_PUBLIC_KEYS = [
 	'0xa0Ee7A142d267C1f36714E4a8F75612F20a79720', // 9
 ] as const
 
-export const PREFUNDED_ACCOUNTS = [
+export const PREFUNDED_ACCOUNTS: [
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+	PrivateKeyAccount,
+] = [
 	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
 	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[1]),
 	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[2]),

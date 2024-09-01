@@ -11,20 +11,6 @@ The result type for a TEVM contract call.
 
 This type extends the `CallResult` type with additional contract-specific fields, and it supports both success and error states.
 
-## Type Parameters
-
-• **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
-
-The ABI type.
-
-• **TFunctionName** *extends* [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **ErrorType** = [`TevmContractError`](/reference/tevm/actions/type-aliases/tevmcontracterror/)
-
-The error type.
-
 ## Example
 
 ```typescript
@@ -58,6 +44,20 @@ if (result.errors) {
 ## See
 
 [CallResult](../../../../../../../reference/tevm/actions/type-aliases/callresult)
+
+## Type Parameters
+
+• **TAbi** *extends* [`Abi`](/reference/tevm/actions/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/actions/type-aliases/abi/)
+
+The ABI type.
+
+• **TFunctionName** *extends* [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **ErrorType** = [`TevmContractError`](/reference/tevm/actions/type-aliases/tevmcontracterror/)
+
+The error type.
 
 ## Defined in
 

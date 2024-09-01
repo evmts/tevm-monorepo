@@ -20,154 +20,164 @@ and not all the values are present on all tx types
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:360
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:401
+
+***
+
+### authorizationList?
+
+> `optional` **authorizationList**: `AuthorizationList`
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:402
 
 ***
 
 ### blobVersionedHashes?
 
-> `optional` **blobVersionedHashes**: `string`[]
+> `optional` **blobVersionedHashes**: \`0x$\{string\}\`[]
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:365
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:407
 
 ***
 
 ### chainId?
 
-> `optional` **chainId**: `string`
+> `optional` **chainId**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:359
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:400
 
 ***
 
 ### data?
 
-> `optional` **data**: `string`
+> `optional` **data**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:354
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:395
 
 ***
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `string`
+> `optional` **gasLimit**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:352
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:393
 
 ***
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `string`
+> `optional` **gasPrice**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:351
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:392
 
 ***
 
 ### maxFeePerBlobGas?
 
-> `optional` **maxFeePerBlobGas**: `string`
+> `optional` **maxFeePerBlobGas**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:364
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:406
 
 ***
 
 ### maxFeePerGas?
 
-> `optional` **maxFeePerGas**: `string`
+> `optional` **maxFeePerGas**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:363
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:405
 
 ***
 
 ### maxPriorityFeePerGas?
 
-> `optional` **maxPriorityFeePerGas**: `string`
+> `optional` **maxPriorityFeePerGas**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:362
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:404
 
 ***
 
 ### nonce?
 
-> `optional` **nonce**: `string`
+> `optional` **nonce**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:350
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:391
 
 ***
 
 ### r?
 
-> `optional` **r**: `string`
+> `optional` **r**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:356
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:397
 
 ***
 
 ### s?
 
-> `optional` **s**: `string`
+> `optional` **s**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:357
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:398
 
 ***
 
 ### to?
 
-> `optional` **to**: `string`
+> `optional` **to**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:353
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:394
 
 ***
 
 ### type?
 
-> `optional` **type**: `string`
+> `optional` **type**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:361
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:403
 
 ***
 
 ### v?
 
-> `optional` **v**: `string`
+> `optional` **v**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:355
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:396
 
 ***
 
 ### value?
 
-> `optional` **value**: `string`
+> `optional` **value**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:358
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:399

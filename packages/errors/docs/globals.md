@@ -8,9 +8,7 @@
 
 - [AccountLockedError](classes/AccountLockedError.md)
 - [AccountNotFoundError](classes/AccountNotFoundError.md)
-- [AuthCallNonZeroValueExtError](classes/AuthCallNonZeroValueExtError.md)
 - [AuthCallUnsetError](classes/AuthCallUnsetError.md)
-- [AuthInvalidSError](classes/AuthInvalidSError.md)
 - [BLS12381FpNotInFieldError](classes/BLS12381FpNotInFieldError.md)
 - [BLS12381InputEmptyError](classes/BLS12381InputEmptyError.md)
 - [BLS12381InvalidInputLengthError](classes/BLS12381InvalidInputLengthError.md)
@@ -127,9 +125,7 @@
 ## Interfaces
 
 - [AccountLockedErrorParameters](interfaces/AccountLockedErrorParameters.md)
-- [AuthCallNonZeroValueExtErrorParameters](interfaces/AuthCallNonZeroValueExtErrorParameters.md)
 - [AuthCallUnsetErrorParameters](interfaces/AuthCallUnsetErrorParameters.md)
-- [AuthInvalidSErrorParameters](interfaces/AuthInvalidSErrorParameters.md)
 - [BLS12381FpNotInFieldErrorParameters](interfaces/BLS12381FpNotInFieldErrorParameters.md)
 - [BLS12381InputEmptyErrorParameters](interfaces/BLS12381InputEmptyErrorParameters.md)
 - [BLS12381InvalidInputLengthErrorParameters](interfaces/BLS12381InvalidInputLengthErrorParameters.md)

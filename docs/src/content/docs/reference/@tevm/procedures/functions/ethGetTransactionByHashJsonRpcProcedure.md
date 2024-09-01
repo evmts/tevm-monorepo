@@ -7,8 +7,6 @@ title: "ethGetTransactionByHashJsonRpcProcedure"
 
 > **ethGetTransactionByHashJsonRpcProcedure**(`client`): [`EthGetTransactionByHashJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactionbyhashjsonrpcprocedure/)
 
-Request handler for eth_getTransactionByHash JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,4 +17,4 @@ Request handler for eth_getTransactionByHash JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethGetTransactionByHashProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByHashProcedure.js#L10)
+[packages/procedures/src/eth/ethGetTransactionByHashProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByHashProcedure.js#L10)

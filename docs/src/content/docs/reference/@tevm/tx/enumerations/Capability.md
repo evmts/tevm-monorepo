@@ -19,7 +19,7 @@ See: [1559](https://eips.ethereum.org/EIPS/eip-1559) Fee Market EIP
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:22
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:23
 
 ***
 
@@ -32,7 +32,7 @@ See: [155](https://eips.ethereum.org/EIPS/eip-155) Replay Attack Protection EIP
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:17
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:18
 
 ***
 
@@ -45,7 +45,7 @@ See: [2718](https://eips.ethereum.org/EIPS/eip-2718) Transaction Type EIP
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:27
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:28
 
 ***
 
@@ -58,4 +58,17 @@ See: [2930](https://eips.ethereum.org/EIPS/eip-2930) Access Lists EIP
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:32
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:33
+
+***
+
+### EIP7702EOACode
+
+> **EIP7702EOACode**: `7702`
+
+Tx supports setting EOA code
+See [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702)
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:38

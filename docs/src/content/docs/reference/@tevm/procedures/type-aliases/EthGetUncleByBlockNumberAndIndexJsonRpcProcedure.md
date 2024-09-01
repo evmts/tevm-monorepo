@@ -17,4 +17,4 @@ title: "EthGetUncleByBlockNumberAndIndexJsonRpcProcedure"
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L171)
+[packages/procedures/src/eth/EthProcedure.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L171)

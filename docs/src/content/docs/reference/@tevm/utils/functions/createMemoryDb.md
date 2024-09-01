@@ -20,8 +20,6 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 [`MemoryDb`](/reference/tevm/utils/type-aliases/memorydb/)\<`Uint8Array`, `Uint8Array`\>
 
-## Throws
-
 ## Defined in
 
 [packages/utils/src/createMemoryDb.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L22)

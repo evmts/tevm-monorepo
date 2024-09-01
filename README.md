@@ -54,11 +54,9 @@ Tevm is modular, easy to pick up, and built on top of [viem](https://viem.sh).
 
 Tevm consists of the following modular tools:
 
-- [MemoryClient](https://tevm.sh/learn/clients/): An [anvil-like](https://github.com/foundry-rs/foundry/tree/master/crates/anvil) client built on top of viem and specially crafted for TypeScript applications and tests.
-- [TevmBundler](https://tevm.sh/learn/solidity-imports/): A [JavaScript bundler](https://www.youtube.com/watch?v=5IG4UmULyoA) that allows you to build your contracts using Webpack, Vite, ESBuild, Bun, and other major bundlers.
-- [TevmLSP](https://tevm.sh/learn/solidity-imports/#lsp): Brings Solidity awareness to all major editors for full end-to-end contract-to-TypeScript type safety.
-- [Contracts](https://tevm.sh/learn/contracts/): A lightweight interface for interacting with contracts using Tevm, Viem, and Wagmi.
-- [Scripting](https://tevm.sh/learn/scripting/): Similar to [Foundry scripting](https://book.getfoundry.sh/tutorials/solidity-scripting), allowing you to execute arbitrary Solidity and JavaScript in an easy and type-safe manner.
+- Tevm Devnet
+- Tevm Contracts
+- Tevm Bundler
 
 These tools are modular and can be used by themselves but they also compose very well together with each other and with viem/wagmi.
 

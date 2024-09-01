@@ -19,4 +19,4 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Defined in
 
-[procedures/src/getaccount/GetAccountJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/getaccount/GetAccountJsonRpcProcedure.ts#L7)
+[packages/procedures/src/getaccount/GetAccountJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/getaccount/GetAccountJsonRpcProcedure.ts#L7)

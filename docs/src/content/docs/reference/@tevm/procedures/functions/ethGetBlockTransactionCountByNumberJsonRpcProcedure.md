@@ -7,8 +7,6 @@ title: "ethGetBlockTransactionCountByNumberJsonRpcProcedure"
 
 > **ethGetBlockTransactionCountByNumberJsonRpcProcedure**(`client`): [`EthGetBlockTransactionCountByNumberJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgetblocktransactioncountbynumberjsonrpcprocedure/)
 
-Request handler for eth_getBlockTransactionCountByNumber JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,4 +17,4 @@ Request handler for eth_getBlockTransactionCountByNumber JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethGetBlockTransactionCountByNumberProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetBlockTransactionCountByNumberProcedure.js#L8)
+[packages/procedures/src/eth/ethGetBlockTransactionCountByNumberProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetBlockTransactionCountByNumberProcedure.js#L8)

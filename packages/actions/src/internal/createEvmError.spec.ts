@@ -1,7 +1,5 @@
 import {
-	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
-	AuthInvalidSError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
 	BLS12381PointNotOnCurveError,
@@ -47,7 +45,6 @@ describe('createEvmError', () => {
 		{ error: { error: EvmErrorMessage.INVALID_JUMP }, expected: InvalidJumpError },
 		{ error: { error: EvmErrorMessage.OUT_OF_RANGE }, expected: OutOfRangeError },
 		{ error: { error: EvmErrorMessage.INVALID_PROOF }, expected: InvalidProofError },
-		{ error: { error: EvmErrorMessage.AUTH_INVALID_S }, expected: AuthInvalidSError },
 		{ error: { error: EvmErrorMessage.AUTHCALL_UNSET }, expected: AuthCallUnsetError },
 		{ error: { error: EvmErrorMessage.INTERNAL_ERROR }, expected: InternalError },
 		{ error: { error: EvmErrorMessage.INVALID_INPUTS }, expected: InvalidKzgInputsError },
@@ -67,7 +64,6 @@ describe('createEvmError', () => {
 		{ error: { error: EvmErrorMessage.INITCODE_SIZE_VIOLATION }, expected: InitcodeSizeViolationError },
 		{ error: { error: EvmErrorMessage.INVALID_BYTECODE_RESULT }, expected: InvalidBytecodeResultError },
 		{ error: { error: EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM }, expected: CodeSizeExceedsMaximumError },
-		{ error: { error: EvmErrorMessage.AUTHCALL_NONZERO_VALUEEXT }, expected: AuthCallNonZeroValueExtError },
 		{ error: { error: EvmErrorMessage.BLS_12_381_FP_NOT_IN_FIELD }, expected: BLS12381FpNotInFieldError },
 		{ error: { error: EvmErrorMessage.BLS_12_381_POINT_NOT_ON_CURVE }, expected: BLS12381PointNotOnCurveError },
 	]

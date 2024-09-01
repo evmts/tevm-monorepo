@@ -7,8 +7,6 @@ title: "traceCallHandler"
 
 > **traceCallHandler**(`client`): [`DebugTraceCallHandler`](/reference/tevm/actions/type-aliases/debugtracecallhandler/)
 
-Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

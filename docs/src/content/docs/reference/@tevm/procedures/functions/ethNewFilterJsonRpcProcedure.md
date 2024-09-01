@@ -5,13 +5,11 @@ prev: false
 title: "ethNewFilterJsonRpcProcedure"
 ---
 
-> **ethNewFilterJsonRpcProcedure**(`client`): [`EthNewFilterJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethnewfilterjsonrpcprocedure/)
-
-Request handler for eth_newFilter JSON-RPC requests.
+> **ethNewFilterJsonRpcProcedure**(`tevmNode`): [`EthNewFilterJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethnewfilterjsonrpcprocedure/)
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+• **tevmNode**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -19,4 +17,4 @@ Request handler for eth_newFilter JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethNewFilterProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewFilterProcedure.js#L11)
+[packages/procedures/src/eth/ethNewFilterProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewFilterProcedure.js#L8)

@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_setCode` method
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L69)
+[packages/procedures/src/anvil/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L69)

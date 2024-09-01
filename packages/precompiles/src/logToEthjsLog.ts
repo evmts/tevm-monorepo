@@ -26,7 +26,7 @@ export const logToEthjsLog = <TAbi extends Abi>(
 		abi,
 		eventName: log.eventName,
 		args: log.args,
-	} as any).map((topics) => hexToBytes(topics))
+	} as any).map((topics) => hexToBytes(topics as `0x${string}`))
 	const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName) as AbiEvent
 	const inputs = eventItem.inputs ?? []
 	const argsArray = Array.isArray(log.args)

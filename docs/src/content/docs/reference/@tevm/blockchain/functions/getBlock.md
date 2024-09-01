@@ -7,8 +7,6 @@ title: "getBlock"
 
 > **getBlock**(`baseChain`): (`blockId`) => `Promise`\<[`Block`](/reference/tevm/block/classes/block/)\>
 
-An ethereumjs interface method that accepts a block id number or hash and returns the block
-
 ## Parameters
 
 • **baseChain**: `BaseChain`

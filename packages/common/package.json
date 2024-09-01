@@ -62,7 +62,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/common": "^4.3.0",
+		"@ethereumjs/common": "^4.4.0",
 		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/utils": "workspace:^"
@@ -72,7 +72,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.14.2"
+		"viem": "^2.21.1"
 	},
 	"publishConfig": {
 		"access": "public"

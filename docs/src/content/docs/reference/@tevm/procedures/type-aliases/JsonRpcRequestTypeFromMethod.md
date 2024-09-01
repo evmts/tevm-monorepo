@@ -9,16 +9,16 @@ title: "JsonRpcRequestTypeFromMethod"
 
 Utility type to get the request type given a method name
 
-## Type Parameters
-
-• **TMethod** *extends* keyof [`EthRequestType`](/reference/tevm/procedures/type-aliases/ethrequesttype/) \| keyof [`TevmRequestType`](/reference/tevm/procedures/type-aliases/tevmrequesttype/) \| keyof [`AnvilRequestType`](/reference/tevm/procedures/type-aliases/anvilrequesttype/) \| keyof [`DebugRequestType`](/reference/tevm/procedures/type-aliases/debugrequesttype/)
-
 ## Example
 
 ```typescript
 type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 ```
 
+## Type Parameters
+
+• **TMethod** *extends* keyof [`EthRequestType`](/reference/tevm/procedures/type-aliases/ethrequesttype/) \| keyof [`TevmRequestType`](/reference/tevm/procedures/type-aliases/tevmrequesttype/) \| keyof [`AnvilRequestType`](/reference/tevm/procedures/type-aliases/anvilrequesttype/) \| keyof [`DebugRequestType`](/reference/tevm/procedures/type-aliases/debugrequesttype/)
+
 ## Defined in
 
-[procedures/src/tevm-request-handler/JsonRpcRequestTypeFromMethod.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/JsonRpcRequestTypeFromMethod.ts#L13)
+[packages/procedures/src/tevm-request-handler/JsonRpcRequestTypeFromMethod.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/JsonRpcRequestTypeFromMethod.ts#L13)

@@ -11,4 +11,4 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L146)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L146)

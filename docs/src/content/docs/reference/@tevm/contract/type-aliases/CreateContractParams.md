@@ -9,6 +9,10 @@ title: "CreateContractParams"
 
 Params for creating a [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) instance
 
+## See
+
+CreateContract
+
 ## Type Parameters
 
 • **TName** *extends* `string` \| `undefined` \| `never`
@@ -22,10 +26,6 @@ Params for creating a [Contract](../../../../../../../reference/tevm/contract/ty
 • **TDeployedBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
 
 • **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
-
-## See
-
-CreateContract
 
 ## Defined in
 

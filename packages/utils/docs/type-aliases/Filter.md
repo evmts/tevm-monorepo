@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / Filter
 
-# Type Alias: Filter\<TFilterType, TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock\>
+# Type Alias: Filter\<filterType, abi, eventName, args, strict, fromBlock, toBlock\>
 
-> **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: `object` & `TFilterType` *extends* `"event"` ? `object` & `TAbi` *extends* `Abi` ? `undefined` *extends* `TEventName` ? `object` : `TArgs` *extends* `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? `object` : `object` : `object` : `object`
+> **Filter**\<`filterType`, `abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>: `object` & `filterType` *extends* `"event"` ? `object` & `abi` *extends* `Abi` ? `undefined` *extends* `eventName` ? `object` : `args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> ? `object` : `object` : `object` : `object`
 
 ## Type declaration
 
@@ -20,24 +20,24 @@
 
 ### type
 
-> **type**: `TFilterType`
+> **type**: `filterType`
 
 ## Type Parameters
 
-• **TFilterType** *extends* `FilterType` = `"event"`
+• **filterType** *extends* `FilterType` = `"event"`
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] \| `undefined` = `undefined`
+• **abi** *extends* `Abi` \| readonly `unknown`[] \| `undefined` = `undefined`
 
-• **TEventName** *extends* `string` \| `undefined` = `undefined`
+• **eventName** *extends* `string` \| `undefined` = `undefined`
 
-• **TArgs** *extends* `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\>
+• **args** *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\>
 
-• **TStrict** *extends* `boolean` \| `undefined` = `undefined`
+• **strict** *extends* `boolean` \| `undefined` = `undefined`
 
-• **TFromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+• **fromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
 
-• **TToBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+• **toBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/types/filter.d.ts:11
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/types/filter.d.ts:11

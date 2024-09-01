@@ -13,4 +13,4 @@ title: "SerializeToJson"
 
 ## Defined in
 
-[procedures/src/utils/SerializeToJson.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L22)
+[packages/procedures/src/utils/SerializeToJson.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L22)

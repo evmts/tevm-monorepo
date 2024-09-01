@@ -1,7 +1,5 @@
 import {
-	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
-	AuthInvalidSError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
 	BLS12381PointNotOnCurveError,
@@ -75,9 +73,6 @@ export const createEvmError = (error) => {
 		case EvmErrorMessage.INVALID_PROOF: {
 			return new InvalidProofError(error.error, { cause: error })
 		}
-		case EvmErrorMessage.AUTH_INVALID_S: {
-			return new AuthInvalidSError(error.error, { cause: error })
-		}
 		case EvmErrorMessage.AUTHCALL_UNSET: {
 			return new AuthCallUnsetError(error.error, { cause: error })
 		}
@@ -134,9 +129,6 @@ export const createEvmError = (error) => {
 		}
 		case EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM: {
 			return new CodeSizeExceedsMaximumError(error.error, { cause: error })
-		}
-		case EvmErrorMessage.AUTHCALL_NONZERO_VALUEEXT: {
-			return new AuthCallNonZeroValueExtError(error.error, { cause: error })
 		}
 		case EvmErrorMessage.BLS_12_381_FP_NOT_IN_FIELD: {
 			return new BLS12381FpNotInFieldError(error.error, { cause: error })

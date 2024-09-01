@@ -4,24 +4,24 @@
 
 [@tevm/utils](../globals.md) / GetEventArgs
 
-# Type Alias: GetEventArgs\<TAbi, TEventName, TConfig, TAbiEvent, TArgs, FailedToParseArgs\>
+# Type Alias: GetEventArgs\<abi, eventName, config, abiEvent, args, FailedToParseArgs\>
 
-> **GetEventArgs**\<`TAbi`, `TEventName`, `TConfig`, `TAbiEvent`, `TArgs`, `FailedToParseArgs`\>: `true` *extends* `FailedToParseArgs` ? readonly `unknown`[] \| `Record`\<`string`, `unknown`\> : `TArgs`
+> **GetEventArgs**\<`abi`, `eventName`, `config`, `abiEvent`, `args`, `FailedToParseArgs`\>: `true` *extends* `FailedToParseArgs` ? readonly `unknown`[] \| `Record`\<`string`, `unknown`\> : `args`
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[]
+• **abi** *extends* `Abi` \| readonly `unknown`[]
 
-• **TEventName** *extends* `string`
+• **eventName** *extends* `string`
 
-• **TConfig** *extends* `EventParameterOptions` = `DefaultEventParameterOptions`
+• **config** *extends* `EventParameterOptions` = `DefaultEventParameterOptions`
 
-• **TAbiEvent** *extends* `AbiEvent` & `object` = `TAbi` *extends* `Abi` ? `ExtractAbiEvent`\<`TAbi`, `TEventName`\> : `AbiEvent` & `object`
+• **abiEvent** *extends* `AbiEvent` & `object` = `abi` *extends* `Abi` ? `ExtractAbiEvent`\<`abi`, `eventName`\> : `AbiEvent` & `object`
 
-• **TArgs** = `AbiEventParametersToPrimitiveTypes`\<`TAbiEvent`\[`"inputs"`\], `TConfig`\>
+• **args** = `AbiEventParametersToPrimitiveTypes`\<`abiEvent`\[`"inputs"`\], `config`\>
 
-• **FailedToParseArgs** = [`TArgs`] *extends* [`never`] ? `true` : `false` \| readonly `unknown`[] *extends* `TArgs` ? `true` : `false`
+• **FailedToParseArgs** = [`args`] *extends* [`never`] ? `true` : `false` \| readonly `unknown`[] *extends* `args` ? `true` : `false`
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/types/contract.d.ts:72
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/types/contract.d.ts:72

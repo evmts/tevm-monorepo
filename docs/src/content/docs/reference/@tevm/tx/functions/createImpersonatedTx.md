@@ -7,13 +7,6 @@ title: "createImpersonatedTx"
 
 > **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](/reference/tevm/tx/interfaces/impersonatedtx/)
 
-Creates an impersonated tx that wraps [FeeMarketEIP1559Transaction](../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction).
-Wraps following methods
-- 'isImpersonated'
-- 'hash'
-- 'isSigned'
-- 'getSenderAddress'
-
 ## Parameters
 
 • **txData**: `FeeMarketEIP1559TxData` & `object`
@@ -23,10 +16,6 @@ Wraps following methods
 ## Returns
 
 [`ImpersonatedTx`](/reference/tevm/tx/interfaces/impersonatedtx/)
-
-## Throws
-
-Error if the constructor for [FeeMarketEIP1559Transaction](../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction) throws
 
 ## Defined in
 

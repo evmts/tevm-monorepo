@@ -13,4 +13,4 @@ title: "JsonSerializableObject"
 
 ## Defined in
 
-[procedures/src/utils/SerializeToJson.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L15)
+[packages/procedures/src/utils/SerializeToJson.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L15)

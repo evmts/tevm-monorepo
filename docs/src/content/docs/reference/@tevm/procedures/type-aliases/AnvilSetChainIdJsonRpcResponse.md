@@ -11,4 +11,4 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcResponse.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L122)
+[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L122)

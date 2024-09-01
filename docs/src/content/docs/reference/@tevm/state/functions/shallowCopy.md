@@ -7,8 +7,6 @@ title: "shallowCopy"
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](/reference/tevm/state/type-aliases/basestate/)
 
-Returns a new instance of the ForkStateManager with the same opts but no storage copied over
-
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)

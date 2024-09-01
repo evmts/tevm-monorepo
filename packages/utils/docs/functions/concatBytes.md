@@ -8,10 +8,6 @@
 
 > **concatBytes**(...`arrays`): `Uint8Array`
 
-This mirrors the functionality of the `ethereum-cryptography` export except
-it skips the check to validate that every element of `arrays` is indead a `uint8Array`
-Can give small performance gains on large arrays
-
 ## Parameters
 
 • ...**arrays**: `Uint8Array`[]
@@ -27,4 +23,4 @@ works like `Buffer.concat`
 
 ## Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:195
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:202

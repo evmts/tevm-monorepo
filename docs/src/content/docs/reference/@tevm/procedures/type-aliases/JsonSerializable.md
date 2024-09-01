@@ -9,4 +9,4 @@ title: "JsonSerializable"
 
 ## Defined in
 
-[procedures/src/utils/SerializeToJson.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L4)
+[packages/procedures/src/utils/SerializeToJson.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L4)

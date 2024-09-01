@@ -62,7 +62,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/trie": "6.2.0"
+		"@ethereumjs/trie": "6.2.1"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

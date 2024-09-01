@@ -13,4 +13,4 @@ title: "SetToHex"
 
 ## Defined in
 
-[procedures/src/utils/SerializeToJson.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L20)
+[packages/procedures/src/utils/SerializeToJson.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/SerializeToJson.ts#L20)

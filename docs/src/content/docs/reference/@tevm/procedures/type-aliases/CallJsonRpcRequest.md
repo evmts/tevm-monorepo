@@ -11,4 +11,4 @@ JSON-RPC request for `tevm_call`
 
 ## Defined in
 
-[procedures/src/call/CallJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/call/CallJsonRpcRequest.ts#L8)
+[packages/procedures/src/call/CallJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/call/CallJsonRpcRequest.ts#L8)

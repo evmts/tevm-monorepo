@@ -7,8 +7,6 @@ title: "callHandlerResult"
 
 > **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\<[`TevmCallError`](/reference/tevm/actions/type-aliases/tevmcallerror/)\>
 
-Creates an CallHandler for handling call params with Ethereumjs EVM
-
 ## Parameters
 
 • **evmResult**: [`RunTxResult`](/reference/tevm/vm/interfaces/runtxresult/)
@@ -24,10 +22,6 @@ returned by the evm
 ## Returns
 
 [`CallResult`](/reference/tevm/actions/type-aliases/callresult/)\<[`TevmCallError`](/reference/tevm/actions/type-aliases/tevmcallerror/)\>
-
-## Throws
-
-any error means the input and output types were invalid or some invariant was broken
 
 ## Defined in
 

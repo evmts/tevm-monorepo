@@ -17,4 +17,4 @@ title: "EthProtocolVersionJsonRpcProcedure"
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L177)
+[packages/procedures/src/eth/EthProcedure.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L177)

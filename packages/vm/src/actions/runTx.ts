@@ -363,11 +363,11 @@ const _runTx =
 			}
 			for (const [address, set] of vm.evm.journal.accessList) {
 				const item: AccessListItem = {
-					address,
+					address: address as Hex,
 					storageKeys: [],
 				}
 				for (const slot of set) {
-					item.storageKeys.push(slot)
+					item.storageKeys.push(slot as Hex)
 				}
 				accessList.push(item)
 			}

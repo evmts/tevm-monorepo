@@ -6,7 +6,7 @@
 
 # Function: fromBytes()
 
-> **fromBytes**\<`TTo`\>(`bytes`, `toOrOpts`): `FromBytesReturnType`\<`TTo`\>
+> **fromBytes**\<`to`\>(`bytes`, `toOrOpts`): `FromBytesReturnType`\<`to`\>
 
 Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
@@ -15,7 +15,7 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 ## Type Parameters
 
-• **TTo** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
+• **to** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
 
 ## Parameters
 
@@ -23,13 +23,13 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 Byte array to decode.
 
-• **toOrOpts**: `FromBytesParameters`\<`TTo`\>
+• **toOrOpts**: `FromBytesParameters`\<`to`\>
 
 Type to convert to or options.
 
 ## Returns
 
-`FromBytesReturnType`\<`TTo`\>
+`FromBytesReturnType`\<`to`\>
 
 Decoded value.
 
@@ -52,4 +52,4 @@ const data = fromBytes(
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37

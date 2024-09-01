@@ -20,7 +20,7 @@ describe('logToEthjsLog', () => {
 			abi,
 			eventName: log.eventName,
 			args: log.args,
-		}).map((topic) => hexToBytes(topic))
+		}).map((topic) => hexToBytes(topic as `0x${string}`))
 		const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName)
 		const data = encodeAbiParameters(eventItem?.inputs as any, Object.values(log.args))
 
@@ -34,8 +34,14 @@ describe('logToEthjsLog', () => {
 			address: '0x0000000000000000000000000000000000000002',
 		} as const
 
-		expect(() => logToEthjsLog(abi, log as any)).toThrowError(
-			'Event "NonExistentEvent" not found on ABI.\nMake sure you are using the correct ABI and that the event exists on it.\n\nDocs: https://viem.sh/docs/contract/encodeEventTopics\nVersion: viem@2.14.2',
+		expect(() => logToEthjsLog(abi, log as any)).toThrowErrorMatchingInlineSnapshot(
+			`
+			[AbiEventNotFoundError: Event "NonExistentEvent" not found on ABI.
+			Make sure you are using the correct ABI and that the event exists on it.
+
+			Docs: https://viem.sh/docs/contract/encodeEventTopics
+			Version: 2.21.1]
+		`,
 		)
 	})
 
@@ -58,7 +64,7 @@ describe('logToEthjsLog', () => {
 			abi: abi,
 			eventName: log.eventName,
 			args: log.args,
-		}).map((topic) => hexToBytes(topic))
+		}).map((topic) => hexToBytes(topic as `0x${string}`))
 		const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName)
 		if (!eventItem) throw new Error('Event not found in ABI')
 		const data = encodeAbiParameters(eventItem.inputs, [] as any)

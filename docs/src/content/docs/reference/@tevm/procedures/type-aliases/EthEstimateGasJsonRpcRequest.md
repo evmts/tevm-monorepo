@@ -11,4 +11,4 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L73)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L73)

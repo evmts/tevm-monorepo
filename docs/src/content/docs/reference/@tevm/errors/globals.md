@@ -9,9 +9,7 @@ title: "@tevm/errors"
 
 - [AccountLockedError](/reference/tevm/errors/classes/accountlockederror/)
 - [AccountNotFoundError](/reference/tevm/errors/classes/accountnotfounderror/)
-- [AuthCallNonZeroValueExtError](/reference/tevm/errors/classes/authcallnonzerovalueexterror/)
 - [AuthCallUnsetError](/reference/tevm/errors/classes/authcallunseterror/)
-- [AuthInvalidSError](/reference/tevm/errors/classes/authinvalidserror/)
 - [BLS12381FpNotInFieldError](/reference/tevm/errors/classes/bls12381fpnotinfielderror/)
 - [BLS12381InputEmptyError](/reference/tevm/errors/classes/bls12381inputemptyerror/)
 - [BLS12381InvalidInputLengthError](/reference/tevm/errors/classes/bls12381invalidinputlengtherror/)
@@ -128,9 +126,7 @@ title: "@tevm/errors"
 ## Interfaces
 
 - [AccountLockedErrorParameters](/reference/tevm/errors/interfaces/accountlockederrorparameters/)
-- [AuthCallNonZeroValueExtErrorParameters](/reference/tevm/errors/interfaces/authcallnonzerovalueexterrorparameters/)
 - [AuthCallUnsetErrorParameters](/reference/tevm/errors/interfaces/authcallunseterrorparameters/)
-- [AuthInvalidSErrorParameters](/reference/tevm/errors/interfaces/authinvalidserrorparameters/)
 - [BLS12381FpNotInFieldErrorParameters](/reference/tevm/errors/interfaces/bls12381fpnotinfielderrorparameters/)
 - [BLS12381InputEmptyErrorParameters](/reference/tevm/errors/interfaces/bls12381inputemptyerrorparameters/)
 - [BLS12381InvalidInputLengthErrorParameters](/reference/tevm/errors/interfaces/bls12381invalidinputlengtherrorparameters/)

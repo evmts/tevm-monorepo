@@ -1,7 +1,5 @@
 import {
-	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
-	AuthInvalidSError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
 	BLS12381InvalidInputLengthError,
@@ -44,12 +42,10 @@ import { EvmError } from '@tevm/evm'
 /**
  * @internal
  * Array of every error EVM can throw
- * @type {[typeof AuthCallNonZeroValueExtError, typeof AuthCallUnsetError, 		typeof AuthInvalidSError, 		typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError, typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError] }
+ * @type {[typeof AuthCallUnsetError, 		typeof 		CodeStoreOutOfGasError, typeof 		CodeSizeExceedsMaximumError, typeof 		CreateCollisionError, typeof 		InvalidCommitmentError, typeof 		EvmRevertError, typeof 		InitcodeSizeViolationError, typeof 		InsufficientBalanceError, typeof 		InternalEvmError, typeof 		InvalidBeginSubError, typeof 		InvalidBytecodeResultError, typeof 		InvalidEofFormatError, typeof InvalidInputLengthError, typeof 		InvalidJumpError, typeof 		InvalidJumpSubError, typeof 		InvalidKzgInputsError, typeof 		InvalidOpcodeError, typeof 		InvalidProofError, typeof 		InvalidReturnSubError, typeof 		OutOfGasError, typeof 		OutOfRangeError, typeof 		RefundExhaustedError, typeof 		StackOverflowError, typeof 		StackUnderflowError, typeof 		StaticStateChangeError, typeof 		StopError, typeof 		ValueOverflowError, typeof BLS12381FpNotInFieldError, typeof 		BLS12381InputEmptyError, typeof 		BLS12381InvalidInputLengthError, typeof 		BLS12381PointNotOnCurveError] }
  */
 const evmErrors = [
-	AuthCallNonZeroValueExtError,
 	AuthCallUnsetError,
-	AuthInvalidSError,
 	CodeSizeExceedsMaximumError,
 	CreateCollisionError,
 	InvalidCommitmentError,
@@ -91,7 +87,7 @@ const evmErrors = [
 /**
  * @internal
  * The union of all possible EVM errors
- * @typedef {AuthCallNonZeroValueExtError| AuthCallUnsetError| 		AuthInvalidSError| 		BLS12381FpNotInFieldError| BLS12381InputEmptyError| BLS12381InvalidInputLengthError| BLS12381PointNotOnCurveError| CodeStoreOutOfGasError| CodeSizeExceedsMaximumError| CreateCollisionError| InvalidCommitmentError| EvmRevertError| InitcodeSizeViolationError| InsufficientBalanceError| InternalEvmError| InvalidBeginSubError| InvalidBytecodeResultError| InvalidEofFormatError| InvalidInputLengthError| InvalidJumpError| InvalidJumpSubError| InvalidKzgInputsError| InvalidOpcodeError| InvalidProofError| InvalidReturnSubError| OutOfGasError| OutOfRangeError| RefundExhaustedError| StackOverflowError| StackUnderflowError| StaticStateChangeError| StopError| ValueOverflowError} TevmEvmError
+ * @typedef {AuthCallUnsetError| 		BLS12381FpNotInFieldError| BLS12381InputEmptyError| BLS12381InvalidInputLengthError| BLS12381PointNotOnCurveError| CodeStoreOutOfGasError| CodeSizeExceedsMaximumError| CreateCollisionError| InvalidCommitmentError| EvmRevertError| InitcodeSizeViolationError| InsufficientBalanceError| InternalEvmError| InvalidBeginSubError| InvalidBytecodeResultError| InvalidEofFormatError| InvalidInputLengthError| InvalidJumpError| InvalidJumpSubError| InvalidKzgInputsError| InvalidOpcodeError| InvalidProofError| InvalidReturnSubError| OutOfGasError| OutOfRangeError| RefundExhaustedError| StackOverflowError| StackUnderflowError| StaticStateChangeError| StopError| ValueOverflowError} TevmEvmError
  */
 
 /**

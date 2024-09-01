@@ -11,4 +11,4 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L244)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L244)

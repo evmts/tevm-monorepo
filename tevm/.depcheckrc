@@ -1,0 +1,8 @@
+ignores: [
+  "@tevm/bundler-cache",
+  "commander",
+  "effect",
+  "glob",
+  "solc"
+]
+skip-missing: true

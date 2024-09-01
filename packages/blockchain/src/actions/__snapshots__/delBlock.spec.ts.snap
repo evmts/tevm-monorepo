@@ -6,8 +6,3 @@ exports[`delBlock > should throw an InvalidBlockError if we attempt to delete th
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73]
 `;
-
-exports[`delBlock should throw an InvalidBlockError if we attempt to delete the fork block 1`] = `[InvalidBlockError: Cannot delete the forked block!
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73]`;

@@ -6,7 +6,7 @@
 
 # Variable: PREFUNDED\_ACCOUNTS
 
-> `const` **PREFUNDED\_ACCOUNTS**: readonly [`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`]
+> `const` **PREFUNDED\_ACCOUNTS**: [`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`]
 
 ## Defined in
 

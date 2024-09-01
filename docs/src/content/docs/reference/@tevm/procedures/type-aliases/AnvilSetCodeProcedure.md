@@ -19,4 +19,4 @@ JSON-RPC procedure for `anvil_setCode`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L91)
+[packages/procedures/src/anvil/AnvilProcedure.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L91)

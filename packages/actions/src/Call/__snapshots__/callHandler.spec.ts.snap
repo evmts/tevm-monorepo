@@ -87,12 +87,12 @@ exports[`callHandler > should handle opstack throwing unexpectedly 1`] = `
   [
     [InvalidAddress: Recieved an invalid address input Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
 
-Version: viem@2.14.2
+Version: 2.21.1
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Details: Invalid byte sequence ("re" in "badaddress000000000000000000000000000000").
 
-Version: viem@2.14.2
+Version: 2.21.1
 Version: 1.1.0.next-73],
     "Unable to get l1 fee estimation",
   ],

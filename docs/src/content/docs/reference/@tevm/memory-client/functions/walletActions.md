@@ -5,24 +5,24 @@ prev: false
 title: "walletActions"
 ---
 
-> **walletActions**\<`TTransport`, `TChain`, `TAccount`\>(`client`): `WalletActions`\<`TChain`, `TAccount`\>
+> **walletActions**\<`transport`, `chain`, `account`\>(`client`): `WalletActions`\<`chain`, `account`\>
 
 ## Type Parameters
 
-• **TTransport** *extends* `Transport`
+• **transport** *extends* `Transport`
 
-• **TChain** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+• **chain** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
 
-• **TAccount** *extends* `undefined` \| `Account` = `undefined` \| `Account`
+• **account** *extends* `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/) = `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/)
 
 ## Parameters
 
-• **client**: `Client`\<`TTransport`, `TChain`, `TAccount`\>
+• **client**: `Client`\<`transport`, `chain`, `account`\>
 
 ## Returns
 
-`WalletActions`\<`TChain`, `TAccount`\>
+`WalletActions`\<`chain`, `account`\>
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.16.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/wallet.d.ts:560
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/wallet.d.ts:560

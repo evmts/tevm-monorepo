@@ -11,4 +11,4 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcResponse.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L132)
+[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L132)

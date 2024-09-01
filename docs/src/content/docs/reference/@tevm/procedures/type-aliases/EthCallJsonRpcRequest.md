@@ -11,4 +11,4 @@ JSON-RPC request for `eth_call` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L50)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L50)

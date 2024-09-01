@@ -8,9 +8,6 @@
 
 > **createLogger**(`options`): [`Logger`](../type-aliases/Logger.md)
 
-Creates a tevm logger instance
-Wraps [pino](https://github.com/pinojs/pino/blob/master/docs/api.md)
-
 ## Parameters
 
 • **options**: [`LogOptions`](../type-aliases/LogOptions.md)
