@@ -19,4 +19,4 @@ Mine JSON-RPC tevm procedure mines 1 or more blocks
 
 ## Defined in
 
-[procedures/src/mine/MineJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcProcedure.ts#L7)
+[packages/procedures/src/mine/MineJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcProcedure.ts#L7)

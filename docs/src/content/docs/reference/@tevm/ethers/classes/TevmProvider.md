@@ -9,7 +9,7 @@ An [ethers JsonRpcApiProvider](https://docs.ethers.org/v6/api/providers/jsonrpc/
 
 ## TevmProvider
 
-The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient](../clients/) as it's backend.
+The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient]() as it's backend.
 
 ## Examples
 
@@ -50,7 +50,7 @@ console.log(
 
 ## Tevm actions support
 
-The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
+The entire [tevm api]() exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -85,7 +85,7 @@ console.log(result)
 
 ## Tevm JSON-RPC support
 
-An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
+An ethers TevmProvider supports the tevm [JSON-RPC methods](). For example you can use `tevm_account` to set account
 
 ```typescript
 await provider.send('tevm_setAccount', {
@@ -203,7 +203,7 @@ Gets the [[Network]] this provider has committed to. On each call, the network
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:224
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:224
 
 ***
 
@@ -227,7 +227,7 @@ If this provider has been destroyed using the [[destroy]] method.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:419
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:419
 
 ***
 
@@ -254,7 +254,7 @@ Prevent any CCIP-read operation, regardless of whether requested
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:282
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:282
 
 ***
 
@@ -288,7 +288,7 @@ Whether the provider is currently paused.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:438
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:438
 
 ***
 
@@ -308,7 +308,7 @@ Returns all the registered plug-ins.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:269
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:269
 
 ***
 
@@ -326,7 +326,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:260
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:260
 
 ***
 
@@ -347,7 +347,7 @@ Returns ``this``, to allow an **AbstractProvider** to implement
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:265
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:265
 
 ***
 
@@ -367,7 +367,7 @@ Returns true only if the [[_start]] has been called.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:270
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:270
 
 ## Methods
 
@@ -391,7 +391,7 @@ Clear a timer created using the [[_setTimeout]] method.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:374
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:374
 
 ***
 
@@ -415,7 +415,7 @@ Sub-classes may override this; it detects the *actual* network that
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:245
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:245
 
 ***
 
@@ -439,7 +439,7 @@ Perform %%func%% on each subscriber.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:387
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:387
 
 ***
 
@@ -465,7 +465,7 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:332
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:332
 
 ***
 
@@ -490,7 +490,7 @@ Returns or resolves to a valid block tag for %%blockTag%%, resolving
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
 
 ***
 
@@ -516,7 +516,7 @@ Returns or resolves to a filter for %%filter%%, resolving any ENS
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:343
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:343
 
 ***
 
@@ -546,7 +546,7 @@ Returns the value associated with the option %%key%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:219
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:219
 
 ***
 
@@ -568,7 +568,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:364
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:364
 
 ***
 
@@ -595,7 +595,7 @@ Return a Subscriber that will manage the %%sub%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:266
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:266
 
 ***
 
@@ -621,7 +621,7 @@ Returns or resolves to a transaction for %%request%%, resolving
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:349
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:349
 
 ***
 
@@ -648,7 +648,7 @@ Resolves to the non-normalized value by performing %%req%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:237
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:237
 
 ***
 
@@ -680,7 +680,7 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:402
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:402
 
 ***
 
@@ -716,7 +716,7 @@ Create a timer that will execute %%func%% after at least %%timeout%%
  (in ms). If %%timeout%% is unspecified, then %%func%% will execute
  in the next event loop.
 
- [Pausing](AbstractProvider-paused) the provider will pause any
+ [Pausing]() the provider will pause any
  associated timers.
 
 #### Parameters
@@ -735,7 +735,7 @@ Create a timer that will execute %%func%% after at least %%timeout%%
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
 
 ***
 
@@ -759,7 +759,7 @@ Sub-classes **MUST** call this. Until [[_start]] has been called, no calls
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:253
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:253
 
 ***
 
@@ -781,7 +781,7 @@ Resolves once the [[_start]] has been called. This can be used in
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:259
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:259
 
 ***
 
@@ -809,7 +809,7 @@ Provides the opportunity for a sub-class to wrap a block before
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:293
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:293
 
 ***
 
@@ -837,7 +837,7 @@ Provides the opportunity for a sub-class to wrap a log before
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:299
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:299
 
 ***
 
@@ -865,7 +865,7 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:305
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:305
 
 ***
 
@@ -893,7 +893,7 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:311
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:311
 
 ***
 
@@ -919,7 +919,7 @@ Alias for [[on]].
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
 
 ***
 
@@ -943,7 +943,7 @@ Attach a new plug-in.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:273
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:273
 
 ***
 
@@ -969,7 +969,7 @@ Broadcasts the %%signedTx%% to the network, adding it to the
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:358
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:358
 
 ***
 
@@ -994,7 +994,7 @@ Simulate the execution of %%tx%%. If the call reverts, it will
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:353
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:353
 
 ***
 
@@ -1022,7 +1022,7 @@ Resolves to the data for executing the CCIP-read operations.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:287
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:287
 
 ***
 
@@ -1045,7 +1045,7 @@ Sub-classes may use this to shutdown any sockets or release their
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:320
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:320
 
 ***
 
@@ -1071,7 +1071,7 @@ Triggers each listener for %%event%% with the %%args%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:405
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:405
 
 ***
 
@@ -1095,7 +1095,7 @@ Estimates the amount of gas required to execute %%tx%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:352
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:352
 
 ***
 
@@ -1117,7 +1117,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:366
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:366
 
 ***
 
@@ -1139,18 +1139,18 @@ Get the account balance (in wei) of %%address%%. If %%blockTag%%
 
 `Promise`\<`bigint`\>
 
+#### Inherited from
+
+`JsonRpcApiProvider.getBalance`
+
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
 
-#### Inherited from
-
-`JsonRpcApiProvider.getBalance`
-
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
 
 ***
 
@@ -1181,7 +1181,7 @@ Resolves to the block for %%blockHashOrBlockTag%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
 
 ***
 
@@ -1201,7 +1201,7 @@ Get the current block number.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:326
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:326
 
 ***
 
@@ -1221,18 +1221,18 @@ Get the bytecode for %%address%%.
 
 `Promise`\<`string`\>
 
+#### Inherited from
+
+`JsonRpcApiProvider.getCode`
+
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
 
-#### Inherited from
-
-`JsonRpcApiProvider.getCode`
-
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
 
 ***
 
@@ -1252,7 +1252,7 @@ Get the best guess at the recommended [[FeeData]].
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:351
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:351
 
 ***
 
@@ -1276,7 +1276,7 @@ Resolves to the list of Logs that match %%filter%%
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:363
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:363
 
 ***
 
@@ -1296,7 +1296,7 @@ Get the connected [[Network]].
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:350
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:350
 
 ***
 
@@ -1324,7 +1324,7 @@ Get a plugin by name.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:277
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:277
 
 ***
 
@@ -1346,7 +1346,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:365
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:365
 
 ***
 
@@ -1375,7 +1375,7 @@ Returns an ethers-style Error for the given JSON-RPC error
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:291
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:291
 
 ***
 
@@ -1400,7 +1400,7 @@ Returns the request method and arguments required to perform
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:281
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:281
 
 ***
 
@@ -1426,7 +1426,7 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:276
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:276
 
 ***
 
@@ -1459,7 +1459,7 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
 
 ***
 
@@ -1481,18 +1481,18 @@ Get the storage slot value for %%address%% at slot %%position%%.
 
 `Promise`\<`string`\>
 
+#### Inherited from
+
+`JsonRpcApiProvider.getStorage`
+
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
 
-#### Inherited from
-
-`JsonRpcApiProvider.getStorage`
-
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
 
 ***
 
@@ -1519,7 +1519,7 @@ Resolves to the transaction for %%hash%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:360
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:360
 
 ***
 
@@ -1543,18 +1543,18 @@ Get the number of transactions ever sent for %%address%%, which
 
 `Promise`\<`number`\>
 
+#### Inherited from
+
+`JsonRpcApiProvider.getTransactionCount`
+
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
 
-#### Inherited from
-
-`JsonRpcApiProvider.getTransactionCount`
-
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
 
 ***
 
@@ -1582,7 +1582,7 @@ Resolves to the transaction receipt for %%hash%%, if mined.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:361
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:361
 
 ***
 
@@ -1609,7 +1609,7 @@ Resolves to the result returned by the executions of %%hash%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:362
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:362
 
 ***
 
@@ -1627,7 +1627,7 @@ node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:319
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:319
 
 ***
 
@@ -1651,7 +1651,7 @@ Resolves to the number of listeners for %%event%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
 
 ***
 
@@ -1675,7 +1675,7 @@ Resolves to the listeners for %%event%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
 
 ***
 
@@ -1703,7 +1703,7 @@ Resolves to the ENS name associated for the %%address%% or
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:368
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:368
 
 ***
 
@@ -1730,7 +1730,7 @@ Unregister the %%listener%% for %%event%%. If %%listener%%
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
 
 ***
 
@@ -1757,7 +1757,7 @@ Registers a %%listener%% that is called whenever the
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
 
 ***
 
@@ -1784,7 +1784,7 @@ Registers a %%listener%% that is called the next time
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
 
 ***
 
@@ -1810,7 +1810,7 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
 
 ***
 
@@ -1834,7 +1834,7 @@ Unregister all listeners for %%event%%.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
 
 ***
 
@@ -1860,7 +1860,7 @@ Alias for [[off]].
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
 
 ***
 
@@ -1885,7 +1885,7 @@ Resolves to the address configured for the %%ensName%% or
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:367
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:367
 
 ***
 
@@ -1905,7 +1905,7 @@ Resume the provider.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:449
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:449
 
 ***
 
@@ -1941,7 +1941,7 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:305
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:305
 
 ***
 
@@ -1968,7 +1968,7 @@ Resolves to the block at %%blockTag%% once it has been mined.
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
 
 ***
 
@@ -1997,7 +1997,7 @@ Waits until the transaction %%hash%% is mined and has %%confirms%%
 
 #### Defined in
 
-node\_modules/.pnpm/ethers@6.13.1\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
+node\_modules/.pnpm/ethers@6.13.2\_bufferutil@4.0.8\_utf-8-validate@6.0.4/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
 
 ***
 

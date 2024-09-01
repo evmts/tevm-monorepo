@@ -13,7 +13,7 @@ title: "CreateMemoryClientFn"
 
 The common chain configuration, extending both `Common` and `Chain`.
 
-• **TAccountOrAddress** *extends* `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `undefined`
+• **TAccountOrAddress** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `undefined`
 
 The account or address type for the client.
 

@@ -7,8 +7,6 @@ title: "resolveImports"
 
 > **resolveImports**(`absolutePath`, `code`, `remappings`, `libs`, `sync`): `Effect`\<`never`, [`ResolveImportsError`](/reference/tevm/resolutions/resolveimports/type-aliases/resolveimportserror/), readonly [`ResolvedImport`](/reference/tevm/resolutions/types/type-aliases/resolvedimport/)[]\>
 
-Returns a the import resolutions for the given code
-
 ## Parameters
 
 • **absolutePath**: `string`
@@ -24,26 +22,6 @@ Returns a the import resolutions for the given code
 ## Returns
 
 `Effect`\<`never`, [`ResolveImportsError`](/reference/tevm/resolutions/resolveimports/type-aliases/resolveimportserror/), readonly [`ResolvedImport`](/reference/tevm/resolutions/types/type-aliases/resolvedimport/)[]\>
-
-## Example
-
-```ts
-const pathToSolidity = path.join(__dirname, '../Contract.sol')
-const code = fs.readFileSync(pathToSolidity, 'utf8'),
-const remappings = {}
-const lib = []
-
-const imports = runPromise(
-  resolveImports(
-    pathToSolidity,
-    code,
-    remappings,
-    libs,
-    false
-  )
-)
-console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
-```
 
 ## Defined in
 

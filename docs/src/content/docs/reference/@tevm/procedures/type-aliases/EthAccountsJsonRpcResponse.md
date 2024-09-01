@@ -11,4 +11,4 @@ JSON-RPC response for `eth_accounts` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L14)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L14)

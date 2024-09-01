@@ -19,4 +19,4 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L101)
+[packages/procedures/src/anvil/AnvilProcedure.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L101)

@@ -7,8 +7,6 @@ title: "ethSendTransactionJsonRpcProcedure"
 
 > **ethSendTransactionJsonRpcProcedure**(`client`): [`EthSendTransactionJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethsendtransactionjsonrpcprocedure/)
 
-Request handler for eth_sendTransaction JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,4 +17,4 @@ Request handler for eth_sendTransaction JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethSendTransactionProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSendTransactionProcedure.js#L9)
+[packages/procedures/src/eth/ethSendTransactionProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSendTransactionProcedure.js#L9)

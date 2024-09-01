@@ -11,7 +11,7 @@ A block header's data.
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **baseFeePerGas**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -21,7 +21,7 @@ A block header's data.
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **blobGasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -31,7 +31,7 @@ A block header's data.
 
 ### coinbase?
 
-> `optional` **coinbase**: [`AddressLike`](/reference/tevm/utils/type-aliases/addresslike/)
+> `optional` **coinbase**: `string` \| `Uint8Array` \| [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Defined in
 
@@ -41,7 +41,7 @@ A block header's data.
 
 ### difficulty?
 
-> `optional` **difficulty**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **difficulty**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -51,7 +51,7 @@ A block header's data.
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **excessBlobGas**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -61,7 +61,7 @@ A block header's data.
 
 ### extraData?
 
-> `optional` **extraData**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **extraData**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -71,7 +71,7 @@ A block header's data.
 
 ### gasLimit?
 
-> `optional` **gasLimit**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **gasLimit**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -81,7 +81,7 @@ A block header's data.
 
 ### gasUsed?
 
-> `optional` **gasUsed**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **gasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -91,7 +91,7 @@ A block header's data.
 
 ### logsBloom?
 
-> `optional` **logsBloom**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -101,7 +101,7 @@ A block header's data.
 
 ### mixHash?
 
-> `optional` **mixHash**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **mixHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -111,7 +111,7 @@ A block header's data.
 
 ### nonce?
 
-> `optional` **nonce**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **nonce**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -121,7 +121,7 @@ A block header's data.
 
 ### number?
 
-> `optional` **number**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **number**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -131,7 +131,7 @@ A block header's data.
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -141,7 +141,7 @@ A block header's data.
 
 ### parentHash?
 
-> `optional` **parentHash**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **parentHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -151,7 +151,7 @@ A block header's data.
 
 ### receiptTrie?
 
-> `optional` **receiptTrie**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -161,7 +161,7 @@ A block header's data.
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -171,7 +171,7 @@ A block header's data.
 
 ### stateRoot?
 
-> `optional` **stateRoot**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -181,7 +181,7 @@ A block header's data.
 
 ### timestamp?
 
-> `optional` **timestamp**: [`BigIntLike`](/reference/tevm/utils/type-aliases/bigintlike/)
+> `optional` **timestamp**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -191,7 +191,7 @@ A block header's data.
 
 ### transactionsTrie?
 
-> `optional` **transactionsTrie**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -201,7 +201,7 @@ A block header's data.
 
 ### uncleHash?
 
-> `optional` **uncleHash**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -211,7 +211,7 @@ A block header's data.
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: [`BytesLike`](/reference/tevm/utils/type-aliases/byteslike/)
+> `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 

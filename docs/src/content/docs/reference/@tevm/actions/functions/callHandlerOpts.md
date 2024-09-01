@@ -7,8 +7,6 @@ title: "callHandlerOpts"
 
 > **callHandlerOpts**(`client`, `params`): `Promise`\<`object` \| `object`\>
 
-Parses user provided params into ethereumjs options to pass into the EVM
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -18,10 +16,6 @@ Parses user provided params into ethereumjs options to pass into the EVM
 ## Returns
 
 `Promise`\<`object` \| `object`\>
-
-## Throws
-
-Returns all errors as values
 
 ## Defined in
 

@@ -7,8 +7,6 @@ title: "solcCompile"
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
 
-Typesafe wrapper around solc.compile
-
 ## Parameters
 
 • **solc**: `any`

@@ -5,18 +5,12 @@ prev: false
 title: "MemoryClient"
 ---
 
-> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](/reference/tevm/memory-client/type-aliases/tevmtransport/), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](/reference/tevm/memory-client/type-aliases/tevmrpcschema/), [`TevmActions`](/reference/tevm/memory-client/type-aliases/tevmactions/) & `PublicActions`\<[`TevmTransport`](/reference/tevm/memory-client/type-aliases/tevmtransport/), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](/reference/tevm/memory-client/type-aliases/tevmtransport/), `TChain`, `TAccountOrAddress` *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) ? [`Account`](/reference/tevm/utils/type-aliases/account/) : `undefined`, [`TevmRpcSchema`](/reference/tevm/memory-client/type-aliases/tevmrpcschema/), [`TevmActions`](/reference/tevm/memory-client/type-aliases/tevmactions/) & `PublicActions`\<[`TevmTransport`](/reference/tevm/memory-client/type-aliases/tevmtransport/), `TChain`, `TAccountOrAddress` *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) ? [`Account`](/reference/tevm/utils/type-aliases/account/) : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) ? [`Account`](/reference/tevm/utils/type-aliases/account/) : `undefined`\> & `TestActions`\>\>
 
 Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
 The MemoryClient comes preloaded with all wallet, test, public, and TEVM actions, and supports both manual and auto mining modes.
 
 This client allows for extensive interaction with the EVM, including making JSON-RPC requests, managing accounts, forking networks, and handling state persistence.
-
-## Type Parameters
-
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
-
-• **TAccountOrAddress** *extends* `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = `Account` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
 
 ## Example
 
@@ -197,6 +191,12 @@ const balance = await tevm.runContractCall(
 );
 console.log(balance); // 1n
 ```
+
+## Type Parameters
+
+• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+• **TAccountOrAddress** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
 
 ## Defined in
 

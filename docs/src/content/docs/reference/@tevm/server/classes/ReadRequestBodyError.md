@@ -225,6 +225,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 
 Optional override for formatting stack traces
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Parameters
 
 • **err**: `Error`
@@ -234,10 +238,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -339,7 +339,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -363,7 +363,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -388,3 +388,27 @@ Create .stack property on a target object
 ##### Defined in
 
 node\_modules/.pnpm/bun-types@1.1.22/node\_modules/bun-types/globals.d.ts:1629
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

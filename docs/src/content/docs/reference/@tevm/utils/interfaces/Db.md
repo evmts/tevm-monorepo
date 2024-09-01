@@ -31,7 +31,7 @@ A stack of levelup operations
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
 
 ***
 
@@ -53,7 +53,7 @@ Removes a raw value in the underlying db.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
 
 ***
 
@@ -77,7 +77,7 @@ A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
 
 ***
 
@@ -93,7 +93,7 @@ Opens the database -- if applicable
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
 
 ***
 
@@ -119,7 +119,7 @@ The key as a `TValue`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
 
 ***
 
@@ -136,4 +136,4 @@ to the **same** underlying db instance.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57

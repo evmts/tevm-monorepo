@@ -17,4 +17,4 @@ title: "EthGetBlockByHashJsonRpcProcedure"
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L107)
+[packages/procedures/src/eth/EthProcedure.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L107)

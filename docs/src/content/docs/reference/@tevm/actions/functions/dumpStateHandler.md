@@ -7,8 +7,6 @@ title: "dumpStateHandler"
 
 > **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
-Creates a handler for dumping the TEVM state.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -28,24 +26,6 @@ Whether to throw an error if the state dump fails.
 [`DumpStateHandler`](/reference/tevm/actions/type-aliases/dumpstatehandler/)
 
 - The state dump handler function.
-
-## Example
-
-```typescript
-import { createTevmNode } from 'tevm/node'
-import { dumpStateHandler } from 'tevm/actions'
-
-const client = createTevmNode()
-
-const dumpState = dumpStateHandler(client)
-
-const { state, errors } = await dumpState()
-if (errors) {
-  console.error(errors)
-} else {
-  console.log(state)
-}
-```
 
 ## Defined in
 

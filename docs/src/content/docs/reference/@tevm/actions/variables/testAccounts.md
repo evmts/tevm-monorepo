@@ -5,7 +5,7 @@ prev: false
 title: "testAccounts"
 ---
 
-> `const` **testAccounts**: [[`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/), [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/)]
+> `const` **testAccounts**: [`object`, `object`, `object`]
 
 ## Defined in
 

@@ -9,7 +9,7 @@ title: "TransactionFactory"
 
 ### fromBlockBodyData()
 
-> `static` **fromBlockBodyData**(`data`, `txOptions`?): [`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/)
+> `static` **fromBlockBodyData**(`data`, `txOptions`?): [`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/) \| `EOACodeEIP7702Transaction`
 
 When decoding a BlockBody, in the transactions field, a field is either:
 A Uint8Array (a TypedTransaction - encoded as TransactionType || rlp(TransactionPayload))
@@ -28,17 +28,17 @@ The transaction options
 
 #### Returns
 
-[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/)
+[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/) \| `EOACodeEIP7702Transaction`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:33
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:34
 
 ***
 
 ### fromJsonRpcProvider()
 
-> `static` **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/)\>
+> `static` **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/) \| `EOACodeEIP7702Transaction`\>
 
 Method to retrieve a transaction from the provider
 
@@ -58,13 +58,13 @@ The transaction options
 
 #### Returns
 
-`Promise`\<[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/)\>
+`Promise`\<[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/) \| [`LegacyTransaction`](/reference/tevm/tx/classes/legacytransaction/) \| [`AccessListEIP2930Transaction`](/reference/tevm/tx/classes/accesslisteip2930transaction/) \| [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/) \| `EOACodeEIP7702Transaction`\>
 
 the transaction specified by `txHash`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:41
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:42
 
 ***
 
@@ -95,7 +95,7 @@ The transaction options
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:49
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:50
 
 ***
 
@@ -125,7 +125,7 @@ The transaction options
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:23
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:24
 
 ***
 
@@ -155,4 +155,4 @@ Options to pass on to the constructor of the transaction
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:16
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:17

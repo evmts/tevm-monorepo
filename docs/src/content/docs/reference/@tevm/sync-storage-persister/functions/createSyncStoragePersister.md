@@ -7,8 +7,6 @@ title: "createSyncStoragePersister"
 
 > **createSyncStoragePersister**(`options`): [`SyncStoragePersister`](/reference/tevm/sync-storage-persister/type-aliases/syncstoragepersister/)
 
-Creates a syncronous storage persister to be used in tevm clients
-
 ## Parameters
 
 • **options**: [`CreateSyncStoragePersisterOptions`](/reference/tevm/sync-storage-persister/type-aliases/createsyncstoragepersisteroptions/)

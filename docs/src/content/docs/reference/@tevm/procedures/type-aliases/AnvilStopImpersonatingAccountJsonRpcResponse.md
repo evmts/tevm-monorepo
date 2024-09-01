@@ -11,4 +11,4 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcResponse.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L38)
+[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L38)

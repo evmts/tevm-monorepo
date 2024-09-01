@@ -18,7 +18,7 @@ Gas cost for initcode size analysis will still be charged. Use with caution.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:65
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:71
 
 ***
 
@@ -37,7 +37,7 @@ Current default hardfork: `istanbul`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:48
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:54
 
 ***
 
@@ -57,4 +57,4 @@ Default: true
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:60
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:66

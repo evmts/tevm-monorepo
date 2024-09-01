@@ -11,4 +11,4 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L101)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L101)

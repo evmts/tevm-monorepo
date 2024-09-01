@@ -17,4 +17,4 @@ title: "EthGetUncleCountByBlockNumberJsonRpcProcedure"
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L147)
+[packages/procedures/src/eth/EthProcedure.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L147)

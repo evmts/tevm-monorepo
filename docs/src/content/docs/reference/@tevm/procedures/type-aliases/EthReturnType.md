@@ -165,4 +165,4 @@ A mapping of `eth_*` method names to their return type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/EthReturnType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthReturnType.ts#L45)
+[packages/procedures/src/tevm-request-handler/EthReturnType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthReturnType.ts#L45)

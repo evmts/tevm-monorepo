@@ -17,4 +17,4 @@ title: "EthCallJsonRpcProcedure"
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L89)
+[packages/procedures/src/eth/EthProcedure.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L89)

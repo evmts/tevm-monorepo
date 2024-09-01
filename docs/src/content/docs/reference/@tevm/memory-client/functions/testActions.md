@@ -5,17 +5,17 @@ prev: false
 title: "testActions"
 ---
 
-> **testActions**\<`TMode`\>(`__namedParameters`): \<`TTransport`, `TChain`, `TAccount`\>(`client`) => `TestActions`
+> **testActions**\<`mode`\>(`__namedParameters`): \<`transport`, `chain`, `account`\>(`client`) => `TestActions`
 
 ## Type Parameters
 
-• **TMode** *extends* `TestClientMode`
+• **mode** *extends* `TestClientMode`
 
 ## Parameters
 
 • **\_\_namedParameters**
 
-• **\_\_namedParameters.mode**: `TMode`
+• **\_\_namedParameters.mode**: `mode`
 
 ## Returns
 
@@ -23,15 +23,15 @@ title: "testActions"
 
 ### Type Parameters
 
-• **TTransport** *extends* `Transport` = `Transport`
+• **transport** *extends* `Transport` = `Transport`
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+• **chain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
-• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
+• **account** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined`
 
 ### Parameters
 
-• **client**: `Client`\<`TTransport`, `TChain`, `TAccount`\>
+• **client**: `Client`\<`transport`, `chain`, `account`\>
 
 ### Returns
 
@@ -39,4 +39,4 @@ title: "testActions"
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.16.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/test.d.ts:637
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/test.d.ts:637

@@ -7,8 +7,6 @@ title: "createNextApiHandler"
 
 > **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
-Creates a Next.js API handler for a Tevm JSON-RPC server
-
 ## Parameters
 
 • **client**: [`Client`](/reference/tevm/server/type-aliases/client/)
@@ -16,16 +14,6 @@ Creates a Next.js API handler for a Tevm JSON-RPC server
 ## Returns
 
 `NextApiHandler`\<`any`\>
-
-## Example
-
-```typescript
-import { createNextApiHandler } from 'tevm/server'
-import { createMemoryClient } from 'tevm'
-
-const tevm = createMemoryClient()
-export default createNextApiHandler({ request: tevm.request })
-```
 
 ## Defined in
 

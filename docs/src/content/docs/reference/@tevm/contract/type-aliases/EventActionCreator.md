@@ -9,6 +9,14 @@ title: "EventActionCreator"
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
 
+## Example
+
+```typescript
+tevm.eth.getLog(
+  MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
+)
+===
+
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
@@ -20,14 +28,6 @@ A mapping of event names to action creators for events. Can be used to create ev
 • **TAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/) \| `undefined`
 
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
-
-## Example
-
-```typescript
-tevm.eth.getLog(
-  MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
-)
-===
 
 ## Defined in
 

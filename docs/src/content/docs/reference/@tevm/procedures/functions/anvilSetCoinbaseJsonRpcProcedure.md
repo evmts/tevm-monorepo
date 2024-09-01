@@ -7,8 +7,6 @@ title: "anvilSetCoinbaseJsonRpcProcedure"
 
 > **anvilSetCoinbaseJsonRpcProcedure**(`client`): [`AnvilSetCoinbaseProcedure`](/reference/tevm/procedures/type-aliases/anvilsetcoinbaseprocedure/)
 
-Request handler for anvil_SetCoinbase JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,4 +17,4 @@ Request handler for anvil_SetCoinbase JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/anvil/anvilSetCoinbaseProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilSetCoinbaseProcedure.js#L9)
+[packages/procedures/src/anvil/anvilSetCoinbaseProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilSetCoinbaseProcedure.js#L9)

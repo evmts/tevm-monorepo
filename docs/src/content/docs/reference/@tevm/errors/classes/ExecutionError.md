@@ -40,7 +40,6 @@ Additional parameters for the BaseError.
 - [`StopError`](/reference/tevm/errors/classes/stoperror/)
 - [`OutOfRangeError`](/reference/tevm/errors/classes/outofrangeerror/)
 - [`InvalidJumpError`](/reference/tevm/errors/classes/invalidjumperror/)
-- [`AuthInvalidSError`](/reference/tevm/errors/classes/authinvalidserror/)
 - [`InvalidProofError`](/reference/tevm/errors/classes/invalidprooferror/)
 - [`AuthCallUnsetError`](/reference/tevm/errors/classes/authcallunseterror/)
 - [`StackOverflowError`](/reference/tevm/errors/classes/stackoverflowerror/)
@@ -60,7 +59,6 @@ Additional parameters for the BaseError.
 - [`BLS12381FpNotInFieldError`](/reference/tevm/errors/classes/bls12381fpnotinfielderror/)
 - [`InitcodeSizeViolationError`](/reference/tevm/errors/classes/initcodesizeviolationerror/)
 - [`InvalidBytecodeResultError`](/reference/tevm/errors/classes/invalidbytecoderesulterror/)
-- [`AuthCallNonZeroValueExtError`](/reference/tevm/errors/classes/authcallnonzerovalueexterror/)
 - [`BLS12381PointNotOnCurveError`](/reference/tevm/errors/classes/bls12381pointnotoncurveerror/)
 - [`BLS12381InvalidInputLengthError`](/reference/tevm/errors/classes/bls12381invalidinputlengtherror/)
 - [`ValueOverflowError`](/reference/tevm/errors/classes/valueoverflowerror/)
@@ -275,6 +273,10 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Parameters
 
 • **err**: `Error`
@@ -284,10 +286,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -389,7 +387,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -413,7 +411,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -438,3 +436,27 @@ Create .stack property on a target object
 ##### Defined in
 
 node\_modules/.pnpm/bun-types@1.1.22/node\_modules/bun-types/globals.d.ts:1629
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](/reference/tevm/errors/classes/baseerror/).[`captureStackTrace`](/reference/tevm/errors/classes/baseerror/#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

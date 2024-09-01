@@ -17,4 +17,4 @@ title: "AnvilSetCoinbaseProcedure"
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L34)
+[packages/procedures/src/anvil/AnvilProcedure.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L34)

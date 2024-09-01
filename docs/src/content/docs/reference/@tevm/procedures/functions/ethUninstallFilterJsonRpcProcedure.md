@@ -7,8 +7,6 @@ title: "ethUninstallFilterJsonRpcProcedure"
 
 > **ethUninstallFilterJsonRpcProcedure**(`client`): [`EthUninstallFilterJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethuninstallfilterjsonrpcprocedure/)
 
-Request handler for eth_uninstallFilter JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,4 +17,4 @@ Request handler for eth_uninstallFilter JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethUninstallFilterProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethUninstallFilterProcedure.js#L6)
+[packages/procedures/src/eth/ethUninstallFilterProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethUninstallFilterProcedure.js#L6)

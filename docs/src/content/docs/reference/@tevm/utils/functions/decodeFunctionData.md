@@ -5,7 +5,7 @@ prev: false
 title: "decodeFunctionData"
 ---
 
-> **decodeFunctionData**\<`abi`\>(`parameters`): `DecodeFunctionDataReturnType`\<`abi`, [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`abi`, `AbiStateMutability`\>\>
+> **decodeFunctionData**\<`abi`\>(`parameters`): `DecodeFunctionDataReturnType`\<`abi`\>
 
 ## Type Parameters
 
@@ -17,8 +17,8 @@ title: "decodeFunctionData"
 
 ## Returns
 
-`DecodeFunctionDataReturnType`\<`abi`, [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`abi`, `AbiStateMutability`\>\>
+`DecodeFunctionDataReturnType`\<`abi`\>
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/decodeFunctionData.d.ts:25
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/decodeFunctionData.d.ts:25
