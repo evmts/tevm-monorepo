@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.0.0-next.110
+
+### Patch Changes
+
+- Updated dependencies [19370ed]
+  - @tevm/blockchain@1.0.0-next.110
+  - @tevm/actions@1.0.0-next.110
+  - @tevm/evm@1.0.0-next.110
+  - @tevm/node@1.0.0-next.110
+  - @tevm/vm@1.0.0-next.110
+
 ## 1.0.0-next.109
 
 ### Patch Changes

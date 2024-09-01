@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.110
+
+### Minor Changes
+
+- 19370ed: Added support for arbitrum blocks
+
 ## 1.0.0-next.109
 
 ### Patch Changes
