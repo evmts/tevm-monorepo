@@ -1,5 +1,5 @@
 <p align="center">
-  An ecosystem of tools to build robust Ethereum applications in TypeScript for Viem
+  A library that enables next-generation UX and DX via putting an ethereum node in the browser and solidity in javascript
 </p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
