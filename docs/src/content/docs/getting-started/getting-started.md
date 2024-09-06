@@ -10,7 +10,7 @@ description: Tevm introduction
 We will be creating a simple counter app using the following technologies:
 
 - Tevm + [Viem](https://viem.sh)
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build an ui with no framework
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build a ui with no framework
 - [Vite](https://vitejs.dev/) + Tevm Bundler as a minimal build setup and dev server
 
 This guide intentionally uses a straightforward setup to focus on the most essential features of Tevm, so every piece is understood.
@@ -19,169 +19,165 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 
 - [Node.js >18.0](https://nodejs.org/en)
 - Basic knowledge of [JavaScript](https://www.youtube.com/watch?v=g7T23Xzys-A)
-- Basic knowledge of [solidity](https://docs.soliditylang.org/en/v0.8.25/)
+- Basic knowledge of [Solidity](https://docs.soliditylang.org/en/v0.8.25/)
 - Familiarity with [viem](https://viem.sh) or a similar library like [ethers.js](https://docs.ethers.org/v6/)
 
 ## Creating your Tevm project
 
-### 1. Create a new project directory:
+1. Create a new project directory.
 
-```bash
-mkdir tevm-app && cd tevm-app
-```
+    ```bash
+    mkdir tevm-app && cd tevm-app
+    mkdir src
+    ```
 
-### 2. Initialize your project
+1. Initialize your project
 
-```bash
-npm init --yes
-```
+    ```bash
+    npm init --yes
+    ```
 
-### 3. Install `tevm` and `viem` as runtime dependencies
+1. Install the runtime dependencies.
 
-```bash
-npm install tevm viem
-```
+    ```bash
+    npm install tevm viem
+    ```
 
-### 4. Install `vite` and `typescript` as buildtime dependency
+1. Install the buildtime dependencies.
+    [TypeScript](https://www.typescriptlang.org/) is the language we're using.
+    Vite provides us a minimal setup to import TypeScript into our HTML and start a dev server.
+    With Vite we also install a [polyfill](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill) library. This library injects code into your final build that will allow apis that do not exist in the browser natively to work.
 
-Vite will provide us a pretty minimal setup to import TypeScript into our HTML and start a dev server
+    ```bash
+    npm install --save-dev typescript vite vite-plugin-node-polyfills
+    ```
 
-```bash
-npm install --save-dev vite typescript
-```
+1. Create a TypeScript configuration file.
 
-## Scaffold the initial project
+    Tevm has these requirements from the TypeScript configuration:
+    - Use strict mode
+    - Support bigint (ES2020 or later)
 
-### 1. Create a tsconfig
+    See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more information about these options.
 
-The following config works quite nicely with vite apps.
+    You can use this file.
 
-Feel free to use any tsconfig you prefer as long as it
+    ```typescript title="tsconfig.json"
+    {
+      "compilerOptions": {
+        "target": "ES2021",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2021", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
 
-- uses strict mode
-- supports bigint (ES2020 or later)
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
 
-See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more information about these options.
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+      },
+      "include": ["src"]
+    }
+    ```
 
-```bash
-echo '{
-  "compilerOptions": {
-    "target": "ES2021",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
+1. Create the `index.html` file.
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    The HTML file will be the entrypoint to our app.
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"]
-}' > tsconfig.json
+    ```html title="index.html"
+    <!DOCTYPE html>
+    <html lang="en">
 
-```
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Tevm Example</title>
+    </head>
 
-### 2. Create an HTML file
+    <body>
+      <div id="app"></div>
+      <script type="module" src="/src/main.ts"></script>
+    </body>
 
-The HTML file will be the entrypoint to our app. Add it to `index.html`
+    </html>
+    ```
 
-```bash
-echo '
-<!DOCTYPE html>
-<html lang="en">
+1. Add a typescript file.
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tevm Example</title>
-</head>
+    You will see the HTML file is importing a `src/main.ts` file in a script tag. Go ahead and add that too.
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+    ```typescript title="src/main.ts"
+    const app = document.querySelector("#app") as Element;
+    app.innerHTML = `<div>Hello Tevm</div>`;
+    ```
 
-</html>
-' > index.html
-```
+1. Create a Vite configuration file.
 
-### 3. Add a typescript file
+    ```javascript title="vite.config.js"
+    import { defineConfig } from "vite"
+    import { nodePolyfills } from "vite-plugin-node-polyfills"
 
-You will see the HTML file is importing a `src/main.ts` file in a script tag. Go ahead and add that too
+    // https://vitejs.dev/config/
+    export default defineConfig({
+      define: {
+        global: "globalThis",
+      },
+      plugins: [
+        nodePolyfills({
+          include: ["stream"],
+          globals: {
+            process: true,
+            Buffer: true,
+            global: true,
+          },
+        }),
+      ],
+    })
+    ```
 
-```bash
-mkdir src && echo '
-const app = document.querySelector("#app") as Element;
-app.innerHTML = `<div>Hello Tevm</div>`;
-' > src/main.ts
-```
+1. Run your application.
 
-Now double check that you can run your application
+    ```bash
+    npx vite .
+    ```
 
-```bash
-npx vite .
-```
+    Hit `o` key and then `<Enter>` to open up [`http://localhost:5173`](http://localhost:5173) in your browser
 
-Hit `o` key and then `<Enter>` to open up [`http://localhost:5173`](http://localhost:5173) in your browser
+    You should see `Hello Tevm` rendered.
 
-You should see `Hello Tevm` rendered
+1. Add a shortcut script to `package.json`.
 
-Consider adding this command to your package.json for convenience
-
-```json
-"scripts": {
-  "dev": "npx vite ."
-}
-```
-
-### 4. Add polyfills
-
-To use Tevm and viem in the browser it is necessary to add some [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). These will inject code into your final build that will allow apis that do not exist in the browser natively to work.
-
-Install [a polyfill library](https://github.com/davidmyersdev/vite-plugin-node-polyfills) to polyfill `node`
-
-```bash
-npm i --save-dev vite-plugin-node-polyfills
-```
-
-Then create a basic [vite config](https://vitejs.dev/config/). This will build our app with ['stream'](https://nodejs.org/api/stream.html), ['process'](https://nodejs.org/api/process.html), ['Buffer'](https://nodejs.org/api/buffer.html), and ['global'](https://nodejs.org/api/globals.html) polyfills
-
-If you are using Tevm in node.js or bun no polyfills are necessary. Over time tevm has been and will continue to remove the need for polyfills.
-
-```bash
-echo '
-import { defineConfig } from "vite"
-import { nodePolyfills } from "vite-plugin-node-polyfills"
-
-// https://vitejs.dev/config/
-export default defineConfig({
-	define: {
-		global: "globalThis",
-	},
-	plugins: [
-		nodePolyfills({
-			include: ["stream"],
-			globals: {
-				process: true,
-				Buffer: true,
-				global: true,
-			},
-		}),
-	],
-})
-' > vite.config.js
-```
-
-Restart your vite server and now vite has everything it needs to run an Ethereum devnet in the browser.
+    ```json title="package.json" {8}
+    {
+      "name": "tevm-app",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx vite ."
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "tevm": "^1.0.0-next.110",
+        "viem": "^2.21.2"
+      },
+      "devDependencies": {
+        "typescript": "^5.5.4",
+        "vite": "^5.4.3"
+      }
+    }
+    ```    
 
 ## Create MemoryClient
 
