@@ -10,7 +10,7 @@ description: Tevm introduction
 We will be creating a simple counter app using the following technologies:
 
 - Tevm + [Viem](https://viem.sh)
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build an ui with no framework
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) + [TypeScript](https://www.typescriptlang.org/) to build a ui with no framework
 - [Vite](https://vitejs.dev/) + Tevm Bundler as a minimal build setup and dev server
 
 This guide intentionally uses a straightforward setup to focus on the most essential features of Tevm, so every piece is understood.
@@ -19,222 +19,295 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 
 - [Node.js >18.0](https://nodejs.org/en)
 - Basic knowledge of [JavaScript](https://www.youtube.com/watch?v=g7T23Xzys-A)
-- Basic knowledge of [solidity](https://docs.soliditylang.org/en/v0.8.25/)
+- Basic knowledge of [Solidity](https://docs.soliditylang.org/en/v0.8.25/)
 - Familiarity with [viem](https://viem.sh) or a similar library like [ethers.js](https://docs.ethers.org/v6/)
 
 ## Creating your Tevm project
 
-### 1. Create a new project directory:
+1. Create a new project directory.
 
-```bash
-mkdir tevm-app && cd tevm-app
-```
+    ```bash
+    mkdir tevm-app && cd tevm-app
+    mkdir src
+    ```
 
-### 2. Initialize your project
+1. Initialize your project
 
-```bash
-npm init --yes
-```
+    ```bash
+    npm init --yes
+    ```
 
-### 3. Install `tevm` and `viem` as runtime dependencies
+1. Install the runtime dependencies.
 
-```bash
-npm install tevm viem
-```
+    ```bash
+    npm install tevm viem
+    ```
 
-### 4. Install `vite` and `typescript` as buildtime dependency
+1. Install the buildtime dependencies.
+    [TypeScript](https://www.typescriptlang.org/) is the language we're using.
+    Vite provides us a minimal setup to import TypeScript into our HTML and start a dev server.
+    With Vite we also install a [polyfill](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill) library. This library injects code into your final build that will allow apis that do not exist in the browser natively to work.
 
-Vite will provide us a pretty minimal setup to import TypeScript into our HTML and start a dev server
+    ```bash
+    npm install --save-dev typescript vite vite-plugin-node-polyfills
+    ```
 
-```bash
-npm install --save-dev vite typescript
-```
+1. Create a TypeScript configuration file.
 
-## Scaffold the initial project
+    Tevm has these requirements from the TypeScript configuration:
+    - Use strict mode
+    - Support bigint (ES2020 or later)
 
-### 1. Create a tsconfig
+    See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more information about these options.
 
-The following config works quite nicely with vite apps.
+    You can use this file.
 
-Feel free to use any tsconfig you prefer as long as it
+    ```typescript title="tsconfig.json"
+    {
+      "compilerOptions": {
+        "target": "ES2021",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2021", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
 
-- uses strict mode
-- supports bigint (ES2020 or later)
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
 
-See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more information about these options.
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+      },
+      "include": ["src"]
+    }
+    ```
 
-```bash
-echo '{
-  "compilerOptions": {
-    "target": "ES2021",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
+1. Create the `index.html` file.
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    The HTML file will be the entrypoint to our app.
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"]
-}' > tsconfig.json
+    ```html title="index.html"
+    <!DOCTYPE html>
+    <html lang="en">
 
-```
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Tevm Example</title>
+    </head>
 
-### 2. Create an HTML file
+    <body>
+      <div id="app"></div>
+      <script type="module" src="/src/main.ts"></script>
+    </body>
 
-The HTML file will be the entrypoint to our app. Add it to `index.html`
+    </html>
+    ```
 
-```bash
-echo '
-<!DOCTYPE html>
-<html lang="en">
+1. Add a typescript file.
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tevm Example</title>
-</head>
+    You will see the HTML file is importing a `src/main.ts` file in a script tag. Go ahead and add that too.
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+    ```typescript title="src/main.ts"
+    const app = document.querySelector("#app") as Element;
+    app.innerHTML = `<div>Hello Tevm</div>`;
+    ```
 
-</html>
-' > index.html
-```
+1. Create a Vite configuration file.
 
-### 3. Add a typescript file
+    ```javascript title="vite.config.js"
+    import { defineConfig } from "vite"
+    import { nodePolyfills } from "vite-plugin-node-polyfills"
 
-You will see the HTML file is importing a `src/main.ts` file in a script tag. Go ahead and add that too
+    // https://vitejs.dev/config/
+    export default defineConfig({
+      define: {
+        global: "globalThis",
+      },
+      plugins: [
+        nodePolyfills({
+          include: ["stream"],
+          globals: {
+            process: true,
+            Buffer: true,
+            global: true,
+          },
+        }),
+      ],
+    })
+    ```
 
-```bash
-mkdir src && echo '
-const app = document.querySelector("#app") as Element;
-app.innerHTML = `<div>Hello Tevm</div>`;
-' > src/main.ts
-```
+1. Run your application.
 
-Now double check that you can run your application
+    ```bash
+    npx vite .
+    ```
 
-```bash
-npx vite .
-```
+    Hit `o` key and then `<Enter>` to open up [`http://localhost:5173`](http://localhost:5173) in your browser
 
-Hit `o` key and then `<Enter>` to open up [`http://localhost:5173`](http://localhost:5173) in your browser
+    You should see `Hello Tevm` rendered.
 
-You should see `Hello Tevm` rendered
+1. Add a shortcut script to `package.json`.
 
-Consider adding this command to your package.json for convenience
-
-```json
-"scripts": {
-  "dev": "npx vite ."
-}
-```
-
-### 4. Add polyfills
-
-To use Tevm and viem in the browser it is necessary to add some [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). These will inject code into your final build that will allow apis that do not exist in the browser natively to work.
-
-Install [a polyfill library](https://github.com/davidmyersdev/vite-plugin-node-polyfills) to polyfill `node`
-
-```bash
-npm i --save-dev vite-plugin-node-polyfills
-```
-
-Then create a basic [vite config](https://vitejs.dev/config/). This will build our app with ['stream'](https://nodejs.org/api/stream.html), ['process'](https://nodejs.org/api/process.html), ['Buffer'](https://nodejs.org/api/buffer.html), and ['global'](https://nodejs.org/api/globals.html) polyfills
-
-If you are using Tevm in node.js or bun no polyfills are necessary. Over time tevm has been and will continue to remove the need for polyfills.
-
-```bash
-echo '
-import { defineConfig } from "vite"
-import { nodePolyfills } from "vite-plugin-node-polyfills"
-
-// https://vitejs.dev/config/
-export default defineConfig({
-	define: {
-		global: "globalThis",
-	},
-	plugins: [
-		nodePolyfills({
-			include: ["stream"],
-			globals: {
-				process: true,
-				Buffer: true,
-				global: true,
-			},
-		}),
-	],
-})
-' > vite.config.js
-```
-
-Restart your vite server and now vite has everything it needs to run an Ethereum devnet in the browser.
+    ```json title="package.json" {8}
+    {
+      "name": "tevm-app",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx vite ."
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "tevm": "^1.0.0-next.110",
+        "viem": "^2.21.2"
+      },
+      "devDependencies": {
+        "typescript": "^5.5.4",
+        "vite": "^5.4.3"
+      }
+    }
+    ```    
 
 ## Create MemoryClient
 
-Now let's create a MemoryClient. A memory client is a [viem client](https://viem.sh/docs/clients/intro.html) using an in-memory [transport](https://viem.sh/docs/clients/intro#transports). This means instead of sending requests to an RPC provider like alchemy it will be processing requests with tevm in memory in a local EVM instance running in JavaScript.
+A memory client is a [Viem client](https://viem.sh/docs/clients/intro.html) that uses an in-memory [transport](https://viem.sh/docs/clients/intro#transports). 
+This means instead of sending requests to an RPC provider like [Alchemy](https://www.alchemy.com/) this client processes requests with tevm in a local EVM instance running in JavaScript.
 
-Memory client is similar to `anvil`. It can:
+Memory client has similar features to [`anvil`](https://book.getfoundry.sh/anvil/):
 
-- Optionally fork an existing network
-- Run special scripts that have advanced functionality
-- Extremely hackable. Can mint yourself eth, run traces, modify storage, and more
+- Optionally fork an existing network.
+- Run special scripts that have advanced functionality.
+- Allow you to view and modify the chain state, so you can mint yourself ETH, run traces, modify storage, etc.
+- Be Extremely hackable. Can mint yourself eth, run traces, modify storage, and more.
 
 :::tip[Use tree shakable actions]
-This guide uses MemoryClient. A batteries included client. This client helps make exploring tevm for the first time easier.
-If you are building a UI with tevm, it is highly recomended you use `createClient` from viem along with `createTevmTransport` and tree shakable actions.
-See [client guide](https://tevm.sh/learn/clients/) for more info
+
+MemoryClient is an all-inclusive client. 
+This client helps make exploring tevm for the first time easier.
+If you are building a UI with tevm, it is highly recomended you use [`createClient`](https://viem.sh/docs/clients/custom) from Viem along with [`createTevmTransport`](/reference/tevm/memory-client/functions/createtevmtransport) and [tree shakable actions](https://en.wikipedia.org/wiki/Tree_shaking).
+
+See [the client guide](/learn/clients/) for more info.
+
 :::
 
-### 1. In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
+In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
-```typescript
+```typescript title="src/main.ts"
 import { createMemoryClient, http } from "tevm";
-import { optimism } from "tevm/common";
+import { redstone } from "tevm/common";
 
 const app = document.querySelector("#app") as Element;
 
 const memoryClient = createMemoryClient({
-  common: optimism,
+  common: redstone,
   fork: {
     // @warning we may face throttling using the public endpoint
     // In production apps consider using `loadBalance` and `rateLimit` transports
-    transport: http("https://mainnet.optimism.io")({}),
+    transport: http("https://rpc.redstonechain.com")({}),
   },
 });
 
 async function runApp() {
-  app.innerHTML = `<div id="status">initializing...</div>
-<div id="blocknumber"></div>
-`;
-  const status = app.querySelector("#status")!;
+  app.innerHTML = `
+    <b>Status:</b> <span id="status">initializing</span>
 
-  document.querySelector("#blocknumber")!.innerHTML =
-    `Fetching block number next step. For now let's check out which methods are on memory client:
-<ul>
-  ${Object.keys(memoryClient).map((key) => `<li>${key}</li>`)}
-</ul>`;
+    <details>
+    <summary>memoryClient methods</summary>
+    <div id="methods"></div>
+    </details>
+      
+    <b>Forked at block:</b> <span id="blocknumber">???</span>      
+    `;
+  
+  document.querySelector("#methods")!.innerHTML = `
+    <ul>
+      ${Object.keys(memoryClient)
+        .map(key => `<li>${key}</li>`)
+        .reduce((a,b) => a+b, "")
+      }   
+    </ul>`;
+  
+  const status = app.querySelector("#status")!;
+  
+  status.innerHTML = "Working";
+  const blockNumber = await memoryClient.getBlockNumber();
+  
+  document.querySelector("#blocknumber")!.innerHTML = blockNumber;
 
   status.innerHTML = "Done";
 }
-
+ 
 runApp();
 ```
 
-When we fork a network the blocknumber will be pinned to the block number at the time of the fork. As you mine new blocks you will not get updates from the chain unless you refork it.
+<details>
+
+<summary>Explanation</summary>
+
+```typescript
+import { createMemoryClient, http } from "tevm";
+import { redstone } from "tevm/common";
+
+const app = document.querySelector("#app") as Element;
+
+const memoryClient = createMemoryClient({
+  common: redstone,
+  fork: {
+    // @warning we may face throttling using the public endpoint
+    // In production apps consider using `loadBalance` and `rateLimit` transports
+    transport: http("https://rpc.redstonechain.com")({}),
+  },
+});
+
+async function runApp() {
+  app.innerHTML = `
+    <b>Status:</b> <span id="status">initializing</span>
+
+    <details>
+    <summary>memoryClient methods</summary>
+    <div id="methods"></div>
+    </details>
+      
+    <b>Forked at block:</b> <span id="blocknumber">???</span>      
+    `;
+  
+  document.querySelector("#methods")!.innerHTML = `
+    <ul>
+      ${Object.keys(memoryClient)
+        .map(key => `<li>${key}</li>`)
+        .reduce((a,b) => a+b, "")
+      }   
+    </ul>`;
+  
+  const status = app.querySelector("#status")!;
+  
+  status.innerHTML = "Working";
+  const blockNumber = await memoryClient.getBlockNumber();
+  
+  document.querySelector("#blocknumber")!.innerHTML = blockNumber;
+
+  status.innerHTML = "Done";
+}
+ 
+runApp();
+```
+
+</details>
+
+When we fork a blockchain the block number will be pinned to the block number at the time of the fork. 
+As new blocks are created, 
+As you create new blocks you will not get updates from the chain unless you refork it.
 
 It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
 
@@ -259,7 +332,7 @@ async function runApp() {
 `;
   const status = app.querySelector("#status")!;
 
-  status.innerHTML = "Fetching block number...";
+  status.innerHTML = "Working";
   const blockNumber = await memoryClient.getBlockNumber();
   document.querySelector("#blocknumber")!.innerHTML =
     `ForkBlock: ${blockNumber}`;
