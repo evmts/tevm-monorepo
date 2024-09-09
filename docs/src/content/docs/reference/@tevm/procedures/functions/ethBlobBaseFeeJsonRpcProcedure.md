@@ -17,4 +17,4 @@ title: "ethBlobBaseFeeJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethBlobBaseFeeProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethBlobBaseFeeProcedure.js#L10)
+[packages/procedures/src/eth/ethBlobBaseFeeProcedure.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethBlobBaseFeeProcedure.js#L10)

@@ -11,4 +11,4 @@ JSON-RPC request for `eth_signTransaction` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcRequest.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L244)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:244](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L244)

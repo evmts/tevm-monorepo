@@ -13,4 +13,4 @@ title: "ContractMethodArgs"
 
 ## Defined in
 
-[extensions/ethers/src/contract/ContractMethodArgs.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/ContractMethodArgs.ts#L3)
+[extensions/ethers/src/contract/ContractMethodArgs.ts:3](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/contract/ContractMethodArgs.ts#L3)

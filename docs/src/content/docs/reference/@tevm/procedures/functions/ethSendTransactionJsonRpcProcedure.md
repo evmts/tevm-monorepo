@@ -17,4 +17,4 @@ title: "ethSendTransactionJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethSendTransactionProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSendTransactionProcedure.js#L9)
+[packages/procedures/src/eth/ethSendTransactionProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSendTransactionProcedure.js#L9)

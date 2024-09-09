@@ -9,4 +9,4 @@ title: "releases"
 
 ## Defined in
 
-[solc.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L12)
+[solc.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L12)

@@ -57,4 +57,4 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)
+[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

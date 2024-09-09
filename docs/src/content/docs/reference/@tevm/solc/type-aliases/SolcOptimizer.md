@@ -23,4 +23,4 @@ title: "SolcOptimizer"
 
 ## Defined in
 
-[solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)
+[solcTypes.ts:106](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)

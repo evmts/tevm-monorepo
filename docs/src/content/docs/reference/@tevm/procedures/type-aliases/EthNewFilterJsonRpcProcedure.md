@@ -17,4 +17,4 @@ title: "EthNewFilterJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/EthProcedure.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L197)
+[packages/procedures/src/eth/EthProcedure.ts:197](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L197)

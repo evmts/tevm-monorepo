@@ -45,4 +45,4 @@ This API is no longer supported and may be removed in a future release.
 
 ## Defined in
 
-[packages/procedures/src/tevm-request-handler/TevmRequestType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmRequestType.ts#L12)
+[packages/procedures/src/tevm-request-handler/TevmRequestType.ts:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmRequestType.ts#L12)

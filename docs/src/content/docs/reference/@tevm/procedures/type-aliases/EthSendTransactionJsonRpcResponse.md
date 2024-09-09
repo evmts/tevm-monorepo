@@ -11,4 +11,4 @@ JSON-RPC response for `eth_sendTransaction` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcResponse.ts:250](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L250)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:250](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L250)

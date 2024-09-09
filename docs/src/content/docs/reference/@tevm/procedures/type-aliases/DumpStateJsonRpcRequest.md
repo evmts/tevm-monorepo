@@ -11,4 +11,4 @@ The JSON-RPC request for the `tevm_dumpState` method
 
 ## Defined in
 
-[packages/procedures/src/dumpstate/DumpStateJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcRequest.ts#L6)
+[packages/procedures/src/dumpstate/DumpStateJsonRpcRequest.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcRequest.ts#L6)

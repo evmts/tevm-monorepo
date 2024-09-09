@@ -20,4 +20,4 @@ Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/ma
 
 ## Defined in
 
-[packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)
+[packages/evm/src/createEvm.js:30](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)

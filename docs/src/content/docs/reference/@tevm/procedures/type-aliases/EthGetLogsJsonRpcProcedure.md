@@ -17,4 +17,4 @@ title: "EthGetLogsJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/EthProcedure.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L133)
+[packages/procedures/src/eth/EthProcedure.ts:133](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L133)

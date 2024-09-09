@@ -21,4 +21,4 @@ the `result` field from the JSON-RPC response
 
 ## Defined in
 
-[packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)
+[packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)

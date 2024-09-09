@@ -31,7 +31,7 @@ title: "ProviderRpcError"
 
 #### Defined in
 
-[packages/node/src/EIP1193EventEmitterTypes.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L25)
+[packages/node/src/EIP1193EventEmitterTypes.ts:25](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L25)
 
 ## Properties
 
@@ -55,7 +55,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es2022.err
 
 #### Defined in
 
-[packages/node/src/EIP1193EventEmitterTypes.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L22)
+[packages/node/src/EIP1193EventEmitterTypes.ts:22](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L22)
 
 ***
 
@@ -65,7 +65,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es2022.err
 
 #### Defined in
 
-[packages/node/src/EIP1193EventEmitterTypes.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L23)
+[packages/node/src/EIP1193EventEmitterTypes.ts:23](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L23)
 
 ***
 

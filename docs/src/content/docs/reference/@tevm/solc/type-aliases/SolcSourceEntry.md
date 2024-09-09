@@ -19,4 +19,4 @@ title: "SolcSourceEntry"
 
 ## Defined in
 
-[solcTypes.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L387)
+[solcTypes.ts:387](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L387)

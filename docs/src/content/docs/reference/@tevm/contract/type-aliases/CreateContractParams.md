@@ -7,7 +7,7 @@ title: "CreateContractParams"
 
 > **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object` \| `object`
 
-Params for creating a [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) instance
+Params for creating a [Contract](../../../../../../../../reference/tevm/contract/type-aliases/contract) instance
 
 ## See
 
@@ -29,4 +29,4 @@ CreateContract
 
 ## Defined in
 
-[CreateContractParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L8)
+[CreateContractParams.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L8)

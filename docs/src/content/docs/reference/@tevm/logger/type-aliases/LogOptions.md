@@ -26,4 +26,4 @@ The name of the logger. Adds a name field to every JSON line logged.
 
 ## Defined in
 
-[LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)
+[LogOptions.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)

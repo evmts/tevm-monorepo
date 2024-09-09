@@ -9,4 +9,4 @@ title: "WithdrawalsBytes"
 
 ## Defined in
 
-[types.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L154)
+[types.ts:154](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L154)

@@ -9,4 +9,4 @@ title: "SimpleContract"
 
 ## Defined in
 
-[test/test-utils/src/SimpleContract.s.sol.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/test/test-utils/src/SimpleContract.s.sol.ts#L15)
+[test/test-utils/src/SimpleContract.s.sol.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/test/test-utils/src/SimpleContract.s.sol.ts#L15)

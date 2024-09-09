@@ -13,4 +13,4 @@ title: "createMockKzg"
 
 ## Defined in
 
-[packages/common/src/createMockKzg.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L22)
+[packages/common/src/createMockKzg.js:22](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L22)

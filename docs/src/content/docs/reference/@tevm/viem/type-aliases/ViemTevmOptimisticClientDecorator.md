@@ -31,4 +31,4 @@ A viem decorator for `tevmViemExtension`
 
 ## Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
+[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)

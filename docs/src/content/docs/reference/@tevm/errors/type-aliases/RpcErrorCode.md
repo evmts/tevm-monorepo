@@ -9,4 +9,4 @@ title: "RpcErrorCode"
 
 ## Defined in
 
-[packages/errors/src/requestErrors.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/requestErrors.ts#L20)
+[packages/errors/src/requestErrors.ts:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/requestErrors.ts#L20)

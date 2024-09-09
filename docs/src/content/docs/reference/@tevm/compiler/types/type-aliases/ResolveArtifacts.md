@@ -31,4 +31,4 @@ title: "ResolveArtifacts"
 
 ## Defined in
 
-[compiler/src/types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L14)
+[compiler/src/types.ts:14](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L14)

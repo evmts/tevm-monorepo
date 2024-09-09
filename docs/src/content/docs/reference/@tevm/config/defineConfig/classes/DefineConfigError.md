@@ -5,7 +5,7 @@ prev: false
 title: "DefineConfigError"
 ---
 
-Error class for [defineConfig](../../../../../../../../reference/tevm/config/defineconfig/functions/defineconfig)
+Error class for [defineConfig](../../../../../../../../../reference/tevm/config/defineconfig/functions/defineconfig)
 
 ## Extends
 
@@ -33,7 +33,7 @@ Error class for [defineConfig](../../../../../../../../reference/tevm/config/def
 
 #### Defined in
 
-[bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
+[bundler-packages/config/src/defineConfig.js:22](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
 
 ## Properties
 
@@ -43,7 +43,7 @@ Error class for [defineConfig](../../../../../../../../reference/tevm/config/def
 
 #### Defined in
 
-[bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
+[bundler-packages/config/src/defineConfig.js:17](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
 
 ***
 
@@ -85,7 +85,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[bundler-packages/config/src/defineConfig.js:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L13)
+[bundler-packages/config/src/defineConfig.js:13](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L13)
 
 ***
 

@@ -17,4 +17,4 @@ title: "parseJson"
 
 ## Defined in
 
-[packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
+[packages/effect/src/parseJson.js:33](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)

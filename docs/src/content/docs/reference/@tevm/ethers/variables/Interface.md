@@ -9,4 +9,4 @@ title: "Interface"
 
 ## Defined in
 
-[extensions/ethers/src/contract/Contract.d.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L16)
+[extensions/ethers/src/contract/Contract.d.ts:16](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L16)

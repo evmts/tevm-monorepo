@@ -11,4 +11,4 @@ Bytecode and ABI for the ERC20 contract from open zeppelin.
 
 ## Defined in
 
-[contract-lib/ERC20.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/contract-lib/ERC20.ts#L32)
+[contract-lib/ERC20.ts:32](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/contract-lib/ERC20.ts#L32)

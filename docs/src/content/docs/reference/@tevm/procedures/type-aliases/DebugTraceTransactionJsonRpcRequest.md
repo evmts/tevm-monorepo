@@ -11,4 +11,4 @@ JSON-RPC request for `debug_traceTransaction` method
 
 ## Defined in
 
-[packages/procedures/src/debug/DebugJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugJsonRpcRequest.ts#L9)
+[packages/procedures/src/debug/DebugJsonRpcRequest.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugJsonRpcRequest.ts#L9)

@@ -12,4 +12,4 @@ A Tevm JSON-RPC request
 
 ## Defined in
 
-[packages/procedures/src/TevmJsonRpcRequest.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/TevmJsonRpcRequest.ts#L13)
+[packages/procedures/src/TevmJsonRpcRequest.ts:13](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/TevmJsonRpcRequest.ts#L13)

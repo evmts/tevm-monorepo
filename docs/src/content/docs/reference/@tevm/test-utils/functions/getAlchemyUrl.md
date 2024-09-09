@@ -21,4 +21,4 @@ Returns an alchemy url based on env variables for the given chain
 
 ## Defined in
 
-[test/test-utils/src/getAlchemyUrl.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/test/test-utils/src/getAlchemyUrl.ts#L27)
+[test/test-utils/src/getAlchemyUrl.ts:27](https://github.com/qbzzt/tevm-monorepo/blob/main/test/test-utils/src/getAlchemyUrl.ts#L27)

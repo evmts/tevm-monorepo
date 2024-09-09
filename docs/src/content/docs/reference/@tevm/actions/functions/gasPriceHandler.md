@@ -17,4 +17,4 @@ title: "gasPriceHandler"
 
 ## Defined in
 
-[packages/actions/src/eth/gasPriceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/gasPriceHandler.js#L9)
+[packages/actions/src/eth/gasPriceHandler.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/gasPriceHandler.js#L9)

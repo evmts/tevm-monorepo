@@ -25,4 +25,4 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Defined in
 
-[definePredeploy.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.js#L27)
+[definePredeploy.js:27](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.js#L27)

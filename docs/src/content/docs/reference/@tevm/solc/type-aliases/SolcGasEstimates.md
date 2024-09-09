@@ -43,4 +43,4 @@ title: "SolcGasEstimates"
 
 ## Defined in
 
-[solcTypes.ts:504](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L504)
+[solcTypes.ts:504](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L504)

@@ -30,7 +30,7 @@ if (result.errors) {
 
 ## See
 
-[TevmLoadStateError](../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
+[TevmLoadStateError](../../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
 
 ## Type Parameters
 
@@ -46,4 +46,4 @@ Description of the exception, if any occurred.
 
 ## Defined in
 
-[packages/actions/src/LoadState/LoadStateResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L26)
+[packages/actions/src/LoadState/LoadStateResult.ts:26](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L26)

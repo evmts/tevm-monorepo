@@ -30,8 +30,8 @@ if (result.errors) {
 
 ## See
 
-[InternalError](../../../../../../../reference/tevm/errors/classes/internalerror)
+[InternalError](../../../../../../../../reference/tevm/errors/classes/internalerror)
 
 ## Defined in
 
-[packages/actions/src/LoadState/TevmLoadStateError.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/TevmLoadStateError.ts#L26)
+[packages/actions/src/LoadState/TevmLoadStateError.ts:26](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/LoadState/TevmLoadStateError.ts#L26)

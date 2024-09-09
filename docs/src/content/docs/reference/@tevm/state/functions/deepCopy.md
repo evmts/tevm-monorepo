@@ -21,4 +21,4 @@ title: "deepCopy"
 
 ## Defined in
 
-[packages/state/src/actions/deepCopy.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deepCopy.js#L10)
+[packages/state/src/actions/deepCopy.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/deepCopy.js#L10)

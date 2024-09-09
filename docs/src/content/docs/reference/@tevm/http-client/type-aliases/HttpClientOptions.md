@@ -27,4 +27,4 @@ Remote URL to connect to
 
 ## Defined in
 
-[HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)
+[HttpClientOptions.ts:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)

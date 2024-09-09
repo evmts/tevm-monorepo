@@ -15,7 +15,7 @@ The cause of the error.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L10)
+[packages/server/src/errors/ReadRequestBodyError.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L10)
 
 ***
 
@@ -27,7 +27,7 @@ Details of the error.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L11)
+[packages/server/src/errors/ReadRequestBodyError.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L11)
 
 ***
 
@@ -39,7 +39,7 @@ Base URL for the documentation.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L6)
+[packages/server/src/errors/ReadRequestBodyError.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L6)
 
 ***
 
@@ -51,7 +51,7 @@ Path to the documentation.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L7)
+[packages/server/src/errors/ReadRequestBodyError.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L7)
 
 ***
 
@@ -63,7 +63,7 @@ Slug for the documentation.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L8)
+[packages/server/src/errors/ReadRequestBodyError.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L8)
 
 ***
 
@@ -75,7 +75,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L12)
+[packages/server/src/errors/ReadRequestBodyError.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L12)
 
 ***
 
@@ -87,4 +87,4 @@ Additional meta messages.
 
 #### Defined in
 
-[packages/server/src/errors/ReadRequestBodyError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L9)
+[packages/server/src/errors/ReadRequestBodyError.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L9)

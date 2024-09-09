@@ -29,7 +29,7 @@ console.log(blockNumber);
 
 ## See
 
- - For creating a MemoryClient instance, see [createMemoryClient](../../../../../../../reference/tevm/memory-client/functions/creatememoryclient).
+ - For creating a MemoryClient instance, see [createMemoryClient](../../../../../../../../reference/tevm/memory-client/functions/creatememoryclient).
  - [Client Guide](https://tevm.sh/learn/clients/)
  - [Actions Guide](https://tevm.sh/learn/actions/)
  - [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
@@ -200,4 +200,4 @@ console.log(balance); // 1n
 
 ## Defined in
 
-[packages/memory-client/src/MemoryClient.ts:193](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L193)
+[packages/memory-client/src/MemoryClient.ts:193](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L193)

@@ -9,4 +9,4 @@ title: "BlockParam"
 
 ## Defined in
 
-[packages/actions/src/common/BlockParam.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockParam.ts#L4)
+[packages/actions/src/common/BlockParam.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/BlockParam.ts#L4)

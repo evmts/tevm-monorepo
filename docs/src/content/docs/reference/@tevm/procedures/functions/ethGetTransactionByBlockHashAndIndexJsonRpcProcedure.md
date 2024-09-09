@@ -17,4 +17,4 @@ title: "ethGetTransactionByBlockHashAndIndexJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js#L9)
+[packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js#L9)

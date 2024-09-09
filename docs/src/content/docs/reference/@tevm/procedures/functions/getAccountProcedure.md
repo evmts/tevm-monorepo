@@ -17,4 +17,4 @@ title: "getAccountProcedure"
 
 ## Defined in
 
-[packages/procedures/src/getaccount/getAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/getaccount/getAccountProcedure.js#L9)
+[packages/procedures/src/getaccount/getAccountProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/getaccount/getAccountProcedure.js#L9)

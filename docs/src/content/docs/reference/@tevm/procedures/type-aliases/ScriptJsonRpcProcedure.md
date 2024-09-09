@@ -22,4 +22,4 @@ Procedure for handling script JSON-RPC requests
 
 ## Defined in
 
-[packages/procedures/src/script/ScriptJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcProcedure.ts#L8)
+[packages/procedures/src/script/ScriptJsonRpcProcedure.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcProcedure.ts#L8)

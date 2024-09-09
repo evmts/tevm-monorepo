@@ -31,4 +31,4 @@ title: "resolveArtifactsSync"
 
 ## Defined in
 
-[compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)
+[compiler/src/resolveArtifactsSync.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)

@@ -17,4 +17,4 @@ title: "loadConfig"
 
 ## Defined in
 
-[bundler-packages/config/src/loadConfig.js:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L55)
+[bundler-packages/config/src/loadConfig.js:55](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L55)

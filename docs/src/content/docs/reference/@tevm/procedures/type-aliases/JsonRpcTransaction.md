@@ -49,4 +49,4 @@ The integer of value sent with this transaction encoded as hexadecimal
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L9)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L9)

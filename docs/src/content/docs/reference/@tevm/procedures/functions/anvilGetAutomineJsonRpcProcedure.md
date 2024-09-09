@@ -17,4 +17,4 @@ title: "anvilGetAutomineJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/anvil/anvilGetAutomineProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilGetAutomineProcedure.js#L6)
+[packages/procedures/src/anvil/anvilGetAutomineProcedure.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilGetAutomineProcedure.js#L6)

@@ -24,4 +24,4 @@ To configure add this plugin to your vite config and add the ts-plugin to your t
 
 ## Defined in
 
-[bundler-packages/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L73)
+[bundler-packages/vite/src/vitePluginTevm.js:73](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L73)

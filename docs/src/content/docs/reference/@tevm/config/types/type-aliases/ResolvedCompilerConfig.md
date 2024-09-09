@@ -8,7 +8,7 @@ title: "ResolvedCompilerConfig"
 > **ResolvedCompilerConfig**: `object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
+See [CompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
 
 ## Type declaration
 
@@ -46,4 +46,4 @@ Remap the location of contracts
 
 ## Defined in
 
-[bundler-packages/config/src/types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L45)
+[bundler-packages/config/src/types.ts:45](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L45)

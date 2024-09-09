@@ -19,4 +19,4 @@ title: "Client"
 
 ## Defined in
 
-[packages/server/src/Client.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/Client.ts#L5)
+[packages/server/src/Client.ts:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/Client.ts#L5)

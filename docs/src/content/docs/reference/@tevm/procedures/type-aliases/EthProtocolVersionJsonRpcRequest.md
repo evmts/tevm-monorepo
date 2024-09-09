@@ -11,4 +11,4 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcRequest.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L224)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:224](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L224)

@@ -17,4 +17,4 @@ title: "ethSignProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignProcedure.js#L7)
+[packages/procedures/src/eth/ethSignProcedure.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignProcedure.js#L7)

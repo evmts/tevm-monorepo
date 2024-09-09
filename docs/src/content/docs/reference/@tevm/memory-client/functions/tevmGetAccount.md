@@ -25,4 +25,4 @@ The account information.
 
 ## Defined in
 
-[packages/memory-client/src/tevmGetAccount.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmGetAccount.js#L45)
+[packages/memory-client/src/tevmGetAccount.js:45](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmGetAccount.js#L45)

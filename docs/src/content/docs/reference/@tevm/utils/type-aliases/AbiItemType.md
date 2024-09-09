@@ -7,7 +7,7 @@ title: "AbiItemType"
 
 > **AbiItemType**: `"constructor"` \| `"error"` \| `"event"` \| `"fallback"` \| `"function"` \| `"receive"`
 
-`"type"` name for [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) items.
+`"type"` name for [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi) items.
 
 ## Defined in
 

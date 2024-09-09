@@ -17,4 +17,4 @@ A client for making JsonRpc requests over http
 
 ## Defined in
 
-[packages/jsonrpc/src/JsonRpcClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L6)
+[packages/jsonrpc/src/JsonRpcClient.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L6)

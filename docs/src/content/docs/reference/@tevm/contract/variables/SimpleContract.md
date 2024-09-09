@@ -9,4 +9,4 @@ title: "SimpleContract"
 
 ## Defined in
 
-[contract-lib/SimpleContract.s.sol.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/contract-lib/SimpleContract.s.sol.ts#L15)
+[contract-lib/SimpleContract.s.sol.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/contract-lib/SimpleContract.s.sol.ts#L15)

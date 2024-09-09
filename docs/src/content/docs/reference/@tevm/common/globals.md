@@ -28,11 +28,19 @@ title: "@tevm/common"
 
 ## Variables
 
+- [arbitrum](/reference/tevm/common/variables/arbitrum/)
+- [avalanche](/reference/tevm/common/variables/avalanche/)
 - [base](/reference/tevm/common/variables/base/)
 - [baseSepolia](/reference/tevm/common/variables/basesepolia/)
+- [blast](/reference/tevm/common/variables/blast/)
 - [mainnet](/reference/tevm/common/variables/mainnet/)
+- [manta](/reference/tevm/common/variables/manta/)
+- [mantle](/reference/tevm/common/variables/mantle/)
 - [optimism](/reference/tevm/common/variables/optimism/)
 - [optimismSepolia](/reference/tevm/common/variables/optimismsepolia/)
+- [polygon](/reference/tevm/common/variables/polygon/)
+- [redstone](/reference/tevm/common/variables/redstone/)
+- [scroll](/reference/tevm/common/variables/scroll/)
 - [sepolia](/reference/tevm/common/variables/sepolia/)
 - [tevmDefault](/reference/tevm/common/variables/tevmdefault/)
 - [zora](/reference/tevm/common/variables/zora/)

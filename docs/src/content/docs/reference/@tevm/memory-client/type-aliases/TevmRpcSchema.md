@@ -44,4 +44,4 @@ example()
 
 ## Defined in
 
-[packages/memory-client/src/TevmRpcSchema.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmRpcSchema.ts#L36)
+[packages/memory-client/src/TevmRpcSchema.ts:36](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/TevmRpcSchema.ts#L36)

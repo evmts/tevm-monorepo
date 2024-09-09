@@ -12,4 +12,4 @@ Can be dynamically computed using keccak256([]) or generateStateRoot([])
 
 ## Defined in
 
-[packages/trie/src/EMPTY\_STATE\_ROOT.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/trie/src/EMPTY_STATE_ROOT.js#L5)
+[packages/trie/src/EMPTY\_STATE\_ROOT.js:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/trie/src/EMPTY_STATE_ROOT.js#L5)

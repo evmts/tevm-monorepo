@@ -53,4 +53,4 @@ Native currency for the chain.
 
 ## Defined in
 
-[eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)
+[eip1193/AddEthereumChainParameter.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)

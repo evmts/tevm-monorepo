@@ -69,4 +69,4 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ## Defined in
 
-[packages/actions/src/common/TransactionReceiptResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L7)
+[packages/actions/src/common/TransactionReceiptResult.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L7)

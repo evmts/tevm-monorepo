@@ -7,7 +7,7 @@ title: "MemoryClientOptions"
 
 > **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>: `TevmNodeOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
 
-Configuration options for creating a [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
+Configuration options for creating a [MemoryClient](../../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
 
 This type extends `TevmNodeOptions` and includes specific options for configuring the MemoryClient,
 such as the transport type, account, polling interval, and caching behavior.
@@ -34,8 +34,8 @@ const client = createMemoryClient(options);
 
 ## See
 
- - [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient)
- - [CreateMemoryClientFn](../../../../../../../reference/tevm/memory-client/type-aliases/creatememoryclientfn)
+ - [MemoryClient](../../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient)
+ - [CreateMemoryClientFn](../../../../../../../../reference/tevm/memory-client/type-aliases/creatememoryclientfn)
 
 ## Type Parameters
 
@@ -53,4 +53,4 @@ The RPC schema type, defaults to `TevmRpcSchema`.
 
 ## Defined in
 
-[packages/memory-client/src/MemoryClientOptions.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L50)
+[packages/memory-client/src/MemoryClientOptions.ts:50](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L50)

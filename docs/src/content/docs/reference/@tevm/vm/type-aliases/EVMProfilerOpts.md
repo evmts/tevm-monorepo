@@ -15,4 +15,4 @@ title: "EVMProfilerOpts"
 
 ## Defined in
 
-[packages/vm/src/utils/EVMProfileOpts.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L1)
+[packages/vm/src/utils/EVMProfileOpts.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L1)

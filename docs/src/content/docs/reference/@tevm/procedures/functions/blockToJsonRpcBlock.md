@@ -19,4 +19,4 @@ title: "blockToJsonRpcBlock"
 
 ## Defined in
 
-[packages/procedures/src/utils/blockToJsonRpcBlock.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/utils/blockToJsonRpcBlock.js#L9)
+[packages/procedures/src/utils/blockToJsonRpcBlock.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/utils/blockToJsonRpcBlock.js#L9)

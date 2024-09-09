@@ -19,4 +19,4 @@ title: "calculateMinerReward"
 
 ## Defined in
 
-[packages/vm/src/actions/calculateMinerReward.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/calculateMinerReward.ts#L1)
+[packages/vm/src/actions/calculateMinerReward.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/calculateMinerReward.ts#L1)

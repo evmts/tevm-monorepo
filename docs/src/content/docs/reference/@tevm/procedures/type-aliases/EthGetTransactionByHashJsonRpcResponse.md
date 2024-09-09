@@ -11,4 +11,4 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcResponse.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L172)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:172](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L172)

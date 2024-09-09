@@ -47,4 +47,4 @@ title: "SolcOptimizerDetails"
 
 ## Defined in
 
-[solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)
+[solcTypes.ts:77](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)

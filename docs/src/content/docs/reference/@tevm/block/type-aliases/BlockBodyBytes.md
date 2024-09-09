@@ -9,4 +9,4 @@ title: "BlockBodyBytes"
 
 ## Defined in
 
-[types.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L168)
+[types.ts:168](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L168)

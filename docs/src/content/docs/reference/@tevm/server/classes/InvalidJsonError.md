@@ -62,7 +62,7 @@ Additional parameters for the InvalidJsonError.
 
 #### Defined in
 
-[packages/server/src/errors/InvalidJsonError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/InvalidJsonError.js#L47)
+[packages/server/src/errors/InvalidJsonError.js:47](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/errors/InvalidJsonError.js#L47)
 
 ## Properties
 

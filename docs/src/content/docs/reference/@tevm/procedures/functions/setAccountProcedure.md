@@ -17,4 +17,4 @@ title: "setAccountProcedure"
 
 ## Defined in
 
-[packages/procedures/src/setaccount/setAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/setaccount/setAccountProcedure.js#L9)
+[packages/procedures/src/setaccount/setAccountProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/setaccount/setAccountProcedure.js#L9)

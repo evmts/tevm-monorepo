@@ -182,7 +182,7 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 ## Create MemoryClient
 
 A memory client is a [Viem client](https://viem.sh/docs/clients/intro.html) that uses an in-memory [transport](https://viem.sh/docs/clients/intro#transports). 
-This means instead of sending requests to an RPC provider like [Alchemy](https://www.alchemy.com/) this client processes requests with tevm in a local EVM instance running in JavaScript.
+Instead of sending requests to an RPC provider like [Alchemy](https://www.alchemy.com/) this client processes requests with tevm in a local EVM instance running in JavaScript.
 
 Memory client has similar features to [`anvil`](https://book.getfoundry.sh/anvil/):
 
@@ -201,7 +201,7 @@ See [the client guide](/learn/clients/) for more info.
 
 :::
 
-In the `src/main.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
+Replace `src/main.ts` with the file below, and see you can get the block number from [Redstone](https://redstone.xyz/docs/what-is-redstone).
 
 ```typescript title="src/main.ts"
 import { createMemoryClient, http } from "tevm";

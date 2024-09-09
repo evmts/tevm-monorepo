@@ -50,4 +50,4 @@ to true.
 
 ## Defined in
 
-[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)
+[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

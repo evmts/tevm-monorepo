@@ -25,4 +25,4 @@ title: "definePrecompile"
 
 ## Defined in
 
-[definePrecompile.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)
+[definePrecompile.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)

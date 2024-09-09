@@ -11,4 +11,4 @@ The response to the `tevm_dumpState` JSON-RPC request.
 
 ## Defined in
 
-[packages/procedures/src/dumpstate/DumpStateJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcResponse.ts#L9)
+[packages/procedures/src/dumpstate/DumpStateJsonRpcResponse.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcResponse.ts#L9)

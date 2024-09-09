@@ -9,4 +9,4 @@ title: "TevmDeployError"
 
 ## Defined in
 
-[packages/actions/src/Deploy/TevmDeployError.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/TevmDeployError.ts#L5)
+[packages/actions/src/Deploy/TevmDeployError.ts:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Deploy/TevmDeployError.ts#L5)

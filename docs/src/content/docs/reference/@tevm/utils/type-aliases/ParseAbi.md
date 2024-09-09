@@ -7,7 +7,7 @@ title: "ParseAbi"
 
 > **ParseAbi**\<`signatures`\>: `string`[] *extends* `signatures` ? [`Abi`](/reference/tevm/utils/type-aliases/abi/) : `signatures` *extends* readonly `string`[] ? `signatures` *extends* `Signatures`\<`signatures`\> ? `ParseStructs`\<`signatures`\> *extends* infer sructs ? `{ [key in keyof signatures]: signatures[key] extends string ? ParseSignature<signatures[key], sructs> : never }` *extends* infer mapped ? `Filter`\<`mapped`, `never`\> *extends* infer result ? `result` *extends* readonly [] ? `never` : `result` : `never` : `never` : `never` : `never` : `never`
 
-Parses human-readable ABI into JSON [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
+Parses human-readable ABI into JSON [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi)
 
 ## Example
 

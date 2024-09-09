@@ -19,4 +19,4 @@ An instance of solc
 
 ## Defined in
 
-[solc.js:143](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L143)
+[solc.js:143](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L143)

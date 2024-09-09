@@ -21,4 +21,4 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 ## Defined in
 
-[packages/procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts#L13)
+[packages/procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts:13](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts#L13)

@@ -17,4 +17,4 @@ title: "validateScriptParams"
 
 ## Defined in
 
-[packages/actions/src/Script/validateScriptParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L14)
+[packages/actions/src/Script/validateScriptParams.js:14](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L14)

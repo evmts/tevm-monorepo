@@ -29,4 +29,4 @@ Returns true if state root exists
 
 ## Defined in
 
-[packages/state/src/actions/hasStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L7)
+[packages/state/src/actions/hasStateRoot.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L7)

@@ -21,4 +21,4 @@ A configured TEVM transport.
 
 ## Defined in
 
-[packages/memory-client/src/createTevmTransport.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createTevmTransport.js#L58)
+[packages/memory-client/src/createTevmTransport.js:58](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/createTevmTransport.js#L58)

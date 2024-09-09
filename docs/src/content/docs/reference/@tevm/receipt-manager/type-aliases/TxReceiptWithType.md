@@ -12,4 +12,4 @@ TxReceiptWithType extends TxReceipt to provide:
 
 ## Defined in
 
-[RecieptManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L71)
+[RecieptManager.ts:71](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L71)

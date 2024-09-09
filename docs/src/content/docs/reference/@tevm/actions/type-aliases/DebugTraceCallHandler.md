@@ -17,4 +17,4 @@ title: "DebugTraceCallHandler"
 
 ## Defined in
 
-[packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)
+[packages/actions/src/debug/DebugHandler.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)

@@ -27,4 +27,4 @@ The url being used to connect to the remote Tevm backend
 
 ## Defined in
 
-[HttpClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)
+[HttpClient.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)

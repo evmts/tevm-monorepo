@@ -13,4 +13,4 @@ Can use `ContractError` instead
 
 ## Defined in
 
-[packages/actions/src/Script/TevmScriptError.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/TevmScriptError.ts#L8)
+[packages/actions/src/Script/TevmScriptError.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/TevmScriptError.ts#L8)

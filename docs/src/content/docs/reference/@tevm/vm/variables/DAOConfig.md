@@ -19,4 +19,4 @@ title: "DAOConfig"
 
 ## Defined in
 
-[packages/vm/src/actions/DAOConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/DAOConfig.ts#L1)
+[packages/vm/src/actions/DAOConfig.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/DAOConfig.ts#L1)

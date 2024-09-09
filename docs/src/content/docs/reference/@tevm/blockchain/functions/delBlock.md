@@ -30,4 +30,4 @@ The hash of the block to be deleted
 
 ## Defined in
 
-[actions/delBlock.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)
+[actions/delBlock.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)

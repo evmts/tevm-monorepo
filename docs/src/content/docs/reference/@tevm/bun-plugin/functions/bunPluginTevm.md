@@ -25,4 +25,4 @@ To configure add this plugin to your Bun config and add the ts-plugin to your ts
 
 ## Defined in
 
-[bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)
+[bunPluginTevm.js:86](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)

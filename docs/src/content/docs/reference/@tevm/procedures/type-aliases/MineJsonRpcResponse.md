@@ -11,4 +11,4 @@ JSON-RPC response for `tevm_mine` method
 
 ## Defined in
 
-[packages/procedures/src/mine/MineJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcResponse.ts#L9)
+[packages/procedures/src/mine/MineJsonRpcResponse.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcResponse.ts#L9)
