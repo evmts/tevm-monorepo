@@ -179,9 +179,10 @@ This guide intentionally uses a straightforward setup to focus on the most essen
     }
     ```    
 
-## Create MemoryClient
+## Create a forked blockchain
 
-A memory client is a [Viem client](https://viem.sh/docs/clients/intro.html) that uses an in-memory [transport](https://viem.sh/docs/clients/intro#transports). 
+With the project created, the next step is to create a fork of a real-world blockchain. 
+The simplest way to do this is the use a [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient), a [Viem client](https://viem.sh/docs/clients/intro.html) that uses an in-memory [transport](https://viem.sh/docs/clients/intro#transports). 
 Instead of sending requests to an RPC provider like [Alchemy](https://www.alchemy.com/) this client processes requests with tevm in a local EVM instance running in JavaScript.
 
 Memory client has similar features to [`anvil`](https://book.getfoundry.sh/anvil/):
@@ -189,7 +190,7 @@ Memory client has similar features to [`anvil`](https://book.getfoundry.sh/anvil
 - Optionally fork an existing network.
 - Run special scripts that have advanced functionality.
 - Allow you to view and modify the chain state, so you can mint yourself ETH, run traces, modify storage, etc.
-- Be Extremely hackable. Can mint yourself eth, run traces, modify storage, and more.
+- Be Extremely hackable. You can mint yourself ETH, run traces, modify storage, and more.
 
 :::tip[Use tree shakable actions]
 
@@ -231,12 +232,23 @@ async function runApp() {
     `;
   
   document.querySelector("#methods")!.innerHTML = `
-    <ul>
+    <table>
+      <tr>
+        <th>Key</th>
+        <th>Type</th>
+        <th>Value</th>
+      </tr>
       ${Object.keys(memoryClient)
-        .map(key => `<li>${key}</li>`)
-        .reduce((a,b) => a+b, "")
-      }   
-    </ul>`;
+        .map(key => `
+          <tr>
+            <td>${key}</td>
+            <td>${typeof memoryClient[key]}</td>
+            <td>${typeof memoryClient[key] != "function" && memoryClient[key] || ""}</td>
+          </tr>`)
+     .reduce((a,b) => a+b, "")
+    }
+    </table>
+`;
   
   const status = app.querySelector("#status")!;
   
@@ -258,10 +270,18 @@ runApp();
 ```typescript
 import { createMemoryClient, http } from "tevm";
 import { redstone } from "tevm/common";
+```
 
+Import the functions we need.
+
+```typescript
 const app = document.querySelector("#app") as Element;
+```
 
-const memoryClient = createMemoryClient({
+Use the `app` element in `index.html`.
+
+```typescript
+const memoryClient = createMemoryClient({  
   common: redstone,
   fork: {
     // @warning we may face throttling using the public endpoint
@@ -269,8 +289,21 @@ const memoryClient = createMemoryClient({
     transport: http("https://rpc.redstonechain.com")({}),
   },
 });
+```
 
+Create a [`MemoryClient`](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient) that forks the [Redstone](https://redstone.xyz/docs/what-is-redstone) network.
+We use Redstone because it does not have throttling.
+
+It is recomended you also pass in a [`Common`](/reference/tevm/common/type-aliases/common/) chain object when forking. 
+This improves the performance of fork and guarantees tevm has all the correct chain information such as which EIPs and hardforks to use.
+
+```typescript
 async function runApp() {
+```
+
+This function actually does the work and runs the app.
+
+```typescript
   app.innerHTML = `
     <b>Status:</b> <span id="status">initializing</span>
 
@@ -281,35 +314,87 @@ async function runApp() {
       
     <b>Forked at block:</b> <span id="blocknumber">???</span>      
     `;
+```    
+
+This sets the HTML inside the `app` element. 
   
+```typescript  
   document.querySelector("#methods")!.innerHTML = `
-    <ul>
+```
+
+Specify the content of the `methods` element.
+
+```typescript
+    <table>
+      <tr>
+        <th>Key</th>
+        <th>Type</th>
+        <th>Value</th>
+      </tr>
       ${Object.keys(memoryClient)
-        .map(key => `<li>${key}</li>`)
-        .reduce((a,b) => a+b, "")
-      }   
-    </ul>`;
-  
+        .map(key => `
+          <tr>
+            <td>${key}</td>
+            <td>${typeof memoryClient[key]}</td>
+            <td>${typeof memoryClient[key] != "function" && memoryClient[key] || ""}</td>
+          </tr>`)
+     .reduce((a,b) => a+b, "")
+   }
+</table>
+`;
+```
+
+The content is a table of the keys of `memoryClient`, and their types, and their values.
+The table is created using [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
+
+```typescript
   const status = app.querySelector("#status")!;
   
   status.innerHTML = "Working";
+```
+
+At this point we start running asynchronous functions and waiting for them to finish, so we change our status to "Working".
+
+```typescript
   const blockNumber = await memoryClient.getBlockNumber();
-  
+```
+
+Get the [current block number](/reference/tevm/ethers/classes/tevmprovider/#getblocknumber) at the time of the fork. Note that while the blockchain continues to update, the tevm fork is "frozen" and does not get those updates.
+
+```typescript
   document.querySelector("#blocknumber")!.innerHTML = blockNumber;
 
   status.innerHTML = "Done";
 }
- 
+```
+
+Update the block number, and change the status to done.
+
+```typescript
 runApp();
 ```
 
+Run the async function.
+
 </details>
 
-When we fork a blockchain the block number will be pinned to the block number at the time of the fork. 
-As new blocks are created, 
-As you create new blocks you will not get updates from the chain unless you refork it.
+When we fork a blockchain the block number will be pinned to the block number at the time of the fork.
+Any future changes will not be reflected in tevm unless you create another fork.
 
-It is recomended you also pass in a `chain` object when forking. This will improve the performance of forking as well as guarantee tevm has all the correct chain information such as which EIPs and hardforks to use. A TevmChain is different from a viem chain in that it extends viem chains with the `ethereumjs/common` interface.
+## Using viem client actions
+
+
+## Calling tevm
+
+
+## Processing transactions with tevm
+
+
+
+
+
+As new blocks are created 
+As you create new blocks you will not get updates from the chain unless you refork it.
 
 One can use a [viem wallet client](https://viem.sh/docs/clients/wallet.html) or [add the wallet actions to the client](k)
 
