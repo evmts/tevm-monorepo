@@ -1,0 +1,111 @@
+---
+title: Optimistic UI
+description: Implementing robust optimistic ui
+---
+# Implementing Robust Optimistic UI
+
+## Problem
+
+I want a robust way of updating my UI optimistically for optimal ux.
+
+## Solution
+
+Use Tevm to simulate putting the EVM in an optimistic state
+
+## Example
+
+Let's say we are making an onchain game and my contract has a `movePlayer(direction)` method.
+
+```typescript
+import { createClient, http, walletActions, publicActions } from 'viem'
+import { redstone } from 'viem/chains'
+import { GameContract } from '../contracts'
+import {account} from './account.js'
+
+const client = createClient({
+  account,
+  chain: redstone,
+  transport: http()
+}).extend(walletActions).extend(publicActions)
+
+const hash = await client.writeContract({
+  address: GameContract.address,
+  abi: GameContract.abi,
+  functionName: 'movePlayer',
+  args: [direction],
+})
+
+await client.waitForReceipt({hash})
+
+const newPosition = await client.readContract({
+  address: GameContract.address,
+  abi: GameContract.abi,
+  functionName: 'getPlayerPosition',
+  args: [],
+})
+
+renderNewPosition(newPosition)
+```
+
+The problem with this code is we will have to both wait for the tx hash to come back in the writeContract and then also wait for the receipt before rendering the new player.
+
+Now we could keep track of state ourselves. But this gets hairy if for example we want to make another move transaction, or we want to call another contract method that might depend on position.
+
+## Use Tevm as an optimistic client
+
+We can create a second client using Tevm that can act as our optimistic client.
+
+```typescript
+// ...same imports as before
+import { createTevmTransport } from 'tevm'
+
+// ...same client code as before
+
+const optimisticClient = createClient({
+  chain: redstone,
+  transport: createTevmTransport({
+    fork: {
+      // we are telling Tevm
+      transport: client
+    }
+  })
+}).extend(walletActions).extend(publicActions)
+
+const optimisticMovePlayer = (direction: string) => {
+  // Optimistically execute and send tx in parallel
+  optimisticClient.tevmContract({
+    from: account.address,
+    address: GameContract.address,
+    abi: GameContract.abi,
+    functionName: 'movePlayer',
+    args: [direction],
+  }).then(result => {
+    const newPosition = await optimisticClient.readContract({
+      // blockTag 'pending' will take into account pending tx
+      blockTag: 'pending',
+      address: GameContract.address,
+      abi: GameContract.abi,
+      functionName: 'getPlayerPosition',
+      args: [],
+    })
+    renderNewPosition(newPosition)
+  })
+
+  // Perform the actual transaction
+  const hash = await client.writeContract({
+    address: GameContract.address,
+    abi: GameContract.abi,
+    functionName: 'movePlayer',
+    args: [direction],
+  })
+
+  await client.waitForReceipt({hash})
+
+  // update optimistic state after tx is included in cannonical chain
+  await optimisticClient.getTxPool().then(txPool => txPool.removeByHash(hash))
+}
+```
+
+:::warning [Not production code]
+For simplicity of the demonstration we do not handle errors in the above code. We highly recomend using an abstraction like tansatck query, zustand, effect.ts or any other option to help manage the async state here.
+:::
