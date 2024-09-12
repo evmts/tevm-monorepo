@@ -1,5 +1,4 @@
 import { InvalidBlockError } from '@tevm/errors'
-import { hexToBigInt } from 'viem'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { parseBlockParam } from './parseBlockParam.js'
 
