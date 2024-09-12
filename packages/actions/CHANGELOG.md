@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.111
+
+### Patch Changes
+
+- bc00e14: Fixed bug in eth_getLogs not handling nubmer hex
+- bc00e14: Fixed bug with eth_getLogs not handling numbered hex string logs well
+
 ## 1.0.0-next.110
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @tevm/ethers
 
+## 1.0.0-next.111
+
+### Patch Changes
+
+- @tevm/client-types@1.0.0-next.109
+- @tevm/decorators@1.0.0-next.111
+- @tevm/procedures@1.0.0-next.111
+
 ## 1.0.0-next.110
 
 ### Patch Changes
