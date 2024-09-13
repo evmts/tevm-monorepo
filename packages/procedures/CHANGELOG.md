@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.112
+
+### Patch Changes
+
+- 5942568: Fixed bug with eth_estimateGas json-rpc not handling block tag and state overrides correctly
+
 ## 1.0.0-next.111
 
 ### Patch Changes

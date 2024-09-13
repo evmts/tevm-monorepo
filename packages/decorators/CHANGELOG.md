@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.0.0-next.112
+
+### Patch Changes
+
+- Updated dependencies [5942568]
+  - @tevm/procedures@1.0.0-next.112
+
 ## 1.0.0-next.111
 
 ### Patch Changes
