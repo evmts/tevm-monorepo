@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.113
+
+### Patch Changes
+
+- 3bac5c8: Fixed bug with using historical block tags in ethGetTransactionCountProcedure
+
 ## 1.0.0-next.112
 
 ### Patch Changes

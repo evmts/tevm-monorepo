@@ -1,5 +1,12 @@
 # @tevm/server
 
+## 1.0.0-next.113
+
+### Patch Changes
+
+- @tevm/decorators@1.0.0-next.113
+- @tevm/memory-client@1.0.0-next.113
+
 ## 1.0.0-next.112
 
 ### Patch Changes

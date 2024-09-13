@@ -1,5 +1,12 @@
 # @tevm/cli
 
+## 1.0.0-next.113
+
+### Patch Changes
+
+- @tevm/memory-client@1.0.0-next.113
+- @tevm/server@1.0.0-next.113
+
 ## 1.0.0-next.112
 
 ### Patch Changes
