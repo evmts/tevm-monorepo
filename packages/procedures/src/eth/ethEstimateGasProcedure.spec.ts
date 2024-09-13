@@ -1,4 +1,5 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
+import { numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
@@ -21,6 +22,29 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 					to: '0x0000000000000000000000000000000000000000',
 					data: '0x',
 				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		expect(response.method).toBe('eth_estimateGas')
+		expect(response.id).toBe(request.id as any)
+		expect(response.result).toMatchSnapshot()
+	})
+	it('should handle block tag', async () => {
+		const latestBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 1,
+			params: [
+				{
+					from: '0x0000000000000000000000000000000000000000',
+					to: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+				},
+				numberToHex(latestBlock.header.number),
 			],
 		}
 

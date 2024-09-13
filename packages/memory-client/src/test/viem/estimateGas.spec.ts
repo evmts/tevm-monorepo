@@ -35,6 +35,13 @@ describe('estimateGas', () => {
 			await mc.estimateGas({
 				to: c.simpleContract.address,
 				data: encodeFunctionData(c.simpleContract.write.set(69n)),
+				blockTag: 'latest',
+			}),
+		).toBe(27_784n)
+		expect(
+			await mc.estimateGas({
+				to: c.simpleContract.address,
+				data: encodeFunctionData(c.simpleContract.write.set(69n)),
 			}),
 		).toBe(27_784n)
 	})

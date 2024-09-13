@@ -8,9 +8,30 @@ import { callProcedure } from '../call/callProcedure.js'
 export const ethEstimateGasJsonRpcProcedure = (client) => {
 	return async (request) => {
 		const estimateGasRequest = /** @type {import('./EthJsonRpcRequest.js').EthEstimateGasJsonRpcRequest}*/ (request)
+		const [_params, blockTag, stateOverrides, blockOverrides] = estimateGasRequest.params
+
+		const getParams = () => {
+			/**
+			 * @type {import('../call/CallJsonRpcRequest.js').CallJsonRpcRequest['params']}
+			 */
+			const params = [
+				{
+					..._params,
+					...(blockTag !== undefined ? { blockTag } : {}),
+				},
+			]
+			if (blockOverrides !== undefined) {
+				params.push(stateOverrides ?? {}, blockOverrides)
+			}
+			if (stateOverrides !== undefined) {
+				params.push(...params, stateOverrides)
+			}
+			return params
+		}
+
 		const callResult = await callProcedure(client)({
 			...estimateGasRequest,
-			params: [...estimateGasRequest.params],
+			params: getParams(),
 			method: 'tevm_call',
 		})
 		if (callResult.error || !callResult.result) {
