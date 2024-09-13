@@ -70,7 +70,15 @@ export type EthCoinbaseJsonRpcRequest = JsonRpcRequest<'eth_coinbase', readonly 
 /**
  * JSON-RPC request for `eth_estimateGas` procedure
  */
-export type EthEstimateGasJsonRpcRequest = JsonRpcRequest<'eth_estimateGas', readonly [tx: JsonRpcTransaction]>
+export type EthEstimateGasJsonRpcRequest = JsonRpcRequest<
+	'eth_estimateGas',
+	readonly [
+		tx: JsonRpcTransaction,
+		tag?: BlockTag | Hex,
+		stateOverrideSet?: SerializeToJson<BaseCallParams['stateOverrideSet']>,
+		blockOverrideSet?: SerializeToJson<BaseCallParams['blockOverrideSet']>,
+	]
+>
 // eth_hashrate
 /**
  * JSON-RPC request for `eth_hashrate` procedure
