@@ -1,0 +1,55 @@
+---
+"@tevm/sync-storage-persister": minor
+"@tevm/bundler-cache": minor
+"@tevm/base-bundler": minor
+"@tevm/resolutions": minor
+"@tevm/compiler": minor
+"@tevm/unplugin": minor
+"@tevm/whatsabi": minor
+"@tevm/esbuild-plugin": minor
+"@tevm/runtime": minor
+"@tevm/webpack-plugin": minor
+"@tevm/viem-effect": minor
+"@tevm/receipt-manager": minor
+"@tevm/config": minor
+"@tevm/rollup-plugin": minor
+"@tevm/rspack-plugin": minor
+"@tevm/memory-client": minor
+"@tevm/solc": minor
+"@tevm/vite-plugin": minor
+"@tevm/client-types": minor
+"@tevm/bun-plugin": minor
+"@tevm/schemas": minor
+"@tevm/http-client": minor
+"@tevm/precompiles": minor
+"@tevm/blockchain": minor
+"@tevm/decorators": minor
+"@tevm/predeploys": minor
+"@tevm/procedures": minor
+"@tevm/tsupconfig": minor
+"@tevm/ethers": minor
+"@tevm/contract": minor
+"@tevm/actions": minor
+"@tevm/address": minor
+"@tevm/jsonrpc": minor
+"@tevm/viem": minor
+"@tevm/common": minor
+"@tevm/effect": minor
+"@tevm/errors": minor
+"@tevm/logger": minor
+"@tevm/server": minor
+"@tevm/txpool": minor
+"@tevm/block": minor
+"@tevm/state": minor
+"@tevm/utils": minor
+"@tevm/ts-plugin": minor
+"@tevm/node": minor
+"@tevm/trie": minor
+"@tevm/evm": minor
+"@tevm/rlp": minor
+"@tevm/tx": minor
+"@tevm/vm": minor
+"tevm": minor
+---
+
+Update viem version to 2.21.7
