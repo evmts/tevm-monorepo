@@ -1,3 +1,7 @@
+// When adding a chain, you also need to add it to
+// https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/index.ts
+
+
 export { arbitrum } from './arbitrum.js'
 export { avalanche } from './avalanche.js'
 export { base } from './base.js'
