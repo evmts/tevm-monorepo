@@ -224,14 +224,14 @@ async function runApp() {
     <b>Status:</b> <span id="status">initializing</span>
 
     <details>
-    <summary>memoryClient methods</summary>
-    <div id="methods"></div>
+    <summary>memoryClient content</summary>
+    <div id="content"></div>
     </details>
       
     <b>Forked at block:</b> <span id="blocknumber">???</span>      
     `;
   
-  document.querySelector("#methods")!.innerHTML = `
+  document.querySelector("#content")!.innerHTML = `
     <table>
       <tr>
         <th>Key</th>
@@ -308,8 +308,8 @@ This function actually does the work and runs the app.
     <b>Status:</b> <span id="status">initializing</span>
 
     <details>
-    <summary>memoryClient methods</summary>
-    <div id="methods"></div>
+    <summary>memoryClient content</summary>
+    <div id="content"></div>
     </details>
       
     <b>Forked at block:</b> <span id="blocknumber">???</span>      
@@ -319,10 +319,10 @@ This function actually does the work and runs the app.
 This sets the HTML inside the `app` element. 
   
 ```typescript  
-  document.querySelector("#methods")!.innerHTML = `
+  document.querySelector("#content")!.innerHTML = `
 ```
 
-Specify the content of the `methods` element.
+Specify the content of the `content` element.
 
 ```typescript
     <table>
@@ -381,8 +381,170 @@ Run the async function.
 When we fork a blockchain the block number will be pinned to the block number at the time of the fork.
 Any future changes will not be reflected in tevm unless you create another fork.
 
-## Using viem client actions
+## Actions
 
+As you can see when you expand **memoryClient content** actions, many of the Viem actions are available under the same name. 
+
+-  [Public actions](https://viem.sh/docs/actions/public/introduction)
+-  [Test actions](https://viem.sh/docs/actions/test/introduction)
+-  [Wallet actions](https://viem.sh/docs/actions/wallet/introduction)
+
+For example, you can modify `src/main.ts` to see how they work.
+
+```typescript title="src/main.ts" {19-20,23-30,38-48,50-63}
+import { createMemoryClient, http } from "tevm";
+import { redstone } from "tevm/common";
+    
+const app = document.querySelector("#app") as Element;
+   
+const memoryClient = createMemoryClient({
+  common: redstone,
+  fork: {
+    // @warning we may face throttling using the public endpoint
+    // In production apps consider using `loadBalance` and `rateLimit` transports
+    transport: http("https://rpc.redstonechain.com")({}),
+  },
+});
+      
+async function runApp() {
+  app.innerHTML = `
+    <b>Status:</b> <span id="status">initializing</span> <br />
+    <b>Forked at block:</b> <span id="blocknumber">???</span> <br />
+    <h2>Output</h2>
+    <div id="outputPanel"></div>
+    `;
+   
+  const addToOutput = (obj, title) => {
+    output.innerHTML += `
+      <h4>${title}</h4>
+      <pre>
+${JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? v.toString() : v, 4)}
+      </pre>
+  `
+  }
+  
+  const status = app.querySelector("#status")!;
+    
+  status.innerHTML = "Working";
+  const blockNumber = await memoryClient.getBlockNumber();
+         
+  document.querySelector("#blocknumber")!.innerHTML = blockNumber;
+  const output = document.querySelector("#outputPanel") as Element;
+    
+  const txn = await memoryClient.getTransaction({
+    hash: "0x58d3e6c9f7b66ec3cd984219dd48fae465a6e7fc0f51688ef4864045a363b4c2"
+  });
+  addToOutput(txn, "Transaction")
+   
+  const block = await memoryClient.getBlock({
+    blockNumber: txn.blockNumber
+  });
+  addToOutput(block, "Transaction block");
+
+  const address = "0x" + "BAD060A7".padStart(40, "0")
+  addToOutput(address, "Account address")
+  
+  const balanceT0 = BigInt(await memoryClient.getBalance({address}))        
+  await memoryClient.setBalance({
+    address,
+    value: 1000
+  })
+  const balanceT1 = BigInt(await memoryClient.getBalance({address}))
+  
+  addToOutput({
+    initialBalance: balanceT0,
+    afterSetBalance: balanceT1 
+  }, "Balances") 
+  
+  status.innerHTML = "Done";
+}   
+  
+runApp();
+```
+
+<details>
+
+<summary>Explanation</summary>
+
+```typescript
+    <h2>Output</h2>
+    <div id="outputPanel"></div>
+```
+
+We need an output panel.
+
+```typescript
+  const addToOutput = (obj, title) => {
+```
+
+A function to write to the output panel.
+
+```typescript
+    output.innerHTML += `
+      <h4>${title}</h4>
+      <pre>
+${JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? v.toString() : v, 4)}
+      </pre>
+  `
+  }
+```
+
+The second parameter of [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer) lets us replace values that we don't want `JSON.stringify` to display.
+Here, the function replaces values of [type `bigint`](https://www.w3schools.com/js/js_bigint.asp), which are not part of the JSON standard, with strings, which are. 
+
+
+```typescript
+  const output = document.querySelector("#outputPanel") as Element;
+
+  const txn = await memoryClient.getTransaction({
+    hash: "0x58d3e6c9f7b66ec3cd984219dd48fae465a6e7fc0f51688ef4864045a363b4c2"
+  });
+  addToOutput(txn, "Transaction")
+
+  const block = await memoryClient.getBlock({
+    blockNumber: txn.blockNumber
+  });
+  addToOutput(block, "Transaction block");
+```
+
+Use Viem's [`getTransaction`](https://viem.sh/docs/actions/public/getTransaction) and [`gtBlock`](https://viem.sh/docs/actions/public/getBlock).
+
+``typescript
+  const address = "0x" + "BAD060A7".padStart(40, "0")
+  addToOutput(address, "Account address")
+```
+
+Get an address that [isn't in use](https://explorer.redstone.xyz/address/0x00000000000000000000000000000000BAd060A7).
+  
+```typescript  
+  const balanceT0 = BigInt(await memoryClient.getBalance({address}))
+```  
+
+Use [`getBalance`](https://viem.sh/docs/actions/public/getBalance) to get the address's balance.
+
+```typescript
+  await memoryClient.setBalance({
+    address,
+    value:  1_000_000_000_000_000_000n
+  })
+  const balanceT1 = BigInt(await memoryClient.getBalance({address}))
+```
+
+Use the test action [`setBalance`](https://viem.sh/docs/actions/test/setBalance) to "give" `address` 1 ETH.
+
+```typescript  
+  addToOutput({
+    initialBalance: balanceT0,
+    afterSetBalance: balanceT1 
+  }, "Balances") 
+```
+
+Report the change on the output panel.
+
+</details>
+
+
+Need wallet action here
 
 ## Calling tevm
 
