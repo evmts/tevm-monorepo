@@ -32,4 +32,4 @@ Typesafe way to create an Tevm CompilerConfig
 
 ## Defined in
 
-[bundler-packages/config/src/defineConfig.js:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L48)
+[bundler-packages/config/src/defineConfig.js:48](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L48)

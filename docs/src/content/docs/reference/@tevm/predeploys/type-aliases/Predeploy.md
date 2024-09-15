@@ -35,4 +35,4 @@ Type of predeploy contract for tevm
 
 ## Defined in
 
-[Predeploy.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L7)
+[Predeploy.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L7)

@@ -9,4 +9,4 @@ title: "BlockBytes"
 
 ## Defined in
 
-[types.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L158)
+[types.ts:158](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L158)

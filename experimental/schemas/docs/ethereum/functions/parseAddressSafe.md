@@ -8,8 +8,6 @@
 
 > **parseAddressSafe**\<`TAddress`\>(`address`): `Effect`\<`never`, [`InvalidAddressError`](../classes/InvalidAddressError.md), `TAddress`\>
 
-Parses an Address safely into an effect.
-
 ## Type Parameters
 
 • **TAddress** *extends* \`0x$\{string\}\`
@@ -28,4 +26,4 @@ The address to parse.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
+[experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)

@@ -50,4 +50,4 @@ Be aware that this can be very expensive if a contract has a lot of storage
 
 ## Defined in
 
-[packages/actions/src/GetAccount/GetAccountParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountParams.ts#L11)
+[packages/actions/src/GetAccount/GetAccountParams.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountParams.ts#L11)

@@ -59,4 +59,4 @@ title: "Logger"
 
 ## Defined in
 
-[types.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L8)
+[types.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L8)

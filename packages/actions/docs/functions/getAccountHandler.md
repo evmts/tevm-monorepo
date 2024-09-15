@@ -8,8 +8,6 @@
 
 > **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
-Creates an GetAccountHandler for handling account params with Ethereumjs VM
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -26,4 +24,4 @@ whether to default to throwing or not when errors occur
 
 ## Defined in
 
-[packages/actions/src/GetAccount/getAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountHandler.js#L17)
+[packages/actions/src/GetAccount/getAccountHandler.js:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountHandler.js#L17)

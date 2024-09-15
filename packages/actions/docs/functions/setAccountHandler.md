@@ -8,8 +8,6 @@
 
 > **setAccountHandler**(`client`, `options`?): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-Creates an SetAccountHandler for handling account params with Ethereumjs EVM
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -26,4 +24,4 @@ whether to default to throwing or not when errors occur
 
 ## Defined in
 
-[packages/actions/src/SetAccount/setAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L17)
+[packages/actions/src/SetAccount/setAccountHandler.js:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L17)

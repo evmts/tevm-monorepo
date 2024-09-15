@@ -10,6 +10,10 @@
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
+## See
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
 ## Type declaration
 
 ### call
@@ -178,10 +182,6 @@ await tevm.setAccount({
 })
 ```
 
-## See
-
-[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
-
 ## Defined in
 
-[actions/TevmActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)
+[actions/TevmActionsApi.ts:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)

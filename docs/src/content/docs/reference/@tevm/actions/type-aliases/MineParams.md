@@ -45,4 +45,4 @@ Interval between block timestamps. Defaults to 1.
 
 ## Defined in
 
-[packages/actions/src/Mine/MineParams.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L15)
+[packages/actions/src/Mine/MineParams.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L15)

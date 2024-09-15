@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:340
+packages/procedures/dist/index.d.ts:345

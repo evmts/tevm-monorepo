@@ -14,7 +14,7 @@
 
 #### Defined in
 
-[experimental/schemas/src/tevm/SAddressBook.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L19)
+[experimental/schemas/src/tevm/SAddressBook.js:19](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L19)
 
 ***
 
@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[experimental/schemas/src/tevm/SAddressBook.js:18](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L18)
+[experimental/schemas/src/tevm/SAddressBook.js:18](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L18)

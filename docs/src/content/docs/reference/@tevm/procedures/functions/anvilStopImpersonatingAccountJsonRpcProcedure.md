@@ -17,4 +17,4 @@ title: "anvilStopImpersonatingAccountJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/anvil/anvilStopImpersonatingAccountProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilStopImpersonatingAccountProcedure.js#L6)
+[packages/procedures/src/anvil/anvilStopImpersonatingAccountProcedure.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilStopImpersonatingAccountProcedure.js#L6)

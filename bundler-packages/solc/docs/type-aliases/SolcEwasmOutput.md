@@ -20,4 +20,4 @@
 
 ## Defined in
 
-[solcTypes.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)
+[solcTypes.ts:518](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)

@@ -15,4 +15,4 @@ title: "SolcSecondarySourceLocation"
 
 ## Defined in
 
-[solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)
+[solcTypes.ts:383](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)

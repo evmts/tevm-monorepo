@@ -133,7 +133,7 @@ An instance of a tevm Memory client or TevmNode with TevmSendApi
 
 #### Defined in
 
-[extensions/ethers/src/TevmProvider.js:173](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L173)
+[extensions/ethers/src/TevmProvider.js:173](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L173)
 
 ## Properties
 
@@ -182,7 +182,7 @@ console.log(result)
 
 #### Defined in
 
-[extensions/ethers/src/TevmProvider.js:168](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L168)
+[extensions/ethers/src/TevmProvider.js:168](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L168)
 
 ## Accessors
 
@@ -704,7 +704,7 @@ Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 #### Defined in
 
-[extensions/ethers/src/TevmProvider.js:187](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L187)
+[extensions/ethers/src/TevmProvider.js:187](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L187)
 
 ***
 
@@ -2035,4 +2035,4 @@ const blockNumber = await provider.getBlockNumber()
 
 #### Defined in
 
-[extensions/ethers/src/TevmProvider.js:124](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L124)
+[extensions/ethers/src/TevmProvider.js:124](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L124)

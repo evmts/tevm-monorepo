@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)
+[packages/effect/src/logAllErrors.js:16](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)

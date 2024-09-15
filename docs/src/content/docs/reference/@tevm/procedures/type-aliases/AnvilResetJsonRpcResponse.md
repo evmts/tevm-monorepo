@@ -11,4 +11,4 @@ JSON-RPC response for `anvil_reset` procedure
 
 ## Defined in
 
-[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L72)
+[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:72](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L72)

@@ -21,4 +21,4 @@ The dump of the TEVM state.
 
 ## Defined in
 
-[packages/memory-client/src/tevmDumpState.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDumpState.js#L41)
+[packages/memory-client/src/tevmDumpState.js:41](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmDumpState.js#L41)

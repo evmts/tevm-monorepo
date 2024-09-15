@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[bundler-packages/whatsabi/src/parseUri.js:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/parseUri.js#L8)
+[bundler-packages/whatsabi/src/parseUri.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/parseUri.js#L8)

@@ -25,4 +25,4 @@ The result of the contract deployment, including the created contract address.
 
 ## Defined in
 
-[packages/memory-client/src/tevmDeploy.js:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDeploy.js#L87)
+[packages/memory-client/src/tevmDeploy.js:87](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmDeploy.js#L87)

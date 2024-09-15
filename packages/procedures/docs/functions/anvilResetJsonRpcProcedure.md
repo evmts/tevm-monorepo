@@ -8,8 +8,6 @@
 
 > **anvilResetJsonRpcProcedure**(`client`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
 
-Request handler for anvil_reset JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for anvil_reset JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/anvil/anvilResetProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilResetProcedure.js#L6)
+[packages/procedures/src/anvil/anvilResetProcedure.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilResetProcedure.js#L6)

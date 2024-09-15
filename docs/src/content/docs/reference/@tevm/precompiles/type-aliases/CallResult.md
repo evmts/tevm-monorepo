@@ -70,4 +70,4 @@ A set of accounts to selfdestruct
 
 ## Defined in
 
-[CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)
+[CallResult.ts:25](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)

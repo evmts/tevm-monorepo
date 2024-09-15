@@ -13,4 +13,4 @@ The maximum value a [INT256](../type-aliases/INT256.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:61](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L61)
+[experimental/schemas/src/ethereum/SINT/constants.js:61](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L61)

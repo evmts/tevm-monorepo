@@ -24,4 +24,4 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ## Defined in
 
-[bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)
+[bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)

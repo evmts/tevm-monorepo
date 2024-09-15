@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L57)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L57)

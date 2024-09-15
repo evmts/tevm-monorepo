@@ -11,4 +11,4 @@ JSON-RPC response for `eth_newFilter` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcResponse.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L297)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:297](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L297)

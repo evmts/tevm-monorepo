@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[node.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/node.js#L3)
+[node.js:3](https://github.com/qbzzt/tevm-monorepo/blob/main/configs/tsupconfig/src/node.js#L3)

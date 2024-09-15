@@ -35,4 +35,4 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Defined in
 
-[packages/state/src/actions/getContractStorage.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L15)
+[packages/state/src/actions/getContractStorage.js:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L15)

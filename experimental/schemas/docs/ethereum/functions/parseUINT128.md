@@ -8,8 +8,6 @@
 
 > **parseUINT128**\<`TUINT128`\>(`uint128`): `TUINT128`
 
-Parses a UINT128 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUINT128** *extends* `bigint`
@@ -22,13 +20,6 @@ Parses a UINT128 and returns the value if no errors.
 
 `TUINT128`
 
-## Example
-
-```ts
-import { parseUINT128 } from '@tevm/schemas';
-const parsedUINT128 = parseUINT128(BigInt("170141183460469231731687303715884105727"));
-```
-
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L84)
+[experimental/schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L84)

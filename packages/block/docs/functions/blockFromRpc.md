@@ -32,4 +32,4 @@ Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
 
 ## Defined in
 
-[from-rpc.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-rpc.ts#L39)
+[from-rpc.ts:39](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/from-rpc.ts#L39)

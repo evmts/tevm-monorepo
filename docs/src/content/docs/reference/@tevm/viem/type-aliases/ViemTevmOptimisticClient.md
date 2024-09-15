@@ -21,7 +21,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 • **TChain** *extends* `Chain` \| `undefined` = `Chain`
 
-• **TAccount** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined`
+• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Type declaration
 
@@ -41,7 +41,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 • **TAbi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-• **TFunctionName** *extends* `string` = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+• **TFunctionName** *extends* `string` = `ContractFunctionName`\<`TAbi`\>
 
 • **TArgs** *extends* `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
 
@@ -57,4 +57,4 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)
+[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

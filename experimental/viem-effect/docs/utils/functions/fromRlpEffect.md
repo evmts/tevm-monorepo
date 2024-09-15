@@ -22,4 +22,4 @@
 
 ## Defined in
 
-[experimental/viem-effect/src/utils/encoding/fromRlpEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/fromRlpEffect.js#L7)
+[experimental/viem-effect/src/utils/encoding/fromRlpEffect.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/encoding/fromRlpEffect.js#L7)

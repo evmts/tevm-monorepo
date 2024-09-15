@@ -6,22 +6,22 @@
 
 # Function: decodeAbiParameters()
 
-> **decodeAbiParameters**\<`TParams`\>(`params`, `data`): `DecodeAbiParametersReturnType`\<`TParams`\>
+> **decodeAbiParameters**\<`params`\>(`params`, `data`): `DecodeAbiParametersReturnType`\<`params`\>
 
 ## Type Parameters
 
-• **TParams** *extends* readonly `AbiParameter`[]
+• **params** *extends* readonly `AbiParameter`[]
 
 ## Parameters
 
-• **params**: `TParams`
+• **params**: `params`
 
 • **data**: \`0x$\{string\}\` \| `Uint8Array`
 
 ## Returns
 
-`DecodeAbiParametersReturnType`\<`TParams`\>
+`DecodeAbiParametersReturnType`\<`params`\>
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/decodeAbiParameters.d.ts:15
+node\_modules/.pnpm/viem@2.21.7\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/decodeAbiParameters.d.ts:15

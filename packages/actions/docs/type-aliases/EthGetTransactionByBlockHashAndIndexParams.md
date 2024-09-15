@@ -22,4 +22,4 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ## Defined in
 
-[packages/actions/src/eth/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L182)
+[packages/actions/src/eth/EthParams.ts:182](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L182)

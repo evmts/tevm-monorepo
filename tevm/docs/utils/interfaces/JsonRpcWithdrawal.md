@@ -13,38 +13,38 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 ### address
 
-> **address**: `string`
+> **address**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:20
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:20
 
 ***
 
 ### amount
 
-> **amount**: `string`
+> **amount**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:21
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:21
 
 ***
 
 ### index
 
-> **index**: `string`
+> **index**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:18
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:18
 
 ***
 
 ### validatorIndex
 
-> **validatorIndex**: `string`
+> **validatorIndex**: \`0x$\{string\}\`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:19
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:19

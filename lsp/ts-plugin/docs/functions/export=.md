@@ -22,4 +22,4 @@
 
 ## Defined in
 
-[lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)
+[lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/qbzzt/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)

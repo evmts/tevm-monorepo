@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)
+[experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)

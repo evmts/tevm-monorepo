@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/SINT.js:41](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L41)
+[experimental/schemas/src/ethereum/SINT/SINT.js:41](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L41)

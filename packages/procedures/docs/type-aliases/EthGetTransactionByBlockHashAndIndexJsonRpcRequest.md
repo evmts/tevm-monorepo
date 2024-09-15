@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L182)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:190](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L190)

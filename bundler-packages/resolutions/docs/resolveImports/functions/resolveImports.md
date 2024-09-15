@@ -26,4 +26,4 @@
 
 ## Defined in
 
-[resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)
+[resolveImports.js:50](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)

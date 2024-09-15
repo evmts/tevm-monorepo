@@ -48,4 +48,4 @@ Token type.
 
 ## Defined in
 
-[eip1193/WatchAssetParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WatchAssetParams.ts#L11)
+[eip1193/WatchAssetParams.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WatchAssetParams.ts#L11)

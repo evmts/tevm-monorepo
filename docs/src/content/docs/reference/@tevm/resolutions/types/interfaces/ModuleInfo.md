@@ -19,7 +19,7 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L21)
+[types.ts:21](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L21)
 
 ***
 
@@ -29,7 +29,7 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L19)
+[types.ts:19](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L19)
 
 ***
 
@@ -39,7 +39,7 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L22)
+[types.ts:22](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L22)
 
 ***
 
@@ -49,4 +49,4 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L20)
+[types.ts:20](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/types.ts#L20)

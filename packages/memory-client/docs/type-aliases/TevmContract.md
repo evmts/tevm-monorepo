@@ -36,4 +36,4 @@ The result of the contract method call.
 
 ## Defined in
 
-[packages/memory-client/src/TevmContractType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmContractType.ts#L50)
+[packages/memory-client/src/TevmContractType.ts:50](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/TevmContractType.ts#L50)

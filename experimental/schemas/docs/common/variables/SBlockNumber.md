@@ -19,4 +19,4 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 
 ## Defined in
 
-[experimental/schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L33)
+[experimental/schemas/src/common/SBlockNumber.js:33](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L33)

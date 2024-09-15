@@ -27,7 +27,7 @@ Bloom bitvector
 
 #### Defined in
 
-[RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
+[RecieptManager.ts:24](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
 
 ***
 
@@ -42,7 +42,7 @@ and is only provided as part of receipt metadata.
 
 #### Defined in
 
-[RecieptManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L64)
+[RecieptManager.ts:64](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L64)
 
 ***
 
@@ -57,7 +57,7 @@ and is only provided as part of receipt metadata.
 
 #### Defined in
 
-[RecieptManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L57)
+[RecieptManager.ts:57](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L57)
 
 ***
 
@@ -73,7 +73,7 @@ Cumulative gas used in the block including this tx
 
 #### Defined in
 
-[RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
+[RecieptManager.ts:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
 
 ***
 
@@ -89,7 +89,7 @@ Logs emitted
 
 #### Defined in
 
-[RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
+[RecieptManager.ts:28](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
 
 ***
 
@@ -105,4 +105,4 @@ Status of transaction, `1` if successful, `0` if an exception occurred
 
 #### Defined in
 
-[RecieptManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)
+[RecieptManager.ts:38](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)

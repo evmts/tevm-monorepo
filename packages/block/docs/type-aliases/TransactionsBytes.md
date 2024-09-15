@@ -12,4 +12,4 @@ TransactionsBytes can be an array of serialized txs for Typed Transactions or an
 
 ## Defined in
 
-[types.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L172)
+[types.ts:172](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L172)

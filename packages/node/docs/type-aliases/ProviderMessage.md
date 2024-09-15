@@ -20,4 +20,4 @@
 
 ## Defined in
 
-[packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)
+[packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)

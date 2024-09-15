@@ -196,4 +196,4 @@ r
 
 ## Defined in
 
-[eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)
+[eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)

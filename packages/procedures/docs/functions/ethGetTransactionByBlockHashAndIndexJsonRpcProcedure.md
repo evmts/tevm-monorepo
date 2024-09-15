@@ -8,8 +8,6 @@
 
 > **ethGetTransactionByBlockHashAndIndexJsonRpcProcedure**(`client`): [`EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`](../type-aliases/EthGetTransactionByBlockHashAndIndexJsonRpcProcedure.md)
 
-Request handler for eth_getTransactionByBlockHashAndIndex JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for eth_getTransactionByBlockHashAndIndex JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js#L9)
+[packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js#L9)

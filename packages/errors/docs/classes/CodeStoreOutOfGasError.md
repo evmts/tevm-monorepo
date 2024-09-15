@@ -92,7 +92,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L77)
+[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:77](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L77)
 
 ## Properties
 
@@ -108,7 +108,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/BaseError.js:81](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
 
 ***
 
@@ -122,7 +122,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:113](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
 
 ***
 
@@ -138,7 +138,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:111](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
 
 ***
 
@@ -152,7 +152,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:90](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
 
 ***
 
@@ -168,7 +168,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:95](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
 
 ***
 
@@ -200,7 +200,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:99](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
 
 ***
 
@@ -230,7 +230,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:103](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
 
 ***
 
@@ -258,7 +258,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:107](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
 
 ***
 
@@ -268,7 +268,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L59)
+[packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:59](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L59)
 
 ***
 
@@ -340,7 +340,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:136](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
 
 ***
 

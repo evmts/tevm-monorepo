@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/Errors.js:10](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/Errors.js#L10)
+[experimental/schemas/src/ethereum/SINT/Errors.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/Errors.js#L10)

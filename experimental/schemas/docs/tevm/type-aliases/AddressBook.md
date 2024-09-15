@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/tevm/SAddressBook.js:26](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L26)
+[experimental/schemas/src/tevm/SAddressBook.js:26](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L26)

@@ -21,4 +21,4 @@ The JSON data can be retrieved from a consensus layer (CL) client on this Beacon
 
 ## Defined in
 
-[from-beacon-payload.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L93)
+[from-beacon-payload.ts:93](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L93)

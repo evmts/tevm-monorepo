@@ -13,7 +13,7 @@ title: "VerkleStateDiff"
 
 #### Defined in
 
-[types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L82)
+[types.ts:82](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L82)
 
 ***
 
@@ -23,4 +23,4 @@ title: "VerkleStateDiff"
 
 #### Defined in
 
-[types.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L83)
+[types.ts:83](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L83)

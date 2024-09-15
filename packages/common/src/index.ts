@@ -29,7 +29,7 @@ export {
 	polygon,
 	arbitrum,
 	redstone,
-        garnet,
+	garnet,
 	avalanche,
 } from './presets/index.js'
 export { type MockKzg } from './MockKzg.js'

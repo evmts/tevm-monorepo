@@ -22,4 +22,4 @@ A viem decorator for `tevmViemExtension`
 
 ## Defined in
 
-[extensions/viem/src/ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)
+[extensions/viem/src/ViemTevmClientDecorator.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)

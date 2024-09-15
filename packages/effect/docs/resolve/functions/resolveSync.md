@@ -22,4 +22,4 @@ Effect wrapper around import('node:resolve').resolveSync
 
 ## Defined in
 
-[packages/effect/src/resolve.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L46)
+[packages/effect/src/resolve.js:46](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L46)

@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcResponse.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L86)
+[packages/procedures/src/anvil/AnvilJsonRpcResponse.ts:86](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcResponse.ts#L86)

@@ -8,10 +8,6 @@
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
-## Returns
-
-[`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
-
 ## Deprecated
 
 in favor of the viem transport
@@ -75,6 +71,10 @@ params: params,
 	}
 }
 
+## Returns
+
+[`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
+
 ## Defined in
 
-[extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)
+[extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)

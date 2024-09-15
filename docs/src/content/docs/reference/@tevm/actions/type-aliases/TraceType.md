@@ -9,4 +9,4 @@ title: "TraceType"
 
 ## Defined in
 
-[packages/actions/src/common/TraceType.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceType.ts#L1)
+[packages/actions/src/common/TraceType.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/TraceType.ts#L1)

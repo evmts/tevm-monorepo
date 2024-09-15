@@ -29,4 +29,4 @@ Whether to run this synchronously or not
 
 ## Defined in
 
-[moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)
+[moduleFactory.js:53](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)

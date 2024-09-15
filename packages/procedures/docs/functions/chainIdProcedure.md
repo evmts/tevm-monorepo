@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/chainIdProcedure.js#L8)
+[packages/procedures/src/eth/chainIdProcedure.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/chainIdProcedure.js#L8)

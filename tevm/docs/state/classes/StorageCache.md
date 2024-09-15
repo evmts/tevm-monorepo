@@ -30,7 +30,7 @@
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:26
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:26
 
 ## Properties
 
@@ -44,7 +44,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
 
 ***
 
@@ -58,7 +58,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
 
 ***
 
@@ -76,7 +76,7 @@ before.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:25
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:25
 
 ***
 
@@ -86,7 +86,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:14
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:14
 
 ***
 
@@ -96,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:15
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:15
 
 ***
 
@@ -130,7 +130,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
 
 ## Methods
 
@@ -150,7 +150,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:27
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:27
 
 ***
 
@@ -167,7 +167,7 @@ later on be reverted or committed.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:72
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:72
 
 ***
 
@@ -183,7 +183,7 @@ Clears cache.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:92
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:92
 
 ***
 
@@ -203,7 +203,7 @@ Deletes all storage slots for address from the cache
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:54
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:54
 
 ***
 
@@ -219,7 +219,7 @@ Commits to current state of cache (no effect on trie).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:67
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:67
 
 ***
 
@@ -245,7 +245,7 @@ Storage key
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:49
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:49
 
 ***
 
@@ -269,7 +269,7 @@ The address of the `account` to return storage for
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:98
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:98
 
 ***
 
@@ -286,7 +286,7 @@ or deleted and resetting the diff cache (at checkpoint height).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:59
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:59
 
 ***
 
@@ -316,7 +316,7 @@ Storage value or undefined
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:43
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:43
 
 ***
 
@@ -344,7 +344,7 @@ Storage key
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:34
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:34
 
 ***
 
@@ -360,7 +360,7 @@ Revert changes to cache last checkpoint (no effect on trie).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:63
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:63
 
 ***
 
@@ -376,7 +376,7 @@ Returns the size of the cache
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:77
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:77
 
 ***
 
@@ -416,4 +416,4 @@ Returns a dict with cache stats
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:82
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:82

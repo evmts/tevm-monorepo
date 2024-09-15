@@ -28,4 +28,4 @@
 
 ## Defined in
 
-[experimental/viem-effect/src/wrapInEffect.d.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L11)
+[experimental/viem-effect/src/wrapInEffect.d.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L11)

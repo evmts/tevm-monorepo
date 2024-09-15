@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:737
+packages/procedures/dist/index.d.ts:742

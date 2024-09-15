@@ -28,4 +28,4 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 ## Defined in
 
-[packages/state/src/actions/dumpCannonicalGenesis.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L14)
+[packages/state/src/actions/dumpCannonicalGenesis.js:14](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L14)

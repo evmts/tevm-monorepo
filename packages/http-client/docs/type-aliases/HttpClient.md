@@ -8,6 +8,10 @@
 
 > **HttpClient**: `TevmClient` & `object`
 
+## Deprecated
+
+a new http client will be created in a future version. For now it's recomended to use viem
+
 ## Type declaration
 
 ### ~~name~~
@@ -22,10 +26,6 @@ Name of the client
 
 The url being used to connect to the remote Tevm backend
 
-## Deprecated
-
-a new http client will be created in a future version. For now it's recomended to use viem
-
 ## Defined in
 
-[HttpClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)
+[HttpClient.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)

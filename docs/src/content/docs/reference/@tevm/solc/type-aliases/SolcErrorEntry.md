@@ -43,4 +43,4 @@ title: "SolcErrorEntry"
 
 ## Defined in
 
-[solcTypes.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351)
+[solcTypes.ts:351](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351)

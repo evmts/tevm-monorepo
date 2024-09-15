@@ -13,4 +13,4 @@ The maximum value a [UINT256](../type-aliases/UINT256.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/constants.js:36](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L36)
+[experimental/schemas/src/ethereum/SUINT/constants.js:36](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L36)

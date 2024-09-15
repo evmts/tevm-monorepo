@@ -9,4 +9,4 @@ title: "DbType"
 
 ## Defined in
 
-[MapDb.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L4)
+[MapDb.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L4)

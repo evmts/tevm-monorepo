@@ -8,8 +8,6 @@
 
 > **traceCallHandler**(`client`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
 
-Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -23,4 +21,4 @@ mirroring the output from traceTransaction
 
 ## Defined in
 
-[packages/actions/src/debug/traceCallHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L12)
+[packages/actions/src/debug/traceCallHandler.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L12)

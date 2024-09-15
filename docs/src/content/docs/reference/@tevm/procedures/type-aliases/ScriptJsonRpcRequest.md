@@ -14,4 +14,4 @@ The JSON-RPC request for the `tevm_script` method
 
 ## Defined in
 
-[packages/procedures/src/script/ScriptJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcRequest.ts#L10)
+[packages/procedures/src/script/ScriptJsonRpcRequest.ts:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/script/ScriptJsonRpcRequest.ts#L10)

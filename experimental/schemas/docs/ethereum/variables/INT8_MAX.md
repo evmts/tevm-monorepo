@@ -13,4 +13,4 @@ The maximum value a [INT8](../type-aliases/INT8.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L11)
+[experimental/schemas/src/ethereum/SINT/constants.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L11)

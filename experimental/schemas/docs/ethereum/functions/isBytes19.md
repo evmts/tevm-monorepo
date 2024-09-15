@@ -8,8 +8,6 @@
 
 > **isBytes19**(`bytes19`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes19.
-
 ## Parameters
 
 • **bytes19**: `unknown`
@@ -18,14 +16,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes19.
 
 `boolean`
 
-## Example
-
-```ts
-import { isBytes19 } from '@tevm/schemas';
-isBytes19("0xff");  // true
-isBytes19("0xfff"); // false
-````
-
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)
+[experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)

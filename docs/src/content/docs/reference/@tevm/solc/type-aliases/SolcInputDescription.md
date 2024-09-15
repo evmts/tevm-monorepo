@@ -23,4 +23,4 @@ title: "SolcInputDescription"
 
 ## Defined in
 
-[solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)
+[solcTypes.ts:325](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)

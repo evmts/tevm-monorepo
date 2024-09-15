@@ -27,4 +27,4 @@ title: "JsonRpcProcedure"
 
 ## Defined in
 
-[packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)
+[packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)

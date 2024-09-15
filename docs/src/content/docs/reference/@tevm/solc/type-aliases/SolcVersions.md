@@ -9,4 +9,4 @@ title: "SolcVersions"
 
 ## Defined in
 
-[solcTypes.ts:525](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L525)
+[solcTypes.ts:525](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L525)

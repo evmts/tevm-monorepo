@@ -25,4 +25,4 @@ The result of mining blocks, including an array of block hashes.
 
 ## Defined in
 
-[packages/memory-client/src/tevmMine.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmMine.js#L49)
+[packages/memory-client/src/tevmMine.js:49](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmMine.js#L49)

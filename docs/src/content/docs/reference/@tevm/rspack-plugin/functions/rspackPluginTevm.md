@@ -24,4 +24,4 @@ To configure add this plugin to your rspack config and add the ts-plugin to your
 
 ## Defined in
 
-[bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)
+[bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)

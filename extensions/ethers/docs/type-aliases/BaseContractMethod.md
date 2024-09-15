@@ -116,4 +116,4 @@
 
 ## Defined in
 
-[extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)
+[extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)

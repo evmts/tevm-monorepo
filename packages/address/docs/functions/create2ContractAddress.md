@@ -8,8 +8,6 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
-Generates an [Address](../classes/Address.md) for a contract created using CREATE2.
-
 ## Parameters
 
 • **from**: `Address`
@@ -28,10 +26,6 @@ THe creation code of the contract
 
 [`Address`](../classes/Address.md)
 
-## Throws
-
-if salt is not 32 bytes or input is wrong in some other way
-
 ## Defined in
 
-[packages/address/src/create2ContractAddress.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L18)
+[packages/address/src/create2ContractAddress.js:18](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L18)

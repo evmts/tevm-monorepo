@@ -141,7 +141,7 @@ CreateContractEventFilterParameters
 
 • **args?**: [`CreateEventFilterParameters`](/reference/tevm/utils/type-aliases/createeventfilterparameters/)\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>
 
-[CreateEventFilterParameters](../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
+[CreateEventFilterParameters](../../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
 
 #### Returns
 
@@ -394,6 +394,12 @@ Proof-of-work hash or `null` if pending
 > **number**: `blockTag` *extends* `"pending"` ? `null` : `bigint`
 
 Block number or `null` if pending
+
+##### parentBeaconBlockRoot?
+
+> `optional` **parentBeaconBlockRoot**: \`0x$\{string\}\`
+
+Root of the parent beacon chain block
 
 ##### parentHash
 
@@ -1437,4 +1443,4 @@ A function that can be invoked to stop watching for new pending transaction hash
 
 ## Defined in
 
-[packages/state/src/actions/getForkClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkClient.js#L20)
+[packages/state/src/actions/getForkClient.js:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/getForkClient.js#L20)

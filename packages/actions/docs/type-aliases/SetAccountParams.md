@@ -11,6 +11,18 @@
 Tevm params to set an account in the vm state
 all fields are optional except address
 
+## Example
+
+```ts
+const accountParams: import('tevm/api').SetAccountParams = {
+  account: '0x...',
+  nonce: 5n,
+  balance: 9000000000000n,
+  storageRoot: '0x....',
+  deployedBytecode: '0x....'
+}
+```
+
 ## Type declaration
 
 ### address
@@ -59,18 +71,6 @@ Storage root to set account to
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Example
-
-```ts
-const accountParams: import('tevm/api').SetAccountParams = {
-  account: '0x...',
-  nonce: 5n,
-  balance: 9000000000000n,
-  storageRoot: '0x....',
-  deployedBytecode: '0x....'
-}
-```
-
 ## Defined in
 
-[packages/actions/src/SetAccount/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountParams.ts#L17)
+[packages/actions/src/SetAccount/SetAccountParams.ts:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountParams.ts#L17)

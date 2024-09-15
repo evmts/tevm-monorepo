@@ -55,4 +55,4 @@ title: "SolcModelChecker"
 
 ## Defined in
 
-[solcTypes.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L165)
+[solcTypes.ts:165](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L165)

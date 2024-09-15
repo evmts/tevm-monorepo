@@ -8,8 +8,6 @@
 
 > **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
 
-Deletes a block from the blockchain
-
 ## Parameters
 
 • **baseChain**: `BaseChain`
@@ -31,10 +29,6 @@ The hash of the block to be deleted
 
 `Promise`\<`void`\>
 
-## Throws
-
-If the block is the `forked` block
-
 ## Defined in
 
-[actions/delBlock.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)
+[actions/delBlock.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)

@@ -36,4 +36,4 @@
 
 ## Defined in
 
-[extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L15)
+[extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L15)

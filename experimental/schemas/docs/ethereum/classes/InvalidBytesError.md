@@ -50,7 +50,7 @@ The invalid hex value.
 
 #### Defined in
 
-[experimental/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L19)
+[experimental/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L19)
 
 ## Properties
 
@@ -64,7 +64,7 @@ The invalid hex value.
 
 #### Defined in
 
-[experimental/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L26)
+[experimental/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L26)
 
 ***
 
@@ -116,6 +116,10 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Parameters
 
 • **err**: `Error`
@@ -125,10 +129,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -202,4 +202,4 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

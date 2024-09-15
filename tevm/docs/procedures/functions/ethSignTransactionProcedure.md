@@ -12,7 +12,7 @@
 
 • **options**
 
-• **options.accounts**: readonly [`HDAccount`](../../index/type-aliases/HDAccount.md)[]
+• **options.accounts**: readonly `object`[]
 
 • **options.getChainId**
 
@@ -22,4 +22,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:693
+packages/procedures/dist/index.d.ts:698

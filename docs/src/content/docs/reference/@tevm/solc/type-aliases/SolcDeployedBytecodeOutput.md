@@ -19,4 +19,4 @@ title: "SolcDeployedBytecodeOutput"
 
 ## Defined in
 
-[solcTypes.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L477)
+[solcTypes.ts:477](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L477)

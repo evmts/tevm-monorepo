@@ -30,4 +30,4 @@ CreateContract
 
 ## Defined in
 
-[CreateContractParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L8)
+[CreateContractParams.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L8)

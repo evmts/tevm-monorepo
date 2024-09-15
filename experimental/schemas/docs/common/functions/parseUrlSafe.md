@@ -8,8 +8,6 @@
 
 > **parseUrlSafe**\<`TUrl`\>(`url`): `Effect`\<`never`, [`InvalidUrlError`](../classes/InvalidUrlError.md), `TUrl`\>
 
-Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TUrl** *extends* `string`
@@ -22,13 +20,6 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 `Effect`\<`never`, [`InvalidUrlError`](../classes/InvalidUrlError.md), `TUrl`\>
 
-## Example
-
-```javascript
-import { parseUrlSafe } from '@tevm/schemas';
-const parsedUrlEffect = parseUrlSafe('https://tevm.sh');
-```
-
 ## Defined in
 
-[experimental/schemas/src/common/SUrl.js:91](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L91)
+[experimental/schemas/src/common/SUrl.js:91](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L91)

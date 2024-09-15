@@ -30,4 +30,4 @@ Internally, `tevmContract` wraps `tevmCall`. It automatically encodes and decode
 
 ## Defined in
 
-[packages/memory-client/src/tevmContract.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmContract.js#L41)
+[packages/memory-client/src/tevmContract.js:41](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmContract.js#L41)

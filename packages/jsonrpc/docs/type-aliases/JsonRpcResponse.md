@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/jsonrpc/src/JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcResponse.ts#L1)
+[packages/jsonrpc/src/JsonRpcResponse.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcResponse.ts#L1)

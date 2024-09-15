@@ -25,4 +25,4 @@ The result of setting the account.
 
 ## Defined in
 
-[packages/memory-client/src/tevmSetAccount.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmSetAccount.js#L50)
+[packages/memory-client/src/tevmSetAccount.js:50](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmSetAccount.js#L50)

@@ -20,4 +20,4 @@ export const SINT64: Schema<bigint, INT64>;
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/SINT.js:100](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L100)
+[experimental/schemas/src/ethereum/SINT/SINT.js:100](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L100)

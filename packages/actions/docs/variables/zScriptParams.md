@@ -14,4 +14,4 @@ Zod validator for a valid script action
 
 ## Defined in
 
-[packages/actions/src/Script/zScriptParams.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/zScriptParams.js#L10)
+[packages/actions/src/Script/zScriptParams.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/zScriptParams.js#L10)

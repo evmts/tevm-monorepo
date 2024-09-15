@@ -20,4 +20,4 @@ export const SUINT128: Schema<bigint, UINT128>;
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/SUINT.js:131](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L131)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:131](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L131)

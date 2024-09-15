@@ -21,7 +21,7 @@ In the current design, it also contains the resulting state of the block executi
 
 #### Defined in
 
-[types.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L100)
+[types.ts:100](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L100)
 
 ***
 
@@ -34,4 +34,4 @@ Proves that the provided stateDiff belongs to the canonical verkle tree.
 
 #### Defined in
 
-[types.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L105)
+[types.ts:105](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/block/src/types.ts#L105)

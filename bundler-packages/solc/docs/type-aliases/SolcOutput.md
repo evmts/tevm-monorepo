@@ -32,4 +32,4 @@
 
 ## Defined in
 
-[solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
+[solcTypes.ts:332](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)

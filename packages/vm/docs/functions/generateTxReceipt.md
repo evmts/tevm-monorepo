@@ -36,4 +36,4 @@ Returns the tx receipt.
 
 ## Defined in
 
-[packages/vm/src/actions/generateTxResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/generateTxResult.ts#L23)
+[packages/vm/src/actions/generateTxResult.ts:23](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/generateTxResult.ts#L23)

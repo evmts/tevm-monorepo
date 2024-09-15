@@ -13,4 +13,4 @@ The maximum value a [UINT64](../type-aliases/UINT64.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/constants.js:26](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L26)
+[experimental/schemas/src/ethereum/SUINT/constants.js:26](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L26)

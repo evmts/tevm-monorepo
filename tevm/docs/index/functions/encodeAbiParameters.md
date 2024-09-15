@@ -6,19 +6,19 @@
 
 # Function: encodeAbiParameters()
 
-> **encodeAbiParameters**\<`TParams`\>(`params`, `values`): `EncodeAbiParametersReturnType`
+> **encodeAbiParameters**\<`params`\>(`params`, `values`): `EncodeAbiParametersReturnType`
 
 ## Type Parameters
 
-• **TParams** *extends* readonly `unknown`[] \| readonly `AbiParameter`[]
-
-## Parameters
-
-• **params**: `TParams`
+• **params** *extends* readonly `unknown`[] \| readonly `AbiParameter`[]
 
 a set of ABI Parameters (params), that can be in the shape of the inputs or outputs attribute of an ABI Item.
 
-• **values**: `TParams` *extends* readonly `AbiParameter`[] ? \{ \[K in string \| number \| symbol\]: \{ \[K in string \| number \| symbol\]: AbiParameterToPrimitiveType\<TParams\<TParams\>\[K\<K\>\], AbiParameterKind\> \}\[K\] \} : `never`
+## Parameters
+
+• **params**: `params`
+
+• **values**: `params` *extends* readonly `AbiParameter`[] ? \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<params\<params\>\[key\<key\>\], AbiParameterKind\> \}\[key\] \} : `never`
 
 a set of values (values) that correspond to the given params.
 
@@ -62,4 +62,4 @@ const encodedData = encodeAbiParameters(
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49
+node\_modules/.pnpm/viem@2.21.7\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49

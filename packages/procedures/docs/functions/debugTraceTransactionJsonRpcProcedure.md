@@ -8,8 +8,6 @@
 
 > **debugTraceTransactionJsonRpcProcedure**(`client`): [`DebugTraceTransactionProcedure`](../type-aliases/DebugTraceTransactionProcedure.md)
 
-Request handler for debug_traceTransaction JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for debug_traceTransaction JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/debug/debugTraceTransactionProcedure.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/debugTraceTransactionProcedure.js#L12)
+[packages/procedures/src/debug/debugTraceTransactionProcedure.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/debug/debugTraceTransactionProcedure.js#L12)

@@ -17,4 +17,4 @@ title: "EthGetUncleByBlockHashAndIndexHandler"
 
 ## Defined in
 
-[packages/actions/src/eth/EthHandler.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L151)
+[packages/actions/src/eth/EthHandler.ts:151](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L151)

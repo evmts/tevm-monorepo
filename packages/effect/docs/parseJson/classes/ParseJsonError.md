@@ -36,7 +36,7 @@ Error thrown when the tsconfig.json file is not valid json
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
+[packages/effect/src/parseJson.js:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
 
 ## Properties
 
@@ -46,7 +46,7 @@ Error thrown when the tsconfig.json file is not valid json
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L12)
+[packages/effect/src/parseJson.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L12)
 
 ***
 

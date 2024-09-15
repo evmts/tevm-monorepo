@@ -39,8 +39,8 @@ console.log(res)
 ## See
 
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
- - [BaseCallParams](../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
- - [EncodeFunctionDataParameters](../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
+ - [BaseCallParams](../../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
+ - [EncodeFunctionDataParameters](../../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
 
 ## Type Parameters
 
@@ -58,4 +58,4 @@ The type indicating whether to throw on failure.
 
 ## Defined in
 
-[packages/actions/src/Contract/ContractParams.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)
+[packages/actions/src/Contract/ContractParams.ts:42](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)

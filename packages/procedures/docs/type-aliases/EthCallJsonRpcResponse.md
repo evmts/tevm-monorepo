@@ -12,4 +12,4 @@ JSON-RPC response for `eth_call` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L30)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:30](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L30)

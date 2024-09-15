@@ -11,4 +11,4 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcResponse.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L84)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:84](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L84)

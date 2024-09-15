@@ -10,6 +10,33 @@
 
 Result of a TEVM VM Call method.
 
+## Example
+
+```typescript
+import { createClient } from 'viem'
+import { createTevmTransport, tevmCall } from 'tevm'
+import { optimism } from 'tevm/common'
+import { CallResult } from 'tevm/actions'
+
+const client = createClient({
+  transport: createTevmTransport({}),
+  chain: optimism,
+})
+
+const callParams = {
+  data: '0x...',
+  bytecode: '0x...',
+  gasLimit: 420n,
+}
+
+const result: CallResult = await tevmCall(client, callParams)
+console.log(result)
+```
+
+## See
+
+[tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
+
 ## Type Parameters
 
 • **ErrorType** = [`TevmCallError`](TevmCallError.md)
@@ -218,33 +245,6 @@ if (txHash) {
 }
 ```
 
-## Example
-
-```typescript
-import { createClient } from 'viem'
-import { createTevmTransport, tevmCall } from 'tevm'
-import { optimism } from 'tevm/common'
-import { CallResult } from 'tevm/actions'
-
-const client = createClient({
-  transport: createTevmTransport({}),
-  chain: optimism,
-})
-
-const callParams = {
-  data: '0x...',
-  bytecode: '0x...',
-  gasLimit: 420n,
-}
-
-const result: CallResult = await tevmCall(client, callParams)
-console.log(result)
-```
-
-## See
-
-[tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
-
 ## Defined in
 
-[packages/actions/src/Call/CallResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L32)
+[packages/actions/src/Call/CallResult.ts:32](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L32)

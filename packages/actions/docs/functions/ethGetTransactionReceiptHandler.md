@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[packages/actions/src/eth/ethGetTransactionReceipt.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetTransactionReceipt.js#L26)
+[packages/actions/src/eth/ethGetTransactionReceipt.js:26](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetTransactionReceipt.js#L26)

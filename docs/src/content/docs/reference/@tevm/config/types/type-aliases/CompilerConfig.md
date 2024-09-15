@@ -8,7 +8,7 @@ title: "CompilerConfig"
 > **CompilerConfig**: `object`
 
 Configuration of the solidity compiler
-When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
+When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
 
 ## Type declaration
 
@@ -46,4 +46,4 @@ Remap the location of contracts
 
 ## Defined in
 
-[bundler-packages/config/src/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L11)
+[bundler-packages/config/src/types.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L11)

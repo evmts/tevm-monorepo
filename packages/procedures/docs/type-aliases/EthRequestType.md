@@ -166,4 +166,4 @@ A mapping of `eth_*` method names to their request type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/EthRequestType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthRequestType.ts#L45)
+[packages/procedures/src/tevm-request-handler/EthRequestType.ts:45](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/EthRequestType.ts#L45)

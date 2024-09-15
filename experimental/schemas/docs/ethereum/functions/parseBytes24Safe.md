@@ -8,8 +8,6 @@
 
 > **parseBytes24Safe**\<`TBytes24`\>(`bytes24`): `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes24`\>
 
-Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TBytes24**
@@ -26,4 +24,4 @@ extends string
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)
+[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)

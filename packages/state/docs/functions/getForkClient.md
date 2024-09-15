@@ -8,8 +8,6 @@
 
 > **getForkClient**(`baseState`): `object`
 
-Creates a viem public client for the fork
-
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)
@@ -92,63 +90,63 @@ Filter. CreateBlockFilterReturnType
 
 ### createContractEventFilter()
 
-> **createContractEventFilter**: \<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+> **createContractEventFilter**: \<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>\>
 
 #### Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[]
+• **abi** *extends* `Abi` \| readonly `unknown`[]
 
-• **TEventName** *extends* `undefined` \| `string`
+• **eventName** *extends* `undefined` \| `string`
 
-• **TArgs** *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+• **args** *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
-• **args**: `CreateContractEventFilterParameters`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `CreateContractEventFilterParameters`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>
 
 CreateContractEventFilterParameters
 
 #### Returns
 
-`Promise`\<`CreateContractEventFilterReturnType`\<`TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+`Promise`\<`CreateContractEventFilterReturnType`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>\>
 
 [`Filter`](https://viem.sh/docs/glossary/types#filter). CreateContractEventFilterReturnType
 
 ### createEventFilter()
 
-> **createEventFilter**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", TAbiEvents, \_EventName, \_Args, TStrict, TFromBlock, TToBlock\>\[K\] \}\>
+> **createEventFilter**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? [`abiEvent`\<`abiEvent`\>] : `undefined`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **_EventName** *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
+• **_EventName** *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
 
 • **_Args** *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
 
 #### Parameters
 
-• **args?**: `CreateEventFilterParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
+• **args?**: `CreateEventFilterParameters`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>
 
 CreateEventFilterParameters
 
 #### Returns
 
-`Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", TAbiEvents, \_EventName, \_Args, TStrict, TFromBlock, TToBlock\>\[K\] \}\>
+`Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
 
 [`Filter`](https://viem.sh/docs/glossary/types#filter). CreateEventFilterReturnType
 
@@ -176,11 +174,11 @@ CreateEventFilterParameters
 
 ### estimateContractGas()
 
-> **estimateContractGas**: \<`TChain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
+> **estimateContractGas**: \<`chain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
 
 #### Type Parameters
 
-• **TChain** *extends* `undefined` \| `Chain`
+• **chain** *extends* `undefined` \| `Chain`
 
 • **abi** *extends* `Abi` \| readonly `unknown`[]
 
@@ -190,7 +188,7 @@ CreateEventFilterParameters
 
 #### Parameters
 
-• **args**: `EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `TChain`\>
+• **args**: `EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `chain`\>
 
 EstimateContractGasParameters
 
@@ -202,21 +200,21 @@ The gas estimate (in wei). EstimateContractGasReturnType
 
 ### estimateFeesPerGas()
 
-> **estimateFeesPerGas**: \<`TChainOverride`, `TType`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\>
+> **estimateFeesPerGas**: \<`chainOverride`, `type`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
 
 #### Type Parameters
 
-• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
+• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
 
-• **TType** *extends* `FeeValuesType` = `"eip1559"`
+• **type** *extends* `FeeValuesType` = `"eip1559"`
 
 #### Parameters
 
-• **args?**: `EstimateFeesPerGasParameters`\<`undefined` \| `Chain`, `TChainOverride`, `TType`\>
+• **args?**: `EstimateFeesPerGasParameters`\<`undefined` \| `Chain`, `chainOverride`, `type`\>
 
 #### Returns
 
-`Promise`\<`EstimateFeesPerGasReturnType`\>
+`Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
 
 An estimate (in wei) for the fees per gas. EstimateFeesPerGasReturnType
 
@@ -238,17 +236,17 @@ The gas estimate (in wei). EstimateGasReturnType
 
 ### estimateMaxPriorityFeePerGas()
 
-> **estimateMaxPriorityFeePerGas**: \<`TChainOverride`\>(`args`?) => `Promise`\<`bigint`\>
+> **estimateMaxPriorityFeePerGas**: \<`chainOverride`\>(`args`?) => `Promise`\<`bigint`\>
 
 #### Type Parameters
 
-• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
+• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
 
 #### Parameters
 
 • **args?**
 
-• **args.chain?**: `null` \| `TChainOverride`
+• **args.chain?**: `null` \| `chainOverride`
 
 #### Returns
 
@@ -300,17 +298,17 @@ The blob base fee (in wei). GetBlobBaseFeeReturnType
 
 ### getBlock()
 
-> **getBlock**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`?) => `Promise`\<`object`\>
+> **getBlock**: \<`includeTransactions`, `blockTag`\>(`args`?) => `Promise`\<`object`\>
 
 #### Type Parameters
 
-• **TIncludeTransactions** *extends* `boolean` = `false`
+• **includeTransactions** *extends* `boolean` = `false`
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **blockTag** *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
-• **args?**: `GetBlockParameters`\<`TIncludeTransactions`, `TBlockTag`\>
+• **args?**: `GetBlockParameters`\<`includeTransactions`, `blockTag`\>
 
 GetBlockParameters
 
@@ -364,13 +362,13 @@ Total used gas by all transactions in this block
 
 ##### hash
 
-> **hash**: `TBlockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
+> **hash**: `blockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
 
 Block hash or `null` if pending
 
 ##### logsBloom
 
-> **logsBloom**: `TBlockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
+> **logsBloom**: `blockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
 
 Logs bloom filter or `null` if pending
 
@@ -388,15 +386,21 @@ Unique identifier for the block.
 
 ##### nonce
 
-> **nonce**: `TBlockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
+> **nonce**: `blockTag` *extends* `"pending"` ? `null` : \`0x$\{string\}\`
 
 Proof-of-work hash or `null` if pending
 
 ##### number
 
-> **number**: `TBlockTag` *extends* `"pending"` ? `null` : `bigint`
+> **number**: `blockTag` *extends* `"pending"` ? `null` : `bigint`
 
 Block number or `null` if pending
+
+##### parentBeaconBlockRoot?
+
+> `optional` **parentBeaconBlockRoot**: \`0x$\{string\}\`
+
+Root of the parent beacon chain block
 
 ##### parentHash
 
@@ -446,7 +450,7 @@ Total difficulty of the chain until this block
 
 ##### transactions
 
-> **transactions**: `TIncludeTransactions` *extends* `true` ? (`object` \| `object` \| `object` \| `object`)[] : \`0x$\{string\}\`[]
+> **transactions**: `includeTransactions` *extends* `true` ? (`object` \| `object` \| `object` \| `object` \| `object`)[] : \`0x$\{string\}\`[]
 
 ##### transactionsRoot
 
@@ -508,6 +512,10 @@ The block transaction count. GetBlockTransactionCountReturnType
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
+#### Deprecated
+
+Use `getCode` instead.
+
 #### Parameters
 
 • **args**: `GetCodeParameters`
@@ -515,10 +523,6 @@ The block transaction count. GetBlockTransactionCountReturnType
 #### Returns
 
 `Promise`\<`GetCodeReturnType`\>
-
-#### Deprecated
-
-Use `getCode` instead.
 
 ### getChainId()
 
@@ -838,59 +842,59 @@ The gas estimate (in wei). GetFeeHistoryReturnType
 
 ### getFilterChanges()
 
-> **getFilterChanges**: \<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+> **getFilterChanges**: \<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 #### Type Parameters
 
-• **TFilterType** *extends* `FilterType`
+• **filterType** *extends* `FilterType`
 
-• **TAbi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+• **abi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
 
-• **TEventName** *extends* `undefined` \| `string`
+• **eventName** *extends* `undefined` \| `string`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
-• **args**: `GetFilterChangesParameters`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `GetFilterChangesParameters`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
 
 GetFilterChangesParameters
 
 #### Returns
 
-`Promise`\<`GetFilterChangesReturnType`\<`TFilterType`, `TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+`Promise`\<`GetFilterChangesReturnType`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Logs or hashes. GetFilterChangesReturnType
 
 ### getFilterLogs()
 
-> **getFilterLogs**: \<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+> **getFilterLogs**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 #### Type Parameters
 
-• **TAbi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+• **abi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
 
-• **TEventName** *extends* `undefined` \| `string`
+• **eventName** *extends* `undefined` \| `string`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
-• **args**: `GetFilterLogsParameters`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args**: `GetFilterLogsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
 
 GetFilterLogsParameters
 
 #### Returns
 
-`Promise`\<`GetFilterLogsReturnType`\<`TAbi`, `TEventName`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+`Promise`\<`GetFilterLogsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 A list of event logs. GetFilterLogsReturnType
 
@@ -906,29 +910,29 @@ The gas price (in wei). GetGasPriceReturnType
 
 ### getLogs()
 
-> **getLogs**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+> **getLogs**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? [`abiEvent`\<`abiEvent`\>] : `undefined`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
-• **TFromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
-• **TToBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
-• **args?**: `GetLogsParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>
+• **args?**: `GetLogsParameters`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>
 
 GetLogsParameters
 
 #### Returns
 
-`Promise`\<`GetLogsReturnType`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`\>\>
+`Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
 
 A list of event logs. GetLogsReturnType
 
@@ -964,21 +968,21 @@ The value of the storage slot. GetStorageAtReturnType
 
 ### getTransaction()
 
-> **getTransaction**: \<`TBlockTag`\>(`args`) => `Promise`\<`object` \| `object` \| `object` \| `object`\>
+> **getTransaction**: \<`blockTag`\>(`args`) => `Promise`\<`object` \| `object` \| `object` \| `object` \| `object`\>
 
 #### Type Parameters
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **blockTag** *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
-• **args**: `GetTransactionParameters`\<`TBlockTag`\>
+• **args**: `GetTransactionParameters`\<`blockTag`\>
 
 GetTransactionParameters
 
 #### Returns
 
-`Promise`\<`object` \| `object` \| `object` \| `object`\>
+`Promise`\<`object` \| `object` \| `object` \| `object` \| `object`\>
 
 The transaction information. GetTransactionReturnType
 
@@ -1072,25 +1076,25 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ### prepareTransactionRequest()
 
-> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+> **prepareTransactionRequest**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\>
 
 #### Type Parameters
 
-• **TRequest** *extends* `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object` & `object`
+• **request** *extends* `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object` & `object`
 
-• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined`
+• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
 
-• **TAccountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
+• **accountOverride** *extends* `undefined` \| \`0x$\{string\}\` \| `Account` = `undefined`
 
 #### Parameters
 
-• **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TRequest`\>
+• **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`, `request`\>
 
 PrepareTransactionRequestParameters
 
 #### Returns
 
-`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<TRequest\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & Object, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "type" \| "gas" \| "nonce" \| "blobVersionedHashes" \| "fees" \| "chainId"\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\>
 
 The transaction request. PrepareTransactionRequestReturnType
 
@@ -1226,6 +1230,10 @@ The balance of the account at a block tag.
 'latest'
 ```
 
+• **args.factory?**: \`0x$\{string\}\`
+
+• **args.factoryData?**: \`0x$\{string\}\`
+
 • **args.message**: `SignableMessage`
 
 The message to be verified.
@@ -1350,17 +1358,17 @@ A function that can be invoked to stop watching for new block numbers. WatchBloc
 
 ### watchBlocks()
 
-> **watchBlocks**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`) => `WatchBlocksReturnType`
+> **watchBlocks**: \<`includeTransactions`, `blockTag`\>(`args`) => `WatchBlocksReturnType`
 
 #### Type Parameters
 
-• **TIncludeTransactions** *extends* `boolean` = `false`
+• **includeTransactions** *extends* `boolean` = `false`
 
-• **TBlockTag** *extends* `BlockTag` = `"latest"`
+• **blockTag** *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
-• **args**: `WatchBlocksParameters`\<`Transport`, `undefined` \| `Chain`, `TIncludeTransactions`, `TBlockTag`\>
+• **args**: `WatchBlocksParameters`\<`Transport`, `undefined` \| `Chain`, `includeTransactions`, `blockTag`\>
 
 WatchBlocksParameters
 
@@ -1372,19 +1380,19 @@ A function that can be invoked to stop watching for new block numbers. WatchBloc
 
 ### watchContractEvent()
 
-> **watchContractEvent**: \<`TAbi`, `TEventName`, `TStrict`\>(`args`) => `WatchContractEventReturnType`
+> **watchContractEvent**: \<`abi`, `eventName`, `strict`\>(`args`) => `WatchContractEventReturnType`
 
 #### Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[]
+• **abi** *extends* `Abi` \| readonly `unknown`[]
 
-• **TEventName** *extends* `string`
+• **eventName** *extends* `string`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 
-• **args**: `WatchContractEventParameters`\<`TAbi`, `TEventName`, `TStrict`, `Transport`\>
+• **args**: `WatchContractEventParameters`\<`abi`, `eventName`, `strict`, `Transport`\>
 
 WatchContractEventParameters
 
@@ -1396,19 +1404,19 @@ A function that can be invoked to stop watching for new event logs. WatchContrac
 
 ### watchEvent()
 
-> **watchEvent**: \<`TAbiEvent`, `TAbiEvents`, `TStrict`\>(`args`) => `WatchEventReturnType`
+> **watchEvent**: \<`abiEvent`, `abiEvents`, `strict`\>(`args`) => `WatchEventReturnType`
 
 #### Type Parameters
 
-• **TAbiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **TAbiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`\<`TAbiEvent`\>] : `undefined`
+• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? [`abiEvent`\<`abiEvent`\>] : `undefined`
 
-• **TStrict** *extends* `undefined` \| `boolean` = `undefined`
+• **strict** *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 
-• **args**: `WatchEventParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `Transport`\>
+• **args**: `WatchEventParameters`\<`abiEvent`, `abiEvents`, `strict`, `Transport`\>
 
 WatchEventParameters
 
@@ -1436,4 +1444,4 @@ A function that can be invoked to stop watching for new pending transaction hash
 
 ## Defined in
 
-[packages/state/src/actions/getForkClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkClient.js#L20)
+[packages/state/src/actions/getForkClient.js:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/getForkClient.js#L20)

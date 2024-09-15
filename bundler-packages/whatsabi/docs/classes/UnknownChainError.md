@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[bundler-packages/whatsabi/src/resolveContractUri.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L20)
+[bundler-packages/whatsabi/src/resolveContractUri.js:20](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L20)
 
 ## Properties
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[bundler-packages/whatsabi/src/resolveContractUri.js:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L16)
+[bundler-packages/whatsabi/src/resolveContractUri.js:16](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L16)
 
 ***
 
@@ -82,7 +82,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[bundler-packages/whatsabi/src/resolveContractUri.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L12)
+[bundler-packages/whatsabi/src/resolveContractUri.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L12)
 
 ***
 
@@ -106,6 +106,10 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Parameters
 
 • **err**: `Error`
@@ -115,10 +119,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 

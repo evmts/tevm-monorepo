@@ -32,4 +32,4 @@
 
 ## Defined in
 
-[eip1193/WalletPermission.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermission.ts#L8)
+[eip1193/WalletPermission.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermission.ts#L8)

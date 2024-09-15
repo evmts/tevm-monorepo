@@ -25,4 +25,4 @@ Gets the current state root
 
 ## Defined in
 
-[packages/state/src/actions/getStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getStateRoot.js#L7)
+[packages/state/src/actions/getStateRoot.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/getStateRoot.js#L7)

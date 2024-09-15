@@ -22,4 +22,4 @@ The parameters for the mine action.
 
 ## Defined in
 
-[packages/actions/src/Mine/MineHandlerType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L19)
+[packages/actions/src/Mine/MineHandlerType.ts:19](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L19)

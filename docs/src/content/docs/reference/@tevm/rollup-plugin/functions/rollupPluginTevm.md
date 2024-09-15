@@ -24,4 +24,4 @@ To configure add this plugin to your rollup config and add the ts-plugin to your
 
 ## Defined in
 
-[bundler-packages/rollup/src/rollupPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L75)
+[bundler-packages/rollup/src/rollupPluginTevm.js:75](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L75)

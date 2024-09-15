@@ -27,4 +27,4 @@ title: "SolcFunctionDebugData"
 
 ## Defined in
 
-[solcTypes.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)
+[solcTypes.ts:484](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)

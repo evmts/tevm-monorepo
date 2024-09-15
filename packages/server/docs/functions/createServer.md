@@ -8,8 +8,6 @@
 
 > **createServer**(`client`, `serverOptions`?): `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
-Creates a lightweight http server for handling requests
-
 ## Parameters
 
 • **client**
@@ -1275,7 +1273,7 @@ A name for the client.
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-• **client.prepareTransactionRequest?**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\> & \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends TRequest\["kzg"\] ? Object : Pick\<TRequest, "kzg"\>))\[K\] \}\>
+• **client.prepareTransactionRequest?**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\>
 
 Prepares a transaction request for signing.
 
@@ -2731,30 +2729,6 @@ Optional options to pass to the http server
 
 To use pass in the Tevm['request'] request handler
 
-## Throws
-
-## Examples
-
-```typescript
-import { createMemoryClient } from 'tevm'
-import { createServer } from 'tevm/server'
-
-const tevm = createMemoryClient()
-
-const server = createServer({
-  request: tevm.request,
-})
-
-server.listen(8080, () => console.log('listening on 8080'))
-```
-To interact with the HTTP server you can create a Tevm client
-
-```typescript
-import { createTevmClient } from '@tevm/client'
-
-const client = createTevmClient()
-```
-
 ## Defined in
 
-[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
+[packages/server/src/createServer.js:32](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)

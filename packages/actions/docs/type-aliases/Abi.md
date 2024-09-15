@@ -12,4 +12,4 @@ A valid [Ethereum JSON ABI](https://docs.soliditylang.org/en/latest/abi-spec.htm
 
 ## Defined in
 
-[packages/actions/src/common/Abi.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Abi.ts#L6)
+[packages/actions/src/common/Abi.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/Abi.ts#L6)

@@ -47,4 +47,4 @@ CallResult for a detailed breakdown of the available properties.
 
 ## Defined in
 
-[packages/actions/src/Deploy/DeployResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L38)
+[packages/actions/src/Deploy/DeployResult.ts:38](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L38)

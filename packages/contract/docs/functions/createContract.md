@@ -36,4 +36,4 @@ Creates a tevm Contract instance from human readable abi
 
 ## Defined in
 
-[createContract.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L35)
+[createContract.js:35](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/createContract.js#L35)

@@ -17,4 +17,4 @@ title: "mineProcedure"
 
 ## Defined in
 
-[packages/procedures/src/mine/mineProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/mineProcedure.js#L10)
+[packages/procedures/src/mine/mineProcedure.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/mine/mineProcedure.js#L10)

@@ -6,7 +6,7 @@ title: "Address"
 ---
 
 Utility class for ethereum addresses.
-Wraps [EthjsAddress](../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
+Wraps [EthjsAddress](../../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
 toString returns a checksummed address rather than lowercase
 
 ## Example
@@ -169,7 +169,7 @@ The checksummed address.
 
 #### Defined in
 
-[packages/address/src/Address.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/Address.js#L27)
+[packages/address/src/Address.js:27](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/address/src/Address.js#L27)
 
 ***
 

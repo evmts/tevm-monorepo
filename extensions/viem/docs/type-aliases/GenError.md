@@ -37,4 +37,4 @@ Errors are yielded rather than throwing
 
 ## Defined in
 
-[extensions/viem/src/GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)
+[extensions/viem/src/GenError.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)

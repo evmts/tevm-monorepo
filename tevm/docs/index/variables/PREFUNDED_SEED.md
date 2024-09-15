@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/utils/types/prefundedAccounts.d.ts:4
+packages/utils/types/prefundedAccounts.d.ts:16

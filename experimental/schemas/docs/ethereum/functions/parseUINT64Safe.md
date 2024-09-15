@@ -8,8 +8,6 @@
 
 > **parseUINT64Safe**\<`TUINT64`\>(`uint64`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT64`\>
 
-Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TUINT64** *extends* `bigint`
@@ -24,4 +22,4 @@ Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentia
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:90](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L90)
+[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:90](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L90)

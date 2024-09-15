@@ -8,8 +8,6 @@
 
 > **parseBytes16Safe**\<`TBytes16`\>(`bytes16`): `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes16`\>
 
-Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TBytes16**
@@ -26,4 +24,4 @@ extends string
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)
+[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)

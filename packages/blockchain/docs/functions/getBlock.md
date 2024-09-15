@@ -8,8 +8,6 @@
 
 > **getBlock**(`baseChain`): (`blockId`) => `Promise`\<`Block`\>
 
-An ethereumjs interface method that accepts a block id number or hash and returns the block
-
 ## Parameters
 
 • **baseChain**: `BaseChain`
@@ -30,4 +28,4 @@ Returns a block by its hash or number.
 
 ## Defined in
 
-[actions/getBlock.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)
+[actions/getBlock.js:13](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)

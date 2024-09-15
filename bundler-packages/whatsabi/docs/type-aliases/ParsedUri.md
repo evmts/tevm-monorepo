@@ -36,4 +36,4 @@
 
 ## Defined in
 
-[bundler-packages/whatsabi/src/ParsedUri.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L4)
+[bundler-packages/whatsabi/src/ParsedUri.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L4)

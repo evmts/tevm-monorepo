@@ -12,4 +12,4 @@ Zod validator for a valid mine action invocation
 
 ## Defined in
 
-[packages/actions/src/Mine/zMineParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/zMineParams.js#L7)
+[packages/actions/src/Mine/zMineParams.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Mine/zMineParams.js#L7)

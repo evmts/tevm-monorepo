@@ -17,4 +17,4 @@ title: "EthGetBlockTransactionCountByHashJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/EthProcedure.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L115)
+[packages/procedures/src/eth/EthProcedure.ts:115](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L115)

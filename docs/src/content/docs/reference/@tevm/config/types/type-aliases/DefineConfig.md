@@ -42,4 +42,4 @@ export default defineConfig({
 
 ## Defined in
 
-[bundler-packages/config/src/types.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L82)
+[bundler-packages/config/src/types.ts:82](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L82)

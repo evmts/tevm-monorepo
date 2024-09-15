@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L288)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:296](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L296)

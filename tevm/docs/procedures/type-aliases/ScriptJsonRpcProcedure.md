@@ -8,6 +8,11 @@
 
 > **ScriptJsonRpcProcedure**: (`request`) => `Promise`\<[`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)\>
 
+## Deprecated
+
+Use CallJsonRpcProcedure instead
+Procedure for handling script JSON-RPC requests
+
 ## Parameters
 
 • **request**: [`ScriptJsonRpcRequest`](ScriptJsonRpcRequest.md)
@@ -16,11 +21,6 @@
 
 `Promise`\<[`ScriptJsonRpcResponse`](ScriptJsonRpcResponse.md)\>
 
-## Deprecated
-
-Use CallJsonRpcProcedure instead
-Procedure for handling script JSON-RPC requests
-
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1239
+packages/procedures/dist/index.d.ts:1244

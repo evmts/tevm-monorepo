@@ -21,4 +21,4 @@ Resolves when ready, rejects if VM fails to initialize.
 
 ## Defined in
 
-[packages/memory-client/src/tevmReady.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmReady.js#L43)
+[packages/memory-client/src/tevmReady.js:43](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/tevmReady.js#L43)

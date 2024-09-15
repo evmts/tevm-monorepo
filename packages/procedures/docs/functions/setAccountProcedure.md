@@ -8,8 +8,6 @@
 
 > **setAccountProcedure**(`client`): [`SetAccountJsonRpcProcedure`](../type-aliases/SetAccountJsonRpcProcedure.md)
 
-Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs VM
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests w
 
 ## Defined in
 
-[procedures/src/setaccount/setAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/setaccount/setAccountProcedure.js#L9)
+[packages/procedures/src/setaccount/setAccountProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/setaccount/setAccountProcedure.js#L9)

@@ -13,4 +13,4 @@ The maximum value a [INT16](../type-aliases/INT16.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:21](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L21)
+[experimental/schemas/src/ethereum/SINT/constants.js:21](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L21)

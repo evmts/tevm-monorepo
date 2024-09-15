@@ -29,4 +29,4 @@ the updated balances of their accounts to state.
 
 ## Defined in
 
-[packages/vm/src/actions/assignBlockRewards.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/assignBlockRewards.ts#L12)
+[packages/vm/src/actions/assignBlockRewards.ts:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/assignBlockRewards.ts#L12)

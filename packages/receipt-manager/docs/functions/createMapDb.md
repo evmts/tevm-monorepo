@@ -8,8 +8,6 @@
 
 > **createMapDb**(`options`): [`MapDb`](../type-aliases/MapDb.md)
 
-Creates a {MapDb} which uses an in memory map as it's underlying data structure
-
 ## Parameters
 
 • **options**: [`MetaDBManagerOptions`](../interfaces/MetaDBManagerOptions.md)
@@ -20,4 +18,4 @@ Creates a {MapDb} which uses an in memory map as it's underlying data structure
 
 ## Defined in
 
-[createMapDb.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/createMapDb.js#L24)
+[createMapDb.js:24](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/createMapDb.js#L24)

@@ -48,4 +48,4 @@
 
 ## Defined in
 
-[packages/actions/src/common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceResult.ts#L6)
+[packages/actions/src/common/TraceResult.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/TraceResult.ts#L6)

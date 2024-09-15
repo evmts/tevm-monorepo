@@ -15,4 +15,4 @@ This type is a placeholder
 
 ## Defined in
 
-[packages/actions/src/eth/EthParams.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L237)
+[packages/actions/src/eth/EthParams.ts:237](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L237)

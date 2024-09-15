@@ -24,4 +24,4 @@ The transaction hash
 
 ## Defined in
 
-[packages/actions/src/debug/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L46)
+[packages/actions/src/debug/DebugParams.ts:46](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L46)

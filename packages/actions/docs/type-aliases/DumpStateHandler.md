@@ -22,4 +22,4 @@ A promise that resolves to a `DumpStateResult` object containing the state data.
 
 ## Defined in
 
-[packages/actions/src/DumpState/DumpStateHandlerType.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateHandlerType.ts#L29)
+[packages/actions/src/DumpState/DumpStateHandlerType.ts:29](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateHandlerType.ts#L29)

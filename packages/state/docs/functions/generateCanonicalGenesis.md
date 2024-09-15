@@ -30,4 +30,4 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ## Defined in
 
-[packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)
+[packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)

@@ -19,4 +19,4 @@ title: "invariant"
 
 ## Defined in
 
-[packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)
+[packages/utils/src/invariant.ts:3](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)

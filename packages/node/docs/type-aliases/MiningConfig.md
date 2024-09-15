@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[packages/node/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L15)
+[packages/node/src/MiningConfig.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L15)

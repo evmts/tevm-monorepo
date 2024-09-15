@@ -22,4 +22,4 @@
 
 ## Defined in
 
-[experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js#L7)
+[experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/viem-effect/src/accounts/mnemonicToAccountEffect.js#L7)

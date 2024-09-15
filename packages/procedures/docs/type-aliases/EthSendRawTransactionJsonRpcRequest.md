@@ -12,4 +12,4 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:229](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L229)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:237](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L237)

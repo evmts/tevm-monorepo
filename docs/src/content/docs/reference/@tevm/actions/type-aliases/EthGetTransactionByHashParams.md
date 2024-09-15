@@ -17,4 +17,4 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Defined in
 
-[packages/actions/src/eth/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L177)
+[packages/actions/src/eth/EthParams.ts:177](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L177)

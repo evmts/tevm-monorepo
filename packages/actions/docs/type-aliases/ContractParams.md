@@ -12,20 +12,6 @@ Parameters to execute a call on a contract with TEVM.
 
 This type combines the parameters required for encoding function data with additional call parameters.
 
-## Type Parameters
-
-• **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI type.
-
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **TThrowOnFail** *extends* `boolean` = `boolean`
-
-The type indicating whether to throw on failure.
-
 ## Example
 
 ```typescript
@@ -57,6 +43,20 @@ console.log(res)
  - [BaseCallParams](BaseCallParams.md)
  - EncodeFunctionDataParameters
 
+## Type Parameters
+
+• **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
+
+The ABI type.
+
+• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **TThrowOnFail** *extends* `boolean` = `boolean`
+
+The type indicating whether to throw on failure.
+
 ## Defined in
 
-[packages/actions/src/Contract/ContractParams.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)
+[packages/actions/src/Contract/ContractParams.ts:42](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)

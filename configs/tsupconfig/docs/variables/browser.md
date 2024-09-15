@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[browser.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/browser.js#L3)
+[browser.js:3](https://github.com/qbzzt/tevm-monorepo/blob/main/configs/tsupconfig/src/browser.js#L3)

@@ -34,4 +34,4 @@ True if the event was emitted, false otherwise.
 
 ## Defined in
 
-[packages/node/src/EIP1193EventEmitterTypes.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L53)
+[packages/node/src/EIP1193EventEmitterTypes.ts:53](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L53)

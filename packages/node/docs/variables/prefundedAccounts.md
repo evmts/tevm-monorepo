@@ -13,4 +13,4 @@ Also including zero address
 
 ## Defined in
 
-[packages/node/src/GENESIS\_STATE.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/GENESIS_STATE.js#L8)
+[packages/node/src/GENESIS\_STATE.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/GENESIS_STATE.js#L8)

@@ -12,4 +12,4 @@ Response of the `tevm_loadState` RPC method.
 
 ## Defined in
 
-[procedures/src/loadstate/LoadStateJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcResponse.ts#L8)
+[packages/procedures/src/loadstate/LoadStateJsonRpcResponse.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/loadstate/LoadStateJsonRpcResponse.ts#L8)

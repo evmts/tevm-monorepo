@@ -22,4 +22,4 @@ Inferred arguments for a contract deployment
 
 ## Defined in
 
-[DeployArgs.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/DeployArgs.ts#L6)
+[DeployArgs.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/DeployArgs.ts#L6)

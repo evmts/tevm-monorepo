@@ -18,4 +18,4 @@ Valid query params (all optional)
 
 ## Defined in
 
-[bundler-packages/whatsabi/src/contractUriPattern.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/contractUriPattern.js#L10)
+[bundler-packages/whatsabi/src/contractUriPattern.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/contractUriPattern.js#L10)

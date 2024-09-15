@@ -13,4 +13,4 @@ title: "requestEip1193"
 
 ## Defined in
 
-[request/requestEip1193.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/requestEip1193.js#L18)
+[request/requestEip1193.js:18](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/request/requestEip1193.js#L18)

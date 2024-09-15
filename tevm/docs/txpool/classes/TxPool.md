@@ -22,6 +22,8 @@ module:service
 
 **`Experimental`**
 
+Create new tx pool
+
 #### Parameters
 
 • **options**: `TxPoolOptions`
@@ -146,6 +148,12 @@ packages/txpool/types/TxPool.d.ts:166
 
 **`Experimental`**
 
+Adds a tx to the pool.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 • **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
@@ -172,6 +180,12 @@ packages/txpool/types/TxPool.d.ts:102
 
 **`Experimental`**
 
+Adds a tx to the pool without validating it.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 • **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
@@ -194,6 +208,8 @@ packages/txpool/types/TxPool.d.ts:92
 
 **`Experimental`**
 
+Regular tx pool cleanup
+
 #### Returns
 
 `void`
@@ -209,6 +225,8 @@ packages/txpool/types/TxPool.d.ts:121
 > **close**(): `void`
 
 **`Experimental`**
+
+Close pool
 
 #### Returns
 
@@ -245,6 +263,8 @@ packages/txpool/types/TxPool.d.ts:68
 > **getByHash**(`txHashes`): ([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]
 
 **`Experimental`**
+
+Returns the available txs from the pool
 
 #### Parameters
 
@@ -288,6 +308,8 @@ packages/txpool/types/TxPool.d.ts:137
 
 **`Experimental`**
 
+Open pool
+
 #### Returns
 
 `boolean`
@@ -303,6 +325,8 @@ packages/txpool/types/TxPool.d.ts:72
 > **removeByHash**(`txHash`): `void`
 
 **`Experimental`**
+
+Removes the given tx from the pool
 
 #### Parameters
 
@@ -326,6 +350,8 @@ packages/txpool/types/TxPool.d.ts:113
 
 **`Experimental`**
 
+Remove txs included in the latest blocks from the tx pool
+
 #### Parameters
 
 • **newBlocks**: [`Block`](../../block/classes/Block.md)[]
@@ -346,6 +372,8 @@ packages/txpool/types/TxPool.d.ts:117
 
 **`Experimental`**
 
+Start tx processing
+
 #### Returns
 
 `boolean`
@@ -362,6 +390,8 @@ packages/txpool/types/TxPool.d.ts:76
 
 **`Experimental`**
 
+Stop pool execution
+
 #### Returns
 
 `boolean`
@@ -377,6 +407,19 @@ packages/txpool/types/TxPool.d.ts:161
 > **txsByPriceAndNonce**(`baseFee`?): `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
 
 **`Experimental`**
+
+Returns eligible txs to be mined sorted by price in such a way that the
+nonce orderings within a single account are maintained.
+
+Note, this is not as trivial as it seems from the first look as there are three
+different criteria that need to be taken into account (price, nonce, account
+match), which cannot be done with any plain sorting method, as certain items
+cannot be compared without context.
+
+This method first sorts the separates the list of transactions into individual
+sender accounts and sorts them by nonce. After the account nonce ordering is
+satisfied, the results are merged back together by price, always comparing only
+the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 

@@ -8,8 +8,6 @@
 
 > **ethNewPendingTransactionFilterProcedure**(`client`): [`EthNewPendingTransactionFilterJsonRpcProcedure`](../type-aliases/EthNewPendingTransactionFilterJsonRpcProcedure.md)
 
-Request handler for eth_newPendingTransactionFilter JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for eth_newPendingTransactionFilter JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethNewPendingTransactionFilterProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewPendingTransactionFilterProcedure.js#L8)
+[packages/procedures/src/eth/ethNewPendingTransactionFilterProcedure.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethNewPendingTransactionFilterProcedure.js#L8)

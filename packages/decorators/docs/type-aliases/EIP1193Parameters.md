@@ -14,4 +14,4 @@
 
 ## Defined in
 
-[eip1193/EIP1193Parameters.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Parameters.ts#L10)
+[eip1193/EIP1193Parameters.ts:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Parameters.ts#L10)

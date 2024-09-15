@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[solcTypes.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L52)
+[solcTypes.ts:52](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L52)

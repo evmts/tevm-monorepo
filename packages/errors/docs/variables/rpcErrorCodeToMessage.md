@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[packages/errors/src/rpcErrorToMessage.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/rpcErrorToMessage.js#L4)
+[packages/errors/src/rpcErrorToMessage.js:4](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/rpcErrorToMessage.js#L4)

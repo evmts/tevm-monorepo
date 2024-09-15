@@ -215,7 +215,37 @@ node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/events.d.ts:15
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:592
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/events.d.ts:592
+
+***
+
+### \[captureRejectionSymbol\]()?
+
+> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
+
+#### Type Parameters
+
+• **K**
+
+#### Parameters
+
+• **error**: `Error`
+
+• **event**: `string` \| `symbol`
+
+• ...**args**: `AnyRest`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EventEmitter.[captureRejectionSymbol]`
+
+#### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/events.d.ts:592
 
 ***
 
@@ -239,17 +269,17 @@ Alias for `emitter.on(eventName, listener)`.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.addListener`
 
+#### Since
+
+v0.1.26
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:23
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:23
 
 ***
 
@@ -275,7 +305,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:20
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:20
 
 ***
 
@@ -301,7 +331,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:19
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:19
 
 ***
 
@@ -361,17 +391,17 @@ myEmitter.emit('event', 1, 2, 3, 4, 5);
 
 `boolean`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.emit`
 
+#### Since
+
+v0.1.26
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:16
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:16
 
 ***
 
@@ -400,17 +430,17 @@ console.log(myEE.eventNames());
 
 keyof `T` & `string`[]
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.eventNames`
 
+#### Since
+
+v6.0.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:28
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:28
 
 ***
 
@@ -434,7 +464,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:18
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:18
 
 ***
 
@@ -449,17 +479,17 @@ set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](AsyncEv
 
 `number`
 
-#### Since
-
-v1.0.0
-
 #### Overrides
 
 `EventEmitter.getMaxListeners`
 
+#### Since
+
+v1.0.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:31
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:31
 
 ***
 
@@ -479,17 +509,17 @@ in the list of the listeners of the event.
 
 `number`
 
-#### Since
-
-v3.2.0
-
 #### Overrides
 
 `EventEmitter.listenerCount`
 
+#### Since
+
+v3.2.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:30
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:30
 
 ***
 
@@ -519,17 +549,17 @@ console.log(util.inspect(server.listeners('connection')));
 
 `T`\[`E`\][]
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.listeners`
 
+#### Since
+
+v0.1.26
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:29
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:29
 
 ***
 
@@ -555,13 +585,13 @@ Alias for `emitter.removeListener()`.
 
 `this`
 
-##### Since
-
-v10.0.0
-
 ##### Inherited from
 
 `EventEmitter.off`
+
+##### Since
+
+v10.0.0
 
 ##### Defined in
 
@@ -587,17 +617,49 @@ Alias for `emitter.removeListener()`.
 
 `this`
 
+##### Inherited from
+
+`EventEmitter.off`
+
 ##### Since
 
 v10.0.0
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/events.d.ts:747
+
+#### off(eventName, listener)
+
+> **off**\<`K`\>(`eventName`, `listener`): `this`
+
+Alias for `emitter.removeListener()`.
+
+##### Type Parameters
+
+• **K**
+
+##### Parameters
+
+• **eventName**: `string` \| `symbol`
+
+• **listener**
+
+##### Returns
+
+`this`
 
 ##### Inherited from
 
 `EventEmitter.off`
 
+##### Since
+
+v10.0.0
+
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:747
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/events.d.ts:747
 
 ***
 
@@ -648,17 +710,17 @@ The callback function
 
 `this`
 
-#### Since
-
-v0.1.101
-
 #### Overrides
 
 `EventEmitter.on`
 
+#### Since
+
+v0.1.101
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:22
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:22
 
 ***
 
@@ -707,17 +769,17 @@ The callback function
 
 `this`
 
-#### Since
-
-v0.3.0
-
 #### Overrides
 
 `EventEmitter.once`
 
+#### Since
+
+v0.3.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:17
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:17
 
 ***
 
@@ -754,17 +816,17 @@ The callback function
 
 `this`
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.prependListener`
 
+#### Since
+
+v6.0.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:24
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:24
 
 ***
 
@@ -799,17 +861,17 @@ The callback function
 
 `this`
 
-#### Since
-
-v6.0.0
-
 #### Overrides
 
 `EventEmitter.prependOnceListener`
 
+#### Since
+
+v6.0.0
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:25
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:25
 
 ***
 
@@ -859,13 +921,13 @@ emitter.emit('log');
 
 `Function`[]
 
-##### Since
-
-v9.4.0
-
 ##### Inherited from
 
 `EventEmitter.rawListeners`
+
+##### Since
+
+v9.4.0
 
 ##### Defined in
 
@@ -915,17 +977,73 @@ emitter.emit('log');
 
 `Function`[]
 
+##### Inherited from
+
+`EventEmitter.rawListeners`
+
 ##### Since
 
 v9.4.0
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/events.d.ts:818
+
+#### rawListeners(eventName)
+
+> **rawListeners**\<`K`\>(`eventName`): `Function`[]
+
+Returns a copy of the array of listeners for the event named `eventName`,
+including any wrappers (such as those created by `.once()`).
+
+```js
+import { EventEmitter } from 'node:events';
+const emitter = new EventEmitter();
+emitter.once('log', () => console.log('log once'));
+
+// Returns a new Array with a function `onceWrapper` which has a property
+// `listener` which contains the original listener bound above
+const listeners = emitter.rawListeners('log');
+const logFnWrapper = listeners[0];
+
+// Logs "log once" to the console and does not unbind the `once` event
+logFnWrapper.listener();
+
+// Logs "log once" to the console and removes the listener
+logFnWrapper();
+
+emitter.on('log', () => console.log('log persistently'));
+// Will return a new Array with a single function bound by `.on()` above
+const newListeners = emitter.rawListeners('log');
+
+// Logs "log persistently" twice
+newListeners[0]();
+emitter.emit('log');
+```
+
+##### Type Parameters
+
+• **K**
+
+##### Parameters
+
+• **eventName**: `string` \| `symbol`
+
+##### Returns
+
+`Function`[]
 
 ##### Inherited from
 
 `EventEmitter.rawListeners`
 
+##### Since
+
+v9.4.0
+
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/events.d.ts:818
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/events.d.ts:818
 
 ***
 
@@ -949,17 +1067,17 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.removeAllListeners`
 
+#### Since
+
+v0.1.26
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:26
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:26
 
 ***
 
@@ -1061,17 +1179,17 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.1.26
-
 #### Overrides
 
 `EventEmitter.removeListener`
 
+#### Since
+
+v0.1.26
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:27
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:27
 
 ***
 
@@ -1094,17 +1212,17 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 `this`
 
-#### Since
-
-v0.3.5
-
 #### Overrides
 
 `EventEmitter.setMaxListeners`
 
+#### Since
+
+v0.3.5
+
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:32
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:32
 
 ***
 
@@ -1156,13 +1274,13 @@ function example(signal) {
 
 Disposable that removes the `abort` listener.
 
-#### Since
-
-v20.5.0
-
 #### Inherited from
 
 `EventEmitter.addAbortListener`
+
+#### Since
+
+v20.5.0
 
 #### Defined in
 
@@ -1209,13 +1327,13 @@ import { getEventListeners, EventEmitter } from 'node:events';
 
 `Function`[]
 
-#### Since
-
-v15.2.0, v14.17.0
-
 #### Inherited from
 
 `EventEmitter.getEventListeners`
+
+#### Since
+
+v15.2.0, v14.17.0
 
 #### Defined in
 
@@ -1261,13 +1379,13 @@ import { getMaxListeners, setMaxListeners, EventEmitter } from 'node:events';
 
 `number`
 
-#### Since
-
-v19.9.0
-
 #### Inherited from
 
 `EventEmitter.getMaxListeners`
+
+#### Since
+
+v19.9.0
 
 #### Defined in
 
@@ -1305,6 +1423,10 @@ The event name
 
 `number`
 
+#### Inherited from
+
+`EventEmitter.listenerCount`
+
 #### Since
 
 v0.9.12
@@ -1312,10 +1434,6 @@ v0.9.12
 #### Deprecated
 
 Since v3.2.0 - Use `listenerCount` instead.
-
-#### Inherited from
-
-`EventEmitter.listenerCount`
 
 #### Defined in
 
@@ -1422,13 +1540,13 @@ The name of the event being listened for
 
 An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
 
-##### Since
-
-v13.6.0, v12.16.0
-
 ##### Inherited from
 
 `EventEmitter.on`
+
+##### Since
+
+v13.6.0, v12.16.0
 
 ##### Defined in
 
@@ -1555,13 +1673,13 @@ ee.emit('foo'); // Prints: Waiting for the event was canceled!
 
 `Promise`\<`any`[]\>
 
-##### Since
-
-v11.13.0, v10.16.0
-
 ##### Inherited from
 
 `EventEmitter.once`
+
+##### Since
+
+v11.13.0, v10.16.0
 
 ##### Defined in
 
@@ -1618,13 +1736,13 @@ A non-negative number. The maximum number of listeners per `EventTarget` event.
 
 `void`
 
-#### Since
-
-v15.4.0
-
 #### Inherited from
 
 `EventEmitter.setMaxListeners`
+
+#### Since
+
+v15.4.0
 
 #### Defined in
 

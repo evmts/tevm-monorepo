@@ -15,4 +15,4 @@ Type representing a valid Ethereum address
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L11)
+[experimental/schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L11)

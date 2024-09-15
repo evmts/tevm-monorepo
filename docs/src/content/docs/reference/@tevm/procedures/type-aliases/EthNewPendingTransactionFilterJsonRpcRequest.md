@@ -11,4 +11,4 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 ## Defined in
 
-[packages/procedures/src/eth/EthJsonRpcRequest.ts:278](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L278)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:286](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L286)

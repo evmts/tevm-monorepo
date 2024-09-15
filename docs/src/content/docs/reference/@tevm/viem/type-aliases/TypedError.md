@@ -21,4 +21,4 @@ An error with a tag
 
 ## Defined in
 
-[extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
+[extensions/viem/src/TypedError.ts:4](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)

@@ -8,6 +8,10 @@
 
 > **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`, `TErrorType`\>
 
+## Deprecated
+
+Can use `ContractResult` instead
+
 ## Type Parameters
 
 • **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
@@ -16,10 +20,6 @@
 
 • **TErrorType** = [`TevmScriptError`](TevmScriptError.md)
 
-## Deprecated
-
-Can use `ContractResult` instead
-
 ## Defined in
 
-[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)
+[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

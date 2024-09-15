@@ -9,7 +9,7 @@ title: "TevmClient"
 
 ## See
 
-[guide](../../../../../../../reference/tevm/client-types/type-aliases/tevmclient) for more documentation on clients
+[guide](../../../../../../../../reference/tevm/client-types/type-aliases/tevmclient) for more documentation on clients
 
 #### JSON-RPC
 
@@ -478,4 +478,4 @@ await tevm.setAccount({
 
 ## Defined in
 
-[TevmClient.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L132)
+[TevmClient.ts:132](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L132)

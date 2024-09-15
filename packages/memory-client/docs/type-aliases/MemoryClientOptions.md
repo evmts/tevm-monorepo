@@ -13,20 +13,6 @@ Configuration options for creating a [MemoryClient](MemoryClient.md).
 This type extends `TevmNodeOptions` and includes specific options for configuring the MemoryClient,
 such as the transport type, account, polling interval, and caching behavior.
 
-## Type Parameters
-
-• **TCommon** *extends* `Common` & `Chain` = `Common` & `Chain`
-
-The common chain configuration, extending both `Common` and `Chain`.
-
-• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `undefined`
-
-The account or address type for the client.
-
-• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
-
-The RPC schema type, defaults to `TevmRpcSchema`.
-
 ## Example
 
 ```typescript
@@ -52,6 +38,20 @@ const client = createMemoryClient(options);
  - [MemoryClient](MemoryClient.md)
  - [CreateMemoryClientFn](CreateMemoryClientFn.md)
 
+## Type Parameters
+
+• **TCommon** *extends* `Common` & `Chain` = `Common` & `Chain`
+
+The common chain configuration, extending both `Common` and `Chain`.
+
+• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `undefined`
+
+The account or address type for the client.
+
+• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
+
+The RPC schema type, defaults to `TevmRpcSchema`.
+
 ## Defined in
 
-[packages/memory-client/src/MemoryClientOptions.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L50)
+[packages/memory-client/src/MemoryClientOptions.ts:50](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L50)

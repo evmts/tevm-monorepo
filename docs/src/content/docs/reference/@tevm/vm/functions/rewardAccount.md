@@ -21,4 +21,4 @@ title: "rewardAccount"
 
 ## Defined in
 
-[packages/vm/src/actions/rewardAccount.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L5)
+[packages/vm/src/actions/rewardAccount.ts:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L5)

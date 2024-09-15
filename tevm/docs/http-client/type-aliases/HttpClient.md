@@ -8,6 +8,10 @@
 
 > **HttpClient**: [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
+## Deprecated
+
+a new http client will be created in a future version. For now it's recomended to use viem
+
 ## Type declaration
 
 ### ~~name~~
@@ -21,10 +25,6 @@ Name of the client
 > **url**: `string`
 
 The url being used to connect to the remote Tevm backend
-
-## Deprecated
-
-a new http client will be created in a future version. For now it's recomended to use viem
 
 ## Defined in
 

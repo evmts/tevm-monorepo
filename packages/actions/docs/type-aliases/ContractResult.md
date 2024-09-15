@@ -12,20 +12,6 @@ The result type for a TEVM contract call.
 
 This type extends the `CallResult` type with additional contract-specific fields, and it supports both success and error states.
 
-## Type Parameters
-
-• **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI type.
-
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **ErrorType** = [`TevmContractError`](TevmContractError.md)
-
-The error type.
-
 ## Example
 
 ```typescript
@@ -60,6 +46,20 @@ if (result.errors) {
 
 [CallResult](CallResult.md)
 
+## Type Parameters
+
+• **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
+
+The ABI type.
+
+• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **ErrorType** = [`TevmContractError`](TevmContractError.md)
+
+The error type.
+
 ## Defined in
 
-[packages/actions/src/Contract/ContractResult.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractResult.ts#L46)
+[packages/actions/src/Contract/ContractResult.ts:46](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractResult.ts#L46)

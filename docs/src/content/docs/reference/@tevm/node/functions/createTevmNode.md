@@ -17,4 +17,4 @@ title: "createTevmNode"
 
 ## Defined in
 
-[packages/node/src/createTevmNode.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/createTevmNode.js#L27)
+[packages/node/src/createTevmNode.js:27](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/node/src/createTevmNode.js#L27)

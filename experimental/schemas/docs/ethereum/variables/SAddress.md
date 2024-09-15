@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L31)
+[experimental/schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/SAddress.js#L31)

@@ -8,20 +8,6 @@
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-## Type Parameters
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-## Parameters
-
-• **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
-
-## Returns
-
-`Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
-
 ## Deprecated
 
 Can use `ContractHandler` instead
@@ -49,6 +35,20 @@ const res = tevm.script(
 )
 ```
 
+## Type Parameters
+
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+
+## Parameters
+
+• **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+
+## Returns
+
+`Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
+
 ## Defined in
 
-[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)
+[packages/actions/src/Script/ScriptHandlerType.ts:32](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptHandlerType.ts#L32)

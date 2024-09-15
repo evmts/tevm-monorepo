@@ -9,4 +9,4 @@ title: "Create2ContractAddressError"
 
 ## Defined in
 
-[packages/address/src/create2ContractAddress.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L7)
+[packages/address/src/create2ContractAddress.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L7)

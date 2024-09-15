@@ -12,4 +12,4 @@ JSON-RPC response for `eth_syncing` procedure
 
 ## Defined in
 
-[packages/actions/src/eth/EthResult.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L209)
+[packages/actions/src/eth/EthResult.ts:209](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L209)

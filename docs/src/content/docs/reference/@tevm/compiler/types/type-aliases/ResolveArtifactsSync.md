@@ -31,4 +31,4 @@ title: "ResolveArtifactsSync"
 
 ## Defined in
 
-[compiler/src/types.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L25)
+[compiler/src/types.ts:25](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/compiler/src/types.ts#L25)

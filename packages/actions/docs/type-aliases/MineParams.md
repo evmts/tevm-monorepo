@@ -10,6 +10,22 @@
 
 Tevm params to mine one or more blocks.
 
+## Example
+
+```typescript
+const mineParams: import('@tevm/actions').MineParams = {
+  blockCount: 5,
+}
+```
+
+## Param
+
+Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Interval between block timestamps in seconds. Defaults to 1.
+
 ## Type declaration
 
 ### blockCount?
@@ -28,22 +44,6 @@ Interval between block timestamps. Defaults to 1.
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
 
-## Example
-
-```typescript
-const mineParams: import('@tevm/actions').MineParams = {
-  blockCount: 5,
-}
-```
-
-## Param
-
-Number of blocks to mine. Defaults to 1.
-
-## Param
-
-Interval between block timestamps in seconds. Defaults to 1.
-
 ## Defined in
 
-[packages/actions/src/Mine/MineParams.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L15)
+[packages/actions/src/Mine/MineParams.ts:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L15)

@@ -17,4 +17,4 @@ title: "createHttpClient"
 
 ## Defined in
 
-[createHttpClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)
+[createHttpClient.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)

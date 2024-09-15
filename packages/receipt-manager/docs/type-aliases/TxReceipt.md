@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[RecieptManager.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L66)
+[RecieptManager.ts:66](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L66)

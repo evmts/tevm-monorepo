@@ -19,4 +19,4 @@ title: "solcCompile"
 
 ## Defined in
 
-[solc.js:130](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L130)
+[solc.js:130](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L130)

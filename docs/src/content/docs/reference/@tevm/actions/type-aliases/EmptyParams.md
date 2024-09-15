@@ -9,4 +9,4 @@ title: "EmptyParams"
 
 ## Defined in
 
-[packages/actions/src/common/EmptyParams.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/EmptyParams.ts#L1)
+[packages/actions/src/common/EmptyParams.ts:1](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/common/EmptyParams.ts#L1)

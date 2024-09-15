@@ -8,8 +8,6 @@
 
 > **ethGetFilterLogsProcedure**(`client`): [`EthGetFilterLogsJsonRpcProcedure`](../type-aliases/EthGetFilterLogsJsonRpcProcedure.md)
 
-Request handler for eth_getFilterLogs JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for eth_getFilterLogs JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethGetFilterLogsProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetFilterLogsProcedure.js#L9)
+[packages/procedures/src/eth/ethGetFilterLogsProcedure.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetFilterLogsProcedure.js#L9)

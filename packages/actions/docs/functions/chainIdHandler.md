@@ -8,8 +8,6 @@
 
 > **chainIdHandler**(`client`): [`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)
 
-Handler for the `eth_chainId` RPC call.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Handler for the `eth_chainId` RPC call.
 
 ## Defined in
 
-[packages/actions/src/eth/chainIdHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/chainIdHandler.js#L6)
+[packages/actions/src/eth/chainIdHandler.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/chainIdHandler.js#L6)

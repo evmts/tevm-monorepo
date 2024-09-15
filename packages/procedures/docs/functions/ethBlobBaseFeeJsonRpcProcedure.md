@@ -8,8 +8,6 @@
 
 > **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
 
-Request handler for eth_coinbase JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for eth_coinbase JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethBlobBaseFeeProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethBlobBaseFeeProcedure.js#L10)
+[packages/procedures/src/eth/ethBlobBaseFeeProcedure.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethBlobBaseFeeProcedure.js#L10)

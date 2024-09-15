@@ -28,7 +28,7 @@ Default: `false`
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L55)
+[packages/vm/src/utils/VMOpts.ts:55](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L55)
 
 ***
 
@@ -40,7 +40,7 @@ A Blockchain object for storing/retrieving blocks
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L41)
+[packages/vm/src/utils/VMOpts.ts:41](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L41)
 
 ***
 
@@ -70,7 +70,7 @@ Default setup if no `Common` instance is provided:
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L33)
+[packages/vm/src/utils/VMOpts.ts:33](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L33)
 
 ***
 
@@ -82,7 +82,7 @@ Use a custom EVM to run Messages on. If this is not present, use the default EVM
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L76)
+[packages/vm/src/utils/VMOpts.ts:76](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L76)
 
 ***
 
@@ -95,7 +95,7 @@ stateManager not provided for the VM, defaults to an empty state
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L60)
+[packages/vm/src/utils/VMOpts.ts:60](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L60)
 
 ***
 
@@ -105,7 +105,7 @@ stateManager not provided for the VM, defaults to an empty state
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L78)
+[packages/vm/src/utils/VMOpts.ts:78](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L78)
 
 ***
 
@@ -123,7 +123,7 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L71)
+[packages/vm/src/utils/VMOpts.ts:71](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L71)
 
 ***
 
@@ -135,4 +135,4 @@ A StateManager instance to use as the state store
 
 #### Defined in
 
-[packages/vm/src/utils/VMOpts.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L37)
+[packages/vm/src/utils/VMOpts.ts:37](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L37)

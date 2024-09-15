@@ -8,8 +8,6 @@
 
 > **parseUINT128Safe**\<`TUINT128`\>(`uint128`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT128`\>
 
-Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TUINT128** *extends* `bigint`
@@ -24,4 +22,4 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:113](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L113)
+[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:113](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L113)

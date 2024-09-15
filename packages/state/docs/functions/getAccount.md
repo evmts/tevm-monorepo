@@ -31,4 +31,4 @@ Returns undefined if account does not exist
 
 ## Defined in
 
-[packages/state/src/actions/getAccount.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L9)
+[packages/state/src/actions/getAccount.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L9)

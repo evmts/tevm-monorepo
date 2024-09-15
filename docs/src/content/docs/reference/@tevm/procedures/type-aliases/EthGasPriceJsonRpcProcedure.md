@@ -17,4 +17,4 @@ title: "EthGasPriceJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/EthProcedure.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L101)
+[packages/procedures/src/eth/EthProcedure.ts:101](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L101)

@@ -23,7 +23,7 @@ title: "BlockBuilder"
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L76)
+[packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L76)
 
 ## Properties
 
@@ -35,7 +35,7 @@ The cumulative blob gas used by the blobs in a block
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L52)
+[packages/vm/src/actions/BlockBuilder.ts:52](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L52)
 
 ***
 
@@ -47,7 +47,7 @@ The cumulative gas used by the transactions added to the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L48)
+[packages/vm/src/actions/BlockBuilder.ts:48](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L48)
 
 ## Accessors
 
@@ -61,7 +61,7 @@ The cumulative gas used by the transactions added to the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L72)
+[packages/vm/src/actions/BlockBuilder.ts:72](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L72)
 
 ***
 
@@ -75,7 +75,7 @@ The cumulative gas used by the transactions added to the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L68)
+[packages/vm/src/actions/BlockBuilder.ts:68](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L68)
 
 ## Methods
 
@@ -102,7 +102,7 @@ the remaining gas in the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L216)
+[packages/vm/src/actions/BlockBuilder.ts:216](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L216)
 
 ***
 
@@ -130,7 +130,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L307)
+[packages/vm/src/actions/BlockBuilder.ts:307](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L307)
 
 ***
 
@@ -144,7 +144,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L128)
+[packages/vm/src/actions/BlockBuilder.ts:128](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L128)
 
 ***
 
@@ -158,7 +158,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:371](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L371)
+[packages/vm/src/actions/BlockBuilder.ts:371](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L371)
 
 ***
 
@@ -174,7 +174,7 @@ Calculates and returns the logs bloom for the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L145)
+[packages/vm/src/actions/BlockBuilder.ts:145](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L145)
 
 ***
 
@@ -190,7 +190,7 @@ Calculates and returns the receiptTrie for the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L157)
+[packages/vm/src/actions/BlockBuilder.ts:157](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L157)
 
 ***
 
@@ -206,7 +206,7 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L288)
+[packages/vm/src/actions/BlockBuilder.ts:288](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L288)
 
 ***
 
@@ -222,4 +222,4 @@ Calculates and returns the transactionsTrie for the block.
 
 #### Defined in
 
-[packages/vm/src/actions/BlockBuilder.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L135)
+[packages/vm/src/actions/BlockBuilder.ts:135](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L135)

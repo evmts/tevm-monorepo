@@ -13,4 +13,4 @@ The maximum value a [INT32](../type-aliases/INT32.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L31)
+[experimental/schemas/src/ethereum/SINT/constants.js:31](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L31)

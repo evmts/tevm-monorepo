@@ -8,8 +8,6 @@
 
 > **parseBytes**\<`TBytes`\>(`hex`): `TBytes`
 
-Parses a Bytes and returns the value if no errors.
-
 ## Type Parameters
 
 • **TBytes** *extends* \`0x$\{string\}\`
@@ -22,13 +20,6 @@ Parses a Bytes and returns the value if no errors.
 
 `TBytes`
 
-## Example
-
-```javascript
-import { parseBytes } from '@tevm/schemas';
-const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
-```
-
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/parseBytes.js#L20)
+[experimental/schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/parseBytes.js#L20)

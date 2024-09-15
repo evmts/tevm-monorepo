@@ -35,4 +35,4 @@ console.log(res.balance)
 
 ## Defined in
 
-[packages/actions/src/GetAccount/GetAccountHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L21)
+[packages/actions/src/GetAccount/GetAccountHandlerType.ts:21](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L21)

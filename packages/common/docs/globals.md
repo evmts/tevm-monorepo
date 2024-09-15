@@ -27,11 +27,20 @@
 
 ## Variables
 
+- [arbitrum](variables/arbitrum.md)
+- [avalanche](variables/avalanche.md)
 - [base](variables/base.md)
 - [baseSepolia](variables/baseSepolia.md)
+- [blast](variables/blast.md)
+- [garnet](variables/garnet.md)
 - [mainnet](variables/mainnet.md)
+- [manta](variables/manta.md)
+- [mantle](variables/mantle.md)
 - [optimism](variables/optimism.md)
 - [optimismSepolia](variables/optimismSepolia.md)
+- [polygon](variables/polygon.md)
+- [redstone](variables/redstone.md)
+- [scroll](variables/scroll.md)
 - [sepolia](variables/sepolia.md)
 - [tevmDefault](variables/tevmDefault.md)
 - [zora](variables/zora.md)

@@ -17,4 +17,4 @@ The default EIP1193 compatable provider request method with enabled tevm methods
 
 ## Defined in
 
-[request/Eip1193RequestProvider.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/Eip1193RequestProvider.ts#L12)
+[request/Eip1193RequestProvider.ts:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/request/Eip1193RequestProvider.ts#L12)

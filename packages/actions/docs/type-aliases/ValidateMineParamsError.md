@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[packages/actions/src/Mine/validateMineParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineParams.js#L5)
+[packages/actions/src/Mine/validateMineParams.js:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineParams.js#L5)

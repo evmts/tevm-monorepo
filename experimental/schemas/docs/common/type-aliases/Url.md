@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[experimental/schemas/src/common/SUrl.js:14](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L14)
+[experimental/schemas/src/common/SUrl.js:14](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L14)

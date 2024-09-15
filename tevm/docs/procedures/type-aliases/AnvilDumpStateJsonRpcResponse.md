@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:761
+packages/procedures/dist/index.d.ts:766

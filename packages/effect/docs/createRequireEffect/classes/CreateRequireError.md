@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[packages/effect/src/createRequireEffect.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L17)
+[packages/effect/src/createRequireEffect.js:17](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L17)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[packages/effect/src/createRequireEffect.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L10)
+[packages/effect/src/createRequireEffect.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L10)
 
 ***
 

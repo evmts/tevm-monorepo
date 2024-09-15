@@ -14,7 +14,7 @@
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/types.d.ts:2
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/types.d.ts:2
 
 ***
 
@@ -24,4 +24,4 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/types.d.ts:3
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/types.d.ts:3

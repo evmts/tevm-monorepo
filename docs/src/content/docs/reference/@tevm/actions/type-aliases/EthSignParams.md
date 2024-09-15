@@ -33,4 +33,4 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Defined in
 
-[packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
+[packages/actions/src/eth/EthParams.ts:243](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)

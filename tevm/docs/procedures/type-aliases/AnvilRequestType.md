@@ -66,4 +66,4 @@ A mapping of `anvil_*` method names to their request type
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1253
+packages/procedures/dist/index.d.ts:1258

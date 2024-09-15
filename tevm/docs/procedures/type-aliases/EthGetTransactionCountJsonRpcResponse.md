@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:509
+packages/procedures/dist/index.d.ts:514

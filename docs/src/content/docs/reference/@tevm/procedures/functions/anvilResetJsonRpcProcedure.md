@@ -17,4 +17,4 @@ title: "anvilResetJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/anvil/anvilResetProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilResetProcedure.js#L6)
+[packages/procedures/src/anvil/anvilResetProcedure.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilResetProcedure.js#L6)

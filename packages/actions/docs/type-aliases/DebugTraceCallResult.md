@@ -28,4 +28,4 @@
 
 ## Defined in
 
-[packages/actions/src/debug/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)
+[packages/actions/src/debug/DebugResult.ts:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)

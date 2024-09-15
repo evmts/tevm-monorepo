@@ -51,7 +51,7 @@ The error message.
 
 #### Defined in
 
-[experimental/schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L62)
+[experimental/schemas/src/common/SBlockNumber.js:62](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L62)
 
 ## Properties
 
@@ -65,7 +65,7 @@ The error message.
 
 #### Defined in
 
-[experimental/schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L69)
+[experimental/schemas/src/common/SBlockNumber.js:69](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L69)
 
 ***
 
@@ -117,6 +117,10 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Parameters
 
 • **err**: `Error`
@@ -126,10 +130,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -203,4 +203,4 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

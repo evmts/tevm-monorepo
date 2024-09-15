@@ -30,7 +30,7 @@
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
 
 ## Properties
 
@@ -44,7 +44,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
 
 ***
 
@@ -58,7 +58,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
 
 ***
 
@@ -76,7 +76,7 @@ before.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:26
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:26
 
 ***
 
@@ -86,7 +86,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:15
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:15
 
 ***
 
@@ -96,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:16
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:16
 
 ***
 
@@ -130,7 +130,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
 
 ## Methods
 
@@ -148,7 +148,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/sta
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:28
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:28
 
 ***
 
@@ -165,7 +165,7 @@ later on be reverted or committed.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:62
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:62
 
 ***
 
@@ -181,7 +181,7 @@ Clears cache.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:82
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:82
 
 ***
 
@@ -197,7 +197,7 @@ Commits to current state of cache (no effect on trie).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:57
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:57
 
 ***
 
@@ -219,7 +219,7 @@ Address
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:44
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:44
 
 ***
 
@@ -236,7 +236,7 @@ or deleted and resetting the diff cache (at checkpoint height).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:49
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:49
 
 ***
 
@@ -258,13 +258,13 @@ Address of account
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:39
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:39
 
 ***
 
 ### put()
 
-> **put**(`address`, `account`): `void`
+> **put**(`address`, `account`, `couldBeParitalAccount`?): `void`
 
 Puts account to cache under its address.
 
@@ -278,13 +278,15 @@ Address of account
 
 Account or undefined if account doesn't exist in the trie
 
+• **couldBeParitalAccount?**: `boolean`
+
 #### Returns
 
 `void`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
 
 ***
 
@@ -300,7 +302,7 @@ Revert changes to cache last checkpoint (no effect on trie).
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:53
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:53
 
 ***
 
@@ -316,7 +318,7 @@ Returns the size of the cache
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:67
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:67
 
 ***
 
@@ -356,4 +358,4 @@ Returns a dict with cache stats
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72
+node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72

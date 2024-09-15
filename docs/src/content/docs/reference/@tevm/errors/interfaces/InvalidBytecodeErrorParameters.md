@@ -15,7 +15,7 @@ The cause of the error.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L10)
+[packages/errors/src/input/InvalidBytecodeError.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L10)
 
 ***
 
@@ -27,7 +27,7 @@ Details of the error.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L11)
+[packages/errors/src/input/InvalidBytecodeError.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L11)
 
 ***
 
@@ -39,7 +39,7 @@ Base URL for the documentation.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L6)
+[packages/errors/src/input/InvalidBytecodeError.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L6)
 
 ***
 
@@ -51,7 +51,7 @@ Path to the documentation.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L7)
+[packages/errors/src/input/InvalidBytecodeError.js:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L7)
 
 ***
 
@@ -63,7 +63,7 @@ Slug for the documentation.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L8)
+[packages/errors/src/input/InvalidBytecodeError.js:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L8)
 
 ***
 
@@ -75,7 +75,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L12)
+[packages/errors/src/input/InvalidBytecodeError.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L12)
 
 ***
 
@@ -87,4 +87,4 @@ Additional meta messages.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidBytecodeError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L9)
+[packages/errors/src/input/InvalidBytecodeError.js:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBytecodeError.js#L9)

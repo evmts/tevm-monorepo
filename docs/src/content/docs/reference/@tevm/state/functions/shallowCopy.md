@@ -21,4 +21,4 @@ title: "shallowCopy"
 
 ## Defined in
 
-[packages/state/src/actions/shallowCopy.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/shallowCopy.js#L10)
+[packages/state/src/actions/shallowCopy.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/state/src/actions/shallowCopy.js#L10)

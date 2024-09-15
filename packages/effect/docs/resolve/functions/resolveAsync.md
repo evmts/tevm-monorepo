@@ -22,4 +22,4 @@ Effect wrpper around import('node:resolve')
 
 ## Defined in
 
-[packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)
+[packages/effect/src/resolve.js:65](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)

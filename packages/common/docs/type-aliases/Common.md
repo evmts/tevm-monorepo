@@ -14,20 +14,6 @@ Tevm specific chain configuration wrapping viem chain and ethereumjs commmon
 Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
 extends ethereumjs Common class with the Viem Chain type
 
-## Type declaration
-
-### copy()
-
-> **copy**: () => [`Common`](Common.md)
-
-#### Returns
-
-[`Common`](Common.md)
-
-### ethjsCommon
-
-> **ethjsCommon**: `EthjsCommon`
-
 ## Example
 
 ```typescript
@@ -49,6 +35,20 @@ const client = createClient(optimism)
  - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  - [Tevm client docs](https://tevm.sh/learn/clients/)
 
+## Type declaration
+
+### copy()
+
+> **copy**: () => [`Common`](Common.md)
+
+#### Returns
+
+[`Common`](Common.md)
+
+### ethjsCommon
+
+> **ethjsCommon**: `EthjsCommon`
+
 ## Defined in
 
-[packages/common/src/Common.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Common.ts#L27)
+[packages/common/src/Common.ts:27](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/common/src/Common.ts#L27)

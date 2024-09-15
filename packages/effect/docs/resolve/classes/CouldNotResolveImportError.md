@@ -36,7 +36,7 @@ Error thrown when 'node:resolve' throws
 
 #### Defined in
 
-[packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
+[packages/effect/src/resolve.js:26](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
 
 ## Properties
 
@@ -46,7 +46,7 @@ Error thrown when 'node:resolve' throws
 
 #### Defined in
 
-[packages/effect/src/resolve.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L15)
+[packages/effect/src/resolve.js:15](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L15)
 
 ***
 
@@ -88,7 +88,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
+[packages/effect/src/resolve.js:20](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
 
 ***
 

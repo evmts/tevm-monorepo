@@ -10,6 +10,20 @@
 
 Options for creating an Tevm MemoryClient instance
 
+## Example
+
+```typescript
+import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+
+const opts: CommonOptions = {
+  ...mainnet,
+  hardfork: 'london',
+}
+
+const common = createCommon(opts)
+````
+@see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+
 ## Type declaration
 
 ### customCrypto?
@@ -58,20 +72,6 @@ Hardfork to use. Defaults to `shanghai`
 
 Tevm logger instance
 
-## Example
-
-```typescript
-import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
-
-const opts: CommonOptions = {
-  ...mainnet,
-  hardfork: 'london',
-}
-
-const common = createCommon(opts)
-````
-@see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
-
 ## Defined in
 
-[packages/common/src/CommonOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L21)
+[packages/common/src/CommonOptions.ts:21](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L21)

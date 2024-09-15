@@ -8,8 +8,6 @@
 
 > **isUrl**(`value`): `boolean`
 
-Type guard that returns true if the provided string is a valid URL.
-
 ## Parameters
 
 • **value**: `string`
@@ -18,14 +16,6 @@ Type guard that returns true if the provided string is a valid URL.
 
 `boolean`
 
-## Example
-
-```javascript
-import { isUrl } from '@tevm/schemas';
-isUrl('https://tevm.sh');  // true
-isUrl('not a url'); // false
-````
-
 ## Defined in
 
-[experimental/schemas/src/common/SUrl.js:33](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L33)
+[experimental/schemas/src/common/SUrl.js:33](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L33)

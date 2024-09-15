@@ -17,4 +17,4 @@ title: "scriptProcedure"
 
 ## Defined in
 
-[packages/procedures/src/script/scriptProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/script/scriptProcedure.js#L11)
+[packages/procedures/src/script/scriptProcedure.js:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/script/scriptProcedure.js#L11)

@@ -12,4 +12,4 @@
 
 ## Defined in
 
-[packages/actions/src/Script/validateScriptParams.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L6)
+[packages/actions/src/Script/validateScriptParams.js:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/validateScriptParams.js#L6)

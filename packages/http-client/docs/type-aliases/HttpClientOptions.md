@@ -8,6 +8,10 @@
 
 > **HttpClientOptions**: `object`
 
+## Deprecated
+
+Options for a HttpClient
+
 ## Type declaration
 
 ### ~~name?~~
@@ -22,10 +26,6 @@ Optional name for the client
 
 Remote URL to connect to
 
-## Deprecated
-
-Options for a HttpClient
-
 ## Defined in
 
-[HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)
+[HttpClientOptions.ts:5](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)

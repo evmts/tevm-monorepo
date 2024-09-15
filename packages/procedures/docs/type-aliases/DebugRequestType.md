@@ -22,4 +22,4 @@ A mapping of `debug_*` method names to their request type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugRequestType.ts#L6)
+[packages/procedures/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugRequestType.ts#L6)

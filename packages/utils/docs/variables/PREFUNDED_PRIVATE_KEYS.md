@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[packages/utils/src/prefundedAccounts.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/prefundedAccounts.ts#L3)
+[packages/utils/src/prefundedAccounts.ts:3](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/utils/src/prefundedAccounts.ts#L3)

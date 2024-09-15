@@ -12,9 +12,7 @@
 
 - [AccountLockedError](classes/AccountLockedError.md)
 - [AccountNotFoundError](classes/AccountNotFoundError.md)
-- [AuthCallNonZeroValueExtError](classes/AuthCallNonZeroValueExtError.md)
 - [AuthCallUnsetError](classes/AuthCallUnsetError.md)
-- [AuthInvalidSError](classes/AuthInvalidSError.md)
 - [BLS12381FpNotInFieldError](classes/BLS12381FpNotInFieldError.md)
 - [BLS12381InputEmptyError](classes/BLS12381InputEmptyError.md)
 - [BLS12381InvalidInputLengthError](classes/BLS12381InvalidInputLengthError.md)
@@ -131,9 +129,7 @@
 ### Type Aliases
 
 - [AccountLockedErrorParameters](type-aliases/AccountLockedErrorParameters.md)
-- [AuthCallNonZeroValueExtErrorParameters](type-aliases/AuthCallNonZeroValueExtErrorParameters.md)
 - [AuthCallUnsetErrorParameters](type-aliases/AuthCallUnsetErrorParameters.md)
-- [AuthInvalidSErrorParameters](type-aliases/AuthInvalidSErrorParameters.md)
 - [BLS12381FpNotInFieldErrorParameters](type-aliases/BLS12381FpNotInFieldErrorParameters.md)
 - [BLS12381InputEmptyErrorParameters](type-aliases/BLS12381InputEmptyErrorParameters.md)
 - [BLS12381InvalidInputLengthErrorParameters](type-aliases/BLS12381InvalidInputLengthErrorParameters.md)

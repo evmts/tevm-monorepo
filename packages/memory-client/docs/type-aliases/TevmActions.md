@@ -11,6 +11,11 @@
 Provides powerful actions for interacting with the EVM using the TEVM API.
 These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
 
+## See
+
+ - [Actions Guide](https://tevm.sh/learn/actions/)
+ - [Viem Actions API](https://viem.sh/docs/actions/introduction)
+
 ## Type declaration
 
 ### tevm
@@ -222,10 +227,6 @@ await client.tevmMine()
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
-#### Returns
-
-`Promise`\<`true`\>
-
 #### Example
 
 ```typescript
@@ -236,6 +237,10 @@ const client = createMemoryClient()
 await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
+
+#### Returns
+
+`Promise`\<`true`\>
 
 ### ~~tevmScript~~
 
@@ -296,11 +301,6 @@ await client.tevmSetAccount({
 })
 ```
 
-## See
-
- - [Actions Guide](https://tevm.sh/learn/actions/)
- - [Viem Actions API](https://viem.sh/docs/actions/introduction)
-
 ## Defined in
 
-[packages/memory-client/src/TevmActions.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L11)
+[packages/memory-client/src/TevmActions.ts:11](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L11)

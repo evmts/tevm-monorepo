@@ -72,4 +72,4 @@ Types of the constructor arguments for the deployment.
 
 ## Defined in
 
-[packages/actions/src/Deploy/DeployParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L47)
+[packages/actions/src/Deploy/DeployParams.ts:47](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L47)

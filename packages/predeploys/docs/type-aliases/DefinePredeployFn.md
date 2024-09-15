@@ -10,20 +10,6 @@
 
 Defines a predeploy contract to use in the tevm vm
 
-## Type Parameters
-
-• **TName** *extends* `string`
-
-• **THumanReadableAbi** *extends* readonly `string`[]
-
-## Parameters
-
-• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
-
-## Returns
-
-[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
-
 ## Example
 
 ```ts
@@ -46,6 +32,20 @@ const vm = createMemoryClient({
 })
 ```
 
+## Type Parameters
+
+• **TName** *extends* `string`
+
+• **THumanReadableAbi** *extends* readonly `string`[]
+
+## Parameters
+
+• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
+
+## Returns
+
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
 ## Defined in
 
-[DefinePredeployFn.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/DefinePredeployFn.ts#L28)
+[DefinePredeployFn.ts:28](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/predeploys/src/DefinePredeployFn.ts#L28)

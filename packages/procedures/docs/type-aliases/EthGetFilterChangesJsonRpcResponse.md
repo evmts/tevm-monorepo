@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L110)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:110](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L110)

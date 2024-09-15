@@ -5,7 +5,7 @@ prev: false
 title: "LoadConfigError"
 ---
 
-Error class for [loadConfig](../../../../../../../../reference/tevm/config/loadconfig/functions/loadconfig)
+Error class for [loadConfig](../../../../../../../../../reference/tevm/config/loadconfig/functions/loadconfig)
 
 ## Extends
 
@@ -33,7 +33,7 @@ Error class for [loadConfig](../../../../../../../../reference/tevm/config/loadc
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:30](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L30)
+[bundler-packages/config/src/loadConfig.js:30](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L30)
 
 ## Properties
 
@@ -43,7 +43,7 @@ Error class for [loadConfig](../../../../../../../../reference/tevm/config/loadc
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:25](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L25)
+[bundler-packages/config/src/loadConfig.js:25](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L25)
 
 ***
 
@@ -85,7 +85,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[bundler-packages/config/src/loadConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L21)
+[bundler-packages/config/src/loadConfig.js:21](https://github.com/qbzzt/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L21)
 
 ***
 

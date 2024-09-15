@@ -17,4 +17,4 @@ title: "createNextApiHandler"
 
 ## Defined in
 
-[packages/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createNextApiHandler.js#L16)
+[packages/server/src/adapters/createNextApiHandler.js:16](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/server/src/adapters/createNextApiHandler.js#L16)

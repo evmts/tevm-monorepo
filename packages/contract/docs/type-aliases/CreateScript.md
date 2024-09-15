@@ -32,4 +32,4 @@ or [viem](https://viem.sh/docs/actions/public/call#deployless-calls)
 
 ## Defined in
 
-[CreateScript.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateScript.ts#L10)
+[CreateScript.ts:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/contract/src/CreateScript.ts#L10)

@@ -13,4 +13,4 @@ The minimum value a [INT128](../type-aliases/INT128.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L56)
+[experimental/schemas/src/ethereum/SINT/constants.js:56](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L56)

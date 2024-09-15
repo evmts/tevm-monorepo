@@ -21,4 +21,4 @@ Can use `ContractResult` instead
 
 ## Defined in
 
-[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)
+[packages/actions/src/Script/ScriptResult.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/Script/ScriptResult.ts#L9)

@@ -23,4 +23,4 @@ title: "TypesafeEthersContractConstructor"
 
 ## Defined in
 
-[extensions/ethers/src/contract/Contract.d.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L18)
+[extensions/ethers/src/contract/Contract.d.ts:18](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L18)

@@ -13,4 +13,4 @@ The maximum value a [UINT16](../type-aliases/UINT16.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L16)
+[experimental/schemas/src/ethereum/SUINT/constants.js:16](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L16)

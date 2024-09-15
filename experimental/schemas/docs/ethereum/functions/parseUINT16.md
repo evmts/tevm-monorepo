@@ -8,8 +8,6 @@
 
 > **parseUINT16**\<`TUINT16`\>(`uint16`): `TUINT16`
 
-Parses a UINT16 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUINT16** *extends* `bigint`
@@ -22,13 +20,6 @@ Parses a UINT16 and returns the value if no errors.
 
 `TUINT16`
 
-## Example
-
-```ts
-import { parseUINT16 } from '@tevm/schemas';
-const parsedUINT16 = parseUINT16(BigInt(32767));
-```
-
 ## Defined in
 
-[experimental/schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L42)
+[experimental/schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L42)

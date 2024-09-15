@@ -16,4 +16,4 @@ A helper type that converts a bigint to a hex string.
 
 ## Defined in
 
-[packages/utils/src/SerializeToJson.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L34)
+[packages/utils/src/SerializeToJson.ts:34](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L34)

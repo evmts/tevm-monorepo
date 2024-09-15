@@ -13,4 +13,4 @@ The maximum value a [INT64](../type-aliases/INT64.md) can be.
 
 ## Defined in
 
-[experimental/schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L41)
+[experimental/schemas/src/ethereum/SINT/constants.js:41](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L41)

@@ -8,8 +8,6 @@
 
 > **isBytes10**(`bytes10`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes10.
-
 ## Parameters
 
 • **bytes10**: `unknown`
@@ -18,14 +16,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes10.
 
 `boolean`
 
-## Example
-
-```ts
-import { isBytes10 } from '@tevm/schemas';
-isBytes10("0xff");  // true
-isBytes10("0xfff"); // false
-````
-
 ## Defined in
 
-[experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)
+[experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)

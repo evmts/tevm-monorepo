@@ -17,4 +17,4 @@ title: "debugTraceTransactionJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/debug/debugTraceTransactionProcedure.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/debugTraceTransactionProcedure.js#L12)
+[packages/procedures/src/debug/debugTraceTransactionProcedure.js:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/debug/debugTraceTransactionProcedure.js#L12)

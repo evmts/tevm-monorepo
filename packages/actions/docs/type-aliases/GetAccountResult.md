@@ -83,4 +83,4 @@ Storage root to set account to
 
 ## Defined in
 
-[packages/actions/src/GetAccount/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L7)
+[packages/actions/src/GetAccount/GetAccountResult.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L7)

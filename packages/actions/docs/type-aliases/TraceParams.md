@@ -39,4 +39,4 @@ object to specify configurations for the tracer
 
 ## Defined in
 
-[packages/actions/src/debug/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L8)
+[packages/actions/src/debug/DebugParams.ts:8](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L8)

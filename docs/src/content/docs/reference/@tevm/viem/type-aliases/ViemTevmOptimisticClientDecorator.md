@@ -19,7 +19,7 @@ A viem decorator for `tevmViemExtension`
 
 • **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
-• **TAccount** *extends* [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined`
+• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Parameters
 
@@ -31,4 +31,4 @@ A viem decorator for `tevmViemExtension`
 
 ## Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
+[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/qbzzt/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)

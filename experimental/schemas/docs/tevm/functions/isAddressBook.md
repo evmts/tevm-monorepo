@@ -24,4 +24,4 @@ Type guard that returns true if an address book is a valid address
 
 ## Defined in
 
-[experimental/schemas/src/tevm/SAddressBook.js:38](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L38)
+[experimental/schemas/src/tevm/SAddressBook.js:38](https://github.com/qbzzt/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L38)

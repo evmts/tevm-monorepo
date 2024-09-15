@@ -13,4 +13,4 @@ Most general RPC schema type.
 
 ## Defined in
 
-[eip1193/RpcSchema.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/RpcSchema.ts#L12)
+[eip1193/RpcSchema.ts:12](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/decorators/src/eip1193/RpcSchema.ts#L12)

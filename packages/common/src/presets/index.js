@@ -1,6 +1,10 @@
 // When adding a chain, you also need to add it to
 // https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/index.ts
-
+//
+// And run (at repository root)
+// yarn lint
+// pnpm changeset (minor bump for @tevm/common)
+// pnpm generate:docs
 
 export { arbitrum } from './arbitrum.js'
 export { avalanche } from './avalanche.js'

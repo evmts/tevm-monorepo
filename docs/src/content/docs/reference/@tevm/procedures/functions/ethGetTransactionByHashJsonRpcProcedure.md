@@ -17,4 +17,4 @@ title: "ethGetTransactionByHashJsonRpcProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethGetTransactionByHashProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByHashProcedure.js#L10)
+[packages/procedures/src/eth/ethGetTransactionByHashProcedure.js:10](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionByHashProcedure.js#L10)

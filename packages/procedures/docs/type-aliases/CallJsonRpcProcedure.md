@@ -20,4 +20,4 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Defined in
 
-[procedures/src/call/CallJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/call/CallJsonRpcProcedure.ts#L7)
+[packages/procedures/src/call/CallJsonRpcProcedure.ts:7](https://github.com/qbzzt/tevm-monorepo/blob/main/packages/procedures/src/call/CallJsonRpcProcedure.ts#L7)
