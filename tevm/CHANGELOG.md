@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.114
+
+### Patch Changes
+
+- 8da3c59: Fixed accidentally deleted bin folder
+
 ## 1.0.0-next.113
 
 ### Patch Changes
