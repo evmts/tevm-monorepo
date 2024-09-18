@@ -543,13 +543,161 @@ Report the change on the output panel.
 
 </details>
 
-
-Need wallet action here
-
 ## Calling tevm
 
+So far we've only been using tevm as a proxy.
+When it forks a blockchain, it does not really copy everything, it just creates a fork and "lazily" queries for information as it is needed.
+Now, however, we are going to call a contract, and that tevm handles locally (although it might need to query the blockchain for the content of storage cells, account balances, etc).
+
+We will access [Hardhat's Greeter contract](https://explorer.redstone.xyz/address/0x8B7CFA6e4684037f4b4c1F439422fF5B2D0Ab523?tab=contract). 
+
+Replace `src/main.ts` with this file to call the Greeter's `greet()` function.
+
+```typescript title="src/main.ts"  {15-42,70-76} copy
+import { createMemoryClient, http } from "tevm";
+import { redstone } from "tevm/common";
+
+const app = document.querySelector("#app") as Element;
+
+const memoryClient = createMemoryClient({
+  common: redstone,
+  fork: {
+    // @warning we may face throttling using the public endpoint
+    // In production apps consider using `loadBalance` and `rateLimit` transports
+    transport: http("https://rpc.redstonechain.com")({}),
+  },
+});
+
+const greeterABI = [
+  {
+      "inputs": [],
+      "name": "greet",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "_greeting",
+              "type": "string"
+          }
+      ],
+      "name": "setGreeting",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  }
+] as const
+
+
+async function runApp() {
+  app.innerHTML = `
+    <b>Status:</b> <span id="status">initializing</span> <br />
+    <b>Forked at block:</b> <span id="blocknumber">???</span> <br />
+    <h2>Output</h2>
+    <div id="outputPanel"></div>
+    `;
+
+  const addToOutput = (obj, title) => {
+    output.innerHTML += `
+      <h4>${title}</h4>
+      <pre>
+${JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? v.toString() : v, 4)}
+      </pre>
+  `
+  }
+
+  const status = app.querySelector("#status")!;
+
+  status.innerHTML = "Working";
+  const blockNumber = await memoryClient.getBlockNumber();
+
+  document.querySelector("#blocknumber")!.innerHTML = blockNumber;
+  const output = document.querySelector("#outputPanel") as Element;
+
+  const callResult = await memoryClient.tevmContract({
+    abi: greeterABI,
+    to: "0x8B7CFA6e4684037f4b4c1F439422fF5B2D0Ab523",
+    functionName: "greet",
+    args: [],   // not necessary
+  })
+  addToOutput(callResult, "call to greet()")  
+
+  status.innerHTML = "Done";
+
+}
+
+runApp();
+```
+
+<details>
+
+<summary>Explanation</summary>
+
+```typescript
+const greeterABI = [
+  {
+      "inputs": [],
+      "name": "greet",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "_greeting",
+              "type": "string"
+          }
+      ],
+      "name": "setGreeting",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  }
+] as const
+```
+
+This is the part of the Greeter contract's ABI we need.
+On a production system you might want to serve it from a separate file, but this is simpler.
+
+```typescript
+  const callResult = await memoryClient.tevmContract({
+    abi: greeterABI,
+    to: "0x8B7CFA6e4684037f4b4c1F439422fF5B2D0Ab523",
+    functionName: "greet",
+    args: [],   // not necessary
+  })
+  addToOutput(callResult, "call to greet()")  
+```
+
+Use [`tevmContract`](/reference/tevm/memory-client/functions/tevmcontract/) to issue the call.
+Provide the ABI, the address, and name of the function, and the argument. 
+Note that `args` is optional here, because there `greet()` does not take any arguments.
+
+</details>
 
 ## Processing transactions with tevm
+
+Finally, we want to create transactions and see how they affect the blockchain.
+To do this we need to call several functions:
+
+- 
 
 
 
