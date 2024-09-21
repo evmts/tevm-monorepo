@@ -3,7 +3,7 @@ import { Block } from '@tevm/block'
 import { EvmError, EvmErrorMessage } from '@tevm/evm'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS, getAddress } from '@tevm/utils'
+import { PREFUNDED_ACCOUNTS, encodeDeployData, getAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -11,7 +11,7 @@ import { createScript } from './createScript.js'
 
 describe('createScript', () => {
 	const client = createTevmNode()
-	const validCode = TestERC20.script({ constructorArgs: ['Name', 'Symbol'] }).code
+	const validCode = encodeDeployData({ args: ['Name', 'Symbol'], ...TestERC20 })
 	const invalidCode = '0x6969696969' // invalid EVM bytecode
 	const validDeployedBytecode = TestERC20.deployedBytecode
 
