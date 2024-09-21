@@ -1,3 +1,6 @@
+// TODO improve the trusted setup type
+// @see https://github.com/paulmillr/trusted-setups/tree/main
+// @see wait for https://github.com/ethereumjs/ethereumjs-monorepo/issues/3662
 /**
  * The interface of the custom crypto for kzg implemented by `createMockKzg``
  * The real kzg commitmenet is over 500kb added to bundle size

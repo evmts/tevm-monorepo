@@ -50,7 +50,13 @@ import { createMockKzg } from './createMockKzg.js'
  * ```
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
  */
-export const createCommon = ({ customCrypto = {}, loggingLevel, hardfork, eips = [], ...chain }) => {
+export const createCommon = ({
+	customCrypto = {},
+	loggingLevel = 'warn',
+	hardfork = 'cancun',
+	eips = [],
+	...chain
+}) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
 		const ethjsCommon = Common.custom(
@@ -61,9 +67,9 @@ export const createCommon = ({ customCrypto = {}, loggingLevel, hardfork, eips =
 				networkId: chain.id,
 			},
 			{
-				hardfork: hardfork ?? 'cancun',
+				hardfork,
 				baseChain: 1,
-				eips: [...(eips ?? []), 1559, 4895, 4844, 4788],
+				eips: [...eips, 1559, 4895, 4844, 4788],
 				customCrypto: {
 					kzg: createMockKzg(),
 					...customCrypto,
@@ -85,9 +91,7 @@ export const createCommon = ({ customCrypto = {}, loggingLevel, hardfork, eips =
 			},
 		}
 	} catch (e) {
-		if (e instanceof Error) {
-			throw new InvalidParamsError(e.message, { cause: e })
-		}
-		throw new InvalidParamsError('Unknown error', { cause: /** @type any*/ (e) })
+		const err = /** @type {Error} */ (e)
+		throw new InvalidParamsError(err.message, { cause: err })
 	}
 }

@@ -1,5 +1,5 @@
 import { type Common as EthjsCommon } from '@ethereumjs/common'
-import { type Chain as ViemChain } from 'viem/chains'
+import { type Prettify, type Chain as ViemChain } from 'viem/chains'
 
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
@@ -24,4 +24,4 @@ import { type Chain as ViemChain } from 'viem/chains'
  * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
  */
-export type Common = ViemChain & { ethjsCommon: EthjsCommon; copy: () => Common }
+export type Common = Prettify<ViemChain & { ethjsCommon: EthjsCommon; copy: () => Common }>

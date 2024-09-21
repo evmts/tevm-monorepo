@@ -7,9 +7,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Details: Hardfork with name not valid hardfork not supported
 Version: 1.1.0.next-73]
 `;
-
-exports[`createCommon should handle errroors 1`] = `[InvalidParamsError: Hardfork with name not valid hardfork not supported
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Details: Hardfork with name not valid hardfork not supported
-Version: 1.1.0.next-73]`;
