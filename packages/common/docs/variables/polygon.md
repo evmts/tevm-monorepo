@@ -8,6 +8,30 @@
 
 > `const` **polygon**: `object`
 
+Creates a common configuration for the polygon chain.
+
+## Description
+
+Chain ID: 137
+Chain Name: Polygon
+Default Block Explorer: https://polygonscan.com
+Default RPC URL: https://polygon-rpc.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { polygon } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: polygon,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/polygon.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/polygon.js#L4)
+[packages/common/src/presets/polygon.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/polygon.js#L26)

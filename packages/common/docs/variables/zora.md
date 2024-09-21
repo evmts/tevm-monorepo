@@ -8,6 +8,30 @@
 
 > `const` **zora**: `object`
 
+Creates a common configuration for the zora chain.
+
+## Description
+
+Chain ID: 7777777
+Chain Name: Zora
+Default Block Explorer: https://explorer.zora.energy
+Default RPC URL: https://rpc.zora.energy
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zora } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zora,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/zora.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/zora.js#L4)
+[packages/common/src/presets/zora.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/zora.js#L26)

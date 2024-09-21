@@ -8,6 +8,30 @@
 
 > `const` **blast**: `object`
 
+Creates a common configuration for the blast chain.
+
+## Description
+
+Chain ID: 81457
+Chain Name: Blast
+Default Block Explorer: https://blastscan.io
+Default RPC URL: https://rpc.blast.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { blast } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: blast,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/blast.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/blast.js#L4)
+[packages/common/src/presets/blast.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/blast.js#L26)

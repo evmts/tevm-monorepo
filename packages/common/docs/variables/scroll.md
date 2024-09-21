@@ -8,6 +8,30 @@
 
 > `const` **scroll**: `object`
 
+Creates a common configuration for the scroll chain.
+
+## Description
+
+Chain ID: 534352
+Chain Name: Scroll
+Default Block Explorer: https://scrollscan.com
+Default RPC URL: https://rpc.scroll.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { scroll } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: scroll,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/scroll.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/scroll.js#L4)
+[packages/common/src/presets/scroll.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/scroll.js#L26)

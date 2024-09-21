@@ -8,6 +8,30 @@
 
 > `const` **sepolia**: `object`
 
+Creates a common configuration for the sepolia chain.
+
+## Description
+
+Chain ID: 11155111
+Chain Name: Sepolia
+Default Block Explorer: https://sepolia.etherscan.io
+Default RPC URL: https://rpc.sepolia.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { sepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: sepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/sepolia.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/sepolia.js#L4)
+[packages/common/src/presets/sepolia.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/sepolia.js#L26)

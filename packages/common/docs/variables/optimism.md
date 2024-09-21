@@ -8,6 +8,30 @@
 
 > `const` **optimism**: `object`
 
+Creates a common configuration for the optimism chain.
+
+## Description
+
+Chain ID: 10
+Chain Name: OP Mainnet
+Default Block Explorer: https://optimistic.etherscan.io
+Default RPC URL: https://mainnet.optimism.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { optimism } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: optimism,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/optimism.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/optimism.js#L4)
+[packages/common/src/presets/optimism.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/optimism.js#L26)

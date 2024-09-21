@@ -8,6 +8,30 @@
 
 > `const` **mantle**: `object`
 
+Creates a common configuration for the mantle chain.
+
+## Description
+
+Chain ID: 5000
+Chain Name: Mantle
+Default Block Explorer: https://mantlescan.xyz/
+Default RPC URL: https://rpc.mantle.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mantle } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mantle,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/mantle.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/mantle.js#L4)
+[packages/common/src/presets/mantle.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/mantle.js#L26)

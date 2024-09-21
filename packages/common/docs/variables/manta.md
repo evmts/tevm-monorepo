@@ -8,6 +8,30 @@
 
 > `const` **manta**: `object`
 
+Creates a common configuration for the manta chain.
+
+## Description
+
+Chain ID: 169
+Chain Name: Manta Pacific Mainnet
+Default Block Explorer: https://pacific-explorer.manta.network
+Default RPC URL: https://pacific-rpc.manta.network/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { manta } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: manta,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/manta.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/manta.js#L4)
+[packages/common/src/presets/manta.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/manta.js#L26)

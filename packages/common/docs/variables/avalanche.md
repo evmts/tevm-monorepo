@@ -8,6 +8,30 @@
 
 > `const` **avalanche**: `object`
 
+Creates a common configuration for the avalanche chain.
+
+## Description
+
+Chain ID: 43114
+Chain Name: Avalanche
+Default Block Explorer: https://snowtrace.io
+Default RPC URL: https://api.avax.network/ext/bc/C/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { avalanche } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: avalanche,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/avalanche.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/avalanche.js#L4)
+[packages/common/src/presets/avalanche.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/avalanche.js#L26)

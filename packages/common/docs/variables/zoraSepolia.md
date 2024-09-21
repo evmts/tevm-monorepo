@@ -8,6 +8,30 @@
 
 > `const` **zoraSepolia**: `object`
 
+Creates a common configuration for the zoraSepolia chain.
+
+## Description
+
+Chain ID: 999999999
+Chain Name: Zora Sepolia
+Default Block Explorer: https://sepolia.explorer.zora.energy/
+Default RPC URL: https://sepolia.rpc.zora.energy
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zoraSepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zoraSepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/zoraSepolia.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/zoraSepolia.js#L4)
+[packages/common/src/presets/zoraSepolia.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/zoraSepolia.js#L26)

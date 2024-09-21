@@ -8,6 +8,30 @@
 
 > `const` **base**: `object`
 
+Creates a common configuration for the base chain.
+
+## Description
+
+Chain ID: 8453
+Chain Name: Base
+Default Block Explorer: https://basescan.org
+Default RPC URL: https://mainnet.base.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { base } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: base,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
+
 ## Type declaration
 
 ### blockExplorers?
@@ -124,4 +148,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/base.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/base.js#L4)
+[packages/common/src/presets/base.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/base.js#L26)
