@@ -1,5 +1,20 @@
 # @tevm/client
 
+## 1.0.0-next.115
+
+### Patch Changes
+
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+  - @tevm/common@1.0.0-next.115
+  - @tevm/actions@1.0.0-next.115
+  - @tevm/evm@1.0.0-next.115
+  - @tevm/node@1.0.0-next.115
+  - @tevm/procedures@1.0.0-next.115
+  - @tevm/decorators@1.0.0-next.115
+
 ## 1.0.0-next.113
 
 ### Patch Changes
