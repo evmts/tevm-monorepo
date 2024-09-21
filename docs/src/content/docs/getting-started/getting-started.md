@@ -46,10 +46,9 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 1. Install the buildtime dependencies.
     [TypeScript](https://www.typescriptlang.org/) is the language we're using.
     Vite provides us a minimal setup to import TypeScript into our HTML and start a dev server.
-    With Vite we also install a [polyfill](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill) library. This library injects code into your final build that will allow apis that do not exist in the browser natively to work.
 
     ```bash
-    npm install --save-dev typescript vite vite-plugin-node-polyfills
+    npm install --save-dev typescript vite
     ```
 
 1. Create a TypeScript configuration file.
@@ -123,24 +122,9 @@ This guide intentionally uses a straightforward setup to focus on the most essen
 
     ```javascript title="vite.config.js"
     import { defineConfig } from "vite"
-    import { nodePolyfills } from "vite-plugin-node-polyfills"
 
     // https://vitejs.dev/config/
-    export default defineConfig({
-      define: {
-        global: "globalThis",
-      },
-      plugins: [
-        nodePolyfills({
-          include: ["stream"],
-          globals: {
-            process: true,
-            Buffer: true,
-            global: true,
-          },
-        }),
-      ],
-    })
+    export default defineConfig({})
     ```
 
 1. Run your application.
