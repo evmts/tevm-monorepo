@@ -1,4 +1,4 @@
-import { formatAbi } from '@tevm/utils'
+import { encodeDeployData, formatAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
@@ -156,7 +156,12 @@ describe(readFactory.name, () => {
 			humanReadableAbi: formatAbi(dummyAbi),
 			bytecode: '0x420',
 			deployedBytecode: '0x69',
-		}).script()
+		}).withCode({
+			code: encodeDeployData({
+				abi: dummyAbi,
+				bytecode: '0x420',
+			}),
+		})
 		expect(script.read.exampleRead('data', BigInt(420))).toMatchInlineSnapshot(`
 			{
 			  "abi": [

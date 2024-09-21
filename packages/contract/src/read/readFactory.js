@@ -1,28 +1,67 @@
 import { formatAbi } from '@tevm/utils'
 
 /**
- * Creates read action creators from parameters
- * @param {object} params
- * @param {import('@tevm/utils').Abi} params.methods
- * @param {import('@tevm/utils').Hex} [params.code]
- * @param {import('@tevm/utils').Address} [params.address]
- * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any>} A mapping of method names to action creators
+ * Creates read action creators from contract parameters.
+ * This factory function generates a set of typed read action creators for a contract,
+ * allowing for easy and type-safe creation of read actions for view and pure functions.
+ *
+ * @param {object} params - The parameters for creating read action creators.
+ * @param {import('@tevm/utils').Abi} params.methods - The ABI of the contract methods.
+ * @param {import('@tevm/utils').Hex} [params.code] - The runtime bytecode of the contract (optional).
+ * @param {import('@tevm/utils').Address} [params.address] - The address of the deployed contract (optional).
+ * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any>} An object containing read action creators for each view and pure function in the ABI.
+ *
+ * @example
+ * ```javascript
+ * import { readFactory } from './readFactory.js'
+ *
+ * const abi = [
+ *   {
+ *     type: 'function',
+ *     name: 'balanceOf',
+ *     inputs: [{ type: 'address', name: 'account' }],
+ *     outputs: [{ type: 'uint256' }],
+ *     stateMutability: 'view'
+ *   }
+ * ]
+ *
+ * const readActions = readFactory({
+ *   methods: abi,
+ *   address: '0x1234...',
+ *   code: '0x60806040...'
+ * })
+ *
+ * // Create a read action for the balanceOf function
+ * const balanceAction = readActions.balanceOf('0x5678...')
+ *
+ * // Use the action with tevm
+ * const balance = await tevm.contract(balanceAction)
+ * console.log('Balance:', balance)
+ * ```
  */
 export const readFactory = ({ methods, address, code }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
+			.filter(
+				(method) => {
+					const abiFunction = /** @type {import('@tevm/utils').AbiFunction} */ (method);
+					return abiFunction.stateMutability === 'view' || abiFunction.stateMutability === 'pure';
+				}
+			)
 			.map((method) => {
 				/**
-				 * @param {...any} args
+				 * Creates a read action for a specific contract method.
+				 * @param {...any} args - The arguments for the contract method.
+				 * @returns {object} An object representing the read action, including ABI and method information.
 				 */
 				const creator = (...args) => {
-					// need to handle case where there is an overload
-					// TODO make this more efficient
+					// Handle case where there is an overload
+					// TODO: make this more efficient
 					const methodAbi = methods.filter(
 						(m) =>
-							/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
-							/**@type {import('@tevm/utils').AbiFunction}*/ (method)?.name,
+							/**@type {import('@tevm/utils').AbiFunction}*/(m).name ===
+							/**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
 					)
 					const maybeArgs = args.length > 0 ? { args } : {}
 					return {

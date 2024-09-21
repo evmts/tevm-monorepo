@@ -1,4 +1,4 @@
-import { type Hex, encodeDeployData, formatAbi, parseAbi } from '@tevm/utils'
+import { type Hex, formatAbi, parseAbi } from '@tevm/utils'
 import { assertType, describe, expect, it } from 'vitest'
 import type { Contract } from './Contract.js'
 import { createContract } from './createContract.js'
@@ -303,66 +303,6 @@ describe(createContract.name, () => {
 			}
 		`)
 	})
-	it('should handle bytecode from params in script function', () => {
-		const params = { bytecode: '0x123456' } as const
-		const scriptContract = contract.script(params)
-		expect(scriptContract.bytecode).toBe(params.bytecode)
-		expect(scriptContract.code).toBe(params.bytecode)
-	})
-
-	it('should handle bytecode from base contract in script function', () => {
-		const contractWithBytecode = createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-			bytecode: '0x654321',
-		})
-		const scriptContract = contractWithBytecode.script({})
-		expect(scriptContract.bytecode).toBe('0x654321')
-		expect(scriptContract.code).toBe('0x654321')
-	})
-
-	it('should handle deployedBytecode from base contract in script function', () => {
-		const contractWithDeployedBytecode = createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-			deployedBytecode: '0xabcdef',
-		})
-		const scriptContract = contractWithDeployedBytecode.script({} as any)
-		expect(scriptContract.bytecode).toBe('0xabcdef')
-		expect(scriptContract.code).toBe('0xabcdef')
-	})
-
-	it('should throw an error if no bytecode is provided in script function', () => {
-		expect(() => contract.script({} as any)).toThrow('Unknown bytecode error')
-	})
-
-	it('should handle constructor without args in script function', () => {
-		const contractWithConstructor = createContract({
-			humanReadableAbi: ['constructor() payable'] as const,
-			name: 'ContractWithConstructor',
-			bytecode: '0x123456',
-		})
-		const scriptContract = contractWithConstructor.script({} as any)
-		expect(scriptContract.bytecode).toBe('0x123456')
-		expect(scriptContract.code).toBe('0x123456')
-	})
-
-	it('should handle constructor with args in script function', () => {
-		const contractWithConstructor = createContract({
-			humanReadableAbi: ['constructor(uint256 num) payable'] as const,
-			name: 'ContractWithConstructor',
-			bytecode: '0x123456',
-		})
-		const scriptContract = contractWithConstructor.script({ constructorArgs: [42n] })
-		expect(scriptContract.bytecode).toBe('0x123456')
-		expect(scriptContract.code).toBe(
-			encodeDeployData({
-				abi: contractWithConstructor.abi,
-				bytecode: '0x123456',
-				args: [42n],
-			}),
-		)
-	})
 
 	it('should throw if no abi or humanReadableAbi is provided', () => {
 		expect(() => createContract({ name: 'ContractWithConstructor' } as any)).toThrowErrorMatchingInlineSnapshot(`
@@ -424,5 +364,43 @@ describe(createContract.name, () => {
 			functionName: 'name',
 			humanReadableAbi: ['function name() view returns (string)'],
 		})
+	})
+
+	it('should contain withCode method', () => {
+		const contract = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+		})
+		expect(contract.withCode).toBeDefined()
+		expect(typeof contract.withCode).toBe('function')
+	})
+
+	it('should update code properties with withCode method', () => {
+		const contract = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+		})
+		const updatedContract = contract.withCode({
+			code: '0x123456',
+			deployedBytecode: '0xabcdef',
+			bytecode: '0x654321',
+		})
+		expect(updatedContract.code).toBe('0x123456')
+		expect(updatedContract.deployedBytecode).toBe('0xabcdef')
+		expect(updatedContract.bytecode).toBe('0x654321')
+	})
+
+	it('should handle partial updates with withCode method', () => {
+		const contract = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			code: '0x111111',
+		})
+		const updatedContract = contract.withCode({
+			deployedBytecode: '0x222222',
+		})
+		expect(updatedContract.code).toBe('0x111111')
+		expect(updatedContract.deployedBytecode).toBe('0x222222')
+		expect(updatedContract.bytecode).toBeUndefined()
 	})
 })
