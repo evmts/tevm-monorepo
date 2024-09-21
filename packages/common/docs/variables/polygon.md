@@ -2,11 +2,11 @@
 
 ***
 
-[@tevm/common](../globals.md) / base
+[@tevm/common](../globals.md) / polygon
 
-# Variable: base
+# Variable: polygon
 
-> `const` **base**: `object`
+> `const` **polygon**: `object`
 
 ## Type declaration
 
@@ -124,4 +124,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/common/src/presets/base.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/base.js#L4)
+[packages/common/src/presets/polygon.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/polygon.js#L4)

@@ -80,4 +80,14 @@ describe(createCommon.name, () => {
 		expect(err).toBeDefined()
 		expect(err).toMatchSnapshot()
 	})
+
+	it('should default hardfork to cancun', () => {
+		const common = createCommon({ ...optimism, loggingLevel: 'info' })
+		expect(common.ethjsCommon.hardfork()).toBe('cancun')
+		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
+		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
+		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
+		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+
+	})
 })

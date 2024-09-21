@@ -4,7 +4,11 @@ import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
 
 /**
- * Options for creating an Tevm MemoryClient instance
+ * @property {Hardfork} [hardfork='cancun'] - Hardfork to use
+ * @property {ReadonlyArray<number>} [eips=[1559, 4895]] - EIPs to enable
+ * @property {LogOptions['level']} loggingLevel - Tevm logger instance
+ * @property {CustomCrypto} [customCrypto] - Custom crypto implementations
+ * Options for creating a Tevm Common instance
  * @example
  * ```typescript
  * import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
@@ -15,22 +19,38 @@ import type { Hardfork } from './Hardfork.js'
  * }
  *
  * const common = createCommon(opts)
- * ````
+ * ```
+ *
+ * You can also create a Common instance from viem chains:
+ * @example
+ * ```typescript
+ * import { mainnet } from 'viem/chains'
+ * import { createCommon } from 'tevm/common'
+ *
+ * const common = createCommon({
+ *   ...mainnet,
+ *   hardfork: 'cancun',
+ * })
+ * ```
+ *
  * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
-export type CommonOptions = {
+export type CommonOptions = ViemChain & {
 	/**
 	 * Hardfork to use. Defaults to `shanghai`
+	 * @default 'cancun'
 	 */
-	hardfork: Hardfork
+	hardfork?: Hardfork | undefined
 	/**
 	 * Eips to enable. Defaults to `[1559, 4895]`
+	 * @default [1559, 4895]
 	 */
-	eips?: ReadonlyArray<number>
+	eips?: ReadonlyArray<number> | undefined
 	/**
-	 * Tevm logger instance
+	 * Logging level of the Tevm logger instance
+	 * @default 'warn'
 	 */
-	loggingLevel: LogOptions['level']
+	loggingLevel?: LogOptions['level'] | undefined
 	/**
 	 * Custom crypto implementations
 	 * For EIP-4844 support kzg must be passed
@@ -52,4 +72,4 @@ export type CommonOptions = {
 	 * ```
 	 */
 	customCrypto?: CustomCrypto
-} & ViemChain
+}
