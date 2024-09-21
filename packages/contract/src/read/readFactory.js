@@ -43,12 +43,10 @@ export const readFactory = ({ methods, address, code }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
-			.filter(
-				(method) => {
-					const abiFunction = /** @type {import('@tevm/utils').AbiFunction} */ (method);
-					return abiFunction.stateMutability === 'view' || abiFunction.stateMutability === 'pure';
-				}
-			)
+			.filter((method) => {
+				const abiFunction = /** @type {import('@tevm/utils').AbiFunction} */ (method)
+				return abiFunction.stateMutability === 'view' || abiFunction.stateMutability === 'pure'
+			})
 			.map((method) => {
 				/**
 				 * Creates a read action for a specific contract method.
@@ -60,7 +58,7 @@ export const readFactory = ({ methods, address, code }) =>
 					// TODO: make this more efficient
 					const methodAbi = methods.filter(
 						(m) =>
-							/**@type {import('@tevm/utils').AbiFunction}*/(m).name ===
+							/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
 							/**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
 					)
 					const maybeArgs = args.length > 0 ? { args } : {}

@@ -62,7 +62,7 @@ export type ReadActionCreator<
 			? {}
 			: {
 					args: TArgs
-			  }) &
+				}) &
 		TAddressArgs) & {
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>

@@ -46,12 +46,10 @@ export const writeFactory = ({ methods, address, code }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
-			.filter(
-				(method) => {
-					const abiFunction = /** @type {import('@tevm/utils').AbiFunction} */ (method);
-					return abiFunction.stateMutability === 'payable' || abiFunction.stateMutability === 'nonpayable';
-				}
-			)
+			.filter((method) => {
+				const abiFunction = /** @type {import('@tevm/utils').AbiFunction} */ (method)
+				return abiFunction.stateMutability === 'payable' || abiFunction.stateMutability === 'nonpayable'
+			})
 			.map((method) => {
 				/**
 				 * Creates a write action for a specific contract method.
@@ -63,7 +61,7 @@ export const writeFactory = ({ methods, address, code }) =>
 					// TODO: make this more efficient
 					const methodAbi = methods.filter(
 						(m) =>
-							/**@type {import('@tevm/utils').AbiFunction}*/(m).name ===
+							/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
 							/**@type {import('@tevm/utils').AbiFunction}*/ (method)?.name,
 					)
 					// viem and wagmi barf if we pass in undefined or [] for args so do this to accommodate viem and wagmi

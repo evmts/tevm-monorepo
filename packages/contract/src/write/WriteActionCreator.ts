@@ -63,7 +63,7 @@ export type WriteActionCreator<
 			? {}
 			: {
 					args: TArgs
-			  }) &
+				}) &
 		TAddressArgs) & {
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]>
