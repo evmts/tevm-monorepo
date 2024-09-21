@@ -137,6 +137,22 @@ describe(readFactory.name, () => {
 			`)
 	})
 
+	it('should work with a contract without deployedBytecode', () => {
+		const contractWithoutDeployedBytecode = createContract({
+			name: 'DummyContractNoDeployed',
+			humanReadableAbi: formatAbi(dummyAbi),
+			bytecode: '0x420',
+		})
+		const read = contractWithoutDeployedBytecode.read.exampleRead('test', BigInt(123))
+		expect(read).toMatchObject({
+			abi: expect.any(Array),
+			functionName: 'exampleRead',
+			args: ['test', BigInt(123)],
+		})
+		expect((read as any).deployedBytecode).toBeUndefined()
+		expect((read as any).code).toBeUndefined()
+	})
+
 	it('should return an empty object when the provided methods includes no functions', () => {
 		const dummyAbiNoFunction = dummyAbi.filter((abi) => abi.type !== 'function')
 		const read = readFactory({

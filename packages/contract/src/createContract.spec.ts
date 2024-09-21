@@ -14,6 +14,23 @@ describe(createContract.name, () => {
 		expect(contract.name).toBe('DummyContract')
 	})
 
+	it('should set deployedBytecode correctly', () => {
+		const contractWithoutDeployedBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			bytecode: '0x420',
+		})
+		expect(contractWithoutDeployedBytecode.deployedBytecode).toBeUndefined()
+
+		const contractWithDeployedBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			bytecode: '0x420',
+			deployedBytecode: '0x69',
+		})
+		expect(contractWithDeployedBytecode.deployedBytecode).toBe('0x69')
+	})
+
 	it('should contain the ABI', () => {
 		expect(contract.abi).toEqual(parseAbi(formatAbi(dummyAbi)))
 	})
@@ -22,8 +39,15 @@ describe(createContract.name, () => {
 		expect(contract.humanReadableAbi).toBeDefined()
 	})
 
+	it('deploy should throw if bytecode is not provided', () => {
+		expect(() => createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+		}).deploy()).toThrowErrorMatchingInlineSnapshot(`[Error: Bytecode is required to generate deploy data]`)
+	})
+
 	it('should contain deploy', () => {
-		expect(contract.deploy()).toMatchInlineSnapshot(`
+		expect(createContract({humanReadableAbi: formatAbi(dummyAbi), name: 'DummyContract', bytecode: '0x420'}).deploy()).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {
@@ -142,12 +166,13 @@ describe(createContract.name, () => {
 			      "type": "event",
 			    },
 			  ],
-			  "bytecode": undefined,
+			  "bytecode": "0x420",
 			}
 		`)
 		expect(
 			createContract({
 				humanReadableAbi: ['constructor(uint256 num) payable'] as const,
+				bytecode: '0x420',
 			} as const).deploy(20n),
 		).toMatchInlineSnapshot(`
 			{
@@ -166,7 +191,7 @@ describe(createContract.name, () => {
 			  "args": [
 			    20n,
 			  ],
-			  "bytecode": undefined,
+			  "bytecode": "0x420",
 			}
 		`)
 	})
@@ -177,9 +202,7 @@ describe(createContract.name, () => {
 			{
 			  "exampleRead": [Function],
 			  "exampleReadNoArgs": [Function],
-			  "exampleWrite": [Function],
 			  "overloadedRead": [Function],
-			  "overloadedWrite": [Function],
 			}
 		`)
 	})
@@ -188,10 +211,7 @@ describe(createContract.name, () => {
 		// see ./write for more tests
 		expect(contract.write).toMatchInlineSnapshot(`
 			{
-			  "exampleRead": [Function],
-			  "exampleReadNoArgs": [Function],
 			  "exampleWrite": [Function],
-			  "overloadedRead": [Function],
 			  "overloadedWrite": [Function],
 			}
 		`)
@@ -380,9 +400,7 @@ describe(createContract.name, () => {
 			humanReadableAbi: formatAbi(dummyAbi),
 			name: 'DummyContract',
 		})
-		const updatedContract = contract.withCode(
-			'0xabcdef',
-		)
+		const updatedContract = contract.withCode('0xabcdef')
 		expect(updatedContract.code).toBe('0xabcdef')
 	})
 })

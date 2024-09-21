@@ -125,8 +125,21 @@ export const createContract = ({
 		)
 	}
 
+	/**
+	 * @param {import('@tevm/utils').Hex} encodedBytecode
+	 */
+	const withCode = (encodedBytecode) => {
+		return createContract(
+			/** @type {any} */({
+				...baseContract,
+				code: encodedBytecode,
+			}),
+		)
+	}
+
 	return /**@type any*/ ({
 		...baseContract,
+		withCode,
 		withAddress,
 		/**
 		 * @param {Array<any>} args
