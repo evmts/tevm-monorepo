@@ -23,7 +23,7 @@ export const createMockKzg = () => {
 	return {
 		loadTrustedSetup: () => 69,
 		verifyKzgProof: () => true,
-		freeTrustedSetup: () => { },
+		freeTrustedSetup: () => {},
 		verifyBlobKzgProof: () => true,
 		blobToKzgCommitment: () => keccak256('0x69', 'bytes'),
 		computeBlobKzgProof: () => keccak256('0x69', 'bytes'),

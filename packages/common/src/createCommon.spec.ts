@@ -88,6 +88,5 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
 		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
 		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
-
 	})
 })
