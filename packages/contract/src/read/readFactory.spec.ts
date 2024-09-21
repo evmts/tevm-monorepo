@@ -156,12 +156,12 @@ describe(readFactory.name, () => {
 			humanReadableAbi: formatAbi(dummyAbi),
 			bytecode: '0x420',
 			deployedBytecode: '0x69',
-		}).withCode({
-			code: encodeDeployData({
+		}).withCode(
+			encodeDeployData({
 				abi: dummyAbi,
 				bytecode: '0x420',
 			}),
-		})
+		)
 		expect(script.read.exampleRead('data', BigInt(420))).toMatchInlineSnapshot(`
 			{
 			  "abi": [

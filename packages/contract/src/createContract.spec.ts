@@ -380,27 +380,9 @@ describe(createContract.name, () => {
 			humanReadableAbi: formatAbi(dummyAbi),
 			name: 'DummyContract',
 		})
-		const updatedContract = contract.withCode({
-			code: '0x123456',
-			deployedBytecode: '0xabcdef',
-			bytecode: '0x654321',
-		})
-		expect(updatedContract.code).toBe('0x123456')
-		expect(updatedContract.deployedBytecode).toBe('0xabcdef')
-		expect(updatedContract.bytecode).toBe('0x654321')
-	})
-
-	it('should handle partial updates with withCode method', () => {
-		const contract = createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-			code: '0x111111',
-		})
-		const updatedContract = contract.withCode({
-			deployedBytecode: '0x222222',
-		})
-		expect(updatedContract.code).toBe('0x111111')
-		expect(updatedContract.deployedBytecode).toBe('0x222222')
-		expect(updatedContract.bytecode).toBeUndefined()
+		const updatedContract = contract.withCode(
+			'0xabcdef',
+		)
+		expect(updatedContract.code).toBe('0xabcdef')
 	})
 })

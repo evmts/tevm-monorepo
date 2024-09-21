@@ -118,23 +118,9 @@ export const createContract = ({
 	const withAddress = (address) => {
 		const formattedAddress = getAddress(address)
 		return createContract(
-			/** @type {any}*/ ({
+			/** @type {any}*/({
 				...baseContract,
 				address: formattedAddress,
-			}),
-		)
-	}
-
-	/**
-	 * @type {import('./Contract.js').Contract<any, any>['withCode']} params
-	 */
-	const withCode = ({ code, deployedBytecode, bytecode }) => {
-		return createContract(
-			/** @type {any}*/ ({
-				...baseContract,
-				...(code !== undefined ? { code } : {}),
-				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
-				...(bytecode !== undefined ? { bytecode } : {}),
 			}),
 		)
 	}
@@ -142,12 +128,14 @@ export const createContract = ({
 	return /**@type any*/ ({
 		...baseContract,
 		withAddress,
-		withCode,
 		/**
 		 * @param {Array<any>} args
 		 */
 		deploy: (...args) => {
 			const maybeArgs = args.length > 0 ? { args } : {}
+			if (!baseContract.bytecode) {
+				throw new Error('Bytecode is required to generate deploy data')
+			}
 			return {
 				...maybeArgs,
 				bytecode: baseContract.bytecode,

@@ -173,24 +173,31 @@ export type Contract<
 	) => Contract<TName, THumanReadableAbi, TNewAddress, TBytecode, TDeployedBytecode, TCode>
 
 	/**
-	 * Updates the bytecode properties of the contract.
-	 * Returns a new contract instance with the updated code properties.
-	 * @param {object} params - The code parameters
-	 * @param {Hex} [params.code] - The runtime bytecode of the contract
-	 * @param {Hex} [params.deployedBytecode] - The deployed bytecode of the contract
-	 * @param {Hex} [params.bytecode] - The creation bytecode of the contract
-	 * @returns {Contract} A new contract instance with updated code properties
+	 * Updates the bytecode of the contract.
+	 * Returns a new contract instance with the updated code.
+	 * @param {Hex} encodedBytecode - The encoded bytecode of the contract
+	 * @returns {Contract} A new contract instance with updated code
 	 * @example
 	 * ```typescript
-	 * const UpdatedContract = MyContract.withCode({
-	 *   bytecode: '0x60806040...',
-	 *   deployedBytecode: '0x608060405...'
+	 * import { createPublicClient, http } from 'viem'
+	 * import { mainnet } from 'viem/chains'
+	 *
+	 * const client = createPublicClient({
+	 *   chain: mainnet,
+	 *   transport: http()
+	 * })
+	 *
+	 * const ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+	 * const UpdatedContract = Contract.withCode('0x60806040...')
+	 * const {data, abi, code, args} = UpdatedContract.read.balanceOf('0x1234567890123456789012345678901234567890')
+	 * const balance = await client.call({
+	 *   to: ADDRESS,
+	 *   data,
+	 *   abi,
+	 *   code,
+	 *   args
 	 * })
 	 * ```
 	 */
-	withCode: (params: {
-		code?: Hex
-		deployedBytecode?: Hex
-		bytecode?: Hex
-	}) => Contract<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode>
+	withCode: (encodedBytecode: Hex) => Contract<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, Hex>
 }
