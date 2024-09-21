@@ -1,5 +1,15 @@
 # @tevm/state
 
+## 1.0.0-next.115
+
+### Patch Changes
+
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+- Updated dependencies [144fc64]
+  - @tevm/common@1.0.0-next.115
+
 ## 1.0.0-next.109
 
 ### Patch Changes

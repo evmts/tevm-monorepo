@@ -1,5 +1,17 @@
 # @tevm/state
 
+## 1.0.0-next.115
+
+### Minor Changes
+
+- 144fc64: Added prague and osaka as Hardfork options
+- 144fc64: Made createCommon options optional such as logLevel hardfork and eip. They default to 'warn', 'cancun' and [] respectively
+
+### Patch Changes
+
+- 144fc64: Added 100% test coverage to tevm/common
+- 144fc64: Updated jsdoc and generated docs for common
+
 ## 1.0.0-next.109
 
 ### Minor Changes
