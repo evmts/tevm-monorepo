@@ -123,8 +123,16 @@ export const ethGetLogsHandler = (client) => async (params) => {
 	const cachedLogs = await receiptsManager.getLogs(
 		fetchFromRpc ? /** @type {import('@tevm/block').Block}*/ (forkedBlock) : fromBlock,
 		toBlock,
-		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
-		params.filterParams.topics?.map((topic) => hexToBytes(topic)),
+		Array.isArray(params.filterParams.address)
+			? params.filterParams.address.map((addr) => createAddress(addr).bytes)
+			: params.filterParams.address !== undefined
+				? [createAddress(params.filterParams.address).bytes]
+				: [],
+		params.filterParams.topics?.map((topic) =>
+			Array.isArray(topic)
+				? topic.map((t) => t === null ? null : hexToBytes(/** @type {`0x${string}`} */(t))).filter((t) => t !== null)
+				: topic === null ? null : hexToBytes(/** @type {`0x${string}`} */(topic))
+		),
 	)
 	logs.push(
 		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({
