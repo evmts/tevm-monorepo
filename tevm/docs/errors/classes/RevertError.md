@@ -6,24 +6,31 @@
 
 # Class: RevertError
 
-Represents an error that occurs when a transaction execution is reverted.
+Represents an error that occurs when a transaction or message call is reverted.
 
-This error is typically encountered when a transaction or contract execution is reverted by the EVM.
+This error is typically encountered when a contract explicitly calls the `revert`
+operation or when a condition in a `require` statement is not met. It's a way for
+smart contracts to signal that an operation should be rolled back due to a failure
+condition.
+
+The error code -32000 is a standard Ethereum JSON-RPC error code indicating a
+generic server error, which is often used for revert errors.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a RevertError
+  const result = await client.call({
+    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+    data: '0x...' // encoded function call that might revert
+  })
 } catch (error) {
   if (error instanceof RevertError) {
-    console.error(error.message);
-    // Handle the revert error
+    console.error('Transaction reverted:', error.message);
+    console.log('Revert reason:', error.data); // If available
   }
 }
 ```
-
-## Abstract
 
 ## Param
 
@@ -61,6 +68,8 @@ Additional parameters for the BaseError.
 
 • **tag?**: `string`
 
+The tag for the error.
+
 #### Returns
 
 [`RevertError`](RevertError.md)
@@ -71,7 +80,7 @@ Additional parameters for the BaseError.
 
 #### Defined in
 
-packages/errors/types/ethereum/RevertError.d.ts:45
+packages/errors/types/ethereum/RevertError.d.ts:54
 
 ## Properties
 
@@ -87,7 +96,7 @@ Same as name, used internally.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -101,7 +110,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -109,7 +118,7 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
 
 #### Inherited from
 
@@ -117,7 +126,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -131,7 +140,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -147,7 +156,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -179,7 +188,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -209,7 +218,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -237,7 +246,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -246,6 +255,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -256,10 +269,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -309,7 +318,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -361,4 +370,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

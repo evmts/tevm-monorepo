@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_reset` method
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcRequest.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L51)
+[packages/procedures/src/anvil/AnvilJsonRpcRequest.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L51)

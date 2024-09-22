@@ -27,4 +27,4 @@ accordingly, otherwise return a "static" `v` just derived from the `recovery` bi
 
 ## Defined in
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:12
+node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:13

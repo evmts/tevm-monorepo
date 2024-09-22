@@ -14,7 +14,7 @@
 
 The common chain configuration, extending both `Common` and `Chain`.
 
-• **TAccountOrAddress** *extends* `Account` \| [`Address`](Address.md) \| `undefined` = `undefined`
+• **TAccountOrAddress** *extends* [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined` = `undefined`
 
 The account or address type for the client.
 

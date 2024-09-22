@@ -6,8 +6,8 @@
 
 # Variable: PREFUNDED\_ACCOUNTS
 
-> `const` **PREFUNDED\_ACCOUNTS**: readonly [`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`]
+> `const` **PREFUNDED\_ACCOUNTS**: [`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`]
 
 ## Defined in
 
-packages/utils/types/prefundedAccounts.d.ts:3
+packages/utils/types/prefundedAccounts.d.ts:4

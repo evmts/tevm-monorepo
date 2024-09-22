@@ -8,20 +8,6 @@
 
 > **ScriptHandler**: \<`TAbi`, `TFunctionName`\>(`params`) => `Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-## Type Parameters
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-## Parameters
-
-• **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
-
-## Returns
-
-`Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
-
 ## Deprecated
 
 Can use `ContractHandler` instead
@@ -48,6 +34,20 @@ const res = tevm.script(
    MyScript.read.run('hello world')
 )
 ```
+
+## Type Parameters
+
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+
+## Parameters
+
+• **params**: [`ScriptParams`](ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+
+## Returns
+
+`Promise`\<[`ScriptResult`](ScriptResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 ## Defined in
 

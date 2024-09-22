@@ -6,42 +6,40 @@
 
 # Class: UnreachableCodeError
 
-Represents an error that occurs when unreachable code is executed. This error always indicates a bug in the Tevm VM.
-
-Unreachable code errors can occur due to:
-- Defensive programming checks to ensure all cases in a switch or if statement are covered.
-
-To handle this error take the following steps:
-- ensure you did not modify the tevm VM in any unsupported way.
-- Open an issue with a minimal reproducable example
+Represents an error that occurs when unreachable code is executed.
+This error always indicates a bug in the Tevm VM.
 
 ## Example
 
-```typescript
+```javascript
 import { UnreachableCodeError } from '@tevm/errors'
 
-const x: 'a' | 'b'  = 'a'
+function assertUnreachable(x) {
+  throw new UnreachableCodeError(x, 'Unreachable code executed')
+}
 
-if (x === 'a') {
-  console.log('A')
-} else if (x === 'b') {
-  console.log('B')
-} else {
-  throw new UnreachableCodeError(x, 'Unreachable code executed.')
+function getArea(shape) {
+  switch (shape) {
+    case 'circle':
+      return Math.PI * Math.pow(radius, 2)
+    case 'square':
+      return side * side
+    default:
+      return assertUnreachable(shape)
+  }
+}
+
+try {
+  getArea('triangle') // This should be unreachable
+} catch (error) {
+  if (error instanceof UnreachableCodeError) {
+    console.error('Unreachable code executed:', error.message)
+    console.log('Unreachable value:', error.value)
+    // This indicates a bug in the Tevm VM
+    reportBugToTevmRepository(error)
+  }
 }
 ```
-
-## Param
-
-The value that should be of type never.
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -51,15 +49,15 @@ Additional parameters for the BaseError.
 
 ### new UnreachableCodeError()
 
-> **new UnreachableCodeError**(`value`, `message`?, `args`?, `tag`?): [`UnreachableCodeError`](UnreachableCodeError.md)
+> **new UnreachableCodeError**(`value`, `message`?, `args`?): [`UnreachableCodeError`](UnreachableCodeError.md)
 
 Constructs an UnreachableCodeError.
 
 #### Parameters
 
-• **value**: `never`
+• **value**: `any`
 
-The value that should be of type never.
+The value that should be unreachable.
 
 • **message?**: `string`
 
@@ -67,11 +65,7 @@ Human-readable error message.
 
 • **args?**: [`UnreachableCodeErrorParameters`](../type-aliases/UnreachableCodeErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -91,15 +85,13 @@ packages/errors/types/defensive/UnreachableCodeError.d.ts:57
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -113,7 +105,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -121,15 +113,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -143,7 +133,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -151,15 +141,13 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -191,7 +179,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:49
+packages/errors/types/ethereum/InternalErrorError.d.ts:53
 
 ***
 
@@ -199,15 +187,13 @@ packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -237,7 +223,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -255,6 +241,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
+### value
+
+> **value**: `any`
+
+The value that should be unreachable.
+
+#### Defined in
+
+packages/errors/types/defensive/UnreachableCodeError.d.ts:62
+
+***
+
 ### version
 
 > **version**: `string`
@@ -265,7 +263,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -274,6 +272,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -284,10 +286,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -337,7 +335,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -389,4 +387,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L117)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L125)

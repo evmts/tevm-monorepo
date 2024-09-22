@@ -56,4 +56,4 @@ Parameters for constructing an InvalidDeployedBytecodeError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidDeployedBytecodeError.d.ts:42
+packages/errors/types/input/InvalidDeployedBytecodeError.d.ts:51

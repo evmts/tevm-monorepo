@@ -56,4 +56,4 @@ Parameters for constructing an InvalidArgsError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidArgsError.d.ts:42
+packages/errors/types/input/InvalidArgsError.d.ts:53

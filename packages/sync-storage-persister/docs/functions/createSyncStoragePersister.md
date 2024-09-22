@@ -8,8 +8,6 @@
 
 > **createSyncStoragePersister**(`options`): [`SyncStoragePersister`](../type-aliases/SyncStoragePersister.md)
 
-Creates a syncronous storage persister to be used in tevm clients
-
 ## Parameters
 
 • **options**: [`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md)

@@ -166,4 +166,4 @@ A mapping of `eth_*` method names to their request type
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1280
+packages/procedures/dist/index.d.ts:1285

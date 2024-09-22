@@ -22,4 +22,4 @@ A mapping of `debug_*` method names to their return type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugReturnType.ts#L9)
+[packages/procedures/src/tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/DebugReturnType.ts#L9)

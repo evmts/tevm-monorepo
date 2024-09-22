@@ -8,44 +8,31 @@
 
 Represents an error thrown when attempting to fetch a resource from a Forked transport.
 If the underlying JSON-RPC call has an error code, the error code will be proxied to the ForkError.
-Most tevm methods return these errors as values if `throwOnFail` is set to `false` and a forkUrl is provided
 
 ## Example
 
-try {
-  // Some operation that can throw an ForkError
-} catch (error) {
-  if (error instanceof ForkError) {
-    console.error(error.message);
-    // Handle the account locked error
-  }
-}
-
-To debug this error check to see if there might be a misconfiguration or rate limit of the
-fork transport.
-
-If the issue is a rate limit consider using the `rateLimit` transport options to limit how many
-requests tevm are made.
-```typescript
-import { rateLimit, http } from "@tevm/jsonrpc"
-import { createMemoryClient } from "@tevm/memory-client"
+```javascript
+import { ForkError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+import { http } from '@tevm/jsonrpc'
 
 const client = createMemoryClient({
   fork: {
-    transport: rateLimit(
-      http('https://mainnet.optimism.io'), { browser: false, requestsPerSecond: 25 }
-    )
-  )
-}}
+    url: 'https://mainnet.example.com'
+  }
+})
+
+try {
+  await client.getBalance('0x...')
+} catch (error) {
+  if (error instanceof ForkError) {
+    console.error('Fork error:', error.message)
+    console.log('Error code:', error.code)
+    console.log('Documentation:', error.docsLink)
+    // Handle the fork error, e.g., by retrying or using a different RPC endpoint
+  }
+}
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -55,9 +42,9 @@ Additional parameters for the BaseError.
 
 ### new ForkError()
 
-> **new ForkError**(`message`, `args`, `tag`?): [`ForkError`](ForkError.md)
+> **new ForkError**(`message`, `args`): [`ForkError`](ForkError.md)
 
-Constructs an ForkError.
+Constructs a ForkError.
 
 #### Parameters
 
@@ -67,9 +54,7 @@ Human-readable error message.
 
 • **args**: [`ForkErrorParameters`](../type-aliases/ForkErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
+Additional parameters for the error.
 
 #### Returns
 
@@ -81,7 +66,7 @@ Additional parameters for the BaseError.
 
 #### Defined in
 
-packages/errors/types/fork/ForkError.d.ts:62
+packages/errors/types/fork/ForkError.d.ts:49
 
 ## Properties
 
@@ -89,15 +74,13 @@ packages/errors/types/fork/ForkError.d.ts:62
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -111,7 +94,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -119,15 +102,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -141,7 +122,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -149,23 +130,19 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
 ### message
 
 > **message**: `string`
-
-Human-readable error message.
 
 #### Inherited from
 
@@ -181,23 +158,19 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
 ### name
 
 > **name**: `string`
-
-The name of the error, used to discriminate errors.
 
 #### Inherited from
 
@@ -219,7 +192,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -247,7 +220,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -256,6 +229,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -266,10 +243,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -319,7 +292,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -371,4 +344,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

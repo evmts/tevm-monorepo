@@ -6,7 +6,7 @@
 
 # Function: fromHex()
 
-> **fromHex**\<`TTo`\>(`hex`, `toOrOpts`): `FromHexReturnType`\<`TTo`\>
+> **fromHex**\<`to`\>(`hex`, `toOrOpts`): `FromHexReturnType`\<`to`\>
 
 Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
@@ -15,7 +15,7 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Type Parameters
 
-• **TTo** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
+• **to** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
 
 ## Parameters
 
@@ -23,13 +23,13 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 Hex string to decode.
 
-• **toOrOpts**: `FromHexParameters`\<`TTo`\>
+• **toOrOpts**: `FromHexParameters`\<`to`\>
 
 Type to convert to or options.
 
 ## Returns
 
-`FromHexReturnType`\<`TTo`\>
+`FromHexReturnType`\<`to`\>
 
 Decoded value.
 
@@ -58,4 +58,4 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47

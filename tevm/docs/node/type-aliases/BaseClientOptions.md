@@ -14,4 +14,4 @@ Use [TevmNodeOptions](../../index/type-aliases/TevmNodeOptions.md) instead.
 
 ## Defined in
 
-packages/node/dist/index.d.ts:361
+packages/node/dist/index.d.ts:410

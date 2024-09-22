@@ -56,4 +56,4 @@ Parameters for constructing an InvalidGasRefundError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidGasRefundError.d.ts:42
+packages/errors/types/input/InvalidGasRefundError.d.ts:51

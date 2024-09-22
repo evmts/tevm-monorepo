@@ -5,30 +5,29 @@ prev: false
 title: "InvalidUrlError"
 ---
 
-Represents an error that occurs when the 'url' parameter is invalid.
+Represents an error that occurs when a URL is invalid.
 
-This error is typically encountered when a transaction or operation references a 'url' parameter that is invalid or does not conform to the expected structure.
+This error is typically encountered when an operation requires a valid URL, but receives an invalid one.
 
 ## Example
 
-```ts
+```javascript
+import { InvalidUrlError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
 try {
-  // Some operation that can throw an InvalidUrlError
+  const client = createMemoryClient({
+    fork: {
+      url: 'not_a_valid_url'
+    }
+  })
 } catch (error) {
   if (error instanceof InvalidUrlError) {
-    console.error(error.message);
-    // Handle the invalid 'url' error
+    console.error('Invalid URL:', error.message)
+    console.log('Documentation:', error.docsLink)
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the InvalidUrlError.
 
 ## Extends
 
@@ -38,7 +37,7 @@ Additional parameters for the InvalidUrlError.
 
 ### new InvalidUrlError()
 
-> **new InvalidUrlError**(`message`, `args`?, `tag`?): [`InvalidUrlError`](/reference/tevm/errors/classes/invalidurlerror/)
+> **new InvalidUrlError**(`message`, `args`?): [`InvalidUrlError`](/reference/tevm/errors/classes/invalidurlerror/)
 
 Constructs an InvalidUrlError.
 
@@ -51,10 +50,6 @@ Human-readable error message.
 • **args?**: [`InvalidUrlErrorParameters`](/reference/tevm/errors/interfaces/invalidurlerrorparameters/) = `{}`
 
 Additional parameters for the InvalidUrlError.
-
-• **tag?**: `string` = `'InvalidUrlError'`
-
-The tag for the error.}
 
 #### Returns
 
@@ -82,7 +77,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/input/InvalidUrlError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidUrlError.js#L60)
 
 ***
 
@@ -96,7 +91,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -112,7 +107,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -126,7 +121,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -142,7 +137,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -174,7 +169,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -190,7 +185,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/input/InvalidUrlError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidUrlError.js#L59)
 
 ***
 
@@ -204,7 +199,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -232,7 +227,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -304,7 +299,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

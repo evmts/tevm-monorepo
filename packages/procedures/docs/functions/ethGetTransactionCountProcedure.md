@@ -6,13 +6,11 @@
 
 # Function: ethGetTransactionCountProcedure()
 
-> **ethGetTransactionCountProcedure**(`client`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
-
-Request handler for eth_getFilterLogs JSON-RPC requests.
+> **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+• **node**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -20,4 +18,4 @@ Request handler for eth_getFilterLogs JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethGetTransactionCountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L9)
+[packages/procedures/src/eth/ethGetTransactionCountProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L10)

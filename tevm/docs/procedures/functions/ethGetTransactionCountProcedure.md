@@ -6,11 +6,11 @@
 
 # Function: ethGetTransactionCountProcedure()
 
-> **ethGetTransactionCountProcedure**(`client`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
+> **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)
+• **node**: [`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 
@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:675
+packages/procedures/dist/index.d.ts:680

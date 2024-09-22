@@ -5,42 +5,40 @@ prev: false
 title: "UnreachableCodeError"
 ---
 
-Represents an error that occurs when unreachable code is executed. This error always indicates a bug in the Tevm VM.
-
-Unreachable code errors can occur due to:
-- Defensive programming checks to ensure all cases in a switch or if statement are covered.
-
-To handle this error take the following steps:
-- ensure you did not modify the tevm VM in any unsupported way.
-- Open an issue with a minimal reproducable example
+Represents an error that occurs when unreachable code is executed.
+This error always indicates a bug in the Tevm VM.
 
 ## Example
 
-```typescript
+```javascript
 import { UnreachableCodeError } from '@tevm/errors'
 
-const x: 'a' | 'b'  = 'a'
+function assertUnreachable(x) {
+  throw new UnreachableCodeError(x, 'Unreachable code executed')
+}
 
-if (x === 'a') {
-  console.log('A')
-} else if (x === 'b') {
-  console.log('B')
-} else {
-  throw new UnreachableCodeError(x, 'Unreachable code executed.')
+function getArea(shape) {
+  switch (shape) {
+    case 'circle':
+      return Math.PI * Math.pow(radius, 2)
+    case 'square':
+      return side * side
+    default:
+      return assertUnreachable(shape)
+  }
+}
+
+try {
+  getArea('triangle') // This should be unreachable
+} catch (error) {
+  if (error instanceof UnreachableCodeError) {
+    console.error('Unreachable code executed:', error.message)
+    console.log('Unreachable value:', error.value)
+    // This indicates a bug in the Tevm VM
+    reportBugToTevmRepository(error)
+  }
 }
 ```
-
-## Param
-
-The value that should be of type never.
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -50,27 +48,23 @@ Additional parameters for the BaseError.
 
 ### new UnreachableCodeError()
 
-> **new UnreachableCodeError**(`value`, `message`?, `args`?, `tag`?): [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
+> **new UnreachableCodeError**(`value`, `message`?, `args`?): [`UnreachableCodeError`](/reference/tevm/errors/classes/unreachablecodeerror/)
 
 Constructs an UnreachableCodeError.
 
 #### Parameters
 
-• **value**: `never`
+• **value**: `any`
 
-The value that should be of type never.
+The value that should be unreachable.
 
-• **message?**: `string` = `...`
+• **message?**: `string`
 
 Human-readable error message.
 
 • **args?**: [`UnreachableCodeErrorParameters`](/reference/tevm/errors/interfaces/unreachablecodeerrorparameters/) = `{}`
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string` = `'UnreachableCodeError'`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -82,7 +76,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/defensive/UnreachableCodeError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L60)
+[packages/errors/src/defensive/UnreachableCodeError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L66)
 
 ## Properties
 
@@ -98,7 +92,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/defensive/UnreachableCodeError.js:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L80)
 
 ***
 
@@ -112,7 +106,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -120,7 +114,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32603), standard JSON-RPC error code for internal errors.
 
 #### Inherited from
 
@@ -128,7 +122,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -142,7 +136,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -158,7 +152,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -190,7 +184,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InternalErrorError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L64)
+[packages/errors/src/ethereum/InternalErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L69)
 
 ***
 
@@ -206,7 +200,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -222,7 +216,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/defensive/UnreachableCodeError.js:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L79)
 
 ***
 
@@ -236,7 +230,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -254,6 +248,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
+### value
+
+> **value**: `any`
+
+The value that should be unreachable.
+
+#### Defined in
+
+[packages/errors/src/defensive/UnreachableCodeError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L57)
+
+***
+
 ### version
 
 > **version**: `string`
@@ -264,7 +270,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -336,7 +342,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

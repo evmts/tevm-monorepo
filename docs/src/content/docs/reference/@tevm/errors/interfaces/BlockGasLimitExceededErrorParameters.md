@@ -15,7 +15,7 @@ The cause of the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L11)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L10)
 
 ***
 
@@ -27,7 +27,7 @@ Details of the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L12)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L11)
 
 ***
 
@@ -39,7 +39,7 @@ Base URL for the documentation.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L7)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L6)
 
 ***
 
@@ -51,7 +51,7 @@ Path to the documentation.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L8)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L7)
 
 ***
 
@@ -63,7 +63,7 @@ Slug for the documentation.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L9)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L8)
 
 ***
 
@@ -75,7 +75,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L13)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L12)
 
 ***
 
@@ -87,4 +87,4 @@ Additional meta messages.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L10)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L9)

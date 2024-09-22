@@ -8,8 +8,6 @@
 
 > **ethCoinbaseJsonRpcProcedure**(`client`): [`EthCoinbaseJsonRpcProcedure`](../type-aliases/EthCoinbaseJsonRpcProcedure.md)
 
-Request handler for eth_coinbase JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for eth_coinbase JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/eth/ethCoinbaseProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethCoinbaseProcedure.js#L6)
+[packages/procedures/src/eth/ethCoinbaseProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethCoinbaseProcedure.js#L6)

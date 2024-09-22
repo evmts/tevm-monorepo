@@ -8,8 +8,6 @@
 
 > **getForkBlockTag**(`baseState`): `undefined` \| `object` \| `object`
 
-If this does not exist an empty `Uint8Array` is returned.
-
 ## Parameters
 
 • **baseState**: [`BaseState`](../type-aliases/BaseState.md)

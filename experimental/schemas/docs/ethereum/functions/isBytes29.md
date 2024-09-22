@@ -8,8 +8,6 @@
 
 > **isBytes29**(`bytes29`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes29.
-
 ## Parameters
 
 • **bytes29**: `unknown`
@@ -17,14 +15,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes29.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isBytes29 } from '@tevm/schemas';
-isBytes29("0xff");  // true
-isBytes29("0xfff"); // false
-````
 
 ## Defined in
 

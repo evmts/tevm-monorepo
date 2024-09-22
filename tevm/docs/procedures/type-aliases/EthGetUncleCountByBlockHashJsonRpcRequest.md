@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:348
+packages/procedures/dist/index.d.ts:353

@@ -8,8 +8,6 @@
 
 > **isINT8**(`int8`): `boolean`
 
-Type guard that returns true if the provided bigint is a valid Ethereum INT8.
-
 ## Parameters
 
 • **int8**: `unknown`
@@ -17,16 +15,6 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT8.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isINT8 } from '@tevm/schemas';
-isINT8(BigInt(-128));  // true
-isINT8(BigInt(127));   // true
-isINT8(BigInt(128));   // false
-isINT8(BigInt(-129));  // false
-````
 
 ## Defined in
 

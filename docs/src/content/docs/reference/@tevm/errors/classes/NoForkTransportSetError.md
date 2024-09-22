@@ -6,15 +6,25 @@ title: "NoForkTransportSetError"
 ---
 
 Error represents the tevm client attempted to fetch a resource from a Forked transport but no transport was set.
-To set a transport use the `fork.transport` option for [`createMemoryClient`](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
 
-## Param
+## Example
 
-A human-readable error message.
+```javascript
+import { NoForkTransportSetError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
 
-## Param
+const client = createMemoryClient() // No fork configuration
 
-Additional parameters for the InvalidParamsError.
+try {
+  await client.getBalance('0x...') // This might throw if it needs to access forked state
+} catch (error) {
+  if (error instanceof NoForkTransportSetError) {
+    console.error('No fork transport set:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Handle the error, e.g., by setting up a fork configuration
+  }
+}
+```
 
 ## Extends
 
@@ -24,9 +34,9 @@ Additional parameters for the InvalidParamsError.
 
 ### new NoForkTransportSetError()
 
-> **new NoForkTransportSetError**(`message`, `args`?, `tag`?): [`NoForkTransportSetError`](/reference/tevm/errors/classes/noforktransportseterror/)
+> **new NoForkTransportSetError**(`message`, `args`?): [`NoForkTransportSetError`](/reference/tevm/errors/classes/noforktransportseterror/)
 
-Constructs an NoForkTransportSetError.
+Constructs a NoForkTransportSetError.
 
 #### Parameters
 
@@ -36,9 +46,7 @@ Human-readable error message.
 
 • **args?**: [`NoForkTransportSetErrorParameters`](/reference/tevm/errors/interfaces/noforktransportseterrorparameters/) = `{}`
 
-Additional parameters to pass to BaseError.
-
-• **tag?**: `string` = `'NoForkTransportSetError'`
+Additional parameters for the error.
 
 #### Returns
 
@@ -50,7 +58,7 @@ Additional parameters to pass to BaseError.
 
 #### Defined in
 
-[packages/errors/src/fork/NoForkUriSetError.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L36)
+[packages/errors/src/fork/NoForkUriSetError.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L45)
 
 ## Properties
 
@@ -58,15 +66,13 @@ Additional parameters to pass to BaseError.
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`BaseError`](/reference/tevm/errors/classes/baseerror/).[`_tag`](/reference/tevm/errors/classes/baseerror/#_tag)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/fork/NoForkUriSetError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L57)
 
 ***
 
@@ -80,7 +86,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -88,15 +94,13 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`BaseError`](/reference/tevm/errors/classes/baseerror/).[`code`](/reference/tevm/errors/classes/baseerror/#code)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -110,7 +114,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -118,23 +122,19 @@ Error code, analogous to the code in JSON RPC error.
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`BaseError`](/reference/tevm/errors/classes/baseerror/).[`docsPath`](/reference/tevm/errors/classes/baseerror/#docspath)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
 ### message
 
 > **message**: `string`
-
-Human-readable error message.
 
 #### Inherited from
 
@@ -150,15 +150,13 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`BaseError`](/reference/tevm/errors/classes/baseerror/).[`metaMessages`](/reference/tevm/errors/classes/baseerror/#metamessages)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -166,15 +164,13 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-The name of the error, used to discriminate errors.
-
 #### Inherited from
 
 [`BaseError`](/reference/tevm/errors/classes/baseerror/).[`name`](/reference/tevm/errors/classes/baseerror/#name)
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/fork/NoForkUriSetError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L56)
 
 ***
 
@@ -188,7 +184,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -216,7 +212,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -288,7 +284,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

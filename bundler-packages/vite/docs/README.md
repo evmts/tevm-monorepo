@@ -16,8 +16,8 @@ pnpm i @tevm/vite-plugin
 
 ## Usage
 
-See [docs](_media/vitePluginTevm.md)
+See [docs]()
 
 ## License 📄
 
-<a href="_media/LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+<a href=""><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>

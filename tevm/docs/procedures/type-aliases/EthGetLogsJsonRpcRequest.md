@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getLogs` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:336
+packages/procedures/dist/index.d.ts:341

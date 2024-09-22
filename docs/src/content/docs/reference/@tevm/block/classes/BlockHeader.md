@@ -32,7 +32,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L148)
+[packages/block/src/header.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L148)
 
 ## Properties
 
@@ -42,7 +42,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L58)
+[packages/block/src/header.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L58)
 
 ***
 
@@ -52,7 +52,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L60)
+[packages/block/src/header.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L60)
 
 ***
 
@@ -62,7 +62,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L69)
+[packages/block/src/header.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L69)
 
 ***
 
@@ -72,17 +72,129 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L45)
+[packages/block/src/header.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L45)
 
 ***
 
 ### common
 
-> `readonly` **common**: [`Common`](/reference/tevm/common/type-aliases/common/)
+> `readonly` **common**: `object`
+
+#### blockExplorers?
+
+> `optional` **blockExplorers**: `object`
+
+Collection of block explorers
+
+##### Index Signature
+
+ \[`key`: `string`\]: `ChainBlockExplorer`
+
+#### blockExplorers.default
+
+> **blockExplorers.default**: `ChainBlockExplorer`
+
+#### contracts?
+
+> `optional` **contracts**: `object`
+
+Collection of contracts
+
+#### contracts.ensRegistry?
+
+> `optional` **contracts.ensRegistry**: `ChainContract`
+
+#### contracts.ensUniversalResolver?
+
+> `optional` **contracts.ensUniversalResolver**: `ChainContract`
+
+#### contracts.multicall3?
+
+> `optional` **contracts.multicall3**: `ChainContract`
+
+#### copy()
+
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+
+##### Returns
+
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+
+#### custom?
+
+> `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+Custom chain data.
+
+#### ethjsCommon
+
+> **ethjsCommon**: `Common`
+
+#### fees?
+
+> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+
+Modifies how fees are derived.
+
+#### formatters?
+
+> `optional` **formatters**: `ChainFormatters`
+
+Modifies how data is formatted and typed (e.g. blocks and transactions)
+
+#### id
+
+> **id**: `number`
+
+ID in number form
+
+#### name
+
+> **name**: `string`
+
+Human-readable name
+
+#### nativeCurrency
+
+> **nativeCurrency**: `ChainNativeCurrency`
+
+Currency used by chain
+
+#### rpcUrls
+
+> **rpcUrls**: `object`
+
+Collection of RPC endpoints
+
+##### Index Signature
+
+ \[`key`: `string`\]: `ChainRpcUrls`
+
+#### rpcUrls.default
+
+> **rpcUrls.default**: `ChainRpcUrls`
+
+#### serializers?
+
+> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+
+Modifies how data is serialized (e.g. transactions).
+
+#### sourceId?
+
+> `optional` **sourceId**: `number`
+
+Source Chain ID (ie. the L1 chain)
+
+#### testnet?
+
+> `optional` **testnet**: `boolean`
+
+Flag for test networks
 
 #### Defined in
 
-[header.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L65)
+[packages/block/src/header.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L65)
 
 ***
 
@@ -92,7 +204,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L50)
+[packages/block/src/header.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L50)
 
 ***
 
@@ -102,7 +214,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L61)
+[packages/block/src/header.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L61)
 
 ***
 
@@ -112,7 +224,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L55)
+[packages/block/src/header.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L55)
 
 ***
 
@@ -122,7 +234,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L52)
+[packages/block/src/header.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L52)
 
 ***
 
@@ -132,7 +244,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L53)
+[packages/block/src/header.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L53)
 
 ***
 
@@ -150,7 +262,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L67)
+[packages/block/src/header.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L67)
 
 ***
 
@@ -160,7 +272,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L49)
+[packages/block/src/header.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L49)
 
 ***
 
@@ -170,7 +282,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L56)
+[packages/block/src/header.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L56)
 
 ***
 
@@ -180,7 +292,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L57)
+[packages/block/src/header.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L57)
 
 ***
 
@@ -190,7 +302,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L51)
+[packages/block/src/header.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L51)
 
 ***
 
@@ -200,7 +312,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L62)
+[packages/block/src/header.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L62)
 
 ***
 
@@ -210,7 +322,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L43)
+[packages/block/src/header.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L43)
 
 ***
 
@@ -220,7 +332,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L48)
+[packages/block/src/header.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L48)
 
 ***
 
@@ -230,7 +342,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L63)
+[packages/block/src/header.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L63)
 
 ***
 
@@ -240,7 +352,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L46)
+[packages/block/src/header.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L46)
 
 ***
 
@@ -250,7 +362,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L54)
+[packages/block/src/header.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L54)
 
 ***
 
@@ -260,7 +372,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L47)
+[packages/block/src/header.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L47)
 
 ***
 
@@ -270,7 +382,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L44)
+[packages/block/src/header.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L44)
 
 ***
 
@@ -280,7 +392,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 #### Defined in
 
-[header.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L59)
+[packages/block/src/header.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L59)
 
 ## Accessors
 
@@ -296,7 +408,7 @@ EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
 #### Defined in
 
-[header.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L76)
+[packages/block/src/header.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L76)
 
 ## Methods
 
@@ -316,7 +428,7 @@ if any check fails
 
 #### Defined in
 
-[header.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L397)
+[packages/block/src/header.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L397)
 
 ***
 
@@ -332,7 +444,7 @@ Validates correct buffer lengths, throws if invalid.
 
 #### Defined in
 
-[header.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L310)
+[packages/block/src/header.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L310)
 
 ***
 
@@ -350,7 +462,7 @@ Validates correct buffer lengths, throws if invalid.
 
 #### Defined in
 
-[header.ts:680](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L680)
+[packages/block/src/header.ts:680](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L680)
 
 ***
 
@@ -367,7 +479,7 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 #### Defined in
 
-[header.ts:924](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L924)
+[packages/block/src/header.ts:924](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L924)
 
 ***
 
@@ -391,7 +503,7 @@ the total blob gas fee for numBlobs blobs
 
 #### Defined in
 
-[header.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L579)
+[packages/block/src/header.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L579)
 
 ***
 
@@ -407,7 +519,7 @@ Calculates the base fee for a potential next block
 
 #### Defined in
 
-[header.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L520)
+[packages/block/src/header.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L520)
 
 ***
 
@@ -425,7 +537,7 @@ The blob gas price
 
 #### Defined in
 
-[header.ts:605](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L605)
+[packages/block/src/header.ts:605](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L605)
 
 ***
 
@@ -441,7 +553,7 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 #### Defined in
 
-[header.ts:590](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L590)
+[packages/block/src/header.ts:590](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L590)
 
 ***
 
@@ -462,7 +574,7 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](../../../../../../../r
 
 #### Defined in
 
-[header.ts:823](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L823)
+[packages/block/src/header.ts:823](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L823)
 
 ***
 
@@ -479,7 +591,7 @@ Returns extra seal data
 
 #### Defined in
 
-[header.ts:793](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L793)
+[packages/block/src/header.ts:793](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L793)
 
 ***
 
@@ -496,7 +608,7 @@ Returns extra vanity data
 
 #### Defined in
 
-[header.ts:784](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L784)
+[packages/block/src/header.ts:784](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L784)
 
 ***
 
@@ -513,7 +625,7 @@ header (only clique PoA, throws otherwise)
 
 #### Defined in
 
-[header.ts:772](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L772)
+[packages/block/src/header.ts:772](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L772)
 
 ***
 
@@ -529,7 +641,7 @@ PoA clique signature hash without the seal.
 
 #### Defined in
 
-[header.ts:761](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L761)
+[packages/block/src/header.ts:761](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L761)
 
 ***
 
@@ -545,7 +657,7 @@ Returns the signer address
 
 #### Defined in
 
-[header.ts:860](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L860)
+[packages/block/src/header.ts:860](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L860)
 
 ***
 
@@ -568,7 +680,7 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Defined in
 
-[header.ts:848](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L848)
+[packages/block/src/header.ts:848](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L848)
 
 ***
 
@@ -584,7 +696,7 @@ Return a compact error string representation of the object
 
 #### Defined in
 
-[header.ts:946](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L946)
+[packages/block/src/header.ts:946](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L946)
 
 ***
 
@@ -606,7 +718,7 @@ the header from the parent `Block` of this header
 
 #### Defined in
 
-[header.ts:692](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L692)
+[packages/block/src/header.ts:692](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L692)
 
 ***
 
@@ -624,7 +736,7 @@ the price in gwei per unit of blob gas spent
 
 #### Defined in
 
-[header.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L554)
+[packages/block/src/header.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L554)
 
 ***
 
@@ -640,7 +752,7 @@ Returns the hash of the block header.
 
 #### Defined in
 
-[header.ts:663](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L663)
+[packages/block/src/header.ts:663](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L663)
 
 ***
 
@@ -656,7 +768,7 @@ Checks if the block header is a genesis header.
 
 #### Defined in
 
-[header.ts:676](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L676)
+[packages/block/src/header.ts:676](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L676)
 
 ***
 
@@ -672,7 +784,7 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 #### Defined in
 
-[header.ts:612](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L612)
+[packages/block/src/header.ts:612](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L612)
 
 ***
 
@@ -688,7 +800,7 @@ Returns the rlp encoding of the block header.
 
 #### Defined in
 
-[header.ts:877](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L877)
+[packages/block/src/header.ts:877](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L877)
 
 ***
 
@@ -704,7 +816,7 @@ Returns the block header in JSON format.
 
 #### Defined in
 
-[header.ts:884](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L884)
+[packages/block/src/header.ts:884](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L884)
 
 ***
 
@@ -727,7 +839,7 @@ the header from the parent `Block` of this header
 
 #### Defined in
 
-[header.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L481)
+[packages/block/src/header.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L481)
 
 ***
 
@@ -749,7 +861,7 @@ Static constructor to create a block header from a header data dictionary
 
 #### Defined in
 
-[header.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L90)
+[packages/block/src/header.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L90)
 
 ***
 
@@ -771,7 +883,7 @@ Static constructor to create a block header from a RLP-serialized header
 
 #### Defined in
 
-[header.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L100)
+[packages/block/src/header.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L100)
 
 ***
 
@@ -793,4 +905,4 @@ Static constructor to create a block header from an array of Bytes values
 
 #### Defined in
 
-[header.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L114)
+[packages/block/src/header.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L114)

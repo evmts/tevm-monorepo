@@ -31,4 +31,4 @@ A complex genesis state with Contract and EoA states would have the following fo
 
 ## Indexable
 
- \[`key`: `PrefixedHexString`\]: `PrefixedHexString` \| `AccountState`
+ \[`key`: `string`\]: `PrefixedHexString` \| `AccountState`

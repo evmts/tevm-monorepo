@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcResponse.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L192)
+[packages/procedures/src/eth/EthJsonRpcResponse.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcResponse.ts#L192)

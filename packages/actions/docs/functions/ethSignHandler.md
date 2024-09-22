@@ -12,7 +12,7 @@
 
 • **params**
 
-• **params.accounts**: readonly `HDAccount`[]
+• **params.accounts**: readonly `object`[]
 
 ## Returns
 

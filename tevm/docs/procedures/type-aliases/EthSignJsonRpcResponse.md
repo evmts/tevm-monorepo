@@ -12,4 +12,4 @@ JSON-RPC response for `eth_sign` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:561
+packages/procedures/dist/index.d.ts:566

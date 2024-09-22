@@ -92,4 +92,4 @@
 
 ## Defined in
 
-[types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)
+[packages/block/src/types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)

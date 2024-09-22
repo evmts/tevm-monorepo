@@ -56,4 +56,4 @@ Parameters for constructing an InvalidBalanceError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidBalanceError.d.ts:42
+packages/errors/types/input/InvalidBalanceError.d.ts:51

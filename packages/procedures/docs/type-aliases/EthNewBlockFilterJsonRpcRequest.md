@@ -12,4 +12,4 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:273](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L273)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:281](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L281)

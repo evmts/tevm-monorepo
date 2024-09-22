@@ -4,9 +4,9 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateEventFilterParameters
 
-# Type Alias: CreateEventFilterParameters\<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, _EventName, _Args\>
+# Type Alias: CreateEventFilterParameters\<abiEvent, abiEvents, strict, fromBlock, toBlock, _eventName, _args\>
 
-> **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> *extends* infer TEventFilterArgs ? `object` \| `object` \| `object` \| `object` : `object`
+> **CreateEventFilterParameters**\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_eventName`, `_args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> *extends* infer eventFilterArgs ? `object` \| `object` \| `object` \| `object` : `object`
 
 ## Type declaration
 
@@ -16,28 +16,28 @@
 
 ### fromBlock?
 
-> `optional` **fromBlock**: `TFromBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
+> `optional` **fromBlock**: `fromBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
 
 ### toBlock?
 
-> `optional` **toBlock**: `TToBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
+> `optional` **toBlock**: `toBlock` \| [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md)
 
 ## Type Parameters
 
-• **TAbiEvent** *extends* `AbiEvent` \| `undefined` = `undefined`
+• **abiEvent** *extends* `AbiEvent` \| `undefined` = `undefined`
 
-• **TAbiEvents** *extends* readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` *extends* `AbiEvent` ? [`TAbiEvent`] : `undefined`
+• **abiEvents** *extends* readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `abiEvent` *extends* `AbiEvent` ? [`abiEvent`] : `undefined`
 
-• **TStrict** *extends* `boolean` \| `undefined` = `undefined`
+• **strict** *extends* `boolean` \| `undefined` = `undefined`
 
-• **TFromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+• **fromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
 
-• **TToBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+• **toBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
 
-• **_EventName** *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`TAbiEvent`\>
+• **_eventName** *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
 
-• **_Args** *extends* `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> \| `undefined` = `undefined`
+• **_args** *extends* `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> \| `undefined` = `undefined`
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13

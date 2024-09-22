@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **address**: `number` \| `bigint` \| [`AddressLike`](../../utils/type-aliases/AddressLike.md)
+• **address**: `string` \| `number` \| `bigint` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`
 
 ## Returns
 

@@ -6,27 +6,13 @@
 
 # Type Alias: Common
 
-> **Common**: `ViemChain` & `object`
+> **Common**: `Prettify`\<`ViemChain` & `object`\>
 
 Common is the main representation of chain specific configuration for tevm clients.
 
 Tevm specific chain configuration wrapping viem chain and ethereumjs commmon
 Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
 extends ethereumjs Common class with the Viem Chain type
-
-## Type declaration
-
-### copy()
-
-> **copy**: () => [`Common`](Common.md)
-
-#### Returns
-
-[`Common`](Common.md)
-
-### ethjsCommon
-
-> **ethjsCommon**: `EthjsCommon`
 
 ## Example
 

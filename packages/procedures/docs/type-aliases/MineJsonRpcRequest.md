@@ -12,4 +12,4 @@ JSON-RPC request for `tevm_mine` method
 
 ## Defined in
 
-[procedures/src/mine/MineJsonRpcRequest.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcRequest.ts#L7)
+[packages/procedures/src/mine/MineJsonRpcRequest.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/mine/MineJsonRpcRequest.ts#L7)

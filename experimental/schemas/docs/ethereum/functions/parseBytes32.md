@@ -8,8 +8,6 @@
 
 > **parseBytes32**\<`TBytes32`\>(`bytes32`): `TBytes32`
 
-Parses a Bytes32 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TBytes32** *extends* \`0x$\{string\}\`
@@ -21,13 +19,6 @@ Parses a Bytes32 and returns the value if no errors.
 ## Returns
 
 `TBytes32`
-
-## Example
-
-```ts
-import { parseBytes32 } from '@tevm/schemas';
-const parsedBytes32 = parseBytes32('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaaaabb');
-```
 
 ## Defined in
 

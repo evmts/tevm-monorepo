@@ -8,8 +8,6 @@
 
 > **parseUINT64Safe**\<`TUINT64`\>(`uint64`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT64`\>
 
-Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TUINT64** *extends* `bigint`

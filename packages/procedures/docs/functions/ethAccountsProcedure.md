@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/ethAccountsProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethAccountsProcedure.js#L7)
+[packages/procedures/src/eth/ethAccountsProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethAccountsProcedure.js#L7)

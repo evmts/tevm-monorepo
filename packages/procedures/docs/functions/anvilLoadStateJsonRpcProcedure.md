@@ -8,8 +8,6 @@
 
 > **anvilLoadStateJsonRpcProcedure**(`client`): [`AnvilLoadStateProcedure`](../type-aliases/AnvilLoadStateProcedure.md)
 
-Request handler for anvil_loadState JSON-RPC requests.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Request handler for anvil_loadState JSON-RPC requests.
 
 ## Defined in
 
-[procedures/src/anvil/anvilLoadStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilLoadStateProcedure.js#L9)
+[packages/procedures/src/anvil/anvilLoadStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/anvilLoadStateProcedure.js#L9)

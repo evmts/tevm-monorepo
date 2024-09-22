@@ -8,8 +8,6 @@
 
 > **isINT32**(`int32`): `boolean`
 
-Type guard that returns true if the provided bigint is a valid Ethereum INT32.
-
 ## Parameters
 
 • **int32**: `unknown`
@@ -17,16 +15,6 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT32.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isINT32 } from '@tevm/schemas';
-isINT32(BigInt(-2147483648));  // true
-isINT32(BigInt(2147483647));   // true
-isINT32(BigInt(2147483648));   // false
-isINT32(BigInt(-2147483649));  // false
-````
 
 ## Defined in
 

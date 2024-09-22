@@ -56,4 +56,4 @@ Parameters for constructing a NonceTooHighError.
 
 ## Defined in
 
-packages/errors/types/ethereum/NonceTooHighError.d.ts:50
+packages/errors/types/ethereum/NonceTooHighError.d.ts:60

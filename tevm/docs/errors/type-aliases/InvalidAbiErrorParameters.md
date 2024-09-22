@@ -56,4 +56,4 @@ Parameters for constructing an InvalidAbiError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidAbiError.d.ts:42
+packages/errors/types/input/InvalidAbiError.d.ts:52

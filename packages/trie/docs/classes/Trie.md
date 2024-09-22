@@ -30,7 +30,7 @@ Note: in most cases, the static [Trie.create](Trie.md#create) constructor should
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:30
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:30
 
 ## Properties
 
@@ -42,7 +42,7 @@ Debug logging
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
 
 ***
 
@@ -54,7 +54,7 @@ The root for an empty trie
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
 
 ***
 
@@ -66,7 +66,7 @@ The backend DB
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:16
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:16
 
 ***
 
@@ -76,7 +76,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:22
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:22
 
 ***
 
@@ -86,7 +86,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:17
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:17
 
 ***
 
@@ -96,7 +96,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:18
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:18
 
 ***
 
@@ -106,7 +106,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:12
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:12
 
 ***
 
@@ -116,7 +116,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:19
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:19
 
 ***
 
@@ -134,7 +134,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:23
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:23
 
 ***
 
@@ -168,7 +168,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:169
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:169
 
 ## Methods
 
@@ -189,7 +189,7 @@ depending on the `useKeyHashing` option being set or not.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:277
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:277
 
 ***
 
@@ -225,7 +225,7 @@ await trie.batch(ops)
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:240
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:240
 
 ***
 
@@ -245,7 +245,7 @@ Checks if a given root exists.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:130
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:130
 
 ***
 
@@ -262,7 +262,7 @@ After this is called, all changes can be reverted until `commit` is called.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
 
 ***
 
@@ -283,7 +283,7 @@ If not during a checkpoint phase
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:293
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:293
 
 ***
 
@@ -307,7 +307,7 @@ key to create a proof for
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
 
 ***
 
@@ -325,7 +325,7 @@ Returns a [stream](https://nodejs.org/dist/latest-v12.x/docs/api/stream.html#str
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:246
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:246
 
 ***
 
@@ -345,7 +345,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:122
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:122
 
 ***
 
@@ -370,7 +370,7 @@ A Promise that resolves once value is deleted.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:152
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:152
 
 ***
 
@@ -401,7 +401,7 @@ if true, throws if any nodes are missing. Used for verifying proofs. (default: f
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:159
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:159
 
 ***
 
@@ -417,7 +417,7 @@ Flushes all checkpoints, restoring the initial checkpoint state.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:303
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:303
 
 ***
 
@@ -445,7 +445,7 @@ Use `updateFromProof`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:120
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:120
 
 ***
 
@@ -473,7 +473,7 @@ A Promise that resolves to `Uint8Array` if a value was found or `null` if no val
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:137
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:137
 
 ***
 
@@ -489,7 +489,7 @@ Is the trie during a checkpoint phase?
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:282
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:282
 
 ***
 
@@ -507,7 +507,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:278
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:278
 
 ***
 
@@ -527,7 +527,7 @@ Retrieves a node from db by hash.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:193
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:193
 
 ***
 
@@ -543,7 +543,7 @@ Persists the root hash in the underlying database
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:264
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:264
 
 ***
 
@@ -570,7 +570,7 @@ A Promise that resolves once value is stored.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:145
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:145
 
 ***
 
@@ -588,7 +588,7 @@ parent checkpoint as current.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:299
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:299
 
 ***
 
@@ -608,7 +608,7 @@ Gets and/or Sets the current root of the `trie`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:126
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:126
 
 ***
 
@@ -638,7 +638,7 @@ a stack of levelup operations to commit at the end of this function
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:215
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:215
 
 ***
 
@@ -670,7 +670,7 @@ If true and during a checkpoint, the copy will contain the checkpointing metadat
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:260
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:260
 
 ***
 
@@ -700,7 +700,7 @@ The root of the proof
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
 
 ***
 
@@ -737,7 +737,7 @@ If proof is found to be invalid.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:112
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:112
 
 ***
 
@@ -751,7 +751,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:241
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:241
 
 ***
 
@@ -798,7 +798,7 @@ a flag to indicate whether there exists more trie node in the trie
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:86
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:86
 
 ***
 
@@ -822,7 +822,7 @@ Resolves when finished walking trie.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:178
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:178
 
 ***
 
@@ -846,7 +846,7 @@ Resolves when finished walking trie.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:184
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:184
 
 ***
 
@@ -872,7 +872,7 @@ Resolves when finished walking trie.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:168
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:168
 
 ***
 
@@ -890,7 +890,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/e
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:121
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:121
 
 ***
 
@@ -923,7 +923,7 @@ new trie created from given proof
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:39
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:39
 
 ***
 
@@ -952,7 +952,7 @@ Use `createFromProof`
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:72
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:72
 
 ***
 
@@ -989,7 +989,7 @@ If proof is found to be invalid.
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:50
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:50
 
 ***
 
@@ -1040,4 +1040,4 @@ a flag to indicate whether there exists more trie node in the trie
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:65
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:65

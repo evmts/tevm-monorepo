@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:312
+packages/procedures/dist/index.d.ts:317

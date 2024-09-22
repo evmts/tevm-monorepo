@@ -8,8 +8,6 @@
 
 > **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`Vm`\>
 
-Will fork a given block number and save the state roots to state manager
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

@@ -8,8 +8,6 @@
 
 > **parseUINT256**\<`TUINT256`\>(`uint256`): `TUINT256`
 
-Parses a UINT256 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUINT256** *extends* `bigint`
@@ -21,13 +19,6 @@ Parses a UINT256 and returns the value if no errors.
 ## Returns
 
 `TUINT256`
-
-## Example
-
-```ts
-import { parseUINT256 } from '@tevm/schemas';
-const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678');
-```
 
 ## Defined in
 

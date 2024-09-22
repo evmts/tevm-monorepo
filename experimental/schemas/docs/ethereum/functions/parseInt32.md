@@ -8,8 +8,6 @@
 
 > **parseInt32**\<`TINT32`\>(`int32`): `TINT32`
 
-Parses an INT32 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TINT32** *extends* `bigint`
@@ -21,13 +19,6 @@ Parses an INT32 and returns the value if no errors.
 ## Returns
 
 `TINT32`
-
-## Example
-
-```ts
-import { parseInt32 } from '@tevm/schemas';
-const parsedINT32 = parseInt32(BigInt(-2147483648));
-```
 
 ## Defined in
 

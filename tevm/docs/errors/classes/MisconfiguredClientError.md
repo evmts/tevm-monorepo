@@ -8,30 +8,34 @@
 
 Represents an error that occurs when the Client is misconfigured.
 
-Misconfigured memory client errors can occur due to:
-- Incorrect configuration parameters provided when creating a Client.
+This error can be thrown when:
+- Incorrect configuration parameters are provided when creating a Client.
+- The Client is used in a way that's incompatible with its configuration.
 
 ## Example
 
 ```typescript
+import { createMemoryClient } from '@tevm/memory-client'
 import { MisconfiguredClientError } from '@tevm/errors'
+
+const memoryClient = createMemoryClient({
+  // Assume we've misconfigured something here
+})
+
 try {
-  // Some operation that can throw a MisconfiguredClientError
+  await memoryClient.tevmCall({
+    to: '0x...',
+    data: '0x...',
+  })
 } catch (error) {
   if (error instanceof MisconfiguredClientError) {
-    console.error(error.message);
-    // Handle the misconfigured memory client error
+    console.error('Client misconfiguration:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Attempt to recreate the client with correct configuration
+    // or notify the user to check their client setup
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -41,7 +45,7 @@ Additional parameters for the BaseError.
 
 ### new MisconfiguredClientError()
 
-> **new MisconfiguredClientError**(`message`?, `args`?, `tag`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
+> **new MisconfiguredClientError**(`message`?, `args`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
 
 Constructs a MisconfiguredClientError.
 
@@ -53,11 +57,7 @@ Human-readable error message.
 
 • **args?**: [`MisconfiguredClientErrorParameters`](../type-aliases/MisconfiguredClientErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -69,7 +69,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/client/MisconfiguredClient.d.ts:49
+packages/errors/types/client/MisconfiguredClient.d.ts:52
 
 ## Properties
 
@@ -77,15 +77,13 @@ packages/errors/types/client/MisconfiguredClient.d.ts:49
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -99,7 +97,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -107,15 +105,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -129,7 +125,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -137,15 +133,13 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -177,7 +171,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:49
+packages/errors/types/ethereum/InternalErrorError.d.ts:53
 
 ***
 
@@ -185,15 +179,13 @@ packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -223,7 +215,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -251,7 +243,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -260,6 +252,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -270,10 +266,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -323,7 +315,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -375,4 +367,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

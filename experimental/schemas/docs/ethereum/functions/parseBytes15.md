@@ -8,8 +8,6 @@
 
 > **parseBytes15**\<`TBytes15`\>(`bytes15`): `TBytes15`
 
-Parses a Bytes15 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TBytes15** *extends* \`0x$\{string\}\`
@@ -21,13 +19,6 @@ Parses a Bytes15 and returns the value if no errors.
 ## Returns
 
 `TBytes15`
-
-## Example
-
-```ts
-import { parseBytes15 } from '@tevm/schemas';
-const parsedBytes15 = parseBytes15('0xffaabbccddeeffaabbccddaaeeffaaee');
-```
 
 ## Defined in
 

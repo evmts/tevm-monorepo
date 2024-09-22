@@ -8,8 +8,6 @@
 
 > **parseBytesSafe**\<`TBytes`\>(`value`): `Effect`\<`never`, [`InvalidBytesError`](../classes/InvalidBytesError.md), `TBytes`\>
 
-Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TBytes** *extends* \`0x$\{string\}\`
@@ -21,13 +19,6 @@ Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essential
 ## Returns
 
 `Effect`\<`never`, [`InvalidBytesError`](../classes/InvalidBytesError.md), `TBytes`\>
-
-## Example
-
-```javascript
-import { parseBytesSafe } from '@tevm/schemas';
-const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef12345678');
-```
 
 ## Defined in
 

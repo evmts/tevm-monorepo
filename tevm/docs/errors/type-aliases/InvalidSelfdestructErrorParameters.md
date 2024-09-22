@@ -56,4 +56,4 @@ Parameters for constructing an InvalidSelfdestructError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidSelfdestructError.d.ts:42
+packages/errors/types/input/InvalidSelfdestructError.d.ts:51

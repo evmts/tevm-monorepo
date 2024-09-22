@@ -10,20 +10,6 @@
 
 Defines a predeploy contract to use in the tevm vm
 
-## Type Parameters
-
-• **TName** *extends* `string`
-
-• **THumanReadableAbi** *extends* readonly `string`[]
-
-## Parameters
-
-• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
-
-## Returns
-
-[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
-
 ## Example
 
 ```ts
@@ -45,6 +31,20 @@ const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```
+
+## Type Parameters
+
+• **TName** *extends* `string`
+
+• **THumanReadableAbi** *extends* readonly `string`[]
+
+## Parameters
+
+• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
+
+## Returns
+
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Defined in
 

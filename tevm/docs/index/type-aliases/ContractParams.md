@@ -12,20 +12,6 @@ Parameters to execute a call on a contract with TEVM.
 
 This type combines the parameters required for encoding function data with additional call parameters.
 
-## Type Parameters
-
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type.
-
-• **TFunctionName** *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
-
-The function name type from the ABI.
-
-• **TThrowOnFail** *extends* `boolean` = `boolean`
-
-The type indicating whether to throw on failure.
-
 ## Example
 
 ```typescript
@@ -56,6 +42,20 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - BaseCallParams
  - [EncodeFunctionDataParameters](EncodeFunctionDataParameters.md)
+
+## Type Parameters
+
+• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+The ABI type.
+
+• **TFunctionName** *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
+
+The function name type from the ABI.
+
+• **TThrowOnFail** *extends* `boolean` = `boolean`
+
+The type indicating whether to throw on failure.
 
 ## Defined in
 

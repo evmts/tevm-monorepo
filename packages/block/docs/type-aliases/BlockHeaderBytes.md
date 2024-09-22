@@ -12,4 +12,4 @@ BlockHeaderBuffer is a Buffer array, except for the Verkle PreState which is an 
 
 ## Defined in
 
-[types.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L167)
+[packages/block/src/types.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L167)

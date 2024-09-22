@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| `object`\>
 
 • **params**: [`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\>
 

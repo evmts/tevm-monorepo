@@ -8,8 +8,6 @@
 
 > **parseUrl**\<`TUrl`\>(`url`): `TUrl`
 
-Parses a Url and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUrl** *extends* `string`
@@ -21,13 +19,6 @@ Parses a Url and returns the value if no errors.
 ## Returns
 
 `TUrl`
-
-## Example
-
-```javascript
-import { parseUrl } from '@tevm/schemas';
-const parsedUrl = parseUrl('https://tevm.sh');
-```
 
 ## Defined in
 

@@ -65,7 +65,7 @@ Same as name, used internally.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -79,7 +79,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -95,7 +95,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -109,7 +109,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -125,7 +125,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -157,7 +157,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -187,7 +187,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -215,7 +215,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -287,7 +287,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 

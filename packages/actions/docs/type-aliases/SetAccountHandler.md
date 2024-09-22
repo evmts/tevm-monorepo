@@ -10,14 +10,6 @@
 
 Sets the state of a specific ethereum address
 
-## Parameters
-
-• **params**: [`SetAccountParams`](SetAccountParams.md)
-
-## Returns
-
-`Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
-
 ## Example
 
 ```ts
@@ -29,6 +21,14 @@ await tevm.setAccount({
  balance: parseEther('1.0')
 })
 ```
+
+## Parameters
+
+• **params**: [`SetAccountParams`](SetAccountParams.md)
+
+## Returns
+
+`Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
 ## Defined in
 

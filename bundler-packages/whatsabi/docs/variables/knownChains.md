@@ -740,10 +740,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 100009.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -844,10 +840,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1004.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -944,10 +936,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1039.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -1043,10 +1031,6 @@
 ### 105105.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 105105.contracts.ensRegistry?
 
@@ -1363,10 +1347,6 @@
 ### 1111.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 1111.contracts.ensRegistry?
 
@@ -2366,10 +2346,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 11235.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -3152,10 +3128,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 114.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -3255,10 +3227,6 @@
 ### 11501.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 11501.contracts.ensRegistry?
 
@@ -3460,10 +3428,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 123.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -3559,10 +3523,6 @@
 ### 12306.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 12306.contracts.ensRegistry?
 
@@ -3663,10 +3623,6 @@
 ### 12324.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 12324.contracts.ensRegistry?
 
@@ -3771,10 +3727,6 @@
 ### 12325.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 12325.contracts.ensRegistry?
 
@@ -4346,10 +4298,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1281.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -4653,10 +4601,6 @@
 ### 1328.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 1328.contracts.ensRegistry?
 
@@ -4982,10 +4926,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1337.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -5081,10 +5021,6 @@
 ### 1337803.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 1337803.contracts.ensRegistry?
 
@@ -5486,10 +5422,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 14.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -5589,10 +5521,6 @@
 ### 148.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 148.contracts.ensRegistry?
 
@@ -5898,10 +5826,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1559.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -6172,7 +6096,7 @@
 
 ### 167000.blockExplorers.default.apiUrl
 
-> `readonly` **apiUrl**: `"https://taikoscan.network/api"`
+> `readonly` **apiUrl**: `"https://api.taikoscan.io/api"`
 
 ### 167000.blockExplorers.default.name
 
@@ -6180,7 +6104,7 @@
 
 ### 167000.blockExplorers.default.url
 
-> `readonly` **url**: `"https://taikoscan.network"`
+> `readonly` **url**: `"https://taikoscan.io"`
 
 ### 167000.contracts
 
@@ -6378,10 +6302,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 167008.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -6489,10 +6409,6 @@
 ### 167009.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 167009.contracts.ensRegistry?
 
@@ -6782,6 +6698,10 @@
 
 > `readonly` **default**: `object`
 
+### 17000.blockExplorers.default.apiUrl
+
+> `readonly` **apiUrl**: `"https://api-holesky.etherscan.io/api"`
+
 ### 17000.blockExplorers.default.name
 
 > `readonly` **name**: `"Etherscan"`
@@ -6913,10 +6833,6 @@
 ### 1729.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 1729.contracts.ensRegistry?
 
@@ -7684,10 +7600,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 19.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -8092,10 +8004,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 1994.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -8292,10 +8200,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 200810.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -8395,10 +8299,6 @@
 ### 200901.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 200901.contracts.ensRegistry?
 
@@ -8696,10 +8596,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 2026.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -8995,10 +8891,6 @@
 ### 205205.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 205205.contracts.ensRegistry?
 
@@ -9395,10 +9287,6 @@
 ### 22222.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 22222.contracts.ensRegistry?
 
@@ -10470,10 +10358,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 248.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -11336,10 +11220,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 255.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -11846,10 +11726,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 2730.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -12130,10 +12006,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 28882.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -12229,10 +12101,6 @@
 ### 295.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 295.contracts.ensRegistry?
 
@@ -12438,10 +12306,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 3109.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -12545,10 +12409,6 @@
 ### 31337.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 31337.contracts.ensRegistry?
 
@@ -13275,10 +13135,6 @@
 ### 32769.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 32769.contracts.ensRegistry?
 
@@ -14344,10 +14200,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 35441.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -14447,10 +14299,6 @@
 ### 35443.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 35443.contracts.ensRegistry?
 
@@ -14759,10 +14607,6 @@
 ### 37714555429.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 37714555429.contracts.ensRegistry?
 
@@ -15271,10 +15115,6 @@
 ### 4200.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 4200.contracts.ensRegistry?
 
@@ -17662,10 +17502,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 463.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -17966,10 +17802,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 4777.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -18069,10 +17901,6 @@
 ### 4999.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 4999.contracts.ensRegistry?
 
@@ -18498,10 +18326,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 50005.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -18698,10 +18522,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 5112.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -18805,10 +18625,6 @@
 ### 5165.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 5165.contracts.ensRegistry?
 
@@ -19122,25 +18938,21 @@
 
 > `readonly` **url**: `"https://testnet.flowdiver.io"`
 
-### 545.contracts?
+### 545.contracts
 
-> `optional` **contracts**: `object`
+> **contracts**: `object`
 
-#### Index Signature
+### 545.contracts.multicall3
 
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
+> `readonly` **multicall3**: `object`
 
-### 545.contracts.ensRegistry?
+### 545.contracts.multicall3.address
 
-> `optional` **ensRegistry**: `ChainContract`
+> `readonly` **address**: `"0xca11bde05977b3631167028862be2a173976ca11"`
 
-### 545.contracts.ensUniversalResolver?
+### 545.contracts.multicall3.blockCreated
 
-> `optional` **ensUniversalResolver**: `ChainContract`
-
-### 545.contracts.multicall3?
-
-> `optional` **multicall3**: `ChainContract`
+> `readonly` **blockCreated**: `137518`
 
 ### 545.custom?
 
@@ -20170,9 +19982,33 @@
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
-### 59144.fees?
+### 59144.fees
 
-> `optional` **fees**: `ChainFees`\<`undefined`\>
+> **fees**: `object`
+
+### 59144.fees.estimateFeesPerGas()
+
+> `readonly` **estimateFeesPerGas**: (`__namedParameters`) => `Promise`\<`null` \| `EstimateFeesPerGasReturnType`\>
+
+#### Parameters
+
+• **\_\_namedParameters**: `ChainEstimateFeesPerGasFnParameters`\<`undefined` \| `ChainFormatters`\>
+
+#### Returns
+
+`Promise`\<`null` \| `EstimateFeesPerGasReturnType`\>
+
+### 59144.fees.maxPriorityFeePerGas()
+
+> `readonly` **maxPriorityFeePerGas**: (`__namedParameters`) => `Promise`\<`null` \| `bigint`\>
+
+#### Parameters
+
+• **\_\_namedParameters**: `ChainFeesFnParameters`\<`undefined` \| `ChainFormatters`\>
+
+#### Returns
+
+`Promise`\<`null` \| `bigint`\>
 
 ### 59144.formatters?
 
@@ -20357,10 +20193,6 @@
 ### 595.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 595.contracts.ensRegistry?
 
@@ -21132,10 +20964,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 61.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -21428,10 +21256,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 666666666.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -21535,10 +21359,6 @@
 ### 686.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 686.contracts.ensRegistry?
 
@@ -21655,10 +21475,6 @@
 ### 690.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 690.contracts.ensRegistry?
 
@@ -22056,10 +21872,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 713715.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -22155,10 +21967,6 @@
 ### 721.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 721.contracts.ensRegistry?
 
@@ -22343,10 +22151,6 @@
 ### 747.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 747.contracts.ensRegistry?
 
@@ -23402,10 +23206,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 787.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -23622,10 +23422,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 810181.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -23822,10 +23618,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 82.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -24017,10 +23809,6 @@
 ### 841.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 841.contracts.ensRegistry?
 
@@ -25624,10 +25412,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 88882.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -25735,10 +25519,6 @@
 ### 88888.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 88888.contracts.ensRegistry?
 
@@ -26506,10 +26286,6 @@
 
 > `optional` **contracts**: `object`
 
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
 ### 9000.contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
@@ -26605,10 +26381,6 @@
 ### 9001.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 9001.contracts.ensRegistry?
 
@@ -27279,10 +27051,6 @@
 ### 96.contracts?
 
 > `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
 
 ### 96.contracts.ensRegistry?
 

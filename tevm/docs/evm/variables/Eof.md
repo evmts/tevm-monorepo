@@ -48,4 +48,4 @@
 
 ## Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
+node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18

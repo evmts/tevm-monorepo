@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/EthProcedure.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L135)
+[packages/procedures/src/eth/EthProcedure.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthProcedure.ts#L135)

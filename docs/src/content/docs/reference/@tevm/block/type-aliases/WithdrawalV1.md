@@ -27,4 +27,4 @@ title: "WithdrawalV1"
 
 ## Defined in
 
-[types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)
+[packages/block/src/types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)

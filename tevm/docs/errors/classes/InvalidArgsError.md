@@ -6,30 +6,32 @@
 
 # Class: InvalidArgsError
 
-Represents an error that occurs when arguments provided to a contract or script call are invalid.
+Represents an error that occurs when the arguments provided to a function or method are invalid.
 
-This error is typically encountered when the arguments provided do not match the expected types or structure required by the contract or script.
+This error is typically encountered when a function receives arguments that don't match the expected types or format.
 
 ## Example
 
-```ts
+```javascript
+import { InvalidArgsError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
+const client = createMemoryClient()
+
 try {
-  // Some operation that can throw an InvalidArgsError
+  await client.contract({
+    address: '0x...',
+    functionName: 'transfer',
+    args: ['not_an_address', 'not_a_number'], // Invalid args
+    abi: [...],
+  })
 } catch (error) {
   if (error instanceof InvalidArgsError) {
-    console.error(error.message);
-    // Handle the invalid arguments error
+    console.error('Invalid arguments:', error.message)
+    console.log('Documentation:', error.docsLink)
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the InvalidParamsError.
 
 ## Extends
 
@@ -39,9 +41,9 @@ Additional parameters for the InvalidParamsError.
 
 ### new InvalidArgsError()
 
-> **new InvalidArgsError**(`message`, `args`?, `tag`?): [`InvalidArgsError`](InvalidArgsError.md)
+> **new InvalidArgsError**(`message`, `args`?): [`InvalidArgsError`](InvalidArgsError.md)
 
-Constructs an InvalidParamsError.
+Constructs an InvalidArgsError.
 
 #### Parameters
 
@@ -49,25 +51,21 @@ Constructs an InvalidParamsError.
 
 Human-readable error message.
 
-• **args?**: [`InvalidParamsErrorParameters`](../type-aliases/InvalidParamsErrorParameters.md)
+• **args?**: [`InvalidArgsErrorParameters`](../type-aliases/InvalidArgsErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
-
-The tag for the error.
+Additional parameters for the InvalidArgsError.
 
 #### Returns
 
 [`InvalidArgsError`](InvalidArgsError.md)
 
-#### Inherited from
+#### Overrides
 
 [`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
 
 #### Defined in
 
-packages/errors/types/ethereum/InvalidParamsError.d.ts:45
+packages/errors/types/input/InvalidArgsError.d.ts:48
 
 ## Properties
 
@@ -75,15 +73,13 @@ packages/errors/types/ethereum/InvalidParamsError.d.ts:45
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -97,7 +93,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -105,15 +101,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -127,7 +121,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -135,15 +129,13 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -167,15 +159,13 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -205,7 +195,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -233,7 +223,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -242,6 +232,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -252,10 +246,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -305,7 +295,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -357,4 +347,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

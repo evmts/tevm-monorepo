@@ -56,4 +56,4 @@ Parameters for constructing a NonceTooLowError.
 
 ## Defined in
 
-packages/errors/types/ethereum/NonceTooLowError.d.ts:50
+packages/errors/types/ethereum/NonceTooLowError.d.ts:60
