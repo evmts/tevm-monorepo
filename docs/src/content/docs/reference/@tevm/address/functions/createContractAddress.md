@@ -11,12 +11,18 @@ title: "createContractAddress"
 
 • **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
+The address of the account creating the contract.
+
 • **nonce**: `bigint`
+
+The nonce of the account creating the contract.
 
 ## Returns
 
 [`Address`](/reference/tevm/address/classes/address/)
 
+The generated contract address.
+
 ## Defined in
 
-[packages/address/src/createContractAddress.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createContractAddress.js#L19)
+[packages/address/src/createContractAddress.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createContractAddress.js#L15)

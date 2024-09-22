@@ -20,12 +20,14 @@ A 32-byte salt value as a hex string
 
 • **code**: \`0x$\{string\}\`
 
-THe creation code of the contract
+The creation code of the contract
 
 ## Returns
 
 [`Address`](../classes/Address.md)
 
+The generated contract address
+
 ## Defined in
 
-[packages/address/src/create2ContractAddress.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L18)
+[packages/address/src/create2ContractAddress.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L19)

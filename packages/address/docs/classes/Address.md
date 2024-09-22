@@ -6,9 +6,9 @@
 
 # Class: Address
 
-Utility class for ethereum addresses.
+Utility class for Ethereum addresses.
 Wraps EthjsAddress with a tevm style API.
-toString returns a checksummed address rather than lowercase
+toString returns a checksummed address rather than lowercase.
 
 ## Example
 
@@ -20,7 +20,7 @@ let address = createAddress(`0x${'00'.repeat(20)}`);
 // takes number and bigint
 address = createAddress(0);
 // takes bytes
-address = createAddress(new Uint8Array());
+address = createAddress(new Uint8Array(20));
 // non hex string
 address = createAddress('55'.repeat(20));
 ```
@@ -162,7 +162,7 @@ Returns the checksummed address.
 
 \`0x$\{string\}\`
 
-The checksummed address.
+The checksummed Ethereum address as a string.
 
 #### Overrides
 
@@ -170,7 +170,7 @@ The checksummed address.
 
 #### Defined in
 
-[packages/address/src/Address.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/Address.js#L27)
+[packages/address/src/Address.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/Address.js#L28)
 
 ***
 

@@ -11,7 +11,6 @@
 ## Type Aliases
 
 - [Create2ContractAddressError](type-aliases/Create2ContractAddressError.md)
-- [CreateContractAddressError](type-aliases/CreateContractAddressError.md)
 
 ## Functions
 

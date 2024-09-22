@@ -12,7 +12,6 @@ title: "@tevm/address"
 ## Type Aliases
 
 - [Create2ContractAddressError](/reference/tevm/address/type-aliases/create2contractaddresserror/)
-- [CreateContractAddressError](/reference/tevm/address/type-aliases/createcontractaddresserror/)
 
 ## Functions
 

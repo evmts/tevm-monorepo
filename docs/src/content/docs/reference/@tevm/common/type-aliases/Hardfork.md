@@ -12,7 +12,7 @@ If you use older hardforks you might run into issues with EIPs not being support
 
 ## Example
 
-```typesxcript
+```typescript
 import { createCommon, mainnet } from 'tevm/common'`
 
 const hardfork: Hardfork = 'shanghai'

@@ -11,10 +11,14 @@ title: "createAddress"
 
 • **address**: `string` \| `number` \| `bigint` \| [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/) \| `Uint8Array`
 
+The input to create an address from.
+
 ## Returns
 
 [`Address`](/reference/tevm/address/classes/address/)
 
+An Address instance.
+
 ## Defined in
 
-[packages/address/src/createAddress.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L27)
+[packages/address/src/createAddress.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L26)
