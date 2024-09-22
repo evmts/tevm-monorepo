@@ -5,5 +5,5 @@
 	"files": [
 		"base.json"
 	],
-	"sideEffect": false
+	"sideEffects": false
 }

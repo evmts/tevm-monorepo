@@ -73,5 +73,5 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"sideEffect": false
+	"sideEffects": false
 }
