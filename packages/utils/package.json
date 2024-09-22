@@ -19,6 +19,7 @@
 	"contributors": [
 		"Will Cory <willcory10@gmail.com>"
 	],
+	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -76,6 +77,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"sideEffects": false
+	}
 }

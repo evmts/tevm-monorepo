@@ -2,6 +2,7 @@
 	"name": "@tevm/tsupconfig",
 	"version": "1.0.0-next.109",
 	"private": false,
+	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		".": {
@@ -41,6 +42,5 @@
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@types/node": "^22.5.1"
-	},
-	"sideEffects": false
+	}
 }

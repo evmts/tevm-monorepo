@@ -118,7 +118,7 @@ export const createContract = ({
 	const withAddress = (address) => {
 		const formattedAddress = getAddress(address)
 		return createContract(
-			/** @type {any}*/({
+			/** @type {any}*/ ({
 				...baseContract,
 				address: formattedAddress,
 			}),
@@ -130,7 +130,7 @@ export const createContract = ({
 	 */
 	const withCode = (encodedBytecode) => {
 		return createContract(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				...baseContract,
 				code: encodedBytecode,
 			}),

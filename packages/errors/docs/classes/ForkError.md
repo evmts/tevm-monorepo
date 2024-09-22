@@ -80,7 +80,7 @@ Additional parameters for the error.
 
 #### Defined in
 
-[packages/errors/src/fork/ForkError.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L72)
+[packages/errors/src/fork/ForkError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L73)
 
 ***
 
@@ -178,7 +178,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/fork/ForkError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L71)
+[packages/errors/src/fork/ForkError.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L72)
 
 ***
 

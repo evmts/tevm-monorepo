@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { encodeFunctionData, numberToHex } from 'viem'
+import { encodeDeployData, encodeFunctionData, numberToHex } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
@@ -31,7 +31,7 @@ beforeEach(async () => {
 describe('readContract', () => {
 	it('should work as script', async () => {
 		expect(SimpleContract.bytecode).not.toBe(SimpleContract.deployedBytecode)
-		const { code } = SimpleContract.script({ constructorArgs: [42n] })
+		const code = encodeDeployData(SimpleContract.deploy(42n))
 		expect(
 			await mc.call({
 				code,

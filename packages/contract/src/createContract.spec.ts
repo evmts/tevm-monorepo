@@ -40,14 +40,18 @@ describe(createContract.name, () => {
 	})
 
 	it('deploy should throw if bytecode is not provided', () => {
-		expect(() => createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-		}).deploy()).toThrowErrorMatchingInlineSnapshot(`[Error: Bytecode is required to generate deploy data]`)
+		expect(() =>
+			createContract({
+				humanReadableAbi: formatAbi(dummyAbi),
+				name: 'DummyContract',
+			}).deploy(),
+		).toThrowErrorMatchingInlineSnapshot('[Error: Bytecode is required to generate deploy data]')
 	})
 
 	it('should contain deploy', () => {
-		expect(createContract({humanReadableAbi: formatAbi(dummyAbi), name: 'DummyContract', bytecode: '0x420'}).deploy()).toMatchInlineSnapshot(`
+		expect(
+			createContract({ humanReadableAbi: formatAbi(dummyAbi), name: 'DummyContract', bytecode: '0x420' }).deploy(),
+		).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {
