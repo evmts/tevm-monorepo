@@ -8,17 +8,24 @@
 
 Represents an error that occurs when the specified block could not be found.
 
-This error is typically encountered when a block hash or number is provided that does not correspond to any block known to the node.
+This error is typically encountered when a block hash or number is provided that does not correspond
+to any block known to the node. This can happen if the block hasn't been mined yet, if it's on a
+different chain, or if the node is not fully synced.
+
+The error code -32001 is a non-standard extension used by some Ethereum clients to
+indicate this specific condition.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw an UnknownBlockError
+  const block = await client.getBlock({
+    blockHash: '0x1234567890123456789012345678901234567890123456789012345678901234'
+  })
 } catch (error) {
   if (error instanceof UnknownBlockError) {
-    console.error(error.message);
-    // Handle the unknown block error
+    console.error('Unknown block:', error.message);
+    console.log('The specified block does not exist or is not available to this node');
   }
 }
 ```
@@ -67,7 +74,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/UnknownBlockError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L49)
+[packages/errors/src/ethereum/UnknownBlockError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L55)
 
 ## Properties
 
@@ -83,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/UnknownBlockError.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L68)
 
 ***
 
@@ -97,7 +104,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -105,7 +112,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32001), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -113,7 +120,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -127,7 +134,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -143,7 +150,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -175,7 +182,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -191,7 +198,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/ethereum/UnknownBlockError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L67)
 
 ***
 
@@ -205,7 +212,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -233,7 +240,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -305,7 +312,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

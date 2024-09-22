@@ -18,24 +18,26 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  * This error is typically encountered when a transaction or operation references a storage root parameter that is invalid or does not conform to the expected structure.
  *
  * @example
+ * ```javascript
+ * import { InvalidStorageRootError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidStorageRootError
+ *   await client.setAccount({
+ *     address: '0x...',
+ *     storageRoot: 'invalid', // This should be a valid storage root
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidStorageRootError) {
- *     console.error(error.message);
- *     // Handle the invalid storage root error
+ *     console.error('Invalid storage root:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidStorageRootErrorParameters} [args={}] - Additional parameters for the InvalidStorageRootError.
- * @property {'InvalidStorageRootError'} _tag - Same as name, used internally.
- * @property {'InvalidStorageRootError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidStorageRootError extends InvalidParamsError {
 	/**
@@ -43,17 +45,19 @@ export class InvalidStorageRootError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidStorageRootErrorParameters} [args={}] - Additional parameters for the InvalidStorageRootError.
-	 * @param {string} [tag='InvalidStorageRootError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidStorageRootError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidstoragerooterror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidstoragerooterror/',
 			},
-			tag,
+			'InvalidStorageRootError',
 		)
+
+		this.name = 'InvalidStorageRootError'
+		this._tag = 'InvalidStorageRootError'
 	}
 }

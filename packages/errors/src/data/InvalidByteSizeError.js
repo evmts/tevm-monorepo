@@ -16,57 +16,65 @@ import { InternalError } from '../ethereum/InternalErrorError.js'
  * Represents an error that occurs when the size of the bytes does not match the expected size.
  *
  * @example
- * ```typescript
+ * ```javascript
  * import { InvalidBytesSizeError } from '@tevm/errors'
+ * import { hexToBytes } from '@tevm/utils'
+ *
+ * function requireBytes32(value) {
+ *   const bytes = hexToBytes(value)
+ *   if (bytes.length !== 32) {
+ *     throw new InvalidBytesSizeError(bytes.length, 32)
+ *   }
+ *   return bytes
+ * }
+ *
  * try {
- *   // Some operation that can throw an InvalidBytesSizeError
+ *   requireBytes32('0x1234') // This will throw an InvalidBytesSizeError
  * } catch (error) {
  *   if (error instanceof InvalidBytesSizeError) {
- *     console.error(error.message);
- *     // Handle the invalid bytes size error
+ *     console.error(`Invalid bytes size: ${error.message}`)
+ *     console.log(`Actual size: ${error.size}, Expected size: ${error.expectedSize}`)
  *   }
  * }
  * ```
  *
- * @param {number} size - The actual size of the bytes.
- * @param {number} expectedSize - The expected size of the bytes.
- * @param {string} [message='Invalid bytes size error occurred.'] - A human-readable error message.
- * @param {InvalidBytesSizeErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'InvalidBytesSizeError'} _tag - Same as name, used internally.
- * @property {'InvalidBytesSizeError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {number} size - The actual size of the bytes.
- * @property {number} expectedSize - The expected size of the bytes.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InternalError}
  */
-export class InvalidBytesSizeError extends /** we extend InternalError because the public api only accepts hex strings not bytes for most part*/ InternalError {
+export class InvalidBytesSizeError extends InternalError {
+	/**
+	 * The actual size of the bytes.
+	 * @type {number}
+	 */
+	size
+
+	/**
+	 * The expected size of the bytes.
+	 * @type {number}
+	 */
+	expectedSize
+
 	/**
 	 * Constructs an InvalidBytesSizeError.
 	 *
 	 * @param {number} size - The actual size of the bytes.
 	 * @param {number} expectedSize - The expected size of the bytes.
-	 * @param {string} [message='Invalid bytes size error occurred.'] - Human-readable error message.
-	 * @param {InvalidBytesSizeErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='InvalidBytesSizeError'] - The tag for the error.}
+	 * @param {string} [message] - Human-readable error message.
+	 * @param {InvalidBytesSizeErrorParameters} [args] - Additional parameters for the error.
 	 */
-	constructor(
-		size,
-		expectedSize,
-		message = `Invalid bytes size error occurred. Expected ${expectedSize} receipted ${size}`,
-		args = {},
-		tag = 'InvalidBytesSizeError',
-	) {
+	constructor(size, expectedSize, message, args = {}) {
 		super(
-			message,
+			message || `Invalid bytes size. Expected ${expectedSize}, received ${size}`,
 			{
 				...args,
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytessizeerror/',
 			},
-			tag,
+			'InvalidBytesSizeError',
 		)
+
+		this.size = size
+		this.expectedSize = expectedSize
+		this.name = 'InvalidBytesSizeError'
+		this._tag = 'InvalidBytesSizeError'
 	}
 }

@@ -31,8 +31,9 @@ const getVersion = () => '1.1.0.next-73'
 /**
  * Base class for custom errors in TEVM.
  * This class is abstract and should be extended by other error classes.
- * @implements {BaseErrorType}
  * @abstract
+ * @extends {Error}
+ * @implements {BaseErrorType}
  */
 export class BaseError extends Error {
 	/**

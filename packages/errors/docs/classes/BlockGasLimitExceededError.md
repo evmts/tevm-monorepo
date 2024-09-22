@@ -8,17 +8,24 @@
 
 Represents an error that occurs when the block gas limit has been exceeded.
 
-This error is typically encountered when a transaction or set of transactions exceed the gas limit for a block.
+This error is typically encountered when a transaction or set of transactions in a block
+consume more gas than the block's gas limit allows. Each block in Ethereum has a maximum
+amount of gas that can be used by all transactions within it.
+
+The error code -32006 is a non-standard extension used by some Ethereum clients to
+indicate this specific condition.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a BlockGasLimitExceededError
+  const result = await client.sendTransaction({
+    // ... transaction details
+  })
 } catch (error) {
   if (error instanceof BlockGasLimitExceededError) {
-    console.error(error.message);
-    // Handle the block gas limit exceeded error
+    console.error('Block gas limit exceeded:', error.message);
+    console.log('Consider splitting the transaction or waiting for a block with more available gas');
   }
 }
 ```
@@ -67,7 +74,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L49)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L55)
 
 ## Properties
 
@@ -83,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L71)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L77)
 
 ***
 
@@ -97,7 +104,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -105,7 +112,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32006), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -113,7 +120,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -127,7 +134,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -143,7 +150,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -171,7 +178,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L64)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L70)
 
 ***
 
@@ -187,7 +194,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -203,7 +210,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L77)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L83)
 
 ***
 
@@ -217,7 +224,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -245,7 +252,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -317,7 +324,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**
@@ -16,25 +15,32 @@ import { BaseError } from './BaseError.js'
 /**
  * Represents an internal JSON-RPC error.
  *
- * This error is typically encountered when there is an internal error on the server.
+ * This error is typically encountered when there is an unexpected internal error on the server.
+ * It's a catch-all for errors that don't fall into more specific categories and usually indicates
+ * a problem with the Ethereum node or the JSON-RPC server itself, rather than with the request.
+ *
+ * The error code -32603 is a standard JSON-RPC error code for internal errors.
  *
  * @example
  * try {
- *   // Some operation that can throw an InternalError
+ *   await client.call({
+ *     to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+ *     data: '0x...' // some method call
+ *   })
  * } catch (error) {
  *   if (error instanceof InternalError) {
- *     console.error(error.message);
- *     // Handle the internal error
+ *     console.error('Internal error:', error.message);
+ *     console.log('This is likely a problem with the Ethereum node. Try again later or contact the node operator.');
  *   }
  * }
  *
  * @param {string} message - A human-readable error message.
  * @param {InternalErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {string} _tag - Same as name, used internally.
- * @property {string} name - The name of the error, used to discriminate errors.
+ * @property {'InternalError'} _tag - Same as name, used internally.
+ * @property {'InternalError'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32603), standard JSON-RPC error code for internal errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -58,9 +64,8 @@ export class InternalError extends BaseError {
 			-32603,
 		)
 
-		/**
-		 * @type {object|undefined}
-		 */
+		this.name = 'InternalError'
+		this._tag = 'InternalError'
 		this.meta = args.meta
 	}
 }

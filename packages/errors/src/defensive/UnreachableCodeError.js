@@ -13,65 +13,70 @@ import { InternalError } from '../ethereum/InternalErrorError.js'
  */
 
 /**
-* Represents an error that occurs when unreachable code is executed. This error always indicates a bug in the Tevm VM.
-*
-* Unreachable code errors can occur due to:
-* - Defensive programming checks to ensure all cases in a switch or if statement are covered.
-
-* To handle this error take the following steps:
-* - ensure you did not modify the tevm VM in any unsupported way.
-* - Open an issue with a minimal reproducable example
-*
-* @example
-* ```typescript
-* import { UnreachableCodeError } from '@tevm/errors'
-*
-* const x: 'a' | 'b'  = 'a'
-*
-* if (x === 'a') {
-*   console.log('A')
-* } else if (x === 'b') {
-*   console.log('B')
-* } else {
-*   throw new UnreachableCodeError(x, 'Unreachable code executed.')
-* }
-* ```
-*
-* @param {never} value - The value that should be of type never.
-* @param {string} [message='Unreachable code executed.'] - A human-readable error message.
-* @param {UnreachableCodeErrorParameters} [args={}] - Additional parameters for the BaseError.
-* @property {'UnreachableCodeError'} _tag - Same as name, used internally.
-* @property {'UnreachableCodeError'} name - The name of the error, used to discriminate errors.
-* @property {string} message - Human-readable error message.
-* @property {object} [meta] - Optional object containing additional information about the error.
-* @property {number} code - Error code, analogous to the code in JSON RPC error.
-* @property {string} docsPath - Path to the documentation for this error.
-* @property {string[]} [metaMessages] - Additional meta messages for more context.
-*/
+ * Represents an error that occurs when unreachable code is executed.
+ * This error always indicates a bug in the Tevm VM.
+ *
+ * @example
+ * ```javascript
+ * import { UnreachableCodeError } from '@tevm/errors'
+ *
+ * function assertUnreachable(x) {
+ *   throw new UnreachableCodeError(x, 'Unreachable code executed')
+ * }
+ *
+ * function getArea(shape) {
+ *   switch (shape) {
+ *     case 'circle':
+ *       return Math.PI * Math.pow(radius, 2)
+ *     case 'square':
+ *       return side * side
+ *     default:
+ *       return assertUnreachable(shape)
+ *   }
+ * }
+ *
+ * try {
+ *   getArea('triangle') // This should be unreachable
+ * } catch (error) {
+ *   if (error instanceof UnreachableCodeError) {
+ *     console.error('Unreachable code executed:', error.message)
+ *     console.log('Unreachable value:', error.value)
+ *     // This indicates a bug in the Tevm VM
+ *     reportBugToTevmRepository(error)
+ *   }
+ * }
+ * ```
+ *
+ * @extends {InternalError}
+ */
 export class UnreachableCodeError extends InternalError {
+	/**
+	 * The value that should be unreachable.
+	 * @type {*}
+	 */
+	value
+
 	/**
 	 * Constructs an UnreachableCodeError.
 	 *
-	 * @param {never} value - The value that should be of type never.
-	 * @param {string} [message='Unreachable code executed.'] - Human-readable error message.
-	 * @param {UnreachableCodeErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='UnreachableCodeError'] - The tag for the error.
+	 * @param {*} value - The value that should be unreachable.
+	 * @param {string} [message] - Human-readable error message.
+	 * @param {UnreachableCodeErrorParameters} [args] - Additional parameters for the error.
 	 */
-	constructor(
-		value,
-		message = `UnrechableCodeError: An internal bug caused a type to not match possible types: ${value}`,
-		args = {},
-		tag = 'UnreachableCodeError',
-	) {
+	constructor(value, message, args = {}) {
 		super(
-			message,
+			message || `Unreachable code executed with value: ${JSON.stringify(value)}`,
 			{
 				...args,
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/unreachablecodeerror/',
 				details: `Unreachable value: ${JSON.stringify(value)}`,
 			},
-			tag,
+			'UnreachableCodeError',
 		)
+
+		this.value = value
+		this.name = 'UnreachableCodeError'
+		this._tag = 'UnreachableCodeError'
 	}
 }

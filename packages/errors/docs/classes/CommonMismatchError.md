@@ -10,28 +10,28 @@ Represents an error that occurs when the Common for a given block does not match
 
 Common mismatch errors can occur due to:
 - Discrepancies between the Common configurations for a block and the VM.
+- Attempting to use features from a different hardfork than what's configured.
 
 ## Example
 
 ```typescript
 import { CommonMismatchError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+import { Hardfork } from '@tevm/common'
+
+const client = createMemoryClient({ hardfork: Hardfork.Shanghai })
+
 try {
-  // Some operation that can throw a CommonMismatchError
+  await client.setChain({ hardfork: Hardfork.London })
+  // This might throw a CommonMismatchError if the operation is incompatible
 } catch (error) {
   if (error instanceof CommonMismatchError) {
-    console.error(error.message);
-    // Handle the common mismatch error
+    console.error('Common mismatch:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Handle the common mismatch error, possibly by updating the client configuration
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -41,7 +41,7 @@ Additional parameters for the BaseError.
 
 ### new CommonMismatchError()
 
-> **new CommonMismatchError**(`message`?, `args`?, `tag`?): [`CommonMismatchError`](CommonMismatchError.md)
+> **new CommonMismatchError**(`message`?, `args`?): [`CommonMismatchError`](CommonMismatchError.md)
 
 Constructs a CommonMismatchError.
 
@@ -53,11 +53,7 @@ Human-readable error message.
 
 • **args?**: [`CommonMismatchErrorParameters`](../interfaces/CommonMismatchErrorParameters.md) = `{}`
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string` = `'CommonMismatchError'`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -69,7 +65,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/common/CommonMismatchError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/CommonMismatchError.js#L52)
+[packages/errors/src/common/CommonMismatchError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/CommonMismatchError.js#L51)
 
 ## Properties
 
@@ -77,15 +73,13 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`_tag`](ExecutionError.md#_tag)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
 
 ***
 
@@ -99,7 +93,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -107,15 +101,13 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -129,7 +121,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -137,15 +129,13 @@ Error code, analogous to the code in JSON RPC error.
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`docsPath`](ExecutionError.md#docspath)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -169,15 +159,13 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`metaMessages`](ExecutionError.md#metamessages)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -207,7 +195,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -235,7 +223,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -307,7 +295,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

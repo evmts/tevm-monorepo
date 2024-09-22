@@ -13,29 +13,30 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  */
 
 /**
- * Represents an error that occurs when the 'url' parameter is invalid.
+ * Represents an error that occurs when a URL is invalid.
  *
- * This error is typically encountered when a transaction or operation references a 'url' parameter that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when an operation requires a valid URL, but receives an invalid one.
  *
  * @example
+ * ```javascript
+ * import { InvalidUrlError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
  * try {
- *   // Some operation that can throw an InvalidUrlError
+ *   const client = createMemoryClient({
+ *     fork: {
+ *       url: 'not_a_valid_url'
+ *     }
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidUrlError) {
- *     console.error(error.message);
- *     // Handle the invalid 'url' error
+ *     console.error('Invalid URL:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidUrlErrorParameters} [args={}] - Additional parameters for the InvalidUrlError.
- * @property {'InvalidUrlError'} _tag - Same as name, used internally.
- * @property {'InvalidUrlError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidUrlError extends InvalidParamsError {
 	/**
@@ -43,17 +44,19 @@ export class InvalidUrlError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidUrlErrorParameters} [args={}] - Additional parameters for the InvalidUrlError.
-	 * @param {string} [tag='InvalidUrlError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}, tag = 'InvalidUrlError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidurlerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidurlerror/',
 			},
-			tag,
+			'InvalidUrlError',
 		)
+
+		this.name = 'InvalidUrlError'
+		this._tag = 'InvalidUrlError'
 	}
 }

@@ -1,3 +1,8 @@
+/**
+ * @module requestErrors
+ * @description This module exports various RPC-related errors from the 'viem' library.
+ */
+
 export {
 	InternalRpcError,
 	InvalidInputRpcError,
@@ -17,6 +22,9 @@ export {
 	TimeoutError,
 } from 'viem'
 
+/**
+ * Represents the possible error codes for RPC errors.
+ */
 export type RpcErrorCode =
 	| -1
 	| -32700 // Parse error

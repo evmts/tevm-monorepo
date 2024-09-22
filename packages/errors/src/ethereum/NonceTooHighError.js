@@ -14,17 +14,27 @@ import { BaseError } from './BaseError.js'
  */
 
 /**
- * Represents an error that occurs when the nonce value is too high.
+ * Represents an error that occurs when the nonce value is too high for a transaction.
  *
- * This error is typically encountered when a transaction is attempted with a nonce that is higher than the next expected nonce.
+ * This error is typically encountered when a transaction is submitted with a nonce that is higher
+ * than the expected next nonce for the sender's account. In Ethereum, nonces must be used in strict
+ * sequential order to ensure transactions are processed correctly.
+ *
+ * The error code -32000 is a standard Ethereum JSON-RPC error code indicating a generic server error,
+ * which is often used for various transaction-related errors including nonce issues.
  *
  * @example
  * try {
- *   // Some operation that can throw a NonceTooHighError
+ *   await client.sendTransaction({
+ *     from: '0x1234567890123456789012345678901234567890',
+ *     to: '0x0987654321098765432109876543210987654321',
+ *     value: '0x1',
+ *     nonce: 100 // Assuming this nonce is too high
+ *   })
  * } catch (error) {
  *   if (error instanceof NonceTooHighError) {
- *     console.error(error.message);
- *     // Handle the nonce too high error
+ *     console.error('Nonce too high:', error.message);
+ *     console.log('Try decreasing the nonce or use `await client.getTransactionCount(address)` to get the correct nonce');
  *   }
  * }
  *
@@ -34,7 +44,7 @@ import { BaseError } from './BaseError.js'
  * @property {'NonceTooHigh'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -52,10 +62,13 @@ export class NonceTooHighError extends BaseError {
 			{
 				...args,
 				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/nonceoohigherror/',
+				docsPath: '/reference/tevm/errors/classes/noncetoohigherror/',
 			},
 			tag,
 			-32000,
 		)
+
+		this.name = 'NonceTooHigh'
+		this._tag = 'NonceTooHigh'
 	}
 }

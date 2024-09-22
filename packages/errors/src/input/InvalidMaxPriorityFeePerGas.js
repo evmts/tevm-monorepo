@@ -15,27 +15,30 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the max priority fee per gas is invalid.
  *
- * This error is typically encountered when a transaction or operation references a max priority fee per gas that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when a transaction specifies an invalid max priority fee per gas value.
  *
  * @example
+ * ```javascript
+ * import { InvalidMaxPriorityFeePerGasError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidMaxPriorityFeePerGasError
+ *   await client.sendTransaction({
+ *     from: '0x1234567890123456789012345678901234567890',
+ *     to: '0x0987654321098765432109876543210987654321',
+ *     maxPriorityFeePerGas: -1n, // Invalid negative max priority fee per gas
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidMaxPriorityFeePerGasError) {
- *     console.error(error.message);
- *     // Handle the invalid max priority fee per gas error
+ *     console.error('Invalid max priority fee per gas:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidMaxPriorityFeePerGasErrorParameters} [args={}] - Additional parameters for the InvalidMaxPriorityFeePerGasError.
- * @property {'InvalidMaxPriorityFeePerGasError'} _tag - Same as name, used internally.
- * @property {'InvalidMaxPriorityFeePerGasError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidMaxPriorityFeePerGasError extends InvalidParamsError {
 	/**
@@ -43,17 +46,19 @@ export class InvalidMaxPriorityFeePerGasError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidMaxPriorityFeePerGasErrorParameters} [args={}] - Additional parameters for the InvalidMaxPriorityFeePerGasError.
-	 * @param {string} [tag='InvalidMaxPriorityFeePerGasError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}, tag = 'InvalidMaxPriorityFeePerGasError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/',
 			},
-			tag,
+			'InvalidMaxPriorityFeePerGasError',
 		)
+
+		this.name = 'InvalidMaxPriorityFeePerGasError'
+		this._tag = 'InvalidMaxPriorityFeePerGasError'
 	}
 }

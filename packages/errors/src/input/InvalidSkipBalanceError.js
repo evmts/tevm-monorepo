@@ -15,27 +15,29 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the skipBalance parameter is invalid.
  *
- * This error is typically encountered when a transaction or operation references a skipBalance parameter that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when a transaction or operation uses an invalid skipBalance value.
  *
  * @example
+ * ```javascript
+ * import { InvalidSkipBalanceError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidSkipBalanceError
+ *   await client.setAccount({
+ *     address: '0x...',
+ *     skipBalance: 'invalid', // This should be a boolean
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidSkipBalanceError) {
- *     console.error(error.message);
- *     // Handle the invalid skip balance error
+ *     console.error('Invalid skipBalance:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidSkipBalanceErrorParameters} [args={}] - Additional parameters for the InvalidSkipBalanceError.
- * @property {'InvalidSkipBalanceError'} _tag - Same as name, used internally.
- * @property {'InvalidSkipBalanceError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidSkipBalanceError extends InvalidParamsError {
 	/**
@@ -43,17 +45,19 @@ export class InvalidSkipBalanceError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidSkipBalanceErrorParameters} [args={}] - Additional parameters for the InvalidSkipBalanceError.
-	 * @param {string} [tag='InvalidSkipBalanceError'] - The tag for the error.}
 	 */
-	constructor(message, args = {}, tag = 'InvalidSkipBalanceError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidskipbalanceerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidskipbalanceerror/',
 			},
-			tag,
+			'InvalidSkipBalanceError',
 		)
+
+		this.name = 'InvalidSkipBalanceError'
+		this._tag = 'InvalidSkipBalanceError'
 	}
 }

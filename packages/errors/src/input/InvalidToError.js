@@ -13,29 +13,32 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  */
 
 /**
- * Represents an error that occurs when the 'to' parameter is invalid.
+ * Represents an error that occurs when the 'to' address in a transaction or operation is invalid.
  *
- * This error is typically encountered when a transaction or operation references a 'to' parameter that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when a transaction or contract interaction specifies an invalid recipient address.
  *
  * @example
+ * ```javascript
+ * import { InvalidToError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidToError
+ *   await client.sendTransaction({
+ *     from: '0x1234567890123456789012345678901234567890',
+ *     to: 'invalid_address', // Invalid 'to' address
+ *     value: 1000n,
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidToError) {
- *     console.error(error.message);
- *     // Handle the invalid 'to' error
+ *     console.error('Invalid to address:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidToErrorParameters} [args={}] - Additional parameters for the InvalidToError.
- * @property {'InvalidToError'} _tag - Same as name, used internally.
- * @property {'InvalidToError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidToError extends InvalidParamsError {
 	/**
@@ -43,17 +46,19 @@ export class InvalidToError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidToErrorParameters} [args={}] - Additional parameters for the InvalidToError.
-	 * @param {string} [tag='InvalidToError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidToError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidtoerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidtoerror/',
 			},
-			tag,
+			'InvalidToError',
 		)
+
+		this.name = 'InvalidToError'
+		this._tag = 'InvalidToError'
 	}
 }

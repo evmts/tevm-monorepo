@@ -15,27 +15,29 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the selfdestruct parameter is invalid.
  *
- * This error is typically encountered when a transaction or operation references a selfdestruct parameter that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when setting an account's selfdestruct status with an invalid value.
  *
  * @example
+ * ```javascript
+ * import { InvalidSelfdestructError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidSelfdestructError
+ *   await client.setAccount({
+ *     address: '0x1234567890123456789012345678901234567890',
+ *     selfdestruct: 'not_a_boolean', // Should be a boolean
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidSelfdestructError) {
- *     console.error(error.message);
- *     // Handle the invalid selfdestruct error
+ *     console.error('Invalid selfdestruct value:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidSelfdestructErrorParameters} [args={}] - Additional parameters for the InvalidSelfdestructError.
- * @property {'InvalidSelfdestructError'} _tag - Same as name, used internally.
- * @property {'InvalidSelfdestructError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidSelfdestructError extends InvalidParamsError {
 	/**
@@ -43,17 +45,19 @@ export class InvalidSelfdestructError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidSelfdestructErrorParameters} [args={}] - Additional parameters for the InvalidSelfdestructError.
-	 * @param {string} [tag='InvalidSelfdestructError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidSelfdestructError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidselfdestructerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidselfdestructerror/',
 			},
-			tag,
+			'InvalidSelfdestructError',
 		)
+
+		this.name = 'InvalidSelfdestructError'
+		this._tag = 'InvalidSelfdestructError'
 	}
 }

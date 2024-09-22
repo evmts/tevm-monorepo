@@ -1,47 +1,65 @@
 import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 
 /**
- * Represents an error that occurs when encoding function data fails.
+ * Parameters for constructing an EncodeFunctionReturnDataError.
+ * @typedef {Object} EncodeFunctionReturnDataErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {import('../ethereum/BaseError.js').BaseError|Error} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ */
+
+/**
+ * Represents an error that occurs when encoding function return data fails.
  * Not expected to be thrown because the initial validation
  * should have caught any errors and thrown more specific errors.
  *
  * @example
+ * ```javascript
+ * import { EncodeFunctionReturnDataError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an EncodeFunctionReturnDataError
+ *   const result = await client.contract({
+ *     address: '0x1234567890123456789012345678901234567890',
+ *     abi: [...],
+ *     functionName: 'someFunction',
+ *   })
+ *   // Assume some internal error occurs during encoding of the return data
  * } catch (error) {
  *   if (error instanceof EncodeFunctionReturnDataError) {
- *     console.error(error.message);
- *     // Handle the encode function return data error
+ *     console.error('Encode function return data error:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {object} [meta] - Optional object containing additional information about the error.
- * @property {'EncodeFunctionReturnDataError'} _tag - Same as name, used internally.
- * @property {'EncodeFunctionReturnDataError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class EncodeFunctionReturnDataError extends InvalidParamsError {
 	/**
 	 * Constructs an EncodeFunctionReturnDataError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {object} [meta] - Optional object containing additional information about the error.
-	 * @param {string} [tag='EncodeFunctionReturnDataError'] - The tag for the error.
+	 * @param {EncodeFunctionReturnDataErrorParameters} [args={}] - Additional parameters for the EncodeFunctionReturnDataError.
 	 */
-	constructor(message, meta, tag = 'EncodeFunctionReturnDataError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/encodefunctionreturndataerror/',
-				...meta,
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/encodefunctionreturndataerror/',
 			},
-			tag,
+			'EncodeFunctionReturnDataError',
 		)
+
+		this.name = 'EncodeFunctionReturnDataError'
+		this._tag = 'EncodeFunctionReturnDataError'
 	}
 }

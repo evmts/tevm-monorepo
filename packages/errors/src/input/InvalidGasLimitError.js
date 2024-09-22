@@ -15,27 +15,30 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the gas limit is invalid.
  *
- * This error is typically encountered when a transaction or operation references a gas limit that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when a transaction or operation specifies an invalid gas limit.
  *
  * @example
+ * ```javascript
+ * import { InvalidGasLimitError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidGasLimitError
+ *   await client.sendTransaction({
+ *     from: '0x1234567890123456789012345678901234567890',
+ *     to: '0x0987654321098765432109876543210987654321',
+ *     gasLimit: -1n, // Invalid negative gas limit
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidGasLimitError) {
- *     console.error(error.message);
- *     // Handle the invalid gas limit error
+ *     console.error('Invalid gas limit:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidGasLimitErrorParameters} [args={}] - Additional parameters for the InvalidGasLimitError.
- * @property {'InvalidGasLimitError'} _tag - Same as name, used internally.
- * @property {'InvalidGasLimitError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidGasLimitError extends InvalidParamsError {
 	/**
@@ -43,17 +46,19 @@ export class InvalidGasLimitError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidGasLimitErrorParameters} [args={}] - Additional parameters for the InvalidGasLimitError.
-	 * @param {string} [tag='InvalidGasLimitError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidGasLimitError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidgaslimiterror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidgaslimiterror/',
 			},
-			tag,
+			'InvalidGasLimitError',
 		)
+
+		this.name = 'InvalidGasLimitError'
+		this._tag = 'InvalidGasLimitError'
 	}
 }

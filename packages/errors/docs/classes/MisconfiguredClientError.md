@@ -8,30 +8,34 @@
 
 Represents an error that occurs when the Client is misconfigured.
 
-Misconfigured memory client errors can occur due to:
-- Incorrect configuration parameters provided when creating a Client.
+This error can be thrown when:
+- Incorrect configuration parameters are provided when creating a Client.
+- The Client is used in a way that's incompatible with its configuration.
 
 ## Example
 
 ```typescript
+import { createMemoryClient } from '@tevm/memory-client'
 import { MisconfiguredClientError } from '@tevm/errors'
+
+const memoryClient = createMemoryClient({
+  // Assume we've misconfigured something here
+})
+
 try {
-  // Some operation that can throw a MisconfiguredClientError
+  await memoryClient.tevmCall({
+    to: '0x...',
+    data: '0x...',
+  })
 } catch (error) {
   if (error instanceof MisconfiguredClientError) {
-    console.error(error.message);
-    // Handle the misconfigured memory client error
+    console.error('Client misconfiguration:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Attempt to recreate the client with correct configuration
+    // or notify the user to check their client setup
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -41,23 +45,19 @@ Additional parameters for the BaseError.
 
 ### new MisconfiguredClientError()
 
-> **new MisconfiguredClientError**(`message`?, `args`?, `tag`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
+> **new MisconfiguredClientError**(`message`?, `args`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
 
 Constructs a MisconfiguredClientError.
 
 #### Parameters
 
-• **message?**: `string` = `'Misconfigured memory client error occurred.'`
+• **message?**: `string` = `'Misconfigured client error occurred.'`
 
 Human-readable error message.
 
 • **args?**: [`MisconfiguredClientErrorParameters`](../interfaces/MisconfiguredClientErrorParameters.md) = `{}`
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string` = `'MisconfiguredClientError'`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -69,7 +69,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/client/MisconfiguredClient.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L52)
+[packages/errors/src/client/MisconfiguredClient.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L55)
 
 ## Properties
 
@@ -85,7 +85,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/InternalErrorError.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L68)
 
 ***
 
@@ -99,7 +99,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -107,15 +107,13 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -129,7 +127,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -137,15 +135,13 @@ Error code, analogous to the code in JSON RPC error.
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -177,7 +173,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InternalErrorError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L64)
+[packages/errors/src/ethereum/InternalErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L69)
 
 ***
 
@@ -185,15 +181,13 @@ Optional object containing additional information about the error.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -209,7 +203,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/ethereum/InternalErrorError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L67)
 
 ***
 
@@ -223,7 +217,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -251,7 +245,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -323,7 +317,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

@@ -15,27 +15,30 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the function name is invalid.
  *
- * This error is typically encountered when a transaction or operation references a function name that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when trying to call a contract function with an invalid or non-existent function name.
  *
  * @example
+ * ```javascript
+ * import { InvalidFunctionNameError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidFunctionNameError
+ *   await client.contract({
+ *     address: '0x1234567890123456789012345678901234567890',
+ *     abi: [...],
+ *     functionName: 'nonExistentFunction',
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidFunctionNameError) {
- *     console.error(error.message);
- *     // Handle the invalid function name error
+ *     console.error('Invalid function name:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidFunctionNameErrorParameters} [args={}] - Additional parameters for the InvalidFunctionNameError.
- * @property {'InvalidFunctionNameError'} _tag - Same as name, used internally.
- * @property {'InvalidFunctionNameError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidFunctionNameError extends InvalidParamsError {
 	/**
@@ -43,17 +46,19 @@ export class InvalidFunctionNameError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidFunctionNameErrorParameters} [args={}] - Additional parameters for the InvalidFunctionNameError.
-	 * @param {string} [tag='InvalidFunctionNameError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidFunctionNameError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidfunctionnameerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidfunctionnameerror/',
 			},
-			tag,
+			'InvalidFunctionNameError',
 		)
+
+		this.name = 'InvalidFunctionNameError'
+		this._tag = 'InvalidFunctionNameError'
 	}
 }

@@ -13,29 +13,32 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  */
 
 /**
- * Represents an error that occurs when the data parameter is invalid.
+ * Represents an error that occurs when the data provided is invalid.
  *
- * This error is typically encountered when a transaction or operation references a data parameter that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when an operation receives invalid or malformed data.
  *
  * @example
+ * ```javascript
+ * import { InvalidDataError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidDataError
+ *   await client.sendTransaction({
+ *     from: '0x1234567890123456789012345678901234567890',
+ *     to: '0x0987654321098765432109876543210987654321',
+ *     data: 'not_valid_hex_data', // Should be a valid hex string
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidDataError) {
- *     console.error(error.message);
- *     // Handle the invalid data error
+ *     console.error('Invalid data:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidDataErrorParameters} [args={}] - Additional parameters for the InvalidDataError.
- * @property {'InvalidDataError'} _tag - Same as name, used internally.
- * @property {'InvalidDataError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidDataError extends InvalidParamsError {
 	/**
@@ -43,17 +46,19 @@ export class InvalidDataError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidDataErrorParameters} [args={}] - Additional parameters for the InvalidDataError.
-	 * @param {string} [tag='InvalidDataError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidDataError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invaliddataerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invaliddataerror/',
 			},
-			tag,
+			'InvalidDataError',
 		)
+
+		this.name = 'InvalidDataError'
+		this._tag = 'InvalidDataError'
 	}
 }

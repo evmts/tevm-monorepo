@@ -13,47 +13,52 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  */
 
 /**
- * Represents an error that occurs when the ABI shape is invalid.
+ * Represents an error that occurs when the ABI is invalid.
  *
- * This error is typically encountered when the ABI provided for a contract is malformed or does not conform to the expected structure.
+ * This error is typically encountered when a contract interaction or ABI-related operation receives an invalid or malformed ABI.
  *
  * @example
+ * ```javascript
+ * import { InvalidAbiError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidAbiError
+ *   await client.contract({
+ *     abi: 'invalid_abi', // This should be a valid ABI array
+ *     address: '0x...',
+ *     functionName: 'someFunction',
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidAbiError) {
- *     console.error(error.message);
- *     // Handle the invalid ABI error
+ *     console.error('Invalid ABI:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidAbiErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
- * @property {'InvalidAbiError'} _tag - Same as name, used internally.
- * @property {'InvalidAbiError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidAbiError extends InvalidParamsError {
 	/**
 	 * Constructs an InvalidAbiError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {InvalidAbiErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
-	 * @param {string} [tag='InvalidAbiError'] - The tag for the error.
+	 * @param {InvalidAbiErrorParameters} [args={}] - Additional parameters for the InvalidAbiError.
 	 */
-	constructor(message, args = {}, tag = 'InvalidAbiError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidabierror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidabierror/',
 			},
-			tag,
+			'InvalidAbiError',
 		)
+
+		this.name = 'InvalidAbiError'
+		this._tag = 'InvalidAbiError'
 	}
 }
