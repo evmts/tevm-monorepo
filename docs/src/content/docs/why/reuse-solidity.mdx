@@ -1,0 +1,78 @@
+---
+title: Optimistic UI
+description: Implementing robust optimistic ui
+---
+# Reusing solidity logic
+
+## Problem
+
+I have solidity logic I need to replicate on the frontend
+
+## Solution
+
+Use Tevm to execute solidity.
+
+## Explanation
+
+It's extremely common to need to replicate contract logic on the frontend. Perhaps you need to hash some data the same way a contract does. This can both be hard to maintain and bug-prone.
+
+With Tevm you can execute any Solidity bytecode in the EVM. This is another example of `bring your own view function`, a common way of using Tevm where you write your own shadow view functions to execute on the EVM.
+
+## Example
+
+Let's say we have a library function
+
+```typescript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+library HashMessage {
+    function hashMessage(string memory message) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(message));
+    }
+}
+```
+
+We could replicate this in JavaScript
+
+```typescript
+import { keccak256, toBytes, stringToBytes } from 'viem'
+
+function hashMessage(message: string): `0x${string}` {
+  return keccak256(stringToBytes(message))
+}
+
+```
+
+But for more complicated solidity logic this can be hard to maintain and needs to be kept in sync with the solidity logic. What we could do instead is directly run the solidity.
+
+**Warning this example is using an unreleased Tevm feature, inline solidity, that will be released soon. See [this thread for how to do this today](https://x.com/FUCORY/status/1801546199092367532).**
+
+```typescript
+import {sol, createMemoryClient} from 'tevm'
+
+const client = createMemoryClient()
+
+const {abi, bytecode} = sol`
+import "../contracts/libraries/HashMessage.sol";
+
+contract HashMessageWrapper {
+    function hashMessage(string memory message) public pure returns (bytes32) {
+        return HashMessage.hashMessage(message);
+    }
+}
+`
+
+const hashedMessage = await client.readContract({
+  abi,
+  code: bytecode,
+  functionName: 'hashMessage',
+  args: ['message to hash'],
+})
+```
+
+## Comparison to alternatives
+
+- **Deploying the contract** that exposes a view method would work here. This is worse in two ways. 1. Extra latency from needing to do a network request rather than executing the hashing locally and 2. A new contract dependency added to your project.
+- **Rewriting in JavaScript** is harder to maintain and bug prone. It can be worth it if you want to optimize peformance as much as possible for a commonly called function. Even if you do write in JS, you may want to consider using Tevm in your unit tests to assert your JS is in sync with the solidity.
+- **We could use viem with the new code property** and it would work. However it would suffer from network request latency compared to executing the evm locally.

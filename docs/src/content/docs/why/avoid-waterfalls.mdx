@@ -1,0 +1,93 @@
+---
+title: Slow waterfall calls
+description: Avoiding slow UI using Tevm bring your own view function
+---
+# Slow to load UI from waterfall calls
+
+## Problem
+
+My UI makes two round trips to an RPC provider before showing user the data.
+
+## Solution
+
+Do it in a single request using the Tevm Bundler.
+
+This solution uses:
+
+- [`Viem`](https://viem.sh) to execute a JSON-RPC request to an ethereum Node
+- `Tevm Bundler` to `bring your own view function`
+
+## Example
+
+This use case is first because
+
+- It demonstrates that Tevm brings extra powers to your existing toolchain such as Viem it does not replace it.
+- Demonstrates a bad UX problem the blockchain industry takes for granted. We will see many more
+
+A waterfall call is when one [eth_call](https://viem.sh/docs/actions/public/call.html) blocks another `eth_call` from being able to execute causing slow to load UI. Here is a simple example:
+
+```typescript
+// First, we need to get the owner of the token
+const owner = await client.readContract({
+  address: '0x123...', // NFT contract address
+  abi: nftABI,
+  functionName: 'ownerOf',
+  args: [tokenId],
+})
+// Then, after waiting, we can get the balance of the owner
+const balance = await client.readContract({
+  address: '0x456...', // ERC20 token contract address
+  abi: erc20ABI,
+  functionName: 'balanceOf',
+  args: [owner],
+})
+// now we can finally display the UI
+```
+
+In the above example we need to wait 2 round trips before updating the UI.
+
+The existing solution for this issue is multicall but it does not help us here. The second query depends on the first one. Luckily, with Tevm+Viem we should be able to consistently avoid these issues and even fetch all data our app needs in a single request if we wished to.
+
+To solve this problem Tevm collaborated with Viem to make a very simple solution:
+
+**Warning this example is using an unreleased Tevm feature, inline solidity, that will be released soon. See [this thread for how to do this today](https://x.com/FUCORY/status/1801546199092367532).**
+
+```typescript
+import {sol} from 'tevm'
+
+// write solidity to
+const {bytecode, abi} = sol`
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+
+contract GetBalanceOfTokenOwner {
+    function run(IERC721 nft, uint256 tokenId) public view returns (uint256) {
+        address owner = nft.ownerOf(tokenId);
+        return nft.balanceOf(owner);
+    }
+}
+`
+
+const balance = client.readContract({
+  code: bytecode,
+  abi,
+  functionName: 'run',
+  args: [tokenAddress, tokenId]
+})
+```
+
+What the above code allowed us to do is write solidity code inline in our javascript that gets our data in one call. Tevm worked with viem to expose this `code` property that will encode our contract such that we are executing our deployless contract. Unlike state overrides or other advanced solutions this solution has 100% compatibility for all RPC providers.
+
+In Tevm we call this bring-your-own-view-function and we will see more use cases for BYOVF in the future.
+
+:::tip [Solidity imports]
+If you prefer you can also write the solidity in a seperate file and import it into js
+
+```typescript
+import {GetBalanceOfTokenOwner} from '../contracts/GetBalanceOfTokenOwner.sol'
+```
+:::
+
+## Comparison to alternatives
+
+- **State overrides** would work but is not as ergonomic to use as this solution and more importantly is not universally supported by all ethereum backends
+- **Updating our contract** would work but is unnecessary and sometimes impossible to do. The frontend code being able to write it's solidity decoupled from the public contract is a better way to structure the code.

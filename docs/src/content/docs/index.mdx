@@ -1,52 +1,60 @@
 ---
-title: Tevm docs
-description: A complete toolset to build Ethereum applications in JavaScript 
-template: doc
-banner:
-  content: |
-    Follow our new twitter account
-    <a href="https://x.com/tevmtools">@tevmtools</a>
+title: Tevm Tools
+description: Powerful EVM tooling for TypeScript
+template: splash
 hero:
-  tagline: Next-generation toolset for building Ethereum applications in TypeScript
+  tagline: Powerful EVM tooling for TypeScript
   actions:
-    - text: Tutorial
-      link: /getting-started/getting-started/
-      icon: right-arrow
-      variant: secondary
-    - text: Quick start
-      link: https://stackblitz.com/~/github.com/evmts/quick-start?file=README.md
+    - text: Getting Started
+      link: /getting-started/getting-started
       icon: right-arrow
       variant: primary
+    - text: Why Tevm
+      link: /why/
+      icon: right-arrow
+      variant: secondary
+    - text: Try Now On Stackblitz
+      link: https://stackblitz.com/~/github.com/evmts/quick-start?file=README.md
+      icon: external
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## [Try now on Stackblitz!](https://stackblitz.com/~/github.com/evmts/quick-start?file=src/fsPrecompile.ts:L5)
+## Featured Tools
 
-- Select `> Typescript: Select Typescript version: Use Workspace Version` in the editor to enable the Tevm compiler upon opening the stackblitz.
-- For best results [open in stackblitz](https://stackblitz.com/github/evmts/quick-start/tree/main?embed=1&file=src/main.ts&hideNavigation=1&hideDevTools=true&terminalHeight=0&ctl=1)
-
-<div height="500">
-<iframe style="frameborder: 0; width:100%; height: 500px;" src="https://stackblitz.com/github/evmts/quick-start/tree/main?embed=1&file=src/main.ts&hideNavigation=1&hideDevTools=true&terminalHeight=0&ctl=1"></iframe>
-</div>
-
-## Features
-
-<CardGrid>
-	<Card title="Powerful Tevm memory devnet" icon="pencil">
-		Execute Solidity directly in your TypeScript code without the need for an external RPC. [EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
-	</Card>
-	<Card title="Familiar Viem actions api" icon="open-book">
-		Tevm is built on top of the Viem api and plugs right into your existing Viem/Wagmi applications. Adapters exist for Ethers.js as well.
-	</Card>
-	<Card title="Solidity scripting" icon="add-document">
-		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting). Powerful use cases like writing a server/indexer in solidity.
-	</Card>
-	<Card title="Solidity imports" icon="setting">
-		[Importing solidity files](/learn/solidity-imports) directly into TypeScript. No need to set up complicated build pipelines. Just import the contract from your repo or node_modules. Support for generating from a live deployment coming soon.
-	</Card>
-	<Card title="Runs in all environments" icon="open-book">
-		Tevm runs in the browser, node.js, and bun. Everything you could only previously do in other languages or on the server is now possible everywhere JavaScript runs.
-	</Card>
+<CardGrid >
+  <Card title="Tevm Node" icon="laptop">
+     A lightweight performant JavaScript native Ethereum Virtual Machine (EVM) enabling next-generation local-first UX for end users.
+  </Card>
+  <Card title="Tevm Bundler" icon="puzzle">
+    The most powerful way to import contract abis and bytecode into TypeScript to date. Import contracts directly into TypeScript via their abi, solidity, or contract address.
+  </Card>
+  <Card title="Tevm Viem" icon="external">
+    Extend Viem and Ethers.js clients with Tevm Node capabilities. Program TevmNode using the apis you are already familiar with.
+  </Card>
+  <Card title="Tevm Server" icon="random">
+    Run TevmNode as a JSON-RPC server. TevmNode server is anvil compatible and supports all advanced features of TevmNode.
+  </Card>
+  <Card title="Tevm CLI" icon="bars">
+    Command-line interface for Tevm (Docs coming soon).
+  </Card>
+  <Card title="Tevm MUD" icon="external">
+    Integration with MUD framework enabling optimistic updates and other capabilities (Coming soon).
+  </Card>
+  <Card title="Tevm Test" icon="approve-check">
+    Use Tevm to write TypeScript tests (Coming soon).
+  </Card>
+  <Card title="Tevm.app" icon="star">
+    A safe personalized onchain browser. (Currently in development)
+  </Card>
 </CardGrid>
 
+## Try Tevm
+
+<div style="height: 500px;">
+  <iframe
+    style="width: 100%; height: 100%; border: 0;"
+    src="https://stackblitz.com/github/evmts/quick-start/tree/main?embed=1&file=src/main.ts&hideNavigation=1&hideDevTools=true&terminalHeight=0&ctl=1">
+  </iframe>
+</div>

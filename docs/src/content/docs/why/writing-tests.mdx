@@ -1,0 +1,164 @@
+---
+title: Writing tests
+description: Using Tevm to write tests
+---
+## Problem
+
+I want to write tests in TypeScript
+
+## Solution
+
+Tevm is the most flexible and robust way to write tests in TS yet.
+
+This solution uses following technology
+
+- [`Vitest`](https://vitest.dev/) for writing TypeScript tests
+- `Tevm Viem` to run an anvil compatable devnet in TypeScript using the viem api
+- `Tevm Bundler` as an easy way to use contract abis in TypeScript tests
+- `Tevm Server` to turn Tevm Node into a HTTP server for our tests
+
+:::tip [tevm test]
+An opinionated testing library is on the roadmap for Tevm. If you want to suggest features you would like to see consider opening an issue.
+:::
+
+## Example
+
+Though Tevm is built mainly for the browser, it's anvil compatability, flexible ergonomic api, and support for easily modifying the EVM make it an amazing testing library as well. Tevm features:
+
+- Ergonomically and typesafely import contracts directly into your tests. Libraries like vitest will automatically recompile your contracts when they change
+- Modify the EVM state easily via cheat methods like `setAccount` and account impersonation
+- Mock entire contracts easily in a typesafe way via writing JavaScript contracts
+
+To start let's have Tevm fork optimism and start a node.js server
+
+```typescript
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { createMemoryClient, MemoryClient, http } from 'tevm'
+import { ERC721 } from 'tevm/contract'
+import { createServer } from 'tevm/server'
+import type { Server } from 'node:http'
+
+let memoryClient: MemoryClient
+let server: Server
+
+beforeEach(async () => {
+  memoryClient = createMemoryClient({
+    fork: {
+      transport: http('https://mainnet.optimism.io')
+    }
+  })
+  const server = await createServer(memoryClient)
+  await new Promise(resolve => {
+    server.listen(8545, () => resolve(server))
+  })
+})
+
+afterEach(() => {
+  server.close()
+})
+```
+
+We can use memoryClient to modify any account, it's contract bytecode, or it's contract storage using `setAccount`
+
+```typescript
+await memoryClient.setAccount({
+  address: '0x1234567890123456789012345678901234567890',
+  balance: 1000000000000000000n, // 1 ETH
+  nonce: 0,
+  code: contractBytecode,
+  stateDiff: {
+    '0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000001', // totalSupply
+    '0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000064', // name (100 in hex, assuming "Token" as name)
+    '0x0000000000000000000000000000000000000000000000000000000000000002': '0x0000000000000000000000000000000000000000000000000000000000000003', // symbol (3 in hex, assuming "TKN" as symbol)
+    '0x0000000000000000000000000000000000000000000000000000000000000003': '0x0000000000000000000000000000000000000000000000000000000000000012', // decimals (18 in hex)
+  }
+})
+```
+
+In addition to setAccount Tevm MemoryClient supports all [viem test actions](https://viem.sh/docs/clients/test.html)
+
+```typescript
+memoryClient.setNonce({address, nonce: newNonce})
+```
+
+We can mock out a contract via replacing it with a different solidity contract.
+
+```typescript
+import { sol } from 'tevm'
+
+// Define a mock ERC721 contract
+const { bytecode: mockERC721Bytecode } = sol`
+pragma solidity ^0.8.0;
+
+contract MockERC721 {
+    function balanceOf(address owner) public pure returns (uint256) {
+        # we expect owner to be this address
+        require(owner == 0x1234568129129010290190102001, "Wrong owner!");
+        return 5;
+    }
+
+    function ownerOf(uint256 tokenId) public pure returns (address) {
+        return address(0x1234567890123456789012345678901234567890);
+    }
+}
+`
+
+const erc721Address = '0x1234567890123456789012345678901234567890'
+await memoryClient.setAccount({
+  address: erc721Address,
+  code: mockERC721Bytecode,
+})
+```
+
+You can also write a JavaScript precompile contract to mock if more convenient.
+
+```typescript
+import { createPrecompile, createCall } from 'tevm'
+
+const precompile = createPrecompile({
+  contract: ERC721
+  call: createCall(ERC721.abi, {
+    balanceOf({args}) {
+      expect(args[0]).toBe('0x123451232452342342344')
+      return 5;
+    },
+    ownerOf() {
+      return '0x12343223842304723048723084720347820834'
+    }
+  })
+})
+
+await memoryClient.getVm().then(vm => {
+  vm.evm.setPrecompile({address, precompile})
+})
+```
+
+## Comparison to alternatives
+
+### Anvil
+
+**Pros:**
+
+- Anvil is currently more mature as Tevm is in Beta
+- Anvil written in rust is a faster though not much faster as both are bottlenecked by network forking
+
+**Cons:**
+
+- Limited feature set to do things like mock contracts in JavaScript compared to Tevm
+- Much harder to set up in a JS testing environment
+- Unlike hardhat or Tevm it has no awareness of your contracts
+- Tevm features a level of typesafety and autocomplete missing if you use anvil
+
+### Hardhat
+
+**Pros:**
+
+- More mature as Tevm is in Beta
+- Might integrate into a setup you are already using for contract deployments
+
+**Cons:**
+
+- Hardhat is opinionated about testing framework. Tevm modularly works with any framework including Vitest and Bun.
+- Tevm is significantly less boilerplate to set up
+- Tevm supports advanced features that Hardhat does not support
+- Tevm features a level of typesafety and autocomplete missing from Hardhat
