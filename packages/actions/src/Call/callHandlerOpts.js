@@ -96,7 +96,6 @@ export const callHandlerOpts = async (client, params) => {
 
 	// handle state overrides
 	if (params.stateOverrideSet) {
-		console.log(params.stateOverrideSet, 'callHandlerOpts: Detected a stateOverrideSet')
 		for (const [address, state] of Object.entries(params.stateOverrideSet)) {
 			const res = await setAccountHandler(client)({
 				address: /** @type import('@tevm/utils').Address*/ (address),
@@ -171,7 +170,7 @@ export const callHandlerOpts = async (client, params) => {
 	}
 
 	if (params.createTransaction && opts.block !== (await vm.blockchain.getCanonicalHeadBlock())) {
-		throw new Error('Creating transactions on past blocks is not currently supported')
+		return { errors: [new InvalidParamsError('Creating transactions on past blocks is not currently supported')] }
 	}
 
 	return { data: opts }

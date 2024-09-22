@@ -32,7 +32,6 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 	try {
 		for (const [k, v] of Object.entries(/** @type {import('../state-types/TevmState.js').TevmState}*/ (state))) {
 			const { nonce, balance, storageRoot, codeHash, storage, deployedBytecode } = v
-			console.log('generating', k, nonce)
 			const account = new EthjsAccount(
 				// replace with just the var
 				nonce,

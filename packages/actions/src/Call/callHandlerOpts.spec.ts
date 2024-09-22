@@ -1,8 +1,10 @@
+import { InvalidBlockError, InvalidParamsError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { EthjsAddress, bytesToHex, numberToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 
 describe('callHandlerOpts', () => {
@@ -267,10 +269,31 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should throw error for transaction creation on past blocks', async () => {
-		const blockTag = 42n
-		const params = { blockTag, createTransaction: true } as const
+		const client = createTevmNode()
+
+		// First, mine a few blocks to ensure we have a past block to reference
+		await mineHandler(client)({ blockCount: 5 })
+
+		// Now, try to create a transaction on a past block
+		const pastBlockNumber = 2n
+		const params = {
+			blockTag: pastBlockNumber,
+			createTransaction: true,
+			to: '0x1234567890123456789012345678901234567890',
+			value: 1n,
+		} as const
+
 		const result = await callHandlerOpts(client, params)
-		expect(result.errors?.[0]).toBeDefined()
-		expect(result.errors).toMatchSnapshot()
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors?.length).toBe(1)
+		expect(result.errors?.[0]).toBeInstanceOf(InvalidParamsError)
+	})
+
+	it('should handle invalid block tags', async () => {
+		const client = createTevmNode()
+		const result = await callHandlerOpts(client, { blockTag: 'invalid' as any })
+		expect(result.errors).toBeDefined()
+		expect(result.errors?.[0]).toBeInstanceOf(InvalidBlockError)
 	})
 })

@@ -19,7 +19,6 @@ export const delBlock = (baseChain) => async (blockHash) => {
 	if (forkedBlock && hexHash === bytesToHex(forkedBlock.hash())) {
 		throw new InvalidBlockError('Cannot delete the forked block!')
 	}
-	console.log('huh', hexHash === bytesToHex(latest.hash()), hexHash, bytesToHex(latest.hash()))
 	if (hexHash === bytesToHex(latest.hash())) {
 		const parent = await getBlock(baseChain)(latest.header.parentHash).catch(() => undefined)
 		baseChain.blocksByTag.set('latest', parent)

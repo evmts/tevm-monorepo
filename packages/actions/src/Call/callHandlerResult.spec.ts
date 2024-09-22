@@ -40,7 +40,7 @@ describe('callHandlerResult', async () => {
 	} as const satisfies RunTxResult
 
 	it('should handle EVMResult correctly', async () => {
-		const result = await callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)
+		const result = callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)
 		expect(result.rawData).toEqual(toHex(Buffer.from('test')))
 		expect(result.executionGasUsed).toEqual(21000n)
 		expect(result.gasRefund).toEqual(1000n)
@@ -75,5 +75,16 @@ describe('callHandlerResult', async () => {
 		expect(result).not.toHaveProperty('selfdestruct')
 		expect(result).not.toHaveProperty('exceptionError')
 		expect(result).not.toHaveProperty('createdAddresses')
+	})
+
+	it('should handle trace data', () => {
+		const traceData = {
+			gas: 21000n,
+			failed: false,
+			returnValue: '0x' as const,
+			structLogs: [],
+		}
+		const result = callHandlerResult(dummyRuntxResult, '0x1234', traceData, new Map())
+		expect(result.trace).toEqual(traceData)
 	})
 })

@@ -160,7 +160,6 @@ export const createTevmNode = (options = {}) => {
 		.then(async (headBlock) => {
 			const stateRootHex = bytesToHex(headBlock.header.stateRoot)
 			const restoredState = options.persister?.restoreState()
-			restoredState && console.log(restoredState)
 			if (restoredState) {
 				logger.debug(restoredState, 'Restoring persisted state...')
 				logger.warn(
