@@ -1,8 +1,6 @@
 import { InternalError } from '@tevm/errors'
-import { hexToBytes } from 'viem'
 import { createBaseState } from '../createBaseState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
-import { setStateRoot } from './setStateRoot.js'
 
 /**
  * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
