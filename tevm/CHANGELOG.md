@@ -1,5 +1,30 @@
 # @tevm/contract
 
+## 1.0.0-next.116
+
+### Patch Changes
+
+- Updated dependencies [1879fe0]
+  - @tevm/common@1.0.0-next.116
+  - @tevm/viem@1.0.0-next.116
+  - @tevm/actions@1.0.0-next.116
+  - @tevm/block@1.0.0-next.116
+  - @tevm/blockchain@1.0.0-next.116
+  - @tevm/evm@1.0.0-next.116
+  - @tevm/memory-client@1.0.0-next.116
+  - @tevm/node@1.0.0-next.116
+  - @tevm/procedures@1.0.0-next.116
+  - @tevm/receipt-manager@1.0.0-next.116
+  - @tevm/server@1.0.0-next.116
+  - @tevm/state@1.0.0-next.116
+  - @tevm/txpool@1.0.0-next.116
+  - @tevm/vm@1.0.0-next.116
+  - @tevm/client-types@1.0.0-next.109
+  - @tevm/decorators@1.0.0-next.116
+  - @tevm/precompiles@1.0.0-next.116
+  - @tevm/http-client@1.0.0-next.116
+  - @tevm/sync-storage-persister@1.0.0-next.116
+
 ## 1.0.0-next.115
 
 ### Patch Changes
