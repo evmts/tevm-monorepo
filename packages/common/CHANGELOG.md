@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.116
+
+### Patch Changes
+
+- 1879fe0: Fixed bug with not exporting the presets
+
 ## 1.0.0-next.115
 
 ### Minor Changes

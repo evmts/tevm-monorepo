@@ -1,5 +1,11 @@
 # @tevm/precompiles
 
+## 1.0.0-next.116
+
+### Patch Changes
+
+- @tevm/evm@1.0.0-next.116
+
 ## 1.0.0-next.115
 
 ### Patch Changes
