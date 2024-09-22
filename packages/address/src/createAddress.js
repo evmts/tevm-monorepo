@@ -48,9 +48,9 @@ export const createAddress = (address) => {
 				{ cause: e },
 			)
 		}
-		if (e instanceof Error) {
-			throw new InvalidAddressError(`Received an invalid address input ${e.message}`, { cause: e })
-		}
-		throw new InvalidAddressError(`Received an invalid address input ${address}`, { cause: /** @type {any} */ (e) })
+		throw new InvalidAddressError(
+			`Received an invalid address input: ${/** @type {Error} */(e).message}`,
+			{ cause: /** @type {Error} */(e) }
+		)
 	}
 }
