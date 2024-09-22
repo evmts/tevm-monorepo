@@ -35,7 +35,7 @@ export const createAddress = (address) => {
 			return new Address(numberToBytes(address, { size: 20 }))
 		}
 		if (typeof address === 'string' && address.startsWith('0x')) {
-			return new Address(hexToBytes(/** @type {import('viem').Hex}*/(address), { size: 20 }))
+			return new Address(hexToBytes(/** @type {import('viem').Hex}*/ (address), { size: 20 }))
 		}
 		if (typeof address === 'string') {
 			return new Address(hexToBytes(`0x${address}`, { size: 20 }))
@@ -48,9 +48,8 @@ export const createAddress = (address) => {
 				{ cause: e },
 			)
 		}
-		throw new InvalidAddressError(
-			`Received an invalid address input: ${/** @type {Error} */(e).message}`,
-			{ cause: /** @type {Error} */(e) }
-		)
+		throw new InvalidAddressError(`Received an invalid address input: ${/** @type {Error} */ (e).message}`, {
+			cause: /** @type {Error} */ (e),
+		})
 	}
 }
