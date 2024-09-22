@@ -54,7 +54,7 @@ export class InvalidSkipBalanceError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidskipbalanceerror/',
 			},
-			'InvalidSkipBalanceError'
+			'InvalidSkipBalanceError',
 		)
 
 		this.name = 'InvalidSkipBalanceError'

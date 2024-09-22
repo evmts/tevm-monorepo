@@ -56,7 +56,7 @@ export class InvalidArgsError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidargserror/',
 			},
-			'InvalidArgsError'
+			'InvalidArgsError',
 		)
 
 		this.name = 'InvalidArgsError'

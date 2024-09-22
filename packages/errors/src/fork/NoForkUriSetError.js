@@ -50,7 +50,7 @@ export class NoForkTransportSetError extends BaseError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/noforktransportseterror/',
 			},
-			'NoForkTransportSetError'
+			'NoForkTransportSetError',
 		)
 
 		this.name = 'NoForkTransportSetError'

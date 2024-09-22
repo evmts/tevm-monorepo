@@ -72,7 +72,7 @@ export class UnreachableCodeError extends InternalError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/unreachablecodeerror/',
 				details: `Unreachable value: ${JSON.stringify(value)}`,
 			},
-			'UnreachableCodeError'
+			'UnreachableCodeError',
 		)
 
 		this.value = value

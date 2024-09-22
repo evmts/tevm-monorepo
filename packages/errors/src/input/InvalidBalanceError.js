@@ -54,7 +54,7 @@ export class InvalidBalanceError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbalanceerror/',
 			},
-			'InvalidBalanceError'
+			'InvalidBalanceError',
 		)
 
 		this.name = 'InvalidBalanceError'

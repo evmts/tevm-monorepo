@@ -60,7 +60,7 @@ export class ParseError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/parseerror/',
 			},
 			tag,
-			-32700
+			-32700,
 		)
 
 		this.name = 'ParseError'

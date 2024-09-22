@@ -59,7 +59,7 @@ export class EipNotEnabledError extends ExecutionError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/eipnotenablederror/',
 			},
-			'EipNotEnabledError'
+			'EipNotEnabledError',
 		)
 
 		this.name = 'EipNotEnabledError'

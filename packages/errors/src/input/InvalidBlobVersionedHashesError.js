@@ -54,7 +54,7 @@ export class InvalidBlobVersionedHashesError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidblobversionedhasheserror/',
 			},
-			'InvalidBlobVersionedHashesError'
+			'InvalidBlobVersionedHashesError',
 		)
 
 		this.name = 'InvalidBlobVersionedHashesError'

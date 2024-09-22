@@ -56,7 +56,7 @@ export class DefensiveNullCheckError extends InternalError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/defensivenullcheckerror/',
 			},
-			'DefensiveNullCheckError'
+			'DefensiveNullCheckError',
 		)
 
 		this.name = 'DefensiveNullCheckError'

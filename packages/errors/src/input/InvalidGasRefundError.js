@@ -54,7 +54,7 @@ export class InvalidGasRefundError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidgasrefunderror/',
 			},
-			'InvalidGasRefundError'
+			'InvalidGasRefundError',
 		)
 
 		this.name = 'InvalidGasRefundError'

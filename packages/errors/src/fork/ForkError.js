@@ -52,9 +52,10 @@ export class ForkError extends BaseError {
 	 * @param {ForkErrorParameters} args - Additional parameters for the error.
 	 */
 	constructor(message, args) {
-		const cause = args.cause instanceof Error
-			? args.cause
-			: new BaseError(args.cause.message, {}, 'unknown', Number(args.cause.code))
+		const cause =
+			args.cause instanceof Error
+				? args.cause
+				: new BaseError(args.cause.message, {}, 'unknown', Number(args.cause.code))
 
 		super(
 			[message, cause.message].filter(Boolean).join('\n'),
@@ -65,7 +66,7 @@ export class ForkError extends BaseError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/forkerror/',
 			},
 			'ForkError',
-			'code' in args.cause ? Number(args.cause.code) : new ResourceNotFoundError('').code
+			'code' in args.cause ? Number(args.cause.code) : new ResourceNotFoundError('').code,
 		)
 
 		this.name = 'ForkError'

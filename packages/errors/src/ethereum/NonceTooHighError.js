@@ -65,7 +65,7 @@ export class NonceTooHighError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/noncetoohigherror/',
 			},
 			tag,
-			-32000
+			-32000,
 		)
 
 		this.name = 'NonceTooHigh'

@@ -56,7 +56,7 @@ export class EncodeFunctionReturnDataError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/encodefunctionreturndataerror/',
 			},
-			'EncodeFunctionReturnDataError'
+			'EncodeFunctionReturnDataError',
 		)
 
 		this.name = 'EncodeFunctionReturnDataError'

@@ -54,7 +54,7 @@ export class InvalidStorageRootError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidstoragerooterror/',
 			},
-			'InvalidStorageRootError'
+			'InvalidStorageRootError',
 		)
 
 		this.name = 'InvalidStorageRootError'

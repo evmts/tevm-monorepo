@@ -54,7 +54,7 @@ export class InvalidDeployedBytecodeError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invaliddeployedbytecodeerror/',
 			},
-			'InvalidDeployedBytecodeError'
+			'InvalidDeployedBytecodeError',
 		)
 
 		this.name = 'InvalidDeployedBytecodeError'

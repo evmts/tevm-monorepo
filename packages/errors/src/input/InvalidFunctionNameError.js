@@ -55,7 +55,7 @@ export class InvalidFunctionNameError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidfunctionnameerror/',
 			},
-			'InvalidFunctionNameError'
+			'InvalidFunctionNameError',
 		)
 
 		this.name = 'InvalidFunctionNameError'

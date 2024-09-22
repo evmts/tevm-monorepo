@@ -63,7 +63,7 @@ export class RevertError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/reverterror/',
 			},
 			tag,
-			-32000
+			-32000,
 		)
 
 		this.name = 'RevertError'

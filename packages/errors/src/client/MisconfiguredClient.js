@@ -60,7 +60,7 @@ export class MisconfiguredClientError extends InternalError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/misconfiguredclienterror/',
 			},
-			'MisconfiguredClientError'
+			'MisconfiguredClientError',
 		)
 
 		/**

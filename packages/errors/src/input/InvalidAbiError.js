@@ -55,7 +55,7 @@ export class InvalidAbiError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidabierror/',
 			},
-			'InvalidAbiError'
+			'InvalidAbiError',
 		)
 
 		this.name = 'InvalidAbiError'

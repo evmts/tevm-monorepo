@@ -61,7 +61,7 @@ export class InternalError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/internalerror/',
 			},
 			tag,
-			-32603
+			-32603,
 		)
 
 		this.name = 'InternalError'

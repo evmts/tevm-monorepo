@@ -55,7 +55,7 @@ export class InvalidGasLimitError extends InvalidParamsError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidgaslimiterror/',
 			},
-			'InvalidGasLimitError'
+			'InvalidGasLimitError',
 		)
 
 		this.name = 'InvalidGasLimitError'

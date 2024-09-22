@@ -69,7 +69,7 @@ export class InvalidBytesSizeError extends InternalError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidbytessizeerror/',
 			},
-			'InvalidBytesSizeError'
+			'InvalidBytesSizeError',
 		)
 
 		this.size = size
