@@ -1,9 +1,10 @@
 import { EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
 
 /**
- * Utility class for ethereum addresses.
+ * Utility class for Ethereum addresses.
  * Wraps {@link EthjsAddress} with a tevm style API.
- * toString returns a checksummed address rather than lowercase
+ * toString returns a checksummed address rather than lowercase.
+ * @extends {EthjsAddress}
  * @example
  * ```javascript
  * import { createAddress } from '@tevm/address';
@@ -13,7 +14,7 @@ import { EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
  * // takes number and bigint
  * address = createAddress(0);
  * // takes bytes
- * address = createAddress(new Uint8Array());
+ * address = createAddress(new Uint8Array(20));
  * // non hex string
  * address = createAddress('55'.repeat(20));
  * ```
@@ -22,7 +23,7 @@ export class Address extends EthjsAddress {
 	/**
 	 * Returns the checksummed address.
 	 * @override
-	 * @returns {import('@tevm/utils').Address} The checksummed address.
+	 * @returns {import('@tevm/utils').Address} The checksummed Ethereum address as a string.
 	 */
 	toString() {
 		return getAddress(bytesToHex(this.bytes))
