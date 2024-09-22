@@ -1,7 +1,7 @@
-import { BaseError } from '../ethereum/index.js'
+import { BaseError } from '../ethereum/BaseError.js'
 
 /**
- * Parameters for constructing an NoForkTransportSetError.
+ * Parameters for constructing a NoForkTransportSetError.
  * @typedef {Object} NoForkTransportSetErrorParameters
  * @property {string} [docsBaseUrl] - Base URL for the documentation.
  * @property {string} [docsPath] - Path to the documentation.
@@ -14,34 +14,46 @@ import { BaseError } from '../ethereum/index.js'
 
 /**
  * Error represents the tevm client attempted to fetch a resource from a Forked transport but no transport was set.
- * To set a transport use the `fork.transport` option for [`createMemoryClient`](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
  *
- * @param {string} message - A human-readable error message.
- * @param {NoForkTransportSetErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
- * @property {'NoForkTransportSetError'} _tag - Same as name, used internally.
- * @property {'NoForkTransportSetError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @example
+ * ```javascript
+ * import { NoForkTransportSetError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient() // No fork configuration
+ *
+ * try {
+ *   await client.getBalance('0x...') // This might throw if it needs to access forked state
+ * } catch (error) {
+ *   if (error instanceof NoForkTransportSetError) {
+ *     console.error('No fork transport set:', error.message)
+ *     console.log('Documentation:', error.docsLink)
+ *     // Handle the error, e.g., by setting up a fork configuration
+ *   }
+ * }
+ * ```
+ *
+ * @extends {BaseError}
  */
 export class NoForkTransportSetError extends BaseError {
 	/**
-	 * Constructs an NoForkTransportSetError.
+	 * Constructs a NoForkTransportSetError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {NoForkTransportSetErrorParameters} [args={}] - Additional parameters to pass to BaseError.
+	 * @param {NoForkTransportSetErrorParameters} [args] - Additional parameters for the error.
 	 */
-	constructor(message, args = {}, tag = 'NoForkTransportSetError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/noforktransportseterror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/noforktransportseterror/',
 			},
-			tag,
+			'NoForkTransportSetError'
 		)
+
+		this.name = 'NoForkTransportSetError'
+		this._tag = 'NoForkTransportSetError'
 	}
 }

@@ -18,42 +18,46 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  * This error is typically encountered when a transaction or operation references a blobVersionedHashes parameter that is malformed or does not conform to the expected structure.
  *
  * @example
+ * ```javascript
+ * import { InvalidBlobVersionedHashesError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidBlobVersionedHashesError
+ *   await client.sendTransaction({
+ *     // ... other transaction parameters
+ *     blobVersionedHashes: ['invalid_hash'], // This should be a valid versioned hash
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidBlobVersionedHashesError) {
- *     console.error(error.message);
- *     // Handle the invalid blobVersionedHashes error
+ *     console.error('Invalid blob versioned hashes:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidBlobVersionedHashesErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
- * @property {'InvalidBlobVersionedHashesError'} _tag - Same as name, used internally.
- * @property {'InvalidBlobVersionedHashesError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidBlobVersionedHashesError extends InvalidParamsError {
 	/**
 	 * Constructs an InvalidBlobVersionedHashesError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {InvalidBlobVersionedHashesErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
-	 * @param {string} [tag='InvalidBlobVersionedHashesError'] - The tag for the error.
+	 * @param {InvalidBlobVersionedHashesErrorParameters} [args={}] - Additional parameters for the InvalidBlobVersionedHashesError.
 	 */
-	constructor(message, args = {}, tag = 'InvalidBlobVersionedHashesError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidblobversionedhasheserror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidblobversionedhasheserror/',
 			},
-			tag,
+			'InvalidBlobVersionedHashesError'
 		)
+
+		this.name = 'InvalidBlobVersionedHashesError'
+		this._tag = 'InvalidBlobVersionedHashesError'
 	}
 }

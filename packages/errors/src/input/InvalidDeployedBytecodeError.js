@@ -18,24 +18,26 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  * This error is typically encountered when a transaction or operation references a deployedBytecode parameter that is invalid or does not conform to the expected structure.
  *
  * @example
+ * ```javascript
+ * import { InvalidDeployedBytecodeError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidDeployedBytecodeError
+ *   await client.setAccount({
+ *     address: '0x...',
+ *     deployedBytecode: 'invalid', // This should be valid bytecode
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidDeployedBytecodeError) {
- *     console.error(error.message);
- *     // Handle the invalid deployedBytecode error
+ *     console.error('Invalid deployed bytecode:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidDeployedBytecodeErrorParameters} [args={}] - Additional parameters for the InvalidDeployedBytecodeError.
- * @property {'InvalidDeployedBytecodeError'} _tag - Same as name, used internally.
- * @property {'InvalidDeployedBytecodeError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidDeployedBytecodeError extends InvalidParamsError {
 	/**
@@ -43,17 +45,19 @@ export class InvalidDeployedBytecodeError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidDeployedBytecodeErrorParameters} [args={}] - Additional parameters for the InvalidDeployedBytecodeError.
-	 * @param {string} [tag='InvalidDeployedBytecodeError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidDeployedBytecodeError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invaliddeployedbytecodeerror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invaliddeployedbytecodeerror/',
 			},
-			tag,
+			'InvalidDeployedBytecodeError'
 		)
+
+		this.name = 'InvalidDeployedBytecodeError'
+		this._tag = 'InvalidDeployedBytecodeError'
 	}
 }

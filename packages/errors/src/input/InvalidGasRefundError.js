@@ -15,27 +15,29 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 /**
  * Represents an error that occurs when the gas refund is invalid.
  *
- * This error is typically encountered when a transaction or operation references a gas refund that is invalid or does not conform to the expected structure.
+ * This error is typically encountered when a transaction or operation specifies an invalid gas refund value.
  *
  * @example
+ * ```javascript
+ * import { InvalidGasRefundError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidGasRefundError
+ *   await client.setAccount({
+ *     address: '0x1234567890123456789012345678901234567890',
+ *     gasRefund: -1n, // Invalid negative gas refund
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidGasRefundError) {
- *     console.error(error.message);
- *     // Handle the invalid gas refund error
+ *     console.error('Invalid gas refund:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidGasRefundErrorParameters} [args={}] - Additional parameters for the InvalidGasRefundError.
- * @property {'InvalidGasRefundError'} _tag - Same as name, used internally.
- * @property {'InvalidGasRefundError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidGasRefundError extends InvalidParamsError {
 	/**
@@ -43,17 +45,19 @@ export class InvalidGasRefundError extends InvalidParamsError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {InvalidGasRefundErrorParameters} [args={}] - Additional parameters for the InvalidGasRefundError.
-	 * @param {string} [tag='InvalidGasRefundError'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'InvalidGasRefundError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidgasrefunderror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidgasrefunderror/',
 			},
-			tag,
+			'InvalidGasRefundError'
 		)
+
+		this.name = 'InvalidGasRefundError'
+		this._tag = 'InvalidGasRefundError'
 	}
 }

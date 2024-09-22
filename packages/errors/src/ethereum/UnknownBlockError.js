@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**
@@ -16,15 +15,22 @@ import { BaseError } from './BaseError.js'
 /**
  * Represents an error that occurs when the specified block could not be found.
  *
- * This error is typically encountered when a block hash or number is provided that does not correspond to any block known to the node.
+ * This error is typically encountered when a block hash or number is provided that does not correspond
+ * to any block known to the node. This can happen if the block hasn't been mined yet, if it's on a
+ * different chain, or if the node is not fully synced.
+ *
+ * The error code -32001 is a non-standard extension used by some Ethereum clients to
+ * indicate this specific condition.
  *
  * @example
  * try {
- *   // Some operation that can throw an UnknownBlockError
+ *   const block = await client.getBlock({
+ *     blockHash: '0x1234567890123456789012345678901234567890123456789012345678901234'
+ *   })
  * } catch (error) {
  *   if (error instanceof UnknownBlockError) {
- *     console.error(error.message);
- *     // Handle the unknown block error
+ *     console.error('Unknown block:', error.message);
+ *     console.log('The specified block does not exist or is not available to this node');
  *   }
  * }
  *
@@ -34,7 +40,7 @@ import { BaseError } from './BaseError.js'
  * @property {'UnknownBlock'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32001), a non-standard extension for this specific error.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -57,5 +63,8 @@ export class UnknownBlockError extends BaseError {
 			tag,
 			-32001,
 		)
+
+		this.name = 'UnknownBlock'
+		this._tag = 'UnknownBlock'
 	}
 }

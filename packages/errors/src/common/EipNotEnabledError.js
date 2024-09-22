@@ -18,40 +18,40 @@ import { ExecutionError } from '../ethereum/ExecutionErrorError.js'
  * EIP not enabled errors can occur due to:
  * - Attempting to use features or operations that require a specific EIP which is not enabled in the VM.
  *
- * EIPs can be set on common and passed into createMemoryClient
- *
  * @example
  * ```typescript
  * import { EipNotEnabledError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ * import { Hardfork } from '@tevm/common'
+ *
+ * const client = createMemoryClient({ hardfork: Hardfork.London })
+ *
  * try {
- *   // Some operation that can throw an EipNotEnabledError
+ *   // Attempt an operation that requires an EIP not enabled in London
+ *   await client.call({
+ *     to: '0x...',
+ *     data: '0x...',
+ *     // Assuming this operation requires a post-London EIP
+ *   })
  * } catch (error) {
  *   if (error instanceof EipNotEnabledError) {
- *     console.error(error.message);
- *     // Handle the EIP not enabled error
+ *     console.error('EIP not enabled:', error.message)
+ *     console.log('Documentation:', error.docsLink)
+ *     // Handle the error, possibly by updating the client to a newer hardfork
  *   }
  * }
  * ```
  *
- * @param {string} [message='EIP not enabled error occurred.'] - A human-readable error message.
- * @param {EipNotEnabledErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'EipNotEnabledError'} _tag - Same as name, used internally.
- * @property {'EipNotEnabledError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {ExecutionError}
  */
 export class EipNotEnabledError extends ExecutionError {
 	/**
 	 * Constructs an EipNotEnabledError.
 	 *
 	 * @param {string} [message='EIP not enabled error occurred.'] - Human-readable error message.
-	 * @param {EipNotEnabledErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='EipNotEnabledError'] - The tag for the error.
+	 * @param {EipNotEnabledErrorParameters} [args={}] - Additional parameters for the error.
 	 */
-	constructor(message = 'EIP not enabled error occurred.', args = {}, tag = 'EipNotEnabledError') {
+	constructor(message = 'EIP not enabled error occurred.', args = {}) {
 		super(
 			message,
 			{
@@ -59,7 +59,10 @@ export class EipNotEnabledError extends ExecutionError {
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/eipnotenablederror/',
 			},
-			tag,
+			'EipNotEnabledError'
 		)
+
+		this.name = 'EipNotEnabledError'
+		this._tag = 'EipNotEnabledError'
 	}
 }

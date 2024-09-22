@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**
@@ -17,14 +16,20 @@ import { BaseError } from './BaseError.js'
  * Represents an error that occurs when invalid JSON is received by the server, resulting in a parsing error.
  *
  * This error is typically encountered when a JSON-RPC request is malformed or the JSON syntax is incorrect.
+ * It's a standard JSON-RPC error with code -32700, indicating issues at the protocol level rather than
+ * the application level.
  *
  * @example
  * try {
- *   // Some operation that can throw a ParseError
+ *   await client.request({
+ *     method: 'eth_getBalance',
+ *     params: ['0x1234567890123456789012345678901234567890', 'latest'],
+ *     // Imagine this request is somehow malformed JSON
+ *   })
  * } catch (error) {
  *   if (error instanceof ParseError) {
- *     console.error(error.message);
- *     // Handle the parse error
+ *     console.error('JSON-RPC parse error:', error.message);
+ *     console.log('Check the request format and try again');
  *   }
  * }
  *
@@ -34,7 +39,7 @@ import { BaseError } from './BaseError.js'
  * @property {'ParseError'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32700), standard JSON-RPC error code for parse errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -55,7 +60,10 @@ export class ParseError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/parseerror/',
 			},
 			tag,
-			-32700,
+			-32700
 		)
+
+		this.name = 'ParseError'
+		this._tag = 'ParseError'
 	}
 }

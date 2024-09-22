@@ -3,7 +3,7 @@ import { BaseError } from '../ethereum/BaseError.js'
 import { ResourceNotFoundError } from '../ethereum/ResourceNotFoundError.js'
 
 /**
- * Parameters for constructing an ForkError.
+ * Parameters for constructing a ForkError.
  * @typedef {Object} ForkErrorParameters
  * @property {string} [docsBaseUrl] - Base URL for the documentation.
  * @property {string} [docsPath] - Path to the documentation.
@@ -17,67 +17,58 @@ import { ResourceNotFoundError } from '../ethereum/ResourceNotFoundError.js'
 /**
  * Represents an error thrown when attempting to fetch a resource from a Forked transport.
  * If the underlying JSON-RPC call has an error code, the error code will be proxied to the ForkError.
- * Most tevm methods return these errors as values if `throwOnFail` is set to `false` and a forkUrl is provided
  *
  * @example
- * try {
- *   // Some operation that can throw an ForkError
- * } catch (error) {
- *   if (error instanceof ForkError) {
- *     console.error(error.message);
- *     // Handle the account locked error
- *   }
- * }
- *
- * To debug this error check to see if there might be a misconfiguration or rate limit of the
- * fork transport.
- *
- * If the issue is a rate limit consider using the `rateLimit` transport options to limit how many
- * requests tevm are made.
- * ```typescript
- * import { rateLimit, http } from "@tevm/jsonrpc"
- * import { createMemoryClient } from "@tevm/memory-client"
+ * ```javascript
+ * import { ForkError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ * import { http } from '@tevm/jsonrpc'
  *
  * const client = createMemoryClient({
  *   fork: {
- *     transport: rateLimit(
- *       http('https://mainnet.optimism.io'), { browser: false, requestsPerSecond: 25 }
- *     )
- *   )
- * }}
+ *     url: 'https://mainnet.example.com'
+ *   }
+ * })
+ *
+ * try {
+ *   await client.getBalance('0x...')
+ * } catch (error) {
+ *   if (error instanceof ForkError) {
+ *     console.error('Fork error:', error.message)
+ *     console.log('Error code:', error.code)
+ *     console.log('Documentation:', error.docsLink)
+ *     // Handle the fork error, e.g., by retrying or using a different RPC endpoint
+ *   }
+ * }
  * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {ForkErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'ForkError'} _tag - Same as name, used internally.
- * @property {'ForkError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {BaseError}
  */
 export class ForkError extends BaseError {
 	/**
-	 * Constructs an ForkError.
+	 * Constructs a ForkError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {ForkErrorParameters} args - Additional parameters for the BaseError.
+	 * @param {ForkErrorParameters} args - Additional parameters for the error.
 	 */
-	constructor(message, args, tag = 'ForkError') {
+	constructor(message, args) {
+		const cause = args.cause instanceof Error
+			? args.cause
+			: new BaseError(args.cause.message, {}, 'unknown', Number(args.cause.code))
+
 		super(
-			[message, ...('message' in args.cause ? [args.cause.message] : [])].join('\n'),
+			[message, cause.message].filter(Boolean).join('\n'),
 			{
 				...args,
-				cause:
-					args.cause instanceof Error
-						? args.cause
-						: new BaseError(args.cause.message, {}, 'unknown', /** @type {number}*/ (args.cause.code)),
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/accountlockederror/',
+				cause,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/forkerror/',
 			},
-			tag,
-			'code' in args.cause ? /** @type {number}*/ (args.cause.code) : new ResourceNotFoundError('').code,
+			'ForkError',
+			'code' in args.cause ? Number(args.cause.code) : new ResourceNotFoundError('').code
 		)
+
+		this.name = 'ForkError'
+		this._tag = 'ForkError'
 	}
 }

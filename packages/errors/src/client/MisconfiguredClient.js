@@ -15,49 +15,62 @@ import { InternalError } from '../ethereum/InternalErrorError.js'
 /**
  * Represents an error that occurs when the Client is misconfigured.
  *
- * Misconfigured memory client errors can occur due to:
- * - Incorrect configuration parameters provided when creating a Client.
+ * This error can be thrown when:
+ * - Incorrect configuration parameters are provided when creating a Client.
+ * - The Client is used in a way that's incompatible with its configuration.
  *
  * @example
  * ```typescript
+ * import { createMemoryClient } from '@tevm/memory-client'
  * import { MisconfiguredClientError } from '@tevm/errors'
+ *
+ * const memoryClient = createMemoryClient({
+ *   // Assume we've misconfigured something here
+ * })
+ *
  * try {
- *   // Some operation that can throw a MisconfiguredClientError
+ *   await memoryClient.tevmCall({
+ *     to: '0x...',
+ *     data: '0x...',
+ *   })
  * } catch (error) {
  *   if (error instanceof MisconfiguredClientError) {
- *     console.error(error.message);
- *     // Handle the misconfigured memory client error
+ *     console.error('Client misconfiguration:', error.message)
+ *     console.log('Documentation:', error.docsLink)
+ *     // Attempt to recreate the client with correct configuration
+ *     // or notify the user to check their client setup
  *   }
  * }
  * ```
  *
- * @param {string} [message='Misconfigured memory client error occurred.'] - A human-readable error message.
- * @param {MisconfiguredClientErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'MisconfiguredClientError'} _tag - Same as name, used internally.
- * @property {'MisconfiguredClientError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InternalError}
  */
 export class MisconfiguredClientError extends InternalError {
 	/**
 	 * Constructs a MisconfiguredClientError.
 	 *
-	 * @param {string} [message='Misconfigured memory client error occurred.'] - Human-readable error message.
-	 * @param {MisconfiguredClientErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='MisconfiguredClientError'] - The tag for the error.
+	 * @param {string} [message='Misconfigured client error occurred.'] - Human-readable error message.
+	 * @param {MisconfiguredClientErrorParameters} [args={}] - Additional parameters for the error.
 	 */
-	constructor(message = 'Misconfigured memory client error occurred.', args = {}, tag = 'MisconfiguredClientError') {
+	constructor(message = 'Misconfigured client error occurred.', args = {}) {
 		super(
 			message,
 			{
 				...args,
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/misconfiguredmemoryclienterror/',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/misconfiguredclienterror/',
 			},
-			tag,
+			'MisconfiguredClientError'
 		)
+
+		/**
+		 * @type {'MisconfiguredClientError'}
+		 */
+		this.name = 'MisconfiguredClientError'
+
+		/**
+		 * @type {'MisconfiguredClientError'}
+		 */
+		this._tag = 'MisconfiguredClientError'
 	}
 }

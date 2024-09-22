@@ -13,47 +13,53 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  */
 
 /**
- * Represents an error that occurs when arguments provided to a contract or script call are invalid.
+ * Represents an error that occurs when the arguments provided to a function or method are invalid.
  *
- * This error is typically encountered when the arguments provided do not match the expected types or structure required by the contract or script.
+ * This error is typically encountered when a function receives arguments that don't match the expected types or format.
  *
  * @example
+ * ```javascript
+ * import { InvalidArgsError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
+ *
+ * const client = createMemoryClient()
+ *
  * try {
- *   // Some operation that can throw an InvalidArgsError
+ *   await client.contract({
+ *     address: '0x...',
+ *     functionName: 'transfer',
+ *     args: ['not_an_address', 'not_a_number'], // Invalid args
+ *     abi: [...],
+ *   })
  * } catch (error) {
  *   if (error instanceof InvalidArgsError) {
- *     console.error(error.message);
- *     // Handle the invalid arguments error
+ *     console.error('Invalid arguments:', error.message)
+ *     console.log('Documentation:', error.docsLink)
  *   }
  * }
+ * ```
  *
- * @param {string} message - A human-readable error message.
- * @param {InvalidArgsErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
- * @property {'InvalidArgsError'} _tag - Same as name, used internally.
- * @property {'InvalidArgsError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @extends {InvalidParamsError}
  */
 export class InvalidArgsError extends InvalidParamsError {
 	/**
 	 * Constructs an InvalidArgsError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {InvalidArgsErrorParameters} [args={}] - Additional parameters for the InvalidParamsError.
-	 * @param {string} [tag='InvalidArgsError'] - The tag for the error.
+	 * @param {InvalidArgsErrorParameters} [args={}] - Additional parameters for the InvalidArgsError.
 	 */
-	constructor(message, args, tag) {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/invalidargserror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidargserror/',
 			},
-			tag,
+			'InvalidArgsError'
 		)
+
+		this.name = 'InvalidArgsError'
+		this._tag = 'InvalidArgsError'
 	}
 }

@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**
@@ -16,15 +15,22 @@ import { BaseError } from './BaseError.js'
 /**
  * Represents an error that occurs when the block gas limit has been exceeded.
  *
- * This error is typically encountered when a transaction or set of transactions exceed the gas limit for a block.
+ * This error is typically encountered when a transaction or set of transactions in a block
+ * consume more gas than the block's gas limit allows. Each block in Ethereum has a maximum
+ * amount of gas that can be used by all transactions within it.
+ *
+ * The error code -32006 is a non-standard extension used by some Ethereum clients to
+ * indicate this specific condition.
  *
  * @example
  * try {
- *   // Some operation that can throw a BlockGasLimitExceededError
+ *   const result = await client.sendTransaction({
+ *     // ... transaction details
+ *   })
  * } catch (error) {
  *   if (error instanceof BlockGasLimitExceededError) {
- *     console.error(error.message);
- *     // Handle the block gas limit exceeded error
+ *     console.error('Block gas limit exceeded:', error.message);
+ *     console.log('Consider splitting the transaction or waiting for a block with more available gas');
  *   }
  * }
  *
@@ -34,7 +40,7 @@ import { BaseError } from './BaseError.js'
  * @property {'BlockGasLimitExceeded'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32006), a non-standard extension for this specific error.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */

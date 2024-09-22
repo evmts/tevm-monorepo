@@ -9,16 +9,22 @@
 Represents an error that occurs when invalid JSON is received by the server, resulting in a parsing error.
 
 This error is typically encountered when a JSON-RPC request is malformed or the JSON syntax is incorrect.
+It's a standard JSON-RPC error with code -32700, indicating issues at the protocol level rather than
+the application level.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a ParseError
+  await client.request({
+    method: 'eth_getBalance',
+    params: ['0x1234567890123456789012345678901234567890', 'latest'],
+    // Imagine this request is somehow malformed JSON
+  })
 } catch (error) {
   if (error instanceof ParseError) {
-    console.error(error.message);
-    // Handle the parse error
+    console.error('JSON-RPC parse error:', error.message);
+    console.log('Check the request format and try again');
   }
 }
 ```
@@ -67,7 +73,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ParseErrorError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L49)
+[packages/errors/src/ethereum/ParseErrorError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L54)
 
 ## Properties
 
@@ -83,7 +89,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/ParseErrorError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L67)
 
 ***
 
@@ -97,7 +103,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -105,7 +111,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32700), standard JSON-RPC error code for parse errors.
 
 #### Inherited from
 
@@ -113,7 +119,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -127,7 +133,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -143,7 +149,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -175,7 +181,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -191,7 +197,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/ethereum/ParseErrorError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L66)
 
 ***
 
@@ -205,7 +211,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -233,7 +239,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -305,7 +311,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

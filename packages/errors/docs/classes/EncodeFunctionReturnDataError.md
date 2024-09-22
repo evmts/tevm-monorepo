@@ -6,30 +6,32 @@
 
 # Class: EncodeFunctionReturnDataError
 
-Represents an error that occurs when encoding function data fails.
+Represents an error that occurs when encoding function return data fails.
 Not expected to be thrown because the initial validation
 should have caught any errors and thrown more specific errors.
 
 ## Example
 
-```ts
+```javascript
+import { EncodeFunctionReturnDataError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
+const client = createMemoryClient()
+
 try {
-  // Some operation that can throw an EncodeFunctionReturnDataError
+  const result = await client.contract({
+    address: '0x1234567890123456789012345678901234567890',
+    abi: [...],
+    functionName: 'someFunction',
+  })
+  // Assume some internal error occurs during encoding of the return data
 } catch (error) {
   if (error instanceof EncodeFunctionReturnDataError) {
-    console.error(error.message);
-    // Handle the encode function return data error
+    console.error('Encode function return data error:', error.message)
+    console.log('Documentation:', error.docsLink)
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Optional object containing additional information about the error.
 
 ## Extends
 
@@ -39,7 +41,7 @@ Optional object containing additional information about the error.
 
 ### new EncodeFunctionReturnDataError()
 
-> **new EncodeFunctionReturnDataError**(`message`, `meta`?, `tag`?): [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
+> **new EncodeFunctionReturnDataError**(`message`, `args`?): [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
 
 Constructs an EncodeFunctionReturnDataError.
 
@@ -49,13 +51,9 @@ Constructs an EncodeFunctionReturnDataError.
 
 Human-readable error message.
 
-• **meta?**: `object`
+• **args?**: `EncodeFunctionReturnDataErrorParameters` = `{}`
 
-Optional object containing additional information about the error.
-
-• **tag?**: `string` = `'EncodeFunctionReturnDataError'`
-
-The tag for the error.
+Additional parameters for the EncodeFunctionReturnDataError.
 
 #### Returns
 
@@ -67,7 +65,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/utils/EncodeFunctionReturnDataError.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/EncodeFunctionReturnDataError.js#L36)
+[packages/errors/src/utils/EncodeFunctionReturnDataError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/EncodeFunctionReturnDataError.js#L51)
 
 ## Properties
 
@@ -83,7 +81,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/utils/EncodeFunctionReturnDataError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/EncodeFunctionReturnDataError.js#L63)
 
 ***
 
@@ -97,7 +95,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -105,15 +103,13 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -127,7 +123,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -135,15 +131,13 @@ Error code, analogous to the code in JSON RPC error.
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -167,15 +161,13 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -191,7 +183,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/utils/EncodeFunctionReturnDataError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/EncodeFunctionReturnDataError.js#L62)
 
 ***
 
@@ -205,7 +197,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -233,7 +225,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -305,7 +297,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

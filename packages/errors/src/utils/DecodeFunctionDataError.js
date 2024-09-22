@@ -1,44 +1,62 @@
 import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 
 /**
+ * Parameters for constructing a DecodeFunctionDataError.
+ * @typedef {Object} DecodeFunctionDataErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {import('../ethereum/BaseError.js').BaseError|Error} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ */
+
+/**
  * Represents an error that occurs when decoding function data fails.
  * Not expected to be thrown unless ABI is incorrect.
  *
  * @example
- * const {errors} = await tevm.call({address: '0x1234'})
- * errors.forEach(error => {
- *   if (error.name === 'DecodeFunctionDataError') {
- *     console.log(error.message)
- *   }
- * })
+ * ```javascript
+ * import { DecodeFunctionDataError } from '@tevm/errors'
+ * import { createMemoryClient } from '@tevm/memory-client'
  *
- * @param {string} message - A human-readable error message.
- * @param {object} [meta] - Optional object containing additional information about the error.
- * @property {'DecodeFunctionDataError'} _tag - Same as name, used internally.
- * @property {'DecodeFunctionDataError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * const client = createMemoryClient()
+ *
+ * try {
+ *   const result = await client.call({
+ *     to: '0x1234567890123456789012345678901234567890',
+ *     data: '0x...' // Invalid or mismatched function data
+ *   })
+ * } catch (error) {
+ *   if (error instanceof DecodeFunctionDataError) {
+ *     console.error('Decode function data error:', error.message)
+ *     console.log('Documentation:', error.docsLink)
+ *   }
+ * }
+ * ```
+ *
+ * @extends {InvalidParamsError}
  */
 export class DecodeFunctionDataError extends InvalidParamsError {
 	/**
 	 * Constructs a DecodeFunctionDataError.
 	 *
 	 * @param {string} message - Human-readable error message.
-	 * @param {object} [meta] - Optional object containing additional information about the error.
-	 * @param {string} [tag='DecodeFunctionDataError'] - The tag for the error.
+	 * @param {DecodeFunctionDataErrorParameters} [args={}] - Additional parameters for the DecodeFunctionDataError.
 	 */
-	constructor(message, meta, tag = 'DecodeFunctionDataError') {
+	constructor(message, args = {}) {
 		super(
 			message,
 			{
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/decodefunctiondataerror/',
-				...meta,
+				...args,
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/decodefunctiondataerror/',
 			},
-			tag,
+			'DecodeFunctionDataError'
 		)
+
+		this.name = 'DecodeFunctionDataError'
+		this._tag = 'DecodeFunctionDataError'
 	}
 }
