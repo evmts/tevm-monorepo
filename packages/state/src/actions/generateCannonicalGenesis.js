@@ -22,16 +22,17 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 		contracts: new ContractCache(),
 		accounts: new AccountCache({
 			size: 100_000,
-			type: CacheType.ORDERED_MAP,
+			type: CacheType.LRU,
 		}),
 		storage: new StorageCache({
 			size: 100_000,
-			type: CacheType.ORDERED_MAP,
+			type: CacheType.LRU,
 		}),
 	}
 	try {
 		for (const [k, v] of Object.entries(/** @type {import('../state-types/TevmState.js').TevmState}*/ (state))) {
 			const { nonce, balance, storageRoot, codeHash, storage, deployedBytecode } = v
+			console.log('generating', k, nonce)
 			const account = new EthjsAccount(
 				// replace with just the var
 				nonce,
