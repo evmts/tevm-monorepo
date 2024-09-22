@@ -4,25 +4,24 @@ import { numberToBytes } from 'viem'
 import { Address } from './Address.js'
 
 /**
- * Creates an {@link Address} for safely interacting with an Ethereum
+ * Creates an {@link Address} for safely interacting with an Ethereum address.
  * Wraps {@link EthjsAddress} with a tevm style API.
- * toString returns a checksummed address rather than lowercase
+ * @param {import("@tevm/utils").AddressLike | number | bigint | string} address - The input to create an address from.
+ * @returns {Address} An Address instance.
+ * @throws {InvalidAddressError} If the input is not a valid address.
  * @example
- * ```typescript
- * import { createAddress } from '@tevm/address'`
+ * ```javascript
+ * import { createAddress } from '@tevm/address'
  *
- * // takes hex string
+ * // From hex string
  * let address = createAddress(`0x${'00'.repeat(20)}`)
- * // takes number and bigint
- * address = createAddress(0)
- * // takes bytes
- * address = createAddress(new Uint8Array()))
- * // non hex string
+ * // From number or bigint
+ * address = createAddress(0n)
+ * // From bytes
+ * address = createAddress(new Uint8Array(20))
+ * // From non-hex string
  * address = createAddress('55'.repeat(20))
  * ```
- * @param {import("@tevm/utils").AddressLike | number | bigint | string} address
- * @returns {import('./Address.js').Address}
- * @throws {InvalidAddressError} if the input is not a valid address}
  */
 export const createAddress = (address) => {
 	try {
@@ -41,17 +40,16 @@ export const createAddress = (address) => {
 		if (typeof address === 'string') {
 			return new Address(hexToBytes(`0x${address}`, { size: 20 }))
 		}
-		throw new UnreachableCodeError(address, `Receieved an unexpected input for createAddress ${address}`)
+		throw new UnreachableCodeError(address, `Received an unexpected input for createAddress ${address}`)
 	} catch (e) {
 		if (e instanceof UnreachableCodeError) {
 			throw new InvalidAddressError(
-				'Recieved an invalid address input type for createAddress. Valid input types include hex string, unprefixed hex, bytes, number, bigint, or EthjsAddress',
+				'Received an invalid address input type for createAddress. Valid input types include hex string, unprefixed hex, bytes, number, bigint, or EthjsAddress',
 				{ cause: e },
 			)
 		}
-		if (e instanceof Error) {
-			throw new InvalidAddressError(`Recieved an invalid address input ${e.message}`, { cause: e })
-		}
-		throw new InvalidAddressError(`Recieved an invalid address input ${address}`, { cause: /** @type {any} */ (e) })
+		throw new InvalidAddressError(`Received an invalid address input: ${/** @type {Error} */ (e).message}`, {
+			cause: /** @type {Error} */ (e),
+		})
 	}
 }
