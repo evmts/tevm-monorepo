@@ -12,24 +12,6 @@ export {
 	type CliqueConfig,
 	ConsensusType,
 } from '@ethereumjs/common'
-export {
-	optimismSepolia,
-	baseSepolia,
-	base,
-	zora,
-	mainnet,
-	sepolia,
-	optimism,
-	tevmDefault,
-	zoraSepolia,
-	blast,
-	manta,
-	mantle,
-	scroll,
-	polygon,
-	arbitrum,
-	redstone,
-	avalanche,
-} from './presets/index.js'
+export * from './presets/index.js'
 export { type MockKzg } from './MockKzg.js'
 export { createMockKzg } from './createMockKzg.js'
