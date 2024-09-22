@@ -16,4 +16,4 @@
 
 ## Defined in
 
-packages/node/dist/index.d.ts:18
+packages/node/dist/index.d.ts:20

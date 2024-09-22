@@ -27,4 +27,4 @@ Returns a block by its hash or number.
 
 ## Defined in
 
-[actions/getBlock.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)
+[packages/blockchain/src/actions/getBlock.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)

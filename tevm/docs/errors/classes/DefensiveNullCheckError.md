@@ -7,36 +7,31 @@
 # Class: DefensiveNullCheckError
 
 Represents an error that occurs when a defensive null check is tripped.
-This error should never be thrown and indicates a bug in the Tevm VM if it is Thrown
-
-Defensive null check errors can occur due to:
-- Checking what should be an impossible null value, indicating a bug in TEVM.
-
-To handle this error take the following steps:
-- ensure you did not modify the tevm VM in any unsupported way.
-- Open an issue with a minimal reproducable example
+This error should never be thrown and indicates a bug in the Tevm VM if it is thrown.
 
 ## Example
 
-```typescript
+```javascript
 import { DefensiveNullCheckError } from '@tevm/errors'
-function assertNotNull<T>(value: T | null): T {
-  const name = 'bob'
-  const firstLetter = name[0]
-  if (firstLetter === undefined) {
-    throw new DefensiveNullCheckError('Null value encountered in assertNotNull')
+
+function assertNotNull(value, message) {
+  if (value === null || value === undefined) {
+    throw new DefensiveNullCheckError(message)
   }
   return value
 }
+
+try {
+  const result = someFunction()
+  assertNotNull(result, 'Result should not be null')
+} catch (error) {
+  if (error instanceof DefensiveNullCheckError) {
+    console.error('Unexpected null value:', error.message)
+    // This indicates a bug in the Tevm VM
+    reportBugToTevmRepository(error)
+  }
+}
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -46,7 +41,7 @@ Additional parameters for the BaseError.
 
 ### new DefensiveNullCheckError()
 
-> **new DefensiveNullCheckError**(`message`?, `args`?, `tag`?): [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
+> **new DefensiveNullCheckError**(`message`?, `args`?): [`DefensiveNullCheckError`](DefensiveNullCheckError.md)
 
 Constructs a DefensiveNullCheckError.
 
@@ -58,11 +53,7 @@ Human-readable error message.
 
 • **args?**: [`DefensiveNullCheckErrorParameters`](../type-aliases/DefensiveNullCheckErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -74,7 +65,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/defensive/DefensiveNullCheckError.d.ts:54
+packages/errors/types/defensive/DefensiveNullCheckError.d.ts:48
 
 ## Properties
 
@@ -82,15 +73,13 @@ packages/errors/types/defensive/DefensiveNullCheckError.d.ts:54
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -104,7 +93,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -112,15 +101,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`code`](InternalError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -134,7 +121,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -142,15 +129,13 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -182,7 +167,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:49
+packages/errors/types/ethereum/InternalErrorError.d.ts:53
 
 ***
 
@@ -190,15 +175,13 @@ packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -228,7 +211,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -256,7 +239,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -265,6 +248,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -275,10 +262,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -328,7 +311,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -380,4 +363,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

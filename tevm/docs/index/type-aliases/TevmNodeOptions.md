@@ -156,4 +156,4 @@ Enable profiler. Defaults to false.
 
 ## Defined in
 
-packages/node/dist/index.d.ts:240
+packages/node/dist/index.d.ts:242

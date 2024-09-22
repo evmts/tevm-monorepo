@@ -8,8 +8,6 @@
 
 > **isBytes23**(`bytes23`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes23.
-
 ## Parameters
 
 • **bytes23**: `unknown`
@@ -17,14 +15,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes23.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isBytes23 } from '@tevm/schemas';
-isBytes23("0xff");  // true
-isBytes23("0xfff"); // false
-````
 
 ## Defined in
 

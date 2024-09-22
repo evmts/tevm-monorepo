@@ -8,8 +8,6 @@
 
 > **parseUINT8**\<`TUINT8`\>(`uint8`): `TUINT8`
 
-Parses a UINT8 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUINT8** *extends* `bigint`
@@ -21,13 +19,6 @@ Parses a UINT8 and returns the value if no errors.
 ## Returns
 
 `TUINT8`
-
-## Example
-
-```ts
-import { parseUINT8 } from '@tevm/schemas';
-const parsedUINT8 = parseUINT8(BigInt(127));
-```
 
 ## Defined in
 

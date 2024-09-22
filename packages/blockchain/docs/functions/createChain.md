@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[createChain.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L16)
+[packages/blockchain/src/createChain.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L16)

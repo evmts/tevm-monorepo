@@ -9,33 +9,27 @@ Represents an error that occurs when the size of the bytes does not match the ex
 
 ## Example
 
-```typescript
+```javascript
 import { InvalidBytesSizeError } from '@tevm/errors'
+import { hexToBytes } from '@tevm/utils'
+
+function requireBytes32(value) {
+  const bytes = hexToBytes(value)
+  if (bytes.length !== 32) {
+    throw new InvalidBytesSizeError(bytes.length, 32)
+  }
+  return bytes
+}
+
 try {
-  // Some operation that can throw an InvalidBytesSizeError
+  requireBytes32('0x1234') // This will throw an InvalidBytesSizeError
 } catch (error) {
   if (error instanceof InvalidBytesSizeError) {
-    console.error(error.message);
-    // Handle the invalid bytes size error
+    console.error(`Invalid bytes size: ${error.message}`)
+    console.log(`Actual size: ${error.size}, Expected size: ${error.expectedSize}`)
   }
 }
 ```
-
-## Param
-
-The actual size of the bytes.
-
-## Param
-
-The expected size of the bytes.
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -45,7 +39,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidBytesSizeError()
 
-> **new InvalidBytesSizeError**(`size`, `expectedSize`, `message`?, `args`?, `tag`?): [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
+> **new InvalidBytesSizeError**(`size`, `expectedSize`, `message`?, `args`?): [`InvalidBytesSizeError`](/reference/tevm/errors/classes/invalidbytessizeerror/)
 
 Constructs an InvalidBytesSizeError.
 
@@ -59,17 +53,13 @@ The actual size of the bytes.
 
 The expected size of the bytes.
 
-• **message?**: `string` = `...`
+• **message?**: `string`
 
 Human-readable error message.
 
 • **args?**: [`InvalidBytesSizeErrorParameters`](/reference/tevm/errors/interfaces/invalidbytessizeerrorparameters/) = `{}`
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string` = `'InvalidBytesSizeError'`
-
-The tag for the error.}
+Additional parameters for the error.
 
 #### Returns
 
@@ -81,7 +71,7 @@ The tag for the error.}
 
 #### Defined in
 
-[packages/errors/src/data/InvalidByteSizeError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L55)
+[packages/errors/src/data/InvalidByteSizeError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L64)
 
 ## Properties
 
@@ -97,7 +87,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/data/InvalidByteSizeError.js:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L78)
 
 ***
 
@@ -111,7 +101,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -119,7 +109,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32603), standard JSON-RPC error code for internal errors.
 
 #### Inherited from
 
@@ -127,7 +117,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -141,7 +131,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -157,7 +147,19 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+
+***
+
+### expectedSize
+
+> **expectedSize**: `number`
+
+The expected size of the bytes.
+
+#### Defined in
+
+[packages/errors/src/data/InvalidByteSizeError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L54)
 
 ***
 
@@ -189,7 +191,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InternalErrorError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L64)
+[packages/errors/src/ethereum/InternalErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L69)
 
 ***
 
@@ -205,7 +207,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -221,7 +223,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/data/InvalidByteSizeError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L77)
 
 ***
 
@@ -235,7 +237,19 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+
+***
+
+### size
+
+> **size**: `number`
+
+The actual size of the bytes.
+
+#### Defined in
+
+[packages/errors/src/data/InvalidByteSizeError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/data/InvalidByteSizeError.js#L48)
 
 ***
 
@@ -263,7 +277,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -335,7 +349,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

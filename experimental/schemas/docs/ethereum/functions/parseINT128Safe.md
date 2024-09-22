@@ -8,8 +8,6 @@
 
 > **parseINT128Safe**\<`TINT128`\>(`int128`): `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT128`\>
 
-Safely parses an INT128 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TINT128**

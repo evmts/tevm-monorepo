@@ -10,22 +10,24 @@ Not expected to be thrown unless ABI is incorrect.
 
 ## Example
 
-```ts
-const {errors} = await tevm.call({address: '0x1234'})
-errors.forEach(error => {
-  if (error.name === 'DecodeFunctionDataError') {
-    console.log(error.message)
+```javascript
+import { DecodeFunctionDataError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
+const client = createMemoryClient()
+
+try {
+  const result = await client.call({
+    to: '0x1234567890123456789012345678901234567890',
+    data: '0x...' // Invalid or mismatched function data
+  })
+} catch (error) {
+  if (error instanceof DecodeFunctionDataError) {
+    console.error('Decode function data error:', error.message)
+    console.log('Documentation:', error.docsLink)
   }
-})
+}
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Optional object containing additional information about the error.
 
 ## Extends
 
@@ -35,7 +37,7 @@ Optional object containing additional information about the error.
 
 ### new DecodeFunctionDataError()
 
-> **new DecodeFunctionDataError**(`message`, `meta`?, `tag`?): [`DecodeFunctionDataError`](/reference/tevm/errors/classes/decodefunctiondataerror/)
+> **new DecodeFunctionDataError**(`message`, `args`?): [`DecodeFunctionDataError`](/reference/tevm/errors/classes/decodefunctiondataerror/)
 
 Constructs a DecodeFunctionDataError.
 
@@ -45,13 +47,9 @@ Constructs a DecodeFunctionDataError.
 
 Human-readable error message.
 
-• **meta?**: `object`
+• **args?**: `DecodeFunctionDataErrorParameters` = `{}`
 
-Optional object containing additional information about the error.
-
-• **tag?**: `string` = `'DecodeFunctionDataError'`
-
-The tag for the error.
+Additional parameters for the DecodeFunctionDataError.
 
 #### Returns
 
@@ -63,7 +61,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/utils/DecodeFunctionDataError.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/DecodeFunctionDataError.js#L33)
+[packages/errors/src/utils/DecodeFunctionDataError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/DecodeFunctionDataError.js#L48)
 
 ## Properties
 
@@ -79,7 +77,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/utils/DecodeFunctionDataError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/DecodeFunctionDataError.js#L60)
 
 ***
 
@@ -93,7 +91,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -109,7 +107,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -123,7 +121,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -139,7 +137,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -171,7 +169,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -187,7 +185,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/utils/DecodeFunctionDataError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/utils/DecodeFunctionDataError.js#L59)
 
 ***
 
@@ -201,7 +199,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -229,7 +227,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -301,7 +299,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

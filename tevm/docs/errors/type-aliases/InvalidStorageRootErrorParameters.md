@@ -56,4 +56,4 @@ Parameters for constructing an InvalidStorageRootError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidStorageRootError.d.ts:42
+packages/errors/types/input/InvalidStorageRootError.d.ts:51

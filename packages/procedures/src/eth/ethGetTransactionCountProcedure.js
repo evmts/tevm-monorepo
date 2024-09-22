@@ -55,7 +55,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 				return undefined
 			}
 			const stateCopy = await vm.stateManager.deepCopy()
-			stateCopy.setStateRoot(block.header.stateRoot)
+			await stateCopy.setStateRoot(block.header.stateRoot)
 			const account = await stateCopy.getAccount(createAddress(address))
 			return account?.nonce ?? 0n
 		})()

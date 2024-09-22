@@ -5,11 +5,11 @@ prev: false
 title: "ethGetTransactionCountProcedure"
 ---
 
-> **ethGetTransactionCountProcedure**(`client`): [`EthGetTransactionCountJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactioncountjsonrpcprocedure/)
+> **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](/reference/tevm/procedures/type-aliases/ethgettransactioncountjsonrpcprocedure/)
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+• **node**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
@@ -17,4 +17,4 @@ title: "ethGetTransactionCountProcedure"
 
 ## Defined in
 
-[packages/procedures/src/eth/ethGetTransactionCountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L9)
+[packages/procedures/src/eth/ethGetTransactionCountProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetTransactionCountProcedure.js#L10)

@@ -8,8 +8,6 @@
 
 > **parseUINT16**\<`TUINT16`\>(`uint16`): `TUINT16`
 
-Parses a UINT16 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TUINT16** *extends* `bigint`
@@ -21,13 +19,6 @@ Parses a UINT16 and returns the value if no errors.
 ## Returns
 
 `TUINT16`
-
-## Example
-
-```ts
-import { parseUINT16 } from '@tevm/schemas';
-const parsedUINT16 = parseUINT16(BigInt(32767));
-```
 
 ## Defined in
 

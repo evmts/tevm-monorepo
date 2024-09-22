@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[types.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L158)
+[packages/block/src/types.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L158)

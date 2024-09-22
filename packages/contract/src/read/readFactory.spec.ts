@@ -1,4 +1,4 @@
-import { formatAbi } from '@tevm/utils'
+import { encodeDeployData, formatAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
@@ -137,6 +137,22 @@ describe(readFactory.name, () => {
 			`)
 	})
 
+	it('should work with a contract without deployedBytecode', () => {
+		const contractWithoutDeployedBytecode = createContract({
+			name: 'DummyContractNoDeployed',
+			humanReadableAbi: formatAbi(dummyAbi),
+			bytecode: '0x420',
+		})
+		const read = contractWithoutDeployedBytecode.read.exampleRead('test', BigInt(123))
+		expect(read).toMatchObject({
+			abi: expect.any(Array),
+			functionName: 'exampleRead',
+			args: ['test', BigInt(123)],
+		})
+		expect((read as any).deployedBytecode).toBeUndefined()
+		expect((read as any).code).toBeUndefined()
+	})
+
 	it('should return an empty object when the provided methods includes no functions', () => {
 		const dummyAbiNoFunction = dummyAbi.filter((abi) => abi.type !== 'function')
 		const read = readFactory({
@@ -156,7 +172,12 @@ describe(readFactory.name, () => {
 			humanReadableAbi: formatAbi(dummyAbi),
 			bytecode: '0x420',
 			deployedBytecode: '0x69',
-		}).script()
+		}).withCode(
+			encodeDeployData({
+				abi: dummyAbi,
+				bytecode: '0x420',
+			}),
+		)
 		expect(script.read.exampleRead('data', BigInt(420))).toMatchInlineSnapshot(`
 			{
 			  "abi": [

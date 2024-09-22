@@ -5,30 +5,31 @@ prev: false
 title: "InvalidAbiError"
 ---
 
-Represents an error that occurs when the ABI shape is invalid.
+Represents an error that occurs when the ABI is invalid.
 
-This error is typically encountered when the ABI provided for a contract is malformed or does not conform to the expected structure.
+This error is typically encountered when a contract interaction or ABI-related operation receives an invalid or malformed ABI.
 
 ## Example
 
-```ts
+```javascript
+import { InvalidAbiError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
+const client = createMemoryClient()
+
 try {
-  // Some operation that can throw an InvalidAbiError
+  await client.contract({
+    abi: 'invalid_abi', // This should be a valid ABI array
+    address: '0x...',
+    functionName: 'someFunction',
+  })
 } catch (error) {
   if (error instanceof InvalidAbiError) {
-    console.error(error.message);
-    // Handle the invalid ABI error
+    console.error('Invalid ABI:', error.message)
+    console.log('Documentation:', error.docsLink)
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the InvalidParamsError.
 
 ## Extends
 
@@ -38,7 +39,7 @@ Additional parameters for the InvalidParamsError.
 
 ### new InvalidAbiError()
 
-> **new InvalidAbiError**(`message`, `args`?, `tag`?): [`InvalidAbiError`](/reference/tevm/errors/classes/invalidabierror/)
+> **new InvalidAbiError**(`message`, `args`?): [`InvalidAbiError`](/reference/tevm/errors/classes/invalidabierror/)
 
 Constructs an InvalidAbiError.
 
@@ -50,11 +51,7 @@ Human-readable error message.
 
 • **args?**: [`InvalidAbiErrorParameters`](/reference/tevm/errors/interfaces/invalidabierrorparameters/) = `{}`
 
-Additional parameters for the InvalidParamsError.
-
-• **tag?**: `string` = `'InvalidAbiError'`
-
-The tag for the error.
+Additional parameters for the InvalidAbiError.
 
 #### Returns
 
@@ -66,7 +63,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/input/InvalidAbiError.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAbiError.js#L48)
+[packages/errors/src/input/InvalidAbiError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAbiError.js#L50)
 
 ## Properties
 
@@ -82,7 +79,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/input/InvalidAbiError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAbiError.js#L62)
 
 ***
 
@@ -96,7 +93,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -112,7 +109,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -126,7 +123,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -142,7 +139,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -174,7 +171,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -190,7 +187,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/input/InvalidAbiError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAbiError.js#L61)
 
 ***
 
@@ -204,7 +201,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -232,7 +229,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -304,7 +301,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

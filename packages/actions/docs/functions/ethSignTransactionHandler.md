@@ -12,7 +12,7 @@
 
 • **options**
 
-• **options.accounts**: readonly `HDAccount`[]
+• **options.accounts**: readonly `object`[]
 
 • **options.getChainId**
 

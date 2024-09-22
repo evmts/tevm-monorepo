@@ -20,4 +20,4 @@ the state as a JSON-RPC successful result
 
 ## Defined in
 
-[procedures/src/dumpstate/DumpStateJsonRpcProcedure.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcProcedure.ts#L16)
+[packages/procedures/src/dumpstate/DumpStateJsonRpcProcedure.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/dumpstate/DumpStateJsonRpcProcedure.ts#L16)

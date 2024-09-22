@@ -7,15 +7,25 @@
 # Class: NoForkTransportSetError
 
 Error represents the tevm client attempted to fetch a resource from a Forked transport but no transport was set.
-To set a transport use the `fork.transport` option for [`createMemoryClient`](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
 
-## Param
+## Example
 
-A human-readable error message.
+```javascript
+import { NoForkTransportSetError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
 
-## Param
+const client = createMemoryClient() // No fork configuration
 
-Additional parameters for the InvalidParamsError.
+try {
+  await client.getBalance('0x...') // This might throw if it needs to access forked state
+} catch (error) {
+  if (error instanceof NoForkTransportSetError) {
+    console.error('No fork transport set:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Handle the error, e.g., by setting up a fork configuration
+  }
+}
+```
 
 ## Extends
 
@@ -25,9 +35,9 @@ Additional parameters for the InvalidParamsError.
 
 ### new NoForkTransportSetError()
 
-> **new NoForkTransportSetError**(`message`, `args`?, `tag`?): [`NoForkTransportSetError`](NoForkTransportSetError.md)
+> **new NoForkTransportSetError**(`message`, `args`?): [`NoForkTransportSetError`](NoForkTransportSetError.md)
 
-Constructs an NoForkTransportSetError.
+Constructs a NoForkTransportSetError.
 
 #### Parameters
 
@@ -37,9 +47,7 @@ Human-readable error message.
 
 • **args?**: [`NoForkTransportSetErrorParameters`](../type-aliases/NoForkTransportSetErrorParameters.md)
 
-Additional parameters to pass to BaseError.
-
-• **tag?**: `string`
+Additional parameters for the error.
 
 #### Returns
 
@@ -51,7 +59,7 @@ Additional parameters to pass to BaseError.
 
 #### Defined in
 
-packages/errors/types/fork/NoForkUriSetError.d.ts:33
+packages/errors/types/fork/NoForkUriSetError.d.ts:42
 
 ## Properties
 
@@ -59,15 +67,13 @@ packages/errors/types/fork/NoForkUriSetError.d.ts:33
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -81,7 +87,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -89,15 +95,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -111,7 +115,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -119,23 +123,19 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
 ### message
 
 > **message**: `string`
-
-Human-readable error message.
 
 #### Inherited from
 
@@ -151,23 +151,19 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
 ### name
 
 > **name**: `string`
-
-The name of the error, used to discriminate errors.
 
 #### Inherited from
 
@@ -189,7 +185,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -217,7 +213,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -226,6 +222,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -236,10 +236,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -289,7 +285,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -341,4 +337,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

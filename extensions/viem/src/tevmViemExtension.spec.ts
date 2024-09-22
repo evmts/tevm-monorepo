@@ -5,7 +5,7 @@ import { ERC20 } from '@tevm/contract'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
-import { http, type PublicClient, createPublicClient } from 'viem'
+import { http, type PublicClient, createPublicClient, encodeDeployData } from 'viem'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { tevmViemExtension } from './tevmViemExtension.js'
 
@@ -46,7 +46,7 @@ describe('tevmViemExtension', () => {
 		async () => {
 			const decorated = tevmViemExtension()(client)
 			const params = {
-				...ERC20.script({ constructorArgs: ['Name', 'SYMBOL'] }).read.balanceOf(`0x${'4'.repeat(40)}`),
+				...ERC20.withCode(encodeDeployData(ERC20.deploy('Name', 'SYMBOL'))).read.balanceOf(`0x${'4'.repeat(40)}`),
 			} as const
 			const response = await decorated.tevm.contract(params)
 			expect(response.executionGasUsed).toEqual(2851n)

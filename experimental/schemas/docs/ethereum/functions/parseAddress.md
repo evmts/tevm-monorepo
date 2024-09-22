@@ -8,8 +8,6 @@
 
 > **parseAddress**\<`TAddress`\>(`address`): `TAddress`
 
-Parses an Address returning the address or throwing an InvalidAddressError if invalid.
-
 ## Type Parameters
 
 • **TAddress** *extends* \`0x$\{string\}\`
@@ -25,10 +23,6 @@ The address to parse.
 `TAddress`
 
 - The parsed address.
-
-## Throws
-
-- If the address is invalid.
 
 ## Defined in
 

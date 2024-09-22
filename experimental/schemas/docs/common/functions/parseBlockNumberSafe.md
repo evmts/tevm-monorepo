@@ -8,8 +8,6 @@
 
 > **parseBlockNumberSafe**\<`TBlockNumber`\>(`blockNumber`): `Effect`\<`never`, [`InvalidBlockNumberError`](../classes/InvalidBlockNumberError.md), `TBlockNumber`\>
 
-Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TBlockNumber** *extends* `number`
@@ -21,13 +19,6 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 ## Returns
 
 `Effect`\<`never`, [`InvalidBlockNumberError`](../classes/InvalidBlockNumberError.md), `TBlockNumber`\>
-
-## Example
-
-```ts
-import { parseBlockNumberSafe } from '@tevm/schemas';
-const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef1234567890abcdef12345678');
-```
 
 ## Defined in
 

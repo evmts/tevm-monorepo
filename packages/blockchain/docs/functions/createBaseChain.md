@@ -20,4 +20,4 @@ Base chain object
 
 ## Defined in
 
-[createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)
+[packages/blockchain/src/createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)

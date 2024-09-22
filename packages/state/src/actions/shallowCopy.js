@@ -12,11 +12,11 @@ export const shallowCopy = (baseState) => () => {
 	newState.caches.contracts = new ContractCache()
 	newState.caches.storage = new StorageCache({
 		size: 100000,
-		type: CacheType.ORDERED_MAP,
+		type: CacheType.LRU,
 	})
 	newState.caches.accounts = new AccountCache({
 		size: 100000,
-		type: CacheType.ORDERED_MAP,
+		type: CacheType.LRU,
 	})
 	return newState
 }

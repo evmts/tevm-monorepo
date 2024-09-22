@@ -9,7 +9,7 @@ title: "createTevmNode"
 
 ## Parameters
 
-• **options?**: [`TevmNodeOptions`](/reference/tevm/node/type-aliases/tevmnodeoptions/)\<[`Common`](/reference/tevm/common/type-aliases/common/)\> = `{}`
+• **options?**: [`TevmNodeOptions`](/reference/tevm/node/type-aliases/tevmnodeoptions/)\<`object`\> = `{}`
 
 ## Returns
 

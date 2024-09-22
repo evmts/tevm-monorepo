@@ -5,19 +5,27 @@ prev: false
 title: "ContractExecutionFailedError"
 ---
 
-Represents an error that occurs when the execution of a contract fails.
+Represents an error that occurs when the execution of a smart contract fails.
 
-This error is typically encountered when a smart contract fails to execute properly.
+This error is typically encountered when a smart contract's execution reverts or
+encounters an exception during its operation. It can be due to various reasons such as
+failing assertions, out-of-gas errors, or other contract-specific logic failures.
+
+The error code -32004 is a non-standard extension used by some Ethereum clients to
+indicate a contract execution failure.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a ContractExecutionFailedError
+  const result = await client.call({
+    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+    data: '0x...' // encoded function call
+  })
 } catch (error) {
   if (error instanceof ContractExecutionFailedError) {
-    console.error(error.message);
-    // Handle the contract execution failed error
+    console.error('Contract execution failed:', error.message);
+    console.log('Check the contract logic or input parameters');
   }
 }
 ```
@@ -54,7 +62,7 @@ Additional parameters for the BaseError.
 
 • **tag?**: `string` = `'ContractExecutionFailed'`
 
-The tag for the error.}
+The tag for the error.
 
 #### Returns
 
@@ -66,7 +74,7 @@ The tag for the error.}
 
 #### Defined in
 
-[packages/errors/src/ethereum/ContractExecutionFailedError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L49)
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L56)
 
 ## Properties
 
@@ -82,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L69)
 
 ***
 
@@ -96,7 +104,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -104,7 +112,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32004), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -112,7 +120,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -126,7 +134,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -142,7 +150,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -174,7 +182,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -190,7 +198,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L68)
 
 ***
 
@@ -204,7 +212,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -232,7 +240,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -304,7 +312,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

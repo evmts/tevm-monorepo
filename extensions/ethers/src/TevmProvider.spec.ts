@@ -1,7 +1,7 @@
 import { createContract } from '@tevm/contract'
 import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { toHex } from '@tevm/utils'
+import { encodeDeployData, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
@@ -60,7 +60,7 @@ describe(TevmProvider.name, () => {
 			'provider.tevm.script',
 			async () => {
 				const result = await provider.tevm.contract(
-					ERC20.script({ constructorArgs: ['name', 'SYMBOL'] }).read.balanceOf(`0x${'69'.repeat(20)}`),
+					ERC20.withCode(encodeDeployData(ERC20.deploy('name', 'SYMBOL'))).read.balanceOf(`0x${'69'.repeat(20)}`),
 				)
 				expect(result).toEqual({
 					amountSpent: 1454773185243n,

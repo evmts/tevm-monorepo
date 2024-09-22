@@ -56,4 +56,4 @@ Parameters for constructing an InvalidDataError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidDataError.d.ts:42
+packages/errors/types/input/InvalidDataError.d.ts:52

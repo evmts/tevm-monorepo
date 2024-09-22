@@ -25,7 +25,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 #### Defined in
 
-[types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L43)
+[packages/block/src/types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L43)
 
 ***
 
@@ -38,13 +38,13 @@ Will throw if provided on a non-PoA chain.
 
 #### Defined in
 
-[types.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L60)
+[packages/block/src/types.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L60)
 
 ***
 
 ### common
 
-> **common**: `Common`
+> **common**: `object`
 
 A Common object defining the chain and the hardfork a block/block header belongs to.
 
@@ -56,9 +56,121 @@ hardfork in the Common class.
 
 Current default hardfork: `merge`
 
+#### blockExplorers?
+
+> `optional` **blockExplorers**: `object`
+
+Collection of block explorers
+
+##### Index Signature
+
+ \[`key`: `string`\]: `ChainBlockExplorer`
+
+#### blockExplorers.default
+
+> **default**: `ChainBlockExplorer`
+
+#### contracts?
+
+> `optional` **contracts**: `object`
+
+Collection of contracts
+
+#### contracts.ensRegistry?
+
+> `optional` **ensRegistry**: `ChainContract`
+
+#### contracts.ensUniversalResolver?
+
+> `optional` **ensUniversalResolver**: `ChainContract`
+
+#### contracts.multicall3?
+
+> `optional` **multicall3**: `ChainContract`
+
+#### copy()
+
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+
+##### Returns
+
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+
+#### custom?
+
+> `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+Custom chain data.
+
+#### ethjsCommon
+
+> **ethjsCommon**: `Common`
+
+#### fees?
+
+> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+
+Modifies how fees are derived.
+
+#### formatters?
+
+> `optional` **formatters**: `ChainFormatters`
+
+Modifies how data is formatted and typed (e.g. blocks and transactions)
+
+#### id
+
+> **id**: `number`
+
+ID in number form
+
+#### name
+
+> **name**: `string`
+
+Human-readable name
+
+#### nativeCurrency
+
+> **nativeCurrency**: `ChainNativeCurrency`
+
+Currency used by chain
+
+#### rpcUrls
+
+> **rpcUrls**: `object`
+
+Collection of RPC endpoints
+
+##### Index Signature
+
+ \[`key`: `string`\]: `ChainRpcUrls`
+
+#### rpcUrls.default
+
+> **default**: `ChainRpcUrls`
+
+#### serializers?
+
+> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+
+Modifies how data is serialized (e.g. transactions).
+
+#### sourceId?
+
+> `optional` **sourceId**: `number`
+
+Source Chain ID (ie. the L1 chain)
+
+#### testnet?
+
+> `optional` **testnet**: `boolean`
+
+Flag for test networks
+
 #### Defined in
 
-[types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L24)
+[packages/block/src/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L24)
 
 ***
 
@@ -68,7 +180,7 @@ Current default hardfork: `merge`
 
 #### Defined in
 
-[types.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L66)
+[packages/block/src/types.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L66)
 
 ***
 
@@ -88,7 +200,7 @@ Default: true
 
 #### Defined in
 
-[types.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L55)
+[packages/block/src/types.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L55)
 
 ***
 
@@ -106,7 +218,7 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 #### Defined in
 
-[types.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L34)
+[packages/block/src/types.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L34)
 
 ***
 
@@ -118,4 +230,4 @@ Skip consensus format validation checks on header if set. Defaults to false.
 
 #### Defined in
 
-[types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L64)
+[packages/block/src/types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L64)

@@ -75,6 +75,22 @@ describe('write', () => {
         ]
       `)
 	})
+	it('should work with a contract without deployedBytecode', () => {
+		const contractWithoutDeployedBytecode = createContract({
+			name: 'DummyContractNoDeployed',
+			humanReadableAbi: formatAbi(dummyAbi),
+			bytecode: '0x420',
+			code: '0x69',
+		})
+		const write = contractWithoutDeployedBytecode.write.exampleWrite('test', BigInt(123))
+		expect(write).toMatchObject({
+			abi: expect.any(Array),
+			functionName: 'exampleWrite',
+			args: ['test', BigInt(123)],
+		})
+		expect((write as any).deployedBytecode).toBeUndefined()
+		expect((write as any).code).toBe('0x69')
+	})
 	it('should work for overloaded function', () => {
 		const writeInfo1Arg = contract.write.overloadedWrite('data')
 		expect(writeInfo1Arg.args).toMatchInlineSnapshot(`

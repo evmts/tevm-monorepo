@@ -2,7 +2,7 @@ import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
-import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
+import { EthjsAddress, type Hex, bytesToHex, encodeDeployData, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -22,7 +22,7 @@ describe('Tevm.request', async () => {
 			params: [
 				{
 					data: encodeFunctionData(ERC20.read.balanceOf(contractAddress)),
-					code: ERC20.script({ constructorArgs: ['Name', 'SYMBOL'] }).code,
+					code: encodeDeployData(ERC20.deploy('Name', 'SYMBOL')),
 				},
 			],
 			jsonrpc: '2.0',

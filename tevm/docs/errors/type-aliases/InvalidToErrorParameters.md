@@ -56,4 +56,4 @@ Parameters for constructing an InvalidToError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidToError.d.ts:42
+packages/errors/types/input/InvalidToError.d.ts:52

@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **accounts**: readonly [`HDAccount`](../../index/type-aliases/HDAccount.md)[]
+• **accounts**: readonly `object`[]
 
 ## Returns
 
@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:691
+packages/procedures/dist/index.d.ts:696

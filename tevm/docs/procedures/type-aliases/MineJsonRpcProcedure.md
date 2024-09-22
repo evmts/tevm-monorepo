@@ -20,4 +20,4 @@ Mine JSON-RPC tevm procedure mines 1 or more blocks
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1231
+packages/procedures/dist/index.d.ts:1236

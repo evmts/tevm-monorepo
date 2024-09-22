@@ -22,5 +22,6 @@
 
 ## Functions
 
+- [loadAbi](functions/loadAbi.md)
 - [parseUri](functions/parseUri.md)
 - [resolveContractUri](functions/resolveContractUri.md)

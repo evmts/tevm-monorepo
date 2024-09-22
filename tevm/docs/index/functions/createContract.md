@@ -8,7 +8,9 @@
 
 > **createContract**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`__namedParameters`): [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-Creates a tevm Contract instance from human readable abi
+Creates a Tevm Contract instance from a human-readable ABI or JSON ABI.
+This function is the core of Tevm's contract interaction capabilities,
+allowing for type-safe and easy-to-use contract interfaces.
 
 ## Type Parameters
 
@@ -34,32 +36,6 @@ Creates a tevm Contract instance from human readable abi
 
 [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-## Examples
-
-```typescript
-import { type Contract, createContract} from 'tevm/contract'
-
-const contract: Contract = createContract({
-  name: 'MyContract',
- 	abi: [
- 		...
- 	],
-})
-```
-
-To use a json abi first pass it into `formatAbi` to turn it into human readable
-
-```typescript
-import { type Contract, createContract} from 'tevm/contract'
-
-const contract = createContract({
-  name: 'MyContract',
- 	abi: [
- 		...
- 	],
-})
-```
-
 ## Defined in
 
-packages/contract/types/createContract.d.ts:29
+packages/contract/types/createContract.d.ts:67

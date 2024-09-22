@@ -12,4 +12,4 @@ JSON-RPC response for `eth_accounts` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:437
+packages/procedures/dist/index.d.ts:442

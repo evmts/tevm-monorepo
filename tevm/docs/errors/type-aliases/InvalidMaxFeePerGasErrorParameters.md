@@ -56,4 +56,4 @@ Parameters for constructing an InvalidMaxFeePerGasError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:42
+packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:52

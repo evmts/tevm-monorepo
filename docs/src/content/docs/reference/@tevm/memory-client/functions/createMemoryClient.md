@@ -12,7 +12,7 @@ It comes batteries included with all wallet, test, public, and tevm actions.
 
 ## Type Parameters
 
-• **TCommon** *extends* `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> & `object` = `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> & `object`
+• **TCommon** *extends* `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> = `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>
 
 • **TAccountOrAddress** *extends* `undefined` \| \`0x$\{string\}\` \| [`Account`](/reference/tevm/utils/type-aliases/account/) = `undefined`
 

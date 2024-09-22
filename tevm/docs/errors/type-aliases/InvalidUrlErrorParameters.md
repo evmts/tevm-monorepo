@@ -56,4 +56,4 @@ Parameters for constructing an InvalidUrlError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidUrlError.d.ts:42
+packages/errors/types/input/InvalidUrlError.d.ts:50

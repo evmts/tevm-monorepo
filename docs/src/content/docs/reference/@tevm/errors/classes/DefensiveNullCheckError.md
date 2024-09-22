@@ -6,36 +6,31 @@ title: "DefensiveNullCheckError"
 ---
 
 Represents an error that occurs when a defensive null check is tripped.
-This error should never be thrown and indicates a bug in the Tevm VM if it is Thrown
-
-Defensive null check errors can occur due to:
-- Checking what should be an impossible null value, indicating a bug in TEVM.
-
-To handle this error take the following steps:
-- ensure you did not modify the tevm VM in any unsupported way.
-- Open an issue with a minimal reproducable example
+This error should never be thrown and indicates a bug in the Tevm VM if it is thrown.
 
 ## Example
 
-```typescript
+```javascript
 import { DefensiveNullCheckError } from '@tevm/errors'
-function assertNotNull<T>(value: T | null): T {
-  const name = 'bob'
-  const firstLetter = name[0]
-  if (firstLetter === undefined) {
-    throw new DefensiveNullCheckError('Null value encountered in assertNotNull')
+
+function assertNotNull(value, message) {
+  if (value === null || value === undefined) {
+    throw new DefensiveNullCheckError(message)
   }
   return value
 }
+
+try {
+  const result = someFunction()
+  assertNotNull(result, 'Result should not be null')
+} catch (error) {
+  if (error instanceof DefensiveNullCheckError) {
+    console.error('Unexpected null value:', error.message)
+    // This indicates a bug in the Tevm VM
+    reportBugToTevmRepository(error)
+  }
+}
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -45,23 +40,19 @@ Additional parameters for the BaseError.
 
 ### new DefensiveNullCheckError()
 
-> **new DefensiveNullCheckError**(`message`?, `args`?, `tag`?): [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/)
+> **new DefensiveNullCheckError**(`message`?, `args`?): [`DefensiveNullCheckError`](/reference/tevm/errors/classes/defensivenullcheckerror/)
 
 Constructs a DefensiveNullCheckError.
 
 #### Parameters
 
-• **message?**: `string` = `'Defensive null check error occurred.'`
+• **message?**: `string`
 
 Human-readable error message.
 
 • **args?**: [`DefensiveNullCheckErrorParameters`](/reference/tevm/errors/interfaces/defensivenullcheckerrorparameters/) = `{}`
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string` = `'DefensiveNullCheckError'`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -73,7 +64,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/defensive/DefensiveNullCheckError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L57)
+[packages/errors/src/defensive/DefensiveNullCheckError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L51)
 
 ## Properties
 
@@ -89,7 +80,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/defensive/DefensiveNullCheckError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L63)
 
 ***
 
@@ -103,7 +94,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -111,7 +102,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32603), standard JSON-RPC error code for internal errors.
 
 #### Inherited from
 
@@ -119,7 +110,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -133,7 +124,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -149,7 +140,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -181,7 +172,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InternalErrorError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L64)
+[packages/errors/src/ethereum/InternalErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L69)
 
 ***
 
@@ -197,7 +188,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -213,7 +204,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/defensive/DefensiveNullCheckError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L62)
 
 ***
 
@@ -227,7 +218,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -255,7 +246,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -327,7 +318,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

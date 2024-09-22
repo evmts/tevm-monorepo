@@ -8,7 +8,7 @@
 
 > **ForkErrorParameters**: `object`
 
-Parameters for constructing an ForkError.
+Parameters for constructing a ForkError.
 
 ## Type declaration
 
@@ -56,4 +56,4 @@ Parameters for constructing an ForkError.
 
 ## Defined in
 
-packages/errors/types/fork/ForkError.d.ts:67
+packages/errors/types/fork/ForkError.d.ts:54

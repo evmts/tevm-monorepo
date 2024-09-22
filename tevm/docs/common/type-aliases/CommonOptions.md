@@ -6,9 +6,36 @@
 
 # Type Alias: CommonOptions
 
-> **CommonOptions**: `object` & `ViemChain`
+> **CommonOptions**: `ViemChain` & `object`
 
-Options for creating an Tevm MemoryClient instance
+## Examples
+
+```typescript
+import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+
+const opts: CommonOptions = {
+  ...mainnet,
+  hardfork: 'london',
+}
+
+const common = createCommon(opts)
+```
+
+You can also create a Common instance from viem chains:
+
+```typescript
+import { mainnet } from 'viem/chains'
+import { createCommon } from 'tevm/common'
+
+const common = createCommon({
+  ...mainnet,
+  hardfork: 'cancun',
+})
+```
+
+## See
+
+[createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
 
 ## Type declaration
 
@@ -46,32 +73,36 @@ const common = createCommon({
 
 Eips to enable. Defaults to `[1559, 4895]`
 
-### hardfork
+#### Default
 
-> **hardfork**: [`Hardfork`](Hardfork.md)
+```ts
+[1559, 4895]
+```
+
+### hardfork?
+
+> `optional` **hardfork**: [`Hardfork`](Hardfork.md)
 
 Hardfork to use. Defaults to `shanghai`
 
-### loggingLevel
+#### Default
 
-> **loggingLevel**: `LogOptions`\[`"level"`\]
+```ts
+'cancun'
+```
 
-Tevm logger instance
+### loggingLevel?
 
-## Example
+> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
-```typescript
-import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+Logging level of the Tevm logger instance
 
-const opts: CommonOptions = {
-  ...mainnet,
-  hardfork: 'london',
-}
+#### Default
 
-const common = createCommon(opts)
-````
-@see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+```ts
+'warn'
+```
 
 ## Defined in
 
-packages/common/types/CommonOptions.d.ts:20
+packages/common/types/CommonOptions.d.ts:37

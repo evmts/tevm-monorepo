@@ -34,18 +34,6 @@ Re-exports [CreateContractParams](../index/type-aliases/CreateContractParams.md)
 
 ***
 
-### CreateScript
-
-Re-exports [CreateScript](../index/type-aliases/CreateScript.md)
-
-***
-
-### DeployArgs
-
-Re-exports [DeployArgs](../index/type-aliases/DeployArgs.md)
-
-***
-
 ### EventActionCreator
 
 Re-exports [EventActionCreator](../index/type-aliases/EventActionCreator.md)

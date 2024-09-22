@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
+• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<`object`\>
 
 ## Returns
 

@@ -56,4 +56,4 @@ Parameters for constructing an UnknownBlockError.
 
 ## Defined in
 
-packages/errors/types/ethereum/UnknownBlockError.d.ts:50
+packages/errors/types/ethereum/UnknownBlockError.d.ts:57

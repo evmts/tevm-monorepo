@@ -2009,7 +2009,7 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-• **options**: `TevmNodeOptions`\<[`Common`](/reference/tevm/common/type-aliases/common/)\>
+• **options**: `TevmNodeOptions`\<`object`\>
 
 Options to create a new TevmProvider.
 

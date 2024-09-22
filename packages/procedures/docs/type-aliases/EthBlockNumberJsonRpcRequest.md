@@ -12,4 +12,4 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L45)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L45)

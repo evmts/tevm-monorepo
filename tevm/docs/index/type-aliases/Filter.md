@@ -75,4 +75,4 @@ The type of the filter
 
 ## Defined in
 
-packages/node/dist/index.d.ts:63
+packages/node/dist/index.d.ts:65

@@ -30,7 +30,7 @@ describe.skip(createHttpClient.name, () => {
 			'tevm.script',
 			async () => {
 				const { Add } = await import('./test/Add.s.sol.js')
-				expect(await client.contract(Add.script().read.add(399n, 21n))).toEqual({
+				expect(await client.contract(Add.withCode(Add.deployedBytecode).read.add(399n, 21n))).toEqual({
 					data: 420n,
 					executionGasUsed: 927n,
 					createdAddresses: new Set(),

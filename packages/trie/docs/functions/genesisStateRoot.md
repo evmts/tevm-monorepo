@@ -20,4 +20,4 @@ Derives the stateRoot of the genesis block based on genesis allocations
 
 ## Defined in
 
-node\_modules/.pnpm/@ethereumjs+trie@6.2.0/node\_modules/@ethereumjs/trie/dist/esm/util/genesisState.d.ts:5
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/util/genesisState.d.ts:5

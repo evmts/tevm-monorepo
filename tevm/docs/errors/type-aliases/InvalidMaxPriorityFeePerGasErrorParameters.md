@@ -56,4 +56,4 @@ Parameters for constructing an InvalidMaxPriorityFeePerGasError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidMaxPriorityFeePerGas.d.ts:42
+packages/errors/types/input/InvalidMaxPriorityFeePerGas.d.ts:52

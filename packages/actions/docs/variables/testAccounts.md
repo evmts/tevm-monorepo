@@ -6,7 +6,7 @@
 
 # Variable: testAccounts
 
-> `const` **testAccounts**: [`HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`, `HDAccount`]
+> `const` **testAccounts**: [`object`, `object`, `object`]
 
 ## Defined in
 

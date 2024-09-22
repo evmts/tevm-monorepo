@@ -17,4 +17,4 @@ title: "ethGetLogsHandler"
 
 ## Defined in
 
-[packages/actions/src/eth/ethGetLogsHandler.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L62)
+[packages/actions/src/eth/ethGetLogsHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetLogsHandler.js#L14)

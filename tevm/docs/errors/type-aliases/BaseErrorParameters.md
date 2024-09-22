@@ -48,4 +48,4 @@
 
 ## Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:72
+packages/errors/types/ethereum/BaseError.d.ts:73

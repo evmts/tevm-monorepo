@@ -102,4 +102,4 @@
 
 ## Defined in
 
-packages/node/dist/index.d.ts:30
+packages/node/dist/index.d.ts:32

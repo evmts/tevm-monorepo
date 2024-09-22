@@ -5,7 +5,7 @@ prev: false
 title: "Common"
 ---
 
-> **Common**: `ViemChain` & `object`
+> **Common**: `Prettify`\<`ViemChain` & `object`\>
 
 Common is the main representation of chain specific configuration for tevm clients.
 
@@ -33,20 +33,6 @@ const client = createClient(optimism)
 
  - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  - [Tevm client docs](https://tevm.sh/learn/clients/)
-
-## Type declaration
-
-### copy()
-
-> **copy**: () => [`Common`](/reference/tevm/common/type-aliases/common/)
-
-#### Returns
-
-[`Common`](/reference/tevm/common/type-aliases/common/)
-
-### ethjsCommon
-
-> **ethjsCommon**: `EthjsCommon`
 
 ## Defined in
 

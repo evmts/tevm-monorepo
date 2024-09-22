@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<[`Common`](../../common/type-aliases/Common.md)\>
+• **options?**: [`TevmNodeOptions`](../type-aliases/TevmNodeOptions.md)\<`object`\>
 
 ## Returns
 
@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/node/dist/index.d.ts:356
+packages/node/dist/index.d.ts:358

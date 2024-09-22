@@ -10,7 +10,7 @@
 
 ## Parameters
 
-• **accounts**: readonly `HDAccount`[]
+• **accounts**: readonly `object`[]
 
 ## Returns
 
@@ -18,4 +18,4 @@
 
 ## Defined in
 
-[procedures/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignProcedure.js#L7)
+[packages/procedures/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethSignProcedure.js#L7)

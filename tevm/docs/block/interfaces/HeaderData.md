@@ -12,7 +12,7 @@ A block header's data.
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **baseFeePerGas**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -22,7 +22,7 @@ packages/block/types/types.d.ts:121
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **blobGasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -32,7 +32,7 @@ packages/block/types/types.d.ts:123
 
 ### coinbase?
 
-> `optional` **coinbase**: [`AddressLike`](../../utils/type-aliases/AddressLike.md)
+> `optional` **coinbase**: `string` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`
 
 #### Defined in
 
@@ -42,7 +42,7 @@ packages/block/types/types.d.ts:108
 
 ### difficulty?
 
-> `optional` **difficulty**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **difficulty**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -52,7 +52,7 @@ packages/block/types/types.d.ts:113
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **excessBlobGas**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -62,7 +62,7 @@ packages/block/types/types.d.ts:124
 
 ### extraData?
 
-> `optional` **extraData**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **extraData**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -72,7 +72,7 @@ packages/block/types/types.d.ts:118
 
 ### gasLimit?
 
-> `optional` **gasLimit**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **gasLimit**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -82,7 +82,7 @@ packages/block/types/types.d.ts:115
 
 ### gasUsed?
 
-> `optional` **gasUsed**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **gasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -92,7 +92,7 @@ packages/block/types/types.d.ts:116
 
 ### logsBloom?
 
-> `optional` **logsBloom**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -102,7 +102,7 @@ packages/block/types/types.d.ts:112
 
 ### mixHash?
 
-> `optional` **mixHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **mixHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -112,7 +112,7 @@ packages/block/types/types.d.ts:119
 
 ### nonce?
 
-> `optional` **nonce**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **nonce**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -122,7 +122,7 @@ packages/block/types/types.d.ts:120
 
 ### number?
 
-> `optional` **number**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **number**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -132,7 +132,7 @@ packages/block/types/types.d.ts:114
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -142,7 +142,7 @@ packages/block/types/types.d.ts:125
 
 ### parentHash?
 
-> `optional` **parentHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **parentHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -152,7 +152,7 @@ packages/block/types/types.d.ts:106
 
 ### receiptTrie?
 
-> `optional` **receiptTrie**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -162,7 +162,7 @@ packages/block/types/types.d.ts:111
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -172,7 +172,7 @@ packages/block/types/types.d.ts:126
 
 ### stateRoot?
 
-> `optional` **stateRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -182,7 +182,7 @@ packages/block/types/types.d.ts:109
 
 ### timestamp?
 
-> `optional` **timestamp**: [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **timestamp**: `string` \| `number` \| `bigint` \| `Uint8Array`
 
 #### Defined in
 
@@ -192,7 +192,7 @@ packages/block/types/types.d.ts:117
 
 ### transactionsTrie?
 
-> `optional` **transactionsTrie**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -202,7 +202,7 @@ packages/block/types/types.d.ts:110
 
 ### uncleHash?
 
-> `optional` **uncleHash**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 
@@ -212,7 +212,7 @@ packages/block/types/types.d.ts:107
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: [`BytesLike`](../../utils/type-aliases/BytesLike.md)
+> `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `Uint8Array` \| `number`[] \| `TransformabletoBytes`
 
 #### Defined in
 

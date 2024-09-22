@@ -8,8 +8,6 @@
 
 > **isBytes**(`value`): `boolean`
 
-Type guard that returns true if a string is a valid hex string.
-
 ## Parameters
 
 • **value**: `string`
@@ -21,14 +19,6 @@ The string to check.
 `boolean`
 
 - True if the string is a valid hex string.
-
-## Example
-
-```javascript
-import { isBytes } from '@tevm/schemas';
-const hex = '0x1234567890abcdef1234567890abcdef12345678';
-const isHex = isBytes(hex);
-```
 
 ## Defined in
 

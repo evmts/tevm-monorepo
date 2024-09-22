@@ -8,8 +8,6 @@
 
 > **isBytes31**(`bytes31`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes31.
-
 ## Parameters
 
 • **bytes31**: `unknown`
@@ -17,14 +15,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes31.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isBytes31 } from '@tevm/schemas';
-isBytes31("0xff");  // true
-isBytes31("0xfff"); // false
-````
 
 ## Defined in
 

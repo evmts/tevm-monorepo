@@ -12,4 +12,4 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:384
+packages/procedures/dist/index.d.ts:389

@@ -131,4 +131,4 @@ const common = createCommon({
 
 ## Defined in
 
-[packages/common/src/MockKzg.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L21)
+[packages/common/src/MockKzg.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L24)

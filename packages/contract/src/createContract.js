@@ -1,36 +1,74 @@
 import { InvalidParamsError } from '@tevm/errors'
-import { encodeDeployData, formatAbi, getAddress, parseAbi } from '@tevm/utils'
+import { formatAbi, getAddress, parseAbi } from '@tevm/utils'
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
 
 /**
- * Creates a tevm Contract instance from human readable abi
+ * Creates a Tevm Contract instance from a human-readable ABI or JSON ABI.
+ * This function is the core of Tevm's contract interaction capabilities,
+ * allowing for type-safe and easy-to-use contract interfaces.
+ *
  * @type {import('./CreateContractFn.js').CreateContractFn}
- * @example
- * ```typescript
- * import { type Contract, createContract} from 'tevm/contract'
+ * @throws {InvalidParamsError} If neither humanReadableAbi nor abi is provided.
  *
- * const contract: Contract = createContract({
- *   name: 'MyContract',
- *  	abi: [
- *  		...
- *  	],
- * })
- * ```
- *
- * To use a json abi first pass it into `formatAbi` to turn it into human readable
  * @example
+ * Using a human-readable ABI:
  * ```typescript
- * import { type Contract, createContract} from 'tevm/contract'
+ * import { createContract } from 'tevm/contract'
  *
  * const contract = createContract({
- *   name: 'MyContract',
- *  	abi: [
- *  		...
- *  	],
+ *   name: 'ERC20',
+ *   humanReadableAbi: [
+ *     'function balanceOf(address account) view returns (uint256)',
+ *     'function transfer(address to, uint256 amount) returns (bool)',
+ *     'event Transfer(address indexed from, address indexed to, uint256 value)'
+ *   ],
+ *   address: '0x6B175474E89094C44Da98b954EedeAC495271d0F' // DAI token address
  * })
+ *
+ * // Read contract state
+ * const balanceAction = contract.read.balanceOf('0x1234...')
+ * const balance = await tevm.contract(balanceAction)
+ *
+ * // Write to contract
+ * const transferAction = contract.write.transfer('0x5678...', 1000n)
+ * const result = await tevm.contract(transferAction)
+ *
+ * // Create event filter
+ * const transferFilter = contract.events.Transfer({ fromBlock: 'latest' })
+ * const logs = await tevm.eth.getLogs(transferFilter)
  * ```
+ *
+ * @example
+ * Using a JSON ABI:
+ * ```typescript
+ * import { createContract } from 'tevm/contract'
+ *
+ * const contract = createContract({
+ *   name: 'ERC20',
+ *   abi: [
+ *     {
+ *       "inputs": [{"name": "account", "type": "address"}],
+ *       "name": "balanceOf",
+ *       "outputs": [{"type": "uint256"}],
+ *       "stateMutability": "view",
+ *       "type": "function"
+ *     },
+ *     // ... other ABI entries
+ *   ],
+ *   address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+ *   bytecode: '0x60806040...', // Optional: Creation bytecode
+ *   deployedBytecode: '0x608060405...', // Optional: Deployed bytecode
+ *   code: '0x608060405...' // Optional: Runtime bytecode
+ * })
+ *
+ * // Use the contract as in the previous example
+ * ```
+ *
+ * @see {@link Contract} for the full API of the returned Contract instance.
+ * @see {@link https://tevm.sh/learn/contracts/} for more information on working with contracts in Tevm.
+ * @see {@link https://tevm.sh/reference/tevm/contract/types/Contract/} for detailed Contract type documentation.
  */
 export const createContract = ({
 	name,
@@ -86,59 +124,31 @@ export const createContract = ({
 			}),
 		)
 	}
+
 	/**
-	 * @type {import('./CreateScript.js').CreateScript<any, any, any, any>}
+	 * @param {import('@tevm/utils').Hex} encodedBytecode
 	 */
-	const script = (params) => {
-		const _bytecode = (() => {
-			// this case needs test coverage
-			if (params && 'bytecode' in params && params.bytecode) {
-				return params.bytecode
-			}
-			// this case needs test coverage
-			if (bytecode) {
-				return bytecode
-			}
-			// this case needs test coverage
-			if (deployedBytecode) {
-				return deployedBytecode
-			}
-			// this case needs test coverage
-			throw new Error('Unknown bytecode error')
-		})()
-		const constructorAbi = abi.find((item) => item.type === 'constructor')
-		const code = (() => {
-			if (!constructorAbi) {
-				return _bytecode
-			}
-			// this case needs test coverage
-			if (!('constructorArgs' in params) || /** @type {Array<any>}*/ (params.constructorArgs)?.length < 1) {
-				return _bytecode
-			}
-			// this case needs test coverage
-			return encodeDeployData({
-				abi: /** @type {any}*/ (abi),
-				bytecode: _bytecode,
-				args: /** @type {any}*/ (params.constructorArgs),
-			})
-		})()
+	const withCode = (encodedBytecode) => {
 		return createContract(
-			/** @type {any}*/ ({
+			/** @type {any} */ ({
 				...baseContract,
-				bytecode: _bytecode,
-				code,
+				code: encodedBytecode,
 			}),
 		)
 	}
+
 	return /**@type any*/ ({
 		...baseContract,
+		withCode,
 		withAddress,
-		script,
 		/**
 		 * @param {Array<any>} args
 		 */
 		deploy: (...args) => {
 			const maybeArgs = args.length > 0 ? { args } : {}
+			if (!baseContract.bytecode) {
+				throw new Error('Bytecode is required to generate deploy data')
+			}
 			return {
 				...maybeArgs,
 				bytecode: baseContract.bytecode,

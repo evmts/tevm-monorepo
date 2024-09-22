@@ -18,7 +18,7 @@ EIP-6800: Verkle Proof Data (experimental)
 
 #### Defined in
 
-[types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
+[packages/block/src/types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
 
 ***
 
@@ -30,7 +30,7 @@ Header data for the block
 
 #### Defined in
 
-[types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
+[packages/block/src/types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
 
 ***
 
@@ -40,17 +40,17 @@ Header data for the block
 
 #### Defined in
 
-[types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
+[packages/block/src/types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
 
 ***
 
 ### transactions?
 
-> `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData`)[]
+> `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACodeEIP7702TxData`)[]
 
 #### Defined in
 
-[types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
+[packages/block/src/types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
 
 ***
 
@@ -60,7 +60,7 @@ Header data for the block
 
 #### Defined in
 
-[types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
+[packages/block/src/types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
 
 ***
 
@@ -70,4 +70,4 @@ Header data for the block
 
 #### Defined in
 
-[types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)
+[packages/block/src/types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)

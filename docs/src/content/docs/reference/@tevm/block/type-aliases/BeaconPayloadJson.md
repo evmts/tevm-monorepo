@@ -87,4 +87,4 @@ title: "BeaconPayloadJson"
 
 ## Defined in
 
-[from-beacon-payload.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L13)
+[packages/block/src/from-beacon-payload.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L13)

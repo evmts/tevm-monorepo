@@ -66,4 +66,4 @@ A mapping of `anvil_*` method names to their request type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/AnvilRequestType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/AnvilRequestType.ts#L19)
+[packages/procedures/src/tevm-request-handler/AnvilRequestType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/AnvilRequestType.ts#L19)

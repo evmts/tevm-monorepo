@@ -6,22 +6,22 @@
 
 # Function: keccak256()
 
-> **keccak256**\<`TTo`\>(`value`, `to_`?): `Keccak256Hash`\<`TTo`\>
+> **keccak256**\<`to`\>(`value`, `to_`?): `Keccak256Hash`\<`to`\>
 
 ## Type Parameters
 
-• **TTo** *extends* `To` = `"hex"`
+• **to** *extends* `To` = `"hex"`
 
 ## Parameters
 
 • **value**: \`0x$\{string\}\` \| `Uint8Array`
 
-• **to\_?**: `TTo`
+• **to\_?**: `to`
 
 ## Returns
 
-`Keccak256Hash`\<`TTo`\>
+`Keccak256Hash`\<`to`\>
 
 ## Defined in
 
-node\_modules/.pnpm/viem@2.14.2\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/hash/keccak256.d.ts:9
+node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.5.4\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/hash/keccak256.d.ts:9

@@ -20,4 +20,4 @@ JSON-RPC procedure for `debug_traceCall`
 
 ## Defined in
 
-[procedures/src/debug/DebugProcedure.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugProcedure.ts#L14)
+[packages/procedures/src/debug/DebugProcedure.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/debug/DebugProcedure.ts#L14)

@@ -56,4 +56,4 @@ Parameters for constructing an InvalidGasLimitError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidGasLimitError.d.ts:42
+packages/errors/types/input/InvalidGasLimitError.d.ts:52

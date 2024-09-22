@@ -59,12 +59,10 @@ definePredeploy,
 
 export {
 type Contract,
-type CreateScript,
 type ReadActionCreator,
 type EventActionCreator,
 type WriteActionCreator,
 type CreateContractParams,
-type DeployArgs,
 createContract,
 } from "@tevm/contract";
 

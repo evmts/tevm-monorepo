@@ -1,4 +1,4 @@
-import { type Hex, encodeDeployData, formatAbi, parseAbi } from '@tevm/utils'
+import { type Hex, formatAbi, parseAbi } from '@tevm/utils'
 import { assertType, describe, expect, it } from 'vitest'
 import type { Contract } from './Contract.js'
 import { createContract } from './createContract.js'
@@ -14,6 +14,23 @@ describe(createContract.name, () => {
 		expect(contract.name).toBe('DummyContract')
 	})
 
+	it('should set deployedBytecode correctly', () => {
+		const contractWithoutDeployedBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			bytecode: '0x420',
+		})
+		expect(contractWithoutDeployedBytecode.deployedBytecode).toBeUndefined()
+
+		const contractWithDeployedBytecode = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+			bytecode: '0x420',
+			deployedBytecode: '0x69',
+		})
+		expect(contractWithDeployedBytecode.deployedBytecode).toBe('0x69')
+	})
+
 	it('should contain the ABI', () => {
 		expect(contract.abi).toEqual(parseAbi(formatAbi(dummyAbi)))
 	})
@@ -22,8 +39,19 @@ describe(createContract.name, () => {
 		expect(contract.humanReadableAbi).toBeDefined()
 	})
 
+	it('deploy should throw if bytecode is not provided', () => {
+		expect(() =>
+			createContract({
+				humanReadableAbi: formatAbi(dummyAbi),
+				name: 'DummyContract',
+			}).deploy(),
+		).toThrowErrorMatchingInlineSnapshot('[Error: Bytecode is required to generate deploy data]')
+	})
+
 	it('should contain deploy', () => {
-		expect(contract.deploy()).toMatchInlineSnapshot(`
+		expect(
+			createContract({ humanReadableAbi: formatAbi(dummyAbi), name: 'DummyContract', bytecode: '0x420' }).deploy(),
+		).toMatchInlineSnapshot(`
 			{
 			  "abi": [
 			    {
@@ -142,12 +170,13 @@ describe(createContract.name, () => {
 			      "type": "event",
 			    },
 			  ],
-			  "bytecode": undefined,
+			  "bytecode": "0x420",
 			}
 		`)
 		expect(
 			createContract({
 				humanReadableAbi: ['constructor(uint256 num) payable'] as const,
+				bytecode: '0x420',
 			} as const).deploy(20n),
 		).toMatchInlineSnapshot(`
 			{
@@ -166,7 +195,7 @@ describe(createContract.name, () => {
 			  "args": [
 			    20n,
 			  ],
-			  "bytecode": undefined,
+			  "bytecode": "0x420",
 			}
 		`)
 	})
@@ -177,9 +206,7 @@ describe(createContract.name, () => {
 			{
 			  "exampleRead": [Function],
 			  "exampleReadNoArgs": [Function],
-			  "exampleWrite": [Function],
 			  "overloadedRead": [Function],
-			  "overloadedWrite": [Function],
 			}
 		`)
 	})
@@ -188,10 +215,7 @@ describe(createContract.name, () => {
 		// see ./write for more tests
 		expect(contract.write).toMatchInlineSnapshot(`
 			{
-			  "exampleRead": [Function],
-			  "exampleReadNoArgs": [Function],
 			  "exampleWrite": [Function],
-			  "overloadedRead": [Function],
 			  "overloadedWrite": [Function],
 			}
 		`)
@@ -303,66 +327,6 @@ describe(createContract.name, () => {
 			}
 		`)
 	})
-	it('should handle bytecode from params in script function', () => {
-		const params = { bytecode: '0x123456' } as const
-		const scriptContract = contract.script(params)
-		expect(scriptContract.bytecode).toBe(params.bytecode)
-		expect(scriptContract.code).toBe(params.bytecode)
-	})
-
-	it('should handle bytecode from base contract in script function', () => {
-		const contractWithBytecode = createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-			bytecode: '0x654321',
-		})
-		const scriptContract = contractWithBytecode.script({})
-		expect(scriptContract.bytecode).toBe('0x654321')
-		expect(scriptContract.code).toBe('0x654321')
-	})
-
-	it('should handle deployedBytecode from base contract in script function', () => {
-		const contractWithDeployedBytecode = createContract({
-			humanReadableAbi: formatAbi(dummyAbi),
-			name: 'DummyContract',
-			deployedBytecode: '0xabcdef',
-		})
-		const scriptContract = contractWithDeployedBytecode.script({} as any)
-		expect(scriptContract.bytecode).toBe('0xabcdef')
-		expect(scriptContract.code).toBe('0xabcdef')
-	})
-
-	it('should throw an error if no bytecode is provided in script function', () => {
-		expect(() => contract.script({} as any)).toThrow('Unknown bytecode error')
-	})
-
-	it('should handle constructor without args in script function', () => {
-		const contractWithConstructor = createContract({
-			humanReadableAbi: ['constructor() payable'] as const,
-			name: 'ContractWithConstructor',
-			bytecode: '0x123456',
-		})
-		const scriptContract = contractWithConstructor.script({} as any)
-		expect(scriptContract.bytecode).toBe('0x123456')
-		expect(scriptContract.code).toBe('0x123456')
-	})
-
-	it('should handle constructor with args in script function', () => {
-		const contractWithConstructor = createContract({
-			humanReadableAbi: ['constructor(uint256 num) payable'] as const,
-			name: 'ContractWithConstructor',
-			bytecode: '0x123456',
-		})
-		const scriptContract = contractWithConstructor.script({ constructorArgs: [42n] })
-		expect(scriptContract.bytecode).toBe('0x123456')
-		expect(scriptContract.code).toBe(
-			encodeDeployData({
-				abi: contractWithConstructor.abi,
-				bytecode: '0x123456',
-				args: [42n],
-			}),
-		)
-	})
 
 	it('should throw if no abi or humanReadableAbi is provided', () => {
 		expect(() => createContract({ name: 'ContractWithConstructor' } as any)).toThrowErrorMatchingInlineSnapshot(`
@@ -424,5 +388,23 @@ describe(createContract.name, () => {
 			functionName: 'name',
 			humanReadableAbi: ['function name() view returns (string)'],
 		})
+	})
+
+	it('should contain withCode method', () => {
+		const contract = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+		})
+		expect(contract.withCode).toBeDefined()
+		expect(typeof contract.withCode).toBe('function')
+	})
+
+	it('should update code properties with withCode method', () => {
+		const contract = createContract({
+			humanReadableAbi: formatAbi(dummyAbi),
+			name: 'DummyContract',
+		})
+		const updatedContract = contract.withCode('0xabcdef')
+		expect(updatedContract.code).toBe('0xabcdef')
 	})
 })

@@ -30,4 +30,4 @@ Optional name of the iterator head (default: 'vm')
 
 ## Defined in
 
-[actions/getIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L8)
+[packages/blockchain/src/actions/getIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L8)

@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/node/dist/index.d.ts:107
+packages/node/dist/index.d.ts:109

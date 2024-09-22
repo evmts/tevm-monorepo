@@ -9,4 +9,4 @@ title: "RequestsBytes"
 
 ## Defined in
 
-[types.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L155)
+[packages/block/src/types.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L155)

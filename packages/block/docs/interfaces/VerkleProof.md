@@ -14,7 +14,7 @@
 
 #### Defined in
 
-[types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L70)
+[packages/block/src/types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L70)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[types.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L71)
+[packages/block/src/types.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L71)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[types.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L72)
+[packages/block/src/types.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L72)
 
 ***
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[types.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L73)
+[packages/block/src/types.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L73)
 
 ***
 
@@ -66,4 +66,4 @@
 
 #### Defined in
 
-[types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)
+[packages/block/src/types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)

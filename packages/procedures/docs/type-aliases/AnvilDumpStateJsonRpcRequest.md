@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_dumpState` method
 
 ## Defined in
 
-[procedures/src/anvil/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L93)
+[packages/procedures/src/anvil/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilJsonRpcRequest.ts#L93)

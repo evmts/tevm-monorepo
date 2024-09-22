@@ -21,4 +21,4 @@ true if valid block tag
 
 ## Defined in
 
-[utils/isTevmBlockTag.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/isTevmBlockTag.js#L17)
+[packages/blockchain/src/utils/isTevmBlockTag.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/isTevmBlockTag.js#L17)

@@ -26,11 +26,11 @@
 
 # @tevm/procedures
 
-Ethereumjs implementation of the [Tevm api](../api) implemented with ethereumjs
+Ethereumjs implementation of the [Tevm api]() implemented with ethereumjs
 
-Base handlers are defined in [src/handlers](./src/handlers/)
+Base handlers are defined in [src/handlers]()
 
-JsonRpc Implementation is defined in [src/jsonrpc](./src/handlers/)
+JsonRpc Implementation is defined in [src/jsonrpc]()
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 
@@ -38,4 +38,4 @@ JsonRpc Implementation is defined in [src/jsonrpc](./src/handlers/)
 
 ## License 📄
 
-<a href="_media/LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+<a href=""><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>

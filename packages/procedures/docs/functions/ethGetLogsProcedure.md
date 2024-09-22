@@ -8,8 +8,6 @@
 
 > **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
 
-Executes a message call without creating a transaction on the block chain.
-
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -20,4 +18,4 @@ Executes a message call without creating a transaction on the block chain.
 
 ## Defined in
 
-[procedures/src/eth/ethGetLogsProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetLogsProcedure.js#L9)
+[packages/procedures/src/eth/ethGetLogsProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/ethGetLogsProcedure.js#L9)

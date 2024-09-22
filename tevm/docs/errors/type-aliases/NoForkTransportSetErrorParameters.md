@@ -8,7 +8,7 @@
 
 > **NoForkTransportSetErrorParameters**: `object`
 
-Parameters for constructing an NoForkTransportSetError.
+Parameters for constructing a NoForkTransportSetError.
 
 ## Type declaration
 
@@ -56,4 +56,4 @@ Parameters for constructing an NoForkTransportSetError.
 
 ## Defined in
 
-packages/errors/types/fork/NoForkUriSetError.d.ts:38
+packages/errors/types/fork/NoForkUriSetError.d.ts:47

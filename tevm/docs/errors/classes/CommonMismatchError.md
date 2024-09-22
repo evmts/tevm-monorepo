@@ -10,28 +10,28 @@ Represents an error that occurs when the Common for a given block does not match
 
 Common mismatch errors can occur due to:
 - Discrepancies between the Common configurations for a block and the VM.
+- Attempting to use features from a different hardfork than what's configured.
 
 ## Example
 
 ```typescript
 import { CommonMismatchError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+import { Hardfork } from '@tevm/common'
+
+const client = createMemoryClient({ hardfork: Hardfork.Shanghai })
+
 try {
-  // Some operation that can throw a CommonMismatchError
+  await client.setChain({ hardfork: Hardfork.London })
+  // This might throw a CommonMismatchError if the operation is incompatible
 } catch (error) {
   if (error instanceof CommonMismatchError) {
-    console.error(error.message);
-    // Handle the common mismatch error
+    console.error('Common mismatch:', error.message)
+    console.log('Documentation:', error.docsLink)
+    // Handle the common mismatch error, possibly by updating the client configuration
   }
 }
 ```
-
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
 
 ## Extends
 
@@ -41,7 +41,7 @@ Additional parameters for the BaseError.
 
 ### new CommonMismatchError()
 
-> **new CommonMismatchError**(`message`?, `args`?, `tag`?): [`CommonMismatchError`](CommonMismatchError.md)
+> **new CommonMismatchError**(`message`?, `args`?): [`CommonMismatchError`](CommonMismatchError.md)
 
 Constructs a CommonMismatchError.
 
@@ -53,11 +53,7 @@ Human-readable error message.
 
 • **args?**: [`CommonMismatchErrorParameters`](../type-aliases/CommonMismatchErrorParameters.md)
 
-Additional parameters for the BaseError.
-
-• **tag?**: `string`
-
-The tag for the error.
+Additional parameters for the error.
 
 #### Returns
 
@@ -69,7 +65,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/common/CommonMismatchError.d.ts:49
+packages/errors/types/common/CommonMismatchError.d.ts:48
 
 ## Properties
 
@@ -77,15 +73,13 @@ packages/errors/types/common/CommonMismatchError.d.ts:49
 
 > **\_tag**: `string`
 
-Same as name, used internally.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`_tag`](ExecutionError.md#_tag)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:39
+packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -99,7 +93,7 @@ packages/errors/types/ethereum/BaseError.d.ts:39
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -107,15 +101,13 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -129,7 +121,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -137,15 +129,13 @@ packages/errors/types/ethereum/BaseError.d.ts:43
 
 > **docsPath**: `undefined` \| `string`
 
-Path to the documentation for this error.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`docsPath`](ExecutionError.md#docspath)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -169,15 +159,13 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Additional meta messages for more context.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`metaMessages`](ExecutionError.md#metamessages)
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -207,7 +195,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -235,7 +223,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -244,6 +232,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -254,10 +246,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -307,7 +295,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -359,4 +347,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

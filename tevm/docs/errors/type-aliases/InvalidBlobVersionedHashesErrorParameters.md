@@ -56,4 +56,4 @@ Parameters for constructing an InvalidBlobVersionedHashesError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:42
+packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:51

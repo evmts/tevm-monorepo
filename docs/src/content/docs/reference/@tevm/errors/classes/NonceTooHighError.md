@@ -5,19 +5,29 @@ prev: false
 title: "NonceTooHighError"
 ---
 
-Represents an error that occurs when the nonce value is too high.
+Represents an error that occurs when the nonce value is too high for a transaction.
 
-This error is typically encountered when a transaction is attempted with a nonce that is higher than the next expected nonce.
+This error is typically encountered when a transaction is submitted with a nonce that is higher
+than the expected next nonce for the sender's account. In Ethereum, nonces must be used in strict
+sequential order to ensure transactions are processed correctly.
+
+The error code -32000 is a standard Ethereum JSON-RPC error code indicating a generic server error,
+which is often used for various transaction-related errors including nonce issues.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a NonceTooHighError
+  await client.sendTransaction({
+    from: '0x1234567890123456789012345678901234567890',
+    to: '0x0987654321098765432109876543210987654321',
+    value: '0x1',
+    nonce: 100 // Assuming this nonce is too high
+  })
 } catch (error) {
   if (error instanceof NonceTooHighError) {
-    console.error(error.message);
-    // Handle the nonce too high error
+    console.error('Nonce too high:', error.message);
+    console.log('Try decreasing the nonce or use `await client.getTransactionCount(address)` to get the correct nonce');
   }
 }
 ```
@@ -66,7 +76,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/NonceTooHighError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L49)
+[packages/errors/src/ethereum/NonceTooHighError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L59)
 
 ## Properties
 
@@ -82,7 +92,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L81)
+[packages/errors/src/ethereum/NonceTooHighError.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L72)
 
 ***
 
@@ -96,7 +106,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L113)
+[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -104,7 +114,7 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
 
 #### Inherited from
 
@@ -112,7 +122,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L111)
+[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -126,7 +136,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L90)
+[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -142,7 +152,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L95)
+[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -174,7 +184,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L99)
+[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -190,7 +200,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+[packages/errors/src/ethereum/NonceTooHighError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/NonceTooHighError.js#L71)
 
 ***
 
@@ -204,7 +214,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L103)
+[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -232,7 +242,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L107)
+[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -304,7 +314,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BaseError.js:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L136)
+[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 ***
 

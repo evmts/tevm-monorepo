@@ -56,4 +56,4 @@ Parameters for constructing an InvalidFunctionNameError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidFunctionNameError.d.ts:42
+packages/errors/types/input/InvalidFunctionNameError.d.ts:52

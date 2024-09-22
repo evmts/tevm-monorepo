@@ -8,13 +8,6 @@
 
 > **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
-Creates an impersonated tx that wraps [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md).
-Wraps following methods
-- 'isImpersonated'
-- 'hash'
-- 'isSigned'
-- 'getSenderAddress'
-
 ## Parameters
 
 • **txData**: `FeeMarketEIP1559TxData` & `object`
@@ -24,10 +17,6 @@ Wraps following methods
 ## Returns
 
 [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
-
-## Throws
-
-Error if the constructor for [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md) throws
 
 ## Defined in
 

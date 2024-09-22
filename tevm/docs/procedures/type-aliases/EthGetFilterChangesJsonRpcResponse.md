@@ -12,4 +12,4 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:493
+packages/procedures/dist/index.d.ts:498

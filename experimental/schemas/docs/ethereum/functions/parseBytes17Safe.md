@@ -8,8 +8,6 @@
 
 > **parseBytes17Safe**\<`TBytes17`\>(`bytes17`): `Effect`\<`never`, [`InvalidBytesFixedError`](../classes/InvalidBytesFixedError.md), `TBytes17`\>
 
-Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TBytes17**

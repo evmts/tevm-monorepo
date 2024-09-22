@@ -44,4 +44,4 @@ A mapping of `tevm_*` method names to their return type
 
 ## Defined in
 
-[procedures/src/tevm-request-handler/TevmReturnType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmReturnType.ts#L12)
+[packages/procedures/src/tevm-request-handler/TevmReturnType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm-request-handler/TevmReturnType.ts#L12)

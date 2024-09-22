@@ -5,7 +5,7 @@ prev: false
 title: "Create2ContractAddressError"
 ---
 
-> **Create2ContractAddressError**: [`InvalidSaltError`](/reference/tevm/errors/classes/invalidsalterror/) \| [`@tevm/errors`](/reference/tevm/errors/globals/)
+> **Create2ContractAddressError**: [`@tevm/errors`](/reference/tevm/errors/globals/) \| [`@tevm/errors`](/reference/tevm/errors/globals/)
 
 ## Defined in
 

@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_setNonce`
 
 ## Defined in
 
-[procedures/src/anvil/AnvilProcedure.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L96)
+[packages/procedures/src/anvil/AnvilProcedure.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/anvil/AnvilProcedure.ts#L96)

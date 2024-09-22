@@ -56,4 +56,4 @@ Parameters for constructing an InvalidSkipBalanceError.
 
 ## Defined in
 
-packages/errors/types/input/InvalidSkipBalanceError.d.ts:42
+packages/errors/types/input/InvalidSkipBalanceError.d.ts:51

@@ -8,8 +8,6 @@
 
 > **isUINT8**(`uint8`): `boolean`
 
-Type guard that returns true if the provided bigint is a valid Ethereum UINT8.
-
 ## Parameters
 
 • **uint8**: `unknown`
@@ -17,14 +15,6 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT8.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isUINT8 } from '@tevm/schemas';
-isUINT8(BigInt(127));  // true
-isUINT8(BigInt(256));  // false
-````
 
 ## Defined in
 

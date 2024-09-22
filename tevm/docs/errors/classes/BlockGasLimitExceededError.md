@@ -8,17 +8,24 @@
 
 Represents an error that occurs when the block gas limit has been exceeded.
 
-This error is typically encountered when a transaction or set of transactions exceed the gas limit for a block.
+This error is typically encountered when a transaction or set of transactions in a block
+consume more gas than the block's gas limit allows. Each block in Ethereum has a maximum
+amount of gas that can be used by all transactions within it.
+
+The error code -32006 is a non-standard extension used by some Ethereum clients to
+indicate this specific condition.
 
 ## Example
 
 ```ts
 try {
-  // Some operation that can throw a BlockGasLimitExceededError
+  const result = await client.sendTransaction({
+    // ... transaction details
+  })
 } catch (error) {
   if (error instanceof BlockGasLimitExceededError) {
-    console.error(error.message);
-    // Handle the block gas limit exceeded error
+    console.error('Block gas limit exceeded:', error.message);
+    console.log('Consider splitting the transaction or waiting for a block with more available gas');
   }
 }
 ```
@@ -67,7 +74,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:45
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:52
 
 ## Properties
 
@@ -83,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:54
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:61
 
 ***
 
@@ -97,7 +104,7 @@ packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:54
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:64
+packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -105,7 +112,7 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32006), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -113,7 +120,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:63
+packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -127,7 +134,7 @@ packages/errors/types/ethereum/BaseError.d.ts:63
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:43
+packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -143,7 +150,7 @@ Path to the documentation for this error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:47
+packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -171,7 +178,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:49
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:56
 
 ***
 
@@ -187,7 +194,7 @@ Additional meta messages for more context.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:51
+packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -203,7 +210,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:59
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:66
 
 ***
 
@@ -217,7 +224,7 @@ packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:59
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:55
+packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -245,7 +252,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:59
+packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -254,6 +261,10 @@ packages/errors/types/ethereum/BaseError.d.ts:59
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Parameters
 
@@ -264,10 +275,6 @@ Optional override for formatting stack traces
 #### Returns
 
 `any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -317,7 +324,7 @@ The first error that matches the function, or the original error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BaseError.d.ts:70
+packages/errors/types/ethereum/BaseError.d.ts:71
 
 ***
 
@@ -369,4 +376,28 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.2.0/node\_modules/@types/node/globals.d.ts:22
+node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67

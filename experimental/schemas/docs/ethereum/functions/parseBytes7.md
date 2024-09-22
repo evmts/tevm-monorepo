@@ -8,8 +8,6 @@
 
 > **parseBytes7**\<`TBytes7`\>(`bytes7`): `TBytes7`
 
-Parses a Bytes7 and returns the value if no errors.
-
 ## Type Parameters
 
 • **TBytes7** *extends* \`0x$\{string\}\`
@@ -21,13 +19,6 @@ Parses a Bytes7 and returns the value if no errors.
 ## Returns
 
 `TBytes7`
-
-## Example
-
-```ts
-import { parseBytes7 } from '@tevm/schemas';
-const parsedBytes7 = parseBytes7('0xffaabbccddeeffaa');
-```
 
 ## Defined in
 

@@ -47,17 +47,6 @@ describe('tevmSetAccount', () => {
 				hexToBytes(Object.keys(state)[0] as Hex),
 			),
 		).toEqual(hexToBytes(state[`0x${'0'.repeat(64)}`] as Hex))
-		expect(
-			vm.stateManager._baseState.caches.storage._orderedMapCache?.getElementByKey(
-				EthjsAddress.fromString(address).toString().slice(2),
-			),
-		).toEqual(
-			new Map(
-				Object.entries({
-					'0000000000000000000000000000000000000000000000000000000000000000': Uint8Array.from([42]),
-				}),
-			),
-		)
 
 		expect(await vm.stateManager.dumpStorage(EthjsAddress.fromString(address))).toEqual({
 			'0000000000000000000000000000000000000000000000000000000000000000': bytesToHex(Uint8Array.from([42])),

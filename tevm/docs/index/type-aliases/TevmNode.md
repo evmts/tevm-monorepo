@@ -149,16 +149,16 @@ Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
 have extra latency on the first call from initialization
 
-#### Returns
-
-`Promise`\<`true`\>
-
 #### Example
 
 ```ts
 const client = createMemoryClient()
 await client.ready()
 ```
+
+#### Returns
+
+`Promise`\<`true`\>
 
 ### removeFilter()
 
@@ -221,4 +221,4 @@ Returns status of the client
 
 ## Defined in
 
-packages/node/dist/index.d.ts:126
+packages/node/dist/index.d.ts:128

@@ -13,7 +13,9 @@ import type {
 } from '@tevm/utils'
 
 /**
- * Adapted from viem. This is a helper type to extract the event args from an abi
+ * Extracts event arguments from an ABI.
+ * @template TAbi - The ABI type, can be an Abi, readonly unknown[], or undefined.
+ * @template TEventName - The name of the event, can be a string or undefined.
  */
 export type MaybeExtractEventArgsFromAbi<
 	TAbi extends Abi | readonly unknown[] | undefined,
@@ -27,16 +29,32 @@ export type MaybeExtractEventArgsFromAbi<
 	readonly unknown[] | Record<string, unknown>
 >
 
+/**
+ * Utility type to get the value type of an object.
+ * @template T - The object type.
+ */
 export type ValueOf<T> = T[keyof T]
 
 /**
- * A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
+ * A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way.
+ * @template THumanReadableAbi - The human-readable ABI of the contract.
+ * @template TBytecode - The bytecode of the contract.
+ * @template TDeployedBytecode - The deployed bytecode of the contract.
+ * @template TAddress - The address of the contract.
+ * @template TAddressArgs - Additional arguments for the address.
+ *
  * @example
  * ```typescript
- * tevm.eth.getLog(
- *   MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
- * )
- * ===
+ * // Creating an event filter for a Transfer event
+ * const filter = MyContract.events.Transfer({
+ *   fromBlock: 'latest',
+ *   toBlock: 'latest',
+ *   args: { from: '0x1234...', to: '0x5678...' }
+ * })
+ *
+ * // Using the filter with tevm
+ * const logs = await tevm.eth.getLogs(filter)
+ * ```
  */
 export type EventActionCreator<
 	THumanReadableAbi extends readonly string[],
@@ -45,13 +63,11 @@ export type EventActionCreator<
 	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
-	// for every event in the abi, create an action creator
 	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
 		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
 		TToBlock extends BlockNumber | BlockTag | undefined = undefined,
 	>(
-		// take take these actions. These match the shape of viem actions
 		params: Pick<
 			// CreateEventFilterParameters create viem like parameters
 			// we are taking the subset that aren't implied already from Contract.event.eventName specification

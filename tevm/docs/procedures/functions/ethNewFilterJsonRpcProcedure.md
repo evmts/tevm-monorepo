@@ -6,11 +6,11 @@
 
 # Function: ethNewFilterJsonRpcProcedure()
 
-> **ethNewFilterJsonRpcProcedure**(`client`): [`EthNewFilterJsonRpcProcedure`](../type-aliases/EthNewFilterJsonRpcProcedure.md)
+> **ethNewFilterJsonRpcProcedure**(`tevmNode`): [`EthNewFilterJsonRpcProcedure`](../type-aliases/EthNewFilterJsonRpcProcedure.md)
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)
+• **tevmNode**: [`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 
@@ -18,4 +18,4 @@
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:681
+packages/procedures/dist/index.d.ts:686

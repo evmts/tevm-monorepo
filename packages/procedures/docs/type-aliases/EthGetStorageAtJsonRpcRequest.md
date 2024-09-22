@@ -12,4 +12,4 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Defined in
 
-[procedures/src/eth/EthJsonRpcRequest.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L145)
+[packages/procedures/src/eth/EthJsonRpcRequest.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/EthJsonRpcRequest.ts#L153)

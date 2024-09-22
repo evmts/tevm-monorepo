@@ -8,8 +8,6 @@
 
 > **parseINT8Safe**\<`TINT8`\>(`int8`): `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT8`\>
 
-Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
 ## Type Parameters
 
 • **TINT8**

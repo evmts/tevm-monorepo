@@ -8,26 +8,38 @@
 
 > **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: Function & Object & (TCode extends undefined ? Object : Object) & TAddressArgs \}
 
-A mapping of view and pure contract methods to action creators
+A mapping of view and pure contract methods to action creators.
+This type provides a way to create type-safe read actions for contract methods.
+
+## Example
+
+```typescript
+// Assuming we have a contract with a 'balanceOf' method
+const balanceAction = MyContract.read.balanceOf('0x1234...')
+
+// Use the action with tevm
+const balance = await tevm.contract(balanceAction)
+console.log('Balance:', balance)
+```
 
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
 
+The human-readable ABI of the contract.
+
 • **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+
+The address of the contract (optional).
 
 • **TCode** *extends* [`Hex`](Hex.md) \| `undefined`
 
+The runtime bytecode of the contract (optional).
+
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
-## Example
-
-```typescript
-tevm.contract(
-  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
-)
-```
+Additional arguments for the address (derived from TAddress).
 
 ## Defined in
 
-packages/contract/types/read/ReadActionCreator.d.ts:12
+packages/contract/types/read/ReadActionCreator.d.ts:26

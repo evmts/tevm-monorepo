@@ -8,8 +8,6 @@
 
 > **isBytes3**(`bytes3`): `boolean`
 
-Type guard that returns true if the provided string is a valid Ethereum Bytes3.
-
 ## Parameters
 
 • **bytes3**: `unknown`
@@ -17,14 +15,6 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes3.
 ## Returns
 
 `boolean`
-
-## Example
-
-```ts
-import { isBytes3 } from '@tevm/schemas';
-isBytes3("0xff");  // true
-isBytes3("0xfff"); // false
-````
 
 ## Defined in
 

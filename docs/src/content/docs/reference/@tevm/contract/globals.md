@@ -10,8 +10,6 @@ title: "@tevm/contract"
 - [Contract](/reference/tevm/contract/type-aliases/contract/)
 - [CreateContractFn](/reference/tevm/contract/type-aliases/createcontractfn/)
 - [CreateContractParams](/reference/tevm/contract/type-aliases/createcontractparams/)
-- [CreateScript](/reference/tevm/contract/type-aliases/createscript/)
-- [DeployArgs](/reference/tevm/contract/type-aliases/deployargs/)
 - [EventActionCreator](/reference/tevm/contract/type-aliases/eventactioncreator/)
 - [MaybeExtractEventArgsFromAbi](/reference/tevm/contract/type-aliases/maybeextracteventargsfromabi/)
 - [ReadActionCreator](/reference/tevm/contract/type-aliases/readactioncreator/)
