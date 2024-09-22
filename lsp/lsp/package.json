@@ -2,7 +2,7 @@
 	"name": "@tevm/lsp",
 	"version": "1.0.0-next.109",
 	"private": false,
-	"sideEffect": false,
+	"sideEffects": false,
 	"description": "The language server for Tevm",
 	"type": "module",
 	"main": "dist/index.js",
