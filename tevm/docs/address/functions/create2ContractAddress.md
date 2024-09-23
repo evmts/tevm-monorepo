@@ -6,7 +6,7 @@
 
 # Function: create2ContractAddress()
 
-> **create2ContractAddress**(`from`, `salt`, `code`): `Address`
+> **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
 ## Parameters
 
@@ -18,7 +18,7 @@
 
 ## Returns
 
-`Address`
+[`Address`](../classes/Address.md)
 
 ## Defined in
 

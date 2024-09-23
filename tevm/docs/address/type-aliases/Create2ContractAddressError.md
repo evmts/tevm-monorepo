@@ -6,7 +6,7 @@
 
 # Type Alias: Create2ContractAddressError
 
-> **Create2ContractAddressError**: [`InvalidSaltError`](../../errors/classes/InvalidSaltError.md) \| `InvalidAddressError`
+> **Create2ContractAddressError**: `InvalidSaltError` \| `InvalidAddressError`
 
 ## Defined in
 
