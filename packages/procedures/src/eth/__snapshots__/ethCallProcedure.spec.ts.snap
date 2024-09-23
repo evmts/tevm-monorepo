@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`ethCallProcedure > should execute a message call successfully 1`] = `"0x"`;
-
-exports[`ethCallProcedure > should handle missing optional fields in the request 1`] = `"0x"`;
-
-exports[`ethCallProcedure > should handle requests without an id 1`] = `"0x"`;
