@@ -1,5 +1,13 @@
 # tevm-run
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- Updated dependencies [b53712d]
+  - @tevm/bun-plugin@1.0.0-next.117
+  - tevm@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes

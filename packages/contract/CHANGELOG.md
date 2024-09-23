@@ -1,5 +1,21 @@
 # @tevm/contract
 
+## 1.0.0-next.117
+
+### Minor Changes
+
+- 23bb9d3: Added `withCode` method to contract to add code. This replaces the previous script property
+
+### Patch Changes
+
+- 23bb9d3: Do a jsdoc overhaul of tevm/contract
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- 23bb9d3: Fixed bug where write methods were showing up as both write and read methods
+- Updated dependencies [ec30a0e]
+- Updated dependencies [b53712d]
+  - @tevm/errors@1.0.0-next.117
+  - @tevm/utils@1.0.0-next.117
+
 ## 1.0.0-next.109
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @tevm/cli
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- Updated dependencies [b53712d]
+- Updated dependencies [23bb9d3]
+  - @tevm/memory-client@1.0.0-next.117
+  - @tevm/actions@1.0.0-next.117
+  - @tevm/jsonrpc@1.0.0-next.117
+  - @tevm/common@1.0.0-next.117
+  - @tevm/server@1.0.0-next.117
+  - @tevm/utils@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes

@@ -1,5 +1,57 @@
 # @tevm/contract
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- Updated dependencies [5ff4b12]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [ec30a0e]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [b53712d]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [23bb9d3]
+  - @tevm/address@1.0.0-next.117
+  - @tevm/procedures@1.0.0-next.117
+  - @tevm/state@1.0.0-next.117
+  - @tevm/errors@1.0.0-next.117
+  - @tevm/contract@1.0.0-next.117
+  - @tevm/sync-storage-persister@1.0.0-next.117
+  - @tevm/bundler-cache@1.0.0-next.117
+  - @tevm/base-bundler@1.0.0-next.117
+  - @tevm/compiler@1.0.0-next.117
+  - @tevm/esbuild-plugin@1.0.0-next.117
+  - @tevm/webpack-plugin@1.0.0-next.117
+  - @tevm/receipt-manager@1.0.0-next.117
+  - @tevm/config@1.0.0-next.117
+  - @tevm/rollup-plugin@1.0.0-next.117
+  - @tevm/rspack-plugin@1.0.0-next.117
+  - @tevm/memory-client@1.0.0-next.117
+  - @tevm/solc@1.0.0-next.117
+  - @tevm/vite-plugin@1.0.0-next.117
+  - @tevm/client-types@1.0.0-next.117
+  - @tevm/bun-plugin@1.0.0-next.117
+  - @tevm/http-client@1.0.0-next.117
+  - @tevm/precompiles@1.0.0-next.117
+  - @tevm/blockchain@1.0.0-next.117
+  - @tevm/decorators@1.0.0-next.117
+  - @tevm/predeploys@1.0.0-next.117
+  - @tevm/actions@1.0.0-next.117
+  - @tevm/jsonrpc@1.0.0-next.117
+  - @tevm/viem@1.0.0-next.117
+  - @tevm/common@1.0.0-next.117
+  - @tevm/server@1.0.0-next.117
+  - @tevm/txpool@1.0.0-next.117
+  - @tevm/block@1.0.0-next.117
+  - @tevm/utils@1.0.0-next.117
+  - @tevm/ts-plugin@1.0.0-next.117
+  - @tevm/node@1.0.0-next.117
+  - @tevm/evm@1.0.0-next.117
+  - @tevm/tx@1.0.0-next.117
+  - @tevm/vm@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes

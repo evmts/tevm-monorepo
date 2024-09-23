@@ -1,5 +1,29 @@
 # @tevm/contract
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- Updated dependencies [5ff4b12]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [ec30a0e]
+- Updated dependencies [b53712d]
+- Updated dependencies [23bb9d3]
+  - @tevm/address@1.0.0-next.117
+  - @tevm/state@1.0.0-next.117
+  - @tevm/errors@1.0.0-next.117
+  - @tevm/receipt-manager@1.0.0-next.117
+  - @tevm/blockchain@1.0.0-next.117
+  - @tevm/jsonrpc@1.0.0-next.117
+  - @tevm/common@1.0.0-next.117
+  - @tevm/block@1.0.0-next.117
+  - @tevm/utils@1.0.0-next.117
+  - @tevm/node@1.0.0-next.117
+  - @tevm/evm@1.0.0-next.117
+  - @tevm/tx@1.0.0-next.117
+  - @tevm/vm@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes
