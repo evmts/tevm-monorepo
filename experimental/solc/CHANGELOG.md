@@ -1,5 +1,17 @@
 # @tevm/contract
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- Updated dependencies [23bb9d3]
+- Updated dependencies [b53712d]
+- Updated dependencies [23bb9d3]
+- Updated dependencies [23bb9d3]
+  - @tevm/contract@1.0.0-next.117
+  - @tevm/config@1.0.0-next.117
+  - @tevm/tsconfig@1.0.0-next.117
+
 ## 1.0.0-next.109
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @tevm/errors
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- ec30a0e: Updated jsdoc of errors package
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+
 ## 1.0.0-next.109
 
 ### Patch Changes

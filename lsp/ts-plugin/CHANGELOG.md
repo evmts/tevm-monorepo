@@ -1,5 +1,14 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- Updated dependencies [b53712d]
+  - @tevm/bundler-cache@1.0.0-next.117
+  - @tevm/base-bundler@1.0.0-next.117
+
 ## 1.0.0-next.109
 
 ### Patch Changes

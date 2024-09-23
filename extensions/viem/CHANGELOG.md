@@ -1,5 +1,15 @@
 # @tevm/viem
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- Updated dependencies [b53712d]
+  - @tevm/decorators@1.0.0-next.117
+  - @tevm/jsonrpc@1.0.0-next.117
+  - @tevm/node@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes

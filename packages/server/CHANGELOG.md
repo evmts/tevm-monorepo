@@ -1,5 +1,20 @@
 # @tevm/server
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+- Updated dependencies [ec30a0e]
+- Updated dependencies [b53712d]
+- Updated dependencies [23bb9d3]
+  - @tevm/errors@1.0.0-next.117
+  - @tevm/memory-client@1.0.0-next.117
+  - @tevm/decorators@1.0.0-next.117
+  - @tevm/jsonrpc@1.0.0-next.117
+  - @tevm/common@1.0.0-next.117
+  - @tevm/utils@1.0.0-next.117
+
 ## 1.0.0-next.116
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.117
+
+### Patch Changes
+
+- b53712d: Fixed typo in package.json that eliminated tevm ability to treeshake
+
 ## 1.1.0-next.100
 
 ### Patch Changes
