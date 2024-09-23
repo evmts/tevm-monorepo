@@ -2,7 +2,7 @@ import { type TevmNode, createTevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { DumpStateJsonRpcRequest } from './DumpStateJsonRpcRequest.js'
 import { dumpStateProcedure } from './dumpStateProcedure.js'
-import { setAccountHandler } from '../setaccount/setAccountHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 let client: TevmNode
 

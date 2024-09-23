@@ -6,8 +6,10 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
-import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure, callProcedure } from './index.js'
+import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure} from './index.js'
 import { requestProcedure } from './requestProcedure.js'
+import { callProcedure } from './Call/callProcedure.js'
+import { testAccounts } from './eth/utils/testAccounts.js'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 

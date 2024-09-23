@@ -1,9 +1,9 @@
-import type { CallJsonRpcResponse } from '../call/CallJsonRpcResponse.js'
-import type { DumpStateJsonRpcResponse } from '../dumpstate/DumpStateJsonRpcResponse.js'
+import type { CallJsonRpcResponse } from '../Call/CallJsonRpcResponse.js'
+import type { DumpStateJsonRpcResponse } from '../DumpState/DumpStateJsonRpcResponse.js'
 import type { GetAccountJsonRpcResponse } from '../GetAccount/GetAccountJsonRpcResponse.js'
 import type { LoadStateJsonRpcResponse } from '../LoadState/LoadStateJsonRpcResponse.js'
 import type { MineJsonRpcResponse } from '../Mine/MineJsonRpcResponse.js'
-import type { SetAccountJsonRpcResponse } from '../setaccount/SetAccountJsonRpcResponse.js'
+import type { SetAccountJsonRpcResponse } from '../SetAccount/SetAccountJsonRpcResponse.js'
 
 /**
  * A mapping of `tevm_*` method names to their return type

@@ -1,5 +1,4 @@
-import { stringToHex } from '@tevm/utils'
-import { version as packageJsonVersion } from '../../package.json'
+import { stringToHex } from 'viem'
 
 /**
  * Request handler for eth_protocolVersion JSON-RPC requests.
@@ -8,7 +7,7 @@ import { version as packageJsonVersion } from '../../package.json'
 export const ethProtocolVersionJsonRpcProcedure = () => {
 	return async (request) => {
 		return {
-			result: stringToHex(packageJsonVersion),
+			result: stringToHex('tevm@1.x.x'),
 			jsonrpc: '2.0',
 			method: 'eth_protocolVersion',
 			...(request.id ? { id: request.id } : {}),

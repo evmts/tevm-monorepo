@@ -1,4 +1,4 @@
-import { callProcedure } from '../call/callProcedure.js'
+import { callProcedure } from '../Call/callProcedure.js'
 
 /**
  * Request handler for eth_estimateGas JSON-RPC requests.
@@ -12,7 +12,7 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 
 		const getParams = () => {
 			/**
-			 * @type {import('../call/CallJsonRpcRequest.js').CallJsonRpcRequest['params']}
+			 * @type {import('../Call/CallJsonRpcRequest.js').CallJsonRpcRequest['params']}
 			 */
 			const params = [
 				{

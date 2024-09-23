@@ -1,4 +1,4 @@
-import { setAccountProcedure } from '../setaccount/setAccountProcedure.js'
+import { setAccountProcedure } from '../SetAccount/setAccountProcedure.js'
 
 /**
  * Request handler for anvil_setNonce JSON-RPC requests.

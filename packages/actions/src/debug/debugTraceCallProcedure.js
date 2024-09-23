@@ -9,7 +9,7 @@ import { traceCallHandler } from './traceCallHandler.js'
 export const debugTraceCallJsonRpcProcedure = (client) => {
 	return async (request) => {
 		const debugTraceCallRequest =
-			/** @type {import('./index.js').DebugTraceCallJsonRpcRequest}*/
+			/** @type {import('./DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest}*/
 			(request)
 		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } =
 			debugTraceCallRequest.params[0]

@@ -11,10 +11,10 @@ import { anvilSetCoinbaseJsonRpcProcedure } from './anvil/anvilSetCoinbaseProced
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProcedure.js'
 import { anvilStopImpersonatingAccountJsonRpcProcedure } from './anvil/anvilStopImpersonatingAccountProcedure.js'
-import { callProcedure } from './call/callProcedure.js'
+import { callProcedure } from './Call/callProcedure.js'
 import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
-import { dumpStateProcedure } from './dumpstate/dumpStateProcedure.js'
+import { dumpStateProcedure } from './DumpState/dumpStateProcedure.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
 import { chainIdProcedure } from './eth/chainIdProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'
@@ -44,11 +44,11 @@ import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
-import { getAccountProcedure } from './getaccount/getAccountProcedure.js'
-import { loadStateProcedure } from './loadstate/loadStateProcedure.js'
-import { mineProcedure } from './mine/mineProcedure.js'
-import { scriptProcedure } from './script/scriptProcedure.js'
-import { setAccountProcedure } from './setaccount/setAccountProcedure.js'
+import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
+import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
+import { mineProcedure } from './Mine/mineProcedure.js'
+import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
+import { chainIdHandler } from './eth/chainIdHandler.js'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers
@@ -83,7 +83,6 @@ export const createHandlers = (client) => {
 		},
 		tevm_getAccount: getAccountProcedure(client),
 		tevm_setAccount: setAccountProcedure(client),
-		tevm_script: scriptProcedure(client),
 		tevm_dumpState: dumpStateProcedure(client),
 		tevm_loadState: loadStateProcedure(client),
 		tevm_miner: mineProcedure(client),
