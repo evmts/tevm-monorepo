@@ -4,6 +4,8 @@ import type { AnvilJsonRpcRequest } from '../anvil/AnvilJsonRpcRequest.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
 import type { TevmJsonRpcBulkRequestHandler } from './TevmJsonRpcBulkRequestHandler.js'
+import type { TransactionParams } from '../common/TransactionParams.js'
+import type { GetAccountResult } from '../GetAccount/GetAccountResult.js'
 
 /**
  * Options for the EIP1193 request handler
