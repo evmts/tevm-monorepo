@@ -1,6 +1,6 @@
 import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { CallJsonRpcRequest } from '@tevm/procedures'
+import type { CallJsonRpcRequest } from '@tevm/actions'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'

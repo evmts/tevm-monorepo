@@ -1,9 +1,8 @@
 import type { CallJsonRpcResponse } from '../call/CallJsonRpcResponse.js'
 import type { DumpStateJsonRpcResponse } from '../dumpstate/DumpStateJsonRpcResponse.js'
-import type { GetAccountJsonRpcResponse } from '../getaccount/GetAccountJsonRpcResponse.js'
-import type { LoadStateJsonRpcResponse } from '../loadstate/LoadStateJsonRpcResponse.js'
-import type { MineJsonRpcResponse } from '../mine/MineJsonRpcResponse.js'
-import type { ScriptJsonRpcResponse } from '../script/ScriptJsonRpcResponse.js'
+import type { GetAccountJsonRpcResponse } from '../GetAccount/GetAccountJsonRpcResponse.js'
+import type { LoadStateJsonRpcResponse } from '../LoadState/LoadStateJsonRpcResponse.js'
+import type { MineJsonRpcResponse } from '../Mine/MineJsonRpcResponse.js'
 import type { SetAccountJsonRpcResponse } from '../setaccount/SetAccountJsonRpcResponse.js'
 
 /**
@@ -14,7 +13,6 @@ export type TevmReturnType = {
 	/**
 	 * @deprecated
 	 */
-	tevm_script: ScriptJsonRpcResponse
 	tevm_loadState: LoadStateJsonRpcResponse
 	tevm_dumpState: DumpStateJsonRpcResponse
 	tevm_getAccount: GetAccountJsonRpcResponse

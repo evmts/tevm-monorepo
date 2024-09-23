@@ -1,4 +1,4 @@
-import { requestBulkProcedure, requestProcedure } from '@tevm/procedures'
+import { requestBulkProcedure, requestProcedure } from '@tevm/actions'
 /**
  * The low level method for sending and recieving a JSON-RPC request.
  * Strictly adheres to the JSON-RPC 2.0 spec.

@@ -1,4 +1,4 @@
-// TODO there is a duplicate implementation in tevm/procedures
+// TODO there is a duplicate implementation in tevm/actions
 import type { Hex } from './abitype.js'
 
 /**

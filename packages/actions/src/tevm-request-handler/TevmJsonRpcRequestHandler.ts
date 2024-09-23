@@ -1,15 +1,7 @@
 import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
 import type { AnvilJsonRpcRequest } from '../anvil/AnvilJsonRpcRequest.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
-import type {
-	EthBlockNumberJsonRpcRequest,
-	EthChainIdJsonRpcRequest,
-	EthGasPriceJsonRpcRequest,
-	EthGetBalanceJsonRpcRequest,
-	EthGetCodeJsonRpcRequest,
-	EthGetStorageAtJsonRpcRequest,
-	EthJsonRpcRequest,
-} from '../eth/index.js'
+import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
 import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.js'
 
 /**

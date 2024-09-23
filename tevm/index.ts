@@ -35,14 +35,12 @@ TevmDumpStateError,
 TevmLoadStateError,
 TevmGetAccountError,
 TevmSetAccountError,
-} from "@tevm/actions";
-export type {
 TevmJsonRpcRequest,
 TevmJsonRpcRequestHandler,
 JsonRpcReturnTypeFromMethod,
 JsonRpcRequestTypeFromMethod,
 TevmJsonRpcBulkRequestHandler,
-} from "@tevm/procedures";
+} from "@tevm/actions";
 export type {
 JsonRpcRequest,
 JsonRpcResponse,

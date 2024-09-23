@@ -13,11 +13,11 @@ TevmNode supports much of the ethereum, debug, anvil, and hardhat JSON-RPC apis.
 
 ### Using Treeshakable prodedures and actions
 
-Tree shakable procedures can be imported form the tevm/procedures package. All procedures take a TevmClient as a param and return a handler.
+Tree shakable procedures can be imported form the tevm/actions package. All procedures take a TevmClient as a param and return a handler.
 
 ```typescript
 import {createTevmNode} from 'tevm'
-import {ethCallProcedure, EthCallJsonRpcRequest} from 'tevm/procedures'
+import {ethCallProcedure, EthCallJsonRpcRequest} from 'tevm/actions'
 
 const node = createTevmNode()
 
@@ -30,7 +30,7 @@ const request: EthCallJsonRpcRequest = {
   method: 'eth_call'
 }
 
-const res = await call(request) 
+const res = await call(request)
 ```
 
 Most JSON-RPC procedures have more ergonomic apis called "Actions" as well that can be used as an alternative. Actions have benifit of

@@ -1,4 +1,4 @@
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures'
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/actions'
 
 export type TevmSendApi = {
 	send: TevmJsonRpcRequestHandler

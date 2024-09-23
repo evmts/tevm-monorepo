@@ -1,4 +1,4 @@
-import { requestProcedure } from '@tevm/procedures'
+import { requestProcedure } from '@tevm/actions'
 // TODO this is too simple of a function to be using from an external library
 // Write this internally in @tevm/utils
 import { withRetry } from 'viem'
@@ -20,7 +20,7 @@ export const requestEip1193 = () => (client) => {
 		request: async (args, options) => {
 			return withRetry(async () => {
 				const result = await requestProcedure(client)(
-					/** @type any*/ ({
+					/** @type any*/({
 						jsonrpc: '2.0',
 						id: 1,
 						method: args.method,

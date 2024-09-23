@@ -65,7 +65,6 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/node": "workspace:^",
-		"@tevm/procedures": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {

@@ -125,16 +125,6 @@
         "default": "./predeploys/index.cjs"
       }
     },
-    "./procedures": {
-      "import": {
-        "types": "./procedures/index.d.ts",
-        "default": "./procedures/index.js"
-      },
-      "require": {
-        "types": "./procedures/index.d.cts",
-        "default": "./procedures/index.cjs"
-      }
-    },
     "./http-client": {
       "import": {
         "types": "./http-client/index.d.ts",
@@ -391,7 +381,6 @@
     "errors",
     "memory-client",
     "predeploys",
-    "procedures",
     "http-client",
     "server",
     "utils",
@@ -446,7 +435,6 @@
     "@tevm/node": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
-    "@tevm/procedures": "workspace:^",
     "@tevm/receipt-manager": "workspace:^",
     "@tevm/rollup-plugin": "workspace:^",
     "@tevm/rspack-plugin": "workspace:^",

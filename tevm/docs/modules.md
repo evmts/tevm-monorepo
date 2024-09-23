@@ -30,7 +30,6 @@
 - [node](node/README.md)
 - [precompiles](precompiles/README.md)
 - [predeploys](predeploys/README.md)
-- [procedures](procedures/README.md)
 - [receipt-manager](receipt-manager/README.md)
 - [server](server/README.md)
 - [state](state/README.md)

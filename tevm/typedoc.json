@@ -15,7 +15,6 @@
     "./tx/index.ts",
     "./txpool/index.ts",
     "./vm/index.ts",
-    "./procedures/index.ts",
     "./http-client/index.ts",
     "./server/index.ts",
     "./node/index.ts",
