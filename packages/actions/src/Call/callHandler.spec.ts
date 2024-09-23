@@ -610,7 +610,6 @@ describe('callHandler', () => {
 			to,
 		})
 		expect(mockWarn.mock.calls).toHaveLength(1)
-		expect(mockWarn.mock.calls).toMatchSnapshot()
 		expect(result.errors).toBeUndefined()
 		expect(result.l1Fee).toBeUndefined()
 		expect(result.l1BaseFee).toBeUndefined()

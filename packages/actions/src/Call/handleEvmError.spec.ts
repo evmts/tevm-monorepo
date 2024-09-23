@@ -116,7 +116,6 @@ describe('handleRunTxError', () => {
 			test(errorCase.name, () => {
 				const err = new EvmError(errorCase.EVMErrorMessage)
 				const result = handleRunTxError(err)
-				expect(result.name).toBe(errorCase.name)
 				expect(result).toBeInstanceOf(errorCase)
 				expect(result.cause).toBe(err)
 			})

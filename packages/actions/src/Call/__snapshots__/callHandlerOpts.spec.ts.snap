@@ -112,15 +112,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73],
 ]
 `;
-
-exports[`callHandlerOpts > should throw error for transaction creation on past blocks 1`] = `
-[
-  [UnknownBlock: Block number 42 does not exist
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73],
-]
-`;

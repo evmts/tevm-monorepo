@@ -1,4 +1,5 @@
-import { bytesToHex, numberToHex } from '@tevm/utils'
+import { DefensiveNullCheckError } from '@tevm/errors'
+import { bytesToHex, invariant, numberToHex } from '@tevm/utils'
 /**
  * @internal
  * Prepares a trace to be listened to. If laizlyRun is true, it will return an object with the trace and not run the evm internally
@@ -51,9 +52,7 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 		if (data.execResult.exceptionError !== undefined && trace.structLogs.length > 0) {
 			// Mark last opcode trace as error if exception occurs
 			const nextLog = trace.structLogs[trace.structLogs.length - 1]
-			if (!nextLog) {
-				throw new Error('No structLogs to mark as error')
-			}
+			invariant(nextLog, new DefensiveNullCheckError('No structLogs to mark as error'))
 			// TODO fix this type
 			Object.assign(nextLog, {
 				error: data.execResult.exceptionError,

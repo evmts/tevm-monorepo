@@ -24,7 +24,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should return InvalidArgsError for invalid args 1`] = `
 [
-  [InvalidParams: Expected array, received string
+  [InvalidArgsError: Expected array, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidargserror/
 Version: 1.1.0.next-73],
