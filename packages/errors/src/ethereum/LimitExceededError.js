@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class LimitExceededError extends BaseError {
 	/**
+	 * The error code for LimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32005
+
+	/**
 	 * Constructs a LimitExceededError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class LimitExceededError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/limitexceedederror/',
 			},
 			tag,
-			-32005,
+			LimitExceededError.code,
 		)
 	}
 }

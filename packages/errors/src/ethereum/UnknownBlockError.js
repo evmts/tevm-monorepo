@@ -46,6 +46,12 @@ import { BaseError } from './BaseError.js'
  */
 export class UnknownBlockError extends BaseError {
 	/**
+	 * The error code for UnknownBlockError.
+	 * @type {number}
+	 */
+	static code = -32001
+
+	/**
 	 * Constructs an UnknownBlockError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -61,7 +67,7 @@ export class UnknownBlockError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/unknownblockerror/',
 			},
 			tag,
-			-32001,
+			UnknownBlockError.code,
 		)
 
 		this.name = 'UnknownBlock'

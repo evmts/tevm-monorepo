@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ResourceUnavailableError extends BaseError {
 	/**
+	 * The error code for ResourceUnavailableError.
+	 * @type {number}
+	 */
+	static code = -32002
+
+	/**
 	 * Constructs a ResourceUnavailableError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class ResourceUnavailableError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/resourceunavailableerror/',
 			},
 			tag,
-			-32002,
+			ResourceUnavailableError.code,
 		)
 	}
 }

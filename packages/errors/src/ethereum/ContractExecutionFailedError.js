@@ -47,6 +47,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ContractExecutionFailedError extends BaseError {
 	/**
+	 * The error code for ContractExecutionFailedError.
+	 * @type {number}
+	 */
+	static code = -32004
+
+	/**
 	 * Constructs a ContractExecutionFailedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -62,7 +68,7 @@ export class ContractExecutionFailedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/contractexecutionfailederror/',
 			},
 			tag,
-			-32004,
+			ContractExecutionFailedError.code,
 		)
 
 		this.name = 'ContractExecutionFailed'

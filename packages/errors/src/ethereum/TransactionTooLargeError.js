@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class TransactionTooLargeError extends BaseError {
 	/**
+	 * The error code for TransactionTooLargeError.
+	 * @type {number}
+	 */
+	static code = -32011
+
+	/**
 	 * Constructs a TransactionTooLargeError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class TransactionTooLargeError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/transactiontoolargeerror/',
 			},
 			tag,
-			-32011,
+			TransactionTooLargeError.code,
 		)
 	}
 }

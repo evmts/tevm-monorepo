@@ -48,6 +48,12 @@ import { BaseError } from './BaseError.js'
  */
 export class RevertError extends BaseError {
 	/**
+	 * The error code for RevertError.
+	 * @type {number}
+	 */
+	static code = -32000
+
+	/**
 	 * Constructs a RevertError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -63,7 +69,7 @@ export class RevertError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/reverterror/',
 			},
 			tag,
-			-32000,
+			RevertError.code,
 		)
 
 		this.name = 'RevertError'

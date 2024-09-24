@@ -7,17 +7,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
 Details: Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
 Version: 1.1.0.next-73"
 `;
-
-exports[`parseRequest > should return InvalidRequestError for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"params":{"_errors":["Expected object, received string","Expected array, received string"]}}
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;
-
-exports[`parseRequest > should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
-"{"1":{"_errors":[],"params":{"_errors":["Expected object, received string","Expected array, received string"]}},"_errors":[]}
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;

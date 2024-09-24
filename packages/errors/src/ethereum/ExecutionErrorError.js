@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ExecutionError extends BaseError {
 	/**
+	 * The error code for ExecutionError.
+	 * @type {number}
+	 */
+	static code = -32000
+
+	/**
 	 * Constructs an ExecutionError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class ExecutionError extends BaseError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/executionerror/',
 			},
 			tag,
-			-32000,
+			ExecutionError.code,
 		)
 	}
 }

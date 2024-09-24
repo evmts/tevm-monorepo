@@ -1,5 +1,5 @@
 import { tevmSend } from '@tevm/decorators'
-import { InternalError, InvalidRequestError } from '@tevm/errors'
+import { InternalError, InvalidRequestError, MethodNotFoundError, UnsupportedProviderMethodError } from '@tevm/errors'
 import { InvalidJsonError } from './errors/InvalidJsonError.js'
 import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
 import { getRequestBody } from './internal/getRequestBody.js'
@@ -52,7 +52,7 @@ export const createHttpHandler = (client) => {
 		}
 
 		if (Array.isArray(parsedRequest)) {
-			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
+			const responses = await handleBulkRequest(client, /** @type {any}*/(parsedRequest))
 			res.writeHead(200, { 'Content-Type': 'application/json' })
 			res.end(JSON.stringify(responses))
 			return
@@ -60,17 +60,20 @@ export const createHttpHandler = (client) => {
 
 		const response = await client.transport.tevm
 			.extend(tevmSend())
-			.send(/** @type any*/ (parsedRequest))
+			.send(/** @type any*/(parsedRequest))
 			.catch((e) => {
+				console.log('e', e)
 				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
 			})
 
 		if ('code' in response && 'message' in response) {
 			return handleError(client, response, res, parsedRequest)
 		}
+		if (response.error?.code === UnsupportedProviderMethodError.code || response.error?.code === new MethodNotFoundError('').code) {
 
-		res.writeHead(200, { 'Content-Type': 'application/json' })
-		res.end(JSON.stringify(response))
-		return
+			console.log('response', response)
+			res.writeHead(200, { 'Content-Type': 'application/json' })
+			res.end(JSON.stringify(response))
+			return
+		}
 	}
-}

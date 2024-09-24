@@ -46,6 +46,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InternalError extends BaseError {
 	/**
+	 * The error code for InternalError.
+	 * @type {number}
+	 */
+	static code = -32603
+
+	/**
 	 * Constructs an InternalError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -61,7 +67,7 @@ export class InternalError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/internalerror/',
 			},
 			tag,
-			-32603,
+			InternalError.code,
 		)
 
 		this.name = 'InternalError'

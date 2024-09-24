@@ -39,6 +39,7 @@ import { BaseError } from './BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class MethodNotFoundError extends BaseError {
+	static code = -32601
 	/**
 	 * Constructs a MethodNotFoundError.
 	 *
@@ -55,7 +56,7 @@ export class MethodNotFoundError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/methodnotfounderror/',
 			},
 			tag,
-			-32601,
+			MethodNotFoundError.code,
 		)
 	}
 }

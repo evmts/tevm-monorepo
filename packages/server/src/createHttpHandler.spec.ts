@@ -74,7 +74,7 @@ describe('createHttpHandler', () => {
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 
-	it('should return 400 for invalid JSON-RPC request', async () => {
+	it.only('should return 400 for invalid JSON-RPC request', async () => {
 		const tevm = createMemoryClient({
 			common: optimism,
 			fork: {

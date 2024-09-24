@@ -45,6 +45,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ParseError extends BaseError {
 	/**
+	 * The error code for ParseError.
+	 * @type {number}
+	 */
+	static code = -32700
+
+	/**
 	 * Constructs a ParseError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -60,7 +66,7 @@ export class ParseError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/parseerror/',
 			},
 			tag,
-			-32700,
+			ParseError.code,
 		)
 
 		this.name = 'ParseError'

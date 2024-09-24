@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ChainIdMismatchError extends BaseError {
 	/**
+	 * The error code for ChainIdMismatchError.
+	 * @type {number}
+	 */
+	static code = -32000
+
+	/**
 	 * Constructs a ChainIdMismatchError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class ChainIdMismatchError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/chainidmismatcherror/',
 			},
 			tag,
-			-32000,
+			ChainIdMismatchError.code,
 		)
 	}
 }

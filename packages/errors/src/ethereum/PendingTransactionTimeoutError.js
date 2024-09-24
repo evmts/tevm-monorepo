@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class PendingTransactionTimeoutError extends BaseError {
 	/**
+	 * The error code for PendingTransactionTimeoutError.
+	 * @type {number}
+	 */
+	static code = -32002
+
+	/**
 	 * Constructs a PendingTransactionTimeoutError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class PendingTransactionTimeoutError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/pendingtransactiontimeouterror/',
 			},
 			tag,
-			-32002,
+			PendingTransactionTimeoutError.code,
 		)
 	}
 }

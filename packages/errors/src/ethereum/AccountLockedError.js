@@ -49,6 +49,12 @@ import { BaseError } from './BaseError.js'
  */
 export class AccountLockedError extends BaseError {
 	/**
+	 * The error code for AccountLockedError.
+	 * @type {number}
+	 */
+	static code = -32005
+
+	/**
 	 * Constructs an AccountLockedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -64,7 +70,7 @@ export class AccountLockedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/accountlockederror/',
 			},
 			tag,
-			-32005,
+			AccountLockedError.code,
 		)
 
 		this.name = 'AccountLocked'
