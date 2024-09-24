@@ -52,7 +52,7 @@ export const createHttpHandler = (client) => {
 		}
 
 		if (Array.isArray(parsedRequest)) {
-			const responses = await handleBulkRequest(client, /** @type {any}*/(parsedRequest))
+			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
 			res.writeHead(200, { 'Content-Type': 'application/json' })
 			res.end(JSON.stringify(responses))
 			return
@@ -60,7 +60,7 @@ export const createHttpHandler = (client) => {
 
 		const response = await client.transport.tevm
 			.extend(tevmSend())
-			.send(/** @type any*/(parsedRequest))
+			.send(/** @type any*/ (parsedRequest))
 			.catch((e) => {
 				console.log('e', e)
 				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
@@ -69,11 +69,16 @@ export const createHttpHandler = (client) => {
 		if ('code' in response && 'message' in response) {
 			return handleError(client, response, res, parsedRequest)
 		}
-		if (response.error?.code === UnsupportedProviderMethodError.code || response.error?.code === new MethodNotFoundError('').code) {
-
-			console.log('response', response)
-			res.writeHead(200, { 'Content-Type': 'application/json' })
-			res.end(JSON.stringify(response))
-			return
+		if (
+			response.error?.code === UnsupportedProviderMethodError.code ||
+			response.error?.code === MethodNotFoundError.code
+		) {
+			return handleError(client, response.error, res, parsedRequest)
 		}
+
+		console.log('response', response)
+		res.writeHead(200, { 'Content-Type': 'application/json' })
+		res.end(JSON.stringify(response))
+		return
 	}
+}

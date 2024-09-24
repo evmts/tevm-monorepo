@@ -74,7 +74,7 @@ describe('createHttpHandler', () => {
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 
-	it.only('should return 400 for invalid JSON-RPC request', async () => {
+	it('should return 400 for invalid JSON-RPC request', async () => {
 		const tevm = createMemoryClient({
 			common: optimism,
 			fork: {
@@ -90,7 +90,7 @@ describe('createHttpHandler', () => {
 		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
 
 		expect(res.body.error).toBeDefined()
-		expect(res.body.error.code).toBe(-32600)
+		expect(res.body.error.code).toBe(-32601)
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 
