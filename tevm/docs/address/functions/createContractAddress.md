@@ -6,7 +6,7 @@
 
 # Function: createContractAddress()
 
-> **createContractAddress**(`from`, `nonce`): `Address`
+> **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Returns
 
-`Address`
+[`Address`](../classes/Address.md)
 
 ## Defined in
 

@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InsufficientPermissionsError extends BaseError {
 	/**
+	 * The error code for InsufficientPermissionsError.
+	 * @type {number}
+	 */
+	static code = -32009
+
+	/**
 	 * Constructs an InsufficientPermissionsError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class InsufficientPermissionsError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/insufficientpermissionserror/',
 			},
 			tag,
-			-32009,
+			InsufficientPermissionsError.code,
 		)
 	}
 }

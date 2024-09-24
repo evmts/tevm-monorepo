@@ -13,8 +13,6 @@ describe('parseRequest', () => {
 
 	const invalidJsonRpcRequest = {
 		jsonrpc: '2.0',
-		method: 'tevm_call',
-		params: 'invalid_params', // Should be an array
 		id: 1,
 	} as const
 

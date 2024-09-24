@@ -1,6 +1,6 @@
+import type { CallJsonRpcRequest } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
-import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress, type Hex, bytesToHex, encodeDeployData, parseAbi } from '@tevm/utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, toHex } from '@tevm/utils'

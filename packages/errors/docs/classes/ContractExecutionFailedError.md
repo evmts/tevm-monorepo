@@ -75,7 +75,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ContractExecutionFailedError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L56)
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L62)
 
 ## Properties
 
@@ -91,7 +91,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ContractExecutionFailedError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L69)
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L75)
 
 ***
 
@@ -112,8 +112,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code (-32004), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -199,7 +197,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ContractExecutionFailedError.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L68)
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L74)
 
 ***
 
@@ -242,6 +240,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32004`
+
+Error code (-32004), a non-standard extension for this specific error.
+
+#### Defined in
+
+[packages/errors/src/ethereum/ContractExecutionFailedError.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ContractExecutionFailedError.js#L53)
 
 ***
 

@@ -74,7 +74,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L55)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L61)
 
 ## Properties
 
@@ -90,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L77)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L83)
 
 ***
 
@@ -111,8 +111,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code (-32006), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -178,7 +176,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L70)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L76)
 
 ***
 
@@ -210,7 +208,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/BlockGasLimitExceededError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L83)
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L89)
 
 ***
 
@@ -253,6 +251,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32006`
+
+Error code (-32006), a non-standard extension for this specific error.
+
+#### Defined in
+
+[packages/errors/src/ethereum/BlockGasLimitExceededError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L52)
 
 ***
 

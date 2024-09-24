@@ -5,9 +5,8 @@ import type {
 	DumpStateJsonRpcRequest,
 	GetAccountJsonRpcRequest,
 	LoadStateJsonRpcRequest,
-	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
-} from '@tevm/procedures'
+} from '@tevm/actions'
 import type { SerializeToJson } from '@tevm/utils'
 
 export type JsonRpcSchemaTevm = {
@@ -21,18 +20,6 @@ export type JsonRpcSchemaTevm = {
 	tevm_call: {
 		Method: 'tevm_call'
 		Parameters: CallJsonRpcRequest['params']
-		ReturnType: SerializeToJson<CallResult<never>>
-	}
-	/**
-	 * @description Execute supplied contract bytecode on the EVM
-	 * @link https://tevm.sh/learn/json-rpc/#tevm-methods
-	 * @example
-	 * provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', args: [...] }] })})
-	 * // => { address: '0x...', events: [{...}], ... }
-	 */
-	tevm_script: {
-		Method: 'tevm_script'
-		Parameters: ScriptJsonRpcRequest['params']
 		ReturnType: SerializeToJson<CallResult<never>>
 	}
 	/**

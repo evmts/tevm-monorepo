@@ -80,7 +80,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/RevertError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L57)
+[packages/errors/src/ethereum/RevertError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L63)
 
 ## Properties
 
@@ -96,7 +96,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/RevertError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L70)
+[packages/errors/src/ethereum/RevertError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L76)
 
 ***
 
@@ -117,8 +117,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
 
 #### Inherited from
 
@@ -204,7 +202,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/RevertError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L69)
+[packages/errors/src/ethereum/RevertError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L75)
 
 ***
 
@@ -247,6 +245,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32000`
+
+Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
+
+#### Defined in
+
+[packages/errors/src/ethereum/RevertError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L54)
 
 ***
 

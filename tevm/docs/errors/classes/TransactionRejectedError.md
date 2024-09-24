@@ -67,7 +67,7 @@ The tag for the error.}
 
 #### Defined in
 
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:45
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:50
 
 ## Properties
 
@@ -83,7 +83,7 @@ Same as name, used internally.
 
 #### Defined in
 
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:54
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:59
 
 ***
 
@@ -104,8 +104,6 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 ### code
 
 > **code**: `number`
-
-Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
@@ -171,7 +169,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:49
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:54
 
 ***
 
@@ -203,7 +201,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:59
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:64
 
 ***
 
@@ -246,6 +244,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Defined in
+
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:42
 
 ***
 

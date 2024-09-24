@@ -125,8 +125,6 @@ Same as name, used internally.
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code)
@@ -264,6 +262,22 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L46)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32000`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code-1)
+
+#### Defined in
+
+[packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
 
 ***
 

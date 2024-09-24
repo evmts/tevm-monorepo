@@ -6,7 +6,7 @@
 
 # Type Alias: TevmCallError
 
-> **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| `HandleRunTxError` \| `ExecuteCallError`
+> **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| [`ExecuteCallError`](ExecuteCallError.md) \| [`ExecuteCallError`](ExecuteCallError.md)
 
 All errors that can occur during a TEVM call.
 This type is strongly typed if using `throwOnFail: false`.

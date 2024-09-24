@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidParamsError extends BaseError {
 	/**
+	 * The error code for InvalidParamsError.
+	 * @type {number}
+	 */
+	static code = -32602
+
+	/**
 	 * Constructs an InvalidParamsError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class InvalidParamsError extends BaseError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidparamserror/',
 			},
 			tag,
-			-32602,
+			InvalidParamsError.code,
 		)
 	}
 }

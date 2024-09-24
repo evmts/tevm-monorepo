@@ -46,6 +46,12 @@ import { BaseError } from './BaseError.js'
  */
 export class BlockGasLimitExceededError extends BaseError {
 	/**
+	 * The error code for BlockGasLimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32006
+
+	/**
 	 * Constructs a BlockGasLimitExceededError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -61,7 +67,7 @@ export class BlockGasLimitExceededError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/blockgaslimitexceedederror/',
 			},
 			tag,
-			-32006,
+			BlockGasLimitExceededError.code,
 		)
 
 		/**

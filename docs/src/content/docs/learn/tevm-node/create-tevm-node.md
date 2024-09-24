@@ -225,8 +225,7 @@ tevm.logger.warn("Custom warning");
 
 There are a few packages that add additional functionality to a TevmNode in a tree shakable way.
 
-- `tevm/actions` Tree shakable methods such as `call`, `getBlockNumber`, and more for interacting with a TevmNode
-- `tevm/procedures` Tree shakable methods for implementing the JSON-RPC api for ethereum, hardhat, anvil, and custom tevm json-rpc methods.
+- `tevm/actions` Tree shakable methods such as `call`, `getBlockNumber`, and more for interacting with a TevmNode along with json-rpc procedures
 - `tevm/decorators` Extensions to add additional properties to a TevmNode
 
 ### Extending with actions
@@ -280,10 +279,10 @@ await setAccount(tevm)({
 
 See the `tevmActions` and `ethActions` extensions if you would like to add these actions to your client instance directly because tree shaking is not a concern.
 
-All procedures for the JSON-RPC api are optionally available in `tevm/procedures` package.
+All procedures for the JSON-RPC api are optionally available in `tevm/actions` package.
 
 ```typescript
-import { ethGetBlockNumberProcedure } from "tevm/procedures";
+import { ethGetBlockNumberProcedure } from "tevm/actions";
 import { createTevmNode } from "tevm/node";
 
 const tevm = createTevmNode().extend(tevmActions());

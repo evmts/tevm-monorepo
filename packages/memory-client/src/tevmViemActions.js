@@ -42,14 +42,13 @@ export const tevmViemActions = () => {
 	 * @returns {import('./TevmViemActionsApi.js').TevmViemActionsApi} The extended viem client with TEVM actions.
 	 */
 	const extension = (client) => {
-		const { call, contract, script, deploy, mine, loadState, dumpState, setAccount, getAccount, ready } =
+		const { call, contract, deploy, mine, loadState, dumpState, setAccount, getAccount, ready } =
 			client.transport.tevm.extend(tevmActions())
 		return {
 			tevm: client.transport.tevm,
 			tevmReady: ready,
 			tevmCall: call,
 			tevmContract: contract,
-			tevmScript: script,
 			tevmDeploy: deploy,
 			tevmMine: mine,
 			tevmLoadState: loadState,

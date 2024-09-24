@@ -56,4 +56,4 @@ Parameters for constructing an InsufficientPermissionsError.
 
 ## Defined in
 
-packages/errors/types/ethereum/InsufficientPermissionsError.d.ts:50
+packages/errors/types/ethereum/InsufficientPermissionsError.d.ts:55

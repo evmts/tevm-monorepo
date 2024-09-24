@@ -14,7 +14,7 @@ The default EIP1193 compatable provider request method with enabled tevm methods
 
 ### request
 
-> **request**: [`EIP1193RequestFn`](EIP1193RequestFn.md)\<[`...PublicRpcSchema`, ...TestRpcSchema\<"anvil" \| "ganache" \| "hardhat"\>, [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_call"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_script"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_dumpState"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_loadState"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_getAccount"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_setAccount"`\]]\>
+> **request**: [`EIP1193RequestFn`](EIP1193RequestFn.md)\<[`...PublicRpcSchema`, ...TestRpcSchema\<"anvil" \| "ganache" \| "hardhat"\>, [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_call"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_dumpState"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_loadState"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_getAccount"`\], [`JsonRpcSchemaTevm`](JsonRpcSchemaTevm.md)\[`"tevm_setAccount"`\]]\>
 
 ## Defined in
 

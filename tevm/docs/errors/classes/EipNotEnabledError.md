@@ -230,6 +230,22 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
+### code
+
+> `static` **code**: `number`
+
+The error code for ExecutionError.
+
+#### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code-1)
+
+#### Defined in
+
+packages/errors/types/ethereum/ExecutionErrorError.d.ts:42
+
+***
+
 ### prepareStackTrace()?
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`

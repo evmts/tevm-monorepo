@@ -179,7 +179,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:53
+packages/errors/types/ethereum/InternalErrorError.d.ts:58
 
 ***
 
@@ -264,6 +264,22 @@ packages/errors/types/defensive/UnreachableCodeError.d.ts:62
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+The error code for InternalError.
+
+#### Inherited from
+
+[`InternalError`](InternalError.md).[`code`](InternalError.md#code-1)
+
+#### Defined in
+
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 

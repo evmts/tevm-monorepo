@@ -8,19 +8,6 @@ describe('Eip1193RequestProvider types', () => {
 			request: vi.fn().mockResolvedValue({}),
 		} as Eip1193RequestProvider
 
-		// tevm_script
-		const scriptRes = await client.request({
-			method: 'tevm_script',
-			params: [
-				{
-					data: '0x99999',
-					deployedBytecode: '0x99999',
-				},
-			],
-		})
-		scriptRes.gas satisfies Hex | undefined
-		scriptRes.rawData satisfies Hex
-
 		// eth_blockNumber
 		const blockNumberRes = await client.request({
 			method: 'eth_blockNumber',

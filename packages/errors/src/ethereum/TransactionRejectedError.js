@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class TransactionRejectedError extends BaseError {
 	/**
+	 * The error code for TransactionRejectedError.
+	 * @type {number}
+	 */
+	static code = -32003
+
+	/**
 	 * Constructs a TransactionRejectedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class TransactionRejectedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/transactionrejectederror/',
 			},
 			tag,
-			-32003,
+			TransactionRejectedError.code,
 		)
 
 		/**

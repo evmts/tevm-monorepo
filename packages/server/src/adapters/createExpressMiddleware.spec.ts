@@ -48,7 +48,7 @@ describe('createExpressMiddleware', () => {
 		const res = await supertest(app).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
 
 		expect(res.body.error).toBeDefined()
-		expect(res.body.error.code).toBe(-32600)
+		expect(res.body.error.code).toBe(-32601)
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 })

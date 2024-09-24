@@ -49,7 +49,6 @@ export default defineConfig({
                         '../packages/memory-client',
                         '../packages/precompiles/',
                         '../packages/predeploys',
-                        '../packages/procedures',
                         '../packages/receipt-manager',
                         '../packages/rlp',
                         '../packages/server',

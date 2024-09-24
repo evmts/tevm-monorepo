@@ -74,7 +74,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:52
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:57
 
 ## Properties
 
@@ -90,7 +90,7 @@ Same as name, used internally.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:61
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:66
 
 ***
 
@@ -111,8 +111,6 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 ### code
 
 > **code**: `number`
-
-Error code (-32006), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -178,7 +176,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:56
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:61
 
 ***
 
@@ -210,7 +208,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:66
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:71
 
 ***
 
@@ -253,6 +251,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+Error code (-32006), a non-standard extension for this specific error.
+
+#### Defined in
+
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:49
 
 ***
 

@@ -37,8 +37,8 @@ Version: 1.1.0.next-73"
 `;
 
 exports[`createHttpHandler > should return 400 for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"params":{"_errors":["Expected object, received string","Expected array, received string"]}}
+"UnsupportedMethodError: Unknown method invalid_method
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
 Version: 1.1.0.next-73"
 `;

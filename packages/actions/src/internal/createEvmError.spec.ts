@@ -80,8 +80,7 @@ describe('createEvmError', () => {
 		const error = { error: 'UNKNOWN_ERROR' }
 		const result = createEvmError(error as any)
 		expect(result).toBeInstanceOf(InternalError)
-		expect(result.name).toBe(InternalError.name)
-		expect(result.message).toMatchSnapshot()
+		expect(result).toMatchSnapshot()
 	})
 
 	it('should return the same error if it is an instance of BaseError', () => {

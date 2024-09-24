@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class TransactionUnderpricedError extends BaseError {
 	/**
+	 * The error code for TransactionUnderpricedError.
+	 * @type {number}
+	 */
+	static code = -32014
+
+	/**
 	 * Constructs a TransactionUnderpricedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,7 @@ export class TransactionUnderpricedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/transactionunderpricederror/',
 			},
 			tag,
-			-32014,
+			TransactionUnderpricedError.code,
 		)
 	}
 }

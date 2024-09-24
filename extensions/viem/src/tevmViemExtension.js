@@ -95,57 +95,6 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions').ScriptHandler}
-		 */
-		const script = async (params) => {
-			const out = /** @type {any} */ (
-				parseCallResponse(
-					await request({
-						method: 'tevm_call',
-						jsonrpc: '2.0',
-						params: [
-							{
-								...getCallArgs(params),
-								deployedBytecode: params.deployedBytecode,
-								data: encodeFunctionData(
-									/** @type any*/ ({
-										abi: params.abi,
-										functionName: params.functionName,
-										args: params.args,
-									}),
-								),
-							},
-						],
-					}),
-				)
-			)
-			try {
-				out.data = decodeFunctionResult(
-					/** @type any*/ ({
-						data: out.rawData,
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					}),
-				)
-			} catch (e) {
-				if (out.rawData === '0x') {
-					throw new Error('UnexpectedError: data is 0x')
-				}
-				console.error('Unable to decode function data', {
-					input: {
-						data: out.rawData,
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					},
-				})
-				throw e
-			}
-			return out
-		}
-
-		/**
 		 * @type {import('@tevm/actions').GetAccountHandler}
 		 */
 		const getAccount = async (params) => {
@@ -227,7 +176,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/procedures').CallJsonRpcResponse | import('@tevm/procedures').ScriptJsonRpcResponse} response
+		 * @param {import('@tevm/actions').CallJsonRpcResponse} response
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
@@ -465,7 +414,6 @@ export const tevmViemExtension = () => {
 				accounts: testAccounts,
 				request,
 				requestBulk,
-				script,
 				getAccount,
 				setAccount,
 				call,

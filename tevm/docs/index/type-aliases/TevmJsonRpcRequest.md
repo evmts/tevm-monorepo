@@ -6,11 +6,11 @@
 
 # Type Alias: TevmJsonRpcRequest
 
-> **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](../../procedures/type-aliases/GetAccountJsonRpcRequest.md) \| [`SetAccountJsonRpcRequest`](../../procedures/type-aliases/SetAccountJsonRpcRequest.md) \| [`CallJsonRpcRequest`](../../procedures/type-aliases/CallJsonRpcRequest.md) \| [`ScriptJsonRpcRequest`](../../procedures/type-aliases/ScriptJsonRpcRequest.md) \| [`LoadStateJsonRpcRequest`](../../procedures/type-aliases/LoadStateJsonRpcRequest.md) \| [`DumpStateJsonRpcRequest`](../../procedures/type-aliases/DumpStateJsonRpcRequest.md) \| [`MineJsonRpcRequest`](../../procedures/type-aliases/MineJsonRpcRequest.md)
+> **TevmJsonRpcRequest**: `GetAccountJsonRpcRequest` \| `SetAccountJsonRpcRequest` \| `CallJsonRpcRequest` \| `LoadStateJsonRpcRequest` \| `DumpStateJsonRpcRequest` \| `MineJsonRpcRequest`
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:150
+packages/actions/types/TevmJsonRpcRequest.d.ts:11

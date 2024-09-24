@@ -6,7 +6,7 @@
 
 # Function: createAddress()
 
-> **createAddress**(`address`): `Address`
+> **createAddress**(`address`): [`Address`](../../address/classes/Address.md)
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`Address`
+[`Address`](../../address/classes/Address.md)
 
 ## Defined in
 

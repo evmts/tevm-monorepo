@@ -56,4 +56,4 @@ Parameters for constructing a TransactionTooLargeError.
 
 ## Defined in
 
-packages/errors/types/ethereum/TransactionTooLargeError.d.ts:50
+packages/errors/types/ethereum/TransactionTooLargeError.d.ts:55

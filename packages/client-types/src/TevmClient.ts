@@ -15,10 +15,9 @@ import type {
 	EthGetStorageAtHandler,
 	GetAccountHandler,
 	LoadStateHandler,
-	ScriptHandler,
 	SetAccountHandler,
 } from '@tevm/actions'
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures'
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/actions'
 import type { HDAccount } from '@tevm/utils'
 
 /**
@@ -236,30 +235,6 @@ export type TevmClient = {
 	 */
 	request: TevmJsonRpcRequestHandler
 	// Tevm Handlers
-	/**
-	 * Executes scripts against the Tevm EVM. By default the script is sandboxed
-	 * and the state is reset after each execution unless the `persist` option is set
-	 * to true.
-	 * @example
-	 * ```typescript
-	 * const res = tevm.script({
-	 *   deployedBytecode: '0x6080604...',
-	 *   abi: [...],
-	 *   function: 'run',
-	 *   args: ['hello world']
-	 * })
-	 * ```
-	 * Contract handlers provide a more ergonomic way to execute scripts
-	 * @example
-	 * ```typescript
-	 * ipmort {MyScript} from './MyScript.s.sol'
-	 *
-	 * const res = tevm.script(
-	 *    MyScript.read.run('hello world')
-	 * )
-	 * ```
-	 */
-	script: ScriptHandler
 	/**
 	 * Sets the state of a specific ethereum address
 	 * @example

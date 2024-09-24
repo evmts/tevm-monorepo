@@ -131,8 +131,6 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 
 > **code**: `number`
 
-Error code, analogous to the code in JSON RPC error.
-
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`code`](RevertError.md#code)
@@ -270,6 +268,22 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 #### Defined in
 
 packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:52
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Inherited from
+
+[`RevertError`](RevertError.md).[`code`](RevertError.md#code-1)
+
+#### Defined in
+
+packages/errors/types/ethereum/RevertError.d.ts:51
 
 ***
 

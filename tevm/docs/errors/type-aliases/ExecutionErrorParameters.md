@@ -56,4 +56,4 @@ Parameters for constructing an ExecutionError.
 
 ## Defined in
 
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:50
+packages/errors/types/ethereum/ExecutionErrorError.d.ts:55

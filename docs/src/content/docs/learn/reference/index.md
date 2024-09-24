@@ -29,8 +29,6 @@ The following packages are used to build `MemoryClient`:
 - [@tevm/memory-client](https://github.com/evmts/tevm-monorepo/tree/main/packages/memory-client) Implements the tevm MemoryClient
 - [@tevm/precompiles](https://github.com/evmts/tevm-monorepo/tree/main/packages/precompiles) Implements tevm precompile support for tevm advanced scripting
 - [@tevm/predeploys](https://github.com/evmts/tevm-monorepo/tree/main/packages/predeploys) Implements tevm predeploy support
-- [@tevm/procedures](https://github.com/evmts/tevm-monorepo/tree/main/packages/procedures) Wraps the `@tevm/actions` api with JSON-RPC support.
-- [@tevm/procedures-types](https://github.com/evmts/tevm-monorepo/tree/main/packages/procedures-types) Wraps the `@tevm/actions` api with JSON-RPC support. The TypeScript types for `@tevm/procedures`
 - [@tevm/server](https://github.com/evmts/tevm-monorepo/tree/main/packages/server) Turns any tevm client with `tevm.send` such as MemoryClient into a http server in next.js, express, or a vanilla node http handler
 - [@tevm/sync-storage-persister](https://github.com/evmts/tevm-monorepo/tree/main/packages/sync-storage-persister) An experimental package that allows users to persist tevm state. Often used to sync tevm to local storage.
 - [@tevm/utils](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) Contains many low level util methods used by tevm as well as reexports important utils from viem and ethereumjs that end users may need.

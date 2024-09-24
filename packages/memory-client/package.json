@@ -71,7 +71,6 @@
     "@tevm/evm": "workspace:^",
     "@tevm/node": "workspace:^",
     "@tevm/predeploys": "workspace:^",
-    "@tevm/procedures": "workspace:^",
     "@tevm/utils": "workspace:^",
     "kzg-wasm": "^0.4.0"
   },

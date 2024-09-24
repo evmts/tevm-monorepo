@@ -56,4 +56,4 @@ Parameters for constructing a PendingTransactionTimeoutError.
 
 ## Defined in
 
-packages/errors/types/ethereum/PendingTransactionTimeoutError.d.ts:50
+packages/errors/types/ethereum/PendingTransactionTimeoutError.d.ts:55

@@ -75,7 +75,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:53
+packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:58
 
 ## Properties
 
@@ -112,8 +112,6 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 ### code
 
 > **code**: `number`
-
-Error code (-32004), a non-standard extension for this specific error.
 
 #### Inherited from
 
@@ -242,6 +240,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+Error code (-32004), a non-standard extension for this specific error.
+
+#### Defined in
+
+packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:50
 
 ***
 

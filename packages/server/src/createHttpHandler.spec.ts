@@ -1,6 +1,6 @@
+import type { CallJsonRpcRequest } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { CallJsonRpcRequest } from '@tevm/procedures'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
@@ -90,7 +90,7 @@ describe('createHttpHandler', () => {
 		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
 
 		expect(res.body.error).toBeDefined()
-		expect(res.body.error.code).toBe(-32600)
+		expect(res.body.error.code).toBe(-32601)
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 

@@ -429,34 +429,6 @@ response - EthGasPriceJsonRpcResponse
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
 
-### ~~script~~
-
-> **script**: `ScriptHandler`
-
-Executes scripts against the Tevm EVM. By default the script is sandboxed
-and the state is reset after each execution unless the `persist` option is set
-to true.
-
-#### Examples
-
-```typescript
-const res = tevm.script({
-  deployedBytecode: '0x6080604...',
-  abi: [...],
-  function: 'run',
-  args: ['hello world']
-})
-```
-Contract handlers provide a more ergonomic way to execute scripts
-
-```typescript
-ipmort {MyScript} from './MyScript.s.sol'
-
-const res = tevm.script(
-   MyScript.read.run('hello world')
-)
-```
-
 ### ~~setAccount~~
 
 > **setAccount**: `SetAccountHandler`
@@ -477,4 +449,4 @@ await tevm.setAccount({
 
 ## Defined in
 
-[TevmClient.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L132)
+[TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)
