@@ -109,7 +109,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/RevertError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L70)
+[packages/errors/src/ethereum/RevertError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L76)
 
 ***
 
@@ -130,8 +130,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
@@ -217,7 +215,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/RevertError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L69)
+[packages/errors/src/ethereum/RevertError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L75)
 
 ***
 
@@ -270,6 +268,22 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L56)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32000`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Inherited from
+
+[`RevertError`](RevertError.md).[`code`](RevertError.md#code-1)
+
+#### Defined in
+
+[packages/errors/src/ethereum/RevertError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L54)
 
 ***
 

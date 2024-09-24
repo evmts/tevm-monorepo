@@ -73,7 +73,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ParseErrorError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L54)
+[packages/errors/src/ethereum/ParseErrorError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L60)
 
 ## Properties
 
@@ -89,7 +89,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ParseErrorError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L67)
+[packages/errors/src/ethereum/ParseErrorError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L73)
 
 ***
 
@@ -110,8 +110,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code (-32700), standard JSON-RPC error code for parse errors.
 
 #### Inherited from
 
@@ -197,7 +195,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/ParseErrorError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L66)
+[packages/errors/src/ethereum/ParseErrorError.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L72)
 
 ***
 
@@ -240,6 +238,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32700`
+
+Error code (-32700), standard JSON-RPC error code for parse errors.
+
+#### Defined in
+
+[packages/errors/src/ethereum/ParseErrorError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ParseErrorError.js#L51)
 
 ***
 

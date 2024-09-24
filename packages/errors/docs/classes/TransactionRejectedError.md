@@ -67,7 +67,7 @@ The tag for the error.}
 
 #### Defined in
 
-[packages/errors/src/ethereum/TransactionRejectedError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L49)
+[packages/errors/src/ethereum/TransactionRejectedError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L55)
 
 ## Properties
 
@@ -83,7 +83,7 @@ Same as name, used internally.
 
 #### Defined in
 
-[packages/errors/src/ethereum/TransactionRejectedError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L71)
+[packages/errors/src/ethereum/TransactionRejectedError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L77)
 
 ***
 
@@ -104,8 +104,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
@@ -171,7 +169,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/TransactionRejectedError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L64)
+[packages/errors/src/ethereum/TransactionRejectedError.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L70)
 
 ***
 
@@ -203,7 +201,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-[packages/errors/src/ethereum/TransactionRejectedError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L77)
+[packages/errors/src/ethereum/TransactionRejectedError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L83)
 
 ***
 
@@ -246,6 +244,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32003`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Defined in
+
+[packages/errors/src/ethereum/TransactionRejectedError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/TransactionRejectedError.js#L46)
 
 ***
 

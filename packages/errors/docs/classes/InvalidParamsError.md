@@ -96,7 +96,7 @@ The tag for the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InvalidParamsError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L49)
+[packages/errors/src/ethereum/InvalidParamsError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L55)
 
 ## Properties
 
@@ -133,8 +133,6 @@ Same as name, used internally.
 ### code
 
 > **code**: `number`
-
-Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
@@ -263,6 +261,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32602`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Defined in
+
+[packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
 
 ***
 

@@ -181,7 +181,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-[packages/errors/src/ethereum/InternalErrorError.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L69)
+[packages/errors/src/ethereum/InternalErrorError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L75)
 
 ***
 
@@ -266,6 +266,22 @@ The value that should be unreachable.
 #### Defined in
 
 [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
+***
+
+### code
+
+> `static` **code**: `number` = `-32603`
+
+The error code for InternalError.
+
+#### Inherited from
+
+[`InternalError`](InternalError.md).[`code`](InternalError.md#code-1)
+
+#### Defined in
+
+[packages/errors/src/ethereum/InternalErrorError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L52)
 
 ***
 

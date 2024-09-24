@@ -226,6 +226,22 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ***
 
+### code
+
+> `static` **code**: `number` = `-32602`
+
+The error code for InvalidParamsError.
+
+#### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
+
+#### Defined in
+
+[packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
+
+***
+
 ### prepareStackTrace()?
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
