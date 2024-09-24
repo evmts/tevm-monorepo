@@ -14,3 +14,8 @@ export * from './eth/index.js'
 // need this in procedures types atm and avoiding wasting time refactoring to ship faster
 export * from './internal/forkAndCacheBlock.js'
 export * from './internal/zod/index.js'
+
+export * from './requestBulkProcedure.js'
+export * from './requestProcedure.js'
+export * from './TevmJsonRpcRequest.js'
+export * from './tevm-request-handler/index.js'
