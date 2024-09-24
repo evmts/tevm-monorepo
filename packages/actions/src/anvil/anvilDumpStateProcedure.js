@@ -1,4 +1,3 @@
-
 // TODO this procedure is implemented completely wrong. Anvil encodes the state into a single hex string? Or maybe the type is wrong?
 
 import { dumpStateProcedure } from '../DumpState/dumpStateProcedure.js'

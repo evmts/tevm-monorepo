@@ -1,4 +1,4 @@
-import { getCodeHandler } from './getCodeHandler.js';
+import { getCodeHandler } from './getCodeHandler.js'
 
 /**
  * @param {Parameters<typeof getCodeHandler>[0]} baseClient

@@ -20,7 +20,7 @@ export const requestEip1193 = () => (client) => {
 		request: async (args, options) => {
 			return withRetry(async () => {
 				const result = await requestProcedure(client)(
-					/** @type any*/({
+					/** @type any*/ ({
 						jsonrpc: '2.0',
 						id: 1,
 						method: args.method,

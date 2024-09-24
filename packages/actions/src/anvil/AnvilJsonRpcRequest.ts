@@ -1,3 +1,6 @@
+import type { JsonRpcRequest } from '@tevm/jsonrpc'
+import type { Address, Hex } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
@@ -5,9 +8,6 @@ import type {
 	AnvilLoadStateParams,
 	AnvilResetParams,
 } from './index.js'
-import type { JsonRpcRequest } from '@tevm/jsonrpc'
-import type { Address, Hex } from '@tevm/utils'
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // anvil_impersonateAccount
 /**

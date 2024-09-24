@@ -1,8 +1,8 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
 import { getAccountProcedure } from './getAccountProcedure.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 let client: TevmNode
 

@@ -1,4 +1,4 @@
-import { ethSignHandler } from './ethSignHandler.js';
+import { ethSignHandler } from './ethSignHandler.js'
 
 /**
  * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} accounts

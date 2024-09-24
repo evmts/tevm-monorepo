@@ -1,4 +1,4 @@
-import { ethAccountsHandler } from './ethAccountsHandler.js';
+import { ethAccountsHandler } from './ethAccountsHandler.js'
 
 /**
  * @param {ReadonlyArray<import('@tevm/utils').Account>} accounts

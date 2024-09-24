@@ -2,10 +2,10 @@ import { type TevmNode, createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { EthGetStorageAtJsonRpcRequest } from './EthJsonRpcRequest.js'
-import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
+import type { EthGetStorageAtJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 
 let client: TevmNode
 let contractAddress: Address

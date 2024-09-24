@@ -1,8 +1,8 @@
 import { TransactionFactory } from '@tevm/tx'
 import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
-import { requestProcedure } from '../requestProcedure.js'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
+import { requestProcedure } from '../requestProcedure.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
 /**

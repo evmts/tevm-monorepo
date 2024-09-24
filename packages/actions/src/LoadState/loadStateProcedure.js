@@ -1,5 +1,5 @@
-import { loadStateHandler } from './loadStateHandler.js'
 import { hexToBigInt } from '@tevm/utils'
+import { loadStateHandler } from './loadStateHandler.js'
 
 /**
  * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM

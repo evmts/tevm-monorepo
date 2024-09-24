@@ -8,7 +8,9 @@ import { ethSendTransactionHandler } from './ethSendTransactionHandler.js'
  */
 export const ethSendTransactionJsonRpcProcedure = (client) => {
 	return async (request) => {
-		const sendTransactionRequest = /** @type {import('./EthJsonRpcRequest.js').EthSendTransactionJsonRpcRequest}*/ (request)
+		const sendTransactionRequest = /** @type {import('./EthJsonRpcRequest.js').EthSendTransactionJsonRpcRequest}*/ (
+			request
+		)
 		const txHash = await ethSendTransactionHandler(client)({
 			from: request.params[0].from,
 			...(request.params[0].data ? { data: request.params[0].data } : {}),

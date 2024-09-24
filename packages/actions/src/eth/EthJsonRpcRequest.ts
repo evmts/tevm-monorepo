@@ -1,8 +1,8 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
 import type { FilterParams } from '../common/FilterParams.js'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * the transaction call object for methods like `eth_call`

@@ -2,9 +2,9 @@ import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { EthGetCodeJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getCodeProcedure } from './getCodeProcedure.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 describe('getCodeProcedure', () => {
 	it('should return the code of a contract', async () => {

@@ -2,9 +2,9 @@ import { ERC20 } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
 import { callProcedure } from './callProcedure.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 let client: TevmNode
 

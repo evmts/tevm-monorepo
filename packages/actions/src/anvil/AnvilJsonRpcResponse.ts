@@ -1,5 +1,8 @@
 // debug_traceTransaction
 
+import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { Address } from '@tevm/utils'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,
@@ -15,9 +18,6 @@ import type {
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
 } from './index.js'
-import type { JsonRpcResponse } from '@tevm/jsonrpc'
-import type { Address } from '@tevm/utils'
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 // TODO type the errors strongly
 type AnvilError = string

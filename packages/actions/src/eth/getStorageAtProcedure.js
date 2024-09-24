@@ -1,4 +1,4 @@
-import { getStorageAtHandler } from './getStorageAtHandler.js';
+import { getStorageAtHandler } from './getStorageAtHandler.js'
 
 /**
  * @param {import('@tevm/node').TevmNode} client

@@ -1,10 +1,10 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { bytesToHex, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { EthGetBlockByHashJsonRpcRequest } from './EthJsonRpcRequest.js'
-import { ethGetBlockByHashJsonRpcProcedure } from './ethGetBlockByHashProcedure.js'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
+import type { EthGetBlockByHashJsonRpcRequest } from './EthJsonRpcRequest.js'
+import { ethGetBlockByHashJsonRpcProcedure } from './ethGetBlockByHashProcedure.js'
 
 let client: TevmNode
 

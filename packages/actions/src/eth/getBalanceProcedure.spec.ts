@@ -1,10 +1,10 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Address, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { mineHandler } from '../Mine/mineHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { EthGetBalanceJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { getBalanceProcedure } from './getBalanceProcedure.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import { mineHandler } from '../Mine/mineHandler.js'
 
 let client: TevmNode
 let accountAddress: Address

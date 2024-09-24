@@ -1,11 +1,11 @@
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { EthBlockNumberResult } from './EthResult.js'
 import type { BlockResult } from '../common/BlockResult.js'
 import type { FilterLog } from '../common/FilterLog.js'
-import type { TransactionResult } from '../common/TransactionResult.js'
 import type { TransactionReceiptResult } from '../common/TransactionReceiptResult.js'
+import type { TransactionResult } from '../common/TransactionResult.js'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
+import type { EthBlockNumberResult } from './EthResult.js'
 
 // eth_accounts
 /**
