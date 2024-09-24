@@ -56,4 +56,4 @@ Parameters for constructing a TransactionRejectedError.
 
 ## Defined in
 
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:64
+packages/errors/types/ethereum/TransactionRejectedError.d.ts:69

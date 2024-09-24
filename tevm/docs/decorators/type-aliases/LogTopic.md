@@ -10,4 +10,4 @@
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:355
+packages/decorators/dist/index.d.ts:318

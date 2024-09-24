@@ -32,61 +32,61 @@ const accountResponse = await tevm.request({
 
 #### tevm_call
 
-request - [CallJsonRpcRequest](../../procedures/type-aliases/CallJsonRpcRequest.md)
-response - [CallJsonRpcResponse](../../procedures/type-aliases/CallJsonRpcResponse.md)
+request - CallJsonRpcRequest
+response - CallJsonRpcResponse
 
 #### tevm_getAccount
 
-request - [GetAccountJsonRpcRequest](../../procedures/type-aliases/GetAccountJsonRpcRequest.md)
-response - [GetAccountJsonRpcResponse](../../procedures/type-aliases/GetAccountJsonRpcResponse.md)
+request - GetAccountJsonRpcRequest
+response - GetAccountJsonRpcResponse
 
 #### tevm_setAccount
 
-request - [SetAccountJsonRpcRequest](../../procedures/type-aliases/SetAccountJsonRpcRequest.md)
-response - [SetAccountJsonRpcResponse](../../procedures/type-aliases/SetAccountJsonRpcResponse.md)
+request - SetAccountJsonRpcRequest
+response - SetAccountJsonRpcResponse
 
 ### debug_* methods
 
 #### debug_traceCall
 
-request - [DebugTraceCallJsonRpcRequest](../../procedures/type-aliases/DebugTraceCallJsonRpcRequest.md)
-response - [DebugTraceCallJsonRpcResponse](../../procedures/type-aliases/DebugTraceCallJsonRpcResponse.md)
+request - DebugTraceCallJsonRpcRequest
+response - DebugTraceCallJsonRpcResponse
 
 ### eth_* methods
 
 #### eth_blockNumber
 
-request - [EthBlockNumberJsonRpcRequest](../../procedures/type-aliases/EthBlockNumberJsonRpcRequest.md)
-response - [EthBlockNumberJsonRpcResponse](../../procedures/type-aliases/EthBlockNumberJsonRpcResponse.md)
+request - EthBlockNumberJsonRpcRequest
+response - EthBlockNumberJsonRpcResponse
 
 #### eth_chainId
 
-request - [EthChainIdJsonRpcRequest](../../procedures/type-aliases/EthChainIdJsonRpcRequest.md)
-response - [EthChainIdJsonRpcResponse](../../procedures/type-aliases/EthChainIdJsonRpcResponse.md)
+request - EthChainIdJsonRpcRequest
+response - EthChainIdJsonRpcResponse
 
 #### eth_getCode
 
-request - [EthGetCodeJsonRpcRequest](../../procedures/type-aliases/EthGetCodeJsonRpcRequest.md)
-response - [EthGetCodeJsonRpcResponse](../../procedures/type-aliases/EthGetCodeJsonRpcResponse.md)
+request - EthGetCodeJsonRpcRequest
+response - EthGetCodeJsonRpcResponse
 
 #### eth_getStorageAt
 
-request - [EthGetStorageAtJsonRpcRequest](../../procedures/type-aliases/EthGetStorageAtJsonRpcRequest.md)
-response - [EthGetStorageAtJsonRpcResponse](../../procedures/type-aliases/EthGetStorageAtJsonRpcResponse.md)
+request - EthGetStorageAtJsonRpcRequest
+response - EthGetStorageAtJsonRpcResponse
 
 #### eth_gasPrice
 
-request - [EthGasPriceJsonRpcRequest](../../procedures/type-aliases/EthGasPriceJsonRpcRequest.md)
-response - [EthGasPriceJsonRpcResponse](../../procedures/type-aliases/EthGasPriceJsonRpcResponse.md)
+request - EthGasPriceJsonRpcRequest
+response - EthGasPriceJsonRpcResponse
 
 #### eth_getBalance
 
-request - [EthGetBalanceJsonRpcRequest](../../procedures/type-aliases/EthGetBalanceJsonRpcRequest.md)
-response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBalanceJsonRpcResponse.md)
+request - EthGetBalanceJsonRpcRequest
+response - EthGetBalanceJsonRpcResponse
 
 ## Type Parameters
 
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures/type-aliases/DebugJsonRpcRequest.md)
+• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
 
 ## Parameters
 
@@ -98,4 +98,4 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures/type-aliases/EthGetBa
 
 ## Defined in
 
-packages/procedures/dist/index.d.ts:1086
+packages/actions/types/tevm-request-handler/TevmJsonRpcRequestHandler.d.ts:81

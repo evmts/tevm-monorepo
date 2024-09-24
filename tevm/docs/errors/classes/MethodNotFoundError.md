@@ -67,7 +67,7 @@ The tag for the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/MethodNotFoundError.d.ts:45
+packages/errors/types/ethereum/MethodNotFoundError.d.ts:46
 
 ## Properties
 
@@ -104,8 +104,6 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 ### code
 
 > **code**: `number`
-
-Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
@@ -234,6 +232,18 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+Error code, analogous to the code in JSON RPC error.
+
+#### Defined in
+
+packages/errors/types/ethereum/MethodNotFoundError.d.ts:38
 
 ***
 

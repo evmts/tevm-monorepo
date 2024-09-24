@@ -171,7 +171,7 @@ Optional object containing additional information about the error.
 
 #### Defined in
 
-packages/errors/types/ethereum/InternalErrorError.d.ts:53
+packages/errors/types/ethereum/InternalErrorError.d.ts:58
 
 ***
 
@@ -244,6 +244,22 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Defined in
 
 packages/errors/types/ethereum/BaseError.d.ts:60
+
+***
+
+### code
+
+> `static` **code**: `number`
+
+The error code for InternalError.
+
+#### Inherited from
+
+[`InternalError`](InternalError.md).[`code`](InternalError.md#code-1)
+
+#### Defined in
+
+packages/errors/types/ethereum/InternalErrorError.d.ts:49
 
 ***
 

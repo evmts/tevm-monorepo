@@ -56,4 +56,4 @@ Parameters for constructing a BlockGasLimitExceededError.
 
 ## Defined in
 
-packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:71
+packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:76

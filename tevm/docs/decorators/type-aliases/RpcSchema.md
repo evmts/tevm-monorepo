@@ -14,4 +14,4 @@ Most general RPC schema type.
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:248
+packages/decorators/dist/index.d.ts:223

@@ -224,6 +224,22 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
+### code
+
+> `static` **code**: `number`
+
+The error code for InvalidParamsError.
+
+#### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
+
+#### Defined in
+
+packages/errors/types/ethereum/InvalidParamsError.d.ts:42
+
+***
+
 ### prepareStackTrace()?
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
