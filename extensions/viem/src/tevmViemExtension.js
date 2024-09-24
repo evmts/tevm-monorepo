@@ -59,7 +59,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/ (req))
+				const result = await client.request(/** @type any*/(req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -92,57 +92,6 @@ export const tevmViemExtension = () => {
 		const requestBulk = async () => {
 			// TODO implement this when we refactor the tevm client to using fetch instead of viem
 			throw new Error('Bulk json rpc requests are not yet implemented')
-		}
-
-		/**
-		 * @type {import('@tevm/actions').ScriptHandler}
-		 */
-		const script = async (params) => {
-			const out = /** @type {any} */ (
-				parseCallResponse(
-					await request({
-						method: 'tevm_call',
-						jsonrpc: '2.0',
-						params: [
-							{
-								...getCallArgs(params),
-								deployedBytecode: params.deployedBytecode,
-								data: encodeFunctionData(
-									/** @type any*/ ({
-										abi: params.abi,
-										functionName: params.functionName,
-										args: params.args,
-									}),
-								),
-							},
-						],
-					}),
-				)
-			)
-			try {
-				out.data = decodeFunctionResult(
-					/** @type any*/ ({
-						data: out.rawData,
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					}),
-				)
-			} catch (e) {
-				if (out.rawData === '0x') {
-					throw new Error('UnexpectedError: data is 0x')
-				}
-				console.error('Unable to decode function data', {
-					input: {
-						data: out.rawData,
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					},
-				})
-				throw e
-			}
-			return out
 		}
 
 		/**
@@ -227,7 +176,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/actions').CallJsonRpcResponse | import('@tevm/actions').ScriptJsonRpcResponse} response
+		 * @param {import('@tevm/actions').CallJsonRpcResponse} response
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
@@ -255,7 +204,7 @@ export const tevmViemExtension = () => {
 			const out = await call({
 				...params,
 				data: encodeFunctionData(
-					/** @type any*/ ({
+					/** @type any*/({
 						abi: params.abi,
 						functionName: params.functionName,
 						args: params.args,
@@ -268,7 +217,7 @@ export const tevmViemExtension = () => {
 			let data
 			try {
 				data = decodeFunctionResult(
-					/** @type any*/ ({
+					/** @type any*/({
 						data: out.rawData,
 						abi: params.abi,
 						functionName: params.functionName,
@@ -465,7 +414,6 @@ export const tevmViemExtension = () => {
 				accounts: testAccounts,
 				request,
 				requestBulk,
-				script,
 				getAccount,
 				setAccount,
 				call,

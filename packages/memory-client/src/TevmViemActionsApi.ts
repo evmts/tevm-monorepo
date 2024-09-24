@@ -18,7 +18,6 @@ export type TevmViemActionsApi = {
 	tevmReady: TevmNode['ready']
 	tevmCall: TevmActionsApi['call']
 	tevmContract: TevmActionsApi['contract']
-	tevmScript: TevmActionsApi['script']
 	tevmDeploy: TevmActionsApi['deploy']
 	tevmMine: TevmActionsApi['mine']
 	tevmLoadState: TevmActionsApi['loadState']

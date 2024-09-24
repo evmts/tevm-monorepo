@@ -37,7 +37,6 @@ export type TevmRpcSchema = [
 	...PublicRpcSchema,
 	...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
 	JsonRpcSchemaTevm['tevm_call'],
-	JsonRpcSchemaTevm['tevm_script'],
 	JsonRpcSchemaTevm['tevm_dumpState'],
 	JsonRpcSchemaTevm['tevm_loadState'],
 	JsonRpcSchemaTevm['tevm_getAccount'],

@@ -6,19 +6,9 @@ import {
 	getAccountHandler,
 	loadStateHandler,
 	mineHandler,
-	scriptHandler,
 	setAccountHandler,
 } from '@tevm/actions'
 
-/**
- * @internal
- * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'script'>>}
- */
-const scriptAction = () => (client) => {
-	return {
-		script: scriptHandler(client),
-	}
-}
 /**
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'getAccount'>>}
@@ -103,7 +93,6 @@ export const tevmActions = () => (client) => {
 		.extend(callAction())
 		.extend(setAccountAction())
 		.extend(getAccountAction())
-		.extend(scriptAction())
 		.extend(mineAction())
 		.extend(deployAction())
 }

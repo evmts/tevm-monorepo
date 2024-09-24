@@ -132,37 +132,6 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 > **ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
 
-### tevm\_script
-
-> **tevm\_script**: `object`
-
-#### Description
-
-Execute supplied contract bytecode on the EVM
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_script', params: [{ deployedBytecode: '0x...', args: [...] }] })})
-// => { address: '0x...', events: [{...}], ... }
-```
-
-### tevm\_script.Method
-
-> **Method**: `"tevm_script"`
-
-### tevm\_script.Parameters
-
-> **Parameters**: `ScriptJsonRpcRequest`\[`"params"`\]
-
-### tevm\_script.ReturnType
-
-> **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
-
 ### tevm\_setAccount
 
 > **tevm\_setAccount**: `object`
@@ -196,4 +165,4 @@ r
 
 ## Defined in
 
-[eip1193/JsonRpcSchemaTevm.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L13)
+[eip1193/JsonRpcSchemaTevm.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L12)

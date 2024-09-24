@@ -15,7 +15,6 @@ describe('tevmViemActions', () => {
 		expect(client.tevmReady).toBeDefined()
 		expect(client.tevmCall).toBeDefined()
 		expect(client.tevmContract).toBeDefined()
-		expect(client.tevmScript).toBeDefined()
 		expect(client.tevmDeploy).toBeDefined()
 		expect(client.tevmMine).toBeDefined()
 		expect(client.tevmLoadState).toBeDefined()
