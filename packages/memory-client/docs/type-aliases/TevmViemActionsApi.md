@@ -59,10 +59,6 @@ const client = createTevmClient()
 
 > **tevmReady**: `TevmNode`\[`"ready"`\]
 
-### tevmScript
-
-> **tevmScript**: `TevmActionsApi`\[`"script"`\]
-
 ### tevmSetAccount
 
 > **tevmSetAccount**: `TevmActionsApi`\[`"setAccount"`\]
