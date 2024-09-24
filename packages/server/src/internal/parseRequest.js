@@ -1,7 +1,13 @@
-import { zJsonRpcRequest } from '@tevm/actions'
 import { InvalidRequestError } from '@tevm/errors'
 import { z } from 'zod'
 import { InvalidJsonError } from '../errors/InvalidJsonError.js'
+
+const zJsonRpcRequest = z.object({
+	jsonrpc: z.literal('2.0').optional(),
+	id: z.union([z.number(), z.string(), z.null()]).optional(),
+	method: z.string(),
+	params: z.unknown().optional(),
+})
 
 const zBulkRequest = z.array(zJsonRpcRequest)
 

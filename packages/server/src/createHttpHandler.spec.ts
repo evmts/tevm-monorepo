@@ -1,6 +1,6 @@
 import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { CallJsonRpcRequest } from '@tevm/procedures'
+import type { CallJsonRpcRequest } from '@tevm/actions'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
 import supertest from 'supertest'
@@ -134,7 +134,7 @@ describe('createHttpHandler', () => {
 
 		// Simulate unexpected error by mocking the send method
 		const err = new NonceTooLowError('nonce is too low ooops')
-		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(err) })
+			; (tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(err) })
 
 		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
 
@@ -158,8 +158,8 @@ describe('createHttpHandler', () => {
 		const tevm = createMemoryClient()
 		const server = require('node:http').createServer(createHttpHandler(tevm))
 
-		// Simulate unexpected error by mocking the send method
-		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('oops')) })
+			// Simulate unexpected error by mocking the send method
+			; (tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('oops')) })
 
 		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
 
