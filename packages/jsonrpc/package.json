@@ -65,7 +65,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ponder/utils": "^0.1.7"
+    "@ponder/utils": "^0.2.1"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
