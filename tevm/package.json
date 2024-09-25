@@ -450,9 +450,9 @@
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
     "commander": "^12.1.0",
-    "effect": "3.8.3",
+    "effect": "2.0.0-next.54",
     "glob": "^11.0.0",
-    "solc": "^0.8.27"
+    "solc": "^0.8.26"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

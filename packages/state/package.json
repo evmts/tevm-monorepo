@@ -70,7 +70,7 @@
     "@tevm/logger": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "ethereum-cryptography": "^3.0.0"
+    "ethereum-cryptography": "^2.2.1"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
