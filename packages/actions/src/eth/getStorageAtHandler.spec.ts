@@ -1,5 +1,4 @@
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
