@@ -80,7 +80,7 @@ export const callHandlerOpts = async (client, params) => {
 				baseFeePerGas:
 					params.blockOverrideSet.baseFee !== undefined
 						? BigInt(params.blockOverrideSet.baseFee)
-						: header.baseFeePerGas ?? BigInt(0),
+						: (header.baseFeePerGas ?? BigInt(0)),
 				cliqueSigner() {
 					return header.cliqueSigner()
 				},
