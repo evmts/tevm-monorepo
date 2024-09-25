@@ -44,6 +44,9 @@
     "types"
   ],
   "scripts": {
+    "//test": "vitest --watch",
+    "//test:coverage": "vitest --coverage",
+    "//test:run": "vitest",
     "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
     "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/errors",
     "build:dist": "tsup",
@@ -57,9 +60,6 @@
     "lint:deps": "bunx depcheck",
     "lint:package": "bunx publint --strict && attw --pack",
     "package:up": "pnpm up --latest",
-    "//test": "vitest --watch",
-    "//test:coverage": "vitest --coverage",
-    "//test:run": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
