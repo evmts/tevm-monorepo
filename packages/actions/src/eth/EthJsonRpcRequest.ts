@@ -204,7 +204,7 @@ export type EthGetTransactionByBlockNumberAndIndexJsonRpcRequest = JsonRpcReques
 /**
  * JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
-export type EthGetTransactionReceiptJsonRpcRequest = JsonRpcRequest<'eth_getTransactionReceipt', [txHash: Hex]>
+export type EthGetTransactionReceiptJsonRpcRequest = JsonRpcRequest<'eth_getTransactionReceipt', readonly [txHash: Hex]>
 // eth_getUncleByBlockHashAndIndex
 /**
  * JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
@@ -240,19 +240,19 @@ export type EthSendRawTransactionJsonRpcRequest = JsonRpcRequest<'eth_sendRawTra
 /**
  * JSON-RPC request for `eth_sendTransaction` procedure
  */
-export type EthSendTransactionJsonRpcRequest = JsonRpcRequest<'eth_sendTransaction', [tx: JsonRpcTransaction]>
+export type EthSendTransactionJsonRpcRequest = JsonRpcRequest<'eth_sendTransaction', readonly [tx: JsonRpcTransaction]>
 // eth_sign
 /**
  * JSON-RPC request for `eth_sign` procedure
  */
-export type EthSignJsonRpcRequest = JsonRpcRequest<'eth_sign', [address: Address, message: Hex]>
+export type EthSignJsonRpcRequest = JsonRpcRequest<'eth_sign', readonly [address: Address, message: Hex]>
 // eth_signTransaction
 /**
  * JSON-RPC request for `eth_signTransaction` procedure
  */
 export type EthSignTransactionJsonRpcRequest = JsonRpcRequest<
 	'eth_signTransaction',
-	[
+	readonly [
 		{
 			from: Address
 			to?: Address
@@ -274,7 +274,7 @@ export type EthSyncingJsonRpcRequest = JsonRpcRequest<'eth_syncing', readonly []
 /**
  * JSON-RPC request for `eth_newFilter` procedure
  */
-export type EthNewFilterJsonRpcRequest = JsonRpcRequest<'eth_newFilter', [SerializeToJson<FilterParams>]>
+export type EthNewFilterJsonRpcRequest = JsonRpcRequest<'eth_newFilter', readonly [SerializeToJson<FilterParams>]>
 // eth_newBlockFilter
 /**
  * JSON-RPC request for `eth_newBlockFilter` procedure
@@ -292,7 +292,7 @@ export type EthNewPendingTransactionFilterJsonRpcRequest = JsonRpcRequest<
 /**
  * JSON-RPC request for `eth_uninstallFilter` procedure
  */
-export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilter', [filterId: Hex]>
+export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilter', readonly [filterId: Hex]>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
