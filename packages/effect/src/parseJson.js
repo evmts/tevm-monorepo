@@ -22,7 +22,7 @@ export class ParseJsonError extends Error {
 /**
  * Parses a json string
  * @param {string} jsonStr
- * @returns {import("effect/Effect").Effect<never, ParseJsonError, unknown>}
+ * @returns {import("effect/Effect").Effect<unknown, ParseJsonError, never>}
  * @throws {ParseJsonError} when the tevm.json file is not valid json
  * @example
  * ```ts

@@ -2,7 +2,7 @@ import { async as effectAsync, fail, succeed, try as trySync } from 'effect/Effe
 import resolve from 'resolve'
 
 /**
- * @typedef {(importPath: string, options: import('resolve').SyncOpts & import('resolve').AsyncOpts) => import('effect/Effect').Effect<never, CouldNotResolveImportError, string>} ResolveSafe
+ * @typedef {function(string, import('resolve').SyncOpts & import('resolve').AsyncOpts): import('effect/Effect').Effect<string, CouldNotResolveImportError, never>} ResolveSafe
  */
 
 /**
@@ -46,7 +46,7 @@ export class CouldNotResolveImportError extends Error {
 export const resolveSync = (importPath, options) => {
 	return trySync({
 		try: () => resolve.sync(importPath, options),
-		catch: (e) => new CouldNotResolveImportError(importPath, options.basedir ?? __dirname, /** @type {Error} */ (e)),
+		catch: (e) => new CouldNotResolveImportError(importPath, options.basedir ?? __dirname, /** @type {Error} */(e)),
 	})
 }
 
@@ -68,7 +68,7 @@ export const resolveAsync = (importPath, options) => {
 			if (err) {
 				resume(fail(new CouldNotResolveImportError(importPath, options.basedir ?? '', err)))
 			} else {
-				resume(succeed(/** @type {string} */ (resolvedPath)))
+				resume(succeed(/** @type {string} */(resolvedPath)))
 			}
 		})
 	})
