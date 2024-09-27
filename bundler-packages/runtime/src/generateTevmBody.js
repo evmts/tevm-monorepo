@@ -6,7 +6,7 @@ import { generateDtsBody } from './generateTevmBodyDts.js'
  * @param {import("@tevm/compiler").Artifacts} artifacts
  * @param {import('./types.js').ModuleType} moduleType
  * @param {boolean} includeBytecode
- * @returns {import('effect/Effect').Effect<never, never, string>}
+ * @returns {import('effect/Effect').Effect<string, never, never>}
  */
 export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 	if (moduleType === 'dts') {
@@ -21,9 +21,9 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 						humanReadableAbi: formatAbi(abi),
 						...(includeBytecode
 							? {
-									bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
-									deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
-								}
+								bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
+								deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
+							}
 							: {}),
 					},
 					null,

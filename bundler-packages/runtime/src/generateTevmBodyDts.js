@@ -4,7 +4,7 @@ import { succeed } from 'effect/Effect'
 /**
  * @param {import("@tevm/compiler").Artifacts} artifacts
  * @param {boolean} includeBytecode
- * @returns {import('effect/Effect').Effect<never, never, string>}
+ * @returns {import('effect/Effect').Effect<string, never, never>}
  */
 export const generateDtsBody = (artifacts, includeBytecode) => {
 	return succeed(
