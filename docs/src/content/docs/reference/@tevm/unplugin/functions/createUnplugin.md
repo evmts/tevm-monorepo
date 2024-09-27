@@ -23,4 +23,4 @@ title: "createUnplugin"
 
 ## Defined in
 
-node\_modules/.pnpm/unplugin@1.10.1/node\_modules/unplugin/dist/index.d.mts:172
+node\_modules/.pnpm/unplugin@1.14.1\_webpack-sources@3.2.3/node\_modules/unplugin/dist/index.d.mts:191

@@ -9,28 +9,6 @@ title: "xdcTestnet"
 
 Creates a common configuration for the xdcTestnet chain.
 
-## Description
-
-Chain ID: 51
-Chain Name: Apothem Network
-Default Block Explorer: https://apothem.blocksscan.io
-Default RPC URL: https://erpc.apothem.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { xdcTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: xdcTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 51
+Chain Name: Apothem Network
+Default Block Explorer: https://apothem.blocksscan.io
+Default RPC URL: https://erpc.apothem.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { xdcTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: xdcTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

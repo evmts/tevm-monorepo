@@ -10,28 +10,6 @@
 
 Creates a common configuration for the assetChainTestnet chain.
 
-## Description
-
-Chain ID: 42421
-Chain Name: AssetChain Testnet
-Default Block Explorer: https://scan-testnet.assetchain.org
-Default RPC URL: https://enugu-rpc.assetchain.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { assetChainTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: assetChainTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 42421
+Chain Name: AssetChain Testnet
+Default Block Explorer: https://scan-testnet.assetchain.org
+Default RPC URL: https://enugu-rpc.assetchain.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { assetChainTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: assetChainTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

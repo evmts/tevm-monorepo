@@ -10,28 +10,6 @@
 
 Creates a common configuration for the koi chain.
 
-## Description
-
-Chain ID: 701
-Chain Name: Koi Network
-Default Block Explorer: https://koi-scan.darwinia.network
-Default RPC URL: https://koi-rpc.darwinia.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { koi } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: koi,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 701
+Chain Name: Koi Network
+Default Block Explorer: https://koi-scan.darwinia.network
+Default RPC URL: https://koi-rpc.darwinia.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { koi } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: koi,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the redstone chain.
 
-## Description
-
-Chain ID: 690
-Chain Name: Redstone
-Default Block Explorer: 	https://explorer.redstone.xyz
-Default RPC URL: https://rpc.redstonechain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { redstone } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: redstone,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 690
+Chain Name: Redstone
+Default Block Explorer: 	https://explorer.redstone.xyz
+Default RPC URL: https://rpc.redstonechain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { redstone } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: redstone,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

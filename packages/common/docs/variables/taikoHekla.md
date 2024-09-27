@@ -10,28 +10,6 @@
 
 Creates a common configuration for the taikoHekla chain.
 
-## Description
-
-Chain ID: 167009
-Chain Name: Taiko Hekla L2
-Default Block Explorer: https://hekla.taikoscan.network
-Default RPC URL: https://rpc.hekla.taiko.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { taikoHekla } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: taikoHekla,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 167009
+Chain Name: Taiko Hekla L2
+Default Block Explorer: https://hekla.taikoscan.network
+Default RPC URL: https://rpc.hekla.taiko.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { taikoHekla } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: taikoHekla,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

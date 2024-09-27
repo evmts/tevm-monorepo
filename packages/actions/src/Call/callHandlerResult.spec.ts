@@ -1,7 +1,9 @@
+import { createAddress } from '@tevm/address'
 import type { EvmResult } from '@tevm/evm'
-import type { EthjsLog } from '@tevm/utils'
+import type { Address, EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
+import { stringToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { callHandlerResult } from './callHandlerResult.js'
 
@@ -14,7 +16,7 @@ describe('callHandlerResult', async () => {
 	] as const
 	const dummyEVMResult = {
 		execResult: {
-			returnValue: Buffer.from('test'),
+			returnValue: stringToBytes('test'),
 			executionGasUsed: 21000n,
 			gasRefund: 1000n,
 			selfdestruct: new Set([dummyAddress]),
@@ -28,7 +30,7 @@ describe('callHandlerResult', async () => {
 	const dummyRuntxResult = {
 		minerValue: 20n,
 		bloom: {} as any,
-		createdAddress: dummyEVMResult.execResult.createdAddresses.values().next().value,
+		createdAddress: createAddress(dummyEVMResult.execResult.createdAddresses.values().next().value as Address),
 		accessList: {} as any,
 		totalGasSpent: 100n,
 		preimages: new Map(),
@@ -41,7 +43,7 @@ describe('callHandlerResult', async () => {
 
 	it('should handle EVMResult correctly', async () => {
 		const result = callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)
-		expect(result.rawData).toEqual(toHex(Buffer.from('test')))
+		expect(result.rawData).toEqual(toHex(stringToBytes('test')))
 		expect(result.executionGasUsed).toEqual(21000n)
 		expect(result.gasRefund).toEqual(1000n)
 		expect(result.selfdestruct).toEqual(new Set([getAddress(dummyAddress)]))

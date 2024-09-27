@@ -110,7 +110,9 @@ describe(defineConfig.name, () => {
 		expect(e.name).toBe('InvalidConfigError')
 		expect(e.message).toMatchInlineSnapshot(`
 			"InvalidConfigError: Unable to resolve Tevm CompilerConfig at ./
-			Invalid Tevm CompilerConfig detected"
+			{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined }
+			└─ ["notACorrectKey"]
+			   └─ is unexpected, expected: "name" | "foundryProject" | "libs" | "remappings" | "debug" | "cacheDir""
 		`)
 	})
 

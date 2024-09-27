@@ -20,6 +20,14 @@
 
 `PluginModule`
 
+## Example
+
+```json
+{
+  "plugins": [{ "name": "tevm-ts-plugin"}]
+}
+@see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
+
 ## Defined in
 
 [lsp/ts-plugin/src/tsPlugin.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L24)

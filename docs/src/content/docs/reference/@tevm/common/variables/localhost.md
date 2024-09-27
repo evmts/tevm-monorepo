@@ -9,28 +9,6 @@ title: "localhost"
 
 Creates a common configuration for the localhost chain.
 
-## Description
-
-Chain ID: 1337
-Chain Name: Localhost
-Default Block Explorer: Not specified
-Default RPC URL: http://127.0.0.1:8545
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { localhost } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: localhost,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1337
+Chain Name: Localhost
+Default Block Explorer: Not specified
+Default RPC URL: http://127.0.0.1:8545
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { localhost } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: localhost,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

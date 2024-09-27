@@ -25,20 +25,20 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime(artifacts, 'invalidType' as any, false, '@tevm/contract')),
 		).toThrowErrorMatchingInlineSnapshot(
-			'[Error: Unknown module type: invalidType. Valid module types include contract, script]',
+			'[(FiberFailure) Error: Unknown module type: invalidType. Valid module types include contract, script]',
 		)
 	})
 
 	it('should handle no artifacts found case', () => {
 		expect(() => runSync(generateRuntime({}, 'cjs', false, '@tevm/contract'))).toThrowErrorMatchingInlineSnapshot(
-			'[Error: No artifacts provided to generateRuntime]',
+			'[(FiberFailure) Error: No artifacts provided to generateRuntime]',
 		)
 	})
 
 	it('should handle artifacts being null', () => {
 		expect(() =>
 			runSync(generateRuntime(null as any, 'dts', false, '@tevm/contract')),
-		).toThrowErrorMatchingInlineSnapshot('[Error: No artifacts provided to generateRuntime]')
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: No artifacts provided to generateRuntime]')
 	})
 
 	it('should handle commonjs module type', () => {

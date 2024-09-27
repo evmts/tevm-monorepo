@@ -10,28 +10,6 @@
 
 Creates a common configuration for the linea chain.
 
-## Description
-
-Chain ID: 59144
-Chain Name: Linea Mainnet
-Default Block Explorer: https://lineascan.build
-Default RPC URL: https://rpc.linea.build
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { linea } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: linea,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 59144
+Chain Name: Linea Mainnet
+Default Block Explorer: https://lineascan.build
+Default RPC URL: https://rpc.linea.build
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { linea } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: linea,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

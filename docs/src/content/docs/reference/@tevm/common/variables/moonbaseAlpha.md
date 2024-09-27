@@ -9,28 +9,6 @@ title: "moonbaseAlpha"
 
 Creates a common configuration for the moonbaseAlpha chain.
 
-## Description
-
-Chain ID: 1287
-Chain Name: Moonbase Alpha
-Default Block Explorer: https://moonbase.moonscan.io
-Default RPC URL: https://rpc.api.moonbase.moonbeam.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { moonbaseAlpha } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: moonbaseAlpha,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1287
+Chain Name: Moonbase Alpha
+Default Block Explorer: https://moonbase.moonscan.io
+Default RPC URL: https://rpc.api.moonbase.moonbeam.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { moonbaseAlpha } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: moonbaseAlpha,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

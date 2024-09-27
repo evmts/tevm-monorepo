@@ -1,5 +1,5 @@
 import { logAllErrors } from '@tevm/effect'
-import { all, catchTags, fail, flatMap, logDebug, tap, tapError } from 'effect/Effect'
+import { all, catchTag, catchTags, fail, flatMap, logDebug, tap, tapError } from 'effect/Effect'
 import { mergeConfigs, withDefaults } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
 import { InvalidJsonConfigError, loadJsonConfig } from './json/loadJsonConfig.js'
@@ -41,7 +41,7 @@ ${underlyingError.message}`,
 /**
  * Loads an Tevm config from the given path
  * @param {string} configFilePath
- * @returns {import("effect/Effect").Effect<never, LoadConfigError, import("./types.js").ResolvedCompilerConfig>}
+ * @returns {import("effect/Effect").Effect<import("./types.js").ResolvedCompilerConfig, LoadConfigError, never>}
  * @example
  * ```ts
  * import {tap} from 'effect/Effect'
@@ -53,23 +53,17 @@ ${underlyingError.message}`,
  * ```
  */
 export const loadConfig = (configFilePath) => {
-	const tsConfig = logDebug(`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`).pipe(
-		flatMap(() => loadTsConfig(configFilePath)),
-	)
 	const userConfig = logDebug(`loadConfig: loading userConfig at ${JSON.stringify(configFilePath)}`).pipe(
 		flatMap(() => loadJsonConfig(configFilePath)),
-		catchTags({
-			// for backwards compatibility attempt to read config from tsconfig
-			FailedToReadConfigError: (e) =>
-				tsConfig.pipe(
+		catchTag('FailedToReadConfigError', (e) =>
+			logDebug(`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`)
+				.pipe(flatMap(() => loadTsConfig(configFilePath)))
+				.pipe(
 					flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
-					catchTags({
-						// if there is no fallback config we want to throw the original error
-						NoPluginInTsConfigFoundError: () => fail(e),
-						LoadTsConfigError: () => fail(e),
-					}),
+					catchTag('NoPluginInTsConfigFoundError', () => fail(e)),
+					catchTag('FailedToReadConfigError', () => fail(e)),
 				),
-		}),
+		),
 	)
 	const foundryConfig = flatMap(userConfig, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)
@@ -103,14 +97,13 @@ export const loadConfig = (configFilePath) => {
 		flatMap(withDefaults),
 		tapError(logAllErrors),
 		catchTags({
-			ConfigFnThrowError: handleError,
 			FailedToReadConfigError: handleError,
 			FoundryConfigError: handleError,
 			FoundryNotFoundError: handleError,
 			InvalidConfigError: handleError,
 			InvalidRemappingsError: handleError,
 			ParseJsonError: handleError,
-			InvalidREmappingsError: handleError,
+			InvalidJsonConfigError: handleError,
 		}),
 		tap((config) => logDebug(`loadConfig: Config loaded ${JSON.stringify({ config })}`)),
 	)

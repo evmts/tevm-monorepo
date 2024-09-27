@@ -9,28 +9,6 @@ title: "skaleTitanTestnet"
 
 Creates a common configuration for the skaleTitanTestnet chain.
 
-## Description
-
-Chain ID: 1020352220
-Chain Name: SKALE Titan Hub
-Default Block Explorer: https://aware-fake-trim-testnet.explorer.testnet.skalenodes.com
-Default RPC URL: https://testnet.skalenodes.com/v1/aware-fake-trim-testnet
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { skaleTitanTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: skaleTitanTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1020352220
+Chain Name: SKALE Titan Hub
+Default Block Explorer: https://aware-fake-trim-testnet.explorer.testnet.skalenodes.com
+Default RPC URL: https://testnet.skalenodes.com/v1/aware-fake-trim-testnet
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { skaleTitanTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: skaleTitanTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

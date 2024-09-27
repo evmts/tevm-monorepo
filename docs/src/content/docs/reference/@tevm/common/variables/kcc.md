@@ -9,28 +9,6 @@ title: "kcc"
 
 Creates a common configuration for the kcc chain.
 
-## Description
-
-Chain ID: 321
-Chain Name: KCC Mainnet
-Default Block Explorer: https://explorer.kcc.io
-Default RPC URL: https://kcc-rpc.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { kcc } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: kcc,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 321
+Chain Name: KCC Mainnet
+Default Block Explorer: https://explorer.kcc.io
+Default RPC URL: https://kcc-rpc.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { kcc } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: kcc,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

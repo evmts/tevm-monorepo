@@ -9,28 +9,6 @@ title: "sapphire"
 
 Creates a common configuration for the sapphire chain.
 
-## Description
-
-Chain ID: 23294
-Chain Name: Oasis Sapphire
-Default Block Explorer: https://explorer.oasis.io/mainnet/sapphire
-Default RPC URL: https://sapphire.oasis.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { sapphire } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: sapphire,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 23294
+Chain Name: Oasis Sapphire
+Default Block Explorer: https://explorer.oasis.io/mainnet/sapphire
+Default RPC URL: https://sapphire.oasis.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { sapphire } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: sapphire,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

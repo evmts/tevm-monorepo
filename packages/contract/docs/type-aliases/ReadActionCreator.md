@@ -11,17 +11,6 @@
 A mapping of view and pure contract methods to action creators.
 This type provides a way to create type-safe read actions for contract methods.
 
-## Example
-
-```typescript
-// Assuming we have a contract with a 'balanceOf' method
-const balanceAction = MyContract.read.balanceOf('0x1234...')
-
-// Use the action with tevm
-const balance = await tevm.contract(balanceAction)
-console.log('Balance:', balance)
-```
-
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
@@ -39,6 +28,17 @@ The runtime bytecode of the contract (optional).
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
 Additional arguments for the address (derived from TAddress).
+
+## Example
+
+```typescript
+// Assuming we have a contract with a 'balanceOf' method
+const balanceAction = MyContract.read.balanceOf('0x1234...')
+
+// Use the action with tevm
+const balance = await tevm.contract(balanceAction)
+console.log('Balance:', balance)
+```
 
 ## Defined in
 

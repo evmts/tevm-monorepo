@@ -9,28 +9,6 @@ title: "zilliqa"
 
 Creates a common configuration for the zilliqa chain.
 
-## Description
-
-Chain ID: 32769
-Chain Name: Zilliqa
-Default Block Explorer: https://evmx.zilliqa.com
-Default RPC URL: https://api.zilliqa.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zilliqa } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zilliqa,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 32769
+Chain Name: Zilliqa
+Default Block Explorer: https://evmx.zilliqa.com
+Default RPC URL: https://api.zilliqa.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zilliqa } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zilliqa,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

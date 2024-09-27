@@ -10,28 +10,6 @@
 
 Creates a common configuration for the oasys chain.
 
-## Description
-
-Chain ID: 248
-Chain Name: Oasys
-Default Block Explorer: https://scan.oasys.games
-Default RPC URL: https://rpc.mainnet.oasys.games
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { oasys } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: oasys,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 248
+Chain Name: Oasys
+Default Block Explorer: https://scan.oasys.games
+Default RPC URL: https://rpc.mainnet.oasys.games
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { oasys } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: oasys,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

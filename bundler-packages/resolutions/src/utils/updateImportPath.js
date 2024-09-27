@@ -4,7 +4,7 @@ import { succeed } from 'effect/Effect'
  * Updates all the import paths that match the importedIds
  * @param {string} code Source code to update
  * @param {ReadonlyArray<import("../types.js").ResolvedImport>} resolvedImports Import to update
- * @returns {import("effect/Effect").Effect<never, never, string>} the source code formatted with the imprt replaced
+ * @returns {import("effect/Effect").Effect<string, never, never>} the source code formatted with the imprt replaced
  */
 export const updateImportPaths = (code, resolvedImports) => {
 	const solidityImportRegex = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm

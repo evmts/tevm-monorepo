@@ -9,28 +9,6 @@ title: "eon"
 
 Creates a common configuration for the eon chain.
 
-## Description
-
-Chain ID: 7332
-Chain Name: Horizen EON
-Default Block Explorer: https://eon-explorer.horizenlabs.io
-Default RPC URL: https://eon-rpc.horizenlabs.io/ethv1
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { eon } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: eon,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 7332
+Chain Name: Horizen EON
+Default Block Explorer: https://eon-explorer.horizenlabs.io
+Default RPC URL: https://eon-rpc.horizenlabs.io/ethv1
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { eon } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: eon,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

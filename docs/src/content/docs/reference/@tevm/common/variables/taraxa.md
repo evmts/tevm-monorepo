@@ -9,28 +9,6 @@ title: "taraxa"
 
 Creates a common configuration for the taraxa chain.
 
-## Description
-
-Chain ID: 841
-Chain Name: Taraxa Mainnet
-Default Block Explorer: https://explorer.mainnet.taraxa.io
-Default RPC URL: https://rpc.mainnet.taraxa.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { taraxa } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: taraxa,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 841
+Chain Name: Taraxa Mainnet
+Default Block Explorer: https://explorer.mainnet.taraxa.io
+Default RPC URL: https://rpc.mainnet.taraxa.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { taraxa } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: taraxa,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

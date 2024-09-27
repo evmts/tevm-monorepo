@@ -10,28 +10,6 @@
 
 Creates a common configuration for the syscoinTestnet chain.
 
-## Description
-
-Chain ID: 5700
-Chain Name: Syscoin Tanenbaum Testnet
-Default Block Explorer: https://tanenbaum.io
-Default RPC URL: https://rpc.tanenbaum.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { syscoinTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: syscoinTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 5700
+Chain Name: Syscoin Tanenbaum Testnet
+Default Block Explorer: https://tanenbaum.io
+Default RPC URL: https://rpc.tanenbaum.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { syscoinTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: syscoinTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

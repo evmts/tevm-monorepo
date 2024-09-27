@@ -53,7 +53,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ###### Returns
 
-`AsyncGenerator`\<[`OptimisticResult`](/reference/tevm/viem/type-aliases/optimisticresult/)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>
+`AsyncGenerator`\<[`OptimisticResult`](/reference/tevm/viem/type-aliases/optimisticresult/)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `any`\>
 
 ## Defined in
 

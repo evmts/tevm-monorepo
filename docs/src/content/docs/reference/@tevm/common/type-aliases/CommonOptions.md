@@ -7,35 +7,6 @@ title: "CommonOptions"
 
 > **CommonOptions**: `ViemChain` & `object`
 
-## Examples
-
-```typescript
-import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
-
-const opts: CommonOptions = {
-  ...mainnet,
-  hardfork: 'london',
-}
-
-const common = createCommon(opts)
-```
-
-You can also create a Common instance from viem chains:
-
-```typescript
-import { mainnet } from 'viem/chains'
-import { createCommon } from 'tevm/common'
-
-const common = createCommon({
-  ...mainnet,
-  hardfork: 'cancun',
-})
-```
-
-## See
-
-[createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
-
 ## Type declaration
 
 ### customCrypto?
@@ -101,6 +72,35 @@ Logging level of the Tevm logger instance
 ```ts
 'warn'
 ```
+
+## Examples
+
+```typescript
+import { mainnet, createCommon, type CommonOptions } from 'tevm/common'
+
+const opts: CommonOptions = {
+  ...mainnet,
+  hardfork: 'london',
+}
+
+const common = createCommon(opts)
+```
+
+You can also create a Common instance from viem chains:
+
+```typescript
+import { mainnet } from 'viem/chains'
+import { createCommon } from 'tevm/common'
+
+const common = createCommon({
+  ...mainnet,
+  hardfork: 'cancun',
+})
+```
+
+## See
+
+[createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
 
 ## Defined in
 

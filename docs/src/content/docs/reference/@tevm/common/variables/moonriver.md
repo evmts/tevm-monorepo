@@ -9,28 +9,6 @@ title: "moonriver"
 
 Creates a common configuration for the moonriver chain.
 
-## Description
-
-Chain ID: 1285
-Chain Name: Moonriver
-Default Block Explorer: https://moonriver.moonscan.io
-Default RPC URL: https://moonriver.public.blastapi.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { moonriver } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: moonriver,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1285
+Chain Name: Moonriver
+Default Block Explorer: https://moonriver.moonscan.io
+Default RPC URL: https://moonriver.public.blastapi.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { moonriver } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: moonriver,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

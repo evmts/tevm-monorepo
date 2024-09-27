@@ -7,6 +7,8 @@ title: "createContractAddress"
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](/reference/tevm/address/classes/address/)
 
+Generates an [Address](../../../../../../../reference/tevm/address/classes/address) for a newly created contract.
+
 ## Parameters
 
 • **from**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
@@ -22,6 +24,14 @@ The nonce of the account creating the contract.
 [`Address`](/reference/tevm/address/classes/address/)
 
 The generated contract address.
+
+## Throws
+
+If the 'from' parameter is not a valid EthjsAddress.
+
+## See
+
+[Contract Creation](https://ethereum.org/en/developers/docs/smart-contracts/deploying/#contract-creation-code|Ethereum)
 
 ## Defined in
 

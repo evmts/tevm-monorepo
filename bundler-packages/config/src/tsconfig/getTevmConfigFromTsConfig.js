@@ -1,4 +1,4 @@
-import { catchTags, die, fail, logDebug, map, tap } from 'effect/Effect'
+import { catchTag, die, fail, logDebug, map, tap } from 'effect/Effect'
 import { validateUserConfig } from '../config/index.js'
 
 /**
@@ -19,7 +19,7 @@ export class NoPluginInTsConfigFoundError extends Error {
 /**
  * @param {import("./loadTsConfig.js").TsConfig} tsConfig
  * @param {string} configPath`
- * @returns {import("effect/Effect").Effect<never, GetTevmConfigFromTsConfigError, import("../types.js").CompilerConfig>}
+ * @returns {import("effect/Effect").Effect<import("../types.js").CompilerConfig, GetTevmConfigFromTsConfigError, never>}
  * @internal
  */
 export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
@@ -42,10 +42,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		]),
 	)
 	return validateUserConfig(() => plugin).pipe(
-		catchTags({
-			// this can't happen we can cean this up via validateUserConfig taking a config instead of a configFn
-			ConfigFnThrowError: (e) => die(e),
-		}),
+		catchTag('ConfigFnThrowError', (e) => die(e)),
 		map((config) => ({
 			...config,
 			remappings: {

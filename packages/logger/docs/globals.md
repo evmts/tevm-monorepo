@@ -6,8 +6,8 @@
 
 ## Type Aliases
 
-- [LogOptions](type-aliases/LogOptions.md)
 - [Logger](type-aliases/Logger.md)
+- [LogOptions](type-aliases/LogOptions.md)
 
 ## Functions
 

@@ -9,28 +9,6 @@ title: "flare"
 
 Creates a common configuration for the flare chain.
 
-## Description
-
-Chain ID: 14
-Chain Name: Flare Mainnet
-Default Block Explorer: https://flare-explorer.flare.network
-Default RPC URL: https://flare-api.flare.network/ext/C/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { flare } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: flare,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 14
+Chain Name: Flare Mainnet
+Default Block Explorer: https://flare-explorer.flare.network
+Default RPC URL: https://flare-api.flare.network/ext/C/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { flare } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: flare,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

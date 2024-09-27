@@ -9,28 +9,6 @@ title: "goerli"
 
 Creates a common configuration for the goerli chain.
 
-## Description
-
-Chain ID: 5
-Chain Name: Goerli
-Default Block Explorer: https://goerli.etherscan.io
-Default RPC URL: https://rpc.ankr.com/eth_goerli
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { goerli } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: goerli,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 5
+Chain Name: Goerli
+Default Block Explorer: https://goerli.etherscan.io
+Default RPC URL: https://rpc.ankr.com/eth_goerli
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { goerli } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: goerli,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

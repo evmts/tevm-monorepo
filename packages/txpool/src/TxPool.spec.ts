@@ -80,7 +80,7 @@ describe(TxPool.name, () => {
 				value: 10000,
 				data: '0x',
 			})
-			tx = tx.sign(Buffer.from('4c0883a69102937d6231471b5dbb62f3724b3f5f049cf75984a1e3d8b3b73b7c', 'hex'))
+			tx = tx.sign(hexToBytes('0x4c0883a69102937d6231471b5dbb62f3724b3f5f049cf75984a1e3d8b3b73b7c'))
 
 			await txPool.addUnverified(tx)
 			const addedTx = txPool.getByHash([tx.hash()])[0]

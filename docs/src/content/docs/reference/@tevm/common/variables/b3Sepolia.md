@@ -9,28 +9,6 @@ title: "b3Sepolia"
 
 Creates a common configuration for the b3Sepolia chain.
 
-## Description
-
-Chain ID: 1993
-Chain Name: B3 Sepolia
-Default Block Explorer: https://sepolia.explorer.b3.fun
-Default RPC URL: https://sepolia.b3.fun/http
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { b3Sepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: b3Sepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1993
+Chain Name: B3 Sepolia
+Default Block Explorer: https://sepolia.explorer.b3.fun
+Default RPC URL: https://sepolia.b3.fun/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { b3Sepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: b3Sepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

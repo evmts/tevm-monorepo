@@ -35,9 +35,9 @@ export class RequireError extends Error {
 /**
  * An {@link https://www.effect.website/docs/introduction Effect} wrapper around createRequire
  * createRequire is used to use the node.js `require` function in esm modules and cjs modules
- * in a way that is compatible with both. It also wraps them weith Effect for better error handling
+ * in a way that is compatible with both. It also wraps them with Effect for better error handling
  * @param {string} url - url to create require from
- * @returns {import("effect/Effect").Effect<never, CreateRequireError, (id: string) => import("effect/Effect").Effect<never, RequireError, ReturnType<NodeRequire>>>} require function
+ * @returns {import("effect/Effect").Effect<(id: string) => import("effect/Effect").Effect<ReturnType<NodeRequire>, RequireError, never>, CreateRequireError, never>} require function
  * @example
  * ```typescript
  * import { createRequireEffect } from '@eth-optimism/config'
@@ -56,7 +56,7 @@ export const createRequireEffect = (url) => {
 			/**
 			 * Same as require but returns a module as an Effect
 			 * @param {string} id
-			 * @returns {import("effect/Effect").Effect<never, RequireError, ReturnType<NodeRequire>>}
+			 * @returns {import("effect/Effect").Effect<ReturnType<NodeRequire>, RequireError, never>}
 			 */
 			const requireAsEffect = (id) => {
 				return tryEffect({

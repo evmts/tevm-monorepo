@@ -10,28 +10,6 @@
 
 Creates a common configuration for the pgn chain.
 
-## Description
-
-Chain ID: 424
-Chain Name: PGN
-Default Block Explorer: https://explorer.publicgoods.network
-Default RPC URL: https://rpc.publicgoods.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { pgn } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: pgn,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 424
+Chain Name: PGN
+Default Block Explorer: https://explorer.publicgoods.network
+Default RPC URL: https://rpc.publicgoods.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { pgn } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: pgn,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

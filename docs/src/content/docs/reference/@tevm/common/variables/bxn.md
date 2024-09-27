@@ -9,28 +9,6 @@ title: "bxn"
 
 Creates a common configuration for the bxn chain.
 
-## Description
-
-Chain ID: 4999
-Chain Name: BlackFort Exchange Network
-Default Block Explorer: https://explorer.blackfort.network
-Default RPC URL: https://mainnet.blackfort.network/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bxn } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bxn,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 4999
+Chain Name: BlackFort Exchange Network
+Default Block Explorer: https://explorer.blackfort.network
+Default RPC URL: https://mainnet.blackfort.network/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bxn } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bxn,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

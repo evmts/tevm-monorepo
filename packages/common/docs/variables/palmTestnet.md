@@ -10,28 +10,6 @@
 
 Creates a common configuration for the palmTestnet chain.
 
-## Description
-
-Chain ID: 11297108099
-Chain Name: Palm Testnet
-Default Block Explorer: https://palm.chainlens.com
-Default RPC URL: https://palm-mainnet.public.blastapi.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { palmTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: palmTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 11297108099
+Chain Name: Palm Testnet
+Default Block Explorer: https://palm.chainlens.com
+Default RPC URL: https://palm-mainnet.public.blastapi.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { palmTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: palmTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

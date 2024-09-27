@@ -7,53 +7,6 @@ title: "TevmClient"
 
 > **TevmClient**: `object`
 
-## See
-
-[guide](../../../../../../../reference/tevm/client-types/type-aliases/tevmclient) for more documentation on clients
-
-#### JSON-RPC
-
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the TevmClient.request
-
-## Examples
-
-```typescript
-import {createMemoryClient, type Tevm} from 'tevm'
-
-const tevm: Tevm = createMemoryClient()
-
-await tevm.request({
-  method: 'eth_blockNumber',
-  params: [],
-  id: 1,
-  jsonrpc: '2.0',
-}) // 0n
-```
-
-#### Actions
-
-TevmClient exposes a higher level `actions` based api similar to [viem](https://viem.sh) for interacting with TevmClient in a typesasafe
-ergonomic way.
-
-```typescript
-// same as eth_blockNumber example
-const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
-console.log(account.balance) // 0n
-```
-
-#### Ethereum actions
-
-Ethereum actions are namespaced under TevmClient.eth
-
-```typescript
-const blockNumber = await tevm.eth.blockNumber()
-console.log(blockNumber) // 0n
-```
-
-#### Anvil hardhat and ganache compatibility
-
-Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
-
 :::caution[Deprecated]
 This type has been superseded by Provider types from `@tevm/decorators` package
 The docs have not been updated to reflect this change if you are looking at this
@@ -316,7 +269,7 @@ await tevm.loadState({state})
 
 ### ~~request~~
 
-> **request**: `TevmJsonRpcRequestHandler`
+> **request**: [`TevmJsonRpcRequestHandler`](/reference/tevm/actions/type-aliases/tevmjsonrpcrequesthandler/)
 
 Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
@@ -340,7 +293,7 @@ const accountResponse = await tevm.request({
 
 ### ~~requestBulk~~
 
-> **requestBulk**: `TevmJsonRpcBulkRequestHandler`
+> **requestBulk**: [`TevmJsonRpcBulkRequestHandler`](/reference/tevm/actions/type-aliases/tevmjsonrpcbulkrequesthandler/)
 
 Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
 Bulk requests are currently handled in parallel which can cause issues if the requests are expected to run
@@ -348,6 +301,10 @@ sequentially or interphere with each other. An option for configuring requests s
 will be added in the future.
 
 Currently is not very generic with regard to input and output types.
+
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
 
 #### Example
 
@@ -426,38 +383,6 @@ response - EthGasPriceJsonRpcResponse
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
 
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
-### ~~script~~
-
-> **script**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
-
-Executes scripts against the Tevm EVM. By default the script is sandboxed
-and the state is reset after each execution unless the `persist` option is set
-to true.
-
-#### Examples
-
-```typescript
-const res = tevm.script({
-  deployedBytecode: '0x6080604...',
-  abi: [...],
-  function: 'run',
-  args: ['hello world']
-})
-```
-Contract handlers provide a more ergonomic way to execute scripts
-
-```typescript
-ipmort {MyScript} from './MyScript.s.sol'
-
-const res = tevm.script(
-   MyScript.read.run('hello world')
-)
-```
-
 ### ~~setAccount~~
 
 > **setAccount**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
@@ -476,6 +401,53 @@ await tevm.setAccount({
 })
 ```
 
+## See
+
+[TevmClient guide](https://tevm.sh/learn/clients/) for more documentation on clients
+
+#### JSON-RPC
+
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the TevmClient.request
+
+## Examples
+
+```typescript
+import {createMemoryClient, type Tevm} from 'tevm'
+
+const tevm: Tevm = createMemoryClient()
+
+await tevm.request({
+  method: 'eth_blockNumber',
+  params: [],
+  id: 1,
+  jsonrpc: '2.0',
+}) // 0n
+```
+
+#### Actions
+
+TevmClient exposes a higher level `actions` based api similar to [viem](https://viem.sh) for interacting with TevmClient in a typesasafe
+ergonomic way.
+
+```typescript
+// same as eth_blockNumber example
+const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
+console.log(account.balance) // 0n
+```
+
+#### Ethereum actions
+
+Ethereum actions are namespaced under TevmClient.eth
+
+```typescript
+const blockNumber = await tevm.eth.blockNumber()
+console.log(blockNumber) // 0n
+```
+
+#### Anvil hardhat and ganache compatibility
+
+Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
+
 ## Defined in
 
-[TevmClient.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L132)
+[TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)

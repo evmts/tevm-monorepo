@@ -10,28 +10,6 @@
 
 Creates a common configuration for the mode chain.
 
-## Description
-
-Chain ID: 34443
-Chain Name: Mode Mainnet
-Default Block Explorer: https://modescan.io
-Default RPC URL: https://mainnet.mode.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { mode } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: mode,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 34443
+Chain Name: Mode Mainnet
+Default Block Explorer: https://modescan.io
+Default RPC URL: https://mainnet.mode.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mode } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mode,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

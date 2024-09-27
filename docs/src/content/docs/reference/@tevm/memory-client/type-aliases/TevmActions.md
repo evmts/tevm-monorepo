@@ -10,11 +10,6 @@ title: "TevmActions"
 Provides powerful actions for interacting with the EVM using the TEVM API.
 These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
 
-## See
-
- - [Actions Guide](https://tevm.sh/learn/actions/)
- - [Viem Actions API](https://viem.sh/docs/actions/introduction)
-
 ## Type declaration
 
 ### tevm
@@ -226,6 +221,10 @@ await client.tevmMine()
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
+#### Returns
+
+`Promise`\<`true`\>
+
 #### Example
 
 ```typescript
@@ -236,39 +235,6 @@ const client = createMemoryClient()
 await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
-
-#### Returns
-
-`Promise`\<`true`\>
-
-### ~~tevmScript~~
-
-> **tevmScript**: `TevmActionsApi`\[`"script"`\]
-
-#### Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-import { ERC20 } from './MyERC721.sol'
-
-const client = createMemoryClient()
-
-const balance = await client.tevmContract({
-  createTransaction: true,
-  deployedBytecode: ERC20.deployedBytecode,
-  abi: ERC20.abi,
-  method: 'mint',
-  args: [client.address, 1n],
-})
-```
-
-:::caution[Deprecated]
-in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmContract` as the API is supported and more.
-`tevmContract` also now supports deploying contracts with constructor arguments too via `params.code`. `tevmScript` previously did not support this
-and only supported deployedBytecode with no constructor arguments. `tevmContract` supports using deployedBytecode as well.
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
-before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
-:::
 
 ### tevmSetAccount
 
@@ -299,6 +265,11 @@ await client.tevmSetAccount({
   }
 })
 ```
+
+## See
+
+ - [Actions Guide](https://tevm.sh/learn/actions/)
+ - [Viem Actions API](https://viem.sh/docs/actions/introduction)
 
 ## Defined in
 

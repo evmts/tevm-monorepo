@@ -10,28 +10,6 @@
 
 Creates a common configuration for the meter chain.
 
-## Description
-
-Chain ID: 82
-Chain Name: Meter
-Default Block Explorer: https://scan.meter.io
-Default RPC URL: https://rpc.meter.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { meter } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: meter,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 82
+Chain Name: Meter
+Default Block Explorer: https://scan.meter.io
+Default RPC URL: https://rpc.meter.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { meter } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: meter,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

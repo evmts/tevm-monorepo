@@ -5,17 +5,7 @@ prev: false
 title: "ResolveSafe"
 ---
 
-> **ResolveSafe**: (`importPath`, `options`) => `Effect`
-
-## Parameters
-
-• **importPath**: `string`
-
-• **options**: `SyncOpts` & `AsyncOpts`
-
-## Returns
-
-`Effect`
+> **ResolveSafe**: function(string, import('resolve').SyncOpts & import('resolve').AsyncOpts): import('effect/Effect').Effect\<string, CouldNotResolveImportError, never\>
 
 ## Defined in
 

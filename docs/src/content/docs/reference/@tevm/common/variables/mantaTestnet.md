@@ -9,28 +9,6 @@ title: "mantaTestnet"
 
 Creates a common configuration for the mantaTestnet chain.
 
-## Description
-
-Chain ID: 3441005
-Chain Name: Manta Pacific Testnet
-Default Block Explorer: https://pacific-explorer.testnet.manta.network
-Default RPC URL: https://manta-testnet.calderachain.xyz/http
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { mantaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: mantaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 3441005
+Chain Name: Manta Pacific Testnet
+Default Block Explorer: https://pacific-explorer.testnet.manta.network
+Default RPC URL: https://manta-testnet.calderachain.xyz/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mantaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mantaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

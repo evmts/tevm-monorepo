@@ -7,6 +7,8 @@ title: "zeros"
 
 > **zeros**(`bytes`): `Uint8Array`
 
+Returns a Uint8Array filled with 0s.
+
 ## Parameters
 
 • **bytes**: `number`

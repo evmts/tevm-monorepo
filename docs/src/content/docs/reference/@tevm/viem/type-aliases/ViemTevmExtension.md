@@ -7,6 +7,19 @@ title: "ViemTevmExtension"
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
 
+:::caution[Deprecated]
+in favor of the viem transport
+
+This extension is highly experimental and should not be used in production.
+
+Creates a decorator to a viem wallet client that adds the `writeContractOptimistic` method to the `tevm` property.
+This enables viem to optimistically update the tevm state before the transaction is mined.
+:::
+
+## Returns
+
+[`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
+
 ## Example
 
 ```ts
@@ -60,19 +73,6 @@ params: params,
 		})
 	}
 }
-
-:::caution[Deprecated]
-in favor of the viem transport
-
-This extension is highly experimental and should not be used in production.
-
-Creates a decorator to a viem wallet client that adds the `writeContractOptimistic` method to the `tevm` property.
-This enables viem to optimistically update the tevm state before the transaction is mined.
-:::
-
-## Returns
-
-[`ViemTevmClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmclientdecorator/)
 
 ## Defined in
 

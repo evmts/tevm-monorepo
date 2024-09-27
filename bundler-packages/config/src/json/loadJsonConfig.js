@@ -50,7 +50,7 @@ export class InvalidJsonConfigError extends TypeError {
 /**
  * Synchronously loads a Tevm config from the given path
  * @param {string} configFilePath
- * @returns {import("effect/Effect").Effect<never, LoadJsonConfigError, import('../types.js').CompilerConfig>} the contents of the tsconfig.json file
+ * @returns {import("effect/Effect").Effect<import('../types.js').CompilerConfig, LoadJsonConfigError, never>} the contents of the tsconfig.json file
  * @internal
  */
 export const loadJsonConfig = (configFilePath) => {

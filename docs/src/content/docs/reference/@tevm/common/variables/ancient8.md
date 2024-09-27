@@ -9,28 +9,6 @@ title: "ancient8"
 
 Creates a common configuration for the ancient8 chain.
 
-## Description
-
-Chain ID: 888888888
-Chain Name: Ancient8
-Default Block Explorer: https://scan.ancient8.gg
-Default RPC URL: https://rpc.ancient8.gg
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { ancient8 } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: ancient8,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 888888888
+Chain Name: Ancient8
+Default Block Explorer: https://scan.ancient8.gg
+Default RPC URL: https://rpc.ancient8.gg
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { ancient8 } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: ancient8,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the mev chain.
 
-## Description
-
-Chain ID: 7518
-Chain Name: MEVerse Chain Mainnet
-Default Block Explorer: https://www.meversescan.io
-Default RPC URL: https://rpc.meversemainnet.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { mev } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: mev,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 7518
+Chain Name: MEVerse Chain Mainnet
+Default Block Explorer: https://www.meversescan.io
+Default RPC URL: https://rpc.meversemainnet.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mev } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mev,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

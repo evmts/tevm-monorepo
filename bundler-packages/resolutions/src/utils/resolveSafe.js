@@ -32,7 +32,7 @@ export class ResolveError extends Error {
  * @param {string} filePath
  * @param {string} basedir
  * @param {import("./safeFao.js").SafeFao} fao
- * @returns {import("effect/Effect").Effect<never, ResolveSafeError, string>}
+ * @returns {import("effect/Effect").Effect<string, ResolveSafeError, never>}
  * @example
  * ```ts
  * const pathToSolidity = path.join(__dirname, '../Contract.sol')

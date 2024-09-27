@@ -10,28 +10,6 @@
 
 Creates a common configuration for the polygon chain.
 
-## Description
-
-Chain ID: 137
-Chain Name: Polygon
-Default Block Explorer: https://polygonscan.com
-Default RPC URL: https://polygon-rpc.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { polygon } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: polygon,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 137
+Chain Name: Polygon
+Default Block Explorer: https://polygonscan.com
+Default RPC URL: https://polygon-rpc.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { polygon } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: polygon,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

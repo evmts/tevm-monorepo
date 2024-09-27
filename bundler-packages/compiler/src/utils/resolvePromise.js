@@ -7,7 +7,7 @@ import resolve from 'resolve'
  * @param {string} basedir
  * @param {import("../types.js").FileAccessObject} fao
  * @param {import("../types.js").Logger} logger
- * @returns {Effect.Effect<never, Error, string>}
+ * @returns {Effect.Effect<string, Error, never>}
  */
 export const resolveEffect = (filePath, basedir, fao, logger) => {
 	return Effect.async((resume) => {

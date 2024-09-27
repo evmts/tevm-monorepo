@@ -10,28 +10,6 @@
 
 Creates a common configuration for the bearNetworkChainTestnet chain.
 
-## Description
-
-Chain ID: 751230
-Chain Name: Bear Network Chain Testnet
-Default Block Explorer: https://brnktest-scan.bearnetwork.net
-Default RPC URL: https://brnkc-test.bearnetwork.net
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bearNetworkChainTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bearNetworkChainTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 751230
+Chain Name: Bear Network Chain Testnet
+Default Block Explorer: https://brnktest-scan.bearnetwork.net
+Default RPC URL: https://brnkc-test.bearnetwork.net
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bearNetworkChainTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bearNetworkChainTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

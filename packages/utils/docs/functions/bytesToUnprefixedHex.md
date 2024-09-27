@@ -16,6 +16,8 @@
 
 `string`
 
+## Deprecated
+
 ## Example
 
 ```ts

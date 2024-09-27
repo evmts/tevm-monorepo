@@ -9,28 +9,6 @@ title: "gravity"
 
 Creates a common configuration for the gravity chain.
 
-## Description
-
-Chain ID: 1625
-Chain Name: Gravity Alpha Mainnet
-Default Block Explorer: https://explorer.gravity.xyz
-Default RPC URL: https://rpc.gravity.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { gravity } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: gravity,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1625
+Chain Name: Gravity Alpha Mainnet
+Default Block Explorer: https://explorer.gravity.xyz
+Default RPC URL: https://rpc.gravity.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { gravity } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: gravity,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

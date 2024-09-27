@@ -10,28 +10,6 @@
 
 Creates a common configuration for the defichainEvmTestnet chain.
 
-## Description
-
-Chain ID: 1131
-Chain Name: DeFiChain EVM Testnet
-Default Block Explorer: https://meta.defiscan.live/?network=TestNet
-Default RPC URL: https://eth.testnet.ocean.jellyfishsdk.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { defichainEvmTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: defichainEvmTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1131
+Chain Name: DeFiChain EVM Testnet
+Default Block Explorer: https://meta.defiscan.live/?network=TestNet
+Default RPC URL: https://eth.testnet.ocean.jellyfishsdk.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { defichainEvmTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: defichainEvmTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

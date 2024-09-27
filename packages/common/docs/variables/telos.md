@@ -10,28 +10,6 @@
 
 Creates a common configuration for the telos chain.
 
-## Description
-
-Chain ID: 40
-Chain Name: Telos
-Default Block Explorer: https://www.teloscan.io/
-Default RPC URL: https://mainnet.telos.net/evm
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { telos } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: telos,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 40
+Chain Name: Telos
+Default Block Explorer: https://www.teloscan.io/
+Default RPC URL: https://mainnet.telos.net/evm
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { telos } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: telos,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

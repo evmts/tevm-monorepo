@@ -7,6 +7,8 @@ title: "deepCopy"
 
 > **deepCopy**(`baseState`): () => `Promise`\<[`BaseState`](/reference/tevm/state/type-aliases/basestate/)\>
 
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
 ## Parameters
 
 • **baseState**: [`BaseState`](/reference/tevm/state/type-aliases/basestate/)

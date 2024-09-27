@@ -9,28 +9,6 @@ title: "ronin"
 
 Creates a common configuration for the ronin chain.
 
-## Description
-
-Chain ID: 2020
-Chain Name: Ronin
-Default Block Explorer: https://app.roninchain.com
-Default RPC URL: https://api.roninchain.com/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { ronin } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: ronin,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2020
+Chain Name: Ronin
+Default Block Explorer: https://app.roninchain.com
+Default RPC URL: https://api.roninchain.com/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { ronin } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: ronin,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

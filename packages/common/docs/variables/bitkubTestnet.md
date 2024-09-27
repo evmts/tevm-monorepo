@@ -10,28 +10,6 @@
 
 Creates a common configuration for the bitkubTestnet chain.
 
-## Description
-
-Chain ID: 25925
-Chain Name: Bitkub Testnet
-Default Block Explorer: https://testnet.bkcscan.com
-Default RPC URL: https://rpc-testnet.bitkubchain.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bitkubTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bitkubTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 25925
+Chain Name: Bitkub Testnet
+Default Block Explorer: https://testnet.bkcscan.com
+Default RPC URL: https://rpc-testnet.bitkubchain.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bitkubTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bitkubTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

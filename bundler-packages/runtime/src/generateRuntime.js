@@ -23,7 +23,7 @@ const importsByModuleType = (contractPackage) => ({
  * @param {import('./types.js').ModuleType} moduleType
  * @param {boolean} includeBytecode
  * @param {'tevm/contract' | '@tevm/contract'} tevmPackage - Package to import contracts from
- * @returns {import('effect/Effect').Effect<never, never, string>}
+ * @returns {import('effect/Effect').Effect<string, never, never>}
  */
 export const generateRuntime = (artifacts, moduleType, includeBytecode, tevmPackage) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {

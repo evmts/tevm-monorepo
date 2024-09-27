@@ -9,28 +9,6 @@ title: "dreyerxTestnet"
 
 Creates a common configuration for the dreyerxTestnet chain.
 
-## Description
-
-Chain ID: 23452
-Chain Name: DreyerX Testnet
-Default Block Explorer: https://testnet-scan.dreyerx.com
-Default RPC URL: http://testnet-rpc.dreyerx.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { dreyerxTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: dreyerxTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 23452
+Chain Name: DreyerX Testnet
+Default Block Explorer: https://testnet-scan.dreyerx.com
+Default RPC URL: http://testnet-rpc.dreyerx.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { dreyerxTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: dreyerxTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

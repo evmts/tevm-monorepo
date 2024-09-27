@@ -10,28 +10,6 @@
 
 Creates a common configuration for the sei chain.
 
-## Description
-
-Chain ID: 1329
-Chain Name: Sei Network
-Default Block Explorer: https://seitrace.com
-Default RPC URL: https://evm-rpc.sei-apis.com/
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { sei } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: sei,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1329
+Chain Name: Sei Network
+Default Block Explorer: https://seitrace.com
+Default RPC URL: https://evm-rpc.sei-apis.com/
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { sei } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: sei,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

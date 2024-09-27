@@ -1,18 +1,20 @@
 import {
-	undefined as SUndefined,
-	array,
-	boolean,
-	literal,
+	Literal,
+	Record,
+	Array as SArray,
+	Boolean as SBoolean,
+	String as SString,
+	Struct,
+	Undefined,
+	Union,
+	decodeUnknownEither,
 	optional,
-	parseEither,
-	record,
-	string,
-	struct,
-	union,
 } from '@effect/schema/Schema'
+import { formatErrorSync } from '@effect/schema/TreeFormatter'
 import { pipe } from 'effect'
-import { catchTag, try as effectTry, fail, logDebug, tap } from 'effect/Effect'
+import { try as effectTry, fail, logDebug, succeed, tap } from 'effect/Effect'
 import { flatMap } from 'effect/Effect'
+import { match } from 'effect/Either'
 
 /**
  * Error thrown when the user provided config factory throws
@@ -42,13 +44,6 @@ export class InvalidConfigError extends TypeError {
 	 * @type {'InvalidConfigError'}
 	 */
 	_tag = 'InvalidConfigError'
-	/**
-	 * @param {object} [options]
-	 * @param {unknown} [options.cause]
-	 */
-	constructor(options) {
-		super('Invalid Tevm CompilerConfig detected', options)
-	}
 }
 
 /**
@@ -60,19 +55,19 @@ export class InvalidConfigError extends TypeError {
  * schema for the user provided config factory
  * @internal
  */
-const SCompilerConfig = struct({
-	name: optional(union(literal('@tevm/ts-plugin'), SUndefined)),
-	foundryProject: optional(union(boolean, string, SUndefined)),
-	libs: optional(union(array(string), SUndefined)),
-	remappings: optional(union(record(string, string), SUndefined)),
-	debug: optional(union(boolean, SUndefined)),
-	cacheDir: optional(union(string, SUndefined)),
+const SCompilerConfig = Struct({
+	name: optional(Union(Literal('@tevm/ts-plugin'), Undefined)),
+	foundryProject: optional(Union(SBoolean, SString, Undefined)),
+	libs: optional(Union(SArray(SString), Undefined)),
+	remappings: optional(Union(Record({ key: SString, value: SString }), Undefined)),
+	debug: optional(Union(SBoolean, Undefined)),
+	cacheDir: optional(Union(SString, Undefined)),
 })
 
 /**
  * Validates a config factory is a valid config else throws
  * @param {() => import("../types.js").CompilerConfig} untrustedConfigFactory
- * @returns {import('effect/Effect').Effect<never, ValidateUserConfigError, import("../types.js").CompilerConfig>}
+ * @returns {import('effect/Effect').Effect<import("../types.js").CompilerConfig, ValidateUserConfigError, never>}
  * @throws {ConfigFnThrowError} when the user provided config factory throws
  * @throws {InvalidConfigError} when the user provided config factory is incorrectly typed
  * @internal
@@ -86,13 +81,16 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 					cause,
 				}),
 		}),
-		flatMap((unvalidatedConfig) =>
-			parseEither(SCompilerConfig)(unvalidatedConfig, {
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(SCompilerConfig)(unvalidatedConfig, {
 				errors: 'all',
 				onExcessProperty: 'error',
-			}),
-		),
-		catchTag('ParseError', (cause) => fail(new InvalidConfigError({ cause }))),
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidConfigError(formatErrorSync(left), { cause: left })),
+				onRight: (right) => succeed(right),
+			})
+		}),
 		tap((validatedConfig) =>
 			logDebug(`validatedConfig: Validated config successfully: ${JSON.stringify(validatedConfig)}`),
 		),

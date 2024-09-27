@@ -10,28 +10,6 @@
 
 Creates a common configuration for the gnosis chain.
 
-## Description
-
-Chain ID: 100
-Chain Name: Gnosis
-Default Block Explorer: https://gnosisscan.io
-Default RPC URL: https://rpc.gnosischain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { gnosis } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: gnosis,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 100
+Chain Name: Gnosis
+Default Block Explorer: https://gnosisscan.io
+Default RPC URL: https://rpc.gnosischain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { gnosis } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: gnosis,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

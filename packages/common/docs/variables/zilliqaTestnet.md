@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zilliqaTestnet chain.
 
-## Description
-
-Chain ID: 33101
-Chain Name: Zilliqa Testnet
-Default Block Explorer: https://evmx.testnet.zilliqa.com
-Default RPC URL: https://dev-api.zilliqa.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zilliqaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zilliqaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 33101
+Chain Name: Zilliqa Testnet
+Default Block Explorer: https://evmx.testnet.zilliqa.com
+Default RPC URL: https://dev-api.zilliqa.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zilliqaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zilliqaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

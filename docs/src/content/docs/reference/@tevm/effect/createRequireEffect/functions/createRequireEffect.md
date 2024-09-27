@@ -5,7 +5,11 @@ prev: false
 title: "createRequireEffect"
 ---
 
-> **createRequireEffect**(`url`): `Effect`\<`never`, [`CreateRequireError`](/reference/tevm/effect/createrequireeffect/classes/createrequireerror/), (`id`) => `Effect`\<`never`, [`RequireError`](/reference/tevm/effect/createrequireeffect/classes/requireerror/), `any`\>\>
+> **createRequireEffect**(`url`): `Effect`\<(`id`) => `Effect`\<`any`, [`RequireError`](/reference/tevm/effect/createrequireeffect/classes/requireerror/), `never`\>, [`CreateRequireError`](/reference/tevm/effect/createrequireeffect/classes/createrequireerror/), `never`\>
+
+An [Effect](https://www.effect.website/docs/introduction) wrapper around createRequire
+createRequire is used to use the node.js `require` function in esm modules and cjs modules
+in a way that is compatible with both. It also wraps them with Effect for better error handling
 
 ## Parameters
 
@@ -15,9 +19,21 @@ url to create require from
 
 ## Returns
 
-`Effect`\<`never`, [`CreateRequireError`](/reference/tevm/effect/createrequireeffect/classes/createrequireerror/), (`id`) => `Effect`\<`never`, [`RequireError`](/reference/tevm/effect/createrequireeffect/classes/requireerror/), `any`\>\>
+`Effect`\<(`id`) => `Effect`\<`any`, [`RequireError`](/reference/tevm/effect/createrequireeffect/classes/requireerror/), `never`\>, [`CreateRequireError`](/reference/tevm/effect/createrequireeffect/classes/createrequireerror/), `never`\>
 
 require function
+
+## Example
+
+```typescript
+import { createRequireEffect } from '@eth-optimism/config'
+const requireEffect = createRequireEffect(import.meta.url)
+const solcEffect = requireEffect('solc')
+```
+
+## See
+
+https://nodejs.org/api/modules.html#modules_module_createrequire_filename
 
 ## Defined in
 

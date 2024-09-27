@@ -20,7 +20,7 @@ Typesafe way to create an Tevm CompilerConfig
 
 ### configFn()
 
-> **configFn**: (`configFilePath`) => `Effect`\<`never`, [`DefineConfigError`](../classes/DefineConfigError.md), [`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md)\>
+> **configFn**: (`configFilePath`) => `Effect`\<[`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md), [`DefineConfigError`](../classes/DefineConfigError.md), `never`\>
 
 #### Parameters
 
@@ -28,7 +28,20 @@ Typesafe way to create an Tevm CompilerConfig
 
 #### Returns
 
-`Effect`\<`never`, [`DefineConfigError`](../classes/DefineConfigError.md), [`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md)\>
+`Effect`\<[`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md), [`DefineConfigError`](../classes/DefineConfigError.md), `never`\>
+
+## Example
+
+```ts
+import { defineConfig } from '@tevm/ts-plugin'
+
+export default defineConfig(() => ({
+	lib: ['lib'],
+	remappings: {
+	  'foo': 'foo/bar'
+	}
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "qMainnet"
 
 Creates a common configuration for the qMainnet chain.
 
-## Description
-
-Chain ID: 35441
-Chain Name: Q Mainnet
-Default Block Explorer: https://explorer.q.org
-Default RPC URL: https://rpc.q.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { qMainnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: qMainnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 35441
+Chain Name: Q Mainnet
+Default Block Explorer: https://explorer.q.org
+Default RPC URL: https://rpc.q.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { qMainnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: qMainnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

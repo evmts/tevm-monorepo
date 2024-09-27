@@ -9,28 +9,6 @@ title: "immutableZkEvmTestnet"
 
 Creates a common configuration for the immutableZkEvmTestnet chain.
 
-## Description
-
-Chain ID: 13473
-Chain Name: Immutable zkEVM Testnet
-Default Block Explorer: https://explorer.testnet.immutable.com/
-Default RPC URL: https://rpc.testnet.immutable.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { immutableZkEvmTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: immutableZkEvmTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 13473
+Chain Name: Immutable zkEVM Testnet
+Default Block Explorer: https://explorer.testnet.immutable.com/
+Default RPC URL: https://rpc.testnet.immutable.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { immutableZkEvmTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: immutableZkEvmTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "cronos"
 
 Creates a common configuration for the cronos chain.
 
-## Description
-
-Chain ID: 25
-Chain Name: Cronos Mainnet
-Default Block Explorer: https://explorer.cronos.org
-Default RPC URL: https://evm.cronos.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { cronos } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: cronos,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 25
+Chain Name: Cronos Mainnet
+Default Block Explorer: https://explorer.cronos.org
+Default RPC URL: https://evm.cronos.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { cronos } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: cronos,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

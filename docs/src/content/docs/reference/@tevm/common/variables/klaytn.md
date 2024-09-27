@@ -9,28 +9,6 @@ title: "klaytn"
 
 Creates a common configuration for the klaytn chain.
 
-## Description
-
-Chain ID: 8217
-Chain Name: Klaytn
-Default Block Explorer: https://scope.klaytn.com
-Default RPC URL: https://public-en-cypress.klaytn.net
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { klaytn } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: klaytn,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 8217
+Chain Name: Klaytn
+Default Block Explorer: https://scope.klaytn.com
+Default RPC URL: https://public-en-cypress.klaytn.net
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { klaytn } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: klaytn,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "kakarotSepolia"
 
 Creates a common configuration for the kakarotSepolia chain.
 
-## Description
-
-Chain ID: 1802203764
-Chain Name: Kakarot Sepolia
-Default Block Explorer: https://sepolia.kakarotscan.org
-Default RPC URL: https://sepolia-rpc.kakarot.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { kakarotSepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: kakarotSepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1802203764
+Chain Name: Kakarot Sepolia
+Default Block Explorer: https://sepolia.kakarotscan.org
+Default RPC URL: https://sepolia-rpc.kakarot.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { kakarotSepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: kakarotSepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

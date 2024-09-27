@@ -9,28 +9,6 @@ title: "zkFair"
 
 Creates a common configuration for the zkFair chain.
 
-## Description
-
-Chain ID: 42766
-Chain Name: ZKFair Mainnet
-Default Block Explorer: https://scan.zkfair.io
-Default RPC URL: https://rpc.zkfair.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zkFair } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zkFair,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 42766
+Chain Name: ZKFair Mainnet
+Default Block Explorer: https://scan.zkfair.io
+Default RPC URL: https://rpc.zkfair.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zkFair } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zkFair,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

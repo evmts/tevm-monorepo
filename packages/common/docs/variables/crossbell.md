@@ -10,28 +10,6 @@
 
 Creates a common configuration for the crossbell chain.
 
-## Description
-
-Chain ID: 3737
-Chain Name: Crossbell
-Default Block Explorer: https://scan.crossbell.io
-Default RPC URL: https://rpc.crossbell.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { crossbell } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: crossbell,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 3737
+Chain Name: Crossbell
+Default Block Explorer: https://scan.crossbell.io
+Default RPC URL: https://rpc.crossbell.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { crossbell } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: crossbell,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

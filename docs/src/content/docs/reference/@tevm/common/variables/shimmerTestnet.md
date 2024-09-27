@@ -9,28 +9,6 @@ title: "shimmerTestnet"
 
 Creates a common configuration for the shimmerTestnet chain.
 
-## Description
-
-Chain ID: 1073
-Chain Name: Shimmer Testnet
-Default Block Explorer: https://explorer.evm.testnet.shimmer.network
-Default RPC URL: https://json-rpc.evm.testnet.shimmer.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { shimmerTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: shimmerTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1073
+Chain Name: Shimmer Testnet
+Default Block Explorer: https://explorer.evm.testnet.shimmer.network
+Default RPC URL: https://json-rpc.evm.testnet.shimmer.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { shimmerTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: shimmerTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

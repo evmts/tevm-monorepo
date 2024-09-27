@@ -9,28 +9,6 @@ title: "rolluxTestnet"
 
 Creates a common configuration for the rolluxTestnet chain.
 
-## Description
-
-Chain ID: 57000
-Chain Name: Rollux Testnet
-Default Block Explorer: https://rollux.tanenbaum.io
-Default RPC URL: https://rpc-tanenbaum.rollux.com/
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { rolluxTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: rolluxTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 57000
+Chain Name: Rollux Testnet
+Default Block Explorer: https://rollux.tanenbaum.io
+Default RPC URL: https://rpc-tanenbaum.rollux.com/
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { rolluxTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: rolluxTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

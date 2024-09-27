@@ -27,6 +27,16 @@ title: "ReceiptsManager"
 
 ## Properties
 
+### chain
+
+> `readonly` **chain**: [`Chain`](/reference/tevm/blockchain/type-aliases/chain/)
+
+#### Defined in
+
+[RecieptManager.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L127)
+
+***
+
 ### GET\_LOGS\_BLOCK\_RANGE\_LIMIT
 
 > **GET\_LOGS\_BLOCK\_RANGE\_LIMIT**: `number` = `2500`
@@ -60,16 +70,6 @@ Size limit for the getLogs response in megabytes
 #### Defined in
 
 [RecieptManager.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L137)
-
-***
-
-### chain
-
-> `readonly` **chain**: [`Chain`](/reference/tevm/blockchain/type-aliases/chain/)
-
-#### Defined in
-
-[RecieptManager.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L127)
 
 ***
 

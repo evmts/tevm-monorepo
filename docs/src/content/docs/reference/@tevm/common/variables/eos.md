@@ -9,28 +9,6 @@ title: "eos"
 
 Creates a common configuration for the eos chain.
 
-## Description
-
-Chain ID: 17777
-Chain Name: EOS EVM
-Default Block Explorer: https://explorer.evm.eosnetwork.com
-Default RPC URL: https://api.evm.eosnetwork.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { eos } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: eos,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 17777
+Chain Name: EOS EVM
+Default Block Explorer: https://explorer.evm.eosnetwork.com
+Default RPC URL: https://api.evm.eosnetwork.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { eos } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: eos,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

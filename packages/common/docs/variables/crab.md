@@ -10,28 +10,6 @@
 
 Creates a common configuration for the crab chain.
 
-## Description
-
-Chain ID: 44
-Chain Name: Crab Network
-Default Block Explorer: https://crab-scan.darwinia.network
-Default RPC URL: https://crab-rpc.darwinia.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { crab } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: crab,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 44
+Chain Name: Crab Network
+Default Block Explorer: https://crab-scan.darwinia.network
+Default RPC URL: https://crab-rpc.darwinia.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { crab } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: crab,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

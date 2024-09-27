@@ -34,7 +34,6 @@ describe(validateUserConfig.name, () => {
 			{},
 		]
 		validConfigs.forEach((config) => {
-			console.log(config)
 			expect(runSync(validateUserConfig(() => config))).toEqual(config)
 		})
 	})
@@ -53,7 +52,7 @@ describe(validateUserConfig.name, () => {
 			{ unknownProperty: 'foo' },
 		]
 		invalidConfig.forEach((config) => {
-			expect(() => runSync(validateUserConfig(() => config))).toThrowError(new InvalidConfigError())
+			expect(() => runSync(validateUserConfig(() => config))).toThrowErrorMatchingSnapshot()
 		})
 	})
 
@@ -65,7 +64,7 @@ describe(validateUserConfig.name, () => {
 					throw errStr
 				}),
 			),
-		).toThrowError(new ConfigFnThrowError({ cause: errStr }))
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ooops]')
 		const err = new Error(errStr)
 		expect(() =>
 			runSync(
@@ -73,7 +72,7 @@ describe(validateUserConfig.name, () => {
 					throw err
 				}),
 			),
-		).toThrowError(new ConfigFnThrowError({ cause: err }))
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ooops]')
 		const wierdError = {}
 		expect(() =>
 			runSync(
@@ -81,6 +80,6 @@ describe(validateUserConfig.name, () => {
 					throw wierdError
 				}),
 			),
-		).toThrowError(new ConfigFnThrowError({ cause: '' }))
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ]')
 	})
 })

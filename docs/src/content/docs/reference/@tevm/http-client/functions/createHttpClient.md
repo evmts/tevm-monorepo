@@ -7,6 +7,11 @@ title: "createHttpClient"
 
 > **createHttpClient**(`params`): [`HttpClient`](/reference/tevm/http-client/type-aliases/httpclient/)
 
+:::caution[Deprecated]
+a new version of HttpClient will be built in a future version
+For now we suggest you use viem
+:::
+
 ## Parameters
 
 • **params**: [`HttpClientOptions`](/reference/tevm/http-client/type-aliases/httpclientoptions/)
@@ -14,6 +19,12 @@ title: "createHttpClient"
 ## Returns
 
 [`HttpClient`](/reference/tevm/http-client/type-aliases/httpclient/)
+
+## Example
+
+```ts
+
+```
 
 ## Defined in
 

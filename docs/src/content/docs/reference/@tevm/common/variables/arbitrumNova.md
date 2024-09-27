@@ -9,28 +9,6 @@ title: "arbitrumNova"
 
 Creates a common configuration for the arbitrumNova chain.
 
-## Description
-
-Chain ID: 42170
-Chain Name: Arbitrum Nova
-Default Block Explorer: https://nova.arbiscan.io
-Default RPC URL: https://nova.arbitrum.io/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { arbitrumNova } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: arbitrumNova,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 42170
+Chain Name: Arbitrum Nova
+Default Block Explorer: https://nova.arbiscan.io
+Default RPC URL: https://nova.arbitrum.io/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { arbitrumNova } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: arbitrumNova,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

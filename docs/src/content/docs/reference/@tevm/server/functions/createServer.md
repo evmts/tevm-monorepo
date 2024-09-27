@@ -7,6 +7,8 @@ title: "createServer"
 
 > **createServer**(`client`, `serverOptions`?): `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
+Creates a lightweight http server for handling requests
+
 ## Parameters
 
 • **client**
@@ -2346,33 +2348,6 @@ await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
 
-• **client.tevmScript?**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
-
-**Example**
-
-```typescript
-import { createMemoryClient } from 'tevm'
-import { ERC20 } from './MyERC721.sol'
-
-const client = createMemoryClient()
-
-const balance = await client.tevmContract({
-  createTransaction: true,
-  deployedBytecode: ERC20.deployedBytecode,
-  abi: ERC20.abi,
-  method: 'mint',
-  args: [client.address, 1n],
-})
-```
-
-:::caution[Deprecated]
-in favor of `tevmContract`. To migrate simply replace `tevmScript` with `tevmContract` as the API is supported and more.
-`tevmContract` also now supports deploying contracts with constructor arguments too via `params.code`. `tevmScript` previously did not support this
-and only supported deployedBytecode with no constructor arguments. `tevmContract` supports using deployedBytecode as well.
-Remember, you must set `createTransaction: true` to send a transaction. Otherwise, it will be a call. You must also mine the transaction
-before it updates the canonical head state. This can be avoided by setting mining mode to `auto` when using createMemoryClient.
-:::
-
 • **client.tevmSetAccount?**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
 
 Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
@@ -2727,6 +2702,30 @@ Optional options to pass to the http server
 `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 To use pass in the Tevm['request'] request handler
+
+## Throws
+
+## Examples
+
+```typescript
+import { createMemoryClient } from 'tevm'
+import { createServer } from 'tevm/server'
+
+const tevm = createMemoryClient()
+
+const server = createServer({
+  request: tevm.request,
+})
+
+server.listen(8080, () => console.log('listening on 8080'))
+```
+To interact with the HTTP server you can create a Tevm client
+
+```typescript
+import { createTevmClient } from '@tevm/client'
+
+const client = createTevmClient()
+```
 
 ## Defined in
 

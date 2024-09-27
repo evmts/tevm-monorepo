@@ -10,28 +10,6 @@
 
 Creates a common configuration for the l3xTestnet chain.
 
-## Description
-
-Chain ID: 12325
-Chain Name: L3X Protocol Testnet
-Default Block Explorer: https://explorer-testnet.l3x.com
-Default RPC URL: https://rpc-testnet.l3x.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { l3xTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: l3xTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 12325
+Chain Name: L3X Protocol Testnet
+Default Block Explorer: https://explorer-testnet.l3x.com
+Default RPC URL: https://rpc-testnet.l3x.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { l3xTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: l3xTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

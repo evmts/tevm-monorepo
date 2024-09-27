@@ -9,28 +9,6 @@ title: "base"
 
 Creates a common configuration for the base chain.
 
-## Description
-
-Chain ID: 8453
-Chain Name: Base
-Default Block Explorer: https://basescan.org
-Default RPC URL: https://mainnet.base.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { base } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: base,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 8453
+Chain Name: Base
+Default Block Explorer: https://basescan.org
+Default RPC URL: https://mainnet.base.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { base } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: base,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

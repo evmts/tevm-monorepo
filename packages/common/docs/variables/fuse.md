@@ -10,28 +10,6 @@
 
 Creates a common configuration for the fuse chain.
 
-## Description
-
-Chain ID: 122
-Chain Name: Fuse
-Default Block Explorer: https://explorer.fuse.io
-Default RPC URL: https://rpc.fuse.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { fuse } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: fuse,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 122
+Chain Name: Fuse
+Default Block Explorer: https://explorer.fuse.io
+Default RPC URL: https://rpc.fuse.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { fuse } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: fuse,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

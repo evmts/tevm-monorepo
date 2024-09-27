@@ -9,28 +9,6 @@ title: "oasisTestnet"
 
 Creates a common configuration for the oasisTestnet chain.
 
-## Description
-
-Chain ID: 4090
-Chain Name: Oasis Testnet
-Default Block Explorer: https://oasis.ftnscan.com
-Default RPC URL: https://rpc1.oasis.bahamutchain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { oasisTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: oasisTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 4090
+Chain Name: Oasis Testnet
+Default Block Explorer: https://oasis.ftnscan.com
+Default RPC URL: https://rpc1.oasis.bahamutchain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { oasisTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: oasisTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

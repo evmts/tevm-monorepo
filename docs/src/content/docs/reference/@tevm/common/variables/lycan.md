@@ -9,28 +9,6 @@ title: "lycan"
 
 Creates a common configuration for the lycan chain.
 
-## Description
-
-Chain ID: 721
-Chain Name: Lycan
-Default Block Explorer: https://explorer.lycanchain.com
-Default RPC URL: https://rpc.lycanchain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { lycan } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: lycan,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 721
+Chain Name: Lycan
+Default Block Explorer: https://explorer.lycanchain.com
+Default RPC URL: https://rpc.lycanchain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { lycan } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: lycan,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

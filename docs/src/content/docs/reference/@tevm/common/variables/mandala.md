@@ -9,28 +9,6 @@ title: "mandala"
 
 Creates a common configuration for the mandala chain.
 
-## Description
-
-Chain ID: 595
-Chain Name: Mandala TC9
-Default Block Explorer: https://blockscout.mandala.aca-staging.network
-Default RPC URL: https://eth-rpc-tc9.aca-staging.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { mandala } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: mandala,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 595
+Chain Name: Mandala TC9
+Default Block Explorer: https://blockscout.mandala.aca-staging.network
+Default RPC URL: https://eth-rpc-tc9.aca-staging.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mandala } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mandala,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

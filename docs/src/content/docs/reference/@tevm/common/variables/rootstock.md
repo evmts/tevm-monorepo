@@ -9,28 +9,6 @@ title: "rootstock"
 
 Creates a common configuration for the rootstock chain.
 
-## Description
-
-Chain ID: 30
-Chain Name: Rootstock Mainnet
-Default Block Explorer: https://explorer.rsk.co
-Default RPC URL: https://public-node.rsk.co
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { rootstock } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: rootstock,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 30
+Chain Name: Rootstock Mainnet
+Default Block Explorer: https://explorer.rsk.co
+Default RPC URL: https://public-node.rsk.co
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { rootstock } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: rootstock,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

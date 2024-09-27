@@ -10,28 +10,6 @@
 
 Creates a common configuration for the merlin chain.
 
-## Description
-
-Chain ID: 4200
-Chain Name: Merlin
-Default Block Explorer: https://scan.merlinchain.io
-Default RPC URL: https://rpc.merlinchain.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { merlin } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: merlin,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 4200
+Chain Name: Merlin
+Default Block Explorer: https://scan.merlinchain.io
+Default RPC URL: https://rpc.merlinchain.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { merlin } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: merlin,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

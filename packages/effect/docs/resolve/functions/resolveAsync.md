@@ -6,19 +6,29 @@
 
 # Function: resolveAsync()
 
-> **resolveAsync**(`importPath`, `options`): `Effect`\<`never`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `string`\>
+> **resolveAsync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `never`\>
 
 Effect wrpper around import('node:resolve')
 
 ## Parameters
 
-• **importPath**: `string`
+• **arg0**: `string`
 
-• **options**: `SyncOpts` & `AsyncOpts`
+• **arg1**: `SyncOpts` & `AsyncOpts`
 
 ## Returns
 
-`Effect`\<`never`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `string`\>
+`Effect`\<`string`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `never`\>
+
+## Example
+
+```ts
+import {tap} from 'effect/Effect'
+import {resolveAsync} from '@tevm/effect'
+resolveAsync('react').pipe(
+   tap(console.log)
+)
+````
 
 ## Defined in
 

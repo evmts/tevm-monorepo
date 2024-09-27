@@ -9,18 +9,6 @@ title: "Eof"
 
 ## Type declaration
 
-### FORMAT
-
-> **FORMAT**: `number`
-
-### MAGIC
-
-> **MAGIC**: `number`
-
-### VERSION
-
-> **VERSION**: `number`
-
 ### codeAnalysis()
 
 > **codeAnalysis**: (`container`) => `object` \| `undefined`
@@ -32,6 +20,14 @@ title: "Eof"
 #### Returns
 
 `object` \| `undefined`
+
+### FORMAT
+
+> **FORMAT**: `number`
+
+### MAGIC
+
+> **MAGIC**: `number`
 
 ### validOpcodes()
 
@@ -45,6 +41,10 @@ title: "Eof"
 
 `boolean`
 
+### VERSION
+
+> **VERSION**: `number`
+
 ## Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18

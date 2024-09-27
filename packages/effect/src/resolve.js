@@ -2,7 +2,7 @@ import { async as effectAsync, fail, succeed, try as trySync } from 'effect/Effe
 import resolve from 'resolve'
 
 /**
- * @typedef {(importPath: string, options: import('resolve').SyncOpts & import('resolve').AsyncOpts) => import('effect/Effect').Effect<never, CouldNotResolveImportError, string>} ResolveSafe
+ * @typedef {function(string, import('resolve').SyncOpts & import('resolve').AsyncOpts): import('effect/Effect').Effect<string, CouldNotResolveImportError, never>} ResolveSafe
  */
 
 /**

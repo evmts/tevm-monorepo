@@ -94,6 +94,7 @@ describe(tsPlugin.name, () => {
 			  "getProgram": [Function],
 			  "getQuickInfoAtPosition": [Function],
 			  "getReferencesAtPosition": [Function],
+			  "getRegionSemanticDiagnostics": [Function],
 			  "getRenameInfo": [Function],
 			  "getSemanticClassifications": [Function],
 			  "getSemanticDiagnostics": [Function],

@@ -7,6 +7,10 @@ title: "bytesToUnprefixedHex"
 
 > **bytesToUnprefixedHex**(`bytes`): `string`
 
+:::caution[Deprecated]
+This API is no longer supported and may be removed in a future release.
+:::
+
 ## Parameters
 
 • **bytes**: `Uint8Array`

@@ -40,7 +40,7 @@ Read autoamtically for forge projects if forge: true
 
 ### remappings
 
-> **remappings**: `ReadonlyRecord`\<`string`\>
+> **remappings**: `ReadonlyRecord`\<`string`, `string`\>
 
 Remap the location of contracts
 

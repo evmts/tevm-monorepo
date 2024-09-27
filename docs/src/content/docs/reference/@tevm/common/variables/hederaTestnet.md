@@ -9,28 +9,6 @@ title: "hederaTestnet"
 
 Creates a common configuration for the hederaTestnet chain.
 
-## Description
-
-Chain ID: 296
-Chain Name: Hedera Testnet
-Default Block Explorer: https://hashscan.io/testnet
-Default RPC URL: https://testnet.hashio.io/api
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { hederaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: hederaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 296
+Chain Name: Hedera Testnet
+Default Block Explorer: https://hashscan.io/testnet
+Default RPC URL: https://testnet.hashio.io/api
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { hederaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: hederaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

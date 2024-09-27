@@ -10,28 +10,6 @@
 
 Creates a common configuration for the dfk chain.
 
-## Description
-
-Chain ID: 53935
-Chain Name: DFK Chain
-Default Block Explorer: https://subnets.avax.network/defi-kingdoms
-Default RPC URL: https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { dfk } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: dfk,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 53935
+Chain Name: DFK Chain
+Default Block Explorer: https://subnets.avax.network/defi-kingdoms
+Default RPC URL: https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { dfk } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: dfk,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

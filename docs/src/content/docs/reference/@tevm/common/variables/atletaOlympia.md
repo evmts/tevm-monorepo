@@ -9,28 +9,6 @@ title: "atletaOlympia"
 
 Creates a common configuration for the atletaOlympia chain.
 
-## Description
-
-Chain ID: 2340
-Chain Name: Atleta Olympia
-Default Block Explorer: https://blockscout.atleta.network
-Default RPC URL: https://testnet-rpc.atleta.network:9944
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { atletaOlympia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: atletaOlympia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2340
+Chain Name: Atleta Olympia
+Default Block Explorer: https://blockscout.atleta.network
+Default RPC URL: https://testnet-rpc.atleta.network:9944
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { atletaOlympia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: atletaOlympia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

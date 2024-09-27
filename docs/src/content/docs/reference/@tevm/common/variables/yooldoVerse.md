@@ -9,28 +9,6 @@ title: "yooldoVerse"
 
 Creates a common configuration for the yooldoVerse chain.
 
-## Description
-
-Chain ID: 50005
-Chain Name: Yooldo Verse
-Default Block Explorer: https://explorer.yooldo-verse.xyz
-Default RPC URL: https://rpc.yooldo-verse.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { yooldoVerse } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: yooldoVerse,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 50005
+Chain Name: Yooldo Verse
+Default Block Explorer: https://explorer.yooldo-verse.xyz
+Default RPC URL: https://rpc.yooldo-verse.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { yooldoVerse } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: yooldoVerse,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

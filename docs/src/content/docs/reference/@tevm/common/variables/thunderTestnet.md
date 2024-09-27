@@ -9,28 +9,6 @@ title: "thunderTestnet"
 
 Creates a common configuration for the thunderTestnet chain.
 
-## Description
-
-Chain ID: 997
-Chain Name: 5ireChain Thunder Testnet
-Default Block Explorer: https://explorer.5ire.network
-Default RPC URL: https://rpc-testnet.5ire.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { thunderTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: thunderTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 997
+Chain Name: 5ireChain Thunder Testnet
+Default Block Explorer: https://explorer.5ire.network
+Default RPC URL: https://rpc-testnet.5ire.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { thunderTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: thunderTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

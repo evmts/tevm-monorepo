@@ -49,9 +49,11 @@ describe(loadFoundryConfig.name, () => {
 
 	it(`should throw ${FoundryNotFoundError.name} if command is not found`, () => {
 		mockExecSync.mockImplementationOnce((vi.importActual('child_process') as any).execSync)
-		expect(() => runSync(loadFoundryConfig('notforgecommand', foundryFixture))).toThrowError(
-			new FoundryNotFoundError('notforgecommand'),
-		)
+		expect(() => runSync(loadFoundryConfig('notforgecommand', foundryFixture))).toThrowErrorMatchingInlineSnapshot(`
+			[(FiberFailure) Error: Failed to resolve forge config using "notforgecommand config --json" command. Make sure forge is installed and accessible and forge config --json works.
+			note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
+			or lib directly in your Tevm compiler config and then Tevm will run without forge]
+		`)
 	})
 
 	it(`should throw ${FoundryConfigError.name} in unlikely event foundry returns invalid json`, () => {
@@ -61,7 +63,9 @@ describe(loadFoundryConfig.name, () => {
 not-a-json
 				`
 		})
-		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowError(new FoundryConfigError('forge'))
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(
+			'[(FiberFailure) Error: Unable to resolve foundry config using forge config --json]',
+		)
 	})
 
 	it(`should throw ${InvalidRemappingsError.name} in unlikey event foundry returns remappings not formatted as expected`, () => {
@@ -71,6 +75,8 @@ not-a-json
 				remappings: [remap],
 			})
 		})
-		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowError(new InvalidRemappingsError(remap))
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(
+			'[(FiberFailure) Error: Invalid remappings: not-fromatted-as-expected]',
+		)
 	})
 })

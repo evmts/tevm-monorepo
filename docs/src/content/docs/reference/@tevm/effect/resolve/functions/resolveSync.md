@@ -5,19 +5,30 @@ prev: false
 title: "resolveSync"
 ---
 
-> **resolveSync**(`importPath`, `options`): `Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
+> **resolveSync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `never`\>
 
 Effect wrapper around import('node:resolve').resolveSync
 
 ## Parameters
 
-• **importPath**: `string`
+• **arg0**: `string`
 
-• **options**: `SyncOpts` & `AsyncOpts`
+• **arg1**: `SyncOpts` & `AsyncOpts`
 
 ## Returns
 
-`Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
+`Effect`\<`string`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `never`\>
+
+## Example
+
+```ts
+import {tap} from 'effect/Effect'
+import {resolveSync} from '@tevm/effect'
+resolveSync('react').pipe(
+   tap(console.log)
+)
+````
+`
 
 ## Defined in
 

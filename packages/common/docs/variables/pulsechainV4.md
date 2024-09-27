@@ -10,28 +10,6 @@
 
 Creates a common configuration for the pulsechainV4 chain.
 
-## Description
-
-Chain ID: 943
-Chain Name: PulseChain V4
-Default Block Explorer: https://scan.v4.testnet.pulsechain.com
-Default RPC URL: https://rpc.v4.testnet.pulsechain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { pulsechainV4 } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: pulsechainV4,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 943
+Chain Name: PulseChain V4
+Default Block Explorer: https://scan.v4.testnet.pulsechain.com
+Default RPC URL: https://rpc.v4.testnet.pulsechain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { pulsechainV4 } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: pulsechainV4,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 
