@@ -27,7 +27,7 @@ class ImportDoesNotExistError extends Error {
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {boolean} sync
- * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<import("./types.js").ResolvedImport>>}
+ * @returns {import("effect/Effect").Effect<ReadonlyArray<import("./types.js").ResolvedImport>, ResolveImportsError, never>}
  * @example
  * ```ts
  * const pathToSolidity = path.join(__dirname, '../Contract.sol')
@@ -60,7 +60,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync = fals
 		return die(`Type ${typeof sync} is not of type boolean`)
 	}
 	const imports =
-		/** @type Array<import("effect/Effect").Effect<never, import("./utils/resolveImportPath.js").CouldNotResolveImportError, import("./types.js").ResolvedImport>> */ ([])
+		/** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
 		const importPath = foundImport[1]

@@ -19,7 +19,7 @@ const pragmaPatternWithBounds = /pragma\s+solidity\s+(>=?\d+\.\d+\.\d+)\s*<\s*(\
  * Updates the pragma statement in a Solidity file to the specified version.
  * This is a huge hack to avoid needing to dynamically download solc versions. We should fix this in future
  * @param {string} solidityCode The Solidity code to update.
- * @returns {import("effect/Effect").Effect<never, NoPragmaFoundError, string>} The updated Solidity code.
+ * @returns {import("effect/Effect").Effect<string, NoPragmaFoundError, never>} The updated Solidity code.
  */
 export const updatePragma = (solidityCode) => {
 	let match = solidityCode.match(pragmaPattern)

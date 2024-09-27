@@ -25,7 +25,7 @@ import { updatePragma } from './utils/updatePragma.js'
  * @param {ReadonlyArray<string>} libs
  * @param {import("./types.js").FileAccessObject} fao
  * @param {boolean} sync Whether to run this synchronously or not
- * @returns {import("effect/Effect").Effect<never, ModuleFactoryError, Map<string, import("./types.js").ModuleInfo>>}
+ * @returns {import("effect/Effect").Effect<Map<string, import("./types.js").ModuleInfo>, ModuleFactoryError, never>}
  * @example
  * ```ts
  * const pathToSolidity = path.join(__dirname, '../Contract.sol')

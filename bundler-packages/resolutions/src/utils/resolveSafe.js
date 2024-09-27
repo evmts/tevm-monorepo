@@ -32,7 +32,7 @@ export class ResolveError extends Error {
  * @param {string} filePath
  * @param {string} basedir
  * @param {import("./safeFao.js").SafeFao} fao
- * @returns {import("effect/Effect").Effect<never, ResolveSafeError, string>}
+ * @returns {import("effect/Effect").Effect<string, ResolveSafeError, never>}
  * @example
  * ```ts
  * const pathToSolidity = path.join(__dirname, '../Contract.sol')
@@ -59,7 +59,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 					try {
 						cb(null, await runPromise(fao.exists(file)))
 					} catch (e) {
-						cb(/** @type {Error} */ (e))
+						cb(/** @type {Error} */(e))
 					}
 				},
 			},
@@ -76,7 +76,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 						resume(fail(new ResolveError(err)))
 					}
 				} else {
-					resume(succeed(/** @type string */ (res))) // resume with a success effect when the operation succeeds
+					resume(succeed(/** @type string */(res))) // resume with a success effect when the operation succeeds
 				}
 			},
 		)
