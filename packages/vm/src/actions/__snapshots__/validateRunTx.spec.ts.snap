@@ -5,7 +5,7 @@ exports[`validateRunTx should throw MisconfiguredClientError if no preMerge hard
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]`;
 
-exports[`validateRunTx should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `[BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x7cab6a01424065383830f0994f3981d795835c06f1780c44e083e37537c77085 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=8 maxPriorityFeePerGas=1)
+exports[`validateRunTx should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `[_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x7cab6a01424065383830f0994f3981d795835c06f1780c44e083e37537c77085 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=8 maxPriorityFeePerGas=1)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
 Version: 1.1.0.next-73]`;
