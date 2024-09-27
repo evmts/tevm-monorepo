@@ -79,9 +79,10 @@ describe(loadConfig.name, () => {
 		const configEffect = loadConfig(join(__dirname, 'fixtures/invalidJson'))
 		const errorChannel = flip(configEffect)
 		const e = runSync(errorChannel)
-		expect(e).toBeInstanceOf(InvalidJsonConfigError)
-		expect(e._tag).toBe('InvalidJsonConfigError')
-		expect(e.name).toBe('InvalidJsonConfigError')
+		expect(e).toMatchInlineSnapshot(`
+			[InvalidJsonConfigError: InvalidJsonConfigError: Unable load config from /Users/williamcory/tevm-monorepo/bundler-packages/config/src/fixtures/invalidJson
+			Invalid json detected]
+		`)
 	})
 
 	it('should be able to load a remappings.txt even when foundryConfig is not set', () => {

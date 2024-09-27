@@ -120,9 +120,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				baseUrl: '.',
 			},
 		}
-		expect(() => runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config'))).toThrowError(
-			new NoPluginInTsConfigFoundError('No compilerOptions.plugins in tsconfig'),
-		)
+		expect(() => runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config'))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: No compilerOptions.plugins in tsconfig]`)
 	})
 	it('should handle foundry returning an invalid json', async () => {
 		const config = {
@@ -134,9 +132,7 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowError(
-			new NoPluginInTsConfigFoundError(),
-		)
+		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: An error has occurred]`)
 	})
 	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugin matching @tevm/ts-plugin`, async () => {
 		const config = {
@@ -148,8 +144,6 @@ describe(getTevmConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowError(
-			new NoPluginInTsConfigFoundError(),
-		)
+		expect(() => runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: An error has occurred]`)
 	})
 })
