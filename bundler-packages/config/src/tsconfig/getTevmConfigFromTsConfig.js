@@ -42,8 +42,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		]),
 	)
 	return validateUserConfig(() => plugin).pipe(
-		catchTag('ConfigFnThrowError', (e) => die(e),
-		),
+		catchTag('ConfigFnThrowError', (e) => die(e)),
 		map((config) => ({
 			...config,
 			remappings: {
@@ -54,13 +53,13 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		map((config) =>
 			baseUrl
 				? {
-					...config,
-					remappings: {
-						...pathRemappings,
-						...config.remappings,
-					},
-					libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
-				}
+						...config,
+						remappings: {
+							...pathRemappings,
+							...config.remappings,
+						},
+						libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
+					}
 				: config,
 		),
 		tap((config) => {

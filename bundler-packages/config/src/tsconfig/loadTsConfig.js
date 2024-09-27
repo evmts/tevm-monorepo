@@ -1,9 +1,9 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import * as path from 'node:path'
-import { Array, optional, Record, String, Struct } from '@effect/schema/Schema'
+import { Record, Array as SArray, String as SString, Struct, optional } from '@effect/schema/Schema'
+import { decodeUnknownEither } from '@effect/schema/Schema' // Add this import
 import { parseJson } from '@tevm/effect'
 import { catchTag, fail, flatMap, logDebug, succeed, tap, tapBoth, try as tryEffect } from 'effect/Effect'
-import { decodeUnknownEither } from '@effect/schema/Schema' // Add this import
 import { match } from 'effect/Either'
 
 /**
@@ -51,13 +51,13 @@ export class InvalidTsConfigError extends TypeError {
  */
 const STsConfigWithPlugin = Struct({
 	compilerOptions: Struct({
-		baseUrl: optional(String),
-		plugins: Array(
+		baseUrl: optional(SString),
+		plugins: SArray(
 			Struct({
-				name: String,
+				name: SString,
 			}),
 		),
-		paths: optional(Record({ key: String, value: Array(String) })),
+		paths: optional(Record({ key: SString, value: SArray(SString) })),
 	}),
 })
 /**
@@ -66,15 +66,15 @@ const STsConfigWithPlugin = Struct({
  */
 const STsConfig = Struct({
 	compilerOptions: Struct({
-		baseUrl: optional(String),
+		baseUrl: optional(SString),
 		plugins: optional(
-			Array(
+			SArray(
 				Struct({
-					name: String,
+					name: SString,
 				}),
 			),
 		),
-		paths: optional(Record({ key: String, value: Array(String) })),
+		paths: optional(Record({ key: SString, value: SArray(SString) })),
 	}),
 })
 
@@ -107,7 +107,7 @@ export const loadTsConfig = (configFilePath) => {
 			})
 			return match(res, {
 				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
-				onRight: (right) => succeed(right)
+				onRight: (right) => succeed(right),
 			})
 		}),
 		// add ts-plugin if it's missing
@@ -170,7 +170,7 @@ export const loadTsConfig = (configFilePath) => {
 			})
 			return match(res, {
 				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
-				onRight: (right) => succeed(right)
+				onRight: (right) => succeed(right),
 			})
 		}),
 		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),

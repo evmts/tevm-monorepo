@@ -53,17 +53,16 @@ ${underlyingError.message}`,
  * ```
  */
 export const loadConfig = (configFilePath) => {
-
 	const userConfig = logDebug(`loadConfig: loading userConfig at ${JSON.stringify(configFilePath)}`).pipe(
 		flatMap(() => loadJsonConfig(configFilePath)),
 		catchTag('FailedToReadConfigError', (e) =>
-			logDebug(`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`).pipe(
-				flatMap(() => loadTsConfig(configFilePath)),
-			).pipe(
-				flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
-				catchTag('NoPluginInTsConfigFoundError', () => fail(e)),
-				catchTag('FailedToReadConfigError', () => fail(e)),
-			),
+			logDebug(`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`)
+				.pipe(flatMap(() => loadTsConfig(configFilePath)))
+				.pipe(
+					flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
+					catchTag('NoPluginInTsConfigFoundError', () => fail(e)),
+					catchTag('FailedToReadConfigError', () => fail(e)),
+				),
 		),
 	)
 	const foundryConfig = flatMap(userConfig, (userConfig) => {

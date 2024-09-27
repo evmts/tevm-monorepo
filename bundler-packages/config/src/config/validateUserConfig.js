@@ -1,14 +1,14 @@
 import {
-	Undefined,
-	Array,
-	Boolean,
 	Literal,
-	optional,
 	Record,
-	String,
+	Array as SArray,
+	Boolean as SBoolean,
+	String as SString,
 	Struct,
+	Undefined,
 	Union,
 	decodeUnknownEither,
+	optional,
 } from '@effect/schema/Schema'
 import { formatErrorSync } from '@effect/schema/TreeFormatter'
 import { pipe } from 'effect'
@@ -44,13 +44,6 @@ export class InvalidConfigError extends TypeError {
 	 * @type {'InvalidConfigError'}
 	 */
 	_tag = 'InvalidConfigError'
-	/**
-	 * @param {object} [options]
-	 * @param {unknown} [options.cause]
-	 */
-	constructor(message = 'Invalid Tevm CompilerConfig detected', options) {
-		super(message, options)
-	}
 }
 
 /**
@@ -64,11 +57,11 @@ export class InvalidConfigError extends TypeError {
  */
 const SCompilerConfig = Struct({
 	name: optional(Union(Literal('@tevm/ts-plugin'), Undefined)),
-	foundryProject: optional(Union(Boolean, String, Undefined)),
-	libs: optional(Union(Array(String), Undefined)),
-	remappings: optional(Union(Record({ key: String, value: String }), Undefined)),
-	debug: optional(Union(Boolean, Undefined)),
-	cacheDir: optional(Union(String, Undefined)),
+	foundryProject: optional(Union(SBoolean, SString, Undefined)),
+	libs: optional(Union(SArray(SString), Undefined)),
+	remappings: optional(Union(Record({ key: SString, value: SString }), Undefined)),
+	debug: optional(Union(SBoolean, Undefined)),
+	cacheDir: optional(Union(SString, Undefined)),
 })
 
 /**
@@ -95,10 +88,9 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 			})
 			return match(res, {
 				onLeft: (left) => fail(new InvalidConfigError(formatErrorSync(left), { cause: left })),
-				onRight: (right) => succeed(right)
+				onRight: (right) => succeed(right),
 			})
-		}
-		),
+		}),
 		tap((validatedConfig) =>
 			logDebug(`validatedConfig: Validated config successfully: ${JSON.stringify(validatedConfig)}`),
 		),

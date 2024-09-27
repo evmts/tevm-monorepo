@@ -63,7 +63,9 @@ describe(loadFoundryConfig.name, () => {
 not-a-json
 				`
 		})
-		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Unable to resolve foundry config using forge config --json]`)
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(
+			'[(FiberFailure) Error: Unable to resolve foundry config using forge config --json]',
+		)
 	})
 
 	it(`should throw ${InvalidRemappingsError.name} in unlikey event foundry returns remappings not formatted as expected`, () => {
@@ -73,6 +75,8 @@ not-a-json
 				remappings: [remap],
 			})
 		})
-		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Invalid remappings: not-fromatted-as-expected]`)
+		expect(() => runSync(loadFoundryConfig('forge', foundryFixture))).toThrowErrorMatchingInlineSnapshot(
+			'[(FiberFailure) Error: Invalid remappings: not-fromatted-as-expected]',
+		)
 	})
 })

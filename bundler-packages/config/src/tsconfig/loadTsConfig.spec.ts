@@ -50,6 +50,8 @@ describe(loadTsConfig.name, () => {
 		`)
 	})
 	it(`should throw ${FailedToReadConfigError.name} if the file doesn't exist`, () => {
-		expect(() => runSync(loadTsConfig(join(__dirname, '../fixtures/doesntexist')))).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Failed to find /Users/williamcory/tevm-monorepo/bundler-packages/config/src/fixtures/doesntexist/tsconfig.json]`)
+		expect(() => runSync(loadTsConfig(join(__dirname, '../fixtures/doesntexist')))).toThrowErrorMatchingInlineSnapshot(
+			'[(FiberFailure) Error: Failed to find /Users/williamcory/tevm-monorepo/bundler-packages/config/src/fixtures/doesntexist/tsconfig.json]',
+		)
 	})
 })

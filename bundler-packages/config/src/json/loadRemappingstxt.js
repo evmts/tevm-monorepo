@@ -84,7 +84,7 @@ export const loadRemappings = (configFilePath) => {
 			}
 			return succeed(config)
 		}),
-		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/(cfg))),
+		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/ (cfg))),
 		// it can't thrw. Could clean this up via making validateUserConfig take a config instead of a factory
 		catchTag('ConfigFnThrowError', (e) => die(e)),
 		// internal error if this happens

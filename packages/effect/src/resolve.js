@@ -46,7 +46,7 @@ export class CouldNotResolveImportError extends Error {
 export const resolveSync = (importPath, options) => {
 	return trySync({
 		try: () => resolve.sync(importPath, options),
-		catch: (e) => new CouldNotResolveImportError(importPath, options.basedir ?? __dirname, /** @type {Error} */(e)),
+		catch: (e) => new CouldNotResolveImportError(importPath, options.basedir ?? __dirname, /** @type {Error} */ (e)),
 	})
 }
 
@@ -68,7 +68,7 @@ export const resolveAsync = (importPath, options) => {
 			if (err) {
 				resume(fail(new CouldNotResolveImportError(importPath, options.basedir ?? '', err)))
 			} else {
-				resume(succeed(/** @type {string} */(resolvedPath)))
+				resume(succeed(/** @type {string} */ (resolvedPath)))
 			}
 		})
 	})

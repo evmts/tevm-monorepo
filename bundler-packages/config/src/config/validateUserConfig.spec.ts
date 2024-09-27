@@ -64,7 +64,7 @@ describe(validateUserConfig.name, () => {
 					throw errStr
 				}),
 			),
-		).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Provided config factory threw an error: ooops]`)
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ooops]')
 		const err = new Error(errStr)
 		expect(() =>
 			runSync(
@@ -72,7 +72,7 @@ describe(validateUserConfig.name, () => {
 					throw err
 				}),
 			),
-		).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Provided config factory threw an error: ooops]`)
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ooops]')
 		const wierdError = {}
 		expect(() =>
 			runSync(
@@ -80,6 +80,6 @@ describe(validateUserConfig.name, () => {
 					throw wierdError
 				}),
 			),
-		).toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: Provided config factory threw an error: ]`)
+		).toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: Provided config factory threw an error: ]')
 	})
 })
