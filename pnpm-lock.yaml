@@ -1942,6 +1942,15 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/procedures:
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
   packages/receipt-manager:
     dependencies:
       '@tevm/block':
