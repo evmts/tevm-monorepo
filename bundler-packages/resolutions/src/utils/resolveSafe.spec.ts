@@ -32,14 +32,14 @@ describe('resolveSafe', () => {
 		fao.readFile = () => Promise.reject('readFile error')
 		await expect(
 			Effect.runPromise(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
-		).rejects.toThrowErrorMatchingInlineSnapshot('[ReadFileError: Read file error: Read file error: undefined]')
+		).rejects.toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) ResolveError: Failed to resolve]`)
 	})
 
 	it('should throw an error for non-existent file', async () => {
 		fao.exists = () => Promise.resolve(false)
 		await expect(
 			Effect.runPromise(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
-		).rejects.toThrowErrorMatchingInlineSnapshot('[ResolveError: Failed to resolve]')
+		).rejects.toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) ResolveError: Failed to resolve]`)
 	})
 
 	it('should throw an error if existsSync throws', async () => {
@@ -49,14 +49,14 @@ describe('resolveSafe', () => {
 		expect(
 			await Effect.runPromise(flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)))),
 		).toMatchInlineSnapshot(
-			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
+			`[ResolveError: Failed to resolve]`,
 		)
 	})
 	it('should return ReadFileError if readFile throws', async () => {
 		fao.readFile = () => Promise.reject(new Error('readFile error'))
 		const error = await Effect.runPromise(flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))))
 		expect(error).toMatchInlineSnapshot(
-			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
+			`[ResolveError: Failed to resolve]`,
 		)
 	})
 
@@ -66,7 +66,7 @@ describe('resolveSafe', () => {
 		}
 		const error = await Effect.runPromise(flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))))
 		expect(error).toMatchInlineSnapshot(
-			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
+			`[ResolveError: Failed to resolve]`,
 		)
 	})
 })
