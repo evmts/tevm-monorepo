@@ -7,6 +7,9 @@ title: "DeployHandler"
 
 > **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](/reference/tevm/actions/type-aliases/deployresult/)\>
 
+Handler for deploying contracts on TEVM.
+This handler is used to deploy a contract by specifying the deployment parameters, ABI, and constructor arguments.
+
 ## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
@@ -36,6 +39,29 @@ The deployment parameters.
 `Promise`\<[`DeployResult`](/reference/tevm/actions/type-aliases/deployresult/)\>
 
 The result of the deployment.
+
+## Example
+
+```typescript
+import { createClient } from 'viem'
+import { deployHandler } from 'tevm/actions'
+
+const client = createClient({
+  transport: createTevmTransport({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
+})
+
+const handler = deployHandler(client)
+
+const result = await handler({
+  abi: [...], // ABI array
+  bytecode: '0x...', // Contract bytecode
+  args: [arg1, arg2], // Constructor arguments
+  from: '0x123...',
+  gas: 1000000n,
+  gasPrice: 1n,
+})
+console.log(result)
+```
 
 ## Defined in
 

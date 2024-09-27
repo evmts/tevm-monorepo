@@ -9,28 +9,6 @@ title: "coreDao"
 
 Creates a common configuration for the coreDao chain.
 
-## Description
-
-Chain ID: 1116
-Chain Name: Core Dao
-Default Block Explorer: https://scan.coredao.org
-Default RPC URL: https://rpc.coredao.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { coreDao } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: coreDao,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1116
+Chain Name: Core Dao
+Default Block Explorer: https://scan.coredao.org
+Default RPC URL: https://rpc.coredao.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { coreDao } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: coreDao,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

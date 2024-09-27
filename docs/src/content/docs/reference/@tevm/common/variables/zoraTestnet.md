@@ -9,28 +9,6 @@ title: "zoraTestnet"
 
 Creates a common configuration for the zoraTestnet chain.
 
-## Description
-
-Chain ID: 999
-Chain Name: Zora Goerli Testnet
-Default Block Explorer: https://testnet.explorer.zora.energy
-Default RPC URL: https://testnet.rpc.zora.energy
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zoraTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zoraTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 999
+Chain Name: Zora Goerli Testnet
+Default Block Explorer: https://testnet.explorer.zora.energy
+Default RPC URL: https://testnet.rpc.zora.energy
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zoraTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zoraTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -33,30 +33,6 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 ## Properties
 
-### DEBUG
-
-> `protected` **DEBUG**: `boolean`
-
-Debug logging
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
-
-***
-
-### EMPTY\_TRIE\_ROOT
-
-> **EMPTY\_TRIE\_ROOT**: `Uint8Array`
-
-The root for an empty trie
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
-
-***
-
 ### \_db
 
 > `protected` **\_db**: `CheckpointDB`
@@ -137,9 +113,33 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 ***
 
+### DEBUG
+
+> `protected` **DEBUG**: `boolean`
+
+Debug logging
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
+
+***
+
+### EMPTY\_TRIE\_ROOT
+
+> **EMPTY\_TRIE\_ROOT**: `Uint8Array`
+
+The root for an empty trie
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
+
+***
+
 ### walkTrieIterable()
 
-> **walkTrieIterable**: (`nodeHash`, `currentKey`?, `onFound`?, `filter`?, `visited`?) => `AsyncIterable`\<`object`\>
+> **walkTrieIterable**: (`nodeHash`, `currentKey`?, `onFound`?, `filter`?, `visited`?) => `AsyncIterable`\<`object`, `any`, `any`\>
 
 #### Parameters
 
@@ -155,7 +155,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 #### Returns
 
-`AsyncIterable`\<`object`\>
+`AsyncIterable`\<`object`, `any`, `any`\>
 
 ##### currentKey
 
@@ -228,6 +228,23 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 ***
 
+### checkpoint()
+
+> **checkpoint**(): `void`
+
+Creates a checkpoint that can later be reverted to or committed.
+After this is called, all changes can be reverted until `commit` is called.
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
+
+***
+
 ### checkRoot()
 
 > **checkRoot**(`root`): `Promise`\<`boolean`\>
@@ -245,23 +262,6 @@ Checks if a given root exists.
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:130
-
-***
-
-### checkpoint()
-
-> **checkpoint**(): `void`
-
-Creates a checkpoint that can later be reverted to or committed.
-After this is called, all changes can be reverted until `commit` is called.
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
 
 ***
 

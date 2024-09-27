@@ -5,7 +5,7 @@ prev: false
 title: "TevmCallError"
 ---
 
-> **TevmCallError**: [`ValidateCallParamsError`](/reference/tevm/actions/type-aliases/validatecallparamserror/) \| [`CallHandlerOptsError`](/reference/tevm/actions/type-aliases/callhandleroptserror/) \| [`InternalError`](/reference/tevm/errors/classes/internalerror/) \| [`ExecutionError`](/reference/tevm/errors/classes/executionerror/) \| [`RevertError`](/reference/tevm/errors/classes/reverterror/) \| `HandleRunTxError` \| `ExecuteCallError`
+> **TevmCallError**: [`ValidateCallParamsError`](/reference/tevm/actions/type-aliases/validatecallparamserror/) \| [`CallHandlerOptsError`](/reference/tevm/actions/type-aliases/callhandleroptserror/) \| [`InternalError`](/reference/tevm/errors/classes/internalerror/) \| [`ExecutionError`](/reference/tevm/errors/classes/executionerror/) \| [`RevertError`](/reference/tevm/errors/classes/reverterror/) \| [`ExecuteCallError`](/reference/tevm/actions/type-aliases/executecallerror/) \| [`ExecuteCallError`](/reference/tevm/actions/type-aliases/executecallerror/)
 
 All errors that can occur during a TEVM call.
 This type is strongly typed if using `throwOnFail: false`.

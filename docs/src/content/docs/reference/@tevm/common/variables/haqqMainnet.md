@@ -9,28 +9,6 @@ title: "haqqMainnet"
 
 Creates a common configuration for the haqqMainnet chain.
 
-## Description
-
-Chain ID: 11235
-Chain Name: HAQQ Mainnet
-Default Block Explorer: https://explorer.haqq.network
-Default RPC URL: https://rpc.eth.haqq.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { haqqMainnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: haqqMainnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 11235
+Chain Name: HAQQ Mainnet
+Default Block Explorer: https://explorer.haqq.network
+Default RPC URL: https://rpc.eth.haqq.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { haqqMainnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: haqqMainnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

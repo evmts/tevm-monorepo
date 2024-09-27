@@ -9,10 +9,6 @@ title: "TevmActionsApi"
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
-## See
-
-[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
-
 ## Type declaration
 
 ### call
@@ -135,34 +131,6 @@ await tevm.loadState({state})
 
 Mines 1 or more blocks
 
-### script
-
-> **script**: [`ScriptHandler`](/reference/tevm/actions/type-aliases/scripthandler/)
-
-Executes scripts against the Tevm EVM. By default the script is sandboxed
-and the state is reset after each execution unless the `persist` option is set
-to true.
-
-#### Examples
-
-```typescript
-const res = tevm.script({
-  deployedBytecode: '0x6080604...',
-  abi: [...],
-  function: 'run',
-  args: ['hello world']
-})
-```
-Contract handlers provide a more ergonomic way to execute scripts
-
-```typescript
-ipmort {MyScript} from './MyScript.s.sol'
-
-const res = tevm.script(
-   MyScript.read.run('hello world')
-)
-```
-
 ### setAccount
 
 > **setAccount**: [`SetAccountHandler`](/reference/tevm/actions/type-aliases/setaccounthandler/)
@@ -181,6 +149,10 @@ await tevm.setAccount({
 })
 ```
 
+## See
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
 ## Defined in
 
-[actions/TevmActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)
+[actions/TevmActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L16)

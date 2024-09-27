@@ -9,28 +9,6 @@ title: "celo"
 
 Creates a common configuration for the celo chain.
 
-## Description
-
-Chain ID: 42220
-Chain Name: Celo
-Default Block Explorer: https://celoscan.io
-Default RPC URL: https://forno.celo.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { celo } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: celo,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 42220
+Chain Name: Celo
+Default Block Explorer: https://celoscan.io
+Default RPC URL: https://forno.celo.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { celo } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: celo,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "oortMainnetDev"
 
 Creates a common configuration for the oortMainnetDev chain.
 
-## Description
-
-Chain ID: 9700
-Chain Name: OORT MainnetDev
-Default Block Explorer: https://dev-scan.oortech.com
-Default RPC URL: https://dev-rpc.oortech.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { oortMainnetDev } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: oortMainnetDev,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 9700
+Chain Name: OORT MainnetDev
+Default Block Explorer: https://dev-scan.oortech.com
+Default RPC URL: https://dev-rpc.oortech.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { oortMainnetDev } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: oortMainnetDev,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

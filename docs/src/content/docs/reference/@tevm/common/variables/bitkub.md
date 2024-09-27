@@ -9,28 +9,6 @@ title: "bitkub"
 
 Creates a common configuration for the bitkub chain.
 
-## Description
-
-Chain ID: 96
-Chain Name: Bitkub
-Default Block Explorer: https://www.bkcscan.com
-Default RPC URL: https://rpc.bitkubchain.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bitkub } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bitkub,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 96
+Chain Name: Bitkub
+Default Block Explorer: https://www.bkcscan.com
+Default RPC URL: https://rpc.bitkubchain.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bitkub } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bitkub,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

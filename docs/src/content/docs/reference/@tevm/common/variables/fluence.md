@@ -9,28 +9,6 @@ title: "fluence"
 
 Creates a common configuration for the fluence chain.
 
-## Description
-
-Chain ID: 9999999
-Chain Name: Fluence
-Default Block Explorer: https://blockscout.mainnet.fluence.dev
-Default RPC URL: https://rpc.mainnet.fluence.dev
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { fluence } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: fluence,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 9999999
+Chain Name: Fluence
+Default Block Explorer: https://blockscout.mainnet.fluence.dev
+Default RPC URL: https://rpc.mainnet.fluence.dev
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { fluence } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: fluence,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

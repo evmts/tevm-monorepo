@@ -21,9 +21,9 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 						humanReadableAbi: formatAbi(abi),
 						...(includeBytecode
 							? {
-								bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
-								deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
-							}
+									bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
+									deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
+								}
 							: {}),
 					},
 					null,

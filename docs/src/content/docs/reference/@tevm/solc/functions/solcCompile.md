@@ -7,6 +7,8 @@ title: "solcCompile"
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](/reference/tevm/solc/type-aliases/solcoutput/)
 
+Typesafe wrapper around solc.compile
+
 ## Parameters
 
 • **solc**: `any`
@@ -19,4 +21,4 @@ title: "solcCompile"
 
 ## Defined in
 
-[solc.js:130](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L130)
+[solc.js:131](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L131)

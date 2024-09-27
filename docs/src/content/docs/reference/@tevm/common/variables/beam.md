@@ -9,28 +9,6 @@ title: "beam"
 
 Creates a common configuration for the beam chain.
 
-## Description
-
-Chain ID: 4337
-Chain Name: Beam
-Default Block Explorer: https://subnets.avax.network/beam
-Default RPC URL: https://build.onbeam.com/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { beam } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: beam,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 4337
+Chain Name: Beam
+Default Block Explorer: https://subnets.avax.network/beam
+Default RPC URL: https://build.onbeam.com/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { beam } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: beam,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

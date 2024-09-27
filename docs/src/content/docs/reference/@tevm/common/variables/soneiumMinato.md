@@ -9,28 +9,6 @@ title: "soneiumMinato"
 
 Creates a common configuration for the soneiumMinato chain.
 
-## Description
-
-Chain ID: 1946
-Chain Name: Soneium Minato
-Default Block Explorer: https://explorer-testnet.soneium.org
-Default RPC URL: https://rpc.minato.soneium.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { soneiumMinato } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: soneiumMinato,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1946
+Chain Name: Soneium Minato
+Default Block Explorer: https://explorer-testnet.soneium.org
+Default RPC URL: https://rpc.minato.soneium.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { soneiumMinato } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: soneiumMinato,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

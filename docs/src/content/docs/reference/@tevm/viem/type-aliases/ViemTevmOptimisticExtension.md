@@ -7,6 +7,16 @@ title: "ViemTevmOptimisticExtension"
 
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclientdecorator/)
 
+:::caution[Deprecated]
+in favor of the viem transport
+
+Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
+:::
+
+## Returns
+
+[`ViemTevmOptimisticClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclientdecorator/)
+
 ## Example
 
 ```js
@@ -25,16 +35,6 @@ await client.tevm.account({
 ## See
 
 [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
-
-:::caution[Deprecated]
-in favor of the viem transport
-
-Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
-:::
-
-## Returns
-
-[`ViemTevmOptimisticClientDecorator`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclientdecorator/)
 
 ## Defined in
 

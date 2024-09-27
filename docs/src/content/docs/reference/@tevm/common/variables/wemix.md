@@ -9,28 +9,6 @@ title: "wemix"
 
 Creates a common configuration for the wemix chain.
 
-## Description
-
-Chain ID: 1111
-Chain Name: WEMIX
-Default Block Explorer: https://explorer.wemix.com
-Default RPC URL: https://api.wemix.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { wemix } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: wemix,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1111
+Chain Name: WEMIX
+Default Block Explorer: https://explorer.wemix.com
+Default RPC URL: https://api.wemix.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { wemix } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: wemix,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

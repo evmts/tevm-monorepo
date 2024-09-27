@@ -11,11 +11,11 @@ title: "TevmSendApi"
 
 ### send
 
-> **send**: `TevmJsonRpcRequestHandler`
+> **send**: [`TevmJsonRpcRequestHandler`](/reference/tevm/actions/type-aliases/tevmjsonrpcrequesthandler/)
 
 ### sendBulk
 
-> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
+> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](/reference/tevm/actions/type-aliases/tevmjsonrpcbulkrequesthandler/)
 
 ## Defined in
 

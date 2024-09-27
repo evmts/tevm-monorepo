@@ -9,28 +9,6 @@ title: "sophonTestnet"
 
 Creates a common configuration for the sophonTestnet chain.
 
-## Description
-
-Chain ID: 531050104
-Chain Name: Sophon Testnet
-Default Block Explorer: https://explorer.testnet.sophon.xyz
-Default RPC URL: https://rpc.testnet.sophon.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { sophonTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: sophonTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 531050104
+Chain Name: Sophon Testnet
+Default Block Explorer: https://explorer.testnet.sophon.xyz
+Default RPC URL: https://rpc.testnet.sophon.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { sophonTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: sophonTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "skaleBlockBrawlers"
 
 Creates a common configuration for the skaleBlockBrawlers chain.
 
-## Description
-
-Chain ID: 391845894
-Chain Name: SKALE | Block Brawlers
-Default Block Explorer: https://frayed-decent-antares.explorer.mainnet.skalenodes.com
-Default RPC URL: https://mainnet.skalenodes.com/v1/frayed-decent-antares
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { skaleBlockBrawlers } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: skaleBlockBrawlers,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 391845894
+Chain Name: SKALE | Block Brawlers
+Default Block Explorer: https://frayed-decent-antares.explorer.mainnet.skalenodes.com
+Default RPC URL: https://mainnet.skalenodes.com/v1/frayed-decent-antares
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { skaleBlockBrawlers } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: skaleBlockBrawlers,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -15,20 +15,6 @@ title: "EIP4844CompatibleTx"
 
 ## Properties
 
-### AccessListJSON
-
-> `readonly` **AccessListJSON**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`AccessListJSON`](/reference/tevm/tx/interfaces/eip1559compatibletx/#accesslistjson)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
-
-***
-
 ### accessList
 
 > `readonly` **accessList**: `AccessListBytes`
@@ -43,13 +29,17 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ***
 
-### blobVersionedHashes
+### AccessListJSON
 
-> **blobVersionedHashes**: `Uint8Array`[]
+> `readonly` **AccessListJSON**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
+
+#### Inherited from
+
+[`EIP1559CompatibleTx`](/reference/tevm/tx/interfaces/eip1559compatibletx/).[`AccessListJSON`](/reference/tevm/tx/interfaces/eip1559compatibletx/#accesslistjson)
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:157
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
 
 ***
 
@@ -60,6 +50,16 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:158
+
+***
+
+### blobVersionedHashes
+
+> **blobVersionedHashes**: `Uint8Array`[]
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:157
 
 ***
 

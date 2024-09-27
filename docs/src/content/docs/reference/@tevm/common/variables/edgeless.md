@@ -9,28 +9,6 @@ title: "edgeless"
 
 Creates a common configuration for the edgeless chain.
 
-## Description
-
-Chain ID: 2026
-Chain Name: Edgeless Network
-Default Block Explorer: https://explorer.edgeless.network
-Default RPC URL: https://rpc.edgeless.network/http
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { edgeless } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: edgeless,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2026
+Chain Name: Edgeless Network
+Default Block Explorer: https://explorer.edgeless.network
+Default RPC URL: https://rpc.edgeless.network/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { edgeless } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: edgeless,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

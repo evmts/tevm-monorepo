@@ -9,28 +9,6 @@ title: "avalanche"
 
 Creates a common configuration for the avalanche chain.
 
-## Description
-
-Chain ID: 43114
-Chain Name: Avalanche
-Default Block Explorer: https://snowtrace.io
-Default RPC URL: https://api.avax.network/ext/bc/C/rpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { avalanche } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: avalanche,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 43114
+Chain Name: Avalanche
+Default Block Explorer: https://snowtrace.io
+Default RPC URL: https://api.avax.network/ext/bc/C/rpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { avalanche } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: avalanche,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

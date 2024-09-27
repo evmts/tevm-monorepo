@@ -9,28 +9,6 @@ title: "fluenceStage"
 
 Creates a common configuration for the fluenceStage chain.
 
-## Description
-
-Chain ID: 123420000220
-Chain Name: Fluence Stage
-Default Block Explorer: https://blockscout.stage.fluence.dev
-Default RPC URL: https://rpc.stage.fluence.dev
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { fluenceStage } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: fluenceStage,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 123420000220
+Chain Name: Fluence Stage
+Default Block Explorer: https://blockscout.stage.fluence.dev
+Default RPC URL: https://rpc.stage.fluence.dev
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { fluenceStage } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: fluenceStage,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "meterTestnet"
 
 Creates a common configuration for the meterTestnet chain.
 
-## Description
-
-Chain ID: 83
-Chain Name: Meter Testnet
-Default Block Explorer: https://scan-warringstakes.meter.io
-Default RPC URL: https://rpctest.meter.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { meterTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: meterTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 83
+Chain Name: Meter Testnet
+Default Block Explorer: https://scan-warringstakes.meter.io
+Default RPC URL: https://rpctest.meter.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { meterTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: meterTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

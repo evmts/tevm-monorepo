@@ -11,50 +11,6 @@ Represents a specific contract with its ABI and optional bytecode.
 Contracts provide type-safe interfaces for interacting with smart contracts,
 including read and write methods, event filtering, and deployment.
 
-## Examples
-
-Creating and using a Contract instance:
-```typescript
-import { createContract } from 'tevm/contract'
-
-const MyContract = createContract({
-  name: 'MyToken',
-  humanReadableAbi: [
-    'function balanceOf(address account) view returns (uint256)',
-    'function transfer(address to, uint256 amount) returns (bool)',
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ],
-  address: '0x1234567890123456789012345678901234567890'
-})
-
-// Read contract state
-const balanceAction = MyContract.read.balanceOf('0xabcdef...')
-const balance = await tevm.contract(balanceAction)
-
-// Write to contract
-const transferAction = MyContract.write.transfer('0xfedcba...', 1000n)
-const result = await tevm.contract(transferAction)
-
-// Create event filter
-const transferFilter = MyContract.events.Transfer({ fromBlock: 'latest' })
-const logs = await tevm.eth.getLogs(transferFilter)
-```
-
-Using with other libraries:
-```typescript
-import { createPublicClient, http } from 'viem'
-import { mainnet } from 'viem/chains'
-
-const client = createPublicClient({
-  chain: mainnet,
-  transport: http()
-})
-
-const balance = await client.readContract(
-  MyContract.read.balanceOf('0xabcdef...')
-)
-```
-
 ## Type Parameters
 
 • **TName** *extends* `string`
@@ -121,13 +77,6 @@ The runtime bytecode of the contract, encoded with constructor arguments.
 
 Action creator for deploying the contract.
 
-#### Example
-
-```typescript
-const deployAction = MyContract.deploy('Constructor', 'Args')
-const deployedContract = await tevm.contract(deployAction)
-```
-
 #### Parameters
 
 • ...**args**: [`EncodeDeployDataParameters`](/reference/tevm/utils/type-aliases/encodedeploydataparameters/)\<[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>\> *extends* `object` ? `TArgs` *extends* `ReadonlyArray`\<`any`\> ? `TArgs` : [] : []
@@ -135,6 +84,13 @@ const deployedContract = await tevm.contract(deployAction)
 #### Returns
 
 [`EncodeDeployDataParameters`](/reference/tevm/utils/type-aliases/encodedeploydataparameters/)\<[`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>\>
+
+#### Example
+
+```typescript
+const deployAction = MyContract.deploy('Constructor', 'Args')
+const deployedContract = await tevm.contract(deployAction)
+```
 
 ### deployedBytecode
 
@@ -195,12 +151,6 @@ Adds an address to the contract. All action creators will include
 the address property if added. This method returns a new contract;
 it does not modify the existing contract.
 
-#### Example
-
-```typescript
-const MyContractWithAddress = MyContract.withAddress('0x1234...')
-```
-
 #### Type Parameters
 
 • **TNewAddress** *extends* [`Address`](/reference/tevm/utils/type-aliases/address/)
@@ -213,9 +163,18 @@ const MyContractWithAddress = MyContract.withAddress('0x1234...')
 
 [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TNewAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
+#### Example
+
+```typescript
+const MyContractWithAddress = MyContract.withAddress('0x1234...')
+```
+
 ### withCode()
 
 > **withCode**: (`encodedBytecode`) => [`Contract`](/reference/tevm/contract/type-aliases/contract/)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+
+Updates the bytecode of the contract.
+Returns a new contract instance with the updated code.
 
 #### Parameters
 
@@ -229,6 +188,29 @@ The encoded bytecode of the contract
 
 A new contract instance with updated code
 
+#### Example
+
+```typescript
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http()
+})
+
+const ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const UpdatedContract = Contract.withCode('0x60806040...')
+const {data, abi, code, args} = UpdatedContract.read.balanceOf('0x1234567890123456789012345678901234567890')
+const balance = await client.call({
+  to: ADDRESS,
+  data,
+  abi,
+  code,
+  args
+})
+```
+
 ### write
 
 > **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, `TAddress`, `TCode`\>
@@ -240,6 +222,50 @@ Action creators for contract payable and nonpayable functions.
 ```typescript
 const transferAction = MyContract.write.transfer('0x5678...', 1000n)
 const result = await tevm.contract(transferAction)
+```
+
+## Examples
+
+Creating and using a Contract instance:
+```typescript
+import { createContract } from 'tevm/contract'
+
+const MyContract = createContract({
+  name: 'MyToken',
+  humanReadableAbi: [
+    'function balanceOf(address account) view returns (uint256)',
+    'function transfer(address to, uint256 amount) returns (bool)',
+    'event Transfer(address indexed from, address indexed to, uint256 value)'
+  ],
+  address: '0x1234567890123456789012345678901234567890'
+})
+
+// Read contract state
+const balanceAction = MyContract.read.balanceOf('0xabcdef...')
+const balance = await tevm.contract(balanceAction)
+
+// Write to contract
+const transferAction = MyContract.write.transfer('0xfedcba...', 1000n)
+const result = await tevm.contract(transferAction)
+
+// Create event filter
+const transferFilter = MyContract.events.Transfer({ fromBlock: 'latest' })
+const logs = await tevm.eth.getLogs(transferFilter)
+```
+
+Using with other libraries:
+```typescript
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http()
+})
+
+const balance = await client.readContract(
+  MyContract.read.balanceOf('0xabcdef...')
+)
 ```
 
 ## Defined in

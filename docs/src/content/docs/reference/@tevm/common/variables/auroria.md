@@ -9,28 +9,6 @@ title: "auroria"
 
 Creates a common configuration for the auroria chain.
 
-## Description
-
-Chain ID: 205205
-Chain Name: Auroria Testnet
-Default Block Explorer: https://auroria.explorer.stratisevm.com
-Default RPC URL: https://auroria.rpc.stratisevm.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { auroria } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: auroria,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 205205
+Chain Name: Auroria Testnet
+Default Block Explorer: https://auroria.explorer.stratisevm.com
+Default RPC URL: https://auroria.rpc.stratisevm.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { auroria } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: auroria,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

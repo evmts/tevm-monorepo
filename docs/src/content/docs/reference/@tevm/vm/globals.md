@@ -42,9 +42,9 @@ title: "@tevm/vm"
 - [EVMProfilerOpts](/reference/tevm/vm/type-aliases/evmprofileropts/)
 - [RunBlock](/reference/tevm/vm/type-aliases/runblock/)
 - [TxReceipt](/reference/tevm/vm/type-aliases/txreceipt/)
+- [Vm](/reference/tevm/vm/type-aliases/vm/)
 - [VMEvents](/reference/tevm/vm/type-aliases/vmevents/)
 - [VMProfilerOpts](/reference/tevm/vm/type-aliases/vmprofileropts/)
-- [Vm](/reference/tevm/vm/type-aliases/vm/)
 
 ## Variables
 
@@ -67,8 +67,8 @@ title: "@tevm/vm"
 - [createVm](/reference/tevm/vm/functions/createvm/)
 - [deepCopy](/reference/tevm/vm/functions/deepcopy/)
 - [execHardfork](/reference/tevm/vm/functions/exechardfork/)
-- [genTxTrie](/reference/tevm/vm/functions/gentxtrie/)
 - [generateTxReceipt](/reference/tevm/vm/functions/generatetxreceipt/)
+- [genTxTrie](/reference/tevm/vm/functions/gentxtrie/)
 - [rewardAccount](/reference/tevm/vm/functions/rewardaccount/)
 - [txLogsBloom](/reference/tevm/vm/functions/txlogsbloom/)
 - [validateRunTx](/reference/tevm/vm/functions/validateruntx/)

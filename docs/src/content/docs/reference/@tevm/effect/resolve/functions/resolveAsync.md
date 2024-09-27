@@ -5,19 +5,29 @@ prev: false
 title: "resolveAsync"
 ---
 
-> **resolveAsync**(`importPath`, `options`): `Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
+> **resolveAsync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `never`\>
 
 Effect wrpper around import('node:resolve')
 
 ## Parameters
 
-• **importPath**: `string`
+• **arg0**: `string`
 
-• **options**: `SyncOpts` & `AsyncOpts`
+• **arg1**: `SyncOpts` & `AsyncOpts`
 
 ## Returns
 
-`Effect`\<`never`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `string`\>
+`Effect`\<`string`, [`CouldNotResolveImportError`](/reference/tevm/effect/resolve/classes/couldnotresolveimporterror/), `never`\>
+
+## Example
+
+```ts
+import {tap} from 'effect/Effect'
+import {resolveAsync} from '@tevm/effect'
+resolveAsync('react').pipe(
+   tap(console.log)
+)
+````
 
 ## Defined in
 

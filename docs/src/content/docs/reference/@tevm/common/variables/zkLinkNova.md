@@ -9,28 +9,6 @@ title: "zkLinkNova"
 
 Creates a common configuration for the zkLinkNova chain.
 
-## Description
-
-Chain ID: 810180
-Chain Name: zkLink Nova
-Default Block Explorer: https://explorer.zklink.io
-Default RPC URL: https://rpc.zklink.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zkLinkNova } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zkLinkNova,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 810180
+Chain Name: zkLink Nova
+Default Block Explorer: https://explorer.zklink.io
+Default RPC URL: https://rpc.zklink.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zkLinkNova } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zkLinkNova,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

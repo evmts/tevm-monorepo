@@ -9,28 +9,6 @@ title: "filecoinCalibration"
 
 Creates a common configuration for the filecoinCalibration chain.
 
-## Description
-
-Chain ID: 314159
-Chain Name: Filecoin Calibration
-Default Block Explorer: https://calibration.filscan.io
-Default RPC URL: https://api.calibration.node.glif.io/rpc/v1
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { filecoinCalibration } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: filecoinCalibration,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 314159
+Chain Name: Filecoin Calibration
+Default Block Explorer: https://calibration.filscan.io
+Default RPC URL: https://api.calibration.node.glif.io/rpc/v1
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { filecoinCalibration } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: filecoinCalibration,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

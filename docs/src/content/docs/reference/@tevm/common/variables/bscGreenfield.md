@@ -9,28 +9,6 @@ title: "bscGreenfield"
 
 Creates a common configuration for the bscGreenfield chain.
 
-## Description
-
-Chain ID: 1017
-Chain Name: BNB Greenfield Chain
-Default Block Explorer: https://greenfieldscan.com
-Default RPC URL: https://greenfield-chain.bnbchain.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bscGreenfield } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bscGreenfield,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1017
+Chain Name: BNB Greenfield Chain
+Default Block Explorer: https://greenfieldscan.com
+Default RPC URL: https://greenfield-chain.bnbchain.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bscGreenfield } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bscGreenfield,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

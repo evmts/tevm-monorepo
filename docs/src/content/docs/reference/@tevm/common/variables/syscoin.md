@@ -9,28 +9,6 @@ title: "syscoin"
 
 Creates a common configuration for the syscoin chain.
 
-## Description
-
-Chain ID: 57
-Chain Name: Syscoin Mainnet
-Default Block Explorer: https://explorer.syscoin.org
-Default RPC URL: https://rpc.syscoin.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { syscoin } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: syscoin,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 57
+Chain Name: Syscoin Mainnet
+Default Block Explorer: https://explorer.syscoin.org
+Default RPC URL: https://rpc.syscoin.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { syscoin } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: syscoin,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

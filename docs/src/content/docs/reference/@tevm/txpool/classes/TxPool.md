@@ -77,22 +77,6 @@ This API should not be used in production and may be trimmed from a public relea
 
 ***
 
-### POOLED\_STORAGE\_TIME\_LIMIT
-
-> **POOLED\_STORAGE\_TIME\_LIMIT**: `number` = `20`
-
-Number of minutes to keep txs in the pool
-
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
-#### Defined in
-
-[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
-
-***
-
 ### pool
 
 > **pool**: `Map`\<`string`, `TxPoolObject`[]\>
@@ -108,6 +92,22 @@ This API should not be used in production and may be trimmed from a public relea
 #### Defined in
 
 [TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
+
+***
+
+### POOLED\_STORAGE\_TIME\_LIMIT
+
+> **POOLED\_STORAGE\_TIME\_LIMIT**: `number` = `20`
+
+Number of minutes to keep txs in the pool
+
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
+#### Defined in
+
+[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
 
 ***
 

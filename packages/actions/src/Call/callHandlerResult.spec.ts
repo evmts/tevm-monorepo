@@ -1,11 +1,11 @@
+import { createAddress } from '@tevm/address'
 import type { EvmResult } from '@tevm/evm'
 import type { Address, EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
+import { stringToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { callHandlerResult } from './callHandlerResult.js'
-import { stringToBytes } from 'viem'
-import { createAddress } from '@tevm/address'
 
 describe('callHandlerResult', async () => {
 	const dummyAddress = `0x${'1'.repeat(40)}` as const

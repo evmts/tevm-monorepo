@@ -5,7 +5,7 @@ prev: false
 title: "generateRuntime"
 ---
 
-> **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`, `tevmPackage`): `Effect`\<`never`, `never`, `string`\>
+> **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`, `tevmPackage`): `Effect`\<`string`, `never`, `never`\>
 
 ## Parameters
 
@@ -21,7 +21,7 @@ Package to import contracts from
 
 ## Returns
 
-`Effect`\<`never`, `never`, `string`\>
+`Effect`\<`string`, `never`, `never`\>
 
 ## Defined in
 

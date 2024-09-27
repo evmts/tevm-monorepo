@@ -9,28 +9,6 @@ title: "zkLinkNovaSepoliaTestnet"
 
 Creates a common configuration for the zkLinkNovaSepoliaTestnet chain.
 
-## Description
-
-Chain ID: 810181
-Chain Name: zkLink Nova Sepolia Testnet
-Default Block Explorer: https://sepolia.explorer.zklink.io
-Default RPC URL: https://sepolia.rpc.zklink.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zkLinkNovaSepoliaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zkLinkNovaSepoliaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 810181
+Chain Name: zkLink Nova Sepolia Testnet
+Default Block Explorer: https://sepolia.explorer.zklink.io
+Default RPC URL: https://sepolia.rpc.zklink.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zkLinkNovaSepoliaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zkLinkNovaSepoliaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

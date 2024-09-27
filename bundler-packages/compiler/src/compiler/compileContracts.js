@@ -59,7 +59,7 @@ export const compileContract = async (filePath, basedir, config, includeAst, inc
 			continue
 		}
 		modules[m.id] = m
-		const resolutions = m.importedIds.map((id) => /** @type {import("../types.js").ModuleInfo}*/(moduleMap.get(id)))
+		const resolutions = m.importedIds.map((id) => /** @type {import("../types.js").ModuleInfo}*/ (moduleMap.get(id)))
 		for (const dep of resolutions) {
 			stack.push(dep)
 		}
@@ -109,11 +109,11 @@ export const compileContract = async (filePath, basedir, config, includeAst, inc
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */(output?.errors))
+		logger.error(/** @type {any} */ (output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */(warnings))
+		logger.warn(/** @type {any} */ (warnings))
 		logger.warn('Compilation warnings:')
 	}
 

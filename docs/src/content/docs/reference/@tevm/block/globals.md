@@ -34,8 +34,8 @@ title: "@tevm/block"
 - [RequestsBytes](/reference/tevm/block/type-aliases/requestsbytes/)
 - [TransactionsBytes](/reference/tevm/block/type-aliases/transactionsbytes/)
 - [UncleHeadersBytes](/reference/tevm/block/type-aliases/uncleheadersbytes/)
-- [WithdrawalV1](/reference/tevm/block/type-aliases/withdrawalv1/)
 - [WithdrawalsBytes](/reference/tevm/block/type-aliases/withdrawalsbytes/)
+- [WithdrawalV1](/reference/tevm/block/type-aliases/withdrawalv1/)
 
 ## Functions
 

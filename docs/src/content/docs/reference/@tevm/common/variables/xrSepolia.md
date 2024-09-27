@@ -9,28 +9,6 @@ title: "xrSepolia"
 
 Creates a common configuration for the xrSepolia chain.
 
-## Description
-
-Chain ID: 2730
-Chain Name: XR Sepolia
-Default Block Explorer: https://xr-sepolia-testnet.explorer.caldera.xyz
-Default RPC URL: https://xr-sepolia-testnet.rpc.caldera.xyz/http
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { xrSepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: xrSepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2730
+Chain Name: XR Sepolia
+Default Block Explorer: https://xr-sepolia-testnet.explorer.caldera.xyz
+Default RPC URL: https://xr-sepolia-testnet.rpc.caldera.xyz/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { xrSepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: xrSepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

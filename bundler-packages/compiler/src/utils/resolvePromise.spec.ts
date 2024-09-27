@@ -46,7 +46,7 @@ describe('resolvePromise', () => {
 		fao.readFile = () => Promise.reject('readFile error')
 		await expect(
 			Effect.runPromise(resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger)),
-		).rejects.toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: readFile error]`)
+		).rejects.toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: readFile error]')
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 			[
 			  [
@@ -90,7 +90,7 @@ describe('resolvePromise', () => {
 		}
 		expect(
 			Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger)),
-		).rejects.toThrowErrorMatchingInlineSnapshot(`[(FiberFailure) Error: exists error]`)
+		).rejects.toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: exists error]')
 		expect((logger.error as Mock)?.mock?.calls?.[0]?.slice(0, 2)).toMatchInlineSnapshot(`
       [
         [Error: exists error],

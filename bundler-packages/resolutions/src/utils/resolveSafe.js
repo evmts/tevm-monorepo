@@ -59,7 +59,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 					try {
 						cb(null, await runPromise(fao.exists(file)))
 					} catch (e) {
-						cb(/** @type {Error} */(e))
+						cb(/** @type {Error} */ (e))
 					}
 				},
 			},
@@ -76,7 +76,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 						resume(fail(new ResolveError(err)))
 					}
 				} else {
-					resume(succeed(/** @type string */(res))) // resume with a success effect when the operation succeeds
+					resume(succeed(/** @type string */ (res))) // resume with a success effect when the operation succeeds
 				}
 			},
 		)

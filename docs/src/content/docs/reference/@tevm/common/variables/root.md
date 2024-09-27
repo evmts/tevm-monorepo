@@ -9,28 +9,6 @@ title: "root"
 
 Creates a common configuration for the root chain.
 
-## Description
-
-Chain ID: 7668
-Chain Name: The Root Network
-Default Block Explorer: https://rootscan.io
-Default RPC URL: https://root.rootnet.live/archive
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { root } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: root,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 7668
+Chain Name: The Root Network
+Default Block Explorer: https://rootscan.io
+Default RPC URL: https://root.rootnet.live/archive
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { root } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: root,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

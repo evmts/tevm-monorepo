@@ -9,28 +9,6 @@ title: "nexilix"
 
 Creates a common configuration for the nexilix chain.
 
-## Description
-
-Chain ID: 240
-Chain Name: Nexilix Smart Chain
-Default Block Explorer: https://scan.nexilix.com
-Default RPC URL: https://rpcurl.pos.nexilix.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { nexilix } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: nexilix,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 240
+Chain Name: Nexilix Smart Chain
+Default Block Explorer: https://scan.nexilix.com
+Default RPC URL: https://rpcurl.pos.nexilix.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { nexilix } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: nexilix,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

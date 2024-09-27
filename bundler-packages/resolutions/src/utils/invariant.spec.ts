@@ -5,7 +5,7 @@ describe(invariant.name, () => {
 	it('should throw an error if condition is false', () => {
 		const condition = false
 		const message = 'message'
-		expect(() => invariant(condition, message)).toThrowErrorMatchingInlineSnapshot(`[InvariantError: message]`)
+		expect(() => invariant(condition, message)).toThrowErrorMatchingInlineSnapshot('[InvariantError: message]')
 	})
 	it('should not throw an error if condition is true and cast type to truthy value', () => {
 		const condition = {} as {} | undefined

@@ -9,28 +9,6 @@ title: "satoshiVMTestnet"
 
 Creates a common configuration for the satoshiVMTestnet chain.
 
-## Description
-
-Chain ID: 3110
-Chain Name: SatoshiVM Testnet
-Default Block Explorer: https://testnet.svmscan.io
-Default RPC URL: https://test-rpc-node-http.svmscan.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { satoshiVMTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: satoshiVMTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 3110
+Chain Name: SatoshiVM Testnet
+Default Block Explorer: https://testnet.svmscan.io
+Default RPC URL: https://test-rpc-node-http.svmscan.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { satoshiVMTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: satoshiVMTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

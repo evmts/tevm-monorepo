@@ -9,28 +9,6 @@ title: "metalL2"
 
 Creates a common configuration for the metalL2 chain.
 
-## Description
-
-Chain ID: 1750
-Chain Name: Metal L2
-Default Block Explorer: https://explorer.metall2.com
-Default RPC URL: https://rpc.metall2.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { metalL2 } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: metalL2,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1750
+Chain Name: Metal L2
+Default Block Explorer: https://explorer.metall2.com
+Default RPC URL: https://rpc.metall2.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { metalL2 } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: metalL2,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "apexTestnet"
 
 Creates a common configuration for the apexTestnet chain.
 
-## Description
-
-Chain ID: 3993
-Chain Name: APEX Testnet
-Default Block Explorer: https://exp-testnet.apexlayer.xyz
-Default RPC URL: https://rpc-testnet.apexlayer.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { apexTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: apexTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 3993
+Chain Name: APEX Testnet
+Default Block Explorer: https://exp-testnet.apexlayer.xyz
+Default RPC URL: https://rpc-testnet.apexlayer.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { apexTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: apexTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -417,6 +417,10 @@ title: "Releases"
 
 > **0.8.26**: `"v0.8.26+commit.8a97fa7a.js"`
 
+### 0.8.27
+
+> **0.8.27**: `"v0.8.27+commit.4a35a09.js"`
+
 ### 0.8.3
 
 > **0.8.3**: `"v0.8.3+commit.8d00100c"`
@@ -447,4 +451,4 @@ title: "Releases"
 
 ## Defined in
 
-[solcTypes.ts:636](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L636)
+[solcTypes.ts:637](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L637)

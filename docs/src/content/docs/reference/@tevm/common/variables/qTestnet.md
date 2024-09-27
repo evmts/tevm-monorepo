@@ -9,28 +9,6 @@ title: "qTestnet"
 
 Creates a common configuration for the qTestnet chain.
 
-## Description
-
-Chain ID: 35443
-Chain Name: Q Testnet
-Default Block Explorer: https://explorer.qtestnet.org
-Default RPC URL: https://rpc.qtestnet.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { qTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: qTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 35443
+Chain Name: Q Testnet
+Default Block Explorer: https://explorer.qtestnet.org
+Default RPC URL: https://rpc.qtestnet.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { qTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: qTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

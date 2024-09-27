@@ -7,6 +7,10 @@ title: "concatBytes"
 
 > **concatBytes**(...`arrays`): `Uint8Array`
 
+This mirrors the functionality of the `ethereum-cryptography` export except
+it skips the check to validate that every element of `arrays` is indead a `uint8Array`
+Can give small performance gains on large arrays
+
 ## Parameters
 
 • ...**arrays**: `Uint8Array`[]

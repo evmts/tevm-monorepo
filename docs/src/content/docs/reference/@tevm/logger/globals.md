@@ -7,8 +7,8 @@ title: "@tevm/logger"
 
 ## Type Aliases
 
-- [LogOptions](/reference/tevm/logger/type-aliases/logoptions/)
 - [Logger](/reference/tevm/logger/type-aliases/logger/)
+- [LogOptions](/reference/tevm/logger/type-aliases/logoptions/)
 
 ## Functions
 

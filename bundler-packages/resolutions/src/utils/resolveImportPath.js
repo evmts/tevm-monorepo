@@ -59,7 +59,7 @@ export const resolveImportPath = (absolutePath, importPath, remappings, libs, sy
 					basedir: dirname(absolutePath),
 					paths: libs,
 				}),
-			catch: (e) => new CouldNotResolveImportError(importPath, absolutePath, /** @type {Error}*/(e)),
+			catch: (e) => new CouldNotResolveImportError(importPath, absolutePath, /** @type {Error}*/ (e)),
 		})
 	}
 	return effectAsync((resume) => {
@@ -74,7 +74,7 @@ export const resolveImportPath = (absolutePath, importPath, remappings, libs, sy
 					console.error(err)
 					resume(fail(new CouldNotResolveImportError(importPath, absolutePath, err)))
 				} else {
-					resume(succeed(formatPath(/** @type {string} */(resolvedPath))))
+					resume(succeed(formatPath(/** @type {string} */ (resolvedPath))))
 				}
 			},
 		)

@@ -9,28 +9,6 @@ title: "dogechain"
 
 Creates a common configuration for the dogechain chain.
 
-## Description
-
-Chain ID: 2000
-Chain Name: Dogechain
-Default Block Explorer: https://explorer.dogechain.dog
-Default RPC URL: https://rpc.dogechain.dog
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { dogechain } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: dogechain,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2000
+Chain Name: Dogechain
+Default Block Explorer: https://explorer.dogechain.dog
+Default RPC URL: https://rpc.dogechain.dog
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { dogechain } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: dogechain,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -9,28 +9,6 @@ title: "iota"
 
 Creates a common configuration for the iota chain.
 
-## Description
-
-Chain ID: 8822
-Chain Name: IOTA EVM
-Default Block Explorer: https://explorer.evm.iota.org
-Default RPC URL: https://json-rpc.evm.iotaledger.net
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { iota } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: iota,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 8822
+Chain Name: IOTA EVM
+Default Block Explorer: https://explorer.evm.iota.org
+Default RPC URL: https://json-rpc.evm.iotaledger.net
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { iota } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: iota,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

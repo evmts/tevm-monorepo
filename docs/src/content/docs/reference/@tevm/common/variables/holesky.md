@@ -9,28 +9,6 @@ title: "holesky"
 
 Creates a common configuration for the holesky chain.
 
-## Description
-
-Chain ID: 17000
-Chain Name: Holesky
-Default Block Explorer: https://holesky.etherscan.io
-Default RPC URL: https://ethereum-holesky-rpc.publicnode.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { holesky } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: holesky,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -144,6 +122,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 17000
+Chain Name: Holesky
+Default Block Explorer: https://holesky.etherscan.io
+Default RPC URL: https://ethereum-holesky-rpc.publicnode.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { holesky } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: holesky,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

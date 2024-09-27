@@ -11,6 +11,32 @@ Parameters for creating a [Contract](../../../../../../../reference/tevm/contrac
 This type allows for two mutually exclusive ways of specifying the ABI:
 either as a human-readable ABI or as a JSON ABI.
 
+## Type Parameters
+
+• **TName** *extends* `string` \| `undefined` \| `never`
+
+The name of the contract (optional)
+
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](/reference/tevm/utils/type-aliases/abi/)
+
+The ABI type (either string[] for human readable or Abi for JSON)
+
+• **TAddress** *extends* `undefined` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `never`
+
+The contract address type (optional)
+
+• **TBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
+
+The contract creation bytecode type (optional)
+
+• **TDeployedBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
+
+The deployed bytecode type (optional)
+
+• **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
+
+The runtime bytecode type (optional)
+
 ## See
 
 CreateContract
@@ -45,32 +71,6 @@ const params: CreateContractParams = {
   address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
 }
 ```
-
-## Type Parameters
-
-• **TName** *extends* `string` \| `undefined` \| `never`
-
-The name of the contract (optional)
-
-• **TAbi** *extends* readonly `string`[] \| [`Abi`](/reference/tevm/utils/type-aliases/abi/)
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-• **TAddress** *extends* `undefined` \| [`Address`](/reference/tevm/utils/type-aliases/address/) \| `never`
-
-The contract address type (optional)
-
-• **TBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
-
-The contract creation bytecode type (optional)
-
-• **TDeployedBytecode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
-
-The deployed bytecode type (optional)
-
-• **TCode** *extends* `undefined` \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `never`
-
-The runtime bytecode type (optional)
 
 ## Defined in
 

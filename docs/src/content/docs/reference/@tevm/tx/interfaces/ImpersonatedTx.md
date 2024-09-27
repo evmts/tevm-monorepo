@@ -16,20 +16,6 @@ Typed transaction with a new gas fee market mechanism
 
 ## Properties
 
-### AccessListJSON
-
-> `readonly` **AccessListJSON**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/).[`AccessListJSON`](/reference/tevm/tx/classes/feemarketeip1559transaction/#accesslistjson)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
-
-***
-
 ### \_type
 
 > `protected` `readonly` **\_type**: [`TransactionType`](/reference/tevm/tx/enumerations/transactiontype/)
@@ -55,6 +41,20 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/b
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:15
+
+***
+
+### AccessListJSON
+
+> `readonly` **AccessListJSON**: [`AccessList`](/reference/tevm/tx/type-aliases/accesslist/)
+
+#### Inherited from
+
+[`FeeMarketEIP1559Transaction`](/reference/tevm/tx/classes/feemarketeip1559transaction/).[`AccessListJSON`](/reference/tevm/tx/classes/feemarketeip1559transaction/#accesslistjson)
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
 
 ***
 
