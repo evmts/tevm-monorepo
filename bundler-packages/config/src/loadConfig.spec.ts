@@ -2,7 +2,6 @@ import { join } from 'node:path'
 import { flip, runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 import { loadConfig } from './index.js'
-import { InvalidJsonConfigError } from './json/loadJsonConfig.js'
 import { LoadConfigError } from './loadConfig.js'
 
 describe(loadConfig.name, () => {
