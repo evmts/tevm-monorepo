@@ -75,7 +75,7 @@ export class InvalidRemappingsError extends Error {
  * Parses default options derived from foundry config if foundryProject is set
  * @param {string|boolean|undefined} foundryProject
  * @param {string} configFilePath
- * @returns {import('effect/Effect').Effect<never, LoadFoundryConfigError, import('../types.js').CompilerConfig>}
+ * @returns {import('effect/Effect').Effect<import('../types.js').CompilerConfig, LoadFoundryConfigError, never>}
  */
 export const loadFoundryConfig = (foundryProject, configFilePath) => {
 	if (!foundryProject) {

@@ -1,12 +1,14 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import * as path from 'node:path'
-import { array, optional, parseEither, record, string, struct } from '@effect/schema/Schema'
+import { Array, optional, Record, String, Struct } from '@effect/schema/Schema'
 import { parseJson } from '@tevm/effect'
 import { catchTag, fail, flatMap, logDebug, succeed, tap, tapBoth, try as tryEffect } from 'effect/Effect'
+import { decodeUnknownEither } from '@effect/schema/Schema' // Add this import
+import { match } from 'effect/Either'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
- * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string, paths?: Record<string, ReadonlyArray<string>> } }} TsConfig
+ * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
  * @internal
  */
 
@@ -47,32 +49,32 @@ export class InvalidTsConfigError extends TypeError {
  * schema for tsconfig shape with plugin
  * @internal
  */
-const STsConfigWithPlugin = struct({
-	compilerOptions: struct({
-		baseUrl: optional(string),
-		plugins: array(
-			struct({
-				name: string,
+const STsConfigWithPlugin = Struct({
+	compilerOptions: Struct({
+		baseUrl: optional(String),
+		plugins: Array(
+			Struct({
+				name: String,
 			}),
 		),
-		paths: optional(record(string, array(string))),
+		paths: optional(Record({ key: String, value: Array(String) })),
 	}),
 })
 /**
  * schema for tsconfig shape
  * @internal
  */
-const STsConfig = struct({
-	compilerOptions: struct({
-		baseUrl: optional(string),
+const STsConfig = Struct({
+	compilerOptions: Struct({
+		baseUrl: optional(String),
 		plugins: optional(
-			array(
-				struct({
-					name: string,
+			Array(
+				Struct({
+					name: String,
 				}),
 			),
 		),
-		paths: optional(record(string, array(string))),
+		paths: optional(Record({ key: String, value: Array(String) })),
 	}),
 })
 
@@ -84,7 +86,7 @@ const STsConfig = struct({
 /**
  * Syncronously loads an Tevm config from the given path
  * @param {string} configFilePath
- * @returns {import("effect/Effect").Effect<never, LoadTsConfigError, TsConfig>} the contents of the tsconfig.json file
+ * @returns {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} the contents of the tsconfig.json file
  * @internal
  */
 export const loadTsConfig = (configFilePath) => {
@@ -98,16 +100,20 @@ export const loadTsConfig = (configFilePath) => {
 		// parse the json
 		flatMap(parseJson),
 		// parse the tsconfig without plugins
-		flatMap((unvalidatedConfig) =>
-			parseEither(STsConfig)(unvalidatedConfig, {
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
 				errors: 'all',
 				onExcessProperty: 'ignore',
-			}),
-		),
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right)
+			})
+		}),
 		// add ts-plugin if it's missing
 		tap((unvalidatedConfig) =>
 			// if it doesn't have the plugin automatically install
-			parseEither(STsConfigWithPlugin)(unvalidatedConfig, {
+			decodeUnknownEither(STsConfigWithPlugin)(unvalidatedConfig, {
 				errors: 'all',
 				onExcessProperty: 'ignore',
 			}).pipe(
@@ -157,12 +163,16 @@ export const loadTsConfig = (configFilePath) => {
 				}),
 			),
 		),
-		flatMap((unvalidatedConfig) =>
-			parseEither(STsConfigWithPlugin)(unvalidatedConfig, {
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfigWithPlugin)(unvalidatedConfig, {
 				errors: 'all',
 				onExcessProperty: 'ignore',
-			}),
-		),
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right)
+			})
+		}),
 		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
 	)

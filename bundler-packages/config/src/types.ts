@@ -1,8 +1,8 @@
 import type { Effect } from 'effect/Effect'
-import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 import type { ValidateUserConfigError } from './config/index.js'
 import type { DefineConfigError } from './defineConfig.js'
 import type { LoadFoundryConfigError } from './foundry/index.js'
+import type { ReadonlyRecord } from 'effect/Record'
 
 /**
  * Configuration of the solidity compiler
@@ -22,7 +22,7 @@ export type CompilerConfig = {
 	/**
 	 * Remap the location of contracts
 	 */
-	remappings?: ReadonlyRecord<string> | undefined
+	remappings?: ReadonlyRecord<string, string> | undefined
 	/**
 	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
@@ -56,7 +56,7 @@ export type ResolvedCompilerConfig = {
 	/**
 	 * Remap the location of contracts
 	 */
-	remappings: ReadonlyRecord<string>
+	remappings: ReadonlyRecord<string, string>
 	/**
 	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
@@ -80,5 +80,5 @@ export type DefineConfigErrorType = ValidateUserConfigError | LoadFoundryConfigE
  *	})
  */
 export type DefineConfig = (configFactory: ConfigFactory) => {
-	configFn: (configFilePath: string) => Effect<never, DefineConfigError, ResolvedCompilerConfig>
+	configFn: (configFilePath: string) => Effect<ResolvedCompilerConfig, DefineConfigError, never>
 }

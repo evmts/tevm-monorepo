@@ -4,7 +4,7 @@ import { succeed } from 'effect/Effect'
  * Merges multiple configs into a single config
  * The last config in the list takes precedence on any given property
  * @param {Array<import("../types.js").CompilerConfig>} configs
- * @returns {import("effect/Effect").Effect<never, never, import("../types.js").CompilerConfig>}
+ * @returns {import("effect/Effect").Effect<import("../types.js").CompilerConfig, never, never>}
  * @example
  * ```ts
  * import {runSync} from 'effect/Effect'

@@ -14,7 +14,7 @@ export const defaultConfig = {
 /**
  * Merges the given config with the default config into a {@link import("../types.js").ResolvedCompilerConfig}
  * @param {import("../types.js").CompilerConfig} config
- * @returns {import("effect/Effect").Effect<never, never, import("../types.js").ResolvedCompilerConfig>}
+ * @returns {import("effect/Effect").Effect<import("../types.js").ResolvedCompilerConfig, never, never>}
  * @example
  * ```ts
  * const userConfig = { remappings: { key1: 'value1' }, libs: ['lib1'] };

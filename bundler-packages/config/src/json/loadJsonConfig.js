@@ -50,7 +50,7 @@ export class InvalidJsonConfigError extends TypeError {
 /**
  * Synchronously loads a Tevm config from the given path
  * @param {string} configFilePath
- * @returns {import("effect/Effect").Effect<never, LoadJsonConfigError, import('../types.js').CompilerConfig>} the contents of the tsconfig.json file
+ * @returns {import("effect/Effect").Effect<import('../types.js').CompilerConfig, LoadJsonConfigError, never>} the contents of the tsconfig.json file
  * @internal
  */
 export const loadJsonConfig = (configFilePath) => {
@@ -70,7 +70,7 @@ export const loadJsonConfig = (configFilePath) => {
 		}),
 		flatMap(parseJson),
 		catchTag('ParseJsonError', (cause) => fail(new InvalidJsonConfigError({ cause }))),
-		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/ (cfg))),
+		flatMap((cfg) => validateUserConfig(() => /** @type {import('../types.js').CompilerConfig}*/(cfg))),
 		// it can't throw. Could clean this up via making validateUserConfig take a config instead of a factory
 		catchTag('ConfigFnThrowError', (e) => die(e)),
 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
