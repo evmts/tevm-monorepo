@@ -10,6 +10,7 @@ export const fileLevelOption = ''
  * @type {import("./solcTypes.js").Releases}
  */
 export const releases = {
+	'0.8.27': 'v0.8.27+commit.4a35a09.js',
 	'0.8.26': 'v0.8.26+commit.8a97fa7a.js',
 	'0.8.25': 'v0.8.25+commit.b61c2a91.js',
 	'0.8.24': 'v0.8.24+commit.e11b9ed9.js',

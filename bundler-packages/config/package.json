@@ -68,7 +68,7 @@
 	"dependencies": {
 		"@effect/schema": "0.74.1",
 		"@tevm/effect": "workspace:^",
-		"@types/node": "^22.7.1",
+		"@types/node": "^22.7.3",
 		"effect": "3.8.4",
 		"zod": "^3.23.8"
 	},

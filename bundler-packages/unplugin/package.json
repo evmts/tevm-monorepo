@@ -74,7 +74,7 @@
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.7.1"
+		"@types/node": "^22.7.3"
 	},
 	"publishConfig": {
 		"access": "public"

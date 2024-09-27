@@ -52,7 +52,7 @@
     "dotenv": "^16.4.5",
     "gitmoji-cli": "^9.4.0",
     "jscodeshift": "^17.0.0",
-    "nx": "19.8.1",
+    "nx": "19.8.2",
     "publint": "^0.2.11",
     "sort-package-json": "^2.10.1",
     "starlight-typedoc": "^0.16.0",

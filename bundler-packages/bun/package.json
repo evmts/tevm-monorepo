@@ -65,7 +65,7 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.8.3",
+		"effect": "3.8.4",
 		"solc": "0.8.27"
 	},
 	"devDependencies": {
