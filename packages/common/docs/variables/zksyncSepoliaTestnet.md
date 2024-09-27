@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zksyncSepoliaTestnet chain.
 
-## Description
-
-Chain ID: 300
-Chain Name: ZKsync Sepolia Testnet
-Default Block Explorer: https://sepolia-era.zksync.network/
-Default RPC URL: https://sepolia.era.zksync.dev
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zksyncSepoliaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zksyncSepoliaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 300
+Chain Name: ZKsync Sepolia Testnet
+Default Block Explorer: https://sepolia-era.zksync.network/
+Default RPC URL: https://sepolia.era.zksync.dev
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zksyncSepoliaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zksyncSepoliaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

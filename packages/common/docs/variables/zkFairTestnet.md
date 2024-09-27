@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zkFairTestnet chain.
 
-## Description
-
-Chain ID: 43851
-Chain Name: ZKFair Testnet
-Default Block Explorer: https://testnet-scan.zkfair.io
-Default RPC URL: https://testnet-rpc.zkfair.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zkFairTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zkFairTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 43851
+Chain Name: ZKFair Testnet
+Default Block Explorer: https://testnet-scan.zkfair.io
+Default RPC URL: https://testnet-rpc.zkfair.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zkFairTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zkFairTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the storyTestnet chain.
 
-## Description
-
-Chain ID: 1513
-Chain Name: Story Testnet
-Default Block Explorer: https://testnet.storyscan.xyz
-Default RPC URL: https://testnet.storyrpc.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { storyTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: storyTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1513
+Chain Name: Story Testnet
+Default Block Explorer: https://testnet.storyscan.xyz
+Default RPC URL: https://testnet.storyrpc.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { storyTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: storyTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the thaiChain chain.
 
-## Description
-
-Chain ID: 7
-Chain Name: ThaiChain
-Default Block Explorer: https://exp.thaichain.org
-Default RPC URL: https://rpc.thaichain.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { thaiChain } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: thaiChain,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 7
+Chain Name: ThaiChain
+Default Block Explorer: https://exp.thaichain.org
+Default RPC URL: https://rpc.thaichain.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { thaiChain } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: thaiChain,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

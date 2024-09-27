@@ -10,20 +10,6 @@
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way.
 
-## Example
-
-```typescript
-// Creating an event filter for a Transfer event
-const filter = MyContract.events.Transfer({
-  fromBlock: 'latest',
-  toBlock: 'latest',
-  args: { from: '0x1234...', to: '0x5678...' }
-})
-
-// Using the filter with tevm
-const logs = await tevm.eth.getLogs(filter)
-```
-
 ## Type Parameters
 
 • **THumanReadableAbi** *extends* readonly `string`[]
@@ -45,6 +31,20 @@ The address of the contract.
 • **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
 
 Additional arguments for the address.
+
+## Example
+
+```typescript
+// Creating an event filter for a Transfer event
+const filter = MyContract.events.Transfer({
+  fromBlock: 'latest',
+  toBlock: 'latest',
+  args: { from: '0x1234...', to: '0x5678...' }
+})
+
+// Using the filter with tevm
+const logs = await tevm.eth.getLogs(filter)
+```
 
 ## Defined in
 

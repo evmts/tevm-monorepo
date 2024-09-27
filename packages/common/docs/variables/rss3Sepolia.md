@@ -10,28 +10,6 @@
 
 Creates a common configuration for the rss3Sepolia chain.
 
-## Description
-
-Chain ID: 2331
-Chain Name: RSS3 VSL Sepolia Testnet
-Default Block Explorer: https://scan.testnet.rss3.io
-Default RPC URL: https://rpc.testnet.rss3.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { rss3Sepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: rss3Sepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2331
+Chain Name: RSS3 VSL Sepolia Testnet
+Default Block Explorer: https://scan.testnet.rss3.io
+Default RPC URL: https://rpc.testnet.rss3.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { rss3Sepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: rss3Sepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the darwinia chain.
 
-## Description
-
-Chain ID: 46
-Chain Name: Darwinia Network
-Default Block Explorer: https://explorer.darwinia.network
-Default RPC URL: https://rpc.darwinia.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { darwinia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: darwinia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 46
+Chain Name: Darwinia Network
+Default Block Explorer: https://explorer.darwinia.network
+Default RPC URL: https://rpc.darwinia.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { darwinia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: darwinia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

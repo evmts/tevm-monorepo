@@ -10,28 +10,6 @@
 
 Creates a common configuration for the lyra chain.
 
-## Description
-
-Chain ID: 957
-Chain Name: Lyra Chain
-Default Block Explorer: https://explorer.lyra.finance
-Default RPC URL: https://rpc.lyra.finance
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { lyra } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: lyra,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 957
+Chain Name: Lyra Chain
+Default Block Explorer: https://explorer.lyra.finance
+Default RPC URL: https://rpc.lyra.finance
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { lyra } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: lyra,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

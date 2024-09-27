@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zksync chain.
 
-## Description
-
-Chain ID: 324
-Chain Name: ZKsync Era
-Default Block Explorer: https://era.zksync.network/
-Default RPC URL: https://mainnet.era.zksync.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zksync } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zksync,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 324
+Chain Name: ZKsync Era
+Default Block Explorer: https://era.zksync.network/
+Default RPC URL: https://mainnet.era.zksync.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zksync } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zksync,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

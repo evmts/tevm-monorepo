@@ -10,28 +10,6 @@
 
 Creates a common configuration for the aurora chain.
 
-## Description
-
-Chain ID: 1313161554
-Chain Name: Aurora
-Default Block Explorer: https://aurorascan.dev
-Default RPC URL: https://mainnet.aurora.dev
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { aurora } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: aurora,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1313161554
+Chain Name: Aurora
+Default Block Explorer: https://aurorascan.dev
+Default RPC URL: https://mainnet.aurora.dev
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { aurora } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: aurora,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

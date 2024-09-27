@@ -10,28 +10,6 @@
 
 Creates a common configuration for the ektaTestnet chain.
 
-## Description
-
-Chain ID: 1004
-Chain Name: Ekta Testnet
-Default Block Explorer: https://test.ektascan.io
-Default RPC URL: https://test.ekta.io:8545
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { ektaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: ektaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1004
+Chain Name: Ekta Testnet
+Default Block Explorer: https://test.ektascan.io
+Default RPC URL: https://test.ekta.io:8545
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { ektaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: ektaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

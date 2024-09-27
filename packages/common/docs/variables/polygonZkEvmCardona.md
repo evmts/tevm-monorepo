@@ -10,28 +10,6 @@
 
 Creates a common configuration for the polygonZkEvmCardona chain.
 
-## Description
-
-Chain ID: 2442
-Chain Name: Polygon zkEVM Cardona
-Default Block Explorer: https://cardona-zkevm.polygonscan.com
-Default RPC URL: https://rpc.cardona.zkevm-rpc.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { polygonZkEvmCardona } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: polygonZkEvmCardona,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2442
+Chain Name: Polygon zkEVM Cardona
+Default Block Explorer: https://cardona-zkevm.polygonscan.com
+Default RPC URL: https://rpc.cardona.zkevm-rpc.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { polygonZkEvmCardona } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: polygonZkEvmCardona,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

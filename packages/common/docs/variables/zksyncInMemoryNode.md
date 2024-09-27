@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zksyncInMemoryNode chain.
 
-## Description
-
-Chain ID: 260
-Chain Name: ZKsync InMemory Node
-Default Block Explorer: Not specified
-Default RPC URL: http://localhost:8011
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zksyncInMemoryNode } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zksyncInMemoryNode,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 260
+Chain Name: ZKsync InMemory Node
+Default Block Explorer: Not specified
+Default RPC URL: http://localhost:8011
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zksyncInMemoryNode } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zksyncInMemoryNode,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

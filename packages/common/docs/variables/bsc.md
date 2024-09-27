@@ -10,28 +10,6 @@
 
 Creates a common configuration for the bsc chain.
 
-## Description
-
-Chain ID: 56
-Chain Name: BNB Smart Chain
-Default Block Explorer: https://bscscan.com
-Default RPC URL: https://rpc.ankr.com/bsc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bsc } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bsc,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 56
+Chain Name: BNB Smart Chain
+Default Block Explorer: https://bscscan.com
+Default RPC URL: https://rpc.ankr.com/bsc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bsc } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bsc,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

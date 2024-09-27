@@ -10,28 +10,6 @@
 
 Creates a common configuration for the kavaTestnet chain.
 
-## Description
-
-Chain ID: 2221
-Chain Name: Kava EVM Testnet
-Default Block Explorer: https://testnet.kavascan.com/
-Default RPC URL: https://evm.testnet.kava.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { kavaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: kavaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2221
+Chain Name: Kava EVM Testnet
+Default Block Explorer: https://testnet.kavascan.com/
+Default RPC URL: https://evm.testnet.kava.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { kavaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: kavaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

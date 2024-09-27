@@ -10,28 +10,6 @@
 
 Creates a common configuration for the dchain chain.
 
-## Description
-
-Chain ID: 2716446429837000
-Chain Name: Dchain
-Default Block Explorer: https://dchain-2716446429837000-1.sagaexplorer.io
-Default RPC URL: https://dchain-2716446429837000-1.jsonrpc.sagarpc.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { dchain } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: dchain,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 2716446429837000
+Chain Name: Dchain
+Default Block Explorer: https://dchain-2716446429837000-1.sagaexplorer.io
+Default RPC URL: https://dchain-2716446429837000-1.jsonrpc.sagarpc.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { dchain } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: dchain,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

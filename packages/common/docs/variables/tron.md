@@ -10,28 +10,6 @@
 
 Creates a common configuration for the tron chain.
 
-## Description
-
-Chain ID: 728126428
-Chain Name: Tron
-Default Block Explorer: https://tronscan.org
-Default RPC URL: https://api.trongrid.io/jsonrpc
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { tron } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: tron,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 728126428
+Chain Name: Tron
+Default Block Explorer: https://tronscan.org
+Default RPC URL: https://api.trongrid.io/jsonrpc
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tron } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: tron,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

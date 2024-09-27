@@ -10,28 +10,6 @@
 
 Creates a common configuration for the taikoTestnetSepolia chain.
 
-## Description
-
-Chain ID: 167005
-Chain Name: Taiko (Alpha-3 Testnet)
-Default Block Explorer: https://explorer.test.taiko.xyz
-Default RPC URL: https://rpc.test.taiko.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { taikoTestnetSepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: taikoTestnetSepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 167005
+Chain Name: Taiko (Alpha-3 Testnet)
+Default Block Explorer: https://explorer.test.taiko.xyz
+Default RPC URL: https://rpc.test.taiko.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { taikoTestnetSepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: taikoTestnetSepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the okc chain.
 
-## Description
-
-Chain ID: 66
-Chain Name: OKC
-Default Block Explorer: https://www.oklink.com/okc
-Default RPC URL: https://exchainrpc.okex.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { okc } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: okc,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 66
+Chain Name: OKC
+Default Block Explorer: https://www.oklink.com/okc
+Default RPC URL: https://exchainrpc.okex.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { okc } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: okc,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

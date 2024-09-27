@@ -10,28 +10,6 @@
 
 Creates a common configuration for the xdc chain.
 
-## Description
-
-Chain ID: 50
-Chain Name: XinFin Network
-Default Block Explorer: https://xdc.blocksscan.io
-Default RPC URL: https://rpc.xinfin.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { xdc } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: xdc,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 50
+Chain Name: XinFin Network
+Default Block Explorer: https://xdc.blocksscan.io
+Default RPC URL: https://rpc.xinfin.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { xdc } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: xdc,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

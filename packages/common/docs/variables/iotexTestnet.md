@@ -10,28 +10,6 @@
 
 Creates a common configuration for the iotexTestnet chain.
 
-## Description
-
-Chain ID: 4690
-Chain Name: IoTeX Testnet
-Default Block Explorer: https://testnet.iotexscan.io
-Default RPC URL: https://babel-api.testnet.iotex.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { iotexTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: iotexTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 4690
+Chain Name: IoTeX Testnet
+Default Block Explorer: https://testnet.iotexscan.io
+Default RPC URL: https://babel-api.testnet.iotex.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { iotexTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: iotexTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

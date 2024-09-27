@@ -10,28 +10,6 @@
 
 Creates a common configuration for the ekta chain.
 
-## Description
-
-Chain ID: 1994
-Chain Name: Ekta
-Default Block Explorer: https://ektascan.io
-Default RPC URL: https://main.ekta.io
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { ekta } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: ekta,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1994
+Chain Name: Ekta
+Default Block Explorer: https://ektascan.io
+Default RPC URL: https://main.ekta.io
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { ekta } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: ekta,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

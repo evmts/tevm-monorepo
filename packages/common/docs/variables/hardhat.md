@@ -10,28 +10,6 @@
 
 Creates a common configuration for the hardhat chain.
 
-## Description
-
-Chain ID: 31337
-Chain Name: Hardhat
-Default Block Explorer: Not specified
-Default RPC URL: http://127.0.0.1:8545
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { hardhat } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: hardhat,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 31337
+Chain Name: Hardhat
+Default Block Explorer: Not specified
+Default RPC URL: http://127.0.0.1:8545
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { hardhat } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: hardhat,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

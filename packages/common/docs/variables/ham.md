@@ -10,28 +10,6 @@
 
 Creates a common configuration for the ham chain.
 
-## Description
-
-Chain ID: 5112
-Chain Name: Ham
-Default Block Explorer: https://explorer.ham.fun
-Default RPC URL: https://rpc.ham.fun
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { ham } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: ham,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 5112
+Chain Name: Ham
+Default Block Explorer: https://explorer.ham.fun
+Default RPC URL: https://rpc.ham.fun
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { ham } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: ham,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

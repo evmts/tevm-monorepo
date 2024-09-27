@@ -10,28 +10,6 @@
 
 Creates a common configuration for the polygonMumbai chain.
 
-## Description
-
-Chain ID: 80001
-Chain Name: Polygon Mumbai
-Default Block Explorer: https://mumbai.polygonscan.com
-Default RPC URL: https://rpc.ankr.com/polygon_mumbai
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { polygonMumbai } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: polygonMumbai,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 80001
+Chain Name: Polygon Mumbai
+Default Block Explorer: https://mumbai.polygonscan.com
+Default RPC URL: https://rpc.ankr.com/polygon_mumbai
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { polygonMumbai } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: polygonMumbai,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

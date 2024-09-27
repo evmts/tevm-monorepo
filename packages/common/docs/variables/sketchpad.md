@@ -10,28 +10,6 @@
 
 Creates a common configuration for the sketchpad chain.
 
-## Description
-
-Chain ID: 984123
-Chain Name: Forma Sketchpad
-Default Block Explorer: https://explorer.sketchpad-1.forma.art
-Default RPC URL: https://rpc.sketchpad-1.forma.art
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { sketchpad } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: sketchpad,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 984123
+Chain Name: Forma Sketchpad
+Default Block Explorer: https://explorer.sketchpad-1.forma.art
+Default RPC URL: https://rpc.sketchpad-1.forma.art
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { sketchpad } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: sketchpad,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

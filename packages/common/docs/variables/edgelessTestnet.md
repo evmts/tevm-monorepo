@@ -10,28 +10,6 @@
 
 Creates a common configuration for the edgelessTestnet chain.
 
-## Description
-
-Chain ID: 202
-Chain Name: Edgeless Testnet
-Default Block Explorer: https://testnet.explorer.edgeless.network
-Default RPC URL: https://edgeless-testnet.rpc.caldera.xyz/http
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { edgelessTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: edgelessTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 202
+Chain Name: Edgeless Testnet
+Default Block Explorer: https://testnet.explorer.edgeless.network
+Default RPC URL: https://edgeless-testnet.rpc.caldera.xyz/http
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { edgelessTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: edgelessTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

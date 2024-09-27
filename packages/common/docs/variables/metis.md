@@ -10,28 +10,6 @@
 
 Creates a common configuration for the metis chain.
 
-## Description
-
-Chain ID: 1088
-Chain Name: Metis
-Default Block Explorer: https://explorer.metis.io
-Default RPC URL: https://andromeda.metis.io/?owner=1088
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { metis } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: metis,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 1088
+Chain Name: Metis
+Default Block Explorer: https://explorer.metis.io
+Default RPC URL: https://andromeda.metis.io/?owner=1088
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { metis } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: metis,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the celoAlfajores chain.
 
-## Description
-
-Chain ID: 44787
-Chain Name: Alfajores
-Default Block Explorer: https://explorer.celo.org/alfajores
-Default RPC URL: https://alfajores-forno.celo-testnet.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { celoAlfajores } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: celoAlfajores,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 44787
+Chain Name: Alfajores
+Default Block Explorer: https://explorer.celo.org/alfajores
+Default RPC URL: https://alfajores-forno.celo-testnet.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { celoAlfajores } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: celoAlfajores,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

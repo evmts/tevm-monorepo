@@ -10,28 +10,6 @@
 
 Creates a common configuration for the bob chain.
 
-## Description
-
-Chain ID: 60808
-Chain Name: BOB
-Default Block Explorer: https://explorer.gobob.xyz
-Default RPC URL: https://rpc.gobob.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { bob } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: bob,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 60808
+Chain Name: BOB
+Default Block Explorer: https://explorer.gobob.xyz
+Default RPC URL: https://rpc.gobob.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { bob } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: bob,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

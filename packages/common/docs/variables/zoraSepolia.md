@@ -10,28 +10,6 @@
 
 Creates a common configuration for the zoraSepolia chain.
 
-## Description
-
-Chain ID: 999999999
-Chain Name: Zora Sepolia
-Default Block Explorer: https://sepolia.explorer.zora.energy/
-Default RPC URL: https://sepolia.rpc.zora.energy
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { zoraSepolia } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: zoraSepolia,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 999999999
+Chain Name: Zora Sepolia
+Default Block Explorer: https://sepolia.explorer.zora.energy/
+Default RPC URL: https://sepolia.rpc.zora.energy
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { zoraSepolia } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: zoraSepolia,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

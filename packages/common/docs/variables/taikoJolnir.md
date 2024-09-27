@@ -10,28 +10,6 @@
 
 Creates a common configuration for the taikoJolnir chain.
 
-## Description
-
-Chain ID: 167007
-Chain Name: Taiko Jolnir (Alpha-5 Testnet)
-Default Block Explorer: https://explorer.jolnir.taiko.xyz
-Default RPC URL: https://rpc.jolnir.taiko.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { taikoJolnir } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: taikoJolnir,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 167007
+Chain Name: Taiko Jolnir (Alpha-5 Testnet)
+Default Block Explorer: https://explorer.jolnir.taiko.xyz
+Default RPC URL: https://rpc.jolnir.taiko.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { taikoJolnir } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: taikoJolnir,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

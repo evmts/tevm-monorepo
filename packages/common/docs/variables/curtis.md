@@ -10,28 +10,6 @@
 
 Creates a common configuration for the curtis chain.
 
-## Description
-
-Chain ID: 33111
-Chain Name: Curtis
-Default Block Explorer: https://explorer.curtis.apechain.com
-Default RPC URL: https://rpc.curtis.apechain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { curtis } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: curtis,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 33111
+Chain Name: Curtis
+Default Block Explorer: https://explorer.curtis.apechain.com
+Default RPC URL: https://rpc.curtis.apechain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { curtis } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: curtis,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

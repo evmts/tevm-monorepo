@@ -4,21 +4,11 @@
 
 [@tevm/effect](../../modules.md) / [resolve](../README.md) / ResolveSafe
 
-# Type Alias: ResolveSafe()
+# Type Alias: ResolveSafe
 
-> **ResolveSafe**\<\>: (`importPath`, `options`) => `Effect`
+> **ResolveSafe**\<\>: function(string, import('resolve').SyncOpts & import('resolve').AsyncOpts): import('effect/Effect').Effect\<string, CouldNotResolveImportError, never\>
 
 ## Type Parameters
-
-## Parameters
-
-• **importPath**: `string`
-
-• **options**: `SyncOpts` & `AsyncOpts`
-
-## Returns
-
-`Effect`
 
 ## Defined in
 

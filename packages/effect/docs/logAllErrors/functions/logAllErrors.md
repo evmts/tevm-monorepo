@@ -6,7 +6,9 @@
 
 # Function: logAllErrors()
 
-> **logAllErrors**(`e`): `Effect`\<`never`, `never`, `void`\>
+> **logAllErrors**(`e`): `Effect`\<`void`, `never`, `never`\>
+
+Logs all errors and causes from effect
 
 ## Parameters
 
@@ -14,7 +16,16 @@
 
 ## Returns
 
-`Effect`\<`never`, `never`, `void`\>
+`Effect`\<`void`, `never`, `never`\>
+
+## Example
+
+```typescript
+import { logAllErrors } from '@eth-optimism/config'
+
+someEffect.pipe(
+  tapError(logAllErrors)
+)
 
 ## Defined in
 

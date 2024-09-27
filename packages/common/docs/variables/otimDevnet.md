@@ -10,28 +10,6 @@
 
 Creates a common configuration for the otimDevnet chain.
 
-## Description
-
-Chain ID: 41144114
-Chain Name: Otim Devnet
-Default Block Explorer: Not specified
-Default RPC URL: http://devnet.otim.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { otimDevnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: otimDevnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 41144114
+Chain Name: Otim Devnet
+Default Block Explorer: Not specified
+Default RPC URL: http://devnet.otim.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { otimDevnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: otimDevnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

@@ -10,28 +10,6 @@
 
 Creates a common configuration for the mantleSepoliaTestnet chain.
 
-## Description
-
-Chain ID: 5003
-Chain Name: Mantle Sepolia Testnet
-Default Block Explorer: https://explorer.sepolia.mantle.xyz/
-Default RPC URL: https://rpc.sepolia.mantle.xyz
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { mantleSepoliaTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: mantleSepoliaTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 5003
+Chain Name: Mantle Sepolia Testnet
+Default Block Explorer: https://explorer.sepolia.mantle.xyz/
+Default RPC URL: https://rpc.sepolia.mantle.xyz
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mantleSepoliaTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: mantleSepoliaTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

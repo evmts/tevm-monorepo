@@ -157,7 +157,7 @@ Human-readable error message.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -189,7 +189,7 @@ The name of the error, used to discriminate errors.
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -217,7 +217,7 @@ node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Defined in
 
-node\_modules/.pnpm/typescript@5.5.4/node\_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -253,10 +253,6 @@ Error code, analogous to the code in JSON RPC error.
 
 Optional override for formatting stack traces
 
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
 #### Parameters
 
 • **err**: `Error`
@@ -267,13 +263,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `any`
 
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
 
 ***
 
@@ -287,7 +287,7 @@ node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:2
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
@@ -343,7 +343,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@20.14.8/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -367,55 +367,7 @@ Create .stack property on a target object
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.5.1/node\_modules/@types/node/globals.d.ts:67
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.14.15/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-##### Defined in
-
-node\_modules/.pnpm/bun-types@1.1.22/node\_modules/bun-types/globals.d.ts:1629
+node\_modules/.pnpm/bun-types@1.1.29/node\_modules/bun-types/globals.d.ts:1630
 
 #### captureStackTrace(targetObject, constructorOpt)
 

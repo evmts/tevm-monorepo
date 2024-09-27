@@ -10,28 +10,6 @@
 
 Creates a common configuration for the berachainTestnet chain.
 
-## Description
-
-Chain ID: 80085
-Chain Name: Berachain Artio
-Default Block Explorer: https://artio.beratrail.io
-Default RPC URL: https://artio.rpc.berachain.com
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { berachainTestnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: berachainTestnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 80085
+Chain Name: Berachain Artio
+Default Block Explorer: https://artio.beratrail.io
+Default RPC URL: https://artio.rpc.berachain.com
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { berachainTestnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: berachainTestnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

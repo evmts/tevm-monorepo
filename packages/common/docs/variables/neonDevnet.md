@@ -10,28 +10,6 @@
 
 Creates a common configuration for the neonDevnet chain.
 
-## Description
-
-Chain ID: 245022926
-Chain Name: Neon EVM DevNet
-Default Block Explorer: https://devnet.neonscan.org
-Default RPC URL: https://devnet.neonevm.org
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { neonDevnet } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: neonDevnet,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 245022926
+Chain Name: Neon EVM DevNet
+Default Block Explorer: https://devnet.neonscan.org
+Default RPC URL: https://devnet.neonevm.org
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { neonDevnet } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: neonDevnet,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 

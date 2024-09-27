@@ -10,28 +10,6 @@
 
 Creates a common configuration for the karura chain.
 
-## Description
-
-Chain ID: 686
-Chain Name: Karura
-Default Block Explorer: https://blockscout.karura.network
-Default RPC URL: https://eth-rpc-karura.aca-api.network
-
-## Example
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { karura } from 'tevm/common'
-import { http } from 'tevm'
-
-const client = createMemoryClient({
-  common: karura,
-  fork: {
-    transport: http({ url: 'https://example.com' })({})
-  },
-})
-```
-
 ## Type declaration
 
 ### blockExplorers?
@@ -145,6 +123,28 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+## Description
+
+Chain ID: 686
+Chain Name: Karura
+Default Block Explorer: https://blockscout.karura.network
+Default RPC URL: https://eth-rpc-karura.aca-api.network
+
+## Example
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { karura } from 'tevm/common'
+import { http } from 'tevm'
+
+const client = createMemoryClient({
+  common: karura,
+  fork: {
+    transport: http({ url: 'https://example.com' })({})
+  },
+})
+```
 
 ## Defined in
 
