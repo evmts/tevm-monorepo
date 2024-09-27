@@ -1,5 +1,19 @@
 # @tevm/base
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- bfba3e7: Updated every dependency in entire tevm monorepo to latest
+- Updated dependencies [bfba3e7]
+- Updated dependencies [bfba3e7]
+  - @tevm/bundler-cache@1.0.0-next.118
+  - @tevm/compiler@1.0.0-next.118
+  - @tevm/runtime@1.0.0-next.118
+  - @tevm/config@1.0.0-next.118
+  - @tevm/solc@1.0.0-next.118
+  - @tevm/tsupconfig@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes

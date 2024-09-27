@@ -1,5 +1,14 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- bfba3e7: Updated every dependency in entire tevm monorepo to latest
+- Updated dependencies [bfba3e7]
+  - @tevm/bundler-cache@1.0.0-next.118
+  - @tevm/base-bundler@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes
