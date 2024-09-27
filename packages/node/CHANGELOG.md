@@ -1,5 +1,26 @@
 # @tevm/client
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- Updated dependencies [bfba3e7]
+  - @tevm/jsonrpc@1.0.0-next.118
+  - @tevm/logger@1.0.0-next.118
+  - @tevm/state@1.0.0-next.118
+  - @tevm/utils@1.0.0-next.118
+  - @tevm/evm@1.0.0-next.118
+  - @tevm/vm@1.0.0-next.118
+  - @tevm/address@1.0.0-next.118
+  - @tevm/block@1.0.0-next.118
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/common@1.0.0-next.118
+  - @tevm/predeploys@1.0.0-next.118
+  - @tevm/receipt-manager@1.0.0-next.118
+  - @tevm/sync-storage-persister@1.0.0-next.118
+  - @tevm/tx@1.0.0-next.118
+  - @tevm/txpool@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes

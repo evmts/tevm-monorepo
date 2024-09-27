@@ -1,5 +1,51 @@
 # @tevm/contract
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- bfba3e7: Updated every dependency in entire tevm monorepo to latest
+- Updated dependencies [bfba3e7]
+- Updated dependencies [bfba3e7]
+- Updated dependencies [1727e82]
+  - @tevm/bundler-cache@1.0.0-next.118
+  - @tevm/base-bundler@1.0.0-next.118
+  - @tevm/compiler@1.0.0-next.118
+  - @tevm/config@1.0.0-next.118
+  - @tevm/memory-client@1.0.0-next.118
+  - @tevm/solc@1.0.0-next.118
+  - @tevm/bun-plugin@1.0.0-next.118
+  - @tevm/precompiles@1.0.0-next.118
+  - @tevm/actions@1.0.0-next.118
+  - @tevm/jsonrpc@1.0.0-next.118
+  - @tevm/errors@1.0.0-next.118
+  - @tevm/server@1.0.0-next.118
+  - @tevm/state@1.0.0-next.118
+  - @tevm/utils@1.0.0-next.118
+  - @tevm/ts-plugin@1.0.0-next.118
+  - @tevm/evm@1.0.0-next.118
+  - @tevm/vm@1.0.0-next.118
+  - @tevm/esbuild-plugin@1.0.0-next.118
+  - @tevm/rollup-plugin@1.0.0-next.118
+  - @tevm/rspack-plugin@1.0.0-next.118
+  - @tevm/vite-plugin@1.0.0-next.118
+  - @tevm/webpack-plugin@1.0.0-next.118
+  - @tevm/viem@1.0.0-next.118
+  - @tevm/http-client@1.0.0-next.118
+  - @tevm/address@1.0.0-next.118
+  - @tevm/block@1.0.0-next.118
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/client-types@1.0.0-next.118
+  - @tevm/common@1.0.0-next.118
+  - @tevm/contract@1.0.0-next.118
+  - @tevm/decorators@1.0.0-next.118
+  - @tevm/node@1.0.0-next.118
+  - @tevm/predeploys@1.0.0-next.118
+  - @tevm/receipt-manager@1.0.0-next.118
+  - @tevm/sync-storage-persister@1.0.0-next.118
+  - @tevm/tx@1.0.0-next.118
+  - @tevm/txpool@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes

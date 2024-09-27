@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- Updated dependencies [bfba3e7]
+  - @tevm/errors@1.0.0-next.118
+  - @tevm/logger@1.0.0-next.118
+  - @tevm/utils@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Minor Changes

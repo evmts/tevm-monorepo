@@ -1,5 +1,18 @@
 # @tevm/state
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- bfba3e7: Updated every dependency in entire tevm monorepo to latest
+- Updated dependencies [bfba3e7]
+  - @tevm/errors@1.0.0-next.118
+  - @tevm/logger@1.0.0-next.118
+  - @tevm/test-utils@1.0.0-next.118
+  - @tevm/utils@1.0.0-next.118
+  - @tevm/address@1.0.0-next.118
+  - @tevm/common@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @tevm/cli
 
+## 1.0.0-next.118
+
+### Patch Changes
+
+- bfba3e7: Updated every dependency in entire tevm monorepo to latest
+- Updated dependencies [bfba3e7]
+- Updated dependencies [1727e82]
+  - @tevm/memory-client@1.0.0-next.118
+  - @tevm/actions@1.0.0-next.118
+  - @tevm/jsonrpc@1.0.0-next.118
+  - @tevm/server@1.0.0-next.118
+  - @tevm/utils@1.0.0-next.118
+  - @tevm/common@1.0.0-next.118
+
 ## 1.0.0-next.117
 
 ### Patch Changes
