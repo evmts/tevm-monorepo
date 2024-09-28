@@ -3,6 +3,7 @@ import { prefundedAccounts } from '@tevm/node'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
+import { InvalidTransactionError } from '@tevm/errors'
 
 const txType = {
 	LEGACY: 0x00,
@@ -87,7 +88,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		tx = /** @type {any} */ (getTx(vm, txBuf))
 	} catch (e) {
 		// TODO type this error
-		throw new Error('Invalid transaction. Unable to parse data')
+		throw new InvalidTransactionError('Invalid transaction. Unable to parse data', { cause: /** @type {Error}*/(e) })
 	}
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
@@ -121,14 +122,16 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			...tx,
 			from: /** @type {import('@tevm/utils').Address}*/ (tx.getSenderAddress().toString()),
 			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
-			blobVersionedHashes: /** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (tx).blobVersionedHashes.map((bytes) =>
+			blobVersionedHashes: /** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (tx).blobVersionedHashes?.map((bytes) =>
 				bytesToHex(bytes),
 			),
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {
 		// TODO type this error
-		throw new Error('Invalid transaction. Unable to add transaction to pool')
+		throw new InvalidTransactionError('Invalid transaction. Unable to add transaction to pool', {
+			cause: /** @type {Error}*/ (error),
+		})
 	}
 
 	if (res.errors?.length === 1) {
