@@ -1,9 +1,9 @@
 import { createAddress } from '@tevm/address'
+import { InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
 import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
-import { InvalidTransactionError } from '@tevm/errors'
 
 const txType = {
 	LEGACY: 0x00,
@@ -88,7 +88,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		tx = /** @type {any} */ (getTx(vm, txBuf))
 	} catch (e) {
 		// TODO type this error
-		throw new InvalidTransactionError('Invalid transaction. Unable to parse data', { cause: /** @type {Error}*/(e) })
+		throw new InvalidTransactionError('Invalid transaction. Unable to parse data', { cause: /** @type {Error}*/ (e) })
 	}
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
