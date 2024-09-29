@@ -1,7 +1,16 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Rlp } from '@tevm/rlp'
-import { Bloom, bytesToBigInt, bytesToHex, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
+import {
+	Bloom,
+	bytesToBigInt,
+	bytesToHex,
+	bytesToNumber,
+	equalsBytes,
+	hexToBytes,
+	numberToHex,
+	stringToHex,
+} from '@tevm/utils'
 
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'

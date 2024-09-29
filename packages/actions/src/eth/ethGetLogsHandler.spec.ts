@@ -63,7 +63,7 @@ describe(ethGetLogsHandler.name, () => {
 			})
 			expect(res.logs).toHaveLength(1)
 			await mineHandler(client)()
-			const {rawData: newValue} = await callHandler(client)({
+			const { rawData: newValue } = await callHandler(client)({
 				to: contractAddress,
 				data: encodeFunctionData(SimpleContract.read.get()),
 			})

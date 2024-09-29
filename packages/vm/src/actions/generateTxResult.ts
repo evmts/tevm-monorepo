@@ -1,5 +1,6 @@
 import { Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import type { TypedTransaction } from '@tevm/tx'
+import { bytesToHex } from 'viem'
 import type { BaseVm } from '../BaseVm.js'
 import type {
 	BaseTxReceipt,
@@ -9,7 +10,6 @@ import type {
 	RunTxResult,
 	TxReceipt,
 } from '../utils/index.js'
-import { bytesToHex } from 'viem'
 
 /**
  * Returns the tx receipt.
@@ -33,7 +33,7 @@ export const generateTxReceipt =
 			cumulativeBlockGasUsed: cumulativeGasUsed,
 			bitvector: txResult.bloom.bitvector,
 			logs: txResult.execResult.logs ?? [],
-		};
+		}
 
 		let receipt: PostByzantiumTxReceipt | PreByzantiumTxReceipt | EIP4844BlobTxReceipt
 

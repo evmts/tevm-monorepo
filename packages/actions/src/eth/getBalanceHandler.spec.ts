@@ -1,12 +1,12 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { type Address, parseEther} from '@tevm/utils'
-import { describe, expect, it, beforeEach } from 'vitest'
+import { transports } from '@tevm/test-utils'
+import { type Address, parseEther } from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getBalanceHandler } from './getBalanceHandler.js'
-import { mineHandler } from '../Mine/mineHandler.js'
 import { NoForkUrlSetError } from './getBalanceHandler.js'
-import { createAddress } from '@tevm/address'
-import { transports } from '@tevm/test-utils'
 
 describe(getBalanceHandler.name, () => {
 	let baseClient: ReturnType<typeof createTevmNode>

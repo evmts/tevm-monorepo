@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { describe, expect, it} from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
 
