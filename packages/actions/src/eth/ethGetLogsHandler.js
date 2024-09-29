@@ -70,12 +70,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			],
 		})
 		if (error) {
-			throw new ForkError('Error fetching logs from forked chain', { cause: error })
-		}
-		if (!jsonRpcLogs) {
-			throw new ForkError('Error fetching logs from forked chain no logs returned', {
-				cause: new Error('Unexpected no logs'),
-			})
+			throw error
 		}
 		/**
 		 * @typedef {Object} Log
@@ -94,7 +89,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			/**
 			 * @type {Array<Log> | undefined}
 			 */
-			(jsonRpcLogs)
+			(jsonRpcLogs ?? undefined)
 
 		if (typedLogs !== undefined) {
 			logs.push(
