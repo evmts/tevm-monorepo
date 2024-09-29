@@ -1,16 +1,7 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Rlp } from '@tevm/rlp'
-import {
-	Bloom,
-	bytesToBigInt,
-	bytesToHex,
-	bytesToNumber,
-	equalsBytes,
-	hexToBytes,
-	numberToHex,
-	stringToHex,
-} from '@tevm/utils'
+import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'
@@ -162,9 +153,7 @@ export class ReceiptsManager {
 	 */
 	async saveReceipts(block: Block, receipts: TxReceipt[]) {
 		const encoded = this.rlp(RlpConvert.Encode, RlpType.Receipts, receipts)
-
 		await this.mapDb.put('Receipts', block.hash(), encoded)
-
 		void this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
 	}
 
@@ -179,17 +168,16 @@ export class ReceiptsManager {
 	 * @param calcBloom whether to calculate and return the logs bloom for each receipt (default: false)
 	 * @param includeTxType whether to include the tx type for each receipt (default: false)
 	 */
+	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: true): Promise<TxReceiptWithType[]>
+	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: false): Promise<TxReceipt[]>
 	async getReceipts(
 		blockHash: Uint8Array,
 		calcBloom = false,
 		includeTxType = false,
 	): Promise<TxReceipt[] | TxReceiptWithType[]> {
 		const encoded = await this.mapDb.get('Receipts', blockHash)
-
 		if (!encoded) return []
-
 		let receipts = this.rlp(RlpConvert.Decode, RlpType.Receipts, encoded)
-
 		if (calcBloom) {
 			receipts = receipts.map((r) => {
 				r.bitvector = this.logsBloom(r.logs).bitvector
@@ -260,25 +248,35 @@ export class ReceiptsManager {
 				)
 			}
 			if (addresses && addresses.length > 0) {
-				const filteredLogs = logs.filter((l) => addresses.some((a) => equalsBytes(a, l.log[0])))
-				logs = filteredLogs
+				logs = logs.filter((l) => addresses.some((a) => equalsBytes(a, l.log[0])))
 			}
 			if (topics.length > 0) {
-				const filteredLogs = logs.filter((l) => {
+				// From https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter/:
+				// Topics are order-dependent. A transaction with a log with topics
+				// [A, B] will be matched by the following topic filters:
+				//  * [] - anything
+				//  * [A] - A in first position (and anything after)
+				//  * [null, B] - anything in first position AND B in second position (and anything after)
+				//  * [A, B] - A in first position AND B in second position (and anything after)
+				//  * [[A, B], [A, B]] - (A OR B) in first position AND (A OR B) in second position (and anything after)
+				logs = logs.filter((l) => {
 					for (const [i, topic] of topics.entries()) {
 						if (Array.isArray(topic)) {
+							// Can match any items in this array
 							if (!topic.find((t) => equalsBytes(t, l.log[1][i] as Uint8Array))) return false
 						} else if (!topic) {
 							// If null then can match any
 						} else {
+							// If a value is specified then it must match
 							if (!equalsBytes(topic, l.log[1][i] as Uint8Array)) return false
 						}
+						return true
 					}
-					return true
+					return false
 				})
-				logs = filteredLogs
 			}
 			returnedLogs.push(...logs)
+			// TODO add stringToBytes to utils
 			returnedLogsSize += hexToBytes(stringToHex(JSON.stringify(logs))).byteLength
 			if (returnedLogs.length >= this.GET_LOGS_LIMIT || returnedLogsSize >= this.GET_LOGS_LIMIT_MEGABYTES * 1048576) {
 				break

@@ -137,9 +137,7 @@ export const mineHandler =
 				const createNewStateRoot = true
 				await vm.stateManager.commit(createNewStateRoot)
 				const block = await blockBuilder.build()
-
 				await Promise.all([receiptsManager.saveReceipts(block, receipts), vm.blockchain.putBlock(block)])
-
 				pool.removeNewBlockTxs([block])
 
 				newBlocks.push(block)
