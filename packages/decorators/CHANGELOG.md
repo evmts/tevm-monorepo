@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.0.0-next.119
+
+### Patch Changes
+
+- Updated dependencies [8d58d91]
+  - @tevm/actions@1.0.0-next.119
+
 ## 1.0.0-next.118
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.119
+
+### Patch Changes
+
+- 8d58d91: Fixed bug in eth_sendRawTransaction that would cause any tx that didn't support blobs to fail
+
 ## 1.0.0-next.118
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/cli",
-	"version": "1.0.0-next.118",
+	"version": "1.0.0-next.119",
 	"license": "MIT",
 	"type": "module",
 	"exports": {
