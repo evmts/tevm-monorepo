@@ -1,5 +1,4 @@
 import { createAddress } from '@tevm/address'
-import { ForkError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 import { InternalRpcError } from 'viem'
