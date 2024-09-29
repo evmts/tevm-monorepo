@@ -3,11 +3,9 @@ import { createTevmNode } from '@tevm/node'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import {
 	type Address,
-	type Hex,
 	PREFUNDED_ACCOUNTS,
 	encodeDeployData,
 	encodeFunctionData,
-	hexToBytes,
 	hexToNumber,
 	keccak256,
 	stringToHex,
