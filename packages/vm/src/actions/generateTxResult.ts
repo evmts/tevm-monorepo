@@ -9,6 +9,7 @@ import type {
 	RunTxResult,
 	TxReceipt,
 } from '../utils/index.js'
+import { bytesToHex } from 'viem'
 
 /**
  * Returns the tx receipt.
@@ -32,7 +33,7 @@ export const generateTxReceipt =
 			cumulativeBlockGasUsed: cumulativeGasUsed,
 			bitvector: txResult.bloom.bitvector,
 			logs: txResult.execResult.logs ?? [],
-		}
+		};
 
 		let receipt: PostByzantiumTxReceipt | PreByzantiumTxReceipt | EIP4844BlobTxReceipt
 
@@ -68,5 +69,6 @@ export const generateTxReceipt =
 				} as PostByzantiumTxReceipt
 			}
 		}
+
 		return receipt
 	}

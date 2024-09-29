@@ -12,7 +12,6 @@ import { parseBlockParam } from './utils/parseBlockParam.js'
  * @returns {import('./EthHandler.js').EthGetLogsHandler}
  */
 export const ethGetLogsHandler = (client) => async (params) => {
-	client.logger.debug(params, 'ethGetLogsHandler called with params')
 	const vm = await client.getVm()
 	const receiptsManager = await client.getReceiptsManager()
 
@@ -126,6 +125,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
 		params.filterParams.topics?.map((topic) => hexToBytes(topic)),
 	)
+
 	logs.push(
 		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({
 			// what does this mean?
@@ -140,5 +140,6 @@ export const ethGetLogsHandler = (client) => async (params) => {
 			data: bytesToHex(log[2]),
 		})),
 	)
+
 	return logs
 }
