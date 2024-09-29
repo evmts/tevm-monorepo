@@ -107,7 +107,6 @@ export const callHandler =
 		const block = /** @type {import('@tevm/block').Block}*/ (evmInput.block)
 
 		await handlePendingTransactionsWarning(client, params, code, deployedBytecode)
-
 		/**
 		 * ************
 		 * 1 CLONE THE VM WITH BLOCK TAG

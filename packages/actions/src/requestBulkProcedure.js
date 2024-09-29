@@ -18,8 +18,8 @@ export const requestBulkProcedure = (client) => async (requests) => {
 				jsonrpc: '2.0',
 				error: {
 					// TODO This should be added to @tevm/errors package and rexported in tevm
-					code: 'UnexpectedBulkRequestError',
-					message: 'UnexpectedBulkRequestError',
+					code: response.reason.code ?? -32000,
+					message: response.reason.message ?? 'UnexpectedBulkRequestError',
 				},
 			}
 		}

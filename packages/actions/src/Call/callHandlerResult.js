@@ -96,6 +96,5 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	if (evmResult.createdAddress) {
 		out.createdAddress = getAddress(evmResult.createdAddress.toString())
 	}
-
 	return out
 }
