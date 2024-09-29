@@ -37,10 +37,12 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 		const previousTx = block.transactions.filter(
 			(_, i) => i < hexToNumber(transactionByHashResponse.result.transactionIndex),
 		)
-		const hasStateRoot = vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
+
+		// handle the case where the state root is from a preforked block
+		const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
 		if (!hasStateRoot && client.forkTransport) {
 			await forkAndCacheBlock(client, parentBlock)
-		} else {
+		} else if (!hasStateRoot) {
 			return {
 				jsonrpc: '2.0',
 				method: request.method,
@@ -53,6 +55,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			}
 		}
 		const vmClone = await vm.deepCopy()
+		await vmClone.stateManager.setStateRoot(parentBlock.header.stateRoot)
 
 		// execute all transactions before the current one committing to the state
 		for (const tx of previousTx) {
