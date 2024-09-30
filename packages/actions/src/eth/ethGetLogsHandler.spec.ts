@@ -251,24 +251,24 @@ describe(ethGetLogsHandler.name, () => {
 			})
 			expect(logs).toHaveLength(1)
 			expect(logs).toMatchInlineSnapshot(`
-			[
-				{
-					"address": "0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1",
-					"blockHash": "0x6c9355482a6937e44fbfbd1c0c9cc95882e47e80c9b48772699c6a49bad1e392",
-					"blockNumber": 125985142n,
-					"data": "0x0000000000000000000000000000000000000000000b2f1069a1f95dc7180000",
-					"logIndex": 23n,
-					"removed": false,
-					"topics": [
-						"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-						"0x0000000000000000000000007f26a7572e8b877654eedcbc4e573657619fa3ce",
-						"0x0000000000000000000000007b46ffbc976db2f94c3b3cdd9ebbe4ab50e3d77d",
-					],
-					"transactionHash": "0x4f0781ec417fecaf44b248fd0b0485dca9fbe78ad836598b65c12bb13ab9ddd4",
-					"transactionIndex": 11n,
-				},
-			]
-				`)
+				[
+				  {
+				    "address": "0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1",
+				    "blockHash": "0x6c9355482a6937e44fbfbd1c0c9cc95882e47e80c9b48772699c6a49bad1e392",
+				    "blockNumber": 125985142n,
+				    "data": "0x0000000000000000000000000000000000000000000b2f1069a1f95dc7180000",
+				    "logIndex": 23n,
+				    "removed": false,
+				    "topics": [
+				      "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+				      "0x0000000000000000000000007f26a7572e8b877654eedcbc4e573657619fa3ce",
+				      "0x0000000000000000000000007b46ffbc976db2f94c3b3cdd9ebbe4ab50e3d77d",
+				    ],
+				    "transactionHash": "0x4f0781ec417fecaf44b248fd0b0485dca9fbe78ad836598b65c12bb13ab9ddd4",
+				    "transactionIndex": 11n,
+				  },
+				]
+			`)
 		},
 		{ timeout: 20_000 },
 	)

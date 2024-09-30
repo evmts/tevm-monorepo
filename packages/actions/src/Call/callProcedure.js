@@ -9,7 +9,7 @@ import { callHandler } from './callHandler.js'
  */
 export const callProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await callHandler(client)({
-		throwOnFail: true,
+		throwOnFail: false,
 		...(request.params[1]
 			? {
 					stateOverrideSet: Object.fromEntries(
@@ -38,6 +38,7 @@ export const callProcedure = (client) => async (request) => {
 					},
 				}
 			: {}),
+		...(request.params[0].code ? { code: request.params[0].code } : {}),
 		...(request.params[0].data ? { data: request.params[0].data } : {}),
 		...(request.params[0].deployedBytecode ? { deployedBytecode: request.params[0].deployedBytecode } : {}),
 		...(request.params[0].createTrace ? { createTrace: request.params[0].createTrace } : {}),
