@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.0.0-next.120
+
+### Patch Changes
+
+- 34ac999: Fixed bug with block override set missing a state root
+- 34ac999: Fixed bug in tevm_call json-rpc procedure where deployedBytecode, createTrace and createAccessList were not forwarded to the underlying handler. This bug only affected users using JSON-RPC directly
+- Updated dependencies [34ac999]
+  - @tevm/vm@1.0.0-next.120
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/node@1.0.0-next.120
+  - @tevm/state@1.0.0-next.120
+  - @tevm/evm@1.0.0-next.120
+
 ## 1.0.0-next.119
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/test-utils
 
+## 1.0.0-next.120
+
+### Minor Changes
+
+- 34ac999: Added a new BlockReader contract. BlockReader is a contract that can be used to test reading blocks from the evm. Used internally to test block overrides
+
 ## 1.0.0-next.118
 
 ### Patch Changes

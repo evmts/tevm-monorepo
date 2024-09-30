@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.0.0-next.120
+
+### Patch Changes
+
+- 34ac999: Fixed bug with block override set missing a state root
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/state@1.0.0-next.120
+  - @tevm/evm@1.0.0-next.120
+
 ## 1.0.0-next.118
 
 ### Patch Changes

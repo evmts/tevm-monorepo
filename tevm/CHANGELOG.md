@@ -1,5 +1,27 @@
 # @tevm/contract
 
+## 1.0.0-next.120
+
+### Patch Changes
+
+- Updated dependencies [34ac999]
+- Updated dependencies [34ac999]
+  - @tevm/actions@1.0.0-next.120
+  - @tevm/vm@1.0.0-next.120
+  - @tevm/viem@1.0.0-next.120
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/http-client@1.0.0-next.120
+  - @tevm/memory-client@1.0.0-next.120
+  - @tevm/node@1.0.0-next.120
+  - @tevm/server@1.0.0-next.120
+  - @tevm/state@1.0.0-next.120
+  - @tevm/client-types@1.0.0-next.118
+  - @tevm/decorators@1.0.0-next.120
+  - @tevm/txpool@1.0.0-next.120
+  - @tevm/evm@1.0.0-next.120
+  - @tevm/sync-storage-persister@1.0.0-next.120
+  - @tevm/precompiles@1.0.0-next.120
+
 ## 1.0.0-next.119
 
 ### Patch Changes
