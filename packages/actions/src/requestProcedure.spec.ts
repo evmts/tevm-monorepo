@@ -1,4 +1,5 @@
 import { ERC20 } from '@tevm/contract'
+import { MethodNotFoundError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type EthjsAccount, EthjsAddress, encodeDeployData, hexToBytes } from '@tevm/utils'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
@@ -299,6 +300,33 @@ describe('requestProcedure', () => {
 					params: transaction,
 				}),
 			).toMatchSnapshot()
+		})
+	})
+
+	describe('unsupported method', () => {
+		it('should return a MethodNotFoundError for an unsupported method', async () => {
+			const res = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'unsupported_method' as any,
+				id: 1,
+				params: [],
+			})
+
+			expect(res.error.code).toBe(MethodNotFoundError.code)
+			expect(res).toMatchInlineSnapshot(`
+				{
+				  "error": {
+				    "code": -32601,
+				    "message": "UnsupportedMethodError: Unknown method unsupported_method
+
+				Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+				Version: 1.1.0.next-73",
+				  },
+				  "id": 1,
+				  "jsonrpc": "2.0",
+				  "method": "unsupported_method",
+				}
+			`)
 		})
 	})
 })

@@ -382,7 +382,7 @@ const _runTx =
 		await vm.evm.journal.cleanup()
 
 		// Generate the tx receipt
-		const gasUsed = opts.blockGasUsed !== undefined ? opts.blockGasUsed : block.header.gasUsed
+		const gasUsed = (opts.blockGasUsed !== undefined ? opts.blockGasUsed : block.header.gasUsed) ?? 0n
 		const cumulativeGasUsed = gasUsed + results.totalGasSpent
 		results.receipt = await generateTxReceipt(vm)(tx, results, cumulativeGasUsed, totalblobGas, blobGasPrice)
 

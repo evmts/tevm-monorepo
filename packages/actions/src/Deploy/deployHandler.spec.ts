@@ -1,3 +1,4 @@
+import { InvalidRequestError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { EthjsAddress, type Hex, bytesToHex, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -60,5 +61,28 @@ describe('deployHandler', () => {
 				})
 			).data,
 		).toBe(initialValue)
+	})
+
+	it('should throw an InvalidRequestError when constructor args are incorrect', async () => {
+		const client = createTevmNode({ loggingLevel: 'warn' })
+		const deploy = deployHandler(client)
+
+		// Attempt to deploy with incorrect argument type (string instead of uint256)
+		await expect(
+			deploy({
+				abi: simpleConstructorAbi,
+				bytecode: simpleConstructorBytecode,
+				args: ['not a number'],
+			}),
+		).rejects.toThrow(InvalidRequestError)
+
+		// Attempt to deploy with incorrect number of arguments
+		await expect(
+			deploy({
+				abi: simpleConstructorAbi,
+				bytecode: simpleConstructorBytecode,
+				args: [420n, 'extra arg'],
+			}),
+		).rejects.toThrow(InvalidRequestError)
 	})
 })

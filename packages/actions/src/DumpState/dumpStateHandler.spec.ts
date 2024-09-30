@@ -39,3 +39,18 @@ test('should dump important account info and storage', async () => {
 
 	expect(accountStorage).toEqual(storageValue)
 })
+
+test('should handle block not found', async () => {
+	const client = createTevmNode()
+	const { errors } = await dumpStateHandler(client)({ blockTag: 1n, throwOnFail: false })
+	expect(errors).toBeDefined()
+	expect(errors).toHaveLength(1)
+	expect(errors).toMatchInlineSnapshot(`
+		[
+		  [UnknownBlock: Block number 1 does not exist
+
+		Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+		Version: 1.1.0.next-73],
+		]
+	`)
+})

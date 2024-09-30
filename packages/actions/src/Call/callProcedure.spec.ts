@@ -1,7 +1,11 @@
+import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
+import { BlockReader, SimpleContract } from '@tevm/test-utils'
+import { type Address, type Hex, decodeFunctionResult, encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { deployHandler } from '../Deploy/deployHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
 import { callProcedure } from './callProcedure.js'
@@ -77,7 +81,102 @@ describe('callProcedure', () => {
 		expect(response.result).toMatchSnapshot()
 	})
 
-	it.todo('should handle a call with block override', async () => {})
+	it('should handle a call with block override', async () => {
+		const blockReaderAddress = createAddress(1234)
+		await setAccountHandler(client)({
+			address: blockReaderAddress.toString(),
+			deployedBytecode: BlockReader.deployedBytecode,
+		})
+
+		const request: CallJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+			params: [
+				{
+					to: blockReaderAddress.toString(),
+					data: encodeFunctionData(BlockReader.read.getBlockInfo()),
+				},
+				{}, // No state override
+				{
+					number: numberToHex(1000n),
+					time: numberToHex(1234567890n),
+					coinbase: '0x1000000000000000000000000000000000000000',
+					baseFee: numberToHex(1n),
+				},
+			],
+		}
+
+		const response = await callProcedure(client)(request)
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		expect(response.method).toBe('tevm_call')
+		expect(response.id).toBe(request.id as any)
+
+		const decodedResult = decodeFunctionResult({
+			abi: BlockReader.read.getBlockInfo.abi,
+			data: response.result?.rawData as Hex,
+			functionName: 'getBlockInfo',
+		})
+		expect(decodedResult).toEqual([1000n, 1234567890n, '0x1000000000000000000000000000000000000000', 1n])
+	})
+
+	it('should handle a call with tracing enabled', async () => {
+		const { createdAddress } = await deployHandler(client)(SimpleContract.deploy(0n))
+		await mineHandler(client)()
+
+		const request: CallJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+			params: [
+				{
+					to: createdAddress as Address,
+					data: encodeFunctionData(SimpleContract.write.set(100n)),
+					createTransaction: true,
+					createTrace: true,
+					createAccessList: true,
+				},
+			],
+		}
+
+		const response = await callProcedure(client)(request)
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		expect(response.method).toBe('tevm_call')
+		expect(response.result?.logs).toMatchInlineSnapshot(`
+			[
+			  {
+			    "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			    "data": "0x0000000000000000000000000000000000000000000000000000000000000064",
+			    "topics": [
+			      "0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc",
+			    ],
+			  },
+			]
+		`)
+		expect(response.id).toBe(request.id as any)
+		expect(response.result?.trace).toBeDefined()
+		expect(response.result?.trace?.structLogs).toBeInstanceOf(Array)
+		expect(response.result?.trace?.structLogs?.length).toBeGreaterThan(0)
+		expect(response.result?.trace?.structLogs[0]).toMatchInlineSnapshot(`
+			{
+			  "depth": 0,
+			  "gas": "0x1c970ac",
+			  "gasCost": "0x6",
+			  "op": "PUSH1",
+			  "pc": 0,
+			  "stack": [],
+			}
+		`)
+		expect(response.result?.accessList).toMatchInlineSnapshot(`
+			{
+			  "0x5fbdb2315678afecb367f032d93f642f64180aa3": [
+			    "0x0000000000000000000000000000000000000000000000000000000000000000",
+			  ],
+			}
+		`)
+	})
 
 	it('should handle errors from callHandler', async () => {
 		const request: CallJsonRpcRequest = {

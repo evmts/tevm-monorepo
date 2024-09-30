@@ -1,4 +1,4 @@
-import { InternalError } from '@tevm/errors'
+import { BaseError, InternalError } from '@tevm/errors'
 import { bytesToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -56,6 +56,13 @@ export const dumpStateHandler =
 				'Unsupported state manager. Must use a TEVM state manager from `@tevm/state` package. This may indicate a bug in TEVM internal code.',
 			)
 		} catch (e) {
+			if (/** @type {BaseError}*/ (e)._tag) {
+				return maybeThrowOnFail(throwOnFail ?? true, {
+					state: {},
+					// TODO we need to strongly type errors better here
+					errors: [/**@type {any} */ (e)],
+				})
+			}
 			return maybeThrowOnFail(throwOnFail ?? true, {
 				state: {},
 				errors: [e instanceof InternalError ? e : new InternalError('Unexpected error', { cause: e })],

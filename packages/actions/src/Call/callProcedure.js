@@ -39,9 +39,12 @@ export const callProcedure = (client) => async (request) => {
 				}
 			: {}),
 		...(request.params[0].code ? { code: request.params[0].code } : {}),
+		...(request.params[0].data ? { data: request.params[0].data } : {}),
+		...(request.params[0].deployedBytecode ? { deployedBytecode: request.params[0].deployedBytecode } : {}),
+		...(request.params[0].createTrace ? { createTrace: request.params[0].createTrace } : {}),
+		...(request.params[0].createAccessList ? { createAccessList: request.params[0].createAccessList } : {}),
 		...(request.params[0].blobVersionedHashes ? { blobVersionedHashes: request.params[0].blobVersionedHashes } : {}),
 		...(request.params[0].caller ? { caller: request.params[0].caller } : {}),
-		...(request.params[0].data ? { data: request.params[0].data } : {}),
 		...(request.params[0].depth ? { depth: request.params[0].depth } : {}),
 		...(request.params[0].gasPrice ? { gasPrice: hexToBigInt(request.params[0].gasPrice) } : {}),
 		...(request.params[0].gas ? { gas: hexToBigInt(request.params[0].gas) } : {}),
@@ -59,8 +62,6 @@ export const callProcedure = (client) => async (request) => {
 		...(request.params[0].maxPriorityFeePerGas
 			? { maxPriorityFeePerGas: hexToBigInt(request.params[0].maxPriorityFeePerGas) }
 			: {}),
-		// TODO add support for manually setting nonce
-		// ...(request.params[0].nonce ? { nonce: hexToBigInt(request.params[0].nonce) } : {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('./TevmCallError.js').TevmCallError}*/ (errors[0])

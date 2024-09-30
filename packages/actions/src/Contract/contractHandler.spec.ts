@@ -363,4 +363,40 @@ describe('contractHandler', () => {
 		expect(result.l1BlobFee).toBeGreaterThan(0n)
 		expect(result.l1GasUsed).toBeGreaterThan(0n)
 	})
+
+	it('should handle contract revert errors', async () => {
+		const client = createTevmNode()
+		// deploy contract
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+
+		const from = `0x${'11'.repeat(20)}` as const
+		const to = `0x${'22'.repeat(20)}` as const
+		const amount = 1000n
+
+		const result = await contractHandler(client)({
+			abi: ERC20_ABI,
+			functionName: 'transferFrom',
+			args: [from, to, amount],
+			to: ERC20_ADDRESS,
+			throwOnFail: false,
+		})
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors?.length).toBe(1)
+		expect(result.errors?.[0]?.name).toBe('RevertError')
+		expect(result.errors?.[0]).toMatchInlineSnapshot(`
+			[RevertError: revert
+
+			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+			Details: {"error":"revert","errorType":"EvmError"}
+			Version: 1.1.0.next-73]
+		`)
+	})
 })

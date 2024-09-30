@@ -67,6 +67,8 @@ export const callHandlerOpts = async (client, params) => {
 		opts.block = {
 			...opts.block,
 			header: {
+				// this isn't in the type but it needs to be here or else block overrides will fail
+				...{ stateRoot: block.header.stateRoot },
 				coinbase:
 					params.blockOverrideSet.coinbase !== undefined
 						? createAddress(params.blockOverrideSet.coinbase)
