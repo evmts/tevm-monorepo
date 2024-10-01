@@ -33,4 +33,10 @@ describe('maybeThrowOnFail', () => {
 		const output = maybeThrowOnFail(true, result as any)
 		expect(output).toBe(result)
 	})
+
+	it('should return the result if throwOnFail is true and errors array is empty', () => {
+		const result = { data: 'some data', errors: [] }
+		const output = maybeThrowOnFail(true, result)
+		expect(output).toBe(result)
+	})
 })

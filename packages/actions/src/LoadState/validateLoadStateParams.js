@@ -39,6 +39,12 @@ export const validateLoadStateParams = (action) => {
 				errors.push(new InvalidRequestError(error))
 			})
 		}
+
+		if (formattedErrors.state?._errors) {
+			formattedErrors.state._errors.forEach((error) => {
+				errors.push(new InvalidRequestError(`Invalid state: ${error}`))
+			})
+		}
 	}
 	return errors
 }

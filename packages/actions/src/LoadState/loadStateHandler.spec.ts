@@ -1,7 +1,8 @@
+import { createTevmNode } from '@tevm/node'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { dumpStateHandler } from '../DumpState/dumpStateHandler.js'
 import { loadStateHandler } from './loadStateHandler.js'
 
@@ -36,7 +37,7 @@ test('should load state into the state manager', async () => {
 
 	const client = { getVm: () => ({ stateManager }) } as any
 
-	await loadStateHandler(client)({ state })
+	await loadStateHandler(client)({ state, throwOnFail: false })
 
 	accountData = await stateManager.getAccount(address)
 
@@ -60,5 +61,70 @@ test('should load state into the state manager', async () => {
 				},
 			},
 		},
+	})
+})
+
+describe('loadStateHandler', () => {
+	test('should return errors for invalid params', async () => {
+		const client = createTevmNode()
+		const handler = loadStateHandler(client)
+
+		const result = await handler({
+			state: 5 as any,
+			throwOnFail: false,
+		} as any)
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors?.length).toBeGreaterThan(0)
+		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
+			"Invalid state: Expected object, received number
+
+			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+			Version: 1.1.0.next-73"
+		`)
+	})
+
+	test('should throw error for unsupported state manager', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		// @ts-ignore - Intentionally removing the method for testing
+		delete vm.stateManager.generateCanonicalGenesis
+
+		const handler = loadStateHandler({ getVm: () => Promise.resolve(vm) } as any)
+
+		const result = await handler({ state: {}, throwOnFail: false })
+		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
+			"UnexpectedError
+
+			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+			Details: Unsupported state manager. Must use a Tevm state manager from \`@tevm/state\` package. This may indicate a bug in tevm internal code.
+			Version: 1.1.0.next-73"
+		`)
+	})
+
+	test('should handle error when generating genesis fails', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		vm.stateManager.generateCanonicalGenesis = () => {
+			throw new Error('Genesis generation failed')
+		}
+
+		const handler = loadStateHandler({ getVm: () => Promise.resolve(vm) } as any)
+
+		const result = await handler({
+			state: {},
+			throwOnFail: false,
+		})
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors?.length).toBe(1)
+		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
+			"UnexpectedError
+
+			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+			Details: Genesis generation failed
+			Version: 1.1.0.next-73"
+		`)
+		expect(result.errors?.[0]?.cause?.message).toMatchInlineSnapshot(`"Genesis generation failed"`)
 	})
 })

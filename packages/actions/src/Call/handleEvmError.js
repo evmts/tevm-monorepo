@@ -125,9 +125,6 @@ export const handleRunTxError = (e) => {
 		if (e.message.includes("sender doesn't have enough funds to send tx.")) {
 			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
 		}
-		if (e.message.includes("sender doesn't have enough funds to send tx. The upfront cost is")) {
-			return new InsufficientBalanceError(e.message, { cause: /** @type {any}*/ (e) })
-		}
 		return new InternalEvmError(e.message, { cause: /** @type {any}*/ (e) })
 	}
 	if (!(e instanceof EvmError)) {
