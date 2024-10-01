@@ -63,7 +63,7 @@ describe(getCodeHandler.name, () => {
 
 		const code = await getCodeHandler(client)({
 			address: contract.address,
-			blockTag: blockNumber,
+			blockTag: blockNumber as any,
 		})
 
 		expect(code).toBe('0x')
