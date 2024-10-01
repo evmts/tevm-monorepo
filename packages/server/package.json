@@ -1,6 +1,6 @@
 {
   "name": "@tevm/server",
-  "version": "1.0.0-next.120",
+  "version": "1.0.0-next.121",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
