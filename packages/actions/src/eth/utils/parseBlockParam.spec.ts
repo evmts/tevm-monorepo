@@ -1,84 +1,95 @@
 import { InvalidBlockError } from '@tevm/errors'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createTevmNode } from '@tevm/node'
+import { bytesToHex } from 'viem'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { parseBlockParam } from './parseBlockParam.js'
 
 describe('parseBlockParam', () => {
-	let mockBlockchain: any
+	let node: any
+	let blockchain: any
 
-	beforeEach(() => {
-		mockBlockchain = {
-			getBlock: vi.fn(),
-			blocksByTag: new Map(),
-			logger: {
-				error: vi.fn(),
-			},
-		}
+	beforeEach(async () => {
+		node = createTevmNode()
+		const vm = await node.getVm()
+		blockchain = vm.blockchain
+
+		// Set up a canonical head block
+		const headBlock = await blockchain.getCanonicalHeadBlock()
+		blockchain.blocksByTag.set('latest', headBlock)
+		blockchain.blocksByNumber.set(BigInt(headBlock.header.number), headBlock)
+		blockchain.blocks.set(headBlock.hash(), headBlock)
 	})
 
 	it('should handle number input', async () => {
-		const result = await parseBlockParam(mockBlockchain, 123 as any)
+		const result = await parseBlockParam(blockchain, 123 as any)
 		expect(result).toBe(123n)
 	})
 
 	it('should handle bigint input', async () => {
-		const result = await parseBlockParam(mockBlockchain, 456n)
+		const result = await parseBlockParam(blockchain, 456n)
 		expect(result).toBe(456n)
 	})
 
-	it('should handle hex block number', async () => {
-		mockBlockchain.getBlock.mockResolvedValue({ header: { number: 789 } })
-		const hash = `0x${'12'.repeat(32)}` as const
-		const result = await parseBlockParam(mockBlockchain, hash)
-		expect(result).toBe(789n)
+	it('should handle hex block hash', async () => {
+		const headBlock = await blockchain.getCanonicalHeadBlock()
+		const blockHash = bytesToHex(headBlock.hash())
+		blockchain.blocks.set(blockHash, headBlock)
+		const result = await parseBlockParam(blockchain, blockHash)
+		expect(result).toBe(BigInt(headBlock.header.number))
 	})
 
 	it('should handle hex string block number input', async () => {
-		mockBlockchain.getBlock.mockResolvedValue({ header: { number: 789 } })
-		const result = await parseBlockParam(mockBlockchain, '0x123')
+		const result = await parseBlockParam(blockchain, '0x123')
 		expect(result).toBe(291n)
 	})
 
 	it('should handle "safe" tag', async () => {
-		mockBlockchain.blocksByTag.set('safe', { header: { number: 101n } })
-		const result = await parseBlockParam(mockBlockchain, 'safe')
-		expect(result).toBe(101n)
+		const safeBlock = await blockchain.getCanonicalHeadBlock()
+		blockchain.blocksByTag.set('safe', safeBlock)
+		const result = await parseBlockParam(blockchain, 'safe')
+		expect(result).toBe(BigInt(safeBlock.header.number))
 	})
 
 	it('should throw error for unsupported "safe" tag', async () => {
-		await expect(parseBlockParam(mockBlockchain, 'safe')).rejects.toThrow(InvalidBlockError)
+		await expect(parseBlockParam(blockchain, 'safe')).rejects.toThrow(InvalidBlockError)
 	})
 
 	it('should handle "latest" tag', async () => {
-		mockBlockchain.blocksByTag.set('latest', { header: { number: 202n } })
-		const result = await parseBlockParam(mockBlockchain, 'latest')
-		expect(result).toBe(202n)
+		const latestBlock = await blockchain.getCanonicalHeadBlock()
+		const result = await parseBlockParam(blockchain, 'latest')
+		expect(result).toBe(BigInt(latestBlock.header.number))
 	})
 
 	it('should handle undefined as "latest"', async () => {
-		mockBlockchain.blocksByTag.set('latest', { header: { number: 303n } })
-		const result = await parseBlockParam(mockBlockchain, undefined as any)
-		expect(result).toBe(303n)
+		const latestBlock = await blockchain.getCanonicalHeadBlock()
+		const result = await parseBlockParam(blockchain, undefined as any)
+		expect(result).toBe(BigInt(latestBlock.header.number))
 	})
 
 	it('should throw error for missing "latest" block', async () => {
-		await expect(parseBlockParam(mockBlockchain, 'latest')).rejects.toThrow(InvalidBlockError)
+		blockchain.blocksByTag.delete('latest')
+		await expect(parseBlockParam(blockchain, 'latest')).rejects.toThrow(InvalidBlockError)
 	})
 
 	it('should throw error for "pending" tag', async () => {
-		await expect(parseBlockParam(mockBlockchain, 'pending')).rejects.toThrow(InvalidBlockError)
+		await expect(parseBlockParam(blockchain, 'pending')).rejects.toThrow(InvalidBlockError)
 	})
 
 	it('should handle "earliest" tag', async () => {
-		const result = await parseBlockParam(mockBlockchain, 'earliest')
+		const result = await parseBlockParam(blockchain, 'earliest')
 		expect(result).toBe(1n)
 	})
 
 	it('should throw error for "finalized" tag', async () => {
-		await expect(parseBlockParam(mockBlockchain, 'finalized')).rejects.toThrow(InvalidBlockError)
+		await expect(parseBlockParam(blockchain, 'finalized')).rejects.toThrow(InvalidBlockError)
 	})
 
 	it('should throw error for unknown block param', async () => {
-		await expect(parseBlockParam(mockBlockchain, 'unknown' as any)).rejects.toThrow(InvalidBlockError)
-		expect(mockBlockchain.logger.error).toHaveBeenCalled()
+		await expect(parseBlockParam(blockchain, 'unknown' as any)).rejects.toThrow(InvalidBlockError)
+	})
+
+	it('should handle non-existent block hash', async () => {
+		const nonExistentHash = `0x${'1234'.repeat(16)}` as const
+		await expect(parseBlockParam(blockchain, nonExistentHash)).rejects.toThrow('Block with hash')
 	})
 })

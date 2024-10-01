@@ -6,6 +6,7 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
 		coverage: {
+			reportOnFailure: true,
 			include: ['src/**/*.js'],
 			provider: 'v8',
 			reporter: ['text', 'json-summary', 'json'],

@@ -15,6 +15,33 @@ import { validateMineParams } from './validateMineParams.js'
 export const mineHandler =
 	(client, options = {}) =>
 	async ({ throwOnFail = options.throwOnFail ?? true, ...params } = {}) => {
+		switch (client.status) {
+			case 'MINING': {
+				const err = new MisconfiguredClientError('Mining is already in progress')
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
+			}
+			case 'INITIALIZING': {
+				await client.ready()
+				client.status = 'MINING'
+				break
+			}
+			case 'SYNCING': {
+				const err = new MisconfiguredClientError('Syncing not currently implemented')
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
+			}
+			case 'STOPPED': {
+				const err = new MisconfiguredClientError('Client is stopped')
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
+			}
+			case 'READY': {
+				client.status = 'MINING'
+				break
+			}
+			default: {
+				const err = new UnreachableCodeError(client.status)
+				return maybeThrowOnFail(throwOnFail, { errors: [err] })
+			}
+		}
 		try {
 			client.logger.debug({ throwOnFail, ...params }, 'mineHandler called with params')
 			const errors = validateMineParams(params)
@@ -35,43 +62,6 @@ export const mineHandler =
 			client.logger.debug({ blockCount }, 'processing txs')
 			const pool = await client.getTxPool()
 			const originalVm = await client.getVm()
-
-			switch (client.status) {
-				case 'MINING': {
-					// wait for the previous mine to finish
-					await new Promise((resolve) => {
-						client.on('newBlock', async () => {
-							if (client.status === 'MINING') {
-								return
-							}
-							client.status = 'MINING'
-							resolve(client)
-						})
-					})
-					break
-				}
-				case 'INITIALIZING': {
-					await client.ready()
-					client.status = 'MINING'
-					break
-				}
-				case 'SYNCING': {
-					const err = new MisconfiguredClientError('Syncing not currently implemented')
-					return maybeThrowOnFail(throwOnFail, { errors: [err] })
-				}
-				case 'STOPPED': {
-					const err = new MisconfiguredClientError('Client is stopped')
-					return maybeThrowOnFail(throwOnFail, { errors: [err] })
-				}
-				case 'READY': {
-					client.status = 'MINING'
-					break
-				}
-				default: {
-					const err = new UnreachableCodeError(client.status)
-					return maybeThrowOnFail(throwOnFail, { errors: [err] })
-				}
-			}
 
 			const vm = await originalVm.deepCopy()
 			const receiptsManager = await client.getReceiptsManager()
@@ -121,15 +111,6 @@ export const mineHandler =
 					const txResult = await blockBuilder.addTransaction(nextTx, {
 						skipHardForkValidation: true,
 					})
-					if (txResult.execResult.exceptionError) {
-						if (txResult.execResult.exceptionError.error === 'out of gas') {
-							client.logger.debug(txResult.execResult.executionGasUsed, 'out of gas')
-						}
-						client.logger.debug(
-							txResult.execResult.exceptionError,
-							`There was an exception when building block for tx ${bytesToHex(nextTx.hash())}`,
-						)
-					}
 					receipts.push(txResult.receipt)
 					index++
 				}
@@ -161,8 +142,6 @@ export const mineHandler =
 			originalVm.evm.blockchain = vm.evm.blockchain
 			await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
-			client.status = 'READY'
-
 			emitEvents(client, newBlocks, newReceipts)
 
 			return { blockHashes: newBlocks.map((b) => bytesToHex(b.hash())) }
@@ -170,5 +149,7 @@ export const mineHandler =
 			return maybeThrowOnFail(throwOnFail, {
 				errors: [new InternalError(/** @type {Error} */ (e).message, { cause: e })],
 			})
+		} finally {
+			client.status = 'READY'
 		}
 	}
