@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.121
+
+### Patch Changes
+
+- 3f8119e: Fixed bug where loadState would not validate params correctly and then fail with a confusing error if state was wrong
+- 3f8119e: Fixed bug where client status would stay mining if an error gets thrown while emitting events after mining
+
 ## 1.0.0-next.120
 
 ### Patch Changes
