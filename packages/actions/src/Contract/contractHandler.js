@@ -52,7 +52,7 @@ export const contractHandler =
 		const precompile = params.to && vm.evm.getPrecompile(createAddress(params.to))
 		if (!params.deployedBytecode && !params.code && contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(
-				{ contract, precompile, to: params.to },
+				{ contract, precompile, to: params.to.toString() },
 				'contractHandler: No contract bytecode nor precompile was found at specified `to` address. Unable to execute contract call.',
 			)
 			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
@@ -62,7 +62,7 @@ export const contractHandler =
 					{
 						_tag: 'InvalidRequestError',
 						name: 'InvalidRequestError',
-						message: `Contract at address ${params.to} does not exist`,
+						message: `Contract at address ${params.to.toString()} does not exist`,
 					},
 				],
 			})
