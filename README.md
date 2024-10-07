@@ -8,6 +8,8 @@
 [![Tevm Bundler Downloads](https://img.shields.io/npm/dm/@tevm/base-bundler.svg)](https://www.npmjs.com/package/@tevm/base-bundler)
 [![Minzipped Size](https://badgen.net/bundlephobia/minzip/tevm)](https://bundlephobia.com/package/tevm@latest)
 
+Any token claiming to be tevm is a scam. be careful.
+
 # tevm-monorepo
 
 Tevm tools include an Ethereum devnet that can run in the Browser and Node.js along with a solidity bundler that allows you to import solidity directly into TypeScript files. All built on top of the viem API.
