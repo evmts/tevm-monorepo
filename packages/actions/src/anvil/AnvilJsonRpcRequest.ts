@@ -6,7 +6,6 @@ import type {
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
 	AnvilLoadStateParams,
-	AnvilResetParams,
 } from './index.js'
 
 // anvil_impersonateAccount

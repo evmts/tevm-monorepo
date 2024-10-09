@@ -57,18 +57,7 @@ export type AnvilMineParams = {
 /**
  * Params for `anvil_reset` handler
  */
-export type AnvilResetParams = {
-	readonly fork: {
-		/**
-		 * The url to fork if forking
-		 */
-		readonly url?: string
-		/**
-		 * The block number
-		 */
-		readonly block?: BlockTag | Hex | BigInt
-	}
-}
+export type AnvilResetParams = {}
 
 // anvil_dropTransaction
 /**
