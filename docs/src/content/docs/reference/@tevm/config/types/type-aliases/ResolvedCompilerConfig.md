@@ -8,7 +8,7 @@ title: "ResolvedCompilerConfig"
 > **ResolvedCompilerConfig**: `object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
+See [CompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
 
 ## Type declaration
 

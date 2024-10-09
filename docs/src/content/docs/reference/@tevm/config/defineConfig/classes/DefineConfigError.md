@@ -5,7 +5,7 @@ prev: false
 title: "DefineConfigError"
 ---
 
-Error class for [defineConfig](../../../../../../../../reference/tevm/config/defineconfig/functions/defineconfig)
+Error class for [defineConfig](../../../../../../../../../reference/tevm/config/defineconfig/functions/defineconfig)
 
 ## Extends
 

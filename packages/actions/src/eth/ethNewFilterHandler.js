@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { isArray } from '../utils/isArray.js'
 import { generateRandomId } from './utils/generateRandomId.js'
 import { parseBlockTag } from './utils/parseBlockTag.js'
 
@@ -66,7 +67,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 			_fromBlock,
 			_toBlock,
 			address !== undefined ? [createAddress(address).bytes] : [],
-			topics?.map((topic) => hexToBytes(topic)),
+			topics?.map((topic) => (isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic))),
 		)
 		tevmNode.setFilter({
 			id,

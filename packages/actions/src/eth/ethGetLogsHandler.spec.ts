@@ -272,4 +272,121 @@ describe(ethGetLogsHandler.name, () => {
 		},
 		{ timeout: 20_000 },
 	)
+
+	it("should filter logs with OR'ed topics", async () => {
+		const client = createTevmNode()
+		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
+
+		await setupAccount(client, from.toString())
+
+		// Deploy SimpleContract
+		const deployResult = await callHandler(client)({
+			createTransaction: true,
+			from: from.toString(),
+			data: encodeDeployData(SimpleContract.deploy(0n)),
+		})
+
+		const contractAddress = deployResult.createdAddress as Address
+
+		// Mine the deployment transaction
+		await mineHandler(client)()
+
+		// Set values to emit events
+		await callHandler(client)({
+			to: contractAddress,
+			from: from.toString(),
+			data: encodeFunctionData(SimpleContract.write.set(1n)),
+			createTransaction: true,
+		})
+
+		await callHandler(client)({
+			to: contractAddress,
+			from: from.toString(),
+			data: encodeFunctionData(SimpleContract.write.set(2n)),
+			createTransaction: true,
+		})
+
+		await mineHandler(client)()
+
+		const topic1 = keccak256(stringToHex('ValueSet(uint256)'))
+		const topic2 = keccak256(stringToHex('NonExistentEvent(uint256)'))
+
+		const filterParams: FilterParams = {
+			address: contractAddress,
+			fromBlock: 0n,
+			toBlock: 'latest',
+			topics: [[topic1, topic2]],
+		}
+
+		const logs = await ethGetLogsHandler(client)({
+			filterParams,
+		})
+
+		expect(logs).toHaveLength(2)
+		expect(logs[0]).toBeTruthy()
+		expect(logs[1]).toBeTruthy()
+		logs.forEach((log) => {
+			expect(log.topics[0]).toBe(topic1)
+		})
+	})
+
+	// it("should filter logs with multiple OR'ed topics", async () => {
+	// 	const client = createTevmNode()
+	// 	const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
+
+	// 	await setupAccount(client, from.toString())
+
+	// 	// Deploy SimpleContract
+	// 	const deployResult = await callHandler(client)({
+	// 		createTransaction: true,
+	// 		from: from.toString(),
+	// 		data: encodeDeployData(SimpleContract.deploy(0n)),
+	// 	})
+
+	// 	const contractAddress = deployResult.createdAddress as Address
+
+	// 	// Mine the deployment transaction
+	// 	await mineHandler(client)()
+
+	// 	// Set values to emit events
+	// 	await callHandler(client)({
+	// 		to: contractAddress,
+	// 		from: from.toString(),
+	// 		data: encodeFunctionData(SimpleContract.write.set(1n)),
+	// 		createTransaction: true,
+	// 	})
+
+	// 	await callHandler(client)({
+	// 		to: contractAddress,
+	// 		from: from.toString(),
+	// 		data: encodeFunctionData(SimpleContract.write.set(2n)),
+	// 		createTransaction: true,
+	// 	})
+
+	// 	await mineHandler(client)()
+
+	// 	const topic1 = keccak256(stringToHex('ValueSet(uint256)'))
+	// 	const topic2 = keccak256(stringToHex('NonExistentEvent(uint256)'))
+	// 	const value1 = '0x0000000000000000000000000000000000000000000000000000000000000001'
+	// 	const value2 = '0x0000000000000000000000000000000000000000000000000000000000000002'
+
+	// 	const filterParams: FilterParams = {
+	// 		address: contractAddress,
+	// 		fromBlock: 0n,
+	// 		toBlock: 'latest',
+	// 		topics: [[topic1, topic2], null, [value1, value2]],
+	// 	}
+
+	// 	const logs = await ethGetLogsHandler(client)({
+	// 		filterParams,
+	// 	})
+
+	// 	expect(logs).toHaveLength(2)
+	// 	expect(logs[0]).toBeTruthy()
+	// 	expect(logs[1]).toBeTruthy()
+	// 	expect(logs[0].topics[0]).toBe(topic1)
+	// 	expect(logs[1].topics[0]).toBe(topic1)
+	// 	expect(logs[0].topics[2]).toBe(value1)
+	// 	expect(logs[1].topics[2]).toBe(value2)
+	// })
 })

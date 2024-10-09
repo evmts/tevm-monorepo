@@ -95,7 +95,7 @@ const contract = createContract({
 
 ## See
 
- - [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) for the full API of the returned Contract instance.
+ - [Contract](../../../../../../../../reference/tevm/contract/type-aliases/contract) for the full API of the returned Contract instance.
  - [https://tevm.sh/learn/contracts/](https://tevm.sh/learn/contracts/) for more information on working with contracts in Tevm.
  - [https://tevm.sh/reference/tevm/contract/types/Contract/](https://tevm.sh/reference/tevm/contract/types/Contract/) for detailed Contract type documentation.
 

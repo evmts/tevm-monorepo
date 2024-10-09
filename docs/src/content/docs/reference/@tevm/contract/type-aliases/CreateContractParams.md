@@ -7,7 +7,7 @@ title: "CreateContractParams"
 
 > **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object` \| `object`
 
-Parameters for creating a [Contract](../../../../../../../reference/tevm/contract/type-aliases/contract) instance.
+Parameters for creating a [Contract](../../../../../../../../reference/tevm/contract/type-aliases/contract) instance.
 This type allows for two mutually exclusive ways of specifying the ABI:
 either as a human-readable ABI or as a JSON ABI.
 

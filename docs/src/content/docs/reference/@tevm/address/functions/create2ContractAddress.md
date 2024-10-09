@@ -7,7 +7,7 @@ title: "create2ContractAddress"
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](/reference/tevm/address/classes/address/)
 
-Generates an [Address](../../../../../../../reference/tevm/address/classes/address) for a contract created using CREATE2.
+Generates an [Address](../../../../../../../../reference/tevm/address/classes/address) for a contract created using CREATE2.
 
 ## Parameters
 

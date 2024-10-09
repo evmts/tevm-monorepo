@@ -7,6 +7,7 @@ title: "@tevm/test-utils"
 
 ## Variables
 
+- [BlockReader](/reference/tevm/test-utils/variables/blockreader/)
 - [SimpleContract](/reference/tevm/test-utils/variables/simplecontract/)
 - [TestERC20](/reference/tevm/test-utils/variables/testerc20/)
 - [TestERC721](/reference/tevm/test-utils/variables/testerc721/)

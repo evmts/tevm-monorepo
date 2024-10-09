@@ -7,7 +7,7 @@ title: "FilterParams"
 
 > **FilterParams**: `object`
 
-An event filter optionsobject
+An event filter options object
 
 ## Type declaration
 
@@ -25,7 +25,7 @@ An event filter optionsobject
 
 ### topics?
 
-> `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions/type-aliases/hex/)\>
+> `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions/type-aliases/hex/)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](/reference/tevm/actions/type-aliases/hex/)\>\>
 
 ## Defined in
 

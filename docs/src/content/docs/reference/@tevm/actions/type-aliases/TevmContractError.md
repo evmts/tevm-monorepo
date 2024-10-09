@@ -42,7 +42,7 @@ try {
 
 ## See
 
-[TevmCallError](../../../../../../../reference/tevm/actions/type-aliases/tevmcallerror)
+[TevmCallError](../../../../../../../../reference/tevm/actions/type-aliases/tevmcallerror)
 
 ## Defined in
 
