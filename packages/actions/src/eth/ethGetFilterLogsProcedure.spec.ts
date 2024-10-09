@@ -2,6 +2,7 @@ import { createAddress, createContractAddress } from '@tevm/address'
 import { SimpleContract } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, isHex, numberToHex } from '@tevm/utils'
+import { keccak256, stringToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { callProcedure } from '../Call/callProcedure.js'
 import { mineProcedure } from '../Mine/mineProcedure.js'
@@ -96,5 +97,79 @@ describe(ethGetFilterLogsProcedure.name, () => {
 			  "transactionIndex": "0x0",
 			}
 		`)
+	})
+
+	it("should return logs with OR'ed topics", async () => {
+		const topic1 = keccak256(stringToHex('ValueSet(uint256)'))
+		const topic2 = keccak256(stringToHex('NonExistentEvent(uint256)'))
+
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [
+				{
+					address: contract.address,
+					topics: [[topic1, topic2]],
+				},
+			],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		// Set value to 69n
+		expect(
+			(
+				await callProcedure(client)({
+					method: 'tevm_call',
+					jsonrpc: '2.0',
+					params: [
+						{
+							to: contract.address,
+							data: encodeFunctionData(contract.write.set(69n)),
+							createTransaction: true,
+						},
+					],
+				})
+			).error,
+		).toBeUndefined()
+
+		// Set value to 420n
+		expect(
+			(
+				await callProcedure(client)({
+					method: 'tevm_call',
+					jsonrpc: '2.0',
+					params: [
+						{
+							to: contract.address,
+							data: encodeFunctionData(contract.write.set(420n)),
+							createTransaction: true,
+						},
+					],
+				})
+			).error,
+		).toBeUndefined()
+
+		expect((await doMine()).error).toBeUndefined()
+
+		const { result, error } = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			params: [filterId],
+		})
+
+		expect(error).toBeUndefined()
+		expect(result).toHaveLength(2)
+
+		result?.forEach((log, index) => {
+			const { blockHash, ...deterministicResult } = log
+			expect(isHex(blockHash)).toBe(true)
+			expect(blockHash).toHaveLength(66)
+			expect(deterministicResult.topics[0]).toBe(topic1)
+			expect(deterministicResult.data).toBe(
+				index === 0
+					? '0x0000000000000000000000000000000000000000000000000000000000000045' // 69n
+					: '0x00000000000000000000000000000000000000000000000000000000000001a4', // 420n
+			)
+		})
 	})
 })
