@@ -39,11 +39,12 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		vm.evm.blockchain = newBlockchain
 
 		// reset receipts manager
+		/**
+		 * @type {any} making this any because we are modifying readonly properties
+		 */
 		const receiptManager = await node.getReceiptsManager()
-		/** @type {any}*/ /** @type {any}*/
 		// TODO we should add a receiptManager.reset() method
 		receiptManager.mapDb = createMapDb({ cache: new Map() })
-		/** @type {any}*/ /** @type {any}*/
 		receiptManager.chain = newBlockchain
 
 		return {
