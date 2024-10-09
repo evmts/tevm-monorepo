@@ -442,7 +442,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 > **getMaxListeners**(): `number`
 
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](../../../../../../../reference/tevm/utils/classes/asynceventemitter/#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](../../../../../../../../reference/tevm/utils/classes/asynceventemitter/#defaultmaxlisteners).
 
 #### Returns
 

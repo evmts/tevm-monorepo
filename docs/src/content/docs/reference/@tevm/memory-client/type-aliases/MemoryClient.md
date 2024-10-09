@@ -35,7 +35,7 @@ console.log(blockNumber);
 
 ## See
 
- - For creating a MemoryClient instance, see [createMemoryClient](../../../../../../../reference/tevm/memory-client/functions/creatememoryclient).
+ - For creating a MemoryClient instance, see [createMemoryClient](../../../../../../../../reference/tevm/memory-client/functions/creatememoryclient).
  - [Client Guide](https://tevm.sh/learn/clients/)
  - [Actions Guide](https://tevm.sh/learn/actions/)
  - [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)

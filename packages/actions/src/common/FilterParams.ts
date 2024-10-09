@@ -3,11 +3,11 @@ import type { BlockParam } from './BlockParam.js'
 import type { Hex } from './Hex.js'
 
 /**
- * An event filter optionsobject
+ * An event filter options object
  */
 export type FilterParams = {
 	readonly fromBlock?: BlockParam
 	readonly toBlock?: BlockParam
 	readonly address?: Address
-	readonly topics?: ReadonlyArray<Hex>
+	readonly topics?: ReadonlyArray<Hex> | ReadonlyArray<ReadonlyArray<Hex>>
 }

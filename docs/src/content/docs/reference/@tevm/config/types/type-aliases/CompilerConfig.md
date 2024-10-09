@@ -8,7 +8,7 @@ title: "CompilerConfig"
 > **CompilerConfig**: `object`
 
 Configuration of the solidity compiler
-When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
+When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
 
 ## Type declaration
 

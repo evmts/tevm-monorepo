@@ -7,7 +7,7 @@ title: "parseAbi"
 
 > **parseAbi**\<`signatures`\>(`signatures`): [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`signatures`\>
 
-Parses human-readable ABI into JSON [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
+Parses human-readable ABI into JSON [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi)
 
 ## Type Parameters
 

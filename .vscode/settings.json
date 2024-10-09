@@ -31,5 +31,6 @@
     ".gas-snapshot": "julia",
     "base.json": "jsonc",
     ".envrc": "dotenv"
-  }
+  },
+  "editor.defaultFormatter": "biomejs.biome"
 }

@@ -42,7 +42,7 @@ if (result.errors) {
 
 ## See
 
-[TevmLoadStateError](../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
+[TevmLoadStateError](../../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
 
 ## Defined in
 

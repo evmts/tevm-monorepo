@@ -3,6 +3,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 import { InternalRpcError } from 'viem'
 import { getPendingClient } from '../internal/getPendingClient.js'
+import { isArray } from '../utils/isArray.js'
 import { parseBlockParam } from './utils/parseBlockParam.js'
 
 // TODO support EIP-234
@@ -118,7 +119,9 @@ export const ethGetLogsHandler = (client) => async (params) => {
 		fetchFromRpc ? /** @type {import('@tevm/block').Block}*/ (forkedBlock) : fromBlock,
 		toBlock,
 		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
-		params.filterParams.topics?.map((topic) => hexToBytes(topic)),
+		// params.filterParams.topics?.map((topic) => hexToBytes(topic)),
+
+		params.filterParams.topics?.map((topic) => (isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic))),
 	)
 	logs.push(
 		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({
