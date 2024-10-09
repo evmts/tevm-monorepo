@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.122
+
+### Minor Changes
+
+- 96ca3f3: Fixed eth_getLogs and eth_getFilterLogs interface to accept an array of topics
+
 ## 1.0.0-next.121
 
 ### Patch Changes
