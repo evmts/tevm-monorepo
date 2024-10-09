@@ -4,4 +4,4 @@
 "tevm": minor
 ---
 
-fixed eth_getLogs and eth_getFilterLogs interface to accept an array of topics
+Fixed eth_getLogs and eth_getFilterLogs interface to accept an array of topics
