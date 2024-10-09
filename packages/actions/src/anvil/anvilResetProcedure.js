@@ -1,22 +1,49 @@
+import { createMapDb } from '@tevm/receipt-manager'
+import { bytesToHex } from 'viem'
+
 /**
  * Request handler for anvil_reset JSON-RPC requests.
- * @param {import('@tevm/node').TevmNode} client
+ * If the node is forked, anvil_reset will reset to the forked block.
+ * @param {import('@tevm/node').TevmNode} node
  * @returns {import('./AnvilProcedure.js').AnvilResetProcedure}
+ * @example
+ * const node = createTevmNode()
+ * const resetProcedure = anvilResetJsonRpcProcedure(node)
+ * const result = await resetProcedure({ method: 'anvil_reset', params: [], id: 1, jsonrpc: '2.0' })
+ * console.log(result) // { result: null, method: 'anvil_reset', jsonrpc: '2.0', id: 1 }
  */
-export const anvilResetJsonRpcProcedure = (client) => {
+export const anvilResetJsonRpcProcedure = (node) => {
 	return async (request) => {
-		const vm = await client.getVm()
-		vm.blockchain.blocksByTag.set(
-			'latest',
-			vm.blockchain.blocksByTag.get('forked') ?? vm.blockchain.blocksByTag.get('latest'),
-		)
-		Array.from(vm.blockchain.blocks.values()).forEach((block) => {
-			if (!block) return
-			vm.blockchain.delBlock(block.hash())
-		})
-		const stateManager = vm.stateManager.shallowCopy()
-		vm.stateManager = /** @type any*/ (stateManager)
-		vm.evm.stateManager = /** @type any*/ (stateManager)
+		// reset filters
+		const filters = node.getFilters()
+		filters.forEach((filter) => node.removeFilter(filter.id))
+
+		// reset impersonated account
+		node.setImpersonatedAccount(undefined)
+
+		// TODO we should add a txPool.reset() method
+		const txPool = await node.getTxPool()
+		const txs = await txPool.txsByPriceAndNonce()
+		txs.forEach((tx) => txPool.removeByHash(bytesToHex(tx.hash())))
+
+		const vm = await node.getVm()
+		const newStateManager = vm.stateManager.shallowCopy()
+		const newBlockchain = vm.blockchain.shallowCopy()
+		const forkedBlock = vm.blockchain.blocksByTag.get('forked')
+		if (forkedBlock) {
+			await newBlockchain.putBlock(forkedBlock)
+		}
+		vm.stateManager = /** @type {any}*/ (newStateManager)
+		vm.evm.stateManager = /** @type {any}*/ (newStateManager)
+		vm.blockchain = newBlockchain
+		vm.evm.blockchain = newBlockchain
+
+		// reset receipts manager
+		const receiptManager = await node.getReceiptsManager() /** @type {any}*/
+		// TODO we should add a receiptManager.reset() method
+		receiptManager.mapDb = createMapDb({ cache: new Map() }) /** @type {any}*/
+		receiptManager.chain = newBlockchain
+
 		return {
 			result: null,
 			method: request.method,
