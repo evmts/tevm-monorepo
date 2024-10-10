@@ -5,7 +5,7 @@ import { createLogger } from '@tevm/logger'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { KECCAK256_RLP, bytesToHex, hexToBigInt, keccak256 } from '@tevm/utils'
+import { KECCAK256_RLP, bytesToHex, getAddress, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
@@ -309,7 +309,7 @@ export const createTevmNode = (options = {}) => {
 		 * returns {void}
 		 */
 		const setImpersonatedAccount = (address) => {
-			impersonatedAccount = address
+			impersonatedAccount = address && getAddress(address)
 		}
 		await readyPromise
 		const oldVm = await vmPromise
