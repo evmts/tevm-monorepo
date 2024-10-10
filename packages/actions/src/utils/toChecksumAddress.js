@@ -6,8 +6,8 @@ import { keccak256,stringToHex} from '@tevm/utils'
  */
 export const toChecksumAddress = (/** @type {string} */ address) => {
 
-  if (!address) {
-    throw new Error('Invalid address provided');
+  if (typeof address !== 'string' || !/^(0x)?[0-9a-fA-F]{40}$/.test(address)) {
+    throw new Error('Invalid Ethereum address format');
   }
 
 
@@ -20,20 +20,21 @@ export const toChecksumAddress = (/** @type {string} */ address) => {
   let hash = keccak256(stringToHex(addressLower));
 
 
-// Iterate over each character of the address and the corresponding hash
-let checksumAddress = '0x';
-for (let i = 0; i < addressLower.length; i++) {
-  if(hash[i]){
+const checksumAddress = '0x' + Array.from(addressLower)
+  .map((char, i) => {
+    const charCode = char.charCodeAt(0);
+    // @ts-ignore
+    const shouldUpperCase = Number.parseInt(hash[i], 16) > 7;
 
-  // @ts-ignore
-    if (parseInt(hash[i], 16) >= 8) {
-      // @ts-ignore
-      checksumAddress += addressLower[i].toUpperCase();
+    if (charCode >= 48 && charCode <= 57) {  // '0'-'9'
+      return char;  // Numbers remain unchanged
+    } else if (charCode >= 97 && charCode <= 102) {  // 'a'-'f'
+      return shouldUpperCase ? char.toUpperCase() : char;
     } else {
-      checksumAddress += addressLower[i];
+      throw new Error(`Invalid character ${char} in address.`);
     }
-  }
-}
+  })
+  .join('');
 
 return checksumAddress;
 
