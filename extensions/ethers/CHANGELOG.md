@@ -1,5 +1,16 @@
 # @tevm/ethers
 
+## 1.0.0-next.123
+
+### Patch Changes
+
+- Updated dependencies [7ed32d3]
+- Updated dependencies [3419055]
+  - @tevm/actions@1.0.0-next.123
+  - @tevm/node@1.0.0-next.123
+  - @tevm/client-types@1.0.0-next.118
+  - @tevm/decorators@1.0.0-next.123
+
 ## 1.0.0-next.122
 
 ### Patch Changes
