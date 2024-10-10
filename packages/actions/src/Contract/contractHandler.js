@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
 import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
+import { toChecksumAddress } from '../utils/toChecksumAddress.js'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'
@@ -52,7 +53,7 @@ export const contractHandler =
 		const precompile = params.to && vm.evm.getPrecompile(createAddress(params.to))
 		if (!params.deployedBytecode && !params.code && contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(
-				{ contract, precompile, to: params.to.toString() },
+				{ contract, precompile, to: toChecksumAddress(params.to) },
 				'contractHandler: No contract bytecode nor precompile was found at specified `to` address. Unable to execute contract call.',
 			)
 			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
@@ -62,7 +63,7 @@ export const contractHandler =
 					{
 						_tag: 'InvalidRequestError',
 						name: 'InvalidRequestError',
-						message: `Contract at address ${params.to.toString()} does not exist`,
+						message: `Contract at address ${toChecksumAddress(params.to)} does not exist`,
 					},
 				],
 			})
