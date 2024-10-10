@@ -1,5 +1,11 @@
 # @tevm/client
 
+## 1.0.0-next.123
+
+### Patch Changes
+
+- 7ed32d3: Fixed bug with anvil_impersonateAccount woudln't properly throw an error for invalid addresses
+
 ## 1.0.0-next.120
 
 ### Patch Changes

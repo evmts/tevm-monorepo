@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 1.0.0-next.123
+
+### Patch Changes
+
+- 7ed32d3: Fixed bug with anvil_impersonateAccount woudln't properly throw an error for invalid addresses
+- 3419055: Fixed bug where input params arrays for some json rpc requests were not readonly. This would cause typescript to error if a readonly array was used rather than a normal one
+- Updated dependencies [7ed32d3]
+  - @tevm/node@1.0.0-next.123
+
 ## 1.0.0-next.122
 
 ### Minor Changes
