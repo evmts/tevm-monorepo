@@ -5,6 +5,7 @@ import type { Cache } from '@tevm/bundler-cache'
 import * as solc from 'solc'
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
+import minimatch from 'minimatch'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -16,6 +17,14 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 	createHostDecorator(({ languageServiceHost }, ts, logger, config, fao) => {
 		return {
 			getScriptSnapshot: (filePath) => {
+        // resolve json as const
+				for (const matcher of config.jsonAbiAsConst) {
+					if (minimatch(filePath, matcher)) {
+						const jsonString = fao.readFileSync(filePath, 'utf8')
+						return ts.ScriptSnapshot.fromString(`export default ${jsonString} as const`)
+					}
+				}
+
 				if (
 					!isSolidity(filePath) ||
 					!existsSync(filePath) ||
