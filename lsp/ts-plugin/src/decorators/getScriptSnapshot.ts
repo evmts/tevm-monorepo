@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'node:fs'
 import { bundler } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
-import minimatch from 'minimatch'
+import {minimatch} from 'minimatch'
 // @ts-expect-error
 import * as solc from 'solc'
 import { createHostDecorator } from '../factories/index.js'
@@ -19,7 +19,6 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 			getScriptSnapshot: (filePath) => {
 				// resolve json as const
 				for (const matcher of config.jsonAbiAsConst) {
-					// @ts-ignore no idea why I need this. LSP resolves types but the type checker does not. Might be something misconfigured in minimatch
 					if (minimatch(filePath, matcher)) {
 						const jsonString = fao.readFileSync(filePath, 'utf8')
 						return ts.ScriptSnapshot.fromString(`export default ${jsonString} as const`)
