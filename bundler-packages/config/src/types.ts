@@ -13,7 +13,7 @@ export type CompilerConfig = {
 	 * A glob pattern or array of glob patterns indicating which ABIs should be resolved as const.
 	 * This allows for more precise typing of ABIs in TypeScript.
 	 */
-	jsonAsConst?: string | string[] | undefined
+	jsonAsConst?: string | readonly string[] | undefined
 	/**
 	 * If set to true it will resolve forge remappings and libs
 	 * Set to "path/to/forge/executable" to use a custom forge executable
@@ -52,7 +52,7 @@ export type ResolvedCompilerConfig = {
 	 * A glob pattern or array of glob patterns indicating which ABIs should be resolved as const.
 	 * This allows for more precise typing of ABIs in TypeScript.
 	 */
-	jsonAsConst: string[]
+	jsonAsConst: readonly string[]
 	/**
 	 * If set to true it will resolve forge remappings and libs
 	 * Set to "path/to/forge/executable" to use a custom forge executable
