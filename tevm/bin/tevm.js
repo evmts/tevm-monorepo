@@ -38,12 +38,32 @@ const fao = {
 
 /**
  * Generate types from Solidity contracts.
- * 
+ *
  * @param {string} cwd - The current working directory.
  * @param {string[]} include - The glob pattern to include Solidity files.
  */
 const generate = (cwd, include) => {
   console.log('Generating types from contracts...', { dir: cwd, include });
+    const config = runSync(loadConfig(cwd));
+    const jsonAsConstFiles = config.jsonAsConst ?? [];
+    const resolvedJsonAsConstFiles = jsonAsConstFiles.flatMap(pattern => glob.sync(pattern, { cwd }));
+  // Generate TypeScript files for JSON as const
+  resolvedJsonAsConstFiles.forEach(async (file) => {
+    const fullPath = path.join(cwd, file);
+    const fileName = path.basename(file, '.json');
+    const outputPath = path.join(fullPath, `${fileName}.ts`);
+
+    try {
+      const jsonContent = await readFile(fullPath, 'utf8');
+      const tsContent = `export default ${jsonContent} as const`;
+
+      await writeFile(outputPath, tsContent);
+      console.log(`Generated ${outputPath}`);
+    } catch (error) {
+      console.error(`Error processing ${file}:`, error);
+    }
+  });
+
   const files = glob.sync(include, { cwd });
   if (files.length === 0) {
     throw new Error('No files found');
@@ -51,7 +71,6 @@ const generate = (cwd, include) => {
   files.forEach(async (file) => {
     const fileName = file.split('/').at(-1);
     const fileDir = file.split('/').slice(0, -1).join('/');
-    const config = runSync(loadConfig(cwd));
     const solcCache = createCache(config.cacheDir, fao, cwd);
     const plugin = bundler(config, console, fao, solc, solcCache);
     const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true);
