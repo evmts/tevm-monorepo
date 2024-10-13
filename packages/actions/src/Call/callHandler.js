@@ -11,6 +11,7 @@ import { executeCall } from './executeCall.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 import { validateCallParams } from './validateCallParams.js'
+import { handleStateOverrides } from './handleStateOverrides.js'
 
 /**
  * Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
@@ -123,6 +124,18 @@ export const callHandler =
 				rawData: '0x',
 			})
 		}
+
+	const stateOverrideResult = await handleStateOverrides(client, params);
+	if (stateOverrideResult.errors) {
+		return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+			errors: stateOverrideResult.errors,
+			executionGasUsed: 0n,
+			/**
+			 * @type {`0x${string}`}
+			 */
+			rawData: '0x',
+		})
+	}
 
 		const scriptResult =
 			code || deployedBytecode
