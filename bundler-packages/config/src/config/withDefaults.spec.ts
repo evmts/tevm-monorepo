@@ -9,12 +9,14 @@ describe(withDefaults.name, () => {
 		expect(
 			runSync(
 				withDefaults({
+					jsonAbiAsConst: 'src/**/*.json',
 					foundryProject: true,
 					remappings: { foo: 'bar' },
 					libs: ['lib1', 'lib2'],
 				}),
 			),
 		).toEqual({
+			jsonAbiAsConst: ['src/**/*.json'],
 			foundryProject: true,
 			remappings: { foo: 'bar' },
 			libs: ['lib1', 'lib2'],
@@ -28,6 +30,7 @@ describe(withDefaults.name, () => {
 				}),
 			),
 		).toEqual({
+			jsonAbiAsConst: defaultConfig.jsonAbiAsConst,
 			foundryProject: true,
 			remappings: defaultConfig.remappings,
 			libs: defaultConfig.libs,
@@ -37,10 +40,12 @@ describe(withDefaults.name, () => {
 		expect(
 			runSync(
 				withDefaults({
+					jsonAbiAsConst: ['src/**/*.json', 'test/**/*.json'],
 					remappings: { foo: 'bar' },
 				}),
 			),
 		).toEqual({
+			jsonAbiAsConst: ['src/**/*.json', 'test/**/*.json'],
 			foundryProject: defaultConfig.foundryProject,
 			remappings: { foo: 'bar' },
 			libs: defaultConfig.libs,
@@ -54,6 +59,7 @@ describe(withDefaults.name, () => {
 				}),
 			),
 		).toEqual({
+			jsonAbiAsConst: defaultConfig.jsonAbiAsConst,
 			foundryProject: false,
 			remappings: defaultConfig.remappings,
 			libs: ['lib1', 'lib2'],
