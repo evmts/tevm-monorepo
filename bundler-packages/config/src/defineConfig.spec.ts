@@ -38,7 +38,7 @@ describe(defineConfig.name, () => {
 		const resolvedConfig = config.configFn('./')
 
 		expect(runSync(resolvedConfig)).toEqual({
-			jsonAbiAsConst: defaultConfig.jsonAbiAsConst,
+			jsonAsConst: defaultConfig.jsonAsConst,
 			remappings: defaultConfig.remappings,
 			foundryProject: 'forge',
 			libs: ['lib1', 'lib2'],
@@ -65,7 +65,7 @@ describe(defineConfig.name, () => {
 		const resolvedConfig = config.configFn('./')
 
 		expect(runSync(resolvedConfig)).toEqual({
-			jsonAbiAsConst: defaultConfig.jsonAbiAsConst,
+			jsonAsConst: defaultConfig.jsonAsConst,
 			remappings: defaultConfig.remappings,
 			foundryProject: true,
 			libs: ['lib1', 'lib2'],

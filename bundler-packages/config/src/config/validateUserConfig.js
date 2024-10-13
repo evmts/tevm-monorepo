@@ -62,7 +62,7 @@ const SCompilerConfig = Struct({
 	remappings: optional(Union(Record({ key: SString, value: SString }), Undefined)),
 	debug: optional(Union(SBoolean, Undefined)),
 	cacheDir: optional(Union(SString, Undefined)),
-	jsonAbiAsConst: optional(Union(SString, SArray(SString), Undefined)), // Updated property
+	jsonAsConst: optional(Union(SString, SArray(SString), Undefined)), // Updated property
 })
 
 /**

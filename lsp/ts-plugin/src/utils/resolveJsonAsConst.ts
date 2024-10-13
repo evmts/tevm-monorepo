@@ -10,7 +10,7 @@ import {minimatch} from 'minimatch'
  * @returns A script snapshot or undefined
  */
 export const resolveJsonAsConst = (config: any, jsonFilePath: string, fao: any, languageServiceHost: any, ts: any) => {
-	for (const matcher of config.jsonAbiAsConst) {
+	for (const matcher of config.jsonAsConst) {
 		if (minimatch(jsonFilePath, matcher)) {
 			const jsonString = fao.readFileSync(jsonFilePath, 'utf8')
 			return ts.ScriptSnapshot.fromString(`export default ${jsonString} as const`)

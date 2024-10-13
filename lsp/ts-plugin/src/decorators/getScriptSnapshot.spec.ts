@@ -170,7 +170,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
-			{ ...config, jsonAbiAsConst: ['**/*.json'] }, // Add the pattern to config
+			{ ...config, jsonAsConst: ['**/*.json'] }, // Add the pattern to config
 			fao,
 		)
 
