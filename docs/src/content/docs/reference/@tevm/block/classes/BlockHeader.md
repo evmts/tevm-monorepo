@@ -566,7 +566,7 @@ Returns a list of signers
 
 This function throws if not called on an epoch
 transition block and should therefore be used
-in conjunction with [BlockHeader.cliqueIsEpochTransition](../../../../../../../../reference/tevm/block/classes/blockheader/#cliqueisepochtransition)
+in conjunction with [BlockHeader.cliqueIsEpochTransition](../../../../../../../reference/tevm/block/classes/blockheader/#cliqueisepochtransition)
 
 #### Returns
 

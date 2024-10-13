@@ -1,3 +1,4 @@
 {
-	"foundryProject": true
+	"foundryProject": true,
+	"jsonAsConst": ["**/foo.json"]
 }

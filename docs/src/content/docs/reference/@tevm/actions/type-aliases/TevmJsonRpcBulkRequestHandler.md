@@ -42,17 +42,17 @@ const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
 
 #### tevm_call
 
-request - [CallJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/calljsonrpcrequest)
-response - [CallJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/calljsonrpcresponse)
+request - [CallJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/calljsonrpcrequest)
+response - [CallJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/calljsonrpcresponse)
 
 #### tevm_getAccount
 
-request - [GetAccountJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/getaccountjsonrpcrequest)
-response - [GetAccountJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/getaccountjsonrpcresponse)
+request - [GetAccountJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/getaccountjsonrpcrequest)
+response - [GetAccountJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/getaccountjsonrpcresponse)
 
 #### tevm_setAccount
 
-request - [SetAccountJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/setaccountjsonrpcrequest)
+request - [SetAccountJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/setaccountjsonrpcrequest)
 response - SetAccountJsonRpcResponse
 
 ### debug_* methods
@@ -66,33 +66,33 @@ response - DebugTraceCallJsonRpcResponse
 
 #### eth_blockNumber
 
-request - [EthBlockNumberJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethblocknumberjsonrpcrequest)
-response - [EthBlockNumberJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethblocknumberjsonrpcresponse)
+request - [EthBlockNumberJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethblocknumberjsonrpcrequest)
+response - [EthBlockNumberJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethblocknumberjsonrpcresponse)
 
 #### eth_chainId
 
-request - [EthChainIdJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethchainidjsonrpcrequest)
-response - [EthChainIdJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethchainidjsonrpcresponse)
+request - [EthChainIdJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethchainidjsonrpcrequest)
+response - [EthChainIdJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethchainidjsonrpcresponse)
 
 #### eth_getCode
 
-request - [EthGetCodeJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethgetcodejsonrpcrequest)
-response - [EthGetCodeJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethgetcodejsonrpcresponse)
+request - [EthGetCodeJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethgetcodejsonrpcrequest)
+response - [EthGetCodeJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethgetcodejsonrpcresponse)
 
 #### eth_getStorageAt
 
-request - [EthGetStorageAtJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethgetstorageatjsonrpcrequest)
-response - [EthGetStorageAtJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethgetstorageatjsonrpcresponse)
+request - [EthGetStorageAtJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethgetstorageatjsonrpcrequest)
+response - [EthGetStorageAtJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethgetstorageatjsonrpcresponse)
 
 #### eth_gasPrice
 
-request - [EthGasPriceJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethgaspricejsonrpcrequest)
-response - [EthGasPriceJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethgaspricejsonrpcresponse)
+request - [EthGasPriceJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethgaspricejsonrpcrequest)
+response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethgaspricejsonrpcresponse)
 
 #### eth_getBalance
 
-request - [EthGetBalanceJsonRpcRequest](../../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcrequest)
-response - [EthGetBalanceJsonRpcResponse](../../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcresponse)
+request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcrequest)
+response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcresponse)
 
 ## Defined in
 

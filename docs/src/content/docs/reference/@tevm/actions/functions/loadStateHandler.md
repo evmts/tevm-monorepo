@@ -48,9 +48,9 @@ if (result.errors) {
 
 ## See
 
- - [LoadStateParams](../../../../../../../../reference/tevm/actions/type-aliases/loadstateparams)
- - [LoadStateResult](../../../../../../../../reference/tevm/actions/type-aliases/loadstateresult)
- - [TevmLoadStateError](../../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
+ - [LoadStateParams](../../../../../../../reference/tevm/actions/type-aliases/loadstateparams)
+ - [LoadStateResult](../../../../../../../reference/tevm/actions/type-aliases/loadstateresult)
+ - [TevmLoadStateError](../../../../../../../reference/tevm/actions/type-aliases/tevmloadstateerror)
 
 ## Defined in
 

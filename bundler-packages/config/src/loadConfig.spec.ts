@@ -17,6 +17,7 @@ describe(loadConfig.name, () => {
 			  "cacheDir": ".cache",
 			  "debug": false,
 			  "foundryProject": false,
+			  "jsonAsConst": [],
 			  "libs": [
 			    "mylib",
 			  ],
@@ -35,6 +36,7 @@ describe(loadConfig.name, () => {
 			  "cacheDir": ".tevm",
 			  "debug": false,
 			  "foundryProject": false,
+			  "jsonAsConst": [],
 			  "libs": [],
 			  "remappings": {},
 			}
@@ -51,6 +53,7 @@ describe(loadConfig.name, () => {
 			  "cacheDir": ".tevm",
 			  "debug": false,
 			  "foundryProject": true,
+			  "jsonAsConst": [],
 			  "libs": [
 			    "lib",
 			  ],

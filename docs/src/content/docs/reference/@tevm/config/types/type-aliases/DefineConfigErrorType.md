@@ -9,4 +9,4 @@ title: "DefineConfigErrorType"
 
 ## Defined in
 
-[bundler-packages/config/src/types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L70)
+[bundler-packages/config/src/types.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L80)

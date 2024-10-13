@@ -4,6 +4,7 @@ import { logDebug, succeed, tap } from 'effect/Effect'
  * The default CompilerConfig
  */
 export const defaultConfig = {
+	jsonAsConst: [],
 	foundryProject: false,
 	remappings: {},
 	libs: [],
@@ -24,6 +25,19 @@ export const defaultConfig = {
  */
 export const withDefaults = (config) =>
 	succeed({
+		jsonAsConst: (() => {
+			if (config.jsonAsConst === undefined) {
+				return defaultConfig.jsonAsConst
+			}
+			if (Array.isArray(config.jsonAsConst)) {
+				return config.jsonAsConst
+			}
+			if (typeof config.jsonAsConst === 'string') {
+				return [config.jsonAsConst]
+			}
+			console.error('Invalid jsonAsConst value must be a string or array of strings')
+			return defaultConfig.jsonAsConst
+		})(),
 		foundryProject: config.foundryProject ?? defaultConfig.foundryProject,
 		remappings: {
 			...defaultConfig.remappings,

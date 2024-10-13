@@ -7,7 +7,7 @@ title: "generateCanonicalGenesis"
 
 > **generateCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): (`initState`) => `Promise`\<`void`\>
 
-Loads a [TevmState](../../../../../../../../reference/tevm/state/type-aliases/tevmstate) into the state manager
+Loads a [TevmState](../../../../../../../reference/tevm/state/type-aliases/tevmstate) into the state manager
 
 ## Parameters
 

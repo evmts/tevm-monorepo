@@ -5,6 +5,7 @@ import type { Cache } from '@tevm/bundler-cache'
 import * as solc from 'solc'
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
+import { resolveJsonAsConst } from '../utils/resolveJsonAsConst.js'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -16,6 +17,9 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 	createHostDecorator(({ languageServiceHost }, ts, logger, config, fao) => {
 		return {
 			getScriptSnapshot: (filePath) => {
+				if (filePath.endsWith('.json')) {
+					return resolveJsonAsConst(config, filePath, fao, languageServiceHost, ts)
+				}
 				if (
 					!isSolidity(filePath) ||
 					!existsSync(filePath) ||

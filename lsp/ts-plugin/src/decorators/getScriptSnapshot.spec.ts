@@ -161,4 +161,20 @@ describe(getScriptSnapshotDecorator.name, () => {
 			}
 		`)
 	})
+	it('should resolve JSON files as const', () => {
+		const jsonFilePath = path.join(__dirname, '../test/fixtures/sample.json')
+		const jsonContent = '{"key": "value"}'
+		writeFileSync(jsonFilePath, jsonContent)
+
+		const decorator = getScriptSnapshotDecorator(cache)(
+			{ languageServiceHost, project } as any,
+			typescript,
+			logger,
+			{ ...config, jsonAsConst: ['**/*.json'] }, // Add the pattern to config
+			fao,
+		)
+
+		const result = decorator.getScriptSnapshot(jsonFilePath)
+		expect((result as any).text).toBe(`export default ${jsonContent} as const`)
+	})
 })

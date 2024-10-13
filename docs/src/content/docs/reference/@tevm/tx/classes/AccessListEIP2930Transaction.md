@@ -637,7 +637,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/b
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [AccessListEIP2930Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [AccessListEIP2930Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -702,12 +702,12 @@ Returns a Uint8Array Array of the raw Bytes of the EIP-2930 transaction, in orde
 Format: `[chainId, nonce, gasPrice, gasLimit, to, value, data, accessList,
 signatureYParity (v), signatureR (r), signatureS (s)]`
 
-Use [AccessListEIP2930Transaction.serialize](../../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#serialize) to add a transaction to a block
+Use [AccessListEIP2930Transaction.serialize](../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#serialize) to add a transaction to a block
 with Block.fromValuesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [AccessListEIP2930Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#getmessagetosign).
+representation for external signing use [AccessListEIP2930Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/accesslisteip2930transaction/#getmessagetosign).
 
 #### Returns
 
