@@ -1,4 +1,4 @@
-import {minimatch} from 'minimatch'
+import { minimatch } from 'minimatch'
 
 /**
  * Resolves JSON files as const if they match the config

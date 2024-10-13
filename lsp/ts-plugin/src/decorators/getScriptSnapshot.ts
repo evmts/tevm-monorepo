@@ -18,7 +18,7 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 		return {
 			getScriptSnapshot: (filePath) => {
 				if (filePath.endsWith('.json')) {
-				  return resolveJsonAsConst(config, filePath, fao, languageServiceHost, ts)
+					return resolveJsonAsConst(config, filePath, fao, languageServiceHost, ts)
 				}
 				if (
 					!isSolidity(filePath) ||
