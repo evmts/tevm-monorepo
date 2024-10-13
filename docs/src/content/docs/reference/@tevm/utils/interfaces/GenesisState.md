@@ -7,7 +7,7 @@ title: "GenesisState"
 
 If you are using a custom chain Common, pass the genesis state.
 
-Pattern 1 (with genesis state see [GenesisState](../../../../../../../../reference/tevm/utils/interfaces/genesisstate) for format):
+Pattern 1 (with genesis state see [GenesisState](../../../../../../../reference/tevm/utils/interfaces/genesisstate) for format):
 
 ```javascript
 {

@@ -8,7 +8,7 @@ title: "ResolvedCompilerConfig"
 > **ResolvedCompilerConfig**: `object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
+See [CompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
 
 ## Type declaration
 
@@ -31,6 +31,13 @@ If debug is true tevm will write the .d.ts files in the ts server and publish ex
 If set to true it will resolve forge remappings and libs
 Set to "path/to/forge/executable" to use a custom forge executable
 
+### jsonAbiAsConst
+
+> **jsonAbiAsConst**: `string`[]
+
+A glob pattern or array of glob patterns indicating which ABIs should be resolved as const.
+This allows for more precise typing of ABIs in TypeScript.
+
 ### libs
 
 > **libs**: readonly `string`[]
@@ -46,4 +53,4 @@ Remap the location of contracts
 
 ## Defined in
 
-[bundler-packages/config/src/types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L45)
+[bundler-packages/config/src/types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L50)

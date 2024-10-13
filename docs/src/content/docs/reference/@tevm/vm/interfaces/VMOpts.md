@@ -47,7 +47,7 @@ A Blockchain object for storing/retrieving blocks
 
 > `optional` **common**: `object`
 
-Use a [Common](../../../../../../../../reference/tevm/common/type-aliases/common) instance
+Use a [Common](../../../../../../../reference/tevm/common/type-aliases/common) instance
 if you want to change the chain setup.
 
 ### Possible Values
@@ -230,7 +230,7 @@ for older Hfs.
 Additionally it is possible to pass in a specific TD value to support live-Merge-HF
 transitions. Note that this should only be needed in very rare and specific scenarios.
 
-Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../../reference/tevm/common/type-aliases/common) instance)
+Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../reference/tevm/common/type-aliases/common) instance)
 
 #### Defined in
 

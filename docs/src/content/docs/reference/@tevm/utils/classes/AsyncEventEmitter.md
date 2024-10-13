@@ -33,7 +33,7 @@ title: "AsyncEventEmitter"
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:134
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:113
 
 ## Properties
 
@@ -55,7 +55,7 @@ v13.4.0, v12.16.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:459
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:412
 
 ***
 
@@ -77,7 +77,7 @@ v13.4.0, v12.16.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:452
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:405
 
 ***
 
@@ -131,7 +131,7 @@ v0.11.2
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:498
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:451
 
 ***
 
@@ -154,7 +154,7 @@ v13.6.0, v12.17.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:445
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:398
 
 ## Methods
 
@@ -184,7 +184,7 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:445
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:136
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:115
 
 ***
 
@@ -214,7 +214,7 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:136
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:545
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:592
 
 ***
 
@@ -442,7 +442,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 > **getMaxListeners**(): `number`
 
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](../../../../../../../../reference/tevm/utils/classes/asynceventemitter/#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](../../../../../../../reference/tevm/utils/classes/asynceventemitter/#defaultmaxlisteners).
 
 #### Returns
 
@@ -564,7 +564,7 @@ v10.0.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:747
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:700
 
 #### off(eventName, listener)
 
@@ -596,7 +596,7 @@ v10.0.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:700
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:747
 
 ***
 
@@ -868,7 +868,7 @@ v9.4.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:818
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:771
 
 #### rawListeners(eventName)
 
@@ -924,7 +924,7 @@ v9.4.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:771
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:818
 
 ***
 
@@ -1167,7 +1167,7 @@ v20.5.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:437
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:390
 
 ***
 
@@ -1220,7 +1220,7 @@ v15.2.0, v14.17.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:358
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:311
 
 ***
 
@@ -1272,7 +1272,7 @@ v19.9.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:387
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:340
 
 ***
 
@@ -1320,15 +1320,13 @@ v0.9.12
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:330
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:283
 
 ***
 
 ### on()
 
-#### on(emitter, eventName, options)
-
-> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterableIterator`\<`any`[], `any`, `any`\>
+> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterableIterator`\<`any`, `any`, `any`\>
 
 ```js
 import { on, EventEmitter } from 'node:events';
@@ -1385,77 +1383,33 @@ const ac = new AbortController();
 process.nextTick(() => ac.abort());
 ```
 
-Use the `close` option to specify an array of event names that will end the iteration:
-
-```js
-import { on, EventEmitter } from 'node:events';
-import process from 'node:process';
-
-const ee = new EventEmitter();
-
-// Emit later on
-process.nextTick(() => {
-  ee.emit('foo', 'bar');
-  ee.emit('foo', 42);
-  ee.emit('close');
-});
-
-for await (const event of on(ee, 'foo', { close: ['close'] })) {
-  console.log(event); // prints ['bar'] [42]
-}
-// the loop will exit after 'close' is emitted
-console.log('done'); // prints 'done'
-```
-
-##### Parameters
+#### Parameters
 
 • **emitter**: `EventEmitter`\<`DefaultEventMap`\>
 
-• **eventName**: `string` \| `symbol`
+• **eventName**: `string`
 
-• **options?**: `StaticEventEmitterIteratorOptions`
+The name of the event being listened for
 
-##### Returns
+• **options?**: `StaticEventEmitterOptions`
 
-`AsyncIterableIterator`\<`any`[], `any`, `any`\>
+#### Returns
+
+`AsyncIterableIterator`\<`any`, `any`, `any`\>
 
 An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
 
-##### Since
+#### Since
 
 v13.6.0, v12.16.0
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.on`
 
-##### Defined in
+#### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:303
-
-#### on(emitter, eventName, options)
-
-> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterableIterator`\<`any`[], `any`, `any`\>
-
-##### Parameters
-
-• **emitter**: `EventTarget`
-
-• **eventName**: `string`
-
-• **options?**: `StaticEventEmitterIteratorOptions`
-
-##### Returns
-
-`AsyncIterableIterator`\<`any`[], `any`, `any`\>
-
-##### Inherited from
-
-`EventEmitter.on`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:308
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:261
 
 ***
 
@@ -1564,7 +1518,7 @@ v11.13.0, v10.16.0
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:217
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:196
 
 #### once(emitter, eventName, options)
 
@@ -1588,7 +1542,7 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:217
 
 ##### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:222
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:201
 
 ***
 
@@ -1627,4 +1581,4 @@ v15.4.0
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:402
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:355
