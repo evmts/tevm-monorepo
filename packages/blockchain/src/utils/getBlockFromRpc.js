@@ -3,6 +3,7 @@ import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
 import { withRetry } from 'viem'
+import { customTxTypes } from './CUSTOM_Tx_TYPES.js'
 import { isTevmBlockTag } from './isTevmBlockTag.js'
 import { warnOnce } from './warnOnce.js'
 
@@ -27,11 +28,8 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					.../** @type {any}*/ (rpcBlock),
 					// filter out transactions we don't support as a hack
 					transactions: rpcBlock.transactions?.filter((tx) => {
-						// we currently don't support optimism deposit tx which uses this custom code
-						// Optimism type is currently not in viem types
-						// @ts-expect-error
-						if (tx.type === '0x7e' || tx.type === '0x6a') {
-							doWarning(tx)
+						if (customTxTypes.includes(tx.type)) {
+							doWarning(/** @type {any}*/ (tx))
 							return false
 						}
 						return true
