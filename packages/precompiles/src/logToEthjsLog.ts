@@ -35,17 +35,11 @@ export const logToEthjsLog = <TAbi extends Abi>(
 			? (inputs?.map((x: any) => (log.args as any)[x.name]) ?? [])
 			: []
 
-	const argsArrayWithoutIndexed = argsArray.filter((_, index) => {
-		const input = eventItem.inputs[index]
-		if (input?.indexed) {
-			return false
-		}
-		return true
-	})
+	const nonIndexedArgs = argsArray.filter((_, index) => !eventItem.inputs[index]?.indexed)
 
 	const data = encodeAbiParameters(
 		inputs.filter((input) => !input.indexed),
-		argsArrayWithoutIndexed,
+		nonIndexedArgs,
 	)
 	return [hexToBytes(log.address), topics, hexToBytes(data)]
 }
