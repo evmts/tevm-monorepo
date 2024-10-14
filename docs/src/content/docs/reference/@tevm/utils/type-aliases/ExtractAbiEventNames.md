@@ -7,13 +7,13 @@ title: "ExtractAbiEventNames"
 
 > **ExtractAbiEventNames**\<`abi`\>: [`ExtractAbiEvents`](/reference/tevm/utils/type-aliases/extractabievents/)\<`abi`\>\[`"name"`\]
 
-Extracts all [AbiEvent](../../../../../../../reference/tevm/utils/type-aliases/abievent) names from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi).
+Extracts all [AbiEvent](../../../../../../../../reference/tevm/utils/type-aliases/abievent) names from [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi).
 
 ## Type Parameters
 
 • **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-[Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) to extract event names from
+[Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi) to extract event names from
 
 ## Defined in
 

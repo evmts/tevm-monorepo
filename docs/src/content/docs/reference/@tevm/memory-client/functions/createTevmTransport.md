@@ -47,7 +47,7 @@ example()
 
 ## See
 
- - [createClient](../../../../../../../reference/tevm/memory-client/functions/createclient)
+ - [createClient](../../../../../../../../reference/tevm/memory-client/functions/createclient)
  - [Viem Client Docs](https://viem.sh/docs/clients/introduction)
  - [Client Guide](https://tevm.sh/learn/clients/)
  - [tevm JSON-RPC Guide](https://tevm.sh/learn/json-rpc/)

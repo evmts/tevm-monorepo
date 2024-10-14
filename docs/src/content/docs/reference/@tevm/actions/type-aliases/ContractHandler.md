@@ -65,8 +65,8 @@ console.log(res)
 ## See
 
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
- - [ContractParams](../../../../../../../reference/tevm/actions/type-aliases/contractparams)
- - [ContractResult](../../../../../../../reference/tevm/actions/type-aliases/contractresult)
+ - [ContractParams](../../../../../../../../reference/tevm/actions/type-aliases/contractparams)
+ - [ContractResult](../../../../../../../../reference/tevm/actions/type-aliases/contractresult)
 
 ## Defined in
 

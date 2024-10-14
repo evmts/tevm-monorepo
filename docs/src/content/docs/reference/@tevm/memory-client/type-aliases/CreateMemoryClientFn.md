@@ -7,7 +7,7 @@ title: "CreateMemoryClientFn"
 
 > **CreateMemoryClientFn**: \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?) => [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/)\<`TCommon`, `TAccountOrAddress`\>
 
-Type definition for the function that creates a [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
+Type definition for the function that creates a [MemoryClient](../../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
 This function initializes a MemoryClient with the provided options,
 including forking configurations, logging levels, and state persistence options.
 
@@ -54,7 +54,7 @@ const client = createMemoryClient({
 
 ## See
 
-For more details on using the MemoryClient, refer to [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
+For more details on using the MemoryClient, refer to [MemoryClient](../../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient).
 
 ## Defined in
 

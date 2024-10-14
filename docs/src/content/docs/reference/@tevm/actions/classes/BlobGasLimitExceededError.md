@@ -123,7 +123,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
 
 ***
 
@@ -137,35 +137,11 @@ node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:
 
 #### Defined in
 
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
 ### captureStackTrace()
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`Error.captureStackTrace`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -214,3 +190,27 @@ Create .stack property on a target object
 ##### Defined in
 
 node\_modules/.pnpm/bun-types@1.1.29/node\_modules/bun-types/globals.d.ts:1630
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+##### Defined in
+
+node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

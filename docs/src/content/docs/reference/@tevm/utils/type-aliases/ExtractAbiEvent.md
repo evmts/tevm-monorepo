@@ -7,17 +7,17 @@ title: "ExtractAbiEvent"
 
 > **ExtractAbiEvent**\<`abi`, `eventName`\>: `Extract`\<[`ExtractAbiEvents`](/reference/tevm/utils/type-aliases/extractabievents/)\<`abi`\>, `object`\>
 
-Extracts [AbiEvent](../../../../../../../reference/tevm/utils/type-aliases/abievent) with name from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi).
+Extracts [AbiEvent](../../../../../../../../reference/tevm/utils/type-aliases/abievent) with name from [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi).
 
 ## Type Parameters
 
 • **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-[Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) to extract [AbiEvent](../../../../../../../reference/tevm/utils/type-aliases/abievent) from
+[Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi) to extract [AbiEvent](../../../../../../../../reference/tevm/utils/type-aliases/abievent) from
 
 • **eventName** *extends* [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`abi`\>
 
-String name of event to extract from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi)
+String name of event to extract from [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi)
 
 ## Defined in
 

@@ -53,8 +53,8 @@ console.log(res)
 ## See
 
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
- - [BaseCallParams](../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
- - [EncodeFunctionDataParameters](../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
+ - [BaseCallParams](../../../../../../../../reference/tevm/actions/type-aliases/basecallparams)
+ - [EncodeFunctionDataParameters](../../../../../../../../reference/tevm/utils/type-aliases/encodefunctiondataparameters)
 
 ## Defined in
 

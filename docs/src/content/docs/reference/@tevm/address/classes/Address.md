@@ -6,7 +6,7 @@ title: "Address"
 ---
 
 Utility class for Ethereum addresses.
-Wraps [EthjsAddress](../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
+Wraps [EthjsAddress](../../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
 toString returns a checksummed address rather than lowercase.
 
 ## Example
