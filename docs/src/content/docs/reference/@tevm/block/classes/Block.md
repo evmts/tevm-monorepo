@@ -635,7 +635,7 @@ json of a beacon beacon fetched from beacon apis
 
 • **opts**: [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/)
 
-[BlockOptions](../../../../../../../reference/tevm/block/interfaces/blockoptions)
+[BlockOptions](../../../../../../../../reference/tevm/block/interfaces/blockoptions)
 
 #### Returns
 
@@ -683,7 +683,7 @@ Method to retrieve a block from an execution payload
 
 • **opts**: [`BlockOptions`](/reference/tevm/block/interfaces/blockoptions/)
 
-[BlockOptions](../../../../../../../reference/tevm/block/interfaces/blockoptions)
+[BlockOptions](../../../../../../../../reference/tevm/block/interfaces/blockoptions)
 
 #### Returns
 

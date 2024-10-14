@@ -7,7 +7,7 @@ title: "createContractAddress"
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](/reference/tevm/address/classes/address/)
 
-Generates an [Address](../../../../../../../reference/tevm/address/classes/address) for a newly created contract.
+Generates an [Address](../../../../../../../../reference/tevm/address/classes/address) for a newly created contract.
 
 ## Parameters
 

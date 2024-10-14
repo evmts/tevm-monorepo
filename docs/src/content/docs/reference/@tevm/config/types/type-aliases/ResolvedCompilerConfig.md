@@ -8,7 +8,7 @@ title: "ResolvedCompilerConfig"
 > **ResolvedCompilerConfig**: `object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
+See [CompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/compilerconfig)
 
 ## Type declaration
 
@@ -33,7 +33,7 @@ Set to "path/to/forge/executable" to use a custom forge executable
 
 ### jsonAsConst
 
-> **jsonAsConst**: `string`[]
+> **jsonAsConst**: readonly `string`[]
 
 A glob pattern or array of glob patterns indicating which ABIs should be resolved as const.
 This allows for more precise typing of ABIs in TypeScript.

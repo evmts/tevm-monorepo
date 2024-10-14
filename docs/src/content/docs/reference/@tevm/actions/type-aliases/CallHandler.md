@@ -52,8 +52,8 @@ console.log(res)
 ## See
 
  - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall)
- - [CallParams](../../../../../../../reference/tevm/actions/type-aliases/callparams)
- - [CallResult](../../../../../../../reference/tevm/actions/type-aliases/callresult)
+ - [CallParams](../../../../../../../../reference/tevm/actions/type-aliases/callparams)
+ - [CallResult](../../../../../../../../reference/tevm/actions/type-aliases/callresult)
 
 ## Defined in
 

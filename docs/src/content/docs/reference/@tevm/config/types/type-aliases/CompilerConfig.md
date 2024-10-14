@@ -8,7 +8,7 @@ title: "CompilerConfig"
 > **CompilerConfig**: `object`
 
 Configuration of the solidity compiler
-When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
+When resolved with defaults it is a [ResolvedCompilerConfig](../../../../../../../../../reference/tevm/config/types/type-aliases/resolvedcompilerconfig)
 
 ## Type declaration
 
@@ -33,7 +33,7 @@ Set to "path/to/forge/executable" to use a custom forge executable
 
 ### jsonAsConst?
 
-> `optional` **jsonAsConst**: `string` \| `string`[]
+> `optional` **jsonAsConst**: `string` \| readonly `string`[]
 
 A glob pattern or array of glob patterns indicating which ABIs should be resolved as const.
 This allows for more precise typing of ABIs in TypeScript.
