@@ -9,12 +9,13 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 /**
  * Handles state overrides for the given client and parameters.
  * @param {import('@tevm/node').TevmNode} client
- * @param {import('./CallParams.js').CallParams} params
+ * @param {import('./CallParams.js').CallParams['stateOverrideSet']} stateOverrideSet
  * @returns {Promise<{errors?: Array<HandleStateOverridesError>}>}
  */
-export async function handleStateOverrides(client, params) {
-	if (params.stateOverrideSet) {
-		for (const [address, state] of Object.entries(params.stateOverrideSet)) {
+export async function handleStateOverrides(client, stateOverrideSet) {
+	if (stateOverrideSet) {
+		for (const [address, state] of Object.entries(stateOverrideSet)) {
+			console.log('setting state', address, state)
 			const res = await setAccountHandler(client)({
 				address: /** @type import('@tevm/utils').Address*/ (address),
 				...(state.nonce !== undefined ? { nonce: state.nonce } : {}),

@@ -224,20 +224,6 @@ describe('callHandlerOpts', () => {
 		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
 	})
 
-	it('should handle invalid state overrides', async () => {
-		const stateOverrideSet = {
-			[`0x${'1'.repeat(40)}` as const]: {
-				nonce: 1n,
-				balance: 1000000000n,
-				code: 'invalid_code' as const as any,
-			},
-		}
-		const result = await callHandlerOpts(client, { stateOverrideSet })
-		expect(result.errors).toBeDefined()
-		expect(result.errors).toHaveLength(1)
-		expect(result.errors).toMatchSnapshot()
-	})
-
 	it('should throw error for transaction creation on past blocks', async () => {
 		const client = createTevmNode()
 

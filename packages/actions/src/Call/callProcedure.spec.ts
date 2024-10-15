@@ -74,6 +74,7 @@ describe('callProcedure', () => {
 		}
 
 		const response = await callProcedure(client)(request)
+		console.log(response.error)
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('tevm_call')
