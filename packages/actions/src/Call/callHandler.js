@@ -9,6 +9,7 @@ import { callHandlerResult } from './callHandlerResult.js'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 import { executeCall } from './executeCall.js'
 import { handlePendingTransactionsWarning } from './handlePendingTransactionsWarning.js'
+import { handleStateOverrides } from './handleStateOverrides.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 import { validateCallParams } from './validateCallParams.js'
 
@@ -116,6 +117,21 @@ export const callHandler =
 		if (vm instanceof Error) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [vm],
+				executionGasUsed: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
+				rawData: '0x',
+			})
+		}
+
+		const stateOverrideResult = await handleStateOverrides(
+			{ ...client, getVm: async () => vm },
+			params.stateOverrideSet,
+		)
+		if (stateOverrideResult.errors) {
+			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
+				errors: stateOverrideResult.errors,
 				executionGasUsed: 0n,
 				/**
 				 * @type {`0x${string}`}

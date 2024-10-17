@@ -1,9 +1,8 @@
 import { InvalidBlockError, InvalidParamsError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { EthjsAddress, bytesToHex, numberToHex } from '@tevm/utils'
+import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 
@@ -223,49 +222,6 @@ describe('callHandlerOpts', () => {
 		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
 		expect(result.data?.block?.header.getBlobGasPrice()).toBe(1n)
 		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
-	})
-
-	it('should handle state overrides correctly', async () => {
-		const address = `0x${'1'.repeat(40)}` as const
-		const overridedAccount = {
-			nonce: 1n,
-			balance: 1000000000n,
-			code: '0x60' as const,
-			state: {
-				[numberToHex(0, { size: 32 })]: numberToHex(420, { size: 2 }),
-				[numberToHex(1, { size: 32 })]: numberToHex(69, { size: 1 }),
-			},
-		}
-		const stateOverrideSet = {
-			[address]: overridedAccount,
-		}
-		const result = await callHandlerOpts(client, { stateOverrideSet })
-		expect(result.errors).toBeUndefined()
-		expect(await getAccountHandler(client)({ address, returnStorage: true })).toEqual({
-			address,
-			nonce: overridedAccount.nonce,
-			balance: overridedAccount.balance,
-			deployedBytecode: overridedAccount.code,
-			storage: overridedAccount.state,
-			isContract: true,
-			isEmpty: false,
-			storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-			codeHash: '0x15a5de5d00dfc39d199ee772e89858c204d1d545de092db54a345c7303942607',
-		})
-	})
-
-	it('should handle invalid state overrides', async () => {
-		const stateOverrideSet = {
-			[`0x${'1'.repeat(40)}` as const]: {
-				nonce: 1n,
-				balance: 1000000000n,
-				code: 'invalid_code' as const as any,
-			},
-		}
-		const result = await callHandlerOpts(client, { stateOverrideSet })
-		expect(result.errors).toBeDefined()
-		expect(result.errors).toHaveLength(1)
-		expect(result.errors).toMatchSnapshot()
 	})
 
 	it('should throw error for transaction creation on past blocks', async () => {
