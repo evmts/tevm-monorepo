@@ -30,8 +30,8 @@ console.log(res.errors) // undefined
 
 ## See
 
- - [MineParams](../../../../../../../../reference/tevm/actions/type-aliases/mineparams) for details on the parameters.
- - [MineResult](../../../../../../../../reference/tevm/actions/type-aliases/mineresult) for details on the result.
+ - [MineParams](../../../../../../../reference/tevm/actions/type-aliases/mineparams) for details on the parameters.
+ - [MineResult](../../../../../../../reference/tevm/actions/type-aliases/mineresult) for details on the result.
 
 ## Defined in
 

@@ -7,7 +7,7 @@ title: "createMemoryClient"
 
 > **createMemoryClient**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?): `object`
 
-Creates a [MemoryClient](../../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient) which is a viem client with an in-memory Ethereum client as its transport.
+Creates a [MemoryClient](../../../../../../../reference/tevm/memory-client/type-aliases/memoryclient) which is a viem client with an in-memory Ethereum client as its transport.
 It comes batteries included with all wallet, test, public, and tevm actions.
 
 ## Type Parameters
@@ -248,7 +248,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 • **args?**: [`CreateEventFilterParameters`](/reference/tevm/utils/type-aliases/createeventfilterparameters/)\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>
 
-[CreateEventFilterParameters](../../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
+[CreateEventFilterParameters](../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
 
 #### Returns
 

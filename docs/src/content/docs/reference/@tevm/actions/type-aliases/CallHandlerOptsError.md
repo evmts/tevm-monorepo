@@ -9,4 +9,4 @@ title: "CallHandlerOptsError"
 
 ## Defined in
 
-[packages/actions/src/Call/callHandlerOpts.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L8)
+[packages/actions/src/Call/callHandlerOpts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L7)

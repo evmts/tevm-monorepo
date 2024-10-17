@@ -208,7 +208,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 • **args?**: [`CreateEventFilterParameters`](/reference/tevm/utils/type-aliases/createeventfilterparameters/)\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>
 
-[CreateEventFilterParameters](../../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
+[CreateEventFilterParameters](../../../../../../../reference/tevm/utils/type-aliases/createeventfilterparameters)
 
 #### Returns
 

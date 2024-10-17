@@ -700,7 +700,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/b
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [BlobEIP4844Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/blobeip4844transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [BlobEIP4844Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/blobeip4844transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -786,7 +786,7 @@ with {@link Block.fromValuesArray}.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [BlobEIP4844Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/blobeip4844transaction/#getmessagetosign).
+representation for external signing use [BlobEIP4844Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/blobeip4844transaction/#getmessagetosign).
 
 #### Returns
 
@@ -1103,11 +1103,11 @@ The minimal representation is used when adding transactions to an execution payl
 
 • **txData**: [`BlobEIP4844Transaction`](/reference/tevm/tx/classes/blobeip4844transaction/)
 
-a [BlobEIP4844Transaction](../../../../../../../../reference/tevm/tx/classes/blobeip4844transaction) containing optional blobs/kzg commitments
+a [BlobEIP4844Transaction](../../../../../../../reference/tevm/tx/classes/blobeip4844transaction) containing optional blobs/kzg commitments
 
 • **opts?**: [`TxOptions`](/reference/tevm/tx/interfaces/txoptions/)
 
-dictionary of [TxOptions](../../../../../../../../reference/tevm/tx/interfaces/txoptions)
+dictionary of [TxOptions](../../../../../../../reference/tevm/tx/interfaces/txoptions)
 
 #### Returns
 

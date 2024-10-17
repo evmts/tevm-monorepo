@@ -656,7 +656,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/b
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [FeeMarketEIP1559Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [FeeMarketEIP1559Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -721,12 +721,12 @@ Returns a Uint8Array Array of the raw Bytes of the EIP-1559 transaction, in orde
 Format: `[chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
 accessList, signatureYParity, signatureR, signatureS]`
 
-Use [FeeMarketEIP1559Transaction.serialize](../../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#serialize) to add a transaction to a block
+Use [FeeMarketEIP1559Transaction.serialize](../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#serialize) to add a transaction to a block
 with Block.fromValuesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [FeeMarketEIP1559Transaction.getMessageToSign](../../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#getmessagetosign).
+representation for external signing use [FeeMarketEIP1559Transaction.getMessageToSign](../../../../../../../reference/tevm/tx/classes/feemarketeip1559transaction/#getmessagetosign).
 
 #### Returns
 

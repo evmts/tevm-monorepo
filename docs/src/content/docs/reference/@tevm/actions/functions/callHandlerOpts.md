@@ -25,4 +25,4 @@ Returns all errors as values
 
 ## Defined in
 
-[packages/actions/src/Call/callHandlerOpts.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L19)
+[packages/actions/src/Call/callHandlerOpts.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L18)

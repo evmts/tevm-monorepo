@@ -581,6 +581,9 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
+      starlight-blog:
+        specifier: ^0.14.0
+        version: 0.14.0(@astrojs/starlight@0.28.2(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2)))
       starlight-links-validator:
         specifier: ^0.12.1
         version: 0.12.1(@astrojs/starlight@0.28.2(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2))
@@ -970,7 +973,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee000c6c27859065d7b3da6047345607c1d94a0d
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1de6eecf821de7fe2c908cc48d3ab3dced20717f
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.3.1)
@@ -2543,6 +2546,9 @@ packages:
   '@astrojs/prism@3.1.0':
     resolution: {integrity: sha512-Z9IYjuXSArkAUx3N6xj6+Bnvx8OdUSHA8YoOgyepp3+zJmtVYJIl/I18GozdJVW1p5u/CNpl3Km7/gwTJK85cw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+
+  '@astrojs/rss@4.0.5':
+    resolution: {integrity: sha512-IyJVL6z09AQtxbgLaAwebT3T5YKe4oTHDesqydJv1KLHw+zEzzMCFuuNsEyxjiqu7df9+DDCpDXLj/WRiEUXvw==}
 
   '@astrojs/sitemap@3.1.6':
     resolution: {integrity: sha512-1Qp2NvAzVImqA6y+LubKi1DVhve/hXXgFvB0szxiipzh7BvtuKe4oJJ9dXSqaubaTkt4nMa6dv6RCCAYeB6xaQ==}
@@ -7233,6 +7239,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^3.3.0
 
+  astro-remote@0.3.2:
+    resolution: {integrity: sha512-Xwm6Y+ldQEnDB2l1WwVqeUs3QvUX8LtJWnovpXlf8xhpicPu159jXOhDbHZS9wilGO/+/nR67A1qskF8pDvdGQ==}
+    engines: {node: '>=18.14.1'}
+
   astro@4.15.9:
     resolution: {integrity: sha512-51oXq9qrZ5OPWYmEXt1kGrvWmVeWsx28SgBTzi2XW6iwcnW/wC5ONm6ol6qBGSCF93tQvZplXvuzpaw1injECA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
@@ -8455,6 +8465,7 @@ packages:
 
   eciesjs@0.3.20:
     resolution: {integrity: sha512-Rz5AB8v9+xmMdS/R7RzWPe/R8DP5QfyrkA6ce4umJopoB5su2H2aDy/GcgIfwhmCwxnBkqGf/PbGzmKcGtIgGA==}
+    deprecated: Please upgrade to v0.4+
 
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -9010,8 +9021,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee000c6c27859065d7b3da6047345607c1d94a0d:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee000c6c27859065d7b3da6047345607c1d94a0d}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/1de6eecf821de7fe2c908cc48d3ab3dced20717f:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1de6eecf821de7fe2c908cc48d3ab3dced20717f}
     version: 1.9.3
 
   form-data@4.0.0:
@@ -10449,11 +10460,31 @@ packages:
   markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
 
+  marked-footnote@1.2.4:
+    resolution: {integrity: sha512-DB2Kl+wFh6YwZd70qABMY6WUkG1UuyqoNTFoDfGyG79Pz24neYtLBkB+45a7o72V7gkfvbC3CGzIYFobxfMT1Q==}
+    peerDependencies:
+      marked: '>=7.0.0'
+
+  marked-plaintify@1.0.1:
+    resolution: {integrity: sha512-KQhxtuVWf3Ij3YMiW4ArlgNOVmzOAlP0o/upsu2+h7Q4TCAwG4UvkYTteZF2sDDomXQnNSLmfyAhoR0gx2Orgw==}
+    peerDependencies:
+      marked: '>=7.0.0'
+
+  marked-smartypants@1.1.8:
+    resolution: {integrity: sha512-2n8oSjL2gSkH6M0dSdRIyLgqqky03iKQkdmoaylmIzwIhYTW204S7ry6zP2iqwSl0zSlJH2xmWgxlZ/4XB1CdQ==}
+    peerDependencies:
+      marked: '>=4 <15'
+
   marked-terminal@7.1.0:
     resolution: {integrity: sha512-+pvwa14KZL74MVXjYdPR3nSInhGhNvPce/3mqLVZT2oUvt654sL1XImFuLZ1pkA866IYZ3ikDTOFUIC7XzpZZg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       marked: '>=1 <14'
+
+  marked@12.0.2:
+    resolution: {integrity: sha512-qXUm7e/YKFoqFPYPa3Ukg9xlI5cyAtGmyEIzMfW//m6kXwCy2Ps9DYf5ioijFKQ8qyuscrHoY04iJGctu2Kg0Q==}
+    engines: {node: '>= 18'}
+    hasBin: true
 
   marked@4.3.0:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
@@ -12621,6 +12652,10 @@ packages:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
 
+  smartypants@0.2.2:
+    resolution: {integrity: sha512-TzobUYoEft/xBtb2voRPryAUIvYguG0V7Tt3de79I1WfXgCwelqVsGuZSnu3GFGRZhXR90AeEYIM+icuB/S06Q==}
+    hasBin: true
+
   snapdragon-node@2.1.1:
     resolution: {integrity: sha512-O27l4xaMYt/RSQ5TR3vpWCAB5Kb/czIcqUFOM/C4fYcLnbZUc1PkjTAMjof2pBWaSTwOUd6qUHcFGVGj7aIwnw==}
     engines: {node: '>=0.10.0'}
@@ -12805,6 +12840,12 @@ packages:
 
   standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
+
+  starlight-blog@0.14.0:
+    resolution: {integrity: sha512-Eu7wuMTpfy/r09daaUx8IWG3z7BhfjVtl7vDfHPsXupiIKz6iB+pVoQqe3zUBUxVKkoPjOLJUx8QPDhw/3faZg==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.28.3'
 
   starlight-links-validator@0.12.1:
     resolution: {integrity: sha512-LhRuGaI9Rp7c7ltwcG0BfCZuAN1d15oYbDB4jXblJ6zsiFcrSGHNlDnKXJHEJZ6XhJ+eOpd1IsHLFLh5Sq6uHg==}
@@ -13455,6 +13496,9 @@ packages:
 
   uint8arrays@3.1.0:
     resolution: {integrity: sha512-ei5rfKtoRO8OyOIor2Rz5fhzjThwIHJZ3uyDPnDHTXbP0aMQ1RN/6AI5B5d9dBxJOU+BvOAk7ZQ1xphsX8Lrog==}
+
+  ultrahtml@1.5.3:
+    resolution: {integrity: sha512-GykOvZwgDWZlTQMtp5jrD4BVL+gNn2NVlVafjcFUJ7taY20tqYdwdoWBFy6GBJsNTZe1GkGPkSl5knQAjtgceg==}
 
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
@@ -14639,6 +14683,11 @@ snapshots:
   '@astrojs/prism@3.1.0':
     dependencies:
       prismjs: 1.29.0
+
+  '@astrojs/rss@4.0.5':
+    dependencies:
+      fast-xml-parser: 4.5.0
+      kleur: 4.1.5
 
   '@astrojs/sitemap@3.1.6':
     dependencies:
@@ -20762,6 +20811,14 @@ snapshots:
       astro: 4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2)
       rehype-expressive-code: 0.35.6
 
+  astro-remote@0.3.2:
+    dependencies:
+      entities: 4.5.0
+      marked: 12.0.2
+      marked-footnote: 1.2.4(marked@12.0.2)
+      marked-smartypants: 1.1.8(marked@12.0.2)
+      ultrahtml: 1.5.3
+
   astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2):
     dependencies:
       '@astrojs/compiler': 2.10.3
@@ -23113,7 +23170,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee000c6c27859065d7b3da6047345607c1d94a0d: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/1de6eecf821de7fe2c908cc48d3ab3dced20717f: {}
 
   form-data@4.0.0:
     dependencies:
@@ -24859,6 +24916,19 @@ snapshots:
 
   markdown-table@3.0.3: {}
 
+  marked-footnote@1.2.4(marked@12.0.2):
+    dependencies:
+      marked: 12.0.2
+
+  marked-plaintify@1.0.1(marked@12.0.2):
+    dependencies:
+      marked: 12.0.2
+
+  marked-smartypants@1.1.8(marked@12.0.2):
+    dependencies:
+      marked: 12.0.2
+      smartypants: 0.2.2
+
   marked-terminal@7.1.0(marked@9.1.6):
     dependencies:
       ansi-escapes: 7.0.0
@@ -24868,6 +24938,8 @@ snapshots:
       marked: 9.1.6
       node-emoji: 2.1.3
       supports-hyperlinks: 3.1.0
+
+  marked@12.0.2: {}
 
   marked@4.3.0: {}
 
@@ -27902,6 +27974,8 @@ snapshots:
 
   smart-buffer@4.2.0: {}
 
+  smartypants@0.2.2: {}
+
   snapdragon-node@2.1.1:
     dependencies:
       define-property: 1.0.0
@@ -28148,6 +28222,16 @@ snapshots:
 
   standard-as-callback@2.1.0:
     optional: true
+
+  starlight-blog@0.14.0(@astrojs/starlight@0.28.2(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2))):
+    dependencies:
+      '@astrojs/rss': 4.0.5
+      '@astrojs/starlight': 0.28.2(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2))
+      astro-remote: 0.3.2
+      github-slugger: 2.0.0
+      marked: 12.0.2
+      marked-plaintify: 1.0.1(marked@12.0.2)
+      ultrahtml: 1.5.3
 
   starlight-links-validator@0.12.1(@astrojs/starlight@0.28.2(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.3)(rollup@4.22.4)(terser@5.34.0)(typescript@5.6.2)):
     dependencies:
@@ -28809,6 +28893,8 @@ snapshots:
   uint8arrays@3.1.0:
     dependencies:
       multiformats: 9.9.0
+
+  ultrahtml@1.5.3: {}
 
   uncrypto@0.1.3: {}
 
