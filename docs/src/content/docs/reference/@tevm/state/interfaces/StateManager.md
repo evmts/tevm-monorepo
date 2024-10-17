@@ -239,7 +239,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](/reference/tevm/state/type-aliases/tevmstate/)\>
 
-Dumps the state of the state manager as a [TevmState](../../../../../../../../reference/tevm/state/type-aliases/tevmstate)
+Dumps the state of the state manager as a [TevmState](../../../../../../../reference/tevm/state/type-aliases/tevmstate)
 
 #### Returns
 

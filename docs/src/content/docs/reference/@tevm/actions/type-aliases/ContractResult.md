@@ -57,7 +57,7 @@ if (result.errors) {
 
 ## See
 
-[CallResult](../../../../../../../../reference/tevm/actions/type-aliases/callresult)
+[CallResult](../../../../../../../reference/tevm/actions/type-aliases/callresult)
 
 ## Defined in
 

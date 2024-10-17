@@ -57,4 +57,4 @@ const res = await call({
 
 ## Defined in
 
-[packages/actions/src/Call/callHandler.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L46)
+[packages/actions/src/Call/callHandler.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L47)

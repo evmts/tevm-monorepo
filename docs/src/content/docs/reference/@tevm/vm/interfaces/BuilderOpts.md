@@ -17,7 +17,7 @@ Options for the block builder.
 
 > `optional` **calcDifficultyFromHeader**: [`BlockHeader`](/reference/tevm/block/classes/blockheader/)
 
-If a preceding [BlockHeader](../../../../../../../../reference/tevm/block/classes/blockheader) (usually the parent header) is given the preceding
+If a preceding [BlockHeader](../../../../../../../reference/tevm/block/classes/blockheader) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
 difficulty takes precedence over a provided static `difficulty` value.
 
@@ -55,13 +55,13 @@ packages/block/types/types.d.ts:59
 
 > **common**: `object`
 
-A [Common](../../../../../../../../reference/tevm/common/type-aliases/common) object defining the chain and the hardfork a block/block header belongs to.
+A [Common](../../../../../../../reference/tevm/common/type-aliases/common) object defining the chain and the hardfork a block/block header belongs to.
 
 Object will be internally copied so that tx behavior don't incidentally
 change on future HF changes.
 
-Default: [Common](../../../../../../../../reference/tevm/common/type-aliases/common) object set to `mainnet` and the HF currently defined as the default
-hardfork in the [Common](../../../../../../../../reference/tevm/common/type-aliases/common) class.
+Default: [Common](../../../../../../../reference/tevm/common/type-aliases/common) object set to `mainnet` and the HF currently defined as the default
+hardfork in the [Common](../../../../../../../reference/tevm/common/type-aliases/common) class.
 
 Current default hardfork: `merge`
 
@@ -253,7 +253,7 @@ for older Hfs.
 Additionally it is possible to pass in a specific TD value to support live-Merge-HF
 transitions. Note that this should only be needed in very rare and specific scenarios.
 
-Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../../reference/tevm/common/type-aliases/common) instance)
+Default: `false` (HF is set to whatever default HF is set by the [Common](../../../../../../../reference/tevm/common/type-aliases/common) instance)
 
 #### Inherited from
 

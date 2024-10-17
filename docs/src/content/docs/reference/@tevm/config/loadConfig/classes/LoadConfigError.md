@@ -5,7 +5,7 @@ prev: false
 title: "LoadConfigError"
 ---
 
-Error class for [loadConfig](../../../../../../../../../reference/tevm/config/loadconfig/functions/loadconfig)
+Error class for [loadConfig](../../../../../../../../reference/tevm/config/loadconfig/functions/loadconfig)
 
 ## Extends
 

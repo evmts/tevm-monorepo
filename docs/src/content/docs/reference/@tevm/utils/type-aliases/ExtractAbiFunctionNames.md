@@ -7,13 +7,13 @@ title: "ExtractAbiFunctionNames"
 
 > **ExtractAbiFunctionNames**\<`abi`, `abiStateMutability`\>: `ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>\[`"name"`\]
 
-Extracts all [AbiFunction](../../../../../../../../reference/tevm/utils/type-aliases/abifunction) names from [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi).
+Extracts all [AbiFunction](../../../../../../../reference/tevm/utils/type-aliases/abifunction) names from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi).
 
 ## Type Parameters
 
 • **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-[Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi) to extract function names from
+[Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) to extract function names from
 
 • **abiStateMutability** *extends* `AbiStateMutability` = `AbiStateMutability`
 

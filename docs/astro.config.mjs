@@ -1,5 +1,6 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
+import starlightBlogPlugin from 'starlight-blog'
 import starlightLinksValidatorPlugin from 'starlight-links-validator'
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
@@ -22,6 +23,7 @@ export default defineConfig({
             tableOfContents: true,
             favicon: './src/assets/tevm-logo-dark.png',
             plugins: [
+                starlightBlogPlugin(),
                 ...(ENABLE_LINK_CHECKER
                     ? [
                         starlightLinksValidatorPlugin({

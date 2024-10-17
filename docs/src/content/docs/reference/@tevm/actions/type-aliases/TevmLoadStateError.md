@@ -30,7 +30,7 @@ if (result.errors) {
 
 ## See
 
-[InternalError](../../../../../../../../reference/tevm/errors/classes/internalerror)
+[InternalError](../../../../../../../reference/tevm/errors/classes/internalerror)
 
 ## Defined in
 

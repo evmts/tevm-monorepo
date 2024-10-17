@@ -7,8 +7,8 @@ title: "createAddress"
 
 > **createAddress**(`address`): [`Address`](/reference/tevm/address/classes/address/)
 
-Creates an [Address](../../../../../../../../reference/tevm/address/classes/address) for safely interacting with an Ethereum address.
-Wraps [EthjsAddress](../../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
+Creates an [Address](../../../../../../../reference/tevm/address/classes/address) for safely interacting with an Ethereum address.
+Wraps [EthjsAddress](../../../../../../../reference/tevm/utils/classes/ethjsaddress) with a tevm style API.
 
 ## Parameters
 

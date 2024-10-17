@@ -7,13 +7,13 @@ title: "ExtractAbiEvents"
 
 > **ExtractAbiEvents**\<`abi`\>: `Extract`\<`abi`\[`number`\], `object`\>
 
-Extracts all [AbiEvent](../../../../../../../../reference/tevm/utils/type-aliases/abievent) types from [Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi).
+Extracts all [AbiEvent](../../../../../../../reference/tevm/utils/type-aliases/abievent) types from [Abi](../../../../../../../reference/tevm/utils/type-aliases/abi).
 
 ## Type Parameters
 
 • **abi** *extends* [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-[Abi](../../../../../../../../reference/tevm/utils/type-aliases/abi) to extract events from
+[Abi](../../../../../../../reference/tevm/utils/type-aliases/abi) to extract events from
 
 ## Defined in
 
