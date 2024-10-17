@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- Updated dependencies [7248dbf]
+  - @tevm/config@1.0.0-next.124
+
 ## 1.0.0-next.118
 
 ### Patch Changes

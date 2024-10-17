@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- @tevm/viem@1.0.0-next.124
+- @tevm/memory-client@1.0.0-next.124
+
 ## 1.0.0-next.123
 
 ### Patch Changes

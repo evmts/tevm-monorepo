@@ -1,5 +1,44 @@
 # @tevm/contract
 
+## 1.0.0-next.124
+
+### Minor Changes
+
+- ad14f37: Fixed issue where the indexed topics are also included in data when encoding logs for a precompile
+
+### Patch Changes
+
+- 7248dbf: Fixed the tevm bin folder which went missing
+- Updated dependencies [7248dbf]
+- Updated dependencies [d501679]
+- Updated dependencies [ad14f37]
+  - @tevm/config@1.0.0-next.124
+  - @tevm/actions@1.0.0-next.124
+  - @tevm/precompiles@1.0.0-next.124
+  - @tevm/base-bundler@1.0.0-next.124
+  - @tevm/bun-plugin@1.0.0-next.124
+  - @tevm/compiler@1.0.0-next.124
+  - @tevm/ts-plugin@1.0.0-next.124
+  - @tevm/viem@1.0.0-next.124
+  - @tevm/client-types@1.0.0-next.118
+  - @tevm/decorators@1.0.0-next.124
+  - @tevm/memory-client@1.0.0-next.124
+  - @tevm/server@1.0.0-next.124
+  - @tevm/bundler-cache@1.0.0-next.124
+  - @tevm/esbuild-plugin@1.0.0-next.124
+  - @tevm/rollup-plugin@1.0.0-next.124
+  - @tevm/rspack-plugin@1.0.0-next.124
+  - @tevm/vite-plugin@1.0.0-next.124
+  - @tevm/webpack-plugin@1.0.0-next.124
+  - @tevm/http-client@1.0.0-next.124
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/node@1.0.0-next.124
+  - @tevm/state@1.0.0-next.124
+  - @tevm/evm@1.0.0-next.124
+  - @tevm/sync-storage-persister@1.0.0-next.124
+  - @tevm/txpool@1.0.0-next.124
+  - @tevm/vm@1.0.0-next.124
+
 ## 1.0.0-next.123
 
 ### Patch Changes

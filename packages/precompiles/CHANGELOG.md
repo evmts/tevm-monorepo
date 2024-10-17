@@ -1,5 +1,15 @@
 # @tevm/precompiles
 
+## 1.0.0-next.124
+
+### Minor Changes
+
+- ad14f37: Fixed issue where the indexed topics are also included in data when encoding logs for a precompile
+
+### Patch Changes
+
+- @tevm/evm@1.0.0-next.124
+
 ## 1.0.0-next.120
 
 ### Patch Changes

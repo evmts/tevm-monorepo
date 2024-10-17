@@ -1,5 +1,12 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- @tevm/base-bundler@1.0.0-next.124
+- @tevm/bundler-cache@1.0.0-next.124
+
 ## 1.0.0-next.118
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- @tevm/state@1.0.0-next.124
+
 ## 1.0.0-next.120
 
 ### Patch Changes

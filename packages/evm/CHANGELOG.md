@@ -1,5 +1,12 @@
 # @tevm/state
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- @tevm/blockchain@1.0.0-next.118
+- @tevm/state@1.0.0-next.124
+
 ## 1.0.0-next.120
 
 ### Patch Changes
