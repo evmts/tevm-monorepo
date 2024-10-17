@@ -1111,6 +1111,9 @@ importers:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
     devDependencies:
+      '@ethereumjs/util':
+        specifier: ^10.0.0-alpha.1
+        version: 10.0.0-alpha.1
       '@tevm/actions':
         specifier: workspace:^
         version: link:../../packages/actions
@@ -1396,8 +1399,8 @@ importers:
   packages/blockchain:
     dependencies:
       '@ethereumjs/blockchain':
-        specifier: ^7.3.0
-        version: 7.3.0
+        specifier: 8.0.0-alpha.1
+        version: 8.0.0-alpha.1
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -1452,8 +1455,8 @@ importers:
   packages/common:
     dependencies:
       '@ethereumjs/common':
-        specifier: ^4.4.0
-        version: 4.4.0
+        specifier: 5.0.0-alpha.1
+        version: 5.0.0-alpha.1
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -1552,8 +1555,8 @@ importers:
   packages/errors:
     dependencies:
       '@ethereumjs/evm':
-        specifier: ^3.1.1
-        version: 3.1.1
+        specifier: 4.0.0-alpha.1
+        version: 4.0.0-alpha.1
       viem:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
@@ -1571,8 +1574,8 @@ importers:
   packages/evm:
     dependencies:
       '@ethereumjs/evm':
-        specifier: ^3.1.1
-        version: 3.1.1
+        specifier: 4.0.0-alpha.1
+        version: 4.0.0-alpha.1
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
@@ -1864,8 +1867,8 @@ importers:
   packages/rlp:
     dependencies:
       '@ethereumjs/rlp':
-        specifier: ^5.0.2
-        version: 5.0.2
+        specifier: 6.0.0-alpha.1
+        version: 6.0.0-alpha.1
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1929,8 +1932,8 @@ importers:
   packages/state:
     dependencies:
       '@ethereumjs/statemanager':
-        specifier: ^2.4.0
-        version: 2.4.0
+        specifier: 3.0.0-alpha.1
+        version: 3.0.0-alpha.1
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
@@ -1992,8 +1995,8 @@ importers:
   packages/tx:
     dependencies:
       '@ethereumjs/tx':
-        specifier: ^5.4.0
-        version: 5.4.0
+        specifier: 6.0.0-alpha.1
+        version: 6.0.0-alpha.1
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -2002,8 +2005,8 @@ importers:
         version: link:../utils
     devDependencies:
       '@ethereumjs/common':
-        specifier: ^4.4.0
-        version: 4.4.0
+        specifier: 5.0.0-alpha.1
+        version: 5.0.0-alpha.1
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2051,11 +2054,11 @@ importers:
   packages/utils:
     dependencies:
       '@ethereumjs/evm':
-        specifier: ^3.1.1
-        version: 3.1.1
+        specifier: 4.0.0-alpha.1
+        version: 4.0.0-alpha.1
       '@ethereumjs/util':
-        specifier: ^9.1.0
-        version: 9.1.0
+        specifier: 10.0.0-alpha.1
+        version: 10.0.0-alpha.1
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -2076,8 +2079,8 @@ importers:
   packages/vm:
     dependencies:
       '@ethereumjs/vm':
-        specifier: ^8.1.1
-        version: 8.1.1
+        specifier: 9.0.0-alpha.1
+        version: 9.0.0-alpha.1
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -3117,26 +3120,26 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@ethereumjs/block@5.3.0':
-    resolution: {integrity: sha512-cyphdEB/ywIERqWLRHdAS6muTkAcd6BibMOp6XmGbeWgvtIhe4ArxcMDI78MVstJzT/faihvRI4rKQKy+MpdKQ==}
+  '@ethereumjs/block@6.0.0-alpha.1':
+    resolution: {integrity: sha512-1cmkJ7KIgBB3ub4Zdxkiv3qdfYDQu7i4tuhFSNiygcnQ03+laP/kJErjx+IWYp68mJgmaOs5OmeWU7UIAuABug==}
     engines: {node: '>=18'}
 
-  '@ethereumjs/blockchain@7.3.0':
-    resolution: {integrity: sha512-UZXFb6JFeXDHobKhXGAiKf+m5n2ynCtqpgHWCl2nQ3Tol9W7C3By4UFMpAl2E6EyaFhC26Maig9kqCWxfsQ6bQ==}
+  '@ethereumjs/blockchain@8.0.0-alpha.1':
+    resolution: {integrity: sha512-2nuIlFkgTNC4Gs8xmDAV0GRj42/hdpg6FxIY23a9Y4/H/aYRQx+ldmjNaaMVL0mu0pycKhki8VYK5LNLm7+gGw==}
     engines: {node: '>=18'}
 
   '@ethereumjs/common@3.2.0':
     resolution: {integrity: sha512-pksvzI0VyLgmuEF2FA/JR/4/y6hcPq8OUail3/AvycBaW1d5VSauOZzqGvJ3RTmR4MU35lWE8KseKOsEhrFRBA==}
 
-  '@ethereumjs/common@4.4.0':
-    resolution: {integrity: sha512-Fy5hMqF6GsE6DpYTyqdDIJPJgUtDn4dL120zKw+Pswuo+iLyBsEYuSyzMw6NVzD2vDzcBG9fE4+qX4X2bPc97w==}
+  '@ethereumjs/common@5.0.0-alpha.1':
+    resolution: {integrity: sha512-g8Cw+nGcaFLCd9YUk7o3Pc+X0Ggdzq8mKdXmisBbdpnLkzXVSENHL+ufEPyzIqbi9ay4bC5DBpfY/AkCLHaiJw==}
 
-  '@ethereumjs/ethash@3.0.4':
-    resolution: {integrity: sha512-dDc9h4RxEIWr38DxzeFyWlTmc++WeAFysFT6Ru0opoQ8WSM/hM3KH1VfHMPwx6JaqQT89Q/xtHV3CEvWrbwLKw==}
+  '@ethereumjs/evm@4.0.0-alpha.1':
+    resolution: {integrity: sha512-MDzbxk6OcxJb8birf5//FzYiS44qOlgmqFkPHemrB6YkeG5BKzW3vPRRflvBKsU9MpMkfQhR1EKhIXe/82RA8w==}
     engines: {node: '>=18'}
 
-  '@ethereumjs/evm@3.1.1':
-    resolution: {integrity: sha512-JbDXtIn0PPZFU2oqVngje0YvW/JuNa6Y+kIYp1MCh5pn9NRplR8FkBbvb991fVSSo6AzuFMHJxSwgVl+OksnvQ==}
+  '@ethereumjs/mpt@7.0.0-alpha.1':
+    resolution: {integrity: sha512-SxQKPI494LHDbHpSFJ+MdZljFP0Vg7dmyqTAAS6ox169pN/lAv9v6ArDQzP/3d5BhJmytFNcsO1TpbZwfc6ZAg==}
     engines: {node: '>=18'}
 
   '@ethereumjs/rlp@4.0.1':
@@ -3149,8 +3152,13 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@ethereumjs/statemanager@2.4.0':
-    resolution: {integrity: sha512-IBe5kMGsDWlSvNg7QCERwO3BQE1c9hzVIZ9ktZF7xyifFEfA4VNhTMMEpwLuiAIy0l/ZzZiZ17/Iqar+SawMYA==}
+  '@ethereumjs/rlp@6.0.0-alpha.1':
+    resolution: {integrity: sha512-l5If8J5PTEv8kuKbxv414y1n3e6gQUl4GlaG0job9Gqh9PWqbkZCL5TZ7K79TA2+TF/qnr5mUMfmHKBKT7ZULg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@ethereumjs/statemanager@3.0.0-alpha.1':
+    resolution: {integrity: sha512-UpCXv01qiod0ixr9zJpdSaxW7lGphOMchabPdL4gxz+EBWnt7PIqshRyLfl/Ym9liALB6OH+kMJWjpyBDVh1lw==}
 
   '@ethereumjs/trie@6.2.1':
     resolution: {integrity: sha512-MguABMVi/dPtgagK+SuY57rpXFP+Ghr2x+pBDy+e3VmMqUY+WGzFu1QWjBb5/iJ7lINk4CI2Uwsih07Nu9sTSg==}
@@ -3160,8 +3168,12 @@ packages:
     resolution: {integrity: sha512-1nc6VO4jtFd172BbSnTnDQVr9IYBFl1y4xPzZdtkrkKIncBCkdbgfdRV+MiTkJYAtTxvV12GRZLqBFT1PNK6Yw==}
     engines: {node: '>=14'}
 
-  '@ethereumjs/tx@5.4.0':
-    resolution: {integrity: sha512-SCHnK7m/AouZ7nyoR0MEXw1OO/tQojSbp88t8oxhwes5iZkZCtfFdUrJaiIb72qIpH2FVw6s1k1uP7LXuH7PsA==}
+  '@ethereumjs/tx@6.0.0-alpha.1':
+    resolution: {integrity: sha512-Y74FRD8d3mkh70Yl5XwjLUyfmv11huhJrrwhWJSccFbUDvHFMN1kzJ7E/h5xjIF2bqKaBHIjYbtVOEt4gKrCyQ==}
+    engines: {node: '>=18'}
+
+  '@ethereumjs/util@10.0.0-alpha.1':
+    resolution: {integrity: sha512-D2HinI9AGviGNYoCbZjRje+b6a5CsDbWAUSOSTdFzhBduxNjCBWcnJdYWEmMG5+tknJsH3vbhr81Mhj1BR823g==}
     engines: {node: '>=18'}
 
   '@ethereumjs/util@8.1.0':
@@ -3172,8 +3184,12 @@ packages:
     resolution: {integrity: sha512-XBEKsYqLGXLah9PNJbgdkigthkG7TAGvlD/sH12beMXEyHDyigfcbdvHhmLyDWgDyOJn4QwiQUaF7yeuhnjdog==}
     engines: {node: '>=18'}
 
-  '@ethereumjs/vm@8.1.1':
-    resolution: {integrity: sha512-h9gIN/maMKXltM4VxZ9ac581PPUUObnFVBniLuu9vJgGTELdnwqxLwJVxSfho/Bhk56YyvKBYf1RpHwoLZZ6xw==}
+  '@ethereumjs/verkle@0.2.0-alpha.1':
+    resolution: {integrity: sha512-cDFSKZSvOkijWmK8NH6LXGQQ3QzEZb1nZZ8PF00c5dkQIYKmLLRCw5qWXU/l99omf1tO1TopMmyfW8BGVFSgYw==}
+    engines: {node: '>=18'}
+
+  '@ethereumjs/vm@9.0.0-alpha.1':
+    resolution: {integrity: sha512-XuMGivxHEbUHaNM5iF4MBGW3DaQoeiWgHPU/TKhmnu9Vb/WUp5tBoQZoOhrB58nyWU29Qu58P9L1qito1Jj3aQ==}
     engines: {node: '>=18'}
 
   '@ethersproject/abi@5.8.0':
@@ -3546,6 +3562,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@js-sdsl/ordered-map@4.4.2':
+    resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
 
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
@@ -6562,10 +6581,6 @@ packages:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
 
-  bigint-crypto-utils@3.3.0:
-    resolution: {integrity: sha512-jOTSb+drvEDxEq6OuUybOAv/xxoh3cuYRUIPyu8sSHQNKM303UQ2R1DAo45o1AkcIXw6fzbaFI1+xGGdaXs2lg==}
-    engines: {node: '>=14.0.0'}
-
   bignumber.js@9.1.2:
     resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
 
@@ -9513,9 +9528,6 @@ packages:
   js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
 
-  js-sdsl@4.4.2:
-    resolution: {integrity: sha512-dwXFwByc/ajSV6m5bcKAPwe4yDDF6D614pxmIi5odytzxRlwqF6nwoiCek80Ixc7Cvma5awClxrzFtxCQvcM8w==}
-
   js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
 
@@ -11831,9 +11843,6 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rustbn-wasm@0.4.0:
-    resolution: {integrity: sha512-C2ujvPv05hXC69MD7YwSsoUEsT/X/dKHkkgwN9B0ZTgb0OXDC9yaHhE6Pq+uaRAzMyW0Y97bwc4JO4cqPDzVuQ==}
-
   rxjs@7.8.2:
     resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
 
@@ -13214,6 +13223,10 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+
+  verkle-cryptography-wasm@0.4.8:
+    resolution: {integrity: sha512-ssom3p39wVRP63IMU/I7dx0mHZvb7svK8MAoMNlAzX/6CqA7FhtokSBt81RszXs3JXa0k1E40Qr1JPHW0aNkgQ==}
+    engines: {node: '>=18', npm: '>=7'}
 
   vfile-location@5.0.3:
     resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==}
@@ -14777,28 +14790,25 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@ethereumjs/block@5.3.0':
+  '@ethereumjs/block@6.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/trie': 6.2.1
-      '@ethereumjs/tx': 5.4.0
-      '@ethereumjs/util': 9.1.0
-      ethereum-cryptography: 2.2.1
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/mpt': 7.0.0-alpha.1
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/tx': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
+      ethereum-cryptography: 3.1.0
     transitivePeerDependencies:
       - supports-color
 
-  '@ethereumjs/blockchain@7.3.0':
+  '@ethereumjs/blockchain@8.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/block': 5.3.0
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/ethash': 3.0.4
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/trie': 6.2.1
-      '@ethereumjs/tx': 5.4.0
-      '@ethereumjs/util': 9.1.0
+      '@ethereumjs/block': 6.0.0-alpha.1
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/mpt': 7.0.0-alpha.1
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
       debug: 4.4.0(supports-color@8.1.1)
-      ethereum-cryptography: 2.2.1
       lru-cache: 10.1.0
     transitivePeerDependencies:
       - supports-color
@@ -14808,31 +14818,28 @@ snapshots:
       '@ethereumjs/util': 8.1.0
       crc-32: 1.2.2
 
-  '@ethereumjs/common@4.4.0':
+  '@ethereumjs/common@5.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/util': 9.1.0
+      '@ethereumjs/util': 10.0.0-alpha.1
 
-  '@ethereumjs/ethash@3.0.4':
+  '@ethereumjs/evm@4.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/block': 5.3.0
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/util': 9.1.0
-      bigint-crypto-utils: 3.3.0
-      ethereum-cryptography: 2.2.1
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/statemanager': 3.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
+      '@types/debug': 4.1.12
+      debug: 4.4.0(supports-color@8.1.1)
+      ethereum-cryptography: 3.1.0
     transitivePeerDependencies:
       - supports-color
 
-  '@ethereumjs/evm@3.1.1':
+  '@ethereumjs/mpt@7.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/statemanager': 2.4.0
-      '@ethereumjs/tx': 5.4.0
-      '@ethereumjs/util': 9.1.0
-      '@noble/curves': 1.8.1
-      '@types/debug': 4.1.12
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
       debug: 4.4.0(supports-color@8.1.1)
-      ethereum-cryptography: 2.2.1
-      rustbn-wasm: 0.4.0
+      ethereum-cryptography: 3.1.0
+      lru-cache: 10.1.0
     transitivePeerDependencies:
       - supports-color
 
@@ -14840,15 +14847,18 @@ snapshots:
 
   '@ethereumjs/rlp@5.0.2': {}
 
-  '@ethereumjs/statemanager@2.4.0':
+  '@ethereumjs/rlp@6.0.0-alpha.1': {}
+
+  '@ethereumjs/statemanager@3.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/trie': 6.2.1
-      '@ethereumjs/util': 9.1.0
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/mpt': 7.0.0-alpha.1
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
+      '@ethereumjs/verkle': 0.2.0-alpha.1
+      '@js-sdsl/ordered-map': 4.4.2
       debug: 4.4.0(supports-color@8.1.1)
-      ethereum-cryptography: 2.2.1
-      js-sdsl: 4.4.2
+      ethereum-cryptography: 3.1.0
       lru-cache: 10.1.0
     transitivePeerDependencies:
       - supports-color
@@ -14872,12 +14882,17 @@ snapshots:
       '@ethereumjs/util': 8.1.0
       ethereum-cryptography: 2.2.1
 
-  '@ethereumjs/tx@5.4.0':
+  '@ethereumjs/tx@6.0.0-alpha.1':
     dependencies:
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/util': 9.1.0
-      ethereum-cryptography: 2.2.1
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
+      ethereum-cryptography: 3.1.0
+
+  '@ethereumjs/util@10.0.0-alpha.1':
+    dependencies:
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      ethereum-cryptography: 3.1.0
 
   '@ethereumjs/util@8.1.0':
     dependencies:
@@ -14890,19 +14905,28 @@ snapshots:
       '@ethereumjs/rlp': 5.0.2
       ethereum-cryptography: 2.2.1
 
-  '@ethereumjs/vm@8.1.1':
+  '@ethereumjs/verkle@0.2.0-alpha.1':
     dependencies:
-      '@ethereumjs/block': 5.3.0
-      '@ethereumjs/blockchain': 7.3.0
-      '@ethereumjs/common': 4.4.0
-      '@ethereumjs/evm': 3.1.1
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/statemanager': 2.4.0
-      '@ethereumjs/trie': 6.2.1
-      '@ethereumjs/tx': 5.4.0
-      '@ethereumjs/util': 9.1.0
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
       debug: 4.4.0(supports-color@8.1.1)
-      ethereum-cryptography: 2.2.1
+      lru-cache: 10.1.0
+      verkle-cryptography-wasm: 0.4.8
+    transitivePeerDependencies:
+      - supports-color
+
+  '@ethereumjs/vm@9.0.0-alpha.1':
+    dependencies:
+      '@ethereumjs/block': 6.0.0-alpha.1
+      '@ethereumjs/common': 5.0.0-alpha.1
+      '@ethereumjs/evm': 4.0.0-alpha.1
+      '@ethereumjs/mpt': 7.0.0-alpha.1
+      '@ethereumjs/rlp': 6.0.0-alpha.1
+      '@ethereumjs/statemanager': 3.0.0-alpha.1
+      '@ethereumjs/tx': 6.0.0-alpha.1
+      '@ethereumjs/util': 10.0.0-alpha.1
+      debug: 4.4.0(supports-color@8.1.1)
+      ethereum-cryptography: 3.1.0
     transitivePeerDependencies:
       - supports-color
 
@@ -15578,6 +15602,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@js-sdsl/ordered-map@4.4.2': {}
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
@@ -19225,8 +19251,6 @@ snapshots:
     dependencies:
       is-windows: 1.0.2
 
-  bigint-crypto-utils@3.3.0: {}
-
   bignumber.js@9.1.2: {}
 
   binary-extensions@1.13.1: {}
@@ -22830,8 +22854,6 @@ snapshots:
 
   js-cookie@2.2.1: {}
 
-  js-sdsl@4.4.2: {}
-
   js-sha3@0.8.0: {}
 
   js-string-escape@1.0.1: {}
@@ -25701,10 +25723,6 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rustbn-wasm@0.4.0:
-    dependencies:
-      '@scure/base': 1.2.4
-
   rxjs@7.8.2:
     dependencies:
       tslib: 2.8.1
@@ -27237,6 +27255,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
+
+  verkle-cryptography-wasm@0.4.8:
+    dependencies:
+      '@scure/base': 1.2.4
 
   vfile-location@5.0.3:
     dependencies:

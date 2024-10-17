@@ -63,12 +63,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/tx": "^5.4.0",
+    "@ethereumjs/tx": "6.0.0-alpha.1",
     "@tevm/errors": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@ethereumjs/common": "^4.4.0",
+    "@ethereumjs/common": "5.0.0-alpha.1",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
