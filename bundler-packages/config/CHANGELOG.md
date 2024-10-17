@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.124
+
+### Minor Changes
+
+- 7248dbf: Added jsonAbiAsConst feature to tevm config. By passing in a glob or an array of globs tevm will force TypeScript to resolve json abis as const. Note: this only affects your editor and to have this happen at buildtime you must also use the tevm wrapper around the ts compiler
+
 ## 1.0.0-next.118
 
 ### Patch Changes

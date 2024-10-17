@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- d501679: Fixed bug with state overrides persisting after the call was finished
+  - @tevm/blockchain@1.0.0-next.118
+  - @tevm/node@1.0.0-next.124
+  - @tevm/state@1.0.0-next.124
+  - @tevm/evm@1.0.0-next.124
+  - @tevm/vm@1.0.0-next.124
+
 ## 1.0.0-next.123
 
 ### Patch Changes

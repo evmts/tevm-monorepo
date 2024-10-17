@@ -1,5 +1,11 @@
 # @tevm/plugin
 
+## 1.0.0-next.124
+
+### Patch Changes
+
+- @tevm/unplugin@1.0.0-next.124
+
 ## 1.0.0-next.118
 
 ### Patch Changes
