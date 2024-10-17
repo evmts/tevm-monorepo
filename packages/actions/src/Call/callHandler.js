@@ -125,7 +125,10 @@ export const callHandler =
 			})
 		}
 
-		const stateOverrideResult = await handleStateOverrides(client, params.stateOverrideSet)
+		const stateOverrideResult = await handleStateOverrides(
+			{ ...client, getVm: async () => vm },
+			params.stateOverrideSet,
+		)
 		if (stateOverrideResult.errors) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				errors: stateOverrideResult.errors,
