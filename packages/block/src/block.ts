@@ -19,7 +19,7 @@ import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
 import { BlockHeader } from './header.js'
 
 import type { Common } from '@tevm/common'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
+import type { FeeMarket1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'
 import type {
@@ -509,7 +509,7 @@ export class Block {
 			const errs = tx.getValidationErrors()
 			if (this.common.ethjsCommon.isActivatedEIP(1559)) {
 				if (tx.supports(Capability.EIP1559FeeMarket)) {
-					tx = tx as FeeMarketEIP1559Transaction
+					tx = tx as FeeMarket1559Transaction
 					if (tx.maxFeePerGas < (this.header.baseFeePerGas as bigint)) {
 						errs.push('tx unable to pay base fee (EIP-1559 tx)')
 					}

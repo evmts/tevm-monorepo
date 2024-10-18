@@ -1,6 +1,6 @@
 // Originally from ethjs
 import { ConsensusType } from '@tevm/common'
-import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
+import { BlobEIP4844Transaction, Capability, isBlob4844Tx } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, type Hex, equalsBytes, hexToBytes } from '@tevm/utils'
 
 import {
@@ -17,9 +17,9 @@ import {
 } from '@tevm/errors'
 import type {
 	AccessList,
-	AccessListEIP2930Transaction,
+	AccessList2930Transaction,
 	AccessListItem,
-	FeeMarketEIP1559Transaction,
+	FeeMarket1559Transaction,
 	LegacyTransaction,
 } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
@@ -57,7 +57,7 @@ export const runTx =
 		await vm.evm.journal.checkpoint()
 		// Typed transaction specific setup tasks
 		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
-			const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
+			const castedTx = <AccessList2930Transaction>validatedOpts.tx
 			for (const accessListItem of castedTx.AccessListJSON ?? []) {
 				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
 				for (const storageKey of accessListItem.storageKeys) {
@@ -173,7 +173,7 @@ const _runTx =
 			// EIP-1559 spec:
 			// The signer must be able to afford the transaction
 			// `assert balance >= gas_limit * max_fee_per_gas`
-			maxCost += tx.gasLimit * (tx as FeeMarketEIP1559Transaction).maxFeePerGas
+			maxCost += tx.gasLimit * (tx as FeeMarket1559Transaction).maxFeePerGas
 		}
 
 		if (tx instanceof BlobEIP4844Transaction) {
@@ -291,7 +291,7 @@ const _runTx =
 		results.totalGasSpent = results.execResult.executionGasUsed + txBaseFee
 
 		// Add blob gas used to result
-		if (isBlobEIP4844Tx(tx)) {
+		if (isBlob4844Tx(tx)) {
 			results.blobGasUsed = totalblobGas
 		}
 

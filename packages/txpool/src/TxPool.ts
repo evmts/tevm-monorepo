@@ -2,9 +2,9 @@
 import {
 	BlobEIP4844Transaction,
 	Capability,
-	isAccessListEIP2930Tx,
-	isBlobEIP4844Tx,
-	isFeeMarketEIP1559Tx,
+	isAccessList2930Tx,
+	isBlob4844Tx,
+	isFeeMarket1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsBytes } from '@tevm/utils'
@@ -12,7 +12,7 @@ import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
 import {
-	type FeeMarketEIP1559Transaction,
+	type FeeMarket1559Transaction,
 	type ImpersonatedTx,
 	type LegacyTransaction,
 	type TypedTransaction,
@@ -517,12 +517,12 @@ export class TxPool {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
 		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
-				return (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas
+				return (tx as FeeMarket1559Transaction).maxPriorityFeePerGas
 			}
 			return (tx as LegacyTransaction).gasPrice - baseFee
 		}
 		if (supports1559) {
-			return (tx as FeeMarketEIP1559Transaction).maxFeePerGas
+			return (tx as FeeMarket1559Transaction).maxFeePerGas
 		}
 		return (tx as LegacyTransaction).gasPrice
 	}
@@ -545,14 +545,14 @@ export class TxPool {
 			}
 		}
 
-		if (isAccessListEIP2930Tx(tx)) {
+		if (isAccessList2930Tx(tx)) {
 			return {
 				maxFee: tx.gasPrice,
 				tip: tx.gasPrice,
 			}
 		}
 
-		if (isFeeMarketEIP1559Tx(tx) || isBlobEIP4844Tx(tx)) {
+		if (isFeeMarket1559Tx(tx) || isBlob4844Tx(tx)) {
 			return {
 				maxFee: tx.maxFeePerGas,
 				tip: tx.maxPriorityFeePerGas,

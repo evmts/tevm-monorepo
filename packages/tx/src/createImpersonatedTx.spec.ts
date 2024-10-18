@@ -1,5 +1,5 @@
 import { Common } from '@ethereumjs/common'
-import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
+import { FeeMarket1559Transaction } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress } from '@tevm/utils'
 import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
@@ -9,21 +9,21 @@ vi.mock('@ethereumjs/tx', async () => {
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
 	const mockClass = vi.fn()
 	mockClass.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarketEIP1559Transaction(...args)
+		return new actualEthjsTx.FeeMarket1559Transaction(...args)
 	})
 	return {
 		...actualEthjsTx,
-		FeeMarketEIP1559Transaction: mockClass,
+		FeeMarket1559Transaction: mockClass,
 	}
 })
 
-const FeeMarketEIP1559TransactionMock = FeeMarketEIP1559Transaction as unknown as MockedFunction<any>
+const FeeMarket1559TransactionMock = FeeMarket1559Transaction as unknown as MockedFunction<any>
 
 afterEach(async () => {
 	vi.resetAllMocks()
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
-	FeeMarketEIP1559TransactionMock.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarketEIP1559Transaction(...args)
+	FeeMarket1559TransactionMock.mockImplementation((...args: any[]) => {
+		return new actualEthjsTx.FeeMarket1559Transaction(...args)
 	})
 })
 
@@ -91,7 +91,7 @@ describe(createImpersonatedTx.name, () => {
 		const ethjsError = new Error(
 			'gasLimit cannot exceed MAX_UINT64 (2^64-1), given 374144419156711147060143317175368453031918731001855 (tx type=2 hash=not available (unsigned) nonce=0 value=0 signed=false hf=error maxFeePerGas=undefined maxPriorityFeePerGas=undefined)',
 		)
-		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw ethjsError
 		})
 		expect(() => createImpersonatedTx({ impersonatedAddress, data, gasLimit: `0x${'ff'.repeat(21)}` })).toThrow(
@@ -103,7 +103,7 @@ describe(createImpersonatedTx.name, () => {
 		const expectedError = new Error(
 			'maxFeePerGas cannot be less than maxPriorityFeePerGas (The total must be the larger of the two)',
 		)
-		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw expectedError
 		})
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
@@ -113,9 +113,9 @@ describe(createImpersonatedTx.name, () => {
 		)
 	})
 
-	it('should throw an error if FeeMarketEIP1559Transaction throws', () => {
+	it('should throw an error if FeeMarket1559Transaction throws', () => {
 		const expectedError = new Error('Constructor error')
-		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw expectedError
 		})
 
@@ -126,9 +126,9 @@ describe(createImpersonatedTx.name, () => {
 		)
 	})
 
-	it('should throw an error if FeeMarketEIP1559Transaction throws non error', () => {
+	it('should throw an error if FeeMarket1559Transaction throws non error', () => {
 		const notError = { not: 'error' }
-		FeeMarketEIP1559TransactionMock.mockImplementation(() => {
+		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw notError
 		})
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)

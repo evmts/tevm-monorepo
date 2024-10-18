@@ -6,7 +6,7 @@ import { bytesToHex, numberToHex } from '@tevm/utils'
  * @param {number} [txIndex]
  * @returns {import('../common/TransactionResult.js').TransactionResult}
  */
-export const txToJsonRpcTx = (tx, block, txIndex) => {
+export const txToJSONRPCTx = (tx, block, txIndex) => {
 	const txJSON = tx.toJSON()
 	// TODO make this typing less janky
 	return /** @type any*/ ({

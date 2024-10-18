@@ -1,5 +1,5 @@
 import { hexToBytes, hexToNumber } from '@tevm/utils'
-import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
+import { txToJSONRPCTx } from '../utils/txToJSONRPCTx.js'
 
 /**
  * Request handler for eth_getTransactionByBlockHashAndIndex JSON-RPC requests.
@@ -25,7 +25,7 @@ export const ethGetTransactionByBlockHashAndIndexJsonRpcProcedure = (client) => 
 		}
 		return {
 			method: request.method,
-			result: txToJsonRpcTx(tx, block, txIndex),
+			result: txToJSONRPCTx(tx, block, txIndex),
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}
