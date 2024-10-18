@@ -63,7 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/rlp": "^5.0.2"
+		"@ethereumjs/rlp": "6.0.0-alpha.1"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

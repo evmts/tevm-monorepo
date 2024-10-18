@@ -136,7 +136,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### stateManager
 
-> **stateManager**: [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
+> **stateManager**: [`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md)
 
 #### Defined in
 
