@@ -8,6 +8,7 @@
 		"build": "bun run build:app",
 		"build:app": "astro check && astro build",
 		"dev": "astro dev",
+		"generate:sidebar": "bun run scripts/generateSidebar.ts",
 		"preview": "astro preview",
 		"start": "astro dev"
 	},
@@ -22,6 +23,8 @@
 	"devDependencies": {
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/viem": "workspace:^",
+		"@types/glob": "^8.1.0",
+		"glob": "^11.0.0",
 		"gray-matter": "^4.0.3",
 		"tevm": "workspace:^"
 	}
