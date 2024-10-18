@@ -594,6 +594,9 @@ importers:
       '@tevm/viem':
         specifier: workspace:^
         version: link:../extensions/viem
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       tevm:
         specifier: workspace:^
         version: link:../tevm
