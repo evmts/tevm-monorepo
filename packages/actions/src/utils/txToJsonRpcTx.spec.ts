@@ -2,14 +2,14 @@ import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { FeeMarket1559Transaction } from '@tevm/tx'
 import { EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { txToJsonRpcTx } from './txToJsonRpcTx.js'
+import { txToJSONRPCTx } from './txToJSONRPCTx.js'
 
-describe(txToJsonRpcTx.name, () => {
+describe(txToJSONRPCTx.name, () => {
 	it('should work', async () => {
-		const tx = new FeeMarketEIP1559Transaction({
+		const tx = new FeeMarket1559Transaction({
 			to: EthjsAddress.fromString(`0x${'a'.repeat(40)}`),
 			data: Uint8Array.from([1, 2, 3]),
 			value: 100n,
@@ -31,6 +31,6 @@ describe(txToJsonRpcTx.name, () => {
 			{ blockTag: 121960766n, transport: transports.optimism },
 			vm.common,
 		)
-		expect(txToJsonRpcTx(tx, block, 0)).toMatchSnapshot()
+		expect(txToJSONRPCTx(tx, block, 0)).toMatchSnapshot()
 	})
 })

@@ -1,4 +1,4 @@
-import { Capability, isBlobEIP4844Tx } from '@tevm/tx'
+import { Capability, isBlob4844Tx } from '@tevm/tx'
 import type { TypedTransaction } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type {
@@ -54,7 +54,7 @@ export const generateTxReceipt =
 			}
 		} else {
 			// Typed EIP-2718 Transaction
-			if (isBlobEIP4844Tx(tx)) {
+			if (isBlob4844Tx(tx)) {
 				receipt = {
 					blobGasUsed,
 					blobGasPrice,

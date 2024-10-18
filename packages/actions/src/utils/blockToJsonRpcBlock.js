@@ -1,5 +1,5 @@
 import { bytesToHex, numberToHex, toBytes } from '@tevm/utils'
-import { txToJsonRpcTx } from './txToJsonRpcTx.js'
+import { txToJSONRPCTx } from './txToJSONRPCTx.js'
 
 /**
  * @param {import('@tevm/block').Block} block
@@ -10,7 +10,7 @@ export const blockToJsonRpcBlock = async (block, includeTransactions) => {
 	const json = block.toJSON()
 	const header = /** @type {import('@tevm/block').JsonHeader}*/ (json.header)
 	const transactions = block.transactions.map((tx, txIndex) =>
-		includeTransactions ? txToJsonRpcTx(tx, block, txIndex) : bytesToHex(tx.hash()),
+		includeTransactions ? txToJSONRPCTx(tx, block, txIndex) : bytesToHex(tx.hash()),
 	)
 
 	/**

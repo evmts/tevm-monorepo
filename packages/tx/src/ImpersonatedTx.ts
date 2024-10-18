@@ -1,5 +1,5 @@
-import type { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
+import type { FeeMarket1559Transaction } from '@ethereumjs/tx'
 
-export interface ImpersonatedTx extends FeeMarketEIP1559Transaction {
+export interface ImpersonatedTx extends FeeMarket1559Transaction {
 	isImpersonated: true
 }
