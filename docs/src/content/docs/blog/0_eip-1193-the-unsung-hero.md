@@ -140,51 +140,100 @@ To showcase EIP-1193's potential, let's create a custom transport handling [opti
 ```typescript
 import { custom, http } from 'viem';
 import { createMemoryClient } from 'tevm';
+import { TxFactory } from 'tevm/tx'
 import { loadBalance, rateLimit } from '@ponder/core';
 
-const httpTransport = loadBalance([
+const createHttpTransport = () => loadBalance([
   rateLimit(http('https://cloudflare-eth.com'), { requestsPerSecond: 75 }),
   rateLimit(http('https://eth-mainnet.public.blastapi.io'), { requestsPerSecond: 75 }),
 ]);
 
-let pendingTxs = [];
-let tevmClient = createMemoryClient({
-  fork: { transport: httpTransport },
-});
+class OptimisticTransport {
+  private httpTransport: ReturnType<typeof createHttpTransport>;
+  private tevmClient: ReturnType<typeof createMemoryClient>;
+  private pendingTxs: any[] = [];
+  private processedPendingTxs: any[] = [];
 
-const optimisticTransport = custom({
-  request: async (request) => {
+  constructor() {
+    this.httpTransport = createHttpTransport();
+    this.tevmClient = this.createTevmClient();
+  }
+
+  private createTevmClient() {
+    return createMemoryClient({ fork: { transport: this.httpTransport } });
+  }
+
+  async request(request: { method: string; params: any[] }) {
     const { method, params } = request;
 
-    if (method === 'eth_sendRawTransaction') {
-      pendingTxs.push(request);
-      let newTevmClient = createMemoryClient({
-        fork: { transport: httpTransport },
-      });
-      await newTevmClient.ready()
-      tevmClient = newTevmClient
-      return httpTransport.request(request);
+    switch (method) {
+      case 'eth_sendRawTransaction':
+        return this.handleSendTransaction(request);
+      case 'eth_getTransactionReceipt':
+        return this.handleGetTransactionReceipt(params[0]);
+      case 'eth_call':
+        return params[1] === 'pending' ? this.handlePendingCall(request) : this.httpTransport.request(request);
+      default:
+        return this.httpTransport.request(request);
     }
-
-    if (method === 'eth_getTransactionReceipt') {
-      const receipt = await httpTransport.request(request);
-      const pendingIndex = pendingTxs.findIndex(tx => tx.params[0] === params[0]);
-      if (receipt && pendingIndex !== -1) {
-        pendingTxs.splice(pendingIndex, 1);
-      }
-      return receipt;
-    }
-
-    if (method === 'eth_call' && params[1] === 'pending') {
-      for (const pendingTx of pendingTxs) {
-        await tevmClient.request(pendingTx);
-      }
-      await tevmClient.mine();
-      return tevmClient.request(request);
-    }
-
-    return httpTransport.request(request);
   }
+
+  private async handleSendTransaction(request: any) {
+    this.pendingTxs.push(request);
+    this.tevmClient = this.createTevmClient();
+    await this.tevmClient.ready();
+    this.pendingTxs.push(...this.processedPendingTxs);
+    this.processedPendingTxs = [];
+    return this.httpTransport.request(request);
+  }
+
+  private async handleGetTransactionReceipt(txHash: string) {
+    const receipt = await this.httpTransport.request({ method: 'eth_getTransactionReceipt', params: [txHash] });
+    if (receipt) {
+      this.removeTxFromArrays(txHash);
+    }
+    return receipt;
+  }
+
+  private async handlePendingCall(request: any) {
+    await this.processPendingTransactions();
+    await this.tevmClient.mine();
+    return this.tevmClient.request(request);
+  }
+
+  private async processPendingTransactions() {
+    for (const pendingTx of this.pendingTxs) {
+      await this.tevmClient.request(pendingTx);
+      this.moveTxToProcesed(pendingTx);
+    }
+  }
+
+  private moveTxToProcesed(tx: any) {
+    const index = this.pendingTxs.indexOf(tx);
+    if (index !== -1) {
+      const [removedTx] = this.pendingTxs.splice(index, 1);
+      this.processedPendingTxs.push(removedTx);
+    }
+  }
+
+  private removeTxFromArrays(txHash: string) {
+    this.removeTxFromArray(this.pendingTxs, txHash);
+    this.removeTxFromArray(this.processedPendingTxs, txHash);
+  }
+
+  private removeTxFromArray(array: any[], txHash: string) {
+    const index = array.findIndex(tx => {
+      const txObject = TxFactory.fromSerializedData(tx.params[0]);
+      return txObject.hash() === txHash;
+    });
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+  }
+}
+
+const optimisticTransport = custom({
+  request: new OptimisticTransport().request.bind(new OptimisticTransport())
 });
 ```
 
@@ -276,3 +325,4 @@ For more information:
 - [Tevm GitHub Repository](https://github.com/evmts/tevm-monorepo)
 - [Ponder transport documentation](https://www.ponder.sh/docs/guides/transports)
 - [Viem Documentation](https://viem.sh/)
+
