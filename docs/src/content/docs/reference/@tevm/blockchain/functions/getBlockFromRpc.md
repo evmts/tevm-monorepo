@@ -89,4 +89,4 @@ Flag for test networks
 
 ## Defined in
 
-[packages/blockchain/src/utils/getBlockFromRpc.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L16)
+[packages/blockchain/src/utils/getBlockFromRpc.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L17)
