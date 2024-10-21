@@ -115,6 +115,9 @@ const httpTransport = loadBalance([
 ]);
 
 let pendingTxs = [];
+let tevmClient = createMemoryClient({
+  fork: { transport: httpTransport },
+});
 
 // Create our optimistic transport
 const optimisticTransport = custom({
@@ -122,23 +125,28 @@ const optimisticTransport = custom({
     const { method, params } = request;
 
     if (method === 'eth_sendRawTransaction') {
-      pendingTxs.push(params[0]);
-      return '0xFakeTxHashForPending';
+      pendingTxs.push(request);
+      // refork when we send any tx
+      let newTevmClient = createMemoryClient({
+        fork: { transport: httpTransport },
+      });
+      await newTevmClient.ready()
+ .    tevmClient = newTevmClient
+      return await httpTransport.request(request);
     }
 
     if (method === 'eth_getTransactionReceipt') {
-      const pendingIndex = pendingTxs.indexOf(params[0]);
-      if (pendingIndex > -1) {
-        const receipt = await httpTransport.request(request);
-        if (receipt) pendingTxs.splice(pendingIndex, 1);
-        return receipt;
-      }
+      const receipt = await httpTransport.request(request);
+      const pendingIndex = pendingTxs.findIndex(tx => tx.params[0] === params[0]);
+      if (receipt && pendingIndex) pendingTxs.splice(pendingIndex, 1);
+      return receipt;
     }
 
     if (method === 'eth_call' && params[1] === 'pending') {
-      const tevmClient = createMemoryClient({
-        fork: { transport: httpTransport },
-      });
+      for (const pendingTx of pendingTxs) {
+        await tevmClient.request(pendingTx);
+      }
+      await tevmClient.mine();
       return tevmClient.request(request);
     }
 
