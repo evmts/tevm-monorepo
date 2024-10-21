@@ -15,6 +15,32 @@ EIP-1193 is a key design principle of Tevm, Viem, Ponder and many other OSS libr
 
 Imagine building a LEGO masterpiece where every set has slightly different brick sizes. Frustrating, right? That's Ethereum development without EIP-1193. With it, every piece fits perfectly. Let's explore why this standard is revolutionizing blockchain development.
 
+So what does your SDK likely look like? Likely like this:
+
+```typescript
+class LegacySDK {
+  constructor(rpcUrl) {
+    this.rpcUrl = rpcUrl;
+  }
+
+  async getBalance(address) {
+    const response = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: 'eth_getBalance',
+        params: [address, 'latest'],
+        id: 1,
+      }),
+    });
+    return await response.json();
+  }
+}
+```
+
+This might look harmless at first glance, but we'll circle back to refactoring this SDK later to show you how EIP-1193 can dramatically improve its flexibility and power.
+
 #### Demystifying EIP-1193: The Standard Powering JavaScript Software Pluggability
 
 At its core, EIP-1193 is a standardized interface for Ethereum providers in JavaScript applications. It's like a universal remote control for your Ethereum interactions. The heart of EIP-1193 is the `request` function, your gateway to the Ethereum blockchain for sending JSON-RPC requests and listening for critical events.
@@ -55,30 +81,16 @@ EIP-1193 offers several key benefits:
 2. **Composability at Its Finest**: Mix and match tools and libraries with ease.
 3. **Future-Proof Your Code**: Adapt to new features with minimal code changes as the Ethereum ecosystem evolves.
 
-Let's see how we can refactor a traditional SDK to leverage the power of EIP-1193:
+Now, let's revisit our LegacySDK example and see why it falls short:
+
+1. It's tightly coupled to a specific RPC URL, making it difficult to switch between different networks or providers.
+2. It doesn't support alternative transport methods like WebSockets or IPC.
+3. It lacks standardization, making it harder to integrate with other tools in the ecosystem.
+4. It doesn't provide an easy way to handle events or subscriptions.
+
+Let's see how we can refactor this SDK to leverage the power of EIP-1193:
 
 ```typescript
-// Traditional approach
-class LegacySDK {
-  constructor(rpcUrl) {
-    this.rpcUrl = rpcUrl;
-  }
-
-  async getBalance(address) {
-    const response = await fetch(this.rpcUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        method: 'eth_getBalance',
-        params: [address, 'latest'],
-        id: 1,
-      }),
-    });
-    return await response.json();
-  }
-}
-
 // Refactored EIP-1193 compatible SDK
 type EIP1193Provider = {
   request: (args: { method: string; params?: any[] }) => Promise<any>;
