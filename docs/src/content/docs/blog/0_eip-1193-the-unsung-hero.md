@@ -7,6 +7,8 @@ author: "fucory"
 
 ### The Power of Standards in Ethereum Development
 
+You are likely building your SDK wrong if it accepts a string rpc url parameter.
+
 In the ever-evolving world of blockchain technology, standards are the unsung heroes that keep our digital universe from descending into chaos. They're the silent guardians of interoperability, the champions of frictionless development, and the backbone of seamless integration. Among these standards, [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) stands out as a beacon of hope for JavaScript libraries interacting with Ethereum.
 
 Imagine building a LEGO masterpiece where every set has slightly different brick sizes. Frustrating, right? That's Ethereum development without EIP-1193. With it, every piece fits perfectly. Let's explore why this standard is revolutionizing blockchain development.
@@ -49,9 +51,10 @@ EIP-1193 offers several key benefits:
 2. **Composability at Its Finest**: Mix and match tools and libraries with ease.
 3. **Future-Proof Your Code**: Adapt to new features with minimal code changes as the Ethereum ecosystem evolves.
 
-Contrast this with a traditional approach:
+Let's see how we can refactor a traditional SDK to leverage the power of EIP-1193:
 
 ```typescript
+// Traditional approach
 class LegacySDK {
   constructor(rpcUrl) {
     this.rpcUrl = rpcUrl;
@@ -72,11 +75,57 @@ class LegacySDK {
   }
 }
 
-const sdk = new LegacySDK('https://mainnet.infura.io/v3/YOUR_API_KEY');
+// Refactored EIP-1193 compatible SDK
+type EIP1193Provider = {
+  request: (args: { method: string; params?: any[] }) => Promise<any>;
+};
+
+class ImprovedSDK implements EIP1193Provider {
+  private transport: EIP1193Provider;
+
+  constructor(transport: EIP1193Provider) {
+    this.transport = transport;
+  }
+
+  async request({ method, params }: { method: string; params?: any[] }): Promise<any> {
+    return this.transport.request({ method, params });
+  }
+
+  async getBalance(address: string): Promise<string> {
+    const result = await this.request({
+      method: 'eth_getBalance',
+      params: [address, 'latest'],
+    });
+    return result;
+  }
+
+  async setBalance(address: string, balance: string): Promise<void> {
+    await this.request({
+      method: 'anvil_setBalance',
+      params: [address, balance],
+    });
+  }
+}
+
+// Usage example
+import { http } from 'viem';
+
+const transport = http('https://mainnet.infura.io/v3/YOUR_API_KEY');
+const sdk = new ImprovedSDK(transport);
+
 const balance = await sdk.getBalance('0x1234567890abcdef1234567890abcdef12345678');
+await sdk.setBalance('0x1234567890abcdef1234567890abcdef12345678', '0xDE0B6B3A7640000'); // 1 ETH
+
 ```
 
-This approach, while simple, is inflexible and tied to a specific node.
+This refactored SDK demonstrates the power of EIP-1193:
+
+1. It accepts any EIP-1193 compatible transport, not just a URL string.
+2. The SDK itself implements the EIP-1193 interface, making it composable with other tools.
+3. It maintains high-level methods (`getBalance`, `setBalance`) while exposing the flexible `request` method.
+4. Switching between different transports (HTTP, WebSocket, IPC) becomes trivial.
+
+By adopting EIP-1193, we've transformed a rigid, single-purpose SDK into a flexible, composable tool that can easily adapt to different Ethereum environments and future changes in the ecosystem.
 
 #### Embracing the Future: Building an Optimistic Transport
 
@@ -193,7 +242,7 @@ export function multiTransport(
 }
 ```
 
-This approach enables chain-agnostic development and progressive enhancement across multiple blockchains, showcasing the versatility of [Viem's transport system](https://viem.sh/docs/clients/intro).
+This approach enables chain-agnostic development via adding a chainId property and progressive enhancement for rpcs that do and do not supporting it. If this became an actual standard this transport allows you to use it without breaking users using legacy rpcs, showcasing the versatility of [Viem's transport system](https://viem.sh/docs/clients/intro).
 
 #### Beyond the Basics: Additional Benefits of EIP-1193
 
@@ -219,5 +268,5 @@ Remember, in blockchain development, standards like EIP-1193 aren't just guideli
 For more information:
 - [EIP-1193 Specification](https://eips.ethereum.org/EIPS/eip-1193)
 - [Tevm GitHub Repository](https://github.com/evmts/tevm-monorepo)
+- [Ponder transport documentation](https://www.ponder.sh/docs/guides/transports)
 - [Viem Documentation](https://viem.sh/)
-- [Anvil setBalance Documentation](https://hardhat.org/hardhat-network-helpers/docs/reference#setbalance(address,-balance))
