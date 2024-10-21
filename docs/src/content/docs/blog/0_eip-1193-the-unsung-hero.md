@@ -7,15 +7,15 @@ author: "fucory"
 
 ### The Power of Standards in Ethereum Development
 
-You are likely building your SDK wrong if it accepts a string rpc url parameter.
+You are likely building your SDK wrong if it accepts a string RPC URL parameter.
 
 In the ever-evolving world of blockchain technology, standards are the unsung heroes that keep our digital universe from descending into chaos. They're the silent guardians of interoperability, the champions of frictionless development. Among these standards, [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) stands out as the most successful, yet most underutilized EIP for JavaScript.
 
-EIP-1193 is a key design principle of Tevm, Viem, Ponder and many other OSS library and it should be of yours too.
+EIP-1193 is a key design principle of Tevm, Viem, Ponder and many other OSS libraries and it should be of yours too.
 
 Imagine building a LEGO masterpiece where every set has slightly different brick sizes. Frustrating, right? That's Ethereum development without EIP-1193. With it, every piece fits perfectly. Let's explore why this standard is revolutionizing blockchain development.
 
-So what does your SDK likely look like? Likely like this:
+So, what does a typical SDK often look like? It might resemble something like this:
 
 ```typescript
 class LegacySDK {
