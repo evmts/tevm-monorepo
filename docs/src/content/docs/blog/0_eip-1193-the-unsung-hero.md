@@ -9,7 +9,9 @@ author: "fucory"
 
 You are likely building your SDK wrong if it accepts a string rpc url parameter.
 
-In the ever-evolving world of blockchain technology, standards are the unsung heroes that keep our digital universe from descending into chaos. They're the silent guardians of interoperability, the champions of frictionless development, and the backbone of seamless integration. Among these standards, [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) stands out as a beacon of hope for JavaScript libraries interacting with Ethereum.
+In the ever-evolving world of blockchain technology, standards are the unsung heroes that keep our digital universe from descending into chaos. They're the silent guardians of interoperability, the champions of frictionless development. Among these standards, [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) stands out as the most successful, yet most underutilized EIP for JavaScript.
+
+EIP-1193 is a key design principle of Tevm, Viem, Ponder and many other OSS library and it should be of yours too.
 
 Imagine building a LEGO masterpiece where every set has slightly different brick sizes. Frustrating, right? That's Ethereum development without EIP-1193. With it, every piece fits perfectly. Let's explore why this standard is revolutionizing blockchain development.
 
@@ -41,7 +43,9 @@ await tevmClient.request({
 });
 ```
 
-This example demonstrates the power of EIP-1193 in orchestrating various blockchain interactions through a single, consistent interface. It uses the [HTTP transport](https://viem.sh/docs/clients/transports/http.html) from Viem, a powerful Ethereum library that fully embraces EIP-1193, and the [MemoryClient](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/) from Tevm, showcasing the interoperability that EIP-1193 enables.
+Pretty simple, right?  This example demonstrates the power of EIP-1193 in orchestrating various blockchain interactions through a single, consistent interface. It uses the [HTTP transport](https://viem.sh/docs/clients/transports/http.html) from Viem, a powerful Ethereum library that fully embraces EIP-1193, and the [MemoryClient](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/) from Tevm, showcasing the interoperability that EIP-1193 enables.
+
+It might be simple but we will quickly see why the future of Tevm embraces the idea of layering many of these EIP-1193 providers to provide advanced functionality.
 
 #### The EIP-1193 Advantage: Flexibility, Composability, and Future-Proofing
 
@@ -125,9 +129,11 @@ This refactored SDK demonstrates the power of EIP-1193:
 3. It maintains high-level methods (`getBalance`, `setBalance`) while exposing the flexible `request` method.
 4. Switching between different transports (HTTP, WebSocket, IPC) becomes trivial.
 
-By adopting EIP-1193, we've transformed a rigid, single-purpose SDK into a flexible, composable tool that can easily adapt to different Ethereum environments and future changes in the ecosystem.
+By adopting EIP-1193, we've transformed a rigid, single-purpose SDK into a flexible, composable tool that can easily adapt to different Ethereum environments and future changes in the ecosystem. By implementing JSON-RPC it could run on the server or be a transport of any other tool that takes an EIP-1193 provider.
 
-#### Embracing the Future: Building an Optimistic Transport
+#### Preview of Future: Building an Optimistic Transport
+
+The future of Tevm is to offer even more EIP-1193 providers that layer on top of each other to create optimal user ux with regard to safety and performance. We will show both what we can do already today as well as this future.
 
 To showcase EIP-1193's potential, let's create a custom transport handling [optimistic updates](https://medium.com/@kyledeguzmanx/what-are-optimistic-updates-483662c3e171). We'll use Ponder's `loadBalance` and `rateLimit` transports, which can significantly optimize performance in Ethereum interactions:
 
@@ -259,7 +265,7 @@ As blockchain technology advances, EIP-1193 is set to play a pivotal role. It pa
 
 #### Your EIP-1193 Journey Starts Now
 
-EIP-1193 is more than a technical standard; it's a paradigm shift in Ethereum development. It unlocks a world of composable, flexible, and future-proof blockchain interactions. Whether you're building complex DeFi systems or exploring Web3, EIP-1193 is your key to cutting-edge Ethereum development.
+EIP-1193 is more than a technical standard; it's a paradigm shift in Ethereum development if all JS libraries embrace it to it's fullest. It unlocks a world of composable, flexible, and future-proof blockchain interactions. Whether you're building complex DeFi systems or exploring Web3, EIP-1193 is your key to cutting-edge Ethereum development.
 
 Start by refactoring an existing project to use an EIP-1193 provider. Embrace this standard in both your internal and external library code to fully leverage its power.
 
