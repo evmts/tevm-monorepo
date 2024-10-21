@@ -198,7 +198,7 @@ interface Options {
   defaultChainId?: number;
 }
 
-function multiTransport(
+export function multiTransport(
   transportOrMap: Transport | TransportMap,
   options?: Options
 ): Transport {
