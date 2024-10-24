@@ -1,13 +1,13 @@
 import { InvalidAddressError } from '@tevm/errors'
-import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
-import { numberToBytes } from 'viem'
+import { keccak256, toRlp } from '@tevm/utils'
+import { hexToBytes, numberToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { createContractAddress } from './createContractAddress.js'
 
 describe('createContractAddress', () => {
 	it('should create a valid contract address with nonce 0', () => {
-		const from = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
+		const from = new Address(hexToBytes(`0x${'11'.repeat(20)}`))
 		const nonce = 0n
 		const expectedAddress = keccak256(toRlp([from.bytes, Uint8Array.from([])]), 'bytes').subarray(-20)
 
@@ -18,7 +18,7 @@ describe('createContractAddress', () => {
 	})
 
 	it('should create a valid contract address with a non-zero nonce', () => {
-		const from = EthjsAddress.fromString(`0x${'22'.repeat(20)}`)
+		const from = new Address(hexToBytes(`0x${'22'.repeat(20)}`))
 		const nonce = 1n
 		const expectedAddress = keccak256(toRlp([from.bytes, numberToBytes(nonce)]), 'bytes').subarray(-20)
 

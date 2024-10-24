@@ -8,7 +8,7 @@
 
 ## Extends
 
-- `EVMStateManagerInterface`
+- `StateManagerInterface`
 
 ## Properties
 
@@ -64,7 +64,7 @@ Returns contract addresses
 
 #### Inherited from
 
-`EvmStateManagerInterface.originalStorageCache`
+`StateManagerInterface.originalStorageCache`
 
 #### Defined in
 
@@ -102,7 +102,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.checkChunkWitnessPresent`
+`StateManagerInterface.checkChunkWitnessPresent`
 
 #### Defined in
 
@@ -120,7 +120,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.checkpoint`
+`StateManagerInterface.checkpoint`
 
 #### Defined in
 
@@ -158,7 +158,7 @@ Resets all internal caches
 
 #### Inherited from
 
-`EvmStateManagerInterface.clearContractStorage`
+`StateManagerInterface.clearContractStorage`
 
 #### Defined in
 
@@ -188,7 +188,7 @@ This api is not stable
 
 #### Overrides
 
-`EvmStateManagerInterface.commit`
+`StateManagerInterface.commit`
 
 #### Defined in
 
@@ -226,7 +226,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Inherited from
 
-`EvmStateManagerInterface.deleteAccount`
+`StateManagerInterface.deleteAccount`
 
 #### Defined in
 
@@ -264,7 +264,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 #### Inherited from
 
-`EvmStateManagerInterface.dumpStorage`
+`StateManagerInterface.dumpStorage`
 
 #### Defined in
 
@@ -290,7 +290,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.dumpStorageRange`
+`StateManagerInterface.dumpStorageRange`
 
 #### Defined in
 
@@ -312,7 +312,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.generateCanonicalGenesis`
+`StateManagerInterface.generateCanonicalGenesis`
 
 #### Defined in
 
@@ -334,7 +334,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getAccount`
+`StateManagerInterface.getAccount`
 
 #### Defined in
 
@@ -356,7 +356,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getAppliedKey`
+`StateManagerInterface.getAppliedKey`
 
 #### Defined in
 
@@ -378,7 +378,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getContractCode`
+`StateManagerInterface.getContractCode`
 
 #### Defined in
 
@@ -400,7 +400,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getContractCodeSize`
+`StateManagerInterface.getContractCodeSize`
 
 #### Defined in
 
@@ -424,7 +424,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getContractStorage`
+`StateManagerInterface.getContractStorage`
 
 #### Defined in
 
@@ -448,7 +448,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getProof`
+`StateManagerInterface.getProof`
 
 #### Defined in
 
@@ -466,7 +466,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.getStateRoot`
+`StateManagerInterface.getStateRoot`
 
 #### Defined in
 
@@ -488,7 +488,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.hasStateRoot`
+`StateManagerInterface.hasStateRoot`
 
 #### Defined in
 
@@ -512,7 +512,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.modifyAccountFields`
+`StateManagerInterface.modifyAccountFields`
 
 #### Defined in
 
@@ -536,7 +536,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.putAccount`
+`StateManagerInterface.putAccount`
 
 #### Defined in
 
@@ -560,7 +560,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.putContractCode`
+`StateManagerInterface.putContractCode`
 
 #### Defined in
 
@@ -586,7 +586,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.putContractStorage`
+`StateManagerInterface.putContractStorage`
 
 #### Defined in
 
@@ -604,7 +604,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Inherited from
 
-`EvmStateManagerInterface.revert`
+`StateManagerInterface.revert`
 
 #### Defined in
 
@@ -653,7 +653,7 @@ THis API is considered unstable
 
 #### Inherited from
 
-`EvmStateManagerInterface.setStateRoot`
+`StateManagerInterface.setStateRoot`
 
 #### Defined in
 
@@ -663,7 +663,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): `EVMStateManagerInterface`
+> **shallowCopy**(`downlevelCaches`?): `StateManagerInterface`
 
 #### Parameters
 
@@ -671,11 +671,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Returns
 
-`EVMStateManagerInterface`
+`StateManagerInterface`
 
 #### Inherited from
 
-`EvmStateManagerInterface.shallowCopy`
+`StateManagerInterface.shallowCopy`
 
 #### Defined in
 

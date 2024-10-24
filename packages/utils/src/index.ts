@@ -115,7 +115,7 @@ export type {
 	AddressLike,
 	BigIntLike,
 	BytesLike,
-	JsonRpcWithdrawal,
+	JSONRPCWithdrawal as JsonRpcWithdrawal,
 } from '@ethereumjs/util'
 export type { Log as EthjsLog } from '@ethereumjs/evm'
 export type {

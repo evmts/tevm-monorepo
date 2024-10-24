@@ -1,4 +1,4 @@
-import { Common } from '@ethereumjs/common'
+import { createCustomCommon } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -59,15 +59,13 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		const ethjsCommon = Common.custom(
+		const ethjsCommon = createCustomCommon(
 			{
 				name: 'TevmCustom',
 				chainId: chain.id,
-				// TODO what is diff between chainId and networkId???
-				networkId: chain.id,
 			},
 			{
-				hardfork,
+				hardfork: hardfork,
 				baseChain: 1,
 				eips: [...eips, 1559, 4895, 4844, 4788],
 				customCrypto: {
