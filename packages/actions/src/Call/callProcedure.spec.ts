@@ -186,7 +186,7 @@ describe('callProcedure', () => {
 			id: 1,
 			params: [
 				{
-					to: `0x${'00'.repeat(20)}` as const, // Invalid address
+					to: '0x$asdf' as const, // Invalid address
 					from: `0x${'42'.repeat(20)}` as const,
 					data: '0x0',
 					value: numberToHex(500n),

@@ -52,7 +52,8 @@ export const executeCall = async (client, evmInput, params) => {
 			skipBlockGasLimitValidation: true,
 			// we currently set the nonce ourselves user can't set it
 			skipNonce: true,
-			skipBalance: evmInput.skipBalance ?? false,
+			// we must skipBalance for now because we have no clue what the gasLimit should be so this initial run we set it to block maximum
+			skipBalance: true,
 			...(evmInput.block !== undefined ? { block: /** @type any*/ (evmInput.block) } : {}),
 			tx,
 		})
