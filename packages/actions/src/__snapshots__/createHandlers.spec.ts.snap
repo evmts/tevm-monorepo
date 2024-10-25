@@ -2,32 +2,10 @@
 
 exports[`createHandlers > should handle eth_call 1`] = `
 {
-  "error": {
-    "code": -32000,
-    "data": {
-      "errors": [
-        "sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x96171020921a6736a4e62d65c40b749609224fe43187d437cb37d19b3c011005 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73",
-      ],
-    },
-    "message": "sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x96171020921a6736a4e62d65c40b749609224fe43187d437cb37d19b3c011005 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73",
-  },
   "id": 1,
   "jsonrpc": "2.0",
   "method": "eth_call",
+  "result": "0x",
 }
 `;
 
@@ -42,32 +20,10 @@ exports[`createHandlers > should handle eth_chainId 1`] = `
 
 exports[`createHandlers > should handle eth_estimateGas 1`] = `
 {
-  "error": {
-    "code": -32000,
-    "data": {
-      "errors": [
-        "sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x96171020921a6736a4e62d65c40b749609224fe43187d437cb37d19b3c011005 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73",
-      ],
-    },
-    "message": "sender doesn't have enough funds to send tx. The upfront cost is: 210000000 and the sender's account (0x6969696969696969696969696969696969696969) only has: 0 -> block number=0 hash=0x63b5bacdb65c8c9d10e77d77d40bda5b4dc010a4f7e02a10bdea21a2b1b0a454 hf=cancun baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x96171020921a6736a4e62d65c40b749609224fe43187d437cb37d19b3c011005 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Details: /reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73",
-  },
   "id": 1,
   "jsonrpc": "2.0",
   "method": "eth_estimateGas",
+  "result": "0x5208",
 }
 `;
 

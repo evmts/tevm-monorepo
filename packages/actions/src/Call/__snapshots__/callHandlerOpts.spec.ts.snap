@@ -82,16 +82,6 @@ exports[`callHandlerOpts > should handle empty params 1`] = `
 }
 `;
 
-exports[`callHandlerOpts > should handle invalid state overrides 1`] = `
-[
-  [InvalidParams: Invalid state override
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeployedbytecodeerror/
-Details: /reference/tevm/errors/classes/invaliddeployedbytecodeerror/
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`callHandlerOpts > should return an error for unknown block tag 1`] = `
 [
   [InvalidBlockError: Unknown blocktag unknown
