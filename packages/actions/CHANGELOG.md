@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.125
+
+### Patch Changes
+
+- 42590c1: Fixed bug where gasLimit was set to block max when simulating calls
+
 ## 1.0.0-next.124
 
 ### Patch Changes
