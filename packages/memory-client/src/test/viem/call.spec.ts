@@ -22,7 +22,7 @@ beforeEach(async () => {
 			transport: {
 				request: (request) => {
 					console.log(request)
-					return transports.mainnet.request(request)
+					return transports.mainnet.request(request) as any
 				},
 			},
 			blockTag: forkBlock,
