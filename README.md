@@ -33,16 +33,6 @@ const balance = await client.readContract(
 )
 ```
 
-## Overview
-
-Tevm is modular, easy to pick up, and built on top of [viem](https://viem.sh).
-
-Tevm consists of the following modular tools:
-
-- Tevm Devnet
-- Tevm Contracts
-- Tevm Bundler
-
 ## [Join Telegram](https://t.me/+ANThR9bHDLAwMjUx)
 
 ## Visit [Docs (under heavy construction)](https://tevm.sh/) for docs, guides, API, and more! 📄
