@@ -47,11 +47,6 @@ Tevm consists of the following modular tools:
 
 ## Visit [Docs (under heavy construction)](https://tevm.sh/) for docs, guides, API, and more! 📄
 
-![image](https://github.com/evmts/tevm-monorepo/assets/35039927/705cace8-b7bf-4877-9ea3-dee526daffd6)
-![image](https://github.com/evmts/tevm-monorepo/assets/35039927/bbff1710-ab5a-41b4-9e88-ade2f04d1568)
-![image](https://github.com/evmts/tevm-monorepo/assets/35039927/8e3ad2bf-0959-4aac-a30d-1bed29d10dfd)
-![image](https://github.com/evmts/tevm-monorepo/assets/35039927/dc196aa2-d446-4518-aceb-5529f81fbd89)
-
 ## Contributing 💻
 
 Contributions are encouraged, but please open an issue before making any major changes to ensure your changes will be accepted.
