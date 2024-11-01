@@ -57,6 +57,7 @@ export const createCommon = ({
 	eips = [],
 	...chain
 }) => {
+	// TODO need to update on new options
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
 		const ethjsCommon = createCustomCommon(

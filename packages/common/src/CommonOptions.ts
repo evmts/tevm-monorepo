@@ -1,4 +1,5 @@
-import type { CustomCrypto, ParamsDict } from '@ethereumjs/common'
+import type { CustomCrypto, ParamsDict, HardforkTransitionConfig } from '@ethereumjs/common'
+import type { ParamsDict } from './ParamsDict.js'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
@@ -47,7 +48,7 @@ export type CommonOptions = ViemChain & {
 	 */
 	eips?: ReadonlyArray<number> | undefined
 	/**
-	 *
+	 * Optionally pass in an EIP params dictionary,
 	 */
 	params?: ParamsDict
 	/**
@@ -74,6 +75,20 @@ export type CommonOptions = ViemChain & {
 	 *   },
 	 * })
 	 * ```
+	 * Choices include:
+	 * - keccak256
+	 * - ecrecover
+	 * - sha256
+	 * - ecsign
+	 * - ecdsaSign
+	 * - ecdsaRecover
+	 * - kzg
+	 *
+	 * Notably kzg is not included by default because of it's bundlesize import and instead replaced with a mock that always returns true
 	 */
 	customCrypto?: CustomCrypto
+	/**
+	 * A mapping of block heights to hardfork. This allows the evm to modify which hardfork it uses based on block height
+	 */
+	hardforkTransitionConfig: HardforkTransitionConfig
 }
