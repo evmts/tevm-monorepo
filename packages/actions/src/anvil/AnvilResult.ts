@@ -33,5 +33,5 @@ export type AnvilDumpStateResult = Hex
 export type AnvilLoadStateResult = null
 // anvil_deal
 export type AnvilDealResult = {
-  errors?: Error[]
+	errors?: Error[]
 }

@@ -299,10 +299,7 @@ export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilt
  */
 export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 	'eth_createAccessList',
-	readonly [
-		tx: JsonRpcTransaction,
-		tag?: BlockTag | Hex
-	]
+	readonly [tx: JsonRpcTransaction, tag?: BlockTag | Hex]
 >
 
 export type EthJsonRpcRequest =

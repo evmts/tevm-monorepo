@@ -4,6 +4,7 @@ import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { Address } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
+	AnvilDealResult,
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,
 	AnvilGetAutomineResult,
@@ -17,7 +18,6 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
-	AnvilDealResult,
 } from './index.js'
 
 // TODO type the errors strongly
@@ -149,8 +149,4 @@ export type AnvilLoadStateJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `anvil_deal` procedure
  */
-export type AnvilDealJsonRpcResponse = JsonRpcResponse<
-	'anvil_deal',
-	SerializeToJson<AnvilDealResult>,
-	AnvilError
->
+export type AnvilDealJsonRpcResponse = JsonRpcResponse<'anvil_deal', SerializeToJson<AnvilDealResult>, AnvilError>

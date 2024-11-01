@@ -4,6 +4,7 @@ import type {
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
 	EthCoinbaseJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
@@ -37,7 +38,6 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-	EthCreateAccessListJsonRpcResponse,
 } from '../eth/index.js'
 
 /**

@@ -1,4 +1,4 @@
-import { hexToBigInt} from 'viem'
+import { hexToBigInt } from 'viem'
 import { dealHandler } from './anvilDealHandler.js'
 
 /**
@@ -21,36 +21,35 @@ import { dealHandler } from './anvilDealHandler.js'
  * ```
  */
 export const anvilDealJsonRpcProcedure = (client) => async (request) => {
-  const [{ erc20, account, amount }] = request.params
+	const [{ erc20, account, amount }] = request.params
 
-  const result = await dealHandler(client)({
-    ...(erc20 !== undefined ? {erc20} : {}),
-    account,
-    amount: hexToBigInt(amount),
-  })
+	const result = await dealHandler(client)({
+		...(erc20 !== undefined ? { erc20 } : {}),
+		account,
+		amount: hexToBigInt(amount),
+	})
 
+	if ('errors' in result && result.errors) {
+		/**
+		 * @type {import('./AnvilJsonRpcResponse.js').AnvilDealJsonRpcResponse}
+		 */
+		const out = {
+			jsonrpc: request.jsonrpc,
+			...(request.id !== undefined ? { id: request.id } : {}),
+			method: 'anvil_deal',
+			error: {
+				// @ts-expect-error being lazy here
+				code: (result.errors[0]?.code ?? -32000).toString(),
+				message: result.errors[0]?.message ?? result.errors[0]?.name ?? 'An unknown error occured',
+			},
+		}
+		return out
+	}
 
-  if ('errors' in result && result.errors) {
-    /**
-     * @type {import('./AnvilJsonRpcResponse.js').AnvilDealJsonRpcResponse}
-     */
-    const out = {
-      jsonrpc: request.jsonrpc,
-      ...(request.id !== undefined ? {id: request.id} : {}),
-      method: 'anvil_deal',
-      error: {
-        // @ts-expect-error being lazy here
-        code: ((result.errors[0])?.code ?? -32000).toString(),
-        message: result.errors[0]?.message ?? result.errors[0]?.name ?? 'An unknown error occured',
-      }
-    }
-    return out
-  }
-
-  return {
-    jsonrpc: request.jsonrpc,
-    ...(request.id !== undefined ? {id: request.id} : {}),
-    method: 'anvil_deal',
-    result: {}
-  }
+	return {
+		jsonrpc: request.jsonrpc,
+		...(request.id !== undefined ? { id: request.id } : {}),
+		method: 'anvil_deal',
+		result: {},
+	}
 }

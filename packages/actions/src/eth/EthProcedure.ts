@@ -4,6 +4,7 @@ import type {
 	EthCallJsonRpcRequest,
 	EthChainIdJsonRpcRequest,
 	EthCoinbaseJsonRpcRequest,
+	EthCreateAccessListJsonRpcRequest,
 	EthEstimateGasJsonRpcRequest,
 	EthGasPriceJsonRpcRequest,
 	EthGetBalanceJsonRpcRequest,
@@ -37,7 +38,6 @@ import type {
 	EthSignTransactionJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
-	EthCreateAccessListJsonRpcRequest,
 } from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
@@ -45,6 +45,7 @@ import type {
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
 	EthCoinbaseJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
@@ -78,7 +79,6 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-	EthCreateAccessListJsonRpcResponse,
 } from './EthJsonRpcResponse.js'
 
 // eth_accounts

@@ -1,4 +1,5 @@
 import type {
+	AnvilDealJsonRpcRequest,
 	AnvilDropTransactionJsonRpcRequest,
 	AnvilDumpStateJsonRpcRequest,
 	AnvilGetAutomineJsonRpcRequest,
@@ -12,7 +13,6 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
-	AnvilDealJsonRpcRequest,
 } from '../anvil/index.js'
 /**
  * A mapping of `anvil_*` method names to their request type

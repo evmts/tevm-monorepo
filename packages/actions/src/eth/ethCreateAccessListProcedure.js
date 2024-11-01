@@ -34,19 +34,17 @@ export const ethCreateAccessListProcedure = (client) => async (req) => {
 		const out = {
 			jsonrpc: req.jsonrpc,
 			method: 'eth_createAccessList',
-			error: response.error ?? {code: -32000, message: 'Failed to create access list'},
+			error: response.error ?? { code: -32000, message: 'Failed to create access list' },
 			...(req.id !== undefined ? { id: req.id } : {}),
 		}
 		return out
 	}
 
 	// Convert the accessList from Record<Address, Set<Hex>> to the expected format
-	const formattedAccessList = Object.entries(response.result.accessList).map(
-		([address, storageKeys]) => ({
-			address: /** @type {import('abitype').Address}*/(address),
-			storageKeys: Array.from(storageKeys),
-		}),
-	)
+	const formattedAccessList = Object.entries(response.result.accessList).map(([address, storageKeys]) => ({
+		address: /** @type {import('abitype').Address}*/ (address),
+		storageKeys: Array.from(storageKeys),
+	}))
 
 	return {
 		jsonrpc: req.jsonrpc,

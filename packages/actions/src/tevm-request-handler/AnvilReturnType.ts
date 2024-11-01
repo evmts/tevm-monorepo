@@ -1,4 +1,5 @@
 import type {
+	AnvilDealJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
@@ -13,7 +14,6 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
-	AnvilDealJsonRpcResponse,
 } from '../anvil/index.js'
 
 /**

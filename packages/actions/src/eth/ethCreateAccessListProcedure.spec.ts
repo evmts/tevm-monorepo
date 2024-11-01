@@ -1,42 +1,44 @@
-import { describe, it, expect } from 'vitest'
-import { createTevmNode } from '@tevm/node'
-import { ethCreateAccessListProcedure } from './ethCreateAccessListProcedure.js'
-import { encodeFunctionData } from 'viem'
-import { TestERC20 } from '@tevm/test-utils'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { createAddress } from '@tevm/address'
+import { createTevmNode } from '@tevm/node'
+import { TestERC20 } from '@tevm/test-utils'
+import { encodeFunctionData } from 'viem'
+import { describe, expect, it } from 'vitest'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { ethCreateAccessListProcedure } from './ethCreateAccessListProcedure.js'
 
 const erc20 = TestERC20.withAddress(createAddress(420420).toString())
 
 describe('createAccessListHandler', () => {
-  it('should create access list for contract call', async () => {
-    const client = createTevmNode()
-    // deploy contract
-    expect(
-      (
-        await setAccountHandler(client)({
-          address: erc20.address,
-          deployedBytecode: erc20.deployedBytecode,
-        })
-      ).errors,
-    ).toBeUndefined()
+	it('should create access list for contract call', async () => {
+		const client = createTevmNode()
+		// deploy contract
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: erc20.address,
+					deployedBytecode: erc20.deployedBytecode,
+				})
+			).errors,
+		).toBeUndefined()
 
-    // test createAccessList with JSON-RPC format
-    const result = await ethCreateAccessListProcedure(client)({
-      method: 'eth_createAccessList',
-      params: [{
-        data: encodeFunctionData({
-          abi: erc20.abi,
-          functionName: 'balanceOf',
-          args: [erc20.address],
-        }),
-        to: erc20.address,
-      }],
-      id: 1,
-      jsonrpc: '2.0',
-    })
+		// test createAccessList with JSON-RPC format
+		const result = await ethCreateAccessListProcedure(client)({
+			method: 'eth_createAccessList',
+			params: [
+				{
+					data: encodeFunctionData({
+						abi: erc20.abi,
+						functionName: 'balanceOf',
+						args: [erc20.address],
+					}),
+					to: erc20.address,
+				},
+			],
+			id: 1,
+			jsonrpc: '2.0',
+		})
 
-    expect(result).toMatchInlineSnapshot(`
+		expect(result).toMatchInlineSnapshot(`
       {
         "id": 1,
         "jsonrpc": "2.0",
@@ -54,5 +56,5 @@ describe('createAccessListHandler', () => {
         },
       }
     `)
-  })
+	})
 })
