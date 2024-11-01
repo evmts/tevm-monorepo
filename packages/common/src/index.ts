@@ -15,3 +15,4 @@ export {
 export * from './presets/index.js'
 export type { MockKzg } from './MockKzg.js'
 export { createMockKzg } from './createMockKzg.js'
+export {type ParamsDict} from './ParamsDict.ts'
