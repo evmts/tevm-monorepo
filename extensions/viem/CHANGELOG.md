@@ -1,5 +1,12 @@
 # @tevm/viem
 
+## 1.0.0-next.126
+
+### Patch Changes
+
+- Updated dependencies [b99de65]
+  - @tevm/decorators@1.0.0-next.126
+
 ## 1.0.0-next.125
 
 ### Patch Changes

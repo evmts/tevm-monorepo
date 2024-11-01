@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.0.0-next.126
+
+### Minor Changes
+
+- b99de65: Added eth_createAccessList and anvil_deal json-rpc requests
+  Added MemoryClient.deal action
+
+### Patch Changes
+
+- Updated dependencies [b99de65]
+  - @tevm/actions@1.0.0-next.126
+
 ## 1.0.0-next.125
 
 ### Patch Changes
