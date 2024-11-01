@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/http-client",
-	"version": "1.0.0-next.125",
+	"version": "1.0.0-next.126",
 	"private": false,
 	"description": "Client implementations of Tevm",
 	"keywords": [
