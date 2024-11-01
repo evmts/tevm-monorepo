@@ -12,7 +12,7 @@ export const ethSendTransactionJsonRpcProcedure = (client) => {
 			request
 		)
 		const txHash = await ethSendTransactionHandler(client)({
-			from: request.params[0].from,
+			...(request.params[0].from ? { from: request.params[0].from } : {}),
 			...(request.params[0].data ? { data: request.params[0].data } : {}),
 			...(request.params[0].to ? { to: request.params[0].to } : {}),
 			...(request.params[0].gas ? { gas: hexToBigInt(request.params[0].gas) } : {}),

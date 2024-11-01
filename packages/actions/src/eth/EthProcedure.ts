@@ -37,6 +37,7 @@ import type {
 	EthSignTransactionJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
+	EthCreateAccessListJsonRpcRequest,
 } from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
@@ -77,6 +78,7 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 } from './EthJsonRpcResponse.js'
 
 // eth_accounts
@@ -207,3 +209,7 @@ export type EthNewPendingTransactionFilterJsonRpcProcedure = (
 export type EthUninstallFilterJsonRpcProcedure = (
 	request: EthUninstallFilterJsonRpcRequest,
 ) => Promise<EthUninstallFilterJsonRpcResponse>
+// eth_createAccessList
+export type EthCreateAccessListJsonRpcProcedure = (
+	request: EthCreateAccessListJsonRpcRequest,
+) => Promise<EthCreateAccessListJsonRpcResponse>

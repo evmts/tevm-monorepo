@@ -17,6 +17,7 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
+	AnvilDealResult,
 } from './index.js'
 
 // TODO type the errors strongly
@@ -142,5 +143,14 @@ export type AnvilDumpStateJsonRpcResponse = JsonRpcResponse<
 export type AnvilLoadStateJsonRpcResponse = JsonRpcResponse<
 	'anvil_loadState',
 	SerializeToJson<AnvilLoadStateResult>,
+	AnvilError
+>
+// anvil_deal
+/**
+ * JSON-RPC response for `anvil_deal` procedure
+ */
+export type AnvilDealJsonRpcResponse = JsonRpcResponse<
+	'anvil_deal',
+	SerializeToJson<AnvilDealResult>,
 	AnvilError
 >

@@ -49,6 +49,8 @@ import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
+import { ethCreateAccessListProcedure } from './eth/ethCreateAccessListProcedure.js'
+import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers
@@ -92,6 +94,7 @@ export const createHandlers = (client) => {
 		eth_blockNumber: blockNumberProcedure(client),
 		eth_chainId: chainIdProcedure(client),
 		eth_call: ethCallProcedure(client),
+		eth_createAccessList: ethCreateAccessListProcedure(client),
 		eth_getCode: getCodeProcedure(client),
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),
@@ -145,6 +148,7 @@ export const createHandlers = (client) => {
 	}
 
 	const anvilHandlers = {
+		anvil_deal: anvilDealJsonRpcProcedure(client),
 		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
 		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
 		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),

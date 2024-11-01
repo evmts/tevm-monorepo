@@ -12,6 +12,7 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
+	AnvilDealJsonRpcRequest,
 } from '../anvil/index.js'
 /**
  * A mapping of `anvil_*` method names to their request type
@@ -31,4 +32,5 @@ export type AnvilRequestType = {
 	anvil_setChainId: AnvilSetChainIdJsonRpcRequest
 	anvil_dumpState: AnvilDumpStateJsonRpcRequest
 	anvil_loadState: AnvilLoadStateJsonRpcRequest
+	anvil_deal: AnvilDealJsonRpcRequest
 }

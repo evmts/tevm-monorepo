@@ -13,6 +13,7 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
+	AnvilDealJsonRpcRequest,
 } from './AnvilJsonRpcRequest.js'
 import type {
 	AnvilDropTransactionJsonRpcResponse,
@@ -29,6 +30,7 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
+	AnvilDealJsonRpcResponse,
 } from './AnvilJsonRpcResponse.js'
 
 export type AnvilSetCoinbaseProcedure = (
@@ -120,3 +122,27 @@ export type AnvilDumpStateProcedure = (request: AnvilDumpStateJsonRpcRequest) =>
  * JSON-RPC procedure for `anvil_loadState`
  */
 export type AnvilLoadStateProcedure = (request: AnvilLoadStateJsonRpcRequest) => Promise<AnvilLoadStateJsonRpcResponse>
+// anvil_deal
+/**
+ * JSON-RPC procedure for `anvil_deal`
+ */
+export type AnvilDealProcedure = (
+	request: AnvilDealJsonRpcRequest,
+) => Promise<AnvilDealJsonRpcResponse>
+
+export type AnvilProcedure =
+	| AnvilSetCoinbaseProcedure
+	| AnvilImpersonateAccountProcedure
+	| AnvilStopImpersonatingAccountProcedure
+	| AnvilGetAutomineProcedure
+	| AnvilMineProcedure
+	| AnvilResetProcedure
+	| AnvilDropTransactionProcedure
+	| AnvilSetBalanceProcedure
+	| AnvilSetCodeProcedure
+	| AnvilSetNonceProcedure
+	| AnvilSetStorageAtProcedure
+	| AnvilSetChainIdProcedure
+	| AnvilDumpStateProcedure
+	| AnvilLoadStateProcedure
+	| AnvilDealProcedure

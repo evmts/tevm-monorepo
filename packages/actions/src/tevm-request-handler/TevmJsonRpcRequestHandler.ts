@@ -78,6 +78,26 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  *
  * request - {@link EthGetBalanceJsonRpcRequest}
  * response - {@link EthGetBalanceJsonRpcResponse}
+ *
+ * #### eth_createAccessList
+ *
+ * Creates an access list for a transaction.
+ * Returns list of addresses and storage keys that the transaction plans to access.
+ *
+ * request - {@link EthCreateAccessListJsonRpcRequest}
+ * response - {@link EthCreateAccessListJsonRpcResponse}
+ *
+ * ```typescript
+ * const response = await tevm.request({
+ *   method: 'eth_createAccessList',
+ *   params: [{
+ *     to: '0x...',
+ *     data: '0x...'
+ *   }],
+ *   id: 1,
+ *   jsonrpc: '2.0'
+ * })
+ * ```
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest | DebugJsonRpcRequest,

@@ -37,6 +37,7 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 } from '../eth/index.js'
 
 /**
@@ -81,4 +82,5 @@ export type EthReturnType = {
 	eth_getBlockTransactionCountByNumber: EthGetBlockTransactionCountByNumberJsonRpcResponse
 	eth_getTransactionByBlockHashAndIndex: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
+	eth_createAccessList: EthCreateAccessListJsonRpcResponse
 }

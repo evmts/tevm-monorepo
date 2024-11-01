@@ -323,3 +323,19 @@ export type EthNewPendingTransactionFilterJsonRpcResponse = JsonRpcResponse<
  * JSON-RPC response for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterJsonRpcResponse = JsonRpcResponse<'eth_uninstallFilter', boolean, string | number>
+
+// eth_createAccessList
+/**
+ * JSON-RPC response for `eth_createAccessList` procedure
+ */
+export type EthCreateAccessListJsonRpcResponse = JsonRpcResponse<
+	'eth_createAccessList',
+	{
+		accessList: Array<{
+			address: Address
+			storageKeys: Hex[]
+		}>
+		gasUsed: Hex
+	},
+	string | number
+>
