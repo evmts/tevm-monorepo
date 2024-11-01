@@ -1,4 +1,5 @@
 import type {
+	AnvilDealHandler,
 	CallHandler,
 	ContractHandler,
 	DeployHandler,
@@ -119,4 +120,16 @@ export type TevmActionsApi = {
 	 * Creates a transaction to deploys a contract to tevm
 	 */
 	deploy: DeployHandler
+	/**
+	 * Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
+	 * @example
+	 * ```typescript
+	 * await tevm.deal({
+	 *   erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // Optional: USDC address
+	 *   account: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+	 *   amount: 1000000n // 1 USDC (6 decimals)
+	 * })
+	 * ```
+	 */
+	deal: AnvilDealHandler
 }

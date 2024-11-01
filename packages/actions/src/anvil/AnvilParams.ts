@@ -163,3 +163,12 @@ export type AnvilLoadStateParams = {
 	 */
 	readonly state: Record<Hex, Hex>
 }
+
+export type AnvilDealParams = {
+	/** The address of the ERC20 token to deal */
+	erc20?: Address
+	/** The owner of the dealt tokens */
+	account: Address
+	/** The amount of tokens to deal */
+	amount: bigint
+}

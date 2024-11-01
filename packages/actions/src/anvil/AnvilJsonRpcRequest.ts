@@ -1,6 +1,7 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, Hex } from '@tevm/utils'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
+import type { AnvilDealParams } from './AnvilParams.js'
 import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
@@ -111,6 +112,11 @@ export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<
 	'anvil_loadState',
 	readonly [SerializeToJson<AnvilLoadStateParams>]
 >
+// anvil_deal
+/**
+ * JSON-RPC request for `anvil_deal` method
+ */
+export type AnvilDealJsonRpcRequest = JsonRpcRequest<'anvil_deal', [SerializeToJson<AnvilDealParams>]>
 
 export type AnvilJsonRpcRequest =
 	| AnvilImpersonateAccountJsonRpcRequest
@@ -127,3 +133,4 @@ export type AnvilJsonRpcRequest =
 	| AnvilDumpStateJsonRpcRequest
 	| AnvilLoadStateJsonRpcRequest
 	| AnvilSetCoinbaseJsonRpcRequest
+	| AnvilDealJsonRpcRequest

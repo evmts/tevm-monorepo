@@ -4,6 +4,7 @@ import type {
 	EthCallJsonRpcRequest,
 	EthChainIdJsonRpcRequest,
 	EthCoinbaseJsonRpcRequest,
+	EthCreateAccessListJsonRpcRequest,
 	EthEstimateGasJsonRpcRequest,
 	EthGasPriceJsonRpcRequest,
 	EthGetBalanceJsonRpcRequest,
@@ -44,6 +45,7 @@ import type {
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
 	EthCoinbaseJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
@@ -207,3 +209,7 @@ export type EthNewPendingTransactionFilterJsonRpcProcedure = (
 export type EthUninstallFilterJsonRpcProcedure = (
 	request: EthUninstallFilterJsonRpcRequest,
 ) => Promise<EthUninstallFilterJsonRpcResponse>
+// eth_createAccessList
+export type EthCreateAccessListJsonRpcProcedure = (
+	request: EthCreateAccessListJsonRpcRequest,
+) => Promise<EthCreateAccessListJsonRpcResponse>

@@ -4,6 +4,7 @@ import type {
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
 	EthCoinbaseJsonRpcResponse,
+	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
@@ -81,4 +82,5 @@ export type EthReturnType = {
 	eth_getBlockTransactionCountByNumber: EthGetBlockTransactionCountByNumberJsonRpcResponse
 	eth_getTransactionByBlockHashAndIndex: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
+	eth_createAccessList: EthCreateAccessListJsonRpcResponse
 }

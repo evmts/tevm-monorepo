@@ -5,6 +5,7 @@ import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
+import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
 import { anvilGetAutomineJsonRpcProcedure } from './anvil/anvilGetAutomineProcedure.js'
@@ -25,6 +26,7 @@ import { chainIdProcedure } from './eth/chainIdProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethCoinbaseJsonRpcProcedure } from './eth/ethCoinbaseProcedure.js'
+import { ethCreateAccessListProcedure } from './eth/ethCreateAccessListProcedure.js'
 import { ethEstimateGasJsonRpcProcedure } from './eth/ethEstimateGasProcedure.js'
 import { ethGetBlockByHashJsonRpcProcedure } from './eth/ethGetBlockByHashProcedure.js'
 import { ethGetBlockByNumberJsonRpcProcedure } from './eth/ethGetBlockByNumberProcedure.js'
@@ -92,6 +94,7 @@ export const createHandlers = (client) => {
 		eth_blockNumber: blockNumberProcedure(client),
 		eth_chainId: chainIdProcedure(client),
 		eth_call: ethCallProcedure(client),
+		eth_createAccessList: ethCreateAccessListProcedure(client),
 		eth_getCode: getCodeProcedure(client),
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),
@@ -145,6 +148,7 @@ export const createHandlers = (client) => {
 	}
 
 	const anvilHandlers = {
+		anvil_deal: anvilDealJsonRpcProcedure(client),
 		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
 		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
 		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),

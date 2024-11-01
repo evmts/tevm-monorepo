@@ -1,4 +1,5 @@
 import type {
+	AnvilDealJsonRpcRequest,
 	AnvilDropTransactionJsonRpcRequest,
 	AnvilDumpStateJsonRpcRequest,
 	AnvilGetAutomineJsonRpcRequest,
@@ -31,4 +32,5 @@ export type AnvilRequestType = {
 	anvil_setChainId: AnvilSetChainIdJsonRpcRequest
 	anvil_dumpState: AnvilDumpStateJsonRpcRequest
 	anvil_loadState: AnvilLoadStateJsonRpcRequest
+	anvil_deal: AnvilDealJsonRpcRequest
 }

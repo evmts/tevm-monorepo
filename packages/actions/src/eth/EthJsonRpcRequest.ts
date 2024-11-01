@@ -11,7 +11,7 @@ export type JsonRpcTransaction = {
 	/**
 	 * The address from which the transaction is sent
 	 */
-	from: Address
+	from?: Address
 	/**
 	 * The address to which the transaction is addressed
 	 */
@@ -293,6 +293,14 @@ export type EthNewPendingTransactionFilterJsonRpcRequest = JsonRpcRequest<
  * JSON-RPC request for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilter', readonly [filterId: Hex]>
+// eth_createAccessList
+/**
+ * JSON-RPC request for `eth_createAccessList` procedure
+ */
+export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
+	'eth_createAccessList',
+	readonly [tx: JsonRpcTransaction, tag?: BlockTag | Hex]
+>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
@@ -334,3 +342,4 @@ export type EthJsonRpcRequest =
 	| EthNewBlockFilterJsonRpcRequest
 	| EthNewPendingTransactionFilterJsonRpcRequest
 	| EthUninstallFilterJsonRpcRequest
+	| EthCreateAccessListJsonRpcRequest

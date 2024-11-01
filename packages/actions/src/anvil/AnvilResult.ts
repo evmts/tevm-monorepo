@@ -31,3 +31,7 @@ export type AnvilDumpStateResult = Hex
 // TODO make this the same as our load state
 // anvil_loadState tf
 export type AnvilLoadStateResult = null
+// anvil_deal
+export type AnvilDealResult = {
+	errors?: Error[]
+}

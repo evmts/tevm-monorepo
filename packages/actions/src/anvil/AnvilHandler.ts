@@ -1,4 +1,5 @@
 import type {
+	AnvilDealParams,
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
@@ -14,6 +15,7 @@ import type {
 	AnvilStopImpersonatingAccountParams,
 } from './AnvilParams.js'
 import type {
+	AnvilDealResult,
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,
 	AnvilGetAutomineResult,
@@ -64,3 +66,5 @@ export type AnvilDumpStateHandler = (params: AnvilDumpStateParams) => Promise<An
 // TODO make this the same as our load state
 // anvil_loadState
 export type AnvilLoadStateHandler = (params: AnvilLoadStateParams) => Promise<AnvilLoadStateResult>
+// anvil_deal
+export type AnvilDealHandler = (params: AnvilDealParams) => Promise<AnvilDealResult>

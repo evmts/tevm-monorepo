@@ -239,4 +239,26 @@ describe('Tevm.request', async () => {
 		})
 		expect(forkedAccount).toEqual(nonForkedAccount)
 	})
+
+	it('should execute eth_createAccessList request', async () => {
+		const tevm = createMemoryClient()
+		const req = {
+			method: 'eth_createAccessList',
+			params: [
+				{
+					from: '0x1f420000000000000000000000000000000000ff',
+					to: contractAddress,
+					data: encodeFunctionData(ERC20.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
+				},
+			],
+			id: 1,
+			jsonrpc: '2.0',
+		}
+		// @ts-expect-error todo doesn't exist in viem yet https://github.com/wevm/viem/discussions/1060
+		const res = await tevm.request(req)
+		expect(res).toMatchObject({
+			accessList: [],
+			gasUsed: '0x53b8',
+		})
+	})
 })

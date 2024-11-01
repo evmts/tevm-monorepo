@@ -1,4 +1,5 @@
 import type {
+	AnvilDealJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
@@ -34,4 +35,5 @@ export type AnvilReturnType = {
 	anvil_dumpState: AnvilDumpStateJsonRpcResponse
 	anvil_loadState: AnvilLoadStateJsonRpcResponse
 	anvil_setCoinbase: AnvilSetCoinbaseJsonRpcResponse
+	anvil_deal: AnvilDealJsonRpcResponse
 }
