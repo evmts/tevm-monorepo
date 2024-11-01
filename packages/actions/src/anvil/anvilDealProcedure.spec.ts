@@ -33,7 +33,7 @@ describe('anvilDealJsonRpcProcedure', () => {
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'anvil_deal',
-			result: null,
+			result: {},
 		})
 	})
 
@@ -56,7 +56,7 @@ describe('anvilDealJsonRpcProcedure', () => {
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'anvil_deal',
-			result: null,
+			result: {},
 		})
 	})
 })
