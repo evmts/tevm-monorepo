@@ -1,4 +1,4 @@
-import type { CustomCrypto } from '@ethereumjs/common'
+import type { CustomCrypto, ParamsDict } from '@ethereumjs/common'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
@@ -46,6 +46,10 @@ export type CommonOptions = ViemChain & {
 	 * @default [1559, 4895]
 	 */
 	eips?: ReadonlyArray<number> | undefined
+	/**
+	 *
+	 */
+	params?: ParamsDict
 	/**
 	 * Logging level of the Tevm logger instance
 	 * @default 'warn'
