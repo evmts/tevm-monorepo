@@ -5,11 +5,11 @@ import type { BaseVm } from '../BaseVm.js'
 import { parentBeaconBlockRootAddress } from './parentBeaconBlockRootAddress.js'
 
 export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint8Array, timestamp: bigint) => {
-	if (!vm.common.ethjsCommon.isActivatedEIP(4788)) {
+	if (!vm.common.vmConfig.isActivatedEIP(4788)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
 	}
 	// Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
-	const historicalRootsLength = BigInt(vm.common.ethjsCommon.param('vm', 'historicalRootsLength'))
+	const historicalRootsLength = BigInt(vm.common.vmConfig.param('vm', 'historicalRootsLength'))
 	const timestampIndex = timestamp % historicalRootsLength
 	const timestampExtended = timestampIndex + historicalRootsLength
 

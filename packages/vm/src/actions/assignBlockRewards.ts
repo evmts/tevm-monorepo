@@ -11,7 +11,7 @@ import { rewardAccount } from './rewardAccount.js'
 export const assignBlockRewards =
 	(vm: BaseVm) =>
 	async (block: Block): Promise<void> => {
-		const minerReward = vm.common.ethjsCommon.param('pow', 'minerReward')
+		const minerReward = vm.common.vmConfig.param('pow', 'minerReward')
 		const ommers = block.uncleHeaders
 		// Reward ommers
 		for (const ommer of ommers) {

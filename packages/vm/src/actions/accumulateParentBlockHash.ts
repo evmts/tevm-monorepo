@@ -13,16 +13,16 @@ import type { BaseVm } from '../BaseVm.js'
  * @returns Function that accumulates parent block hash
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
-	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
+	if (!vm.common.vmConfig.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
 	const historyAddress = EthjsAddress.fromString(
-		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
+		numberToHex(vm.common.vmConfig.param('vm', 'historyStorageAddress')),
 	)
-	const historyServeWindow = vm.common.ethjsCommon.param('vm', 'historyServeWindow')
+	const historyServeWindow = vm.common.vmConfig.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?
-	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
+	const forkTime = vm.common.vmConfig.eipTimestamp(2935)
 	if (forkTime === null) {
 		throw new EipNotEnabledError('EIP 2935 should be activated by timestamp')
 	}

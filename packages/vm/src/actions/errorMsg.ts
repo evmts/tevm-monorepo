@@ -10,6 +10,6 @@ import type { BaseVm } from '../BaseVm.js'
 export function errorMsg(msg: string, vm: BaseVm, block: Block) {
 	const blockErrorStr = 'errorStr' in block ? block.errorStr() : 'block'
 
-	const errorMsg = `${msg} (${vm.common.ethjsCommon.hardfork.name} -> ${blockErrorStr})`
+	const errorMsg = `${msg} (${vm.common.vmConfig.hardfork.name} -> ${blockErrorStr})`
 	return errorMsg
 }

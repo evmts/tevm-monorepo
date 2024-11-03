@@ -17,13 +17,13 @@ import { runTx } from './runTx.js'
  * side-effect free (it doesn't modify the block nor the state).
  */
 export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts) => {
-	const bloom = new Bloom(undefined, vm.common.ethjsCommon)
+	const bloom = new Bloom(undefined, vm.common.vmConfig)
 	// the total amount of gas used processing these transactions
 	let gasUsed = 0n
 
 	let receiptTrie: Trie | undefined = undefined
 	if (block.transactions.length !== 0) {
-		receiptTrie = new Trie({ common: vm.common.ethjsCommon })
+		receiptTrie = new Trie({ common: vm.common.vmConfig })
 	}
 
 	const receipts: TxReceipt[] = []
@@ -36,8 +36,8 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 		const tx = block.transactions[txIdx] as TypedTransaction
 
 		let maxGasLimit: bigint
-		if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * vm.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+		if (vm.common.vmConfig.isActivatedEIP(1559) === true) {
+			maxGasLimit = block.header.gasLimit * vm.common.vmConfig.param('gasConfig', 'elasticityMultiplier')
 		} else {
 			maxGasLimit = block.header.gasLimit
 		}

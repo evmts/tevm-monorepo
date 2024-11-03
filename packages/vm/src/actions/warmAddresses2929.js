@@ -7,7 +7,7 @@ import { bytesToUnprefixedHex } from '@tevm/utils'
  * @param {import('@tevm/utils').EthjsAddress} coinbase
  */
 export const warmAddresses2929 = (vm, caller, to, coinbase) => {
-	if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
+	if (vm.common.vmConfig.isActivatedEIP(2929)) {
 		// Add origin and precompiles to warm addresses
 		const activePrecompiles = vm.evm.precompiles
 		for (const [addressStr] of activePrecompiles.entries()) {
@@ -18,7 +18,7 @@ export const warmAddresses2929 = (vm, caller, to, coinbase) => {
 			// Note: in case we create a contract, we do vm in EVMs `_executeCreate` (vm is also correct in inner calls, per the EIP)
 			vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(to.bytes))
 		}
-		if (vm.common.ethjsCommon.isActivatedEIP(3651)) {
+		if (vm.common.vmConfig.isActivatedEIP(3651)) {
 			vm.evm.journal.addAlwaysWarmAddress(bytesToUnprefixedHex(coinbase.bytes))
 		}
 	}

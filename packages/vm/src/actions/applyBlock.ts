@@ -45,13 +45,13 @@ export const applyBlock =
 				await block.validateData()
 			}
 		}
-		if (vm.common.ethjsCommon.isActivatedEIP(4788)) {
+		if (vm.common.vmConfig.isActivatedEIP(4788)) {
 			await accumulateParentBeaconBlockRoot(vm)(
 				block.header.parentBeaconBlockRoot as Uint8Array,
 				block.header.timestamp,
 			)
 		}
-		if (vm.common.ethjsCommon.isActivatedEIP(2935)) {
+		if (vm.common.vmConfig.isActivatedEIP(2935)) {
 			await accumulateParentBlockHash(vm)(block.header.number, block.header.parentHash)
 		}
 
@@ -79,7 +79,7 @@ export const applyBlock =
 			}
 		}
 
-		if (vm.common.ethjsCommon.isActivatedEIP(4895)) {
+		if (vm.common.vmConfig.isActivatedEIP(4895)) {
 			if (opts.reportPreimages === true) vm.evm.journal.startReportingPreimages?.()
 			await assignWithdrawals(vm)(block)
 			if (opts.reportPreimages === true && vm.evm.journal.preimages !== undefined) {
@@ -90,7 +90,7 @@ export const applyBlock =
 			await vm.evm.journal.cleanup()
 		}
 		// Pay ommers and miners
-		if (block.common.ethjsCommon.consensusType() === ConsensusType.ProofOfWork) {
+		if (block.common.vmConfig.consensusType() === ConsensusType.ProofOfWork) {
 			await assignBlockRewards(vm)(block)
 		}
 

@@ -30,7 +30,7 @@ describe('deepCopy', () => {
 	it('should create a deep copy of the VM', async () => {
 		const deepCopyVm = await deepCopy(baseVm)()
 		expect(deepCopyVm).toBeDefined()
-		expect(deepCopyVm.common.ethjsCommon.hardfork()).toBe(baseVm.common.ethjsCommon.hardfork())
+		expect(deepCopyVm.common.vmConfig.hardfork()).toBe(baseVm.common.vmConfig.hardfork())
 		expect(deepCopyVm.blockchain).toBeDefined()
 		expect(deepCopyVm.stateManager).toBeDefined()
 		expect(deepCopyVm.evm).toBeDefined()

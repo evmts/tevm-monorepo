@@ -124,9 +124,9 @@ export const createTevmNode = (options = {}) => {
 					...options.common,
 					id: Number(chainId),
 					loggingLevel: options.loggingLevel ?? 'warn',
-					hardfork: /** @type {import('@tevm/common').Hardfork}*/ (options.common.ethjsCommon.hardfork()) ?? 'cancun',
-					eips: options.common.ethjsCommon.eips(),
-					customCrypto: options.common.ethjsCommon.customCrypto,
+					hardfork: /** @type {import('@tevm/common').Hardfork}*/ (options.common.vmConfig.hardfork()) ?? 'cancun',
+					eips: options.common.vmConfig.eips(),
+					customCrypto: options.common.vmConfig.customCrypto,
 				})
 			}
 			return createCommon({

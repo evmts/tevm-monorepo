@@ -47,7 +47,7 @@ describe('validateRunTx', () => {
 			{ common },
 		)
 
-		vm.common.ethjsCommon.hardforks = jest.fn().mockReturnValue([])
+		vm.common.vmConfig.hardforks = jest.fn().mockReturnValue([])
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(MisconfiguredClientError)
@@ -87,7 +87,7 @@ describe('validateRunTx', () => {
 			{ common },
 		)
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 2930)
+		vm.common.vmConfig.isActivatedEIP = jest.fn((eip) => eip !== 2930)
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(EipNotEnabledError)
@@ -106,7 +106,7 @@ describe('validateRunTx', () => {
 
 		const block = Block.fromBlockData({ header: {} }, { common })
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 1559)
+		vm.common.vmConfig.isActivatedEIP = jest.fn((eip) => eip !== 1559)
 
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(EipNotEnabledError)
@@ -124,7 +124,7 @@ describe('validateRunTx', () => {
 
 		const block = Block.fromBlockData({ header: {} }, { common })
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn(() => true)
+		vm.common.vmConfig.isActivatedEIP = jest.fn(() => true)
 
 		const opts = { tx, block }
 		const validate = validateRunTx(vm)
@@ -146,7 +146,7 @@ describe('validateRunTx', () => {
 			maxPriorityFeePerGas: 1n,
 		})
 
-		vm.common.ethjsCommon.isActivatedEIP = jest.fn(() => true)
+		vm.common.vmConfig.isActivatedEIP = jest.fn(() => true)
 
 		const opts = { tx }
 		const validate = validateRunTx(vm)
@@ -160,7 +160,7 @@ describe('validateRunTx', () => {
 
 	it('should throw if hardfork doesn not match', async () => {
 		const mockCommon = optimism.copy()
-		;(mockCommon.ethjsCommon as any)._hardfork = 'shanghai'
+		;(mockCommon.vmConfig as any)._hardfork = 'shanghai'
 		mockCommon.copy = () => mockCommon
 		const tx = createImpersonatedTx({
 			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),

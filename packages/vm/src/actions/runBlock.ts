@@ -41,8 +41,8 @@ export const runBlock =
 
 		// check for DAO support and if we should apply the DAO fork
 		if (
-			vm.common.ethjsCommon.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
-			block.header.number === vm.common.ethjsCommon.hardforkBlock('dao')
+			vm.common.vmConfig.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
+			block.header.number === vm.common.vmConfig.hardforkBlock('dao')
 		) {
 			await vm.evm.journal.checkpoint()
 			await applyDAOHardfork(vm.evm)
@@ -83,7 +83,7 @@ export const runBlock =
 			}
 			// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
 			block = Block.fromBlockData(blockData as any, { common: vm.common })
-		} else if (vm.common.ethjsCommon.isActivatedEIP(6800) === false) {
+		} else if (vm.common.vmConfig.isActivatedEIP(6800) === false) {
 			// Only validate the following headers if verkle blocks aren't activated
 			if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
 				const msg = errorMsg('invalid receiptTrie', vm, block)

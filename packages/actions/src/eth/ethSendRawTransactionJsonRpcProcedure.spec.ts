@@ -22,7 +22,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 				data: '0x',
 				type: 2,
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
@@ -52,7 +52,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 				data: '0x',
 				type: 0,
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))

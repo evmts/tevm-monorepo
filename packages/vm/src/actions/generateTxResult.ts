@@ -38,7 +38,7 @@ export const generateTxReceipt =
 
 		if (!tx.supports(Capability.EIP2718TypedTransaction)) {
 			// Legacy transaction
-			if (vm.common.ethjsCommon.gteHardfork('byzantium') === true) {
+			if (vm.common.vmConfig.gteHardfork('byzantium') === true) {
 				// Post-Byzantium
 				receipt = {
 					status: txResult.execResult.exceptionError !== undefined ? 0 : 1, // Receipts have a 0 as status on error

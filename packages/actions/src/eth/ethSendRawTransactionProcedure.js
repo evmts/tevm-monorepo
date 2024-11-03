@@ -15,8 +15,8 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		// Blob Transactions sent over RPC are expected to be in Network Wrapper format
 		const tx =
 			txBuf[0] === 0x03
-				? BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon })
-				: TransactionFactory.fromSerializedData(txBuf, { common: vm.common.ethjsCommon })
+				? BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.vmConfig })
+				: TransactionFactory.fromSerializedData(txBuf, { common: vm.common.vmConfig })
 		if (!tx.isSigned()) {
 			const err = new InvalidParamsError('Transaction must be signed!')
 			return {
