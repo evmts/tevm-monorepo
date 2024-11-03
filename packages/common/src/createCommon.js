@@ -1,7 +1,7 @@
-import { createCustomCommon } from '@ethereumjs/common'
+import { Common } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
-import { createMockKzg } from './createMockKzg.js'
+import { DEFAULT_GENESIS } from './DEFAULT_GENESIS.js'
 
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
@@ -17,7 +17,7 @@ import { createMockKzg } from './createMockKzg.js'
  * ```typescript
  * import { createCommon } from 'tevm/common'
  *
- * const common = createCommon({
+ * const common = cre e ateCommon({
  *  customCrypto: {},
  *  loggingLevel: 'debug',
  *  hardfork: 'london',
@@ -36,7 +36,7 @@ import { createMockKzg } from './createMockKzg.js'
  * const commonCopy = common.copy()
  * ```
  *
- * To use with ethereumjs use the ethjsCommon property
+ * To use with ethereumjs use the vmConfig property
  * @example
  * ```typescript
  * import { VM } from '@ethereumjs/vm'
@@ -45,7 +45,7 @@ import { createMockKzg } from './createMockKzg.js'
  * const common = createCommon({ ... })
  *
  * const vm = new VM({
- *   common: common.ethjsCommon,
+ *   common: common.vmConfig,
  * })
  * ```
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
@@ -55,37 +55,45 @@ export const createCommon = ({
 	loggingLevel = 'warn',
 	hardfork = 'cancun',
 	eips = [],
+	params = {},
+	hardforkTransitionConfig,
+	genesis = DEFAULT_GENESIS,
 	...chain
 }) => {
 	// TODO need to update on new options
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		const ethjsCommon = createCustomCommon(
-			{
-				name: 'TevmCustom',
+		const vmConfig = new Common({
+			hardfork,
+			eips: [...eips],
+			customCrypto,
+			// @ts-expect-error TODO why doesn't this type fix? Either a bug in ethjs or a bug in tevm
+			params,
+			chain: {
+				name: chain.name,
 				chainId: chain.id,
-			},
-			{
-				hardfork: hardfork,
-				baseChain: 1,
-				eips: [...eips, 1559, 4895, 4844, 4788],
-				customCrypto: {
-					kzg: createMockKzg(),
-					...customCrypto,
-				},
-			},
-		)
-		if (ethjsCommon.isActivatedEIP(6800)) {
+				genesis,
+				hardforks: [...(hardforkTransitionConfig ?? [])],
+				bootstrapNodes: [],
+				consensus: {
+					type: 'pos',
+					algorithm: 'casper',
+				}
+
+			}
+
+		})
+		if (vmConfig.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')
 		}
-		logger.debug(ethjsCommon.eips(), 'Created common with eips enabled')
+		logger.debug(vmConfig.eips(), 'Created common with eips enabled')
 		return {
 			...chain,
-			ethjsCommon,
+			vmConfig,
 			copy: () => {
-				const ethjsCommonCopy = ethjsCommon.copy()
+				const ethjsCommonCopy = vmConfig.copy()
 				const newCommon = createCommon({ loggingLevel, hardfork, eips, ...chain })
-				newCommon.ethjsCommon = ethjsCommonCopy
+				newCommon.vmConfig = ethjsCommonCopy
 				return newCommon
 			},
 		}
