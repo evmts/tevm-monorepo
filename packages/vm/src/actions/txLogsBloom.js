@@ -9,7 +9,7 @@ import { Bloom } from '@ethereumjs/vm'
  * @throws {never}
  */
 export function txLogsBloom(logs, common) {
-	const bloom = new Bloom(undefined, common?.ethjsCommon)
+	const bloom = new Bloom(undefined, common?.vmConfig)
 	if (logs) {
 		for (let i = 0; i < logs.length; i++) {
 			const log = logs[i]

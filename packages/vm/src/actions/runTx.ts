@@ -56,7 +56,7 @@ export const runTx =
 
 		await vm.evm.journal.checkpoint()
 		// Typed transaction specific setup tasks
-		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
+		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.vmConfig.isActivatedEIP(2718)) {
 			const castedTx = <AccessList2930Transaction>validatedOpts.tx
 			for (const accessListItem of castedTx.AccessListJSON ?? []) {
 				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
@@ -74,7 +74,7 @@ export const runTx =
 			await vm.evm.journal.revert()
 			throw e
 		} finally {
-			if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
+			if (vm.common.vmConfig.isActivatedEIP(2929)) {
 				vm.evm.journal.cleanJournal()
 			}
 		}
@@ -113,7 +113,7 @@ const _runTx =
 		}
 		gasLimit -= txBaseFee
 
-		if (vm.common.ethjsCommon.isActivatedEIP(1559)) {
+		if (vm.common.vmConfig.isActivatedEIP(1559)) {
 			// EIP-1559 spec:
 			// Ensure that the user was willing to at least pay the base fee
 			// assert transaction.max_fee_per_gas >= block.base_fee_per_gas
@@ -137,7 +137,7 @@ const _runTx =
 		}
 		const { nonce, balance } = fromAccount
 		// EIP-3607: Reject transactions from senders with deployed code
-		if (vm.common.ethjsCommon.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
+		if (vm.common.vmConfig.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
 			const msg = errorMsg(
 				'invalid sender address, address is not EOA (EIP-3607). When EIP-3607 is disabled this check is skipped',
 				block,
@@ -177,7 +177,7 @@ const _runTx =
 		}
 
 		if (tx instanceof BlobEIP4844Transaction) {
-			if (!vm.common.ethjsCommon.isActivatedEIP(4844)) {
+			if (!vm.common.vmConfig.isActivatedEIP(4844)) {
 				const msg = errorMsg('blob transactions are only valid with EIP4844 active', block, tx)
 				throw new EipNotEnabledError(msg)
 			}
@@ -242,7 +242,7 @@ const _runTx =
 		} else {
 			// Have to cast as legacy tx since EIP1559 tx does not have gas price
 			gasPrice = (<LegacyTransaction>tx).gasPrice
-			if (vm.common.ethjsCommon.isActivatedEIP(1559)) {
+			if (vm.common.vmConfig.isActivatedEIP(1559)) {
 				const baseFee = block.header.baseFeePerGas ?? 0n
 				inclusionFeePerGas = (<LegacyTransaction>tx).gasPrice - baseFee
 			}
@@ -298,7 +298,7 @@ const _runTx =
 		// Process any gas refund
 		let gasRefund = results.execResult.gasRefund ?? 0n
 		results.gasRefund = gasRefund
-		const maxRefundQuotient = vm.common.ethjsCommon.param('gasConfig', 'maxRefundQuotient')
+		const maxRefundQuotient = vm.common.vmConfig.param('gasConfig', 'maxRefundQuotient')
 		if (gasRefund !== 0n) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund
@@ -320,7 +320,7 @@ const _runTx =
 
 		// Update miner's balance
 		let miner: EthjsAddress
-		if (vm.common.ethjsCommon.consensusType() === ConsensusType.ProofOfAuthority) {
+		if (vm.common.vmConfig.consensusType() === ConsensusType.ProofOfAuthority) {
 			miner = block.header.cliqueSigner()
 		} else {
 			miner = block.header.coinbase
@@ -331,7 +331,7 @@ const _runTx =
 			minerAccount = new EthjsAccount()
 		}
 		// add the amount spent on gas to the miner's account
-		results.minerValue = vm.common.ethjsCommon.isActivatedEIP(1559)
+		results.minerValue = vm.common.vmConfig.isActivatedEIP(1559)
 			? results.totalGasSpent * (inclusionFeePerGas ?? 0n)
 			: results.amountSpent
 		minerAccount.balance += results.minerValue
@@ -347,7 +347,7 @@ const _runTx =
 		if (results.execResult.selfdestruct !== undefined) {
 			for (const addressToSelfdestructHex of results.execResult.selfdestruct) {
 				const address = new EthjsAddress(hexToBytes(addressToSelfdestructHex as Hex))
-				if (vm.common.ethjsCommon.isActivatedEIP(6780)) {
+				if (vm.common.vmConfig.isActivatedEIP(6780)) {
 					// skip cleanup of addresses not in createdAddresses
 					if (!results.execResult.createdAddresses?.has(address.toString())) {
 						continue
@@ -357,7 +357,7 @@ const _runTx =
 			}
 		}
 
-		if (opts.reportAccessList === true && vm.common.ethjsCommon.isActivatedEIP(2930)) {
+		if (opts.reportAccessList === true && vm.common.vmConfig.isActivatedEIP(2930)) {
 			// Convert the Map to the desired type
 			const accessList: AccessList = []
 			if (!vm.evm.journal.accessList) {

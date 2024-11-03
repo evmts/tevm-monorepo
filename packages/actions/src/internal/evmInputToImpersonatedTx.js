@@ -53,7 +53,7 @@ export const evmInputToImpersonatedTx = (client) => {
 			},
 			{
 				allowUnlimitedInitCodeSize: false,
-				common: vm.common.ethjsCommon,
+				common: vm.common.vmConfig,
 				// we don't want to freeze because there is a hack to set tx.hash when building a block
 				freeze: false,
 			},

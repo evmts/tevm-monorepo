@@ -247,7 +247,7 @@ describe('runTx', () => {
 				gasLimit: 0xffffffn,
 				to: randomBytes(20),
 			},
-			{ common: mainnet.ethjsCommon },
+			{ common: mainnet.vmConfig },
 		).sign(randomBytes(32))
 
 		const block = new Block({ common: mainnet })
