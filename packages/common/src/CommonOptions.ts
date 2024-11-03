@@ -1,4 +1,4 @@
-import type { CustomCrypto, ParamsDict, HardforkTransitionConfig } from '@ethereumjs/common'
+import type { CustomCrypto, HardforkTransitionConfig, ChainConfig } from '@ethereumjs/common'
 import type { ParamsDict } from './ParamsDict.js'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
@@ -90,5 +90,6 @@ export type CommonOptions = ViemChain & {
 	/**
 	 * A mapping of block heights to hardfork. This allows the evm to modify which hardfork it uses based on block height
 	 */
-	hardforkTransitionConfig: HardforkTransitionConfig
+	hardforkTransitionConfig?: readonly HardforkTransitionConfig[]
+	genesis?: ChainConfig['genesis']
 }

@@ -7,36 +7,36 @@ import { optimism } from './presets/index.js'
 describe(createCommon.name, () => {
 	it('wraps ethereumjs common with default eips', () => {
 		const common = createCommon({ ...optimism, hardfork: 'cancun', loggingLevel: 'warn' })
-		expect(common.ethjsCommon.hardfork()).toBe('cancun')
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+		expect(common.vmConfig.hardfork()).toBe('cancun')
+		expect(common.vmConfig.isActivatedEIP(1559)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4788)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4844)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4895)).toEqual(true)
 	})
 
 	it('creates a common instance with custom EIPs', () => {
 		const customEIPs = [2718, 2929]
 		const common = createCommon({ ...optimism, hardfork: 'cancun', eips: customEIPs, loggingLevel: 'info' })
-		expect(common.ethjsCommon.hardfork()).toBe('cancun')
-		expect(common.ethjsCommon.isActivatedEIP(2718)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(2929)).toEqual(true)
+		expect(common.vmConfig.hardfork()).toBe('cancun')
+		expect(common.vmConfig.isActivatedEIP(2718)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(2929)).toEqual(true)
 	})
 
 	it('activates EIP 6800 when specified', () => {
 		const customEIPs = [6800]
 		const common = createCommon({ ...optimism, hardfork: 'cancun', eips: customEIPs, loggingLevel: 'warn' })
-		expect(common.ethjsCommon.isActivatedEIP(6800)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(6800)).toEqual(true)
 	})
 
 	it('creates a copy of the common instance', () => {
 		const common = createCommon({ ...optimism, hardfork: 'cancun', loggingLevel: 'debug' })
 		const commonCopy = common.copy()
 		expect(commonCopy).not.toBe(common)
-		expect(commonCopy.ethjsCommon.hardfork()).toBe('cancun')
-		expect(commonCopy.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(commonCopy.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(commonCopy.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(commonCopy.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+		expect(commonCopy.vmConfig.hardfork()).toBe('cancun')
+		expect(commonCopy.vmConfig.isActivatedEIP(1559)).toEqual(true)
+		expect(commonCopy.vmConfig.isActivatedEIP(4788)).toEqual(true)
+		expect(commonCopy.vmConfig.isActivatedEIP(4844)).toEqual(true)
+		expect(commonCopy.vmConfig.isActivatedEIP(4895)).toEqual(true)
 	})
 
 	it('applies custom crypto options', () => {
@@ -49,16 +49,25 @@ describe(createCommon.name, () => {
 				kzg,
 			},
 		})
-		expect(common.ethjsCommon.customCrypto.kzg).toBe(kzg)
+		expect(common.vmConfig.customCrypto.kzg).toBe(kzg)
 	})
 
+	it('logs the creation of the common instance with enabled EIPs', () => {
+		const common = createCommon({ ...optimism, hardfork: 'cancun', loggingLevel: 'debug' })
+		// Assuming createLogger has been implemented to log debug messages correctly
+		expect(common.vmConfig.hardfork()).toBe('cancun')
+		expect(common.vmConfig.isActivatedEIP(1559)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4788)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4844)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4895)).toEqual(true)
+	})
 	it('handles missing optional parameters', () => {
 		const common = createCommon({ ...optimism, loggingLevel: 'info', hardfork: 'cancun' })
-		expect(common.ethjsCommon.hardfork()).toBe('cancun') // default hardfork
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+		expect(common.vmConfig.hardfork()).toBe('cancun') // default hardfork
+		expect(common.vmConfig.isActivatedEIP(1559)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4788)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4844)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4895)).toEqual(true)
 	})
 
 	it('should handle invalid hardfork errors', () => {
@@ -82,11 +91,11 @@ describe(createCommon.name, () => {
 
 	it('should default hardfork to cancun', () => {
 		const common = createCommon({ ...optimism, loggingLevel: 'info' })
-		expect(common.ethjsCommon.hardfork()).toBe('cancun')
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+		expect(common.vmConfig.hardfork()).toBe('cancun')
+		expect(common.vmConfig.isActivatedEIP(1559)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4788)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4844)).toEqual(true)
+		expect(common.vmConfig.isActivatedEIP(4895)).toEqual(true)
 	})
 
 	it('should merge default EIPs with custom EIPs', () => {
