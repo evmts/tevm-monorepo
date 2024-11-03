@@ -19,9 +19,9 @@ describe(createEvm.name, () => {
 		const res = await evm.runCall({
 			skipBalance: true,
 			value: 2n,
-			origin: EthjsAddress.fromString(`0x${'01'.repeat(20)}`),
-			caller: EthjsAddress.fromString(`0x${'01'.repeat(20)}`),
-			to: EthjsAddress.fromString(`0x${'02'.repeat(20)}`),
+			origin: createAddress(`0x${'01'.repeat(20)}`),
+			caller: createAddress(`0x${'01'.repeat(20)}`),
+			to: createAddress(`0x${'02'.repeat(20)}`),
 		})
 		expect(res.execResult.exceptionError).toBeUndefined()
 		expect(res.execResult.returnValue).toEqual(Uint8Array.from([]))
@@ -105,7 +105,7 @@ describe(createEvm.name, () => {
 				blockchain: await createChain({ common: mainnet }),
 				stateManager: createStateManager({}),
 			})
-			const address = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+			const address = createAddress(`0x${'69'.repeat(20)}`)
 			const precompileFunction = () => {
 				return {
 					executionGasUsed: 1n,
@@ -129,7 +129,7 @@ describe(createEvm.name, () => {
 			mutablaleEvm._customPrecompiles = undefined
 			try {
 				evm.addCustomPrecompile({
-					address: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+					address: createAddress(`0x${'69'.repeat(20)}`),
 					function: () => {
 						return {
 							executionGasUsed: 1n,
@@ -185,7 +185,7 @@ describe(createEvm.name, () => {
 				blockchain: await createChain({ common: mainnet }),
 				stateManager: createStateManager({}),
 			})
-			const address = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+			const address = createAddress(`0x${'69'.repeat(20)}`)
 			const precompileFunction = () => {
 				return {
 					executionGasUsed: 1n,
@@ -223,7 +223,7 @@ describe(createEvm.name, () => {
 		mutableEvm._customPrecompiles = undefined
 		try {
 			evm.removeCustomPrecompile({
-				address: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+				address: createAddress(`0x${'69'.repeat(20)}`),
 				function: () => {
 					return {
 						executionGasUsed: 1n,
@@ -246,7 +246,7 @@ describe(createEvm.name, () => {
 		})
 		try {
 			evm.removeCustomPrecompile({
-				address: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+				address: createAddress(`0x${'69'.repeat(20)}`),
 				function: () => {
 					return {
 						executionGasUsed: 1n,

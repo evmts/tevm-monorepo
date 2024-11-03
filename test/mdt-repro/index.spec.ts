@@ -123,7 +123,7 @@ describe('tanrikulu usecase', () => {
 
 		// testing that the tx was correctly removed from the mempool
 		expect(
-			await memoryClient.tevm.getTxPool().then((pool) => pool.getBySenderAddress(EthjsAddress.fromString(addrOwner))),
+			await memoryClient.tevm.getTxPool().then((pool) => pool.getBySenderAddress(createAddress(addrOwner))),
 		).toEqual([])
 
 		expect(await memoryClient.tevmGetAccount({ address: addrOwner })).toEqual({
@@ -138,7 +138,7 @@ describe('tanrikulu usecase', () => {
 		})
 		// testing that nonce is correct on a deepCopy()
 		const vm = await memoryClient.tevm.getVm().then((vm) => vm.deepCopy())
-		expect(await vm.stateManager.getAccount(EthjsAddress.fromString(addrOwner))).toMatchObject({
+		expect(await vm.stateManager.getAccount(createAddress(addrOwner))).toMatchObject({
 			balance: 999999999999987327564n,
 			codeHash: hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000'),
 			nonce: 1n,

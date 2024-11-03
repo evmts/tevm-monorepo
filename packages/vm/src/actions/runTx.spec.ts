@@ -50,12 +50,12 @@ describe('runTx', () => {
 
 	it('should execute a transaction successfully', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const block = new Block({ common: mainnet })
@@ -68,13 +68,13 @@ describe('runTx', () => {
 
 		expect(result.execResult.exceptionError).toBeUndefined()
 
-		expect((await vm.stateManager.getAccount(EthjsAddress.fromString(`0x${'69'.repeat(20)}`)))?.balance).toBe(1n)
+		expect((await vm.stateManager.getAccount(createAddress(`0x${'69'.repeat(20)}`)))?.balance).toBe(1n)
 
 		expect(result).toMatchSnapshot()
 	})
 
 	it('should execute a contract call successfully', async () => {
-		const sender = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+		const sender = createAddress(`0x${'69'.repeat(20)}`)
 
 		await vm.stateManager.putAccount(
 			sender,
@@ -87,7 +87,7 @@ describe('runTx', () => {
 		const contract = SimpleContract.withAddress(`0x${'02'.repeat(20)}`)
 
 		await vm.stateManager.putContractCode(
-			EthjsAddress.fromString(contract.address),
+			createAddress(contract.address),
 			hexToBytes(contract.deployedBytecode),
 		)
 
@@ -98,7 +98,7 @@ describe('runTx', () => {
 			gasLimit: 44884,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(contract.address),
+			to: createAddress(contract.address),
 			data: hexToBytes(encodeFunctionData(contract.write.set(20n))),
 		})
 		const block = new Block({ common: mainnet })
@@ -120,7 +120,7 @@ describe('runTx', () => {
 			gasLimit: 40000,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(contract.address),
+			to: createAddress(contract.address),
 			data: hexToBytes(encodeFunctionData(contract.read.get())),
 		})
 		const getResult = await runTx(vm)({
@@ -137,12 +137,12 @@ describe('runTx', () => {
 
 	it('should throw error for invalid block parameter', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const err = await runTx(vm)({ tx, block: undefined as any }).catch((e) => e)
@@ -152,12 +152,12 @@ describe('runTx', () => {
 
 	it('should throw InsufficientFundsError', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: parseEther('1000000'), // Exaggerated value
 		})
 		const block = new Block({ common: mainnet })
@@ -175,17 +175,17 @@ describe('runTx', () => {
 
 	it('should throw NonceTooLowError', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const block = new Block({ common: mainnet })
 		await vm.stateManager.putAccount(
-			EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			createAddress(PREFUNDED_ACCOUNTS[0].address),
 			EthjsAccount.fromAccountData({
 				balance: parseEther('1'),
 				nonce: 5n, // Higher nonce
@@ -205,12 +205,12 @@ describe('runTx', () => {
 
 	it('should report access list', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const block = new Block({ common: mainnet })
@@ -228,7 +228,7 @@ describe('runTx', () => {
 	})
 
 	it.todo('should throw InvalidGasPriceError for blob transactions', async () => {
-		const sender = EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address)
+		const sender = createAddress(PREFUNDED_ACCOUNTS[0].address)
 
 		await vm.stateManager.putAccount(
 			sender,
@@ -266,12 +266,12 @@ describe('runTx', () => {
 
 	it('should handle EIP-1559 transactions', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 1000000n,
 			maxPriorityFeePerGas: 500000n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const block = new Block({ common: mainnet })
@@ -293,12 +293,12 @@ describe('runTx', () => {
 
 	it('should generate transaction receipt correctly', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(PREFUNDED_ACCOUNTS[0].address),
+			impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
 			maxPriorityFeePerGas: 1n,
-			to: EthjsAddress.fromString(`0x${'69'.repeat(20)}`),
+			to: createAddress(`0x${'69'.repeat(20)}`),
 			value: 1n,
 		})
 		const block = new Block({ common: mainnet })

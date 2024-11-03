@@ -43,12 +43,12 @@ describe('tevmSetAccount', () => {
 		const vm = await client.transport.tevm.getVm()
 		expect(
 			await vm.stateManager.getContractStorage(
-				EthjsAddress.fromString(address),
+				createAddress(address),
 				hexToBytes(Object.keys(state)[0] as Hex),
 			),
 		).toEqual(hexToBytes(state[`0x${'0'.repeat(64)}`] as Hex))
 
-		expect(await vm.stateManager.dumpStorage(EthjsAddress.fromString(address))).toEqual({
+		expect(await vm.stateManager.dumpStorage(createAddress(address))).toEqual({
 			'0000000000000000000000000000000000000000000000000000000000000000': bytesToHex(Uint8Array.from([42])),
 		})
 		expect(account.storage).toEqual(state)

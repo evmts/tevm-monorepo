@@ -328,6 +328,6 @@ describe('callHandler', () => {
 				value: 420n,
 			}),
 		).toEqual('0x')
-		expect((await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))?.balance).not.toEqual(420n)
+		expect((await vm.evm.stateManager.getAccount(createAddress(to)))?.balance).not.toEqual(420n)
 	})
 })

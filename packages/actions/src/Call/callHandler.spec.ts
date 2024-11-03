@@ -64,7 +64,7 @@ describe('callHandler', () => {
 							}),
 						),
 						gasLimit: 16784800n,
-						to: EthjsAddress.fromString(ERC20_ADDRESS),
+						to: createAddress(ERC20_ADDRESS),
 						block: await vm.blockchain.getCanonicalHeadBlock(),
 						origin: EthjsAddress.zero(),
 						caller: EthjsAddress.zero(),
@@ -172,7 +172,7 @@ describe('callHandler', () => {
 
 	it('should be able to send multiple tx from same account and then mine it', async () => {
 		const client = createTevmNode()
-		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+		const from = createAddress(`0x${'69'.repeat(20)}`)
 		const to = `0x${'42'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: from.toString() as Address,
@@ -254,7 +254,7 @@ describe('callHandler', () => {
 
 	it.todo('should return error when deploying contract with insufficient balance', async () => {
 		const client = createTevmNode()
-		const from = EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+		const from = createAddress(`0x${'00'.repeat(20)}`)
 		const to = `0x${'42'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: from.toString() as Address,
@@ -703,7 +703,7 @@ describe('callHandler', () => {
 
 	it('should submit a transaction and read the result with pending blockTag', async () => {
 		const client = createTevmNode()
-		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+		const from = createAddress(`0x${'69'.repeat(20)}`)
 
 		// Set up account with enough balance
 		await setAccountHandler(client)({
