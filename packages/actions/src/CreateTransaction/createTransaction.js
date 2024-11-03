@@ -7,7 +7,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 // TODO tevm_call should optionally take a signature too
 // When it takes a real signature (like in case of eth.sendRawTransaction) we should
-// use FeeMarketEIP1559Transaction rather than Impersonated
+// use FeeMarket1559Transaction rather than Impersonated
 const requireSig = false
 
 /**
@@ -47,20 +47,20 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const dataFee = (() => {
 			let out = 0n
 			for (const entry of evmInput.data ?? []) {
-				out += vm.common.ethjsCommon.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
+				out += vm.common.vmConfig.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
 			}
 			return out
 		})()
 
 		const baseFee = (() => {
 			let out = dataFee
-			const txFee = vm.common.ethjsCommon.param('gasPrices', 'tx')
+			const txFee = vm.common.vmConfig.param('gasPrices', 'tx')
 			if (txFee) {
 				out += txFee
 			}
 			const isCreation = (evmInput.to?.bytes.length ?? 0) === 0
-			if (vm.common.ethjsCommon.gteHardfork('homestead') && isCreation) {
-				const txCreationFee = vm.common.ethjsCommon.param('gasPrices', 'txCreation')
+			if (vm.common.vmConfig.gteHardfork('homestead') && isCreation) {
+				const txCreationFee = vm.common.vmConfig.param('gasPrices', 'txCreation')
 				if (txCreationFee) {
 					out += txCreationFee
 				}
@@ -109,7 +109,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			},
 			{
 				allowUnlimitedInitCodeSize: false,
-				common: vm.common.ethjsCommon,
+				common: vm.common.vmConfig,
 				// we don't want to freeze because there is a hack to set tx.hash when building a block
 				freeze: false,
 			},

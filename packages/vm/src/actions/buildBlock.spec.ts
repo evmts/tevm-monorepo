@@ -3,7 +3,7 @@ import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { FeeMarket1559Transaction } from '@tevm/tx'
 import {
 	type Address,
 	EthjsAccount,
@@ -89,7 +89,7 @@ describe(buildBlock.name, () => {
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = FeeMarket1559Transaction.fromTxData({
 			data: hexToBytes(
 				encodeFunctionData({
 					abi: MOCKERC20_ABI,

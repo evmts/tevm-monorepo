@@ -46,7 +46,7 @@ describe(validateHeader.name, async () => {
 			...blocks[1].header,
 			common: {
 				...blocks[1].header.common,
-				ethjsCommon: { ...blocks[1].header.common.ethjsCommon, consensusType: () => 'pow' },
+				vmConfig: { ...blocks[1].header.common.vmConfig, consensusType: () => 'pow' },
 			},
 		} // invalid consensus type
 		const headerValidator = validateHeader(chain)

@@ -2,9 +2,9 @@
 
 ***
 
-[@tevm/common](../globals.md) / EvmStateManagerInterface
+[@tevm/common](../globals.md) / StateManagerInterface
 
-# Interface: EvmStateManagerInterface
+# Interface: StateManagerInterface
 
 ## Extends
 
@@ -520,7 +520,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): [`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+> **shallowCopy**(`downlevelCaches`?): [`StateManagerInterface`](StateManagerInterface.md)
 
 #### Parameters
 
@@ -528,7 +528,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 #### Returns
 
-[`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+[`StateManagerInterface`](StateManagerInterface.md)
 
 #### Overrides
 

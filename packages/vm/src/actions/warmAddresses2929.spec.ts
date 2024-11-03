@@ -16,7 +16,7 @@ describe('warmAddresses2929', () => {
 
 		vm = {
 			common: {
-				ethjsCommon: {
+				vmConfig: {
 					isActivatedEIP: jest.fn().mockReturnValue(false),
 				},
 			},
@@ -38,7 +38,7 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should add origin and precompiles to warm addresses if EIP 2929 is activated', () => {
-		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+		;(vm.common.vmConfig.isActivatedEIP as Mock<typeof vm.common.vmConfig.isActivatedEIP>).mockImplementation(
 			(eip) => eip === 2929,
 		)
 
@@ -52,7 +52,7 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should add coinbase to warm addresses if EIP 3651 is also activated', () => {
-		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+		;(vm.common.vmConfig.isActivatedEIP as Mock<typeof vm.common.vmConfig.isActivatedEIP>).mockImplementation(
 			(eip) => eip === 2929 || eip === 3651,
 		)
 
@@ -66,7 +66,7 @@ describe('warmAddresses2929', () => {
 	})
 
 	it('should handle undefined "to" address correctly', () => {
-		;(vm.common.ethjsCommon.isActivatedEIP as Mock<typeof vm.common.ethjsCommon.isActivatedEIP>).mockImplementation(
+		;(vm.common.vmConfig.isActivatedEIP as Mock<typeof vm.common.vmConfig.isActivatedEIP>).mockImplementation(
 			(eip) => eip === 2929,
 		)
 		to = undefined

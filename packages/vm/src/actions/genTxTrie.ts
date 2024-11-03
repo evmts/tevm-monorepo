@@ -7,7 +7,7 @@ export async function genTxTrie(block: Block) {
 	if (block.transactions.length === 0) {
 		return KECCAK256_RLP
 	}
-	const trie = new Trie({ common: block.common.ethjsCommon })
+	const trie = new Trie({ common: block.common.vmConfig })
 	for (const [i, tx] of block.transactions.entries()) {
 		await trie.put(Rlp.encode(i), tx.serialize())
 	}
