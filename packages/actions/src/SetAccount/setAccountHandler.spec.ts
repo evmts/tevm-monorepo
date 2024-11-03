@@ -21,7 +21,7 @@ describe('setAccountHandler', () => {
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
+		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
 		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))

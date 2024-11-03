@@ -17,7 +17,7 @@ describe(getAccount.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const balance = 420n
 		const nonce = 2n
 		const account = EthjsAccount.fromAccountData({

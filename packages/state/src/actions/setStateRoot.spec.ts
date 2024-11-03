@@ -22,7 +22,7 @@ describe(setStateRoot.name, () => {
 			},
 		})
 		await setStateRoot(baseState)(root)
-		const account = await getAccount(baseState)(EthjsAddress.fromString(address))
+		const account = await getAccount(baseState)(createAddress(address))
 		expect(account?.balance).toBe(420n)
 	})
 

@@ -10,9 +10,9 @@ describe('warmAddresses2929', () => {
 	let coinbase: EthjsAddress
 
 	beforeEach(() => {
-		caller = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
-		to = EthjsAddress.fromString(`0x${'22'.repeat(20)}`)
-		coinbase = EthjsAddress.fromString(`0x${'33'.repeat(20)}`)
+		caller = createAddress(`0x${'11'.repeat(20)}`)
+		to = createAddress(`0x${'22'.repeat(20)}`)
+		coinbase = createAddress(`0x${'33'.repeat(20)}`)
 
 		vm = {
 			common: {

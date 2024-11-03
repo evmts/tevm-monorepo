@@ -80,8 +80,8 @@ describe(buildBlock.name, () => {
 			},
 		})
 
-		const contractAddress = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
-		const fromAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const contractAddress = createAddress(`0x${'01'.repeat(20)}`)
+		const fromAddress = createAddress(`0x${'02'.repeat(20)}`)
 
 		// add contract
 		await stateManager.putContractCode(contractAddress, hexToBytes(MOCKERC20_BYTECODE))

@@ -10,7 +10,7 @@ import { txToJSONRPCTx } from './txToJSONRPCTx.js'
 describe(txToJSONRPCTx.name, () => {
 	it('should work', async () => {
 		const tx = new FeeMarket1559Transaction({
-			to: EthjsAddress.fromString(`0x${'a'.repeat(40)}`),
+			to: createAddress(`0x${'a'.repeat(40)}`),
 			data: Uint8Array.from([1, 2, 3]),
 			value: 100n,
 			nonce: 1n,

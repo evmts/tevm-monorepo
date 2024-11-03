@@ -18,7 +18,7 @@ describe(deepCopy.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const nonce = 2n
 		const balance = 420n
 		const account = new EthjsAccount(nonce, balance, undefined, hexToBytes(keccak256(deployedBytecode)))
@@ -36,7 +36,7 @@ describe(deepCopy.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 
 		const nonce = 2n
 		const balance = 420n
@@ -68,7 +68,7 @@ describe(deepCopy.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 
 		const nonce = 2n
 		const balance = 420n

@@ -53,7 +53,7 @@ describe('contractHandler', () => {
 							}),
 						),
 						gasLimit: 16784800n,
-						to: EthjsAddress.fromString(ERC20_ADDRESS),
+						to: createAddress(ERC20_ADDRESS),
 						block: await vm.blockchain.getCanonicalHeadBlock(),
 						origin: EthjsAddress.zero(),
 						caller: EthjsAddress.zero(),

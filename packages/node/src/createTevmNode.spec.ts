@@ -35,7 +35,7 @@ describe('createTevmNode with State Persister', () => {
 		const vm = await client.getVm()
 		const stateManager = vm.stateManager
 
-		const address = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
+		const address = createAddress(`0x${'11'.repeat(20)}`)
 		const account = EthjsAccount.fromAccountData({ nonce: 23n, balance: 100n })
 
 		await stateManager.putAccount(address, account)

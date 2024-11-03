@@ -1,4 +1,5 @@
-import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
+import { createAddress } from '@tevm/address'
+import { EthjsAccount, hexToBytes, keccak256 } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmNode } from './TevmNode.js'
 import { addPredeploy } from './addPredeploy.js'
@@ -28,7 +29,7 @@ describe('addPredeploy', () => {
 			deployedBytecode,
 		})
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
+		const account = await (await client.getVm()).stateManager.getAccount(createAddress(address))
 		expect(account).toEqual(
 			new EthjsAccount(nonce, balance, hexToBytes(storageRoot), keccak256(deployedBytecode, 'bytes')),
 		)
@@ -46,9 +47,9 @@ describe('addPredeploy', () => {
 			balance,
 		})
 
-		const account = (await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))) as any
-		expect(account.nonce).toEqual(nonce)
-		expect(account.balance).toEqual(balance)
+		const account = (await (await client.getVm()).stateManager.getAccount(createAddress(address)))
+		expect(account?.nonce).toEqual(nonce)
+		expect(account?.balance).toEqual(balance)
 	})
 
 	it('should add a predeploy with only address to cover lines 25-26', async () => {
@@ -59,10 +60,10 @@ describe('addPredeploy', () => {
 			address,
 		})
 
-		const account = (await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))) as any
+		const account = (await (await client.getVm()).stateManager.getAccount(createAddress(address)))
 		expect(account).toBeDefined()
 		// These should be the default values
-		expect(account.nonce).toEqual(0n)
-		expect(account.balance).toEqual(0n)
+		expect(account?.nonce).toEqual(0n)
+		expect(account?.balance).toEqual(0n)
 	})
 })

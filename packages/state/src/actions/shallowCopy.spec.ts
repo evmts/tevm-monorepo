@@ -15,7 +15,7 @@ describe(shallowCopy.name, () => {
 
 		const baseState = createBaseState(options)
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const slot = Uint8Array.from([69])
 		const value = Uint8Array.from([420])
 		baseState.caches.storage.put(address, slot, value)
