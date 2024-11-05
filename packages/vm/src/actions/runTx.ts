@@ -19,7 +19,7 @@ import type {
 	AccessList,
 	AccessList2930Transaction,
 	AccessListItem,
-	FeeMarket1559Transaction,
+	FeeMarket1559Tx,
 	LegacyTransaction,
 } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
@@ -173,7 +173,7 @@ const _runTx =
 			// EIP-1559 spec:
 			// The signer must be able to afford the transaction
 			// `assert balance >= gas_limit * max_fee_per_gas`
-			maxCost += tx.gasLimit * (tx as FeeMarket1559Transaction).maxFeePerGas
+			maxCost += tx.gasLimit * (tx as FeeMarket1559Tx).maxFeePerGas
 		}
 
 		if (tx instanceof BlobEIP4844Transaction) {

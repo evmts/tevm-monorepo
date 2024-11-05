@@ -5,7 +5,7 @@ export type { Common } from './Common.js'
 export {
 	type CustomCrypto,
 	type StorageDump,
-	type StateManagerInterface as StateManagerInterface,
+	type StateManagerInterface,
 	type AccountFields,
 	type StorageRange,
 	ConsensusAlgorithm,

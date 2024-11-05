@@ -1,4 +1,4 @@
-import { FeeMarket1559Transaction } from '@ethereumjs/tx'
+import { FeeMarket1559Tx } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress, keccak256 } from '@tevm/utils'
 
@@ -7,24 +7,24 @@ import { EthjsAddress, keccak256 } from '@tevm/utils'
  */
 
 /**
- * Creates an impersonated tx that wraps {@link FeeMarket1559Transaction}.
+ * Creates an impersonated tx that wraps {@link FeeMarket1559Tx}.
  * Wraps following methods
  * - 'isImpersonated'
  * - 'hash'
  * - 'isSigned'
  * - 'getSenderAddress'
- * @throws {CreateImpersonatedTxError} Error if the constructor for {@link FeeMarket1559Transaction} throws
+ * @throws {CreateImpersonatedTxError} Error if the constructor for {@link FeeMarket1559Tx} throws
  * @param {import("@ethereumjs/tx").FeeMarketEIP1559TxData & {impersonatedAddress: EthjsAddress}} txData
  * @param {import("@ethereumjs/tx").TxOptions} [opts]
  * @returns {import('./ImpersonatedTx.js').ImpersonatedTx}
  */
 export const createImpersonatedTx = (txData, opts) => {
 	/**
-	 * @type {FeeMarket1559Transaction}
+	 * @type {FeeMarket1559Tx}
 	 */
 	let tx
 	try {
-		tx = new FeeMarket1559Transaction(txData, opts)
+		tx = new FeeMarket1559Tx(txData, opts)
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			throw new InternalError('Unknown Error', { cause: /** @type any*/ (e) })

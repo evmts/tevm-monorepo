@@ -42,10 +42,7 @@ describe('tevmSetAccount', () => {
 		// lots of extra checks from debugging prior issue
 		const vm = await client.transport.tevm.getVm()
 		expect(
-			await vm.stateManager.getContractStorage(
-				createAddress(address),
-				hexToBytes(Object.keys(state)[0] as Hex),
-			),
+			await vm.stateManager.getContractStorage(createAddress(address), hexToBytes(Object.keys(state)[0] as Hex)),
 		).toEqual(hexToBytes(state[`0x${'0'.repeat(64)}`] as Hex))
 
 		expect(await vm.stateManager.dumpStorage(createAddress(address))).toEqual({

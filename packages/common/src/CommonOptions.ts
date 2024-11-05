@@ -1,8 +1,8 @@
-import type { CustomCrypto, HardforkTransitionConfig, ChainConfig } from '@ethereumjs/common'
-import type { ParamsDict } from './ParamsDict.js'
+import type { ChainConfig, CustomCrypto, HardforkTransitionConfig } from '@ethereumjs/common'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
+import type { ParamsDict } from './ParamsDict.js'
 
 /**
  * @property {Hardfork} [hardfork='cancun'] - Hardfork to use

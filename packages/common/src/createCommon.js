@@ -78,10 +78,8 @@ export const createCommon = ({
 				consensus: {
 					type: 'pos',
 					algorithm: 'casper',
-				}
-
-			}
-
+				},
+			},
 		})
 		if (vmConfig.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')

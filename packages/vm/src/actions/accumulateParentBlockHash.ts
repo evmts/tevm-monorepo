@@ -16,9 +16,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	if (!vm.common.vmConfig.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
-	const historyAddress = createAddress(
-		numberToHex(vm.common.vmConfig.param('vm', 'historyStorageAddress')),
-	)
+	const historyAddress = createAddress(numberToHex(vm.common.vmConfig.param('vm', 'historyStorageAddress')))
 	const historyServeWindow = vm.common.vmConfig.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?

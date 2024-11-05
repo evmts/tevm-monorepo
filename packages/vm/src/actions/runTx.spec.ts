@@ -86,10 +86,7 @@ describe('runTx', () => {
 
 		const contract = SimpleContract.withAddress(`0x${'02'.repeat(20)}`)
 
-		await vm.stateManager.putContractCode(
-			createAddress(contract.address),
-			hexToBytes(contract.deployedBytecode),
-		)
+		await vm.stateManager.putContractCode(createAddress(contract.address), hexToBytes(contract.deployedBytecode))
 
 		const setTx = createImpersonatedTx({
 			impersonatedAddress: sender,

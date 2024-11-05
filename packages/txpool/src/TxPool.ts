@@ -11,12 +11,7 @@ import { EthjsAccount, EthjsAddress, bytesToHex, bytesToUnprefixedHex, equalsByt
 import type { Vm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
-import {
-	type FeeMarket1559Transaction,
-	type ImpersonatedTx,
-	type LegacyTransaction,
-	type TypedTransaction,
-} from '@tevm/tx'
+import { type FeeMarket1559Tx, type ImpersonatedTx, type LegacyTransaction, type TypedTransaction } from '@tevm/tx'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
@@ -517,12 +512,12 @@ export class TxPool {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
 		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
-				return (tx as FeeMarket1559Transaction).maxPriorityFeePerGas
+				return (tx as FeeMarket1559Tx).maxPriorityFeePerGas
 			}
 			return (tx as LegacyTransaction).gasPrice - baseFee
 		}
 		if (supports1559) {
-			return (tx as FeeMarket1559Transaction).maxFeePerGas
+			return (tx as FeeMarket1559Tx).maxFeePerGas
 		}
 		return (tx as LegacyTransaction).gasPrice
 	}

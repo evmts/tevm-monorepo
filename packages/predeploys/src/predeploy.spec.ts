@@ -1,9 +1,9 @@
+import { createAddress } from '@tevm/address'
 import { createContract } from '@tevm/contract'
 import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { definePredeploy } from './definePredeploy.js'
 import { DaiContract } from './test/DaiContract.sol.js'
-import { createAddress } from '@tevm/address'
 
 // There is a more complete usage example in the @tevm/vm package
 test('definePredeploy should define a predeploy', async () => {
