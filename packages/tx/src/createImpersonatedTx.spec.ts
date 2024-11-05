@@ -1,7 +1,7 @@
 import { Common } from '@ethereumjs/common'
-import { FeeMarket1559Transaction } from '@ethereumjs/tx'
+import { FeeMarket1559Tx } from '@ethereumjs/tx'
+import { createAddress } from '@tevm/address'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
-import { EthjsAddress } from '@tevm/utils'
 import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
 
@@ -9,21 +9,21 @@ vi.mock('@ethereumjs/tx', async () => {
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
 	const mockClass = vi.fn()
 	mockClass.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarket1559Transaction(...args)
+		return new actualEthjsTx.FeeMarket1559Tx(...args)
 	})
 	return {
 		...actualEthjsTx,
-		FeeMarket1559Transaction: mockClass,
+		FeeMarket1559Tx: mockClass,
 	}
 })
 
-const FeeMarket1559TransactionMock = FeeMarket1559Transaction as unknown as MockedFunction<any>
+const FeeMarket1559TransactionMock = FeeMarket1559Tx as unknown as MockedFunction<any>
 
 afterEach(async () => {
 	vi.resetAllMocks()
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
 	FeeMarket1559TransactionMock.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarket1559Transaction(...args)
+		return new actualEthjsTx.FeeMarket1559Tx(...args)
 	})
 })
 
@@ -63,7 +63,7 @@ describe(createImpersonatedTx.name, () => {
 	})
 
 	it('should throw InternalError if EIP-1559 is not enabled', () => {
-		const common = Common.custom(
+		const common = (
 			{},
 			{
 				eips: [],
@@ -113,7 +113,7 @@ describe(createImpersonatedTx.name, () => {
 		)
 	})
 
-	it('should throw an error if FeeMarket1559Transaction throws', () => {
+	it('should throw an error if FeeMarket1559Tx throws', () => {
 		const expectedError = new Error('Constructor error')
 		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw expectedError
@@ -126,7 +126,7 @@ describe(createImpersonatedTx.name, () => {
 		)
 	})
 
-	it('should throw an error if FeeMarket1559Transaction throws non error', () => {
+	it('should throw an error if FeeMarket1559Tx throws non error', () => {
 		const notError = { not: 'error' }
 		FeeMarket1559TransactionMock.mockImplementation(() => {
 			throw notError

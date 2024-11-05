@@ -21,7 +21,7 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
-		 * @type {import("@tevm/tx").FeeMarket1559Transaction & {impersonatedAddress: import('@tevm/utils').EthjsAddress} }
+		 * @type {import("@tevm/tx").FeeMarket1559Tx & {impersonatedAddress: import('@tevm/utils').EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
@@ -31,7 +31,7 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',
 		)
 		/**
-		 * @type {import("@tevm/tx").FeeMarket1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@tevm/tx").FeeMarket1559Tx & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(

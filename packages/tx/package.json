@@ -64,11 +64,12 @@
   },
   "dependencies": {
     "@ethereumjs/tx": "6.0.0-alpha.1",
+    "@tevm/address": "workspace:^",
+    "@tevm/common": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@ethereumjs/common": "5.0.0-alpha.1",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

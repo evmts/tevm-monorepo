@@ -7,7 +7,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 // TODO tevm_call should optionally take a signature too
 // When it takes a real signature (like in case of eth.sendRawTransaction) we should
-// use FeeMarket1559Transaction rather than Impersonated
+// use FeeMarket1559Tx rather than Impersonated
 const requireSig = false
 
 /**

@@ -86,10 +86,7 @@ export class BlockBuilder {
 		}
 		this.withdrawals = opts.withdrawals?.map(Withdrawal.fromWithdrawalData)
 
-		if (
-			this.vm.common.vmConfig.isActivatedEIP(1559) === true &&
-			typeof this.headerData.baseFeePerGas === 'undefined'
-		) {
+		if (this.vm.common.vmConfig.isActivatedEIP(1559) === true && typeof this.headerData.baseFeePerGas === 'undefined') {
 			if (this.headerData.number === vm.common.vmConfig.hardforkBlock('london')) {
 				this.headerData.baseFeePerGas = vm.common.vmConfig.param('gasConfig', 'initialBaseFee')
 			} else {
@@ -105,10 +102,7 @@ export class BlockBuilder {
 			}
 		}
 
-		if (
-			this.vm.common.vmConfig.isActivatedEIP(4844) === true &&
-			typeof this.headerData.excessBlobGas === 'undefined'
-		) {
+		if (this.vm.common.vmConfig.isActivatedEIP(4844) === true && typeof this.headerData.excessBlobGas === 'undefined') {
 			this.headerData.excessBlobGas = opts.parentBlock.header.calcNextExcessBlobGas()
 		}
 	}

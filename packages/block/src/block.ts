@@ -19,7 +19,7 @@ import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
 import { BlockHeader } from './header.js'
 
 import type { Common } from '@tevm/common'
-import type { FeeMarket1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
+import type { FeeMarket1559Tx, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'
 import type {
@@ -301,10 +301,7 @@ export class Block {
 
 		// we are not setting setHardfork as common is already set to the correct hf
 		const block = Block.fromBlockData({ header, transactions: txs, withdrawals, executionWitness } as BlockData, opts)
-		if (
-			block.common.vmConfig.isActivatedEIP(6800) &&
-			(executionWitness === undefined || executionWitness === null)
-		) {
+		if (block.common.vmConfig.isActivatedEIP(6800) && (executionWitness === undefined || executionWitness === null)) {
 			throw Error('Missing executionWitness for EIP-6800 activated executionPayload')
 		}
 		// Verify blockHash matches payload
@@ -509,7 +506,7 @@ export class Block {
 			const errs = tx.getValidationErrors()
 			if (this.common.vmConfig.isActivatedEIP(1559)) {
 				if (tx.supports(Capability.EIP1559FeeMarket)) {
-					tx = tx as FeeMarket1559Transaction
+					tx = tx as FeeMarket1559Tx
 					if (tx.maxFeePerGas < (this.header.baseFeePerGas as bigint)) {
 						errs.push('tx unable to pay base fee (EIP-1559 tx)')
 					}
