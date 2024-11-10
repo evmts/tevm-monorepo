@@ -1,3 +1,5 @@
+import { typeDocSidebarGroup } from 'starlight-typedoc'
+
 export const sidebarConfig = [
     {
         "label": "Getting started guide",
@@ -174,5 +176,6 @@ export const sidebarConfig = [
                 "link": "/learn/scripting/"
             }
         ]
-    }
+    },
+    typeDocSidebarGroup
 ]
