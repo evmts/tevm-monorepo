@@ -4,7 +4,25 @@ description: Using TevmNode from `tevm/node` package
 ---
 # TevmNode
 
-A lightweight performant JavaScript native Ethereum Virtual Machine (EVM) enabling next-generation local-first UX for end users.
+A lightweight performant JavaScript native Ethereum Virtual Machine (EVM) Node that runs in Node.js and the Browser.
+
+
+```typescript
+import {createTevmNode} from 'tevm'
+
+const node = createTevmNode()
+```
+
+## Why run an ethereum node in the browser
+
+There are many reasons to want to run an Ethereum Node in the browser. Use cases include:
+
+- Advanced gas estimation use cases
+- Better ux via improved latency vs making remote RPC requests
+- Access to low level control
+- Optimistic updates
+- Reusing solidity
+- More!
 
 ## Summary
 

@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_setBalance` method
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L66)
+[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L67)
