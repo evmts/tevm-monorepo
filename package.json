@@ -44,12 +44,16 @@
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.8",
     "@effect/codemod": "^0.0.16",
+    "@monodon/rust": "^2.1.0",
+    "@napi-rs/cli": "3.0.0-alpha.63",
+    "@napi-rs/wasm-runtime": "^0.2.4",
     "@vitest/coverage-v8": "^2.1.1",
     "@vitest/ui": "^2.1.1",
     "bun-types": "^1.1.29",
     "concurrently": "^9.0.1",
     "depcheck": "^1.4.7",
     "dotenv": "^16.4.5",
+    "emnapi": "^1.1.0",
     "gitmoji-cli": "^9.4.0",
     "jscodeshift": "^17.0.0",
     "nx": "19.8.2",
@@ -65,5 +69,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "dependencies": {}
 }

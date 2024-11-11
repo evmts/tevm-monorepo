@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/my-rust-node-lib-linux-arm-gnueabihf",
+  "version": "0.0.0",
+  "cpu": [
+    "arm"
+  ],
+  "main": "my_rust_node_lib.linux-arm-gnueabihf.node",
+  "files": [
+    "my_rust_node_lib.linux-arm-gnueabihf.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "linux"
+  ]
+}

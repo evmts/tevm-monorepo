@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/my-rust-node-lib-freebsd-x64",
+  "version": "0.0.0",
+  "cpu": [
+    "x64"
+  ],
+  "main": "my_rust_node_lib.freebsd-x64.node",
+  "files": [
+    "my_rust_node_lib.freebsd-x64.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "freebsd"
+  ]
+}

@@ -60,3 +60,15 @@ Thumbs.db
 /target
 _
 .direnv
+
+*.node
+
+/target/
+**/*.rs.bk
+debug/
+**/*.pdb
+*.o
+*.so
+*.dylib
+*.dll
+*.rlib
