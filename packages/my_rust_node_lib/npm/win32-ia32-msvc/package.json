@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/my-rust-node-lib-win32-ia32-msvc",
+  "version": "0.0.0",
+  "cpu": [
+    "ia32"
+  ],
+  "main": "my_rust_node_lib.win32-ia32-msvc.node",
+  "files": [
+    "my_rust_node_lib.win32-ia32-msvc.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "win32"
+  ]
+}
