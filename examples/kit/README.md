@@ -1,38 +1,190 @@
-# sv
+# tevm/kit Stores
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+`tevm/kit` provides reactive Ethereum contract stores that integrate seamlessly with Svelte. These stores follow Svelte's intuitive store pattern while enabling both local and blockchain-based interactions.
 
-## Creating a project
+The advantage to using tevm/kit stores include
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Extremely easy intuitive rune-based api for interacting with contracts
+- Advanced functionality such as optimistic updates
+- Control over whether contract calls occur during SSG, SSR, or on client only
+- Reactive to contract writes with 0 configuration via Tevm Engine watching storage slot changes in background
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Writable Stores
 
-# create a new project in my-app
-npx sv create my-app
+The simplest way to use a contract is with the `writable` store:
+
+### writable
+
+For separate Solidity files:
+
+```solidity contracts/Counter.sol
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Counter {
+    uint256 public count;
+
+    function increment() public {
+        count += 1;
+    }
+
+    function getCount() public view returns (uint256) {
+        return count;
+    }
+}
 ```
 
-## Developing
+```typescript src/lib/counter.ts
+import { writable } from 'tevm/kit';
+import { configs } from '@/chains';
+import { Counter } from '../contracts/Counter.sol';
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+// Local instance (no config)
+const counter = writable(Counter);
 
-```bash
-npm run dev
+// Forked instance
+const forkedCounter = writable(Counter, { fork: configs.mainnet });
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+// Forked instance that follows the tip
+const liveCounter = writable(Counter, { 
+  fork: { 
+    ...configs.mainnet,
+    rebase: true 
+  } 
+});
 ```
 
-## Building
+#### Example with Inline Solidity
 
-To create a production version of your app:
+```svelte
+<script>
+  import { writable } from 'tevm/kit';
+  import { configs } from '@/chains';
 
-```bash
-npm run build
+  const counter = writable(Counter, { 
+    fork: { 
+      ...configs.mainnet,
+      rebase: true 
+    } 
+  });
+
+  async function increment() {
+    await counter.increment();
+  }
+</script>
+
+<sol>
+contract Counter {
+    uint256 public count;
+
+    function increment() public {
+        count += 1;
+    }
+
+    function getCount() public view returns (uint256) {
+        return count;
+    }
+}
+</sol>
+
+<main>
+  <p>Count: {$counter.count}</p>
+  <button on:click={increment}>Increment</button>
+</main>
 ```
 
-You can preview the production build with `npm run preview`.
+**Configuration Options:**
+- No config: Runs in local mode
+- `fork`: Uses forked network state
+  - `rebase`: When true, automatically updates with new blocks. Any pending transactions will be reorged to front of the chain on top of the latest blocks.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Configuring an account
+
+If broadcasting transactions you must configure a signer. Simulating writes does not require a signer as support for impersonating any account is available.
+
+When it comes to configuring a signer you have two options
+
+1. You can set a global signer using the `setSigners` context api.
+
+```svelte
+<script>
+import {setSigners} from 'tevm/kit'
+// TODO I forgot viem api for this
+import {accountFromPrivateKey, createRandomPrivateKey} from 'tevm/account'
+
+const account = accountFromPrivateKey(createRandomPrivateKey)
+setSigners(account)
+</script>
+```
+
+2. You can explitly pass in a signer
+
+```svelte
+<script>
+// TODO I forgot viem api for this
+import {accountFromPrivateKey, createRandomPrivateKey} from 'tevm/account'
+import { writable } from 'tevm/kit';
+import { configs } from '@/chains';
+
+const account = accountFromPrivateKey(createRandomPrivateKey)
+setSigners(account)
+
+const counter = writable(Counter, { 
+  fork: { 
+    ...configs.mainnet,
+    rebase: true 
+  } 
+});
+
+async function increment() {
+  await counter.increment();
+}
+</script>
+```
+
+## Readable Stores
+
+For scenarios where you only need to observe state without the ability to modify it, readable stores provide a lightweight alternative. They accept the same configuration options as writable stores.
+
+### readable
+
+```typescript
+import { readable } from 'tevm/kit';
+import { configs } from '@/chains';
+
+// Local read-only instance
+const localCounter = readable(Counter);
+
+// Forked read-only instance that follows the tip
+const liveCounter = readable(Counter, { 
+  fork: { 
+    ...configs.mainnet,
+    rebase: true 
+  } 
+});
+```
+
+#### Example
+
+```html
+<script>
+  import { readable } from 'tevm/kit';
+  import { configs } from '@/chains';
+
+  // Read-only contract that follows the latest block
+  const counter = readable(Counter, { 
+    fork: { 
+      ...configs.mainnet,
+      rebase: true 
+    } 
+  });
+</script>
+
+<main>
+  <p>Read-only Count: {counter.count}</p>
+</main>
+```
+
+## Summary
+
+The tevm/kit package offers versatile contract stores for building reactive Ethereum applications in Svelte. By providing both writable and readable variants with flexible configuration options, developers can easily create local or network-connected instances that suit their specific needs.
