@@ -10,10 +10,21 @@
 
 # tevm-monorepo
 
-Tevm tools include an Ethereum devnet that can run in the Browser and Node.js along with a solidity bundler that allows you to import solidity directly into TypeScript files. All built on top of the viem API.
+Tevm enables next generation UX for users while providing delightful DX for developers. It's like sticking an RPC node in your web app and making Solidity contracts a first class citizen.
+
+Some things you can do with Tevm.
+
+- Estimate gas with no loading spinners
+- Remove latency from many JSON-RPC requests
+- Add optimistic updates to your UI
+- Run arbitrary solidity code in the browser for code reuse
+- Cut latency of some calls in half with a typesafe scripting api
+- Use JSON-RPC methods like debug_traceCall even if the underlying RPC does not support it
+- And much more
+
+Here is a code example of what Tevm looks like
 
 ```typescript
-// import solidity directly into typescript
 import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/common'
@@ -32,6 +43,8 @@ const balance = await client.readContract(
     .balanceOf('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')
 )
 ```
+
+Tevm is able to fork a network similar to anvil in the browser and execute contract calls. You will also notice Tevm Bundler allows us to import contract abis directly from solidity contracts. These powerful primitives are the key to Tevm.
 
 ## [Join Telegram](https://t.me/+ANThR9bHDLAwMjUx)
 

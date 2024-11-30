@@ -1,18 +1,32 @@
+import { typeDocSidebarGroup } from 'starlight-typedoc'
+
 export const sidebarConfig = [
     {
         "label": "Getting started guide",
         "link": "/getting-started/getting-started/"
     },
     {
-        "label": "Why",
+        "label": "Why?",
         "items": [
+            {
+                "label": "Why Tevm",
+                "link": "/why/"
+            },
+            {
+                "label": "Advanced gas estimation",
+                "link": "/why/advanced-gas-estimation/"
+            },
             {
                 "label": "Slow waterfall calls",
                 "link": "/why/avoid-waterfalls/"
             },
             {
-                "label": "Advanced gas estimation",
-                "link": "/why/advanced-gas-estimation/"
+                "label": "Reuse solidity",
+                "link": "/why/reuse-solidity/"
+            },
+            {
+                "label": "Optimistic UI",
+                "link": "/why/optimistic-updates/"
             },
             {
                 "label": "Writing tests",
@@ -22,23 +36,80 @@ export const sidebarConfig = [
                 "label": "Writing UI in solidity",
                 "link": "/why/write-ui-in-solidity/"
             },
+        ]
+    },
+    {
+        "label": "TevmNode",
+        "items": [
             {
-                "label": "Optimistic UI",
-                "link": "/why/reuse-solidity/"
+                "label": "Overview",
+                "link": "/learn/tevm-node/"
             },
             {
-                "label": "Why Tevm",
-                "link": "/why/"
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/installation/"
             },
             {
-                "label": "Optimistic UI",
-                "link": "/why/optimistic-updates/"
+                "label": "Actions",
+                "link": "/learn/actions/"
+            },
+            {
+                "label": "Tevm clients guide",
+                "link": "/learn/viem/"
+            },
+            {
+                "label": "Cli",
+                "link": "/learn/cli/"
+            },
+            {
+                "label": "JSON-RPC",
+                "link": "/learn/json-rpc/"
+            },
+            {
+                "label": "Contract action creators",
+                "link": "/learn/contracts/"
+            },
+            {
+                "label": "Vm component",
+                "link": "/learn/tevm-node/vm/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/txpool/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/create-tevm-node/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/receipts-manager/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/filters/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/copying-or-forking/"
+            },
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/using-jsonrpc/"
+            },
+            {
+                "label": "Advanced scripting guide",
+                "link": "/learn/scripting/"
             }
         ]
     },
     {
-        "label": "Learn",
+        "label": "TevmNode",
         "items": [
+            {
+                "label": "TevmNode api",
+                "link": "/learn/tevm-node/installation/"
+            },
             {
                 "label": "Bundler Guide",
                 "link": "/learn/solidity-imports/"
@@ -69,12 +140,8 @@ export const sidebarConfig = [
                 "link": "/learn/contracts/"
             },
             {
-                "label": "TevmNode api",
+                "label": "Vm component",
                 "link": "/learn/tevm-node/vm/"
-            },
-            {
-                "label": "TevmNode api",
-                "link": "/learn/tevm-node/installation/"
             },
             {
                 "label": "TevmNode api",
@@ -109,5 +176,6 @@ export const sidebarConfig = [
                 "link": "/learn/scripting/"
             }
         ]
-    }
+    },
+    typeDocSidebarGroup
 ]

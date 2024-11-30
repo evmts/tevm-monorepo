@@ -17,4 +17,4 @@ title: "EthAccountsJsonRpcProcedure"
 
 ## Defined in
 
-[packages/actions/src/eth/EthProcedure.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L83)
+[packages/actions/src/eth/EthProcedure.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L85)

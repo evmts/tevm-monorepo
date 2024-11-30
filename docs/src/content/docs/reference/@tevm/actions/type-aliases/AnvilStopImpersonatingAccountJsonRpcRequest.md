@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L20)
+[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L21)

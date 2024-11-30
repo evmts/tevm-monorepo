@@ -17,4 +17,4 @@ title: "EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure"
 
 ## Defined in
 
-[packages/actions/src/eth/EthProcedure.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L159)
+[packages/actions/src/eth/EthProcedure.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L161)

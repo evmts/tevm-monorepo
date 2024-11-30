@@ -95,6 +95,26 @@ response - [EthGasPriceJsonRpcResponse](../../../../../../../reference/tevm/acti
 request - [EthGetBalanceJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcrequest)
 response - [EthGetBalanceJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethgetbalancejsonrpcresponse)
 
+#### eth_createAccessList
+
+Creates an access list for a transaction.
+Returns list of addresses and storage keys that the transaction plans to access.
+
+request - [EthCreateAccessListJsonRpcRequest](../../../../../../../reference/tevm/actions/type-aliases/ethcreateaccesslistjsonrpcrequest)
+response - [EthCreateAccessListJsonRpcResponse](../../../../../../../reference/tevm/actions/type-aliases/ethcreateaccesslistjsonrpcresponse)
+
+```typescript
+const response = await tevm.request({
+  method: 'eth_createAccessList',
+  params: [{
+    to: '0x...',
+    data: '0x...'
+  }],
+  id: 1,
+  jsonrpc: '2.0'
+})
+```
+
 ## Defined in
 
-[packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L82)
+[packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L102)

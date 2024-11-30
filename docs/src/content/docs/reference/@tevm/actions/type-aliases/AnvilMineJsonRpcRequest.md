@@ -11,4 +11,4 @@ JSON-RPC request for `anvil_mine` method
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L48)
+[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L49)

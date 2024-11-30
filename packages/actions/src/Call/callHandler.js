@@ -46,11 +46,6 @@ import { validateCallParams } from './validateCallParams.js'
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
 	async ({ code, deployedBytecode, ...params }) => {
-		/**
-		 * ***************
-		 * 0 VALIDATE PARAMS
-		 * ***************
-		 */
 		client.logger.debug(params, 'callHandler: Executing call with params')
 		const validationErrors = validateCallParams(params)
 		if (validationErrors.length > 0) {
@@ -108,11 +103,7 @@ export const callHandler =
 		const block = /** @type {import('@tevm/block').Block}*/ (evmInput.block)
 
 		await handlePendingTransactionsWarning(client, params, code, deployedBytecode)
-		/**
-		 * ************
-		 * 1 CLONE THE VM WITH BLOCK TAG
-		 * ************
-		 */
+
 		const vm = await cloneVmWithBlockTag(client, block)
 		if (vm instanceof Error) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
@@ -163,7 +154,6 @@ export const callHandler =
 			_params.to = scriptResult.address
 		}
 
-		// start getting opstack information right away in parallel
 		const l1FeeInfoPromise =
 			vm.common.sourceId !== undefined
 				? getL1FeeInformationOpStack(evmInput.data ?? numberToBytes(0), vm).catch((e) => {
@@ -172,11 +162,6 @@ export const callHandler =
 					})
 				: Promise.resolve({})
 
-		/**
-		 * ************
-		 * 2 RUN THE EVM
-		 * ************
-		 */
 		client.logger.debug(
 			{
 				to: evmInput.to?.toString(),
@@ -206,11 +191,6 @@ export const callHandler =
 		}
 		executedCall.runTxResult
 
-		/**
-		 * ****************************
-		 * 3 CREATE TRANSACTION WITH CALL (if neessary)
-		 * ****************************
-		 */
 		const txResult = await handleTransactionCreation(client, params, executedCall, evmInput)
 		if (txResult.errors) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
@@ -220,11 +200,6 @@ export const callHandler =
 			})
 		}
 
-		/**
-		 * ******************
-		 * 4 RETURN CALL RESULT
-		 * ******************
-		 */
 		return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 			...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
 			...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
