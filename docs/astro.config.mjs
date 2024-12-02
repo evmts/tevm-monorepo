@@ -6,4 +6,10 @@ export default defineConfig({
     integrations: [
         starlightConfig,
     ],
+    redirects: {
+        '/telegram': {
+            destination: 'https://t.me/+ANThR9bHDLAwMjUx',
+            permanent: true
+        }
+    }
 });
