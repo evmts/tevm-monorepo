@@ -30,6 +30,9 @@ export const evmInputToImpersonatedTx = (client) => {
 		if (_maxFeePerGas < baseFeePerGas) {
 			_maxFeePerGas = baseFeePerGas
 		}
+		if (maxPriorityFeePerGas && _maxFeePerGas < maxPriorityFeePerGas) {
+			_maxFeePerGas = maxPriorityFeePerGas
+		}
 
 		// TODO we should be allowing actual real signed tx too here
 		// TODO known bug here we should be allowing unlimited code size here based on user providing option

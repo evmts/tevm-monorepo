@@ -7,14 +7,10 @@ title: "requestProcedure"
 
 > **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](/reference/tevm/actions/type-aliases/tevmjsonrpcrequesthandler/)
 
-Request handler for JSON-RPC requests.
+Request handler for JSON-RPC requests to Tevm.
 
 This implementation of the Tevm requestProcedure spec
 implements it via the ethereumjs VM.
-
-Most users will want to use `Tevm.request` instead of
-this method but this method may be desired if hyper optimizing
-bundle size.
 
 ## Parameters
 
@@ -41,6 +37,10 @@ const accountResponse = await tevm.request({
 })
 ```
 
+## See
+
+createHandlers where handlers are defined
+
 ## Defined in
 
-[packages/actions/src/requestProcedure.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/requestProcedure.js#L32)
+[packages/actions/src/requestProcedure.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/requestProcedure.js#L29)
