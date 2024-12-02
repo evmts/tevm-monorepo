@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.127
+
+### Patch Changes
+
+- 141b5da: Fixed bug with maxPriorityFee on arbitrum network
+
 ## 1.0.0-next.126
 
 ### Minor Changes
