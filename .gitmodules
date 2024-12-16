@@ -4,3 +4,6 @@
 [submodule "lib/revm"]
 	path = lib/revm
 	url = https://github.com/evmts/revm
+[submodule "lib/helios"]
+	path = lib/helios
+	url = git@github.com:evmts/helios.git
