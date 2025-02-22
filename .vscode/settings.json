@@ -32,5 +32,8 @@
     "base.json": "jsonc",
     ".envrc": "dotenv"
   },
-  "editor.defaultFormatter": "biomejs.biome"
+  "editor.defaultFormatter": "biomejs.biome",
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
 }
