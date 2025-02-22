@@ -10,11 +10,11 @@ description: "A convenient viem-based client that bundles Tevm Node functionalit
 1. **Public actions** – All standard viem [public actions](https://viem.sh/docs/actions/public/introduction).
 2. **Wallet actions** – Sign transactions, send ETH, deploy contracts, etc.
 3. **Test actions** – Ganache/Hardhat-like commands (`mine`, `setBalance`, `impersonateAccount`, etc.).
-4. **Tevm Node’s own** advanced actions – e.g. `tevmCall`, `tevmContract`, `tevmDeploy`.
+4. **Tevm Node's own** advanced actions – e.g. `tevmCall`, `tevmContract`, `tevmDeploy`.
 
 :::callout
-**Power vs. Modularity**  
-While **MemoryClient** is the most convenient way to use Tevm, it’s less tree-shakeable than the lower-level approach (`createTevmNode` + separate “actions”). For many dev/test use cases, MemoryClient’s all-in-one experience is ideal. 
+**Power vs. Modularity**
+While **MemoryClient** is the most convenient way to use Tevm, it's less tree-shakeable than the lower-level approach (`createTevmNode` + separate "actions"). For many dev/test use cases, MemoryClient's all-in-one experience is ideal.
 :::
 
 ---
@@ -45,7 +45,7 @@ const forkedClient = createMemoryClient({
   common: optimism,
 });
 
-console.log(await forkedClient.getBlockNumber()); 
+console.log(await forkedClient.getBlockNumber());
 // => 17400000n (or the block chosen)
 ```
 
@@ -62,7 +62,7 @@ export type MemoryClient<
 
 When you create a `MemoryClient`, you get:
 
-- All **viem** APIs under your usual calls:  
+- All **viem** APIs under your usual calls:
   - **PublicActions** (e.g., `getBlockNumber`, `estimateGas`, `simulateContract`, `createEventFilter`, etc.)
   - **WalletActions** (e.g., `sendTransaction`, `deployContract`, `signMessage`, etc.)
   - **TestActions** (e.g., `mine`, `setBalance`, `reset`, `snapshot`, etc.)
@@ -111,7 +111,7 @@ console.log("New value:", newValue); // => 420n
 
 **Key Points**:
 - We used standard viem wallet actions for deploying and writing.
-- We used TEVM’s local chain for storing these transactions in memory.  
+- We used TEVM's local chain for storing these transactions in memory.
 - We called `mine({ blocks: 1 })` from the test actions to confirm the block.
 
 ### 3.2 Forking & Reading On-Chain Data
@@ -146,19 +146,19 @@ Because we forked from real data, `balance` now reflects the state at block 17,4
 **Manual Mining**:
 By default, transactions sit in the local mempool until you call `mine()` (or the block limit is reached, or the configured mining mode triggers). You can:
 
-1. Send multiple writes in quick succession.  
-2. Inspect `await memoryClient.getTxpool()`.  
+1. Send multiple writes in quick succession.
+2. Inspect `await memoryClient.getTxpool()`.
 3. Then call `await memoryClient.mine({ blocks: 1 })`.
 
 **Auto Mining**:
-If you’d rather each tx be instantly mined, set:
+If you'd rather each tx be instantly mined, set:
 
 ```ts
 const autoMiningClient = createMemoryClient({
-  miningConfig: { type: 'auto' }, 
+  miningConfig: { type: 'auto' },
 });
 ```
-Now every “write” transaction is immediately confirmed.
+Now every "write" transaction is immediately confirmed.
 
 ---
 
@@ -167,7 +167,7 @@ Now every “write” transaction is immediately confirmed.
 MemoryClient includes [test actions](https://viem.sh/docs/actions/test/introduction) by default:
 
 ```ts
-// Increase the chain’s time 1 hour
+// Increase the chain's time 1 hour
 await memoryClient.increaseTime({ seconds: 3600 })
 
 // Create a snapshot
@@ -183,7 +183,7 @@ These are especially useful in dev/test scenarios for controlling block times, m
 
 ## 6. Low-Level TEVM Actions
 
-Beyond viem’s standard set, you can also do **Tevm Node** actions:
+Beyond viem's standard set, you can also do **Tevm Node** actions:
 
 ### tevmCall
 
@@ -196,7 +196,7 @@ const result = await memoryClient.tevmCall({
   skipBalance: true,
   skipNonce: true,
 });
-// This simulates a transaction in the local EVM but doesn’t finalize it until we mine or confirm it.
+// This simulates a transaction in the local EVM but doesn't finalize it until we mine or confirm it.
 ```
 
 ### tevmContract
@@ -245,7 +245,7 @@ const server = createServer({
 server.listen(8545, () => console.log("Serving TEVM at localhost:8545"));
 ```
 
-Now external tools (Remix, Hardhat, Foundry) can treat it like “anvil/hardhat” locally.
+Now external tools (Remix, Hardhat, Foundry) can treat it like "anvil/hardhat" locally.
 
 ---
 
@@ -260,7 +260,7 @@ const clientWithPersistence = createMemoryClient({
   persister: createSyncPersister({ storage: localStorage }),
 });
 
-// On reload, the client’s state (accounts, mempool, etc.) is restored from localStorage.
+// On reload, the client's state (accounts, mempool, etc.) is restored from localStorage.
 ```
 
 This feature is still considered **experimental**.
@@ -269,10 +269,9 @@ This feature is still considered **experimental**.
 
 ## 9. Conclusion & Next Steps
 
-**MemoryClient** is a straightforward, “batteries-included” approach for local dev and test. It folds together viem’s robust actions with Tevm Node’s flexible, in-memory EVM execution. If you need more granular or tree-shakeable control, check out:
+**MemoryClient** is a straightforward, "batteries-included" approach for local dev and test. It folds together viem's robust actions with Tevm Node's flexible, in-memory EVM execution. If you need more granular or tree-shakeable control, check out:
 
-- [Tevm Node & tevm/actions](/introduction/what-is-tevm-node)  
-- [Tree-Shakeable Setup & Decorators](/learn/actions/)  
-- [Advanced EVM Customization (Precompiles, state overriding, etc.)](/advanced/custom-precompiles/)
+- [Tevm Node & tevm/actions](/introduction/what-is-tevm-node)
+- [Advanced EVM Customization](/advanced/custom-precompiles)
 
-**Happy testing & building!** 
+**Happy testing & building!**

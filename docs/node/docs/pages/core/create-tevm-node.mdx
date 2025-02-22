@@ -1,41 +1,57 @@
 ---
-title: createTevmNode
-description: How to create and configure a new Tevm Node instance
+title: Creating a Tevm Node
+description: Learn how to create and configure a Tevm Node
 ---
 
-import { Callout } from 'vocs/components'
-import { Tab, Tabs } from 'vocs/components'
+import { Callout, Steps, Step } from 'vocs/components'
 
 # Creating a Tevm Node
 
 `createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
 
-## Basic Usage
+<Steps>
+<Step title="Install Dependencies">
+First, install the required packages:
 
-<Tabs items={['TypeScript', 'JavaScript']}>
-  <Tab>
-    ```ts
-    import { createTevmNode } from '@tevm/node'
-    
-    const node = createTevmNode()
-    await node.ready()
-    
-    const vm = await node.getVm()
-    console.log('Node is ready!')
-    ```
-  </Tab>
-  <Tab>
-    ```js
-    const { createTevmNode } = require('@tevm/node')
-    
-    const node = createTevmNode()
-    await node.ready()
-    
-    const vm = await node.getVm()
-    console.log('Node is ready!')
-    ```
-  </Tab>
-</Tabs>
+```bash
+npm install @tevm/node
+```
+</Step>
+
+<Step title="Create Node Instance">
+Create a basic node instance:
+
+### TypeScript
+```ts
+import { createTevmNode } from '@tevm/node'
+
+const node = createTevmNode()
+await node.ready()
+```
+
+### JavaScript
+```js
+const { createTevmNode } = require('@tevm/node')
+
+const node = createTevmNode()
+await node.ready()
+```
+</Step>
+
+<Step title="Configure Options">
+Customize the node based on your needs:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+  miningConfig: { type: 'auto' },
+  loggingLevel: 'debug'
+})
+```
+</Step>
+</Steps>
 
 ## Configuration Options
 
@@ -58,7 +74,7 @@ const node = createTevmNode({
 ```
 
 <Callout type="info">
-  When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
+When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
 </Callout>
 
 ### Mining Configuration
@@ -229,4 +245,4 @@ const testNode = createTevmNode({
 
 - Learn about the [Node Interface](./tevm-node-interface)
 - Explore [Forking](./forking)
-- Understand [State Management](./managing-state) 
+- Understand [State Management](./managing-state)

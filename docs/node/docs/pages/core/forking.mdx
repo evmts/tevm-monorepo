@@ -4,7 +4,6 @@ description: How to fork from live networks and other Tevm instances
 ---
 
 import { Callout } from 'vocs/components'
-import { Tab, Tabs } from 'vocs/components'
 
 # Forking Networks
 
@@ -17,38 +16,35 @@ Tevm's forking capability allows you to create a local instance that mirrors the
 
 ## Basic Forking
 
-<Tabs items={['TypeScript', 'JavaScript']}>
-  <Tab>
-    ```ts
-    import { createTevmNode } from '@tevm/node'
-    import { http } from 'viem'
-    
-    const node = createTevmNode({
-      fork: {
-        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-        blockTag: 'latest',
-      },
-    })
-    
-    await node.ready()
-    ```
-  </Tab>
-  <Tab>
-    ```js
-    const { createTevmNode } = require('@tevm/node')
-    const { http } = require('viem')
-    
-    const node = createTevmNode({
-      fork: {
-        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-        blockTag: 'latest',
-      },
-    })
-    
-    await node.ready()
-    ```
-  </Tab>
-</Tabs>
+### TypeScript
+```ts
+import { createTevmNode } from '@tevm/node'
+import { http } from 'viem'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest',
+  },
+})
+
+await node.ready()
+```
+
+### JavaScript
+```js
+const { createTevmNode } = require('@tevm/node')
+const { http } = require('viem')
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest',
+  },
+})
+
+await node.ready()
+```
 
 <Callout type="info">
   The `transport` can be any EIP-1193 compatible provider, including those from viem, ethers, or even another Tevm instance.
@@ -379,9 +375,9 @@ node.logger.on('debug', (msg) => {
 async function verifyState(node: TevmNode, address: string) {
   const vm = await node.getVm()
   const local = await vm.stateManager.getAccount(address)
-  
+
   const remote = await vm.stateManager.getAccountFromProvider(address)
-  
+
   if (local.balance !== remote.balance) {
     console.warn('State inconsistency detected')
   }
@@ -392,4 +388,4 @@ async function verifyState(node: TevmNode, address: string) {
 
 - Learn about [State Management](./managing-state)
 - Explore [Transaction Processing](../advanced/txpool)
-- See [JSON-RPC Support](../api/json-rpc) 
+- See [JSON-RPC Support](../api/json-rpc)

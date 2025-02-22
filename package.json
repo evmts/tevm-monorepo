@@ -38,6 +38,9 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
+  "dependencies": {
+    "vocs": "1.0.0-next.20250220T215847"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
     "@biomejs/biome": "^1.9.2",
@@ -66,7 +69,14 @@
   "engines": {
     "node": ">=18"
   },
+<<<<<<< HEAD
   "dependencies": {
     "vocs": "1.0.0-next.20250220T215847"
+=======
+  "pnpm": {
+    "overrides": {
+      "vocs>@tailwindcss/vite": "4.0.6"
+    }
+>>>>>>> bcf08d13b (:truck: Chore: Split up docs into multiple docs sites)
   }
 }
