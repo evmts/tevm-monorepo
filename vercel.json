@@ -1,6 +1,0 @@
-{
-	"buildCommand": "bun run build && pnpm nx build:app @tevm/docs",
-	"framework": "astro",
-	"installCommand": "pnpm install",
-	"outputDirectory": "docs/dist"
-}
