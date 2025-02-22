@@ -1,0 +1,47 @@
+---
+import { Icon, Card } from "@astrojs/starlight/components";
+---
+
+<script>
+  import aiContent from "./ai.context.txt?raw";
+
+  document
+    .querySelector(".interactive-button")
+    ?.addEventListener("click", function copyAiContext() {
+      console.log("copied", { aiContent });
+      navigator.clipboard.writeText(aiContent);
+    });
+</script>
+
+<style>
+  .interactive-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .interactive-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .interactive-button:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<button type="button" class="interactive-button" aria-label="Copy AI Prompt">
+  <Card title="Copy AI Prompt">
+    <div id="copyContent" class="flex justify-center">
+      <Icon
+        name="seti:ethereum"
+        label="Copy AI Prompt"
+        size="4rem"
+        color="currentColor"
+      />
+    </div>
+  </Card>
+</button>

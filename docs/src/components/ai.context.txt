@@ -1,0 +1,595 @@
+Below is a comprehensive **API reference** and **usage guide** for using TEVM’s **`MemoryClient`**. The **`MemoryClient`** is a [viem](https://viem.sh/) client that runs an in-memory Ethereum Virtual Machine (EVM) called TEVM (Tree-Execution Virtual Machine). 
+
+This guide covers:
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Creating a MemoryClient](#creating-a-memoryclient)
+- [MemoryClient Configuration Options](#memoryclient-configuration-options)
+- [Key Features & Methods](#key-features--methods)
+  - [TEVM Actions](#tevm-actions)  
+    - [\`tevmReady\`](#tevmready)
+    - [\`tevmCall\`](#tevmcall)
+    - [\`tevmContract\`](#tevmcontract)
+    - [\`tevmDeploy\`](#tevmdeploy)
+    - [\`tevmMine\`](#tevmmine)
+    - [\`tevmDumpState\`](#tevmdumpstate)
+    - [\`tevmLoadState\`](#tevmloadstate)
+    - [\`tevmSetAccount\`](#tevmsetaccount)
+    - [\`tevmGetAccount\`](#tevmgetaccount)
+  - [Viem Public Actions](#viem-public-actions)
+  - [Viem Test Actions](#viem-test-actions)
+  - [Viem Wallet Actions](#viem-wallet-actions)
+- [Forking a Network](#forking-a-network)
+- [Mining Modes](#mining-modes)
+- [Running TEVM as an HTTP Server](#running-tevm-as-an-http-server)
+- [Persistence & State Management](#persistence--state-management)
+- [Advanced Usage](#advanced-usage)
+- [Further Reading & References](#further-reading--references)
+
+---
+
+## Introduction
+
+The **`MemoryClient`** is a specialized [viem client](https://viem.sh/docs/clients/introduction) that runs an in-memory EVM. Unlike typical Ethereum clients (e.g., Geth, Hardhat, Anvil), **TEVM** is fully contained within your JavaScript/TypeScript environment. 
+
+This means you can:
+
+- **Fork** mainnet or other EVM-compatible networks and run them in-memory.
+- Perform **transactions**, **deploy contracts**, and **simulate** calls directly in a **JavaScript** environment without external processes.
+- Switch between **auto** (instant) and **manual** (batched) mining modes for more fine-grained control of state transitions.
+- **Dump** and **load** the entire chain state to/from JSON objects, enabling advanced testing and snapshot features.
+
+The **`MemoryClient`** extends a viem client with:
+
+1. **TEVM actions** (the `tevm*` methods),
+2. All **viem public actions** (e.g., `getBlockNumber`, `getBalance`, `readContract`, etc.),
+3. All **viem test actions** (e.g., `mine`, `setBalance`, `setCode`, etc.),
+4. All **viem wallet actions** (e.g., `sendTransaction`, `deployContract`, `writeContract`, etc.).
+
+---
+
+## Installation
+
+This package is distributed as part of the **`@tevm`** monorepo. You’ll need both **viem** and **tevm**.
+
+```bash
+npm install viem @tevm/node @tevm/decorators @tevm/common @tevm/test-utils @tevm/contract @tevm/actions
+```
+
+If you only need the **`MemoryClient`** from the `tevm` package, install:
+
+```bash
+npm install viem @tevm/common tevm
+```
+
+---
+
+## Quick Start
+
+Below is a simple example that demonstrates creating a **MemoryClient**, reading the current block number, and performing a transaction.
+
+```ts
+import { createMemoryClient } from 'tevm'
+
+// Create an in-memory EVM
+const client = createMemoryClient()
+
+async function main() {
+  // The initial blockNumber is 0
+  console.log('Starting block number:', await client.getBlockNumber()) // 0n
+
+  // We can mine a block. (MemoryClient defaults to manual mining.)
+  await client.tevmMine({ blockCount: 1 })
+  console.log('After mining one block:', await client.getBlockNumber()) // 1n
+
+  // Let's do a transaction by setting an account's balance and then transferring.
+  const fromAddress = '0x00000000000000000000000000000000000000aa'
+  const toAddress   = '0x00000000000000000000000000000000000000bb'
+
+  // Set the fromAddress's balance
+  await client.setBalance({ address: fromAddress, value: 1_000000000000000000n })
+
+  // Send a transaction
+  const txHash = await client.sendTransaction({
+    from: fromAddress,
+    to: toAddress,
+    value: 1000n,
+  })
+  // Need to mine again for the transaction to finalize
+  await client.tevmMine()
+
+  // Check resulting balances
+  console.log('Balance of fromAddress', await client.getBalance({ address: fromAddress })) 
+  console.log('Balance of toAddress', await client.getBalance({ address: toAddress }))
+}
+
+main()
+```
+
+---
+
+## Creating a MemoryClient
+
+Use **`createMemoryClient()`** from the **`tevm`** package:
+
+```ts
+import { createMemoryClient } from 'tevm'
+
+const memoryClient = createMemoryClient()
+```
+
+**`createMemoryClient`** returns a **MemoryClient** which is already configured with:
+
+- **TEVM actions** (the `tevm*` methods),
+- **viem public actions**, test actions, and wallet actions.
+
+You can call `memoryClient.getBlockNumber()`, `memoryClient.setBalance(...)`, `memoryClient.readContract(...)`, etc. all on this instance.
+
+### Example With Custom Options
+
+```ts
+import { createMemoryClient, http } from 'tevm'
+import { optimism } from 'tevm/common'
+
+// Fork Optimism mainnet at a specific block
+const forkedClient = createMemoryClient({
+  common: optimism,
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    blockTag: 120748268n, // or a hex blockHash
+  },
+  miningConfig: {
+    type: 'auto', // instantly mines after each transaction
+  },
+  loggingLevel: 'debug', // see logs
+})
+
+// Example usage
+await forkedClient.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: 10_000000000000000000n,
+})
+console.log('balance set in forked environment')
+```
+
+---
+
+## MemoryClient Configuration Options
+
+When calling `createMemoryClient(options)`, you can pass:
+
+| Option                   | Type                                                                             | Description                                                                                                          |
+|--------------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `type`                   | `string`                                                                         | (Optional) The type of client. Defaults to `'tevm'`.                                                                 |
+| `key`                    | `string`                                                                         | (Optional) The key for the client.                                                                                   |
+| `name`                   | `string`                                                                         | (Optional) The name of the client.                                                                                   |
+| `account`                | `Account \| Address \| undefined`                                               | (Optional) The default account/address that the wallet actions use.                                                 |
+| `pollingInterval`        | `number`                                                                         | (Optional) The interval in ms at which the client polls for new data (e.g. watch actions).                           |
+| `cacheTime`              | `number`                                                                         | (Optional) How long (in ms) data is cached.                                                                          |
+| `common`                 | `Common & Chain`                                                                 | (Optional) TEVM chain config, e.g. from `tevm/common`. Use if you know the chain.                                    |
+| `fork`                   | `object`                                                                         | (Optional) If forking an existing network. `fork.transport` must be an EIP-1193 provider.                            |
+| `fork.blockTag`          | `string \| bigint`                                                               | (Optional) The specific block number or hash from which to start the fork.                                           |
+| `loggingLevel`           | `'silent' \| 'error' \| 'warn' \| 'info' \| 'debug'`                             | (Optional) Logging verbosity for TEVM.                                                                               |
+| `miningConfig`           | `{ type: 'auto' \| 'manual'; interval?: number }`                               | (Optional) Sets whether TEVM auto-mines or requires manual block creation with `tevmMine()`.                         |
+| `customPrecompiles`      | `CustomPrecompile[]`                                                             | (Optional) Provide custom native precompiles.                                                                        |
+| `customPredeploys`       | `CustomPredeploy[]`                                                              | (Optional) Provide custom predeploy addresses with code.                                                             |
+| `persister`              | An object specifying how to persist/restore state                                | (Optional) Experimental. Allows storing state to localStorage or another source.                                     |
+
+---
+
+## Key Features & Methods
+
+The **MemoryClient** is a viem client that **already** includes:
+
+1. **TEVM Actions** 
+2. **Viem Public Actions** 
+3. **Viem Test Actions** 
+4. **Viem Wallet Actions** 
+
+Below are the primary methods you’ll use.
+
+### TEVM Actions
+
+The TEVM actions **`tevm*`** are specialized for controlling the local in-memory EVM.
+
+#### `tevmReady()`
+```ts
+await memoryClient.tevmReady()
+```
+- **Usage**: Ensures the internal TEVM is initialized. All other methods implicitly await `tevmReady()`, so calling it manually is rarely needed.
+- **Returns**: `true` on success.
+
+#### `tevmCall()`
+```ts
+import { tevmCall } from 'tevm'
+
+const result = await memoryClient.tevmCall({
+  to: '0xAddressToCall',
+  data: '0x...',
+  // Additional optional fields:
+  // from, gas, gasPrice, skipBalance, origin, ...
+  createTransaction: false, // default => does not mutate state
+})
+```
+- **Usage**: Executes a low-level call or transaction on TEVM.  
+- **Important**: 
+  - By default, it **does not** alter state. 
+  - If you want to mutate state, set `createTransaction: true`, and then **mine** it (`memoryClient.tevmMine()`).
+- **Returns**: An object containing execution results, logs, revert data, etc.
+
+#### `tevmContract()`
+```ts
+import { tevmContract } from 'tevm'
+import { SimpleContract } from '@tevm/contract'
+
+const contract = SimpleContract.withAddress('0xAddress')
+const result = await memoryClient.tevmContract(contract.read.get())
+// or
+const resultTx = await memoryClient.tevmContract({
+  ...contract.write.set(123n),
+  from: '0xsenderAddress',
+  createTransaction: true,
+})
+await memoryClient.tevmMine()
+```
+- **Usage**: High-level contract interaction that auto-encodes arguments and decodes return data.  
+- **Contract** can be from [TEVM’s bundler imports](https://tevm.sh/learn/solidity-imports/) or a manual definition.
+
+#### `tevmDeploy()`
+```ts
+import { tevmDeploy } from 'tevm'
+import { MyContract } from '@tevm/contract'
+
+const deployRes = await memoryClient.tevmDeploy({
+  abi: MyContract.abi,
+  bytecode: MyContract.bytecode,
+  args: [/* constructor args */],
+  from: '0xsomeAccount',
+})
+// => deployRes.createdAddress
+
+// Must mine to finalize
+await memoryClient.tevmMine()
+```
+- **Usage**: Deploys a contract using TEVM (similar to a normal transaction). 
+- **Return**: 
+  - `createdAddress` - The newly deployed contract address
+  - `txHash` - The transaction hash
+  - `executionGasUsed`, logs, etc.
+
+#### `tevmMine()`
+```ts
+import { tevmMine } from 'tevm'
+
+await memoryClient.tevmMine({
+  blockCount: 3,
+  interval: 10,  // => 10 seconds between blocks
+})
+```
+- **Usage**: Manually mines pending transactions into blocks. 
+- **By default**: `blockCount: 1, interval: 1`.
+
+#### `tevmDumpState()`
+```ts
+import { tevmDumpState } from 'tevm'
+const state = await memoryClient.tevmDumpState()
+console.log(JSON.stringify(state, null, 2))
+```
+- **Usage**: Dumps the entire TEVM chain state as a JSON-serializable object (accounts, code, storage, mempool, etc.). Useful for advanced testing or snapshotting.
+
+#### `tevmLoadState()`
+```ts
+import { tevmLoadState } from 'tevm'
+import fs from 'node:fs'
+
+const savedState = JSON.parse(fs.readFileSync('state.json', 'utf8'))
+await memoryClient.tevmLoadState(savedState)
+```
+- **Usage**: Restores a chain state that was previously dumped with `tevmDumpState()`.
+
+#### `tevmSetAccount()`
+```ts
+import { tevmSetAccount, numberToHex } from 'tevm'
+
+await memoryClient.tevmSetAccount({
+  address: '0x0000000000000000000000000000000000000001',
+  balance: 12345678n,
+  nonce: 2n,
+  // Deploy code as if it was a pre-existing contract:
+  deployedBytecode: '0x6003600501',
+  state: {
+    // manually fill in some storage
+    // slot => value
+    [`0x${'0'.repeat(64)}`]: numberToHex(42n),
+  },
+})
+```
+- **Usage**: Directly modifies an account’s fields in the EVM: balance, nonce, code, storage. **Does not** require a transaction or mining.
+
+#### `tevmGetAccount()`
+```ts
+import { tevmGetAccount } from 'tevm'
+
+const accState = await memoryClient.tevmGetAccount({
+  address: '0x0000000000000000000000000000000000000001',
+  returnStorage: true,
+})
+console.log(accState)
+// => { balance: 12345678n, nonce: 2n, code: '0x60036005...', storage: {...}, ...}
+```
+- **Usage**: Reads an account from TEVM. Optionally includes storage.
+
+---
+
+### Viem Public Actions
+
+MemoryClient includes **all** [viem public actions](https://viem.sh/docs/actions/public/introduction). Some commonly used ones:
+
+- **`getBlockNumber`**: returns the highest block number.  
+- **`getBalance`**: returns an account’s balance.  
+- **`estimateGas`**: estimates gas usage for a transaction.  
+- **`getTransactionReceipt`**: fetch the receipt of a transaction.  
+- **`readContract`**: simpler read-only contract calls.  
+- **`simulateContract`**: run a contract call in a read-only simulation.  
+
+**Example**:
+```ts
+console.log(await memoryClient.getBlockNumber())
+console.log(await memoryClient.getBalance({ address: '0xabc...' }))
+console.log(await memoryClient.readContract({
+  address: '0xabc...',
+  abi: [...],
+  functionName: 'balanceOf',
+  args: ['0xabc...'],
+}))
+```
+
+---
+
+### Viem Test Actions
+
+MemoryClient also includes [viem test actions](https://viem.sh/docs/actions/test/introduction). For example:
+
+- **`mine`**: same concept, but differs from `tevmMine` in that it’s the viem version. Generally, use `tevmMine` or `mine`; both do similar things for TEVM.  
+- **`setBalance`**: sets an account’s balance.  
+- **`setCode`**: sets an account’s code.  
+- **`setNonce`**: sets an account’s nonce.  
+- **`dumpState`**, **`loadState`**: can also be used but typically you’d use the TEVM equivalents for more advanced state control.
+
+**Example**:
+```ts
+// setBalance
+await memoryClient.setBalance({
+  address: '0x0000000000000000000000000000000000000001',
+  value: 10_000000000000000000n,
+})
+
+// setCode
+await memoryClient.setCode({
+  address: '0x00000000000000000000000000000000000000aa',
+  bytecode: '0x6080...',
+})
+
+// setNonce
+await memoryClient.setNonce({
+  address: '0x0000000000000000000000000000000000000001',
+  nonce: 100,
+})
+```
+
+---
+
+### Viem Wallet Actions
+
+MemoryClient also provides [viem wallet actions](https://viem.sh/docs/actions/wallet/introduction). Notable ones:
+
+- **`sendTransaction`**  
+- **`writeContract`**  
+- **`deployContract`**  
+
+**These** let you sign transactions if you set an **Account**. For example:
+
+```ts
+import { privateKeyToAccount, walletActions } from 'viem'
+import { createMemoryClient } from 'tevm'
+
+const account = privateKeyToAccount('0x1234...') // your private key
+
+const client = createMemoryClient({ account })
+  .extend(walletActions)
+
+// Now you can do:
+const hash = await client.sendTransaction({
+  to: '0x0000000000000000000000000000000000000002',
+  value: 1000n,
+})
+await client.mine({ blocks: 1 }) // or tevmMine
+
+// Or:
+const contractTxHash = await client.deployContract({
+  abi: [...],
+  bytecode: '0x...',
+  args: [42n],
+})
+await client.mine()
+```
+
+---
+
+## Forking a Network
+
+**MemoryClient** can **fork** a real network. Provide an EIP-1193 transport and optionally a blockTag:
+
+```ts
+import { http } from 'viem'
+import { createMemoryClient } from 'tevm'
+import { optimism } from 'tevm/common'
+
+const forkedClient = createMemoryClient({
+  common: optimism,
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    blockTag: 12345678n, 
+  },
+})
+
+// The state from that chain is now lazily pulled into your local TEVM
+// E.g. reading the code at a known contract:
+const code = await forkedClient.getBytecode({
+  address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1', // DAI on Optimism
+})
+console.log('DAI code on optimism =>', code)
+```
+
+---
+
+## Mining Modes
+
+**TEVM** can run in either:
+
+- **Auto** mining: a block is created for every transaction. No manual calls to `tevmMine` needed.  
+- **Manual** (default) mode: transactions go into a pool until you explicitly call `tevmMine` to mine them.
+
+Set **auto** mode in `createMemoryClient`:
+
+```ts
+const client = createMemoryClient({
+  miningConfig: {
+    type: 'auto'
+  }
+})
+// Now every transaction is immediately mined and changes state
+```
+
+Or keep **manual** mode (the default) and call `tevmMine()` or `mine()` yourself.
+
+---
+
+## Running TEVM as an HTTP Server
+
+To use TEVM as a local JSON-RPC server:
+
+1. Create a **MemoryClient** (which is itself an EIP-1193 transport).
+2. Use `@tevm/server` to create an HTTP server.
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { createServer } from '@tevm/server'
+
+const memoryClient = createMemoryClient()
+
+// This server will respond to JSON-RPC requests on 127.0.0.1:8545
+const server = createServer({
+  request: memoryClient.request,
+})
+
+server.listen(8545, () => {
+  console.log('TEVM server listening on localhost:8545')
+})
+```
+
+You can then connect with **any** Ethereum library or CLI to `http://127.0.0.1:8545`.
+
+---
+
+## Persistence & State Management
+
+### Dumping & Loading State
+
+- **`tevmDumpState()`** or **`dumpState`** from viem test actions:
+  ```ts
+  const state = await client.tevmDumpState()
+  // or client.dumpState()
+  fs.writeFileSync('state.json', JSON.stringify(state))
+  ```
+- **`tevmLoadState()`** or **`loadState`** from viem test actions:
+  ```ts
+  const state = JSON.parse(fs.readFileSync('state.json', 'utf8'))
+  await client.tevmLoadState(state)
+  ```
+
+### Local Storage Persistence (Experimental)
+
+You can also pass a **persister** in `createMemoryClient`, which automatically loads and saves on each state transition. This is currently experimental:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { createSyncPersister } from 'tevm/sync-storage-persister'
+
+const clientWithPersistence = createMemoryClient({
+  persister: createSyncPersister({
+    storage: window.localStorage, 
+    storageKey: 'myTevmStateKey',
+  }),
+})
+```
+
+---
+
+## Advanced Usage
+
+### Low-Level VM Access
+
+You can directly grab the underlying TEVM Node from `client.tevm`:
+
+```ts
+const vm = await client.tevm.getVm()
+console.log(vm) // => EVM, blockchain, stateManager, etc.
+
+// For example, add your own blocks:
+const block = ...
+await vm.blockchain.putBlock(block)
+
+// Or check mempool
+const mempool = await client.tevm.getTxPool()
+console.log(await mempool.all()) 
+```
+
+### Impersonation
+
+If you want to impersonate an account (similar to Hardhat/Anvil), you can do:
+
+```ts
+await client.impersonateAccount({ address: '0xsomeAddress' })
+// now client calls default from that address
+await client.stopImpersonatingAccount({ address: '0xsomeAddress' })
+```
+
+### Custom Precompiles
+
+You can add your own custom precompile addresses with a function that executes. 
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { type CustomPrecompile } from '@tevm/node'
+import { EthjsAddress } from '@tevm/utils'
+
+const myPrecompile: CustomPrecompile = {
+  address: EthjsAddress.fromString('0x0000000000000000000000000000000000000ABC'),
+  function() {
+    return {
+      executionGasUsed: 42n,
+      returnValue: new Uint8Array([0x99]),
+    }
+  }
+}
+
+const client = createMemoryClient({
+  customPrecompiles: [myPrecompile],
+})
+
+// now calls to 0x...ABC in the VM will call your function
+```
+
+---
+
+## Further Reading & References
+
+- [**tevm.sh**](https://tevm.sh/) - Official TEVM docs.
+- [**Viem**](https://viem.sh) - The underlying Ethereum library upon which TEVM builds.
+- [**EIP-1193**](https://eips.ethereum.org/EIPS/eip-1193) - Standard for Ethereum JavaScript providers.
+- [**Ethereum JSON-RPC**](https://ethereum.org/en/developers/docs/apis/json-rpc/) - The underlying protocol TEVM speaks.
+
+If you have any more questions, please refer to the [`tevm`](https://tevm.sh/) official documentation or open an issue in the TEVM repository. Enjoy building and testing with your in-memory EVM!
