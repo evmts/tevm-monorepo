@@ -3,7 +3,7 @@ packages:
   - "bundler"
   - "cli"
   - "configs/*"
-  - "docs"
+  - "docs/*"
   - "examples/*"
   - "experimental/*"
   - "extensions/*"
