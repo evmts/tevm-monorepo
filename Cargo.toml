@@ -1,0 +1,9 @@
+
+[workspace]
+resolver = '2'
+members = [
+	'packages/my_rust_node_lib',
+]
+
+[profile.release]
+lto = true
