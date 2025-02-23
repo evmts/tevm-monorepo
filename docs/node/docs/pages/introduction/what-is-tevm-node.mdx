@@ -19,6 +19,25 @@ Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a com
 - **Zero dependencies on native modules** – works seamlessly in the browser.
 - **Extendable:** Hook into the VM, custom precompiles, receipts, and more.
 
+## Hello World Example
+
+This example forks optimism then reads block data using `vm.blockchain`
+
+```ts
+import { createTevmNode, http } from 'tevm/node'
+
+// Create a node that forks from Optimism
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.optimism.io')
+  }
+})
+
+const vm = await node.getVm()
+
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
 ## Motivations / Why Tevm Node
 
 - **Browser/Local Execution** for improved latency & advanced debugging.
