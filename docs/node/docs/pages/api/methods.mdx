@@ -28,16 +28,39 @@ await node.ready() // Wait for initialization
 ### Virtual Machine Access
 
 ```ts
+import { createImpersonatedTx } from '@tevm/tx'
+import { Block } from '@tevm/block'
+import { EthjsAddress } from '@tevm/utils'
+
 const vm = await node.getVm()
 
-// Execute a transaction
-const result = await vm.runTx({
-  tx: {
-    to: '0x1234...',
-    value: 1000000000000000000n, // 1 ETH
-    data: '0x...',
-  }
+// Create a block for the transaction
+const block = new Block()
+
+// Create an impersonated transaction
+const tx = createImpersonatedTx({
+  impersonatedAddress: EthjsAddress.fromString('0x1234...'),
+  nonce: 0n,
+  gasLimit: 21064n,
+  maxFeePerGas: 8n,
+  maxPriorityFeePerGas: 1n,
+  to: EthjsAddress.fromString('0x5678...'),
+  value: 1000000000000000000n, // 1 ETH
 })
+
+// Execute the transaction
+const result = await vm.runTx({
+  tx,
+  block,
+  skipNonce: true,  // Skip nonce check
+  skipBalance: true, // Skip balance check
+})
+
+// Check execution result
+if (!result.execResult.exceptionError) {
+  console.log('Transaction successful')
+  console.log('Gas used:', result.totalGasSpent)
+}
 ```
 
 ### Transaction Pool
@@ -86,6 +109,8 @@ const impersonated = node.getImpersonatedAccount()
 // Stop impersonating
 node.setImpersonatedAccount(undefined)
 ```
+
+Note: account impersonating doesn't actually do anything on tevmnode other than set the account property and is only used to implement it at the json-rpc level in actions like eth_sendRawTransaction to let those actions know they should impersonate.
 
 ### Event Filtering
 
