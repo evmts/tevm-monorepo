@@ -1,6 +1,6 @@
 ---
 title: What is Tevm Node?
-description: Overview of @tevm/node
+description: Overview of tevm
 ---
 
 # What is Tevm Node?
@@ -13,7 +13,7 @@ Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a com
 
 ## Key Features
 
-- **Forking:** Simulate mainnet or testnet state from a live RPC, similar to Hardhat or Anvil.
+- **Forking:** Simulate mainnet or testnet state from a live RPC, similar to Hardhat or Anvil but running in browser and more functionality.
 - **TxPool (Mempool):** Keep track of unmined transactions locally.
 - **Mining Config:** Choose between auto mining, interval-based mining, manual, or gas-limit-based mining.
 - **Zero dependencies on native modules** – works seamlessly in the browser.
@@ -24,7 +24,7 @@ Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a com
 This example forks optimism then reads block data using `vm.blockchain`
 
 ```ts
-import { createTevmNode, http } from 'tevm/node'
+import { createTevmNode, http } from 'tevm'
 
 // Create a node that forks from Optimism
 const node = createTevmNode({

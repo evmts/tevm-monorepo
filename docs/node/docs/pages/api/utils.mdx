@@ -4,7 +4,7 @@ description: Core utility functions such as createAddress, createContractAddress
 
 # Utilities & Addresses
 
-Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`@tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
+Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
 
 ## createAddress
 
@@ -77,7 +77,7 @@ const contractAddr = createContractAddress(from, nonce)
 
 ## Other Handy Utilities
 
-Some additional lower-level utility re-exports from [`@tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) or [`viem`](https://viem.sh):
+Some additional lower-level utility re-exports from [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) or [`viem`](https://viem.sh):
 
 - `hexToBytes(hex: string): Uint8Array`
   Convert a hex string to raw bytes (with optional size checks).

@@ -18,25 +18,11 @@ Tevm's forking capability allows you to create a local instance that mirrors the
 
 ### TypeScript
 ```ts
-import { createTevmNode, http } from 'tevm/node'
+import { createTevmNode, http } from 'tevm'
 
 const node = createTevmNode({
   fork: {
     transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY'),
-    blockTag: 'latest',
-  },
-})
-
-await node.ready()
-```
-
-### JavaScript
-```js
-const { createTevmNode, http } = require('tevm/node')
-
-const node = createTevmNode({
-  fork: {
-    transport: http('https://rpc.ankr.com/eth/YOUR-API-KEY'),
     blockTag: 'latest',
   },
 })

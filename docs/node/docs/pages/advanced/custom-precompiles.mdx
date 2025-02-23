@@ -7,9 +7,9 @@ description: Extend EVM with JavaScript-based precompile at a given address
 
 [Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
 
-## Using @tevm/precompiles
+## Using tevm/precompiles
 
-The `@tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
+The `tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
 
 ```ts
 import { defineCall } from 'tevm/precompiles'
@@ -51,7 +51,8 @@ const precompile = definePrecompile({
 ## Basic Usage
 
 ```ts
-import { createTevmNode, definePrecompile } from 'tevm/node'
+import { createTevmNode} from 'tevm'
+import { createTevmNode, definePrecompile } from 'tevm/precompiles'
 
 const myPrecompile = definePrecompile({
   address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',

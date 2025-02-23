@@ -10,7 +10,7 @@ This guide demonstrates how to use Tevm Node for local testing of [smart contrac
 ## Basic Test Setup
 
 ```ts
-import { createTevmNode } from 'tevm/node'
+import { createTevmNode } from 'tevm'
 import { createImpersonatedTx } from 'tevm/tx'
 import { expect, test } from 'vitest' // or jest, mocha, etc.
 
@@ -281,7 +281,7 @@ async function deployContract(vm, bytecode, args = []) {
 ## Replaying Contracts with Shadow Events
 
 ```ts
-import { createTevmNode } from 'tevm/node'
+import { createTevmNode } from 'tevm'
 import { http } from 'viem'
 
 // Create a node that forks from mainnet

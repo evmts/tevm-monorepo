@@ -176,8 +176,8 @@ Tevm provides dedicated handlers for persisting and restoring state, which can b
 ### Using dumpState
 
 ```ts
-import { createTevmNode } from 'tevm/node'
-import { dumpStateHandler } from 'tevm/node'
+import { createTevmNode } from 'tevm'
+import { dumpStateHandler } from 'tevm/actions'
 
 const node = createTevmNode()
 
@@ -200,8 +200,8 @@ writeFileSync('tevm-state.json', JSON.stringify(dumpedState, null, 2))
 ### Using loadState
 
 ```ts
-import { createTevmNode } from 'tevm/node'
-import { loadStateHandler } from 'tevm/node'
+import { createTevmNode } from 'tevm'
+import { loadStateHandler } from 'tevm/actions'
 
 const node = createTevmNode()
 
@@ -263,10 +263,10 @@ if (loadErrors) {
 ### Testing Example
 
 ```ts
-import { createTevmNode } from 'tevm/node'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from 'tevm'
+import { createTevmNode } from 'tevm'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from 'tevm/utils'
 import { expect, test } from 'vitest'
-import { dumpStateHandler, loadStateHandler } from 'tevm/node'
+import { dumpStateHandler, loadStateHandler } from 'tevm/actions'
 
 test('State persistence', async () => {
   // Setup initial state

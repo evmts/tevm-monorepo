@@ -23,7 +23,7 @@ Create a basic node instance:
 
 ### TypeScript
 ```ts
-import { createTevmNode } from 'tevm/node'
+import { createTevmNode } from 'tevm'
 
 const node = createTevmNode()
 await node.ready()
@@ -31,7 +31,7 @@ await node.ready()
 
 ### JavaScript
 ```js
-const { createTevmNode } = require('tevm/node')
+const { createTevmNode } = require('tevm')
 
 const node = createTevmNode()
 await node.ready()
@@ -60,7 +60,7 @@ const node = createTevmNode({
 The `fork` option allows you to create a node that forks from an existing network:
 
 ```ts
-import { createTevmNode, http } from 'tevm/node'
+import { createTevmNode, http } from 'tevm'
 
 const node = createTevmNode({
   fork: {
@@ -101,7 +101,7 @@ const node2 = createTevmNode({
 Customize the chain parameters:
 
 ```ts
-import { Common } from 'tevm/node'
+import { Common } from 'tevm/common'
 
 const node = createTevmNode({
   common: Common.custom({
@@ -111,6 +111,14 @@ const node = createTevmNode({
   }),
 })
 ```
+
+Or if your network is a known network import it by name
+
+```ts
+import { mainnet, base, arbitrum, optimism } from 'tevm/common'
+```
+
+If you want your network added you should first add it to `viem/chains` and open an issue to regenerate the commons in Tevm
 
 ### Logging Configuration
 
@@ -130,7 +138,7 @@ node.logger.debug('Detailed debugging information')
 Add your own precompiled contracts:
 
 ```ts
-import { definePrecompile } from 'tevm/node'
+import { definePrecompile } from 'tevm'
 
 const myPrecompile = definePrecompile({
   address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
