@@ -9,11 +9,11 @@ Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will 
 
 If you're impatient, try creating a [memory client](/api/memory-client) and using the [viem API](https://viem.sh) to interact with a locally running blockchain in JavaScript:
 
-```ts
+```bash
 npm install tevm
 ```
 
-```ts
+```typescript
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/common'
 
@@ -21,14 +21,25 @@ import { optimism } from 'tevm/common'
 const client = createMemoryClient({
   fork: {
     transport: http('https://mainnet.optimism.io')({}),
-    blockTag: 420n,
+    blockTag: 'latest',
   },
   common: optimism,
 })
 
 // Read block data using viem's public actions
-const block = await client.getBlock({ blockTag: 420n })
+const block = await client.getBlock({ blockTag: 'latest' })
 console.log(block)
+
+// Manipulate state using Tevm actions
+const testAddress = '0x1234567890123456789012345678901234567890'
+await client.tevmSetAccount({
+  address: testAddress,
+  balance: 1000000000000000000n // 1 ETH
+})
+
+// Get account state
+const account = await client.tevmGetAccount({ address: testAddress })
+console.log(account)
 ```
 
 ## Quick Start
