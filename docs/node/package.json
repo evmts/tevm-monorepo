@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "vocs dev",
     "build": "vocs build",
-    "preview": "vocs preview"
+    "preview": "vocs preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "vitest": "^3.0.6",
     "vocs": "1.0.0-next.20250222T235036"
   },
   "devDependencies": {

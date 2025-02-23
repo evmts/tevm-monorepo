@@ -31,25 +31,35 @@ Tevm Node is built on several key components that work together:
 - Handles state transitions and gas metering
 - Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
 
+See [evm docs](../api/evm.mdx) for api info
+
 ### 2. State Manager
 - Manages account balances, contract code, and storage
 - Supports forking from live networks
 - Implements caching and lazy loading
+
+See [state docs](../api/state.mdx) for api info
 
 ### 3. Transaction Pool (Mempool)
 - Manages pending transactions
 - Orders transactions by gas price
 - Validates transaction requirements
 
+See [TxPool docs](../api/txpool.mdx) for api info
+
 ### 4. Blockchain
 - Maintains block history and chain state
 - Handles block production (mining)
 - Manages chain reorganizations
 
+See [Blockchain docs](../api/blockchain.mdx) for api info
+
 ### 5. Receipts Manager
-- Tracks transaction outcomes
+- Caches transaction outcomes
 - Manages event logs and filters
-- Supports optimistic updates
+- Useful for implementing optimistic updates
+
+See [Receipts Manager docs](../api/receipt-manager.mdx) for api info
 
 ## Available APIs
 
@@ -59,22 +69,22 @@ Tevm Node provides several layers of APIs for different use cases:
 
 Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
 
-The most commonly used action is `tevmCall`
+The most commonly used actions are provided as handlers:
 
 ```ts
-import { tevmCall, tevmMine, tevmGetAccount } from 'tevm/actions'
+import { callHandler, mineHandler, getAccountHandler } from 'tevm/actions'
 
 // Execute contract calls
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   to: contractAddress,
   data: calldata
 })
 
 // Mine pending transactions
-await tevmMine(node)
+await mineHandler(node)()
 
 // Read account state
-const account = await tevmGetAccount(node, {
+const account = await getAccountHandler(node)({
   address: accountAddress
 })
 ```
