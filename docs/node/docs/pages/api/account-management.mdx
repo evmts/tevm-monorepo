@@ -5,11 +5,11 @@ description: Documentation for getAccount and setAccount APIs
 
 # Account Management
 
-Tevm provides two key actions for managing account state: `tevmGetAccount` and `tevmSetAccount`.
+Tevm provides two key actions for managing account state: `getAccountHandler` and `setAccountHandler`.
 
-## tevmGetAccount
+## getAccountHandler
 
-The `tevmGetAccount` action allows you to retrieve the current state of an account.
+The `getAccountHandler` action allows you to retrieve the current state of an account.
 
 ### Parameters
 
@@ -54,12 +54,12 @@ type GetAccountResult = {
 ### Example
 
 ```ts
-import { tevmGetAccount } from 'tevm/actions'
 import { createTevmNode } from 'tevm'
+import { getAccountHandler } from 'tevm/actions'
 
 const node = createTevmNode()
 
-const account = await tevmGetAccount(node, {
+const account = await getAccountHandler(node)({
   address: '0x...',
   blockTag: 'latest',
   returnStorage: true
@@ -73,9 +73,9 @@ if (account.isContract) {
 }
 ```
 
-## tevmSetAccount
+## setAccountHandler
 
-The `tevmSetAccount` action allows you to modify account state directly.
+The `setAccountHandler` action allows you to modify account state directly.
 
 ### Parameters
 
@@ -108,7 +108,9 @@ type SetAccountResult = {
 #### 1. Setting Account Balance
 
 ```ts
-await tevmSetAccount(node, {
+import { setAccountHandler } from 'tevm/actions'
+
+await setAccountHandler(node)({
   address: '0x...',
   balance: parseEther('100')
 })
@@ -117,7 +119,7 @@ await tevmSetAccount(node, {
 #### 2. Deploying Contract Code
 
 ```ts
-await tevmSetAccount(node, {
+await setAccountHandler(node)({
   address: contractAddress,
   deployedBytecode: '0x...',
   state: {
@@ -130,7 +132,7 @@ await tevmSetAccount(node, {
 #### 3. Modifying Multiple Properties
 
 ```ts
-await tevmSetAccount(node, {
+await setAccountHandler(node)({
   address: '0x...',
   nonce: 5n,
   balance: parseEther('10'),
@@ -146,7 +148,7 @@ await tevmSetAccount(node, {
 1. **Storage Management**:
    ```ts
    // Avoid fetching storage unless needed
-   const account = await tevmGetAccount(node, {
+   const account = await getAccountHandler(node)({
      address: '0x...',
      returnStorage: false // default
    })
@@ -155,9 +157,9 @@ await tevmSetAccount(node, {
 2. **State Consistency**:
    ```ts
    // Check account exists before modifying
-   const account = await tevmGetAccount(node, { address })
+   const account = await getAccountHandler(node)({ address })
    if (!account.isEmpty) {
-     await tevmSetAccount(node, {
+     await setAccountHandler(node)({
        address,
        balance: account.balance + amount
      })
@@ -166,7 +168,7 @@ await tevmSetAccount(node, {
 
 3. **Error Handling**:
    ```ts
-   const result = await tevmSetAccount(node, {
+   const result = await setAccountHandler(node)({
      address: '0x...',
      balance: newBalance,
      throwOnFail: false
@@ -179,5 +181,5 @@ await tevmSetAccount(node, {
 
 ## Related Topics
 - [State Management](../core/managing-state)
-- [tevmCall API](./tevm-call)
+- [Call API](./tevm-call)
 - [JSON-RPC Support](./json-rpc)

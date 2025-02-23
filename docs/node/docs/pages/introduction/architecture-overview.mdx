@@ -72,7 +72,11 @@ Most functionality in Tevm is done via tree shakable actions including JSON-RPC 
 The most commonly used actions are provided as handlers:
 
 ```ts
+import { createTevmNode } from 'tevm'
 import { callHandler, mineHandler, getAccountHandler } from 'tevm/actions'
+
+// Create a Tevm node
+const node = createTevmNode()
 
 // Execute contract calls
 const result = await callHandler(node)({

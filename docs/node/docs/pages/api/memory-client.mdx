@@ -22,7 +22,7 @@ While **MemoryClient** is the most convenient way to use Tevm, it's less tree-sh
 ## 1. Installation & Getting Started
 
 ```ts
-import { createMemoryClient } from "tevm/memory-client"
+import { createMemoryClient } from "tevm"
 
 // A simple MemoryClient that runs in-memory with no forking
 const client = createMemoryClient();
@@ -34,8 +34,8 @@ console.log(blockNumber); // => 0n in a fresh chain with no blocks
 
 **Fork a chain**:
 ```ts
-import { createMemoryClient, http } from "tevm/memory-client"
-import { optimism } from "tevm/chains"
+import { createMemoryClient, http } from "tevm"
+import { optimism } from "tevm/common"
 
 const forkedClient = createMemoryClient({
   fork: {
@@ -76,7 +76,7 @@ When you create a `MemoryClient`, you get:
 ### 3.1 Deploy & Interact with a Contract
 
 ```ts
-import { createMemoryClient } from "tevm/memory-client"
+import { createMemoryClient } from "tevm"
 import { SimpleContract } from "tevm/contract" // A precompiled minimal contract
 import { privateKeyToAccount } from "viem/accounts"
 
@@ -117,8 +117,8 @@ console.log("New value:", newValue) // => 420n
 ### 3.2 Forking & Reading On-Chain Data
 
 ```ts
-import { createMemoryClient, http } from "tevm/memory-client"
-import { optimism } from "tevm/chains"
+import { createMemoryClient, http } from "tevm"
+import { optimism } from "tevm/common"
 import { ERC20 } from "tevm/contract"
 
 const memoryClient = createMemoryClient({
@@ -254,7 +254,7 @@ Now external tools (Remix, Hardhat, Foundry) can treat it like "anvil/hardhat" l
 You can persist your MemoryClient state across sessions by providing a `persister`. For example, storing all contract states in `localStorage`:
 
 ```ts
-import { createMemoryClient, createSyncPersister } from 'tevm/memory-client'
+import { createMemoryClient, createSyncPersister } from 'tevm'
 
 const clientWithPersistence = createMemoryClient({
   persister: createSyncPersister({ storage: localStorage }),
