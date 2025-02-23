@@ -1,0 +1,395 @@
+---
+title: Forking
+description: How to fork from live networks and other Tevm instances
+---
+
+import { Callout } from 'vocs/components'
+import { Tab, Tabs } from 'vocs/components'
+
+# Forking Networks
+
+Tevm's forking capability allows you to create a local instance that mirrors the state of any live Ethereum network or another Tevm instance. This is incredibly useful for:
+
+- Testing against production state
+- Debugging transactions
+- Development with real-world data
+- Simulating complex DeFi interactions
+
+## Basic Forking
+
+<Tabs items={['TypeScript', 'JavaScript']}>
+  <Tab>
+    ```ts
+    import { createTevmNode } from '@tevm/node'
+    import { http } from 'viem'
+    
+    const node = createTevmNode({
+      fork: {
+        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+        blockTag: 'latest',
+      },
+    })
+    
+    await node.ready()
+    ```
+  </Tab>
+  <Tab>
+    ```js
+    const { createTevmNode } = require('@tevm/node')
+    const { http } = require('viem')
+    
+    const node = createTevmNode({
+      fork: {
+        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+        blockTag: 'latest',
+      },
+    })
+    
+    await node.ready()
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+  The `transport` can be any EIP-1193 compatible provider, including those from viem, ethers, or even another Tevm instance.
+</Callout>
+
+## Reforking Strategies
+
+There are two main strategies for reforking a Tevm node: using the node as a transport or using deep copy.
+
+### 1. Using Node as Transport
+
+This is the recommended approach as it's more memory efficient. You can use an existing Tevm node as the transport for a new fork:
+
+```ts
+// Create initial node
+const sourceNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 17_000_000n,
+  },
+})
+
+// Perform some operations...
+await performOperations(sourceNode)
+
+// Get current block number
+const currentBlock = await sourceNode.request({
+  method: 'eth_blockNumber',
+  params: [],
+})
+
+// Create new fork from the current state
+const newNode = createTevmNode({
+  fork: {
+    transport: sourceNode, // Use the source node as transport
+    blockTag: currentBlock, // Fork from current block
+  },
+})
+```
+
+This approach:
+- Is memory efficient as it reuses the state from the source node
+- Allows forking from a specific point in time
+- Maintains the original node's state while allowing new modifications
+
+### 2. Using Deep Copy
+
+For cases where you need a completely independent copy of the node:
+
+```ts
+const sourceNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Create a complete copy of the node
+const copiedNode = await sourceNode.deepCopy()
+```
+
+This approach:
+- Creates a completely independent copy of the node
+- Is more memory intensive
+- Useful for parallel testing scenarios
+- Maintains complete isolation between instances
+
+<Callout type="warning">
+  Deep copying creates a new instance with its own state, which can be memory intensive for large state trees. Use this approach sparingly and prefer using the node as a transport when possible.
+</Callout>
+
+### Choosing a Strategy
+
+Use **Node as Transport** when:
+- Memory efficiency is important
+- You want to fork from a specific block
+- You need to maintain the original state while testing alternatives
+
+Use **Deep Copy** when:
+- You need complete isolation
+- Running parallel tests
+- Memory usage is not a concern
+- You want to maintain multiple independent states
+
+## Fork Configuration Options
+
+### Specifying Block Number
+
+Fork from a specific historical block:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 17_000_000n, // Fork from block 17,000,000
+  },
+})
+```
+
+### Supported Networks
+
+Tevm can fork from any EVM-compatible network:
+
+```ts
+// Optimism
+const optimismNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+  },
+})
+
+// Arbitrum
+const arbitrumNode = createTevmNode({
+  fork: {
+    transport: http('https://arb1.arbitrum.io/rpc'),
+  },
+})
+
+// Polygon
+const polygonNode = createTevmNode({
+  fork: {
+    transport: http('https://polygon-rpc.com'),
+  },
+})
+```
+
+## Working with Forked State
+
+### Reading State
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Get USDC contract state
+const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const vm = await node.getVm()
+const usdcContract = await vm.stateManager.getAccount(USDC_ADDRESS)
+
+console.log('USDC contract:', {
+  balance: usdcContract.balance,
+  nonce: usdcContract.nonce,
+  codeHash: usdcContract.codeHash,
+})
+```
+
+### Modifying State
+
+```ts
+// Modify balance of an account
+const vm = await node.getVm()
+const address = '0x1234...'
+const account = await vm.stateManager.getAccount(address)
+account.balance += 1000000000000000000n // Add 1 ETH
+await vm.stateManager.putAccount(address, account)
+```
+
+## Account Impersonation
+
+Impersonation allows you to send transactions as any address without needing private keys:
+
+```ts
+// Impersonate Binance hot wallet
+const BINANCE_14 = '0x28C6c06298d514Db089934071355E5743bf21d60'
+node.setImpersonatedAccount(BINANCE_14)
+
+// Send transaction as Binance
+const vm = await node.getVm()
+await vm.runTx({
+  tx: {
+    from: BINANCE_14,
+    to: '0x1234...',
+    value: 1000000000000000000n, // 1 ETH
+  },
+})
+
+// Stop impersonating
+node.setImpersonatedAccount(undefined)
+```
+
+## Performance Optimization
+
+### State Caching
+
+Tevm implements lazy loading with caching:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// First access - fetches from remote
+const vm = await node.getVm()
+const t0 = performance.now()
+await vm.stateManager.getAccount('0x1234...')
+console.log('First access:', performance.now() - t0)
+
+// Second access - uses cache
+const t1 = performance.now()
+await vm.stateManager.getAccount('0x1234...')
+console.log('Cached access:', performance.now() - t1)
+```
+
+### Prefetching
+
+For known accounts you'll need, consider prefetching:
+
+```ts
+async function prefetchAccounts(node: TevmNode, addresses: string[]) {
+  const vm = await node.getVm()
+  await Promise.all(
+    addresses.map(addr => vm.stateManager.getAccount(addr))
+  )
+}
+```
+
+## Advanced Usage
+
+### Forking from Another Tevm Instance
+
+```ts
+const sourceNode = createTevmNode()
+// ... perform operations ...
+
+const forkedNode = createTevmNode({
+  fork: {
+    transport: sourceNode,
+  },
+})
+```
+
+### Custom State Overrides
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Override specific storage slots
+const vm = await node.getVm()
+await vm.stateManager.putContractStorage(
+  '0x1234...',
+  '0x0000000000000000000000000000000000000000000000000000000000000001',
+  '0x0000000000000000000000000000000000000000000000000000000000000123'
+)
+```
+
+## Best Practices
+
+1. **RPC Provider Selection**
+   ```ts
+   // ✅ Use archive nodes for historical blocks
+   const node = createTevmNode({
+     fork: {
+       transport: http('https://your-archive-node'),
+       blockTag: 15_000_000n,
+     },
+   })
+   ```
+
+2. **Error Handling**
+   ```ts
+   try {
+     const node = createTevmNode({
+       fork: {
+         transport: http('https://...'),
+       },
+     })
+     await node.ready()
+   } catch (error) {
+     if (error.message.includes('rate limit')) {
+       // Handle RPC rate limiting
+     }
+     throw error
+   }
+   ```
+
+3. **Resource Management**
+   ```ts
+   // Clear cached state when no longer needed
+   const vm = await node.getVm()
+   await vm.stateManager.clearCaches()
+   ```
+
+4. **Testing Considerations**
+   ```ts
+   // Use a fixed block number for reproducible tests
+   const node = createTevmNode({
+     fork: {
+       transport: http('https://...'),
+       blockTag: 17_000_000n, // Fixed block
+     },
+   })
+   ```
+
+## Common Issues
+
+<Callout type="warning">
+  When forking from a public RPC endpoint, be mindful of rate limits. Consider using dedicated RPC providers for production use.
+</Callout>
+
+### Rate Limiting
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://...'),
+  },
+  loggingLevel: 'debug', // Enable detailed logging
+})
+
+// Monitor RPC calls
+node.logger.on('debug', (msg) => {
+  if (msg.includes('rate limit')) {
+    console.warn('RPC rate limit hit')
+  }
+})
+```
+
+### State Inconsistency
+```ts
+// Verify state consistency
+async function verifyState(node: TevmNode, address: string) {
+  const vm = await node.getVm()
+  const local = await vm.stateManager.getAccount(address)
+  
+  const remote = await vm.stateManager.getAccountFromProvider(address)
+  
+  if (local.balance !== remote.balance) {
+    console.warn('State inconsistency detected')
+  }
+}
+```
+
+## Next Steps
+
+- Learn about [State Management](./managing-state)
+- Explore [Transaction Processing](../advanced/txpool)
+- See [JSON-RPC Support](../api/json-rpc) 

@@ -1,0 +1,183 @@
+---
+title: Account Management
+description: Documentation for getAccount and setAccount APIs
+---
+
+# Account Management
+
+Tevm provides two key actions for managing account state: `tevmGetAccount` and `tevmSetAccount`.
+
+## tevmGetAccount
+
+The `tevmGetAccount` action allows you to retrieve the current state of an account.
+
+### Parameters
+
+```ts
+type GetAccountParams = {
+  // Required address of the account
+  address: Address
+  // Optional block tag to query state from
+  blockTag?: 'latest' | 'pending' | 'earliest' | number
+  // Whether to return storage (can be expensive)
+  returnStorage?: boolean
+}
+```
+
+### Return Type
+
+```ts
+type GetAccountResult = {
+  // Address of the account
+  address: Address
+  // Current nonce
+  nonce: bigint
+  // Balance in wei
+  balance: bigint
+  // Deployed bytecode (if contract)
+  deployedBytecode: Hex
+  // Storage root
+  storageRoot: Hex
+  // Code hash
+  codeHash: Hex
+  // Whether this is a contract
+  isContract: boolean
+  // Whether account is empty
+  isEmpty: boolean
+  // Storage (if returnStorage=true)
+  storage?: { [key: Hex]: Hex }
+  // Any errors that occurred
+  errors?: TevmGetAccountError[]
+}
+```
+
+### Example
+
+```ts
+import { tevmGetAccount } from 'tevm/actions'
+import { createTevmNode } from '@tevm/node'
+
+const node = createTevmNode()
+
+const account = await tevmGetAccount(node, {
+  address: '0x...',
+  blockTag: 'latest',
+  returnStorage: true
+})
+
+console.log('Balance:', account.balance)
+console.log('Nonce:', account.nonce)
+if (account.isContract) {
+  console.log('Code:', account.deployedBytecode)
+  console.log('Storage:', account.storage)
+}
+```
+
+## tevmSetAccount
+
+The `tevmSetAccount` action allows you to modify account state directly.
+
+### Parameters
+
+```ts
+type SetAccountParams = {
+  // Required address to modify
+  address: Address
+  // New nonce value
+  nonce?: bigint
+  // New balance in wei
+  balance?: bigint
+  // New deployed bytecode
+  deployedBytecode?: Hex
+  // New storage values
+  state?: { [key: Hex]: Hex }
+}
+```
+
+### Return Type
+
+```ts
+type SetAccountResult = {
+  // Any errors that occurred
+  errors?: TevmSetAccountError[]
+}
+```
+
+### Examples
+
+#### 1. Setting Account Balance
+
+```ts
+await tevmSetAccount(node, {
+  address: '0x...',
+  balance: parseEther('100')
+})
+```
+
+#### 2. Deploying Contract Code
+
+```ts
+await tevmSetAccount(node, {
+  address: contractAddress,
+  deployedBytecode: '0x...',
+  state: {
+    // Initial storage values
+    '0x0000...': '0x0000...'
+  }
+})
+```
+
+#### 3. Modifying Multiple Properties
+
+```ts
+await tevmSetAccount(node, {
+  address: '0x...',
+  nonce: 5n,
+  balance: parseEther('10'),
+  state: {
+    [slot1]: value1,
+    [slot2]: value2
+  }
+})
+```
+
+## Best Practices
+
+1. **Storage Management**:
+   ```ts
+   // Avoid fetching storage unless needed
+   const account = await tevmGetAccount(node, {
+     address: '0x...',
+     returnStorage: false // default
+   })
+   ```
+
+2. **State Consistency**:
+   ```ts
+   // Check account exists before modifying
+   const account = await tevmGetAccount(node, { address })
+   if (!account.isEmpty) {
+     await tevmSetAccount(node, {
+       address,
+       balance: account.balance + amount
+     })
+   }
+   ```
+
+3. **Error Handling**:
+   ```ts
+   const result = await tevmSetAccount(node, {
+     address: '0x...',
+     balance: newBalance,
+     throwOnFail: false
+   })
+   
+   if (result.errors) {
+     console.error('Failed to set account:', result.errors)
+   }
+   ```
+
+## Related Topics
+- [State Management](../core/managing-state)
+- [tevmCall API](./tevm-call)
+- [JSON-RPC Support](./json-rpc) 

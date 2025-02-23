@@ -1,0 +1,363 @@
+---
+title: Local Testing Flow
+description: Running basic unit tests with Tevm Node using [Vitest](https://vitest.dev/), [Jest](https://jestjs.io/), or other test runners
+---
+
+# Local Testing
+
+This guide demonstrates how to use Tevm Node for local testing of [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) and [transactions](https://ethereum.org/en/developers/docs/transactions/). For more background on testing Ethereum applications, see the [Smart Contract Testing Guide](https://ethereum.org/en/developers/docs/smart-contracts/testing/).
+
+## Basic Test Setup
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { createImpersonatedTx } from '@tevm/tx'
+import { expect, test } from 'vitest' // or jest, mocha, etc.
+
+test('Basic ETH transfer', async () => {
+  // Create a new node instance
+  const node = createTevmNode({
+    miningConfig: { type: 'auto' }, // Mine blocks automatically
+  })
+  await node.ready()
+
+  const vm = await node.getVm()
+  
+  // Create and run a transaction
+  const tx = createImpersonatedTx({
+    from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+    to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+    value: 1000000000000000000n, // 1 ETH
+  })
+  
+  const result = await vm.runTx({ tx })
+  
+  // Assert transaction succeeded
+  expect(result.execResult.exceptionError).toBeUndefined()
+  
+  // Check recipient balance
+  const account = await vm.stateManager.getAccount(tx.to)
+  expect(account.balance).toBe(1000000000000000000n)
+})
+```
+
+For more information on transaction execution, see the [EVM Execution Model](https://ethereum.org/en/developers/docs/evm/execution/).
+
+## Contract Testing
+
+### 1. Deployment & Interaction
+
+For background on contract deployment and interaction, see the [Contract Deployment Guide](https://ethereum.org/en/developers/docs/smart-contracts/deploying/).
+
+```ts
+import { Contract } from '@tevm/contract'
+import { bytecode, abi } from './MyContract.json'
+
+test('Deploy and interact with contract', async () => {
+  const node = createTevmNode()
+  await node.ready()
+  const vm = await node.getVm()
+  
+  // Deploy contract
+  const deployTx = createImpersonatedTx({
+    data: bytecode,
+  })
+  
+  const result = await vm.runTx({ tx: deployTx })
+  expect(result.execResult.exceptionError).toBeUndefined()
+  
+  const contractAddress = result.createdAddress
+  expect(contractAddress).toBeDefined()
+  
+  // Create contract instance
+  const contract = new Contract(contractAddress, abi)
+  
+  // Call contract method
+  const callResult = await contract.read.getValue()
+  expect(callResult).toBe(expectedValue)
+  
+  // Send transaction to contract
+  const tx = await contract.write.setValue([newValue])
+  const txResult = await vm.runTx({ tx })
+  expect(txResult.execResult.exceptionError).toBeUndefined()
+  
+  // Verify state change
+  const updatedValue = await contract.read.getValue()
+  expect(updatedValue).toBe(newValue)
+})
+```
+
+### 2. Event Testing
+
+For more information on events and logs, see the [Events and Logs Guide](https://ethereum.org/en/developers/docs/smart-contracts/anatomy/#events-and-logs).
+
+```ts
+test('Contract events', async () => {
+  const node = createTevmNode()
+  await node.ready()
+  
+  // Deploy contract
+  const contract = await deployContract(node)
+  
+  // Create event filter
+  node.setFilter({
+    id: '0x1',
+    address: contract.address,
+    topics: [
+      contract.interface.getEventTopic('ValueChanged'),
+    ],
+  })
+  
+  // Trigger event
+  const tx = await contract.write.setValue([123])
+  await vm.runTx({ tx })
+  
+  // Get event logs
+  const receipts = await node.getReceiptsManager()
+  const logs = await receipts.getLogs({
+    fromBlock: 0n,
+    toBlock: 'latest',
+    address: contract.address,
+  })
+  
+  expect(logs.length).toBe(1)
+  expect(logs[0].topics[0]).toBe(contract.interface.getEventTopic('ValueChanged'))
+})
+```
+
+## Complex Testing Scenarios
+
+### 1. State Management
+
+For more information on state management, see the [Ethereum State Guide](https://ethereum.org/en/developers/docs/evm/state-machine/).
+
+```ts
+test('Complex state changes', async () => {
+  const node = createTevmNode()
+  await node.ready()
+  const vm = await node.getVm()
+  
+  // Create checkpoint
+  await vm.stateManager.checkpoint()
+  
+  try {
+    // Perform multiple state changes
+    await performStateChanges(vm)
+    
+    // Verify intermediate state
+    const intermediateState = await getState(vm)
+    expect(intermediateState).toMatchSnapshot()
+    
+    // More changes
+    await performMoreChanges(vm)
+    
+    // Commit changes
+    await vm.stateManager.commit()
+  } catch (error) {
+    // Revert on failure
+    await vm.stateManager.revert()
+    throw error
+  }
+})
+```
+
+### 2. Fork Testing
+
+For more information on network forking, see the [Forking Guide](../core/forking).
+
+```ts
+test('Mainnet fork testing', async () => {
+  const node = createTevmNode({
+    fork: {
+      transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+      blockTag: 17_000_000n,
+    },
+  })
+  await node.ready()
+  
+  // Impersonate a whale account
+  node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
+  
+  // Test DeFi interactions
+  const uniswap = new Contract(UNISWAP_ADDRESS, UNISWAP_ABI)
+  const tx = await uniswap.write.swapExactTokensForTokens([/* ... */])
+  
+  const result = await vm.runTx({ tx })
+  expect(result.execResult.exceptionError).toBeUndefined()
+})
+```
+
+### 3. Time-based Testing
+
+For more information on block timestamps and time-based operations, see the [Block Time Guide](https://ethereum.org/en/developers/docs/blocks/blocks-and-time/).
+
+```ts
+test('Time-dependent behavior', async () => {
+  const node = createTevmNode({
+    miningConfig: { type: 'interval', interval: 1000 },
+  })
+  await node.ready()
+  const vm = await node.getVm()
+  
+  // Deploy time-locked contract
+  const contract = await deployTimeLock(vm)
+  
+  // Try to withdraw (should fail)
+  let tx = await contract.write.withdraw()
+  let result = await vm.runTx({ tx })
+  expect(result.execResult.exceptionError).toBeDefined()
+  
+  // Advance time by mining blocks
+  for (let i = 0; i < 100; i++) {
+    await vm.blockchain.putBlock(createBlock({ timestamp: Date.now() + i * 1000 }))
+  }
+  
+  // Try withdraw again (should succeed)
+  tx = await contract.write.withdraw()
+  result = await vm.runTx({ tx })
+  expect(result.execResult.exceptionError).toBeUndefined()
+})
+```
+
+## Testing Utilities
+
+### 1. Account Management
+
+For more information on Ethereum accounts, see the [Accounts Guide](https://ethereum.org/en/developers/docs/accounts/).
+
+```ts
+// Helper to setup test accounts
+async function setupAccounts(vm) {
+  const accounts = [
+    '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+    '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+  ]
+  
+  for (const address of accounts) {
+    await vm.stateManager.putAccount(address, {
+      nonce: 0n,
+      balance: 10000000000000000000n, // 10 ETH
+    })
+  }
+  
+  return accounts
+}
+```
+
+### 2. Transaction Helpers
+
+For more information on transaction types and formats, see the [Transaction Types Guide](https://ethereum.org/en/developers/docs/transactions/transaction-types/).
+
+```ts
+// Helper to send ETH
+async function sendEth(vm, from, to, value) {
+  const tx = createImpersonatedTx({
+    from,
+    to,
+    value,
+  })
+  
+  return vm.runTx({ tx })
+}
+
+// Helper to deploy contract
+async function deployContract(vm, bytecode, args = []) {
+  const tx = createImpersonatedTx({
+    data: bytecode + encodeConstructor(args),
+  })
+  
+  const result = await vm.runTx({ tx })
+  return result.createdAddress
+}
+```
+
+## Related Topics
+- [Viem Testing Guide](https://viem.sh/docs/testing/overview.html)
+- [EthereumJS VM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/vm)
+- [JSON-RPC Methods](../api/json-rpc)
+- [Contract API](../api/contracts)
+- [State Management](../core/managing-state)
+
+## Replaying Contracts with Shadow Events
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { http } from 'viem'
+
+// Create a node that forks from mainnet
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Get the transaction receipt to find its index
+const receipt = await node.request({
+  method: 'eth_getTransactionReceipt',
+  params: ['0x...'] // Original tx hash
+})
+
+// Get the block and its transactions
+const block = await node.request({
+  method: 'eth_getBlockByNumber',
+  params: [(receipt.blockNumber - 1n).toString(16), true]
+})
+
+// Replay all transactions before our target tx
+for (let i = 0; i < receipt.transactionIndex; i++) {
+  const tx = block.transactions[i]
+  await node.getVm().runTx({ tx })
+}
+
+// Deploy modified contract with new event
+const modifiedBytecode = '0x...' // Contract bytecode with new event
+await node.setAccount({
+  address: receipt.contractAddress,
+  deployedBytecode: modifiedBytecode
+})
+
+// Now run the target transaction
+const result = await node.getVm().runTx({
+  tx: block.transactions[receipt.transactionIndex]
+})
+
+// The result will include the new shadow event
+console.log(result.execResult.logs)
+```
+
+## Estimating Gas for Token Approval
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { encodeFunctionData } from 'viem'
+
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// First approve the token
+const approveTx = {
+  to: tokenAddress,
+  data: encodeFunctionData({
+    abi: erc20ABI,
+    functionName: 'approve',
+    args: [spenderAddress, amount]
+  })
+}
+
+// Estimate gas by running the tx
+const result = await vm.runTx({ tx: approveTx })
+console.log('Gas used:', result.execResult.executionGasUsed)
+
+// Now we can estimate transferFrom
+const transferFromTx = {
+  to: tokenAddress,
+  data: encodeFunctionData({
+    abi: erc20ABI,
+    functionName: 'transferFrom',
+    args: [ownerAddress, recipientAddress, amount]
+  })
+}
+
+const transferResult = await vm.runTx({ tx: transferFromTx })
+console.log('TransferFrom gas:', transferResult.execResult.executionGasUsed)
+``` 

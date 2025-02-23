@@ -1,0 +1,232 @@
+---
+title: createTevmNode
+description: How to create and configure a new Tevm Node instance
+---
+
+import { Callout } from 'vocs/components'
+import { Tab, Tabs } from 'vocs/components'
+
+# Creating a Tevm Node
+
+`createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
+
+## Basic Usage
+
+<Tabs items={['TypeScript', 'JavaScript']}>
+  <Tab>
+    ```ts
+    import { createTevmNode } from '@tevm/node'
+    
+    const node = createTevmNode()
+    await node.ready()
+    
+    const vm = await node.getVm()
+    console.log('Node is ready!')
+    ```
+  </Tab>
+  <Tab>
+    ```js
+    const { createTevmNode } = require('@tevm/node')
+    
+    const node = createTevmNode()
+    await node.ready()
+    
+    const vm = await node.getVm()
+    console.log('Node is ready!')
+    ```
+  </Tab>
+</Tabs>
+
+## Configuration Options
+
+### Fork Configuration
+
+The `fork` option allows you to create a node that forks from an existing network:
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { http } from 'viem'
+
+const node = createTevmNode({
+  fork: {
+    // Use any EIP-1193 compatible provider
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    // Optional: Fork from a specific block
+    blockTag: 17_000_000n,
+  },
+})
+```
+
+<Callout type="info">
+  When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
+</Callout>
+
+### Mining Configuration
+
+Control how and when blocks are produced:
+
+```ts
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto', // Mine a block for every transaction
+  },
+})
+
+// Or use interval-based mining
+const node2 = createTevmNode({
+  miningConfig: {
+    type: 'interval',
+    interval: 12_000, // Mine every 12 seconds
+  },
+})
+```
+
+### Chain Configuration
+
+Customize the chain parameters:
+
+```ts
+import { Common } from '@tevm/common'
+
+const node = createTevmNode({
+  common: Common.custom({
+    chainId: 1337,
+    networkId: 1337,
+    // ... other chain parameters
+  }),
+})
+```
+
+### Logging Configuration
+
+Configure the internal logger:
+
+```ts
+const node = createTevmNode({
+  loggingLevel: 'debug', // 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+})
+
+// Later use the logger
+node.logger.debug('Detailed debugging information')
+```
+
+### Custom Precompiles
+
+Add your own precompiled contracts:
+
+```ts
+import { definePrecompile } from '@tevm/node'
+
+const myPrecompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  call: async ({ data, gasLimit }) => {
+    // Your precompile logic here
+    return {
+      returnValue: new Uint8Array([0x01]),
+      executionGasUsed: 200n,
+    }
+  },
+})
+
+const node = createTevmNode({
+  customPrecompiles: [myPrecompile],
+})
+```
+
+### Performance Profiling
+
+Enable the built-in profiler for performance analysis:
+
+```ts
+const node = createTevmNode({
+  profiler: true,
+})
+
+// Later access profiling data
+const vm = await node.getVm()
+const logs = vm.evm.getPerformanceLogs()
+```
+
+## Complete Configuration Reference
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `fork` | `{ transport: EIP1193RequestFn; blockTag?: BlockTag; }` | - | Enables forking from a live network or another Tevm instance |
+| `common` | `Common` | `tevmDevnet` | Chain configuration object |
+| `loggingLevel` | `"fatal" \| "error" \| "warn" \| "info" \| "debug" \| "trace"` | `"info"` | Logging verbosity level |
+| `miningConfig` | `'auto' \| 'interval' \| 'manual' \| 'gas'` | `'manual'` | Block mining behavior |
+| `profiler` | `boolean` | `false` | Enables performance logging |
+| `customPrecompiles` | `CustomPrecompile[]` | `[]` | Additional precompiled contracts |
+| `customPredeploys` | `Predeploy[]` | `[]` | Contracts to deploy at genesis |
+| `allowUnlimitedContractSize` | `boolean` | `false` | Disables EIP-170 contract size checks |
+| `persister` | `SyncStoragePersister` | - | Hook for state persistence |
+
+## Best Practices
+
+1. **Always await ready()**
+   ```ts
+   const node = createTevmNode()
+   await node.ready() // Ensure node is initialized
+   ```
+
+2. **Use Appropriate Mining Config**
+   - Use `'auto'` for testing
+   - Use `'manual'` for precise control
+   - Use `'interval'` for simulation
+
+3. **Handle Errors**
+   ```ts
+   try {
+     const node = createTevmNode()
+     await node.ready()
+   } catch (error) {
+     console.error('Node initialization failed:', error)
+   }
+   ```
+
+4. **Clean Up Resources**
+   ```ts
+   const node = createTevmNode()
+   // ... use the node
+   await node.getVm().then(vm => vm.blockchain.close())
+   ```
+
+## Examples
+
+### Local Development Node
+
+```ts
+const devNode = createTevmNode({
+  miningConfig: { type: 'auto' },
+  loggingLevel: 'debug',
+  allowUnlimitedContractSize: true, // Helpful during development
+})
+```
+
+### Production Forked Node
+
+```ts
+const prodNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest',
+  },
+  miningConfig: { type: 'interval', interval: 12000 },
+  loggingLevel: 'error', // Less verbose in production
+})
+```
+
+### Testing Node
+
+```ts
+const testNode = createTevmNode({
+  miningConfig: { type: 'auto' },
+  profiler: true, // Enable profiling for tests
+})
+```
+
+## Next Steps
+
+- Learn about the [Node Interface](./tevm-node-interface)
+- Explore [Forking](./forking)
+- Understand [State Management](./managing-state) 

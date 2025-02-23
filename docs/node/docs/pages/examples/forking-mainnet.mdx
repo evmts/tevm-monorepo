@@ -1,0 +1,95 @@
+---
+title: Forking Mainnet
+description: Example on forking a live chain
+---
+
+# Forking Mainnet Example
+
+## Basic Fork Setup
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { http } from 'viem'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/<yourkey>'),
+    blockTag: 17_000_000n,
+  },
+  loggingLevel: 'debug',
+})
+
+await node.ready()
+
+// Now any calls to an unknown account or contract
+// will fetch the data from mainnet, but store the result locally for caching.
+```
+
+## Account Impersonation
+
+```ts
+// Impersonate a whale account
+node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60') // Binance 14
+
+// Now you can run transactions "as" that address, no signature needed
+const tx = createImpersonatedTx({
+  to: '0x1234...',
+  value: 1000000000000000000n, // 1 ETH
+})
+
+const vm = await node.getVm()
+await vm.runTx({ tx })
+```
+
+## Working with Forked Contracts
+
+```ts
+// Example: Interacting with USDC on mainnet
+const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+
+// Get the contract state from mainnet
+const usdcContract = new Contract(USDC_ADDRESS, USDC_ABI)
+const balance = await usdcContract.read.balanceOf(['0x1234...'])
+
+// Modify state locally
+await usdcContract.write.transfer(['0x5678...', 1000000]) // 1 USDC
+
+// Changes only affect your local fork
+const newBalance = await usdcContract.read.balanceOf(['0x1234...'])
+```
+
+## Fork at Specific Block
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/<yourkey>'),
+    blockTag: 15_000_000n, // Fork from a specific block
+  },
+})
+
+// Test historical state
+const historicalBalance = await getBalance(address)
+```
+
+## Multiple Network Support
+
+```ts
+// Fork from different networks
+const optimismNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+  },
+})
+
+const arbitrumNode = createTevmNode({
+  fork: {
+    transport: http('https://arb1.arbitrum.io/rpc'),
+  },
+})
+```
+
+**Related**  
+- [Forking Guide](../core/forking)
+- [State Management](../core/managing-state)
+- [JSON-RPC Support](../api/json-rpc) 

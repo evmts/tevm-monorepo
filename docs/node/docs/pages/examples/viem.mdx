@@ -1,0 +1,323 @@
+---
+title: Using with Viem
+description: Connect Tevm Node to Viem as a custom transport
+---
+
+# Using with Viem
+
+This guide demonstrates how to use Tevm Node with Viem, enabling seamless integration with Viem's powerful Ethereum development tools.
+
+## Basic Setup
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { requestEip1193 } from '@tevm/node/decorators'
+import { createPublicClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+// Create Tevm Node with EIP-1193 support
+const node = createTevmNode().extend(requestEip1193())
+
+// Create Viem client
+const client = createPublicClient({
+  chain: mainnet,
+  transport: custom(node.request),
+})
+
+// Now viemClient can do e.g. getBalance, readContract, etc,
+// all fully in memory or forking from node if you configured it
+```
+
+## Reading Blockchain State
+
+### 1. Basic State Queries
+
+```ts
+// Get latest block
+const block = await client.getBlock()
+
+// Get balance
+const balance = await client.getBalance({
+  address: '0x1234...',
+})
+
+// Get transaction count
+const nonce = await client.getTransactionCount({
+  address: '0x1234...',
+})
+```
+
+### 2. Contract Reading
+
+```ts
+import { parseAbi } from 'viem'
+
+const abi = parseAbi([
+  'function balanceOf(address) view returns (uint256)',
+  'function symbol() view returns (string)',
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+])
+
+// Read token data
+const tokenContract = {
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
+  abi,
+}
+
+const [balance, symbol] = await Promise.all([
+  client.readContract({
+    ...tokenContract,
+    functionName: 'balanceOf',
+    args: ['0x1234...'],
+  }),
+  client.readContract({
+    ...tokenContract,
+    functionName: 'symbol',
+  }),
+])
+
+console.log(`${symbol} Balance:`, balance)
+```
+
+## Writing to the Blockchain
+
+### 1. Transaction Simulation
+
+```ts
+// Simulate contract interaction
+const { request } = await client.simulateContract({
+  address: contractAddress,
+  abi,
+  functionName: 'transfer',
+  args: ['0x1234...', 1000000n],
+})
+
+// Execute the transaction
+const hash = await client.writeContract(request)
+
+// Wait for confirmation
+const receipt = await client.waitForTransactionReceipt({ hash })
+```
+
+### 2. Raw Transactions
+
+```ts
+// Send ETH
+const hash = await client.sendTransaction({
+  to: '0x1234...',
+  value: parseEther('1'),
+})
+
+// Send raw transaction
+const hash2 = await client.sendRawTransaction({
+  serializedTransaction: '0x...',
+})
+```
+
+## Event Handling
+
+### 1. Reading Past Events
+
+```ts
+// Get all Transfer events
+const logs = await client.getLogs({
+  address: tokenAddress,
+  event: parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)']),
+  fromBlock: 0n,
+  toBlock: 'latest',
+})
+
+for (const log of logs) {
+  console.log('Transfer:', {
+    from: log.args.from,
+    to: log.args.to,
+    value: log.args.value,
+  })
+}
+```
+
+### 2. Event Filtering
+
+```ts
+// Create filter for new transfers
+const filter = await client.createEventFilter({
+  address: tokenAddress,
+  event: parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)']),
+})
+
+// Get filter changes
+const newEvents = await client.getFilterChanges({ filter })
+```
+
+## Advanced Usage
+
+### 1. Multiple Contract Interactions
+
+```ts
+// Batch contract reads
+const results = await Promise.all([
+  client.readContract({
+    address: token1Address,
+    abi: TOKEN_ABI,
+    functionName: 'balanceOf',
+    args: [address],
+  }),
+  client.readContract({
+    address: token2Address,
+    abi: TOKEN_ABI,
+    functionName: 'balanceOf',
+    args: [address],
+  }),
+])
+
+// Multicall
+const multicallResult = await client.multicall({
+  contracts: [
+    {
+      address: token1Address,
+      abi: TOKEN_ABI,
+      functionName: 'balanceOf',
+      args: [address],
+    },
+    {
+      address: token2Address,
+      abi: TOKEN_ABI,
+      functionName: 'balanceOf',
+      args: [address],
+    },
+  ],
+})
+```
+
+### 2. Contract Deployment
+
+```ts
+// Deploy contract
+const hash = await client.deployContract({
+  abi,
+  bytecode,
+  args: [constructorArg1, constructorArg2],
+})
+
+// Get contract address
+const receipt = await client.waitForTransactionReceipt({ hash })
+const contractAddress = receipt.contractAddress
+```
+
+### 3. Gas Estimation
+
+```ts
+// Estimate gas for contract deployment
+const gas = await client.estimateContractGas({
+  abi,
+  bytecode,
+  args: [constructorArg1, constructorArg2],
+})
+
+// Estimate gas for contract call
+const gas2 = await client.estimateContractGas({
+  address: contractAddress,
+  abi,
+  functionName: 'transfer',
+  args: ['0x1234...', 1000000n],
+})
+```
+
+## Testing with Viem
+
+```ts
+import { expect, test } from 'vitest'
+
+test('Contract interaction', async () => {
+  // Setup Tevm Node
+  const node = createTevmNode()
+  const client = createPublicClient({
+    chain: mainnet,
+    transport: custom(node.request),
+  })
+  
+  // Deploy contract
+  const hash = await client.deployContract({
+    abi,
+    bytecode,
+  })
+  const receipt = await client.waitForTransactionReceipt({ hash })
+  const contractAddress = receipt.contractAddress
+  
+  // Test contract
+  const result = await client.readContract({
+    address: contractAddress,
+    abi,
+    functionName: 'getValue',
+  })
+  
+  expect(result).toBe(expectedValue)
+})
+```
+
+## Best Practices
+
+1. **Error Handling**:
+   ```ts
+   try {
+     const result = await client.readContract({
+       address,
+       abi,
+       functionName: 'riskyFunction',
+     })
+   } catch (error) {
+     if (error.message.includes('revert')) {
+       // Handle contract revert
+     }
+     throw error
+   }
+   ```
+
+2. **Gas Management**:
+   ```ts
+   // Always estimate gas before sending transactions
+   const gas = await client.estimateContractGas({
+     address,
+     abi,
+     functionName: 'transfer',
+     args: [to, amount],
+   })
+   
+   const hash = await client.writeContract({
+     address,
+     abi,
+     functionName: 'transfer',
+     args: [to, amount],
+     gas: gas * 120n / 100n, // Add 20% buffer
+   })
+   ```
+
+3. **Transaction Confirmation**:
+   ```ts
+   // Wait for sufficient confirmations
+   const receipt = await client.waitForTransactionReceipt({
+     hash,
+     confirmations: 2,
+     timeout: 60_000,
+   })
+   ```
+
+4. **Resource Cleanup**:
+   ```ts
+   // Clean up filters when done
+   const filter = await client.createEventFilter({
+     address,
+     event: parseAbi(['event Transfer(...)']),
+   })
+   
+   try {
+     // Use filter
+   } finally {
+     await client.uninstallFilter({ filter })
+   }
+   ```
+
+## Related Topics
+- [JSON-RPC Support](../api/json-rpc)
+- [Local Testing](./local-testing)
+- [Forking Mainnet](./forking-mainnet) 

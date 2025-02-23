@@ -1,0 +1,370 @@
+---
+title: Custom Precompiles
+description: Extend EVM with JavaScript-based precompile at a given address
+---
+
+# Custom Precompiles
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
+
+## Using @tevm/precompiles
+
+The `@tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
+
+```ts
+import { defineCall } from '@tevm/precompiles'
+import { SimpleContract } from '@tevm/contract'
+
+// Create a stateful precompile
+let value = 0n
+
+const call = defineCall(SimpleContract.abi, {
+  // Read method
+  get: async () => ({ 
+    returnValue: value,
+    executionGasUsed: 100n
+  }),
+  
+  // Write method with events
+  set: async ({ args }) => {
+    const [newValue] = args
+    value = newValue
+    return {
+      returnValue: undefined,
+      executionGasUsed: 200n,
+      logs: [{
+        eventName: 'ValueSet',
+        address: '0x1234...',
+        args: [value, newValue],
+      }]
+    }
+  },
+})
+
+// Use with Tevm Node
+const precompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  call: async (input) => call(input),
+})
+```
+
+## Basic Usage
+
+```ts
+import { createTevmNode, definePrecompile } from '@tevm/node'
+
+const myPrecompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  call: async ({ data, gasLimit }) => {
+    // Process input data
+    const processedData = processData(data)
+    
+    return {
+      returnValue: new Uint8Array([...processedData]),
+      executionGasUsed: 200n,
+    }
+  },
+})
+
+const node = createTevmNode({
+  customPrecompiles: [myPrecompile],
+})
+```
+
+## Precompile Interface
+
+```ts
+interface Precompile {
+  address: string // [Address format](https://ethereum.org/en/developers/docs/accounts/#account-creation)
+  call: (params: PrecompileInput) => Promise<PrecompileOutput>
+}
+
+interface PrecompileInput {
+  data: Uint8Array
+  gasLimit: bigint
+  address: string
+  caller: string
+  value: bigint
+  // Additional context
+  block?: Block
+  message?: Message
+}
+
+interface PrecompileOutput {
+  returnValue: Uint8Array
+  executionGasUsed: bigint
+}
+```
+
+## Example Implementations
+
+### 1. String Manipulation Precompile
+
+```ts
+const stringPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000123',
+  call: async ({ data }) => {
+    // Decode function selector and parameters
+    const selector = data.slice(0, 4)
+    const params = data.slice(4)
+    
+    if (selector.equals(toBytes('toUpper(string)'))) {
+      const str = decodeString(params)
+      const result = str.toUpperCase()
+      return {
+        returnValue: encodeString(result),
+        executionGasUsed: BigInt(str.length * 10), // Gas based on input size
+      }
+    }
+    
+    throw new Error('Unknown function selector')
+  },
+})
+```
+
+### 2. Cryptographic Precompile
+
+```ts
+import { keccak256 } from '@tevm/utils'
+
+const cryptoPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000456',
+  call: async ({ data }) => {
+    const selector = data.slice(0, 4)
+    const input = data.slice(4)
+    
+    switch (selector.toString('hex')) {
+      case 'hash':
+        const hash = keccak256(input)
+        return {
+          returnValue: hash,
+          executionGasUsed: 100n + BigInt(input.length),
+        }
+      // Add more crypto functions...
+    }
+  },
+})
+```
+
+### 3. External API Precompile
+
+```ts
+const apiPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000789',
+  call: async ({ data }) => {
+    const { method, url, params } = decodeApiCall(data)
+    
+    try {
+      const response = await fetch(url, {
+        method,
+        body: JSON.stringify(params),
+      })
+      
+      const result = await response.json()
+      return {
+        returnValue: encodeResult(result),
+        executionGasUsed: 1000n, // Fixed gas cost for API calls
+      }
+    } catch (error) {
+      throw new Error(`API call failed: ${error.message}`)
+    }
+  },
+})
+```
+
+### 4. Stateful Precompile with Events
+
+```ts
+import { defineCall } from '@tevm/precompiles'
+
+// Define contract ABI
+const abi = [
+  'function getValue() view returns (uint256)',
+  'function setValue(uint256)',
+  'event ValueChanged(uint256 oldValue, uint256 newValue)',
+] as const
+
+// Create stateful precompile
+let storedValue = 0n
+
+const statefulCall = defineCall(abi, {
+  getValue: async () => ({
+    returnValue: storedValue,
+    executionGasUsed: 100n,
+  }),
+  
+  setValue: async ({ args }) => {
+    const oldValue = storedValue
+    storedValue = args[0]
+    
+    return {
+      returnValue: undefined,
+      executionGasUsed: 200n,
+      logs: [{
+        eventName: 'ValueChanged',
+        address: '0x1234...',
+        args: [oldValue, storedValue],
+      }],
+    }
+  },
+})
+
+const precompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000999',
+  call: statefulCall,
+})
+```
+
+## Solidity Interface
+
+Create a [Solidity interface](https://docs.soliditylang.org/en/latest/contracts.html#interfaces) to interact with your precompile:
+
+```solidity
+interface IStringPrecompile {
+    function toUpper(string calldata input) external view returns (string memory);
+}
+
+contract MyContract {
+    IStringPrecompile constant strUtils = IStringPrecompile(0x0000000000000000000000000000000000000123);
+    
+    function processString(string calldata input) external view returns (string memory) {
+        return strUtils.toUpper(input);
+    }
+}
+```
+
+## Gas Considerations
+
+For more information on gas costs, see the [EVM Gas and Fees](https://ethereum.org/en/developers/docs/gas/) documentation.
+
+1. **Static Gas Cost**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x123...',
+     call: async () => ({
+       returnValue: new Uint8Array([1]),
+       executionGasUsed: 100n, // Fixed cost
+     }),
+   })
+   ```
+
+2. **Dynamic Gas Cost**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x456...',
+     call: async ({ data }) => ({
+       returnValue: processData(data),
+       executionGasUsed: BigInt(data.length * 10), // Cost based on input
+     }),
+   })
+   ```
+
+3. **Operation-based Gas**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x789...',
+     call: async ({ data }) => {
+       let gas = 0n
+       
+       // Track gas for each operation
+       for (const op of operations) {
+         gas += calculateOpGas(op)
+       }
+       
+       return {
+         returnValue: result,
+         executionGasUsed: gas,
+       }
+     },
+   })
+   ```
+
+## Best Practices
+
+1. **Input Validation**:
+   Follow [best practices for input validation](https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/validation/)
+
+2. **Error Handling with defineCall**:
+```ts
+const call = defineCall(abi, {
+  method: async ({ args }) => {
+    try {
+      const result = await processArgs(args)
+      return {
+        returnValue: result,
+        executionGasUsed: 100n,
+      }
+    } catch (error) {
+      // Error will be properly formatted for EVM
+      throw new Error(`Custom error: ${error.message}`)
+    }
+  },
+})
+```
+
+3. **Resource Management**:
+   ```ts
+   // Maintain connection pool
+   const connections = new Map()
+   
+   const precompile = definePrecompile({
+     address: '0x789...',
+     call: async ({ data }) => {
+       let conn = connections.get(data.toString())
+       if (!conn) {
+         conn = await createConnection()
+         connections.set(data.toString(), conn)
+       }
+       
+       try {
+         return await useConnection(conn)
+       } finally {
+         // Clean up if needed
+         await conn.release()
+       }
+     },
+   })
+   ```
+
+4. **Security Considerations**:
+   - Validate all inputs thoroughly
+   - Avoid arbitrary code execution
+   - Implement proper access controls
+   - Consider gas costs carefully
+   - Handle sensitive data appropriately
+
+## Type Safety with defineCall
+
+The `defineCall` utility provides full [type safety](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) for your precompiles:
+
+```ts
+import { defineCall } from '@tevm/precompiles'
+
+// ABI with types
+const abi = [
+  'function add(uint256 a, uint256 b) returns (uint256)',
+  'function sub(uint256 a, uint256 b) returns (uint256)',
+] as const
+
+// Type-safe implementation
+const call = defineCall(abi, {
+  // Types for args and return value are inferred
+  add: async ({ args: [a, b] }) => ({
+    returnValue: a + b,
+    executionGasUsed: 100n,
+  }),
+  
+  sub: async ({ args: [a, b] }) => ({
+    returnValue: a - b,
+    executionGasUsed: 100n,
+  }),
+})
+```
+
+## Related Topics
+- [Contract Utilities](../api/contracts)
+- [State Management](../core/managing-state)
+- [JSON-RPC Support](../api/json-rpc)
+- [EVM Opcodes Reference](https://www.evm.codes/)
+- [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
+- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo) 

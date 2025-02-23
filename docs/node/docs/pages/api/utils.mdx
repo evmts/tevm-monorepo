@@ -1,0 +1,89 @@
+---
+title: Utilities & Addresses
+description: Core utility functions such as createAddress, createContractAddress, and related classes & errors.
+
+# Utilities & Addresses
+
+Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`@tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
+
+## createAddress
+
+Creates an [Ethereum address](https://ethereum.org/en/developers/docs/accounts/#account-creation) from various input formats:
+
+```ts
+import { createAddress } from '@tevm/address'
+
+// Creates a TEVM-style Address object from various input forms
+let addr = createAddress(`0x${"00".repeat(20)}`)
+// from a hex string
+addr = createAddress(420n)
+// from a bigint
+addr = createAddress(new Uint8Array(20))
+// from a 20-byte array
+```
+
+### Signature
+
+```ts
+declare function createAddress(
+  address: number | bigint | string | Uint8Array | EthjsAddress
+): Address
+```
+
+### Behavior & Notes
+
+- Accepts various input types: [`0x`-prefixed hex strings](https://ethereum.org/en/developers/docs/data-structures-and-encoding/hex/), unprefixed hex, numbers, bigints, `Uint8Array`s, or `EthjsAddress`.
+- Throws `InvalidAddressError` if it can't parse a valid 20-byte address from the input.
+
+## Address Class
+
+A thin wrapper around [`EthjsAddress`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util) offering a simple, consistent shape for Tevm Node. Created by `createAddress` or by forging your own:
+
+```ts
+import { Address } from '@tevm/address'
+
+const a = new Address(Uint8Array.from([ /* 20 bytes */ ]))
+console.log(a.bytes)  // a raw 20-byte address
+console.log(a.toString()) // 0x....
+```
+
+## createContractAddress
+
+Creates a contract address following [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014):
+
+```ts
+import { createContractAddress } from '@tevm/address'
+
+// from an existing address + nonce, produce the CREATE address
+const from = createAddress("0x1111...1111")
+const nonce = 1n
+const contractAddr = createContractAddress(from, nonce)
+```
+
+### Usage
+1. Follows standard Ethereum's [`keccak256(rlp([senderAddress, nonce]))[-20..]`](https://ethereum.org/en/developers/docs/smart-contracts/deploying/#how-to-deploy-a-smart-contract).
+2. Ideal for simulating `CREATE` addresses in test or dev flows.
+
+### Error Handling
+- Throws `InvalidAddressError` if the `from` address is invalid.
+
+## Common Errors
+
+- **InvalidAddressError**  
+  Thrown when a string/bytes input fails to parse as a valid 20-byte address.
+
+- **UnreachableCodeError**  
+  Thrown internally if a code path was unexpectedly reached. Generally wrapped into a more descriptive error.
+
+## Other Handy Utilities
+
+Some additional lower-level utility re-exports from [`@tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) or [`viem`](https://viem.sh):
+
+- `hexToBytes(hex: string): Uint8Array`  
+  Convert a hex string to raw bytes (with optional size checks).
+- `keccak256(data: Uint8Array | HexString, 'bytes' | 'hex')`  
+  A standard [keccak256](https://ethereum.org/en/developers/docs/smart-contracts/security/#keccak256-and-sha-3) hasher.
+- `encodeFunctionData(...)`, `toRlp(...)`, etc.  
+  Various encoding helpers used by Tevm Node internally.
+
+> **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience. 

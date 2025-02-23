@@ -1,0 +1,261 @@
+---
+title: JSON-RPC Guide
+description: [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) & [JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/) usage with Tevm Node
+---
+
+# JSON-RPC Support
+
+Tevm Node provides comprehensive [JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/) support through an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible interface. This allows seamless integration with popular Ethereum libraries and tools.
+
+## EIP-1193 Provider
+
+The node can be extended to expose an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible request interface:
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { requestEip1193 } from '@tevm/node/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Use standard JSON-RPC methods
+const blockNum = await node.request({
+  method: 'eth_blockNumber',
+  params: [],
+})
+```
+
+## Supported Methods
+
+### Core Ethereum Methods
+
+- **Block & Chain**
+  - [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) - Get current block number
+  - [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) - Get block by hash
+  - [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) - Get block by number
+  - [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid) - Get current chain ID
+
+- **State & Account**
+  - [`eth_getBalance`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance) - Get account balance
+  - [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode) - Get contract code
+  - [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat) - Get storage value
+  - [`eth_getTransactionCount`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount) - Get account nonce
+
+- **Transaction**
+  - [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call) - Execute contract call
+  - [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) - Estimate gas usage
+  - [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction) - Send transaction
+  - [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction) - Send signed transaction
+  - [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash) - Get transaction details
+  - [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt) - Get transaction receipt
+
+- **Logs & Events**
+  - [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) - Get event logs
+  - [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter) - Create new filter
+  - [`eth_newBlockFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newblockfilter) - Create block filter
+  - [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges) - Get filter updates
+  - [`eth_getFilterLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterlogs) - Get all filter logs
+  - [`eth_uninstallFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_uninstallfilter) - Remove filter
+
+### Extended Methods
+
+Tevm also supports additional methods commonly found in development environments:
+
+- **Debug Methods**
+  - [`debug_traceTransaction`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_tracetransaction) - Trace transaction execution
+  - [`debug_dumpState`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_dumpstate) - Dump current state
+
+- **Anvil Methods** (For [Foundry](https://book.getfoundry.sh/reference/anvil/) compatibility)
+  - `anvil_setCode` - Set contract code
+  - `anvil_setBalance` - Set account balance
+  - `anvil_setNonce` - Set account nonce
+  - `anvil_setStorageAt` - Set storage value
+  - `anvil_impersonateAccount` - Impersonate account
+  - `anvil_stopImpersonatingAccount` - Stop impersonating
+
+## Client Integration
+
+### Using with Viem
+
+For more information, see the [Viem Documentation](https://viem.sh/docs/clients/custom.html).
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { createPublicClient, custom } from 'viem'
+import { requestEip1193 } from '@tevm/node/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: custom(node.request),
+})
+```
+
+### Using with Ethers
+
+For more information, see the [Ethers Documentation](https://docs.ethers.org/v6/api/providers/#Provider).
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { BrowserProvider } from 'ethers'
+import { requestEip1193 } from '@tevm/node/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+const provider = new BrowserProvider(node)
+```
+
+## Error Handling
+
+JSON-RPC errors follow the [standard format](https://www.jsonrpc.org/specification#error_object):
+
+```ts
+interface JsonRpcError {
+  code: number
+  message: string
+  data?: unknown
+}
+```
+
+Common error codes (see [Ethereum JSON-RPC Error Codes](https://eips.ethereum.org/EIPS/eip-1474#error-codes)):
+- `-32700`: Parse error
+- `-32600`: Invalid request
+- `-32601`: Method not found
+- `-32602`: Invalid params
+- `-32603`: Internal error
+- `-32000` to `-32099`: Server error
+
+## Best Practices
+
+1. **Error Handling**: Always wrap RPC calls in try-catch blocks to handle potential errors gracefully.
+
+2. **Gas Estimation**: For transactions, use [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) before sending to ensure sufficient gas.
+
+3. **Receipt Confirmation**: Wait for transaction receipts to confirm state changes:
+```ts
+const txHash = await node.request({
+  method: 'eth_sendTransaction',
+  params: [tx],
+})
+
+const receipt = await node.request({
+  method: 'eth_getTransactionReceipt',
+  params: [txHash],
+})
+```
+
+4. **Event Filtering**: Use filters efficiently by:
+   - Setting appropriate block ranges
+   - Using specific [topics](https://docs.soliditylang.org/en/latest/abi-spec.html#events)
+   - Cleaning up unused filters
+
+## Related Topics
+- [Using with Viem](../examples/viem)
+- [Using with Ethers](../examples/ethers)
+- [Managing State](../core/managing-state)
+- [Receipts & Logs](../advanced/receipts-and-logs)
+- [Ethereum JSON-RPC Specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+- [EIP-1193: Ethereum Provider JavaScript API](https://eips.ethereum.org/EIPS/eip-1193)
+
+## Using Tevm Actions
+
+Tevm provides a set of high-level actions that can be imported from `tevm/actions`:
+
+```ts
+import { tevmCall, tevmMine, tevmGetAccount, tevmSetAccount } from 'tevm/actions'
+import { createTevmNode } from '@tevm/node'
+
+const node = createTevmNode()
+
+// Call a contract
+const result = await tevmCall(node, {
+  to: '0x...',
+  data: '0x...',
+  value: 0n,
+  createTransaction: true
+})
+
+// Mine pending transactions
+await tevmMine(node)
+
+// Get account state
+const account = await tevmGetAccount(node, {
+  address: '0x...',
+  blockTag: 'latest'
+})
+
+// Set account state
+await tevmSetAccount(node, {
+  address: '0x...',
+  balance: 100n,
+  nonce: 0n,
+  deployedBytecode: '0x...'
+})
+```
+
+Note: By default, tevm actions require manual mining via `tevmMine()`. If you want transactions to be automatically applied, you can either:
+
+1. Use the lower level API `vm.runCall`
+2. Configure the client with `miningConfig: { type: 'auto' }`
+
+## Optimistic Updates with Receipt Manager
+
+For more information on transaction receipts and logs, see the [Ethereum Receipts Documentation](https://ethereum.org/en/developers/docs/transactions/transaction-receipts/).
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { tevmCall, tevmMine } from 'tevm/actions'
+
+const node = createTevmNode()
+const receiptsManager = await node.getReceiptsManager()
+
+// Submit transaction
+const { txHash } = await tevmCall(node, {
+  to: '0x...',
+  data: '0x...',
+  createTransaction: true
+})
+
+// Get optimistic receipt
+const pendingReceipt = await receiptsManager.getReceiptByTxHash(txHash)
+
+// Update UI optimistically
+updateUI(pendingReceipt)
+
+// Wait for real receipt
+const realReceipt = await node.request({
+  method: 'eth_getTransactionReceipt',
+  params: [txHash]
+})
+
+// Eject optimistic tx if real receipt differs
+if (receiptsAreDifferent(pendingReceipt, realReceipt)) {
+  await receiptsManager.removeReceipt(txHash)
+  updateUI(realReceipt)
+}
+
+// Advanced: Rebase on new blocks
+node.on('block', async (blockNumber) => {
+  // Get new block
+  const block = await node.request({
+    method: 'eth_getBlockByNumber',
+    params: [blockNumber, true]
+  })
+  
+  // Get our pending transactions
+  const pendingTxs = await receiptsManager.getPendingTransactions()
+  
+  // Rebase our transactions on top of new block
+  for (const tx of pendingTxs) {
+    const result = await tevmCall(node, {
+      ...tx,
+      blockTag: 'pending'
+    })
+    
+    // Update receipt
+    await receiptsManager.putReceipt(tx.hash, result)
+  }
+  
+  // Mine rebased transactions
+  await tevmMine(node)
+})
+```

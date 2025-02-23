@@ -1,0 +1,32 @@
+---
+title: What is Tevm Node?
+description: Overview of @tevm/node
+---
+
+# What is Tevm Node?
+
+Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a complete Ethereum Virtual Machine (EVM) execution environment, powered by JavaScript, that you can run:
+
+- **In Node.js** for local or CI testing.
+- **In the Browser** for advanced user experiences (offline, real-time simulation, etc.).
+- **In Deno, Bun**, or any modern JS environment.
+
+## Key Features
+
+- **Forking:** Simulate mainnet or testnet state from a live RPC, similar to Hardhat or Anvil.
+- **TxPool (Mempool):** Keep track of unmined transactions locally.
+- **Mining Config:** Choose between auto mining, interval-based mining, manual, or gas-limit-based mining.
+- **Zero dependencies on native modules** – works seamlessly in the browser.
+- **Extendable:** Hook into the VM, custom precompiles, receipts, and more.
+
+## Motivations / Why Tevm Node
+
+- **Browser/Local Execution** for improved latency & advanced debugging.
+- **Optimistic updates**: Inspect tx side effects before on-chain mining.
+- **Lightweight**: Slashes overhead vs. running a full geth or anvil node.
+- **Network independence**: Freed from real chain constraints in your applications.
+
+## Next Steps
+
+- [Why run Ethereum in JavaScript?](./why-run-ethereum-in-js)
+- [Installation & Quickstart](./installation)
