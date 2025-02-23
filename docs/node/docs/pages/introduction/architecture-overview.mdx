@@ -9,9 +9,20 @@ description: A high-level overview of how Tevm Node works and its available APIs
 
 [Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
 
-## Core Architecture
+## What can you do with Tevm Node?
 
-![Tevm Node Architecture](https://raw.githubusercontent.com/evmts/tevm-monorepo/main/docs/images/architecture.png)
+Tevm has a lot of use cases many which are covered in the examples section
+
+1. Anything viem can do as tevm is an extension of viem's capabilities
+2. Simulate blocks and transactions locally. Hook directly into evm execution
+3. Estimate gas with no network requests and no loading setupEventListeners
+4. Build an EVM simulator like [svvy.sh](https://svvy.sh)
+5. Test your JavaScript against an anvil compatible fork in JavaScript
+6. Debug evm tx step by step
+7. Optimistic ui updates when tx are sent
+8. And more!
+
+## Core Architecture
 
 Tevm Node is built on several key components that work together:
 

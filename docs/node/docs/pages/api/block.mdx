@@ -1,0 +1,152 @@
+# Block Package
+
+The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.
+
+## Block Class
+
+The main class for working with Ethereum blocks.
+
+### Constructor
+
+```typescript
+new Block(opts: BlockOptions, header?: BlockHeader, transactions?: TypedTransaction[] = [], uncleHeaders?: BlockHeader[] = [], withdrawals?: Withdrawal[], requests?: ClRequest[], executionWitness?: null | VerkleExecutionWitness)
+```
+
+Creates a new block object with the specified options and data.
+
+### Static Methods
+
+#### `fromBlockData(blockData: BlockData, opts: BlockOptions): Block`
+
+Creates a block from block data dictionary.
+
+#### `fromRLPSerializedBlock(serialized: Uint8Array, opts: BlockOptions): Block`
+
+Creates a block from RLP-serialized block data.
+
+#### `fromValuesArray(values: BlockBytes, opts: BlockOptions): Block`
+
+Creates a block from an array of Bytes values.
+
+#### `fromBeaconPayloadJson(payload: BeaconPayloadJson, opts: BlockOptions): Promise<Block>`
+
+Creates a block from a beacon payload JSON.
+
+#### `fromExecutionPayload(payload: ExecutionPayload, opts: BlockOptions): Promise<Block>`
+
+Creates a block from an execution payload.
+
+### Instance Methods
+
+#### `hash(): Uint8Array`
+
+Returns the hash of the block.
+
+#### `serialize(): Uint8Array`
+
+Returns the RLP encoding of the block.
+
+#### `raw(): BlockBytes`
+
+Returns an array of the raw Bytes Arrays of this block.
+
+#### `toJSON(): JsonBlock`
+
+Returns the block in JSON format.
+
+#### `toExecutionPayload(): ExecutionPayload`
+
+Converts the block to an execution payload format.
+
+## BlockHeader Class
+
+Class for handling Ethereum block headers.
+
+### Constructor
+
+```typescript
+new BlockHeader(headerData: HeaderData, opts: BlockOptions)
+```
+
+Creates a new block header with the specified data and options.
+
+### Properties
+
+- `baseFeePerGas?: bigint` - Base fee per gas (EIP-1559)
+- `blobGasUsed?: bigint` - Blob gas used
+- `coinbase: Address` - Miner's address
+- `difficulty: bigint` - Block difficulty
+- `extraData: Uint8Array` - Extra data field
+- `gasLimit: bigint` - Gas limit
+- `gasUsed: bigint` - Gas used
+- `mixHash: Uint8Array` - Mix hash
+- `nonce: Uint8Array` - Block nonce
+- `number: bigint` - Block number
+- `parentHash: Uint8Array` - Parent block hash
+- `timestamp: bigint` - Block timestamp
+
+## Types
+
+### BlockData
+
+```typescript
+interface BlockData {
+  header?: HeaderData
+  transactions?: (LegacyTxData | AccessListEIP2930TxData | FeeMarketEIP1559TxData | BlobEIP4844TxData | EOACodeEIP7702TxData)[]
+  uncleHeaders?: HeaderData[]
+  withdrawals?: WithdrawalData[]
+  requests?: ClRequest[]
+  executionWitness?: null | VerkleExecutionWitness
+}
+```
+
+### BlockOptions
+
+```typescript
+interface BlockOptions {
+  common: Common
+  setHardfork?: boolean | BigIntLike
+  freeze?: boolean
+  skipConsensusFormatValidation?: boolean
+  cliqueSigner?: Uint8Array
+  executionWitness?: VerkleExecutionWitness
+}
+```
+
+### HeaderData
+
+```typescript
+interface HeaderData {
+  parentHash?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  uncleHash?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  coinbase?: string | Uint8Array | Address
+  stateRoot?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  transactionsTrie?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  receiptTrie?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  logsBloom?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  difficulty?: string | number | bigint | Uint8Array
+  number?: string | number | bigint | Uint8Array
+  gasLimit?: string | number | bigint | Uint8Array
+  gasUsed?: string | number | bigint | Uint8Array
+  timestamp?: string | number | bigint | Uint8Array
+  extraData?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  mixHash?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  nonce?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  baseFeePerGas?: string | number | bigint | Uint8Array
+  withdrawalsRoot?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  blobGasUsed?: string | number | bigint | Uint8Array
+  excessBlobGas?: string | number | bigint | Uint8Array
+  parentBeaconBlockRoot?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+  requestsRoot?: string | number | bigint | Uint8Array | number[] | TransformabletoBytes
+}
+```
+
+## Utilities
+
+### `blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, uncles: any[] = []): Block`
+
+Creates a new block object from Ethereum JSON RPC data.
+
+### `executionPayloadFromBeaconPayload(payload: BeaconPayloadJson): ExecutionPayload`
+
+Converts a beacon block execution payload JSON object to the ExecutionPayload data needed to construct a Block.

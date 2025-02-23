@@ -1,0 +1,156 @@
+# @tevm/receipt-manager
+
+The `@tevm/receipt-manager` package provides functionality for managing Ethereum transaction receipts, including storage, retrieval, and querying of transaction receipts and logs.
+
+## Installation
+
+```bash
+npm install @tevm/receipt-manager
+```
+
+## Main Components
+
+### ReceiptsManager
+
+The main class for managing transaction receipts and logs.
+
+```typescript
+import { ReceiptsManager } from '@tevm/receipt-manager'
+
+const receiptsManager = new ReceiptsManager(mapDb, chain)
+```
+
+#### Methods
+
+- `saveReceipts(block: Block, receipts: TxReceipt[]): Promise<void>` - Saves receipts to the database
+- `deleteReceipts(block: Block): Promise<void>` - Deletes receipts for a block
+- `getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: boolean): Promise<TxReceipt[] | TxReceiptWithType[]>` - Retrieves receipts for a block
+- `getReceiptByTxHash(txHash: Uint8Array): Promise<GetReceiptByTxHashReturn | null>` - Gets receipt by transaction hash
+- `getLogs(from: Block, to: Block, addresses?: Uint8Array[], topics?: (Uint8Array | Uint8Array[] | null)[]): Promise<GetLogsReturn>` - Retrieves logs based on filter criteria
+
+### Receipt Types
+
+#### BaseTxReceipt
+
+Common fields for all transaction receipts:
+
+```typescript
+interface BaseTxReceipt {
+  // Cumulative gas used in the block including this tx
+  cumulativeBlockGasUsed: bigint
+  // Bloom bitvector
+  bitvector: Uint8Array
+  // Logs emitted
+  logs: EthjsLog[]
+}
+```
+
+#### PreByzantiumTxReceipt
+
+Receipt type for pre-Byzantium transactions:
+
+```typescript
+interface PreByzantiumTxReceipt extends BaseTxReceipt {
+  // Intermediary state root
+  stateRoot: Uint8Array
+}
+```
+
+#### PostByzantiumTxReceipt
+
+Receipt type for post-Byzantium transactions:
+
+```typescript
+interface PostByzantiumTxReceipt extends BaseTxReceipt {
+  // Status of transaction, 1 if successful, 0 if failed
+  status: 0 | 1
+}
+```
+
+#### EIP4844BlobTxReceipt
+
+Receipt type for EIP-4844 blob transactions:
+
+```typescript
+interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
+  // Blob gas consumed by a transaction
+  blobGasUsed: bigint
+  // Blob gas price for block transaction was included in
+  blobGasPrice: bigint
+}
+```
+
+## Usage Examples
+
+### Saving and Retrieving Receipts
+
+```typescript
+// Save receipts for a block
+await receiptsManager.saveReceipts(block, receipts)
+
+// Get receipts for a block
+const receipts = await receiptsManager.getReceipts(blockHash)
+
+// Get receipts with bloom filter calculation
+const receiptsWithBloom = await receiptsManager.getReceipts(blockHash, true)
+
+// Get receipts with transaction type
+const receiptsWithType = await receiptsManager.getReceipts(blockHash, false, true)
+```
+
+### Working with Transaction Receipts
+
+```typescript
+// Get receipt by transaction hash
+const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+if (receipt) {
+  const [txReceipt, blockHash, txIndex, logIndex] = receipt
+  console.log('Transaction status:', txReceipt.status)
+  console.log('Block hash:', blockHash)
+  console.log('Transaction index:', txIndex)
+  console.log('Log index:', logIndex)
+}
+```
+
+### Querying Logs
+
+```typescript
+// Get logs between blocks with optional address and topic filters
+const logs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [address], // Optional address filter
+  [[topic1, topic2]] // Optional topic filters
+)
+
+// Process logs
+logs.forEach(({ log, block, tx, txIndex, logIndex }) => {
+  console.log('Log address:', log[0])
+  console.log('Log topics:', log[1])
+  console.log('Log data:', log[2])
+  console.log('Block number:', block.header.number)
+  console.log('Transaction:', tx)
+  console.log('Indices:', txIndex, logIndex)
+})
+```
+
+## Constants
+
+The ReceiptsManager includes several constants for limiting log queries:
+
+```typescript
+// Maximum number of logs to return
+GET_LOGS_LIMIT = 10000
+
+// Maximum size of getLogs response in megabytes
+GET_LOGS_LIMIT_MEGABYTES = 150
+
+// Maximum block range for getLogs
+GET_LOGS_BLOCK_RANGE_LIMIT = 2500
+```
+
+## See Also
+
+- [Ethereum Transaction Receipts](https://ethereum.org/en/developers/docs/transactions/#transaction-receipts)
+- [EIP-658: Embedding transaction status code in receipts](https://eips.ethereum.org/EIPS/eip-658)
+- [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)

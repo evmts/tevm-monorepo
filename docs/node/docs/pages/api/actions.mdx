@@ -1,0 +1,175 @@
+# @tevm/actions
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/actions/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) folder.
+
+The `@tevm/actions` package provides a comprehensive set of actions for interacting with the Tevm client. It includes both standard Ethereum JSON-RPC methods and Tevm-specific functionality.
+
+## Installation
+
+```bash
+npm install @tevm/actions
+```
+
+## Main Categories
+
+### Base Actions
+
+- **Call**: Execute EVM calls
+  - `CallHandler`: Execute a call against the VM
+  - `BaseCallParams`: Common parameters for call operations
+  - `CallResult`: Result of call execution
+
+- **Contract**: Smart contract interactions
+  - `ContractHandler`: Execute contract calls with type safety
+  - `ContractParams`: Parameters for contract calls
+  - `ContractResult`: Result of contract execution
+
+- **Deploy**: Contract deployment
+  - `DeployHandler`: Deploy contracts to the VM
+  - `DeployParams`: Parameters for contract deployment
+  - `DeployResult`: Result of deployment
+
+- **State Management**:
+  - `DumpStateHandler`: Dump current VM state
+  - `LoadStateHandler`: Load a previously dumped state
+  - `GetAccountHandler`: Get account state
+  - `SetAccountHandler`: Set account state
+
+### Ethereum JSON-RPC Actions
+
+Standard Ethereum JSON-RPC methods:
+
+#### Account & Network
+- `eth_accounts`: List available accounts
+- `eth_chainId`: Get current chain ID
+- `eth_coinbase`: Get coinbase address
+- `eth_gasPrice`: Get current gas price
+- `eth_blockNumber`: Get current block number
+
+#### State Reading
+- `eth_getBalance`: Get account balance
+- `eth_getCode`: Get contract code
+- `eth_getStorageAt`: Get storage at position
+- `eth_call`: Execute call without state changes
+
+#### Block Operations
+- `eth_getBlockByHash`: Get block by hash
+- `eth_getBlockByNumber`: Get block by number
+- `eth_getBlockTransactionCountByHash`: Get block transaction count by hash
+- `eth_getBlockTransactionCountByNumber`: Get block transaction count by number
+
+#### Transaction Operations
+- `eth_getTransactionByHash`: Get transaction by hash
+- `eth_getTransactionByBlockHashAndIndex`: Get transaction by block hash and index
+- `eth_getTransactionByBlockNumberAndIndex`: Get transaction by block number and index
+- `eth_estimateGas`: Estimate gas usage
+
+#### Logs & Filters
+- `eth_getLogs`: Get event logs
+- `eth_getFilterChanges`: Get filter changes
+- `eth_getFilterLogs`: Get filter logs
+
+### Anvil (Testing & Development) Actions
+
+Anvil-compatible actions for testing and development:
+
+#### State Manipulation
+- `anvil_setBalance`: Set account balance
+- `anvil_setCode`: Set contract code
+- `anvil_setNonce`: Set account nonce
+- `anvil_setStorageAt`: Set storage at position
+- `anvil_setChainId`: Set chain ID
+- `anvil_setCoinbase`: Set coinbase address
+
+#### Account Management
+- `anvil_impersonateAccount`: Impersonate an account
+- `anvil_stopImpersonatingAccount`: Stop impersonating account
+
+#### Transaction Management
+- `anvil_dropTransaction`: Remove transaction from pool
+- `anvil_mine`: Mine blocks
+- `anvil_automine`: Get/set automine status
+
+#### State Management
+- `anvil_dumpState`: Dump current state
+- `anvil_loadState`: Load state
+- `anvil_reset`: Reset to initial state
+
+### Debug Actions
+
+Debugging functionality:
+
+- `debug_traceCall`: Trace a call execution
+- `debug_traceTransaction`: Trace a transaction execution
+
+## Usage Example
+
+```typescript
+import { createTevmNode } from 'tevm/node'
+import {
+  callHandler,
+  contractHandler,
+  deployHandler,
+  ethCallHandler
+} from '@tevm/actions'
+
+// Create base client
+const client = createTevmNode()
+
+// Initialize handlers
+const call = callHandler(client)
+const contract = contractHandler(client)
+const deploy = deployHandler(client)
+const ethCall = ethCallHandler(client)
+
+// Execute a call
+const callResult = await call({
+  to: '0x123...',
+  data: '0x456...',
+  value: 1000n
+})
+
+// Execute a contract call
+const contractResult = await contract({
+  to: '0x123...',
+  abi: [...],
+  function: 'transfer',
+  args: ['0x456...', 1000n]
+})
+
+// Deploy a contract
+const deployResult = await deploy({
+  bytecode: '0x...',
+  abi: [...],
+  args: ['constructor arg']
+})
+
+// Standard eth_call
+const ethCallResult = await ethCall({
+  to: '0x123...',
+  data: '0x456...'
+})
+```
+
+## Error Handling
+
+The package includes several error types:
+
+- `BlobGasLimitExceededError`: When blob gas limit is exceeded
+- `MissingAccountError`: When an account doesn't exist
+- `NoForkUrlSetError`: When fork URL is required but not set
+
+All actions support a `throwOnFail` parameter to control error handling:
+
+```typescript
+const result = await call({
+  to: '0x123...',
+  throwOnFail: false // Return errors in result instead of throwing
+})
+```
+
+## See Also
+
+- [Ethereum JSON-RPC Specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+- [Anvil Documentation](https://book.getfoundry.sh/reference/anvil/)
+- [Tevm Documentation](https://tevm.sh/)

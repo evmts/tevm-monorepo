@@ -1,0 +1,264 @@
+# @tevm/vm
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/vm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm/docs) folder.
+
+The `@tevm/vm` package provides a custom implementation of the Ethereum Virtual Machine (VM), extending the functionality of `@ethereumjs/vm`. It's responsible for executing Ethereum transactions and managing the blockchain state.
+
+## Installation
+
+```bash
+npm install @tevm/vm
+```
+
+## Main Components
+
+### Creating a VM Instance
+
+```typescript
+import { createVm } from '@tevm/vm'
+import { createCommon } from '@tevm/common'
+import { createStateManager } from '@tevm/state'
+import { createChain } from '@tevm/blockchain'
+import { createEvm } from '@tevm/evm'
+
+const common = createCommon({ chain: 'mainnet', hardfork: 'cancun' })
+const stateManager = createStateManager({})
+const blockchain = await createChain({ common })
+const evm = await createEvm({
+  stateManager,
+  blockchain,
+  common,
+})
+
+const vm = createVm({
+  evm,
+  common,
+  blockchain,
+  stateManager,
+})
+```
+
+### VM Options
+
+```typescript
+interface VmOpts {
+  // Chain configuration
+  common: Common
+  // State management
+  stateManager: StateManager
+  // Blockchain instance
+  blockchain: Chain
+  // EVM instance
+  evm: Evm
+  // Enable precompiled contracts
+  activatePrecompiles?: boolean
+  // Initial genesis state
+  genesisState?: GenesisState
+  // Set hardfork by block number or timestamp
+  setHardfork?: boolean | BigIntLike
+  // Profiling options
+  profilerOpts?: VMProfilerOpts
+}
+```
+
+## Core Functionality
+
+### Block Operations
+
+#### Building Blocks
+
+```typescript
+// Create a new block
+const blockBuilder = await vm.buildBlock({
+  parentBlock: await blockchain.getCanonicalHeadBlock(),
+})
+
+// Add transactions to the block
+await blockBuilder.addTransaction(transaction)
+
+// Build and seal the block
+const block = await blockBuilder.build()
+```
+
+#### Running Blocks
+
+```typescript
+// Run an existing block
+const result = await vm.runBlock({
+  block,
+  generate: true, // Generate state root
+  skipBlockValidation: false,
+})
+```
+
+### Transaction Operations
+
+```typescript
+// Run a single transaction
+const result = await vm.runTx({
+  tx: transaction,
+  block: block,
+  skipBalance: false,
+  skipNonce: false,
+})
+```
+
+### State Management
+
+```typescript
+// Access state manager
+const account = await vm.stateManager.getAccount(address)
+
+// Modify state
+await vm.stateManager.putAccount(address, account)
+
+// Commit changes
+await vm.stateManager.commit()
+```
+
+## Events
+
+The VM emits events during block and transaction processing:
+
+```typescript
+// Block events
+vm.events.on('beforeBlock', (block, resolve) => {
+  // Handle before block execution
+  resolve()
+})
+
+vm.events.on('afterBlock', (data, resolve) => {
+  // Handle after block execution
+  resolve()
+})
+
+// Transaction events
+vm.events.on('beforeTx', (tx, resolve) => {
+  // Handle before transaction execution
+  resolve()
+})
+
+vm.events.on('afterTx', (data, resolve) => {
+  // Handle after transaction execution
+  resolve()
+})
+```
+
+## Block Building
+
+The `BlockBuilder` class provides a fluent interface for creating blocks:
+
+```typescript
+class BlockBuilder {
+  // Current gas used in the block
+  gasUsed: bigint
+
+  // Current blob gas used (EIP-4844)
+  blobGasUsed: bigint
+
+  // Get transaction receipts
+  get transactionReceipts(): TxReceipt[]
+
+  // Get miner rewards
+  get minerValue(): bigint
+
+  // Add a transaction to the block
+  async addTransaction(
+    tx: TypedTransaction | ImpersonatedTx,
+    opts?: { skipHardForkValidation?: boolean }
+  ): Promise<RunTxResult>
+
+  // Build the final block
+  async build(sealOpts?: SealBlockOpts): Promise<Block>
+}
+```
+
+## Types
+
+### RunBlockOpts
+
+Options for running a block:
+
+```typescript
+interface RunBlockOpts {
+  block: Block
+  root?: Uint8Array
+  generate?: boolean
+  skipBlockValidation?: boolean
+  skipHeaderValidation?: boolean
+  skipNonce?: boolean
+  skipBalance?: boolean
+  setHardfork?: boolean | BigIntLike
+  reportPreimages?: boolean
+}
+```
+
+### RunTxOpts
+
+Options for running a transaction:
+
+```typescript
+interface RunTxOpts {
+  tx: TypedTransaction | ImpersonatedTx
+  block?: Block
+  skipBalance?: boolean
+  skipNonce?: boolean
+  skipHardForkValidation?: boolean
+  reportPreimages?: boolean
+}
+```
+
+## Error Handling
+
+The VM throws various error types for different scenarios:
+
+- `InvalidBlockError`: When block validation fails
+- `InvalidTransactionError`: When transaction validation fails
+- `InsufficientFundsError`: When account balance is insufficient
+- `NonceTooLowError`/`NonceTooHighError`: For nonce-related issues
+- `InvalidGasLimitError`: When gas limit is invalid
+- `EipNotEnabledError`: When using features from non-enabled EIPs
+
+## Usage Example
+
+```typescript
+import { createVm } from '@tevm/vm'
+import { createCommon } from '@tevm/common'
+import { Block } from '@tevm/block'
+
+// Create VM instance
+const vm = createVm({
+  common: createCommon({ chain: 'mainnet' }),
+  // ... other options
+})
+
+// Build and process a block
+const blockBuilder = await vm.buildBlock({
+  parentBlock: await vm.blockchain.getCanonicalHeadBlock(),
+})
+
+// Add transactions
+for (const tx of transactions) {
+  await blockBuilder.addTransaction(tx)
+}
+
+// Build and seal the block
+const block = await blockBuilder.build()
+
+// Run the block
+const result = await vm.runBlock({
+  block,
+  generate: true,
+  skipBlockValidation: false,
+})
+
+// Process results
+console.log('Gas used:', result.gasUsed)
+console.log('Receipts:', result.receipts)
+```
+
+## See Also
+
+- [EthereumJS VM Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/vm)
+- [Tevm EVM Documentation](https://tevm.sh/reference/tevm/evm/)
+- [Tevm State Documentation](https://tevm.sh/reference/tevm/state/)

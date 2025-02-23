@@ -1,0 +1,181 @@
+# @tevm/tx
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) folder.
+
+The `@tevm/tx` package provides a custom implementation of Ethereum transactions, extending the functionality of `@ethereumjs/tx`. It includes support for various transaction types and introduces impersonated transactions unique to Tevm.
+
+## Installation
+
+```bash
+npm install @tevm/tx
+```
+
+## Main Components
+
+### Transaction Types
+
+The package supports multiple transaction types:
+
+- **LegacyTransaction**: Pre-EIP-2718 transactions
+- **AccessListEIP2930Transaction**: Type 1 transactions with access lists (EIP-2930)
+- **FeeMarketEIP1559Transaction**: Type 2 transactions with fee market (EIP-1559)
+- **BlobEIP4844Transaction**: Type 3 transactions with blob data (EIP-4844)
+- **ImpersonatedTx**: Tevm-specific transaction type for impersonating accounts
+
+### TransactionFactory
+
+A utility class for creating transactions from various data formats:
+
+```typescript
+import { TransactionFactory } from '@tevm/tx'
+
+// Create from serialized data
+const tx = TransactionFactory.fromSerializedTx(serializedData)
+
+// Create from RPC data
+const tx = await TransactionFactory.fromRPC(rpcTxData)
+
+// Create from block body data
+const tx = TransactionFactory.fromBlockBodyData(blockData)
+```
+
+### Impersonated Transactions
+
+A unique feature of Tevm that allows simulating transactions as if they were sent from any address:
+
+```typescript
+import { createImpersonatedTx } from '@tevm/tx'
+
+const tx = createImpersonatedTx({
+  impersonatedAddress: address,
+  to: recipient,
+  value: value,
+  data: data,
+  // ... other EIP-1559 transaction fields
+})
+```
+
+## Transaction Types
+
+### Legacy Transactions
+
+Pre-EIP-2718 transactions with basic fields:
+
+```typescript
+interface LegacyTxData {
+  nonce: bigint
+  gasPrice: bigint
+  gasLimit: bigint
+  to?: Address
+  value: bigint
+  data: Uint8Array
+  v?: bigint
+  r?: bigint
+  s?: bigint
+}
+```
+
+### EIP-2930 Transactions
+
+Type 1 transactions with access lists:
+
+```typescript
+interface AccessListEIP2930TxData extends LegacyTxData {
+  chainId: bigint
+  accessList: AccessList
+}
+```
+
+### EIP-1559 Transactions
+
+Type 2 transactions with fee market:
+
+```typescript
+interface FeeMarketEIP1559TxData extends AccessListEIP2930TxData {
+  maxFeePerGas: bigint
+  maxPriorityFeePerGas: bigint
+}
+```
+
+### EIP-4844 Transactions
+
+Type 3 transactions with blob data:
+
+```typescript
+interface BlobEIP4844TxData extends FeeMarketEIP1559TxData {
+  maxFeePerBlobGas: bigint
+  blobVersionedHashes: Uint8Array[]
+  blobs?: Uint8Array[]
+  kzgCommitments?: Uint8Array[]
+  kzgProofs?: Uint8Array[]
+}
+```
+
+## Common Operations
+
+### Creating Transactions
+
+```typescript
+import { TransactionFactory, LegacyTransaction } from '@tevm/tx'
+
+// Using factory
+const tx = TransactionFactory.fromTxData({
+  nonce: 0n,
+  gasPrice: 20000000000n,
+  gasLimit: 21000n,
+  to: '0x...',
+  value: 1000000000000000000n,
+  data: new Uint8Array()
+})
+
+// Direct instantiation
+const legacyTx = new LegacyTransaction({
+  nonce: 0n,
+  gasPrice: 20000000000n,
+  gasLimit: 21000n,
+  to: '0x...',
+  value: 1000000000000000000n,
+  data: new Uint8Array()
+})
+```
+
+### Signing Transactions
+
+```typescript
+const signedTx = tx.sign(privateKey)
+```
+
+### Transaction Methods
+
+All transaction types provide common methods:
+
+- `hash()`: Get transaction hash
+- `getBaseFee()`: Get minimum required gas
+- `getDataFee()`: Get gas cost for data
+- `getUpfrontCost()`: Get total required balance
+- `isSigned()`: Check if transaction is signed
+- `serialize()`: Get RLP encoded transaction
+- `toJSON()`: Get JSON representation
+
+## Error Handling
+
+The package includes custom error types:
+
+```typescript
+import { InvalidGasLimitError } from '@tevm/tx'
+
+try {
+  const tx = createImpersonatedTx(txData)
+} catch (e) {
+  if (e instanceof InvalidGasLimitError) {
+    // Handle invalid gas limit
+  }
+}
+```
+
+## See Also
+
+- [EIP-2718: Typed Transaction Envelope](https://eips.ethereum.org/EIPS/eip-2718)
+- [EIP-2930: Optional access lists](https://eips.ethereum.org/EIPS/eip-2930)
+- [EIP-1559: Fee market change](https://eips.ethereum.org/EIPS/eip-1559)
+- [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)

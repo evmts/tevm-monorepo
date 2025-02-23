@@ -1,0 +1,219 @@
+# @tevm/state
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/state/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs) folder.
+
+The `@tevm/state` package provides functionality for managing Ethereum state, including account storage, contract code, and state transitions. It implements the EVM state manager interface and adds Tevm-specific features.
+
+## Installation
+
+```bash
+npm install @tevm/state
+```
+
+## Main Components
+
+### StateManager
+
+The main interface for managing Ethereum state, extending the EVM state manager interface:
+
+```typescript
+interface StateManager extends EvmStateManagerInterface {
+  _baseState: BaseState
+  ready: () => Promise<true>
+  getAccountAddresses: () => Set<Address>
+  deepCopy(): Promise<StateManager>
+  dumpCanonicalGenesis(): Promise<TevmState>
+  clearCaches(): void
+  saveStateRoot(root: Uint8Array, state: TevmState): void
+  commit(createNewStateRoot?: boolean): Promise<void>
+}
+```
+
+### Creating a State Manager
+
+```typescript
+import { createStateManager } from '@tevm/state'
+
+const stateManager = createStateManager({
+  common,
+  loggingLevel: 'info',
+  genesisState,
+  currentStateRoot,
+  stateRoots,
+})
+```
+
+#### StateOptions
+
+```typescript
+type StateOptions = {
+  // Forking configuration
+  fork?: ForkOptions
+  // Initial genesis state
+  genesisState?: TevmState
+  // Current state root
+  currentStateRoot?: Hex
+  // Mapping of state roots
+  stateRoots?: StateRoots
+  // Called when state manager commits state
+  onCommit?: (stateManager: BaseState) => void
+  // Logging configuration
+  loggingLevel?: LogOptions['level']
+  // Cache configurations
+  contractCache?: ContractCache
+  storageCache?: StorageCache
+  accountsCache?: AccountCache
+}
+```
+
+### State Types
+
+#### TevmState
+
+The core state representation:
+
+```typescript
+type TevmState = {
+  [key: Address]: AccountStorage
+}
+```
+
+#### AccountStorage
+
+Account state information:
+
+```typescript
+interface AccountStorage {
+  nonce: bigint
+  balance: bigint
+  storageRoot: Hex
+  codeHash: Hex
+  deployedBytecode?: Hex
+  storage?: StorageDump
+}
+```
+
+#### StateCache
+
+Internal cache structure:
+
+```typescript
+type StateCache = {
+  accounts: AccountCache
+  storage: StorageCache
+  contracts: ContractCache
+}
+```
+
+## Core Functionality
+
+### Account Management
+
+```typescript
+// Get account state
+const account = await stateManager.getAccount(address)
+
+// Update account
+await stateManager.putAccount(address, account)
+
+// Delete account
+await stateManager.deleteAccount(address)
+
+// Modify specific account fields
+await stateManager.modifyAccountFields(address, {
+  nonce: 1n,
+  balance: 100n
+})
+```
+
+### Contract Management
+
+```typescript
+// Get contract code
+const code = await stateManager.getContractCode(address)
+
+// Set contract code
+await stateManager.putContractCode(address, code)
+
+// Get contract storage
+const value = await stateManager.getContractStorage(address, key)
+
+// Set contract storage
+await stateManager.putContractStorage(address, key, value)
+
+// Clear contract storage
+await stateManager.clearContractStorage(address)
+```
+
+### State Management
+
+```typescript
+// Create checkpoint
+await stateManager.checkpoint()
+
+// Commit changes
+await stateManager.commit()
+
+// Revert to last checkpoint
+await stateManager.revert()
+
+// Get state root
+const root = await stateManager.getStateRoot()
+
+// Set state root
+await stateManager.setStateRoot(root)
+
+// Check if state root exists
+const exists = await stateManager.hasStateRoot(root)
+```
+
+### State Dumping and Proofs
+
+```typescript
+// Dump canonical genesis state
+const state = await stateManager.dumpCanonicalGenesis()
+
+// Dump storage for address
+const storage = await stateManager.dumpStorage(address)
+
+// Dump storage range
+const range = await stateManager.dumpStorageRange(address, startKey, limit)
+
+// Get merkle proof
+const proof = await stateManager.getProof(address, storageKeys)
+```
+
+### Cache Management
+
+```typescript
+// Clear all caches
+stateManager.clearCaches()
+
+// Access original storage cache
+const originalStorage = stateManager.originalStorageCache
+```
+
+### State Copying
+
+```typescript
+// Deep copy (independent state)
+const deepCopy = await stateManager.deepCopy()
+
+// Shallow copy (shared state)
+const shallowCopy = stateManager.shallowCopy()
+```
+
+## Error Handling
+
+The state manager uses the `@tevm/errors` package for error handling. Common errors include:
+
+- `StateManagerError`: Base error for state management issues
+- `AccountNotFoundError`: When an account doesn't exist
+- `InvalidStateRoot`: When an invalid state root is provided
+- `StorageNotFoundError`: When storage slot doesn't exist
+
+## See Also
+
+- [EVM State Documentation](https://ethereum.org/en/developers/docs/evm/state)
+- [Merkle Patricia Tree](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie)
+- [Account Management](https://ethereum.org/en/developers/docs/accounts)

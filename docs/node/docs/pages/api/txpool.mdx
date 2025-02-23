@@ -1,0 +1,203 @@
+# @tevm/txpool
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/txpool/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/txpool/docs) folder.
+
+The `@tevm/txpool` package provides a transaction pool (mempool) implementation for managing pending Ethereum transactions. It handles transaction validation, ordering, and lifecycle management.
+
+## Installation
+
+```bash
+npm install @tevm/txpool
+```
+
+## Main Components
+
+### TxPool Class
+
+The main class for managing the transaction pool. It provides functionality for adding, removing, and retrieving transactions.
+
+```typescript
+import { TxPool } from '@tevm/txpool'
+
+const txPool = new TxPool({
+  vm: ethereumVm
+})
+```
+
+#### Constructor Options
+
+```typescript
+interface TxPoolOptions {
+  vm: Vm // Ethereum Virtual Machine instance
+}
+```
+
+### Core Methods
+
+#### Adding Transactions
+
+```typescript
+// Add a transaction with validation
+await txPool.add(transaction, requireSignature, skipBalance)
+
+// Add without validation
+await txPool.addUnverified(transaction)
+```
+
+#### Retrieving Transactions
+
+```typescript
+// Get transactions by hash
+const txs = txPool.getByHash(txHashes)
+
+// Get transactions by sender address
+const txs = await txPool.getBySenderAddress(address)
+
+// Get transactions sorted by price and nonce
+const sortedTxs = await txPool.txsByPriceAndNonce({
+  baseFee: 1000000000n,
+  allowedBlobs: 6
+})
+```
+
+#### Removing Transactions
+
+```typescript
+// Remove a single transaction
+txPool.removeByHash(txHash)
+
+// Remove transactions included in new blocks
+txPool.removeNewBlockTxs(newBlocks)
+```
+
+#### Pool Management
+
+```typescript
+// Start the pool
+txPool.start()
+
+// Stop the pool
+txPool.stop()
+
+// Close the pool
+txPool.close()
+
+// Regular cleanup of old transactions
+txPool.cleanup()
+```
+
+### Configuration Constants
+
+```typescript
+// Minimum gas price bump percentage for replacement transactions
+MIN_GAS_PRICE_BUMP_PERCENT = 10
+
+// Minimum gas price (.1 GWei)
+MIN_GAS_PRICE = 100000000n
+
+// Maximum transaction data size (128KB)
+TX_MAX_DATA_SIZE = 128 * 1024
+
+// Maximum pool size
+MAX_POOL_SIZE = 5000
+
+// Maximum transactions per account
+MAX_TXS_PER_ACCOUNT = 100
+```
+
+## Transaction Types
+
+The pool supports various transaction types:
+
+- Legacy Transactions
+- EIP-2930 Access List Transactions
+- EIP-1559 Fee Market Transactions
+- EIP-4844 Blob Transactions
+- Impersonated Transactions (Tevm-specific)
+
+## Pool State Management
+
+### Pool Data Structure
+
+The pool maintains several data structures:
+
+```typescript
+interface TxPool {
+  // Main pool mapping addresses to their transactions
+  pool: Map<string, TxPoolObject[]>
+
+  // Number of transactions in the pool
+  txsInPool: number
+
+  // Map of handled transaction hashes
+  handled: Map<string, HandledObject>
+}
+```
+
+### Time Limits
+
+```typescript
+// Time to keep transactions in pool (minutes)
+POOLED_STORAGE_TIME_LIMIT = 20
+
+// Time to remember handled transactions (minutes)
+HANDLED_CLEANUP_TIME_LIMIT = 60
+```
+
+## Transaction Validation
+
+The pool performs several validations when adding transactions:
+
+1. Signature verification (optional)
+2. Size limits
+3. Gas price requirements
+4. Account transaction limits
+5. Nonce ordering
+6. Gas price bumps for replacement transactions
+
+## Error Handling
+
+Common error scenarios:
+
+- Pool full
+- Transaction too large
+- Gas price too low
+- Maximum transactions per account reached
+- Invalid nonce
+- Insufficient gas price bump for replacement
+
+## Usage Example
+
+```typescript
+import { TxPool } from '@tevm/txpool'
+import { createEvm } from '@tevm/evm'
+
+// Create a new pool
+const txPool = new TxPool({
+  vm: await createEvm(/* options */)
+})
+
+// Start the pool
+txPool.start()
+
+// Add transactions
+await txPool.add(transaction)
+
+// Get pending transactions for mining
+const pendingTxs = await txPool.txsByPriceAndNonce({
+  baseFee: currentBaseFee
+})
+
+// Clean up old transactions
+txPool.cleanup()
+
+// Stop the pool when done
+txPool.stop()
+```
+
+## See Also
+
+- [EIP-2718: Typed Transaction Envelope](https://eips.ethereum.org/EIPS/eip-2718)
+- [EIP-1559: Fee Market Change](https://eips.ethereum.org/EIPS/eip-1559)
+- [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)
+- [Tevm EVM Documentation](https://tevm.sh/reference/tevm/evm/)

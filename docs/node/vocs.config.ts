@@ -2,6 +2,7 @@ import { defineConfig } from 'vocs'
 
 export default defineConfig({
   title: 'Tevm Node',
+  description: "An EVM node that runs in the browser",
   topNav: [
     { text: 'Docs', link: '/introduction/what-is-tevm-node', match: '/introduction' },
     { text: 'Viem', link: 'https://viem.sh/' },
@@ -38,18 +39,67 @@ export default defineConfig({
       ],
     },
     {
-      text: 'Essential APIs',
+      text: 'Core Packages',
       collapsed: true,
       items: [
-        { text: 'Methods & Properties', link: '/api/methods' },
-        { text: 'VM & Submodules', link: '/api/vm-and-submodules' },
-        { text: 'JSON-RPC Guide', link: '/api/json-rpc' },
-        { text: 'Memory Client', link: '/api/memory-client' },
-        { text: 'tevmCall API', link: '/api/tevm-call' },
-        { text: 'Account Management', link: '/api/account-management' },
-        { text: 'Contract Utilities', link: '/api/contracts' },
-        { text: 'Utilities & Addresses', link: '/api/utils' },
-        { text: 'EVM Events', link: '/api/evm-events' },
+        { text: 'Actions (@tevm/actions)', link: '/api/actions' },
+        { text: 'Virtual Machine (@tevm/vm)', link: '/api/vm' },
+        { text: 'State Management (@tevm/state)', link: '/api/state' },
+        { text: 'Blockchain (@tevm/blockchain)', link: '/api/blockchain' },
+        { text: 'EVM (@tevm/evm)', link: '/api/evm' },
+      ],
+    },
+    {
+      text: 'Transaction & Block Packages',
+      collapsed: true,
+      items: [
+        { text: 'Block (@tevm/block)', link: '/api/block' },
+        { text: 'Transactions (@tevm/tx)', link: '/api/tx' },
+        { text: 'Transaction Pool (@tevm/txpool)', link: '/api/txpool' },
+        { text: 'Receipt Manager (@tevm/receipt-manager)', link: '/api/receipt-manager' },
+      ],
+    },
+    {
+      text: 'Client & Communication',
+      collapsed: true,
+      items: [
+        { text: 'Memory Client (@tevm/memory-client)', link: '/api/memory-client' },
+        { text: 'HTTP Client (@tevm/http-client)', link: '/api/http-client' },
+        { text: 'JSON-RPC (@tevm/jsonrpc)', link: '/api/json-rpc' },
+        { text: 'Server (@tevm/server)', link: '/api/server' },
+      ],
+    },
+    {
+      text: 'Smart Contract Tools',
+      collapsed: true,
+      items: [
+        { text: 'Contract (@tevm/contract)', link: '/api/contract' },
+        { text: 'Precompiles (@tevm/precompiles)', link: '/api/precompiles' },
+        { text: 'Predeploys (@tevm/predeploys)', link: '/api/predeploys' },
+      ],
+    },
+    {
+      text: 'Utilities & Helpers',
+      collapsed: true,
+      items: [
+        { text: 'Utils (@tevm/utils)', link: '/api/utils' },
+        { text: 'Common (@tevm/common)', link: '/api/common' },
+        { text: 'Decorators (@tevm/decorators)', link: '/api/decorators' },
+        { text: 'Procedures (@tevm/procedures)', link: '/api/procedures' },
+        { text: 'RLP (@tevm/rlp)', link: '/api/rlp' },
+        { text: 'Trie (@tevm/trie)', link: '/api/trie' },
+        { text: 'Address (@tevm/address)', link: '/api/address' },
+      ],
+    },
+    {
+      text: 'Development Tools',
+      collapsed: true,
+      items: [
+        { text: 'Error Handling (@tevm/errors)', link: '/api/errors' },
+        { text: 'Logger (@tevm/logger)', link: '/api/logger' },
+        { text: 'Effect System (@tevm/effect)', link: '/api/effect' },
+        { text: 'Client Types (@tevm/client-types)', link: '/api/client-types' },
+        { text: 'Storage Persister (@tevm/sync-storage-persister)', link: '/api/sync-storage-persister' },
       ],
     },
     {

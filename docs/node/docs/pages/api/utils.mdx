@@ -87,3 +87,265 @@ Some additional lower-level utility re-exports from [`tevm/utils`](https://githu
   Various encoding helpers used by Tevm Node internally.
 
 > **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience.
+
+# @tevm/utils
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/utils/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) folder.
+
+The `@tevm/utils` package provides a comprehensive collection of utility functions and types for working with Ethereum data structures, encoding/decoding, and common operations. It combines functionality from various Ethereum libraries and adds Tevm-specific utilities.
+
+## Installation
+
+```bash
+npm install @tevm/utils
+```
+
+## Main Components
+
+### Data Types and Encoding
+
+#### Hex and Bytes Conversion
+
+```typescript
+import {
+  bytesToHex,
+  hexToBytes,
+  bytesToBigInt,
+  bytesToNumber,
+  hexToBigInt,
+  hexToNumber,
+  numberToHex,
+  stringToHex,
+  hexToString
+} from '@tevm/utils'
+
+// Convert bytes to hex
+const hex = bytesToHex(new Uint8Array([1, 164])) // '0x01a4'
+
+// Convert hex to bytes
+const bytes = hexToBytes('0x01a4') // Uint8Array([1, 164])
+
+// Convert to/from numbers
+const num = hexToNumber('0x01a4') // 420
+const hex2 = numberToHex(420) // '0x01a4'
+
+// String conversion
+const str = hexToString('0x48656c6c6f') // 'Hello'
+const hex3 = stringToHex('Hello') // '0x48656c6c6f'
+```
+
+#### Type Checking
+
+```typescript
+import { isHex, isBytes, isAddress } from '@tevm/utils'
+
+isHex('0x123') // true
+isBytes(new Uint8Array()) // true
+isAddress('0x123...') // true
+```
+
+### Ethereum Specific
+
+#### Unit Conversion
+
+```typescript
+import {
+  formatEther,
+  parseEther,
+  formatGwei,
+  parseGwei
+} from '@tevm/utils'
+
+// Convert wei to ether
+formatEther(1000000000000000000n) // '1.0'
+
+// Convert ether to wei
+parseEther('1.0') // 1000000000000000000n
+
+// Work with gwei
+formatGwei(1000000000n) // '1.0'
+parseGwei('1.0') // 1000000000n
+```
+
+#### Cryptographic Functions
+
+```typescript
+import {
+  keccak256,
+  ecrecover,
+  ecsign,
+  randomBytes
+} from '@tevm/utils'
+
+// Generate keccak256 hash
+const hash = keccak256('0x1234')
+
+// Sign data
+const signature = ecsign(messageHash, privateKey)
+
+// Recover address from signature
+const address = ecrecover(messageHash, v, r, s)
+
+// Generate random bytes
+const random = randomBytes(32)
+```
+
+### ABI Encoding/Decoding
+
+```typescript
+import {
+  encodeAbiParameters,
+  decodeAbiParameters,
+  encodeFunctionData,
+  decodeFunctionData,
+  encodeEventTopics,
+  decodeEventLog
+} from '@tevm/utils'
+
+// Encode function data
+const data = encodeFunctionData({
+  abi: [...],
+  functionName: 'transfer',
+  args: [address, amount]
+})
+
+// Decode function data
+const result = decodeFunctionData({
+  abi: [...],
+  data: '0x...'
+})
+
+// Work with events
+const topics = encodeEventTopics({
+  abi: [...],
+  eventName: 'Transfer',
+  args: [from, to, null]
+})
+```
+
+### RLP Encoding/Decoding
+
+```typescript
+import { toRlp, fromRlp } from '@tevm/utils'
+
+// Encode to RLP
+const rlp = toRlp(['0x123', '0x456'])
+
+// Decode from RLP
+const decoded = fromRlp(rlp)
+```
+
+### Memory Database
+
+```typescript
+import { createMemoryDb } from '@tevm/utils'
+
+// Create an in-memory database
+const db = createMemoryDb()
+
+// Initialize with existing data
+const initialData = new Map()
+const db2 = createMemoryDb(initialData)
+```
+
+### Event Emitter
+
+```typescript
+import { AsyncEventEmitter } from '@tevm/utils'
+
+const emitter = new AsyncEventEmitter()
+
+// Add listener
+emitter.on('event', async (data) => {
+  // Handle event
+})
+
+// Emit event
+await emitter.emit('event', data)
+```
+
+## Types
+
+### Basic Types
+
+```typescript
+import type {
+  Address,
+  Hex,
+  BlockTag,
+  BlockNumber,
+  BytesLike,
+  BigIntLike
+} from '@tevm/utils'
+
+// Example type usage
+const address: Address = '0x...'
+const hex: Hex = '0x...'
+const blockTag: BlockTag = 'latest'
+```
+
+### ABI Types
+
+```typescript
+import type {
+  Abi,
+  AbiFunction,
+  AbiEvent,
+  AbiConstructor,
+  ParseAbi,
+  FormatAbi
+} from '@tevm/utils'
+
+// Parse ABI
+type ParsedAbi = ParseAbi<typeof abiString>
+
+// Format ABI
+type FormattedAbi = FormatAbi<typeof parsedAbi>
+```
+
+### Contract Types
+
+```typescript
+import type {
+  ContractFunctionName,
+  ContractConstructorArgs,
+  ExtractAbiFunction,
+  ExtractAbiEvent
+} from '@tevm/utils'
+
+// Extract function from ABI
+type TransferFunction = ExtractAbiFunction<typeof abi, 'transfer'>
+
+// Extract event from ABI
+type TransferEvent = ExtractAbiEvent<typeof abi, 'Transfer'>
+```
+
+## Constants
+
+```typescript
+import {
+  GWEI_TO_WEI,
+  KECCAK256_RLP,
+  KECCAK256_RLP_ARRAY
+} from '@tevm/utils'
+
+// Common conversion factors and constants
+console.log(GWEI_TO_WEI) // 1000000000n
+```
+
+## Error Handling
+
+The package uses the `@tevm/errors` package for standardized error handling:
+
+```typescript
+import { invariant } from '@tevm/utils'
+
+// Assert conditions
+invariant(condition, 'Error message')
+```
+
+## See Also
+
+- [Viem Documentation](https://viem.sh/docs/utilities/fromBytes)
+- [EthereumJS Util Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util)
+- [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html)

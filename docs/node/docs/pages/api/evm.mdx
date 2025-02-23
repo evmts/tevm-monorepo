@@ -1,0 +1,184 @@
+# @tevm/evm
+
+The `@tevm/evm` package provides a custom implementation of the Ethereum Virtual Machine (EVM), extending the functionality of `ethereumjs/evm`. It's responsible for executing Ethereum bytecode and managing the execution environment.
+
+## Installation
+
+```bash
+npm install @tevm/evm
+```
+
+## Main Components
+
+### Evm Class
+
+The main class for executing Ethereum bytecode. It extends the EthereumJS EVM with Tevm-specific functionality.
+
+```typescript
+import { type Evm, createEvm } from '@tevm/evm'
+import { mainnet } from '@tevm/common'
+import { createStateManager } from '@tevm/state'
+import { createBlockchain } from '@tevm/blockchain'
+
+const evm = await createEvm({
+  common: mainnet,
+  stateManager: createStateManager({}),
+  blockchain: await createBlockchain({ common: mainnet }),
+})
+```
+
+#### Methods
+
+- `runCall(opts: EvmRunCallOpts): Promise<EvmResult>` - Executes an EVM message
+- `addCustomPrecompile(precompile: CustomPrecompile): void` - Adds a custom precompile
+- `removeCustomPrecompile(precompile: CustomPrecompile): void` - Removes a custom precompile
+- `getActiveOpcodes(): OpcodeList` - Returns currently activated opcodes
+- `getPrecompile(address: Address): PrecompileFunc | undefined` - Returns precompile at address
+
+### Creating an EVM Instance
+
+The `createEvm` function is the recommended way to create a new EVM instance:
+
+```typescript
+import { createEvm, type CreateEvmOptions } from '@tevm/evm'
+
+const evm = await createEvm({
+  common: mainnet,
+  stateManager: stateManager,
+  blockchain: blockchain,
+  customPrecompiles: [], // Optional custom precompiles
+  profiler: false, // Enable/disable profiling
+  loggingLevel: 'warn', // Logging configuration
+})
+```
+
+#### CreateEvmOptions
+
+```typescript
+type CreateEvmOptions = {
+  common: Common
+  stateManager: StateManager
+  blockchain: Chain
+  customPrecompiles?: CustomPrecompile[]
+  profiler?: boolean
+  loggingLevel?: LogOptions['level']
+}
+```
+
+### Custom Precompiles
+
+The EVM supports custom precompiles that allow executing arbitrary JavaScript code:
+
+```typescript
+import { definePrecompile, defineCall } from '@tevm/precompiles'
+
+const customPrecompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  contract: MyContract,
+  call: defineCall(MyContract.abi, {
+    myFunction: async ({ args }) => {
+      // Custom implementation
+      return {
+        returnValue: result,
+        executionGasUsed: 0n
+      }
+    }
+  })
+})
+
+// Add to EVM
+evm.addCustomPrecompile(customPrecompile)
+```
+
+## Types
+
+### EvmResult
+
+Result of executing a message via the EVM:
+
+```typescript
+interface EvmResult {
+  createdAddress?: Address
+  execResult: ExecResult
+}
+```
+
+### ExecResult
+
+Detailed execution result:
+
+```typescript
+interface ExecResult {
+  returnValue: Uint8Array
+  executionGasUsed: bigint
+  gas?: bigint
+  gasRefund?: bigint
+  exceptionError?: EvmError
+  logs?: Log[]
+  selfdestruct?: Set<string>
+  createdAddresses?: Set<string>
+  blobGasUsed?: bigint
+}
+```
+
+### EvmRunCallOpts
+
+Options for running a call operation:
+
+```typescript
+interface EvmRunCallOpts {
+  to?: Address
+  caller?: Address
+  data?: Uint8Array
+  value?: bigint
+  gasLimit?: bigint
+  gasPrice?: bigint
+  skipBalance?: boolean
+  depth?: number
+  isStatic?: boolean
+  selfdestruct?: Set<string>
+  delegatecall?: boolean
+}
+```
+
+## Error Handling
+
+The EVM uses the `EvmError` class for error handling, with various error types defined in `EvmErrorMessage`:
+
+```typescript
+enum EvmErrorMessage {
+  OUT_OF_GAS = 'out of gas',
+  CODESTORE_OUT_OF_GAS = 'code store out of gas',
+  INVALID_JUMP = 'invalid JUMP',
+  INVALID_OPCODE = 'invalid opcode',
+  STACK_OVERFLOW = 'stack overflow',
+  STACK_UNDERFLOW = 'stack underflow',
+  REVERT = 'revert',
+  STATIC_STATE_CHANGE = 'static state change',
+  INTERNAL_ERROR = 'internal error',
+  // ... and more
+}
+```
+
+## Events and Debugging
+
+The EVM includes support for debugging and event tracking:
+
+```typescript
+// Enable debug logging
+const evm = await createEvm({
+  // ... other options
+  loggingLevel: 'trace'
+})
+
+// Get performance logs
+const logs = evm.getPerformanceLogs()
+console.log(logs.opcodes) // Opcode execution stats
+console.log(logs.precompiles) // Precompile execution stats
+```
+
+## See Also
+
+- [EthereumJS EVM Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+- [Tevm State Documentation](https://tevm.sh/reference/tevm/state/)
+- [Tevm Precompiles Documentation](https://tevm.sh/reference/tevm/precompiles/)

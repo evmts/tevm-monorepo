@@ -93,6 +93,53 @@ Dive deeper into advanced capabilities:
 - Standard JSON-RPC support
 - Rich testing utilities
 
+## Package Documentation
+
+All Tevm packages can be installed individually (e.g., `npm install @tevm/actions`) or together by installing `tevm` and importing from the specific package (e.g., `import { ... } from 'tevm/actions'`). Each package has its own generated API documentation:
+
+### Core Packages
+- [@tevm/actions](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) - Comprehensive set of actions for interacting with the Tevm client
+- [@tevm/vm](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm/docs) - Custom Ethereum Virtual Machine implementation
+- [@tevm/state](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs) - State management for accounts, storage, and contracts
+- [@tevm/blockchain](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs) - Blockchain implementation and block management
+- [@tevm/evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) - EVM execution environment and bytecode processing
+
+### Transaction & Block Handling
+- [@tevm/block](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs) - Block creation and manipulation utilities
+- [@tevm/tx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) - Transaction types and handling
+- [@tevm/txpool](https://github.com/evmts/tevm-monorepo/tree/main/packages/txpool/docs) - Transaction pool (mempool) implementation
+- [@tevm/receipt-manager](https://github.com/evmts/tevm-monorepo/tree/main/packages/receipt-manager/docs) - Transaction receipt management
+
+### Client & Communication
+- [@tevm/memory-client](https://github.com/evmts/tevm-monorepo/tree/main/packages/memory-client/docs) - In-memory Ethereum client implementation
+- [@tevm/http-client](https://github.com/evmts/tevm-monorepo/tree/main/packages/http-client/docs) - HTTP client for remote Tevm nodes
+- [@tevm/jsonrpc](https://github.com/evmts/tevm-monorepo/tree/main/packages/jsonrpc/docs) - JSON-RPC protocol implementation
+- [@tevm/server](https://github.com/evmts/tevm-monorepo/tree/main/packages/server/docs) - Tevm server implementation
+
+### Smart Contract Tools
+- [@tevm/contract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs) - Smart contract interaction utilities
+- [@tevm/precompiles](https://github.com/evmts/tevm-monorepo/tree/main/packages/precompiles/docs) - Precompiled contract implementations
+- [@tevm/predeploys](https://github.com/evmts/tevm-monorepo/tree/main/packages/predeploys/docs) - Pre-deployed contract management
+
+### Utilities & Helpers
+- [@tevm/utils](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) - Common utilities for Ethereum data structures
+- [@tevm/common](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs) - Shared constants and chain configurations
+- [@tevm/decorators](https://github.com/evmts/tevm-monorepo/tree/main/packages/decorators/docs) - Function decorators for extending client functionality
+- [@tevm/procedures](https://github.com/evmts/tevm-monorepo/tree/main/packages/procedures/docs) - Common procedures and operations
+- [@tevm/rlp](https://github.com/evmts/tevm-monorepo/tree/main/packages/rlp/docs) - RLP encoding/decoding utilities
+- [@tevm/trie](https://github.com/evmts/tevm-monorepo/tree/main/packages/trie/docs) - Merkle Patricia Tree implementation
+
+### Development & Error Handling
+- [@tevm/errors](https://github.com/evmts/tevm-monorepo/tree/main/packages/errors/docs) - Error types and handling
+- [@tevm/logger](https://github.com/evmts/tevm-monorepo/tree/main/packages/logger/docs) - Logging functionality
+- [@tevm/effect](https://github.com/evmts/tevm-monorepo/tree/main/packages/effect/docs) - Effect system for handling side effects
+
+### Storage & Synchronization
+- [@tevm/sync-storage-persister](https://github.com/evmts/tevm-monorepo/tree/main/packages/sync-storage-persister/docs) - Storage persistence and synchronization
+- [@tevm/client-types](https://github.com/evmts/tevm-monorepo/tree/main/packages/client-types/docs) - Type definitions for client interfaces
+- [@tevm/node](https://github.com/evmts/tevm-monorepo/tree/main/packages/node/docs) - Node implementation and management
+- [@tevm/address](https://github.com/evmts/tevm-monorepo/tree/main/packages/address/docs) - Ethereum address utilities and validation
+
 ## Additional Resources
 - [Ethereum Development Documentation](https://ethereum.org/en/developers/docs/) - Official Ethereum docs
 - [EVM Deep Dive](https://ethereum.org/en/developers/docs/evm/) - Understanding the EVM
