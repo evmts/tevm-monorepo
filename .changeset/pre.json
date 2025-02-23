@@ -71,7 +71,9 @@
     "@tevm/receipt-manager": "0.0.1",
     "@tevm/address": "0.0.1",
     "tevm-run": "0.0.1",
-    "@tevm/whatsabi": "0.0.0-next.96"
+    "@tevm/whatsabi": "0.0.0-next.96",
+    "@tevm/bundler-docs": "0.0.0",
+    "@tevm/node-docs": "0.0.0"
   },
   "changesets": [
     "afraid-apples-turn",
@@ -127,6 +129,7 @@
     "cuddly-beans-love",
     "cuddly-dodos-nail",
     "cuddly-phones-impress",
+    "cuddly-snakes-look",
     "curly-bats-decide",
     "curly-hats-tickle",
     "curly-mirrors-sing",

@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.128
+
+### Minor Changes
+
+- b3d81e0: Added runTx to Vm interface
+
 ## 1.0.0-next.124
 
 ### Patch Changes
