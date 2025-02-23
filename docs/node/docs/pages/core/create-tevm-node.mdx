@@ -186,11 +186,13 @@ const logs = vm.evm.getPerformanceLogs()
 
 ## Best Practices
 
-1. **Always await ready()**
+1. **Optionally await ready()**
    ```ts
    const node = createTevmNode()
    await node.ready() // Ensure node is initialized
    ```
+
+This isn't 100% required but good to do so if you profile any tevm api it isn't profiling the 1 time initialization time.
 
 2. **Use Appropriate Mining Config**
    - Use `'auto'` for testing

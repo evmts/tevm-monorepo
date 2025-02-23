@@ -1,3 +1,8 @@
+---
+title: "Common"
+description: "Chain-specific configuration and utilities for Tevm clients"
+---
+
 # Common Package
 
 The `@tevm/common` package provides chain-specific configuration and utilities for Tevm clients. It wraps both Viem chain configurations and EthereumJS Common functionality to provide a unified interface for chain parameters, hardforks, and EIPs.
@@ -49,7 +54,10 @@ type Common = {
 The main factory function to create a Common instance:
 
 ```typescript
-function createCommon(options: CommonOptions): Common
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
+
+const common = createCommon({ ...mainnet })
 ```
 
 #### CommonOptions
@@ -100,7 +108,7 @@ type Hardfork =
 
 ### Preset Chains
 
-The package includes preset configurations for many chains. Here are some common ones:
+The package uses Viem's chain configurations. Import them directly from viem:
 
 ```typescript
 import {
@@ -111,7 +119,7 @@ import {
   arbitrum,   // Arbitrum
   polygon,    // Polygon
   // ... many more
-} from '@tevm/common'
+} from 'viem/chains'
 ```
 
 ## Usage Examples
@@ -119,12 +127,13 @@ import {
 ### Basic Usage
 
 ```typescript
-import { createCommon, mainnet } from '@tevm/common'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
 import { createMemoryClient } from 'tevm'
 
 // Using a preset chain
 const client = createMemoryClient({
-  common: mainnet
+  common: createCommon({ ...mainnet })
 })
 
 // Creating a custom chain configuration
@@ -164,9 +173,10 @@ const myChainCommon = createCommon({
 ```typescript
 import { VM } from '@ethereumjs/vm'
 import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
 
 const common = createCommon({
-  // ... chain configuration
+  ...mainnet
 })
 
 const vm = new VM({
@@ -212,3 +222,8 @@ interface CustomCrypto {
   // ... other crypto methods
 }
 ```
+
+## See Also
+- [What is Tevm Node?](../introduction/what-is-tevm-node)
+- [Creating a Node](../core/create-tevm-node)
+- [Block](./block)

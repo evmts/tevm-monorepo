@@ -15,10 +15,10 @@ npm install @tevm/evm
 The main class for executing Ethereum bytecode. It extends the EthereumJS EVM with Tevm-specific functionality.
 
 ```typescript
-import { type Evm, createEvm } from '@tevm/evm'
-import { mainnet } from '@tevm/common'
-import { createStateManager } from '@tevm/state'
-import { createBlockchain } from '@tevm/blockchain'
+import { type Evm, createEvm } from 'tevm/evm'
+import { mainnet } from 'tevm/common'
+import { createStateManager } from 'tevm/state'
+import { createBlockchain } from 'tevm/blockchain'
 
 const evm = await createEvm({
   common: mainnet,
@@ -70,24 +70,31 @@ type CreateEvmOptions = {
 The EVM supports custom precompiles that allow executing arbitrary JavaScript code:
 
 ```typescript
-import { definePrecompile, defineCall } from '@tevm/precompiles'
+import { definePrecompile } from 'tevm'
+import { createContract } from 'tevm/contract'
+import { parseAbi } from 'tevm/utils'
+import { createAddress } from 'tevm/address'
+
+const MyContractAbi = parseAbi([
+  'function myFunction(uint256 input) returns (uint256)',
+])
 
 const customPrecompile = definePrecompile({
-  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-  contract: MyContract,
-  call: defineCall(MyContract.abi, {
-    myFunction: async ({ args }) => {
-      // Custom implementation
-      return {
-        returnValue: result,
-        executionGasUsed: 0n
-      }
+  contract: createContract({
+    abi: MyContractAbi,
+    address: createAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2')
+  }),
+  call: async ({ data, gasLimit }) => {
+    // Custom implementation
+    return {
+      returnValue: new Uint8Array([0x01]),
+      executionGasUsed: 200n
     }
-  })
+  }
 })
 
-// Add to EVM
-evm.addCustomPrecompile(customPrecompile)
+// Add to EVM - note we need to call .precompile()
+evm.addCustomPrecompile(customPrecompile.precompile())
 ```
 
 ## Types

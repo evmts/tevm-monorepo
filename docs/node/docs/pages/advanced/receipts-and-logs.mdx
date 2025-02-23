@@ -12,13 +12,22 @@ Tevm Node provides robust support for managing transaction receipts and event lo
 The ReceiptsManager maintains an index of all transaction receipts and their associated logs.
 
 ```ts
-const manager = await node.getReceiptsManager()
+import { createTevmNode } from 'tevm'
+import { runTx } from 'tevm/vm'
+
+const node = createTevmNode()
+const receiptsManager = await node.getReceiptsManager()
 
 // Get receipts for a block
-const receipts = await manager.getReceipts(blockHash)
+const receipts = await receiptsManager.getReceipts(blockHash)
 
 // Get receipt for specific transaction
-const receipt = await manager.getReceiptByTxHash(txHash)
+const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+
+// Execute a transaction and get receipt
+const vm = await node.getVm()
+const result = await runTx(vm)({ tx })
+const txReceipt = await receiptsManager.getReceiptByTxHash(result.hash)
 ```
 
 ### Receipt Types
@@ -208,4 +217,4 @@ for (const log of logs) {
 ## Related Topics
 - [JSON-RPC Support](../api/json-rpc)
 - [VM & Submodules](../api/vm-and-submodules)
-- [Transaction Pool](./txpool) 
+- [Transaction Pool](./txpool)

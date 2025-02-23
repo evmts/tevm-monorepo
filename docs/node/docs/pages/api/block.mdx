@@ -1,4 +1,9 @@
-# Block Package
+---
+title: "Block"
+description: "The Block class provides functionality for working with Ethereum blocks."
+---
+
+# Block
 
 The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.
 
@@ -9,109 +14,127 @@ The main class for working with Ethereum blocks.
 ### Constructor
 
 ```typescript
-new Block(opts: BlockOptions, header?: BlockHeader, transactions?: TypedTransaction[] = [], uncleHeaders?: BlockHeader[] = [], withdrawals?: Withdrawal[], requests?: ClRequest[], executionWitness?: null | VerkleExecutionWitness)
-```
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
 
-Creates a new block object with the specified options and data.
+// Create a new block
+const block = new Block({
+  common: createCommon({ ...mainnet })
+})
+```
 
 ### Static Methods
 
 #### `fromBlockData(blockData: BlockData, opts: BlockOptions): Block`
 
-Creates a block from block data dictionary.
+Creates a block from block data dictionary:
+
+```typescript
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
+import { EthjsAddress } from '@tevm/utils'
+
+const common = createCommon({ ...mainnet })
+
+const blockData = {
+  header: {
+    parentHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+    coinbase: EthjsAddress.fromString('0x0000000000000000000000000000000000000000'),
+    stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+    difficulty: 0n,
+    number: 0n,
+    gasLimit: 30000000n,
+    gasUsed: 0n,
+    timestamp: BigInt(Math.floor(Date.now() / 1000)),
+    extraData: '0x',
+    mixHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    nonce: '0x0000000000000000',
+    baseFeePerGas: 1000000000n
+  }
+}
+
+const block = Block.fromBlockData(blockData, { common })
+```
 
 #### `fromRLPSerializedBlock(serialized: Uint8Array, opts: BlockOptions): Block`
 
-Creates a block from RLP-serialized block data.
+Creates a block from RLP-serialized block data:
+
+```typescript
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
+
+const common = createCommon({ ...mainnet })
+const serializedBlock = new Uint8Array([/* ... */])
+const block = Block.fromRLPSerializedBlock(serializedBlock, { common })
+```
 
 #### `fromValuesArray(values: BlockBytes, opts: BlockOptions): Block`
 
-Creates a block from an array of Bytes values.
+Creates a block from an array of Bytes values:
 
-#### `fromBeaconPayloadJson(payload: BeaconPayloadJson, opts: BlockOptions): Promise<Block>`
+```typescript
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
 
-Creates a block from a beacon payload JSON.
-
-#### `fromExecutionPayload(payload: ExecutionPayload, opts: BlockOptions): Promise<Block>`
-
-Creates a block from an execution payload.
+const common = createCommon({ ...mainnet })
+const values = [/* ... */] // Array of block values
+const block = Block.fromValuesArray(values, { common })
+```
 
 ### Instance Methods
 
 #### `hash(): Uint8Array`
 
-Returns the hash of the block.
+Returns the hash of the block:
+
+```typescript
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
+
+const common = createCommon({ ...mainnet })
+const block = new Block({ common })
+const hash = block.hash()
+```
 
 #### `serialize(): Uint8Array`
 
-Returns the RLP encoding of the block.
+Returns the RLP encoding of the block:
 
-#### `raw(): BlockBytes`
+```typescript
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
 
-Returns an array of the raw Bytes Arrays of this block.
+const common = createCommon({ ...mainnet })
+const block = new Block({ common })
+const serialized = block.serialize()
+```
 
 #### `toJSON(): JsonBlock`
 
-Returns the block in JSON format.
-
-#### `toExecutionPayload(): ExecutionPayload`
-
-Converts the block to an execution payload format.
-
-## BlockHeader Class
-
-Class for handling Ethereum block headers.
-
-### Constructor
+Converts the block to a JSON representation:
 
 ```typescript
-new BlockHeader(headerData: HeaderData, opts: BlockOptions)
+import { Block } from '@tevm/block'
+import { createCommon } from '@tevm/common'
+import { mainnet } from 'viem/chains'
+
+const common = createCommon({ ...mainnet })
+const block = new Block({ common })
+const json = block.toJSON()
 ```
-
-Creates a new block header with the specified data and options.
-
-### Properties
-
-- `baseFeePerGas?: bigint` - Base fee per gas (EIP-1559)
-- `blobGasUsed?: bigint` - Blob gas used
-- `coinbase: Address` - Miner's address
-- `difficulty: bigint` - Block difficulty
-- `extraData: Uint8Array` - Extra data field
-- `gasLimit: bigint` - Gas limit
-- `gasUsed: bigint` - Gas used
-- `mixHash: Uint8Array` - Mix hash
-- `nonce: Uint8Array` - Block nonce
-- `number: bigint` - Block number
-- `parentHash: Uint8Array` - Parent block hash
-- `timestamp: bigint` - Block timestamp
 
 ## Types
-
-### BlockData
-
-```typescript
-interface BlockData {
-  header?: HeaderData
-  transactions?: (LegacyTxData | AccessListEIP2930TxData | FeeMarketEIP1559TxData | BlobEIP4844TxData | EOACodeEIP7702TxData)[]
-  uncleHeaders?: HeaderData[]
-  withdrawals?: WithdrawalData[]
-  requests?: ClRequest[]
-  executionWitness?: null | VerkleExecutionWitness
-}
-```
-
-### BlockOptions
-
-```typescript
-interface BlockOptions {
-  common: Common
-  setHardfork?: boolean | BigIntLike
-  freeze?: boolean
-  skipConsensusFormatValidation?: boolean
-  cliqueSigner?: Uint8Array
-  executionWitness?: VerkleExecutionWitness
-}
-```
 
 ### HeaderData
 
@@ -141,12 +164,7 @@ interface HeaderData {
 }
 ```
 
-## Utilities
-
-### `blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, uncles: any[] = []): Block`
-
-Creates a new block object from Ethereum JSON RPC data.
-
-### `executionPayloadFromBeaconPayload(payload: BeaconPayloadJson): ExecutionPayload`
-
-Converts a beacon block execution payload JSON object to the ExecutionPayload data needed to construct a Block.
+## See Also
+- [What is Tevm Node?](../introduction/what-is-tevm-node)
+- [Creating a Node](../core/create-tevm-node)
+- [Common](./common)

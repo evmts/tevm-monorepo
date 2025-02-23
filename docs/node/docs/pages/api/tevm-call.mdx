@@ -1,23 +1,22 @@
 ---
-title: tevmCall API
-description: Detailed documentation of the tevmCall action
----
+title: Call API
+description: Detailed documentation of the Call action handler
 
 import { Callout } from 'vocs/components'
 
-# tevmCall API
+# Call API
 
-The `tevmCall` action is one of the most important APIs in Tevm, covering 90% of use cases along with `tevmMine`. It provides a powerful interface for executing EVM calls with extensive configuration options.
+The `callHandler` action is one of the most important APIs in Tevm, covering 90% of use cases along with `mineHandler`. It provides a powerful interface for executing EVM calls with extensive configuration options.
 
 ## Basic Usage
 
 ```ts
-import { tevmCall } from 'tevm/actions'
+import { callHandler } from 'tevm/actions'
 import { createTevmNode } from 'tevm'
 
 const node = createTevmNode()
 
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   to: '0x...',
   data: '0x...',
   value: 0n
@@ -92,7 +91,7 @@ type CallResult = {
 ### 1. Simple Contract Call
 
 ```ts
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   to: contractAddress,
   data: encodeFunctionData({
     abi: myABI,
@@ -111,7 +110,7 @@ const value = decodeFunctionResult({
 ### 2. Contract Deployment
 
 ```ts
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   data: encodeDeploy({
     abi: myABI,
     bytecode: contractBytecode,
@@ -126,7 +125,7 @@ console.log('Contract deployed at:', result.createdAddress)
 ### 3. State Override
 
 ```ts
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   to: contractAddress,
   data: callData,
   stateOverrideSet: {
@@ -145,7 +144,7 @@ const result = await tevmCall(node, {
 ### 4. Debug Trace
 
 ```ts
-const result = await tevmCall(node, {
+const result = await callHandler(node)({
   to: contractAddress,
   data: callData,
   createTrace: true
@@ -159,14 +158,14 @@ result.trace?.structLogs.forEach(log => {
 
 ## Higher Level APIs
 
-While `tevmCall` is powerful, Tevm provides higher-level convenience methods:
+While `callHandler` is powerful, Tevm provides higher-level convenience methods:
 
-### tevmContract
+### Contract Handler
 
 ```ts
-import { tevmContract } from 'tevm/actions'
+import { contractHandler } from 'tevm/actions'
 
-const result = await tevmContract(node, {
+const result = await contractHandler(node)({
   abi: myABI,
   address: contractAddress,
   functionName: 'getValue',
@@ -174,12 +173,12 @@ const result = await tevmContract(node, {
 })
 ```
 
-### tevmDeploy
+### Deploy Handler
 
 ```ts
-import { tevmDeploy } from 'tevm/actions'
+import { deployHandler } from 'tevm/actions'
 
-const result = await tevmDeploy(node, {
+const result = await deployHandler(node)({
   abi: myABI,
   bytecode: contractBytecode,
   args: [arg1, arg2]

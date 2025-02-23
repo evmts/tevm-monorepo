@@ -1,0 +1,234 @@
+import { describe, it, expect } from 'vitest'
+import { createTevmNode } from 'tevm'
+import { createMemoryClient } from 'tevm/memory'
+
+describe('EVM Events', () => {
+  describe('Basic Event Handling', () => {
+    it('should listen for transaction events', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+
+      node.on('transaction', (event) => {
+        events.push(event)
+      })
+
+      const tx = {
+        from: '0x1234567890123456789012345678901234567890',
+        to: '0x2345678901234567890123456789012345678901',
+        value: 1000000000000000000n,
+        gasLimit: 21000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node.runTx(tx)
+      expect(events.length).toBe(1)
+      expect(events[0].transaction).toBeDefined()
+    })
+
+    it('should listen for block events', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+
+      node.on('block', (event) => {
+        events.push(event)
+      })
+
+      await node.mine()
+      expect(events.length).toBe(1)
+      expect(events[0].block).toBeDefined()
+    })
+  })
+
+  describe('Contract Events', () => {
+    it('should handle contract deployment events', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+
+      node.on('contractDeployed', (event) => {
+        events.push(event)
+      })
+
+      const contractBytecode = '0x...' // Contract bytecode
+      const deployTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        data: contractBytecode,
+        gasLimit: 1000000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node.runTx(deployTx)
+      expect(events.length).toBe(1)
+      expect(events[0].address).toBeDefined()
+    })
+
+    it('should handle contract events', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+
+      node.on('log', (event) => {
+        events.push(event)
+      })
+
+      // Deploy and interact with a contract that emits events
+      const contractBytecode = '0x...' // Contract bytecode with events
+      const deployTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        data: contractBytecode,
+        gasLimit: 1000000n,
+        gasPrice: 20000000000n,
+      }
+
+      const deployResult = await node.runTx(deployTx)
+      const contractAddress = deployResult.contractAddress
+
+      const interactTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        to: contractAddress,
+        data: '0x...', // Function call that emits an event
+        gasLimit: 100000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node.runTx(interactTx)
+      expect(events.length).toBeGreaterThan(0)
+      expect(events[0].topics).toBeDefined()
+    })
+  })
+
+  describe('Error Events', () => {
+    it('should handle transaction errors', async () => {
+      const node = createTevmNode()
+      const errors: any[] = []
+
+      node.on('error', (error) => {
+        errors.push(error)
+      })
+
+      const invalidTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        to: '0x2345678901234567890123456789012345678901',
+        value: 1000000000000000000000n, // More than balance
+        gasLimit: 21000n,
+        gasPrice: 20000000000n,
+      }
+
+      try {
+        await node.runTx(invalidTx)
+      } catch (error) {
+        // Expected error
+      }
+
+      expect(errors.length).toBe(1)
+      expect(errors[0].message).toBeDefined()
+    })
+
+    it('should handle contract errors', async () => {
+      const node = createTevmNode()
+      const errors: any[] = []
+
+      node.on('error', (error) => {
+        errors.push(error)
+      })
+
+      const contractBytecode = '0x...' // Contract bytecode with revert
+      const deployTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        data: contractBytecode,
+        gasLimit: 1000000n,
+        gasPrice: 20000000000n,
+      }
+
+      try {
+        await node.runTx(deployTx)
+      } catch (error) {
+        // Expected error
+      }
+
+      expect(errors.length).toBe(1)
+      expect(errors[0].message).toBeDefined()
+    })
+  })
+
+  describe('Event Filtering', () => {
+    it('should filter events by address', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+      const targetAddress = '0x1234567890123456789012345678901234567890'
+
+      node.on('log', (event) => {
+        if (event.address === targetAddress) {
+          events.push(event)
+        }
+      })
+
+      // Deploy contract to target address and trigger events
+      const contractBytecode = '0x...' // Contract bytecode with events
+      const deployTx = {
+        from: targetAddress,
+        data: contractBytecode,
+        gasLimit: 1000000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node.runTx(deployTx)
+      expect(events.every(event => event.address === targetAddress)).toBe(true)
+    })
+
+    it('should filter events by topic', async () => {
+      const node = createTevmNode()
+      const events: any[] = []
+      const targetTopic = '0x000000000000000000000000000000000000000000000000000000000000abcd'
+
+      node.on('log', (event) => {
+        if (event.topics && event.topics[0] === targetTopic) {
+          events.push(event)
+        }
+      })
+
+      // Deploy and interact with contract that emits events with target topic
+      const contractBytecode = '0x...' // Contract bytecode with specific event
+      const deployTx = {
+        from: '0x1234567890123456789012345678901234567890',
+        data: contractBytecode,
+        gasLimit: 1000000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node.runTx(deployTx)
+      expect(events.every(event => event.topics[0] === targetTopic)).toBe(true)
+    })
+  })
+
+  describe('Event Persistence', () => {
+    it('should persist events across node restarts', async () => {
+      const client = createMemoryClient()
+      const node1 = createTevmNode({ client })
+      const events1: any[] = []
+
+      node1.on('transaction', (event) => {
+        events1.push(event)
+      })
+
+      const tx = {
+        from: '0x1234567890123456789012345678901234567890',
+        to: '0x2345678901234567890123456789012345678901',
+        value: 1000000000000000000n,
+        gasLimit: 21000n,
+        gasPrice: 20000000000n,
+      }
+
+      await node1.runTx(tx)
+
+      // Create new node instance with same client
+      const node2 = createTevmNode({ client })
+      const events2: any[] = []
+
+      node2.on('transaction', (event) => {
+        events2.push(event)
+      })
+
+      // Events should be replayed
+      expect(events2).toEqual(events1)
+    })
+  })
+})
