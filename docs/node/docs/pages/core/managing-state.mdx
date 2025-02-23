@@ -40,7 +40,7 @@ if (account) {
 ### Modifying Accounts
 
 ```ts
-import { EthjsAccount } from '@tevm/utils'
+import { EthjsAccount } from 'tevm/node'
 
 // Create or update an account
 await stateManager.putAccount(
@@ -176,8 +176,8 @@ Tevm provides dedicated handlers for persisting and restoring state, which can b
 ### Using dumpState
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { dumpStateHandler } from '@tevm/actions'
+import { createTevmNode } from 'tevm/node'
+import { dumpStateHandler } from 'tevm/node'
 
 const node = createTevmNode()
 
@@ -200,8 +200,8 @@ writeFileSync('tevm-state.json', JSON.stringify(dumpedState, null, 2))
 ### Using loadState
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { loadStateHandler } from '@tevm/actions'
+import { createTevmNode } from 'tevm/node'
+import { loadStateHandler } from 'tevm/node'
 
 const node = createTevmNode()
 
@@ -263,10 +263,10 @@ if (loadErrors) {
 ### Testing Example
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
+import { createTevmNode } from 'tevm/node'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from 'tevm'
 import { expect, test } from 'vitest'
-import { dumpStateHandler, loadStateHandler } from '@tevm/actions'
+import { dumpStateHandler, loadStateHandler } from 'tevm/node'
 
 test('State persistence', async () => {
   // Setup initial state

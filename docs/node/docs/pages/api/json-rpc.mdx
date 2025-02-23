@@ -12,8 +12,8 @@ Tevm Node provides comprehensive [JSON-RPC](https://ethereum.org/en/developers/d
 The node can be extended to expose an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible request interface:
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { requestEip1193 } from '@tevm/node/decorators'
+import { createTevmNode } from 'tevm/node'
+import { requestEip1193 } from 'tevm/decorators'
 
 const node = createTevmNode().extend(requestEip1193())
 
@@ -79,9 +79,9 @@ Tevm also supports additional methods commonly found in development environments
 For more information, see the [Viem Documentation](https://viem.sh/docs/clients/custom.html).
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 import { createPublicClient, custom } from 'viem'
-import { requestEip1193 } from '@tevm/node/decorators'
+import { requestEip1193 } from 'tevm/decorators'
 
 const node = createTevmNode().extend(requestEip1193())
 
@@ -96,9 +96,9 @@ const client = createPublicClient({
 For more information, see the [Ethers Documentation](https://docs.ethers.org/v6/api/providers/#Provider).
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 import { BrowserProvider } from 'ethers'
-import { requestEip1193 } from '@tevm/node/decorators'
+import { requestEip1193 } from 'tevm/decorators'
 
 const node = createTevmNode().extend(requestEip1193())
 const provider = new BrowserProvider(node)
@@ -162,7 +162,7 @@ Tevm provides a set of high-level actions that can be imported from `tevm/action
 
 ```ts
 import { tevmCall, tevmMine, tevmGetAccount, tevmSetAccount } from 'tevm/actions'
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 
 const node = createTevmNode()
 
@@ -202,7 +202,7 @@ Note: By default, tevm actions require manual mining via `tevmMine()`. If you wa
 For more information on transaction receipts and logs, see the [Ethereum Receipts Documentation](https://ethereum.org/en/developers/docs/transactions/transaction-receipts/).
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 import { tevmCall, tevmMine } from 'tevm/actions'
 
 const node = createTevmNode()

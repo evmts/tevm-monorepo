@@ -4,6 +4,7 @@ description: Detailed look at the main node interface and its capabilities
 ---
 
 import { Callout } from 'vocs/components'
+import type { TevmNode } from 'tevm/node'
 
 # TevmNode Interface
 
@@ -219,7 +220,7 @@ const nodeCopy = await node.deepCopy()
    ```ts
    // Use deepCopy for isolated test cases
    const baseNode = createTevmNode()
-   
+
    test('scenario 1', async () => {
      const node = await baseNode.deepCopy()
      // Test with isolated state
@@ -231,7 +232,7 @@ const nodeCopy = await node.deepCopy()
 The interface is fully typed with TypeScript:
 
 ```ts
-import type { TevmNode } from '@tevm/node'
+import type { TevmNode } from 'tevm/node'
 
 function useNode<TMode extends 'fork' | 'normal'>(
   node: TevmNode<TMode>
@@ -247,4 +248,4 @@ function useNode<TMode extends 'fork' | 'normal'>(
 
 - Learn about [Forking](./forking)
 - Explore [State Management](./managing-state)
-- See [JSON-RPC Support](../api/json-rpc) 
+- See [JSON-RPC Support](../api/json-rpc)

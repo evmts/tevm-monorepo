@@ -14,7 +14,7 @@ import { Callout, Steps, Step } from 'vocs/components'
 First, install the required packages:
 
 ```bash
-npm install @tevm/node
+npm install tevm
 ```
 </Step>
 
@@ -23,7 +23,7 @@ Create a basic node instance:
 
 ### TypeScript
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 
 const node = createTevmNode()
 await node.ready()
@@ -31,7 +31,7 @@ await node.ready()
 
 ### JavaScript
 ```js
-const { createTevmNode } = require('@tevm/node')
+const { createTevmNode } = require('tevm/node')
 
 const node = createTevmNode()
 await node.ready()
@@ -60,8 +60,7 @@ const node = createTevmNode({
 The `fork` option allows you to create a node that forks from an existing network:
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { http } from 'viem'
+import { createTevmNode, http } from 'tevm/node'
 
 const node = createTevmNode({
   fork: {
@@ -102,7 +101,7 @@ const node2 = createTevmNode({
 Customize the chain parameters:
 
 ```ts
-import { Common } from '@tevm/common'
+import { Common } from 'tevm/node'
 
 const node = createTevmNode({
   common: Common.custom({
@@ -131,7 +130,7 @@ node.logger.debug('Detailed debugging information')
 Add your own precompiled contracts:
 
 ```ts
-import { definePrecompile } from '@tevm/node'
+import { definePrecompile } from 'tevm/node'
 
 const myPrecompile = definePrecompile({
   address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',

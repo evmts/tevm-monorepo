@@ -4,6 +4,9 @@ description: Complete reference for Tevm Node's API methods and capabilities
 ---
 
 import { Callout } from 'vocs/components'
+import { createTevmNode, http } from 'tevm/node'
+import { requestEip1193 } from 'tevm/decorators'
+import { ethActions } from 'tevm/decorators'
 
 # Tevm Node Methods
 
@@ -14,7 +17,7 @@ Tevm Node provides a comprehensive API for interacting with the Ethereum Virtual
 ### Initialization
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode, http } from 'tevm/node'
 
 const node = createTevmNode({
   fork: {
@@ -173,7 +176,7 @@ Tevm Node implements standard Ethereum JSON-RPC methods through its EIP-1193 int
 ### Using EIP-1193
 
 ```ts
-import { requestEip1193 } from '@tevm/decorators'
+import { requestEip1193 } from 'tevm/decorators'
 
 const node = createTevmNode().extend(requestEip1193())
 
@@ -182,17 +185,12 @@ const blockNumber = await node.request({
   method: 'eth_blockNumber',
   params: []
 })
-
-const balance = await node.request({
-  method: 'eth_getBalance',
-  params: ['0x1234...', 'latest']
-})
 ```
 
 ### Using Actions
 
 ```ts
-import { ethActions } from '@tevm/decorators'
+import { ethActions } from 'tevm/decorators'
 
 const node = createTevmNode().extend(ethActions())
 
@@ -204,70 +202,4 @@ const balance = await node.eth.getBalance('0x1234...')
 ### Supported Methods
 
 - **State Access**
-  - `eth_getBalance`
-  - `eth_getCode`
-  - `eth_getStorageAt`
-  - `eth_getTransactionCount`
-
-- **Transactions**
-  - `eth_sendTransaction`
-  - `eth_sendRawTransaction`
-  - `eth_call`
-  - `eth_estimateGas`
-
-- **Blocks & Filters**
-  - `eth_blockNumber`
-  - `eth_getBlockByNumber`
-  - `eth_getBlockByHash`
-  - `eth_newFilter`
-  - `eth_getFilterChanges`
-  - `eth_getLogs`
-
-- **Chain Info**
-  - `eth_chainId`
-  - `eth_gasPrice`
-  - `eth_protocolVersion`
-
-## Best Practices
-
-1. **Always await ready()**
-   ```ts
-   const node = createTevmNode()
-   await node.ready() // Ensure node is initialized
-   ```
-
-2. **Handle Errors**
-   ```ts
-   try {
-     const result = await node.request({
-       method: 'eth_call',
-       params: [/* ... */]
-     })
-   } catch (error) {
-     console.error('RPC call failed:', error)
-   }
-   ```
-
-3. **Resource Management**
-   ```ts
-   // Clean up filters when done
-   node.getFilters().forEach((_, id) => node.removeFilter(id))
-   ```
-
-4. **Fork Mode Usage**
-   ```ts
-   // Use archive nodes for historical blocks
-   const node = createTevmNode({
-     fork: {
-       transport: http('https://your-archive-node'),
-       blockTag: 15_000_000n,
-     },
-   })
-   ```
-
-## Related Topics
-
-- [VM & Submodules](./vm-and-submodules)
-- [JSON-RPC Support](./json-rpc)
-- [State Management](../core/managing-state)
-- [Forking](../core/forking)
+  - `
