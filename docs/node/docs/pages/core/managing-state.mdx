@@ -4,7 +4,6 @@ description: Overview of how to manage accounts, code, and storage in Tevm Node
 ---
 
 import { Callout } from 'vocs/components'
-import { Tab, Tabs } from 'vocs/components'
 
 # Managing State
 
@@ -134,7 +133,7 @@ try {
   // Make state changes
   await stateManager.putAccount(/* ... */)
   await stateManager.putContractStorage(/* ... */)
-  
+
   // Commit changes if successful
   await stateManager.commit()
 } catch (error) {
@@ -277,7 +276,7 @@ test('State persistence', async () => {
 
   const node = createTevmNode()
   const vm = await node.getVm()
-  
+
   // Set account and storage
   await vm.stateManager.putAccount(account, accountInstance)
   await vm.stateManager.putContractStorage(
@@ -375,4 +374,4 @@ console.log('Cached access:', performance.now() - t1)
 
 - [Transaction Processing](../advanced/txpool)
 - [Receipts and Logs](../advanced/receipts-and-logs)
-- [Forking](./forking) 
+- [Forking](./forking)

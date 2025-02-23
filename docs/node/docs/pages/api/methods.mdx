@@ -4,7 +4,6 @@ description: Complete reference for Tevm Node's API methods and capabilities
 ---
 
 import { Callout } from 'vocs/components'
-import { Tab, Tabs } from 'vocs/components'
 
 # Tevm Node Methods
 
@@ -171,43 +170,42 @@ const forkedNode = createTevmNode({
 
 Tevm Node implements standard Ethereum JSON-RPC methods through its EIP-1193 interface:
 
-<Tabs items={['Using EIP-1193', 'Using Actions']}>
-  <Tab>
-    ```ts
-    import { requestEip1193 } from '@tevm/decorators'
-    
-    const node = createTevmNode().extend(requestEip1193())
-    
-    // Standard JSON-RPC calls
-    const blockNumber = await node.request({
-      method: 'eth_blockNumber',
-      params: []
-    })
-    
-    const balance = await node.request({
-      method: 'eth_getBalance',
-      params: ['0x1234...', 'latest']
-    })
-    ```
-  </Tab>
-  <Tab>
-    ```ts
-    import { ethActions } from '@tevm/decorators'
-    
-    const node = createTevmNode().extend(ethActions())
-    
-    // Using action methods
-    const blockNumber = await node.eth.getBlockNumber()
-    const balance = await node.eth.getBalance('0x1234...')
-    ```
-  </Tab>
-</Tabs>
+### Using EIP-1193
+
+```ts
+import { requestEip1193 } from '@tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Standard JSON-RPC calls
+const blockNumber = await node.request({
+  method: 'eth_blockNumber',
+  params: []
+})
+
+const balance = await node.request({
+  method: 'eth_getBalance',
+  params: ['0x1234...', 'latest']
+})
+```
+
+### Using Actions
+
+```ts
+import { ethActions } from '@tevm/decorators'
+
+const node = createTevmNode().extend(ethActions())
+
+// Using action methods
+const blockNumber = await node.eth.getBlockNumber()
+const balance = await node.eth.getBalance('0x1234...')
+```
 
 ### Supported Methods
 
 - **State Access**
   - `eth_getBalance`
-  - `eth_getCode` 
+  - `eth_getCode`
   - `eth_getStorageAt`
   - `eth_getTransactionCount`
 
@@ -272,4 +270,4 @@ Tevm Node implements standard Ethereum JSON-RPC methods through its EIP-1193 int
 - [VM & Submodules](./vm-and-submodules)
 - [JSON-RPC Support](./json-rpc)
 - [State Management](../core/managing-state)
-- [Forking](../core/forking) 
+- [Forking](../core/forking)
