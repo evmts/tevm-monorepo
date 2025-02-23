@@ -10,8 +10,8 @@ This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless i
 ## Basic Setup
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { requestEip1193 } from '@tevm/node/decorators'
+import { createTevmNode } from 'tevm/node'
+import { requestEip1193 } from 'tevm/decorators'
 import { BrowserProvider } from 'ethers'
 
 // Create Tevm Node with EIP-1193 support
@@ -186,21 +186,21 @@ describe('Token Contract', () => {
     const node = createTevmNode()
     const provider = new BrowserProvider(node)
     const signer = await provider.getSigner()
-    
+
     // Deploy contract
     const factory = new ContractFactory(abi, bytecode, signer)
     const token = await factory.deploy()
     await token.waitForDeployment()
-    
+
     return { token, signer, provider }
   }
-  
+
   it('Should handle basic operations', async () => {
     const { token, signer } = await loadFixture(deployTokenFixture)
-    
+
     // Test initial state
     expect(await token.balanceOf(signer.address)).to.equal(initialSupply)
-    
+
     // Test transfer
     await token.transfer('0x1234...', 100)
     expect(await token.balanceOf('0x1234...')).to.equal(100)
@@ -214,7 +214,7 @@ describe('Token Contract', () => {
    ```ts
    // Reuse contract instances
    const contracts = new Map<string, Contract>()
-   
+
    function getContract(address: string): Contract {
      let contract = contracts.get(address)
      if (!contract) {
@@ -247,7 +247,7 @@ describe('Token Contract', () => {
      recipient,
      amount
    )
-   
+
    const tx = await contract.transfer(
      recipient,
      amount,
@@ -264,14 +264,14 @@ describe('Token Contract', () => {
      const handler = (...args) => {
        // Handle event
      }
-     
+
      contract.on('Transfer', handler)
-     
+
      return () => {
        contract.off('Transfer', handler)
      }
    }
-   
+
    const cleanup = setupEventListeners(contract)
    // Later...
    cleanup()
@@ -280,4 +280,4 @@ describe('Token Contract', () => {
 ## Related Topics
 - [JSON-RPC Support](../api/json-rpc)
 - [Local Testing](./local-testing)
-- [Forking Mainnet](./forking-mainnet) 
+- [Forking Mainnet](./forking-mainnet)

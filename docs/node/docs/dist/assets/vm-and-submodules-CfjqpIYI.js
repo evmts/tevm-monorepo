@@ -1,4 +1,4 @@
-import{u as l,j as s}from"./index-CkeZEgMY.js";const a={title:"VM & Submodules",description:"undefined"};function n(i){const e={a:"a",br:"br",code:"code",div:"div",h1:"h1",h2:"h2",h3:"h3",header:"header",hr:"hr",p:"p",pre:"pre",span:"span",strong:"strong",...l(),...i.components};return s.jsxs(s.Fragment,{children:[s.jsx(e.hr,{}),`
+import{u as l,j as s}from"./index-afFmagsP.js";const a={title:"VM & Submodules",description:"undefined"};function n(i){const e={a:"a",br:"br",code:"code",div:"div",h1:"h1",h2:"h2",h3:"h3",header:"header",hr:"hr",p:"p",pre:"pre",span:"span",strong:"strong",...l(),...i.components};return s.jsxs(s.Fragment,{children:[s.jsx(e.hr,{}),`
 `,s.jsx(e.p,{children:`title: VM & Submodules
 description: Overview of the internal EVM, blockchain, state, receipts, and more`}),`
 `,s.jsx(e.header,{children:s.jsxs(e.h1,{id:"vm--submodules",children:["VM & Submodules",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#vm--submodules",children:s.jsx(e.div,{"data-autolink-icon":!0})})]})}),`

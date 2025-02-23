@@ -11,7 +11,7 @@ Tevm exports a set of lightweight utility functions and classes. Many of these b
 Creates an [Ethereum address](https://ethereum.org/en/developers/docs/accounts/#account-creation) from various input formats:
 
 ```ts
-import { createAddress } from '@tevm/address'
+import { createAddress } from 'tevm/address'
 
 // Creates a TEVM-style Address object from various input forms
 let addr = createAddress(`0x${"00".repeat(20)}`)
@@ -40,7 +40,7 @@ declare function createAddress(
 A thin wrapper around [`EthjsAddress`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util) offering a simple, consistent shape for Tevm Node. Created by `createAddress` or by forging your own:
 
 ```ts
-import { Address } from '@tevm/address'
+import { Address } from 'tevm/address'
 
 const a = new Address(Uint8Array.from([ /* 20 bytes */ ]))
 console.log(a.bytes)  // a raw 20-byte address
@@ -52,7 +52,7 @@ console.log(a.toString()) // 0x....
 Creates a contract address following [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014):
 
 ```ts
-import { createContractAddress } from '@tevm/address'
+import { createContractAddress } from 'tevm/address'
 
 // from an existing address + nonce, produce the CREATE address
 const from = createAddress("0x1111...1111")
@@ -69,21 +69,21 @@ const contractAddr = createContractAddress(from, nonce)
 
 ## Common Errors
 
-- **InvalidAddressError**  
+- **InvalidAddressError**
   Thrown when a string/bytes input fails to parse as a valid 20-byte address.
 
-- **UnreachableCodeError**  
+- **UnreachableCodeError**
   Thrown internally if a code path was unexpectedly reached. Generally wrapped into a more descriptive error.
 
 ## Other Handy Utilities
 
 Some additional lower-level utility re-exports from [`@tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) or [`viem`](https://viem.sh):
 
-- `hexToBytes(hex: string): Uint8Array`  
+- `hexToBytes(hex: string): Uint8Array`
   Convert a hex string to raw bytes (with optional size checks).
-- `keccak256(data: Uint8Array | HexString, 'bytes' | 'hex')`  
+- `keccak256(data: Uint8Array | HexString, 'bytes' | 'hex')`
   A standard [keccak256](https://ethereum.org/en/developers/docs/smart-contracts/security/#keccak256-and-sha-3) hasher.
-- `encodeFunctionData(...)`, `toRlp(...)`, etc.  
+- `encodeFunctionData(...)`, `toRlp(...)`, etc.
   Various encoding helpers used by Tevm Node internally.
 
-> **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience. 
+> **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience.

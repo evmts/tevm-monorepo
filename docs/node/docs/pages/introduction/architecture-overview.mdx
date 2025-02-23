@@ -71,7 +71,7 @@ const account = await tevmGetAccount(node, {
 ### 2. JSON-RPC Interface
 
 ```ts
-import { requestEip1193 } from '@tevm/node/decorators'
+import { requestEip1193 } from 'tevm/decorators'
 
 const node = createTevmNode().extend(requestEip1193())
 
@@ -100,7 +100,7 @@ await vm.stateManager.putAccount(address, account)
 ### 4. Contract Utilities
 
 ```ts
-import { createContract } from '@tevm/contract'
+import { createContract } from 'tevm/contract'
 
 // Type-safe contract interactions
 const contract = createContract({
@@ -226,4 +226,4 @@ const provider = new BrowserProvider(node)
 - [Installation & Quickstart](../introduction/installation)
 - [Core Concepts](../core/create-tevm-node)
 - [API Reference](../api/methods)
-- [Examples](../examples/local-testing) 
+- [Examples](../examples/local-testing)

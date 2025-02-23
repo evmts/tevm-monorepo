@@ -10,8 +10,8 @@ This guide demonstrates how to use Tevm Node for local testing of [smart contrac
 ## Basic Test Setup
 
 ```ts
-import { createTevmNode } from '@tevm/node'
-import { createImpersonatedTx } from '@tevm/tx'
+import { createTevmNode } from 'tevm/node'
+import { createImpersonatedTx } from 'tevm/tx'
 import { expect, test } from 'vitest' // or jest, mocha, etc.
 
 test('Basic ETH transfer', async () => {
@@ -22,19 +22,19 @@ test('Basic ETH transfer', async () => {
   await node.ready()
 
   const vm = await node.getVm()
-  
+
   // Create and run a transaction
   const tx = createImpersonatedTx({
     from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
     to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
     value: 1000000000000000000n, // 1 ETH
   })
-  
+
   const result = await vm.runTx({ tx })
-  
+
   // Assert transaction succeeded
   expect(result.execResult.exceptionError).toBeUndefined()
-  
+
   // Check recipient balance
   const account = await vm.stateManager.getAccount(tx.to)
   expect(account.balance).toBe(1000000000000000000n)
@@ -50,37 +50,37 @@ For more information on transaction execution, see the [EVM Execution Model](htt
 For background on contract deployment and interaction, see the [Contract Deployment Guide](https://ethereum.org/en/developers/docs/smart-contracts/deploying/).
 
 ```ts
-import { Contract } from '@tevm/contract'
+import { Contract } from 'tevm/contract'
 import { bytecode, abi } from './MyContract.json'
 
 test('Deploy and interact with contract', async () => {
   const node = createTevmNode()
   await node.ready()
   const vm = await node.getVm()
-  
+
   // Deploy contract
   const deployTx = createImpersonatedTx({
     data: bytecode,
   })
-  
+
   const result = await vm.runTx({ tx: deployTx })
   expect(result.execResult.exceptionError).toBeUndefined()
-  
+
   const contractAddress = result.createdAddress
   expect(contractAddress).toBeDefined()
-  
+
   // Create contract instance
   const contract = new Contract(contractAddress, abi)
-  
+
   // Call contract method
   const callResult = await contract.read.getValue()
   expect(callResult).toBe(expectedValue)
-  
+
   // Send transaction to contract
   const tx = await contract.write.setValue([newValue])
   const txResult = await vm.runTx({ tx })
   expect(txResult.execResult.exceptionError).toBeUndefined()
-  
+
   // Verify state change
   const updatedValue = await contract.read.getValue()
   expect(updatedValue).toBe(newValue)
@@ -95,10 +95,10 @@ For more information on events and logs, see the [Events and Logs Guide](https:/
 test('Contract events', async () => {
   const node = createTevmNode()
   await node.ready()
-  
+
   // Deploy contract
   const contract = await deployContract(node)
-  
+
   // Create event filter
   node.setFilter({
     id: '0x1',
@@ -107,11 +107,11 @@ test('Contract events', async () => {
       contract.interface.getEventTopic('ValueChanged'),
     ],
   })
-  
+
   // Trigger event
   const tx = await contract.write.setValue([123])
   await vm.runTx({ tx })
-  
+
   // Get event logs
   const receipts = await node.getReceiptsManager()
   const logs = await receipts.getLogs({
@@ -119,7 +119,7 @@ test('Contract events', async () => {
     toBlock: 'latest',
     address: contract.address,
   })
-  
+
   expect(logs.length).toBe(1)
   expect(logs[0].topics[0]).toBe(contract.interface.getEventTopic('ValueChanged'))
 })
@@ -136,21 +136,21 @@ test('Complex state changes', async () => {
   const node = createTevmNode()
   await node.ready()
   const vm = await node.getVm()
-  
+
   // Create checkpoint
   await vm.stateManager.checkpoint()
-  
+
   try {
     // Perform multiple state changes
     await performStateChanges(vm)
-    
+
     // Verify intermediate state
     const intermediateState = await getState(vm)
     expect(intermediateState).toMatchSnapshot()
-    
+
     // More changes
     await performMoreChanges(vm)
-    
+
     // Commit changes
     await vm.stateManager.commit()
   } catch (error) {
@@ -174,14 +174,14 @@ test('Mainnet fork testing', async () => {
     },
   })
   await node.ready()
-  
+
   // Impersonate a whale account
   node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
-  
+
   // Test DeFi interactions
   const uniswap = new Contract(UNISWAP_ADDRESS, UNISWAP_ABI)
   const tx = await uniswap.write.swapExactTokensForTokens([/* ... */])
-  
+
   const result = await vm.runTx({ tx })
   expect(result.execResult.exceptionError).toBeUndefined()
 })
@@ -198,20 +198,20 @@ test('Time-dependent behavior', async () => {
   })
   await node.ready()
   const vm = await node.getVm()
-  
+
   // Deploy time-locked contract
   const contract = await deployTimeLock(vm)
-  
+
   // Try to withdraw (should fail)
   let tx = await contract.write.withdraw()
   let result = await vm.runTx({ tx })
   expect(result.execResult.exceptionError).toBeDefined()
-  
+
   // Advance time by mining blocks
   for (let i = 0; i < 100; i++) {
     await vm.blockchain.putBlock(createBlock({ timestamp: Date.now() + i * 1000 }))
   }
-  
+
   // Try withdraw again (should succeed)
   tx = await contract.write.withdraw()
   result = await vm.runTx({ tx })
@@ -232,14 +232,14 @@ async function setupAccounts(vm) {
     '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
     '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
   ]
-  
+
   for (const address of accounts) {
     await vm.stateManager.putAccount(address, {
       nonce: 0n,
       balance: 10000000000000000000n, // 10 ETH
     })
   }
-  
+
   return accounts
 }
 ```
@@ -256,7 +256,7 @@ async function sendEth(vm, from, to, value) {
     to,
     value,
   })
-  
+
   return vm.runTx({ tx })
 }
 
@@ -265,7 +265,7 @@ async function deployContract(vm, bytecode, args = []) {
   const tx = createImpersonatedTx({
     data: bytecode + encodeConstructor(args),
   })
-  
+
   const result = await vm.runTx({ tx })
   return result.createdAddress
 }
@@ -281,7 +281,7 @@ async function deployContract(vm, bytecode, args = []) {
 ## Replaying Contracts with Shadow Events
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 import { http } from 'viem'
 
 // Create a node that forks from mainnet
@@ -328,7 +328,7 @@ console.log(result.execResult.logs)
 ## Estimating Gas for Token Approval
 
 ```ts
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 import { encodeFunctionData } from 'viem'
 
 const node = createTevmNode()
@@ -360,4 +360,4 @@ const transferFromTx = {
 
 const transferResult = await vm.runTx({ tx: transferFromTx })
 console.log('TransferFrom gas:', transferResult.execResult.executionGasUsed)
-``` 
+```

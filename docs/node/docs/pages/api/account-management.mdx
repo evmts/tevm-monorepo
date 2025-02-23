@@ -55,7 +55,7 @@ type GetAccountResult = {
 
 ```ts
 import { tevmGetAccount } from 'tevm/actions'
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode } from 'tevm/node'
 
 const node = createTevmNode()
 
@@ -171,7 +171,7 @@ await tevmSetAccount(node, {
      balance: newBalance,
      throwOnFail: false
    })
-   
+
    if (result.errors) {
      console.error('Failed to set account:', result.errors)
    }
@@ -180,4 +180,4 @@ await tevmSetAccount(node, {
 ## Related Topics
 - [State Management](../core/managing-state)
 - [tevmCall API](./tevm-call)
-- [JSON-RPC Support](./json-rpc) 
+- [JSON-RPC Support](./json-rpc)

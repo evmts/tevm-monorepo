@@ -4,7 +4,6 @@ description: How to fork from live networks and other Tevm instances
 ---
 
 import { Callout } from 'vocs/components'
-import { createTevmNode, http } from 'tevm/node'
 
 # Forking Networks
 
@@ -23,7 +22,7 @@ import { createTevmNode, http } from 'tevm/node'
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY'),
     blockTag: 'latest',
   },
 })
@@ -37,7 +36,7 @@ const { createTevmNode, http } = require('tevm/node')
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    transport: http('https://rpc.ankr.com/eth/YOUR-API-KEY'),
     blockTag: 'latest',
   },
 })
@@ -136,7 +135,7 @@ Fork from a specific historical block:
 ```ts
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    transport: http('https://endpoints.omniatech.io/v1/eth/mainnet/YOUR-API-KEY'),
     blockTag: 17_000_000n, // Fork from block 17,000,000
   },
 })
@@ -304,7 +303,7 @@ await vm.stateManager.putContractStorage(
    // ✅ Use archive nodes for historical blocks
    const node = createTevmNode({
      fork: {
-       transport: http('https://your-archive-node'),
+       transport: http('https://ethereum.quicknode.com/YOUR-API-KEY'),
        blockTag: 15_000_000n,
      },
    })

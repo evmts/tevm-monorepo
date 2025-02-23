@@ -11,7 +11,7 @@ The [`@tevm/contract`](https://github.com/evmts/tevm-monorepo/tree/main/packages
 Creates a strongly-typed contract instance with read and write actions:
 
 ```ts
-import { createContract } from '@tevm/contract'
+import { createContract } from 'tevm/contract'
 
 const contract = createContract({
   // Use as const for type safety
@@ -47,7 +47,7 @@ const balanceAction = token.read.balanceOf('0x...')
 The package includes pre-built contracts for common standards:
 
 ```ts
-import { ERC20, ERC721 } from '@tevm/contract'
+import { ERC20, ERC721 } from 'tevm/contract'
 
 // ERC20 token with all standard methods
 const token = ERC20.withAddress('0x...')
@@ -74,7 +74,7 @@ For more information on token standards, see:
 Create self-deploying contract scripts that work with any client:
 
 ```ts
-import { ERC20 } from '@tevm/contract'
+import { ERC20 } from 'tevm/contract'
 
 // Create a script that deploys and initializes a token
 const script = ERC20.script({
@@ -92,12 +92,12 @@ const symbol = await client.contract(script.read.symbol())
 The package exports useful types for contract development:
 
 ```ts
-import type { 
+import type {
   Contract,
   ContractAbi,
   ContractFunctionName,
   ContractEventName,
-} from '@tevm/contract'
+} from 'tevm/contract'
 
 // Use with your own contracts
 type MyContract = Contract<typeof myAbi>
@@ -175,4 +175,4 @@ client.watchEvent(filter, (event) => {
 - [State Management](../core/managing-state)
 - [Solidity Documentation](https://docs.soliditylang.org/)
 - [Ethereum Smart Contracts](https://ethereum.org/en/developers/docs/smart-contracts/)
-- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/) 
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/)
