@@ -134,6 +134,48 @@ Re-exports [BlockTag](../index/type-aliases/BlockTag.md)
 
 ***
 
+### boolToBytes
+
+Re-exports [boolToBytes](../index/functions/boolToBytes.md)
+
+***
+
+### boolToHex
+
+Re-exports [boolToHex](../index/functions/boolToHex.md)
+
+***
+
+### bytesToBigint
+
+Re-exports [bytesToBigint](../index/functions/bytesToBigint.md)
+
+***
+
+### bytesToBigInt
+
+Renames and re-exports [bytesToBigint](../index/functions/bytesToBigint.md)
+
+***
+
+### bytesToBool
+
+Re-exports [bytesToBool](../index/functions/bytesToBool.md)
+
+***
+
+### bytesToHex
+
+Re-exports [bytesToHex](../index/functions/bytesToHex.md)
+
+***
+
+### bytesToNumber
+
+Re-exports [bytesToNumber](../index/functions/bytesToNumber.md)
+
+***
+
 ### ContractFunctionName
 
 Re-exports [ContractFunctionName](../index/type-aliases/ContractFunctionName.md)
@@ -146,9 +188,45 @@ Re-exports [CreateEventFilterParameters](../index/type-aliases/CreateEventFilter
 
 ***
 
+### createMemoryDb
+
+Re-exports [createMemoryDb](../index/functions/createMemoryDb.md)
+
+***
+
 ### CreateMemoryDbFn
 
 Re-exports [CreateMemoryDbFn](../index/type-aliases/CreateMemoryDbFn.md)
+
+***
+
+### decodeAbiParameters
+
+Re-exports [decodeAbiParameters](../index/functions/decodeAbiParameters.md)
+
+***
+
+### decodeErrorResult
+
+Re-exports [decodeErrorResult](../index/functions/decodeErrorResult.md)
+
+***
+
+### decodeEventLog
+
+Re-exports [decodeEventLog](../index/functions/decodeEventLog.md)
+
+***
+
+### decodeFunctionData
+
+Re-exports [decodeFunctionData](../index/functions/decodeFunctionData.md)
+
+***
+
+### decodeFunctionResult
+
+Re-exports [decodeFunctionResult](../index/functions/decodeFunctionResult.md)
 
 ***
 
@@ -158,9 +236,51 @@ Re-exports [DecodeFunctionResultReturnType](../index/type-aliases/DecodeFunction
 
 ***
 
+### encodeAbiParameters
+
+Re-exports [encodeAbiParameters](../index/functions/encodeAbiParameters.md)
+
+***
+
+### encodeDeployData
+
+Re-exports [encodeDeployData](../index/functions/encodeDeployData.md)
+
+***
+
+### encodeErrorResult
+
+Re-exports [encodeErrorResult](../index/functions/encodeErrorResult.md)
+
+***
+
+### encodeEventTopics
+
+Re-exports [encodeEventTopics](../index/functions/encodeEventTopics.md)
+
+***
+
+### encodeFunctionData
+
+Re-exports [encodeFunctionData](../index/functions/encodeFunctionData.md)
+
+***
+
 ### EncodeFunctionDataParameters
 
 Re-exports [EncodeFunctionDataParameters](../index/type-aliases/EncodeFunctionDataParameters.md)
+
+***
+
+### encodeFunctionResult
+
+Re-exports [encodeFunctionResult](../index/functions/encodeFunctionResult.md)
+
+***
+
+### encodePacked
+
+Re-exports [encodePacked](../index/functions/encodePacked.md)
 
 ***
 
@@ -200,189 +320,15 @@ Renames and re-exports [EthjsFilter](../index/type-aliases/EthjsFilter.md)
 
 ***
 
-### FormatAbi
-
-Re-exports [FormatAbi](../index/type-aliases/FormatAbi.md)
-
-***
-
-### GetEventArgs
-
-Re-exports [GetEventArgs](../index/type-aliases/GetEventArgs.md)
-
-***
-
-### HDAccount
-
-Re-exports [HDAccount](../index/type-aliases/HDAccount.md)
-
-***
-
-### Hex
-
-Re-exports [Hex](../index/type-aliases/Hex.md)
-
-***
-
-### MemoryDb
-
-Re-exports [MemoryDb](../index/type-aliases/MemoryDb.md)
-
-***
-
-### PREFUNDED\_ACCOUNTS
-
-Re-exports [PREFUNDED_ACCOUNTS](../index/variables/PREFUNDED_ACCOUNTS.md)
-
-***
-
-### PREFUNDED\_PRIVATE\_KEYS
-
-Re-exports [PREFUNDED_PRIVATE_KEYS](../index/variables/PREFUNDED_PRIVATE_KEYS.md)
-
-***
-
-### PREFUNDED\_PUBLIC\_KEYS
-
-Re-exports [PREFUNDED_PUBLIC_KEYS](../index/variables/PREFUNDED_PUBLIC_KEYS.md)
-
-***
-
-### PREFUNDED\_SEED
-
-Re-exports [PREFUNDED_SEED](../index/variables/PREFUNDED_SEED.md)
-
-***
-
-### ParseAbi
-
-Re-exports [ParseAbi](../index/type-aliases/ParseAbi.md)
-
-***
-
-### boolToBytes
-
-Re-exports [boolToBytes](../index/functions/boolToBytes.md)
-
-***
-
-### boolToHex
-
-Re-exports [boolToHex](../index/functions/boolToHex.md)
-
-***
-
-### bytesToBigInt
-
-Renames and re-exports [bytesToBigint](../index/functions/bytesToBigint.md)
-
-***
-
-### bytesToBigint
-
-Re-exports [bytesToBigint](../index/functions/bytesToBigint.md)
-
-***
-
-### bytesToBool
-
-Re-exports [bytesToBool](../index/functions/bytesToBool.md)
-
-***
-
-### bytesToHex
-
-Re-exports [bytesToHex](../index/functions/bytesToHex.md)
-
-***
-
-### bytesToNumber
-
-Re-exports [bytesToNumber](../index/functions/bytesToNumber.md)
-
-***
-
-### createMemoryDb
-
-Re-exports [createMemoryDb](../index/functions/createMemoryDb.md)
-
-***
-
-### decodeAbiParameters
-
-Re-exports [decodeAbiParameters](../index/functions/decodeAbiParameters.md)
-
-***
-
-### decodeErrorResult
-
-Re-exports [decodeErrorResult](../index/functions/decodeErrorResult.md)
-
-***
-
-### decodeEventLog
-
-Re-exports [decodeEventLog](../index/functions/decodeEventLog.md)
-
-***
-
-### decodeFunctionData
-
-Re-exports [decodeFunctionData](../index/functions/decodeFunctionData.md)
-
-***
-
-### decodeFunctionResult
-
-Re-exports [decodeFunctionResult](../index/functions/decodeFunctionResult.md)
-
-***
-
-### encodeAbiParameters
-
-Re-exports [encodeAbiParameters](../index/functions/encodeAbiParameters.md)
-
-***
-
-### encodeDeployData
-
-Re-exports [encodeDeployData](../index/functions/encodeDeployData.md)
-
-***
-
-### encodeErrorResult
-
-Re-exports [encodeErrorResult](../index/functions/encodeErrorResult.md)
-
-***
-
-### encodeEventTopics
-
-Re-exports [encodeEventTopics](../index/functions/encodeEventTopics.md)
-
-***
-
-### encodeFunctionData
-
-Re-exports [encodeFunctionData](../index/functions/encodeFunctionData.md)
-
-***
-
-### encodeFunctionResult
-
-Re-exports [encodeFunctionResult](../index/functions/encodeFunctionResult.md)
-
-***
-
-### encodePacked
-
-Re-exports [encodePacked](../index/functions/encodePacked.md)
-
-***
-
 ### formatAbi
 
 Re-exports [formatAbi](../index/functions/formatAbi.md)
+
+***
+
+### FormatAbi
+
+Re-exports [FormatAbi](../index/type-aliases/FormatAbi.md)
 
 ***
 
@@ -425,6 +371,24 @@ Re-exports [fromRlp](../index/functions/fromRlp.md)
 ### getAddress
 
 Re-exports [getAddress](../index/functions/getAddress.md)
+
+***
+
+### GetEventArgs
+
+Re-exports [GetEventArgs](../index/type-aliases/GetEventArgs.md)
+
+***
+
+### HDAccount
+
+Re-exports [HDAccount](../index/type-aliases/HDAccount.md)
+
+***
+
+### Hex
+
+Re-exports [Hex](../index/type-aliases/Hex.md)
 
 ***
 
@@ -482,6 +446,12 @@ Re-exports [keccak256](../index/functions/keccak256.md)
 
 ***
 
+### MemoryDb
+
+Re-exports [MemoryDb](../index/type-aliases/MemoryDb.md)
+
+***
+
 ### mnemonicToAccount
 
 Re-exports [mnemonicToAccount](../index/functions/mnemonicToAccount.md)
@@ -500,6 +470,12 @@ Re-exports [parseAbi](../index/functions/parseAbi.md)
 
 ***
 
+### ParseAbi
+
+Re-exports [ParseAbi](../index/type-aliases/ParseAbi.md)
+
+***
+
 ### parseEther
 
 Re-exports [parseEther](../index/functions/parseEther.md)
@@ -509,6 +485,30 @@ Re-exports [parseEther](../index/functions/parseEther.md)
 ### parseGwei
 
 Re-exports [parseGwei](../index/functions/parseGwei.md)
+
+***
+
+### PREFUNDED\_ACCOUNTS
+
+Re-exports [PREFUNDED_ACCOUNTS](../index/variables/PREFUNDED_ACCOUNTS.md)
+
+***
+
+### PREFUNDED\_PRIVATE\_KEYS
+
+Re-exports [PREFUNDED_PRIVATE_KEYS](../index/variables/PREFUNDED_PRIVATE_KEYS.md)
+
+***
+
+### PREFUNDED\_PUBLIC\_KEYS
+
+Re-exports [PREFUNDED_PUBLIC_KEYS](../index/variables/PREFUNDED_PUBLIC_KEYS.md)
+
+***
+
+### PREFUNDED\_SEED
+
+Re-exports [PREFUNDED_SEED](../index/variables/PREFUNDED_SEED.md)
 
 ***
 

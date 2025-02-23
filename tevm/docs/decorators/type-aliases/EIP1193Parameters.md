@@ -14,4 +14,4 @@
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:235
+packages/decorators/dist/index.d.ts:247

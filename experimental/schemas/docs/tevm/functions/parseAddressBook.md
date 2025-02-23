@@ -8,6 +8,8 @@
 
 > **parseAddressBook**\<`TAddressBook`\>(`addressBook`): `TAddressBook`
 
+Parses an address book and returns the value if no errors.
+
 ## Type Parameters
 
 • **TAddressBook** *extends* [`types`](../../types/README.md)
@@ -19,6 +21,18 @@
 ## Returns
 
 `TAddressBook`
+
+## Example
+
+```typescript
+import {parseAddressBook} from '@tevm/schemas'
+const parsedAddressBook = parseAddressBook({
+  MyContract: {
+    blockCreated: 0,
+    address: '0x1234567890abcdef1234567890abcdef12345678'
+  }
+})
+```
 
 ## Defined in
 

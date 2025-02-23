@@ -8,6 +8,8 @@
 
 > **parseUINT16Safe**\<`TUINT16`\>(`uint16`): `Effect`\<`never`, [`InvalidUINTError`](../classes/InvalidUINTError.md), `TUINT16`\>
 
+Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
 ## Type Parameters
 
 • **TUINT16** *extends* `bigint`

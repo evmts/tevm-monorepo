@@ -18,7 +18,7 @@ Address of created account during transaction, if any
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:273
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:273
 
 ***
 
@@ -30,4 +30,4 @@ Contains the results from running the code, if any, as described in runCode
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:277
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:277

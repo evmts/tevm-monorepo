@@ -31,55 +31,53 @@ import { txLogsBloom } from './txLogsBloom.js'
 import { validateRunTx } from './validateRunTx.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
-export type RunTx = (vm: BaseVm) =>
-	(opts: RunTxOpts) => Promise<RunTxResult>
+export type RunTx = (opts: RunTxOpts) => Promise<RunTxResult>
 
 /**
  * @ignore
  */
-export const runTx: RunTx =
-	(vm: BaseVm) =>
-		async (opts: RunTxOpts): Promise<RunTxResult> => {
-			await vm.ready()
+export const runTx = (vm: BaseVm): RunTx =>
+	async (opts: RunTxOpts): Promise<RunTxResult> => {
+		await vm.ready()
 
-			const validatedOpts = await validateRunTx(vm)(opts)
+		const validatedOpts = await validateRunTx(vm)(opts)
 
-			// Ensure we start with a clear warmed accounts Map
-			await vm.evm.journal.cleanup()
+		// Ensure we start with a clear warmed accounts Map
+		await vm.evm.journal.cleanup()
 
-			if (validatedOpts.reportAccessList === true) {
-				vm.evm.journal.startReportingAccessList()
-			}
+		if (validatedOpts.reportAccessList === true) {
+			vm.evm.journal.startReportingAccessList()
+		}
 
-			if (validatedOpts.reportPreimages === true) {
-				vm.evm.journal.startReportingPreimages?.()
-			}
+		if (validatedOpts.reportPreimages === true) {
+			vm.evm.journal.startReportingPreimages?.()
+		}
 
-			await vm.evm.journal.checkpoint()
-			// Typed transaction specific setup tasks
-			if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
-				const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
-				for (const accessListItem of castedTx.AccessListJSON ?? []) {
-					vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
-					for (const storageKey of accessListItem.storageKeys) {
-						vm.evm.journal.addAlwaysWarmSlot(accessListItem.address, storageKey, true)
-					}
-				}
-			}
-
-			try {
-				const result = await _runTx(vm)(validatedOpts)
-				await vm.evm.journal.commit()
-				return result
-			} catch (e: any) {
-				await vm.evm.journal.revert()
-				throw e
-			} finally {
-				if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
-					vm.evm.journal.cleanJournal()
+		await vm.evm.journal.checkpoint()
+		// Typed transaction specific setup tasks
+		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
+			const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
+			for (const accessListItem of castedTx.AccessListJSON ?? []) {
+				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
+				for (const storageKey of accessListItem.storageKeys) {
+					vm.evm.journal.addAlwaysWarmSlot(accessListItem.address, storageKey, true)
 				}
 			}
 		}
+
+		try {
+			const result = await _runTx(vm)(validatedOpts)
+			await vm.evm.journal.commit()
+			return result
+		} catch (e: any) {
+			await vm.evm.journal.revert()
+			throw e
+		} finally {
+			if (vm.common.ethjsCommon.isActivatedEIP(2929)) {
+				vm.evm.journal.cleanJournal()
+			}
+		}
+	}
 
 const _runTx =
 	(vm: BaseVm) =>

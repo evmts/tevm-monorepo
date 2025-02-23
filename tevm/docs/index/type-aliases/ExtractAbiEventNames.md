@@ -18,4 +18,4 @@ Extracts all [AbiEvent](AbiEvent.md) names from [Abi](Abi.md).
 
 ## Defined in
 
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.5.4\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:141
+node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:141

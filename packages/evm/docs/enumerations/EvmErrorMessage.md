@@ -14,7 +14,7 @@
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:25
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:25
 
 ***
 
@@ -24,7 +24,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:29
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:29
 
 ***
 
@@ -34,7 +34,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:28
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:28
 
 ***
 
@@ -44,7 +44,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:26
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:26
 
 ***
 
@@ -54,7 +54,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:27
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:27
 
 ***
 
@@ -64,7 +64,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:4
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:4
 
 ***
 
@@ -74,7 +74,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:3
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:3
 
 ***
 
@@ -84,7 +84,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:13
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:13
 
 ***
 
@@ -94,7 +94,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:23
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:23
 
 ***
 
@@ -104,7 +104,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:17
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:17
 
 ***
 
@@ -114,7 +114,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:12
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:12
 
 ***
 
@@ -124,7 +124,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:18
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:18
 
 ***
 
@@ -134,7 +134,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:21
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:21
 
 ***
 
@@ -144,7 +144,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:30
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:30
 
 ***
 
@@ -154,17 +154,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:22
-
-***
-
-### INVALID\_INPUTS
-
-> **INVALID\_INPUTS**: `"kzg inputs invalid"`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:31
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:22
 
 ***
 
@@ -174,7 +164,17 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:24
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:24
+
+***
+
+### INVALID\_INPUTS
+
+> **INVALID\_INPUTS**: `"kzg inputs invalid"`
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:31
 
 ***
 
@@ -184,7 +184,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:7
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:7
 
 ***
 
@@ -194,7 +194,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:20
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:20
 
 ***
 
@@ -204,7 +204,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:8
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:8
 
 ***
 
@@ -214,7 +214,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:32
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:32
 
 ***
 
@@ -224,7 +224,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:19
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:19
 
 ***
 
@@ -234,7 +234,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:2
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:2
 
 ***
 
@@ -244,7 +244,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:9
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:9
 
 ***
 
@@ -254,7 +254,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:15
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:15
 
 ***
 
@@ -264,7 +264,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:10
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:10
 
 ***
 
@@ -274,7 +274,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:6
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:6
 
 ***
 
@@ -284,7 +284,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:5
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:5
 
 ***
 
@@ -294,7 +294,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:11
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:11
 
 ***
 
@@ -304,7 +304,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:14
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:14
 
 ***
 
@@ -314,4 +314,4 @@ node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@3.1.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:16
+node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:16

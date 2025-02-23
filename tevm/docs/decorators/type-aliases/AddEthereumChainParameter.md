@@ -54,4 +54,4 @@ Native currency for the chain.
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:203
+packages/decorators/dist/index.d.ts:215

@@ -8,6 +8,8 @@
 
 > **parseInt256**\<`TINT256`\>(`int256`): `TINT256`
 
+Parses an INT256 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TINT256** *extends* `bigint`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TINT256`
+
+## Example
+
+```ts
+import { parseInt256 } from '@tevm/schemas';
+const parsedINT256 = parseInt256(420n);
+```
 
 ## Defined in
 

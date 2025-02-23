@@ -14,6 +14,12 @@ Re-exports [AsyncBundlerResult](../type-aliases/AsyncBundlerResult.md)
 
 ***
 
+### bundler
+
+Re-exports [bundler](../functions/bundler.md)
+
+***
+
 ### Bundler
 
 Re-exports [Bundler](../type-aliases/Bundler.md)
@@ -32,6 +38,12 @@ Re-exports [FileAccessObject](../type-aliases/FileAccessObject.md)
 
 ***
 
+### getContractPath
+
+Re-exports [getContractPath](../functions/getContractPath.md)
+
+***
+
 ### Logger
 
 Re-exports [Logger](../type-aliases/Logger.md)
@@ -47,15 +59,3 @@ Re-exports [SolidityResolver](../type-aliases/SolidityResolver.md)
 ### SyncBundlerResult
 
 Re-exports [SyncBundlerResult](../type-aliases/SyncBundlerResult.md)
-
-***
-
-### bundler
-
-Re-exports [bundler](../functions/bundler.md)
-
-***
-
-### getContractPath
-
-Re-exports [getContractPath](../functions/getContractPath.md)

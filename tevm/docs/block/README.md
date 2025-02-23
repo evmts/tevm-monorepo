@@ -37,8 +37,8 @@
 - [RequestsBytes](type-aliases/RequestsBytes.md)
 - [TransactionsBytes](type-aliases/TransactionsBytes.md)
 - [UncleHeadersBytes](type-aliases/UncleHeadersBytes.md)
-- [WithdrawalV1](type-aliases/WithdrawalV1.md)
 - [WithdrawalsBytes](type-aliases/WithdrawalsBytes.md)
+- [WithdrawalV1](type-aliases/WithdrawalV1.md)
 
 ### Functions
 

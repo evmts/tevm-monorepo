@@ -10,4 +10,4 @@
 
 ## Defined in
 
-bundler-packages/config/types/config/withDefaults.d.ts:4
+bundler-packages/config/types/config/withDefaults.d.ts:5

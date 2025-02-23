@@ -8,6 +8,8 @@
 
 > **isBytes12**(`bytes12`): `boolean`
 
+Type guard that returns true if the provided string is a valid Ethereum Bytes12.
+
 ## Parameters
 
 • **bytes12**: `unknown`
@@ -15,6 +17,14 @@
 ## Returns
 
 `boolean`
+
+## Example
+
+```ts
+import { isBytes12 } from '@tevm/schemas';
+isBytes12("0xff");  // true
+isBytes12("0xfff"); // false
+````
 
 ## Defined in
 

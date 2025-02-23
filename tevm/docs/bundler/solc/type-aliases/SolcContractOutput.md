@@ -12,7 +12,7 @@
 
 ### abi
 
-> **abi**: `Abi`
+> **abi**: [`Abi`](../../../index/type-aliases/Abi.md)
 
 ### devdoc
 

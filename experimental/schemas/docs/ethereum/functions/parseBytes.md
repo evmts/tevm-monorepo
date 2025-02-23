@@ -8,6 +8,8 @@
 
 > **parseBytes**\<`TBytes`\>(`hex`): `TBytes`
 
+Parses a Bytes and returns the value if no errors.
+
 ## Type Parameters
 
 • **TBytes** *extends* \`0x$\{string\}\`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TBytes`
+
+## Example
+
+```javascript
+import { parseBytes } from '@tevm/schemas';
+const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
+```
 
 ## Defined in
 

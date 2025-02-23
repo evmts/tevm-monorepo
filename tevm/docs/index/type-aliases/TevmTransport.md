@@ -8,6 +8,8 @@
 
 > **TevmTransport**\<`TName`\>: \<`TChain`\>(`{ chain, pollingInterval, retryCount, timeout, }`) => `object`
 
+A type representing a custom TEVM Transport for viem.
+
 ## Type Parameters
 
 • **TName** *extends* `string` = `string`

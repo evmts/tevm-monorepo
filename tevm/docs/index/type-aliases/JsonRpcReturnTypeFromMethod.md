@@ -10,15 +10,15 @@
 
 Utility type to get the return type given a method name
 
+## Type Parameters
+
+• **TMethod** *extends* keyof `EthReturnType` \| keyof `TevmReturnType` \| keyof `AnvilReturnType` \| keyof `DebugReturnType`
+
 ## Example
 
 ```typescript
 type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 ```
-
-## Type Parameters
-
-• **TMethod** *extends* keyof `EthReturnType` \| keyof `TevmReturnType` \| keyof `AnvilReturnType` \| keyof `DebugReturnType`
 
 ## Defined in
 

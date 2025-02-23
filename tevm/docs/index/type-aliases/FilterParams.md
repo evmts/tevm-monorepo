@@ -8,7 +8,7 @@
 
 > **FilterParams**: `object`
 
-An event filter optionsobject
+An event filter options object
 
 ## Type declaration
 
@@ -26,7 +26,7 @@ An event filter optionsobject
 
 ### topics?
 
-> `readonly` `optional` **topics**: `ReadonlyArray`\<`Hex`\>
+> `readonly` `optional` **topics**: `ReadonlyArray`\<`Hex`\> \| `ReadonlyArray`\<`ReadonlyArray`\<`Hex`\>\>
 
 ## Defined in
 

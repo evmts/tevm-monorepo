@@ -8,6 +8,8 @@
 
 > **parseBytes9**\<`TBytes9`\>(`bytes9`): `TBytes9`
 
+Parses a Bytes9 and returns the value if no errors.
+
 ## Type Parameters
 
 • **TBytes9** *extends* \`0x$\{string\}\`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TBytes9`
+
+## Example
+
+```ts
+import { parseBytes9 } from '@tevm/schemas';
+const parsedBytes9 = parseBytes9('0xffaabbccddeeffaabbcc');
+```
 
 ## Defined in
 

@@ -20,6 +20,12 @@ Re-exports [AutoMining](../index/type-aliases/AutoMining.md)
 
 ***
 
+### createTevmNode
+
+Re-exports [createTevmNode](../index/functions/createTevmNode.md)
+
+***
+
 ### CustomPrecompile
 
 Re-exports [CustomPrecompile](../index/type-aliases/CustomPrecompile.md)
@@ -92,6 +98,12 @@ Re-exports [MiningConfig](../index/type-aliases/MiningConfig.md)
 
 ***
 
+### prefundedAccounts
+
+Re-exports [prefundedAccounts](../index/variables/prefundedAccounts.md)
+
+***
+
 ### ProviderConnectInfo
 
 Re-exports [ProviderConnectInfo](../index/type-aliases/ProviderConnectInfo.md)
@@ -119,15 +131,3 @@ Re-exports [TevmNode](../index/type-aliases/TevmNode.md)
 ### TevmNodeOptions
 
 Re-exports [TevmNodeOptions](../index/type-aliases/TevmNodeOptions.md)
-
-***
-
-### createTevmNode
-
-Re-exports [createTevmNode](../index/functions/createTevmNode.md)
-
-***
-
-### prefundedAccounts
-
-Re-exports [prefundedAccounts](../index/variables/prefundedAccounts.md)

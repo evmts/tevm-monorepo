@@ -26,6 +26,10 @@
 
 > **runBlock**: [`RunBlock`](RunBlock.md)
 
+### runTx
+
+> **runTx**: [`RunTx`](RunTx.md)
+
 ## Defined in
 
-packages/vm/types/Vm.d.ts:4
+packages/vm/types/Vm.d.ts:5
