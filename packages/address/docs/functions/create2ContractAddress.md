@@ -8,6 +8,8 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
+Generates an [Address](../classes/Address.md) for a contract created using CREATE2.
+
 ## Parameters
 
 • **from**: `Address`
@@ -27,6 +29,14 @@ The creation code of the contract
 [`Address`](../classes/Address.md)
 
 The generated contract address
+
+## Throws
+
+If salt is not 32 bytes or if inputs are invalid
+
+## See
+
+[https://eips.ethereum.org/EIPS/eip-1014|EIP-1014](https://eips.ethereum.org/EIPS/eip-1014|EIP-1014) for more information on CREATE2
 
 ## Defined in
 

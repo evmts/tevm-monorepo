@@ -1,0 +1,178 @@
+---
+title: Contract Utilities
+description: Helper utilities for creating and managing smart contracts, including createContract and standard contract templates.
+
+# Contract Utilities
+
+The [`@tevm/contract`](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract) package provides powerful utilities for working with [Ethereum smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/), offering type-safe contract interactions and simplified deployment workflows.
+
+## createContract
+
+Creates a strongly-typed contract instance with read and write actions:
+
+```ts
+import { createContract } from '@tevm/contract'
+
+const contract = createContract({
+  // Use as const for type safety
+  humanReadableAbi: [
+    'function balanceOf(address) view returns (uint256)',
+    'function transfer(address to, uint256 amount) returns (bool)',
+    'event Transfer(address indexed from, address indexed to, uint256 value)',
+  ] as const,
+  name: 'MyToken',
+})
+
+// Type-safe read actions
+const readAction = contract.read.balanceOf('0x...')
+
+// Type-safe write actions
+const writeAction = contract.write.transfer('0x...', 1000n)
+```
+
+### Contract with Address
+
+Add an [Ethereum address](https://ethereum.org/en/developers/docs/accounts/#account-creation) to create a fully configured contract instance:
+
+```ts
+const token = contract.withAddress('0x1234...')
+
+// Now includes address in all actions
+const balanceAction = token.read.balanceOf('0x...')
+// balanceAction.to will be set to the token address
+```
+
+## Standard Contracts
+
+The package includes pre-built contracts for common standards:
+
+```ts
+import { ERC20, ERC721 } from '@tevm/contract'
+
+// ERC20 token with all standard methods
+const token = ERC20.withAddress('0x...')
+
+// Read token info
+const nameAction = token.read.name()
+const symbolAction = token.read.symbol()
+const supplyAction = token.read.totalSupply()
+
+// Transfer tokens
+const transferAction = token.write.transfer('0x...', 1000n)
+
+// ERC721 NFT contract
+const nft = ERC721.withAddress('0x...')
+const ownerAction = nft.read.ownerOf(1n)
+```
+
+For more information on token standards, see:
+- [ERC-20 Token Standard](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
+- [ERC-721 NFT Standard](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/)
+
+## Deployless Scripts
+
+Create self-deploying contract scripts that work with any client:
+
+```ts
+import { ERC20 } from '@tevm/contract'
+
+// Create a script that deploys and initializes a token
+const script = ERC20.script({
+  bytecode: '0x...',  // Contract bytecode
+  args: ['MyToken', 'MTK', 1000000n], // Constructor args
+})
+
+// Use with any compatible client
+const name = await client.contract(script.read.name())
+const symbol = await client.contract(script.read.symbol())
+```
+
+## Contract Types
+
+The package exports useful types for contract development:
+
+```ts
+import type { 
+  Contract,
+  ContractAbi,
+  ContractFunctionName,
+  ContractEventName,
+} from '@tevm/contract'
+
+// Use with your own contracts
+type MyContract = Contract<typeof myAbi>
+type MyFunctions = ContractFunctionName<typeof myAbi>
+type MyEvents = ContractEventName<typeof myAbi>
+```
+
+## Best Practices
+
+### 1. Type Safety
+
+Always use `as const` with [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html) to get full type inference:
+
+```ts
+const abi = [
+  'function example(uint256 value) returns (bool)',
+] as const
+
+const contract = createContract({
+  humanReadableAbi: abi,
+  name: 'Example',
+})
+// contract.write.example will have proper types
+```
+
+### 2. Error Handling
+
+Handle contract errors appropriately:
+
+```ts
+try {
+  const result = await client.contract(contract.write.transfer('0x...', 1000n))
+} catch (e) {
+  if (e.message.includes('insufficient balance')) {
+    // Handle specific error case
+  }
+  throw e
+}
+```
+
+### 3. Gas Management
+
+Consider [gas costs](https://ethereum.org/en/developers/docs/gas/) in write operations:
+
+```ts
+const tx = contract.write.complexOperation('0x...', {
+  gas: 500000n,  // Set gas limit
+  maxFeePerGas: 30000000000n,  // Set max fee
+})
+```
+
+### 4. Event Handling
+
+Listen for contract [events](https://docs.soliditylang.org/en/latest/contracts.html#events):
+
+```ts
+// Create event filter
+const filter = contract.events.Transfer({
+  fromBlock: 'latest',
+})
+
+// Process events
+client.watchEvent(filter, (event) => {
+  console.log('Transfer:', {
+    from: event.args.from,
+    to: event.args.to,
+    value: event.args.value,
+  })
+})
+```
+
+## Related Topics
+- [Utilities & Addresses](./utils)
+- [Custom Precompiles](../advanced/custom-precompiles)
+- [State Management](../core/managing-state)
+- [Solidity Documentation](https://docs.soliditylang.org/)
+- [Ethereum Smart Contracts](https://ethereum.org/en/developers/docs/smart-contracts/)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/) 

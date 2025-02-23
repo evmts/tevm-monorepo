@@ -1,0 +1,99 @@
+---
+title: Getting Started
+description: Get started with Tevm Node - A JavaScript Ethereum Virtual Machine
+---
+
+# Getting Started
+
+Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will help you navigate our documentation and get started with running [Ethereum](https://ethereum.org) in JavaScript.
+
+If you're impatient, try creating a [memory client](/api/memory-client) and using the [viem API](https://viem.sh) to interact with a locally running blockchain in JavaScript:
+
+```ts
+npm install tevm
+```
+
+```ts
+import { createMemoryClient, http } from 'tevm'
+import { optimism } from 'tevm/common'
+
+// Create a client that forks from Optimism mainnet
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    blockTag: 420n,
+  },
+  common: optimism,
+})
+
+// Read block data using viem's public actions
+const block = await client.getBlock({ blockTag: 420n })
+console.log(block) // Block data from Optimism mainnet at block 420
+```
+
+## Quick Start
+Start here to understand the basics:
+- [What is Tevm Node?](./introduction/what-is-tevm-node) - Overview and key features
+- [Architecture Overview](./introduction/architecture-overview) - High-level explanation of how Tevm works
+- [Why run Ethereum in JS?](./introduction/why-run-ethereum-in-js) - Benefits and use cases
+- [Installation & Quickstart](./introduction/installation) - Get up and running
+
+## Learning Path
+
+### 1. Core Concepts
+Learn the fundamental building blocks:
+- [Creating a Node](./core/create-tevm-node) - Set up and configure your node
+- [Node Interface](./core/tevm-node-interface) - Understand the main API surface
+- [Forking & Reforking](./core/forking) - Fork from networks or other Tevm instances
+- [Managing State](./core/managing-state) - Handle accounts, storage, and blockchain state
+- [Mining Configuration](./core/mining-config) - Configure block production
+
+### 2. Essential APIs
+Most commonly used APIs:
+- [tevmCall API](./api/tevm-call) - Execute contract calls and transactions
+- [JSON-RPC Support](./api/json-rpc) - Standard Ethereum JSON-RPC interface
+- [Account Management](./api/account-management) - Work with accounts and balances
+- [Contract Utilities](./api/contracts) - Create and interact with contracts
+- [Utilities & Addresses](./api/utils) - Core utilities for addresses and common operations
+- [Methods & Properties](./api/methods) - Complete API reference
+- [VM & Submodules](./api/vm-and-submodules) - Internal architecture based on ethereumjs
+
+### 3. Integration Examples
+Real-world usage examples:
+- [Local Testing](./examples/local-testing) - Write tests for your contracts
+- [Forking Mainnet](./examples/forking-mainnet) - Work with production state locally
+- [Using with Viem](./examples/viem) - Integration with [Viem](https://viem.sh)
+- [Using with Ethers](./examples/ethers) - Integration with [Ethers.js](https://docs.ethers.org)
+
+### 4. Advanced Features
+Dive deeper into advanced capabilities:
+- [Transaction Pool](./advanced/txpool) - Manage pending transactions
+- [Custom Precompiles](./advanced/custom-precompiles) - Extend EVM functionality
+- [Performance Profiler](./advanced/performance-profiler) - Optimize performance
+- [Receipts & Logs](./advanced/receipts-and-logs) - Handle events and logs
+
+## Key Features
+
+### Forking & State Management
+- Fork from any EVM-compatible network
+- Memory-efficient reforking strategies
+- Complete state control and manipulation
+- Account impersonation for testing
+
+### Performance & Flexibility
+- Automatic or manual block mining
+- Lazy loading with caching
+- Custom precompiles in JavaScript
+- Comprehensive debugging tools
+
+### Developer Experience
+- TypeScript-first design
+- Viem & Ethers.js compatibility
+- Standard JSON-RPC support
+- Rich testing utilities
+
+## Additional Resources
+- [Ethereum Development Documentation](https://ethereum.org/en/developers/docs/) - Official Ethereum docs
+- [EVM Deep Dive](https://ethereum.org/en/developers/docs/evm/) - Understanding the EVM
+- [JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/) - Standard Ethereum API
+- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo) - Core EVM implementation 

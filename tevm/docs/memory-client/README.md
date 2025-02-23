@@ -8,9 +8,27 @@
 
 ## References
 
+### createClient
+
+Re-exports [createClient](../index/functions/createClient.md)
+
+***
+
+### createMemoryClient
+
+Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
+
+***
+
 ### CreateMemoryClientFn
 
 Re-exports [CreateMemoryClientFn](../index/type-aliases/CreateMemoryClientFn.md)
+
+***
+
+### createTevmTransport
+
+Re-exports [createTevmTransport](../index/functions/createTevmTransport.md)
 
 ***
 
@@ -26,54 +44,6 @@ Re-exports [MemoryClientOptions](../index/type-aliases/MemoryClientOptions.md)
 
 ***
 
-### TevmActions
-
-Re-exports [TevmActions](../index/type-aliases/TevmActions.md)
-
-***
-
-### TevmContract
-
-Re-exports [TevmContract](../index/type-aliases/TevmContract.md)
-
-***
-
-### TevmRpcSchema
-
-Re-exports [TevmRpcSchema](../index/type-aliases/TevmRpcSchema.md)
-
-***
-
-### TevmTransport
-
-Re-exports [TevmTransport](../index/type-aliases/TevmTransport.md)
-
-***
-
-### TevmViemActionsApi
-
-Re-exports [TevmViemActionsApi](../index/type-aliases/TevmViemActionsApi.md)
-
-***
-
-### createClient
-
-Re-exports [createClient](../index/functions/createClient.md)
-
-***
-
-### createMemoryClient
-
-Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
-
-***
-
-### createTevmTransport
-
-Re-exports [createTevmTransport](../index/functions/createTevmTransport.md)
-
-***
-
 ### publicActions
 
 Re-exports [publicActions](../index/functions/publicActions.md)
@@ -86,6 +56,12 @@ Re-exports [testActions](../index/functions/testActions.md)
 
 ***
 
+### TevmActions
+
+Re-exports [TevmActions](../index/type-aliases/TevmActions.md)
+
+***
+
 ### tevmCall
 
 Re-exports [tevmCall](../index/functions/tevmCall.md)
@@ -95,6 +71,12 @@ Re-exports [tevmCall](../index/functions/tevmCall.md)
 ### tevmContract
 
 Re-exports [tevmContract](../index/functions/tevmContract.md)
+
+***
+
+### TevmContract
+
+Re-exports [TevmContract](../index/type-aliases/TevmContract.md)
 
 ***
 
@@ -134,15 +116,33 @@ Re-exports [tevmReady](../index/functions/tevmReady.md)
 
 ***
 
+### TevmRpcSchema
+
+Re-exports [TevmRpcSchema](../index/type-aliases/TevmRpcSchema.md)
+
+***
+
 ### tevmSetAccount
 
 Re-exports [tevmSetAccount](../index/functions/tevmSetAccount.md)
 
 ***
 
+### TevmTransport
+
+Re-exports [TevmTransport](../index/type-aliases/TevmTransport.md)
+
+***
+
 ### tevmViemActions
 
 Re-exports [tevmViemActions](../index/functions/tevmViemActions.md)
+
+***
+
+### TevmViemActionsApi
+
+Re-exports [TevmViemActionsApi](../index/type-aliases/TevmViemActionsApi.md)
 
 ***
 

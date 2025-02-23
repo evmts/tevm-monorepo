@@ -8,6 +8,8 @@
 
 > **isUINT16**(`uint16`): `boolean`
 
+Type guard that returns true if the provided bigint is a valid Ethereum UINT16.
+
 ## Parameters
 
 • **uint16**: `unknown`
@@ -15,6 +17,14 @@
 ## Returns
 
 `boolean`
+
+## Example
+
+```ts
+import { isUINT16 } from '@tevm/schemas';
+isUINT16(BigInt(32767));  // true
+isUINT16(BigInt(65536));  // false
+````
 
 ## Defined in
 

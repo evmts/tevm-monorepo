@@ -8,6 +8,8 @@
 
 > **parseINT32Safe**\<`TINT32`\>(`int32`): `Effect`\<`never`, [`InvalidINTError`](../classes/InvalidINTError.md), `TINT32`\>
 
+Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
 ## Type Parameters
 
 • **TINT32**

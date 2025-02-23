@@ -8,6 +8,8 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
+Generates an [Address](../classes/Address.md) for a newly created contract.
+
 ## Parameters
 
 • **from**: `Address`
@@ -23,6 +25,14 @@ The nonce of the account creating the contract.
 [`Address`](../classes/Address.md)
 
 The generated contract address.
+
+## Throws
+
+If the 'from' parameter is not a valid EthjsAddress.
+
+## See
+
+[Contract Creation](https://ethereum.org/en/developers/docs/smart-contracts/deploying/#contract-creation-code|Ethereum)
 
 ## Defined in
 

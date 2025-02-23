@@ -1,0 +1,250 @@
+---
+title: TevmNode Interface
+description: Detailed look at the main node interface and its capabilities
+---
+
+import { Callout } from 'vocs/components'
+
+# TevmNode Interface
+
+The `TevmNode` interface is the core API surface of Tevm. It provides access to all the fundamental Ethereum node capabilities, from transaction processing to state management.
+
+## Interface Overview
+
+```ts
+export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
+  readonly logger: Logger
+  readonly getReceiptsManager: () => Promise<ReceiptsManager>
+  readonly miningConfig: MiningConfig
+  readonly forkTransport?: { request: EIP1193RequestFn }
+  readonly mode: TMode
+  readonly ready: () => Promise<true>
+  readonly getVm: () => Promise<Vm>
+  readonly getTxPool: () => Promise<TxPool>
+  readonly getImpersonatedAccount: () => Address | undefined
+  readonly setImpersonatedAccount: (address: Address | undefined) => void
+  readonly extend: <TExtension>(decorator: (client: TevmNode<TMode, TExtended>) => TExtension) => TevmNode<TMode, TExtended & TExtension>
+  readonly setFilter: (filter: Filter) => void
+  readonly getFilters: () => Map<Hex, Filter>
+  readonly removeFilter: (id: Hex) => void
+  status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+  readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+} & EIP1193EventEmitter & TExtended
+```
+
+## Core Components
+
+### 1. Initialization & Status
+
+```ts
+const node = createTevmNode()
+
+// Wait for initialization
+await node.ready()
+
+// Check status
+console.log(node.status) // 'READY'
+```
+
+<Callout type="info">
+  The `ready()` method ensures all internal components are initialized. While not strictly required (methods will wait implicitly), calling it explicitly can help manage initialization flow.
+</Callout>
+
+### 2. Virtual Machine Access
+
+The VM is the heart of Tevm, providing EVM execution capabilities:
+
+```ts
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// Execute a transaction
+const result = await vm.runTx({
+  tx: {
+    to: '0x1234...',
+    value: 1000000000000000000n, // 1 ETH
+    data: '0x...',
+  }
+})
+```
+
+### 3. Transaction Pool Management
+
+The TxPool handles pending transactions:
+
+```ts
+const node = createTevmNode()
+const txPool = await node.getTxPool()
+
+// Add a transaction
+await txPool.add({
+  from: '0x1234...',
+  to: '0x5678...',
+  value: 1000000000000000000n,
+})
+
+// Get pending transactions
+const pending = await txPool.txsByPriceAndNonce()
+```
+
+### 4. Receipt & Log Management
+
+Track transaction outcomes and event logs:
+
+```ts
+const node = createTevmNode()
+const receipts = await node.getReceiptsManager()
+
+// Get receipt for a transaction
+const receipt = await receipts.getReceiptByTxHash('0x1234...')
+
+// Query logs
+const logs = await receipts.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+})
+```
+
+### 5. Account Impersonation
+
+In fork mode, you can impersonate existing accounts:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Impersonate a whale account
+node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
+
+// Now you can send transactions as this account
+const vm = await node.getVm()
+await vm.runTx({
+  tx: {
+    from: '0x28C6c06298d514Db089934071355E5743bf21d60',
+    to: '0x1234...',
+    value: 1000000000000000000n,
+  },
+})
+```
+
+### 6. Event Filtering
+
+Manage subscriptions to blockchain events:
+
+```ts
+// Create a filter for Transfer events
+node.setFilter({
+  id: '0x1',
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+  topics: [
+    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
+  ],
+})
+
+// Get all filters
+const filters = node.getFilters()
+
+// Remove a filter
+node.removeFilter('0x1')
+```
+
+### 7. Extensibility
+
+The `extend` method allows adding custom functionality:
+
+```ts
+// Add custom methods
+const enhancedNode = node.extend((baseNode) => ({
+  async getBalance(address: string) {
+    const vm = await baseNode.getVm()
+    const account = await vm.stateManager.getAccount(address)
+    return account.balance
+  },
+}))
+
+// Use the new method
+const balance = await enhancedNode.getBalance('0x1234...')
+```
+
+### 8. Deep Copying
+
+Create independent copies of a node:
+
+```ts
+const node = createTevmNode()
+// ... perform some operations ...
+
+// Create a copy with the same state
+const nodeCopy = await node.deepCopy()
+```
+
+<Callout type="warning">
+  Deep copying creates a completely new instance with its own state. This is useful for testing different scenarios, but can be memory-intensive.
+</Callout>
+
+## Best Practices
+
+1. **Initialization**
+   ```ts
+   const node = createTevmNode()
+   await node.ready() // Always wait for ready
+   ```
+
+2. **Error Handling**
+   ```ts
+   try {
+     const vm = await node.getVm()
+     await vm.runTx(/* ... */)
+   } catch (error) {
+     if (error.message.includes('insufficient funds')) {
+       // Handle specific error cases
+     }
+     throw error
+   }
+   ```
+
+3. **Resource Management**
+   ```ts
+   // Clean up filters when done
+   node.getFilters().forEach((_, id) => node.removeFilter(id))
+   ```
+
+4. **State Isolation**
+   ```ts
+   // Use deepCopy for isolated test cases
+   const baseNode = createTevmNode()
+   
+   test('scenario 1', async () => {
+     const node = await baseNode.deepCopy()
+     // Test with isolated state
+   })
+   ```
+
+## Type Safety
+
+The interface is fully typed with TypeScript:
+
+```ts
+import type { TevmNode } from '@tevm/node'
+
+function useNode<TMode extends 'fork' | 'normal'>(
+  node: TevmNode<TMode>
+) {
+  if (node.mode === 'fork') {
+    // Fork-specific operations
+    node.setImpersonatedAccount('0x...')
+  }
+}
+```
+
+## Next Steps
+
+- Learn about [Forking](./forking)
+- Explore [State Management](./managing-state)
+- See [JSON-RPC Support](../api/json-rpc) 

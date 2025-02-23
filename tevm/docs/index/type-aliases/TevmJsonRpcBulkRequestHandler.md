@@ -15,6 +15,14 @@ will be added in the future.
 
 Currently is not very generic with regard to input and output types.
 
+## Parameters
+
+• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`\>
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
+
 ## Example
 
 ```typescript
@@ -86,14 +94,6 @@ response - EthGasPriceJsonRpcResponse
 
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
-
-## Parameters
-
-• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`\>
-
-## Returns
-
-`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
 ## Defined in
 

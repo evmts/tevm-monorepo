@@ -1,0 +1,283 @@
+---
+title: Using with Ethers.js
+description: Connect Tevm Node to an Ethers.js provider
+---
+
+# Using with Ethers.js
+
+This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless integration with the popular Ethereum development library.
+
+## Basic Setup
+
+```ts
+import { createTevmNode } from '@tevm/node'
+import { requestEip1193 } from '@tevm/node/decorators'
+import { BrowserProvider } from 'ethers'
+
+// Create Tevm Node with EIP-1193 support
+const node = createTevmNode().extend(requestEip1193())
+
+// Create Ethers provider
+const provider = new BrowserProvider(node)
+
+// Basic provider usage
+const block = await provider.getBlockNumber()
+const balance = await provider.getBalance('0x1234...')
+```
+
+## Contract Interaction
+
+### 1. Reading Contract State
+
+```ts
+import { Contract } from 'ethers'
+
+// Contract setup
+const abi = [
+  'function balanceOf(address) view returns (uint256)',
+  'function symbol() view returns (string)',
+  'function decimals() view returns (uint8)',
+]
+
+const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' // USDC
+const contract = new Contract(tokenAddress, abi, provider)
+
+// Read multiple values
+const [balance, symbol, decimals] = await Promise.all([
+  contract.balanceOf('0x1234...'),
+  contract.symbol(),
+  contract.decimals(),
+])
+
+console.log(`${symbol} Balance: ${formatUnits(balance, decimals)}`)
+```
+
+### 2. Writing to Contracts
+
+```ts
+// Get signer
+const signer = await provider.getSigner()
+
+// Connect contract to signer
+const contractWithSigner = contract.connect(signer)
+
+// Send transaction
+const tx = await contractWithSigner.transfer('0x5678...', parseUnits('100', 6))
+
+// Wait for confirmation
+const receipt = await tx.wait()
+console.log('Transaction confirmed:', receipt.hash)
+```
+
+## Event Handling
+
+### 1. Listening for Events
+
+```ts
+// Listen for Transfer events
+contract.on('Transfer', (from, to, amount, event) => {
+  console.log('Transfer:', {
+    from,
+    to,
+    amount: formatUnits(amount, 6),
+    blockNumber: event.blockNumber,
+    transactionHash: event.transactionHash,
+  })
+})
+
+// Remove listener when done
+contract.off('Transfer')
+```
+
+### 2. Querying Past Events
+
+```ts
+// Create filter
+const filter = contract.filters.Transfer()
+
+// Get past events
+const events = await contract.queryFilter(filter, -1000, 'latest')
+
+for (const event of events) {
+  const { from, to, value } = event.args
+  console.log('Historical transfer:', {
+    from,
+    to,
+    value: formatUnits(value, 6),
+  })
+}
+```
+
+## Advanced Usage
+
+### 1. Contract Deployment
+
+```ts
+import { ContractFactory } from 'ethers'
+
+// Get signer
+const signer = await provider.getSigner()
+
+// Create factory
+const factory = new ContractFactory(abi, bytecode, signer)
+
+// Deploy contract
+const contract = await factory.deploy(constructorArg1, constructorArg2)
+await contract.waitForDeployment()
+
+console.log('Contract deployed to:', await contract.getAddress())
+```
+
+### 2. Low-level Transaction Handling
+
+```ts
+// Create transaction
+const tx = {
+  to: '0x1234...',
+  value: parseEther('1'),
+  data: '0x',
+}
+
+// Sign transaction
+const signer = await provider.getSigner()
+const signedTx = await signer.signTransaction(tx)
+
+// Send raw transaction
+const hash = await provider.send('eth_sendRawTransaction', [signedTx])
+
+// Wait for confirmation
+const receipt = await provider.waitForTransaction(hash)
+```
+
+### 3. Interface Encoding/Decoding
+
+```ts
+import { Interface } from 'ethers'
+
+// Create interface
+const iface = new Interface([
+  'function transfer(address to, uint256 amount) returns (bool)',
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+])
+
+// Encode function data
+const data = iface.encodeFunctionData('transfer', [
+  '0x1234...',
+  parseUnits('100', 6),
+])
+
+// Decode event logs
+const log = receipt.logs[0]
+const decodedLog = iface.parseLog({
+  topics: log.topics,
+  data: log.data,
+})
+```
+
+## Testing with Ethers
+
+```ts
+import { expect } from 'chai'
+import { loadFixture } from '@nomicfoundation/hardhat-network-helpers'
+
+describe('Token Contract', () => {
+  async function deployTokenFixture() {
+    // Setup Tevm Node
+    const node = createTevmNode()
+    const provider = new BrowserProvider(node)
+    const signer = await provider.getSigner()
+    
+    // Deploy contract
+    const factory = new ContractFactory(abi, bytecode, signer)
+    const token = await factory.deploy()
+    await token.waitForDeployment()
+    
+    return { token, signer, provider }
+  }
+  
+  it('Should handle basic operations', async () => {
+    const { token, signer } = await loadFixture(deployTokenFixture)
+    
+    // Test initial state
+    expect(await token.balanceOf(signer.address)).to.equal(initialSupply)
+    
+    // Test transfer
+    await token.transfer('0x1234...', 100)
+    expect(await token.balanceOf('0x1234...')).to.equal(100)
+  })
+})
+```
+
+## Best Practices
+
+1. **Contract Initialization**:
+   ```ts
+   // Reuse contract instances
+   const contracts = new Map<string, Contract>()
+   
+   function getContract(address: string): Contract {
+     let contract = contracts.get(address)
+     if (!contract) {
+       contract = new Contract(address, abi, provider)
+       contracts.set(address, contract)
+     }
+     return contract
+   }
+   ```
+
+2. **Error Handling**:
+   ```ts
+   try {
+     const tx = await contract.riskyFunction()
+     await tx.wait()
+   } catch (error) {
+     if (error.code === 'CALL_EXCEPTION') {
+       console.error('Contract call failed:', error.reason)
+     } else if (error.code === 'NETWORK_ERROR') {
+       console.error('Network error:', error.message)
+     }
+     throw error
+   }
+   ```
+
+3. **Gas Management**:
+   ```ts
+   // Estimate gas with buffer
+   const gasEstimate = await contract.transfer.estimateGas(
+     recipient,
+     amount
+   )
+   
+   const tx = await contract.transfer(
+     recipient,
+     amount,
+     {
+       gasLimit: gasEstimate * 120n / 100n, // 20% buffer
+     }
+   )
+   ```
+
+4. **Event Management**:
+   ```ts
+   // Clean up listeners
+   function setupEventListeners(contract: Contract) {
+     const handler = (...args) => {
+       // Handle event
+     }
+     
+     contract.on('Transfer', handler)
+     
+     return () => {
+       contract.off('Transfer', handler)
+     }
+   }
+   
+   const cleanup = setupEventListeners(contract)
+   // Later...
+   cleanup()
+   ```
+
+## Related Topics
+- [JSON-RPC Support](../api/json-rpc)
+- [Local Testing](./local-testing)
+- [Forking Mainnet](./forking-mainnet) 

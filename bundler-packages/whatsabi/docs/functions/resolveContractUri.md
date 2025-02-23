@@ -18,6 +18,10 @@
 
 `Promise`\<`undefined` \| `object`\>
 
+## Throws
+
+if the chainId is not known and no rpcUrl is provided
+
 ## Defined in
 
 [bundler-packages/whatsabi/src/resolveContractUri.js:34](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L34)

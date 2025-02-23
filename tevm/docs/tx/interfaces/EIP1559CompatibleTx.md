@@ -20,20 +20,6 @@
 
 ## Properties
 
-### AccessListJSON
-
-> `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
-
-#### Inherited from
-
-`EIP2930CompatibleTx.AccessListJSON`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
-
-***
-
 ### accessList
 
 > `readonly` **accessList**: `AccessListBytes`
@@ -45,6 +31,20 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:148
+
+***
+
+### AccessListJSON
+
+> `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
+
+#### Inherited from
+
+`EIP2930CompatibleTx.AccessListJSON`
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
 
 ***
 

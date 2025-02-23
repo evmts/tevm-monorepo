@@ -20,4 +20,4 @@
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:1275
+packages/decorators/dist/index.d.ts:1287

@@ -12,15 +12,9 @@
 
 Tevm enables next generation UX for users while providing delightful DX for developers. It's like sticking an RPC node in your web app and making Solidity contracts a first class citizen.
 
-Some things you can do with Tevm.
+## Visit [New Docs Site!](https://node.tevm.dev/) for docs, guides, API, and more! 📄
 
-- Estimate gas with no loading spinners
-- Remove latency from many JSON-RPC requests
-- Add optimistic updates to your UI
-- Run arbitrary solidity code in the browser for code reuse
-- Cut latency of some calls in half with a typesafe scripting api
-- Use JSON-RPC methods like debug_traceCall even if the underlying RPC does not support it
-- And much more
+- [Tevm node](https://node.tevm.sh)
 
 Here is a code example of what Tevm looks like
 
@@ -47,8 +41,6 @@ const balance = await client.readContract(
 Tevm is able to fork a network similar to anvil in the browser and execute contract calls. You will also notice Tevm Bundler allows us to import contract abis directly from solidity contracts. These powerful primitives are the key to Tevm.
 
 ## [Join Telegram](https://t.me/+ANThR9bHDLAwMjUx)
-
-## Visit [Docs (under heavy construction)](https://tevm.sh/) for docs, guides, API, and more! 📄
 
 ## Contributing 💻
 

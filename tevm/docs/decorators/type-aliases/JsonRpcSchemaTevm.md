@@ -165,4 +165,4 @@ r
 
 ## Defined in
 
-packages/decorators/dist/index.d.ts:257
+packages/decorators/dist/index.d.ts:269

@@ -11,6 +11,42 @@
 Type of `createContract` factory function.
 Creates a tevm Contract instance from a human readable ABI or JSON ABI.
 
+## Type Parameters
+
+• **TName** *extends* `string`
+
+The name of the contract
+
+• **TAbi** *extends* readonly `string`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+
+The ABI type (either string[] for human readable or Abi for JSON)
+
+• **TAddress** *extends* `undefined` \| [`Address`](../../index/type-aliases/Address.md) = `undefined`
+
+The contract address type (optional)
+
+• **TBytecode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
+
+The contract bytecode type (optional)
+
+• **TDeployedBytecode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
+
+The deployed bytecode type (optional)
+
+• **TCode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
+
+The runtime bytecode type (optional)
+
+• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`FormatAbi`](../../index/type-aliases/FormatAbi.md)\<`TAbi`\> : `never`
+
+## Parameters
+
+• **\{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}**: [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+
+## Returns
+
+[`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+
 ## Examples
 
 Using a human readable ABI:
@@ -71,42 +107,6 @@ const contract = createContract({
   code: '0x608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a08231146101bc',  // Example runtime code (truncated)
 })
 ```
-
-## Type Parameters
-
-• **TName** *extends* `string`
-
-The name of the contract
-
-• **TAbi** *extends* readonly `string`[] \| [`Abi`](../../index/type-aliases/Abi.md)
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-• **TAddress** *extends* `undefined` \| [`Address`](../../index/type-aliases/Address.md) = `undefined`
-
-The contract address type (optional)
-
-• **TBytecode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The contract bytecode type (optional)
-
-• **TDeployedBytecode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The deployed bytecode type (optional)
-
-• **TCode** *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The runtime bytecode type (optional)
-
-• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`FormatAbi`](../../index/type-aliases/FormatAbi.md)\<`TAbi`\> : `never`
-
-## Parameters
-
-• **\{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}**: [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
-
-## Returns
-
-[`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Defined in
 

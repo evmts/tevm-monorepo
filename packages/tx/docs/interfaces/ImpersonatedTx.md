@@ -17,20 +17,6 @@ Typed transaction with a new gas fee market mechanism
 
 ## Properties
 
-### AccessListJSON
-
-> `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`AccessListJSON`](../classes/FeeMarketEIP1559Transaction.md#accesslistjson)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
-
-***
-
 ### \_type
 
 > `protected` `readonly` **\_type**: [`TransactionType`](../enumerations/TransactionType.md)
@@ -56,6 +42,20 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/b
 #### Defined in
 
 node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:15
+
+***
+
+### AccessListJSON
+
+> `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
+
+#### Inherited from
+
+[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`AccessListJSON`](../classes/FeeMarketEIP1559Transaction.md#accesslistjson)
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
 
 ***
 

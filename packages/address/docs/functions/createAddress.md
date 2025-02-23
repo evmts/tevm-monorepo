@@ -8,6 +8,9 @@
 
 > **createAddress**(`address`): [`Address`](../classes/Address.md)
 
+Creates an [Address](../classes/Address.md) for safely interacting with an Ethereum address.
+Wraps EthjsAddress with a tevm style API.
+
 ## Parameters
 
 • **address**: `string` \| `number` \| `bigint` \| `Address` \| `Uint8Array`
@@ -19,6 +22,25 @@ The input to create an address from.
 [`Address`](../classes/Address.md)
 
 An Address instance.
+
+## Throws
+
+If the input is not a valid address.
+
+## Example
+
+```javascript
+import { createAddress } from '@tevm/address'
+
+// From hex string
+let address = createAddress(`0x${'00'.repeat(20)}`)
+// From number or bigint
+address = createAddress(0n)
+// From bytes
+address = createAddress(new Uint8Array(20))
+// From non-hex string
+address = createAddress('55'.repeat(20))
+```
 
 ## Defined in
 

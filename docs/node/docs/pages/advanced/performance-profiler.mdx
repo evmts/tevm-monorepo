@@ -1,0 +1,226 @@
+---
+title: Performance & Profiler
+description: How to measure EVM performance with Tevm Node
+---
+
+# Performance & Profiler
+
+Tevm Node includes a built-in performance profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
+
+## Enabling the Profiler
+
+Enable profiling when creating your node:
+
+```ts
+import { createTevmNode } from '@tevm/node'
+
+const node = createTevmNode({
+  profiler: {
+    enabled: true,
+    // Optional: Configure profiling options
+    includeOpcodes: true,
+    includePrecompiles: true,
+  },
+})
+```
+
+## Collecting Performance Data
+
+```ts
+const vm = await node.getVm()
+
+// Execute some transactions
+await vm.runTx({ /* ... */ })
+
+// Get performance logs
+const logs = vm.evm.getPerformanceLogs()
+
+// Clear logs when done
+vm.evm.clearPerformanceLogs()
+```
+
+## Log Types
+
+The profiler collects various types of performance data:
+
+```ts
+interface PerformanceLog {
+  type: 'opcode' | 'precompile' | 'call' | 'create'
+  startTime: number
+  endTime: number
+  executionTime: number
+  gasUsed?: bigint
+  // Additional data based on type
+}
+
+interface OpcodeLog extends PerformanceLog {
+  type: 'opcode'
+  opcode: string
+  pc: number
+}
+
+interface PrecompileLog extends PerformanceLog {
+  type: 'precompile'
+  address: string
+  name: string
+}
+```
+
+## Analyzing Performance
+
+### 1. Opcode Analysis
+
+```ts
+// Group by opcode
+const opcodeStats = logs
+  .filter(log => log.type === 'opcode')
+  .reduce((acc, log) => {
+    const key = log.opcode
+    acc[key] = acc[key] || { count: 0, totalTime: 0, totalGas: 0n }
+    acc[key].count++
+    acc[key].totalTime += log.executionTime
+    acc[key].totalGas += log.gasUsed ?? 0n
+    return acc
+  }, {})
+
+// Find expensive operations
+const expensiveOps = Object.entries(opcodeStats)
+  .sort(([, a], [, b]) => b.totalTime - a.totalTime)
+  .slice(0, 10)
+
+console.log('Most expensive operations:', expensiveOps)
+```
+
+### 2. Call Tree Analysis
+
+```ts
+// Analyze call depth and patterns
+const callTree = logs
+  .filter(log => log.type === 'call')
+  .map(log => ({
+    from: log.from,
+    to: log.to,
+    value: log.value,
+    executionTime: log.executionTime,
+    gasUsed: log.gasUsed,
+  }))
+
+console.log('Call tree:', callTree)
+```
+
+### 3. Gas Usage Patterns
+
+```ts
+// Track gas usage over time
+const gasTimeline = logs
+  .filter(log => log.gasUsed !== undefined)
+  .map(log => ({
+    timestamp: log.startTime,
+    gasUsed: log.gasUsed,
+    type: log.type,
+  }))
+
+// Calculate gas efficiency
+const gasEfficiency = gasTimeline.reduce((acc, log) => {
+  acc.totalGas += log.gasUsed ?? 0n
+  acc.totalTime += log.executionTime
+  return acc
+}, { totalGas: 0n, totalTime: 0 })
+```
+
+## Use Cases
+
+### 1. Contract Optimization
+
+```ts
+// Deploy and profile contract
+const vm = await node.getVm()
+await vm.runTx({ tx: deployTx })
+
+// Clear previous logs
+vm.evm.clearPerformanceLogs()
+
+// Profile specific function
+await vm.runTx({ tx: functionCallTx })
+const logs = vm.evm.getPerformanceLogs()
+
+// Analyze performance
+const functionProfile = analyzeLogs(logs)
+console.log('Function performance:', {
+  totalTime: functionProfile.executionTime,
+  gasUsed: functionProfile.gasUsed,
+  hotspots: functionProfile.hotspots,
+})
+```
+
+### 2. Comparative Analysis
+
+```ts
+async function compareImplementations(implementations: string[]) {
+  const results = []
+  const vm = await node.getVm()
+
+  for (const impl of implementations) {
+    vm.evm.clearPerformanceLogs()
+    await vm.runTx({ tx: createCallTx(impl) })
+    const logs = vm.evm.getPerformanceLogs()
+    results.push(analyzePerformance(logs))
+  }
+
+  return compareResults(results)
+}
+```
+
+### 3. Gas Optimization
+
+```ts
+// Track gas usage by contract
+const contractGasUsage = logs
+  .filter(log => log.type === 'call')
+  .reduce((acc, log) => {
+    const contract = log.to
+    acc[contract] = acc[contract] || { calls: 0, totalGas: 0n }
+    acc[contract].calls++
+    acc[contract].totalGas += log.gasUsed ?? 0n
+    return acc
+  }, {})
+
+// Identify gas-intensive contracts
+const gasHotspots = Object.entries(contractGasUsage)
+  .sort(([, a], [, b]) => Number(b.totalGas - a.totalGas))
+```
+
+## Best Practices
+
+1. **Targeted Profiling**:
+   ```ts
+   // Clear logs before specific operations
+   vm.evm.clearPerformanceLogs()
+   // Run the operation you want to profile
+   await vm.runTx({ /* ... */ })
+   // Analyze just that operation
+   const logs = vm.evm.getPerformanceLogs()
+   ```
+
+2. **Memory Management**:
+   - Clear logs periodically
+   - Profile specific operations rather than entire sessions
+   - Export and analyze large datasets externally
+
+3. **Comparative Analysis**:
+   ```ts
+   // Compare before/after optimization
+   const beforeLogs = await profileOperation(originalCode)
+   const afterLogs = await profileOperation(optimizedCode)
+   const improvement = compareProfiles(beforeLogs, afterLogs)
+   ```
+
+4. **Production Considerations**:
+   - Disable profiler in production
+   - Use sampling for long-running operations
+   - Consider the overhead of profiling itself
+
+## Related Topics
+- [VM & Submodules](../api/vm-and-submodules)
+- [Gas Estimation](../api/methods)
+- [Transaction Pool](./txpool)

@@ -11,6 +11,18 @@
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
 
+## Type Parameters
+
+• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+
+## Parameters
+
+• **request**: `TRequest`
+
+## Returns
+
+`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
+
 ## Example
 
 ```typescript
@@ -84,18 +96,26 @@ response - EthGasPriceJsonRpcResponse
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
 
-## Type Parameters
+#### eth_createAccessList
 
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+Creates an access list for a transaction.
+Returns list of addresses and storage keys that the transaction plans to access.
 
-## Parameters
+request - EthCreateAccessListJsonRpcRequest
+response - EthCreateAccessListJsonRpcResponse
 
-• **request**: `TRequest`
-
-## Returns
-
-`Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
+```typescript
+const response = await tevm.request({
+  method: 'eth_createAccessList',
+  params: [{
+    to: '0x...',
+    data: '0x...'
+  }],
+  id: 1,
+  jsonrpc: '2.0'
+})
+```
 
 ## Defined in
 
-packages/actions/types/tevm-request-handler/TevmJsonRpcRequestHandler.d.ts:81
+packages/actions/types/tevm-request-handler/TevmJsonRpcRequestHandler.d.ts:101

@@ -1,0 +1,41 @@
+---
+title: Installation & Quickstart
+description: How to install @tevm/node and spin up a simple node quickly
+---
+
+# Installation & Quickstart
+
+## 1. Install
+
+```sh
+npm install @tevm/node
+
+# or
+yarn add @tevm/node
+
+# or
+pnpm add @tevm/node
+
+# or
+bun add @tevm/node
+```
+
+## 2. Quick Start
+
+```ts
+import { createTevmNode } from '@tevm/node'
+
+// Create an instance
+const node = createTevmNode()
+
+// Access the internal VM once it is ready
+const vm = await node.getVm()
+
+// Perform an method on the vm or one of it's subcomponents like blockchain
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
+## 3. Next Steps
+
+- Explore the [Core Concepts](../core/create-tevm-node)  
+- Check out [Examples](../examples/local-testing) 

@@ -31,11 +31,13 @@ import { txLogsBloom } from './txLogsBloom.js'
 import { validateRunTx } from './validateRunTx.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
+export type RunTx = (opts: RunTxOpts) => Promise<RunTxResult>
+
 /**
  * @ignore
  */
 export const runTx =
-	(vm: BaseVm) =>
+	(vm: BaseVm): RunTx =>
 	async (opts: RunTxOpts): Promise<RunTxResult> => {
 		await vm.ready()
 

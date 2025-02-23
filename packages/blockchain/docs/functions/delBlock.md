@@ -8,6 +8,8 @@
 
 > **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
 
+Deletes a block from the blockchain
+
 ## Parameters
 
 • **baseChain**: `BaseChain`
@@ -28,6 +30,10 @@ The hash of the block to be deleted
 ### Returns
 
 `Promise`\<`void`\>
+
+## Throws
+
+If the block is the `forked` block
 
 ## Defined in
 

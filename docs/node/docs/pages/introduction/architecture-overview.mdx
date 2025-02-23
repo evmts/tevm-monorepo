@@ -1,0 +1,229 @@
+---
+title: Architecture Overview
+description: A high-level overview of how Tevm Node works and its available APIs
+---
+
+# Architecture Overview
+
+## What is Tevm Node?
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
+
+## Core Architecture
+
+![Tevm Node Architecture](https://raw.githubusercontent.com/evmts/tevm-monorepo/main/docs/images/architecture.png)
+
+Tevm Node is built on several key components that work together:
+
+### 1. Virtual Machine (EVM)
+- Core execution engine that runs [EVM bytecode](https://ethereum.org/en/developers/docs/evm/opcodes/)
+- Handles state transitions and gas metering
+- Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+
+### 2. State Manager
+- Manages account balances, contract code, and storage
+- Supports forking from live networks
+- Implements caching and lazy loading
+
+### 3. Transaction Pool (Mempool)
+- Manages pending transactions
+- Orders transactions by gas price
+- Validates transaction requirements
+
+### 4. Blockchain
+- Maintains block history and chain state
+- Handles block production (mining)
+- Manages chain reorganizations
+
+### 5. Receipts Manager
+- Tracks transaction outcomes
+- Manages event logs and filters
+- Supports optimistic updates
+
+## Available APIs
+
+Tevm Node provides several layers of APIs for different use cases:
+
+### 1. High-Level Actions
+
+Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
+
+The most commonly used action is `tevmCall`
+
+```ts
+import { tevmCall, tevmMine, tevmGetAccount } from 'tevm/actions'
+
+// Execute contract calls
+const result = await tevmCall(node, {
+  to: contractAddress,
+  data: calldata
+})
+
+// Mine pending transactions
+await tevmMine(node)
+
+// Read account state
+const account = await tevmGetAccount(node, {
+  address: accountAddress
+})
+```
+
+### 2. JSON-RPC Interface
+
+```ts
+import { requestEip1193 } from '@tevm/node/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Standard Ethereum JSON-RPC calls
+const balance = await node.request({
+  method: 'eth_getBalance',
+  params: [address, 'latest']
+})
+```
+
+### 3. Direct VM Access
+
+```ts
+const vm = await node.getVm()
+
+// Low-level EVM execution
+const result = await vm.runTx({
+  tx: transaction,
+  block: block
+})
+
+// State management
+await vm.stateManager.putAccount(address, account)
+```
+
+### 4. Contract Utilities
+
+```ts
+import { createContract } from '@tevm/contract'
+
+// Type-safe contract interactions
+const contract = createContract({
+  humanReadableAbi: abi,
+  address: contractAddress
+})
+
+const action = contract.write.transfer(to, amount)
+```
+
+Note, you can optionally compile these contracts automatically in a typesafe way using the tevm bundler (docs coming soon)
+
+```typescript
+// import solidity direction to create a contract
+import {MyContract} from './MyContract.sol'
+
+console.log(MyContract.abi)
+```
+
+## Key Features
+
+### 1. Forking
+Fork from any live network or another Tevm instance:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest'
+  }
+})
+```
+
+### 2. Mining Modes
+Configure how transactions are processed:
+
+```ts
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto' // Mine every transaction
+    // Or 'interval', 'manual', 'gas'
+  }
+})
+```
+
+### 3. Custom Precompiles
+Extend the EVM with JavaScript functions:
+
+```ts
+const precompile = definePrecompile({
+  address: '0x123...',
+  call: async (input) => {
+    // Custom logic
+    return {
+      returnValue: result,
+      executionGasUsed: 100n
+    }
+  }
+})
+```
+
+### 4. State Management
+Direct control over blockchain state:
+
+```ts
+// Modify account state
+await node.setAccount({
+  address: '0x123...',
+  balance: 100n,
+  code: '0x...',
+  storage: { /* ... */ }
+})
+
+// Create checkpoints
+await vm.stateManager.checkpoint()
+await vm.stateManager.commit() // or .revert()
+```
+
+## Common Use Cases
+
+1. **Local Development**
+   - Run a complete Ethereum environment locally
+   - Test contracts without external networks
+   - Simulate complex scenarios
+
+2. **Testing**
+   - Unit test smart contracts
+   - Integration test DApp interactions
+   - Fork mainnet for realistic tests
+
+3. **Transaction Simulation**
+   - Preview transaction outcomes
+   - Estimate gas costs accurately
+   - Debug failed transactions
+
+4. **State Manipulation**
+   - Modify account balances
+   - Override contract state
+   - Test edge cases
+
+## Integration Examples
+
+### With Viem
+
+```ts
+import { createPublicClient, custom } from 'viem'
+
+const client = createPublicClient({
+  transport: custom(node.request)
+})
+```
+
+### With Ethers.js
+
+```ts
+import { BrowserProvider } from 'ethers'
+
+const provider = new BrowserProvider(node)
+```
+
+## Next Steps
+
+- [Installation & Quickstart](../introduction/installation)
+- [Core Concepts](../core/create-tevm-node)
+- [API Reference](../api/methods)
+- [Examples](../examples/local-testing) 

@@ -8,6 +8,8 @@
 
 > **parseBlockNumber**\<`TBlockNumber`\>(`blockNumber`): `TBlockNumber`
 
+Parses a BlockNumber and returns the value if no errors.
+
 ## Type Parameters
 
 • **TBlockNumber** *extends* `number`
@@ -19,6 +21,13 @@
 ## Returns
 
 `TBlockNumber`
+
+## Example
+
+```ts
+import { parseBlockNumber } from '@tevm/schemas';
+const parsedBlockNumber = parseBlockNumber('0x1234567890abcdef1234567890abcdef12345678');
+```
 
 ## Defined in
 

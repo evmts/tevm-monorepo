@@ -8,6 +8,8 @@
 
 > **isBytes11**(`bytes11`): `boolean`
 
+Type guard that returns true if the provided string is a valid Ethereum Bytes11.
+
 ## Parameters
 
 • **bytes11**: `unknown`
@@ -15,6 +17,14 @@
 ## Returns
 
 `boolean`
+
+## Example
+
+```ts
+import { isBytes11 } from '@tevm/schemas';
+isBytes11("0xff");  // true
+isBytes11("0xfff"); // false
+````
 
 ## Defined in
 

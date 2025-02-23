@@ -1,0 +1,275 @@
+---
+title: Methods
+description: Complete reference for Tevm Node's API methods and capabilities
+---
+
+import { Callout } from 'vocs/components'
+import { Tab, Tabs } from 'vocs/components'
+
+# Tevm Node Methods
+
+Tevm Node provides a comprehensive API for interacting with the Ethereum Virtual Machine. This reference covers all core methods and capabilities.
+
+## Core Methods
+
+### Initialization
+
+```ts
+import { createTevmNode } from '@tevm/node'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')
+  }
+})
+
+await node.ready() // Wait for initialization
+```
+
+### Virtual Machine Access
+
+```ts
+const vm = await node.getVm()
+
+// Execute a transaction
+const result = await vm.runTx({
+  tx: {
+    to: '0x1234...',
+    value: 1000000000000000000n, // 1 ETH
+    data: '0x...',
+  }
+})
+```
+
+### Transaction Pool
+
+```ts
+const txPool = await node.getTxPool()
+
+// Add a transaction
+await txPool.add({
+  from: '0x1234...',
+  to: '0x5678...',
+  value: 1000000000000000000n,
+})
+
+// Get pending transactions
+const pending = await txPool.txsByPriceAndNonce()
+```
+
+### Receipts & Logs
+
+```ts
+const receipts = await node.getReceiptsManager()
+
+// Get receipt for a transaction
+const receipt = await receipts.getReceiptByTxHash('0x1234...')
+
+// Query logs
+const logs = await receipts.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+})
+```
+
+## State Management
+
+### Account Impersonation
+
+```ts
+// Impersonate an account (fork mode only)
+node.setImpersonatedAccount('0x1234...')
+
+// Get current impersonated account
+const impersonated = node.getImpersonatedAccount()
+
+// Stop impersonating
+node.setImpersonatedAccount(undefined)
+```
+
+### Event Filtering
+
+```ts
+// Create a filter for Transfer events
+node.setFilter({
+  id: '0x1',
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+  topics: [
+    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
+  ],
+})
+
+// Get all filters
+const filters = node.getFilters()
+
+// Remove a filter
+node.removeFilter('0x1')
+```
+
+## Node Properties
+
+### Status
+
+The `status` property indicates the current state of the node:
+
+```ts
+console.log(node.status) // One of: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+```
+
+### Mode
+
+The `mode` property indicates whether the node is running in fork or normal mode:
+
+```ts
+console.log(node.mode) // 'fork' or 'normal'
+```
+
+### Logger
+
+Built-in logging capabilities:
+
+```ts
+node.logger.debug('Detailed debugging information')
+node.logger.info('General information')
+node.logger.warn('Warning messages')
+node.logger.error('Error information')
+```
+
+## Extensibility
+
+### Adding Custom Functionality
+
+```ts
+const enhancedNode = node.extend((baseNode) => ({
+  async getBalance(address: string) {
+    const vm = await baseNode.getVm()
+    const account = await vm.stateManager.getAccount(address)
+    return account.balance
+  },
+}))
+
+// Use the new method
+const balance = await enhancedNode.getBalance('0x1234...')
+```
+
+### State Copying
+
+```ts
+// Create a deep copy with independent state
+const nodeCopy = await node.deepCopy()
+
+// Fork from another node
+const forkedNode = createTevmNode({
+  fork: { transport: node }
+})
+```
+
+## JSON-RPC Support
+
+Tevm Node implements standard Ethereum JSON-RPC methods through its EIP-1193 interface:
+
+<Tabs items={['Using EIP-1193', 'Using Actions']}>
+  <Tab>
+    ```ts
+    import { requestEip1193 } from '@tevm/decorators'
+    
+    const node = createTevmNode().extend(requestEip1193())
+    
+    // Standard JSON-RPC calls
+    const blockNumber = await node.request({
+      method: 'eth_blockNumber',
+      params: []
+    })
+    
+    const balance = await node.request({
+      method: 'eth_getBalance',
+      params: ['0x1234...', 'latest']
+    })
+    ```
+  </Tab>
+  <Tab>
+    ```ts
+    import { ethActions } from '@tevm/decorators'
+    
+    const node = createTevmNode().extend(ethActions())
+    
+    // Using action methods
+    const blockNumber = await node.eth.getBlockNumber()
+    const balance = await node.eth.getBalance('0x1234...')
+    ```
+  </Tab>
+</Tabs>
+
+### Supported Methods
+
+- **State Access**
+  - `eth_getBalance`
+  - `eth_getCode` 
+  - `eth_getStorageAt`
+  - `eth_getTransactionCount`
+
+- **Transactions**
+  - `eth_sendTransaction`
+  - `eth_sendRawTransaction`
+  - `eth_call`
+  - `eth_estimateGas`
+
+- **Blocks & Filters**
+  - `eth_blockNumber`
+  - `eth_getBlockByNumber`
+  - `eth_getBlockByHash`
+  - `eth_newFilter`
+  - `eth_getFilterChanges`
+  - `eth_getLogs`
+
+- **Chain Info**
+  - `eth_chainId`
+  - `eth_gasPrice`
+  - `eth_protocolVersion`
+
+## Best Practices
+
+1. **Always await ready()**
+   ```ts
+   const node = createTevmNode()
+   await node.ready() // Ensure node is initialized
+   ```
+
+2. **Handle Errors**
+   ```ts
+   try {
+     const result = await node.request({
+       method: 'eth_call',
+       params: [/* ... */]
+     })
+   } catch (error) {
+     console.error('RPC call failed:', error)
+   }
+   ```
+
+3. **Resource Management**
+   ```ts
+   // Clean up filters when done
+   node.getFilters().forEach((_, id) => node.removeFilter(id))
+   ```
+
+4. **Fork Mode Usage**
+   ```ts
+   // Use archive nodes for historical blocks
+   const node = createTevmNode({
+     fork: {
+       transport: http('https://your-archive-node'),
+       blockTag: 15_000_000n,
+     },
+   })
+   ```
+
+## Related Topics
+
+- [VM & Submodules](./vm-and-submodules)
+- [JSON-RPC Support](./json-rpc)
+- [State Management](../core/managing-state)
+- [Forking](../core/forking) 

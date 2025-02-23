@@ -1,0 +1,211 @@
+---
+title: Receipts & Logs
+description: Handling receipts, logs, and filters
+---
+
+# Receipts & Logs
+
+Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
+
+## Receipt Management
+
+The ReceiptsManager maintains an index of all transaction receipts and their associated logs.
+
+```ts
+const manager = await node.getReceiptsManager()
+
+// Get receipts for a block
+const receipts = await manager.getReceipts(blockHash)
+
+// Get receipt for specific transaction
+const receipt = await manager.getReceiptByTxHash(txHash)
+```
+
+### Receipt Types
+
+Tevm supports different receipt types based on the Ethereum hardfork:
+
+```ts
+interface PreByzantiumReceipt {
+  stateRoot: Uint8Array
+  cumulativeBlockGasUsed: bigint
+  logs: Log[]
+}
+
+interface PostByzantiumReceipt {
+  status: number
+  cumulativeBlockGasUsed: bigint
+  logs: Log[]
+}
+
+interface EIP4844Receipt extends PostByzantiumReceipt {
+  blobGasUsed: bigint
+  blobGasPrice: bigint
+}
+```
+
+## Event Logs
+
+### Querying Logs
+
+The ReceiptsManager provides flexible log querying:
+
+```ts
+// Query logs with filters
+const logs = await manager.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: contractAddress,
+  topics: [
+    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
+    null, // Any from address
+    '0x000000000000000000000000' + address.slice(2), // Specific to address
+  ]
+})
+
+// Process logs
+for (const log of logs) {
+  console.log({
+    address: log.address,
+    topics: log.topics,
+    data: log.data,
+    blockNumber: log.blockNumber,
+    transactionHash: log.transactionHash,
+    logIndex: log.logIndex
+  })
+}
+```
+
+### Log Filters
+
+Tevm implements the Ethereum filter API for real-time log tracking:
+
+```ts
+// Create new filter
+const filterId = await node.request({
+  method: 'eth_newFilter',
+  params: [{
+    fromBlock: 'latest',
+    address: contractAddress,
+    topics: [eventSignature]
+  }]
+})
+
+// Get filter changes
+const changes = await node.request({
+  method: 'eth_getFilterChanges',
+  params: [filterId]
+})
+
+// Get all filter logs
+const allLogs = await node.request({
+  method: 'eth_getFilterLogs',
+  params: [filterId]
+})
+
+// Remove filter when done
+await node.request({
+  method: 'eth_uninstallFilter',
+  params: [filterId]
+})
+```
+
+### Filter Management
+
+The node maintains filters internally:
+
+```ts
+// Get all active filters
+const filters = node.getFilters()
+
+// Remove specific filter
+node.removeFilter(filterId)
+
+// Add new filter
+node.setFilter({
+  id: filterId,
+  fromBlock: 'latest',
+  toBlock: 'latest',
+  address: contractAddress,
+  topics: [eventSignature]
+})
+```
+
+## Performance Considerations
+
+The ReceiptsManager includes built-in limits to prevent excessive resource usage:
+
+```ts
+// Log query limits
+const GET_LOGS_LIMIT = 10000 // Maximum number of logs
+const GET_LOGS_LIMIT_MEGABYTES = 150 // Maximum response size
+const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range
+```
+
+### Best Practices
+
+1. **Efficient Log Queries**:
+   - Use specific address and topic filters
+   - Limit block ranges for large queries
+   - Clean up unused filters
+
+2. **Receipt Storage**:
+   - Receipts are stored by block hash
+   - Transaction hash indexes are maintained within limits
+   - Old transaction indexes are automatically pruned
+
+3. **Error Handling**:
+   ```ts
+   try {
+     const logs = await manager.getLogs({
+       fromBlock,
+       toBlock,
+       address,
+       topics
+     })
+   } catch (error) {
+     if (error.message.includes('block range too large')) {
+       // Handle range error
+     }
+     // Handle other errors
+   }
+   ```
+
+4. **Memory Management**:
+   - Monitor filter count
+   - Remove unused filters
+   - Use pagination for large log queries
+
+## Working with Contract Events
+
+Example of tracking ERC20 Transfer events:
+
+```ts
+const transferTopic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+
+// Get all transfers to/from an address
+const logs = await manager.getLogs({
+  address: tokenAddress,
+  topics: [
+    transferTopic,
+    null,
+    '0x000000000000000000000000' + address.slice(2)
+  ],
+  fromBlock: startBlock,
+  toBlock: 'latest'
+})
+
+// Parse transfer events
+for (const log of logs) {
+  const [from, to, value] = ethers.AbiCoder.defaultAbiCoder().decode(
+    ['address', 'address', 'uint256'],
+    log.data
+  )
+  console.log(`Transfer: ${from} -> ${to}: ${value}`)
+}
+```
+
+## Related Topics
+- [JSON-RPC Support](../api/json-rpc)
+- [VM & Submodules](../api/vm-and-submodules)
+- [Transaction Pool](./txpool) 

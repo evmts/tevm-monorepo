@@ -44,10 +44,11 @@
 - [DeepCopyError](type-aliases/DeepCopyError.md)
 - [EVMProfilerOpts](type-aliases/EVMProfilerOpts.md)
 - [RunBlock](type-aliases/RunBlock.md)
+- [RunTx](type-aliases/RunTx.md)
 - [TxReceipt](type-aliases/TxReceipt.md)
+- [Vm](type-aliases/Vm.md)
 - [VMEvents](type-aliases/VMEvents.md)
 - [VMProfilerOpts](type-aliases/VMProfilerOpts.md)
-- [Vm](type-aliases/Vm.md)
 
 ### Variables
 
@@ -70,8 +71,8 @@
 - [createVm](functions/createVm.md)
 - [deepCopy](functions/deepCopy.md)
 - [execHardfork](functions/execHardfork.md)
-- [genTxTrie](functions/genTxTrie.md)
 - [generateTxReceipt](functions/generateTxReceipt.md)
+- [genTxTrie](functions/genTxTrie.md)
 - [rewardAccount](functions/rewardAccount.md)
 - [txLogsBloom](functions/txLogsBloom.md)
 - [validateRunTx](functions/validateRunTx.md)

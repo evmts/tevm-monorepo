@@ -28,6 +28,16 @@ packages/receipt-manager/types/RecieptManager.d.ts:85
 
 ## Properties
 
+### chain
+
+> `readonly` **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
+
+#### Defined in
+
+packages/receipt-manager/types/RecieptManager.d.ts:84
+
+***
+
 ### GET\_LOGS\_BLOCK\_RANGE\_LIMIT
 
 > **GET\_LOGS\_BLOCK\_RANGE\_LIMIT**: `number`
@@ -61,16 +71,6 @@ Size limit for the getLogs response in megabytes
 #### Defined in
 
 packages/receipt-manager/types/RecieptManager.d.ts:93
-
-***
-
-### chain
-
-> `readonly` **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:84
 
 ***
 

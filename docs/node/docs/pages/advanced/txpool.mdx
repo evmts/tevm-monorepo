@@ -1,0 +1,194 @@
+---
+title: TxPool & Mempool
+description: Detailed usage of the TxPool for unmined transactions
+---
+
+# Transaction Pool
+
+The Transaction Pool (TxPool) in Tevm Node manages pending transactions that haven't been included in a block yet. It provides functionality for adding, removing, and querying transactions.
+
+## Overview
+
+The TxPool serves several purposes:
+- Managing pending transactions
+- Handling transaction ordering by gas price
+- Supporting the `pending` block tag in JSON-RPC calls
+- Validating transactions before inclusion
+
+## Basic Usage
+
+```ts
+const pool = await node.getTxPool()
+
+// Add transaction to pool
+await pool.add(transaction)
+
+// Get all pending transactions
+const pending = await pool.getPendingTransactions()
+
+// Remove transaction
+await pool.removeByHash(txHash)
+```
+
+## Transaction Validation
+
+Before adding transactions to the pool, they undergo validation:
+
+```ts
+try {
+  // Validate transaction
+  await pool.validateTx(transaction)
+  
+  // Add to pool if valid
+  await pool.add(transaction)
+} catch (error) {
+  if (error.message.includes('nonce too low')) {
+    // Handle nonce error
+  } else if (error.message.includes('insufficient funds')) {
+    // Handle balance error
+  }
+  // Handle other validation errors
+}
+```
+
+### Validation Checks
+
+The TxPool performs several checks:
+1. **Nonce Validation**: Ensures transaction nonce matches account nonce
+2. **Balance Check**: Verifies sender has sufficient funds
+3. **Gas Price**: Validates against minimum gas price requirements
+4. **Gas Limit**: Checks against block gas limit
+5. **EIP-1559**: Validates fee parameters for Type-2 transactions
+
+## Transaction Ordering
+
+The TxPool orders transactions by gas price and nonce:
+
+```ts
+// Get transactions ordered by price
+const ordered = await pool.txsByPriceAndNonce({
+  baseFee: 10n
+})
+
+// Get transactions for specific sender
+const senderTxs = await pool.getBySenderAddress(senderAddress)
+```
+
+### Priority Queue
+
+For EIP-1559 transactions, ordering considers:
+- `maxFeePerGas`
+- `maxPriorityFeePerGas`
+- Current block's `baseFee`
+
+```ts
+// Get highest priority transactions
+const highPriority = await pool.getHighestPriorityTransactions()
+```
+
+## Pending State
+
+The TxPool maintains a "pending state" that includes uncommitted transactions:
+
+```ts
+// Get state including pending transactions
+const pendingBalance = await pool.getPendingBalance(address)
+const pendingNonce = await pool.getPendingNonce(address)
+```
+
+### JSON-RPC Support
+
+The pending state is used when handling JSON-RPC calls with the `pending` block tag:
+
+```ts
+// Example eth_call with pending state
+const result = await node.request({
+  method: 'eth_call',
+  params: [{
+    to: contractAddress,
+    data: calldata
+  }, 'pending']
+})
+```
+
+## Memory Management
+
+The TxPool includes features to prevent memory exhaustion:
+
+```ts
+// Configuration
+const POOL_SIZE_LIMIT = 5000 // Maximum transactions
+const ACCOUNT_TX_LIMIT = 100 // Maximum per account
+const PRICE_BUMP = 10        // % price increase to replace tx
+
+// Clear old transactions
+await pool.clearOldTransactions()
+
+// Get pool statistics
+const stats = await pool.getStats()
+console.log({
+  pending: stats.pending,
+  queued: stats.queued,
+  baseFee: stats.baseFee
+})
+```
+
+## Event Handling
+
+The TxPool emits events for transaction lifecycle:
+
+```ts
+pool.on('addedTx', (tx) => {
+  console.log('New transaction:', tx.hash)
+})
+
+pool.on('removedTx', (txHash) => {
+  console.log('Removed transaction:', txHash)
+})
+
+pool.on('pendingTx', (tx) => {
+  console.log('Transaction pending:', tx.hash)
+})
+```
+
+## Best Practices
+
+1. **Transaction Replacement**:
+   ```ts
+   // Replace transaction with higher gas price
+   const newTx = {
+     ...oldTx,
+     maxFeePerGas: oldTx.maxFeePerGas * 110n / 100n, // 10% increase
+     nonce: oldTx.nonce // Same nonce
+   }
+   await pool.add(newTx)
+   ```
+
+2. **Memory Management**:
+   - Monitor pool size
+   - Clear old transactions periodically
+   - Set appropriate limits per account
+
+3. **Error Handling**:
+   ```ts
+   try {
+     await pool.add(tx)
+   } catch (error) {
+     if (error.message.includes('replacement fee too low')) {
+       // Increase gas price for replacement
+     } else if (error.message.includes('pool is full')) {
+       // Handle pool capacity
+     }
+     // Handle other errors
+   }
+   ```
+
+4. **Gas Price Management**:
+   - Track current base fee
+   - Update gas price suggestions
+   - Handle EIP-1559 parameters
+
+## Related Topics
+- [JSON-RPC Support](../api/json-rpc)
+- [VM & Submodules](../api/vm-and-submodules)
+- [Receipts & Logs](./receipts-and-logs) 

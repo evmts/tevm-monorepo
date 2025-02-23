@@ -67,7 +67,7 @@ console.log(HelloWorld.abi);
 console.log(HelloWorld.bytecode);
 ```
 
-3. Initialize a [Tevm memory client]() and execute your Script using the [`tevm.script`]() action
+3. Initialize a [Tevm memory client](./packages/memory-client/docs/functions/createMemoryClient.md) and execute your Script using the [`tevm.script`](./packages/actions/docs/type-aliases/ScriptHandler.md) action
 
 ```typescript
 import { HelloWorld } from "./HelloWorld.sol";
@@ -86,8 +86,8 @@ This is just a small subset of what Tevm offers. See [docs](https://tevm.sh/) fo
 
 Contributions are encouraged, but please open an issue before doing any major changes to make sure your change will be accepted.
 
-See [CONTRIBUTING.md]() for contributing information
+See [CONTRIBUTING.md](_media/CONTRIBUTING.md) for contributing information
 
 ## License 📄
 
-<a href=""><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+<a href="_media/LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
