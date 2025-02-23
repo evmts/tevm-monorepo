@@ -75,7 +75,7 @@ export default defineConfig({
     },
   ],
   editLink: {
-    pattern: 'https://github.com/evmts/tevm-monorepo/edit/main/docs/:path',
+    pattern: 'https://github.com/evmts/tevm-monorepo/edit/main/docs/node/docs/pages/:path',
   },
   socials: [
     {
